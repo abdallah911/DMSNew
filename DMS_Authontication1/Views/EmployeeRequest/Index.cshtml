@@ -1,0 +1,156 @@
+﻿@*@model IEnumerable<DMS_Authontication1.Models.Employee_Request>*@
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+<br />
+
+<div style="margin-top:40px">
+    @if (!User.IsInRole("Admin"))
+    {
+        <p>
+            @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search", @style = " text-transform: none" })
+            @Html.ActionLink(" Create Request", "EditRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-pencil", @style = " text-transform: none" })
+            @*@Html.ActionLink(" New Operation", "Create", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus", @style = " text-transform: none" })*@
+            @*@Html.ActionLink(" Edit Operation", "EditRequest", null, htmlAttributes: new { @class = "btn btn-warning fa fa-pencil", @style = " text-transform: none" })
+                @Html.ActionLink(" Termination Operation", "Termination", null, htmlAttributes: new { @class = "btn btn-danger fa fa-remove", @style = " text-transform: none" })*@
+        </p>
+    }
+</div>
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Operation
+        </div>
+
+    </div>
+    <br />
+    <div class="portlet-body">
+
+        <table class="ui celled table" id="Index" width="100%">
+            <thead>
+                <tr>
+
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Card Id
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Request Type
+                    </th>
+                    <th>
+                        status
+                    </th>
+                    <th>
+                        CreatedDate
+                    </th>
+                    <th></th>
+                    @*<th></th>
+                        <th></th>
+                        <th></th>*@
+                </tr>
+            </thead>
+            <tbody></tbody>
+
+        </table>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script>
+    $(function () {
+        $("#Index").DataTable({
+            "sAjaxSource": '/EmployeeRequest/RequestList',
+            "bServerSide": true,
+            "processing": true,
+            "bFilter": true,
+            "bSort": false,
+            "pageLength": 10,
+            "bInfo": true,
+            "lengthChange": false,
+
+            "columns": [
+                { "data": "REQUEST_CODE", "name": "REQUEST_CODE" },
+                { "data": "CARD_ID", "name": "Card Id" },
+                { "data": "CHANG_EMP_NAME", "name": "NAME" },
+                {
+                    "data": "TYPE",
+                    "name": "TYPE",
+                    "mRender": function (data) {
+                        if (data == "1") {
+                            return "Addition";
+
+                        } else if (data == "2") {
+                            return "Edit Level";
+
+                        } else if (data == "3") {
+                            return "Termination";
+
+                        } else if (data == "4") {
+                            return "Reprint";
+
+                        } else if (data == "5") {
+                            return "Reactivation";
+
+                        } else if (data == "6") {
+                            return "Change Employee Number";
+
+                        } else if (data == "7") {
+                            return "Change Name";
+
+                        }
+                        return "Other";
+
+                    }
+                },
+                { "data": "APPROVE_FLAG", "name": "APPROVE FLAG" },
+
+                {
+                    "data": "CREATED_DATE",
+                    "name": "Created Date",
+                    "mRender": function (data) {
+                        var value = new Date(parseFloat(data.replace(/(^.*\()|([+-].*$)/g, '')));
+                        var date = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                        return date;
+                    }
+                },
+                {
+                    "data": "REQUEST_CODE",
+                    "mRender": function (data) {
+                        return '<a class="btn btn-primary fa fa-list" href="/EmployeeRequest/Details/' + data + '"> Details </a>';
+                    }
+                },
+                //{
+                //    "data": "Id",
+                //    "mRender": function (data) {
+                //        return '<a class="btn btn-info" href="/Pharmacy/Details/' + data + '">Details</a>';
+                //    }
+                //}
+                //,
+                //{
+                //    "data": "Id",
+                //    "mRender": function (data) {
+                //        //return '<a href="/Pharmacy/Delete/' + data + '">Delete</a>';
+                //        return '<button type="button" class="btn btn-danger" onclick="Delete(this);"> Delete</button>';
+
+                //    }
+                //},
+                //{
+                //    "data": "Id",
+                //    "mRender": function (data) {
+                //        return '<button type="button" class="btn btn-default" onclick="Print(this);"> Print</button>';
+                //    }
+                //}
+
+
+            ]
+        });
+    })
+</script>

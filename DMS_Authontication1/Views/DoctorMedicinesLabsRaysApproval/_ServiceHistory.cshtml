@@ -1,0 +1,128 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="ServiceHistoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Service History</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="ServiceHistoryData">
+                    <thead>
+                        <tr>
+                           
+                            <th>
+                                @Html.DisplayName("Code")
+                            </th>
+
+                            <th>
+                                @Html.DisplayName("Company Id")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Card")
+                            </th>
+
+                            <th>
+                                @Html.DisplayName("Name")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Recive Date")
+                            </th>
+
+                            <th>
+                                @Html.DisplayName("Send Date")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Service Type")
+                            </th>
+
+                            <th>
+                                @Html.DisplayName("Replay")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Approval Amount")
+                            </th>
+
+                            <th>
+                                @Html.DisplayName("MedicalReplay")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Created By")
+                            </th>
+
+                            <th>
+                                @Html.DisplayName("Created Data")
+                            </th>
+                           <th></th>
+
+
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+            
+            <div class="modal-footer">
+
+                <button id="Close" type="button" class="btn btn-secondary glyphicon glyphicon-ok" data-dismiss="modal">Ok</button>
+
+            </div>
+        </div>
+       
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var ProviderTypeId = "";
+    //var AddOrEdit = 0;
+    var ProviderTypeName="";
+    function SelectProviders(button) {
+
+        var row = $(button).closest("TR");
+        ProviderTypeId = $("TD", row).eq(1).html();
+        ProviderTypeName = $("TD", row).eq(2).html();
+        $('#ServiceProvider').val(ProviderName+' ||');
+       
+        //$('#txtSearchCompany').val(CompId + " | " + CompName);
+        $.ajax({
+            dataType: "json",
+            url: '/DoctorMedicinesLabsRaysApproval/Providers',
+            data: { id: ProviderTypeId },
+            success: function (r) {
+                if (r.length != 0) {
+                    $('#Providers').dataTable().fnDestroy();
+                    var setData = $("#Providers Tbody");
+                    setData.empty();
+
+                    for (var i = 0; i < r.length; i++) {
+                        var data = "<tr >" +
+                            "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectProvider(this);'></Button>" + "</td>" +
+                            "<td>" + r[i].PR_CODE + "</td>" +
+                            "<td>" + r[i].PR_ANAME + "</td>" +
+                            "<td>" + r[i].PR_ENAME + "</td>" +
+                            "</tr>"
+                        setData.append(data);
+
+                    }
+                    $('#Providers').DataTable();
+                    $('#ServiceProvidersModal').modal('hide');
+                    $('#ProvidersModal').modal();
+                }
+                else {
+                    bootbox.alert("No Data");
+                }
+            },
+            error: function (r) {
+                window.alert('No ajax Data  ');
+            }
+
+        });
+    }
+
+</script>

@@ -1,0 +1,166 @@
+﻿
+<div class="modal fade " id="LabsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="overflow-y: auto; max-height:100%;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Labs</h3>
+            </div>
+            <div class="modal-body">
+                <table class="table" id="Labs">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>
+                               Code
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                       
+                            <th>
+                                Amount
+                            </th>
+                            <th>
+                                Group
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    function SelectLab(button) {
+       
+        var row = $(button).closest("TR");
+        
+        var Code = $("TD", row).eq(1).html();
+        var Name = $("TD", row).eq(2).html();
+        var Amount = $("TD", row).eq(3).html();
+        var Group = $("TD", row).eq(4).html();
+        //check Daily
+        $.ajax({
+            dataType: "json",
+            url: '/Pharmacy/CheckDaily',
+            data: {
+                id: CardId,
+                code: Code
+            },
+            success: function (r) {
+             bootbox.alert("This lab had been exchanged Today ");
+            },
+            error: function (r) {
+            // Not exchanged today
+                $('#Pharmacy TBODY TR').each(function () {
+
+                    var row = $(this);
+                    var table = $("#Pharmacy")[0];
+                    if (parseInt(row.find("TD").eq(0).html()) == parseInt(Code)) {
+                        table.deleteRow(row[0].rowIndex);
+                    }
+                });
+                var tBody = $("#Pharmacy > TBODY")[0];
+                var row = tBody.insertRow(-1);
+                var cell = $(row.insertCell(-1));
+                cell.html(Code);
+                cell = $(row.insertCell(-1));
+                cell.html(Name);
+                cell = $(row.insertCell(-1));
+                cell.html(Amount);
+                if (Group == "NO") {
+                    var dialog = bootbox.dialog({
+                        title: 'This Medicien is Not Covered!',
+                        message: "<p>Pay method?</p>",
+                        buttons: {
+                            Cash: {
+                                label: "Cash",
+                                className: 'btn-info',
+                                callback: function () {
+                                    Group = "Cash";
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(Group);
+                                    // remove button
+                                    cell = $(row.insertCell(-1));
+                                    var btnRemove = $("<a  />");
+                                    btnRemove.attr("type", "button");
+                                    btnRemove.addClass("btn btn-danger glyphicon glyphicon-trash");
+                                    btnRemove.attr("onclick", "Remove(this);");
+                                    btnRemove.text("Remove");
+                                    cell.append(btnRemove);
+                                    Calculation();
+                                }
+                            },
+                            Approval: {
+                                label: "Approval",
+                                className: 'btn-info',
+                                callback: function () {
+                                    Group = "Approval";
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(Group);
+                                    // remove button
+                                    cell = $(row.insertCell(-1));
+                                    var btnRemove = $("<a  />");
+                                    btnRemove.attr("type", "button");
+                                    btnRemove.addClass("btn btn-danger glyphicon glyphicon-trash");
+                                    btnRemove.attr("onclick", "Remove(this);");
+                                    btnRemove.text("Remove");
+                                    cell.append(btnRemove);
+                                    Calculation();
+                                }
+                            },
+                            Tele: {
+                                label: "Pending",
+                                className: 'btn-info',
+                                callback: function () {
+                                    Group = "Pending";
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(Group);
+                                    // remove button
+                                    cell = $(row.insertCell(-1));
+                                    var btnRemove = $("<a  />");
+                                    btnRemove.attr("type", "button");
+                                    btnRemove.addClass("btn btn-danger glyphicon glyphicon-trash");
+                                    btnRemove.attr("onclick", "Remove(this);");
+                                    btnRemove.text("Remove");
+                                    cell.append(btnRemove);
+                                    Calculation();
+                                }
+                            }
+                        }
+                    });
+                }
+                else {
+                    cell = $(row.insertCell(-1));
+                    cell.html(Group);
+                    // remove button
+                    cell = $(row.insertCell(-1));
+                    var btnRemove = $("<a  />");
+                    btnRemove.attr("type", "button");
+                    btnRemove.addClass("btn btn-danger glyphicon glyphicon-trash");
+                    btnRemove.attr("onclick", "Remove(this);");
+                    btnRemove.text("Remove");
+                    cell.append(btnRemove);
+                    Calculation();
+                }
+
+                $('#LabsModal').modal('hide');
+
+            }
+
+        });
+     
+    }
+ 
+</script>

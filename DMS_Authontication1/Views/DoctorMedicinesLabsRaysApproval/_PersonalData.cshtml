@@ -1,0 +1,160 @@
+﻿@model DMS_TEST.ViewModel.Container1
+
+<div class="modal fade " id="personalDataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg"  role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Personal Data</h3>
+            </div>
+            @*Provider*@
+            <div class="modal-body">
+
+                @*Card ID*@
+                <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;"><span class="glyphicon glyphicon-bookmark"></span> Card ID</h2> </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.compEmp.CARD_ID, htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("CardId", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("EmpName", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.Label("Birth Date", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("BirthDate", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-1">
+                            @Html.Label("Age", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("Age", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.Label("Start Date", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("StartDate", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("EndDate", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="row">
+                  
+
+
+                    <div class="col-sm-2">
+                    </div>
+                </div>*@
+                <br />
+                <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;"><span class="glyphicon glyphicon-usd"></span> Consumption</h2> </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            @Html.Label("Max Amount", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("MaxAmount", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.Label("Ratio", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("Ratio", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.Label("IRS consumption", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("IRSConsumption", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.Label("Online consumption", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("OnlineConsumption", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-md-3">
+                            @Html.Label("Other consumption", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("OtherConsumption", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                     
+                      
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                      
+                        <div class="col-sm-2">
+                            @Html.Label("Residual", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("Residual", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                   
+                        <div class="col-sm-2">
+                            @Html.Label("Cost Center", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("CostCenter", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.Label("Total Approvals", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("TotalApproval", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.Label("Online Live consumption", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("OnlineLiveConsumption", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.Label("Total Consumption", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("TotalConsumptiont", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="Close" type="button" class="btn btn-secondary glyphicon glyphicon-ok" data-dismiss="modal">Ok</button>
+               
+            </div>
+           
+            </div>
+            </div>
+        </div>
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    $('.modal-footer #Close').on('click', function () {
+        
+        var cart = $('#PersonalData');
+        var imgtodrag = $('#personalDataModal');// $(this).parent('.item').find("img").eq(0);
+        imgtodrag.modal('hide');
+        if (imgtodrag) {
+            var imgclone = imgtodrag.clone()
+                .offset({
+                    top: imgtodrag.offset().top,
+                    left: imgtodrag.offset().left
+                })
+                .css({
+                    'opacity': '0.5',
+                    'position': 'absolute',
+                    'height': '150px',
+                    'width': '150px',
+                    'z-index': '100'
+                })
+                .appendTo($('body'))
+                .animate({
+                    'top': cart.offset().top + 10,
+                    'left': cart.offset().left + 10,
+                    'width': 75,
+                    'height': 75
+                }, 1500, 'easeInOutExpo');
+
+            setTimeout(function () {
+                cart.effect("shake", {
+                    times: 2
+                }, 200);
+            }, 1500);
+
+            imgclone.animate({
+                'width': 0,
+                'height': 0
+            }, function () {
+                $(this).detach()
+            });
+        }
+    });
+
+</script>

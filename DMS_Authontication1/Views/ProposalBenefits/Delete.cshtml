@@ -1,0 +1,48 @@
+﻿@model DMS_Authontication1.Models.ProposalBenefit
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ProposalBenefit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeBenefitsId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeBenefitsId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Match)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Match)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProposalClass.ClassCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProposalClass.ClassCode)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

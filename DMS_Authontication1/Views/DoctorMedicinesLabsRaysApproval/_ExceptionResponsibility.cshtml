@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="ExceptionResponsibilityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Exception Responsibility</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    @Html.Label("Exception Response", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.DropDownList("ExceptionResponse", new List<SelectListItem>
+                 {
+                    new SelectListItem{ Text="Dr. Mohsan", Value = "Dr.Mohsan" },
+                    new SelectListItem{ Text="Dr. Reham", Value = "Dr.Reham" },
+                   
+                 }, new { @class = "form-control" })
+                    </div>
+                </div>
+
+            </div>
+            @*<div class="modal-footer">
+
+                <button id="Close" type="button" class="btn btn-secondary glyphicon glyphicon-ok" data-dismiss="modal"> Ok</button>
+
+            </div>*@
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script>
+    
+    var ExceptionResponseName="";
+
+    $("#ExceptionResponse").change(function () {
+        ExceptionResponseName = $('#ExceptionResponse option:selected').val();
+        $('#ExceptionResponsibilityModal').modal('hide');
+    })
+    // map //
+    $("#ExceptionResponse").map(function () {
+
+
+    });
+
+</script>

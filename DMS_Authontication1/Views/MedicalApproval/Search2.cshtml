@@ -1,0 +1,132 @@
+﻿@model IEnumerable<DMS_Authontication1.ViewModel.ApprovalComp>
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+@*<h2>Index</h2>*@
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+<input type="text" id="compname" value="@ViewBag.CompName" hidden="hidden" />
+<br />
+<div style="margin-top:40px">
+    <p>
+        @Html.ActionLink(" Search", "Search", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-search ", @style = " text-transform: none" })
+        @Html.ActionLink(" Create Request ", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus ", @style = " text-transform: none" })
+        @*@Html.ActionLink(" Consumption", "Consumption", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })*@
+    </p>
+</div>
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Approvals
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row ">
+            <div class="col-md-12">
+                @*<form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">*@
+                <!-- BEGIN PAGE HEADER-->
+                <!-- BEGIN THEME PANEL -->
+
+                <div class="form-wizard">
+                    <div class="form-body">
+                        <div class="tab-content">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+
+                            <div class="row">
+                                <div class="col-md-12" style="width:100%;" id="list_div">
+
+                                    <table class="table" id="AproveList">
+                                        <thead>
+                                            <tr>
+
+                                                <th>
+                                                    @Html.DisplayName("Code")
+                                                </th>
+
+                                                <th>
+                                                    @Html.DisplayName("Type")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Card Id")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Medical Replay")
+                                                </th>
+
+                                                <th>
+                                                    @Html.DisplayName("Value After")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Recieve Date")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Created Date")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Created By")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("End Date")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Expaire Date")
+                                                </th>
+                                                <th></th>
+
+                                            </tr>
+
+                                        </thead>
+                                        <tbody id="AproveListBody">
+                                            @if (Model.Count() > 0)
+                                            {
+
+
+                                                foreach (var item in Model)
+                                                {
+                                                    <tr>
+
+                                                        <td> @item.Code</td>
+                                                        <td> @item.Approval_Type </td>
+                                                        <td> @item.CardId </td>
+                                                        <td> @item.Medical_Replay </td>
+                                                        <td> @item.Value_After </td>
+                                                        <td> @item.Recieve_Date </td>
+                                                        <td> @item.Created_Date </td>
+                                                        <td> @item.CreatedBy </td>
+                                                        <td> @item.End_Date </td>
+                                                        <td> @item.Expaire_Date </td>
+                                                        <td> <Button class="btn btn-Primary" onclick="Print('@item.Code');">Print</Button> </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*</form>*@
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#AproveList').DataTable();
+    });
+    function Print(AppCode) {
+        var x = String(AppCode);
+        //  window.location.reload();
+        window.open('/Hospital/Print?ApprovalCode=' + AppCode);
+    }
+</script>

@@ -1,0 +1,216 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="CardsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Cards</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="Cards">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.CARD_ID)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.EMP_ANAME)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.EMP_ENAME)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.INS_START_DATE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.INS_END_DATE)
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var CardId;
+    function Select(button) {
+     
+        var row = $(button).closest("TR");
+        CardId = $("TD", row).eq(1).html();
+        var ArName = $("TD", row).eq(2).html();
+        var EndDate = $("TD", row).eq(5).html();
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        var CurrentDate = new Date(yyyy, mm, dd);
+        var newDate = EndDate.split('/').reverse().join('.')
+        var date = new Date(newDate);
+
+        if (date > CurrentDate || newDate=="null") {
+            $('#txtSearchCard').val(CardId);
+            $('#compEmp_EMP_ANAME').val(ArName);
+            $('#compEmp_INS_END_DATE').val(EndDate);
+
+            $('#CardsModal').modal('hide');
+            //var url = "/Doctor/Doctor/" + CardId;
+            //$('#Doctor').attr("disabled", false).attr("href", url);
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '/Pharmacy/GetCompName',
+                data: { id: CardId },
+
+                success: function (returndata) {
+                    if (returndata.ok) {
+
+                        $("#contractComp_C_ANAME").val(returndata.data.C_ANAME);
+
+                    }
+                    else {
+                        window.alert(' No Company Data ');
+
+                    }
+                }
+            });
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '/Pharmacy/CellingAmount',
+                data: {
+                    id: CardId,
+                    ServiceCode: '11601'
+                },
+                success: function (r) {
+                    if (r.Validation == false) {
+                        toastr.info(r.Message);
+                        ClearCardData();
+                    } else {
+                        $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
+                        AnuualLimit = r.Limit;
+                        //   $("#no_data_yet").val(100 - $("#ddEmp_CEILING_PERT").val());
+                        if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
+                            $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
+                        } else {
+                            alert(" لقد تم استهلاك العدد المحدد للروشتات وسوف تكون خارج التغطه ");
+                            $("#insurance_LIVEL").val("0.001");
+
+                            $('#ddEmp_CEILING_PERT').val("0");
+                        }
+
+                    }
+                },
+                error: function (err) {
+                    alert("Company Annual Amount");
+                    location.reload();
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '/DoctorApprovals/History',
+                data: { id: CardId },
+                success: function (r) {
+                    $('#From').attr("disabled", false);
+                    $('#To').attr("disabled", false);
+                    $('#History').dataTable().fnDestroy();
+                    var setData = $("#History Tbody");
+                    setData.empty();
+                    var dat;
+                    for (var i = 0; i < r.length; i++) {
+                        if (r[i].CreatedDate != null) {
+                            var MyDate_String_Value = r[i].CreatedDate;
+                            var value = new Date
+                                (
+                                parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            dat = (value.getMonth() + 1) + "/" + value.getDate() + "/" + value.getFullYear();
+
+                        }
+                        else {
+                            dat = null;
+
+                        }
+                        if (i == 0) {
+                            $('#From').val(dat);
+                        }
+                        if (i == r.length - 1) {
+                            $('#To').val(dat);
+                        }
+                        var data = "<tr >" +
+                            "<td>" + r[i].MedicienCode + "</td>" +
+                            "<td>" + r[i].MedicienName + "</td>" +
+                            "<td>" + r[i].DOSAGE_FORM + "</td>" +
+                            "<td>" + r[i].Dose + "</td>" +
+                            "<td>" + r[i].Duration + "</td>" +
+                            "<td>" + r[i].TotalDuration + "</td>" +
+                            "<td>" + r[i].TotalUnits + "</td>" +
+                            "<td>" + r[i].Amount + "</td>" +
+                            "<td>" + r[i].M_TYPE + "</td>" +
+                            "<td>" + dat + "</td>" +
+                            "<td>" + r[i].CreatedBy + "</td>" +
+                            "</tr>"
+                        setData.append(data);
+                        
+                    }
+                    $('#History').DataTable();
+                },
+                error: function (ex) {
+                    alert("Error History");
+
+                }
+            });
+        }
+        else {
+            bootbox.dialog({
+                title: 'Alert!',
+                message: ' Expired Card',// "Roshita ID : " + r,
+                buttons: {
+                    Ok: {
+                        label: "Ok",
+                        className: 'btn-info',
+                        callback: function () {
+                            location.reload();
+                        }
+                    }
+                }
+            });
+            //bootbox.alert("Expired Card");
+
+        }
+        //ddlLimit
+        //$.ajax({
+        //    type: "POST",
+        //    dataType: "json",
+        //    url: '/Pharmacy/GetLimit',
+        //    data: { id: CardId },
+        //    success: function (returndata) {
+        //        if (returndata.ok) {
+        //            $("#insurance_LIVEL").val(returndata.limit.INSURANCE_DAY);
+        //        }
+        //        else {
+        //            // window.alert(' No Limit Amount ');
+        //            location.reload();
+        //        }
+        //    }
+        //});
+
+    }
+ 
+</script>

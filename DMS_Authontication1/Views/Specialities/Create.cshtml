@@ -1,0 +1,47 @@
+﻿@model DMS_Authontication1.Models.Specialities1
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-info">
+        <h2 class="panel-heading" style="margin:1px;">Create  a Specility</h2>
+        <div class="panel-body">
+            <div class="form-horizontal" style="padding-left: 93px;">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SPEC_ANAME, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SPEC_ANAME, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SPEC_ANAME, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SPEC_ENAME, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SPEC_ENAME, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SPEC_ENAME, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.special_notes, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.special_notes, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.special_notes, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer" style="text-align:right;">
+            <input id="Back" type="button" value="Back" onclick="window.location.replace('/Specialities/index');" class="btn btn-warning" />
+            <input id="submit" type="submit" value="Create" class="btn btn-success" />
+        </div>
+    </div>
+}
+

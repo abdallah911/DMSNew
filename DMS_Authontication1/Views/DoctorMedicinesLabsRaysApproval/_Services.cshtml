@@ -1,0 +1,150 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="ServicesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Services</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="Services">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>
+                                @Html.DisplayName("Service Code")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Service Ar_Name")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Service En_Name")
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+            <div class="modal-footer">
+
+                <button id="Close" type="button" class="btn btn-secondary glyphicon glyphicon-ok" data-dismiss="modal"> Ok</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var OperationFees = "";
+    var ServiceCode = "";
+    var OperationDays = "";
+    function SelectService(button) {
+        var row = $(button).closest("TR");
+         ServiceCode = $("TD", row).eq(1).html();
+        var ServiceName = $("TD", row).eq(3).html();
+
+        var splited = $('#Subservice').val().split("\n");
+        var add = 1;
+        for (var i = 0; i < splited.length; i++) {
+            if (splited[i] == ServiceName) {
+                toastr.error('Added Before')
+                add = 0;
+            }
+
+        }
+        if (add == 1) {
+            //dential details
+            if (ServiceCode.indexOf("114") >= 0 )
+            {
+                serviceItem.Details = ServiceName;
+
+            }
+            else {
+                serviceItem.Details = ServiceName;
+                serviceList.push(serviceItem);
+            }
+            serviceItem.Details = ServiceName;
+            $('#Subservice').val($('#Subservice').val() + ServiceName + "\n");
+            toastr.success("Added Successfully");
+        }
+        //Dental
+        if (ServiceCode.indexOf("114") >= 0) {
+           
+            $('#TeethImageModal').modal();
+            //$('#ServiceModal').modal('hide');
+        }
+       
+  
+    
+    }
+    $(function () {
+        $('#ServicesModal .modal-footer #Close').click(function () {
+            //opration
+            if (ServiceCode.indexOf("11102") >= 0) {
+                bootbox.dialog({
+                    closeButton: false,
+                    title: 'Fees',
+                    message: "Operation Fees",
+                    buttons: {
+                        IncludingSurgeanfees: {
+                            label: "Including Surgean's fees",
+                            className: 'btn-info',
+                            callback: function () {
+                                var serviceItem = {};
+                                OperationFees = "Including Surgean's fees";
+                                serviceItem.ServiceCode = "11103";
+                                serviceItem.ServiceName = "خدمات جراحية";
+                                serviceItem.Details = OperationFees;
+                                serviceList.push(serviceItem);
+                                $('#ServiceModal').modal('hide');
+                                $('#Subservice').val($('#Subservice').val() + "Fees: Including Surgean's fees \n");
+                                $('#OperationDaysModal').modal();
+                            }
+                        },
+                        Cash: {
+                            label: "Cash",
+                            className: 'btn-info',
+                            callback: function () {
+                                OperationFees = "Cash";
+                                var serviceItem = {};
+                                serviceItem.ServiceCode = "11103";
+                                serviceItem.ServiceName = "خدمات جراحية";
+                                serviceItem.Details = OperationFees;
+                                serviceList.push(serviceItem);
+                                $('#ServiceModal').modal('hide');
+                                $('#Subservice').val($('#Subservice').val() + "Fees: Cash \n");
+                                $('#OperationDaysModal').modal();
+                            }
+                        },
+                        SeparateClame: {
+                            label: "Separate Clame",
+                            className: 'btn-info',
+                            callback: function () {
+                                OperationFees = "Separate Clame";
+                                var serviceItem = {};
+                                serviceItem.ServiceCode = "11103";
+                                serviceItem.ServiceName = "خدمات جراحية";
+                                serviceItem.Details = OperationFees;
+                                serviceList.push(serviceItem);
+                                $('#ServiceModal').modal('hide');
+                                $('#Subservice').val($('#Subservice').val() + "Fees: Separate Clame \n");
+                                $('#OperationDaysModal').modal();
+                            }
+                        }
+                    }
+
+                }
+                );
+            }
+          
+        });
+    })
+
+</script>

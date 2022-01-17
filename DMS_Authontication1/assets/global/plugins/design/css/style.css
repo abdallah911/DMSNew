@@ -1,0 +1,83 @@
+#topheader {
+   
+    background: #fafafa;
+    padding: 20px 0;
+}
+
+.cus-nav-elem {
+  
+
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+    .cus-nav-elem .text {
+        position: relative;
+        top: 16px;
+    }
+
+@media only screen and (max-width: 970px) {
+
+    .cus-nav-elem .text {
+        position: relative;
+        top: 0px;
+    }
+}
+    .cus-nav-elem .cus-brand {
+        color: rgba(0, 0, 0, 0.9);
+        font-weight: 900;
+        font-size: 24px;
+        line-height: 60px;
+    }
+
+
+
+.cus-nav-elem .elem {
+    background: #ffffff;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    border-radius: 100%;
+    height: 58px;
+}
+
+        .cus-nav-elem .elem i {
+            line-height: 58px;
+            color: #2f89fc;
+        }
+
+.socMedia {
+    font-size: 25px;
+}
+
+#userImg {
+    border-radius: 100%;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    -webkit-transition: all 1s; /* For Safari 3.1 to 6.0 */
+    transition: all 1s;
+}
+
+    #userImg:hover {
+        /*
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);*/
+    }
+
+
+.dropdown-menu a {
+    padding: 0;
+    text-align: end;
+    padding-right: 16px;
+    font-weight:bold;
+
+}
+
+.dropdown-menu a:hover {
+
+    color: lightslategray;
+}

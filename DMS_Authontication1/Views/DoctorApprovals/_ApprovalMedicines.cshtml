@@ -1,0 +1,88 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="ApprovalMedicinesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="overflow-y: auto; max-height:100%;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Mediciens</h3>
+            </div>
+            <div class="modal-body">
+                <table class="table" id="Medicines">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>
+                                Medicine Code
+                            </th>
+                            <th>
+                                Medicine Name
+                            </th>
+                            <th>
+                                Dosage Form
+                            </th>
+                            <th>
+                                Package Price
+                            </th>
+                            <th>
+                                Packatage size
+                            </th>
+                            <th>
+                                Units Numbers
+                            </th>
+
+                            <th>
+                                Unit Price
+                            </th>
+                            <th>
+                                Group
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    function SelectMedicien(button) {
+        var row = $(button).closest("TR");
+        
+        var MedicienCode = $("TD", row).eq(1).html();
+        var MedicienName = $("TD", row).eq(2).html();
+        var DosageForm = $("TD", row).eq(3).html();
+        var PackPrice = $("TD", row).eq(4).html();
+        var PackSize = $("TD", row).eq(5).html();
+        var UnitNumber = $("TD", row).eq(6).html();
+        var UnitPrice = $("TD", row).eq(7).html();
+        var Group = $("TD", row).eq(8).html();
+
+        $('.modal-body #MedicienCode').val(MedicienCode);
+        $('.modal-body #MedicienName').val(MedicienName);
+        $('.modal-body #Dosage').val(DosageForm);
+        $('.modal-body #PackagePrice').val(PackPrice);
+        $('.modal-body #PackageSize').val(PackSize);
+        $('.modal-body #UnitNumber').val(UnitNumber);
+        $('.modal-body #UnitPrice').val(UnitPrice);
+        $('.modal-body #Amount').val(PackPrice);
+      
+        $('.modal-footer #AddApproval').val("Add");
+        $('.modal-title').html("Add");
+
+        
+        $('.modal-body #Group').val(Group);
+        $('#ApprovalEditModal').modal();
+      
+
+        $('#ApprovalMedicinesModal').modal('hide');
+    }
+</script>

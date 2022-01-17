@@ -1,0 +1,70 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="ApprovalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Approvels</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="Approvals">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.approvals.Code)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.approvals.Approval_Type)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.approvals.Medical_Replay)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.approvals.Value_After)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.approvals.Recieve_Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.approvals.Created_Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.approvals.CreatedBy)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.approvals.End_Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.approvals.Expaire_Date)
+                            </th>
+                            <th></th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button id="Close" type="button" class="btn btn-secondary glyphicon glyphicon-ok" data-dismiss="modal"> OK</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
+<script src="~/Scripts/DMS/HospitalSystem/Hospital.js?V=1"></script>

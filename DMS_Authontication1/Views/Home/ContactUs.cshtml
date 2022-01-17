@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "ContactUs";
+}
+<div class="contact-page-short-boxes">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="contact-info h-100">
+                    <h2 class="d-flex align-items-center">Contact Info</h2>
+
+                    <ul class="p-0 m-0">
+                        <li style="font-size:13px"><span>Address:</span>12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>
+                        @*<li style="font-size:13px"><span>Address:</span>24 El Montazah St., Heliopolis, Cairo</li>*@
+                        <li><span>Phone:</span> 02 26401444 – 02 26381814 </li>
+                        <li><span>Fax:</span> 02 26401666</li>
+                        <li style="font-size:11px"><span>Email:</span>info@dms-eg.com - Marketing@dms-eg.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mt-5 mt-lg-0">
+                <div class="opening-hours h-100">
+                    <h2 class="d-flex align-items-center">Opening Hours</h2>
+
+                    <ul class="p-0 m-0">
+                        <li>Sunday - Thursday <span>8:30 - 17:00</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mt-5 mt-lg-0">
+                <div class="emergency-box h-100">
+                    <h2 class="d-flex align-items-center">Emergency</h2>
+
+                    <div class="call-btn text-center">
+                        <a class="d-flex justify-content-center align-items-center button gradient-bg" href="#"><img src="~/assets/global/plugins/design/images/emergency-call.png">  02 26371716</a>
+                    </div>
+
+                    <p>Call for medical approvals.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="contact-form">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Get in Touch</h2>
+            </div>
+            <div class="col-12">
+                <form name="htmlform" method="post" action="@Url.Action("ContactUs", "Home" )">
+
+                    <div class="col-12">
+                        <input type="text" name="name" placeholder="Name" value="" required />
+                    </div><!-- col-4 -->
+
+                    <div class="col-12">
+                        <input type="email" name="email" placeholder="E-mail" value="" required />
+                    </div><!-- col-6 -->
+
+                    <div class="col-12">
+                        <input type="text" name="telephone" placeholder="Phone" value="" required />
+                    </div>
+
+                    <div class="col-12">
+                        <textarea name="comments" rows="12" cols="80" placeholder="Comments" required></textarea>
+                    </div>
+
+                    <div class="col-12">
+                        <input type="submit" name="" value="Send Message" class="button gradient-bg">
+                    </div>
+                </form>
+            </div>
+        </div><!-- row -->
+    </div>
+</div><!-- contact-form -->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="contact-page-map">
+                <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=12 Abd El-Azeem Awad Allah Al Matar El Nozha&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                @*<iframe id="gmap_canvas" src="https://maps.google.com/maps?q=24 El-Montaza El-Nozha El Nozha&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>*@
+            </div><!-- map -->
+        </div>
+    </div>
+</div>
+

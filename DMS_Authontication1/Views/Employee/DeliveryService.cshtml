@@ -1,0 +1,357 @@
+﻿@model DMS_Authontication1.ViewModel.EmployeeVM.DeliveryRequestVm
+@{
+    ViewBag.Title = "DeliveryService";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+<link href="~/assets/HomeTemplete/Content/css/select2.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+
+<div class="portlet box blue-chambray" style="margin:auto">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-registered"></i> Request Delivery
+        </div>
+        @*<div class="actions">
+                <a id="Create" href="/AfterSales/Index" style=" text-transform: none" class="btn btn-primary  btn-sm">
+                    <i class="fa fa-list"></i> Visit List
+                </a>
+            </div>*@
+    </div>
+    <br />
+
+    <div class="portlet-body ">
+        <div class="row ">
+            <div class="col-md-12">
+                @if (ViewBag.hasMed == true)
+                {
+                    using (Html.BeginForm("DeliveryService", "Employee", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-wizard">
+
+                            <div class="form-body">
+                                <div class="tab-content">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <span class="text-danger">@ViewBag.Error</span>
+                                    <h3 class="text-success">@ViewBag.Status</h3>
+                                    <hr />
+                                    <div class="row ">
+                                        <div class="col-md-6">
+                                            <div class="form-group" id="CompanyTypeNew">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.CountryId) :
+                                                    @* @Html.Label("Country", new { @class = "control-label sbold" }) :*@
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.CountryId, ViewBag.Country as SelectList, "Select Governorate", new { @class = "form-control", @id = "CountryId", @required = "True" })
+                                                    @*@Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", @required = "true", @data_step = "1", @data_intro = "FullName Not Less Than Three Names" } })*@
+
+                                                    @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.RegionId) :
+                                                    @*@Html.Label("Region", new { @class = "control-label sbold" }) :*@
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownList("RegionId", new SelectList(""), "Select Region", new { @class = "form-control", @id = "RegionId", @required = "True" })
+
+                                                    @*@Html.EditorFor(model => model.NationalId, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return /[0-9]/i.test(event.key)", @maxlength = "14", @minlength = "14", @required = "true", @data_step = "2", @data_intro = "National Id 14 Number" } })*@
+                                                    @Html.ValidationMessageFor(model => model.RegionId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.NeighborHood) :
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.EditorFor(model => model.NeighborHood, new { htmlAttributes = new { @class = "col-md-2 form-control ", @required = "true", @data_step = "3", @data_intro = "The ID of your card " } })
+                                                    @*<input id="CreatedDate" type="datetime" class="col-md-2 form-control " placeholder="Date" />*@
+                                                    @Html.ValidationMessageFor(model => model.NeighborHood, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.StreetName) :
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.EditorFor(model => model.StreetName, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.StreetName, "", new { @class = "text-danger", @placeholder = "Date", @required = "true", @data_step = "4", @data_intro = "Your Real Birth Date" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.BuldingNo) :
+                                                    <span class="required"> * </span>
+
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.EditorFor(model => model.BuldingNo, new { htmlAttributes = new { @class = "form-control ", @onkeypress = "return /[0-9]/i.test(event.key)", @required = "true", @data_step = "5", @data_intro = "Phone Number 11 Numbers Only" } })
+                                                    @*<input type="text" class="form-control" id="Phone" value="" onkeypress="return /[0-9]/i.test(event.key)" />*@
+                                                    @Html.ValidationMessageFor(model => model.BuldingNo, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.FlatNo) :
+                                                    <span class="required"> * </span>
+
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.EditorFor(model => model.FlatNo, new { htmlAttributes = new { @class = "form-control ", @onkeypress = "return /[0-9]/i.test(event.key)", @required = "true" } })
+                                                    @*<input type="text" class="form-control" id="Phone" value="" onkeypress="return /[0-9]/i.test(event.key)" />*@
+                                                    @Html.ValidationMessageFor(model => model.FlatNo, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div id="feedBackDiv">
+
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.Phone1) :
+                                                        <span class="required"> * </span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.EditorFor(model => model.Phone1, new { htmlAttributes = new { @class = "form-control ", @onkeypress = "return /[0-9]/i.test(event.key)", @required = "true", @data_step = "5", @data_intro = "Phone Number 11 Numbers Only", @maxlength = "11", @minlength = "11" } })
+                                                        @*@Html.EditorFor(model => model.Phone1, new { htmlAttributes = new { @class = "form-control ", @required = "true", @data_step = "6", @data_intro = "Your Card Id can be your UserName it must be unique" } })*@
+                                                        @Html.ValidationMessageFor(model => model.Phone1, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.Phone2) :
+                                                        <span class="required"> * </span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.EditorFor(model => model.Phone2, new { htmlAttributes = new { @class = "form-control ", @onkeypress = "return /[0-9]/i.test(event.key)", @required = "true", @data_step = "5", @data_intro = "Phone Number 11 Numbers Only", @maxlength = "11", @minlength = "11" } })
+
+                                                        @* @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control ", @required = "true", @data_step = "7", @data_intro = "Your Real Access Email " } })*@
+                                                        @Html.ValidationMessageFor(model => model.Phone2, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.ProviderId) :
+                                                        @*@Html.Label("Provider", new { @class = "control-label sbold" }) :*@
+                                                        @*<span class="required"> * </span>*@
+                                                    </label>
+                                                    <div class="col-md-7">
+                                                        @Html.DropDownListFor(m => m.ProviderId, ViewBag.Provider as SelectList, "Select Provider", new
+                                                        {
+                                                            @class = "form-control",
+                                                            @id = "ProviderId",@*@required = "True"*@})
+                                                        @* @Html.EditorFor(model => model.Provider, new { @class = "form-control", @required = "true" })*@
+                                                        @Html.ValidationMessageFor(model => model.ProviderId, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.BranchId) :
+                                                        @*@Html.Label("Branch", new { @class = "control-label sbold" }) :*@
+                                                        @*<span class="required"> * </span>*@
+                                                    </label>
+                                                    <div class="col-md-7">
+                                                        @Html.DropDownList("BranchId", new SelectList(""), "Select Branch", new
+                                                        {
+                                                            @class = "form-control",
+                                                            @id = "BranchId"@*, @required = "True"*@})
+                                                        @* @Html.EditorFor(model => model.Branch, new { @class = "form-control", @required = "true" })*@
+                                                        @Html.ValidationMessageFor(model => model.BranchId, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.Time) :
+                                                        @*@Html.Label("Branch", new { @class = "control-label sbold" }) :*@
+                                                        <span class="required"> * </span>
+                                                    </label>
+                                                    <div class="col-md-7">
+                                                        @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "col-md-2 form-control ", @required = "true" } })
+                                                        @* @Html.EditorFor(model => model.Branch, new { @class = "form-control", @required = "true" })*@
+                                                        @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                @*<div class="form-group">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.Roshita) :
+                                                        <span class="required"> * </span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        <input name="ImageFile" id="ImageFile" type="file" class="col-md-2 form-control " required />
+                                                        @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>*@
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer" style="text-align:right;">
+                            <input data-step="8" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />
+                            <input data-step="9" data-intro="Reset " id="reset" type="button" value="Reset" onclick="ClearVisitDataData();" class="btn btn-warning" />
+                            <input data-step="10" data-intro="Save Account" id="submit" type="submit" value="Save" class="btn btn-success" onclick="CheckData()" />
+                        </div>
+                    }
+                }
+                else
+                {
+                    <h4>You don't have Chronic Medicine </h4>
+                }
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<!--Save-->
+
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/assets/HomeTemplete/js/intro.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#Help").click(function () {
+            introJs().start();
+        });
+
+    });
+    $(function () {
+        $("#CountryId").select2();
+        $("#RegionId").select2();
+        $("#ProviderId").select2();
+        $("#BranchId").select2();
+
+        $('#Time').datetimepicker({
+            format: " LT "
+        });
+
+        $("#CountryId").change(function () {//address
+            $.get("/Employee/GetStateList",
+                { id: $("#CountryId").val() }, function (data) {
+                    $("#RegionId").empty();
+                    $.each(data, function (index, row) {
+                        $("#RegionId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                });
+        });
+
+        $("#CountryId").map(function () {//address
+            $.get("/Employee/GetStateList",
+                { id: $("#CountryId").val() }, function (data) {
+                    $("#RegionId").empty();
+                    $.each(data, function (index, row) {
+                        $("#RegionId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                });
+        });
+
+        $("#ProviderId").change(function () {//Branch
+            if ($("#ProviderId").val() != "") {
+                $.get("/Complaint/GetBranchList",
+                    { id: $("#ProviderId").val() },
+                    function (data) {
+                        $("#BranchId").empty();
+                        //if (data.length > 0) {
+                        $.each(data, function (index, row) {
+                            $("#BranchId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                        });
+                        //}
+                        //else {
+                        //    $("#BranchId").append("<option value='" + $("#ProviderId option:selected").val() + "'>" + $("#ProviderId option:selected").text() + "</option>");
+
+                        //}
+                        //$('#BranchId').val(sel).change();
+                    });
+            }
+        });
+
+        $("#ProviderId").map(function () {//Branch
+            if ($("#ProviderId").val() != "") {
+                $.get("/Complaint/GetBranchList",
+                    { id: $("#ProviderId").val() },
+                    function (data) {
+                        $("#BranchId").empty();
+                        //if (data.length > 0) {
+                        $.each(data, function (index, row) {
+                            $("#BranchId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                        });
+                        //}
+                        //else {
+                        //    $("#BranchId").append("<option value='" + $("#ProviderId option:selected").val() + "'>" + $("#ProviderId option:selected").text() + "</option>");
+
+                        //}
+                        //$('#BranchId').val(sel).change();
+                    });
+            }
+        });
+
+    });
+    function ClearVisitDataData() {
+        $("select[name='CountryId'] :contains('Select Country')").attr('selected', 'selected');
+        $("select[name='CountryId']").trigger('change');
+        $("select[name='ProviderId'] :contains('Select Provider')").attr('selected', 'selected');
+        $("select[name='ProviderId']").trigger('change');
+        //$('#CountryId option:contains("Select Country")').prop('selected', true);
+        //$("#CountryId").val("Select Country");
+        $("#BranchId").empty();
+        $("#RegionId").empty();
+        $("#NeighborHood").val("");
+        $("#StreetName").val("");
+        $("#BuldingNo").val("");
+        $("#FlatNo").val("");
+        $("#Phone1").val("");
+        $("#Phone2").val("");
+        $("#Time").val("");
+
+
+    }
+    //function CheckData() {
+    //    var arra = $("#CardId").val().split("-");
+
+    //    // chick card id is correct or not
+    //    if (arra.length == 4 && arra[3] != "") {
+    //        var Employeename = $("#FullName").val().split(" ");
+    //        if (Employeename.length >= 3) {
+    //            return true;
+    //        }
+    //        else {
+    //            bootbox.alert("Please enter Full Name not less that three names ' First,Second and Third Name' ... ");
+    //            return false;
+    //        }
+    //    }
+    //    else {
+    //        bootbox.alert("Please enter correct card ... ");
+    //        return false;
+    //    }
+    //}
+</script>
+

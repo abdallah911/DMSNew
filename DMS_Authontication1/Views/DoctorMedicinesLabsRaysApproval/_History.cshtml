@@ -1,0 +1,134 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="HistoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">History</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="History">
+                    <thead>
+                        <tr>
+                           
+                            <th>
+                                @Html.DisplayName("Approval Number")
+                            </th>
+
+                            @*<th>
+                                @Html.DisplayName("COMP_ID")
+                            </th>
+                            <th>
+                                @Html.DisplayName("CARD_NO")
+                            </th>
+
+                            <th>
+                                @Html.DisplayName("NAME")
+                            </th>*@
+                            <th>
+                                @Html.DisplayName("Recive Date")
+                            </th>
+
+                            <th>
+                                @Html.DisplayName("Send Date")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Service Type")
+                            </th>
+
+                            <th>
+                                @Html.DisplayName("Replay")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Approval Amount")
+                            </th>
+
+                            <th>
+                                @Html.DisplayName("MedicalReplay")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Created By")
+                            </th>
+
+                            <th>
+                                @Html.DisplayName("Created Data")
+                            </th>
+                           <th></th>
+
+
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+            @*<button id="ServiceHistory" class="btn btn-default col-md-2" onclick="ServiceHistory();">Service History</button>*@
+            <div class="modal-footer">
+
+                <button id="Close" type="button" class="btn btn-secondary glyphicon glyphicon-ok" data-dismiss="modal">Ok</button>
+
+            </div>
+        </div>
+       
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+  
+    function ServiceHistory(button) {
+        //history
+        $.ajax({
+            dataType: "json",
+            url: '/DoctorMedicinesLabsRaysApproval/ServiceHistory',
+            data: {},
+            success: function (r) {
+
+                if (r != null) {
+
+                    $('#ServiceHistoryData').dataTable().fnDestroy();
+                    var setData = $("#ServiceHistoryData Tbody");
+                    setData.empty();
+
+                    for (var i = 0; i < r.length; i++) {
+                        var data = "<tr >" +
+                            "<td>" + r[i].CODE + "</td>" +
+                            "<td>" + r[i].COMPANY_ID + "</td>" +
+                            "<td>" + r[i].CARD_NO + "</td>" +
+                            "<td>" + r[i].EMP_ENAME + "</td>" +
+                            "<td>" + r[i].RECIV_DATE + "</td>" +
+                            "<td>" + r[i].SEND_DATE + "</td>" +
+                            "<td>" + r[i].SERVECE_TYP + "</td>" +
+                            "<td>" + r[i].REPLAY + "</td>" +
+                            "<td>" + r[i].APROVAL_VALUE + "</td>" +
+                            "<td>" + r[i].MEDICAL_REPLAY + "</td>" +
+                            "<td>" + r[i].CREATED_BY + "</td>" +
+                            "<td>" + r[i].CREATED_DATE + "</td>" +
+                            "<td >" + "<Button  class='btn btn-Primary' onclick='ServiceHistoryDetails(this);'>Details</Button>" + "</td>" +
+                            "</tr>"
+                        setData.append(data);
+
+                    }
+                    $('#ServiceHistoryData').dataTable({
+                        "bPaginate": false,
+                        "bLengthChange": false,
+                        "bFilter": false,
+                        "bInfo": false,
+                        "bAutoWidth": false});
+                    $('#ServiceHistoryModal').modal();
+                }
+                else {
+                    bootbox.alert("Inviled Card");
+                }
+            },
+            error: function (r) {
+                window.alert(' History Ajax ');
+            }
+
+        });
+    }
+</script>

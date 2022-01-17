@@ -1,0 +1,126 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="ProvidersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Providers</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="Providers">
+                    <thead>
+                        <tr>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">Provider Code</th>
+                            <th scope="col" align="center">Provider AR_Name</th>
+                            <th scope="col" align="center">Provider EN_Name</th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var ProvId;
+    var OldProvId;
+    function SelectProvider(button) {
+        var row = $(button).closest("TR");
+        ProvId = $("TD", row).eq(1).html();
+        var ProvName = $("TD", row).eq(2).html();
+        if (prov == "Add") {
+            $('#Provider').val(ProvName);
+            $('#AddCardModal').modal();
+        }
+        else if (prov == "Edit") {
+            $('#Provider1').val(ProvName);
+            $('#EditCardModal').modal();
+        }
+        else if (prov == "Main") {
+            if ($('#OldMainProvider').val() != '') {
+                $.ajax({
+                    type: 'POST',
+                    url: '/DoctorApprovals/UpdateProvider',
+                    dataType: 'Json',
+                    data: {
+                        ProviderName: ProvId,
+                        OldProviderName: OldProvId,
+                        CompId: CompId
+                    },
+                    dataType: 'Json',
+                    success: function (r) {
+                        $('#MainProvider').val(ProvName);
+                        $('#Cards_filter input[type="search"]').val('').keyup();
+                        $('#Cards tbody tr').each(function () {
+                            var row = $(this);
+                            if ($('#OldMainProvider').val() == $("TD", row).eq(3).html()) {
+                                $("TD", row).eq(3).html($('#MainProvider').val());
+                            }
+                        });
+
+                    },
+                    error: function () {
+                        alert("Error Retrieve");
+                    }
+                });
+            }
+            else {
+                bootbox.alert("Please Select Old Provider")
+            }
+        }
+        else if (prov == "OldMain") {
+            $('#OldMainProvider').val(ProvName);
+            OldProvId = ProvId;
+        }
+        else {
+            $('#ChangeProvider').val(ProvName);
+            var CardIds = new Array;
+            $('#Cards tbody tr').each(function () {
+                var row = $(this);
+                if ($("TD", row).eq(1).html() != undefined) {
+                    var CurrentCardId = {};
+                    CurrentCardId.CARD_NO = $("TD", row).eq(1).html();
+                    CurrentCardId.DOSE = ProvId;
+                    CardIds.push(CurrentCardId);
+                }
+            });
+            if (CardIds.length != 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/DoctorApprovals/ChangeProvider',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(CardIds),
+                    dataType: 'Json',
+                    success: function (r) {
+                        //  $('#Cards_filter input[type="search"]').val('').keyup();
+                        $('#Cards tbody tr').each(function () {
+                            var row = $(this);
+                            // if ($('#OldMainGroup').val() == $("TD", row).eq(6).html()) { }
+                            $("TD", row).eq(3).html($('#ChangeProvider').val());
+
+                        });
+                    },
+                    error: function () {
+                        alert("Error Retrieve");
+                    }
+                });
+            } else {
+                toastr.warning("Nothing to change");
+                $('#ChangeProvider').val("");
+
+            }
+        }
+        $('#ProvidersModal').modal('hide');
+
+    }
+
+</script>

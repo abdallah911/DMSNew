@@ -1,0 +1,123 @@
+﻿@*@model IEnumerable<DMS_TEST.ViewModel.Container1>*@
+
+<div class="modal fade " id="ApprovalsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg"  role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Approvals</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="Approvals">
+                    <thead>
+                        <tr>
+                            <th  ></th>
+
+                            <th  >
+                               ID
+                            </th>
+
+                            <th  >
+                                Date
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var url = window.location.href;
+    var id = url.substring(url.lastIndexOf('/') + 1);
+    var ApprovalId;
+    var Manager;
+    function Select(button) {
+        GetLimit();
+        var row = $(button).closest("TR");
+        ApprovalId = $("TD", row).eq(1).html();
+        var Date = $("TD", row).eq(2).html();
+        $('#TxtSearch').val(ApprovalId + ' || ' + Date);
+        $.ajax({
+           
+            dataType: "json",
+            url: '/Doctor/ApprovedMedicine/',
+            data: {
+                id: id,
+                TxtSearch:ApprovalId
+            },
+            success: function (r) {
+                if (r.length > 0) {
+                    $('#AddDoctorAll').prop('disabled', false);
+                    $("#Approval").removeClass('active');
+                    $('#Approval').attr('disabled', false);
+                } else {
+                    $('#AddDoctorAll').prop('disabled', true);
+                    $("#Approval").removeClass('active');
+                    $('#Approval').attr('disabled', true);
+                }
+                $("#First").dataTable().fnDestroy();
+                var setData = $("#First Tbody");
+                setData.empty();
+                for (var i = 0; i < r.length;i++){
+                    var data = "<tr >"; 
+                    if (r[i].IsDealed == false)
+                        data += "<td>" + "<Button  class='btn btn-primary glyphicon glyphicon-plus' onclick='Add(this);'>Dispense</Button>" + "</td>";
+                    else {
+                        data += "<td>" + "<Button  class='btn btn-primary glyphicon glyphicon-plus' disabled>Dispense</Button>" + "</td>";
+                        $('#AddDoctorAll').prop('disabled', true);
+                    }
+                    data += "<td>" + r[i].Id + "</td>" +
+                        "<td>" + r[i].MedicienCode + "</td>" +
+                        "<td>" + r[i].MedicienName + "</td>" +
+                        "<td>" + r[i].DOSAGE_FORM + "</td>" +
+                        "<td>" + r[i].PACK_PRICE + "</td>" +
+                        "<td>" + r[i].PACK_SIZE + "</td>" +
+                        "<td>" + r[i].UNIT_NO + "</td>" +
+                        "<td>" + r[i].PACK_PRICE + "</td>" +
+                        "<td>" + r[i].Dose + "</td>" +
+                        "<td>" + r[i].Duration + "</td>" +
+                        "<td>" + r[i].TotalDuration + "</td>" +
+                        "<td>" + r[i].TotalUnits + "</td>" +
+                        "<td>" + r[i].Amount + "</td>" +
+
+                        "</tr>";
+                    setData.append(data);
+                 
+                }
+                $("#First").DataTable({
+                    "bPaginate": false,
+                    "bLengthChange": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bAutoWidth": false
+                });
+                },  
+             error: function (err) {
+                alert("Failed to retrive Table");
+            
+
+            }
+        });
+        $.get('/Doctor/Calc/', { id: id, txt: ApprovalId }, function (data) {
+            $('#Total').val(data.TotalValue);
+            $('#OverInsurance').val(data.OverInsurance);
+            $('#Cash').val(data.Cash);
+            $('#CoPayment').val(data.PersonPayment);
+            $('#Credit').val(data.CompanyPayment);
+            Manager = data.Manager;
+        });
+        $('#ApprovalsModal').modal('hide');
+        $("#Secand Tbody").empty();
+        SecandCalculation();
+    }
+   
+</script>

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="DeleteApprovalReasonsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Delete Approval</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    @*@Html.Label("Recolection Reason", new { @class = "col-md-2 control-label" })*@
+                    <div>
+                        @Html.DropDownList("DeleteApprovalReasons", new List<SelectListItem>
+                 {
+                    new SelectListItem{ Text="--Select Reason--", Value = "NoReason" },
+                    new SelectListItem{ Text="الموافقه لشخص اخر", Value = "الموافقه لشخص اخر" },
+
+
+                 }, new { @class = "form-control" })
+                    </div>
+                </div>
+              
+                <div class="form-group">
+                    @Html.Label("Approval Code", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.TextBox("DeleteApprovalCode",null, new { @class = "form-control" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <button id="Close" type="button" class="btn btn-secondary glyphicon glyphicon-ok" data-dismiss="modal"> Ok</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script>
+    
+   
+    $(function () {
+        $('#DeleteApprovalReasonsModal .modal-footer #Close').click(function () {
+             
+            $.ajax({
+                dataType: "json",
+                url: '/DoctorMedicinesLabsRaysApproval/DeleteApproval',
+                data: {
+                    id: $('#DeleteApprovalCode').val(),
+                    reasonValue: $('#DeleteApprovalReasons').val()
+                },
+                success: function (r) {
+                    if (r == 1) {
+                        toastr.success('Delete Successfully');
+                        window.location.reload();
+                    }
+                    else {
+                        toastr.info("Invalid Approval Code");
+                        $('#DeleteApprovalReasonsModal').modal();
+                        $('#DeleteApprovalCode').val("");
+                    }
+                },
+                error: function (r) {
+                    window.alert('Delete Ajax Error ');
+                }
+
+            })
+            
+        });
+    })
+
+</script>

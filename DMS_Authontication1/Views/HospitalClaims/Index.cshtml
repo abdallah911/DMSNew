@@ -1,0 +1,207 @@
+﻿@model IEnumerable<DMS_Authontication1.Models.HospitalClaim>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.C_COMP_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PROVIDER_CODE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CARD_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SERVICE_CODE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SERVICES)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.REQUEST_NUM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLASS_CODE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CONTRACT_NO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SERV_TYP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLAIM_NO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NATIONAL_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PHONE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.COMP_PERC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CASH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TOTAL_VALUE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OVER_INSURANCE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TOTAL_CASH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSON_PAYMENT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.COMPANY_PAYMENT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsSync)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SyncDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SyncBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeletedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeletedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.C_COMP_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PROVIDER_CODE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CARD_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SERVICE_CODE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SERVICES)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.REQUEST_NUM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLASS_CODE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CONTRACT_NO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SERV_TYP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLAIM_NO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NATIONAL_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PHONE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.COMP_PERC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CASH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TOTAL_VALUE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OVER_INSURANCE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TOTAL_CASH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSON_PAYMENT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.COMPANY_PAYMENT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsSync)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SyncDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SyncBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsDeleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeletedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeletedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,477 @@
+﻿@model DMS_Authontication1.ViewModel.ProviderComplaintVM
+@{
+    ViewBag.Title = "CreateProviderComplaint";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    string col = "";
+    if (User.IsInRole("User"))
+    {
+        col = "blue-chambray";
+    }
+    else
+    {
+        col = "green";
+    }
+}
+<br />
+<div style="margin-top:40px">
+    <p>
+        @if (User.IsInRole("User"))
+        {
+            @Html.ActionLink(" Complaint About DMS ", "CreateDMSComplaint", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus blue-chambray", @style = " text-transform: none" })
+        }
+        else
+        {
+            @Html.ActionLink(" Complaint About DMS ", "CreateDMSComplaint", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus ", @style = " text-transform: none" })
+        }
+        @Html.ActionLink(" Complaint About Provider  ", "CreateProviderComplaint", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-plus ", @style = " text-transform: none" })
+        @*@Html.ActionLink(" Consumption", "Consumption", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })*@
+    </p>
+</div>
+<div class="portlet box  @col">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Create New Request
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row ">
+            <div class="col-md-12">
+                <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN THEME PANEL -->
+
+                    <div class="form-wizard">
+                        <div class="form-body">
+                            <div class="tab-content">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+
+                                <div class="row">
+                                    @*Date of Registration*@
+                                    <div class="col-md-12" style="margin-bottom:50px">
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-2">
+                                                @Html.DisplayName("Request Code ") :
+                                            </label>
+                                            <div class="col-md-8">
+                                                <label class="control-label sbold col-md-4" id="RequestCode">
+                                                    @Html.DisplayName("********")
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.CompName) :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            @if (User.IsInRole("HR_Admin"))
+                                            {
+                                                <div class="col-md-8" id="CompDiv">
+                                                    @Html.DropDownListFor(model => model.CompName, ViewBag.company as SelectList, new { @class = "form-control", id = "CompName" })
+
+                                                </div>
+                                                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                <script>
+                                                    $(document).ready(function () {
+                                                        $('#CompName').select2();
+                                                    });
+                                                </script>
+                                            }
+                                            else
+                                            {
+                                                <div class="col-md-8" id="CompDiv">
+                                                    @Html.EditorFor(model => model.CompName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                                    @*<input type="text" class="form-control" asp-for="FirstName" />*@
+                                                    @Html.ValidationMessageFor(model => model.CompName, "", new { @class = "text-danger" })
+                                                </div>
+                                            }
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.ProviderTypeId) :
+                                            </label>
+                                            <div class="col-md-8" id="ProviderTypeDiv">
+                                                @Html.DropDownListFor(model => model.ProviderTypeId, ViewBag.provider as SelectList, "Select provider", new { @class = "form-control", id = "ProviderTypeId" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.ProviderId) :
+                                            </label>
+                                            <div class="col-md-8" id="ProviderDiv">
+
+                                                @Html.DropDownList("Provider", new SelectList(""), "Select Provider", new { @class = "form-control", id = "ProviderId" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.BranchId) :
+                                            </label>
+                                            <div class="col-md-8" id="BranchDiv">
+
+                                                @Html.DropDownList("Branch", new SelectList(""), "Select Branch", new { @class = "form-control", id = "BranchId" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.ProblemDate) :
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.ProblemDate, new { htmlAttributes = new { @class = "col-md-2 form-control ", @placeholder = "Date" } })
+                                                @*<input id="CreatedDate" type="datetime" class="col-md-2 form-control " placeholder="Date" />*@
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.Subject) :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <select id="Subject" class="form-control">
+                                                    <option valur="0">Select Subject</option>
+                                                    <option valur="عدم معاونة الموظف بالسرعة الكافية">عدم معاونة الموظف بالسرعة الكافية</option>
+                                                    <option valur="عدم متابعة الموظف للشكوى بالوقت الكافى">عدم متابعة الموظف للشكوى بالوقت الكافى</option>
+                                                    <option valur="اخري">اخري</option>
+                                                </select>
+                                                @*<input type="text" class="form-control" value="" id="ComplaintReason" />*@
+                                                @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.Problem) :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <textarea type="text" class="form-control" id="Problem"></textarea>
+                                                @Html.ValidationMessageFor(model => model.Problem, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.PhoneNumber) :
+                                                <span class="required"> * </span>
+
+                                            </label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="PhoneNumber" value="" onkeypress="return /[0-9]/i.test(event.key)" />
+                                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayName("Email") :
+                                                <span class="required"> * </span>
+
+                                            </label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="Email" value="" />
+                                                @*@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })*@
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <br />
+
+                                    <div class="col-md-12">
+
+                                        <br />
+
+                                        <div class="form-group">
+
+                                            <div class="col-md-offset-2" style="margin-top:20px">
+                                                <label class="control-label sbold col-md-3">
+                                                    @Html.DisplayName("Response Status ") :
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <textarea type="text" class="form-control" id="responsestatus" value="" disabled="disabled"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <br />
+
+                                            <br />
+                                            <div class="portlet-body">
+                                                <div class="row " style="margin-left:30px;margin-right:30px;margin-top:80px">
+
+                                                    <div class="col-md-offset-2">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <input id="txtSearchRequest" type="text" placeholder="search for Complaint ID..." class="form-control" />
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <button id="Search" type="button" class="btn btn-success" onclick="SearchRequest()">
+                                                                        <span class="glyphicon glyphicon-search"></span> Search
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-sm-2" id="div_of_serv">
+                                                                    <button id="new" type="button" class="btn btn-secondary-outline" onclick="NewRequest()">
+                                                                        <span class="fa fa-reply"></span> New
+                                                                    </button>
+
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <button id="edit" type="button" class="btn btn-success" onclick="EditRequest()" disabled="disabled">
+                                                                        <span class="fa fa-edit"></span> Edit
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-sm-2" id="div_of_serv">
+                                                                    <button id="save" type="button" class="btn btn-primary" onclick="SaveRequest()">
+                                                                        <span class="fa fa-save"></span> Save
+                                                                    </button>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script>
+    var sel;
+    $(document).ready(function () {
+        $('#ProblemDate').datetimepicker();
+
+        $('#Department').select2();
+
+        $("#ProviderTypeId").select2();
+        $("#ProviderId").select2();
+        $("#BranchId").select2();
+        $("#ProviderTypeId").change(function () {//Provider
+            $.get("/Complaint/GetProviderList",
+                { id: $("#ProviderTypeId").val() }, function (data) {
+                    $("#ProviderId").empty();
+                    $.each(data, function (index, row) {
+                        $("#ProviderId").append("<option value='" + row.Value + "'>" + row.Text + " || " + row.Value + "</option>")
+                    });
+
+                    //$('#ProviderId').val(sel).change();
+                });
+
+        });
+
+        $("#ProviderId").change(function () {//Branch
+
+            $.get("/Complaint/GetBranchList",
+                { id: $("#ProviderId").val() }, function (data) {
+                    $("#BranchId").empty();
+                    $.each(data, function (index, row) {
+                        $("#BranchId").append("<option value='" + row.Value + "'>" + row.Text + " || " + row.Value + "</option>")
+                    });
+                    //$('#BranchId').val(sel).change();
+                });
+        });
+
+    });
+
+    /// Save Request
+    function SaveRequest() {
+        var email = $('#Email').val();
+        if (!IsEmail(email)) {
+            alert("You shoud enter valid Email ..");
+        }
+        else if ($('#CompName').val() == "") {
+            alert("You shoud enter valid company name ..");
+        }
+        else if ($('#ProviderTypeId').val() == "") {
+            alert("You shoud select Provider Type  ...");
+        }
+        else if ($('#ProviderId').val() == "") {
+            alert("You shoud select Provider   ...");
+        }
+        else if ($("#Subject").val() == "") {
+            alert("You shoud select Complaint Reason ..");
+        }
+
+        else if ($("#Problem").val() == "") {
+            alert("You shoud enter Complaint Description ...");
+        }
+        else if ($("#PhoneNumber").val() == "" || $("#PhoneNumber").val().length != 11) {
+            alert("You shoud enter valid phone number");
+        }
+        else {
+            var data = {
+                compName: $('#CompName').val(),
+                subject: $('#Subject').val(),
+                providerTypeId: $('#ProviderTypeId').val(),
+                providerId: $('#ProviderId').val(),
+                branchId: $('#BranchId').val(),
+                problem: $('#Problem').val(),
+                problemdate: $("#ProblemDate").val(),
+                phoneNumber: $("#PhoneNumber").val(),
+
+            };
+            $.ajax({
+                type: "POST",
+                url: '/Complaint/SaveProviderComplaint',
+                data: (data),
+                success: function (ret) {
+                    if (ret.msg == "ok") {
+                        $("#save").attr("disabled", "disabled");
+                        bootbox.alert("Saved Datat Success ...");
+                        $("#RequestCode").html(ret.respcode);
+                    }
+                    else {
+                        alert(ret.msg);
+                    }
+
+                },
+                error: function (err) {
+                    bootbox.alert("Error DATA !");
+                }
+            });
+        }
+
+    }
+
+    // New Request
+    function NewRequest() {
+        window.location = '/Complaint/CreateProviderComplaint';
+    }
+
+    // Search Request
+    function SearchRequest() {
+        if ($('#txtSearchRequest').val() == "") {
+            alert("Please insert valid Complaint Code ...")
+
+        }
+        else {
+            var data = {
+                searchId: $('#txtSearchRequest').val(),
+                CompName: $('#CompName').val(),
+            };
+            $.ajax({
+                type: "POST",
+                url: '/Complaint/SearchProviderComplaint',
+                data: (data),
+                success: function (dat) {
+                    debugger;
+                    if (dat.msg == "ok") {
+
+
+                        $("#save").attr("disabled", "disabled");
+                        $("#edit").attr("disabled", false);
+                        $('#CompDiv').html('<input id="CompName" type="text" class="form-control " value=' + dat.modelreturn.CompName + ' min="0" readonly="readonly" />');
+                        $('#Subject').val(dat.modelreturn.Subject);
+                        $('#ProviderTypeDiv').html('<input id="ProviderTypeId" type="text" class="form-control " value="' + dat.modelreturn.ProviderTypeNew + '" min="0" readonly="readonly" />');
+                        $('#ProviderDiv').html('<input id="ProviderId" type="text" class="form-control " value="' + dat.modelreturn.Serv_Providers1 + '" min="0" readonly="readonly" />');
+                        $('#BranchDiv').html('<input id="BranchId" type="text" class="form-control " value="' + dat.modelreturn.SERV_PROVIDERS_NEW + '" min="0" readonly="readonly" />');
+                        $('#Problem').val(dat.modelreturn.Problem);
+                        $("#ProblemDate").val(dat.modelreturn.ProblemDate);
+                        $("#PhoneNumber").val(dat.modelreturn.PhoneNumber);
+                        $("#responsestatus").val(dat.modelreturn.SolveProblem);
+                        $("#RequestCode").html($('#txtSearchRequest').val());
+                    }
+                    else {
+                        alert(dat.msg);
+                    }
+
+                },
+                error: function (err) {
+                    bootbox.alert("Error Data !");
+                }
+            });
+        }
+    }
+
+    // Edit Request
+    function EditRequest() {
+        if ($('#CompName').val() == "") {
+            alert("You shoud enter valid company name ..");
+        }
+        else if ($('#ProviderTypeId').val() == "") {
+            alert("You shoud select Provider Type  ...");
+        }
+        else if ($('#ProviderId').val() == "") {
+            alert("You shoud select Provider   ...");
+        }
+        else if ($("#Subject").val() == "") {
+            alert("You shoud select Complaint Reason ..");
+        }
+
+        else if ($("#Problem").val() == "") {
+            alert("You shoud enter Complaint Description ...");
+        }
+        else if ($("#PhoneNumber").val() == "" || $("#PhoneNumber").val().length != 11) {
+            alert("You shoud enter valid phone number");
+        }
+        else {
+            debugger;
+
+            var data = {
+                ReqestID: $("#RequestCode").html(),
+                subject: $('#Subject').val(),
+                problem: $('#Problem').val(),
+                problemdate: $("#ProblemDate").val(),
+                phoneNumber: $("#PhoneNumber").val(),
+
+            };
+
+
+
+            $.ajax({
+                type: "POST",
+                url: '/Complaint/EditProviderComplaint',
+                data: (data),
+                success: function (ret) {
+                    if (ret.msg == "ok") {
+                        $("#save").attr("disabled", "disabled");
+                        bootbox.alert("Edit Datat Success ...");
+                        $("#RequestCode").html(ret.respcode);
+                    }
+                    else {
+                        alert(ret.msg);
+                    }
+
+                },
+                error: function (err) {
+                    bootbox.alert("Error DATA !");
+                }
+            });
+        }
+    }
+
+    function IsEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!regex.test(email)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>

@@ -1,0 +1,120 @@
+﻿@model IEnumerable<DMS_Authontication1.Models.HospitalClaim>
+@{
+    ViewBag.Title = "Claims";
+}
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Claims
+        </div>
+
+    </div>
+    <br />
+    <div class="portlet-body">
+
+        <table class="ui celled table" id="Index" width="100%">
+            <thead>
+                <tr>
+
+                    <th>
+                        Request No
+                    </th>
+                    <th>
+                        Card Id
+                    </th>
+                    <th>
+                        Company Percent
+                    </th>
+                    <th>
+                        Person Payment
+                    </th>
+                    <th>
+                        Total Value
+                    </th>
+                    <th>
+                        Over Insurance
+                    </th>
+                    <th>
+                        Total Cash
+                    </th>
+                    <th>
+                        Services
+                    </th>
+                    <th>
+                        Created By
+                    </th>
+
+                    <th>
+                        Created Date
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => item.REQUEST_NUM)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.CARD_ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.COMP_PERC)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.PERSON_PAYMENT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.TOTAL_VALUE)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.OVER_INSURANCE)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.TOTAL_CASH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SERVICES)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.CreatedBy)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.CreatedDate)
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-info fa fa-print" onclick="Print(@item.IdPrimary);"> Print</button>
+                        </td>
+                        <td>
+                            @*<a class="btn btn-warning fa fa-edit" href="/Hospital/Edit/@item.ID" style=" text-transform: none"> Edit</a>*@
+                            @*<button type="button" class="btn btn-dark" onclick="Print(@item.ID);"> Edit</button>*@
+                        </td>
+                        <td>
+                            <a class="btn btn-danger fa fa-remove" href="/Hospital/Delete/@item.IdPrimary" style=" text-transform: none"> Delete</a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/js/intro.js"></script>
+<script >
+    $(function () {
+
+        $('#Index').DataTable();
+    });
+    function Print(id) {
+        window.open('/Hospital/PrintRequest?ID=' + id);
+    }
+
+</script>

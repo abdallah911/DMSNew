@@ -1,0 +1,223 @@
+﻿@model DMS_Authontication1.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Edit User Data.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Type, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Type, new List<SelectListItem>
+                 {
+                    new SelectListItem{ Text="Pharmacy", Value = "2" },
+                    new SelectListItem{ Text="Doctor", Value = "5" },
+                    new SelectListItem{ Text="Lab", Value = "3" },
+                    new SelectListItem{ Text="Rays lab", Value = "4" },
+                    new SelectListItem{ Text="Hospital", Value = "1" },
+                    //new SelectListItem{ Text="DMS", Value = "DMS" }
+                 }, "--Select--", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group" id="hideProvider">
+        @Html.LabelFor(m => m.Provider, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownList("Provider", ViewBag.provider as SelectList, "--Select--", new { @class = "form-control", id = "Select1" })
+
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.RoleName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.RoleName, new SelectList(ViewBag.Roles, "Value", "Text"), "--Select--", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.FName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.FName, new { @class = "form-control", @id = "FName" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.LName, new { @class = "form-control", @id = "LName" })
+        </div>
+    </div>
+
+    if (ViewBag.address != null)
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownList("Address", ViewBag.address as SelectList, "--Select--", new { @class = "form-control", id = "Select" })
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.state, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownList("State", new SelectList(""), new { @class = "form-control", id = "Selected" })
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PhoneNumber1, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.PhoneNumber1, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+
+    @*<div class="form-group">
+            @Html.LabelFor(m => m.Type, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Type, new { @class = "form-control" })
+            </div>
+        </div>*@
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-1">
+            <input type="submit" class="btn btn-default" onclick="validation()" value="Save" />
+        </div>
+
+        <div class="col-sm-1">
+            <button type="reset" id="New" class="btn btn-default">Reset</button>
+
+
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+<script>
+
+
+    $(document).ready(function () {
+        $("#Select").select2();
+        $("#Select1").select2();
+        $("#Selected").select2();
+
+        $("#Select").change(function () {
+            $.get("/Account/GetStateList",
+                { id: $("#Select").val() }, function (data) {
+                    $("#Selected").empty();
+                    debugger;
+                    $.each(data, function (index, row) {
+                        $("#Selected").append("<option value='" + row.Text + "'>" + row.Value + "</option>")
+                    });
+                });
+        });
+
+
+        function validation() {
+            var FName = document.form.FName.value;
+            var LName = document.form.LName.value;
+            if (FName == "") {
+                alert("Please Enter Your Name");
+                document.form.FName.focus();
+                return false;
+            }
+            if (LName == "") {
+                alert("Please Enter Your Name");
+                document.form.LName.focus();
+                return false;
+            }
+            if (!isNaN(FName)) {
+                bootbox.alert("Please Enter Only Characters");
+                document.form.FName.select();
+                return false;
+            }
+            if (!isNaN(LName)) {
+                bootbox.alert("Please Enter Only Characters");
+                document.form.LName.select();
+                return false;
+            }
+        }
+
+
+
+
+        $("#Type").change(function () {
+
+            if ($(this).val() == "5") {//Doctor
+                $("#hideProvider").hide();
+            }
+            else {
+                $("#hideProvider").show();
+                //provider
+                $.ajax({
+                    type: 'POST',
+                    url: '/Account/Provider/',
+                    dataType: 'json',
+                    data: { id: $(this).val()},
+                    success: function (diag) {
+                        $("#Provider").empty();
+                        $.each(diag, function (i, ddlDiag1) {
+                            $("#Provider").append('<option value="' + ddlDiag1.Value + '">' +
+                                ddlDiag1.Text + '</option>');
+
+                        });
+                        $('#Provider  option:eq(0)').attr('selected', 'selected');
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve providers.');
+                    }
+
+                });
+            }
+        });
+    });
+
+</script>

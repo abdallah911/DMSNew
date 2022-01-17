@@ -1,0 +1,534 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+/******************************
+
+[Table of Contents]
+
+1. Fonts
+2. Body and some general stuff
+3. Header
+4. Menu
+5. Home
+6. Intro
+7. Why
+8. CTA
+9. Services
+10. Extra
+11. Newsletter
+12. Footer
+
+
+******************************/
+
+/***********
+1. Fonts
+***********/
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900');
+
+/*********************************
+2. Body and some general stuff
+*********************************/
+
+*
+{
+	margin: 0;
+	padding: 0;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
+	text-shadow: rgba(0,0,0,.01) 0 0 1px;
+}
+body
+{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	background: #FFFFFF;
+	color: #a5a5a5;
+}
+div
+{
+	display: block;
+	position: relative;
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+ul
+{
+	list-style: none;
+	margin-bottom: 0px;
+}
+p
+{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 14px;
+	line-height: 2.14;
+	font-weight: 500;
+	color: #828282;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
+	text-shadow: rgba(0,0,0,.01) 0 0 1px;
+}
+    p a {
+        display: inline;
+        position: relative;
+        color: inherit;
+        /*border-bottom: solid 1px #ffa07f;*/
+        -webkit-transition: all 200ms ease;
+        -moz-transition: all 200ms ease;
+        -ms-transition: all 200ms ease;
+        -o-transition: all 200ms ease;
+        transition: all 200ms ease;
+    }
+p:last-of-type
+{
+	margin-bottom: 0;
+}
+a
+{
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;
+}
+a, a:hover, a:visited, a:active, a:link
+{
+	text-decoration: none;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
+	text-shadow: rgba(0,0,0,.01) 0 0 1px;
+}
+p a:active
+{
+	position: relative;
+	color: #FF6347;
+}
+/*
+p a:hover
+{
+	color: #FFFFFF;
+	background: #ffa07f;
+}
+p a:hover::after
+{
+	opacity: 0.2;
+}
+*/
+::selection
+{
+	background: rgba(87,204,195,0.75);
+	color: #FFFFFF;
+}
+p::selection
+{
+	
+}
+h1{font-size: 60px;}
+h2{font-size: 48px;}
+h3{font-size: 36px;}
+h4{font-size: 24px;}
+h5{font-size: 18px;}
+h1, h2, h3, h4, h5, h6
+{
+	font-family: 'Montserrat', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
+	text-shadow: rgba(0,0,0,.01) 0 0 1px;
+	line-height: 1.2;
+	color: #404040;
+	    font-size: 38px;
+    font-weight: 500;
+}
+h1::selection, 
+h2::selection, 
+h3::selection, 
+h4::selection, 
+h5::selection, 
+h6::selection
+{
+	
+}
+.form-control
+{
+	color: #db5246;
+}
+section
+{
+	display: block;
+	position: relative;
+	box-sizing: border-box;
+}
+.clear
+{
+	clear: both;
+}
+.clearfix::before, .clearfix::after
+{
+	content: "";
+	display: table;
+}
+.clearfix::after
+{
+	clear: both;
+}
+.clearfix
+{
+	zoom: 1;
+}
+.float_left
+{
+	float: left;
+}
+.float_right
+{
+	float: right;
+}
+.trans_200
+{
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;
+}
+.trans_300
+{
+	-webkit-transition: all 300ms ease;
+	-moz-transition: all 300ms ease;
+	-ms-transition: all 300ms ease;
+	-o-transition: all 300ms ease;
+	transition: all 300ms ease;
+}
+.trans_400
+{
+	-webkit-transition: all 400ms ease;
+	-moz-transition: all 400ms ease;
+	-ms-transition: all 400ms ease;
+	-o-transition: all 400ms ease;
+	transition: all 400ms ease;
+}
+.trans_500
+{
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
+}
+.fill_height
+{
+	height: 100%;
+}
+.super_container
+{
+	width: 100%;
+	overflow: hidden;
+}
+.prlx_parent
+{
+	overflow: hidden;
+}
+.prlx
+{
+	height: 130% !important;
+}
+.parallax-window
+{
+    min-height: 400px;
+    background: transparent;
+}
+.parallax_background
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.background_image
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+}
+.nopadding
+{
+	padding: 0px !important;
+}
+.button
+{
+	height: 46px;
+	border-radius: 20px;
+}
+.button a
+{
+	display: block;
+	padding-left: 40px;
+	padding-right: 36px;
+	line-height: 42px;
+	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: 600;
+}
+.button_1
+{
+	background: #fd556d;
+	border: solid 2px transparent;
+}
+.button_1 a
+{
+	color: #FFFFFF;
+}
+.button_1:hover
+{
+	background: transparent;
+	border: solid 2px #fd556d;
+}
+.button_1:hover a
+{
+	color: #fd556d;
+}
+.button_2
+{
+	background: transparent;
+	border: solid 2px #57ccc3;
+}
+.button_2 a
+{
+	color: #57ccc3;
+}
+.button_2:hover
+{
+	background: #57ccc3;
+}
+.button_2:hover a
+{
+	color: #FFFFFF;
+}
+.section_subtitle
+{
+	font-size: 18px;
+	font-weight: 500;
+	color: #a6abb2;
+	line-height: 0.75;
+}
+.section_title
+{
+	margin-top: 9px;
+}
+.intro_text
+{
+	margin-top: 32px;
+}
+
+/*********************************
+6. Intro
+*********************************/
+
+.intro
+{
+	width: 100%;
+	background: #FFFFFF;
+	padding-top: 89px;
+	padding-bottom: 90px;
+}
+.intro_content
+{
+	padding-top: 30px;
+}
+.milestones
+{
+	margin-top: 85px;
+}
+.milestone_counter
+{
+	font-size: 36px;
+	font-weight: 700;
+	color: #57ccc3;
+	line-height: 0.75;
+}
+.milestone_text
+{
+	font-size: 18px;
+	font-weight: 600;
+	color: #404040;
+	line-height: 1.5;
+	margin-top: 5px;
+}
+.intro_form_container
+{
+	width: 100%;
+	background: #FFFFFF;
+	padding-left: 33px;
+	padding-right: 34px;
+	padding-bottom: 63px;
+	padding-top: 136px;
+	box-shadow: 0px 25px 38px rgba(0,0,0,0.2);
+}
+.intro_form_title
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 80px;
+	background: #57ccc3;
+	line-height: 80px;
+	text-align: center;
+	font-size: 24px;
+	font-weight: 600;
+	color: #FFFFFF;
+}
+.intro_form
+{
+	width: 100%;
+}
+.intro_input {
+    /*width: calc((100% - 15px) / 2);*/
+    height: 62px;
+    background: transparent;
+    border: solid 2px #e6ebf1;
+    margin-bottom: 18px;
+    padding-left: 25px;
+    outline: none;
+    font-size: 15px;
+    color: #404040;
+    font-weight: 500;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+.intro_select
+{
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+    -webkit-user-select: none;
+    font-size: 14px !important;
+	font-weight: 400 !important;
+	font-style: italic;
+	color: #a09f9f !important;
+	cursor: pointer;
+}
+.intro_select.selected
+{
+	font-size: 15px !important;
+	color: #404040 !important;
+	font-weight: 500 !important;
+	font-style: normal !important;
+}
+.intro_select option
+{
+	color: #404040;
+}
+.intro_input:focus,
+.intro_input:hover
+{
+	border: solid 2px #57ccc3;
+}
+.intro_input::-webkit-input-placeholder
+{
+	font-size: 14px !important;
+	font-weight: 400 !important;
+	font-style: italic;
+	color: #a09f9f !important;
+}
+.intro_input:-moz-placeholder
+{
+	font-size: 14px !important;
+	font-weight: 400 !important;
+	font-style: italic;
+	color: #a09f9f !important;
+}
+.intro_input::-moz-placeholder
+{
+	font-size: 14px !important;
+	font-weight: 400 !important;
+	font-style: italic;
+	color: #a09f9f !important;
+} 
+.intro_input:-ms-input-placeholder
+{ 
+	font-size: 14px !important;
+	font-weight: 400 !important;
+	font-style: italic;
+	color: #a09f9f !important;
+}
+.intro_input::input-placeholder
+{
+	font-size: 14px !important;
+	font-weight: 400 !important;
+	font-style: italic;
+	color: #a09f9f !important;
+}
+.intro_button {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    border: solid 2px transparent;
+    cursor: pointer;
+    line-height: 0;
+    text-transform: capitalize;
+}
+.intro_button:hover
+{
+	background: transparent;
+	border: solid 2px #fd556d;
+	color: #fd556d;
+}
+
+
+
+.cus-ememberme .cus-rem-input {
+    position: relative;
+    left: 10px;
+}
+
+.cus-ememberme .cus-rem-label {
+    position: relative;
+    top: -20px;
+    left: 25px;
+}
+
+#loginForm .cus-reset {
+    background: transparent;
+    color: black;
+    font-weight: bold;
+    text-transform: capitalize;
+    border: 1px solid #57ccc3;
+    line-height: 0;
+    text-transform: uppercase;
+}
+
+
+
+#loginForm .cus-forg-pass {
+	position: relative;
+    top: 17px;
+}
+
+
+.text-danger {
+    position: relative;
+    bottom: 15px;
+    left: 8px;
+}
+
+.call-btn a {
+    text-transform: none;
+}

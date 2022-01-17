@@ -1,0 +1,197 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+@*<link href="https://fonts.googleapis.com/css?family=Reenie+Beanie|Lato:700" rel="stylesheet" type="text/css" />
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
+<style>
+    .Note {
+        margin: 20px auto;
+        font-family: 'Lato';
+        background: #666;
+        color: #fff;
+    }
+
+        .Note * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .Note h2 {
+            font-weight: bold;
+            font-size: 2rem;
+        }
+
+        .Note p {
+            font-family: 'Reenie Beanie';
+            font-size: 2rem;
+        }
+
+        .Note ul, li {
+            list-style: none;
+        }
+
+        .Note ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+            .Note ul li a {
+                text-decoration: none;
+                color: #000;
+                background: #ffc;
+                display: block;
+                height: 10em;
+                width: 10em;
+                padding: 1em;
+                box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+                /*transform: rotate(-6deg);*/
+                transition: transform .15s linear;
+            }
+
+            .Note ul li:nth-child(even) a {
+                transform: rotate(4deg);
+                position: relative;
+                top: 5px;
+                background: #cfc;
+            }
+
+            .Note ul li:nth-child(3n) a {
+                transform: rotate(-3deg);
+                position: relative;
+                top: -5px;
+                background: #ccf;
+            }
+
+            .Note ul li:nth-child(5n) a {
+                transform: rotate(5deg);
+                position: relative;
+                top: -10px;
+            }
+
+            .Note ul li a:hover, ul li a:focus {
+                box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+                transform: scale(1.25);
+                position: relative;
+                z-index: 5;
+            }
+
+            .Note ul li {
+                margin: 1em;
+            }
+</style>
+<div class="Note" dir="rtl">
+    <ul style="margin-top: 100px">
+
+        <li style="width:50%">
+
+            <a style="width:100%;height:100%">
+                <h2 dir="rtl">شروط تقديم مطالبة الى قسم الاندمتى طبقا للنقاط التالية</h2>
+                @*<p dir="rtl">Text Content #1</p>*@
+            </a>
+        </li>
+        <li style="width:50%">
+
+            <a style="width:100%;height:100%">
+                <h2 dir="rtl"> #1</h2>
+                <p dir="rtl">في حالة تقديم مطالبه كشف من الطبيب المعالج : ارسال اصل ايصال الدفع مختوم او روشته مختومه من الطبيب المعالج موضح  بها التشخيص .</p>
+            </a>
+        </li>
+
+        <li style="width:50%">
+            <a style="width:100%;height:100%">
+                <h2>#2</h2>
+                <p> في حالة تقديم مطالبه تحاليل واشاعات : ارسال اصل ايصال الدفع مختوم مع ارسال روشته من الطبيب المعالج موضح به الفحوصات التي يتم اجراؤها وارسال نتائج الفحوصات وتقرير من الطبيب المعالج موضح به التشخيص .</p>
+            </a>
+        </li>
+        <li style="width:50%">
+            <a style="width:100%;height:100%">
+                <h2> #3</h2>
+                <p>في حاله تقديم مطالبه جلسات علاج طبيعي : ارسال تقرير طبي بالحاله من الطبيب المعالج موضح به التشخيص وعدد الجلسات التي يتم اجراؤها  وارسال اصل ايصال دفع مختوم من المركز موضح به سعر كل جلسة</p>
+            </a>
+        </li>
+        <li style="width:50%">
+            <a style="width:100%;height:100%">
+                <h2> #4</h2>
+                <p>فى حالة تقديم مطالبه ادويه  : ارسال روشته من الطبيب المعالج وارسال اصل فاتوره مختومه من الصيدليه وفي حالة  تقديم مطالبه ادويه شهريا فيتم صرفها داخل الشبكه الطبيه فقط وليس من خلال قسم الدفع والاسترداد .</p>
+            </a>
+        </li>
+        <li style="width:50%">
+            <a style="width:100%;height:100%">
+                <h2> #5</h2>
+                <p>فى حالة تقديم مطالبه نظاره طبيه : ارسال مقياس النظر مع ارسال اصل ايصال الدفع مختوم .</p>
+            </a>
+        </li>
+        <li style="width:50%">
+            <a style="width:100%;height:100%">
+                <h2> #6</h2>
+                <p>فى حالة تقديم مطالبه اسنان : ارسال اصل ايصال الدفع مختوم موضح به الخدمات التي يتم اجراؤها مع توضيح رقم الضرس .</p>
+            </a>
+        </li>
+        <li style="width:50%">
+            <a style="width:100%;height:100%">
+                <h2> #7</h2>
+                <p> في حالة تقديم مطالبه من المستشفي كحاله داخلى : ارسال اصل ايصال سداد نقدي وارسال اصل فاتوره تفصيليه مختومه من المستشفى وتقرير من المستشفي بالحاله  مع مراعاة جميع حالات دخول المستشفي  واجراء اي عمليات  ما عدا حالات الطوارى يجب ان يتم اخذ موافقه مسبقه من  الاداره الطبيه اولا وارسال ايضا نموذج الموافقه مع المطالبه  .</p>
+            </a>
+        </li>
+        <li style="width:50%">
+            <a style="width:100%;height:100%">
+                <h2> #8</h2>
+                <p>في حاله تقديم مطالبه حمل وولاده : ارسال سونار او تحليل ( صوره ام اصل )  يوضخ تاريخ بدء الحمل .</p>
+            </a>
+        </li>
+        <li style="width:50%">
+            <a style="width:100%;height:100%">
+                <h2> #9</h2>
+                <p>في حالة  تقديم مطالبه متابعة الحمل : وارسال اصل ايصال الدفع مختوم او روشته مختومه من الطبيب المعالج  .</p>
+            </a>
+        </li>
+        <li style="width:50%">
+            <a style="width:100%;height:100%">
+                <h2> #10</h2>
+                <p> في حاله تقديم مطالبه ولادة : ارسال اصل فاتوره تفصيليه مختومه واصل ايصال سداد نقدى  وارسال تقرير موضح به نوع الولاده .</p>
+            </a>
+        </li>
+        <li style="width:50%">
+            <a style="width:100%;height:100%">
+                <h2> #11</h2>
+                <p> في حالة  تقديم  اى مطالبه يلزم ارسالها في مده لا تتجاوز 60 يوم من تاريخ اجراء الخدمه .</p>
+            </a>
+        </li>
+    </ul>
+</div>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        all_notes = $("li a");
+
+        all_notes.on("keyup", function () {
+            note_title = $(this).find("h2").text();
+            note_content = $(this).find("p").text();
+
+            item_key = "list_" + $(this).parent().index();
+
+            data = {
+                title: note_title,
+                content: note_content
+            };
+
+            window.localStorage.setItem(item_key, JSON.stringify(data));
+        });
+
+        all_notes.each(function (index) {
+            data = JSON.parse(window.localStorage.getItem("list_" + index));
+
+            if (data !== null) {
+                note_title = data.title;
+                note_content = data.content;
+
+                $(this).find("h2").text(note_title);
+                $(this).find("p").text(note_content);
+            }
+        });
+    });
+</script>

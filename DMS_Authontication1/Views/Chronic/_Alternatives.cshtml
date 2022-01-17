@@ -1,0 +1,136 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.ChronicViewModel>
+
+<div class="modal fade " id="AlternativesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:1000px" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Alternativies</h3>
+            </div>
+            <div class="modal-body">
+
+
+                <table class="table" id="Alteratives">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.MED_CODE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MED_NAME)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DOSAGE_FORM)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Des_PACK_PRICE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PACK_SIZE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UNIT_NO)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.UNIT_PRICE)
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td>
+                                    <button id="Add" onclick="Add(this);" class="btn btn-primary">Add</button>
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MED_CODE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MED_NAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DOSAGE_FORM)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Des_PACK_PRICE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PACK_SIZE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UNIT_NO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UNIT_PRICE)
+                                </td>
+
+
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+
+<script>
+    var Alternative;
+    var AlternativeAmount;
+    function Change(button) {
+        var row = $(button).closest("TR");
+
+        var MedicienCode = $("TD", row).eq(1).html();
+        var MedicienName = $("TD", row).eq(2).html();
+        var DosageForm = $("TD", row).eq(3).html();
+        var PackPrice = $("TD", row).eq(4).html();
+        var PackSize = $("TD", row).eq(5).html();
+        var UnitNo = $("TD", row).eq(6).html();
+        var UnitPrice = $("TD", row).eq(7).html();
+        PackPrice = parseFloat(PackPrice);
+        AlternativeAmount = PackPrice;
+
+        if (PackPrice <= BasicAmount) {
+            Alternative = true;
+            //$('.modal-body #TotalUnits').attr("readonly", true);
+            //if (DosageForm == "ELIXIR" || DosageForm == "SYRUP" || DosageForm == "SUSPENTION" || DosageForm == "EMULSION" || DosageForm == "SOUTION") {
+            //    $('.modal-body #TotalUnits').attr("readonly", false);
+            //}
+
+            $('.modal-body #MedicienCode').val(MedicienCode);
+            $('.modal-body #MedicienName').val(MedicienName);
+            $('.modal-body #Dosage').val(DosageForm);
+            $('.modal-body #PackagePrice').val(PackPrice);
+            $('.modal-body #PackageSize').val(PackSize);
+            $('.modal-body #UnitNumber').val(UnitNo);
+            $('.modal-body #UnitPrice').val(UnitPrice);
+            $('.modal-body #TotalUnits').val(UnitNo);
+            $('.modal-body #Amount').val(PackPrice);
+
+            $('#AlternativesModal').modal('hide');
+
+            //$('.modal-body #Dose').val("");
+            //$('.modal-body #Duration').val("");
+            //$('.modal-body #TotalUnits').val(1);
+        }
+        else {
+            alert("Invalid value of  Amount ");
+        }
+    }
+
+</script>

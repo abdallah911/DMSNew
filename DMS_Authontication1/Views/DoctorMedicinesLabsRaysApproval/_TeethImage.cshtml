@@ -1,0 +1,283 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="TeethImageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                @*<h3 class="modal-title">Approval Image</h3>*@
+            </div>
+
+            <img id="TeethImage" width="80%" src="~/Content/images/tooth.png" />
+            <div class="modal-footer">
+
+                <button id="Close" type="button" class="btn btn-secondary glyphicon glyphicon-ok" data-dismiss="modal">Ok</button>
+                <input type="text" id="spnCursor" />
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        $('#TeethImage').click(function (e) {
+            //upper right
+            var ToothNumer = "";
+            if (e.pageX > 505 && e.pageX < 544 && e.pageY > 118 && e.pageY < 144) {
+                if ($('#Tag11').length) {
+                    $('#Tag11').remove();
+                    if (ToothNumer == "tooth 11") {
+                        var splited = $('#Subservice').val().split("\n");
+                        splited.splice(-1, 1);
+                        $('#Subservice').val(splited.join("\n"));
+                    }
+                }
+                else {
+                    ToothNumer = "tooth 11";
+                    $('#Subservice').val($('#Subservice').val() + ToothNumer + "\n");
+                    //var splited = $('#Subservice').val().split("\n");
+                    //var add = 1;
+                    //for (var i = 0; i < splited.length; i++) {
+                    //    if (splited[i] == ToothNumer) {
+                    //        toastr.error('Added Before')
+                    //        add = 0;
+                    //    }
+                    //}
+                    //if (add == 1) {
+                    //    $('#Subservice').val($('#Subservice').val() + ToothNumer + "\n");
+                    //}
+                    $("#TeethImageModal .modal-content").append(
+                        $('<img id="Tag11" src="/Content/images/marker.png"   />').css({       // include a class
+                            position: 'absolute',
+                            top: e.pageY - 30 + 'px',
+                            left: e.pageX - 193 + 'px',
+                            width: '20px',
+                            height: '20px',
+
+                        })
+                    );
+
+                }
+            }
+            else if (e.pageX > 470 && e.pageX < 500 && e.pageY > 136 && e.pageY < 146) {
+
+                $('#Tag12').remove();
+                $("#TeethImageModal .modal-content").append(
+                    $('<img id="Tag12" src="/Content/images/marker.png"   />').css({       // include a class
+                        position: 'absolute',
+                        top: e.pageY - 30 + 'px',
+                        left: e.pageX - 193 + 'px',
+                        width: '20px',
+                        height: '20px',
+
+                    })
+                );
+            }
+            else if (e.pageX > 449 && e.pageY > 160 && e.pageX < 472 && e.pageY < 169) {
+
+                $('#Tag13').remove();
+                $("#TeethImageModal .modal-content").append(
+                    $('<img id="Tag13" src="/Content/images/marker.png"   />').css({       // include a class
+                        position: 'absolute',
+                        top: e.pageY - 35 + 'px',
+                        left: e.pageX - 193 + 'px',
+                        width: '20px',
+                        height: '20px',
+
+                    })
+                );
+            }
+            else if (e.pageX > 431 && e.pageY > 186 && e.pageX < 454 && e.pageY < 209) {
+
+                $('#Tag14').remove();
+                $("#TeethImageModal .modal-content").append(
+                    $('<img id="Tag14" src="/Content/images/marker.png"   />').css({       // include a class
+                        position: 'absolute',
+                        top: e.pageY - 35 + 'px',
+                        left: e.pageX - 193 + 'px',
+                        width: '20px',
+                        height: '20px',
+
+                    })
+                );
+            }
+            else if (e.pageX > 423 && e.pageY > 224 && e.pageX < 450 && e.pageY < 244) {
+                $('#Tag15').remove();
+                $("#TeethImageModal .modal-content").append(
+                    $('<img id="Tag15" src="/Content/images/marker.png"   />').css({       // include a class
+                        position: 'absolute',
+                        top: e.pageY - 35 + 'px',
+                        left: e.pageX - 193 + 'px',
+                        width: '20px',
+                        height: '20px',
+                    })
+                );
+            }
+            else if (e.pageX > 409 && e.pageY > 264 && e.pageX < 443 && e.pageY < 289) {
+                $('#Tag16').remove();
+                $("#TeethImageModal .modal-content").append(
+                    $('<img id="Tag16" src="/Content/images/marker.png"   />').css({       // include a class
+                        position: 'absolute',
+                        top: e.pageY - 35 + 'px',
+                        left: e.pageX - 193 + 'px',
+                        width: '20px',
+                        height: '20px',
+
+                    })
+                );
+            }
+            else if (e.pageX > 406 && e.pageY > 317 && e.pageX < 430 && e.pageY < 342) {
+
+                $('#Tag17').remove();
+                $("#TeethImageModal .modal-content").append(
+                    $('<img id="Tag17" src="/Content/images/marker.png"   />').css({       // include a class
+                        position: 'absolute',
+                        top: e.pageY - 35 + 'px',
+                        left: e.pageX - 193 + 'px',
+                        width: '20px',
+                        height: '20px',
+
+                    })
+                );
+            }
+            else if (e.pageX > 402 && e.pageY > 365 && e.pageX < 429 && e.pageY < 384) {
+
+                $('#Tag18').remove();
+                $("#TeethImageModal .modal-content").append(
+                    $('<img id="Tag18" src="/Content/images/marker.png"   />').css({       // include a class
+                        position: 'absolute',
+                        top: e.pageY - 35 + 'px',
+                        left: e.pageX - 193 + 'px',
+                        width: '20px',
+                        height: '20px',
+
+                    })
+                );
+            }
+            //upper left
+            else if (e.pageX > 557 && e.pageX < 593 && e.pageY > 118 && e.pageY < 144) {
+
+                $('#Tag21').remove();
+                $("#TeethImageModal .modal-content").append(
+                    $('<img id="Tag21" src="/Content/images/marker.png"   />').css({       // include a class
+                        position: 'absolute',
+                        top: e.pageY - 30 + 'px',
+                        left: e.pageX - 193 + 'px',
+                        width: '20px',
+                        height: '20px',
+
+                    })
+                );
+            }
+            else if (e.pageX > 600 && e.pageX < 629 && e.pageY > 130 && e.pageY < 140) {
+
+                $('#Tag22').remove();
+                $("#TeethImageModal .modal-content").append(
+                    $('<img id="Tag22" src="/Content/images/marker.png"   />').css({       // include a class
+                        position: 'absolute',
+                        top: e.pageY - 35 + 'px',
+                        left: e.pageX - 193 + 'px',
+                        width: '20px',
+                        height: '20px',
+
+                    })
+                );
+            }
+            else if (e.pageX > 627 && e.pageY > 151 && e.pageX < 652 && e.pageY < 173) {
+
+                $('#Tag23').remove();
+                $("#TeethImageModal .modal-content").append(
+                    $('<img id="Tag23" src="/Content/images/marker.png"   />').css({       // include a class
+                        position: 'absolute',
+                        top: e.pageY - 35 + 'px',
+                        left: e.pageX - 193 + 'px',
+                        width: '20px',
+                        height: '20px',
+
+                    })
+                );
+            }  
+            else if (e.pageX > 638 && e.pageY > 187 && e.pageX > 670 && e.pageY > 206)
+            {
+                $('#Tag24').remove();
+                $("#TeethImageModal .modal-content").append(
+                    $('<img id="Tag24" src="/Content/images/marker.png"   />').css({       // include a class
+                        position: 'absolute',
+                        top: e.pageY - 35 + 'px',
+                        left: e.pageX - 193 + 'px',
+                        width: '20px',
+                        height: '20px',
+
+                    })
+                );
+            }
+            else if (e.pageX > 645 && e.pageY > 224 && e.pageX < 681 && e.pageY < 243) {
+                $('#Tag25').remove();
+                $("#TeethImageModal .modal-content").append(
+                    $('<img id="Tag25" src="/Content/images/marker.png"   />').css({       // include a class
+                        position: 'absolute',
+                        top: e.pageY - 35 + 'px',
+                        left: e.pageX - 193 + 'px',
+                        width: '20px',
+                        height: '20px',
+                    })
+                );
+            }
+            else if (e.pageX > 652 && e.pageY > 262 && e.pageX < 691 && e.pageY < 296) {
+                $('#Tag26').remove();
+                $("#TeethImageModal .modal-content").append(
+                    $('<img id="Tag26" src="/Content/images/marker.png"   />').css({       // include a class
+                        position: 'absolute',
+                        top: e.pageY - 35 + 'px',
+                        left: e.pageX - 193 + 'px',
+                        width: '20px',
+                        height: '20px',
+
+                    })
+                );
+            }
+            else if (e.pageX > 670 && e.pageY > 318 && e.pageX < 695 && e.pageY < 341) {
+
+                $('#Tag27').remove();
+                $("#TeethImageModal .modal-content").append(
+                    $('<img id="Tag27" src="/Content/images/marker.png"   />').css({       // include a class
+                        position: 'absolute',
+                        top: e.pageY - 35 + 'px',
+                        left: e.pageX - 193 + 'px',
+                        width: '20px',
+                        height: '20px',
+
+                    })
+                );
+            }
+            else if (e.pageX > 674 && e.pageY > 361 && e.pageX < 698 && e.pageY < 388) {
+
+                $('#Tag28').remove();
+                $("#TeethImageModal .modal-content").append(
+                    $('<img id="Tag28" src="/Content/images/marker.png"   />').css({       // include a class
+                        position: 'absolute',
+                        top: e.pageY - 35 + 'px',
+                        left: e.pageX - 193 + 'px',
+                        width: '20px',
+                        height: '20px',
+
+                    })
+                );
+            }
+
+            alert('e.pageX >' + e.pageX + ' && e.pageY > ' + e.pageY);
+
+        });
+        $(document).mousemove(function (e) {
+
+            $('#spnCursor').val("X Axis : " + e.pageX + " Y Axis : " + e.pageY);
+        });
+        $('#TeethImageModal .modal-footer #Close').click(function () {
+
+        });
+
+    });
+
+</script>

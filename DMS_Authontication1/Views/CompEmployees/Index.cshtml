@@ -1,0 +1,571 @@
+﻿@*@model IEnumerable<DMS_Authontication1.Models.Comp_Employees>*@
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Employees
+        </div>
+        @*<div class="actions">
+            <a id="Create" href="/CompEmployees/Create" class="btn btn-success   btn-sm" >
+                <i class="fa fa-plus"></i> Create
+            </a>
+        </div>*@
+
+    </div>
+    <br />
+    <div class="portlet-body">
+        <table class="ui celled table" id="Employees" style="width:100%">
+            <thead>
+                <tr>
+
+                    <th>
+                        Card ID
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Contract
+                    </th>
+                    <th>
+                        National Id
+                    </th>
+                    <th>
+                        Telephone 1
+                    </th>
+
+                    <th>
+                        Telephone 2
+                    </th>
+                    <th></th>
+                    <th></th>
+                    @* <th></th>*@
+                </tr>
+            </thead>
+            <tbody></tbody>
+
+        </table>
+    </div>
+</div>
+
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    $(function () {
+     
+        $("#Employees").DataTable({
+            "sAjaxSource": '/CompEmployees/EmployeesList',
+            "bServerSide": true,
+            "processing": true,
+            "bFilter": true,
+            "bSort": false,
+            "pageLength": 10,
+            "bInfo": true,
+            "columns": [
+                { "data": "CARD_ID" },
+                { "data": "EMP_ENAME" },
+                { "data": "CONTRACT_NO" },
+                { "data": "EMP_ID" },
+                { "data": "TEL1" },
+                { "data": "TEL2" },
+                {
+                    "data": "Id",
+                    "mRender": function (data) {
+                        //return '<a href="/CompEmployees/Edit/' + data + '">Edit</a>';
+                        return '<a class="btn btn-warning" style = " text-transform: none" href="/CompEmployees/Edit/' + data + '">Edit</a>';
+
+                    }
+                },
+                {
+                    "data": "Id",
+                    "mRender": function (data) {
+                        //data = data.toString().slice(8);//remove date
+                        //return '<a href="/Pharmacy/Delete/' + data + '">Delete</a>';
+                        return '<button type="button" class="btn btn-info" data-id=' + data + ' onclick="SMSCode(this);"> SMS Code</button>';
+
+                    }
+                }
+                //, {
+                //    "data": "Id",
+                //    "mRender": function (data) {
+                //        //return '<a href="/CompEmployees/Details/' + data + '">Details</a>';
+                //        return '<a class="btn btn-info" style = " text-transform: none" href="/CompEmployees/Details/' + data + '">Details</a>';
+
+                //    }
+                //}
+                //, {
+                //    "data": "Id",
+                //    "mRender": function (data) {
+                //        return '<a href="/CompEmployees/Delete/' + data + '">Delete</a>';
+                //    }
+                //}
+
+
+            ]
+        });
+    });
+    function SMSCode(button) {
+        var id = $(button).data('id');
+        bootbox.confirm("Are you sure to Resend Verficstion Code ?", function (result) {
+            if (result) {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: '/CompEmployees/SMSCode',
+                    data: { id: id },
+                    success: function (returndata) {
+                        if (returndata.ok) {
+                            bootbox.alert("Send successfully, verfication code is " + returndata.returndata)
+                        } else {
+                            bootbox.alert(returndata.returndata)
+
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
+</script>
+@*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CARD_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.COMP_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BRANCH_CODE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.C_COMP_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CONTRACT_NO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CLASS_CODE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DEPT_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_CODE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_ANAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_ENAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ADDRESS1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ADDRESS2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TEL1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TEL2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FAX)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMAIL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BIRTH_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HIRE_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.INS_TYP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.REF_EMP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MATERIAL_STATUS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TERMINATE_FLAG)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TERMINATE_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EXP_CELLING)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GENDER)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.INS_START_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.INS_END_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.W_GLASS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EXP_AGE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_INSURANCE_NO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_IMG)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OLD_CLASS_CODE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TRANS_EMO_TYPE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EFFECT_DATE_TYPE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SPECIFIC_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DELV_CARD_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PRINT_CARD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NOTES)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ACTIVE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CREATED_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CREATED_BY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UPDATE_BY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UPDATE_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_ANAME_ST)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_ANAME_SC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_ANAME_TH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_ANAME_FR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_ANAME_FAM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_ENAME_ST)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_ENAME_SC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_ENAME_TH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_ENAME_FR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_ENAME_FAM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DEL_DELIVIER_CARD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BK_CODE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BK_ACC_NO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.COST_CODE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PRINT_FST_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PRINT_SEC_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PRINT_THR_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PRINT_FTH_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PRINT_LST_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PRINT_TYP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.END_WRK_DT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.USR_TYP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMP_SEQ)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsSync)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SyncDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SyncBy)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CARD_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COMP_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BRANCH_CODE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.C_COMP_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CONTRACT_NO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CLASS_CODE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DEPT_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_CODE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_ANAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_ENAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ADDRESS1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ADDRESS2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TEL1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TEL2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FAX)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMAIL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BIRTH_DATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HIRE_DATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.INS_TYP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.REF_EMP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MATERIAL_STATUS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TERMINATE_FLAG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TERMINATE_DATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EXP_CELLING)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GENDER)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.INS_START_DATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.INS_END_DATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.W_GLASS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EXP_AGE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_INSURANCE_NO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_IMG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OLD_CLASS_CODE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TRANS_EMO_TYPE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EFFECT_DATE_TYPE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SPECIFIC_DATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DELV_CARD_DATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PRINT_CARD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NOTES)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ACTIVE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CREATED_DATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CREATED_BY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UPDATE_BY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UPDATE_DATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_ANAME_ST)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_ANAME_SC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_ANAME_TH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_ANAME_FR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_ANAME_FAM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_ENAME_ST)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_ENAME_SC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_ENAME_TH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_ENAME_FR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_ENAME_FAM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DEL_DELIVIER_CARD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BK_CODE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BK_ACC_NO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COST_CODE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PRINT_FST_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PRINT_SEC_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PRINT_THR_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PRINT_FTH_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PRINT_LST_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PRINT_TYP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.END_WRK_DT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.USR_TYP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMP_SEQ)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSync)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SyncDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SyncBy)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+    }
+
+    </table>*@

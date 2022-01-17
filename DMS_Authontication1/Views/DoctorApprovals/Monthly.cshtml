@@ -1,0 +1,221 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@Html.Partial("_Companies")
+@Html.Partial("_Providers")
+@Html.Partial("_AddCard")
+@Html.Partial("_ApprovalMedicines")
+@Html.Partial("_ApprovalEdit")
+@Html.Partial("_EditCard")
+@Html.Partial("_SearchCards")
+@Html.Partial("_LastApproval")
+<div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px; z-index:100000;">
+    <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
+</div>
+
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Chronic Management
+        </div>
+    </div>
+    <div class="portlet-body">
+
+        <ul class="nav nav-tabs">
+            <li><a href="#CompaniesTab" data-toggle="tab">Companies</a></li>
+            <li class="active"><a href="#IndividualTab" data-toggle="tab">Individual</a></li>
+        </ul>
+        <div class="tab-content" style="padding-left:15px">
+            <div id="CompaniesTab" class="tab-pane fade ">
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <input id="txtSearchCompany" type="text" placeholder="search for company..." class="form-control" />
+                            </div>
+                            <div class="col-sm-3">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label>Change Provider</label>
+                                <input type="text" id="ChangeProvider" class="form-control" placeholder="New Provider" disabled />
+                            </div>
+                            <div class="col-sm-2">
+                                <label>Change Group</label>
+                                @Html.DropDownList("ChangeGroup", new SelectList(string.Empty, "Value", "Text"), "New Group", new { @class = "form-control", disabled = "true" })
+                            </div>
+                            <div class="col-sm-2">
+                                <label>CoPayment Exception</label>
+                                <select id="CoPayStatus" class="form-control" disabled>
+                                    <option value="N">CoPay Status</option>
+                                    <option value="1">On</option>
+                                    <option value="0">Off</option>
+
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <label>Over Exception</label>
+                                <select id="OverStatus" class="form-control" disabled>
+                                    <option value="N">Over Status</option>
+                                    <option value="1">On</option>
+                                    <option value="0">Off</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <label>Lock Status</label>
+                                <select id="LockStatus2" class="form-control" disabled>
+                                    <option value="N">Lock Status</option>
+                                    <option value="Open">Open</option>
+                                    <option value="Pause">Pause</option>
+                                    <option value="Close">Close</option>
+                                </select>
+                            </div>
+                            @*<div class="col-sm-2">
+                                    <label for="OldMainProvider" class="col-form-label">Edit Group</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    @Html.DropDownList("OldMainGroup", new SelectList(string.Empty, "Value", "Text"), "Old Group", new { @class = "form-control", disabled = "true" })
+                                </div>
+                                <div class="col-sm-2">
+                                    @Html.DropDownList("MainGroup", new SelectList(string.Empty, "Value", "Text"), "New Group", new { @class = "form-control", disabled = "true" })
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="IndividualTab" class="tab-pane fade  in active">
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <input id="AddCardTxt" type="text" placeholder="Add Card" class="form-control" />
+                            </div>
+                            <div class="col-sm-3">
+                                @*<button id="AddCard" class=" btn btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#exampleModal"> Add</button>*@
+                                <button id="AddCard" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="glyphicon glyphicon-search"></i> Search
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="HEIGHT: 300px;position:relative">
+                        <table class="table table-fixed" id="Cards">
+                            <thead>
+                                <tr>
+                                    <th scope="col">&nbsp;</th>
+                                    <th scope="col">Card Id</th>
+                                    <th scope="col" align="center">Name</th>
+                                    <th scope="col">Provider</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Exchange</th>
+                                    <th scope="col">Group</th>
+                                    <th scope="col">Diagnose</th>
+                                    <th scope="col">CoPayment</th>
+                                    <th scope="col">Over</th>
+                                    <th scope="col">Active</th>
+                                    <th scope="col">Comments</th>
+
+                                    <th scope="col">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+
+                        </table>
+                    </div>
+                    <br /><br />
+                    <div class="panel panel-info">
+                        <h2 class="panel-heading" style="margin:1px;">Medicines</h2>
+                        <div class="panel-body">
+                            <!--Search Medicine-->
+                            @*<div class="row">
+                                    <div class="col-sm-12" data-step="9" data-intro="Select Medicines to Despense">
+                                        <select id="AddMedicine" multiple="multiple" style="width:100%">
+                                            <option value="0">select medicine</option>
+                                        </select>
+                                    </div>
+                                </div>*@
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button id="AddMedicien" class=" btn btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#exampleModal"> Add Medicine</button>
+                                </div>
+                            </div>
+
+                            <div class="container-fluid">
+                                @*<div class="master"></div>*@
+                                <div class="table-responsive">
+                                    <table class="table" id="CardMedicines">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Medicien Code</th>
+                                                <th scope="col" align="center">Name</th>
+                                                <th scope="col">Dosage</th>
+                                                <th scope="col">Package Size</th>
+                                                <th scope="col">Package Price</th>
+                                                <th scope="col">Unit Number</th>
+                                                <th scope="col">Unit Price</th>
+                                                <th scope="col">Dose</th>
+                                                <th scope="col">Duration</th>
+                                                <th scope="col">Dose Duration</th>
+                                                <th scope="col">Total Units</th>
+                                                <th scope="col">Excess</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Medicines Type</th>
+                                                <th scope="col">Months</th>
+                                                <th scope="col">stop Month</th>
+                                                <th scope="col">Active</th>
+                                                <th scope="col"> </th>
+                                                <th scope="col"> </th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody></tbody>
+
+                                    </table>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--Save-->
+                        <div class="panel-footer" style="text-align:right;">
+                            <a id="LastApproval" class=" btn btn-default glyphicon glyphicon-eye-open" style="float:left"> Last Approval</a>
+                            <input id="SubmetChronic" type="button" value="Save mediciens" class="btn btn-success glyphicon glyphicon-save">
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+    </div>
+
+</div>
+
+
+
+
+
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script src="~/Scripts/DMS/Monthly_Chronic_Approvals.js?V=2.4"></script>

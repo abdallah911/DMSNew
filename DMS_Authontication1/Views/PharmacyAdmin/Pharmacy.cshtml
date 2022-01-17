@@ -1,0 +1,235 @@
+﻿@model DMS_TEST.ViewModel.Container1
+@{
+    ViewBag.Title = "Pharmacy";
+}
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+<style>
+    #PrescriptionDate[readonly] {
+        background-color: white;
+        cursor: pointer !important;
+    }
+
+    .btn span.glyphicon {
+        opacity: 0;
+    }
+
+    .btn.active span.glyphicon {
+        opacity: 1;
+    }
+</style>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+
+@Html.Partial("_Cards")
+<!--Card Id Row-->
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Pharmacies
+        </div>
+        <div class="actions">
+            <a id="Pending" href="javascript:;" class="btn btn-primary  btn-sm" disabled>
+                <i class="fa fa-pencil"></i> Pending
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="form-group">
+            <div class="row">
+
+                <div data-step="1" data-hint='Step one!' data-intro="Enter Card ID" class="col-md-3">
+                    <input id="txtSearchCard" type="text" placeholder="search for card..." class="form-control" />
+                </div>
+                <div class="col-md-2" data-step="2" data-intro="click Search">
+                    <button id="Search" type="button" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-search"></i> Search
+                    </button>
+                </div>
+                <div class=" col-md-2 btn-group" data-toggle="buttons">
+                    <label id="Approval" class="btn btn-info" disabled>
+                        <input id="HasApproval" type="checkbox" autocomplete="off">
+                        <span class="glyphicon glyphicon-ok"></span> Has Approval
+                    </label>
+                </div>
+
+
+                @*<div class="col-md-1">
+                    @Html.Label("Comment", htmlAttributes: new { @class = "control-label" })
+                </div>*@
+                <div class="col-md-2">
+                    <div class="form-group shadow-textarea" hidden>
+                        <textarea id="Comments" placeholder="Notes" style="height: 33px;" type="text" class="form-control" name="Comments" maxlength="50" placeholder="" value=""></textarea>
+                    </div>
+                </div>   
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="col-md-3">
+                        @Html.DropDownList("ddlUsers", null, htmlAttributes: new { @class = "form-control", @id = "ddlUsers" })
+                    </div>
+                }
+            </div>
+            </div>
+
+            <div class="panel panel-info">
+                <h2 class="panel-heading" style="margin:1px;">Card ID</h2>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                            </div>
+                            <div class="col-sm-2" data-step="4" data-intro="Enter Clame Number">
+                                @Html.Label("Claim Number", htmlAttributes: new { @class = "control-label" })
+                                @Html.Editor("ClaimNumber", new { htmlAttributes = new { @class = "form-control", @id = "ClaimNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                            </div>
+                            <div class="col-sm-2" data-step="7" data-intro="Select speciality">
+                                @Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "form-control", @id = "ddlSpeciality" })
+                            </div>
+                            <div class="col-sm-2" data-step="8" data-intro="Select Diagnoises">
+                                @Html.Label("Diagnoise", new { @class = "control-label" })
+                                <select id="ddlDiagnoises" style="width:100%" multiple></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2" data-step="3" data-intro="Enter Preception Date">
+                            @Html.Label("Prescription Date", htmlAttributes: new { @class = "control-label", @title = "لابد ان يكون ف اخر 7 ايام " })
+                            @Html.Editor("PrescriptionDate", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true", @title = "لابد ان يكون ف اخر 7 ايام " } })
+                        </div>
+                        <div class="col-sm-2" data-step="5" data-intro="Enter Phone with 11 Number ">
+                            @Html.Label("Phone Number", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("PhoneNumber", new { htmlAttributes = new { @class = "form-control", @id = "PhoneNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                        </div>
+                        <div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
+                            @Html.Label("Type", htmlAttributes: new { @class = "control-label" })
+                            <select id="ddlType" class="form-control">
+                                <option value="11601">Daily</option>
+                                <option value="11603">Monthly</option>
+                                <option value="11602">Chronic</option>
+                                <option value="11604">Doctor</option>
+                            </select>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <h2 class="panel-heading" style="margin:1px;">Medicines</h2>
+                <div class="panel-body">
+                    <!--Search Medicine-->
+                    <div class="row">
+                        <div class="col-sm-12" data-step="9" data-intro="Select Medicines to Despense">
+                            <select id="AddMedicine" multiple="multiple" style="width:100%">
+                                <option value="0">select medicine</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Dynamic table-->
+                    <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
+                        <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
+                    </div>
+                    <div class="container-fluid">
+                        <div class="master">
+                            <div class="table-responsive">
+                                <table class="table" id="Pharmacy">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Medicien Code</th>
+                                            <th scope="col" align="center">Name</th>
+                                            <th scope="col">Dosage</th>
+                                            <th scope="col">Package Size</th>
+                                            <th scope="col">Package Price</th>
+                                            <th scope="col">Unit Number</th>
+                                            <th scope="col">Unit Price</th>
+                                            <th scope="col">Dose</th>
+                                            <th scope="col">Duration</th>
+                                            <th scope="col">Total Duration</th>
+                                            @*<th scope="col">Total Units</th>*@
+                                            <th scope="col">Approved Quantity</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Group</th>
+                                            @* <th scope="col">&nbsp;</th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+
+                                </table>
+                            </div>
+                            <!--Caculation-->
+                            <div id="load">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Total</label>
+                                            <input id="txtTotalInvoice" type="text" class="form-control" ReadOnly="readonly" />
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class="control-label">co-Payment</label>
+                                            <input id="txtTotalCopayment" type="text" class="form-control" ReadOnly="readonly" />
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Value Credit</label>
+                                            <input id="txtValueCredit" type="text" class="form-control" ReadOnly="readonly" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Over Insurance</label>
+                                            <input id="txtOverInsurance" type="text" class="form-control" ReadOnly="readonly" />
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Cash</label>
+                                            <input id="txtCash" type="text" class="form-control" ReadOnly="readonly" />
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Total cash</label>
+                                            <input id="txtValueCash" type="text" class="form-control" ReadOnly="readonly" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--Save-->
+                <div class="panel-footer" style="text-align:right;">
+                    <input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />
+                    <input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn btn-warning" />
+                    <input data-step="12" data-intro="Save Preception" id="submit" type="button" value="Dispense" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/assets/HomeTemplete/js/intro.js"></script>
+
+    <script src="~/Scripts/DMS/Pharmacy.js?V=2.11"></script>
+

@@ -1,0 +1,45 @@
+﻿@model DMS_Authontication1.ViewModel.DoasgeViewModel
+
+@{
+    ViewBag.Title = "DosageFormList";
+}
+
+<h2>DosageForm List</h2>
+
+
+<table class="table"style="margin-left: 78px;">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DosageId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DosageFormName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.S_ID_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.S_Coun)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.DosageFormList) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DosageId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DosageFormName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.S_ID_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.S_COUN)
+        </td>
+        
+    </tr>
+}
+
+</table>

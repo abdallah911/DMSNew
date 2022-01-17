@@ -1,0 +1,62 @@
+﻿@model DMS_Authontication1.ViewModel.LicTypeViewModel
+@{
+    ViewBag.Title = "AddLicType";
+}
+<style>
+
+
+    .success, .error {
+        border: 1px solid;
+        margin: 10px 0px;
+        padding: 15px 10px 15px 50px;
+        background-repeat: no-repeat;
+        background-position: 10px center;
+    }
+
+
+    .success {
+        color: #4F8A10;
+        background-color: #DFF2BF;
+        background-image: url('https://i.imgur.com/Q9BGTuy.png');
+    }
+
+
+    .error {
+        color: #D8000C;
+        background-color: #FFBABA;
+        background-image: url('https://i.imgur.com/GnyDvKN.png');
+    }
+</style>
+<h2>Add License Type</h2>
+
+
+@using (Html.BeginForm("AddLicType", "Medicines", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        <h4>LicenseType</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.licType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.licType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.licType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @if (ViewBag.Error == "done")
+        {
+            <div class="error">This Value is Duplicated</div>
+        }
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+@Html.Partial("LicList")
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

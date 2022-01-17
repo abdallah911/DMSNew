@@ -1,0 +1,398 @@
+﻿
+@model DMS_Authontication1.Models.EmployeeData
+
+@{
+    ViewBag.Title = "AddEmployee";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+<link href="~/assets/HomeTemplete/Content/css/select2.min.css" rel="stylesheet" />
+
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> Employee Data
+        </div>
+        @*<div class="actions">
+                <a id="Create" href="/AfterSales/Create" style=" text-transform: none" class="btn btn-primary  btn-sm">
+                    <i class="fa fa-plus"></i> New Visit
+                </a>
+            </div>*@
+    </div>
+    <br />
+    <div class="portlet-body">
+        @if (Model == null)
+        {
+            <input id="edit1" value="0" hidden />
+            <input id="CountryId1" value="0" hidden />
+            <input id="RegionId1" value="0" hidden />
+            <input id="card" value="0" hidden />
+        }
+        else
+        {
+            <input id="edit1" value="1" hidden />
+            <input id="CountryId1" value="@Model.CountryId" hidden />
+            <input id="RegionId1" value="@Model.RegionId" hidden />
+            <input id="card" value="@Model.CARD_ID" hidden />
+        }
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <div class="form-group col-md-6">
+                    @*<input id="CARD_ID" value="@ViewBag.CardId" hidden />*@
+                    @Html.Label("Select CardId", new { @class = "col-md-3 control-label sbold" })
+                    @*<span class="required"> * </span>*@
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(m => m.CARD_ID, ViewBag.Cardslist as SelectList, new { @class = "form-control", @id = "CARD_ID", @required = "True" })
+
+                        @Html.ValidationMessageFor(model => model.CARD_ID, "", new { @class = "text-danger" })
+                    </div>
+                    <br />
+                </div>
+                <br />
+                <h3 class="text-danger" id="addbefore">@ViewBag.Status</h3>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @if (Model != null)
+                {
+                    @Html.HiddenFor(model => model.Id, new { htmlAttributes = new { @class = "form-control col-md-1" } })
+                }
+
+                <div class="panel panel-info">
+                    <h2 class="panel-heading" style="margin:1px;">Full Name</h2>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="form-group" style="margin:1px;">
+                                <div class="col-sm-3">
+                                    @Html.Label("First Name", htmlAttributes: new { @class = "control-label" })
+                                    <span class="required"> * </span>
+                                    @Html.EditorFor(model => model.FirstEnName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FirstEnName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-sm-3">
+                                    @Html.Label("Second Name", htmlAttributes: new { @class = "control-label" })
+                                    <span class="required"> * </span>
+                                    @Html.EditorFor(model => model.SecEnName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.SecEnName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-sm-3">
+                                    @Html.Label("Third Name", htmlAttributes: new { @class = "control-label" })
+                                    <span class="required"> * </span>
+                                    @Html.EditorFor(model => model.ThirEnName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ThirEnName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-sm-3">
+                                    @Html.Label("Fourth Name", htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.FourEnName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FourEnName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-sm-3" dir="rtl">
+                                    @Html.Label("الاسم الرابع", htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.FourArName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FourArName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-sm-3" dir="rtl">
+                                    @Html.Label("الاسم الثالث", htmlAttributes: new { @class = "control-label" })
+                                    <span class="required"> * </span>
+                                    @Html.EditorFor(model => model.ThirArName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.ThirArName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-sm-3" dir="rtl">
+                                    @Html.Label("الاسم الثانى", htmlAttributes: new { @class = "control-label" })
+                                    <span class="required"> * </span>
+                                    @Html.EditorFor(model => model.SecArName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.SecArName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-sm-3" dir="rtl">
+                                    @Html.Label("الاسم الاول ", htmlAttributes: new { @class = "control-label" })
+                                    <span class="required"> * </span>
+                                    @Html.EditorFor(model => model.FirstArName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FirstArName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    @Html.Label("Governorate", new { @class = "col-md-3 control-label" })
+                    <span class="required"> * </span>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.CountryId, ViewBag.Country as SelectList, "Select Country", new { @class = "form-control", @id = "CountryId", @required = "True" })
+
+                        @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Region", new { @class = "col-md-3 control-label" })
+                    <span class="required"> * </span>
+                    <div class="col-md-9">
+                        @* @Html.EditorFor(model => model.ServiceID, new { htmlAttributes = new { @class = "form-control" } })*@
+                        @Html.DropDownList("RegionId", new SelectList(""), "Select Region", new { @class = "form-control", @id = "RegionId", @required = "True" })
+
+                        @Html.ValidationMessageFor(model => model.RegionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.NationalId, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <span class="required"> * </span>
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.NationalId, new { htmlAttributes = new { @class = "form-control", @maxlength = "14", @minlength = "14" } })
+                        @Html.ValidationMessageFor(model => model.NationalId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Home Mobile", htmlAttributes: new { @class = "control-label col-md-3" })
+                    @*<span class="required"> * </span>*@
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.HomeMobile, new { htmlAttributes = new { @class = "form-control", @required = "True", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                        @Html.ValidationMessageFor(model => model.HomeMobile, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    @Html.Label("Gender", new { @class = "col-md-3 control-label" })
+                    <span class="required"> * </span>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.GenderId, new List<SelectListItem>
+                             {
+                                new SelectListItem{ Text="Male", Value = "1" },
+                                new SelectListItem{ Text="Female", Value = "2" },
+                             }, "Select Gender", new { @class = "form-control", @required = "True" })
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Mobile1, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <span class="required"> * </span>
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.Mobile1, new { htmlAttributes = new { @class = "form-control", @required = "True", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                        @Html.ValidationMessageFor(model => model.Mobile1, "", new { @class = "text-danger", @required = "True" })
+                    </div>
+                </div>
+
+
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Mobile2, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.Mobile2, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                        @Html.ValidationMessageFor(model => model.Mobile2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Mobile3, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.Mobile3, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                        @Html.ValidationMessageFor(model => model.Mobile3, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Mobile4, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.Mobile4, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                        @Html.ValidationMessageFor(model => model.Mobile4, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @if (ViewBag.haveChronic)
+                {
+                    <div class="form-group col-md-6">
+                        <div class="form-group">
+                            <label class="control-label sbold col-md-7" @*dir="rtl" lang="ar"*@>
+                                Send Monthly Medicine Delievery ?
+                            </label>
+                            <div class="col-md-2">
+                                <div class="radio-inline">
+                                    @Html.RadioButtonFor(model => model.DeliveryStatus, "YES")
+                                    @*<input type="radio" id="DeliveryStatus" name="DeliveryStatus" value="YES" data-name="YES">*@
+                                    <label for="YES">
+                                        YES
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="radio-inline">
+                                    @Html.RadioButtonFor(model => model.DeliveryStatus, "NO")
+                                    @*<input type="radio" id="DeliveryStatus" name="DeliveryStatus" value="NO" data-name="NO">*@
+                                    <label for="NO">
+                                        NO
+                                    </label>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group col-md-6 deliveryData">
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6 deliveryData">
+                        @Html.LabelFor(model => model.DeliveryTime, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.DeliveryTime, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                            @Html.ValidationMessageFor(model => model.DeliveryTime, "", new { @class = "text-danger" })
+                            @*<input type='text' class="form-control datetimepicker" id="timeDelivery" />*@
+                            @*<span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>*@
+                        </div>
+                    </div>
+
+                }
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        @if (Model == null)
+                        {
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Edit" class="btn btn-primary" />
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+    var searchtype = "unselect";
+    $(function () {
+        @*debugger;
+          if ( @Html.Raw(Model)!= null) {
+            debugger;
+            var Countryselect = "@Html.Raw(Model.Country.ArName)";
+            $("#CountryId").val(Countryselect).select2();
+        }*@
+        $("#CountryId").select2();
+        $("#RegionId").select2();
+        $("#CARD_ID").select2();
+        $(".deliveryData").hide();
+        $("#CountryId").change(function () {//address
+            $.get("/Employee/GetStateList",
+                { id: $("#CountryId").val() }, function (data) {
+                    $("#RegionId").empty();
+                    $.each(data, function (index, row) {
+                        $("#RegionId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                });
+        });
+
+        $("#CountryId").map(function () {//address
+            $.get("/Employee/GetStateList",
+                { id: $("#CountryId").val() }, function (data) {
+                    $("#RegionId").empty();
+                    $.each(data, function (index, row) {
+                        $("#RegionId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                    if ($("#edit1").val() == 1) {
+                        var Regionselect = $("#RegionId1").val();
+                        $("#RegionId").val(Regionselect).select2();
+                        //alert("ASD");
+                    }
+                    @*if (@Html.Raw(Model) != null) {
+                        var Regionselect = "@Html.Raw(Model.Region.ArName)";
+                        $("#RegionId").val(Regionselect).select2();
+                    }*@
+                });
+        });
+
+        $('input:radio[name="DeliveryStatus"]').map(
+            function () {
+                if ($(this).is(':checked')) {
+                    // append goes here
+                    if ($(this).val() == 'YES') {
+                        $(".deliveryData").show();
+                        searchtype = "YES";
+                    }
+                    else if ($(this).val() == 'NO') {
+                        $(".deliveryData").hide();
+                        searchtype = "NO";
+
+                    }
+                }
+            });
+
+
+        $('input:radio[name="DeliveryStatus"]').change(
+            function () {
+                if ($(this).is(':checked')) {
+                    // append goes here
+                    if ($(this).val() == 'YES') {
+                        $(".deliveryData").show();
+                        searchtype = "YES";
+                    }
+                    else if ($(this).val() == 'NO') {
+                        $(".deliveryData").hide();
+                        searchtype = "NO";
+
+                    }
+                }
+            });
+
+        $("#CountryId").change(function () {//address
+            $.get("/Employee/GetStateList",
+                { id: $("#CountryId").val() }, function (data) {
+                    $("#RegionId").empty();
+                    $.each(data, function (index, row) {
+                        $("#RegionId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                });
+        });
+
+        $("#CountryId").map(function () {//address
+            $.get("/Employee/GetStateList",
+                { id: $("#CountryId").val() }, function (data) {
+                    $("#RegionId").empty();
+                    $.each(data, function (index, row) {
+                        $("#RegionId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                    if ($("#edit1").val() == 1) {
+                        var Regionselect = $("#RegionId1").val();
+                        $("#RegionId").val(Regionselect).select2();
+                        //alert("ASD");
+                    }
+                    @*if (@Html.Raw(Model) != null) {
+                var Regionselect = "@Html.Raw(Model.Region.ArName)";
+                $("#RegionId").val(Regionselect).select2();
+            }*@
+                });
+    });
+
+
+    $("#CARD_ID").change(function () {//address
+
+        //window.location.href = "/Empolyee/AddEmployee?cardId=" + $("#CARD_ID").val();
+
+            $.get("/Employee/AddEmployeePartial",
+                { cardId: $("#CARD_ID").val() }, function (data) {
+                    //$("#RegionId").empty();
+                    //$.each(data, function (index, row) {
+                    //    $("#RegionId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    //});
+                    $("#allData").html(data);
+                });
+        });
+
+         @*$("#CARD_ID").val(@ViewBag.CardId).select2();*@
+        if ($("#edit1").val() == 1) {
+            //alert("ASD");
+            var Countryselect = $("#CountryId1").val();
+            var card = $("#card").val();
+            $("#CountryId").val(Countryselect).select2();
+         $("#CARD_ID").val(card).select2();
+
+        }
+    });
+</script>

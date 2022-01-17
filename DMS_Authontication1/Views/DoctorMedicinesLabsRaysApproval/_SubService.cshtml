@@ -1,0 +1,268 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="SubServiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Sub Service</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="SubServices">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>
+                                @Html.DisplayName("Code")
+                            </th>
+
+                            <th>
+                                @Html.DisplayName("Name")
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+            <div class="modal-footer">
+
+                <button id="Close" type="button" class="btn btn-secondary glyphicon glyphicon-ok" data-dismiss="modal"> Ok</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script>
+    var SubServiceCode = "";
+    //var AddOrEdit = 0;
+    var SubServiceName = "";
+    var Recollection = "yes";
+    var serviceList = new Array();
+    var serviceItem = {};
+    var MaxValueService = 0;
+    function SelectSubService(button) {
+        var row = $(button).closest("TR");
+        SubServiceCode = $("TD", row).eq(1).html();
+        SubServiceName = $("TD", row).eq(2).html();
+  
+        //inpatient 
+        //operation
+        if (SubServiceCode == "11101" || SubServiceCode == "11102" || SubServiceCode == "11103")
+        {
+            SubServiceCode = "11102";
+            SubServiceName="Operation"
+            $.ajax({
+                dataType: "json",
+                url: '/DoctorMedicinesLabsRaysApproval/Services',
+                data: { id: SubServiceCode },//operations
+                success: function (r) {
+                    if (r.length != 0) {
+                        $('#Services').dataTable().fnDestroy();
+                        var setData = $("#Services Tbody");
+                        setData.empty();
+
+                        for (var i = 0; i < r.length; i++) {
+                            var data = "<tr >" +
+                                "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectService(this);'></Button>" + "</td>" +
+                                "<td>" + r[i].Code + "</td>" +
+                                "<td>" + r[i].ArName + "</td>" +
+                                "<td>" + r[i].EnName + "</td>" +
+                                "</tr>"
+                            setData.append(data);
+
+                        }
+                        $('#Services').DataTable();
+                        $('#SubServiceModal').modal('hide');
+                        $('#ServicesModal').modal();
+                    }
+                    else {
+                        bootbox.alert("No Data");
+                    }
+                },
+                error: function (r) {
+                    window.alert('No ajax Data  ');
+                }
+
+            });
+        }
+        //outpatient 112 rays 01  labs 06 and Physical therapy 04
+        else if (SubServiceCode == "11201" || SubServiceCode == "11206" || SubServiceCode == "11204")
+        {
+            $.ajax({
+                dataType: "json",
+                url: '/DoctorMedicinesLabsRaysApproval/Services',
+                data: { id: SubServiceCode },
+                success: function (r) {
+                    if (r.length != 0) {
+                        $('#Services').dataTable().fnDestroy();
+                        var setData = $("#Services Tbody");
+                        setData.empty();
+
+                        for (var i = 0; i < r.length; i++) {
+                            var data = "<tr >" +
+                                "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectService(this);'></Button>" + "</td>" +
+                                "<td>" + r[i].Code + "</td>" +
+                                "<td>" + r[i].ArName + "</td>" +
+                                "<td>" + r[i].EnName + "</td>" +
+                                "</tr>"
+                            setData.append(data);
+
+                        }
+                        $('#Services').DataTable();
+                        $('#SubServiceModal').modal('hide');
+                        $('#ServicesModal').modal();
+                    }
+                    else {
+                        bootbox.alert("No Data");
+                    }
+                },
+                error: function (r) {
+                    window.alert('No ajax Data  ');
+                }
+
+            });
+        }
+        //Dentail
+        else if (SubServiceCode == "11401" || SubServiceCode == "11402" || SubServiceCode == "11403" || SubServiceCode == "11405" || SubServiceCode == "11406" || SubServiceCode == "11408" || SubServiceCode == "11409" || SubServiceCode == "11423" || SubServiceCode == "11424" ){
+            $.ajax({
+                dataType: "json",
+                url: '/DoctorMedicinesLabsRaysApproval/Services',
+                data: { id: SubServiceCode },//operations
+                success: function (r) {
+                    if (r.length != 0) {
+                        $('#Services').dataTable().fnDestroy();
+                        var setData = $("#Services Tbody");
+                        setData.empty();
+
+                        for (var i = 0; i < r.length; i++) {
+                            var data = "<tr >" +
+                                "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectService(this);'></Button>" + "</td>" +
+                                "<td>" + r[i].Code + "</td>" +
+                                "<td>" + r[i].ArName + "</td>" +
+                                "<td>" + r[i].EnName + "</td>" +
+                                "</tr>"
+                            setData.append(data);
+
+                        }
+                        $('#Services').DataTable();
+
+                        $('#SubServiceModal').modal('hide');
+                        $('#ServicesModal').modal();
+                    }
+                    else {
+                        bootbox.alert("No Data");
+                    }
+                },
+                error: function (r) {
+                    window.alert('No ajax Data  ');
+                }
+
+            });
+        }
+        //Addition
+        $('#Subservice').css("border-color", "#ccc");
+        $('#ApprovalValue').attr("disabled", false);
+
+        var splited = $('#Subservice').val().split("\n");
+        var add = 1;
+        for (var i = 0; i < splited.length; i++) {
+            if (splited[i] == SubServiceName) {
+                toastr.error('Added Before')
+                add = 0;
+            }
+
+        }
+        if (add == 1) {
+            if (SubServiceCode == "11101" || SubServiceCode == "11102" || SubServiceCode == "11103" || SubServiceCode == "11201" || SubServiceCode == "11206" || SubServiceCode == "11204" || SubServiceCode == "11401" || SubServiceCode == "11402" || SubServiceCode == "11403" || SubServiceCode == "11405" || SubServiceCode == "11406" || SubServiceCode == "11408" || SubServiceCode == "11409" || SubServiceCode == "11423" || SubServiceCode == "11424") {
+                var serviceItem = {};
+                serviceItem.ServiceCode = SubServiceCode;
+                serviceItem.ServiceName = SubServiceName;
+            } else {
+                var serviceItem = {};
+                serviceItem.ServiceCode = SubServiceCode;
+                serviceItem.ServiceName = SubServiceName;
+                serviceList.push(serviceItem);
+            }
+            $('#Subservice').val($('#Subservice').val() + SubServiceName + "\n");
+            toastr.success("Added Successfully");
+        }
+        //$('#SubserviceModal').modal('hide');
+        //Ceiling amount and value
+        $.ajax({
+            type: 'POST',
+            url: '/DoctorMedicinesLabsRaysApproval/ServiceMaxValueAndCeilingPert/',
+            dataType: 'json',
+            data: {
+                ServiceTypeName: $('#ServiceType option:selected').text(),
+                SubServiceCode: SubServiceCode,
+                ServiceTypeCode: $('#ServiceType option:selected').val()
+            },
+            success: function (r) {
+                if (r[0] != null) {
+                    if (r[0].ServiceMaxValue != "") {
+                        toastr.info("Service MaxValue : " + r[0].ServiceMaxValue);
+                        MaxValueService += parseInt(r[0].ServiceMaxValue);
+                        
+                    }
+                    else {
+                        toastr.info("No Service MaxValue");
+                        MaxValueService += 9007199254;
+                    }
+                    if (r[0].CeilingPert != "") {
+                        $('#Ceilingpercentage').val(r[0].CeilingPert);
+                    }
+                }
+                else {
+                    bootbox.dialog({
+                        closeButton: false,
+                        title: 'Uncoverd Service ',
+                        message: "This Service isn't covered for this patient,so it will be delgated to company resposibles as recollection ",
+                        buttons: {
+                            Aggree: {
+                                label: "Aggree",
+                                className: 'btn-info',
+                                callback: function () {
+                                    Recollection = "RECOLMONAY";
+                                }
+                            },
+                            Disggree: {
+                                label: "Disggree",
+                                className: 'btn-info',
+                                callback: function () {
+                                    toastr.warning('Select Anther Service');
+                                    $('#ServicesModal').modal('hide');
+                                    $('#SubServicesModal').modal('hide');
+                                    $('#Subservice').val("");
+                                }
+                            },
+                            Refuse: {
+                                label: "Refuse Approval",
+                                className: 'btn-info',
+                                callback: function () {
+                                    $('#MedicalResponse').val('تم رفض هذه الموافقه لان الخدمه غير مغطاه لهذا الشخص');
+                                    $('#Response option[value=Rejected]').prop('selected', 'selected').change();
+                                    $('#ServicesModal').modal('hide');
+                                    $('#SubServicesModal').modal('hide');
+                                }
+                            }
+
+                        }
+                    });
+                }
+            },
+            error: function (ex) {
+                toastr.error('Failed to retrieve service type.');
+            }
+        });
+    }
+
+</script>

@@ -1,0 +1,129 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="ApprovalSearchCardsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Cards</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="ApprovalSearchCards">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.CARD_ID)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.EMP_ANAME)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.EMP_ENAME)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.INS_START_DATE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.INS_END_DATE)
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var CardId = "";
+    //var AddOrEdit = 0;
+    //var CompId;
+    //var SrcIsExist = 0;
+    function SelectApprovalSearchCards(button) {
+        var row = $(button).closest("TR");
+        CardId = $("TD", row).eq(1).html();
+        //CompId = CardId.substring(0, (CardId.indexOf('-') ));
+
+        $.ajax({
+            dataType: "json",
+            url: '/DoctorMedicinesLabsRaysApproval/Approvals',
+            data: { id: CardId },
+            success: function (r) {
+
+                $('#ApprovalSearchCardsModal').modal('hide');
+                $('#Approvals').dataTable().fnDestroy();
+                if (r != null) {
+
+                    var setData = $("#Approvals Tbody");
+                    setData.empty();
+
+                    for (var i = 0; i < r.length; i++) {
+                        if (r[i].CreatedDate != null) {
+                            var MyDate_String_Value = r[i].CreatedDate;
+                            var value = new Date
+                                (
+                                parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            var dat = value.getDate() + "" + (value.getMonth() + 1) + "" + value.getFullYear().toString().substr(-2);
+
+                        }
+                        else {
+                            dat = "";
+                        }
+                        var data = "<tr >" +
+                            "<td>" + "2" + dat + r[i].Id + "</td>" +
+                            "<td>" + r[i].DId + "</td>" +
+                            "<td>" + r[i].Manager + "</td>" +
+                            "<td>" + r[i].MedicienName + "</td>" +
+                            "<td>" + r[i].CreatedBy + "</td>" +
+                            "<td>" + r[i].Amount + "</td>" +
+                            "<td>" + r[i].PaymentGroup + "</td>";
+                            if(r[i].PaymentGroup=="Pending"){ 
+                                data += "<td>" + "<select id='ChangeStatus' class='form-control' onchange='Select(this);'><option value= 'N' > ChangeStatus</option ><option value='Accepted'>Accepted</option><option value='Rejected'>Rejected</option></select>" + "</td>" +
+                                    "</tr>";
+                            } else {
+                                data += "<td>Dispensed<td></tr>";
+                            }
+                        setData.append(data);
+
+                    }
+                    $("#Approvals").DataTable({
+                        "bPaginate": false,
+                        "bLengthChange": false,
+                        "bFilter": true,
+                        "bInfo": false,
+                        "bAutoWidth": false
+                    });
+                }
+                else {
+                    $("#Approvals").DataTable({
+                        "bPaginate": false,
+                        "bLengthChange": false,
+                        "bFilter": true,
+                        "bInfo": false,
+                        "bAutoWidth": false
+                    });
+
+                }
+            },
+            error: function (r) {
+                window.alert('No Data to retrive ');
+            }
+
+        });
+   
+    }
+
+</script>

@@ -1,0 +1,397 @@
+﻿ @model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="MedicinesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="overflow-y: auto; max-height:100%;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Mediciens</h3>
+            </div>
+            <div class="modal-body">
+                <table  class="ui celled table" id="Mediciness">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>
+                                Medicien Code
+                            </th>
+                            <th>
+                                Medicien Name
+                            </th>
+                            <th>
+                                Dosage Form
+                            </th>
+                            <th>
+                                Package Price
+                            </th>
+                            <th>
+                                Packatage size
+                            </th>
+                            <th>
+                                Units Numbers
+                            </th>
+
+                            <th>
+                                Unit Price
+                            </th>
+                            <th>
+                                Group
+                            </th>
+                            <th>
+                                Covered
+                            </th>
+
+                        </tr>
+                    </thead>
+                   
+                    
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button id="Close" type="button" class="btn btn-secondary glyphicon glyphicon-ok" data-dismiss="modal"> Ok</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+ <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+   
+<script>
+    $(document).ready(function () {
+       $("#Mediciness").DataTable({
+        "sAjaxSource":'/Pharmacy/GetList',
+        "bServerSide":true,
+        "processing":true,
+        "bFilter": true,
+        "bSort": false,
+        // pageLength: 10,
+        "bInfo": true,
+        "columns": [
+            {
+                //"<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectMedicien(this);'></Button>"
+                "data": null,
+                "defaultContent": "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectMedicien(this);'></Button>"
+            },
+            { "data": "M_CODE", "name": "Medicien Code" },
+            { "data": "TRADE_NAME", "name": "Medicien Name" },
+            { "data": "DOSAGE_FORM", "name": " Dosage Form" },
+            { "data": "PACK_PRICE", "name": "Package Price" },
+            { "data": "PACK_SIZE", "name": "Packatage size" },
+            { "data": "UNIT_NO", "name": "Units Numbers" },
+            { "data": "UNIT_PRICE", "name": "Unit Price" },
+            { "data": "Group_Type", "name": "Group" },
+            { "data": "IsCovered", "name": "Covered" },
+
+            //{
+            //    "targets": -1,
+            //    "data": null,
+            //    "defaultContent": ""
+            //}
+
+        ]
+        });
+    });
+
+
+    function SelectMedicien(button) {
+        //
+        var row = $(button).closest("TR");
+
+        var MedicienCode = $("TD", row).eq(1).html();
+        var MedicienName = $("TD", row).eq(2).html();
+        var DosageForm = $("TD", row).eq(3).html();
+        var PackPrice = $("TD", row).eq(4).html();
+        var PackSize = $("TD", row).eq(5).html();
+        var UnitNumber = $("TD", row).eq(6).html();
+        var UnitPrice = $("TD", row).eq(7).html();
+        var Group = $("TD", row).eq(8).html();
+        var IsCover = $("TD", row).eq(9).html();
+        var GenderValidation = false;
+        var AgeValiation = false;
+        var edit = 0;
+
+        var medicineGroups = new Array();
+        var medicineGroup = {};
+        medicineGroup.TRADE_NAME = MedicienCode; //current medicine code
+        medicineGroups.push(medicineGroup);
+        $('#Pharmacy tbody tr').each(function () {
+            var row = $(this);
+            var medicineGroup = {};
+            medicineGroup.M_CODE = row.find("TD").eq(0).html();
+            medicineGroups.push(medicineGroup);
+            if (parseInt(row.find("TD").eq(0).html()) == parseInt(MedicienCode)) {
+                edit = 1;
+                toastr.error('Added before');
+            }
+        });
+
+        var samegroup = false;
+        var Duration = false;
+
+        //
+        if (edit == 0) {
+            if (IsCover == "true") {
+                //Gender Check
+                $.ajax({
+                    dataType: "json",
+                    url: '/Pharmacy/GenderValidation',
+                    data: {
+                        CardId: $('#txtSearchCard').val(),
+                        MedicineCode: MedicienCode,
+                        Id: Genderr
+                    },
+                    success: function (r) {
+                        if (r == "True") {
+                            GenderValidation = true;
+                        }
+                        else {
+
+                            toastr.error("You can't dispense this medicine");
+                        }
+                    },
+                    error: function (r) { }
+                }).done(function () {
+                    //Age Check
+                    $.ajax({
+                        dataType: "json",
+                        url: '/Pharmacy/AgeValidation',
+                        data: {
+                            CardId: $('#txtSearchCard').val(),
+                            MedicineCode: MedicienCode,
+                            Id:Age
+                        },
+                        success: function (r) {
+                            if (r == "True") {
+                                AgeValiation = true;
+                            }
+                            else {
+
+                                toastr.error("You can't dispense this medicine");
+                            }
+                        },
+                        error: function (r) { }
+                    }).done(function () {
+                        //medicine group
+                        $.ajax({
+                            type: 'POST',
+                            url: '/Pharmacy/MedicinesGroupValiadtion/',
+                            dataType: 'Json',
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify(medicineGroups),
+                            success: function (r) {
+
+                                if (r == true) {
+                                    toastr.error("You can't dispense this medicine");//same Group
+                                    samegroup = true;
+                                }
+                                else {
+                                    samegroup = false;
+                                }
+                            },
+                            error: function () {
+                                samegroup = false;
+                            }
+                        }).done(function () {
+                            $.ajax({
+                                url: '/Pharmacy/MedicinesDurationValiadtion/',
+                                dataType: 'Json',
+                                contentType: "application/json; charset=utf-8",
+                                data: {
+                                    CardId: $('#txtSearchCard').val(),
+                                    MedicineCode: MedicienCode
+
+                                },
+                                success: function (r) {
+
+                                    if (r == true) {
+                                        toastr.error("You can't dispense this medicine");//'Duration Validation'
+                                        Duration = true;
+                                    }
+                                    else {
+                                        Duration = false;
+                                    }
+                                },
+                                error: function () {
+                                    samegroup = false;
+                                }
+                            }).done(function () {
+                                if (GenderValidation == true && AgeValiation == true && IsCover == "true" && samegroup == false && Duration == false) {
+                                    //check Daily
+                                    $.ajax({
+                                        dataType: "json",
+                                        url: '/Pharmacy/CheckDaily',
+                                        data: {
+                                            id: $('#txtSearchCard').val(),
+                                            code: MedicienCode
+                                        },
+                                        success: function (r) {
+                                            if (r.check == 0) {
+                                                //append row
+                                                if (Group == "NO") {
+                                                    var dialog = bootbox.dialog({
+                                                        title: 'This Medicien is Not Covered!',
+                                                        message: "<p>Pay method?</p>",
+                                                        buttons: {
+                                                            Cash: {
+                                                                label: "Cash",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    Group = "Cash";
+                                                                    AppendRow();
+                                                                }
+                                                            },
+                                                            Approval: {
+                                                                label: "Approved",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    Group = "Approval";
+                                                                    AppendRow();
+                                                                }
+                                                            },
+                                                            Tele: {
+                                                                label: "Pending",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    Group = "Pending";
+                                                                    AppendRow();
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                                else {
+                                                    AppendRow();
+                                                }
+                                            }
+                                            else {
+                                                bootbox.alert(r.messa);
+                                                //bootbox.alert("This Medicine had been exchanged Today ");
+                                            }
+                                        },
+                                        error: function (r) {
+                                            bootbox.alert("Ajax exchanged Today  Error");
+                                        }
+
+                                    });
+                                }
+                            });
+                        });
+                    })
+                })
+            }
+
+            else {
+                toastr.error("Medicine isn't covered");
+            }
+        }
+
+
+        function AppendRow() {
+            toastr.success('Added successfully ');
+            var tBody = $("#Pharmacy > TBODY")[0];
+            var row = tBody.insertRow(-1);
+            console.log(DosageForm);
+            var cell = $(row.insertCell(-1));
+            cell.html(MedicienCode);
+            cell = $(row.insertCell(-1));
+            cell.html(MedicienName);
+            cell = $(row.insertCell(-1));
+            cell.html(DosageForm);
+            cell = $(row.insertCell(-1));
+            cell.html(PackSize);
+            cell = $(row.insertCell(-1));
+            var PackagePrice = $("<input  />");
+            PackagePrice.attr("type", "text");
+            PackagePrice.addClass("form-control");
+            PackagePrice.addClass("PackagePrice");
+            PackagePrice.attr("onkeyup", "changeTotalUnits(this);");
+            PackagePrice.val(PackPrice);
+            cell.append(PackagePrice);
+            // cell.html(PackPrice);//text
+            cell = $(row.insertCell(-1));
+            cell.html(UnitNumber);
+            cell = $(row.insertCell(-1));
+
+            var unitprice = $("<input  />");
+            unitprice.attr("type", "text");
+            unitprice.attr('readonly', 'readonly');
+            unitprice.addClass("form-control");
+            unitprice.addClass('UnitPrice');
+            cell.append(unitprice);
+
+            cell = $(row.insertCell(-1));
+            
+
+            var Dose = $("<input  />");
+            Dose.attr("type", "text");
+            Dose.addClass("form-control");
+            Dose.addClass("Dose");
+            Dose.attr("onkeyup", "changeTable(this);");
+            if (DosageForm == "GEL" || DosageForm == "CREAM" || DosageForm == "SUPP" || DosageForm == "SPRAY" || DosageForm == "DROPS" /*|| DosageForm == "SACHET"*/) {
+                cell.append(1);
+
+            } else {
+                cell.append(Dose);
+            }
+            cell = $(row.insertCell(-1));
+            var Duration = $("<input  />");
+            Duration.attr("type", "text");
+            Duration.addClass("form-control");
+            Duration.addClass("Duration");
+            Duration.attr("onkeyup", "changeTable(this);");
+            cell.append(Duration);
+            cell = $(row.insertCell(-1));
+            var TotalDuration = $("<input  />");
+            TotalDuration.attr("type", "text");
+            TotalDuration.addClass("form-control");
+            TotalDuration.addClass("TotalDuration");
+            TotalDuration.attr("onfocusout", "changeTotalDuration(this);");
+            cell.append(TotalDuration);
+            cell = $(row.insertCell(-1));
+            if (DosageForm == "ELIXIR" || DosageForm == "SYRUP" || DosageForm == "SUSPENTION" || DosageForm == "EMULSION" || DosageForm == "SOUTION") {
+                var TotalUnits = $("<input  />");
+                TotalUnits.attr("type", "text");
+                TotalUnits.addClass('TotalUnits');
+                TotalUnits.addClass("form-control");
+                TotalUnits.attr("onkeyup", "changeTotalUnits(this);");
+                cell.append(TotalUnits);
+            }
+            else {
+                var TotalUnits = $("<input  />");
+                TotalUnits.attr("type", "text");
+                TotalUnits.attr('readonly', 'readonly');
+                TotalUnits.addClass('TotalUnits');
+                TotalUnits.addClass("form-control");
+                cell.append(TotalUnits);
+            }
+            cell = $(row.insertCell(-1));
+            var AppendAmount = $("<input  />");
+            AppendAmount.attr("type", "text");
+            AppendAmount.attr('readonly', 'readonly');
+            AppendAmount.addClass("form-control");
+            AppendAmount.addClass('Amount');
+            cell.append(AppendAmount);
+            cell = $(row.insertCell(-1));
+            cell.html(Group);
+            // remove button
+            cell = $(row.insertCell(-1));
+            var btnRemove = $("<a  />");
+            btnRemove.attr("type", "button");
+            btnRemove.addClass("btn btn-danger");
+            btnRemove.attr("onclick", "Remove(this);");
+            btnRemove.text("Remove");
+            cell.append(btnRemove);
+
+        }
+    }
+
+</script>

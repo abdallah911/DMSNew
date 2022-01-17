@@ -1,0 +1,132 @@
+﻿@model IEnumerable<DMS_Authontication1.ViewModel.Approval>
+@{
+    ViewBag.Title = "Approvales";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+<link href="~/assets/HomeTemplete/Content/css/select2.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+
+<div style="margin-top:40px">
+    <p>
+        @Html.ActionLink(" Search", "Approvales", "Employee", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-search ", @style = " text-transform: none" })
+        @Html.ActionLink(" Create Request ", "CreateRequest", "MedicalApproval", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus ", @style = " text-transform: none" })
+        @*@Html.ActionLink(" Consumption", "Consumption", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })*@
+    </p>
+</div>
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> Approvales
+        </div>
+        @*<div class="actions">
+                <a id="Create" href="/AfterSales/Create" style=" text-transform: none" class="btn btn-primary  btn-sm">
+                    <i class="fa fa-plus"></i> New Visit
+                </a>
+            </div>*@
+    </div>
+    <br />
+    <div class="portlet-body">
+        <div class="form-group col-md-6">
+            @*<input id="CARD_ID" value="@ViewBag.CardId" hidden />*@
+            @Html.Label("Select CardId", new { @class = "col-md-3 control-label sbold" })
+            @*<span class="required"> * </span>*@
+            <div class="col-md-5">
+                @Html.DropDownList("CARD_ID", ViewBag.Cardslist as SelectList, new { @class = "form-control", @id = "CARD_ID", @required = "True" })
+
+                @*@Html.ValidationMessageFor(model => model.CARD_ID, "", new { @class = "text-danger" })*@
+            </div>
+            <br />
+        </div>
+        <br />
+        <hr />
+        <table class="table" id="Index">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Code)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Approval_Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Medical_Replay)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Value_After)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Recieve_Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Created_Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.End_Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Expaire_Date)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Code</td>
+
+                        <td>@item.Approval_Type</td>
+
+                        <td>@item.Medical_Replay</td>
+
+                        <td>@item.Value_After</td>
+
+                        <td>@item.Recieve_Date</td>
+
+                        <td>@item.Created_Date</td>
+
+                        <td>@item.End_Date</td>
+
+                        <td>@item.Expaire_Date</td>
+
+                        <td>
+                            @Html.ActionLink("Print", "PrintApproval", "Employee", new { id = @item.Code }, new { @class = "btn btn-default" })
+                            @*<a class="btn btn-default" href="/Employee/PrintApproval/' + @item.Code + '"> Print </a>*@
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+
+    $(function () {
+        $('#Index').dataTable();
+        $("#CARD_ID").select2();
+        debugger;
+        $("#CARD_ID").val(@ViewBag.CardId).change();
+        $("#CARD_ID").change(function () {//address
+
+            //window.location.href = "/Empolyee/AddEmployee?cardId=" + $("#CARD_ID").val();
+
+            $.get("/Employee/Approvales",
+                { card: $("#CARD_ID").val() }, function (data) {
+                    //$("#RegionId").empty();
+                    //$.each(data, function (index, row) {
+                    //    $("#RegionId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    //});
+                });
+        });
+    });
+</script>
+

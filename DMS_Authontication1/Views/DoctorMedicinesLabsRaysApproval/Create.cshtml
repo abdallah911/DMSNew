@@ -1,0 +1,325 @@
+﻿@model DMS_Authontication1.ViewModel.CreateApprovalViewModel
+    @{
+        ViewBag.Title = "Create";
+    }
+    <style>
+        .vtl {
+            border-left: 6px solid #5bb1cc;
+            height: 540px;
+        }
+    </style>
+    @Html.Partial("_Companies")
+    @Html.Partial("_SearchCards")
+    @Html.Partial("_PersonalData")
+    @Html.Partial("_ServiceProviderType")
+    @Html.Partial("_Providers")
+    @Html.Partial("_Diagnoise")
+    @Html.Partial("_Pools")
+    @Html.Partial("_CardDesign")
+    @Html.Partial("_History")
+    @Html.Partial("_ImgShow")
+    @Html.Partial("_ServiceHistory")
+    @Html.Partial("_SubService")
+@Html.Partial("_Services")
+    @Html.Partial("_MedicalResponse")
+    @Html.Partial("_ExceptionResponsibility")
+@Html.Partial("_OperationDays")
+@Html.Partial("_TeethImage")
+@Html.Partial("_Approvals")
+@Html.Partial("_RecollectionReason")
+@Html.Partial("_EditApprovalReasons")
+@Html.Partial("_DeleteApprovalReasons")
+
+
+
+
+    <br />
+    <br />
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i>Create Approval
+            </div>
+
+        </div>
+        <br />
+        <div class="portlet-body white col-md-12 ">
+
+            @*<form>*@
+            @*//Right Div*@
+            <div class="col-md-6" style="width :50%">
+
+                <div class="form-group">
+                    @Html.Label("Manager", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.DropDownList("Manager", new List<SelectListItem>
+                         {
+                        new SelectListItem{ Text="--Select Operation--", Value = "NoManage" },
+                            new SelectListItem{ Text="Edit", Value = "Edit" },
+                            new SelectListItem{ Text="Delete", Value = "Delete" }
+                         }, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Approval Type", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.DropDownList("ApprovalType", new List<SelectListItem>
+                         {
+                            new SelectListItem{ Text="Approval", Value = "Approval" },
+                            new SelectListItem{ Text="SubApproval", Value = "SubApproval" }
+                         }, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group" id="hideProvider" hidden>
+                    @Html.Label("Provider Code", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.TextBox("ProviderCode", null, new { @class = "form-control" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    @Html.Label("Company", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.TextBox("txtSearchCompany", null, new { @class = "form-control" })
+                    </div>
+                </div>*@
+                <div class="form-group">
+                    @Html.Label("Card Id", new { @class = "col-md-2 control-label" })
+
+                    <div class="input-group ">
+                        <div class="input-group-btn">
+                            <button id="AddCard" class="btn btn-default">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                            <input id="AddCardTxt" type="text" class="form-control" name="cardId" placeholder="" value="">
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Service Provider", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.TextBox("ServiceProvider", null, new { @class = "form-control", @placeholder = "Click to Select Provider" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Provider Phone", new { @class = "col-md-2 control-label" })
+                    <div>
+                        <input type='tel' placeholder="+02" title='Phone Number (Format: +99(99)9999-9999)' class="form-control" id="ProviderPhone" />
+                        @*  @Html.TextBox("ProviderPhone", null, new { @class = "form-control" })*@
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Service Type", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.DropDownList("ServiceType", new SelectList(string.Empty, "Value", "Text"), "--Select Service type--", new { @class = "form-control" })
+                        @*@Html.TextBox("ServiceType", null, new { @class = "form-control" })*@
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("SubService", new { @class = "col-md-2 control-label" })
+                    <div class="input-group ">
+                        <div class="input-group-btn">
+                            <button id="AddSubService" class="btn btn-default">
+                                <i class="glyphicon glyphicon-plus-sign"></i>
+                            </button>
+
+                            <textarea id="Subservice" type="text" class="form-control" name="cardId" placeholder="" value="" disabled></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Approval Value", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.TextBox("ApprovalValue", null, new { @class = "form-control", @disabled = "true" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Ceiling percentage", new { @class = "col-md-2 control-label" })
+                    @*<div>
+                        @Html.TextBox("Ceilingpercentage", null, new { @class = "form-control ",disabled="true" })
+                    </div>*@
+                    <div class="input-group ">
+                        <div class="input-group-btn">
+                            <button id="ChangeCeilingpercentage" class="btn btn-default">
+                                <i class="glyphicon glyphicon-check"></i>
+                            </button>
+                            <input id="Ceilingpercentage" type="text" class="form-control" name="Ceilingpercentage" placeholder="" value="" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Paid Value", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.TextBox("PaidValue", null, new { @class = "form-control", @disabled = "true" })
+                    </div>
+                </div>
+
+
+
+                @*<div class="form-group">
+                    @Html.Label("Maximun Value", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.TextBox("Maximun Value", null, new { @class = "form-control",disabled="true" })
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    @Html.Label("Diagnoise", new { @class = "col-md-2 control-label" })
+                    <div class="input-group ">
+                        <div class="input-group-btn">
+                            <button id="AddDiagnoise" class="btn btn-default">
+                                <i class="glyphicon glyphicon-plus-sign"></i>
+                            </button>
+                            <button id="RemoveDiagnoise" class="btn btn-default">
+                                <i class="glyphicon glyphicon-minus-sign"></i>
+                            </button>
+                            <textarea id="Diagnoise" type="text" class="form-control" name="Diagnoise" placeholder="" value="" disabled></textarea>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                @*<div class="input-group">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                        <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+                    </div>
+                </div>*@
+            </div>
+            @*<div class="vtl col-md-offset-6"></div>*@
+            @*Left Div*@
+            <div class="col-md-6" style="width :50%" @*style="position:relative;bottom: 540px;"*@>
+                <div class="form-group">
+                    @Html.Label("Fax", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.TextBox("Fax", null, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("E-mail", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.TextBox("Email", null, new { @class = "form-control", @placeholder = "jon@dms-eg.com" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Mobile", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.TextBox("Mobile", null, new { @class = "form-control", @placeholder = "+02" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Receive Date", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.TextBox("ReceiveDate", null, new { @class = "form-control", @disabled = "true" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Sent Date", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.TextBox("SentDate", null, new { @class = "form-control", @disabled = "true" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Agreement Type", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.DropDownList("AgreementType", new List<SelectListItem>
+                         {
+                            new SelectListItem{ Text="VIP", Value = "VIP" },
+                            new SelectListItem{ Text="EXCEPTION", Value = "EXCEPTION" },
+                            new SelectListItem{ Text="NORMAL", Value = "NORMAL" }
+                         }, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Notes", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.TextArea("Notes", null, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Response", new { @class = "col-md-2 control-label" })
+                    <div>
+                        @Html.DropDownList("Response", new List<SelectListItem>
+                         {
+
+                            new SelectListItem{ Text="Accepted", Value = "Accepted" },
+                            new SelectListItem{ Text="Rejected", Value = "Rejected" },
+                         }, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Medical Response", new { @class = "col-md-2 control-label" })
+                    <div class="input-group ">
+                        <div class="input-group-btn">
+                            <button id="AddMedicalResponse" class="btn btn-default">
+                                <i class="glyphicon glyphicon-plus-sign"></i>
+                            </button>
+
+                            <textarea id="MedicalResponse" type="text" class="form-control" name="MedicalResponse" placeholder="" value=""></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:10px">
+                    <input id="Recollection" class="form-check-input" type="checkbox" name="Recollection" value="Recollection">Recollection
+
+                </div>
+
+                <div class="form-group">
+
+                    <button id="ShowCardDesign" type="button" class="btn btn-default glyphicon glyphicon-eye-open"> Card design</button>
+
+                    <span>
+                        <button id="ShowPools" type="button" class="btn btn-default glyphicon glyphicon-eye-open"> Pools</button>
+
+                    </span>
+                    <span>
+                        <button id="ShowHistory" type="button" class="btn btn-default glyphicon glyphicon-eye-open"> History</button>
+                    </span>
+                    <span>
+                        <button id="PersonalData" type="button" class="btn btn-default glyphicon glyphicon-eye-open"> Personal Data</button>
+                    </span>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-3">
+                        @Html.Label("Upload Approval", new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-9">
+
+                        <span @*style="margin:10px"*@>
+                            <input id="Upload" type="file" value="Upload Approval" @*onchange="previewFile();"*@ />
+
+                        </span>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <span style="margin:10px">
+                        <button id="ShowImg" class="btn btn-default glyphicon glyphicon-eye-open "> Show</button>
+                    </span>
+                </div>
+                <div class="form-group">
+                    @*<button id="Print" type="button" class="glyphicon glyphicon-print btn btn-primary "> print</button>*@
+                    <span style="margin:10px">
+                        <button id="Save" type="button" class="btn btn-success glyphicon glyphicon-saved" @*disabled*@> Save</button>
+                    </span>
+                </div>
+
+            </div>
+            @*<input id="SaveCounter" value="0" hidden/>*@
+            @*</form>*@
+          </div>
+        </div>
+
+        <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+        <script src="~/Scripts/DMS/CreateApproval.js?V=1"></script>

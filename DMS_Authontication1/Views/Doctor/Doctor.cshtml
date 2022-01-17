@@ -1,0 +1,202 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.DoctorContainerViewModel>
+@{
+    ViewBag.Title = "Doctor";
+}
+@Html.Partial("_Approvals")
+<style>
+    #PrescriptionDate[readonly] {
+        background-color: white;
+        cursor: pointer !important;
+    }
+
+    .btn span.glyphicon {
+        opacity: 0;
+    }
+
+    .btn.active span.glyphicon {
+        opacity: 1;
+    }
+</style>
+<div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:10000;">
+    <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
+</div>
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Doctor
+        </div>
+
+    </div>
+    <br />
+    <div class="portlet-body">
+
+        @*Roshta*@
+         @*@using (Html.BeginForm("Doctor", "Doctor", FormMethod.Post))
+        { }*@
+        <div id="Roshta" class="row">
+            <div class="form-group col-md-3">
+                <input type="text" class="form-control" id="TxtSearch" name="TxtSearch" placeholder="Click to select Approval" onkeyup='saveValue(this);' />
+
+            </div>
+            <div class=" col-md-2 btn-group" data-toggle="buttons">
+                <label id="Approval" class="btn btn-info" disabled>
+                    <input id="HasApproval" type="checkbox" autocomplete="off">
+                    <span class="glyphicon glyphicon-ok"></span> Has Approval
+                </label>
+            </div>
+        </div>
+        
+
+        <div class="table-responsive">
+            <table class="table" id="First">
+                <thead>
+                    <tr>
+                        @*<th><button id="AddDoctorAll" name="AddDoctorAll" class="btn btn-primary">All</button></th>*@
+                        <th>
+                        </th>
+                         <th>
+                            @Html.DisplayNameFor(model => model.Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MedicienCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MedicienName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DOSAGE_FORM)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PACK_PRICE)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PACK_SIZE)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UNIT_NO)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.UNIT_PRICE)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Dose)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Duration)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalDuration)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalUnits)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Amount)
+                        </th>
+
+                    </tr>
+                </thead>
+
+                <tbody></tbody>
+
+            </table>
+        </div>
+        @*Calc top*@
+        <div id="Calc_top">
+            @Html.Partial("_Calc")
+        </div>
+        <br /><br /><br />
+        <br /> <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;"></h2> </div>
+
+        @*secand grid*@
+        <div class="table-responsive">
+            <table class="table" id="Secand">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MedicienCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MedicienName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DOSAGE_FORM)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PACK_PRICE)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PACK_SIZE)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UNIT_NO)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UNIT_PRICE)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Dose)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Duration)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalDuration)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalUnits)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Amount)
+                        </th>
+                        <th>
+                            <button id="RemoveAll" class="btn btn-danger">All</button>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        @Html.Partial("_Edit")
+        @*Calc down*@
+        <div id="calc_down">
+            @Html.Partial("_Calc2")
+        </div>
+        <br /><br /><br />
+        <!--Save-->
+        <div style="padding:10px 0; text-align:right">
+
+            <input id="Save" type="button" value="Save" class="btn btn-success" style="padding:10px 20px" />
+        </div>
+
+        @if (ViewBag.Message == "No Mediciens")
+        {
+            <script>
+                alert("No Mediciens")
+            </script>
+        }
+        <br /><br />
+    </div>
+</div>
+@*JQuary*@
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+
+@*<link href="~/scripts/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+<script type="text/javascript" src="~/scripts/jquery-ui-1.12.1.js"></script>
+
+<script src="~/scripts/bootstrap.js"></script>
+<link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/scripts/DataTables/jquery.dataTables.js"></script>
+<script src="~/scripts/DataTables/dataTables.bootstrap.js"></script>
+
+<script src="~/scripts/bootbox.js"></script>*@
+<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+
+
+
+<script src="~/scripts/DMS/Doctor.js?V=2.14"></script>

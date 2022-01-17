@@ -1,0 +1,179 @@
+﻿@model DMS_Authontication1.Models.DoctorPersonalData
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DoctorPersonalData</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.UserName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Speciality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Speciality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StampImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StampImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthData)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthData)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Religious)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Religious)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nationality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nationality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SocialStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SocialStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KidsNumbers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KidsNumbers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MalitaryStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MalitaryStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataOfEndMalitary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataOfEndMalitary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdStartData)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdStartData)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdExpiredData)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdExpiredData)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdPlace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdPlace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BloodType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BloodType)
+        </dd>
+
+       
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,216 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="SearchCardsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Cards</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="SearchCards">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.CARD_ID)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.EMP_ANAME)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.EMP_ENAME)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.INS_START_DATE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.INS_END_DATE)
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var CardId;
+    var AddOrEdit = 0;
+    var CompId;
+    function SelectSearchCards(button) {
+        $("#wait").css("display", "block");
+
+        var row = $(button).closest("TR");
+        CardId = $("TD", row).eq(1).html();
+        CompId = CardId.substring(0, (CardId.indexOf('-')));
+
+        var EndDate = $("TD", row).eq(5).html();
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        var CurrentDate = new Date(yyyy, mm, dd);
+        var newDate = EndDate.split('/').reverse().join('.')
+        var date = new Date(newDate);
+        // today = mm + '/' + dd + '/' + yyyy;
+        if (date > CurrentDate || newDate == "null") {
+
+            //Companies groups
+            $.ajax({
+                type: 'POST',
+                url: '/DoctorApprovals/getCompGrop/',
+                dataType: 'json',
+                data: { id: parseInt(CompId) },
+                success: function (diag) {
+                    $("#MainGroup,#Group,#Group1,#OldMainGroup").empty();
+                    $.each(diag, function (i, ddlDiag1) {
+                        $("#Group").append('<option value="' + ddlDiag1.Code + '">' +
+                            ddlDiag1.Name + '</option>');
+                        $("#Group1").append('<option value="' + ddlDiag1.Code + '">' +
+                            ddlDiag1.Name + '</option>');
+                    });
+                    $('#Group1 option:eq(0)').attr('selected', 'selected');
+                    $('#Group option:eq(0)').attr('selected', 'selected');
+
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Groups');
+                }
+
+            });
+
+            $.ajax({
+                dataType: "json",
+                url: '/DoctorApprovals/checkCard',
+                data: { id: CardId },
+                success: function (r) {
+
+                    $('#SearchCardsModal').modal('hide');
+                    if (r.mED_CARD != null) {
+                        //Edit
+                        AddOrEdit = 0;
+                        $('#EditCardModal').modal();
+                        $('.modal-body #CardId1').val(r.mED_CARD.CARD_NO);
+                        $('.modal-body #CardName1').val(r.mED_CARD.EMP_ANAME);
+                        $(".modal-body #Provider1").val(r.mED_CARD.PR_ANAME);
+                        if (r.mED_CARD.MONTH_START_DATE != null) {
+                            var MyDate_String_Value = r.mED_CARD.MONTH_START_DATE;
+                            var value = new Date
+                                (
+                                    parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            var dat = (value.getMonth() + 1) + "/" + value.getDate() + "/" + value.getFullYear();
+                            // var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                        }
+                        else {
+                            dat = null;
+                        }
+
+                        $('.modal-body #StartDate1').val(dat);
+                        $('.modal-body #ExchangeDay1').val(r.mED_CARD.ST_DAY);
+                        $(".modal-body #Group1 option").filter(function () {
+                            return $(this).text() == r.mED_CARD.GROUP_NAME;
+                        }).prop('selected', true);
+
+                        //$(".modal-body #Diagnoise1 option").filter(function () {
+                        //    return $(this).text() == r.mED_CARD.TASHKHES_01;
+                        //}).prop('selected', true);Diagnos
+                        //debugger;
+                        $('#Diagnoise1').select2({
+                            dropdownParent: $('#EditCardModal .modal-content')
+                        });
+                        debugger;
+                        $('.modal-body #Diagnos').val(r.mED_CARD.TASHKHES_01);
+                        var DiagnosisList = r.mED_CARD.TASHKHES_01.split('_');
+                        let $element = $('#Diagnoise1');
+                        //let val = $element.find("option:contains('" + DiagnosisList[0] + "')").val();
+                        var stVal = new Array();
+                        for (var i = 0; i < DiagnosisList.length; i++) {
+                            stVal[i] = $element.find("option:contains('" + DiagnosisList[i] + "')").val();
+                        }
+                        //if (DiagnosisList.length == 1)
+                        //    stVal = "'" + val + "'";
+                        //else
+                        //    stVal = "['" + val + "'";
+                        //if (DiagnosisList.length > 1) {
+                        //    for (var i = 1; i < DiagnosisList.length - 1; i++) {
+
+                        //        let val = $element.find("option:contains('" + DiagnosisList[i] + "')").val();
+                        //        stVal = stVal+ ",'" + val + "'";
+                        //    }
+                        //    let val = $element.find("option:contains('" + DiagnosisList[DiagnosisList.length - 1] + "')").val();
+                        //    stVal = stVal+ ",'" + val + "']";
+                        //}
+
+                        $element.val(stVal).trigger('change.select2');
+
+                        $('.modal-body #CompanyPaymentLimit1').val(r.mED_CARD.NO_PAY);
+                        $('.modal-body #OverInsuranceLimit1').val(r.mED_CARD.NO_OVER);
+                        var lock;
+                        if (r.mED_CARD.LOOK_01 == 0) {
+                            Lock = "Open"
+                        }
+                        else if (r.mED_CARD.LOOK_01 == 1) {
+                            Lock = "Close"
+                        }
+                        else {
+                            Lock = "Pause"
+                        }
+                        $('.modal-body #LockStatus1').val(Lock);
+                        $('.modal-body #NOTES1').val(r.mED_CARD.NOTES);
+
+                        $('#EditCardModal').modal();
+                    }
+                    else {
+                        //add
+                        $('#AddCardModal').modal();
+                        $('.modal-body #CardId').val(r.Employee.CARD_ID);
+                        $('.modal-body #CardName').val(r.Employee.EMP_ANAME);
+                        $('#CompanyPaymentLimit').val('0').attr('selected', true);
+                        $('#OverInsuranceLimit').val('0').attr('selected', true);
+                        $('#LockStatus').val('0').attr('selected', true);
+                    }
+                    $("#wait").css("display", "none");
+
+                },
+                error: function (r) {
+                    window.alert(' No Card Data ');
+                    $("#wait").css("display", "none");
+                }
+
+            });
+
+        }
+        else {
+            bootbox.dialog({
+                title: 'Alert!',
+                message: ' Expired Card',// "Roshita ID : " + r,
+                buttons: {
+                    Ok: {
+                        label: "Ok",
+                        className: 'btn-info',
+                        callback: function () {
+                            location.reload();
+                        }
+                    }
+                }
+            });
+
+        }
+
+    }
+
+</script>

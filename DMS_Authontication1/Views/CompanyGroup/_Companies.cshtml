@@ -1,0 +1,69 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="CompaniesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg"  role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Companies</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="Companies">
+                    <thead>
+                        <tr>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">Company Code</th>
+                            <th scope="col" align="center">Company Name</th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var CompId;
+    function Select(button) {
+        var row = $(button).closest("TR");
+        CompId = $("TD", row).eq(1).html();
+         var CompName = $("TD", row).eq(2).html();
+         $('#txtSearchCompany').val(CompId + " | " + CompName);
+       
+       
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '/CompanyGroup/GetCompSites',
+            data: { id: CompId },
+            success: function (r) {
+                $('#plus').attr("disabled", false);
+                var setData = $("#Sites tbody");
+                setData.empty();
+                for (var i = 0; i < r.length; i++) {
+                    var data = "<tr >" +
+                        "<td>" + r[i].S_ID + "</td>" +
+                        "<td>" + r[i].S_NAME + "</td>" +
+                        " <td >" + "<Button class='btn btn-danger glyphicon glyphicon-trash' onclick='Delete(this);'>Remove</Button>" + "</td>" +
+                        "</tr>"
+                    setData.append(data);
+                }
+                $('#CompaniesModal').modal('hide');
+            },
+            error: function(r)
+                {
+                    window.alert(' No Company sites ');
+                }
+           
+        });
+   
+    }
+  
+</script>

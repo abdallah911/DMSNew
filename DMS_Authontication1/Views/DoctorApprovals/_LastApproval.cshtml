@@ -1,0 +1,255 @@
+﻿@model DMS_TEST.ViewModel.Container1
+
+<div class="modal fade " id="LastApprovalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" style="width:1250px;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">LastApproval</h3>
+            </div>
+            @*Provider*@
+            <div class="modal-body">
+                <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;">Provider</h2> </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            @Html.Label("Approval Id", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("ApprvalId", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.Label("Provider", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("LastProvider_Provider", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.Label("Branch", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("LastProvider_Branch", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.Label("Prescription Date", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("PrescriptionDate", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                    </div>
+                </div>
+                @*Card ID*@
+                <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;">Card ID</h2> </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.compEmp.CARD_ID, htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("LastProvider_CARD_ID", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                          @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
+                          @Html.Editor("LastProvider_EMP_ANAME", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.Label("Company", htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("LastProvider_COMP_ID", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+
+
+
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
+                            @Html.Editor("LastProvider_INS_END_DATE", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        @Html.Label("Daily Limit", htmlAttributes: new { @class = "control-label" })
+                        @Html.Editor("LastProvider_INSURANCE_DAY", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.Label("Monthly Limit", htmlAttributes: new { @class = "control-label" })
+                        @Html.Editor("LastProvider_INSURANCE_MONTH", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
+                        @Html.Editor("LastProvider_CEILING_PERT", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+
+
+                    <div class="col-sm-2">
+                    </div>
+                </div>
+                <br />
+                <div class="panel panel-info">
+                    <h2 class="panel-heading" style="margin:1px;">Medicines</h2>
+                </div>
+
+                <!--Dynamic table-->
+                <div class="container-fluid">
+                    <div class="master">
+                        <div class="table-responsive">
+                            <table class="table" id="LastApprovals">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Medicien Code</th>
+                                        <th scope="col" align="center">name</th>
+                                        <th scope="col">Dosage</th>
+                                        <th scope="col">Package Size</th>
+                                        <th scope="col">Package Price</th>
+                                        <th scope="col">Unit Number</th>
+                                        <th scope="col">Unit Price</th>
+                                        <th scope="col">Dose</th>
+                                        <th scope="col">Duration</th>
+                                        <th scope="col">Total Units</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            <div class="modal-footer">
+                <button id="Close" type="button" class="btn btn-secondary glyphicon glyphicon-ok" data-dismiss="modal">Ok</button>
+               
+            </div>
+                @*<div class="modal-body table-responsive">
+                <table class=" table" id="LastApprovals">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.CARD_ID)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.EMP_ANAME)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.EMP_ENAME)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.INS_START_DATE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.INS_END_DATE)
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>*@
+
+            </div>
+            </div>
+        </div>
+@*<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var CardId;
+    var AddOrEdit = 0;
+    function SelectSearchCards(button) {
+
+        var row = $(button).closest("TR");
+        CardId = $("TD", row).eq(1).html();
+        var CompId = CardId.substring(0, (CardId.indexOf('-') + 1));
+        //Companies groups
+        $.ajax({
+            type: 'POST',
+            url: '/DoctorApprovals/getCompGrop/',
+            dataType: 'json',
+            data: { id: parseInt(CompId) },
+            success: function (diag) {
+                $("#MainGroup,#Group,#Group1,#OldMainGroup").empty();
+                $.each(diag, function (i, ddlDiag1) {
+                    $("#Group").append('<option value="' + ddlDiag1.Value + '">' +
+                        ddlDiag1.Text + '</option>');
+                    $("#Group1").append('<option value="' + ddlDiag1.Value + '">' +
+                        ddlDiag1.Text + '</option>');
+
+                });
+                $('#Group1 option:eq(0)').attr('selected', 'selected');
+                $('#Group option:eq(0)').attr('selected', 'selected');
+
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Groups');
+            }
+
+        });
+
+        $.ajax({
+            dataType: "json",
+            url: '/DoctorApprovals/checkCard',
+            data: { id: CardId },
+            success: function (r) {
+                debugger;
+                $('#SearchCardsModal').modal('hide');
+
+                if (r.mED_CARD != null) {
+                    //Edit
+                    AddOrEdit = 0;
+                    $('#EditCardModal').modal();
+                    $('.modal-body #CardId1').val(r.mED_CARD.CARD_NO);
+                    $('.modal-body #CardName1').val(r.mED_CARD.EMP_ANAME);
+                    $(".modal-body #Provider1").val(r.mED_CARD.PR_ENAME);
+                    if (r.mED_CARD.MONTH_START_DATE != null) {
+                        var MyDate_String_Value = r.mED_CARD.MONTH_START_DATE;
+                        var value = new Date
+                            (
+                            parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                            );
+                        var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                    }
+                    else {
+                        dat = null;
+                    }
+                    $('.modal-body #StartDate1').val(dat);
+                    $('.modal-body #ExchangeDay1').val(r.mED_CARD.ST_DAY);
+                    $(".modal-body #Group1 option").filter(function () {
+                        return $(this).text() == r.mED_CARD.GROUP_NAME;
+                    }).prop('selected', true);
+                    $(".modal-body #Diagnoise1 option").filter(function () {
+                        return $(this).text() == r.mED_CARD.TASHKHES_01;
+                    }).prop('selected', true);
+                    $('.modal-body #CompanyPaymentLimit1').val(r.mED_CARD.NO_PAY);
+                    $('.modal-body #OverInsuranceLimit1').val(r.mED_CARD.NO_OVER);
+                    var lock;
+                    if (r.mED_CARD.LOOK_01 == 0) {
+                        Lock = "Close"
+                    }
+                    else if (r.mED_CARD.LOOK_01 == 1) {
+                        Lock = "Open"
+                    }
+                    else {
+                        Lock = "Pause"
+                    }
+                    $('.modal-body #LockStatus1').val(Lock);
+
+                    $('#EditCardModal').modal();
+                }
+                else {
+                    //add
+                    $('#AddCardModal').modal();
+                    $('.modal-body #CardId').val(r.Employee.CARD_ID);
+                    $('.modal-body #CardName').val(r.Employee.EMP_ANAME);
+
+                }
+            },
+            error: function (r) {
+                window.alert(' No Card Data ');
+            }
+
+        });
+
+
+
+    }
+
+</script>*@

@@ -1,0 +1,135 @@
+﻿@*@model IEnumerable<DMS_TEST.ViewModel.Container1>*@
+
+<div class="modal fade " id="ApprovalsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg"  role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Approvals</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="Approvals">
+                    <thead>
+                        <tr>
+                            <th  ></th>
+
+                            <th  >
+                               ID
+                            </th>
+
+                            <th  >
+                                Date
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var url = window.location.href;
+    var id = url.substring(url.lastIndexOf('=') + 1);
+    var ApprovalId;
+  
+    function Select(button) {
+        var row = $(button).closest("TR");
+        ApprovalId = $("TD", row).eq(1).html();
+        var date = $("TD", row).eq(2).html();
+        $('#txtSearchApproval').val(ApprovalId + ' || ' + date);
+        $.ajax({
+           
+            dataType: "json",
+            url: '/Labs/ApprovedMedicine/',
+            data: {
+                id: id,
+                TxtSearch:ApprovalId
+            },
+            success: function (r) {
+                $('#Index').dataTable().fnDestroy();
+                if (r != null) {
+
+                    var setData = $("#Index Tbody");
+                    setData.empty();
+
+                    for (var i = 0; i < r.length; i++) {
+                        if (r[i].CreatedDate != null) {
+                            var MyDate_String_Value = r[i].CreatedDate;
+                            var value = new Date
+                                (
+                                parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            var dat = value.getDate() + "" + (value.getMonth() + 1) + "" + value.getFullYear();
+
+                        }
+                        else {
+                            dat = "";
+                        }
+                        var data;
+                        if ((r[i].PaymentGroup == "Accepted" || r[i].PaymentGroup == "Rejected") && r[i].IsDealed == false) {
+                            data = "<tr >" +
+                                "<td>" + dat + r[i].Id + "</td>" +
+                                "<td>" + r[i].DId + "</td>" +
+                                "<td>" + r[i].MedicienName + "</td>" +
+                                "<td>" + r[i].Amount + "</td>" +
+                                "<td>" + r[i].PaymentGroup + "</td>" +
+                                "<td>" + r[i].IsDealed + "</td>" +
+                                "<td >" + "<select id='ChangeStatus' class='form-control' onchange='SelectDealed(this);'><option value= 'N' > ChangeIsDealed</option ><option value='true'>Yes</option><option value='false'>No</option></select>" + "</td>" +
+
+                                "</tr>"
+                        }
+                        else {
+                            data = "<tr >" +
+                                "<td>" + dat + r[i].Id + "</td>" +
+                                "<td>" + r[i].DId + "</td>" +
+                                "<td>" + r[i].MedicienName + "</td>" +
+                                "<td>" + r[i].Amount + "</td>" +
+                                "<td>" + r[i].PaymentGroup + "</td>" +
+                                "<td>" + r[i].IsDealed + "</td>" +
+                                "<td >" + "<select id='ChangeStatus' class='form-control' onchange='SelectDealed(this);' disabled><option value= 'N'> Change IsDealed</option ><option value='true'>Yes</option><option value='false'>No</option></select>" + "</td>" +
+
+                                "</tr>"
+                        }
+                        setData.append(data);
+
+                    }
+                    $("#Index").DataTable({
+                        "bPaginate": false,
+                        "bLengthChange": false,
+                        "bFilter": false,
+                        "bInfo": false,
+                        "bAutoWidth": false
+                    });
+                }
+                else {
+                    $("#Index").DataTable({
+                        "bFilter": false,
+                        "bPaginate": false,
+                        "bLengthChange": false,
+                        "bInfo": false,
+                        "bAutoWidth": false
+                    });
+
+                }
+               
+                },  
+             error: function (err) {
+                alert(":(");
+            
+
+            }
+        });
+
+        $('#ApprovalsModal').modal('hide');
+   
+    }
+   
+</script>

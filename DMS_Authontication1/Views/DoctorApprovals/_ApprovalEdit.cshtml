@@ -1,0 +1,308 @@
+﻿<div class="modal fade" id="ApprovalEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="overflow-y: auto; max-height:100%;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Edit</h3>
+            </div>
+
+            <div class="modal-body " style="padding:0px 10px 0px 10px">
+                
+                <input type="hidden" id="Excess" class="form-control"/>
+
+                <div class="form-group row col-md-6">
+                    <label for="MedicienCode" class="col-form-label">Medicine Code</label>
+                    <input type="text" id="MedicienCode" class="form-control" ReadOnly="readonly" />
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="MedicienName" class="col-form-label">Medicine Name</label>
+                    <input type="text" id="MedicienName" class="name form-control" ReadOnly="readonly" />
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="Dosage" class="col-form-label">Dosage</label>
+                    <input type="text" id="Dosage" class="Dosage form-control" ReadOnly="readonly" />
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="PackageSize" class="col-form-label">Package Size</label>
+                    <input type="text" id="PackageSize" class="Package_Size form-control" ReadOnly="readonly" />
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="PackagePrice" class="col-form-label">Package Price</label>
+                    <input type="text" id="PackagePrice" class="Package_price form-control" ReadOnly="readonly" />
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="UnitNumber" class="col-form-label">Unit number</label>
+                    <input type="text" id="UnitNumber" class="unit_number form-control" ReadOnly="readonly" />
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="UnitNumber" class="col-form-label">Unit Price</label>
+                    <input type="text" id="UnitPrice" class="unit_number form-control" ReadOnly="readonly" />
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="Dose" class="col-form-label">Dose</label>
+                    <input type="number" min="1" oninput="validity.valid||(value='');" id="Dose" class="Dose form-control" />
+
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="Duration" class="col-form-label">Duration</label>
+                    <input type="number" min="1" oninput="validity.valid||(value='');" id="Duration" class="Duration form-control" />
+
+                </div>
+                @*<div class="form-group row col-md-6">
+            <label for="TotalUnits" class="col-form-label">Total Duration</label>
+            <input type="text" id="TotalDuration" class="totalDuration form-control" />
+
+        </div>
+        <div class="form-group row col-md-6">
+            <label for="TotalUnits" class="col-form-label">Total Units</label>
+            <input type="text" id="TotalUnits" class="totalDuration form-control" />
+
+        </div>*@
+                <div class="form-group row col-md-6">
+                    <label for="Amount" class="col-form-label">Amount</label>
+                    <input type="text" id="Amount" class="Amount form-control" readonly="readonly" value="0" />
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="Lock" class="col-form-label">Active</label>
+                    <select id="Lock" class="form-control">
+                        <option value="Y">On</option>
+                        <option value="N">Off</option>
+                    </select>
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="MedicineType" class="col-form-label">Medicine Type</label>
+                    <select id="MedicineType" class="form-control">
+                        <option value="Chronic">Chronic</option>
+                        <option value="Monthly">Monthly</option>
+
+                    </select>
+                </div>
+                <div class="form-group row col-md-6" id="NOMD">
+                    <label for="NOM" class="col-form-label">Number Of Months</label>
+                    <input type="number" min="0" oninput="validity.valid||(value='');" id="NOM" class="form-control" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="CloseApproval" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input id="AddApproval" type="button" class="btn btn-primary" value="Edit" />
+               @* <button id="AddApproval" type="button" class="btn btn-primary"><span>Edit</span></button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var input1 = document.getElementById("Dose");
+    input1.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            $('.modal-body #Duration').focus();
+        }
+    });
+    var input2 = document.getElementById("Duration");
+    input2.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            var PackSize = $('.modal-body #PackageSize').val();
+            var UnitNumber = $('.modal-body #UnitNumber').val();
+            var Dose = $('.modal-body #Dose').val();
+            var Duration = $('.modal-body #Duration').val();
+            Dose = parseInt(Dose);
+            Duration = parseInt(Duration);
+            PackSize = parseInt(PackSize);
+            UnitNumber = parseInt(UnitNumber);
+            var TotUnits = (Dose * Duration) / (PackSize / UnitNumber);
+            TotUnits = Math.ceil(TotUnits);
+            $('#Add').click();
+        }
+    });
+
+    var Manager;
+    var CardId;
+    $(function () {
+        $('#MedicineType').change(function () {
+
+            if ($('#MedicineType').val() == "Chronic") {
+                $('#NOMD').attr("hidden", true);
+                $('#NOM').val(" ");
+            }
+            else {
+                $('#NOMD').attr("hidden", false);
+            }
+
+        });
+        $('#MedicineType').map(function () {
+            if ($('#MedicineType').val() == "Chronic") {
+                $('#NOMD').attr("hidden", true);
+                $('#NOM').val(" ");
+            }
+            else {
+                $('#NOMD').attr("hidden", false);
+            }
+
+
+
+        });
+        $('#AddApproval').click(function () {
+            debugger;
+            var edit = 0;
+
+            var MedicienCode = $('.modal-body #MedicienCode').val();
+            var MedicienName = $('.modal-body #MedicienName').val();
+            var DosageForm = $('.modal-body #Dosage').val();
+            var PackPrice = $('.modal-body #PackagePrice').val();
+            var PackSize = $('.modal-body #PackageSize').val();
+            var UnitNumber = $('.modal-body #UnitNumber').val();
+            var UnitPrice = $('.modal-body #UnitPrice').val();
+            var Dose = $('.modal-body #Dose').val();
+            var Duration = $('.modal-body #Duration').val();
+            var TotalDuration = parseInt(Dose) * parseInt(Duration);
+            var TotalUnits = Math.ceil(parseInt(TotalDuration) / (parseInt(PackSize) / parseInt(UnitNumber)));
+            //var Exce = (parseInt(TotalUnits) * (parseInt(PackSize) / parseInt(UnitNumber))) - parseInt(TotalDuration);
+            var Amount = (parseFloat($('.modal-body #Amount').val())).toFixed(2);
+            var Lock = $('.modal-body #Lock').val();
+            var MedicineType = $('.modal-body #MedicineType').val();
+            var NOM = $('.modal-body #NOM').val();
+
+            var amount1 = (parseFloat($('.modal-body #UnitPrice').val()) * parseFloat(TotalUnits)).toFixed(2);
+            $('.modal-body #Amount').val(amount1);
+
+            var Act="";
+            if (Dose != '' && Duration != '') {
+                $('#CardMedicines tbody tr').each(function () {
+
+                    var row = $(this);
+                    if (parseInt(row.find("TD").eq(0).html()) == parseInt($('.modal-body #MedicienCode').val())) {
+                        if ($('#MedicineType').val() == "Monthly") {
+                            var today = new Date();
+                            var mm = today.getMonth() + 1 + parseInt(NOM); //January is 0!
+                            var yyyy = today.getFullYear();
+
+                            if (mm > 12) {
+                                mm -= 12;
+                                yyyy += 1;
+                            }
+
+                            if (mm < 10) {
+                                mm = '0' + mm
+                            }
+                            Act = mm + '/' + yyyy;
+                        }
+                        $("TD", row).eq(0).html($('.modal-body #MedicienCode').val());
+                        $("TD", row).eq(1).html($('.modal-body #MedicienName').val());
+                        $("TD", row).eq(2).html($('.modal-body #Dosage').val());
+                        ("TD", row).eq(3).html($('.modal-body #PackageSize').val());
+                        $("TD", row).eq(4).html($('.modal-body #PackagePrice').val());
+                        $("TD", row).eq(5).html($('.modal-body #UnitNumber').val());
+                        $("TD", row).eq(6).html($('.modal-body #UnitPrice').val());
+                        $("TD", row).eq(7).html($('.modal-body #Dose').val());
+                        $("TD", row).eq(8).html($('.modal-body #Duration').val());
+                        $("TD", row).eq(9).html(TotalDuration);
+                        $("TD", row).eq(10).html(TotalUnits);
+                        $("TD", row).eq(11).html($('.modal-body #Excess').val());//Exce
+                        $("TD", row).eq(12).html((parseFloat($('.modal-body #Amount').val())).toFixed(2));
+                        $("TD", row).eq(13).html($('.modal-body #MedicineType').val());
+                        $("TD", row).eq(14).html($('.modal-body #NOM').val());
+                        $("TD", row).eq(15).html(Act);
+                        $("TD", row).eq(16).html($('.modal-body #Lock').val());
+                        edit = 1;
+                    }
+                });
+
+                if (edit == 0) {
+                    //add Row
+                    if ($('#MedicineType').val() == "Monthly") {
+                        var today = new Date();
+                        var mm = today.getMonth() + 1 + parseInt(NOM); //January is 0!
+                        var yyyy = today.getFullYear();
+                        if (mm > 12) {
+                            mm -= 12;
+                            yyyy += 1;
+                        }
+                        if (mm < 10) {
+                            mm = '0' + mm
+                        }
+                        Act = mm + '/' + yyyy;
+                    }
+                    var tBody = $("#CardMedicines > TBODY")[0];
+                    var row = tBody.insertRow(-1);
+                    var cell = $(row.insertCell(-1));
+                    cell.html(MedicienCode);
+                    cell = $(row.insertCell(-1));
+                    cell.html(MedicienName);
+                    cell = $(row.insertCell(-1));
+                    cell.html(DosageForm);
+                    cell = $(row.insertCell(-1));
+                    cell.html(PackSize);
+                    cell = $(row.insertCell(-1));
+                    cell.html(PackPrice);
+                    cell = $(row.insertCell(-1));
+                    cell.html(UnitNumber);
+                    cell = $(row.insertCell(-1));
+                    cell.html(UnitPrice);
+                    cell = $(row.insertCell(-1));
+                    cell.html(Dose);
+                    cell = $(row.insertCell(-1));
+                    cell.html(Duration);
+                    cell = $(row.insertCell(-1));
+                    cell.html(TotalDuration);
+                    cell = $(row.insertCell(-1));
+                    cell.html(TotalUnits);
+                    cell = $(row.insertCell(-1));
+                    cell.html(0);//Exce
+                    cell = $(row.insertCell(-1));
+                    cell.html(amount1);
+                    cell = $(row.insertCell(-1));
+                    cell.html(MedicineType);
+                    cell = $(row.insertCell(-1));
+                    cell.html(NOM);
+                    cell = $(row.insertCell(-1));
+                    cell.html(Act);
+                    cell = $(row.insertCell(-1));
+                    cell.html(Lock);
+                    //Edit button
+                    cell = $(row.insertCell(-1));
+                    var btnEdit = $("<a  />");
+                    btnEdit.attr("type", "button");
+                    btnEdit.addClass("btn btn-warning  glyphicon glyphicon-pencil");
+                    btnEdit.attr("onclick", "EditMedicine(this);");
+                    btnEdit.text("Edit");
+                    cell.append(btnEdit);
+                    // remove button
+                    //cell = $(row.insertCell(-1));
+                    //var btnRemove = $("<a  />");
+                    //btnRemove.attr("type", "button");
+                    //btnRemove.addClass("btn btn-danger  glyphicon glyphicon-trash");
+                    //btnRemove.attr("onclick", "RemoveMedicine(this);");
+                    //btnRemove.text("Remove");
+                    //cell.append(btnRemove);
+
+                }
+                $('#ApprovalEditModal').modal('hide');
+                // Calculation();
+            }
+            else {
+                bootbox.alert("Please Insert Requried Data");
+                $('.modal-body #Dose').focusin();
+            }
+            $('.modal-body #Dose').val('');
+            $('.modal-body #Duration').val('');
+            $('#MedicineType').val("Chronic");
+            $('.modal-body #NOM').val('');
+            $('#NOMD').attr("hidden", true);
+           
+        });
+        $('#CloseApproval').click(function () {
+            $('.modal-body #Dose').val(' ');
+            $('.modal-body #Duration').val(' ');
+            $('#MedicineType').val("Chronic");
+            $('.modal-body #NOM').val(' ');
+            $('#NOMD').attr("hidden", true);
+        });
+
+
+    })
+</script>

@@ -1,0 +1,285 @@
+﻿@model IEnumerable<DMS_Authontication1.Models.AfterSale>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+
+<div class="portlet box  red-pink">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Search  Visits
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-2">
+                <input id="From" type="text" class="col-md-2 form-control " placeholder="From" />
+            </div>
+            <div class="col-md-2">
+                <input id="To" type="text" class="col-md-2 form-control " placeholder="To" />
+            </div>
+            <div class="col-md-2">
+                @Html.DropDownList("CompName", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompName" })
+
+                @*<input id="CompName" type="text" class="col-md-2 form-control " placeholder="Company Name" />*@
+            </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="col-md-2">
+                    @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = "form-control", @id = "userName" })
+                    @*<input id="userName" type="text" class="col-md-2 form-control " placeholder="User Name" />*@
+                </div>
+            }
+            <!--<div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
+                <select id="PharmacyddlType" class="form-control">
+                    <option value="">Select Type</option>
+                    <option value="Daily">Daily</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>-->
+            @*<option value="11604">Doctor</option>*@
+            <!--</select>
+            </div>-->
+        </div>
+        <br />
+        <div class="row" style=" text-align:right">
+            <div class="col-md-12">
+                <input id="ResetSearch" type="button" value="Reset" onclick="ClearAfterSalesSearchData();" class="btn btn-warning" />
+                <input id="Print" type="button" value="Pdf" class="btn btn-primary fa fa-file-pdf-o" />
+                <input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o " />
+                <input id="AfterSalesSearch" type="button" value="Search" class="btn btn-default  fa fa-search" />
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="portlet box  red-pink">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> Visits
+        </div>
+        <div class="actions">
+            <a id="Create" href="/AfterSales/Create" style=" text-transform: none" class="btn btn-primary  btn-sm">
+                <i class="fa fa-plus"></i> New Visit
+            </a>
+        </div>
+    </div>
+    <br />
+    <div class="portlet-body">
+
+        <table class="ui celled table" id="Index" width="100%">
+            <thead>
+                <tr>
+                    <th>
+                        Visit Id
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CompanyName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BranchName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VisitReason)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VisitDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PersonName)
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+
+        </table>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+
+    $(function () {
+        $('#From').datetimepicker({
+            format: "l"
+        });
+        $('#To').datetimepicker({
+            format: "l"
+        });
+
+        $('#userName').select2();
+        $('#CompName').select2();
+
+        //  $(document).ready(function () {
+        $("#Index").DataTable();
+        $('#Print').click(function () {
+            var result = ValidSearchRequest();
+            if (result.valid) {
+                window.open('/AfterSales/PrintVisits?from=' + $("#From").val() + '&&to=' + $("#To").val() + '&&CompName=' + $("#CompName").val() + '&&username=' + $("#userName").val());
+            } else {
+                toastr.info('Enter Valid Data')
+            }
+
+        });
+        $('#PrintExcel').click(function () {
+            var result = ValidSearchRequest();
+            if (result.valid) {
+                window.open('/AfterSales/PrintXlxVisits?from=' + $("#From").val() + '&&to=' + $("#To").val() + '&&CompName=' + $("#CompName").val() + '&&username=' + $("#userName").val());
+            } else {
+                toastr.info('Enter Valid Data')
+            }
+
+        });
+
+        IndexDatatable();
+
+        $('#AfterSalesSearch').click(function () {
+            var result = ValidSearchRequest();
+            if (result.valid) {
+                $('#Index').dataTable().fnDestroy();
+                $("#Index").DataTable({
+                    "sAjaxSource": '/AfterSales/AfterSaleList?From=' + $("#From").val() + '&&To=' + $("#To").val() + '&&CompName=' + $("#CompName").val() + '&&userName=' + $("#userName").val(),
+                    "bServerSide": true,
+                    "processing": true,
+                    "bFilter": true,
+                    "bSort": false,
+                    "pageLength": 10,
+                    "bInfo": true,
+                    "columns": [
+                        //{ "data": "Id", "name": "Id" },
+                        { "data": "Id", "name": "Id" },
+                        { "data": "CompanyName", "name": "CompanyName" },
+                        { "data": "BranchName", "name": "BranchName" },
+                        { "data": "VisitReason", "name": "VisitReason" },
+                        { "data": "VisitDate", "name": "VisitDate" },
+                        { "data": "PersonName", "name": "PersonName" },
+                        //{
+                        //    "data": "VisitDate",
+                        //    "name": "VisitDate",
+                        //    "mRender": function (data) {
+                        //        var value = new Date(parseFloat(data.replace(/(^.*\()|([+-].*$)/g, '')));
+                        //        var date = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                        //        return date;
+                        //    }
+                        //},
+                        {
+                            "data": "Id",
+                            "mRender": function (data) {
+                                // data = data.toString().slice(8);//remove date
+                                return '<a class="btn btn-warning fa fa-edit" href="/AfterSales/Edit/' + data + '" style = " text-transform: none"> Edit</a>';
+                            }
+                        },
+                        {
+                            "data": "Id",
+                            "mRender": function (data) {
+                                // data = data.toString().slice(8);//remove date
+                                return '<a class="btn btn-primary fa fa-list" href="/AfterSales/Details/' + data + '" style = " text-transform: none"> Details</a>';
+                            }
+                        }
+                        ,
+                        {
+                            "data": "Id",
+                            "mRender": function (data) {
+                                //data = data.toString().slice(8);//remove date
+                                //return '<a href="/Pharmacy/Delete/' + data + '">Delete</a>';
+                                return '<a class="btn btn-danger fa fa-remove" href="/AfterSales/Delete/' + data + '" style = " text-transform: none"> Delete</a>';
+                                // return '<button type="button" class="btn btn-danger fa fa-remove" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+
+                            }
+                        },
+
+
+                    ]
+                });
+            }
+        });
+    });
+    function ClearAfterSalesSearchData() {
+        $("#From").val("");
+        $("#To").val("");
+        $("#CompName").val("");
+        $("#userName").val('').trigger("change");
+        $("#CompName").val('').trigger("change");
+        
+        IndexDatatable();
+    }
+    function ValidSearchRequest() {
+        $.validity.setup({ outputMode: 'label' });
+        $.validity.start();
+        //$("#EMP_ENAME_ST").require();
+
+        if ($("#From").val() == "" && $("#To").val() != "") { toastr.error("Please,select From Date."); return { valid: false }; }
+        if ($("#To").val() == "" && $("#From").val() != "") { toastr.error("Please,select To date."); return { valid: false }; }
+        return $.validity.end();
+    }
+
+    function IndexDatatable() {
+        $('#Index').dataTable().fnDestroy();
+        $("#Index").DataTable({
+            "sAjaxSource": '/AfterSales/AfterSaleList',
+            "bServerSide": true,
+            "processing": true,
+            "bFilter": true,
+            "bSort": false,
+            "pageLength": 10,
+            "bInfo": true,
+            "columns": [
+                //{ "data": "Id", "name": "Id" },
+                { "data": "Id", "name": "Id" },
+                { "data": "CompanyName", "name": "CompanyName" },
+                { "data": "BranchName", "name": "BranchName" },
+                { "data": "VisitReason", "name": "VisitReason" },
+                { "data": "VisitDate", "name": "VisitDate" },
+                { "data": "PersonName", "name": "PersonName" },
+                //{
+                //    "data": "VisitDate",
+                //    "name": "VisitDate",
+                //    "mRender": function (data) {
+                //        var value = new Date(parseFloat(data.replace(/(^.*\()|([+-].*$)/g, '')));
+                //        var date = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                //        return date;
+                //    }
+                //},
+                {
+                    "data": "Id",
+                    "mRender": function (data) {
+                        // data = data.toString().slice(8);//remove date
+                        return '<a class="btn btn-warning fa fa-edit" href="/AfterSales/Edit/' + data + '" style = " text-transform: none"> Edit</a>';
+                    }
+                },
+                {
+                    "data": "Id",
+                    "mRender": function (data) {
+                        // data = data.toString().slice(8);//remove date
+                        return '<a class="btn btn-primary fa fa-list" href="/AfterSales/Details/' + data + '" style = " text-transform: none"> Details</a>';
+                    }
+                }
+                ,
+                {
+                    "data": "Id",
+                    "mRender": function (data) {
+                        //data = data.toString().slice(8);//remove date
+                        //return '<a href="/Pharmacy/Delete/' + data + '">Delete</a>';
+                        return '<a class="btn btn-danger fa fa-remove" href="/AfterSales/Delete/' + data + '" style = " text-transform: none"> Delete</a>';
+                        // return '<button type="button" class="btn btn-danger fa fa-remove" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+
+                    }
+                },
+
+
+            ]
+        });
+    }
+
+
+</script>
+

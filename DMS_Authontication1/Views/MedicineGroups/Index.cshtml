@@ -1,0 +1,65 @@
+﻿@model IEnumerable<DMS_Authontication1.Models.MedicineGroup>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Medicine Groups
+        </div>
+        <div class="actions">
+            <a id="Create" href="/MedicineGroups/Create" class="btn btn-success   btn-sm" >
+                <i class="fa fa-plus"></i> Create New
+            </a>
+        </div>
+    </div>
+    <br />
+    <div class="portlet-body">
+        @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+        <table id="Index" class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GroupId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GroupName)
+                    </th>
+                    <th>
+                        @Html.DisplayName("IsClosed")
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GroupId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GroupName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GroupType)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.GroupId }, htmlAttributes: new { @class = "btn btn-warning" })
+                            @*|@Html.ActionLink("Delete", "Delete", new { id = item.GroupId }, htmlAttributes: new { @class = "btn btn-danger" })*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    $(function () {
+        $('#Index').dataTable();
+    })
+</script>

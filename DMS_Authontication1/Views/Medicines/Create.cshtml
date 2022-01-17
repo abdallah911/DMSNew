@@ -1,0 +1,359 @@
+﻿@model DMS_Authontication1.ViewModel.MedicienDataViewModal
+
+@{
+    ViewBag.Title = "Create";
+}
+@Html.Partial("_Diagnoise")
+@*@Html.AntiForgeryToken()*@
+<div class="panel panel-info">
+    <h2 class="panel-heading" style="margin:1px;">Create Medicine</h2>
+    <div class="panel-body">
+        <div class="form-horizontal"style="padding-left: 93px;">
+
+            @Html.HiddenFor(x => x.MedicinesDiagnosis, new { id = "MedicinesDiagnosis" })
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.COMP_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.COMP_ID, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.COMP_ID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BRANCH_CODE, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.BRANCH_CODE, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BRANCH_CODE, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            <div class="form-group">
+                @Html.Label("Medicine Code", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.M_CODE, new { htmlAttributes = new { @class = "form-control", id = "M_CODE" } })
+                    @Html.ValidationMessageFor(model => model.M_CODE, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("License Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownList("LIC_TYPE", ViewBag.LicenceType as SelectList, new { @class = "form-control", id = "LIC_TYPE" })
+
+                    @*@Html.EditorFor(model => model.LIC_TYPE, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.LIC_TYPE, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Medicine Group", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownList("MED_GROUP", ViewBag.MedicineGroup as SelectList, new { @class = "form-control", id = "MED_GROUP" })
+                    @*@Html.EditorFor(model => model.MED_GROUP, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.MED_GROUP, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Medicine Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.TRADE_NAME, new { htmlAttributes = new { @class = "form-control", id = "TRADE_NAME" } })
+                    @Html.ValidationMessageFor(model => model.TRADE_NAME, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Dosage Form", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownList("DOSAGE_FORM", ViewBag.DosageForm as SelectList, new { @class = "form-control", id = "DOSAGE_FORM" })
+                    @*@Html.EditorFor(model => model.DOSAGE_FORM, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.DOSAGE_FORM, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Package Size", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.PACK_SIZE, new { htmlAttributes = new { @class = "form-control", id = "PACK_SIZE" } })
+                    @Html.ValidationMessageFor(model => model.PACK_SIZE, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Package Price", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.PACK_PRICE, new { htmlAttributes = new { @class = "form-control", id = "PACK_PRICE" } })
+                    @Html.ValidationMessageFor(model => model.PACK_PRICE, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Medicine Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownList("M_TYPE", ViewBag.MedicineType as SelectList, new { @class = "form-control", id = "M_TYPE" })
+                    @*@Html.EditorFor(model => model.M_TYPE, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.M_TYPE, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.CON_MED, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.CON_MED, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CON_MED, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            <div class="form-group">
+                @Html.Label("Unit Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.UNIT_NO, new { htmlAttributes = new { @class = "form-control", id = "UNIT_NO" } })
+                    @Html.ValidationMessageFor(model => model.UNIT_NO, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Unit Price", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.UNIT_PRICE, new { htmlAttributes = new { @class = "form-control", id = "UNIT_PRICE" } })
+                    @Html.ValidationMessageFor(model => model.UNIT_PRICE, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.ACTIVE, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.ACTIVE, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ACTIVE, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.UPDATE_BY, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.UPDATE_BY, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UPDATE_BY, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UPDATE_DATE, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.UPDATE_DATE, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UPDATE_DATE, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CREATED_BY, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.CREATED_BY, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CREATED_BY, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CREATED_DATE, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.CREATED_DATE, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CREATED_DATE, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+            <div class="form-group">
+                @Html.Label("Gender", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownList("DiagnoiseGender", new List<SelectListItem> {
+                   new SelectListItem{Text="All",Value="3"},
+                   new SelectListItem{Text="Male",Value="1"},
+                   new SelectListItem{Text="Female",Value="2"}
+
+               }, new { @class = "form-control", id = "DiagnoiseGender" })
+                    @Html.ValidationMessageFor(model => model.DiagnoiseGender, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Age", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownList("DiagnoiseAge", new List<SelectListItem> {
+                   new SelectListItem{Text="All",Value="All"},
+                   new SelectListItem{Text="Adult",Value="Adult"},
+                   new SelectListItem{Text="Child",Value="Child"}
+
+
+               }, new { @class = "form-control", id = "DiagnoiseAge" })
+                    @Html.ValidationMessageFor(model => model.DiagnoiseAge, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("IsCovered", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownList("IsCovered", new List<SelectListItem> {
+                   new SelectListItem{Text="True",Value="True"},
+                   new SelectListItem{Text="False",Value="False"},
+
+               }, new { @class = "form-control", id = "IsCovered" })
+                    @Html.ValidationMessageFor(model => model.IsCovered, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Diagnoise", new { @class = "col-md-2 control-label" })
+                <div class="input-group col-md-6">
+                    <div class="input-group-btn">
+                        <a id="AddDiagnoise" class="btn btn-default">
+                            <i class="glyphicon glyphicon-plus-sign"></i>
+                        </a>
+                        <a id="RemoveDiagnoise" class="btn btn-default">
+                            <i class="glyphicon glyphicon-minus-sign"></i>
+                        </a>
+                        <textarea id="Diagnoise" type="text" class="form-control " name="Diagnoise" placeholder="" value="" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("International Code", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.GRN_CODE, new { htmlAttributes = new { @class = "form-control", id = "GRN_CODE" } })
+                    @Html.ValidationMessageFor(model => model.GRN_CODE, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="submit" type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>*@
+        </div>
+
+    </div>
+    <div class="panel-footer" style="text-align:right;">
+        <input id="Back" type="button" value="Back" onclick="window.location.replace('/Medicines/index');" class="btn btn-warning" />
+        @*<input id="New" type="reset" value="Reset" class="btn btn-primary" />*@
+        <input id="submit" type="submit" value="Create" class="btn btn-success" />
+    </div>
+</div>
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    $(function () {
+
+        //Dignosies
+        $.ajax({
+            type: 'POST',
+            url: '/Medicines/getDiag/',
+            dataType: 'json',
+            data: {},
+            success: function (r) {
+                $('#Diagnoises').dataTable().fnDestroy();
+                var setData = $("#Diagnoises Tbody");
+                setData.empty();
+
+                for (var i = 0; i < r.length; i++) {
+                    var data = "<tr>" +
+                        "<td>" + "<Button class='btn btn-Primary glyphicon glyphicon-ok' onclick= 'SelectDiagnoise(this);' ></Button>" + "</td>" +
+                        "<td>" + r[i].Code + "</td>" +
+                        "<td>" + r[i].Name + "</td>" +
+                        "</tr>";
+                    setData.append(data);
+                }
+
+                $('#Diagnoises').DataTable();
+
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Diagnoses.');
+            }
+
+        });
+        $('#MED_GROUP').select2();
+        $('#AddDiagnoise').click(function () {
+            $('#DiagnoiseModal').modal();
+        });
+
+        $('#RemoveDiagnoise').click(function () {
+            DiagnosisList.splice(-1, 1);
+            var splited = $('#Diagnoise').val().split("\n");
+            if (splited[splited.length - 1] == "") {
+                splited.splice(-1, 1);
+                splited.splice(-1, 1);
+
+                $('#Diagnoise').val(splited.join("\n") + "\n");
+            }
+            else {
+                splited.splice(-1, 1);
+                $('#Diagnoise').val(splited.join("\n"));
+            }
+        });
+
+        $('#submit').click(function () {
+            if ($('#M_CODE').val() != "") {
+                if ($('#Diagnoise').val() != "") {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Medicines/SaveDatas/',
+                        dataType: 'Json',
+                        data: {
+
+                            M_CODE: $('#M_CODE').val(),
+                            LIC_TYPE: $('#LIC_TYPE').val(),
+                            MED_GROUP: $('#MED_GROUP').val(),
+                            TRADE_NAME: $('#TRADE_NAME').val(),
+                            DOSAGE_FORM: $('#DOSAGE_FORM').val(),
+                            PACK_SIZE: $('#PACK_SIZE').val(),
+                            PACK_PRICE: $('#PACK_PRICE').val(),
+                            M_TYPE: $('#M_TYPE').val(),
+                            CON_MED: $('#CON_MED').val(),
+                            UNIT_NO: $('#UNIT_NO').val(),
+                            UNIT_PRICE: $('#UNIT_PRICE').val(),
+                            ACTIVE: $('#ACTIVE').val(),
+                            GRN_CODE: $('#GRN_CODE').val(),
+                            IsCovered: $('#IsCovered').val(),
+                            DiagnoiseGender: $('#DiagnoiseGender').val(),
+                            DiagnoiseAge: $('#DiagnoiseAge').val(),
+                            Diagnose: $('#Diagnoise').val()
+                        },
+                        success: function (r) {
+                            if (r.ok) {
+                                bootbox.dialog({
+                                    title: 'Success',
+                                    message: r.message,
+                                    buttons: {
+                                        Ok: {
+                                            label: "Ok",
+                                            className: 'btn-info',
+                                            callback: function () {
+                                                //location.reload("/Medicines/index");
+                                                window.location.replace("/Medicines/index");
+                                            }
+                                        }
+                                    }
+                                });
+                            } else {
+                                bootbox.dialog({
+                                    title: 'Alert!',
+                                    message: r.message,
+                                    buttons: {
+                                        Ok: {
+                                            label: "Ok",
+                                            className: 'btn-info',
+                                            callback: function () {
+                                                //location.reload("/Medicines/index");
+                                                //location.reload();
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                    });
+                } else {
+                    bootbox.alert("Please,Enter Diagnose Code");
+                }
+            } else {
+                bootbox.alert("Please,Enter Medicine Code");
+            }
+        });
+    })
+</script>

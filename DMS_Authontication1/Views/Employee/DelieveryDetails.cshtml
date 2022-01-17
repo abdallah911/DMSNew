@@ -1,0 +1,193 @@
+﻿@model DMS_Authontication1.Models.DeliveryRequest
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+<h2>Details Indemnity</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayName("Card Id")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CardId)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeePersonalData.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayName("National Id")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeePersonalData.NationalId)
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayName("Governorate ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Country.ArName)
+        </dd>
+        <dt>
+            @Html.DisplayName("Region ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Region.ArName)
+        </dd>
+        <dt>
+            @Html.DisplayName("NeighborHood ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NeighborHood)
+        </dd>
+        <dt>
+            @Html.DisplayName("Street Name")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StreetName)
+        </dd>
+        <dt>
+            @Html.DisplayName("Bulding No")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BuldingNo)
+        </dd>
+        <dt>
+            @Html.DisplayName("Flat No ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FlatNo)
+        </dd>
+        <dt>
+            @Html.DisplayName("Phone1 ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone1)
+        </dd>
+        <dt>
+            @Html.DisplayName("Phone2 ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone2)
+        </dd>
+        <dt>
+            @Html.DisplayName("Provider ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Serv_Providers1.PR_ANAME)
+        </dd>
+        <dt>
+            @Html.DisplayName("Branch  ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SERV_PROVIDERS_NEW.PR_ANAME)
+        </dd>
+        <dt>
+            @Html.DisplayName("Time To Deliverd ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+        <dt>
+            @Html.DisplayName("Action")
+        </dt>
+
+        <dd>
+            @Html.ActionLink("Confirm", "ConfirmOrder", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-info fa fa-edit", @style = " text-transform: none" })
+        </dd>
+        <dd>
+            <table id="Index" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Medicine Code
+                        </th>
+                        <th>
+                            Medicine Name
+                        </th>
+                        <th>
+                            Dosage Form
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                </thead>
+
+                @foreach (var item in Model.DeliveryRequestDetails)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MedicineCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MedicineName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DosageForm)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Amount)
+                        </td>
+
+
+
+                    </tr>
+                }
+            </table>
+        </dd>
+        @*<dt>
+                @Html.DisplayNameFor(model => model.AttachPDF)
+            </dt>
+
+            <dd>
+
+                @Html.ActionLink(" Download", "Download", new { id = Model.BatchID }, htmlAttributes: new { @class = "btn btn-info fa fa-download", @style = " text-transform: none" })
+            </dd>*@
+    </dl>
+</div>
+
+
+<br />
+<p>
+    @Html.ActionLink(" Back to List", "IndexAdmin", null, htmlAttributes: new { @class = "btn btn-primary fa fa-backward", @style = " text-transform: none" })
+
+
+</p>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/js/intro.js"></script>

@@ -1,0 +1,404 @@
+﻿@{
+    ViewBag.Title = "Inquiries";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    string col = "";
+    if (User.IsInRole("User"))
+    {
+        col = "blue-chambray";
+    }
+    else
+    {
+        col = "green";
+    }
+}
+@*<h2>Index</h2>*@
+
+<br />
+<div style="margin-top:40px">
+    <p>
+        @Html.ActionLink(" Search ", "InquiryAboutCard", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-question", @style = " text-transform: none" })
+
+        @if (User.IsInRole("User"))
+        {
+            if (Session["IsNetwork"] != null)
+            {
+                if ((bool)Session["IsNetwork"] == true)
+                {
+                    @Html.ActionLink(" Create Request", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus", @style = " text-transform: none" })
+
+                }
+            }
+
+        }
+        else
+        {
+            @Html.ActionLink(" Create Request", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus", @style = " text-transform: none" })
+            @*@Html.ActionLink(" Consumption", "Consumption", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })*@
+
+        }
+    </p>
+</div>
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Inquiries about an invoice
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row ">
+            <div class="col-md-12">
+                <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN THEME PANEL -->
+
+                    <div class="form-wizard">
+                        <div class="form-body">
+                            <div class="tab-content">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+
+                                <div class="row">
+                                    @* Search Element and buttons *@
+                                    <div class="col-md-12">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-5">
+                                                    Copmany Number :
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input id="CopmanyNumber" type="number" class="form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    Card Number :
+                                                </label>
+                                                @if (User.IsInRole("HR"))
+                                                {
+                                                    <div class="col-md-8">
+                                                        <select id="CardNumber" class="js-data-example-ajax" style="width: 100%"></select>
+                                                        @*<input id="CardNumber" type="text" placeholder="search for card..." class=" form-control " required />*@
+                                                    </div>
+                                                    <br />
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownList("CardNumber2", ViewBag.Cardslist as SelectList, new { @class = "form-control", @id = "CardNumber2", @required = "True" })
+
+                                                        @*<input id="CardNumber" type="text" value="@ViewBag.cardID" class=" form-control " readonly="readonly" />*@
+                                                    </div>
+                                                    <br />
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="col-md-6">
+                                                <button id="Search" type="button" class="btn btn-success" onclick="SearchEmployee()">
+                                                    <span class="glyphicon glyphicon-search"></span> Search
+                                                </button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button id="new" type="button" class="btn btn-secondary-outline" onclick="NewRequest()">
+                                                    <span class="fa fa-reply"></span> New
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    @*Data Table for result employee data*@
+                                    <div class="col-md-offset-1 col-md-10" style="margin-top:30px" id="Employe_Data">
+
+                                        <table class="table" id="EmployeeDataList">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        @Html.DisplayName("Card Number")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("First Name")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Second Name")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Third Name")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Provider Code")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Provider Name")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Group Name")
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ProviderListBody"></tbody>
+                                        </table>
+                                    </div>
+
+                                    @*Data Table for result Medicine data*@
+                                    <div class="col-md-offset-1 col-md-10" style="margin-top:80px;margin-bottom:30px" id="listMedicine_div">
+
+                                        <table class="table" id="MedicineDataList">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        @Html.DisplayName("Medicine Code")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Medicine Name")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Dosage From")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Unit Number")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Packet Size")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Dose Duration")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Total Duration")
+                                                    </th>
+                                                    @*<th>
+                                                            @Html.DisplayName("ConMed")
+                                                        </th>*@
+                                                    <th>
+                                                        @Html.DisplayName("Created Date")
+                                                    </th>
+                                                    @*<th>
+                                                            @Html.DisplayName("Status")
+                                                        </th>*@
+                                                    <th>
+                                                        @Html.DisplayName("Active Status")
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ProviderListBody"></tbody>
+                                        </table>
+                                    </div>
+
+                                    @*Footer*@
+                                    <div class="col-md-12" id="details">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-5">
+                                                    Last Exchange  Date  :
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input id="ExchangeDate" type="text" class="form-control " readonly="readonly" />
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-5">
+                                                    Pharmacy Name  :
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input id="PharmacyName" type="text" class="form-control " readonly="readonly" />
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    Branch Name  :
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input id="BranchName" type="text" class="form-control " readonly="readonly" />
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script>
+    $(function () {
+
+        $('#Employe_Data').hide();
+        $('#listMedicine_div').hide();
+        $('#details').hide();
+
+        $('#EmployeeDataList').DataTable();
+        $('#MedicineDataList').DataTable();
+        $('#CardNumber').select2({
+            placeholder: 'Search for a cards',
+            minimumInputLength: 5,
+            ajax: {
+                url: '/EmployeeRequest/GetActiveEmployess/',
+                delay: 250,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+                    return query;
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+
+                    return {
+                        results: data,//.results,
+                        pagination: {
+                            more: (params.page * 10) < data.count_filtered
+                        }
+                    };
+                }
+                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+            }
+        });
+
+    });
+
+    function SearchEmployee() {
+        $('#Employe_Data').hide();
+        $('#listMedicine_div').hide();
+        $('#details').hide();
+        var cardNum = $("#CardNumber").val();
+        var cardNum2 = $("#CardNumber2").val();
+        var compname = $("#CopmanyNumber").val();
+        // chick card id  is empty
+        if (cardNum == "" || cardNum2 == "") {
+            toastr.info("Please Enter Valid Card ID ...");
+        }
+        else {
+            if (cardNum2 != "")
+                cardNum = cardNum2;
+            var arra = cardNum.split("-");
+
+            // chick card id is correct or not
+            if (arra.length == 4 && arra[3] != "") {
+
+                // final chick if card id start with company id or not
+                if (arra[0] == compname) {
+
+                    $.ajax({
+                        url: '/HrChronic/GetEmployeeChronicData/',
+                        data: {
+                            cardId: cardNum, compId: compname
+                        },
+                        dataType: 'Json',
+                        success: function (r) {
+                            $('#EmployeeDataList').dataTable().fnDestroy();
+                            $('#MedicineDataList').dataTable().fnDestroy();
+                            if (r.msg == "ok") {
+                                var setDataEmploye = $("#EmployeeDataList Tbody");
+                                var setDataMedicine = $("#MedicineDataList Tbody");
+                                setDataEmploye.empty();
+                                setDataMedicine.empty();
+                                var empdata = "<tr >" +
+                                    "<td>" + r.employee.CardId + "</td>" +
+                                    "<td>" + r.employee.EmployeeFN + "</td>" +
+                                    "<td>" + r.employee.EmployeeSN + "</td>" +
+                                    "<td>" + r.employee.EmployeeTN + "</td>" +
+                                    "<td>" + r.employee.ProviderCode + "</td>" +
+                                    "<td>" + r.employee.ProviderName + "</td>" +
+                                    "<td>" + r.employee.GroupName + "</td>" +
+                                    "</tr>";
+                                setDataEmploye.append(empdata);
+                                $('#EmployeeDataList').DataTable();
+                                for (var i = 0; i < r.roshDetails.length; i++) {
+                                    debugger;
+                                    var dataMed = "<tr >" +
+                                        "<td>" + r.roshDetails[i].MedicienCode + "</td>";
+
+                                    dataMed += "<td>" + r.roshDetails[i].MedicienName + "</td>";
+
+                                    dataMed += "<td>" + r.roshDetails[i].DOSAGE_FORM + "</td>";
+                                    dataMed += "<td>" + r.roshDetails[i].UNIT_NO + "</td>";
+                                    dataMed += "<td>" + r.roshDetails[i].PACK_SIZE + "</td>";
+
+
+                                    dataMed += "<td>" + r.roshDetails[i].Duration + "</td>";
+
+                                    dataMed += "<td>" + r.roshDetails[i].TotalDuration + "</td>";
+
+                                    //dataMed += "<td>--</td>";
+                                    dataMed += "<td>" + r.roshDetails[i].MedicineCreatedDate + "</td>";
+
+                                    //if (r.roshDetails[i].IsDealed == 0)
+                                    //    dataMed += "<td> NO </td>";
+                                    //else
+                                    //    dataMed += "<td> Yes </td>";
+                                    if (r.roshDetails[i].ACTIVE == "N")
+                                        dataMed += "<td> DisActive </td>";
+                                    else
+                                        dataMed += "<td> Active </td>";
+                                    dataMed += "</tr>";
+
+                                    setDataMedicine.append(dataMed);
+                                }
+                                $('#MedicineDataList').DataTable();
+                                $('#Employe_Data').show();
+                                $('#listMedicine_div').show();
+
+                                $("#ExchangeDate").val(r.employee.CreatedDate);
+                                $("#PharmacyName").val(r.employee.PharmacyName);
+                                $("#BranchName").val(r.employee.UserName);
+                                $('#details').show();
+
+                            }
+                            else {
+                                toastr.info(r.msg);
+                            }
+
+                        },
+                        error: function () {
+                            toastr.info("Invalid Card ID ");
+                        }
+                    });
+
+                }
+                else {
+                    toastr.info("Please enter correct card that belongs to your company only start with : " + compname);
+                }
+
+            }
+            else {
+                toastr.info("Please enter correct card ... ");
+            }
+        }
+
+
+
+    }
+
+    function NewRequest() {
+        window.location = '/HrChronic/InquiryAboutCard';
+
+    }
+
+</script>

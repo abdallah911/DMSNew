@@ -1,0 +1,274 @@
+﻿@model IEnumerable<DMS_Authontication1.Models.ProposalBasicData>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<p>
+    <a class="btn btn-primary" href="/ProposalBasicDatas/Create"> Create New</a>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+
+
+
+    <div class="portlet box  green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i> Search
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row" style="padding-bottom: 15px;">
+                <div class="col-md-2">
+                    <input id="AdminFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                </div>
+                <div class="col-md-2">
+                    <input id="CopmanyId" type="text" class="col-md-2 form-control " placeholder="Copmany Id" />
+                </div>
+                <div class="col-md-2">
+                    <input id="CompanyName" type="text" class="col-md-2 form-control " placeholder="Company Name" />
+                </div>
+               
+
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <input id="AdminTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                </div>
+              
+                <div class="col-md-2">
+                    <input id="ProposalId" type="text" class="col-md-2 form-control " placeholder="Proposal Id" />
+                </div>
+                <div class="col-sm-2" data-step="6" data-intro="Select Proposal type">
+                    <select id="ddlType" class="form-control">
+                        <option value=""></option>
+                        <option value="false">Renewal</option>
+                        <option value="true">New</option>                       
+                    </select>
+                </div>
+            </div>
+            <div style=" text-align:right">
+                <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
+                <input id="adminSearch" type="button" value="Search" onclick="adminSearch();" class="btn btn-primary fa fa-search" />
+            </div>
+        </div>
+    </div>
+
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Proposals
+        </div>
+
+    </div>
+    <br />
+    <div class="portlet-body">
+
+        <table class="ui celled table" id="Index" width="100%">
+            <thead>
+                <tr>
+
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        status
+                    </th>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Company Name
+                    </th>
+                    <th>
+                        Company Id
+                    </th>
+                    <th>
+                        Contract No
+                    </th>
+                    <th>
+                        Proposal No
+                    </th>
+
+                    <th>
+                        CreatedBy
+                    </th>
+
+                    <th>
+                        CreatedDate
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+
+        </table>
+    </div>
+</div>
+
+    <div class="portlet box  green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i> Count
+            </div>
+        </div>
+        <div class="portlet-body">
+            <table class="ui celled table" id="Counts" width="100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Count
+                        </th>
+                        <th>
+                            Total Value
+                        </th>
+                        <th>
+                            Company Payment
+                        </th>
+                        <th>
+                            Person Payment
+                        </th>
+                       
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                       
+
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/DMS/Proposal/ProposalBasicDataIndex.js?V=5"></script>
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeProposal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InsuredBefore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExClient)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContractNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InsuredOtherComp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumProposal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Conclusion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OtherCompName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeProposal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InsuredBefore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExClient)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContractNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InsuredOtherComp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumProposal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Conclusion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OtherCompName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>*@

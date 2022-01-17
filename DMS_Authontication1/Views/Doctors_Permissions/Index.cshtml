@@ -1,0 +1,69 @@
+﻿@model IEnumerable<DMS_Authontication1.Models.Doctors_Permissions>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AspNetUser.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.permissionType)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.DailyPermission.Name)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.MonthlyPermission.Name)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUser.UserName)
+        </td>
+            <td>
+            @Html.DisplayFor(modelItem => item.permissionType)
+        </td>
+        @{if (item.permissionType == "Daily")
+            {
+        <td>
+            @Html.DisplayFor(modelItem => item.DailyPermission.Name)
+        </td>
+            }
+            else
+            {
+        <td>
+            @Html.DisplayFor(modelItem => item.MonthlyPermission.Name)
+        </td>
+            }
+         }
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+

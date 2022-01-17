@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="MedicalResponseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Medical Response</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="MedicalResponses">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>
+                                @Html.DisplayName("Replay")
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+            <div class="modal-footer">
+
+                <button id="Close" type="button" class="btn btn-secondary glyphicon glyphicon-ok" data-dismiss="modal"> Ok</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script>
+    
+    var ResponseName="";
+    function SelectMedicalResponse(button) {
+        
+        var row = $(button).closest("TR");
+        ResponseName = $("TD", row).eq(1).html();
+        $('#MedicalResponse').val("");
+        $('#MedicalResponse').val(ResponseName);
+        $('#MedicalResponse').css("border-color", "#ccc");
+        $('#MedicalResponseModal').modal('hide');
+
+    }
+
+</script>

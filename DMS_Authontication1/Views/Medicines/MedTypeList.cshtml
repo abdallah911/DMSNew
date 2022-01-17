@@ -1,0 +1,30 @@
+﻿@model DMS_Authontication1.ViewModel.MedicineTypeViewmodel
+
+@{
+    ViewBag.Title = "MedTypeList";
+}
+
+<h2>MedTypeList</h2>
+
+<table class="table" style="margin-left: 78px;">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicineTypeName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.medtypelist) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicineTypeName)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>*@
+    </tr>
+}
+
+</table>

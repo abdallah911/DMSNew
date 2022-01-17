@@ -1,0 +1,287 @@
+﻿@*@model IEnumerable<DMS_TEST.ViewModel.DoctorContainerViewModel>*@
+@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>*@
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Edit</h3>
+            </div>
+
+            <div class="modal-body " >
+
+                <div class="form-group row col-md-6">
+                    <label for="Id" class="col-form-label">ID</label>
+                    <input type="text" class="form-control" id="Id" readonly>
+                </div>
+
+                <div class="form-group row col-md-6">
+                    <label for="MedicienCode" class="col-form-label">Medicien Code</label>
+                    <input type="text" id="MedicienCode" class="form-control" />
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="MedicienName" class="col-form-label">MedicienName</label>
+                    <input type="text" id="MedicienName" class="name form-control" ReadOnly="readonly" />
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="Dosage" class="col-form-label">Dosage</label>
+                    <input type="text" id="Dosage" class="Dosage form-control" ReadOnly="readonly" />
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="PackageSize" class="col-form-label">Package Size</label>
+                    <input type="text" id="PackageSize" class="Package_Size form-control" ReadOnly="readonly" />
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="PackagePrice" class="col-form-label">Package Price</label>
+                    <input type="text" id="PackagePrice" class="Package_price form-control" ReadOnly="readonly" />
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="UnitNumber" class="col-form-label">Unit number</label>
+                    <input type="text" id="UnitNumber" class="unit_number form-control" ReadOnly="readonly" />
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="Dose" class="col-form-label">Dose</label>
+                    <input type="text" id="Dose" class="Dose form-control" />
+
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="Duration" class="col-form-label">Duration</label>
+                    <input type="text" id="Duration" class="Duration form-control" />
+
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="TotalDuration" class="col-form-label">Total Duration</label>
+                    <input type="text" id="TotalDuration" class="totalDuration form-control" />
+
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="TotalUnits" class="col-form-label">Total Units</label>
+                    <input type="text" id="TotalUnits" class="totalDuration form-control" />
+
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="Amount" class="col-form-label">Amount</label>
+                    <input type="text" id="Amount" class="Amount form-control" readonly="readonly" value="0" />
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="Update" type="button" class="btn btn-primary">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Alernative">
+    @Html.Partial("_Alternatives")
+</div>
+
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var input1 = document.getElementById("Dose");
+    input1.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            $('.modal-body #Duration').focus();
+        }
+    });
+    var input2 = document.getElementById("Duration");
+    input2.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            $('#TotalDuration').focus();
+        }
+    });
+    var input3 = document.getElementById("TotalDuration");
+    input3.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            $('#TotalUnits').click();
+        }
+    });
+    var input4 = document.getElementById("TotalUnits");
+    input4.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            $('#Update').click();
+        }
+    });
+    
+  
+    $(function () {
+        var DosageForm = $('.modal-body #Dosage').val();
+
+
+        $('.modal-body #TotalUnits').attr("readonly", true);
+        if (DosageForm == "ELIXIR" || DosageForm == "SYRUP" || DosageForm == "SUSPENTION" || DosageForm == "EMULSION" || DosageForm == "SOUTION") {
+            $('.modal-body #TotalUnits').attr("readonly", false);
+
+        }
+        $('#MedicienCode').click(function () {
+            var MCode=parseInt($('#MedicienCode').val());
+            $.ajax({
+                url:'/Doctor/Alternatives/',
+                data:
+                    {   id:MCode },
+                dataType: 'Json',
+                success: function (r) {
+
+                    $('#AlternativesModal').modal();
+                    var setData = $("#Alteratives Tbody");
+                    setData.empty();
+                    for(var i=0;i<r.length;i++)
+                    {
+                        var data = "<tr >" +
+                    "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Change(this);'></Button>" + "</td>" +
+                    "<td>" + r[i].MedicienCode + "</td>" +
+                    "<td>" + r[i].MedicienName + "</td>" +
+                    "<td>" + r[i].DOSAGE_FORM + "</td>" +
+                    "<td>" + r[i].PACK_PRICE + "</td>" +
+                    "<td>" + r[i].PACK_SIZE + "</td>" +
+                    "<td>" + r[i].UNIT_NO + "</td>" +
+                    "<td>" + r[i].UNIT_PRICE + "</td>" +
+                    "</tr>"
+                        setData.append(data);
+                     
+                    }
+                    $('#Alteratives').DataTable();
+                  
+                },
+                error:function(){
+                    alert(":(");
+            }
+
+            });
+        });
+
+        $('#Update').click(function () {
+            var amount = parseFloat($('.modal-body #PackagePrice').val()) * parseFloat($('.modal-body #TotalUnits').val());
+            $('.modal-body #Amount').val(amount);
+
+            $('#Secand TBODY TR').each(function () {
+                var row = $(this);
+                if (parseInt(row.find("TD").eq(0).html()) == parseInt ($('.modal-body #Id').val())) {
+                   // alert('Update');
+                    $("TD", row).eq(1).html($('.modal-body #MedicienCode').val());
+                    $("TD", row).eq(2).html($('.modal-body #MedicienName').val());
+                    $("TD", row).eq(3).html($('.modal-body #Dosage').val());
+                    $("TD", row).eq(4).html($('.modal-body #PackagePrice').val());
+                    $("TD", row).eq(5).html($('.modal-body #PackageSize').val());
+                    $("TD", row).eq(6).html($('.modal-body #UnitNumber').val());
+                    $("TD", row).eq(7).html($('.modal-body #UnitPrice').val());
+                    $("TD", row).eq(8).html($('.modal-body #Dose').val());
+                    $("TD", row).eq(9).html($('.modal-body #Duration').val());
+                    $("TD", row).eq(10).html($('.modal-body #TotalDuration').val());
+                    $("TD", row).eq(11).html($('.modal-body #TotalUnits').val());
+                    $("TD", row).eq(12).html($('.modal-body #Amount').val());
+                }
+            });
+            //Recalculate
+            //
+            SecandCalculation();
+            //
+            $('#exampleModal').modal('hide');
+        });
+
+        $('#Duration , #Dose').keyup(function () {
+
+            var PackSize = $('.modal-body #PackageSize').val();
+            var UnitNumber = $('.modal-body #UnitNumber').val();
+            var Dose = $('.modal-body #Dose').val();
+            var Duration = $('.modal-body #Duration').val();
+            var TotUnits = (Dose * Duration) / (PackSize / UnitNumber);
+            TotUnits = Math.ceil(TotUnits);
+            $('.modal-body #TotalUnits').val(TotUnits);
+            //Amount value
+            var Amount = parseFloat($('.modal-body #PackagePrice').val()) * parseFloat($('.modal-body #TotalUnits').val());
+            $('.modal-body #Amount').val(Amount);
+
+            Dose = parseInt(Dose);
+            Duration = parseInt(Duration);
+            PackSize = parseInt(PackSize);
+            UnitNumber = parseInt(UnitNumber);
+
+
+            BasicAmount = parseFloat(BasicAmount);
+            BasicDose = parseInt(BasicDose);
+            BasicDuration = parseInt(BasicDuration);
+            BasicTotalUnits = parseInt(BasicTotalUnits);
+            if (Alternative == true) {
+                if (BasicAmount < Amount) {
+                    $('.modal-body #Amount').val(AlternativeAmount);
+                    $('.modal-body #Dose').val("");
+                    $('.modal-body #Duration').val("");
+                    $('.modal-body #TotalUnits').val(1);
+                    alert("Invalid Amount");
+                }
+            }
+            else {
+                if (BasicDose < Dose) {
+                    $('.modal-body #Dose').val(BasicDose);
+                    alert("Invalid Dose");
+                }
+                if (BasicDuration < Duration) {
+                    $('.modal-body #Duration').val(BasicDuration);
+                    alert("Invalid Duration");
+                }
+                if (BasicTotalUnits < TotUnits) {
+                    $('.modal-body #TotalUnits').val(BasicTotalUnits);
+                }
+                if (BasicAmount < Amount) {
+                    $('.modal-body #Amount').val(BasicAmount);
+                }
+            }
+
+
+        });
+        $('#TotalUnits').keyup(function () {
+
+            //Amount value
+            var Amount = parseFloat($('.modal-body #PackagePrice').val()) * parseFloat($('.modal-body #TotalUnits').val());
+            $('.modal-body #Amount').val(Amount);
+            if (Alternative == true) {
+                if (BasicAmount < Amount) {
+                    $('.modal-body #Amount').val(AlternativeAmount);
+                    $('.modal-body #Dose').val("");
+                    $('.modal-body #Duration').val("");
+                    $('.modal-body #TotalUnits').val(1);
+                    alert("Invalid Amount");
+                }
+            }
+            else {
+                if (BasicTotalUnits < TotUnits) {
+                    $('.modal-body #TotalUnits').val(BasicTotalUnits);
+                }
+                if (BasicAmount < Amount) {
+                    $('.modal-body #Amount').val(BasicAmount);
+                }
+            }
+        });
+
+       
+        $('#TotalDuration').keyup(function () {
+            var TotalDuration = $('.modal-body #TotalDuration').val();
+            if (Manager == "Doctor_Daily" && (parseInt(TotalDuration)) < 5) {
+                bootbox.alert("Total duration Must be more than 5 and less than 21 ");
+                $('.modal-body #TotalDuration').val(5);
+                return false;
+            }
+            if (Manager == "Doctor_Daily" && (parseInt(TotalDuration)) > 21) {
+                bootbox.alert("Total duration Must be more than 5 and less than 21 ");
+                $('.modal-body #TotalDuration').val(5);
+                return false;
+            }
+            if (Manager == "Doctor_Monthly" && TotalDuration > 28) {
+                bootbox.alert("Total duration Must be less to 28 ")
+                $('.modal-body #TotalDuration').val(28);
+                return false;
+            }
+        });
+
+    });
+</script>

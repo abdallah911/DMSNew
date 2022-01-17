@@ -1,0 +1,290 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.ChronicViewModel>
+@{
+    ViewBag.Title = "Chronic";
+}
+
+@*@if (ViewBag.Message == "Can despense your medicine at your specific pharmacy")
+{
+    <script>
+        alert("Can despense your medicine at your specific pharmacy");
+        window.location.replace("/Pharmacy/Pharmacy");
+    </script>
+}
+@if (ViewBag.Message == "No Mediciens")
+{
+    <script>
+        alert("you have despensed your medicine");
+        window.location.replace("/Pharmacy/Pharmacy");
+    </script>
+}
+@if (ViewBag.Message == "No Roshita")
+{
+    <script>
+        alert("No chronic data");
+        window.location.replace("/Pharmacy/Pharmacy");
+    </script>
+}
+
+@if (ViewBag.Message == "This Card doesn't have chronic medicines")
+{
+    <script>
+        alert("This Card doesn't have chronic medicines");
+        window.location.replace("/Pharmacy/Pharmacy");
+    </script>
+}*@
+@*@if (ViewBag.Message == "ValidationDate")
+    {
+        <script>
+            alert("You can despense your medicines from 1 to 15 of every month");
+            window.location.replace("/Pharmacy/Pharmacy");
+        </script>
+    }*@
+@if(true)
+{
+    <div style="text-align:center">
+        <h2 >جارى تحديث الادويه المزمنه ... برجاء اعاده المحاوله لاحقا</h2>
+    </div style="align-items:center">
+}
+else
+{
+    <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
+        <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
+    </div>
+    <div class="portlet box  green">
+        <h2 class="portlet-title" style="margin:1px;">Chronic</h2>
+
+        <div class="portlet-body">
+            <div class="table-responsive">
+                <table class="table" id="First">
+                    <thead>
+                        <tr>
+                            <th><button id="AddAll" class="btn btn-primary">All</button></th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MED_CODE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MED_NAME)
+                            </th>
+                            @*<th>
+                                    @Html.DisplayNameFor(model => model.DOSAGE_FORM)
+                                </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.DOSAGE_FORM)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PACK_PRICE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PACK_SIZE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UNIT_NO)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.UNIT_PRICE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DOSE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MED_DURATION)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NO_OF_UINT)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TOTAL_AMT)
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            if (item.NO_OF_UINT != 0)
+                            {
+                                <tr>
+                                    <td>
+                                        <button id="Add" onclick="Add(this);" class="btn btn-primary">Dispense</button>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MED_CODE)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MED_NAME)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DOSAGE_FORM)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Des_PACK_PRICE)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PACK_SIZE)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UNIT_NO)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UNIT_PRICE)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DOSE)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MED_DURATION)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NO_OF_UINT)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TOTAL_AMT)
+                                    </td>
+
+
+                                </tr>
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            @*Calc top*@
+            <div id="Calc_top">
+                <div id="CalcTop" class="inline">
+                    <div class="col-md-2 form-group">
+                        <label class="control-label" for="Total">Total</label>
+                        <input type="text" class="form-control" id="Total" readonly />
+                    </div>
+
+                    <div class="col-md-2 form-group">
+                        <label class="control-label" for="OverInsurance">Over Insurance</label>
+                        <input type="text" class="form-control" id="OverInsurance" readonly />
+                    </div>
+
+                    <div class="col-md-2 form-group">
+                        <label for="CoPayment">Co Payment</label>
+                        <input type="text" class="form-control" id="CoPayment" readonly />
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label for="Credit">Credit</label>
+                        <input type="text" class="form-control" id="Credit" readonly />
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label for="Cash">Cash</label>
+                        <input type="text" class="form-control" id="Cash" readonly />
+                    </div>
+                </div>
+            </div>
+            <br /><br /><br />
+            <br /> <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;"></h2> </div>
+
+            @*secand grid*@
+            <div class="table-responsive">
+                <table class="table" id="Secand">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MED_CODE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MED_NAME)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.DOSAGE_FORM)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PACK_PRICE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PACK_SIZE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UNIT_NO)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.UNIT_PRICE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DOSE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MED_DURATION)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NO_OF_UINT)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TOTAL_AMT)
+                            </th>
+
+                            <th>
+                                <button id="RemoveAll" class="btn btn-danger">All</button>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            @Html.Partial("_Edit")
+            @*Calc down*@
+            <div id="calc_down">
+                <div id="CalcTop" class="inline">
+                    <div class="col-md-2 form-group">
+                        <label class="control-label" for="Total2">Total</label>
+                        <input type="text" class="form-control" id="Total2" readonly />
+                    </div>
+
+                    <div class="col-md-2 form-group">
+                        <label class="control-label" for="OverInsurance2">Over Insurance</label>
+                        <input type="text" class="form-control" id="OverInsurance2" readonly />
+                    </div>
+
+                    <div class="col-md-2 form-group">
+                        <label for="CoPayment2">Co Payment</label>
+                        <input type="text" class="form-control" id="CoPayment2" readonly />
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label for="Credit2">Credit</label>
+                        <input type="text" class="form-control" id="Credit2" readonly />
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label for="Cash2">Cash</label>
+                        <input type="text" class="form-control" id="Cash2" readonly />
+                    </div>
+                </div>
+
+            </div>
+            <br /><br /><br />
+            <!--Save-->
+            <div style="padding:10px 0; text-align:right">
+
+                <input id="Save" type="button" value="Save" class="btn btn-success" style="padding:10px 20px" />
+            </div>
+        </div>
+    </div>
+
+    @*AJAX*@
+    <script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+
+    <script src="~/scripts/DMS/Chronic.js?V=7"></script>
+}

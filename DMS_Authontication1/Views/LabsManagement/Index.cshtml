@@ -1,0 +1,113 @@
+﻿@model IEnumerable<DMS_Authontication1.Models.Serv_Lab>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+<div class="portlet box  green  " style="margin:auto">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Labs List
+        </div>
+        <div class="actions">
+            @*@if (!User.IsInRole("Admin"))
+            {*@
+                <a id="Create" href="/LabsManagement/create" style=" text-transform: none" class="btn btn-success   btn-sm">
+                    <i class="fa fa-plus"></i> Create Lab
+                </a>
+         @*   }*@
+            </div>
+    </div>
+    <br />
+    <div class="portlet-body">
+        <table class="table" id="Index">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LAB_CODE)
+                    </th>
+                    @*<th>
+            @Html.DisplayNameFor(model => model.PR_CODE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PR_ANAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DMS_CODE)
+        </th>*@
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.SERV_CODE)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.SERV_ANAME)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SERV_AMOUNT)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GRUOP_NAME)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GRUOP_TYPE)
+                    </th>
+
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LAB_CODE)
+                    </td>
+                    @*<td>
+            @Html.DisplayFor(modelItem => item.PR_CODE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PR_ANAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DMS_CODE)
+        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SERV_CODE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SERV_ANAME)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SERV_AMOUNT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GRUOP_NAME)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GRUOP_TYPE)
+                    </td>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </td>}
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script>
+    $(function () {
+        $("#Index").DataTable();
+    })
+</script>

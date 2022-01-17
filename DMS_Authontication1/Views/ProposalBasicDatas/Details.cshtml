@@ -1,0 +1,129 @@
+﻿@model DMS_Authontication1.Models.ProposalBasicData
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<div class="panel panel-info">
+    <h2 class="panel-heading" style="margin:1px;">Proposal BasicDat</h2>
+    <div class="panel-body">
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CompName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CompName)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TypeProposal)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TypeProposal)
+            </dd>
+          
+            <dt>
+                @Html.DisplayNameFor(model => model.InsuredBefore)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.InsuredBefore)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ExClient)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ExClient)
+            </dd>
+
+
+
+           
+
+            <dd>
+                @Html.DisplayFor(model => model.CompId)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CompId)
+            </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ContractNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ContractNo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.InsuredOtherComp)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.InsuredOtherComp)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NumProposal)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NumProposal)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Conclusion)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Conclusion)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.status)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.status)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OtherCompName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OtherCompName)
+            </dd>
+
+
+
+
+
+        </dl>
+
+
+    </div>
+
+   
+
+
+    <div class="panel-footer" style="text-align:right;">
+
+        <div>
+
+            <a class="btn btn-outline-info" href="~/ProposalBasicDatas/Index">Back to List</a>
+            @*<a class="btn btn-outline-primary" href="~/ProposalBasicDatas/Edit?IdIdModel.Id&Num=@Model.NumProposal">Edit</a>*@
+            <a class="btn btn-outline-dark" href="~/ProposalClasses/Index?Id=@Model.Id&Num=@Model.NumProposal&Type=@Model.ClassType">Classes</a>
+            <a class="btn btn-outline-dark" href="~/ProposalRenewalSummaries/Details?Id=@Model.Id&Num=@Model.NumProposal">Renewal Summaries</a>
+
+
+        </div>
+    </div>
+</div>
+
+   

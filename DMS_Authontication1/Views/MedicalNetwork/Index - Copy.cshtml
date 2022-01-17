@@ -1,0 +1,414 @@
+﻿@model DMS_Authontication1.ViewModel.RequestAddProvidersVM
+@{
+    ViewBag.Title = "CreateRequest";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+<br />
+
+<p>
+    @Html.ActionLink(" Search", "Search", null, htmlAttributes: new { @class = "btn btn-info fa fa-search ", @style = " text-transform: none" })
+    @Html.ActionLink(" Create Request ", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-plus ", @style = " text-transform: none" })
+    @*@Html.ActionLink(" Consumption", "Consumption", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })*@
+</p>
+
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Inquiries about an invoice
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row ">
+            <div class="col-md-12">
+                <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN THEME PANEL -->
+
+                    <div class="form-wizard">
+                        <div class="form-body">
+                            <div class="tab-content">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+
+                                <div class="row">
+                                    @*Date of Registration*@
+                                    <div class="col-md-12" style="margin-bottom:50px">
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-2">
+                                                @Html.DisplayName("Request Code ") :
+                                            </label>
+                                            <div class="col-md-8">
+                                                <label class="control-label sbold col-md-4" id="RequestCode">
+                                                    @Html.DisplayName("********")
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.CompName) :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.CompName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                                @*<input type="text" class="form-control" asp-for="FirstName" />*@
+                                                @Html.ValidationMessageFor(model => model.CompName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.Country) :
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(model => model.Country, ViewBag.address as SelectList, "Select Country", new { @class = "form-control", id = "Country" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.Region) :
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(model => model.Region, new SelectList(""), "Select Region", new { @class = "form-control", id = "Region" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.ProviderType) :
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(m => m.ProviderType, ViewBag.provider as SelectList, "Select Provider", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-5">
+                                                @Html.DisplayNameFor(model => model.NumberOfPeople) :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input type="number" class="form-control" id="NumberOfPeople" min="0" step="1" onkeypress="return /[0-9]/i.test(event.key)" />
+                                                @Html.ValidationMessageFor(model => model.NumberOfPeople, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.ServName) :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" value="" id="ServName" />
+                                                @Html.ValidationMessageFor(model => model.ServName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.ServAddress) :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="ServAddress" />
+                                                @Html.ValidationMessageFor(model => model.ServAddress, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.ResponsableFor) :
+
+                                            </label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" value="" id="ResponsableFor" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.PhoneNumber) :
+                                                <span class="required"> * </span>
+
+                                            </label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="PhoneNumber" value="" onkeypress="return /[0-9]/i.test(event.key)" />
+                                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <br />
+
+                                    <div class="col-md-12">
+
+                                        <br />
+
+                                        <div class="form-group">
+
+                                            <div class="col-md-offset-2" style="margin-top:20px">
+                                                <label class="control-label sbold col-md-3">
+                                                    @Html.DisplayName("Response Status ") :
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <textarea type="text" class="form-control" id="responsestatus" value="" disabled="disabled"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <br />
+
+                                            <br />
+                                            <div class="portlet-body">
+                                                <div class="row " style="margin-left:30px;margin-right:30px;margin-top:80px">
+
+                                                    <div class="col-md-offset-2">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <input id="txtSearchRequest" type="text" placeholder="search for Request ID..." class="form-control" />
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <button id="Search" type="button" class="btn btn-success" onclick="SearchRequest()">
+                                                                        <span class="glyphicon glyphicon-search"></span> Search
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-sm-2" id="div_of_serv">
+                                                                    <button id="new" type="button" class="btn btn-secondary-outline" onclick="NewRequest()">
+                                                                        <span class="fa fa-reply"></span> New
+                                                                    </button>
+
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <button id="edit" type="button" class="btn btn-success" onclick="EditRequest()" disabled="disabled">
+                                                                        <span class="fa fa-edit"></span> Edit
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-sm-2" id="div_of_serv">
+                                                                    <button id="save" type="button" class="btn btn-primary" onclick="SaveRequest()">
+                                                                        <span class="fa fa-save"></span> Save
+                                                                    </button>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+    var sel;
+    $(document).ready(function () {
+
+        $("#Country").select2();
+        $("#Region").select2();
+        $("#ProviderType").select2();
+        $("#Country").change(function () {//address
+            $.get("/Account/GetStateList",
+                { id: $("#Country").val() }, function (data) {
+                    $("#Region").empty();
+                    $.each(data, function (index, row) {
+                        $("#Region").append("<option value='" + row.Text + "'>" + row.Value + "</option>")
+                    });
+
+                    $('#Region').val(sel).change();
+
+                });
+        });
+
+
+    });
+
+    /// Save Request
+    function SaveRequest() {
+        if ($('#CompName').val() == "") {
+            alert("You shoud enter valid company name ..");
+        }
+        else if ($("#NumberOfPeople").val() == "") {
+            alert("You shoud enter number of people ..");
+        }
+        else if ($('#ServName').val() == "") {
+            alert("You shoud enter provider name ...");
+        }
+        else if ($("#ServAddress").val() == "") {
+            alert("You shoud enter Provider address ...");
+        }
+        else if ($("#PhoneNumber").val() == "" || $("#PhoneNumber").val().length != 11) {
+            alert("You shoud enter valid phone number");
+        }
+        else {
+            var data = {
+                CompName: $('#CompName').val(),
+                Country: $('#Country').val(),
+                Region: $('#Region').val(),
+                ProviderType: $('#ProviderType').val(),
+                NumberOfPeople: $("#NumberOfPeople").val(),
+                ServName: $('#ServName').val(),
+                ServAddress: $("#ServAddress").val(),
+                ResponsableFor: $("#ResponsableFor").val(),
+                PhoneNumber: $("#PhoneNumber").val(),
+
+            };
+            $.ajax({
+                type: "POST",
+                url: '/MedicalNetwork/SaveRequest',
+                data: (data),
+                success: function (ret) {
+                    if (ret.msg == "ok") {
+                        $("#save").attr("disabled", "disabled");
+                        bootbox.alert("Saved Datat Success ...");
+                        $("#RequestCode").html(ret.respcode);
+                    }
+                    else {
+                        alert(ret.msg);
+                    }
+
+                },
+                error: function (err) {
+                    bootbox.alert("Error DATA !");
+                }
+            });
+        }
+
+    }
+
+    // New Request
+    function NewRequest() {
+        window.location = '/MedicalNetwork/CreateRequest';
+        //$('#CompName').val();
+        //$("#save").attr("disabled", false);
+        //$('#Country').val("");
+        //$('#Region').empty();
+        //$('#ProviderType').val("");
+        //$("#NumberOfPeople").val("");
+        //$('#ServName').val("");
+        //$("#ServAddress").val("");
+        //$("#ResponsableFor").val("");
+        //$("#PhoneNumber").val("");
+    }
+
+    // Search Request
+    function SearchRequest() {
+        if ($('#txtSearchRequest').val() == "") {
+            alert("Please insert valid Request Code ...")
+
+        }
+        else {
+            var data = {
+                searchId: $('#txtSearchRequest').val(),
+            };
+            $.ajax({
+                type: "POST",
+                url: '/MedicalNetwork/SearchRequest',
+                data: (data),
+                success: function (dat) {
+                    if (dat.msg == "ok") {
+                        debugger;
+
+                        $("#save").attr("disabled", "disabled");
+                        $("#edit").attr("disabled", false);
+                        sel = dat.modelreturn.Region;
+                        $("#RequestCode").html(dat.modelreturn.ID);
+                        $('#CompName').val(dat.modelreturn.CompName);
+                        $('#Country').val(dat.modelreturn.Country).change();
+                        $('#ProviderType').val(dat.modelreturn.ProviderType).change();
+                        $("#NumberOfPeople").val(dat.modelreturn.NumberOfPeople);
+                        $('#ServName').val(dat.modelreturn.ServName);
+                        $("#ServAddress").val(dat.modelreturn.ServAddress);
+                        $("#ResponsableFor").val(dat.modelreturn.ResponsableFor);
+                        $("#PhoneNumber").val(dat.modelreturn.PhoneNumber);
+                        $("#responsestatus").val(dat.modelreturn.RespobeStatus);
+                    }
+                    else {
+                        alert(dat.msg);
+                    }
+
+                },
+                error: function (err) {
+                    bootbox.alert("Error Data !");
+                }
+            });
+        }
+    }
+
+    // Edit Request
+    function EditRequest() {
+        if ($('#CompName').val() == "") {
+            alert("You shoud enter valid company name ..");
+        }
+        else if ($("#NumberOfPeople").val() == "") {
+            alert("You shoud enter number of people ..");
+        }
+        else if ($('#ServName').val() == "") {
+            alert("You shoud enter provider name ...");
+        }
+        else if ($("#ServAddress").val() == "") {
+            alert("You shoud enter Provider address ...");
+        }
+        else if ($("#PhoneNumber").val() == "" || $("#PhoneNumber").val().length != 11) {
+            alert("You shoud enter valid phone number");
+        }
+        else {
+            var data = {
+                ReqestID: $("#RequestCode").html(),
+                CompName: $('#CompName').val(),
+                Country: $('#Country').val(),
+                Region: $('#Region').val(),
+                ProviderType: $('#ProviderType').val(),
+                NumberOfPeople: $("#NumberOfPeople").val(),
+                ServName: $('#ServName').val(),
+                ServAddress: $("#ServAddress").val(),
+                ResponsableFor: $("#ResponsableFor").val(),
+                PhoneNumber: $("#PhoneNumber").val(),
+
+            };
+            $.ajax({
+                type: "POST",
+                url: '/MedicalNetwork/EditRequest',
+                data: (data),
+                success: function (ret) {
+                    if (ret.msg == "ok") {
+                        $("#save").attr("disabled", "disabled");
+                        bootbox.alert("Edit Datat Success ...");
+                        $("#RequestCode").html(ret.respcode);
+                    }
+                    else {
+                        alert(ret.msg);
+                    }
+
+                },
+                error: function (err) {
+                    bootbox.alert("Error DATA !");
+                }
+            });
+        }
+    }
+</script>

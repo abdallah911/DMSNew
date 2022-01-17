@@ -1,0 +1,443 @@
+﻿@model DMS_Authontication1.ViewModel.AcceptionViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+<div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
+    <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
+</div>
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Get Approval
+        </div>
+
+    </div>
+    <br />
+    <div class="portlet-body">
+
+        <div class="row">
+            <div style="margin-left:1px;" class="form-group">
+                <div class="col-sm-3">
+                    <input id="txtSearchCard" type="text" name="Search" placeholder="search for card..." class="form-control" />
+                </div>
+                <div class="col-sm-3">
+                    <button id="Search" type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-search"></span> Search
+                    </button>
+                </div>
+            </div>
+        </div>
+        @Html.Partial("Cards")
+
+        <br />
+        <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;">Card </h2> </div>
+        <div class="row">
+            <div class="form-group">
+
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div> 
+                @*<div class="col-sm-2">
+                    @Html.LabelFor(model => model.compEmp.gender, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.compEmp.gender, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>*@
+
+
+            </div>
+        </div>
+
+        <div class="row">
+
+        </div>
+
+        <br />
+        <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;">Permissions</h2> </div>
+
+        <div class="row">
+            <div class="form-group">
+
+                <div class="col-sm-2">
+
+                    <label style="font-size:medium">Approval Type</label>
+                    <div></div>
+                    <label class="custom-control custom-radio">
+                        <input onclick="myFunction()" id="radio1" name="radio" value="Normal" type="radio" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Normal</span>
+                    </label>
+                    <label class="custom-control custom-radio">
+                        <input onclick="Function()" id="radio2" name="radio" value="Vip" type="radio" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Vip</span>
+                    </label>
+
+                </div>
+                <div hidden id="Hidde" style="margin-left:10px;" class="col-sm-2">
+                    <label>Provider</label>
+                    @Html.DropDownListFor(m => m.Provider, (new SelectList(Model.GetProvidersList, "Id", "Name")),
+        new { @class = "form-control" , id = "Provider"})
+
+                </div>
+
+                <div class="col-sm-2" hidden id="Hidden">
+                    <label style="font-size:medium; margin-left:12px;">Reasons</label>
+
+                    @* <input type="hidden" id="textBoxVal" />*@
+                    <select class="mySelect2" multiple style="width :280px;" name="SelectVal" id="SelectVal"></select>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <button style="margin-left:750px;width:110px;" id="submit" type="submit" class="btn btn-info ">Submit</button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script src="~/assets/HomeTemplete/Scripts/select2.min.js"></script>
+
+<script>
+    var input = document.getElementById("txtSearchCard");
+    input.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            $('#Search').click();
+        }
+    });
+
+    var CardId;
+    function myFunction() {
+
+        document.getElementById("Hidden").hidden = false;
+        document.getElementById("Hidde").hidden = false;
+
+    }
+    function Function() {
+
+        document.getElementById("Hidden").hidden = true;
+        document.getElementById("Hidde").hidden = true;
+
+    }
+    $(document).ready(function () {
+        $(".mySelect2").select2({
+            placeholder: "",
+            allClear: true,
+            theme: "classic",
+            ajax:
+            {
+                url: "/GetApproval/GetReasons",
+                dataType: 'json',
+                delay: 250,
+                data: function (Params) {
+                    return {
+                        SearchTerm: Params.term
+                    };
+                },
+                processResults: function (data, Params) {
+                    return {
+                        results: data
+                    };
+                }
+            }
+
+        });
+    });
+    var dat1;
+    var StartDate;
+    var birthdate;
+    $('#Search').click(function () {
+
+        if ($('#txtSearchCard').val() != "") {
+            $("#wait").css("display", "block");
+
+            $.ajax({
+                url: '/Pharmacy/AddCard',
+                data: { id: $('#txtSearchCard').val() },
+                dataType: 'Json',
+                success: function (r) {
+                    $('#Cards').dataTable().fnDestroy();
+                    var setData = $("#Cards Tbody");
+                    setData.empty();
+
+                    for (var i = 0; i < r.length; i++) {
+                        //if (r[i].INS_START_DATE != null) {
+                        //    var MyDate_String_Value = r[i].INS_START_DATE;
+                        //    var value = new Date
+                        //        (
+                        //        parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                        //        );
+                        //    var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                        //} else {
+                        //    dat = null;
+                        //}
+                        if (r[i].BIRTH_DATE != null) {
+                            var MyDate_String_Value = r[i].BIRTH_DATE;
+                            var value = new Date
+                                (
+                                parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            birthdate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                            if (value.getDate() == "NAN" || value.getMonth() == "NAN" || value.getFullYear() == "NAN"){
+                                birthdate = null;
+                            }
+                        } else {
+                            birthdate = null;
+                        }
+                        if (r[i].SPECIFIC_DATE != null) {
+                            var MyDate_String_Value = r[i].SPECIFIC_DATE;
+                            var value = new Date
+                                (
+                                parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            StartDate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                        } else {
+                            StartDate = null;
+                        }
+                        if (r[i].INS_END_DATE != null) {
+                            //end date
+                            var MyDate_String_Value1 = r[i].INS_END_DATE;
+                            var value1 = new Date
+                                (
+                                parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                             dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
+                        }
+                        else {
+                            dat1 = null;
+                        }
+                        var data = "<tr >" +
+                            "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Select(this);'></Button>" + "</td>" +
+                            "<td>" + r[i].CARD_ID + "</td>" +
+                            "<td>" + r[i].EMP_ANAME + "</td>" +
+                            "<td>" + r[i].EMP_ENAME + "</td>" +
+                            "<td>" + StartDate + "</td>" +
+                            "<td>" + dat1 + "</td>" +
+                            "<td>" + birthdate + "</td>" +
+                            "</tr>"
+                        var array_name = [];
+                        array_name.push(data)
+                        setData.append(array_name);
+
+                    }
+                    if (r.length == 1) {
+                        var newDate;
+                        $("#wait").css("display", "none");
+                        CardId = r[0].CARD_ID;
+                        $('#txtSearchCard').val(CardId);
+                        var ArName;
+                        for (var i = 0; i < r.length; i++) {
+                            ArName = r[i].EMP_ANAME;
+                        }
+
+                        var EndDate = dat1;
+                        var today = new Date();
+                        var dd = today.getDate();
+                        var mm = today.getMonth(); //January is 0!+ 1
+                        var yyyy = today.getFullYear();
+                        var CurrentDate = new Date(yyyy, mm, dd);
+                        if (EndDate != "") {
+                            newDate = EndDate.split('/').reverse().join('.');
+                        } else {
+                            newDate = "";
+                        }
+                        var date = new Date(newDate);
+                        //today = mm + '/' + dd + '/' + yyyy;
+                        CompId = CardId.substring(0, (CardId.indexOf('-')));
+                        var companyId = [];
+                        companyId = CardId.split('-', 1);
+                        CompId = companyId[0];
+
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: '/Pharmacy/GetCompActivation',
+                            data: { id: CompId, CardId: CardId },
+                            success: function (returndata) {
+                                if (returndata.ok) {
+                                    if (returndata.data == "Y") {
+                                        $('#txtSearchCard').val(CardId);
+                                        $('#compEmp_EMP_ANAME').val(ArName);
+                                        $('#compEmp_INS_START_DATE').val(StartDate);
+                                        $('#compEmp_INS_END_DATE').val(EndDate);
+                                        $('#compEmp_BIRTH_DATE').val(birthdate);
+
+                                        $('#CardsModal').modal('hide');
+
+                                        $.ajax({
+                                            type: "POST",
+                                            dataType: "json",
+                                            url: '/Pharmacy/GetCompName',
+                                            data: { id: CardId },
+
+                                            success: function (returndata) {
+                                                if (returndata.ok) {
+
+                                                    $("#contractComp_C_ANAME").val(returndata.data.C_ANAME);
+
+                                                }
+                                                else {
+                                                    window.alert(' No Company Name ');
+                                                }
+                                            }
+                                        });
+                                        //Co-Payment
+                                        $.ajax({
+                                            type: "POST",
+                                            dataType: "json",
+                                            url: '/Pharmacy/CellingAmount',
+                                            data: {
+                                                id: CardId,
+                                                ServiceCode: '11601'
+                                            },
+                                            success: function (r) {
+                                                if (r.Validation == false) {
+                                                    toastr.info(r.Message);
+                                                   // window.location.reload();
+                                                } 
+                                            },
+                                            error: function (err) {
+                                                alert("Company Annual Amount");
+                                               // location.reload();
+                                            }
+                                        });
+
+                                    }
+                                    else {
+                                        $("#wait").css("display", "none");
+                                        bootbox.dialog({
+                                            title: 'Alert!',
+                                            message: returndata.message,
+                                            buttons: {
+                                                Ok: {
+                                                    label: "Ok",
+                                                    className: 'btn-info',
+                                                    callback: function () {
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+
+                                }
+                                else {
+                                    bootbox.alert('Error activation ');
+                                }
+                            }
+                        });
+
+                    }
+                    else if (r.length == 0) {
+                        $("#wait").css("display", "none");
+                        alert(' Invalid Card Number ');
+                        $('#CardsModal').modal('hide');
+                    }
+                    else {
+                        $("#wait").css("display", "none");
+                        $('#Cards').DataTable();
+                        $('#CardsModal').modal();
+                    }
+                },
+                error: function () {
+                    $("#wait").css("display", "none");
+                    alert("Too Many Data To Retrieve");
+                }
+
+            });
+        }
+        else {
+            bootbox.alert("Please Insert Card Id");
+        }
+    });
+
+
+    $('#submit').click(function () {
+        var Id;
+
+        if ($('#txtSearchCard').val() != "") {
+            $.ajax({
+                type: 'POST',
+                url: '/GetApproval/SAVE/',
+                dataType: 'Json',
+
+                data: {
+                    CardId: $('#txtSearchCard').val(),
+                    ProvidersId: $('#Provider').val(),
+                    ApprovalType: $("input[name='radio']:checked").val(),
+                    Array: $('#SelectVal').val(),
+
+
+                },
+
+                success: function (r) {
+                    if (r == "Card is already existed (Vip)") {
+                        bootbox.dialog({
+                            closeButton: false,
+                            title: 'Failed',
+                            message: r,
+                            buttons: {
+                                New: {
+                                    label: "New",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        window.location.reload();
+                                    }
+                                }
+
+                            }
+                        });
+                    }
+                    else {
+                        bootbox.dialog({
+                            closeButton: false,
+                            title: 'Added Successfully',
+                            message: "Approval Number: " + r,
+                            buttons: {
+                                New: {
+                                    label: "New",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        window.location.reload();
+                                    }
+                                }
+
+                            }
+                        });
+                    }
+
+                },
+                error: function (err) {
+                    bootbox.alert("Error ");
+                }
+            })
+        }
+        else
+            bootbox.alert("Please Insert Card ID");
+
+    });
+
+</script>

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="ProvidersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Providers</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="Providers">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>
+                                @Html.DisplayName("Provider ID")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Provider ArName")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Provider EnName")
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var ProviderId="";
+    //var AddOrEdit = 0;
+    var ProviderName="";
+    function SelectProvider(button) {
+        var row = $(button).closest("TR");
+        ProviderId = $("TD", row).eq(1).html();
+        ProviderName = $("TD", row).eq(3).html();;
+        $('#ServiceProvider').val(ProviderTypeName + ' || ' + ProviderName);
+        $('#ServiceProvider').css("border-color", "#ccc");
+        $('#ProvidersModal').modal('hide');
+       
+        $.ajax({
+            type: 'POST',
+            url: '/DoctorMedicinesLabsRaysApproval/ServiceType/',
+            dataType: 'json',
+            data: { ProviderTypeId: ProviderTypeId },
+            success: function (diag) {
+                $("#ServiceType").empty();
+                $.each(diag, function (i, ddlDiag1) {
+                    $("#ServiceType").append('<option value="' + ddlDiag1.Value + '">' +
+                        ddlDiag1.Text + '</option>');
+                });
+                $('#ServiceType  option:eq(0)').attr('selected', 'selected');
+
+            },
+            error: function (ex) {
+                alert('Failed to retrieve service type.');
+            }
+        });
+    }
+
+</script>

@@ -1,0 +1,144 @@
+﻿@model DMS_Authontication1.Models.DoctorWorkPlace
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>DoctorWorkPlace</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-1" })
+            <div >
+                @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TypeId, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div>
+                @Html.TextBoxFor(model => model.TypeId, new { @class = "form-control", @Value = ViewBag.TypeId })
+                @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <!--Scenario 1-->
+        <div class="form-group">
+            <input type="button" value="Add" id="add" class="btn btn-default col-md-1" />
+            <input type="button" value="Remove" id="remove" class="btn btn-default col-md-1" />
+            
+            <table id="mytable" width="300"   cellspacing="0" cellpadding="2" class="table col-md-1">
+                <thead>
+                    <tr class="col-md-12">
+                        <th>@Html.LabelFor(model => model.WorkPlace, htmlAttributes: new { @class = "control-label col-md-1" })</th>
+                        <th>@Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-1" })</th>
+                        <th>@Html.LabelFor(model => model.PermenantExpenditure, htmlAttributes: new { @class = "control-label col-md-1" })</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="person">
+                        <td id="name"> @Html.DropDownList("WorkPlace", null, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td id="name1"> @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td id="name2"> @Html.EditorFor(model => model.PermenantExpenditure)</td>
+                    </tr>
+                </tbody>
+                </table>
+          </div>  
+  
+        <input type="button" id="C" value="C" class="btn btn-default" />
+        <div class="form-group">
+            <div class="col-md-offset-10 col-md-2">
+                <input type="submit" id="Create" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //add
+        $("#add").click(function () {
+            $('#mytable tbody>tr:last').clone(true).insertAfter('#mytable tbody>tr:last');
+            $('#mytable tbody>tr:last #WorkPlace').val('');
+            $('#mytable tbody>tr:last #Address').val('');
+            $('#mytable tbody>tr:last #PermenantExpenditure').val();
+            return false;
+        });
+        //remove
+        $("#remove").click(function () {
+            if ($('#mytable tbody>tr:last') !== $('#mytable tbody>tr:first'))
+            { 
+                 $('#mytable tbody>tr:last').remove();
+            }
+
+        });
+         //table
+        $("#C").click(function () {
+            var n = $("#mytable").find("tr").length;
+
+            for (var i = 1; i < n; i++) {
+
+                var WorkPlace = $("#mytable").find("tr").eq(i).find("td").eq(0).text();
+                var Address = $("#mytable").find("tr").eq(i).find("td").eq(1).text();
+                var PermenantExpenditure = $("#mytable").find("tr").eq(i).find("td").eq(2).text();
+
+                //alert(salary);
+                $.ajax({
+                    type: "Post",
+                    url: "DoctorWorkPlaces/Create/id=2655232c-2485-4fcb-ae21-410107e344c6",
+                    data: "{'WorkPlace':" + WorkPlace + ",'Address':'" + Address + "','PermenantExpenditure':'" + PermenantExpenditure + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function () {
+                        alert(":)");
+                    },
+                    error: function () {
+
+                        alert(":(");
+                    }
+                })
+            }
+        });
+        $("submit").click(function () {
+            var n = $("#mytable").find("tr").length;
+
+            for (var i = 1; i < n; i++) {
+
+                var WorkPlace = $("#mytable").find("tr").eq(i).find("td").eq(0).text();
+                var Address = $("#mytable").find("tr").eq(i).find("td").eq(1).text();
+                var PermenantExpenditure = $("#mytable").find("tr").eq(i).find("td").eq(2).text();
+
+                //alert(salary);
+                $.ajax({
+                    type: "Post",
+                    url: "DoctorWorkPlaces/Create/id=2655232c-2485-4fcb-ae21-410107e344c6",
+                    data: "{'WorkPlace':" + WorkPlace + ",'Address':'" + Address + "','PermenantExpenditure':'" + PermenantExpenditure + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function () {
+                        alert(":)");
+                    },
+                    error: function () {
+
+                        alert(":(");
+                    }
+                })
+            }
+        })
+
+    });
+    
+</script>

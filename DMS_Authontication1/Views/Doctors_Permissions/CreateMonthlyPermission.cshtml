@@ -1,0 +1,217 @@
+﻿@model IEnumerable<DMS_Authontication1.ViewModel.DoctorPermissionViewModel>
+@{ 
+   ViewBag.Title = "CreateMonthlyPermission";
+}
+
+<h2>CreateMonthlyPermission</h2>
+
+<div class="form-group">
+    @Html.Label("UserId", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+       @Html.TextBox("UserName", (string)ViewBag.CurrentUserName, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    @Html.Label("permissionType", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBox("permissionType", "Monthly", htmlAttributes: new { @class = "form-control", @readonly="readonly" })
+    </div>
+</div>
+<br />
+<br />
+<a class="btn btn-info" role="button" href="~/DoctorWorkPlaces/createWorkPlace/@ViewBag.CurrentUser">WorkPlaces</a>
+<a class="btn btn-info" role="button" href="~/Doctors_Permissions/createPermission/@ViewBag.CurrentUser">Daily Permistion</a>
+<a class="btn btn-info" role="button" href="~/Doctors_Permissions/createMonthlyPermission/@ViewBag.CurrentUser">Monthly Permistion</a>
+<br />
+<br />
+<table id="tblCustomers" class="table" cellpadding="0" cellspacing="0">
+    <thead>
+        <tr>
+            <th style="width:150px">permissions</th>
+            <th style="width:150px">status</th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var permissions in Model)
+        {
+            if (permissions.UserId == @ViewBag.CurrentUser && permissions.permissionType == "Monthly")
+            {
+                <tr>
+                    <td>@permissions.PermissionName</td>
+                    <td>@permissions.Status</td>
+
+                    <td><input type="button" value="Remove" onclick="Remove(this)" class="btn-danger" /></td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td > @Html.DropDownList("PermissionId", null, htmlAttributes: new { @class = "form-control" })</td>
+            <td>@Html.CheckBox("Status", true)</td>
+          @*  <td id="Monthly" style="display:none"> @Html.DropDownList("PermissionId", ViewBag.MPermissionId as SelectList, htmlAttributes: new { @class = "form-control" })</td>*@
+            @*<td><input type="text" id="permissions" /></td>*@
+            @*<td><input type="text" id="Address" class="form-control" /></td>*@
+           @* <td><input id="Status" type="checkbox" value="FALSE" /></td>*@
+            <td><input type="button" id="btnAdd" value="Add" class="btn-success"/></td>
+        </tr>
+    </tfoot>
+</table>
+<br />
+<input type="button" id="btnSave" value="Save All" class="btn-success" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#Status').change(function () {
+            debugger;
+
+            if ($('#Status').prop('checked') == true) {
+
+                $('#Status').val('TRUE');
+            } else {
+                $('#Status').val('FALSE');
+            }
+        });
+
+    });
+   
+    $("body").on("click", "#btnAdd", function () {
+        var validate = true;
+        $("#tblCustomers TBODY TR").each(function () {
+
+            var row = $(this);
+            var txt = row.find("TD").eq(0).html();//.eq(0).val();
+            if ($('#PermissionId option:selected').text() == txt) {
+                validate = false;
+                alert("Added Berfore");
+            }
+
+
+        });
+        if (validate == true) {
+            //Reference TextBoxes.
+            var PermissionId = $("#PermissionId");
+
+            var Status = $("#Status");
+
+            //Get the reference of the Table's TBODY element.
+            var tBody = $("#tblCustomers > TBODY")[0];
+
+            //Add Row.
+            var row = tBody.insertRow(-1);
+
+            //Add PermissionId cell.
+            var cell = $(row.insertCell(-1));
+            cell.html($('#PermissionId option:selected').text());
+            //cell.html(PermissionId.val());
+            //  cell.html(PermissionId.text());
+            // alert($('#PermissionId').val());
+
+
+
+            //Add permentant cell.
+            cell = $(row.insertCell(-1));
+            cell.html(Status.val());
+
+
+
+
+            //Add Button cell.
+            cell = $(row.insertCell(-1));
+            var btnRemove = $("<input />");
+            btnRemove.attr("type", "button");
+            btnRemove.addClass("btn-danger");
+            btnRemove.attr("onclick", "Remove(this);");
+            btnRemove.val("Remove");
+            cell.append(btnRemove);
+
+            //Clear the TextBoxes.
+           // PermissionId.val("");
+            //Status.prop("checked", false);
+        }
+        });
+
+        function Remove(button) {
+            //Determine the reference of the Row using the Button.
+            var row = $(button).closest("TR");
+            var name = $("TD", row).eq(0).html();
+            if (confirm("Do you want to delete: " + name))
+            {
+                //Get the reference of the Table.
+                var table = $("#tblCustomers")[0];
+
+                //Delete the Table row using it's Index.
+                table.deleteRow(row[0].rowIndex);
+            }
+        };
+
+        $("body").on("click", "#btnSave", function () {
+            //Loop through the Table rows and build a JSON array.
+            var Permissions = new Array();
+            $("#tblCustomers TBODY TR").each(function () {
+                var row = $(this);
+                var DoctorPermission = {};
+               
+                DoctorPermission.UserId = "@ViewBag.CurrentUser";
+                DoctorPermission.permissionType = $('#permissionType').val();
+                //DoctorPermission.PermissionId = row.find("TD").eq(0).html();//.eq(0).val();
+                var txt = row.find("TD").eq(0).html();//.eq(0).val();
+                var count = 1;
+                $($('#PermissionId').children()).each(function () {
+                    if ($(this).text() == txt) {
+                        //alert(count);
+                        DoctorPermission.PermissionId = count;
+                    }
+                    else {
+                        count++;
+                    }
+                });
+                DoctorPermission.PermissionName = row.find("TD").eq(0).html()
+                DoctorPermission.Status = row.find("TD").eq(1).html();
+                Permissions.push(DoctorPermission);
+               // $.post("/Doctors_Permissions/index");
+            });
+
+            //Send the JSON array to Controller using AJAX.
+            $.ajax({
+                type: "POST",
+                url: "/Doctors_Permissions/InsertPermission",
+                data: JSON.stringify(Permissions),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    bootbox.alert(r + " record(s) inserted.");
+                },
+                error: function () {
+                    bootbox.alert("Please insert Permissions");
+                }
+            });
+            });
+
+</script>
+
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<!--show ah hide Daily and monthly -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#permissionType").change(function () {
+            if ($(this).val() == "Daily") {
+                $("#Monthly").hide();
+                $("#Daily").show();
+            }
+            else {
+                $("#Daily").hide();
+                $("#Monthly").show();
+            }
+        });
+
+    });
+</script>
+

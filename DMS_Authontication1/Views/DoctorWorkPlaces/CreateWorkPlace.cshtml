@@ -1,0 +1,233 @@
+﻿@model IEnumerable<DMS_Authontication1.Models.DoctorWorkPlace>
+
+@{
+    ViewBag.Title = "CreateWorkPlace";
+}
+
+<h2>CreateWorkPlace</h2>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="form-group">
+        @Html.Label("UserName", new { @class = "col-md-1" })
+      @*  @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })*@
+        @Html.TextBox("UserName",(string)ViewBag.CurrentUser,htmlAttributes:new { @class="form-control", @readonly = "readonly" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Type Id", new { @class = "col-md-1" })
+        @Html.TextBox("TypeId", (string)ViewBag.TypeId, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+    </div>
+    <a class="btn btn-info" role="button" href="~/DoctorWorkPlaces/createWorkPlace/@ViewBag.CurrentUserId">WorkPlaces</a>
+    <a class="btn btn-info" role="button" href="~/Doctors_Permissions/createPermission/@ViewBag.CurrentUserId">Daily Permistion</a>
+   <a class="btn btn-info" role="button" href="~/Doctors_Permissions/createMonthlyPermission/@ViewBag.CurrentUserId">Monthly Permistion</a>
+    <br />
+    <br />
+    <input id="CId" type="text" class="form-control col-md-2" />
+    <a id="Search" href="#" class="btn btn-primary col-md-offset-0" role="button">Search</a>
+    <br />
+    <br />
+    <a id="all" href="#" class="btn btn-primary col-md-1" role="button" style="width:90px">All</a>
+
+    @*<button type="button" id="all" class="btn-primary" style="width:90px"   >All</button>*@
+        <table id="tblCustomers" class="table" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th style="width:150px">WorkPlace</th>
+                <th style="width:150px">Address</th>
+                <th style="width:150px">permenant</th>
+                <th></th>
+            </tr>
+        </thead>
+            <tfoot>
+                <tr>
+                    <td> @Html.DropDownList("WorkPlace", null, htmlAttributes: new { @class = "form-control" })</td>
+                    @*<td><input type="text" id="WorkPlace" /></td>*@
+                    <td><input type="text" id="Address" class="form-control" /></td>
+                    <td>@Html.CheckBox("PermenantExpenditure", true)</td>
+                    @* <td><input type="checkbox" id="PermenantExpenditure"  /></td>*@
+                    <td><input type="button" id="btnAdd" value="Add" class="btn-success" /></td>
+                </tr>
+            </tfoot>
+
+        <tbody>
+            @foreach (var workplace in Model)
+            {
+                if (@workplace.UserId == @ViewBag.CurrentUserId)
+                {
+                    <tr>
+                        <td>@workplace.WorkPlace</td>
+                        <td>@workplace.Address</td>
+                       <td>@workplace.PermenantExpenditure</td>
+                       @*<td>@Html.Ch("PermenantExpenditure")</td>*@
+                        <td><input type="button" value="Remove" onclick="Remove(this)" class="btn-danger" /></td>
+                    </tr>
+                }
+            }
+        </tbody>
+       
+    </table>
+    <br />
+    <input type="button" id="btnSave" value="Save All" class="btn-success" />
+
+    <script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+
+    <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            $('#PermenantExpenditure').change(function () {
+                    if ($('#PermenantExpenditure').prop('checked') == true) {
+                        $('#PermenantExpenditure').val('TRUE');
+                    } else {
+                        $('#PermenantExpenditure').val('FALSE');
+                    }
+                });
+
+            $('#all').click(function () {
+                $("#tblCustomers TBODY TR").empty();
+                //.each(function () {
+                //    var row = $(this);
+                //});
+
+                $("#WorkPlace option").each(function () {
+                    //optionvalue.push($(this).val());
+                    //   $('#Address').val($(this).val());
+                    //  $('#WorkPlace').val("AAA");
+                    $('#WorkPlace').val($(this).val());
+                    document.getElementById("btnAdd").click();
+                });
+                $('#WorkPlace').focus();
+        
+            });
+        });
+        $("body").on("click", "#btnAdd", function () {
+           
+            var validate = true;
+            $("#tblCustomers TBODY TR").each(function () {
+                
+                var row = $(this);
+                var txt = row.find("TD").eq(0).html();//.eq(0).val();
+           
+                if ($('#WorkPlace option:selected').text() == txt)
+                {
+                    validate = false;
+                    alert("Added Berfore");
+                }
+             
+                
+            });
+            if (validate == true)
+            {
+            //Reference TextBoxes.
+            var WorkPlace = $("#WorkPlace");
+            var Address = $("#Address");
+            var PermenantExpenditure = $("#PermenantExpenditure");
+
+            //Get the reference of the Table's TBODY element.
+            var tBody = $("#tblCustomers > TBODY")[0];
+
+            //Add Row.
+            var row = tBody.insertRow(-1);
+
+            //Add WorkPlace cell.
+            var cell = $(row.insertCell(-1));
+            cell.html(WorkPlace.val());
+
+            //Add Address cell.
+            cell = $(row.insertCell(-1));
+            cell.html(Address.val());
+
+            //Add permentant cell.
+            cell = $(row.insertCell(-1));
+            cell.html(PermenantExpenditure.val());
+
+            //Add Button cell.
+            cell = $(row.insertCell(-1));
+            var btnRemove = $("<input />");
+            btnRemove.attr("type", "button");
+            btnRemove.addClass( "btn-danger");
+            btnRemove.attr("onclick", "Remove(this);");
+            btnRemove.val("Remove");
+            cell.append(btnRemove);
+
+            //Clear the TextBoxes.
+           // WorkPlace.val("");
+            Address.val("");
+            //PermenantExpenditure.prop("checked", false);
+           }
+        });
+
+        function Remove(button) {
+            //Determine the reference of the Row using the Button.
+            var row = $(button).closest("TR");
+            var name = $("TD", row).eq(0).html();
+            if (confirm("Do you want to delete: " + name)) {
+                //Get the reference of the Table.
+                var table = $("#tblCustomers")[0];
+
+                //Delete the Table row using it's Index.
+                table.deleteRow(row[0].rowIndex);
+            }
+        };
+
+        $("body").on("click", "#btnSave", function () {
+            //Loop through the Table rows and build a JSON array.
+            var workplaces = new Array();
+            $("#tblCustomers TBODY TR").each(function () {
+                var row = $(this);
+                var Doctorworkplace = {};
+
+                Doctorworkplace.UserId = "@ViewBag.CurrentUserId";
+                Doctorworkplace.TypeId = @ViewBag.TypeId;
+                Doctorworkplace.WorkPlace = row.find("TD").eq(0).html();
+                Doctorworkplace.Address = row.find("TD").eq(1).html();
+                Doctorworkplace.PermenantExpenditure = row.find("TD").eq(2).html();
+                workplaces.push(Doctorworkplace);
+              //  $.post("/Doctors_Permissions/index");
+            });
+
+            //Send the JSON array to Controller using AJAX.
+            $.ajax({
+                type: "POST",
+                url: "/DoctorWorkPlaces/InsertWorkPlace",
+                data: JSON.stringify(workplaces),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    alert(r + " record(s) inserted.");
+                },
+                error: function () {
+                    alert(":(")
+                }
+            });
+        });
+        $('#Search').click(function () {
+            
+            var data = {
+                CId: $('#CId').val()
+            };
+            $('#WorkPlace').focus();
+            $.ajax({
+                type: "POST",
+                url: "/DoctorWorkPlaces/Search/id=",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    alert(r);
+                    $('#WorkPlace option:selected').text(r);
+                },
+                error: function () {
+                    alert("Invalid Company ID ");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+﻿@model DMS_Authontication1.Models.ProposalClass
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ProposalClass</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NumProposal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumProposal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClassCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumMale)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumMale)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumFemael)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumFemael)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumChronic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumChronic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalChronic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalChronic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Premium)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Premium)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Max)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Max)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AgeFrom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AgeFrom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AgeFromType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AgeFromType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AgeTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AgeTo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AgeToType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AgeToType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Branch)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Branch)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProposalBasicData.CompName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProposalBasicData.CompName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProposalClass1.ClassCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProposalClass1.ClassCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProposalClass2.ClassCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProposalClass2.ClassCode)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

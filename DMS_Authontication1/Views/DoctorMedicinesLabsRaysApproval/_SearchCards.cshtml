@@ -1,0 +1,299 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="SearchCardsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Cards</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="SearchCards">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.CARD_ID)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.EMP_ANAME)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.EMP_ENAME)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.INS_START_DATE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.INS_END_DATE)
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var CardId = "";
+    //var AddOrEdit = 0;
+    //var CompId;
+    var SrcIsExist = 0;
+    function SelectSearchCards(button) {
+
+        var row = $(button).closest("TR");
+        CardId = $("TD", row).eq(1).html();
+        // CompId = CardId.substring(0, (CardId.indexOf('-') ));
+        $('#AddCardTxt').val(CardId);
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;//January is 0!`
+
+        var yyyy = today.getFullYear();
+        if (dd < 10) { dd = '0' + dd }
+        if (mm < 10) { mm = '0' + mm }
+        var today = dd + '-' +mm + '-' +  yyyy
+
+        //var strDate = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+        $('#ReceiveDate, #SentDate').val(today);
+        $('#ReceiveDate, #SentDate').attr("disabled", false);
+      
+
+        $.ajax({
+            dataType: "json",
+            url: '/DoctorMedicinesLabsRaysApproval/PersonalData',
+            data: { id: CardId },
+            success: function (r) {
+               
+                if (r.length != 0) {
+                    if (r.BirthDate != null) {
+                        var MyDate_String_Value = r.BirthDate;
+                        var value = new Date(parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, '')));
+                        var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                        var ageDate = value.getFullYear() + "-" + (value.getMonth() + 1) + "-" + value.getDate()
+                    }
+                    else {
+                        dat = null;
+                    }
+                    if (r.Specific_date != null) {
+                        var MyDate_String_Value = r.Specific_date;
+                        var value = new Date(parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, '')));
+                        var dat1 = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                    }
+                    else {
+                        dat1 = null;
+                    }
+                    if (r.INS_END_DATE != null) {
+                        var MyDate_String_Value = r.INS_END_DATE;
+                        var value = new Date(parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, '')));
+                        var dat2 = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                    }
+                    else {
+                        dat2 = null;
+                    }
+
+
+                    $('.modal #CardId').val(r.CARD_ID);
+
+                    // $('#CardId').val(r[0].CARD_ID);
+
+                    $('.modal #EmpName').val(r.EMP_ENAME);
+                    $('.modal #BirthDate').val(dat);
+                    var dob = new Date(ageDate);
+                    var today = new Date();
+                    var age = Math.floor((today - dob) / (365.25 * 24 * 60 * 60 * 1000));
+                    $('.modal #Age').val(age);
+                    $('.modal #EndDate').val(dat2);
+                    // $('.modal #StartDate').val(r.Specific_date);
+                    $('.modal #StartDate').val(dat1);
+
+                    $('.modal #MaxAmount').val(r.MaxAmount);
+                    $('.modal #IRSConsumption').val(r.IRSConsumption);
+                    $('.modal #OnlineConsumption').val(r.OnlineConsumption);
+                    $('.modal #OtherConsumption').val(r.OtherConsumption);
+                    $('.modal #TotalConsumptiont').val(r.IRSConsumption + r.OnlineConsumption + r.OtherConsumption);
+                    $('.modal #Residual').val(r.MaxAmount - r.OtherConsumption);
+                    if (r.OtherConsumption == 0) {
+                        $('.modal #Ratio').val("0 %");
+                    } else {
+                        $('.modal #Ratio').val((r.MaxAmount / r.OtherConsumption).toFixed(2) + ' %');
+                    }
+                    $('.modal #CostCenter').val(r.CostCenter);
+                    $('.modal #OnlineLiveConsumption').val(r.OnlineLiveConsumption);
+                    $('.modal #TotalApproval').val(r.TotalApproval);
+                    $('#SearchCardsModal').modal('hide');
+                    $('#personalDataModal').modal();
+                }
+                else {
+                    bootbox.alert("No Data");
+                }
+            },
+            error: function (r) {
+                window.alert('No Data to retrive ');
+            }
+
+        }).done(function () {
+                //Pools
+                $.ajax({
+                    type: 'POST',
+                    url: '/DoctorMedicinesLabsRaysApproval/Pools/',
+                    dataType: 'json',
+                    data: {},
+                    success: function (r) {
+                        $('#Pools').dataTable().fnDestroy();
+                        var setData = $("#Pools Tbody");
+                        setData.empty();
+
+                        for (var i = 0; i < r.length; i++) {
+                            var data = "<tr >" +
+                                "<td>" + r[i].M_PERCENT_FROM + "</td>" +
+                                "<td>" + r[i].M_AMOUNT_TYP + "</td>" +
+                                "<td>" + r[i].M_AMT_TYP + "</td>" +
+                                "</tr>"
+                            setData.append(data);
+                        }
+                        $('#Pools').DataTable({
+                            "bPaginate": false,
+                            "bLengthChange": false,
+                            "bFilter": false,
+                        });
+                       // $('#PoolsModal').modal();
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve Pools.');
+                    }
+
+                });
+                //Card Design
+                $.ajax({
+                    type: 'POST',
+                    url: '/DoctorMedicinesLabsRaysApproval/CardDesign/',
+                    dataType: 'json',
+                    data: {},
+                    success: function (r) {
+                        if (r != "0")
+                        {
+                            $('#CardDesignimg').attr('src', `data:image/png;base64,${r}`);
+                            SrcIsExist = 1;
+                        }
+                        else {
+                            toastr.error('No Card Design');
+                            SrcIsExist = 0;
+                        }
+                    },
+                    error: function (ex) {
+                        alert('No Card Design');
+                    }
+
+                });
+                //history
+                $.ajax({
+                    dataType: "json",
+                    url: '/DoctorMedicinesLabsRaysApproval/History',
+                    data: {},
+                    success: function (r) {
+
+                        if (r != null) {
+
+                            $('#History').dataTable().fnDestroy();
+                            var setData = $("#History Tbody");
+                            setData.empty();
+
+                            for (var i = 0; i < r.length; i++) {
+                                var data = "<tr >" +
+                                    "<td>" + r[i].APPROV_NO + "</td>" +
+                                    //"<td>" + r[i].COMP_ID + "</td>" +
+                                    //"<td>" + r[i].CARD_NO + "</td>" +
+                                    //"<td>" + r[i].NAME + "</td>" +
+                                    "<td>" + r[i].RECIV_DATE + "</td>" +
+                                    "<td>" + r[i].SEND_DATE + "</td>" +
+                                    "<td>" + r[i].SERVECE_TYP + "</td>" +
+                                    "<td>" + r[i].REPLY + "</td>" +
+                                    "<td>" + r[i].APPROV_AMOUNT + "</td>" +
+                                    "<td>" + r[i].MEDICAL_REPLAY + "</td>" +
+                                    "<td>" + r[i].CREATED_BY + "</td>" +
+                                    "<td>" + r[i].CREATED_DATE + "</td>" +
+                                    //"<td >" + "<Button  class='btn btn-Primary' onclick='Details(this);'>Details</Button>" + "</td>" +
+                                    "</tr>"
+                                setData.append(data);
+
+                            }
+                            $('#History').DataTable({
+                                "bPaginate": true,
+                                "bLengthChange": true,
+                                "bFilter": true,
+                            });
+                            // $('#HistoryModal').modal();
+                        }
+                        else {
+                            bootbox.alert("Inviled Card");
+                        }
+                    },
+                    error: function (r) {
+                        window.alert(' History Ajax ');
+                    }
+
+                });
+                //subApproval
+
+                if ($('#ApprovalType option:selected').text() == 'SubApproval') {
+
+                    $.ajax({
+                        dataType: "json",
+                        url: '/DoctorMedicinesLabsRaysApproval/GetApprovals',
+                        data: {},
+                        success: function (r) {
+
+                            if (r != null) {
+
+                                $('#Approvals').dataTable().fnDestroy();
+                                var setData = $("#Approvals Tbody");
+                                setData.empty();
+
+                                for (var i = 0; i < r.length; i++) {
+                                    var data = "<tr >" +
+                                        " <td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectApproval(this);'></Button>" + "</td>" +
+                                        "<td>" + r[i].CODE + "</td>" +
+                                        "<td>" + r[i].CARD_NO + "</td>" +
+                                        "<td>" + r[i].EMP_ENAME + "</td>" +
+                                        "<td>" + r[i].APPROVAL_VALUE + "</td>" +
+                                        "<td>" + r[i].MEDICAL_REPLAY + "</td>" +
+                                        "<td>" + r[i].CREATED_BY + "</td>" +
+                                        "<td>" + r[i].CREATED_DATE + "</td>" +
+                                        "</tr>"
+                                    setData.append(data);
+
+                                }
+                                $('#Approvals').dataTable();
+                                $('#ApprovalsModal').modal();
+                            }
+                            else {
+                                bootbox.alert("Card dosn't contain data");
+                            }
+                        },
+                        error: function (r) {
+                            window.alert(' SubApprovala Ajax ');
+                        }
+
+                    });
+                }
+
+
+            });
+      
+      
+    }
+
+</script>

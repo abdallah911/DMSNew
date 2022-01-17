@@ -1,0 +1,95 @@
+﻿
+
+<div class="modal fade " id="DiagnoiseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Diagnoises</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="Diagnoises">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>
+                                @Html.DisplayName("Code")
+                            </th>
+
+                            <th>
+                                @Html.DisplayName("Name")
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+            <div class="modal-footer">
+
+                <button id="Close" type="button" class="btn btn-secondary glyphicon glyphicon-ok" data-dismiss="modal"> Ok</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script>
+    var DiagnoiseCode = "";
+    //var AddOrEdit = 0;
+    var DiagnoiseName = "";
+    var DiagnosisList = new Array();
+    function SelectDiagnoise(button) {
+
+        var row = $(button).closest("TR");
+        DiagnoiseCode = $("TD", row).eq(1).html();
+        DiagnoiseName = $("TD", row).eq(2).html();
+        $('#Diagnoise').css("border-color", "#CCC");
+        var splited = $('#Diagnoise').val().split("\n");
+        var add = 1;
+        for (var i = 0; i < splited.length; i++) {
+            if (splited[i] == DiagnoiseName) {
+                toastr.error('Added Before')
+                add = 0;
+            }
+
+        }
+        if (add == 1) {
+            toastr.success('Added');
+            var Diagnoises = {};
+            Diagnoises.DiagnoiseId = DiagnoiseCode;
+            Diagnoises.MedicineId = $('#M_CODE').val();
+            DiagnosisList.push(Diagnoises);
+            $('#Diagnoise').val($('#Diagnoise').val() + DiagnoiseName + "\n");
+        }
+
+
+
+    }
+    $(function () {
+
+        $('#DiagnoiseModal .modal-footer #Close').click(function () {
+            
+            //var els = document.getElementsByName("MedicinesDiagnosis");
+            //els=DiagnosisList;
+            ////alert(els);
+            //$('#MedicinesDiagnosis').val(DiagnosisList);
+            ////for (var i = 0; i < els.length; i++) {
+            ////    els[i].value = "yourDesiredValueHere";
+            //}
+            $('#DiagnoiseModal').modal('hide');
+        });
+
+
+    })
+
+
+</script>

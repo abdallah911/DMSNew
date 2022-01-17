@@ -1,0 +1,174 @@
+﻿@model DMS_Authontication1.Models.HospitalClaim
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+
+<div class="portlet box green" style="margin:auto">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-info-circle"></i>Delete
+        </div>
+        <div class="actions">
+            <a id="Create" href="/Hospital/Claims" style=" text-transform: none" class="btn btn-primary  btn-sm blue-ebonyclay">
+                <i class="fa fa-list"></i> Claims List
+            </a>
+        </div>
+    </div>
+    <br />
+    <div class="portlet-body">
+        <div class="row ">
+            <div class="col-md-12">
+                <!-- BEGIN PAGE HEADER-->
+                <!-- BEGIN THEME PANEL -->
+
+                <div class="form-wizard">
+
+                    <div class="form-body">
+                        <div class="tab-content">
+                            <div class="row ">
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        @Html.DisplayName("Company Id : ")
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.C_COMP_ID)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayName("Card Id :")
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.CARD_ID)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayName("Services :")
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.SERVICES)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayName("Request Number :")
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.REQUEST_NUM)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayName("Claim Number :")
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.CLAIM_NO)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayName("National Id :")
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.NATIONAL_ID)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayName("Phone :")
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.PHONE)
+                                    </dd>
+
+
+                                    <dt>
+                                        @Html.DisplayName("Company Percent :")
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.COMP_PERC)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayName("Cash :")
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.CASH)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayName("Total Value :")
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.TOTAL_VALUE)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayName("Over Insurance :")
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.OVER_INSURANCE)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayName("Total Cash :")
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.TOTAL_CASH)
+                                    </dd>
+
+
+
+                                    <dt>
+                                        @Html.DisplayName("Patient Payment :")
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.PERSON_PAYMENT)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayName("Company Payment :")
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.COMPANY_PAYMENT)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayName("Note :")
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Note)
+                                    </dd>
+
+                                </dl>
+
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="form-actions no-color col-md-offset-2">
+                                        <input type="submit" value="Delete" class="btn btn-danger" style=" text-transform: none" />
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

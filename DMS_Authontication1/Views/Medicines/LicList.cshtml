@@ -1,0 +1,32 @@
+﻿@model DMS_Authontication1.ViewModel.LicTypeViewModel
+
+@{
+    ViewBag.Title = "LicList";
+}
+
+<h2>License List</h2>
+
+
+<table class="table"style="margin-left: 78px;
+">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.licType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Licenses) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LicenseName)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>*@
+    </tr>
+}
+
+</table>

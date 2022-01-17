@@ -1,0 +1,159 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="CompaniesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg"  role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Companies</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="Companies">
+                    <thead>
+                        <tr>
+                            <th scope="col">&nbsp;</th>
+                            <th scope="col">Company Code</th>
+                            <th scope="col" align="center">Company Name</th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var CompId;
+    function Select(button) {
+        $("#wait").css("display", "block");
+        var row = $(button).closest("TR");
+        CompId = $("TD", row).eq(1).html();
+         var CompName = $("TD", row).eq(2).html();
+         $('#txtSearchCompany').val(CompId + " | " + CompName);
+         $('#AddCardTxt').val('');
+         $('#Cards').dataTable().fnDestroy();
+         $('#Cards tbody').empty();
+        //get med_cards
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '/DoctorApprovals/MonthlyCardsApprovals',
+            data: { id: CompId },
+            success: function (r) {
+                var setData = $("#CardMedicines tbody");
+                setData.empty();
+                //debugger;
+                $('#AddCard').attr("disabled", false);
+                $('#MainProvider').attr("disabled", false);
+                $('#MainGroup').attr("disabled", false);
+                $('#OldMainProvider').attr("disabled", false);
+                $('#OldMainGroup').attr("disabled", false);
+                $('#ChangeGroup').attr("disabled", false);
+                $('#ChangeProvider').attr("disabled", false);
+                $('#CoPayStatus').attr("disabled", false);
+                $('#OverStatus').attr("disabled", false);
+                $('#LockStatus2').attr("disabled", false);
+                var setData = $("#Cards tbody");
+                setData.empty();
+                var Lock;
+                for (var i = 0; i < r.length; i++) {
+                    if (r[i].MONTH_START_DATE != null) {
+                        var MyDate_String_Value = r[i].MONTH_START_DATE;
+                        var value = new Date
+                            (
+                            parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                            );
+                        var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                    }
+                    else {
+                        dat = null;
+                    }
+                    if (r[i].LOOK_01 == 0) {
+                        Lock = "Open"
+                    }
+                    else if (r[i].LOOK_01 == 1)
+                    {
+                        Lock = "Close"
+                    }
+                    else {
+                        Lock = "Pause"
+                    }
+                    var data = "<tr >" +
+                        " <td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectCard(this);'></Button>" + "</td>" +
+                        "<td>" + r[i].CARD_NO + "</td>" +
+                        "<td>" + r[i].EMP_ANAME + "</td>" +
+                        "<td>" + r[i].PR_ANAME + "</td>" +
+                        "<td>" + dat + "</td>" +
+                        "<td>" + r[i].ST_DAY + "</td>" +
+                        "<td>" + r[i].GROUP_NAME + "</td>" +
+                        "<td>" + r[i].TASHKHES_01 + "</td>" +
+                        "<td>" + r[i].NO_PAY + "</td>" +
+                        "<td>" + r[i].NO_OVER + "</td>" +
+                        "<td>" + Lock + "</td>" +
+
+                        " <td >" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditCard(this);'> Edit</Button>" + "</td>" +
+                        "</tr>"
+                    setData.append(data);
+               
+                }
+                $("#Cards").DataTable({
+                    "bPaginate": false,
+                    "bLengthChange": false,
+                    "bFilter": true,
+                    "bInfo": true,
+                    "bAutoWidth": false
+                });
+                $('#CompaniesModal').modal('hide');
+                $("#wait").css("display", "none");
+
+            },
+            error: function (r) {
+                $("#wait").css("display", "none");
+
+                window.alert(' No Company sites ');
+            }
+
+         });
+        //comp group
+        $.ajax({
+            type: 'POST',
+            url: '/DoctorApprovals/getCompGrop/',
+            dataType: 'json',
+            data: { id: CompId },
+            
+            success: function (diag) {
+                $("#MainGroup,#Group,#Group1,#OldMainGroup,#ChangeGroup").empty();
+                $.each(diag, function (i, ddlDiag1) {
+                    $("#Group").append('<option value="' + ddlDiag1.Code + '">' +
+                        ddlDiag1.Name + '</option>');
+                    $("#Group1").append('<option value="' + ddlDiag1.Code + '">' +
+                        ddlDiag1.Name + '</option>');
+                    $("#MainGroup").append('<option value="' + ddlDiag1.Code + '">' +
+                        ddlDiag1.Name + '</option>');
+                    $("#OldMainGroup").append('<option value="' + ddlDiag1.Code + '">' +
+                        ddlDiag1.Name + '</option>');
+                    $("#ChangeGroup").append('<option value="' + ddlDiag1.Code + '">' +
+                        ddlDiag1.Name + '</option>');
+                });
+                $('#Group1 option:eq(0)').attr('selected', 'selected');
+                $('#Group option:eq(0)').attr('selected', 'selected');
+                $('#MainGroup option:eq(0)').attr('selected', 'selected');
+                $('#OldMainGroup option:eq(0)').attr('selected', 'selected');
+                $('#ChangeGroup option:eq(0)').attr('selected', 'selected');
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Groups');
+            }
+
+        });
+
+    }
+
+</script>

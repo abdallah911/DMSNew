@@ -1,0 +1,131 @@
+﻿@model DMS_Authontication1.Models.Serv_Lab
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Serv_Lab</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LAB_CODE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LAB_CODE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PR_CODE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PR_CODE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PR_ANAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PR_ANAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DMS_CODE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DMS_CODE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SERV_CODE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SERV_CODE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SERV_AMOUNT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SERV_AMOUNT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SERV_ANAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SERV_ANAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GRUOP_TYPE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GRUOP_TYPE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LOOK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LOOK)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GRUOP_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GRUOP_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GRUOP_NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GRUOP_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsSync)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsSync)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SyncDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SyncDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SyncBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SyncBy)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

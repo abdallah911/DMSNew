@@ -1,0 +1,198 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
+
+<div class="modal fade " id="CardsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Cards</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="Cards">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.CARD_ID)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.EMP_ANAME)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.EMP_ENAME)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.INS_START_DATE)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.INS_END_DATE)
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var CardId;
+    function Select(button) {
+        $('#Pending').attr('disabled', false);
+        var row = $(button).closest("TR");
+
+        CardId = $("TD", row).eq(1).html();
+        var ArName = $("TD", row).eq(2).html();
+        var EndDate = $("TD", row).eq(5).html();
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        var CurrentDate = new Date(yyyy, mm, dd);
+        if (EndDate != "null") {
+            newDate = EndDate.split('/').reverse().join('.');
+        } else {
+            newDate = "";
+        }
+        var date = new Date(newDate);
+        // today = mm + '/' + dd + '/' + yyyy;
+        var companyId = [];
+        companyId = CardId.split('-', 1);
+        CompId = companyId[0];
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '/Pharmacy/CkeckCompanyClosedorOpen',
+            data: { id: CompId, CardId: CardId },
+            success: function (returndata) {
+                if (returndata.ok) {
+                    $("#wait").css("display", "none");
+                    $('#txtSearchCard').val(CardId);
+                    $('#CardsModal').modal('hide');
+
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: '/Pharmacy/GetCompActivation',
+                        data: { id: CompId, CardId: CardId },
+                        success: function (returndata) {
+                            if (returndata.ok) {
+                                if (returndata.data == "Y") {
+                                    $('#txtSearchCard').val(CardId);
+                                    $('#compEmp_EMP_ANAME').val(ArName);
+                                    $('#compEmp_INS_END_DATE').val(EndDate);
+                                    AddNationalId();
+                                    $('#CardsModal').modal('hide');
+                                    //$.ajax({
+                                    //    type: "POST",
+                                    //    dataType: "json",
+                                    //    url: '/Pharmacy/GetCompName',
+                                    //    data: { id: CardId },
+
+                                    //    success: function (returndata) {
+                                    //        if (returndata.ok) {
+                                    //            $("#contractComp_C_ANAME").val(returndata.data.C_ANAME);
+                                    //        }
+                                    //        else {
+                                    //            bootbox.alert(' No Company Name ');
+
+                                    //        }
+                                    //    }
+                                    //});
+                                }
+                                else {
+                                    $("#wait").css("display", "none");
+                                    bootbox.dialog({
+                                        title: 'Alert!',
+                                        message: returndata.message,
+                                        buttons: {
+                                            Ok: {
+                                                label: "Ok",
+                                                className: 'btn-info',
+                                                callback: function () {
+                                                    ClearCardData();
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                            else {
+                                bootbox.alert('Error activation ');
+                            }
+                        }
+                    });
+                    //ddlLimit
+                    //$.ajax({
+                    //    type: "POST",
+                    //    dataType: "json",
+                    //    url: '/Labs/GetLimit',
+                    //    data: { id: CardId },
+                    //    success: function (returndata) {
+                    //        if (returndata.ok) {
+                    //            limit_Daily = returndata.limit.INSURANCE_DAY_LAB;
+                    //            $("#Co_insurance_INSURANCE_DAY_LAB").val(limit_Daily);
+                    //            //Limit_Monthly = returndata.limit.INSURANCE_MONTH_LAB;
+                    //            //$("#Co_insurance_INSURANCE_MONTH_LAB").val(Limit_Monthly);
+                    //        }
+
+                    //        else {
+                    //            window.alert(' No Limit Amount ');
+                    //            location.reload();
+                    //        }
+                    //    }
+                    //});
+                    //Co-Payment
+
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: '/Pharmacy/CellingAmount',
+                        data: {
+                            id: CardId,
+                            ServiceCode: '11206'
+                        },
+                        success: function (r) {
+                            //   toastr.info("جميع خدمات كرونا غير مغطاة و يجب محاسبة المريض نقدا");
+
+                            if (r.Validation == false) {
+                                alert(r.Message);
+                                window.location.reload();
+                            } else {
+                                $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
+                                AnuualLimit = r.Limit;
+                                // limit_Daily = r.CoInsurancelimit.INSURANCE_DAY_LAB;
+                                $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
+                                Calculation();
+                            }
+                        },
+                        error: function (err) {
+                            alert("Company Annual Amount");
+                            location.reload();
+                        }
+                    });
+
+
+                }
+                else {
+                    $("#wait").css("display", "none");
+                    $('#txtSearchCard').val(CardId);
+                    $('#CardsModal').modal('hide');
+                    bootbox.alert('برجاء الرجوع الى ادارة الشركة التابعة لسيادتكم ..');
+                }
+            }
+        });
+    }
+
+</script>

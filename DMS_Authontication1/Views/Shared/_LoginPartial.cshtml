@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+    }
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        <div class="dropdown-cus" style="float:left;">
+            <button class="dropbtn-cus">
+                <span class="m-nav__link-icon">
+                    <span class="m-nav__link-icon-wrapper">
+                        <i class="fa fa-bell-o"style="color: red;"></i>
+                    </span>
+                    <span id="notification" class="m-nav__link-badge m-badge m-badge--danger">0</span>
+                </span>
+               @* <i class="fa fa-chevron-down down-icon"></i>*@
+                @*  <i class="fa fa-chevron-up up-icon"></i>*@
+            </button>
+
+            <div id="divNotificationValues" class="drop-cus" style="left:0;min-width: 210px !important">
+                @*<a href="/DoctorMedicinesLabsRaysApproval/index">10000-1-1-1</a>*@
+
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="dropdown-cus" style="float:left;">
+            <button class="dropbtn-cus">
+                @*@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", style = "color: #000; text-decoration: none;" })*@
+                Hello  @User.Identity.GetUserName() !
+                <i class="fa fa-chevron-down down-icon"></i>
+                <i class="fa fa-chevron-up up-icon"></i>
+            </button>
+
+            <div class="drop-cus" style="left:0;">
+                @Html.ActionLink("Profile", "Main", "ControlPanel", null, new { style = "color: #000" })
+                @Html.ActionLink("Manage Account", "Index", "Manage", null, new { style = "color: #000" })
+                @*@Html.ActionLink("Logout", "LogOff", "Account", null, new { style = "color: #000" })*@
+                <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+
+            </div>
+        </div>
+    </li>
+
+
+</ul>
+
+}
+
+
+
+
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        @{
+            if (User.IsInRole("Admin"))
+            {
+                <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", style = "color: #000" })</li>
+            }
+        }
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", style = "color: #000" })</li>
+    </ul>
+}

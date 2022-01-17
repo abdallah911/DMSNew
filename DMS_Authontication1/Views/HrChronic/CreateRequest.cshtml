@@ -1,0 +1,442 @@
+﻿@model DMS_Authontication1.ViewModel.Enum_RequestsViewModel
+@{
+    ViewBag.Title = "CreateRequest";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+<br />
+<div style="margin-top:40px">
+    <p>
+        @Html.ActionLink(" Search", "InquiryAboutCard", null, htmlAttributes: new { @class = "btn btn-info fa fa-search  ", @style = " text-transform: none" })
+        @Html.ActionLink(" Create Request ", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-secondary-outline  fa fa-plus ", @style = " text-transform: none" })
+        @*@Html.ActionLink(" Consumption", "Consumption", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })*@
+    </p>
+</div>
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Create New Request
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row ">
+            <div class="col-md-12">
+                @using (Html.BeginForm("CreateRequest", "HrChronic", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                {
+
+                    <div class="form-wizard">
+                        <div class="form-body">
+                            <div class="tab-content">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+
+                                @Html.HiddenFor(model => model.ID)
+                                @*@Html.HiddenFor(model => model.TYPE)*@
+                                <div class="row">
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.CompName) :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.CompName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                                @Html.ValidationMessageFor(model => model.CompName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.CARD_ID) :
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(model => model.CARD_ID, ViewBag.address as SelectList, "Select Card id", new { @class = "form-control", id = "CARD_ID" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.TYPE) :
+                                            </label>
+                                            <div class="col-md-8">
+                                                <select name="TYPE" id="TYPE" class="form-control">
+                                                    <option value="Chronic">Chronic</option>
+                                                    <option value="Non-Chronic">Non-Chronic</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        @*<div class="form-group" hidden>
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.TYP_ANAME) :
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(m => m.TYP_ANAME, ViewBag.provider as SelectList, "Select Provider Type", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group" hidden>
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.PR_ENAME) :
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(model => model.PR_ENAME, new SelectList(""), " Select Provider Name", new
+                                           {
+                                               @class = "form-control"
+                                           })
+                                            </div>
+                                        </div>*@
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.NOTES) :
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.NOTES, new { htmlAttributes = new { @class = "form-control" } })
+                                                @*<input type="text" class="form-control" id="NOTES" name="NOTES" />*@
+                                                @Html.ValidationMessageFor(model => model.NOTES, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayName("Contact Email :")
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.MAIL_SEND, new { htmlAttributes = new { @class = "form-control" } })
+                                                @*<input type="text" class="form-control" id="MAIL_SEND" name="MAIL_SEND" />*@
+                                                @Html.ValidationMessageFor(model => model.MAIL_SEND, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayName("Upload Files") :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <input name="ImageFile" id="ImageFile" type="file" class="col-md-2 form-control " multiple required />
+                                                @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div style=" text-align:right">
+                            <input id="new" type="button" value="Reset" onclick="NewRequest();" class="btn btn-secondary-outline fa fa-refresh" />
+                            <input id="submit" type="submit" value="Save" class="btn btn-success" />
+
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<input type="text" id="imName" hidden="hidden" />
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+
+
+    var sel;
+    var SelectedProviderEname = "";
+    $(document).ready(function () {
+        var type = $("#TYPE").val();
+        if (type != '') {
+            $("#TYPE").val(type).change();
+        }
+
+        $("#CARD_ID").select2();
+
+
+    });
+
+    function DownloadImage() {
+        window.open('/MedicalApproval/Download/' + $('#RequestCode').html());
+    }
+    /// Save Request
+    function SaveRequest() {
+        if ($('#CompName').val() == "") {
+            alert("You shoud enter valid company name ..");
+        }
+        else if ($("#IMAGE").val() == "") {
+            alert("You shoud enter IMAGE ..");
+        }
+        else if ($("#CARD_ID").val() == "") {
+            alert("You shoud enter CARD_ID ..");
+        }
+        else if ($('#TYPE').val() == "") {
+            alert("You shoud enter TYPE  ...");
+        }
+
+        else {
+
+            var imagname = "";
+            if ($('#IMAGE').val() != "") {
+
+                var datag = new FormData();//()
+                var files = $("#IMAGE").get(0).files;
+                imagname = files[0].name;
+                datag.append("File", files[0]);
+
+                //Saving Image
+                $.ajax({
+                    url: '/MedicalApproval/SaveImage/',
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: datag,
+                    success: function (response) {
+
+                        //  $('#imName').val(response);
+                    },
+                    error: function (er) {
+                        alert("Upload Image");
+                    }
+
+                });
+            }
+            data = {
+                CompName: $('#CompName').val(),
+                CARD_ID: $('#CARD_ID').val(),
+                TYPE: $('#TYPE').val(),
+                NOTES: $('#NOTES').val(),
+                TYP_ANAME: "Medication",
+                PR_ENAME: "Chronic-Non",
+                APPROVAL_IMAGE: imagname,
+
+            };
+            $.ajax({
+                type: "POST",
+                url: '/HrChronic/SaveRequest',
+                //processData: false,
+                //contentType: false,
+                data: data,
+                success: function (ret) {
+                    if (ret.msg == "ok") {
+                        $("#save").attr("disabled", "disabled");
+                        bootbox.alert("Request code : " + ret.respcode);
+                        $("#RequestCode").html(ret.respcode);
+                    }
+                    else {
+                        alert(ret.msg);
+                    }
+
+                },
+                error: function (err) {
+                    bootbox.alert("Error DATA !");
+                }
+            });
+        }
+
+    }
+
+    // New Request
+    function NewRequest() {
+        window.location = '/HrChronic/CreateRequest';
+        //$('#CompName').val();
+        //$("#save").attr("disabled", false);
+        //$('#Country').val("");
+        //$('#Region').empty();
+        //$('#ProviderType').val("");
+        //$("#NumberOfPeople").val("");
+        //$('#ServName').val("");
+        //$("#ServAddress").val("");
+        //$("#ResponsableFor").val("");
+        //$("#PhoneNumber").val("");
+
+        //  $("#save").attr("disabled", false);
+        //  $("#edit").attr("disabled", "disabled");
+
+        //  $("#RequestCode").html(("********"));
+        //  //  $('#CompName').val(dat.modelreturn.CompName);
+        //  $('#TYPE').val("Medications outpatient").change();
+        ////  $('#CARD_ID').val(0).change();
+        ////  $('#TYP_ANAME').val("0").change();
+        //  $('#PR_ENAME').val("0").change();
+        //  $("#NOTES").val("");
+        //  $("#responsestatus").val("");
+        //  debugger;
+        //  //  $("#IMAGE").val(dat.modelreturn.IMAGE);
+        //  var x = document.getElementById("divimage");
+
+        //  x.style.display = "none";
+
+
+
+
+    }
+
+    // Search Request
+    //function SearchRequest() {
+    //    if ($('#txtSearchRequest').val() == "") {
+    //        alert("Please insert valid Request Code ...")
+
+    //    }
+    //    else {
+    //        var data = {
+    //            searchId: $('#txtSearchRequest').val(),
+    //        };
+    //        $.ajax({
+    //            type: "POST",
+    //            url: '/MedicalApproval/SearchRequest',
+    //            data: (data),
+    //            success: function (dat) {
+    //                if (dat.msg == "ok") {
+
+
+    //                    $("#save").attr("disabled", "disabled");
+    //                    $("#edit").attr("disabled", false);
+    //                    sel = dat.modelreturn.Region;
+    //                    $("#RequestCode").html(dat.modelreturn.ID);
+    //                    $('#CompName').val(dat.modelreturn.CompName);
+    //                    $('#TYPE').val(dat.modelreturn.TYPE);
+    //                    debugger;
+    //                    SelectedProviderEname = dat.modelreturn.PR_ENAME;
+    //                    $('#TYP_ANAME').val(dat.modelreturn.TYP_ANAME).change();
+    //                    $('#PR_ENAME').val(dat.modelreturn.PR_ENAME).change();
+    //                    $("#CARD_ID").val(dat.modelreturn.CARD_ID).change();
+    //                    $("#NOTES").val(dat.modelreturn.NOTES);
+    //                    $("#responsestatus").val(dat.modelreturn.REPLAYED_BY);
+
+    //                    //  $("#IMAGE").val(dat.modelreturn.IMAGE);
+    //                    var x = document.getElementById("divimage");
+    //                    if (dat.modelreturn.IMAGE != "") {
+    //                        x.style.display = "block";
+    //                    }
+    //                    else {
+    //                        x.style.display = "none";
+    //                    }
+    //                    debugger;
+
+
+    //                }
+    //                else {
+    //                    alert(dat.msg);
+    //                }
+
+    //            },
+    //            error: function (err) {
+    //                bootbox.alert("Error Data !");
+    //            }
+    //        });
+    //    }
+    //}
+
+    //// Edit Request
+    //function EditRequest() {
+    //    var x = document.getElementById("divimage");
+    //    debugger;
+    //    if ($('#CompName').val() == "") {
+    //        alert("You shoud enter valid company name ..");
+    //    }
+    //    else if ($("#CARD_ID").val() == "") {
+    //        alert("You shoud enter CARD_ID ..");
+    //    }
+    //    else if ($("#IMAGE").val() == "" && x.style.display == "none") {
+    //        alert("You shoud enter IMAGE ..");
+    //    }
+    //    else if ($('#TYPE').val() == "") {
+    //        alert("You shoud enter TYPE  ...");
+    //    }
+
+    //    else {
+
+    //        //var data = {
+    //        //    IMAGE: $('#IMAGE').val()
+
+    //        //};
+    //        debugger;
+    //        var imagname = "";
+    //        if ($('#IMAGE').val() != "") {
+
+    //            var datag = new FormData();//()
+    //            var files = $("#IMAGE").get(0).files;
+    //            imagname = files[0].name;
+    //            datag.append("File", files[0]);
+
+    //            //for (var i = 0; i < files.length; i++) {
+    //            //    data.append("Files", files[i]);
+    //            //    indemnty.AttachPDF += files[i].name ;
+    //            //    if (i < files.length-1) {
+    //            //        indemnty.AttachPDF += ",";
+    //            //    }
+    //            //}
+
+    //            //Saving Image
+    //            $.ajax({
+    //                url: '/MedicalApproval/SaveImage/',
+    //                type: "POST",
+    //                processData: false,
+    //                contentType: false,
+    //                data: datag,
+    //                success: function (response) {
+
+    //                    //  $('#imName').val(response);
+    //                },
+    //                error: function (er) {
+    //                    alert("Upload Image");
+    //                }
+
+    //            });
+    //        }
+
+    //        //var fileName;
+    //        //$('input[type="file"]').change(function (e) {
+    //        //     fileName = e.target.files[0].name;
+    //        //    //alert('The file "' + fileName + '" has been selected.');
+    //        //});
+
+    //        //if (data.IMAGE != String.empty)
+    //        //{
+    //        //    var files = $("#IMAGE").get(0).files;
+    //        //    imagname = files[0].name;
+    //        //}
+    //        debugger;
+    //        data = {
+
+    //            ID: $('#RequestCode').html(),
+    //            CompName: $('#CompName').val(),
+    //            CARD_ID: $('#CARD_ID').val(),
+    //            TYPE: $('#TYPE').val(),
+    //            NOTES: $('#NOTES').val(),
+    //            TYP_ANAME: "Medication",
+    //            PR_ENAME: "Chronic-Non",
+    //            IMAGE: imagname,
+
+    //        };
+    //        $.ajax({
+    //            type: "POST",
+    //            url: '/MedicalApproval/EditRequest',
+    //            //processData: false,
+    //            //contentType: false,
+    //            data: data,
+    //            success: function (ret) {
+    //                if (ret.msg == "ok") {
+    //                    $("#save").attr("disabled", "disabled");
+    //                    bootbox.alert("Saved Datat Success ...");
+    //                    $("#RequestCode").html(ret.respcode);
+    //                }
+    //                else {
+    //                    alert(ret.msg);
+    //                }
+
+    //            },
+    //            error: function (err) {
+    //                bootbox.alert("Error DATA !");
+    //            }
+    //        });
+    //    }
+    //}
+</script>

@@ -1,0 +1,577 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@if (!User.Identity.IsAuthenticated)
+{
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/animate.css">
+    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/aos.css">
+    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/jquery.timepicker.css">
+    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/flaticon.css">
+    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/icomoon.css">
+    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/style.css">
+
+    <section class="home-slider owl-carousel">
+        <div class="slider-item" style="background-image:url(/assets/global/img/bg_1.jpg);">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-start" data-scrollax-parent="true">
+                    <div class="col-md-6 text ftco-animate">
+                        <h1 class="mb-4">We Care <span>About Your Health</span></h1>
+                        <h3 class="subheading">Your Health is Our Top Priority with Comprehensive, Affordable medical.</h3>
+                        <p><a href="#" class="btn btn-secondary px-4 py-3 mt-3">View our works</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider-item" style="background-image:url(/assets/global/img/bg_2.jpg);">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-start" data-scrollax-parent="true">
+                    <div class="col-md-6 text ftco-animate">
+                        <h1 class="mb-4">We Care <span style="color:white">About Your Health</span></h1>
+                        <h3 class="subheading" style="color:white">Your Health is Our Top Priority with Comprehensive, Affordable medical.</h3>
+                        <p><a href="#" class="btn btn-secondary px-4 py-3 mt-3">View our works</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider-item" style="background-image:url(/assets/global/img/bg_2.jpg);">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-start" data-scrollax-parent="true">
+                    <div class="col-md-6 text ftco-animate">
+                        <h1 class="mb-4">We Care <span style="color:white">About Your Health</span></h1>
+                        <h3 class="subheading" style="color:white">Your Health is Our Top Priority with Comprehensive, Affordable medical.</h3>
+                        <p><a href="#" class="btn btn-secondary px-4 py-3 mt-3">View our works</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @*<section class="ftco-services ftco-no-pb">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-md-3 d-flex services align-self-stretch p-4 ftco-animate">
+                    <div class="media block-6 d-block text-center">
+                        <div class="icon d-flex justify-content-center align-items-center">
+                            <span class="flaticon-doctor"></span>
+                        </div>
+                        <div class="media-body p-2 mt-3">
+                            <h3 class="heading">Qualitfied Doctors</h3>
+                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 d-flex services align-self-stretch p-4 ftco-animate">
+                    <div class="media block-6 d-block text-center">
+                        <div class="icon d-flex justify-content-center align-items-center">
+                            <span class="flaticon-ambulance"></span>
+                        </div>
+                        <div class="media-body p-2 mt-3">
+                            <h3 class="heading">Emergency Cases</h3>
+                            <p>An so vulgar to on points wanted rapture ous resolving continued household</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 d-flex services align-self-stretch p-4 ftco-animate">
+                    <div class="media block-6 d-block text-center">
+                        <div class="icon d-flex justify-content-center align-items-center">
+                            <span class="flaticon-stethoscope"></span>
+                        </div>
+                        <div class="media-body p-2 mt-3">
+                            <h3 class="heading">Online Appointment</h3>
+                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 d-flex services align-self-stretch p-4 ftco-animate">
+                    <div class="media block-6 d-block text-center">
+                        <div class="icon d-flex justify-content-center align-items-center">
+                            <span class="flaticon-24-hours"></span>
+                        </div>
+                        <div class="media-body p-2 mt-3">
+                            <h3 class="heading">24 Hours Service</h3>
+                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>*@
+    <section class="ftco-section ftco-no-pt ftc-no-pb">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-md-5 p-md-5 img img-2 mt-5 mt-md-0" style="background-image: url(/assets/global/img/about.jpg);">
+                </div>
+                <div class="col-md-7 wrap-about py-4 py-md-5 ftco-animate">
+                    <div class="heading-section mb-5">
+                        <div class="pl-md-5 ml-md-5">
+                            <span class="subheading">About DMS</span>
+                            <h2 class="mb-4" style="font-size: 28px;">Introducing DMS</h2>
+                        </div>
+                    </div>
+                    <div class="pl-md-5 ml-md-5 mb-5">
+                        <p>Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members. At DMS, the company offers a wide range of health insurance products at affordable prices to make health insurance every human being’s right. And as a company, single-mindedly dedicated to health insurance. Simple language, clear policies, transparent procedures and innovative products, making health insurance the way it ought to be. We know health care. We know insurance.</p>
+                        <div class="row mt-5 pt-2">
+                            <div class="col-lg-6">
+                                <div class="services-2 d-flex">
+                                    <div class="icon mt-2 mr-3 d-flex justify-content-center align-items-center"><span class="flaticon-first-aid-kit"></span></div>
+                                    <div class="text">
+                                        <h3>Primary Care</h3>
+                                        <p>Far far away, behind the word mountains, far from the countries Vokalia.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="services-2 d-flex">
+                                    <div class="icon mt-2 mr-3 d-flex justify-content-center align-items-center"><span class="flaticon-dropper"></span></div>
+                                    <div class="text">
+                                        <h3>Lab Test</h3>
+                                        <p>Far far away, behind the word mountains, far from the countries Vokalia.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="services-2 d-flex">
+                                    <div class="icon mt-2 mr-3 d-flex justify-content-center align-items-center"><span class="flaticon-experiment-results"></span></div>
+                                    <div class="text">
+                                        <h3>Symptom Check</h3>
+                                        <p>Far far away, behind the word mountains, far from the countries Vokalia.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="services-2 d-flex">
+                                    <div class="icon mt-2 mr-3 d-flex justify-content-center align-items-center"><span class="flaticon-heart-rate"></span></div>
+                                    <div class="text">
+                                        <h3>Heart Rate</h3>
+                                        <p>Far far away, behind the word mountains, far from the countries Vokalia.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--==========================
+     Success Partners
+    ============================-->
+    <section id="successPartners" class="section-bg">
+        <div class="container">
+
+            <div class="section-header">
+                <h3>Success Partners</h3>
+            </div>
+
+            <div class="row contact-info">
+                <div class="col-md-3">
+                    <div>
+                        <h3>@*<a href="#"></a>*@Alfa Lab</h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div>
+                        <h3>Cleopatra hospital</h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div>
+                        <h3>Techno Scan</h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div>
+                        <h3>Al borg Lab</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- #Success Partners -->
+    <script src="~/assets/global/plugins/design/homecontent/js/jquery.min.js"></script>
+    <script src="~/assets/global/plugins/design/homecontent/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="~/assets/global/plugins/design/homecontent/js/popper.min.js"></script>
+    <script src="~/assets/global/plugins/design/homecontent/js/bootstrap.min.js"></script>
+    <script src="~/assets/global/plugins/design/homecontent/js/jquery.easing.1.3.js"></script>
+    <script src="~/assets/global/plugins/design/homecontent/js/jquery.waypoints.min.js"></script>
+    <script src="~/assets/global/plugins/design/homecontent/js/jquery.stellar.min.js"></script>
+    <script src="~/assets/global/plugins/design/homecontent/js/owl.carousel.min.js"></script>
+    <script src="~/assets/global/plugins/design/homecontent/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/assets/global/plugins/design/homecontent/js/aos.js"></script>
+    <script src="~/assets/global/plugins/design/homecontent/js/jquery.animateNumber.min.js"></script>
+    <script src="~/assets/global/plugins/design/homecontent/js/bootstrap-datepicker.js"></script>
+    <script src="~/assets/global/plugins/design/homecontent/js/jquery.timepicker.min.js"></script>
+    <script src="~/assets/global/plugins/design/homecontent/js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="~/assets/global/plugins/design/homecontent/js/google-map.js"></script>
+    <script src="~/assets/global/plugins/design/homecontent/js/main.js"></script>
+}
+else if (User.IsInRole("Admin"))
+{
+    <h1>DMS Dashboard</h1>
+
+    <!-- Styles -->
+    <style>
+        #ProviderClamesChartDiv {
+            width: 100%;
+            height: 7000px;
+        }
+    </style>
+
+    <!-- Resources -->
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+    <!-- Chart code -->
+    <script>
+        am4core.ready(function () {
+            //User Chart
+            // Create chart instance
+            var chart = am4core.create("UserChartDiv", am4charts.PieChart);
+            // Add and configure Series
+            var pieSeries = chart.series.push(new am4charts.PieSeries());
+            pieSeries.dataFields.value = "litres";
+            pieSeries.dataFields.category = "User";
+
+            // Let's cut a hole in our Pie chart the size of 30% the radius
+            chart.innerRadius = am4core.percent(50);
+
+            // Put a thick white border around each Slice
+            pieSeries.slices.template.stroke = am4core.color("#fff");
+            pieSeries.slices.template.strokeWidth = 2;
+            pieSeries.slices.template.strokeOpacity = 1;
+            pieSeries.slices.template
+                // change the cursor on hover to make it apparent the object can be interacted with
+                .cursorOverStyle = [
+                    {
+                        "property": "cursor",
+                        "value": "pointer"
+                    }
+                ];
+
+            pieSeries.alignLabels = false;
+            pieSeries.labels.template.bent = true;
+            pieSeries.labels.template.radius = 3;
+            pieSeries.labels.template.padding(0, 0, 0, 0);
+
+            pieSeries.ticks.template.disabled = true;
+
+            // Create a base filter effect (as if it's not there) for the hover to return to
+            var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+            shadow.opacity = 0;
+
+            // Create hover state
+            var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+
+            // Slightly shift the shadow and make it more prominent on hover
+            var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+            hoverShadow.opacity = 0.7;
+            hoverShadow.blur = 5;
+
+            // Add a legend
+            chart.legend = new am4charts.Legend();
+            //Clams Chart
+            var Clameschart = am4core.create("ClamesChartDiv", am4charts.PieChart);
+            // Add and configure Series
+            var ClamespieSeries = Clameschart.series.push(new am4charts.PieSeries());
+            ClamespieSeries.dataFields.value = "litres";
+            ClamespieSeries.dataFields.category = "Clames";
+
+            // Let's cut a hole in our Pie chart the size of 30% the radius
+            Clameschart.innerRadius = am4core.percent(30);
+
+            // Put a thick white border around each Slice
+            ClamespieSeries.slices.template.stroke = am4core.color("#fff");
+            ClamespieSeries.slices.template.strokeWidth = 2;
+            ClamespieSeries.slices.template.strokeOpacity = 1;
+            ClamespieSeries.slices.template
+                // change the cursor on hover to make it apparent the object can be interacted with
+                .cursorOverStyle = [
+                    {
+                        "property": "cursor",
+                        "value": "pointer"
+                    }
+                ];
+
+            ClamespieSeries.alignLabels = false;
+            ClamespieSeries.labels.template.bent = true;
+            ClamespieSeries.labels.template.radius = 3;
+            ClamespieSeries.labels.template.padding(0, 0, 0, 0);
+
+            ClamespieSeries.ticks.template.disabled = true;
+
+            // Create a base filter effect (as if it's not there) for the hover to return to
+            var shadow = ClamespieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+            shadow.opacity = 0;
+
+            // Create hover state
+            var hoverState = ClamespieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+
+            // Slightly shift the shadow and make it more prominent on hover
+            var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+            hoverShadow.opacity = 0.7;
+            hoverShadow.blur = 5;
+            Clameschart.legend = new am4charts.Legend();
+            //Ajax
+            $.ajax({
+                type: 'POST',
+                url: '/Home/getUser/',
+                dataType: 'json',
+                data: { id: 1 },
+                success: function (result) {
+                    // Add data
+                    chart.data = [{
+                        "User": "Oracle",
+                        "litres": result.OracleUserCount
+                    }, {
+                        "User": "SQL",
+                        "litres": result.SqlUserCount
+                    }
+                    ];
+                    Clameschart.data = [{
+                        "Clames": "Oracle",
+                        "litres": result.OracleClamesCount
+                    }, {
+                        "Clames": "SQL",
+                        "litres": result.SqlClamesCount
+                    }
+                    ];
+
+                },
+                error: function (ex) {
+                    bootbox.alert('Failed to retrieve counts.');
+                }
+
+            });
+
+        }); // end am4core.ready()
+    </script>
+
+    //All Pharmacies Names
+    <script>
+        am4core.ready(function () {
+
+            // Themes begin
+            am4core.useTheme(am4themes_animated);
+            // Themes end
+
+            var chart = am4core.create("ProviderClamesChartDiv", am4charts.XYChart);
+            chart.padding(40, 40, 40, 40);
+
+            var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.renderer.grid.template.location = 0;
+            categoryAxis.dataFields.category = "provider";
+            categoryAxis.renderer.minGridDistance = 1;
+            categoryAxis.renderer.inversed = true;
+            categoryAxis.renderer.grid.template.disabled = true;
+
+            var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+            valueAxis.min = 0;
+
+            var series = chart.series.push(new am4charts.ColumnSeries());
+            series.dataFields.categoryY = "provider";
+            series.dataFields.valueX = "clames";
+            series.tooltipText = "{valueX.value}"
+            series.columns.template.strokeOpacity = 0;
+            series.columns.template.column.cornerRadiusBottomRight = 5;
+            series.columns.template.column.cornerRadiusTopRight = 5;
+
+            var labelBullet = series.bullets.push(new am4charts.LabelBullet())
+            labelBullet.label.horizontalCenter = "left";
+            labelBullet.label.dx = 10;
+            labelBullet.label.text = "{values.valueX.workingValue.formatNumber('#')}";
+            labelBullet.locationX = 1;
+
+            // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+            series.columns.template.adapter.add("fill", function (fill, target) {
+                return chart.colors.getIndex(target.dataItem.index);
+            });
+
+            categoryAxis.sortBySeries = series;
+
+            //Ajax
+            $.ajax({
+                type: 'POST',
+                url: '/Home/getProviderClames/',
+                dataType: 'json',
+                data: { id: 1 },
+                success: function (result) {
+                    // Add data
+                    chart.data = result.PharmacyClames;
+
+
+                },
+                error: function (ex) {
+                    bootbox.alert('Failed to retrieve counts.');
+                }
+
+            });
+
+
+
+        }); // end am4core.ready()
+    </script>
+    //Manger Clames
+    <script>
+        am4core.ready(function () {
+
+            // Themes begin
+            am4core.useTheme(am4themes_animated);
+            // Themes end
+
+            var chart = am4core.create("MangerClamesChartDiv", am4charts.XYChart);
+            chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+            //Ajax
+            $.ajax({
+                type: 'POST',
+                url: '/Home/getMangerClames/',
+                dataType: 'json',
+                data: { id: 1 },
+                success: function (result) {
+                    debugger;
+                    // Add data
+                    chart.data = result.MangerClames;
+
+
+                },
+                error: function (ex) {
+                    bootbox.alert('Failed to retrieve counts.');
+                }
+
+            });
+
+
+            var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.renderer.grid.template.location = 0;
+            categoryAxis.dataFields.category = "manger";
+            categoryAxis.renderer.minGridDistance = 40;
+            categoryAxis.fontSize = 11;
+            categoryAxis.renderer.labels.template.dy = 5;
+
+            var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+            valueAxis.min = 0;
+            valueAxis.renderer.minGridDistance = 30;
+            valueAxis.renderer.baseGrid.disabled = true;
+
+
+            var series = chart.series.push(new am4charts.ColumnSeries());
+            series.dataFields.categoryX = "manger";
+            series.dataFields.valueY = "clames";
+            series.columns.template.tooltipText = "{valueY.value}";
+            series.columns.template.tooltipY = 0;
+            series.columns.template.strokeOpacity = 0;
+
+            // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+            series.columns.template.adapter.add("fill", function (fill, target) {
+                return chart.colors.getIndex(target.dataItem.index);
+            });
+
+        }); // end am4core.ready()
+    </script>
+    <!-- HTML -->
+
+    <h3 class="col-md-6">Users/Month</h3>
+    <h3 class="col-md-6">Claims/Month</h3>
+    <div class="col-md-6 chartdiv" id="UserChartDiv"></div>
+    <div class="col-md-6 chartdiv" id="ClamesChartDiv"></div>
+    <h3 class="col-md-12">Manger Claims/Month</h3>
+    <div style="overflow: auto;width: 100%;" class="col-md-12">
+        <div class="col-md-12 chartdiv" id="MangerClamesChartDiv" style="width: 150%;"></div>
+    </div>
+    <h3 class="col-md-12">Pharmacies Claims/Month</h3>
+
+    <div style="overflow: auto;height: 300px;" class="col-md-12">
+        <div class="col-md-12 chartdiv" id="ProviderClamesChartDiv"></div>
+    </div>
+
+}
+else
+{
+    <div style="padding-left: 93px;">
+        <!-- Resources -->
+        <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+        <h1>Your Dashboard</h1>
+        <h3 class="col-md-12">Claims/Month</h3>
+        <div class="col-md-9 chartdiv" id="ProviderClamesChartDiv"></div>
+
+        <script>
+            am4core.ready(function () {
+
+                // Themes begin
+                am4core.useTheme(am4themes_animated);
+                // Themes end
+
+                var chart = am4core.create("ProviderClamesChartDiv", am4charts.XYChart);
+                chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+                //Ajax
+                $.ajax({
+                    type: 'POST',
+                    url: '/Home/getCurrentProviderClames/',
+                    dataType: 'json',
+                    data: { id: 1 },
+                    success: function (result) {
+                        debugger;
+                        // Add data
+                        chart.data = result.UserClames;
+
+
+                    },
+                    error: function (ex) {
+                        bootbox.alert('Failed to retrieve counts.');
+                    }
+
+                });
+
+
+                var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+                categoryAxis.renderer.grid.template.location = 0;
+                categoryAxis.dataFields.category = "manger";
+                categoryAxis.renderer.minGridDistance = 40;
+                categoryAxis.fontSize = 11;
+                categoryAxis.renderer.labels.template.dy = 5;
+
+                var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+                valueAxis.min = 0;
+                valueAxis.renderer.minGridDistance = 30;
+                valueAxis.renderer.baseGrid.disabled = true;
+
+
+                var series = chart.series.push(new am4charts.ColumnSeries());
+                series.dataFields.categoryX = "manger";
+                series.dataFields.valueY = "clames";
+                series.columns.template.tooltipText = "{valueY.value}";
+                series.columns.template.tooltipY = 0;
+                series.columns.template.strokeOpacity = 0;
+
+                // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+                series.columns.template.adapter.add("fill", function (fill, target) {
+                    return chart.colors.getIndex(target.dataItem.index);
+                });
+
+            }); // end am4core.ready()
+        </script>
+    </div>
+}
+
+
+
+@*<script>
+        $(function () {
+            introJs().start();
+        })
+    </script>*@

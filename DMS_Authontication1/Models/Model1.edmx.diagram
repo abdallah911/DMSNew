@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0e09e86cc06b4364aa9c6bf3a398f095" Name="Diagram1" ZoomLevel="100">
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Acception" Width="1.5" PointX="9.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.AcceptionReason" Width="1.5" PointX="0.5" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Basic_Data" Width="1.5" PointX="11.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CardAcceptionReason" Width="1.5" PointX="4" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.COMP_CUSTOMIZED_D" Width="2.25" PointX="7" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Comp_Customized_D_D" Width="1.5" PointX="15.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Comp_Customized_D_D_Emp" Width="2.625" PointX="1" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.COMP_CUSTOMIZED_D_EMP" Width="1.5" PointX="15.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Comp_Employees" Width="1.5" PointX="17.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Company_Cost_Center" Width="1.75" PointX="9.5" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompContractClass" Width="1.5" PointX="19.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ContactU" Width="1.5" PointX="19.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Contract_Comp" Width="1.5" PointX="19.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Contract_Data" Width="1.5" PointX="21.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.DailyPermission" Width="1.5" PointX="21.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Diagnosi" Width="1.5" PointX="21.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Employee_Request_Type" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.EmployeeRelation" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Gender" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Governate" Width="1.5" PointX="9.375" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Indemnity" Width="1.5" PointX="7.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.IndemnityCardsService" Width="1.5" PointX="10" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.IndemnityService" Width="1.5" PointX="12.25" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Insurance_Class" Width="1.5" PointX="11.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.LicenseType" Width="1.5" PointX="23.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Med_Card" Width="1.5" PointX="23.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Med_Medicine" Width="1.5" PointX="4.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.MedicineData" Width="1.5" PointX="7.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.MedicineGroup" Width="1.5" PointX="23.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.MedicinesDiagnosi" Width="1.5" PointX="10" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.MedicineType" Width="1.5" PointX="23.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.MonthlyPermission" Width="1.5" PointX="23.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Name_Lab" Width="1.5" PointX="23.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Name_Lab_Cen" Width="1.5" PointX="23.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Name_Ray" Width="1.5" PointX="25.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Name_Ray_Cen" Width="1.5" PointX="25.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Notification" Width="1.5" PointX="6.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Patch" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Pr_Bra" Width="1.5" PointX="25.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Provider" Width="1.5" PointX="13.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProviderTypeNew" Width="1.5" PointX="12.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RelationShip" Width="1.5" PointX="3.375" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RequestAddProvider" Width="1.5" PointX="15" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RoshitaPharmcyApproved" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.S_Ent_7" Width="1.5" PointX="15.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Ser_Prov_Disc" Width="1.5" PointX="25.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.SERV_PROVIDERS_NEW" Width="1.5" PointX="27.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Serv_Providers1" Width="1.5" PointX="10.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Service" Width="1.5" PointX="10" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Specialities1" Width="1.5" PointX="27.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Swap" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_CardAcceptionReasons_AcceptionReasons" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_IndemnityCardsServices_Indemnity" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_IndemnityServices_IndemnityCardsServices" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_IndemnityServices_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_MedicineData_MedicineData" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_MedicinesDiagnosis_MedicineData" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RequestAddProvider_ProviderTypeNew" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.HrAdminCompany" Width="1.5" PointX="7.375" PointY="29.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Department" Width="1.5" PointX="15.375" PointY="31" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.DMSComplaint" Width="1.5" PointX="17.625" PointY="30" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProviderComplaint" Width="1.875" PointX="30.375" PointY="18.625" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_DMSComplaint_Department" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_ProviderComplaint_ProviderTypeNew" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_ProviderComplaint_SERV_PROVIDERS_NEW" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_ProviderComplaint_Serv_Providers1" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RoshitaDetail" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.SERVICE1" Width="1.5" PointX="24.375" PointY="29.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.DoctorSpecialist" Width="1.5" PointX="30.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.AfterSale" Width="1.5" PointX="3.375" PointY="31.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.EmployeePersonalData" Width="1.5" PointX="32.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Country" Width="1.5" PointX="21.875" PointY="32" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Gender1" Width="1.5" PointX="26.125" PointY="40" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Region" Width="1.5" PointX="26.125" PointY="37" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_Region_Country" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Co_Insurance_01" Width="1.5" PointX="5.375" PointY="32.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Group_Lab" Width="1.5" PointX="30.375" PointY="15.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Group_Ray" Width="1.5" PointX="32.375" PointY="4.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ApprovalDetail" Width="1.5" PointX="34.625" PointY="29.875" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ApprovalMaster" Width="1.5" PointX="32.375" PointY="30" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProviderEmail" Width="1.5" PointX="30.375" PointY="32.75" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_ApprovalDetails_ApprovalMaster" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.EmployeesSMSCode" Width="1.5" PointX="32.375" PointY="32.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.DosageForm" Width="1.5" PointX="13.375" PointY="33.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProviderServicesPermission" Width="1.5" PointX="34.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.HospitalService" Width="1.5" PointX="15.375" PointY="34.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.HospitalDoctor" Width="1.5" PointX="26.375" PointY="33.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CronaEmergancy" Width="1.5" PointX="32.375" PointY="25.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RoshitaAcception" Width="1.5" PointX="0.75" PointY="26.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Enum_Requests" Width="1.5" PointX="0.75" PointY="30.125" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_ApprovalDetails_Enum_Requests" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Employee_Request" Width="1.5" PointX="17.375" PointY="34.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Serv_Lab" Width="1.5" PointX="7.375" PointY="32.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Serv_Ray" Width="1.5" PointX="34.375" PointY="33.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompContractClassEmp" Width="1.5" PointX="19.375" PointY="35.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.IndemnityMaster" Width="1.5" PointX="35.375" PointY="8.25" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.IndemnityNationalFile" Width="1.5" PointX="37.625" PointY="12.875" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.IndemnityServiceFile" Width="1.5" PointX="39.75" PointY="9.25" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.IndemnityServiceMaster" Width="1.5" PointX="37.625" PointY="15.875" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_IndemnityNationalFile_IndemnityMaster" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_IndemnityServiceFile_IndemnityMaster" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_Table_1_IndemnityMaster" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_IndemnityServiceFile_IndemnityServiceMaster" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_IndemnityServiceMaster_Service" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_IndemnityServiceMaster_Specialities1" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Roshita" Width="1.5" PointX="3" PointY="3.375" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_Roshita_Patchs" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RoshitaDetails_Roshita" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RoshitaPharmcyApproved_Roshita" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RoshitaDiagnosisAdmin" Width="1.5" PointX="0.875" PointY="9.875" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RoshitaDiagnosisAdmin_Roshita" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ERPModule" Width="1.5" PointX="36.375" PointY="1.125" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ERPModulesPage" Width="1.5" PointX="38.625" PointY="1" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ERPRolesModulesPage" Width="1.5" PointX="34.375" PointY="25.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ERPUsersModulesPage" Width="1.5" PointX="21.375" PointY="35.75" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_ERPModulesPages_ERPModules" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProposalBasicData" Width="1.5" PointX="36.375" PointY="34.5" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProposalBenefit" Width="1.5" PointX="40.875" PointY="34.375" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProposalBenefitsType" Width="1.5" PointX="22.375" PointY="26.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProposalClass" Width="1.5" PointX="38.625" PointY="34.125" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProposalClassRelation" Width="1.5" PointX="40.875" PointY="37.125" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProposalComment" Width="1.5" PointX="28.375" PointY="35.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProposalRenewalSummary" Width="1.5" PointX="23.375" PointY="36.75" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_ProposalClass_ProposalBasicData" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_ProposalBenefits_ProposalClass" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_ProposalClass_ProposalClass" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_ProposalClassRelation_ProposalClass" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.APPROVAL_BAD" Width="1.5" PointX="30.375" PointY="36.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.COMP_CUSTOMIZED_D_D_MED" Width="1.5" PointX="0.75" PointY="37.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.COMP_CUSTOMIZED_D_D_MED_EMP" Width="1.5" PointX="7.75" PointY="37.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.HospitalClaim" Width="1.5" PointX="32.375" PointY="7.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.DeliveryRequestDetail" Width="1.5" PointX="36.875" PointY="19.875" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.DeliveryRequest" Width="1.5" PointX="34.625" PointY="17.75" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_DeliveryRequest_Country" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_DeliveryRequest_EmployeePersonalData" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_DeliveryRequest_Region" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_DeliveryRequest_SERV_PROVIDERS_NEW" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_DeliveryRequest_Serv_Providers1" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_DeliveryRequestDetails_DeliveryRequest" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PrescriptionRoshitaDignosi" Width="1.5" PointX="5.25" PointY="39.5" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_PrescriptionRoshitaDignosis_Roshita" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.EmployeeData" Width="1.5" PointX="33.375" PointY="39" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_EmployeeData_Country" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_EmployeeData_Gender" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_EmployeeData_Region" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

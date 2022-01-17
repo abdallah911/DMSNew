@@ -1,0 +1,558 @@
+﻿@using Microsoft.AspNet.Identity;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMS - @ViewBag.Title</title>
+    <!-- Bootstrap CSS -->
+    <!-- main css -->
+    <link rel="stylesheet" href="~/assets/HomeTemplete/css/style.css">
+    <link rel="stylesheet" href="~/assets/HomeTemplete/css/responsive.css">
+    <link href="~/assets/HomeTemplete/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/Site.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Scripts/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/DataTables/css/responsive.dataTables.min.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/css/select2.min.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/font-awesome.min.css" rel="stylesheet" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <!-- Add By Mohamed Yasser //START-->
+    <!---->
+    <link href="~/assets/global/plugins/jquery-validity/css/jquery.validity.css" rel="stylesheet" />
+    <!-- Add By Mohamed Yasser //END-->
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+    <link href="~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="~/assets/global/css/components-md.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="~/assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME LAYOUT STYLES -->
+
+    @Styles.Render("~/assets/HomeTemplete/Content/kendo/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/assets/admindashdoardmenu/sidebarmenu.css" rel="stylesheet" type="text/css" />
+    <style>
+        .market {
+            padding: 20px;
+            font-size: 20px !important;
+            width: 50px;
+            text-align: center;
+            text-decoration: none;
+            margin: 5px 2px;
+        }
+
+            .market:hover {
+                opacity: 0.7;
+            }
+
+        .fa-facebook {
+            background: #3B5998;
+            color: white;
+        }
+
+        .fa-linkedin {
+            background: #007bb5;
+            color: white;
+        }
+
+        .dropbtn {
+            background: #09b4d0;
+            color: black;
+            padding: 12px;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: fixed;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #9ECBF3
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #09b4d0;
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+        }
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125728980-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-125728980-2');
+    </script>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top " style="background-color:#09b4d0;border-color:#d9edf7">
+        <div class="container" style="max-width: 100%;">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" style="background: black;!important: revert;">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+
+                @*<a href="~/EmployeeRequest/DashBoard"><img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="width: 75px;height:50px;" /></a>*@
+
+                <a href="~/Home/Index"><img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="width: 75px;height:50px;" /></a>
+
+
+                <ul class="nav navbar-nav nav-admin-cus" style="color: #000">
+                    @{
+                        if ((User.IsInRole("Admin")) && User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <a><span class="collaps"><i class="fa fa-lg fa-times" aria-hidden="true"></i></span></a>
+                            </li>
+                        }
+                    }
+                    @{
+                        if ((User.IsInRole("Admin") || User.IsInRole("Pharmacy") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("Pharmacy", "Pharmacy", "Pharmacy", null, new { style = "color: #6c757d" })</li>
+                        }
+                    }
+                    @{
+                        if ((User.IsInRole("Pharmacy") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
+                        {
+                            @*<li><a id="btnClaim" class="link-cus">Claims</a></li>*@
+                            <li>@Html.ActionLink("Claims", "index", "Pharmacy", null, new { style = "color: #6c757d" })</li>
+                            <li>@Html.ActionLink("Chronic Delivery", "CompaniesChronicDelivery", "Pharmacy", null, new { style = "color: #6c757d" })</li>
+
+
+                        }
+                    }
+                    @{
+                        if (User.IsInRole("Admin") || User.IsInRole("Rays") || User.IsInRole("Rays_Admin"))
+                        {
+                            <li>@Html.ActionLink("Radio Centers", "Ray", "Rays", null, new { style = "color: #6c757d" })</li>
+                        }
+                    }
+                    @{
+                        if ((User.IsInRole("Rays")) || User.IsInRole("Rays_Admin"))
+                        {
+                            <li><a href="/Rays/index" class="link-cus">Claims</a></li>
+                        }
+                    } @{
+                        if (User.IsInRole("Rays_Admin"))
+                        {
+
+                            <li><a href="/RaysManagement/Index" class="link-cus">Rays List</a></li>
+                        }
+                    }
+                    @{
+                        if (User.IsInRole("Admin") || User.IsInRole("Lab") || User.IsInRole("Lab_Admin"))
+                        {
+                            <li>@Html.ActionLink("Labs", "Lab", "Labs", null, new { style = "color: #6c757d" })</li>
+                        }
+                    }
+                    @{
+                        if ((User.IsInRole("Lab")) || User.IsInRole("Lab_Admin"))
+                        {
+
+                            <li><a href="/Labs/index" class="link-cus">Claims</a></li>
+                        }
+                    }  @{
+                        if (User.IsInRole("Lab_Admin"))
+                        {
+
+                            <li><a href="/LabsManagement/Index" class="link-cus">Labs List</a></li>
+                        }
+                    }
+                    @{
+                        if ((User.IsInRole("HR")) || (User.IsInRole("HR_Admin")))
+                        {
+
+
+                            <li><a href="/EmployeeRequest/index" class="link-cus">Operation</a></li>
+                            if (Session["IsIndemnity"] != null)
+                            {
+                                if ((bool)Session["IsIndemnity"] == true)
+                                {
+                                    <li><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
+                                    @*<li><a href="/IndemnitiesPolice/index" class="link-cus">Indemnity Terms</a></li>*@
+
+                                }
+                            }
+                            @*<li><a href="/MedicalNetwork/CreateRequest" class="link-cus">Request Add Provider</a></li>*@
+                            <li><a href="/MedicalNetwork/Search" class="link-cus">Medical Network</a></li>
+                            <li><a href="/MedicalApproval/Search2" class="link-cus">Medical Approval</a></li>
+                            <li><a href="/HrChronic/InquiryAboutCard" class="link-cus">Medication</a></li>
+                            <li><a href="/Reports/Index" class="link-cus">Reports</a></li>
+                            @*<li><a href="/Complaint/CreateDMSComplaint" class="link-cus">Complaints</a></li>*@
+
+                        }
+                    }
+
+
+                    @*/////  Hospital System*@
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Hospital"))
+                    {
+                        <li>@Html.ActionLink("Hospital", "Index", "Hospital", null, new { style = "color: #6c757d" })</li>
+                    }
+                    @if (User.IsInRole("Hospital"))
+                    {
+                        <li>@Html.ActionLink("Claims", "Claims", "Hospital", null, new { style = "color: #6c757d" })</li>
+                    }
+                    @if (User.IsInRole("Hospital"))
+                    {
+                        <li>@Html.ActionLink("Add Approval", "AddApproval", "Hospital", null, new { style = "color: #6c757d" })</li>
+                    }
+
+                    @{
+                        if (User.IsInRole("AfterSale"))
+                        {
+                            <li><a href="/AfterSales/Index" class="link-cus">Visits</a></li>
+
+                        }
+                    }
+                    @{
+                        if (User.IsInRole("User"))
+                        {
+                            <li><a href="/Employee/AddEmployee" class="link-cus">Update Data</a></li>
+                            if (Session["IsIndemnity"] != null)
+                            {
+                                if ((bool)Session["IsIndemnity"] == true)
+                                {
+                                    <li><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
+                                    @*<li><a href="/IndemnitiesPolice/index" class="link-cus">Indemnities Police</a></li>*@
+
+                                }
+                            }
+                            @*<li><a href="/Employee/IndexIndemnity" class="link-cus">Indemnity</a></li>*@
+                            <li><a href="/Employee/MedicalNetwork" class="link-cus">Medical Network</a></li>
+                            @*<li><a href="/Complaint/CreateDMSComplaint" class="link-cus">Complaints</a></li>*@
+                            <li><a href="/HrChronic/InquiryAboutCard" class="link-cus">Medication</a></li>
+                            <li><a href="/Employee/DeliveryService2" class="link-cus">Medication Delievery</a></li>
+                            <li><a href="/Employee/Approvales" class="link-cus">Medical Approval</a></li>
+
+                        }
+                    }
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    @* container *@
+    @{
+        if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
+        {
+            <div class="wrap">
+                <aside id="side-menu" class="aside" role="navigation">
+                    <ul class="nav nav-list accordion">
+                        <li class="nav-header">
+                            <div class="link"><i class="fa fa-lg fa-user-md"></i>Doctor<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                @*<li><a href="/DoctorMedicinesLabsRaysApproval/Create">Create Approval</a></li>*@
+                                <li><a href="/DoctorMedicinesLabsRaysApproval/index">Pending Requests</a></li>
+                                <li><a href="/DoctorApprovals/index">Doctor Daily </a></li>
+                                <li><a href="/DoctorApprovals/Monthly">Doctor Chronic </a></li>
+                                <li><a href="/GetApproval/Create">Permissions</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-header">
+                            <div class="link"><i class="fa fa-lg fa-lock"></i>Admin<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                @* <li><a href="/Account/Register">Registration</a></li>*@
+                                <li><a href="/User/index">Users</a></li>
+                                @*<li><a href="/Role">Roles</a></li>*@
+                                <li><a href="/Pharmacy/index">Pharmacy Clames</a></li>
+                                <li><a href="/Labs/index">Labs Clames</a></li>
+                                <li><a href="/Rays/index">Rays Clames</a></li>
+                                <li><a href="/ProviderServicesPermissions/index">Provider Services Permissions</a></li>
+
+                                @*<li><a href="/Labs/index">Labs</a></li>
+                                    <li><a href="/Rays/index">Rays</a></li>*@
+                                @*@if (User.Identity.Name == "GodaKotb") {
+                                    <li><a href="/Sync/Synchronize">Synchronize Data Base</a></li>
+                                    }*@
+
+                            </ul>
+                        </li>
+                        <li class="nav-header">
+                            <div class="link"><i class="fa fa-archive"></i>Management<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                <li><a href="/CompEmployees/index">Employees Management</a></li>
+                                <li><a href="/CompanyGroup/index">Companies Groups Management</a></li>
+                                <li><a href="/Medicines/index">Medicines Management</a></li>
+                                <li><a href="/MedicineGroups/index">Medicines Groups Management</a></li>
+                                <li><a href="/Medicines/MedicineLicenseType">License Type Management</a></li>
+                                <li><a href="/Medicines/MedicineType">Medicine Type Management</a></li>
+                                <li><a href="/Medicines/MedicineDosageForm">Dosage Form Management</a></li>
+                                <li><a href="/Specialities/index">Specilities and Diagnosis Management</a></li>
+                                <li><a href="/LabsManagement/Index">Labs Management</a></li>
+                                <li><a href="/RaysManagement/Index">Rays Management</a></li>
+
+
+                            </ul>
+                        </li>
+                        <li class="nav-header">
+                            <div class="link"><i class="fa fa-users"></i>Human Resourses<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                <li><a href="/EmployeeRequest/index" class="link-cus">Requests</a></li>
+                                <li><a href="/IndemnitiesAdmin/index" class="link-cus">indemnity</a></li>
+                                @*<li><a href="/MedicalNetwork/Search" class="link-cus">Medical Network</a></li>*@
+                                @*<li><a href="/MedicalApproval/Search" class="link-cus">Medical Approval</a></li>
+                                <li><a href="/HrChronic/InquiryAboutCard" class="link-cus">Chronic</a></li>
+                                <li><a href="/Reports/Index" class="link-cus">Reports</a></li>*@
+                                @*<li><a href="/Complaint/CreateDMSComplaint" class="link-cus">Complaints</a></li>*@
+                                <li><a href="/Employee/IndexAdmin" class="link-cus">Delievery Requests</a></li>
+                                <li><a href="/Employee/Activation_Employee" class="link-cus">Activation Employee</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-header">
+                            <div class="link"><i class="fa fa-lg fa-hospital-o"></i>Hospital<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                <li><a href="/Hospital/index">Hospital</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-header">
+                            <div class="link"><i class="fa fa-lg fa-shopping-basket"></i>After Sales<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                <li><a href="/AfterSales/Index">Visits</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </aside>
+                <div class="content">
+                    <div class="top-bar">
+                        <a href="#menu" class="side-menu-link burger">
+                            <span class='burger_inside' id='bgrOne'></span>
+                            <span class='burger_inside' id='bgrTwo'></span>
+                            <span class='burger_inside' id='bgrThree'></span>
+                        </a>
+                    </div>
+                    <section class="content-inner">
+                        @RenderBody()
+                        <div>
+                            <footer class="site-footer">
+                                <div class="footer-widgets">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12 col-md-6 col-lg-4">
+                                                <div class="foot-about">
+                                                    <div class="img d-flex align-self-stretch" style="width: 75px;height:50px;">
+                                                        <a href="#"></a>
+                                                        <img src="~/assets/HomeTemplete/img/DMS_Logo.png" />
+                                                    </div>
+                                                    <p>Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.</p>
+                                                    <p class="copyright">
+                                                    <p>&copy; @DateTime.Now.Year - DMS Application</p>
+                                                    </p>
+                                                </div><!-- .foot-about -->
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                                                <div class="foot-contact">
+                                                    <h2>Contact</h2>
+                                                    <ul class="p-0 m-0">
+                                                        <li><span>Address:</span>12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>
+                                                        @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
+                                                        <li><span>Phone:</span>+ 0226390390</li>
+                                                        <li><span>Email:</span>Contact@dms-eg.com</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            @*<div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                                                    <div class="foot-links">
+                                                        <h2>Get DMS For Mobile</h2>
+                                                        <ul class="p-0 m-0">
+                                                            <li><a href="https://play.google.com/store/apps/details?id=com.dmsegypt.dms"> <img src="~/assets/HomeTemplete/img/elements/iconfinder_android-app-on-google-play_720092.png" alt="HTML tutorial" style="width:180px;height:180px;border:0; position:relative;top:-63px;"></a></li>
+                                                            <li class="appstoreicon"><a href="https://apps.apple.com/eg/app/dms-egypt/id1440027807"><img src="~/assets/HomeTemplete/img/elements/appstore.png" alt="HTML tutorial" style="width:180px;height:55px;border:0;"></a></li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>*@<!-- .col -->
+                                        </div><!-- .row -->
+                                    </div><!-- .container -->
+                                </div><!-- .footer-widgets -->
+                            </footer><!-- .site-footer -->
+                        </div>
+                    </section>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="body-content body-cus">
+                <div>
+                    @RenderBody()
+                </div>
+            </div>
+            <!-- .site-footer -->
+            <footer class="site-footer">
+                <div class="footer-widgets">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="foot-about">
+                                    <div class="img d-flex align-self-stretch" style="width: 75px;height:50px;background-image: url(/assets/HomeTemplete/img/DMS_Logo.png);">
+                                        <a href="#"></a>
+                                        <img src="~/assets/HomeTemplete/img/DMS_Logo.png" />
+                                    </div>
+                                    <p>Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.</p>
+                                    <p class="copyright">
+                                    <p>&copy; @DateTime.Now.Year - DMS Application</p>
+                                    </p>
+                                </div><!-- .foot-about -->
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                                <div class="foot-contact">
+                                    <h2>Contact</h2>
+                                    <ul class="p-0 m-0">
+                                        <li><span>Address:</span> 12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>
+                                        @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
+                                        <li><span>Phone:</span>+ 0226390390</li>
+                                        <li><span>Email:</span>Contact@dms-eg.com</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--<div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                                <div class="foot-links">
+                                    <h2>Get DMS For Mobile</h2>
+                                    <ul class="p-0 m-0">
+                                        <li><a href="https://play.google.com/store/apps/details?id=com.dmsegypt.dms"> <img src="~/assets/HomeTemplete/img/elements/iconfinder_android-app-on-google-play_720092.png" alt="HTML tutorial" style="width:180px;height:180px;border:0; position:relative;top:-63px;"></a></li>
+                                        <li class="appstoreicon"><a href="https://apps.apple.com/eg/app/dms-egypt/id1440027807"><img src="~/assets/HomeTemplete/img/elements/appstore.png" alt="HTML tutorial" style="width:180px;height:55px;border:0;"></a></li>
+                                    </ul>
+                                </div>-->
+                            <!-- .foot-links -->
+                            <!--</div>--><!-- .col -->
+                        </div><!-- .row -->
+                    </div><!-- .container -->
+                </div><!-- .footer-widgets -->
+            </footer>
+        }
+    }
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/assets/admindashdoardmenu/sidebarmenu.js"></script>
+
+
+    <script src="~/assets/admindashdoardmenu/CustomAfterSales/moment.min.js"></script>
+    <script src="~/assets/admindashdoardmenu/CustomAfterSales/bootstrap-datetimepicker.min.js"></script>
+    @*<script src="~/Scripts/moment.min.js"></script>*@
+    @*<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>*@
+
+
+    @*<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>*@
+
+    <script src="~/assets/HomeTemplete/Scripts/jquery.signalR-2.4.1.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+    <script>
+        var notification = 0;
+        $(document).ready(function () {
+            // Declare a proxy to reference the hub.
+            var notifications = $.connection.notificationHub;
+            // Create a function that the hub can call to broadcast messages.
+            notifications.client.updateMessages = function () {
+                getAllMessages()
+            };
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                console.log("connection started")
+                //notifications.onconn();
+                getAllMessages();
+            }).fail(function (e) {
+                console.log("Could not Connect!");
+                alert(e);
+            });
+
+            $("#btnClaim").click(function () {
+                window.location.replace('/Pharmacy/index?id=undefined');
+            });
+            $(".collaps").click(function () {
+                //alert("The paragraph was clicked.");
+                if ($("#side-menu").hasClass("activeblock")) {
+                    console.log("Inside Ifff");
+                    $("#side-menu").removeClass("activeblock");
+                    $(".content").removeClass("fullWidth");
+                    $(".collaps i").addClass('fa-times');
+                    $(".collaps i").removeClass("fa-bars");
+                }
+                else {
+                    console.log("Inside ELSE Ifff");
+                    $("#side-menu").addClass("activeblock");
+                    $(".content").addClass("fullWidth");
+                    $(".collaps i").removeClass('fa-times');
+                    $(".collaps i").addClass("fa-bars");
+                }
+            });
+            $(".burger").click(function () {
+                if ($(window).width() <= 768) {
+                    console.log("Inside  Ifff WIDTH");
+                    $("#side-menu").removeClass("activeblock");
+                    $(".content").removeClass("fullWidth");
+                }
+            });
+        });
+
+        function getAllMessages() {
+            $.ajax({
+                url: '/Home/GetNotifications',
+                //contentType: 'application/html ; charset:utf-8',
+                //type: 'GET',
+                //dataType: 'html',
+                success: function (result) {
+                    //debugger;
+                    $('#notification').text(result.length);
+                    $('#divNotificationValues').empty();
+                    $.each(result, function (key, value) {
+                        $('#divNotificationValues').append('<a href="' + value.DetailsURL + '?id=' + value.Details + '">' + value.Title + '-' + value.Details + '</a>');
+                    });
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

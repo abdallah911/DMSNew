@@ -1,0 +1,161 @@
+﻿@*@model IEnumerable<DMS_Authontication1.Models.Employee_Request>*@
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+<br />
+
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Employee Not Active
+        </div>
+
+    </div>
+    <br />
+    <div class="portlet-body">
+
+        <table class="ui celled table" id="Index" width="100%">
+            <thead>
+                <tr>
+
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Full Name
+                    </th>
+                    <th>
+                        Card Id
+                    </th>
+                    <th>
+                        National Id
+                    </th>
+                    <th>
+                        Birth Date
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Created Date
+                    </th>
+                    <th>
+                        Attachment
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                    @*<th></th>
+                        <th></th>
+                        <th></th>*@
+                </tr>
+            </thead>
+            <tbody></tbody>
+
+        </table>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script>
+    $(function () {
+        $("#Index").DataTable({
+            "sAjaxSource": '/Employee/NoActiveEmployeeList',
+            "bServerSide": true,
+            "processing": true,
+            "bFilter": true,
+            "bSort": false,
+            "pageLength": 10,
+            "bInfo": true,
+            "lengthChange": false,
+
+            "columns": [
+                { "data": "Id", "name": "Id" },
+                { "data": "FullName", "name": "Full Name" },
+                { "data": "CardId", "name": "Card Id" },
+                /* { "data": "EmployeePersonalData.FullName", "name": "Name" },*/
+
+                { "data": "NationalId", "name": "National Id" },
+                //{ "data": "BirthDate", "name": "Birth Date" },
+                {
+                    "data": "BirthDate",
+                    "name": "Birth Date",
+                    "mRender": function (data) {
+                        var value = new Date(parseFloat(data.replace(/(^.*\()|([+-].*$)/g, '')));
+                        var date = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                        return date;
+                    }
+                },
+
+                {
+                    "data": "IsActive",
+                    "name": "Status",
+                    "mRender": function (data) {
+                        var st = "No";
+                        if (data == false)
+                            st = "No";
+                        return st;
+                    }
+                },
+                {
+                    "data": "CreatedDate",
+                    "name": "Created Date",
+                    "mRender": function (data) {
+                        var value = new Date(parseFloat(data.replace(/(^.*\()|([+-].*$)/g, '')));
+                        var date = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                        return date;
+                    }
+                },
+                {
+                    "data": "Id",
+                    "mRender": function (data) {
+                        return '<a class="btn btn-info fa fa-download" style = " text-transform: none"  href="/Employee/DownloadNationaId/' + data + '"> Download </a>';
+                    }
+                },
+                {
+                    "data": "Id",
+                    "mRender": function (data) {
+                        return "<select id='ChangeStatus' class='form-control' onchange='UpdateStuts(this);'><option value= 'N' > Select Action</option > <option value='true'>Yes</option> <option value='false'>No</option></select > ";
+                    }
+                },
+
+
+            ]
+        });
+    });
+    function UpdateStuts(button) {
+        var row = $(button).closest("TR");
+        var id = $("TD", row).eq(0).html();
+        id = parseInt(id);
+        //debugger;
+        if ($(button).val() != "N") {
+            $.ajax({
+                type: 'POST',
+                url: '/Employee/ChangeStatus',
+                dataType: 'Json',
+                data: {
+                    Id: id,
+                    status: $(button).val()
+                },
+                dataType: 'Json',
+                success: function (r) {
+                    //if ($(button).val() != "N" && r != -2) {
+                    $("TD", row).eq(5).html($(button).find("option:selected").text());
+                    //$("#ChangeStatus").prop('disabled', 'disabled');
+                    //if ($(button).val() == "false") {
+                    //    $("TD", row).eq(4).html('Accepted');
+                    //}
+                    toastr.success("Save Success");
+
+                },
+                error: function () {
+                    toastr.error("Error Save Data");
+                }
+            });
+        }
+
+    }
+</script>

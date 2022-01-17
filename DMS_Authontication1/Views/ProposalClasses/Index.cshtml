@@ -1,0 +1,178 @@
+﻿@model IEnumerable<DMS_Authontication1.Models.ProposalClass>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<p>
+
+     <button class="btn btn-outline-info"> @Html.ActionLink("Proposal Data", "Index", "ProposalBasicDatas")</button>
+    | <a class="btn btn-primary" href="/ProposalClasses/Create"> Create New</a>
+   
+
+</p>
+
+<div class="panel panel-info">
+    <h2 class="panel-heading" style="margin:1px;"> Classes  </h2>
+    <div class="panel-body">
+        <table id="Index" class="table" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Class Code
+
+                    </th>
+                    <th>
+                        Num Male
+
+                    </th>
+                    <th>
+                        NumFemael
+
+                    </th>
+                    <th>
+                        NumChronic
+
+                    </th>
+                    <th>
+                        TotalChronic
+
+                    </th>
+                    <th>
+                        Premium
+
+                    </th>
+                    <th>
+                        Max
+
+                    </th>
+                    @if (ViewBag.Age != null)
+                    {
+                        <th>
+                            AgeFrom
+
+                        </th>
+
+                        <th>
+                            AgeTo
+
+                        </th>
+                    }  @if (ViewBag.Gender != null)
+                    {
+                        <th>
+                            Gender
+
+                        </th>
+                    }
+                        @if (ViewBag.Branch != null)
+                        {
+                            <th>
+                                Branch
+
+                            </th>
+                        }
+                        @if (ViewBag.Relations != null)
+                        {
+                            <th>
+                                Relation
+
+                            </th>
+                        }
+
+
+
+
+                        <th></th>
+                    </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClassCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumMale)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumFemael)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumChronic)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalChronic)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Premium)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Max)
+                    </td>
+                    @if (ViewBag.Age != null)
+                    {
+                        <td>
+                           @item.AgeFrom    @item.AgeFromType
+                        </td>
+                        <td>
+                           @item.AgeTo  @item.AgeToType
+                        </td>
+                        }
+                        @if (ViewBag.Gender != null)
+                        {
+                            if (item.Gender == 0)
+                            {
+                                <td>Male </td>
+                            }
+                            if (item.Gender == 1)
+                            {
+                                <td>Female </td>
+                            }
+                            if (item.Gender == 2)
+                            {
+                                <td>Male and Female </td>
+                            }
+                        }
+                        @if (ViewBag.Branch != null)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Branch)
+                                //@Html.DisplayFor(modelItem => String.Join("-", item.ProposalClassRelations.Select(s => s.Type).ToArray()))
+                            </td>
+
+                        }
+                        @if (ViewBag.Relations != null)
+                        {
+                            <td>
+                                if (item.ProposalClassRelations.Count > 0)
+                                {@Html.Display(String.Join("-", item.ProposalClassRelations.Select(s => s.Type).ToArray()))}
+                            </td>
+
+                        }
+
+                <td>
+
+
+                    @*<a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
+
+
+
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a class="btn btn-outline-dark" href="~/ProposalBenefits/Index?Id=@item.Id">Benefits</a>
+
+                   
+
+
+                    }
+
+
+                </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="~/Scripts/Department/index.js"></script>

@@ -1,0 +1,695 @@
+﻿@model DMS_Authontication1.ViewModel.EmployeeVM.DeliveryRequestVm
+@{
+    ViewBag.Title = "DeliveryService";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+<link href="~/assets/HomeTemplete/Content/css/select2.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+@if (ViewBag.hasMed == true)
+{
+    using (Html.BeginForm("DeliveryService", "Employee", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="portlet box green" style="margin:auto">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-registered"></i> Request Delivery
+                </div>
+            </div>
+            <br />
+
+
+
+            <div class="portlet-body ">
+                <div class="row ">
+                    <div class="col-md-12">
+                        <div class="form-wizard">
+
+                            <div class="form-body">
+                                <div class="tab-content">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <span class="text-danger">@ViewBag.Error</span>
+                                    <h3 class="text-success">@ViewBag.Status</h3>
+                                    <input type="hidden" value="@Model.CardId" id="cardId" />
+                                    <hr />
+                                    <div class="row ">
+                                        <div class="col-md-6">
+                                            <div class="form-group" id="CompanyTypeNew">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.CountryId) :
+                                                    @* @Html.Label("Country", new { @class = "control-label sbold" }) :*@
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.CountryId, ViewBag.Country as SelectList, "Select Governorate", new { @class = "form-control", @id = "CountryId", @required = "True" })
+                                                    @*@Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", @required = "true", @data_step = "1", @data_intro = "FullName Not Less Than Three Names" } })*@
+
+                                                    @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.RegionId) :
+                                                    @*@Html.Label("Region", new { @class = "control-label sbold" }) :*@
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownList("RegionId", new SelectList(""), "Select Region", new { @class = "form-control", @id = "RegionId", @required = "True" })
+
+                                                    @*@Html.EditorFor(model => model.NationalId, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return /[0-9]/i.test(event.key)", @maxlength = "14", @minlength = "14", @required = "true", @data_step = "2", @data_intro = "National Id 14 Number" } })*@
+                                                    @Html.ValidationMessageFor(model => model.RegionId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.NeighborHood) :
+                                                    @*<span class="required"> * </span>*@
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.EditorFor(model => model.NeighborHood, new { htmlAttributes = new { @class = "col-md-2 form-control ", @required = "true", @data_step = "3", @data_intro = "The ID of your card " } })
+                                                    @*<input id="CreatedDate" type="datetime" class="col-md-2 form-control " placeholder="Date" />*@
+                                                    @Html.ValidationMessageFor(model => model.NeighborHood, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.StreetName) :
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.EditorFor(model => model.StreetName, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.StreetName, "", new { @class = "text-danger", @placeholder = "Date", @required = "true", @data_step = "4", @data_intro = "Your Real Birth Date" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.BuldingNo) :
+                                                    <span class="required"> * </span>
+
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.EditorFor(model => model.BuldingNo, new { htmlAttributes = new { @class = "form-control ", @onkeypress = "return /[0-9]/i.test(event.key)", @required = "true", @data_step = "5", @data_intro = "Phone Number 11 Numbers Only" } })
+                                                    @*<input type="text" class="form-control" id="Phone" value="" onkeypress="return /[0-9]/i.test(event.key)" />*@
+                                                    @Html.ValidationMessageFor(model => model.BuldingNo, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.FlatNo) :
+                                                    <span class="required"> * </span>
+
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.EditorFor(model => model.FlatNo, new { htmlAttributes = new { @class = "form-control ", @onkeypress = "return /[0-9]/i.test(event.key)", @required = "true" } })
+                                                    @*<input type="text" class="form-control" id="Phone" value="" onkeypress="return /[0-9]/i.test(event.key)" />*@
+                                                    @Html.ValidationMessageFor(model => model.FlatNo, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div id="feedBackDiv">
+
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.Phone1) :
+                                                        <span class="required"> * </span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.EditorFor(model => model.Phone1, new { htmlAttributes = new { @class = "form-control ", @onkeypress = "return /[0-9]/i.test(event.key)", @required = "true", @data_step = "5", @data_intro = "Phone Number 11 Numbers Only", @maxlength = "11", @minlength = "11" } })
+                                                        @*@Html.EditorFor(model => model.Phone1, new { htmlAttributes = new { @class = "form-control ", @required = "true", @data_step = "6", @data_intro = "Your Card Id can be your UserName it must be unique" } })*@
+                                                        @Html.ValidationMessageFor(model => model.Phone1, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.Phone2) :
+                                                        @*<span class="required"> * </span>*@
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.EditorFor(model => model.Phone2, new { htmlAttributes = new { @class = "form-control ", @onkeypress = "return /[0-9]/i.test(event.key)", @required = "true", @data_step = "5", @data_intro = "Phone Number 11 Numbers Only", @maxlength = "11", @minlength = "11" } })
+
+                                                        @* @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control ", @required = "true", @data_step = "7", @data_intro = "Your Real Access Email " } })*@
+                                                        @Html.ValidationMessageFor(model => model.Phone2, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.ProviderId) :
+                                                        @*@Html.Label("Provider", new { @class = "control-label sbold" }) :*@
+                                                        @*<span class="required"> * </span>*@
+                                                    </label>
+                                                    <div class="col-md-7">
+                                                        @Html.DropDownListFor(m => m.ProviderId, ViewBag.Provider as SelectList, "Select Provider", new
+                                                        {
+                                                            @class = "form-control",
+                                                            @id = "ProviderId",@*@required = "True"*@})
+                                                        @* @Html.EditorFor(model => model.Provider, new { @class = "form-control", @required = "true" })*@
+                                                        @Html.ValidationMessageFor(model => model.ProviderId, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.BranchId) :
+                                                        @*@Html.Label("Branch", new { @class = "control-label sbold" }) :*@
+                                                        @*<span class="required"> * </span>*@
+                                                    </label>
+                                                    <div class="col-md-7">
+                                                        @Html.DropDownList("BranchId", new SelectList(""), "Select Branch", new
+                                                        {
+                                                            @class = "form-control",
+                                                            @id = "BranchId"@*, @required = "True"*@})
+                                                        @* @Html.EditorFor(model => model.Branch, new { @class = "form-control", @required = "true" })*@
+                                                        @Html.ValidationMessageFor(model => model.BranchId, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.Time) :
+                                                        @*@Html.Label("Branch", new { @class = "control-label sbold" }) :*@
+                                                        <span class="required"> * </span>
+                                                    </label>
+                                                    <div class="col-md-7">
+                                                        @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "col-md-2 form-control ", @required = "true" } })
+                                                        @* @Html.EditorFor(model => model.Branch, new { @class = "form-control", @required = "true" })*@
+                                                        @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                @*<div class="form-group">
+                                                        <label class="control-label sbold col-md-4">
+                                                            @Html.DisplayNameFor(model => model.Roshita) :
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                        <div class="col-md-8">
+                                                            <input name="ImageFile" id="ImageFile" type="file" class="col-md-2 form-control " required />
+                                                            @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>*@
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="panel-footer" style="text-align:right;">
+                                <input data-step="8" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />
+                                <input data-step="9" data-intro="Reset " id="reset" type="button" value="Reset" onclick="ClearVisitDataData();" class="btn btn-warning" />
+                                <input data-step="10" data-intro="Save Account" id="submit" type="submit" value="Save" class="btn btn-success" onclick="CheckData()" />
+                            </div>*@
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+    }
+    <div class="portlet box  green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i>Chronic
+            </div>
+            @*<div class="actions">
+                    <div class=" btn-group" data-toggle="buttons">
+                        <label id="Approval" class="btn" style="background: forestgreen;">
+                            <input id="HasApproval" type="checkbox" autocomplete="off">
+                            <span class="glyphicon glyphicon-ok"></span> Has Approval
+                        </label>
+                    </div>
+                </div>*@
+        </div>
+        @*<h2 class="portlet-title" style="margin:1px;">Chronic</h2>*@
+
+
+        <div class="portlet-body">
+            <div class="table-responsive">
+                <table class="table" id="First">
+                    <thead>
+                        <tr>
+                            <th><button id="AddAll" class="btn btn-primary">All</button></th>
+                            <th>
+                                @Html.DisplayName("Id")
+                            </th>
+                            <th>
+                                @Html.DisplayName("MED_CODE")
+                            </th>
+                            <th>
+                                @Html.DisplayName("MED_NAME")
+                            </th>
+
+                            <th>
+                                @Html.DisplayName("DOSAGE_FORM")
+                            </th>
+                            <th>
+                                @*@Html.DisplayName("TOTAL_AMT")*@
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model.Medicines)
+                        {
+                            if (item.NO_OF_UINT != 0)
+                            {
+                                <tr>
+                                    <td>
+                                        <button id="Add" onclick="Add(this);" class="btn btn-primary">Request</button>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MED_CODE)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MED_NAME)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DOSAGE_FORM)
+                                    </td>
+                                    <td hidden>
+                                        @Html.DisplayFor(modelItem => item.NO_OF_UINT)
+                                    </td>
+
+
+                                </tr>
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            @*Calc top*@
+            <br /><br /><br />
+            <br /> <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;"></h2> </div>
+
+            @*secand grid*@
+            <div class="table-responsive">
+                <table class="table" id="Secand">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayName("Id")
+                            </th>
+                            <th>
+                                @Html.DisplayName("MED_CODE")
+                            </th>
+                            <th>
+                                @Html.DisplayName("MED_NAME")
+                            </th>
+
+                            <th>
+                                @Html.DisplayName("DOSAGE_FORM")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Amount")
+                            </th>
+                            <th>
+                                @*@Html.DisplayName("Edit Amount")*@
+                            </th>
+
+                            <th>
+                            </th>
+                            <th>
+                                <button id="RemoveAll" class="btn btn-danger">All</button>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            @*@Html.Partial("_Edit")*@
+            @*Calc down*@
+            <br /><br /><br />
+            <!--Save-->
+            @*<div style="padding:10px 0; text-align:right">
+
+                    <input id="Save" type="button" value="Save" class="btn btn-success" style="padding:10px 20px" />
+                </div>*@
+            <div class="panel-footer" style="text-align:right;">
+                <input data-step="8" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />
+                <input data-step="9" data-intro="Reset " id="reset" type="button" value="Reset" onclick="ClearVisitDataData();" class="btn btn-warning" />
+                <input data-step="10" data-intro="Save Account" id="submit" type="button" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h4>You don't have Chronic Medicine </h4>
+}
+<!--Save-->
+
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/assets/HomeTemplete/js/intro.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#Help").click(function () {
+            introJs().start();
+        });
+
+    });
+    $(function () {
+        $('#AddAll').click(function () {
+
+            $('#First TBODY TR').each(function () {
+                var row = $(this);
+                Add(row.find("TD").eq(0));
+            });
+        });
+
+        $('#RemoveAll').click(function () {
+            $('#Secand TBODY TR').each(function () {
+                var row = $(this);
+                Remove(row.find("TD").eq(6));
+            });
+        });
+
+
+        $("#CountryId").select2();
+        $("#RegionId").select2();
+        $("#ProviderId").select2();
+        $("#BranchId").select2();
+
+        $('#Time').datetimepicker({
+            format: " LT "
+        });
+
+        $("#CountryId").change(function () {//address
+            $.get("/Employee/GetStateList",
+                { id: $("#CountryId").val() }, function (data) {
+                    $("#RegionId").empty();
+                    $.each(data, function (index, row) {
+                        $("#RegionId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                });
+        });
+
+        $("#CountryId").map(function () {//address
+            $.get("/Employee/GetStateList",
+                { id: $("#CountryId").val() }, function (data) {
+                    $("#RegionId").empty();
+                    $.each(data, function (index, row) {
+                        $("#RegionId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                });
+        });
+
+        $("#ProviderId").change(function () {//Branch
+            if ($("#ProviderId").val() != "") {
+                $.get("/Complaint/GetBranchList",
+                    { id: $("#ProviderId").val() },
+                    function (data) {
+                        $("#BranchId").empty();
+                        //if (data.length > 0) {
+                        $.each(data, function (index, row) {
+                            $("#BranchId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                        });
+                        //}
+                        //else {
+                        //    $("#BranchId").append("<option value='" + $("#ProviderId option:selected").val() + "'>" + $("#ProviderId option:selected").text() + "</option>");
+
+                        //}
+                        //$('#BranchId').val(sel).change();
+                    });
+            }
+        });
+
+        $("#ProviderId").map(function () {//Branch
+            if ($("#ProviderId").val() != "") {
+                $.get("/Complaint/GetBranchList",
+                    { id: $("#ProviderId").val() },
+                    function (data) {
+                        $("#BranchId").empty();
+                        //if (data.length > 0) {
+                        $.each(data, function (index, row) {
+                            $("#BranchId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                        });
+                        //}
+                        //else {
+                        //    $("#BranchId").append("<option value='" + $("#ProviderId option:selected").val() + "'>" + $("#ProviderId option:selected").text() + "</option>");
+
+                        //}
+                        //$('#BranchId').val(sel).change();
+                    });
+            }
+        });
+
+        $('#submit').click(function () {
+            var valid = true;
+            var Medicines = new Array();
+            $("#Secand TBODY TR").each(function () {
+
+                var row = $(this);
+                var Medicien = {};
+                Medicien.MED_CODE = row.find("TD").eq(1).html();
+                Medicien.MED_NAME = row.find("TD").eq(2).html();
+                Medicien.DOSAGE_FORM = row.find("TD").eq(3).html();
+                Medicien.TOTAL_AMT = $("TD", row).find(".editvalue").val();
+                Medicines.push(Medicien);
+            });
+            debugger;
+            if ($('#CountryId').val() == "") { toastr.error("Please,select Governorate ."); valid = false; }
+            if ($('#RegionId').val() == "") { toastr.error("Please,select Region  ."); valid = false; }
+            if ($('#StreetName').val() == "") { toastr.error("Please enter Street Name  ."); valid = false; }
+            if ($('#BuldingNo').val() == "") { toastr.error("Please enter Bulding No ."); valid = false; }
+            if ($('#FlatNo').val() == "") { toastr.error("Please enter Flat No  ."); valid = false; }
+            if ($('#Phone1').val() == "" && $('#Phone1').val().length != 11) { toastr.error("Please enter Phone1 correctly  ."); valid = false; }
+            if ($('#Time').val() == "") { toastr.error("Please enter Time To Deliverd  ."); valid = false; }
+            if (valid) {
+                if (Medicines.length != 0) {
+                    var SaveDelieveryRequest = {
+                        CountryId: $('#CountryId').val(),
+                        RegionId: $('#RegionId').val(),
+                        NeighborHood: $('#NeighborHood').val(),
+                        StreetName: $('#StreetName').val(),
+                        BuldingNo: $('#BuldingNo').val(),
+                        FlatNo: $('#FlatNo').val(),
+                        Phone1: $('#Phone1').val(),
+                        Phone2: $('#Phone2').val(),
+                        ProviderId: $('#ProviderId').val(),
+                        BranchId: $('#BranchId').val(),
+                        Time: $('#Time').val(),
+                        CardId: $('#cardId').val(),
+                        Medicines: Medicines
+                    };
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Employee/SaveDeleiveryRequest/',
+                        dataType: 'Json',
+                        data: SaveDelieveryRequest,
+                        success: function (result) {
+                            toastr.success("Added Sucessfully");
+
+                        },
+                        error: function (err) {
+                            toastr.error("Error saving Request");
+                        }
+                    });
+                }
+                else { toastr.error("Please select medicines"); }
+            }
+            else {
+
+            }
+        });
+
+    });
+
+
+    function Add(button) {
+
+        //Determine the reference of the Row using the Button.
+        var row = $(button).closest("TR");
+        var Id = $("TD", row).eq(1).html();
+        var MedicienCode = $("TD", row).eq(2).html();
+        var MedicienName = $("TD", row).eq(3).html();
+        var DosageForm = $("TD", row).eq(4).html();
+        var Amount = $("TD", row).eq(5).html();
+
+        //-----------------
+        //add Row.
+        var tBody = $("#Secand > TBODY")[0];
+        var row = tBody.insertRow(-1);
+        var cell = $(row.insertCell(-1));
+        cell.html(Id);
+        cell = $(row.insertCell(-1));
+        cell.html(MedicienCode);
+        cell = $(row.insertCell(-1));
+        cell.html(MedicienName);
+        cell = $(row.insertCell(-1));
+        cell.html(DosageForm);
+
+        //Edit button
+        cell = $(row.insertCell(-1));
+        var btnEdit = $("<input  />");
+        btnEdit.attr("type", "text");
+        btnEdit.addClass("form-control editvalue");
+        btnEdit.attr("onkeyup", "Calculateamount(this);");
+        btnEdit.attr("onkeypress", "return /[0-9]/i.test(event.key);");
+        cell.append(btnEdit);
+
+
+        cell = $(row.insertCell(-1));
+        cell.html(Amount);
+        cell.attr("hidden", true);
+
+        // remove button
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<a  />");
+        btnRemove.attr("type", "button");
+        btnRemove.addClass("btn btn-danger");
+        btnRemove.attr("onclick", "Remove(this);");
+        btnRemove.text("Remove");
+        cell.append(btnRemove);
+        ////Edit button
+        //cell = $(row.insertCell(-1));
+        //var btnEdit = $("<a  />");
+        //btnEdit.attr("type", "button");
+        //btnEdit.addClass("btn btn-warning  glyphicon glyphicon-pencil");
+        //btnEdit.attr("onclick", "Edit(this);");
+        //btnEdit.text("Edit");
+        //cell.append(btnEdit);
+
+        //remove click
+        var row = $(button).closest("TR");
+        var table = $("#First")[0];
+        table.deleteRow(row[0].rowIndex);
+
+        ////Secand calculation
+        //SecandCalculation();
+        ////first calculation
+        //FirstCalculation();
+
+    };
+
+    function Remove(button) {
+        //Determine the reference of the Row using the Button.
+        var row = $(button).closest("TR");
+        var name = $("TD", row).eq(0).html();
+        bootbox.confirm("Do you want to delete: " + name, function (result) {
+            if (result) {
+                //Add To First Row
+                var row = $(button).closest("TR");
+                var Id = $("TD", row).eq(0).html();
+                var MedicienCode = $("TD", row).eq(1).html();
+                var MedicienName = $("TD", row).eq(2).html();
+                var DosageForm = $("TD", row).eq(3).html();
+                var Amount = $("TD", row).eq(5).html();
+                //-----------------
+                var tBody = $("#First > TBODY")[0];
+                //Add Row.
+                var row = tBody.insertRow(-1);
+                var cell = $(row.insertCell(-1));
+                //Add Button
+                var btnAdd = $("<a  />");
+                btnAdd.attr("type", "button");
+                btnAdd.addClass("btn btn-primary");
+                btnAdd.attr("onclick", "Add(this);");
+                btnAdd.text("Request");
+                cell.append(btnAdd);
+
+                cell = $(row.insertCell(-1));
+                cell.html(Id);
+                cell = $(row.insertCell(-1));
+                cell.html(MedicienCode);
+                cell = $(row.insertCell(-1));
+                cell.html(MedicienName);
+                cell = $(row.insertCell(-1));
+                cell.html(DosageForm);
+                cell = $(row.insertCell(-1));
+                cell.html(Amount);
+                cell.attr("hidden", true);
+
+                //Delete the Table row using it's Index.
+                //---------------------------
+                var row = $(button).closest("TR");
+                var table = $("#Secand")[0];
+                table.deleteRow(row[0].rowIndex);
+
+                ////Secand calculation
+                //SecandCalculation();
+                ////first calculation
+                //FirstCalculation();
+            }
+        });
+
+    }
+
+    function Calculateamount(button) {
+        var row = $(button).closest("TR");
+        var amount = parseFloat($("TD", row).eq(5).html());
+        var editamount = $("TD", row).eq(4).html();
+        if (parseFloat($("TD", row).find(".editvalue").val()) > amount) {
+            toastr.error("Medicine amount isn't covered");
+            $("TD", row).find(".editvalue").val(0)
+        }
+    }
+    function ClearVisitDataData() {
+        $("select[name='CountryId'] :contains('Select Country')").attr('selected', 'selected');
+        $("select[name='CountryId']").trigger('change');
+        $("select[name='ProviderId'] :contains('Select Provider')").attr('selected', 'selected');
+        $("select[name='ProviderId']").trigger('change');
+        //$('#CountryId option:contains("Select Country")').prop('selected', true);
+        //$("#CountryId").val("Select Country");
+        $("#BranchId").empty();
+        $("#RegionId").empty();
+        $("#NeighborHood").val("");
+        $("#StreetName").val("");
+        $("#BuldingNo").val("");
+        $("#FlatNo").val("");
+        $("#Phone1").val("");
+        $("#Phone2").val("");
+        $("#Time").val("");
+
+
+    }
+                    //function CheckData() {
+                    //    var arra = $("#CardId").val().split("-");
+
+                    //    // chick card id is correct or not
+                    //    if (arra.length == 4 && arra[3] != "") {
+                    //        var Employeename = $("#FullName").val().split(" ");
+                    //        if (Employeename.length >= 3) {
+                    //            return true;
+                    //        }
+                    //        else {
+                    //            bootbox.alert("Please enter Full Name not less that three names ' First,Second and Third Name' ... ");
+                    //            return false;
+                    //        }
+                    //    }
+                    //    else {
+                    //        bootbox.alert("Please enter correct card ... ");
+                    //        return false;
+                    //    }
+                    //}
+</script>
+

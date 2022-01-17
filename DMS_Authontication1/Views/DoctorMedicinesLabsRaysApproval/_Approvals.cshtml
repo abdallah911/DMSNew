@@ -1,0 +1,304 @@
+﻿
+
+<div class="modal fade " id="ApprovalsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Approvals</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="Approvals">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th>
+                               Code        
+                                        
+                                         
+                                @*REPLAY              
+                                           
+                                     
+                                ENDURANCE_RATIO      
+                                MAX_AMOUNT           
+                                APROVAL_IMAG         
+                                COMP_CONTRACT_NO     
+                                MAX_AMOUNT_CONTRACT  
+                                CLASS_CODE           
+                                CREATED_BY           
+                                CREATED_DATE         
+                                UPDATED_BY          
+                                UPDATED_DATE        
+                                SUB_CODE           
+                                             
+                                START_DATE         
+                                END_DATE  
+                                
+                                TOT_CONSUM          
+                                             
+                                DIAG_CODE            
+                                            
+                                STATUS               
+                                STATUS2              
+                                EXPAIRE_DATE         
+                                CHANGE_PERCENT*@       
+                                             
+                           </th>
+                            <th>
+                                Card Id
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Approval Amount
+                            </th>
+                            <th>
+                                Medical Replay
+                            </th>
+                            <th>
+                                Created By
+                            </th>
+                            <th>
+                                Created Date 
+                            </th>
+                            @*
+    <th>
+        PROVIDER_NUM APROVAL_TYP
+    </th>
+    <th>
+        SERVECE_TYP
+
+    </th>
+    <th>
+        PROVIDER_TYP
+    </th>
+    DIAG_NAME
+    <th>
+        PROVIDER_NAME
+    </th>
+    <th>
+
+    </th>
+    <th>
+
+    </th>
+
+    <th>
+
+    </th>
+    <th>
+
+    </th>*@
+
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    var ApprovalCode = "";
+    //var AddOrEdit = 0;
+    //var CompId;
+    var SrcIsExist = 0;
+    function SelectApproval(button) {
+
+        var row = $(button).closest("TR");
+        ApprovalCode = $("TD", row).eq(1).html();
+        
+        $.ajax({
+            dataType: "json",
+            url: '/DoctorMedicinesLabsRaysApproval/ApprovalData',
+            data: { id: ApprovalCode },
+            success: function (r) {
+                
+                //r.pvd
+                //r.pvdnam
+                //r.pvdnum
+                //r.srvtyp//
+                //r.appval
+                //r.rato
+                //r.valaft
+                //r.dignam
+                //r.fx
+                //r.emil
+                //r.mob
+                //r.rcdat
+                //r.sedat
+                //r.apptyp
+                //r.nts
+                //r.rply
+                //r.medrply
+                //r.Image//
+                if (r.length != 0) {
+                    if (r.rcdat != null) {
+                        var MyDate_String_Value = r.rcdat;
+                        var value = new Date(parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, '')));
+                        var dd = value.getDate();
+                        var mm = value.getMonth() + 1; //January is 0!
+
+                        var yyyy = value.getFullYear();
+                        if (dd < 10) {
+                            dd = '0' + dd;
+                        }
+                        if (mm < 10) {
+                            mm = '0' + mm;
+                        } 
+                        //var dat = value.getDate() + "-" + (value.getMonth() + 1) + "-" + value.getFullYear();
+                        var dat = dd + "-" + mm + "-" + yyyy;
+                    }
+                    else {
+                        dat = null;
+                    }
+                    if (r.sedat != null) {
+                        var MyDate_String_Value = r.sedat;
+                        var value = new Date(parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, '')));
+                        var dd = value.getDate();
+                        var mm = value.getMonth() + 1; //January is 0!
+
+                        var yyyy = value.getFullYear();
+                        if (dd < 10) {
+                            dd = '0' + dd;
+                        }
+                        if (mm < 10) {
+                            mm = '0' + mm;
+                        }
+                        //var dat = value.getDate() + "-" + (value.getMonth() + 1) + "-" + value.getFullYear();
+                        var dat1 = dd + "-" + mm + "-" + yyyy;
+                    }
+                    else {
+                        dat1 = null;
+                    }
+               
+                    $('#ServiceProvider').val(r.pvd + " || " + r.pvdnam);
+                    ProviderTypeId = r.vist;//ProviderTypeId
+                    ProviderName = r.pvdnam;
+
+                    $('#ProviderPhone').val(r.pvdnum);
+                    ServiceTypeName= r.srvtyp
+                    $('#ApprovalValue').val(r.appval);
+                   
+                    $('#Ceilingpercentage').val(r.rato);
+                    $('#PaidValue').val(r.valaft);
+                    //$('#Diagnoise').val(r.dignam);
+
+                    $('#Fax').val(r.fx);
+                    $('#Email').val(r.emil);
+                    $('#Mobile').val(r.mob);
+                    $('#ReceiveDate').val(dat);
+                    $('#SentDate').val(dat1);
+                    $('#Notes').val(r.nts);
+                    $('#ApprovalImg').attr('src', r.Image);
+
+                   // $('#UploadFile').val(r.Image);
+                  //  $('#ApprovalImg').attr('src', 'data:image/bmp;base64,' + r.Image);  
+                    var response;
+                    if (r.rply == "Y") {
+                        response = "Accepted";
+                    }
+                    else {
+                        response = "Rejected";
+                    }
+                    
+                    $('#AgreementType').val(r.apptyp);
+                 
+                    $('#Response').val(response);
+                        //.filter(function (i, e) { return $(e).text() == response })
+                    $('#MedicalResponse').val(r.medrply);
+                  
+                    $('#ApprovalsModal').modal('hide');
+                    //$('#personalDataModal').modal();
+                }
+                else {
+                    bootbox.alert("No Data");
+                }
+            },
+            error: function (r) {
+                window.alert('No Data to retrive ');
+            }
+
+        })
+            .done(function () {
+                //service type
+                $.ajax({
+                    type: 'POST',
+                    url: '/DoctorMedicinesLabsRaysApproval/ServiceType/',
+                    dataType: 'json',
+                    data: { ProviderTypeId: ProviderTypeId },
+                    success: function (diag) {
+                        $("#ServiceType").empty();
+                        $.each(diag, function (i, ddlDiag1) {
+                            $("#ServiceType").append('<option value="' + ddlDiag1.Value + '">' +
+                                ddlDiag1.Text + '</option>');
+                        });
+                       
+                        $('#ServiceType option:contains("' + ServiceTypeName + '")').prop('selected',true);
+                       
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve service type.');
+                    }
+                });
+                //sub service
+                $.ajax({
+                    dataType: "json",
+                    url: '/DoctorMedicinesLabsRaysApproval/GetSubServicsApproval',
+                    data: { id: ApprovalCode},
+                    success: function (r) {
+                    
+                        if (r != null) {
+                         
+                            for (var i = 0; i < r.length; i++) {
+                                $('#Subservice').val($('#Subservice').val() + r[i].SubService + " " + r[i].Details + " " + r[i].Discription+ "\n");
+                            }
+                            
+                        }
+                        else {
+                            bootbox.alert("No sub Service");
+                        }
+                    },
+                    error: function (r) {
+                        window.alert(' SubService Ajax ');
+                    }
+
+                });
+                //get subDiagnoise
+                $.ajax({
+                    dataType: "json",
+                    url: '/DoctorMedicinesLabsRaysApproval/GetSubDiagnoiseApproval',
+                    data: { id: ApprovalCode },
+                    success: function (r) {
+                        debugger;
+                        if (r != null) {
+
+                            for (var i = 0; i < r.length; i++) {
+                                $('#Diagnoise').val($('#Diagnoise').val() + r[i].DiagnosisName + "\n");
+                            }
+
+                        }
+                        else {
+                            bootbox.alert("No sub Diagnoise");
+                        }
+                    },
+                    error: function (r) {
+                        window.alert(' SubDiagnoise Ajax ');
+                    }
+
+                });
+        })
+          
+   
+    }
+
+</script>

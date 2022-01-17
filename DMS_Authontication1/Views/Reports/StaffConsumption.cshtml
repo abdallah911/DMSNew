@@ -1,0 +1,365 @@
+﻿@model DMS_Authontication1.ViewModel.RequestAddProvidersVM
+
+@{
+    ViewBag.Title = "StaffReport";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+
+}
+<br />
+<div style="margin-top:40px">
+    <p>
+        @Html.ActionLink(" Inquiries About An Invoice", "Inquiries", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+        @Html.ActionLink("Staff Report ", "StaffConsumption", null, htmlAttributes: new { @class = "btn btn-secondary-outline ", @style = " text-transform: none" })
+        @Html.ActionLink(" Consumption", "Consumption", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+    </p>
+</div>
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Inquiries about an invoice
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row ">
+            <div class="col-md-12">
+                <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN THEME PANEL -->
+
+                    <div class="form-wizard">
+                        <div class="form-body">
+                            <div class="tab-content">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+
+                                <div class="row">
+                                    @*Date of Registration*@
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-3">
+                                                Date of Registration :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-6">
+                                                <label class="control-label sbold col-md-3">
+                                                    From
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                </div>
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label sbold col-md-2">
+                                            TO
+                                            <span class="required"> * </span>
+                                        </label>
+                                        <div class="col-md-10">
+                                            <input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                                        </div>
+                                    </div>
+
+                                    @* Copmany Number *@
+
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+
+
+                                            @if (User.IsInRole("HR_Admin"))
+                                            {
+                                                <label class="control-label sbold col-md-3">
+                                                    Copmany Number :
+                                                </label>
+                                                <div class="col-md-6">
+                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", id = "CopmanyNumber" })
+
+                                                </div>
+                                                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                <script>
+                                                    $(document).ready(function () {
+                                                        $('#CopmanyNumber').select2();
+                                                    });
+                                                </script>
+                                            }
+                                            else
+                                            {
+                                                <div class="col-md-6" hidden>
+                                                    <input id="CopmanyNumber" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+
+                                                </div>
+                                            }
+                                            <br />
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                    @* Card Number *@
+
+                                    <div class="col-md-8" hidden>
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-3">
+                                                Card Number :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input id="CardNumber" type="text" class="col-md-2 form-control " required />
+
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                    @*Family*@
+
+                                    <div class="col-md-8" hidden>
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-3" for="Family" style="margin-top:10px;">
+                                                Family
+                                            </label>
+                                            <div class="col-md-2">
+                                                <div class="checkbox-inline">
+                                                    <input class="control-label" type="checkbox" id="Family" name="Family" value="Family" data-name="Family">
+
+                                                </div>
+                                            </div>
+
+                                            <br />
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                    @* Service Type *@
+
+                                    <div class="col-md-8" hidden>
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-3">
+                                                Service Type :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-6">
+                                                <select id="ServiceType" class="form-control">
+                                                    <option value="1">نظارات</option>
+                                                    <option value="2">اسنان</option>
+                                                    <option value="3">حمل و ولادة</option>
+                                                    <option value="4">أدوية</option>
+                                                    <option value="5">مطالبات فردية</option>
+                                                </select>
+                                                @*<input id="ServiceType" type="text" class="col-md-2 form-control " />*@
+
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                    @*Print Type*@
+
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-3">
+                                                Print Type :
+                                            </label>
+                                            <div class="col-md-2">
+                                                <div class="checkbox-inline">
+                                                    <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
+                                                    <label for="pdf">
+                                                        PDF
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <div class="checkbox-inline">
+                                                    <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
+                                                    <label for="excel">
+                                                        EXCEL
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                    @* For Buttons *@
+                                    <div class="col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px">
+
+                                        @*<div class="col-sm-4" id="div_of_serv">
+                                                <button id="EmployeeConsumption" type="button" class="btn btn-primary" onclick="EmployeeConsumptionPrint()">
+                                                    <span class="fa fa-save"></span> Employee Consumption
+                                                </button>
+
+                                            </div>*@
+
+                                        <div class="col-sm-4" id="div_of_serv">
+                                            <button id="ActiveEmployees" type="button" class="btn btn-primary" onclick="EmployeesPrint('Active')">
+                                                <span class="fa fa-save"></span> Active Employees
+                                            </button>
+
+                                        </div>
+
+                                        <div class="col-sm-4" id="div_of_serv">
+                                            <button id="ClosedEmployees" type="button" class="btn btn-primary" onclick="EmployeesPrint('Closed')">
+                                                <span class="fa fa-save"></span> Closed Employees
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script>
+
+    $(function () {
+        $('#RegistrationFrom').datepicker({});
+        $('#RegistrationTo').datepicker({});
+
+    });
+
+    function EmployeesPrint(ButtonType) {
+        var RegistrationFrom = $('#RegistrationFrom').val();
+        var RegistrationTo = $('#RegistrationTo').val();
+        var CompNum = $('#CopmanyNumber').val();
+        var CardNum = $('#CardNumber').val();
+        var Family = "0";
+        if ($("#Family").is(":checked")) {
+            Family = "1";
+        }
+
+        if (RegistrationFrom != "" && RegistrationTo != "") {
+
+            if (CompNum != 0) {
+
+                if ($("#excel").is(":checked")) {
+                    // do something if the excel is  checked
+                    if ($("#pdf").is(":checked")) {
+                        // do something if the pdf is  checked
+                        // Print PDF and EXCEL
+                        window.open('/Reports/PrintEmployees?Regfrom=' + RegistrationFrom +
+                            '&&Regto=' + RegistrationTo + '&&CompNum=' + CompNum +
+                            '&&CardNum=' + CardNum + '&&Family=' + Family + '&&ButtType=' + ButtonType);
+
+                        window.open('/Reports/PrintXlxEmployees?Regfrom=' + RegistrationFrom +
+                            '&&Regto=' + RegistrationTo + '&&CompNum=' + CompNum +
+                            '&&CardNum=' + CardNum + '&&Family=' + Family + '&&ButtType=' + ButtonType);
+                    }
+                    else {
+                        // Print EXCEL Only
+                        window.open('/Reports/PrintXlxEmployees?Regfrom=' + RegistrationFrom +
+                            '&&Regto=' + RegistrationTo + '&&CompNum=' + CompNum +
+                            '&&CardNum=' + CardNum + '&&Family=' + Family + '&&ButtType=' + ButtonType);
+                    }
+
+                }
+                else {
+                    // Print PDF as Default
+                    window.open('/Reports/PrintEmployees?Regfrom=' + RegistrationFrom +
+                        '&&Regto=' + RegistrationTo + '&&CompNum=' + CompNum +
+                        '&&CardNum=' + CardNum + '&&Family=' + Family + '&&ButtType=' + ButtonType);
+                }
+            }
+            else {
+                toastr.info('Enter valid Company Number');
+            }
+        }
+        else {
+            toastr.info('select date " From " and " TO " of Registration ');
+        }
+
+
+    }
+
+
+    function EmployeeConsumptionPrint() {
+        var RegistrationFrom = $('#RegistrationFrom').val();
+        var RegistrationTo = $('#RegistrationTo').val();
+        var CompNum = $('#CopmanyNumber').val();
+        var CardNum = $('#CardNumber').val();
+        var ServiceType = $('#ServiceType').val();
+        var Family = "0";
+        if ($("#Family").is(":checked")) {
+            Family = "1";
+        }
+
+        if (RegistrationFrom != "" && RegistrationTo != "") {
+            if (CompNum != 0) {
+                if (CardNum == "") {
+                    toastr.info("Please Enter Valid Card ID ...");
+                }
+                else {
+                    var arra = CardNum.split("-");
+
+                    // chick card id is correct or not
+                    if (arra.length == 4 && arra[3] != "") {
+
+                        // final chick if card id start with company id or not
+                        if (arra[0] == CompNum) {
+
+                            if ($("#excel").is(":checked")) {
+                                // do something if the excel is  checked
+                                if ($("#pdf").is(":checked")) {
+                                    // do something if the pdf is  checked
+                                    // Print PDF and EXCEL
+                                    window.open('/Reports/PrintEmployeesConsumption?Regfrom=' + RegistrationFrom +
+                                        '&&Regto=' + RegistrationTo + '&&CompNum=' + CompNum + '&&ServiceType=' + ServiceType +
+                                        '&&CardNum=' + CardNum + '&&Family=' + Family);
+
+                                    window.open('/Reports/PrintXlxEmployeesConsumption?Regfrom=' + RegistrationFrom +
+                                        '&&Regto=' + RegistrationTo + '&&CompNum=' + CompNum + '&&ServiceType=' + ServiceType +
+                                        '&&CardNum=' + CardNum + '&&Family=' + Family);
+                                }
+                                else {
+                                    // Print EXCEL Only
+                                    window.open('/Reports/PrintXlxEmployeesConsumption?Regfrom=' + RegistrationFrom +
+                                        '&&Regto=' + RegistrationTo + '&&CompNum=' + CompNum + '&&ServiceType=' + ServiceType +
+                                        '&&CardNum=' + CardNum + '&&Family=' + Family);
+                                }
+
+                            }
+                            else {
+                                // Print PDF as Default
+                                window.open('/Reports/PrintEmployeesConsumption?Regfrom=' + RegistrationFrom +
+                                    '&&Regto=' + RegistrationTo + '&&CompNum=' + CompNum + '&&ServiceType=' + ServiceType +
+                                    '&&CardNum=' + CardNum + '&&Family=' + Family);
+                            }
+                        }
+                        else {
+                            toastr.info("Please enter correct card that belongs to your company only start with : " + CompNum);
+                        }
+                    }
+                    else {
+                        toastr.info("Please enter correct card ... ");
+                    }
+                }
+            }
+            else {
+                toastr.info('Enter valid Company Number');
+            }
+        }
+        else {
+            toastr.info('select date " From " and " TO " of Registration ');
+        }
+
+
+
+    }
+
+</script>

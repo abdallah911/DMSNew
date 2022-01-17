@@ -1,0 +1,138 @@
+﻿@model DMS_TEST.Roshita
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Roshita</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CardId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CardId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Speciality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Speciality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Diagnose1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diagnose1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Diagnose2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diagnose2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Diagnose3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diagnose3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoshetaType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoshetaType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Limit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Limit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyPercent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyPercent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OverInsurance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OverInsurance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyPayment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyPayment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonPayment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonPayment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cash)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cash)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedData)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedData)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

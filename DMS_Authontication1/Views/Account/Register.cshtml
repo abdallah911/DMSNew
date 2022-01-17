@@ -1,0 +1,408 @@
+﻿@model DMS_Authontication1.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="panel panel-info">
+    <h2 class="panel-heading" style="margin:1px;">Create User</h2>
+    <div class="panel-body">
+
+        <div class="form-horizontal" style="padding-left: 93px;">
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Type, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(m => m.Type, new List<SelectListItem>
+                         {
+                            new SelectListItem{ Text="Pharmacy", Value = "2" },
+                            new SelectListItem{ Text="Doctor", Value = "5" },
+                            new SelectListItem{ Text="Lab", Value = "3" },
+                            new SelectListItem{ Text="Rays lab", Value = "4" },
+                            new SelectListItem{ Text="Hospital", Value = "1" },
+                            new SelectListItem{ Text="HR", Value = "6" },
+                            new SelectListItem{ Text="HR Admin", Value = "7" },
+                            new SelectListItem{ Text="After Sale", Value = "8" }
+                            //,new SelectListItem{ Text="Pharmacy Admin", Value = "9" }
+                         }, "--Select--", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group" id="hideProvider">
+                @Html.LabelFor(m => m.Provider, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.DropDownList("Provider", ViewBag.provider as SelectList, "--Select--", new { @class = "form-control"@*, id = "Provider"*@ })
+
+                </div>
+            </div>
+
+            <div class="form-group" id="hideCompny" hidden="hidden">
+                @*@Html.LabelFor(m => m.Provider, new { @class = "col-md-2 control-label" })*@
+
+                <div class="row">
+                    @Html.Label("Compines", new { @class = "col-md-2 control-label" })
+                    <div class="col-sm-6" data-step="9" data-intro="Select Companies to Despense">
+                        @*@Html.DropDownListFor(x=>x.AddCompanies,null, "--Select--", new { @class = "form-control",@multiple="multiple" ,@style="width:100%" })*@
+                        <select id="AddCompanies" name="AddCompanies" multiple="multiple" style="width:100%">
+                            <option value="0">All</option>
+                        </select>
+                    </div>
+                </div>
+
+                @*<div class="col-md-10">
+                        <select id="Compines"  multiple></select>
+
+                    </div>*@
+
+                @*<div class="row">
+                        <div class="col-sm-12" data-step="9" data-intro="Select Medicines to Despense">
+                            <select id="AddMedicine" multiple="multiple" style="width:100%">
+                                <option value="0">select medicine</option>
+                            </select>
+                        </div>
+                    </div>*@
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.RoleName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(m => m.RoleName, new SelectList(ViewBag.Roles, "Value", "Text"), "--Select--", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.FName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.FName, new { @class = "form-control", @id = "FName" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.LName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.LName, new { @class = "form-control", @id = "LName" })
+                </div>
+            </div>
+
+            @if (ViewBag.address != null)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-6">
+                        @Html.DropDownList("Address", ViewBag.address as SelectList, "--Select--", new { @class = "form-control"@*, id = "Select"*@ })
+                    </div>
+                </div>
+            }
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.state, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.DropDownList("State", new SelectList(""), new { @class = "form-control"@*, id = "Selected"*@ })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PhoneNumber1, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.PhoneNumber1, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    @Html.LabelFor(m => m.Type, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.Type, new { @class = "form-control" })
+                    </div>
+                </div>*@
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-6">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+            @*<div class="form-group">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-1">
+                    <button type="submit" id="submit1" class="btn btn-default" value="Register">Register</button>
+                </div>
+
+                <div class="col-sm-1">
+                    <button type="reset" id="New" class="btn btn-default">Reset</button>
+
+
+                </div>
+            </div>*@
+
+        </div>
+    </div>
+    <div class="panel-footer" style="text-align:right;">
+        <input id="Back" type="button" value="Back" onclick="window.location.replace('/User/index');" class="btn btn-warning" />
+        <input id="New" type="reset" value="Reset" class="btn btn-primary" />
+        <input id="submit1" type="submit" value="Register" class="btn btn-success" />
+    </div>
+</div>
+}
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+        $("#Address").select2();
+        $("#Provider").select2();//providers
+        $("#State").select2();//state
+        $("#AddCompines").empty();
+        $("#Address").change(function () {//address
+            $.get("/Account/GetStateList",
+                { id: $("#Address").val() }, function (data) {
+                    $("#State").empty();
+                    $.each(data, function (index, row) {
+                        $("#State").append("<option value='" + row.Text + "'>" + row.Value + "</option>")
+                    });
+                });
+        });
+        $("#Type").change(function () {
+            if ($(this).val() == "5") {//Doctor or Hr
+                $("#hideProvider").hide();
+                $("#RoleName").val(0);
+                $("#RoleName").prop("disabled", false);
+            }
+            else if ($(this).val() == "6" || $(this).val() == "8") {
+                $("#hideProvider").show();
+                $("#hideCompny").hide();
+                //$("#RoleName").val(0);
+                //$("#RoleName").prop("disabled", false);
+                //provider
+                $.ajax({
+                    type: 'POST',
+                    url: '/Account/getCompines/',
+                    dataType: 'json',
+                    // data: { id: $(this).val() },
+                    success: function (diag) {
+                        $("#Provider").empty();
+                        for (var i = 0; i < diag.length; i++) {
+                            $("#Provider").append('<option value="' + diag[i].Code + '">' +
+                                diag[i].Name + '</option>');
+                        }
+                        //$.each(diag, function (i, ddlDiag1) {
+                        //    $("#Provider").append('<option value="' + ddlDiag1.Value + '">' +
+                        //        ddlDiag1.Text + '</option>');
+
+                        //});
+                        //$('#Provider  option:eq(0)').attr('selected', 'selected');
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve Comanies.');
+                    }
+
+                });
+            }
+            else if ($(this).val() == "7") {// Hr Admin
+                $("#hideProvider").hide();
+                $("#hideCompny").show();
+                $("#RoleName").val(0);
+                $("#RoleName").prop("disabled", false);
+                $.ajax({
+                    type: 'POST',
+                    url: '/Account/getCompines/',
+                    dataType: 'json',
+                    success: function (r) {
+                        //debugger;
+                        // $('#AddCompanies').empty();
+                        var result = [];
+                        var current2 = {};
+                        current2.id = "All";
+                        current2.text = " All ";
+                        result.push(current);
+                        for (var i = 0; i < r.length; i++) {
+                            var current = {};
+                            current.id = r[i].Code;
+                            current.text = r[i].Name;
+                            result.push(current);
+                        }
+                        $('#AddCompanies').select2({
+                            data: result
+                        })
+                        $("#wait").css("display", "none");
+                        $("#RoleName").val("HR_Admin").change();
+                    },
+                    error: function (ex) {
+                        bootbox.alert('Failed to retrieve Diagnoses.');
+                        $("#wait").css("display", "none");
+
+                    }
+
+                });
+            }
+
+            //else if ($(this).val() == "9") {// Pharmacy Admin
+            //    $("#hideProvider").show();
+            //    $("#hideCompny").hide();
+            //    $("#RoleName").val(0);
+            //    $("#RoleName").prop("disabled", false);
+            //    //provider
+            //    $.ajax({
+            //        type: 'POST',
+            //        url: '/Account/Provider/',
+            //        dataType: 'json',
+            //        data: { id: 2 },//pharmacies
+            //        success: function (diag) {
+            //            $("#Provider").empty();
+            //            $.each(diag, function (i, ddlDiag1) {
+            //                $("#Provider").append('<option value="' + ddlDiag1.Value + '">' +
+            //                    ddlDiag1.Text + '</option>');
+
+            //            });
+            //            $('#Provider  option:eq(0)').attr('selected', 'selected');
+            //            $("#Provider").prop("multiple", "multiple");
+            //            $("#Provider").select2();
+            //        },
+            //        error: function (ex) {
+            //            alert('Failed to retrieve providers.');
+            //        }
+
+            //    });
+
+
+            //}
+            else {
+                $("#hideCompny").hide();
+                $("#hideProvider").show();
+               
+                $("#RoleName").val(0);
+                $("#RoleName").prop("disabled", false);
+                //provider
+                $.ajax({
+                    type: 'POST',
+                    url: '/Account/Provider/',
+                    dataType: 'json',
+                    data: { id: $(this).val() },
+                    success: function (diag) {
+                        $("#Provider").empty();
+                        $.each(diag, function (i, ddlDiag1) {
+                            $("#Provider").append('<option value="' + ddlDiag1.Value + '">' +
+                                ddlDiag1.Text + " || " + ddlDiag1.Value + '</option>');
+
+                        });
+                        $('#Provider  option:eq(0)').attr('selected', 'selected');
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve providers.');
+                    }
+
+                });
+            }
+        });
+        $("#submit1").click(function () {
+            var FName = $('#FName').val();
+            var LName = $('#LName').val();
+            if (FName == "") {
+                alert("Please Enter Your Name");
+                return false;
+            }
+            if (LName == "") {
+                alert("Please Enter Your Name");
+                return false;
+            }
+            if (!isNaN(FName)) {
+                bootbox.alert("Please Enter Only Characters");
+                return false;
+            }
+            if (!isNaN(LName)) {
+                bootbox.alert("Please Enter Only Characters");
+                return false;
+            }
+            if ($("#Type").val() == "7") {
+                var SelectedCompaniesList = $('#AddCompanies').select2('data');
+                if (SelectedCompaniesList.length > 1 || SelectedCompaniesList[0].id == 0) {
+                    var CompaniesList = [];
+                    for (var i = 0; i < SelectedCompaniesList.length; i++) {
+                        var current = SelectedCompaniesList[i].id;
+                        CompaniesList.push(current);
+                    }
+                    $('#AddCompanies').val(CompaniesList);
+                    $('#RoleName[value=HR_Admin]').attr('selected', 'true');
+                }
+                else {
+                    bootbox.alert('Select more than one company');
+                    return false;
+                }
+
+            }
+            //else if ($("#Type").val() == "9") {
+            //    debugger;
+            //    var SelectedProvidersList = $('#Provider').select2('data');
+            //    if (SelectedProvidersList.length > 1 || SelectedProvidersList[0].id == 0) {
+            //        var ProvidersList = [];
+            //        for (var i = 0; i < SelectedProvidersList.length; i++) {
+            //            var current = SelectedProvidersList[i].id;
+            //            ProvidersList.push(current);
+            //        }
+            //        $('#AddCompanies').val(ProvidersList);
+            //        $('#RoleName[value=Pharmacy_Admin]').attr('selected', 'true');
+            //    }
+            //    else {
+            //        bootbox.alert('Select more than one Pharmacy');
+            //        return false;
+            //    }
+            //}
+        });
+    });
+    //function validation() {
+    //    debugger;
+    //    if ($("#Type").val() == "7") {
+    //        var SelectedDiagnosisList = $('#AddCompanies').select2('data');
+    //        if (SelectedDiagnosisList.length > 1 || SelectedDiagnosisList[0].id == 0) {
+    //            var DiagnosisList = [];
+    //            for (var i = 0; i < SelectedDiagnosisList.length; i++) {
+    //                var current = SelectedDiagnosisList[i].id;
+    //                DiagnosisList.push(current);
+    //            }
+    //            $('#AddCompanies').val(DiagnosisList);
+    //        }
+    //        else {
+    //            alert('Select more than one company');
+    //            return false;
+    //        }
+
+    //    }
+    //}
+</script>

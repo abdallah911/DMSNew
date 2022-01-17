@@ -1,0 +1,167 @@
+﻿@model IEnumerable<DMS_TEST.ViewModel.DoctorContainerViewModel>
+@{
+    ViewBag.Title = "Edit";
+}
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Edit Prescription
+        </div>
+    </div>
+    <br />
+    <div class="portlet-body" style="padding-bottom: 0px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <select id="AddMedicine" multiple="multiple" style="width:100%">
+                    <option value="0">select medicine</option>
+                </select>
+            </div>
+        </div>
+        <!--Dynamic table-->
+        <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
+            <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
+        </div>
+        <div class="table-responsive">
+            <table class="table" id="Pharmacy">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MedicienCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MedicienName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DOSAGE_FORM)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PACK_SIZE)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PACK_PRICE)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.UNIT_NO)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.UNIT_PRICE)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Dose)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Duration)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalDuration)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalUnits)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Amount)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PaymentGroup)
+                        </th>
+
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <TBODY>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MedicienCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MedicienName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DOSAGE_FORM)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PACK_SIZE)
+                            </td>
+                            <td>
+                                @Html.EditorFor(modelItem => item.PACK_PRICE, new { htmlAttributes = new { @class = "form-control PackagePrice", @onkeyup = "changeTotalUnits(this);" } })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UNIT_NO)
+                            </td>
+                            <td>
+                                @Html.EditorFor(modelItem => item.UNIT_PRICE, new { htmlAttributes = new { @class = "form-control UnitPrice", @readonly = "readonly" } })
+                            </td>
+                            <td>
+                                @Html.EditorFor(modelItem => item.Dose, new { htmlAttributes = new { @class = "form-control Dose", @onkeyup = "changeTable(this);", id = "Dosee", @type = "text" } })
+                            </td>
+                            <td>
+                                @Html.EditorFor(modelItem => item.Duration, new { htmlAttributes = new { @class = "form-control Duration", @onkeyup = "changeTable(this);", id = "Durationn", @type = "text" } })
+                            </td>
+                            <td>
+                                @Html.EditorFor(modelItem => item.TotalDuration, new { htmlAttributes = new { @class = "form-control TotalDuration", onfocusout = "changeTotalDuration(this);", id = "TotalDuration", @type = "text" } })
+                            </td>
+                            <td>
+                                @Html.EditorFor(modelItem => item.TotalUnits, new { htmlAttributes = new { @class = "form-control TotalUnits ", @onkeyup = "changeTotalUnits(this);" ,@readonly = "readonly", @type = "text" } })
+                            </td>
+                            <td>
+                                @Html.EditorFor(modelItem => item.Amount, new { htmlAttributes = new { @class = "form-control Amount ", @readonly = "readonly" } })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PaymentGroup)
+                            </td>
+
+                        </tr>
+                    }
+                </TBODY>
+            </table>
+        </div>
+        <!--Caculation-->
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label class="control-label">Total</label>
+                    <input id="txtTotalInvoice" type="text" class="form-control" ReadOnly="readonly" />
+                </div>
+                <div class="col-sm-2">
+                    <label class="control-label">Person Payments</label>
+                    <input id="txtTotalCopayment" type="text" class="form-control" ReadOnly="readonly" />
+                </div>
+                <div class="col-sm-2">
+                    <label class="control-label">Value Credit</label>
+                    <input id="txtValueCredit" type="text" class="form-control" ReadOnly="readonly" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label class="control-label">Over Insurance</label>
+                    <input id="txtOverInsurance" type="text" class="form-control" ReadOnly="readonly" />
+                </div>
+                <div class="col-sm-2">
+                    <label class="control-label">Cash</label>
+                    <input id="txtCash" type="text" class="form-control" ReadOnly="readonly" />
+                </div>
+                <div class="col-sm-2">
+                    <label class="control-label">Total cash</label>
+                    <input id="txtValueCash" type="text" class="form-control" ReadOnly="readonly" />
+                </div>
+            </div>
+        </div>
+
+        <!--Save-->
+        <br /><br />
+        <div class="row panel-footer" style="text-align:right; height:62px;">
+            <input id="Update" type="button" value="Update" class="btn btn-success glyphicon glyphicon-save" style="float:right;padding:10px 20px " />
+
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/DMS/PharmacyEdit.js?v=3.1"></script>

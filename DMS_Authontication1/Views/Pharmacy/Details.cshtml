@@ -1,0 +1,256 @@
+﻿@model DMS_Authontication1.ViewModel.PharmacyAdmin.PharmacyAdminVm
+
+@{
+    ViewBag.Title = "Details";
+}
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+<div style="padding-left: 93px;">
+    <h2>Details</h2>
+    <p>
+        <a id="Backbutton" href="/Pharmacy/index"><i class=" btn btn-primary glyphicon glyphicon-arrow-left">  Back</i> </a>
+
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("MedicienCode")
+            </th>
+            <th>
+                @Html.DisplayName("MedicienName")
+            </th>
+            <th>
+                @Html.DisplayName("DOSAGE_FORM")
+            </th>
+            <th>
+                @Html.DisplayName("PACK_PRICE")
+            </th>
+            <th>
+                @Html.DisplayName("PACK_SIZE")
+            </th>
+            <th>
+                @Html.DisplayName("UNIT_NO")
+            </th>
+
+            <th>
+                @Html.DisplayName("UNIT_PRICE")
+            </th>
+            <th>
+                @Html.DisplayName("Dose")
+            </th>
+            <th>
+                @Html.DisplayName("Duration")
+            </th>
+            <th>
+                @Html.DisplayName("TotalDuration")
+            </th>
+            <th>
+                @Html.DisplayName("TotalUnits")
+            </th>
+            <th>
+                @Html.DisplayName("Amount")
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.RoshDetsils)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedicienCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedicienName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DOSAGE_FORM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PACK_PRICE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PACK_SIZE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UNIT_NO)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UNIT_PRICE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dose)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalDuration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalUnits)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@*<div id="divIndividual">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <h2><label class="control-label">Pharmacy Specialist :</label></h2>
+            </div>
+        </div>
+    </div>*@
+<!--Card Id Row-->
+@if (User.IsInRole("Admin"))
+{
+    <div class="portlet box  green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i>Specialist And Diagnosis
+            </div>
+            @*<div class="actions">
+                    <a id="Pending" href="javascript:;" class="btn btn-primary  btn-sm" disabled>
+                        <i class="fa fa-pencil"></i> Pending
+                    </a>
+                </div>*@
+        </div>
+        <div class="portlet-body">
+
+            <div class="panel panel-info">
+                <h2 class="panel-heading" style="margin:1px;">Pharmacy Data</h2>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-lg-1">
+                                @Html.Label("Speciality :", htmlAttributes: new { @class = "control-label" })
+
+                            </div>
+                            <div class="col-lg-3" data-step="7" data-intro="Select speciality">
+                                <h3>@Model.spec</h3>
+                                @* @Html.Label(Model.spec, htmlAttributes: new { @class = "control-label" })*@
+                            </div>
+                            <div class="col-lg-2">
+                                @Html.Label("Diagnoise :", new { @class = "control-label" })
+                            </div>
+                            <div class="col-lg-4" data-step="8" data-intro="Select Diagnoises">
+                                @for (int i = 0; i < Model.RDignosis.Count; i++)
+                                {
+                                    <div class="col-lg-12">
+                                        <h3>@Model.RDignosis[i].DiagnoiseName</h3>
+                                        <br />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="portlet-body">
+
+            <div class="panel panel-info">
+                <h2 class="panel-heading" style="margin:1px;">Old Admin Data</h2>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group">
+                            @if (Model.OldRDignosis.Count > 0)
+                            {
+                                <div class="col-lg-1">
+                                    @Html.Label("Speciality :", htmlAttributes: new { @class = "control-label" })
+
+                                </div>
+                                <div class="col-lg-3" data-step="7" data-intro="Select speciality">
+                                    <h3>@Model.OldRDignosis[0].SpecialistName</h3>
+                                    @* @Html.Label(Model.spec, htmlAttributes: new { @class = "control-label" })*@
+                                </div>
+                                <div class="col-lg-2">
+                                    @Html.Label("Diagnoise :", new { @class = "control-label" })
+                                </div>
+                                <div class="col-lg-4" data-step="8" data-intro="Select Diagnoises">
+
+                                    @for (int i = 0; i < Model.OldRDignosis.Count; i++)
+                                    {
+                                        <div class="col-lg-12">
+                                            <h3>@Model.OldRDignosis[i].DiagnoiseName</h3>
+                                            <br />
+                                        </div>
+                                    }
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="portlet-body">
+
+            <div class="panel panel-info">
+                <h2 class="panel-heading" style="margin:1px;">Admin Data</h2>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group">
+                            @*<div class="col-sm-2">
+                                    @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                                </div>
+                                <div class="col-sm-2">
+                                    @Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                                </div>
+                                <div class="col-sm-2">
+                                    @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                                </div>
+                                <div class="col-sm-2" data-step="4" data-intro="Enter Clame Number">
+                                    @Html.Label("Claim Number", htmlAttributes: new { @class = "control-label" })
+                                    @Html.Editor("ClaimNumber", new { htmlAttributes = new { @class = "form-control", @id = "ClaimNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                                </div>*@
+                            <input type="text" id="id" hidden />
+                            <div class="col-lg-1">
+                                @Html.Label("Speciality", htmlAttributes: new { @class = "control-label" })
+
+                            </div>
+                            <div class="col-lg-3" data-step="7" data-intro="Select speciality">
+                                @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "form-control", @id = "ddlSpeciality" })
+                            </div>
+                            <div class="col-lg-2">
+                                @Html.Label("Diagnoise", new { @class = "control-label" })
+                            </div>
+                            <div class="col-lg-3" data-step="8" data-intro="Select Diagnoises">
+                                <select id="ddlDiagnoises" style="width:100%" multiple></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Save-->
+                <div class="panel-footer" style="text-align:right;">
+                    @*<input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
+                    <input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn btn-warning" />
+                    <input data-step="12" data-intro="Save Preception" id="submit" type="button" value="Save" class="btn btn-success" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+<script src="~/assets/HomeTemplete/js/intro.js"></script>
+<script src="~/Scripts/DMS/PharmacyAdmin/PharmacyAdminIndex.js?V=1.1"></script>
+@*<script>
+        var url = window.location.href;
+        var id = url.substring(url.lastIndexOf('/') + 1);
+        $('#id').val(id);
+    </script>*@

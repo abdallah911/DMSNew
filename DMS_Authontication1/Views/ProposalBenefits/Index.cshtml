@@ -1,0 +1,136 @@
+﻿@model DMS_Authontication1.ViewModel.Proposal.ProposalBenefitsVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="panel panel-info" >
+    <h2 class="panel-heading" style="margin:1px; text-align:center"> Classes  Benefits </h2>
+    <div class="panel-body">
+        <div class="row "  >
+            <a class="btn btn-primary col-lg-offset-5" href="~/ProposalClasses/Index?Id=@ViewBag.proclass.ProposalId&Num=@ViewBag.proclass.NumProposal&Type=@ViewBag.ClassType">Classes</a>
+        </div>
+            <div class="row">
+                <div class="panel panel-info col-md-5">
+                    <h2 class="panel-heading" style="margin:1px;"> Benefits Used  </h2>
+                    <div class="panel-body col-10">
+                        <table id="Index" class="table" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Name
+
+                                    </th>
+                                    <th>
+                                        Match
+
+                                    </th>
+
+
+
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.BenefitsUse)
+                                {
+                                    <tr>
+
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Match)
+                                        </td>
+
+
+                                        <td>
+
+
+
+
+
+                                            <a class="btn btn-danger" href="~/ProposalBenefits/DeleteConfirmed?Id=@item.Id&ClassId=@ViewBag.proclass.Id">Delete</a>
+
+
+
+
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+                <div class="panel panel-info col-md-5">
+                    <h2 class="panel-heading" style="margin:1px;"> Benefits un  Used  </h2>
+                    <div class="panel-body col-10">
+                        <table id="Index" class="table" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Name
+
+                                    </th>
+                                    <th>
+                                        Match
+
+                                    </th>
+
+
+
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.BenefitsUnUse)
+                                {
+                                    using (Html.BeginForm("Create", "ProposalBenefits", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <tr>
+
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Name)
+                                            </td>
+                                            <td>
+
+                                                <input type="text" name="Match" />
+                                            </td>
+
+
+                                            <td>
+
+                                                <input type="text" name="TypeBenefitsId" value="@item.Id" hidden="hidden" />
+                                                <input type="text" name="ProposalClassId" value="@ViewBag.proclass.Id" hidden="hidden" />
+                                                <input id="submit" type="submit" value="Add" class="btn btn-success" />
+
+
+
+
+
+
+
+
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="~/Scripts/Department/index.js"></script>
+
+
