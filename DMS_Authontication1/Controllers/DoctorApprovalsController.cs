@@ -239,7 +239,7 @@ namespace DMS_Authontication1.Controllers
                 OverInsurance = Math.Round(data.OverInsurance.Value, 2),
                 Cash = Math.Round(data.Cash.Value, 2),
                 //PhoneNumber = data.PhoneNumber,//branchtxt
-               // ClaimNumber = data.ClaimNumber,
+                // ClaimNumber = data.ClaimNumber,
                 CreatedBy = data.CreatedBy == null ? User.Identity.Name : data.CreatedBy,
                 CreatedDate = DateTime.Now,
                 Manager = "Doctor_Daily",
@@ -266,12 +266,13 @@ namespace DMS_Authontication1.Controllers
                 db.PrescriptionRoshitaDignosis.Add(dignosi);
             }
             //RoshitaPharmcyApproved
-            if (data.Diagnose2!=null) { 
-            RoshitaPharmcyApproved roshitaPharmcyApproved = new RoshitaPharmcyApproved();
-            roshitaPharmcyApproved.Pharmacy = data.Diagnose2;
-            roshitaPharmcyApproved.Branch = data.PhoneNumber;
-            roshitaPharmcyApproved.RoshitaId =roshita.Id;
-            db.RoshitaPharmcyApproveds.Add(roshitaPharmcyApproved);
+            if (data.Diagnose2 != null)
+            {
+                RoshitaPharmcyApproved roshitaPharmcyApproved = new RoshitaPharmcyApproved();
+                roshitaPharmcyApproved.Pharmacy = data.Diagnose2;
+                roshitaPharmcyApproved.Branch = data.PhoneNumber;
+                roshitaPharmcyApproved.RoshitaId = roshita.Id;
+                db.RoshitaPharmcyApproveds.Add(roshitaPharmcyApproved);
             }
             try
             {
@@ -552,7 +553,7 @@ namespace DMS_Authontication1.Controllers
                         NO_OVER = l.x.m.NO_OVER,
                         TASHKHES_01 = l.x.m.TASHKHES_01,
                         ST_DAY = l.x.m.ST_DAY,
-                        NOTES=l.x.m.NOTES,
+                        NOTES = l.x.m.NOTES,
 
                     })
                     .FirstOrDefault();
@@ -722,7 +723,7 @@ namespace DMS_Authontication1.Controllers
             var medUpdate = db.Med_Card.Where(c => c.CARD_NO == car).FirstOrDefault();
             if (medUpdate != null)
             {
-                if(medUpdate.UPDATE_BY== "GodaKotb"&& User.Identity.Name!= "GodaKotb")
+                if (medUpdate.UPDATE_BY == "GodaKotb" && User.Identity.Name != "GodaKotb")
                 {
                     return Json("False");
                 }
@@ -730,21 +731,27 @@ namespace DMS_Authontication1.Controllers
             #endregion
 
             List<Med_Medicine> current = new List<Med_Medicine>();
-
             Med_Medicine first = data.First();
+            var Rosita = db.Roshitas.Where(r => r.CardId == first.CARD_NO && r.Manager == "Doctor_Chronic").OrderByDescending(c => c.CreatedDate).FirstOrDefault();
+            var rositaDetails = db.RoshitaDetails.Where(x => x.RoshitaID == Rosita.Id).ToList();
             current = db.Med_Medicine.Where(c => c.CARD_NO == first.CARD_NO).ToList();
             //db.Med_Medicine.RemoveRange(current);
             foreach (Med_Medicine item in data)
             {
                 bool flag = true;
-                foreach (var Cur in current)
+                var newone = current.Where(c => c.MED_CODE == item.MED_CODE).FirstOrDefault();
+                if (newone != null)
                 {
-                    if (Cur.MED_CODE == item.MED_CODE)
-                    {
-                        flag = false;
-                        break;
-                    }
+                    flag = false;
                 }
+                //foreach (var Cur in current)
+                //{
+                //    if (Cur.MED_CODE == item.MED_CODE)
+                //    {
+                //        flag = false;
+                //        break;
+                //    }
+                //}
                 if (flag == true)
                 {
                     //add new item
@@ -752,55 +759,14 @@ namespace DMS_Authontication1.Controllers
                     item.CREATED_BY = User.Identity.Name;
                     item.CREATED_DATE = DateTime.Now;
                     db.Med_Medicine.Add(item);
-                }
-                else
-                {
-                    //update 
-                    Med_Medicine update = current.Where(x => x.MED_CODE == item.MED_CODE).FirstOrDefault();
 
-                    update.UPDATE_BY = User.Identity.Name;
-                    update.UPDATE_DATE = DateTime.Now;
-                    update.MED_TYP = item.MED_TYP;
-                    update.DOSE = Convert.ToInt32(item.DOSE);
-                    update.NO_OF_UINT = Convert.ToInt32(item.NO_OF_UINT);
-                    update.TOTAL_AMT = item.TOTAL_AMT;
-                    update.MED_DURATION = Convert.ToInt32(item.MED_DURATION);
-                    update.DOS_DUR = Convert.ToInt32(item.DOS_DUR);
-                    update.EXCESS = item.EXCESS;
-                    update.UNIT_NO = Convert.ToInt32(item.UNIT_NO);
-                    update.UNIT_PRICE = item.UNIT_PRICE;
-                    update.ACTIVE = item.ACTIVE;
-                    update.LFT_MONTH = item.LFT_MONTH;
-                    update.MONTH_DATE_STOP = item.MONTH_DATE_STOP;
-                    update.SyncBy = "Updated";
-                    db.Entry(update).State = EntityState.Modified;
-                }
-                  
-            }
-            //db.SaveChanges();
-            //rositaDetails
-            var Rosita = db.Roshitas.Where(r => r.CardId == first.CARD_NO && r.Manager == "Doctor_Chronic").OrderByDescending(c => c.CreatedDate).FirstOrDefault();
-            var rositaDetails = db.RoshitaDetails.Where(x => x.RoshitaID == Rosita.Id).ToList();
-            foreach (Med_Medicine item in data)
-            {
-                //insert or Update
-                bool flag = true;
-                foreach (var Cur in rositaDetails)
-                {
-                    if (Cur.MedicienCode == item.MED_CODE)
+                    DateTime MONTH_DATE_STOP21Time = new DateTime();
+                    if (item.MONTH_DATE_STOP != null)
                     {
-                        flag = false;
+                        string MONTH_DATE_STOP21 = "21/" + (item.MONTH_DATE_STOP.Value.ToString("MM/yyyy")).ToString();
+                        MONTH_DATE_STOP21Time = DateTime.ParseExact(MONTH_DATE_STOP21, "dd/MM/yyyy", null);
                     }
-                }
-                DateTime MONTH_DATE_STOP21Time = new DateTime();
-                if (item.MONTH_DATE_STOP != null)
-                {
-                    string MONTH_DATE_STOP21 = "21/" + (item.MONTH_DATE_STOP.Value.ToString("MM/yyyy")).ToString();
-                    MONTH_DATE_STOP21Time = DateTime.ParseExact(MONTH_DATE_STOP21, "dd/MM/yyyy", null);
-                }
-                if (flag == true)
-                {
-                    //add to roshita active only
+
                     RoshitaDetail roshitaDetail = new RoshitaDetail();
                     roshitaDetail.MedicienCode = item.MED_CODE;
                     roshitaDetail.MedicienName = item.MED_NAME;
@@ -815,36 +781,265 @@ namespace DMS_Authontication1.Controllers
                     roshitaDetail.PaymentGroup = "Yes";
                     roshitaDetail.IsSync = false;
                     db.RoshitaDetails.Add(roshitaDetail);
+
                 }
                 else
                 {
-
-                    //update active only
-                    RoshitaDetail update = rositaDetails.Where(x => x.MedicienCode == item.MED_CODE).FirstOrDefault();
-                    if (item.ACTIVE == "Y" && (item.MONTH_DATE_STOP == null || MONTH_DATE_STOP21Time > DateTime.Now))
+                    if (CompareMedicine(item, newone))
                     {
-                        string Last21 = "21/" + ((DateTime.Now.Day >= 21) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(-1).ToString("MM/yyyy")).ToString();
-                        DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
-                        if (db.Roshitas.Where(x => x.Manager == "pharmacy_chronic" && x.CardId == first.CARD_NO && x.CreatedDate >= Last21Time).Join(db.RoshitaDetails, r => r.Id, rd => rd.RoshitaID, (r, rd) => new { r, rd }).Where(x => x.rd.MedicienCode == item.MED_CODE).Count() == 0)
-                            update.IsDealed = false;
+                        //update 
+                        Med_Medicine update = current.Where(x => x.MED_CODE == item.MED_CODE).FirstOrDefault();
+
+                        update.UPDATE_BY = User.Identity.Name;
+                        update.UPDATE_DATE = DateTime.Now;
+                        update.MED_TYP = item.MED_TYP;
+                        update.DOSE = Convert.ToInt32(item.DOSE);
+                        update.NO_OF_UINT = Convert.ToInt32(item.NO_OF_UINT);
+                        update.TOTAL_AMT = item.TOTAL_AMT;
+                        update.MED_DURATION = Convert.ToInt32(item.MED_DURATION);
+                        update.DOS_DUR = Convert.ToInt32(item.DOS_DUR);
+                        update.EXCESS = item.EXCESS;
+                        update.UNIT_NO = Convert.ToInt32(item.UNIT_NO);
+                        update.UNIT_PRICE = item.UNIT_PRICE;
+                        update.ACTIVE = item.ACTIVE;
+                        update.LFT_MONTH = item.LFT_MONTH;
+                        update.MONTH_DATE_STOP = item.MONTH_DATE_STOP;
+                        update.SyncBy = "Updated";
+                        db.Entry(update).State = EntityState.Modified;
+
+                        DateTime MONTH_DATE_STOP21Time = new DateTime();
+                        if (item.MONTH_DATE_STOP != null)
+                        {
+                            string MONTH_DATE_STOP21 = "21/" + (item.MONTH_DATE_STOP.Value.ToString("MM/yyyy")).ToString();
+                            MONTH_DATE_STOP21Time = DateTime.ParseExact(MONTH_DATE_STOP21, "dd/MM/yyyy", null);
+                        }
+
+                        RoshitaDetail updateroshita = rositaDetails.Where(x => x.MedicienCode == item.MED_CODE).FirstOrDefault();
+                        if (item.ACTIVE == "Y" && (item.MONTH_DATE_STOP == null || MONTH_DATE_STOP21Time > DateTime.Now))
+                        {
+                            string Last21 = "21/" + ((DateTime.Now.Day >= 21) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(-1).ToString("MM/yyyy")).ToString();
+                            DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
+                            if (db.Roshitas.Where(x => x.Manager == "pharmacy_chronic" && x.CardId == first.CARD_NO && x.CreatedDate >= Last21Time).Join(db.RoshitaDetails, r => r.Id, rd => rd.RoshitaID, (r, rd) => new { r, rd }).Where(x => x.rd.MedicienCode == item.MED_CODE).Count() == 0)
+                                updateroshita.IsDealed = false;
+                        }
+                        updateroshita.Dose = Convert.ToInt32(item.DOSE);
+                        updateroshita.Duration = Convert.ToInt32(item.MED_DURATION);
+                        updateroshita.TotalDuration = 28;
+                        updateroshita.Duration = Convert.ToInt32(item.MED_DURATION);
+                        updateroshita.TotalUnits = Convert.ToInt32(item.NO_OF_UINT);
+                        updateroshita.Amount = Convert.ToInt32(item.TOTAL_AMT);
+                        updateroshita.IsDealed = item.ACTIVE == "N" ? true : updateroshita.IsDealed;
+                        updateroshita.SyncBy = "Updated";
+                        db.Entry(updateroshita).State = EntityState.Modified;
+
                     }
-                    update.Dose = Convert.ToInt32(item.DOSE);
-                    update.Duration = Convert.ToInt32(item.MED_DURATION);
-                    update.TotalDuration = 28;
-                    update.Duration = Convert.ToInt32(item.MED_DURATION);
-                    update.TotalUnits = Convert.ToInt32(item.NO_OF_UINT);
-                    update.Amount = Convert.ToInt32(item.TOTAL_AMT);
-                    update.IsDealed = item.ACTIVE == "N" ? true : update.IsDealed;
-                    update.SyncBy = "Updated";
-                    db.Entry(update).State = EntityState.Modified;
                 }
 
-
             }
+            ////db.SaveChanges();
+            ////rositaDetails
+            //var Rosita = db.Roshitas.Where(r => r.CardId == first.CARD_NO && r.Manager == "Doctor_Chronic").OrderByDescending(c => c.CreatedDate).FirstOrDefault();
+            //var rositaDetails = db.RoshitaDetails.Where(x => x.RoshitaID == Rosita.Id).ToList();
+            //foreach (Med_Medicine item in data)
+            //{
+            //    //insert or Update
+            //    bool flag = true;
+            //    var newroshitaDetails = rositaDetails.Where(r => r.MedicienCode == item.MED_CODE).FirstOrDefault();
+            //    if (newroshitaDetails != null)
+            //        flag = false;
+            //    //foreach (var Cur in rositaDetails)
+            //    //{
+            //    //    if (Cur.MedicienCode == item.MED_CODE)
+            //    //    {
+            //    //        flag = false;
+            //    //    }
+            //    //}
+            //    DateTime MONTH_DATE_STOP21Time = new DateTime();
+            //    if (item.MONTH_DATE_STOP != null)
+            //    {
+            //        string MONTH_DATE_STOP21 = "21/" + (item.MONTH_DATE_STOP.Value.ToString("MM/yyyy")).ToString();
+            //        MONTH_DATE_STOP21Time = DateTime.ParseExact(MONTH_DATE_STOP21, "dd/MM/yyyy", null);
+            //    }
+            //    if (flag == true)
+            //    {
+            //        //add to roshita active only
+            //        RoshitaDetail roshitaDetail = new RoshitaDetail();
+            //        roshitaDetail.MedicienCode = item.MED_CODE;
+            //        roshitaDetail.MedicienName = item.MED_NAME;
+            //        roshitaDetail.Dose = Convert.ToInt32(item.DOSE);
+            //        roshitaDetail.Duration = Convert.ToInt32(item.MED_DURATION);
+            //        roshitaDetail.TotalDuration = 28;
+            //        //roshitaDetail.Duration = Convert.ToInt32(item.MED_DURATION);
+            //        roshitaDetail.TotalUnits = Convert.ToInt32(item.NO_OF_UINT);
+            //        roshitaDetail.IsDealed = item.ACTIVE == "Y" && (item.MONTH_DATE_STOP == null || MONTH_DATE_STOP21Time > DateTime.Now) ? false : true;
+            //        roshitaDetail.Amount = Convert.ToInt32(item.TOTAL_AMT);
+            //        roshitaDetail.RoshitaID = Rosita.Id;
+            //        roshitaDetail.PaymentGroup = "Yes";
+            //        roshitaDetail.IsSync = false;
+            //        db.RoshitaDetails.Add(roshitaDetail);
+            //    }
+            //    else
+            //    {
+
+            //        //update active only
+            //        RoshitaDetail update = rositaDetails.Where(x => x.MedicienCode == item.MED_CODE).FirstOrDefault();
+            //        if (item.ACTIVE == "Y" && (item.MONTH_DATE_STOP == null || MONTH_DATE_STOP21Time > DateTime.Now))
+            //        {
+            //            string Last21 = "21/" + ((DateTime.Now.Day >= 21) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(-1).ToString("MM/yyyy")).ToString();
+            //            DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
+            //            if (db.Roshitas.Where(x => x.Manager == "pharmacy_chronic" && x.CardId == first.CARD_NO && x.CreatedDate >= Last21Time).Join(db.RoshitaDetails, r => r.Id, rd => rd.RoshitaID, (r, rd) => new { r, rd }).Where(x => x.rd.MedicienCode == item.MED_CODE).Count() == 0)
+            //                update.IsDealed = false;
+            //        }
+            //        update.Dose = Convert.ToInt32(item.DOSE);
+            //        update.Duration = Convert.ToInt32(item.MED_DURATION);
+            //        update.TotalDuration = 28;
+            //        update.Duration = Convert.ToInt32(item.MED_DURATION);
+            //        update.TotalUnits = Convert.ToInt32(item.NO_OF_UINT);
+            //        update.Amount = Convert.ToInt32(item.TOTAL_AMT);
+            //        update.IsDealed = item.ACTIVE == "N" ? true : update.IsDealed;
+            //        update.SyncBy = "Updated";
+            //        db.Entry(update).State = EntityState.Modified;
+            //    }
+
+
+            //}
             db.SaveChanges();
             //remove remain
             return Json("Done");
         }
+
+
+        //[Authorize(Roles = "Admin,Doctor")]
+        //public JsonResult SubmetChronic2(List<Med_Medicine> data)
+        //{
+        //    #region Ahtenticate
+        //    string car = data[0].CARD_NO;
+        //    var medUpdate = db.Med_Card.Where(c => c.CARD_NO == car).FirstOrDefault();
+        //    if (medUpdate != null)
+        //    {
+        //        if (medUpdate.UPDATE_BY == "GodaKotb" && User.Identity.Name != "GodaKotb")
+        //        {
+        //            return Json("False");
+        //        }
+        //    }
+        //    #endregion
+
+        //    List<Med_Medicine> current = new List<Med_Medicine>();
+
+        //    Med_Medicine first = data.First();
+        //    current = db.Med_Medicine.Where(c => c.CARD_NO == first.CARD_NO).ToList();
+        //    //db.Med_Medicine.RemoveRange(current);
+        //    foreach (Med_Medicine item in data)
+        //    {
+        //        bool flag = true;
+        //        foreach (var Cur in current)
+        //        {
+        //            if (Cur.MED_CODE == item.MED_CODE)
+        //            {
+        //                flag = false;
+        //                break;
+        //            }
+        //        }
+        //        if (flag == true)
+        //        {
+        //            //add new item
+        //            item.RDATE = DateTime.Now;
+        //            item.CREATED_BY = User.Identity.Name;
+        //            item.CREATED_DATE = DateTime.Now;
+        //            db.Med_Medicine.Add(item);
+        //        }
+        //        else
+        //        {
+        //            //update 
+        //            Med_Medicine update = current.Where(x => x.MED_CODE == item.MED_CODE).FirstOrDefault();
+
+        //            update.UPDATE_BY = User.Identity.Name;
+        //            update.UPDATE_DATE = DateTime.Now;
+        //            update.MED_TYP = item.MED_TYP;
+        //            update.DOSE = Convert.ToInt32(item.DOSE);
+        //            update.NO_OF_UINT = Convert.ToInt32(item.NO_OF_UINT);
+        //            update.TOTAL_AMT = item.TOTAL_AMT;
+        //            update.MED_DURATION = Convert.ToInt32(item.MED_DURATION);
+        //            update.DOS_DUR = Convert.ToInt32(item.DOS_DUR);
+        //            update.EXCESS = item.EXCESS;
+        //            update.UNIT_NO = Convert.ToInt32(item.UNIT_NO);
+        //            update.UNIT_PRICE = item.UNIT_PRICE;
+        //            update.ACTIVE = item.ACTIVE;
+        //            update.LFT_MONTH = item.LFT_MONTH;
+        //            update.MONTH_DATE_STOP = item.MONTH_DATE_STOP;
+        //            update.SyncBy = "Updated";
+        //            db.Entry(update).State = EntityState.Modified;
+        //        }
+
+        //    }
+        //    //db.SaveChanges();
+        //    //rositaDetails
+        //    var Rosita = db.Roshitas.Where(r => r.CardId == first.CARD_NO && r.Manager == "Doctor_Chronic").OrderByDescending(c => c.CreatedDate).FirstOrDefault();
+        //    var rositaDetails = db.RoshitaDetails.Where(x => x.RoshitaID == Rosita.Id).ToList();
+        //    foreach (Med_Medicine item in data)
+        //    {
+        //        //insert or Update
+        //        bool flag = true;
+        //        foreach (var Cur in rositaDetails)
+        //        {
+        //            if (Cur.MedicienCode == item.MED_CODE)
+        //            {
+        //                flag = false;
+        //            }
+        //        }
+        //        DateTime MONTH_DATE_STOP21Time = new DateTime();
+        //        if (item.MONTH_DATE_STOP != null)
+        //        {
+        //            string MONTH_DATE_STOP21 = "21/" + (item.MONTH_DATE_STOP.Value.ToString("MM/yyyy")).ToString();
+        //            MONTH_DATE_STOP21Time = DateTime.ParseExact(MONTH_DATE_STOP21, "dd/MM/yyyy", null);
+        //        }
+        //        if (flag == true)
+        //        {
+        //            //add to roshita active only
+        //            RoshitaDetail roshitaDetail = new RoshitaDetail();
+        //            roshitaDetail.MedicienCode = item.MED_CODE;
+        //            roshitaDetail.MedicienName = item.MED_NAME;
+        //            roshitaDetail.Dose = Convert.ToInt32(item.DOSE);
+        //            roshitaDetail.Duration = Convert.ToInt32(item.MED_DURATION);
+        //            roshitaDetail.TotalDuration = 28;
+        //            //roshitaDetail.Duration = Convert.ToInt32(item.MED_DURATION);
+        //            roshitaDetail.TotalUnits = Convert.ToInt32(item.NO_OF_UINT);
+        //            roshitaDetail.IsDealed = item.ACTIVE == "Y" && (item.MONTH_DATE_STOP == null || MONTH_DATE_STOP21Time > DateTime.Now) ? false : true;
+        //            roshitaDetail.Amount = Convert.ToInt32(item.TOTAL_AMT);
+        //            roshitaDetail.RoshitaID = Rosita.Id;
+        //            roshitaDetail.PaymentGroup = "Yes";
+        //            roshitaDetail.IsSync = false;
+        //            db.RoshitaDetails.Add(roshitaDetail);
+        //        }
+        //        else
+        //        {
+
+        //            //update active only
+        //            RoshitaDetail update = rositaDetails.Where(x => x.MedicienCode == item.MED_CODE).FirstOrDefault();
+        //            if (item.ACTIVE == "Y" && (item.MONTH_DATE_STOP == null || MONTH_DATE_STOP21Time > DateTime.Now))
+        //            {
+        //                string Last21 = "21/" + ((DateTime.Now.Day >= 21) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(-1).ToString("MM/yyyy")).ToString();
+        //                DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
+        //                if (db.Roshitas.Where(x => x.Manager == "pharmacy_chronic" && x.CardId == first.CARD_NO && x.CreatedDate >= Last21Time).Join(db.RoshitaDetails, r => r.Id, rd => rd.RoshitaID, (r, rd) => new { r, rd }).Where(x => x.rd.MedicienCode == item.MED_CODE).Count() == 0)
+        //                    update.IsDealed = false;
+        //            }
+        //            update.Dose = Convert.ToInt32(item.DOSE);
+        //            update.Duration = Convert.ToInt32(item.MED_DURATION);
+        //            update.TotalDuration = 28;
+        //            update.Duration = Convert.ToInt32(item.MED_DURATION);
+        //            update.TotalUnits = Convert.ToInt32(item.NO_OF_UINT);
+        //            update.Amount = Convert.ToInt32(item.TOTAL_AMT);
+        //            update.IsDealed = item.ACTIVE == "N" ? true : update.IsDealed;
+        //            update.SyncBy = "Updated";
+        //            db.Entry(update).State = EntityState.Modified;
+        //        }
+
+
+        //    }
+        //    db.SaveChanges();
+        //    //remove remain
+        //    return Json("Done");
+        //}
 
         #endregion
         #endregion
@@ -882,6 +1077,22 @@ namespace DMS_Authontication1.Controllers
         //    return new JsonResult { Data = coms, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         //}
 
+
+        public bool CompareMedicine(Med_Medicine newmedicine, Med_Medicine oldmedicine)
+        {
+            if (newmedicine.DOSE != oldmedicine.DOSE)
+                return true;
+            if (newmedicine.MED_DURATION != oldmedicine.MED_DURATION)
+                return true;
+            if (newmedicine.ACTIVE != oldmedicine.ACTIVE)
+                return true;
+            if (newmedicine.MED_TYP != oldmedicine.MED_TYP)
+                return true;
+            if (newmedicine.LFT_MONTH != oldmedicine.LFT_MONTH)
+                return true;
+
+            return false;
+        }
         #endregion
     }
 }
