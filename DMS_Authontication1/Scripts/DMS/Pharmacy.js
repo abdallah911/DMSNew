@@ -71,6 +71,7 @@ $(function () {
                 data: { id: $('#txtSearchCard').val() },
                 dataType: 'Json',
                 success: function (r) {
+                    $('#txtSearchCard').attr('disabled', true);
                     $('#Cards').dataTable().fnDestroy();
                     var setData = $("#Cards Tbody");
                     setData.empty();
@@ -123,7 +124,7 @@ $(function () {
                     }
 
                     if (r.length == 1) {
-
+                        $('#txtSearchCard').attr('disabled', true);
                         $('#Pending').attr('disabled', false);
                         $('#Approval').attr('disabled', false);
                         CardId = r[0].CARD_ID;

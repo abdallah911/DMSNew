@@ -59,7 +59,7 @@ namespace DMS_Synchronization
             //connectionSettings.SQlConnection = "data source=171.0.1.93;Database=DB_A45413_DMSERP1;persist security info=True;user id=sa;password=gouda2003;MultipleActiveResultSets=True;App=EntityFramework";
             //connectionSettings.SQlConnection = "data source=72.52.116.106;Database=DB_A45413_DMSERP;persist security info=True;user id=sa;password=gouda2003;MultipleActiveResultSets=True;App=EntityFramework";
 
-            connectionSettings.SQlConnection = "data source=72.52.116.106;Database=DB_A45413_DMSERP;persist security info=True;user id=dms_abdallah; password =WDG5PnpbkX-=#ysn;MultipleActiveResultSets=True;App=EntityFramework";
+            connectionSettings.SQlConnection = "data source=72.52.116.106;Database=DB_A45413_DMSERP;persist security info=True;user id=dms_abdallah; password =Aya1995@DmS;MultipleActiveResultSets=True;App=EntityFramework";
             //connectionSettings.SQlConnection = "data source=171.0.1.93;Database=DB_A45413_DMSERP;persist security info=True;user id=sa; password =123;MultipleActiveResultSets=True;App=EntityFramework";
             //connectionSettings.SQlConnection = "data source=72.52.116.106;Database=DMSERP_develop;persist security info=True;user id=sa;password=gouda2003;MultipleActiveResultSets=True;App=EntityFramework";
             //connectionSettings.SQlConnection = "data source=.\\;Database=TEST;persist security info=True;user id=sa;password=123;MultipleActiveResultSets=True;App=EntityFramework";

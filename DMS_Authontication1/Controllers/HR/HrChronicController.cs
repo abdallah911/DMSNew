@@ -47,7 +47,7 @@ namespace DMS_Authontication1.Controllers.HR
                 ViewBag.compnum = cardId.Split('-')[0];
 
 
-                var subCards = CardList(usr);
+                var subCards = CardList(cardId);
 
                 var cards = subCards.Select(c => new
                 {
@@ -162,7 +162,7 @@ namespace DMS_Authontication1.Controllers.HR
                     ENUM_REQUESTSViewModel.CARD_ID = cardId;
                     ENUM_REQUESTSViewModel.CompName = cardId.Split('-')[0];
                     var comp2 = int.Parse(ENUM_REQUESTSViewModel.CompName);
-                    var employees2 = db.Comp_Employees.Where(m => m.C_COMP_ID == comp2 &&m.CARD_ID== cardId&&
+                    var employees2 = db.Comp_Employees.Where(m => m.C_COMP_ID == comp2 && m.CARD_ID == cardId &&
                     m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
                       .Select(l => new
                       {
@@ -434,9 +434,9 @@ namespace DMS_Authontication1.Controllers.HR
             mailclient.Send(mail);
         }
 
-        public List<Comp_Employees> CardList(string userId)
+        public List<Comp_Employees> CardList(string CardId)
         {
-            var CardId = db.EmployeePersonalDatas.Where(e => e.UserId == userId).FirstOrDefault().CardId;
+            //var CardId = db.EmployeePersonalDatas.Where(e => e.UserId == userId).FirstOrDefault().CardId;
             var EmpCode = long.Parse(CardId.Split('-')[2]);
             var CompId = int.Parse(CardId.Split('-')[0]);
             var Employee = db.Comp_Employees.Where(e => e.CARD_ID == CardId &&
