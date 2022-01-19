@@ -628,41 +628,44 @@ namespace DMS_Authontication1.Controllers
         public JsonResult UpdateCard(MonthlyChronicDoctorApprovalViewModel data)
         {
             #region Authenticate
-            string car = data.CARD_NO;
-            var medUpdate = db.Med_Card.Where(c => c.CARD_NO == car).FirstOrDefault();
-            if (medUpdate != null)
+            Med_Card mED_CARD = new Med_Card();
+            mED_CARD = db.Med_Card.Where(x => x.CARD_NO == data.CARD_NO).FirstOrDefault();
+            if (mED_CARD != null)
             {
-                if (medUpdate.UPDATE_BY == "GodaKotb" && User.Identity.Name != "GodaKotb")
+                if (mED_CARD.UPDATE_BY == "GodaKotb" && User.Identity.Name != "GodaKotb")
                 {
                     return Json("False");
                 }
             }
             #endregion
-            Med_Card mED_CARD = new Med_Card();
-            mED_CARD = db.Med_Card.Where(x => x.CARD_NO == data.CARD_NO).FirstOrDefault();
-            mED_CARD.UPDATE_BY = User.Identity.Name;
-            mED_CARD.UPDATE_DATE = DateTime.Now;
-            mED_CARD.NOTES = data.NOTES;
-            mED_CARD.GROUP_ID = data.GROUP_ID;
-            var Group = db.S_Ent_7.Where(x => x.S_ID == data.GROUP_ID).FirstOrDefault();
-            mED_CARD.GROUP_NAME = Group.S_NAME;
-            mED_CARD.LOOK_01 = data.LOOK_01;
-            mED_CARD.MONTH_START_DATE = data.MONTH_START_DATE;
-            // mED_CARD.MONTH_END_DATE
-            mED_CARD.NO_OVER = data.NO_OVER;
-            mED_CARD.NO_PAY = data.NO_PAY;
-            var prov = db.Serv_Providers1.Where(d => d.PR_ANAME == data.PR_ANAME).FirstOrDefault();
-            mED_CARD.PROVIDER_CODE = prov.PR_CODE;
-            mED_CARD.ST_DAY = data.ST_DAY;
-            mED_CARD.TASHKHES_01 = data.TASHKHES_01;
-            mED_CARD.SyncBy = "Updated";
-            if (ModelState.IsValid)
-            {
-                db.Entry(mED_CARD).State = EntityState.Modified;
-            }
-            int result = db.SaveChanges();
 
-            return Json(result);
+            if (CompareMedCard(mED_CARD, data))
+            {
+                mED_CARD.UPDATE_BY = User.Identity.Name;
+                mED_CARD.UPDATE_DATE = DateTime.Now;
+                mED_CARD.NOTES = data.NOTES;
+                mED_CARD.GROUP_ID = data.GROUP_ID;
+                var Group = db.S_Ent_7.Where(x => x.S_ID == data.GROUP_ID).FirstOrDefault();
+                mED_CARD.GROUP_NAME = Group.S_NAME;
+                mED_CARD.LOOK_01 = data.LOOK_01;
+                mED_CARD.MONTH_START_DATE = data.MONTH_START_DATE;
+                // mED_CARD.MONTH_END_DATE
+                mED_CARD.NO_OVER = data.NO_OVER;
+                mED_CARD.NO_PAY = data.NO_PAY;
+                var prov = db.Serv_Providers1.Where(d => d.PR_ANAME == data.PR_ANAME).FirstOrDefault();
+                mED_CARD.PROVIDER_CODE = prov.PR_CODE;
+                mED_CARD.ST_DAY = data.ST_DAY;
+                mED_CARD.TASHKHES_01 = data.TASHKHES_01;
+                mED_CARD.SyncBy = "Updated";
+                if (ModelState.IsValid)
+                {
+                    db.Entry(mED_CARD).State = EntityState.Modified;
+                }
+                int result = db.SaveChanges();
+
+                return Json(result);
+            }
+            return Json(1);
         }
         public JsonResult LastApproval(string id)
         {
@@ -1093,6 +1096,31 @@ namespace DMS_Authontication1.Controllers
 
             return false;
         }
+
+        public bool CompareMedCard(Med_Card mED_CARD, MonthlyChronicDoctorApprovalViewModel data)
+        {
+            if (mED_CARD.NOTES != data.NOTES)
+                return true;
+            if (mED_CARD.LOOK_01 != data.LOOK_01)
+                return true;
+            if (mED_CARD.GROUP_ID != data.GROUP_ID)
+                return true;
+            if (mED_CARD.MONTH_START_DATE != data.MONTH_START_DATE)
+                return true;
+            if (mED_CARD.ST_DAY != data.ST_DAY)
+                return true;
+            if (mED_CARD.NO_OVER != data.NO_OVER)
+                return true;
+            if (mED_CARD.NO_PAY != data.NO_PAY)
+                return true;
+            if (mED_CARD.TASHKHES_01 != data.TASHKHES_01)
+                return true;
+            var prov = db.Serv_Providers1.Where(d => d.PR_ANAME == data.PR_ANAME).FirstOrDefault();
+            if (mED_CARD.PROVIDER_CODE != prov.PR_CODE)
+                return true;
+            return false;
+        }
+
         #endregion
     }
 }
