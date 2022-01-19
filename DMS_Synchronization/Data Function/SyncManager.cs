@@ -5491,7 +5491,7 @@ namespace DMS_Synchronization
                             try
                             {
                                 rsh.MGR_ID = int.Parse(GetSqlDataTable("SELECT COUNT(*) FROM RoshitaDetails WHERE RoshitaID=" + item.Id
-                                    +" AND IsDealed = 1 AND  PaymentGroup!='Pending' AND  PaymentGroup!='Rejected' ", _connectionSettings.SQlConnection).Rows[0][0].ToString());
+                                    + " AND IsDealed = 1 AND  PaymentGroup!='Pending' AND  PaymentGroup!='Rejected' ", _connectionSettings.SQlConnection).Rows[0][0].ToString());
                             }
                             catch (Exception ex)
                             {
