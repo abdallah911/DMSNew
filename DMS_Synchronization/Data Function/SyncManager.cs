@@ -4559,7 +4559,7 @@ namespace DMS_Synchronization
                             //var insurance = GetSqlDataTable(@"select INSURANCE_DAY,INSURANCE_MONTH  from CO_INSURANCE_01 where CO_ID=" + rsh.C_COMP_ID + " AND LIVEL='" + rsh.CLASS_CODE + "'", _connectionSettings.SQlConnection);
                             var insuranceMedEmp = GetSqlDataTable(@"select DAY_AMT,MON_AMT  from COMP_CUSTOMIZED_D_D_MED_EMP where CARD_ID='"
                                 + rsh.CARD_ID + "' AND CLASS_CODE='" + rsh.CLASS_CODE + "' AND CONTRACT_NO=" + rsh.CONTRACT_NO
-                                + " SER_SERV='" + item.RoshetaType + "' C_COMP_ID=" + rsh.C_COMP_ID, _connectionSettings.SQlConnection);
+                                + " AND SER_SERV='" + item.RoshetaType + "' C_COMP_ID=" + rsh.C_COMP_ID, _connectionSettings.SQlConnection);
                             if (insuranceMedEmp.Rows.Count > 0)
                             {
                                 rsh.INSU_LIMT = insuranceMedEmp.Rows[0][0].ToString() != string.Empty ? int.Parse(insuranceMedEmp.Rows[0][0].ToString()) : 0;
@@ -4578,7 +4578,7 @@ namespace DMS_Synchronization
                             {
                                 var insuranceMed = GetSqlDataTable(@"select DAY_AMT,MON_AMT  from COMP_CUSTOMIZED_D_D_MED where C_COMP_ID='"
                                 + rsh.C_COMP_ID + "' AND CLASS_CODE='" + rsh.CLASS_CODE + "' AND CONTRACT_NO=" + rsh.CONTRACT_NO
-                                + " SER_SERV='" + item.RoshetaType + "' ", _connectionSettings.SQlConnection);
+                                + " AND SER_SERV='" + item.RoshetaType + "' ", _connectionSettings.SQlConnection);
                                 if (insuranceMed.Rows.Count > 0)
                                 {
                                     rsh.INSU_LIMT = insuranceMed.Rows[0][0].ToString() != string.Empty ? int.Parse(insuranceMed.Rows[0][0].ToString()) : 0;
