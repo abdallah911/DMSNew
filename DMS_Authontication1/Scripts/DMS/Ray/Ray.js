@@ -27,6 +27,7 @@ $(function () {
                 data: { id: $('#txtSearchCard').val() },
                 dataType: 'Json',
                 success: function (r) {
+                    $('#txtSearchCard').attr('disabled', true);
                     var setData = $("#Cards Tbody");
                     setData.empty();
                     for (var i = 0; i < r.length; i++) {
@@ -67,7 +68,7 @@ $(function () {
                     }
 
                     if (r.length == 1) {
-
+                        $('#txtSearchCard').attr('disabled', true);
                         $('#Pending').attr('disabled', false);
                         CardId = $('#txtSearchCard').val();
                         var ArName;
@@ -591,7 +592,7 @@ function SelectRay(event) {
                     });
 
                     if (Group == "NO") {
-                        if ($('#txtSearchCard').val().val().split('-')[0].includes("500")) {
+                        if ($('#txtSearchCard').val().split('-')[0].includes("500")) {
                             Group = "Accepted";
                             AppendRow();
                             Calculation();

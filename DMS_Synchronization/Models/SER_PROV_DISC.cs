@@ -14,7 +14,7 @@ namespace DMS_Synchronization.Models
         public double DEV_LOC_DIS { get; set; }
         public double IMP_DIS { get; set; }
         public double DEV_IMP_DIS { get; set; }
-        public double PRV_TYPE { get; set; }
+        public int PRV_TYPE { get; set; }
         public string TERMINATE_FLAG { get; set; }
         public DateTime? TERMINATE_DATE { get; set; }
         public string USER_CR { get; set; }
