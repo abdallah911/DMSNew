@@ -521,12 +521,12 @@ namespace DMS_Authontication1.Controllers
         #region Individuals
         public JsonResult getDiag()
         {
-            var Diagnoises = db.Diagnosis.Select(l => new
+            var Diagnoises = db.Diagnosis.Where(d=>d.ACTIVE=="1").Select(l => new
             {
                 Code = l.Id,
                 Name = l.DIAG_ANAME
 
-            }).ToList();
+            }).ToList().Distinct();
             return new JsonResult { Data = Diagnoises, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         #region Cards
@@ -554,6 +554,8 @@ namespace DMS_Authontication1.Controllers
                         TASHKHES_01 = l.x.m.TASHKHES_01,
                         ST_DAY = l.x.m.ST_DAY,
                         NOTES = l.x.m.NOTES,
+                        PhoneNumber = l.x.m.PhoneNumber,
+                        NationalId = l.x.m.NationalId
 
                     })
                     .FirstOrDefault();
@@ -594,6 +596,8 @@ namespace DMS_Authontication1.Controllers
             mED_CARD.PROVIDER_CODE_OLD = 1268;
             mED_CARD.ST_DAY = data.ST_DAY;
             mED_CARD.TASHKHES_01 = data.TASHKHES_01;
+            mED_CARD.PhoneNumber = data.PhoneNumber;
+            mED_CARD.NationalId = data.NationalId;
             db.Med_Card.Add(mED_CARD);
             db.Roshitas.Add(new Roshita
             {
@@ -614,9 +618,9 @@ namespace DMS_Authontication1.Controllers
                 IsSync = false,
                 //SyncBy = "Admin",
                 //SyncDate = DateTime.Now,
-                Diagnose2 = "Empty",
+                Diagnose2 = data.NationalId,
                 diagnose3 = "Empty",
-                PhoneNumber = "Empty",
+                PhoneNumber = data.PhoneNumber,
                 Oracle_Id = 0
 
             });
@@ -656,6 +660,8 @@ namespace DMS_Authontication1.Controllers
                 mED_CARD.PROVIDER_CODE = prov.PR_CODE;
                 mED_CARD.ST_DAY = data.ST_DAY;
                 mED_CARD.TASHKHES_01 = data.TASHKHES_01;
+                mED_CARD.PhoneNumber = data.PhoneNumber;
+                mED_CARD.NationalId = data.NationalId;
                 mED_CARD.SyncBy = "Updated";
                 if (ModelState.IsValid)
                 {
@@ -1114,6 +1120,10 @@ namespace DMS_Authontication1.Controllers
             if (mED_CARD.NO_PAY != data.NO_PAY)
                 return true;
             if (mED_CARD.TASHKHES_01 != data.TASHKHES_01)
+                return true;
+            if (mED_CARD.PhoneNumber != data.PhoneNumber)
+                return true;
+            if (mED_CARD.NationalId != data.NationalId)
                 return true;
             var prov = db.Serv_Providers1.Where(d => d.PR_ANAME == data.PR_ANAME).FirstOrDefault();
             if (mED_CARD.PROVIDER_CODE != prov.PR_CODE)

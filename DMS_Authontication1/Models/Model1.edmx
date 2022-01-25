@@ -1390,6 +1390,8 @@
           <Property Name="NO_PAY" Type="int" />
           <Property Name="NO_OVER" Type="int" />
           <Property Name="ST_DAY" Type="int" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="NationalId" Type="nvarchar" MaxLength="14" />
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
@@ -1957,7 +1959,7 @@
           <Property Name="DEV_LOC_DIS" Type="float" Nullable="false" />
           <Property Name="IMP_DIS" Type="float" Nullable="false" />
           <Property Name="DEV_IMP_DIS" Type="float" Nullable="false" />
-          <Property Name="PRV_TYPE" Type="float" Nullable="false" />
+          <Property Name="PRV_TYPE" Type="int" Nullable="false" />
           <Property Name="TERMINATE_FLAG" Type="nvarchar(max)" />
           <Property Name="TERMINATE_DATE" Type="date" />
           <Property Name="USER_CR" Type="nvarchar(max)" />
@@ -3929,6 +3931,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NationalId" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Med_Medicine">
           <Key>
@@ -7251,6 +7255,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="Med_Card">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Med_Card">
               <MappingFragment StoreEntitySet="Med_Card">
+                <ScalarProperty Name="NationalId" ColumnName="NationalId" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CARD_NO" ColumnName="CARD_NO" />
                 <ScalarProperty Name="PROVIDER_CODE" ColumnName="PROVIDER_CODE" />

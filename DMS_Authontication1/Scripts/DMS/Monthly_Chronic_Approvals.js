@@ -740,6 +740,8 @@ function EditCard(button) {
     $('.modal-body #OverInsuranceLimit1').val($("TD", row).eq(9).html());
     $('.modal-body #LockStatus1').val($("TD", row).eq(10).html());
     $('.modal-body #NOTES1').val($("TD", row).eq(11).html());
+    $('.modal-body #PhoneNumber1').val($("TD", row).eq(12).html());
+    $('.modal-body #NationalId1').val($("TD", row).eq(13).html());
     $('#EditCardModal').modal();
 
 }
