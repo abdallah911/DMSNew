@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DMS_Authontication1.Models;
 using System.Collections.Generic;
+using DMS_TEST.ViewModel;
+using Newtonsoft.Json;
 
 namespace DMS_Authontication1.Controllers
 {
@@ -21,10 +23,11 @@ namespace DMS_Authontication1.Controllers
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
         private ApplicationDbContext db;
-
+        private DMS_TESTEntities tESTEntities;
         public AccountController()
         {
             db = new ApplicationDbContext();
+            tESTEntities = new DMS_TESTEntities();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
@@ -107,6 +110,22 @@ namespace DMS_Authontication1.Controllers
                 }
                 else
                 {
+                    var _ERPRolesUsersPages = tESTEntities.ERPUsersModulesPages.Where(x => x.UserId == user.Id)
+                         .Join(tESTEntities.ERPModulesPages, rmp => rmp.PageId, mp => mp.Id, (rmp, mp) => new { rmp, mp })
+                         .Select(l => new ModulesPagesViewModel
+                         {
+                             ModuleName = l.mp.ERPModule.Name,
+                             PageName = l.mp.Name,
+                             FullControl = l.rmp.FullControl,
+                             Preview = l.rmp.Preview,
+                             AddPermission = l.rmp.AddPermission,
+                             EditPermission = l.rmp.EditPermission,
+                             ActivationControl = l.rmp.ActivationControl,
+                             PageId = l.rmp.PageId
+                         }).OrderBy(x => x.ModuleName).ToList();
+                    string seralize = JsonConvert.SerializeObject(_ERPRolesUsersPages);
+
+                    await UserManager.AddClaimAsync(user.Id, new Claim("SomeClaimType", seralize));
                     var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
 
                     switch (result)
@@ -114,6 +133,29 @@ namespace DMS_Authontication1.Controllers
                         case SignInStatus.Success:
                             var userRole = user.Roles.Select(x => x.RoleId).FirstOrDefault();
                             string role = RoleManager.Roles.Where(x => x.Id == userRole).FirstOrDefault().Name;
+
+                            //var claims = new List<Claim>();
+                            //var st = "Brock";
+                            //var st2 = "brockallen@gmail.com";
+                            //claims.Add(new Claim("role", st));
+                            //claims.Add(new Claim("em", st2));
+                            //var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+
+                            //var ctx = Request.GetOwinContext();
+                            //var authenticationManager = ctx.Authentication;
+                            //authenticationManager.SignIn(id);
+                            //user.Claims.Add(new Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim
+                            //{
+                            //    ClaimType = "asd",
+                            //    ClaimValue = st,
+                            //    UserId = user.Id
+                            //});
+                            //await UserManager.AddClaimAsync(user.Id, new Claim("SomeClaimType", st));
+
+
+                            //var xx = User;
+
+
                             switch (role)
                             {
                                 case "Pharmacy":
@@ -884,8 +926,18 @@ namespace DMS_Authontication1.Controllers
         // POST: /Account/LogOff
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public async Task<ActionResult> LogOff()
         {
+            var claim = ((ClaimsIdentity)User.Identity);
+            if (claim != null)
+            {
+                foreach (var item in claim.Claims)
+                {
+                    await UserManager.RemoveClaimAsync(User.Identity.GetUserId(), item);
+
+                }
+
+            }
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
 
