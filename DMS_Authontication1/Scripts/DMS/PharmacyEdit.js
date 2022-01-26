@@ -186,128 +186,83 @@ $(function () {
             Mediciens.push(Medicien);
         });
         if (Mediciens.length != 0) {
-            var UpdatePrescription = {
-                Id: id,
-                // hasApproval: $('#HasApproval').prop("checked") ? true : false,
-                // CardId: $('#txtSearchCard').val(),
-                // RoshetaType: $('#ddlType').val(),
-                // CompanyPercent: $('#ddEmp_CEILING_PERT').val(),
-                // Limit: $('#insurance_LIVEL').val(),
-                // Speciality: $('#ddlSpeciality option:selected').text(),
-                // Diagnose1: $('#Comments').val(),
-                // Diagnose2: NationalId,
-                TotalValue: $('#txtTotalInvoice').val(),
-                PersonPayment: $('#txtTotalCopayment').val(),
-                CompanyPayment: $('#txtValueCredit').val(),
-                OverInsurance: $('#txtOverInsurance').val(),
-                Cash: $('#txtValueCash').val(),
-                // PhoneNumber: $('#PhoneNumber').val(),
-                // ClaimNumber: $('#ClaimNumber').val(),
-                // createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val(),
-                roshitaDetail: Mediciens,
-                // diagnose: diagnose
-            };
-            $.ajax({
-                type: 'POST',
-                url: '/Pharmacy/UpdatePrescription/',
-                dataType: 'Json',
-                //contentType: "application/json; charset=utf-8",
-                //data: JSON.stringify(SavePrescriptipn),
-                data: UpdatePrescription,
-                success: function (OracleId) {
-                    bootbox.dialog({
-                        closeButton: false,
-                        title: 'Added Sucessfully',
-                        message: " يرجي اعادة الطباعه حيث ان الكليم القديم يعتبر لاغي وعدم الطباعه سيؤدي الي خصم الكيم بالكامل علي مقدم الخدمه " + "Approval Number : " + OracleId,
-                        buttons: {
-                            Print: {
-                                label: "Print",
-                                className: 'btn-info',
-                                callback: function () {
-                                    //window.location.reload();
-                                    window.open('/Pharmacy/ControlPenelReport?id=' + OracleId);
-                                    //$("#submit").attr("disabled", false);
+            $("#Update").attr("disabled", true);
+            debugger;
+            if ($('#txtTotalInvoice').val() != 0 && $('#txtTotalInvoice').val() != undefined && $('#txtTotalInvoice').val() != "") {
+                var UpdatePrescription = {
+                    Id: id,
+                    // hasApproval: $('#HasApproval').prop("checked") ? true : false,
+                    // CardId: $('#txtSearchCard').val(),
+                    // RoshetaType: $('#ddlType').val(),
+                    // CompanyPercent: $('#ddEmp_CEILING_PERT').val(),
+                    // Limit: $('#insurance_LIVEL').val(),
+                    // Speciality: $('#ddlSpeciality option:selected').text(),
+                    // Diagnose1: $('#Comments').val(),
+                    // Diagnose2: NationalId,
+                    TotalValue: $('#txtTotalInvoice').val(),
+                    PersonPayment: $('#txtTotalCopayment').val(),
+                    CompanyPayment: $('#txtValueCredit').val(),
+                    OverInsurance: $('#txtOverInsurance').val(),
+                    Cash: $('#txtValueCash').val(),
+                    // PhoneNumber: $('#PhoneNumber').val(),
+                    // ClaimNumber: $('#ClaimNumber').val(),
+                    // createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val(),
+                    roshitaDetail: Mediciens,
+                    // diagnose: diagnose
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/Pharmacy/UpdatePrescription/',
+                    dataType: 'Json',
+                    //contentType: "application/json; charset=utf-8",
+                    //data: JSON.stringify(SavePrescriptipn),
+                    data: UpdatePrescription,
+                    success: function (OracleId) {
+                        bootbox.dialog({
+                            closeButton: false,
+                            title: 'Added Sucessfully',
+                            message: " يرجي اعادة الطباعه حيث ان الكليم القديم يعتبر لاغي وعدم الطباعه سيؤدي الي خصم الكيم بالكامل علي مقدم الخدمه " + "Approval Number : " + OracleId,
+                            buttons: {
+                                Print: {
+                                    label: "Print",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        //window.location.reload();
+                                        window.open('/Pharmacy/ControlPenelReport?id=' + OracleId);
+                                        $("#Update").attr("disabled", false);
+                                        //$("#submit").attr("disabled", false);
 
+                                    }
+                                },
+                                New: {
+                                    label: "New",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        window.location = "/Pharmacy/index?id=undefined";
+                                        $("#Update").attr("disabled", false);
+                                        //window.location.reload();
+                                    }
                                 }
-                            },
-                            New: {
-                                label: "New",
-                                className: 'btn-info',
-                                callback: function () {
-                                    window.location = "/Pharmacy/index?id=undefined";
-                                    //window.location.reload();
-                                }
+
                             }
-
-                        }
-                    });
-                },
-                error: function (err) {
-                    bootbox.alert("Error saving roshita,please check your internet connection");
-                    $("#submit").attr("disabled", false);
-                }
-            });
-            //$.ajax({
-            //    type: 'POST',
-            //    url: '/Pharmacy/update/',
-            //    dataType: 'Json',
-            //    data: {
-            //        Id: id,
-            //        //calculation
-            //        TotalValue: $('#txtTotalInvoice').val(),
-            //        PersonPayment: $('#txtTotalCopayment').val(),
-            //        CompanyPayment: $('#txtValueCredit').val(),
-            //        OverInsurance: $('#txtOverInsurance').val(),
-            //        Cash: $('#txtValueCash').val()
-            //    },
-            //    success: function (Oracle_Id) {
-            //        bootbox.dialog({
-            //            closeButton: false,
-            //            title: 'Updated Sucessfully',
-            //            message: "Roshita ID : " + Oracle_Id,
-            //            buttons: {
-            //                Print: {
-            //                    label: "Print",
-            //                    className: 'btn-info',
-            //                    callback: function () {
-            //                        window.location.reload();
-            //                        window.open('/Pharmacy/ControlPenelReport?id=' + Oracle_Id);
-            //                    }
-            //                },
-            //                New: {
-            //                    label: "Back",
-            //                    className: 'btn-info',
-            //                    callback: function () {
-            //                        window.location = "/Pharmacy/index?id=undefined";
-            //                    }
-            //                }
-
-            //            }
-            //        });
-            //    },
-            //    error: function (err) {
-            //        bootbox.alert("Error update roshita,please check your internet connection");
-            //        //bootbox.alert("Error prescription");
-
-            //    }
-            //}).done(function () {
-            //    $.ajax({
-            //        type: 'POST',
-            //        url: '/Pharmacy/UpdateMediciens/',
-            //        dataType: 'Json',
-            //        contentType: "application/json; charset=utf-8",
-            //        data: JSON.stringify(Mediciens),
-            //        success: function (r) {
-
-            //        },
-            //        error: function (err) {
-            //            bootbox.alert("Error update Medicines,please check your connection");
-            //            //bootbox.alert("Error Medicien");
-            //        }
-            //    });
-
-            //});
-        } else { bootbox.alert("Please Insert medicines"); }
+                        });
+                    },
+                    error: function (err) {
+                        bootbox.alert("Error saving roshita,please check your internet connection");
+                        $("#Update").attr("disabled", false);
+                    }
+                });
+                
+            }
+            else {
+                bootbox.alert("Please wait untaill data load correctly");
+                $("#Update").attr("disabled", false);
+            }
+        }
+        else {
+            bootbox.alert("Please Insert medicines");
+            $("#Update").attr("disabled", false);
+        }
 
     })
 });

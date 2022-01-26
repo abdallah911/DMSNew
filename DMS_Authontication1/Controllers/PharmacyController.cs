@@ -1302,6 +1302,7 @@ namespace DMS_TEST.Controllers
             catch (DbEntityValidationException e)
             {
                 db.Roshitas.Remove(roshita);
+                db.SaveChanges();
                 return Json("Failed to Save Prescription");
                 //foreach (var eve in e.EntityValidationErrors)
                 //{
