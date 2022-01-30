@@ -39,6 +39,9 @@
                             <th>
                                 Group
                             </th>
+                            <th>
+                                Medicine Group
+                            </th>
 
                         </tr>
                     </thead>
@@ -56,7 +59,7 @@
 <script>
     function SelectMedicien(button) {
         var row = $(button).closest("TR");
-        
+
         var MedicienCode = $("TD", row).eq(1).html();
         var MedicienName = $("TD", row).eq(2).html();
         var DosageForm = $("TD", row).eq(3).html();
@@ -65,6 +68,7 @@
         var UnitNumber = $("TD", row).eq(6).html();
         var UnitPrice = $("TD", row).eq(7).html();
         var Group = $("TD", row).eq(8).html();
+        var MedicineGroup = $("TD", row).eq(9).html();
 
         $('.modal-body #MedicienCode').val(MedicienCode);
         $('.modal-body #MedicienName').val(MedicienName);
@@ -74,14 +78,15 @@
         $('.modal-body #UnitNumber').val(UnitNumber);
         $('.modal-body #UnitPrice').val(UnitPrice);
         $('.modal-body #Amount').val(PackPrice);
-      
+        $('.modal-body #MedGroup').val(MedicineGroup);
+
         $('.modal-footer #AddApproval').val("Add");
         $('.modal-title').html("Add");
 
-        
+
         $('.modal-body #Group').val(Group);
         $('#ApprovalEditModal').modal();
-      
+
 
         $('#ApprovalMedicinesModal').modal('hide');
     }

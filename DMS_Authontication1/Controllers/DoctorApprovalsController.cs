@@ -521,7 +521,7 @@ namespace DMS_Authontication1.Controllers
         #region Individuals
         public JsonResult getDiag()
         {
-            var Diagnoises = db.Diagnosis.Where(d=>d.ACTIVE=="1").Select(l => new
+            var Diagnoises = db.Diagnosis.Where(d => d.ACTIVE == "1").Select(l => new
             {
                 Code = l.Id,
                 Name = l.DIAG_ANAME
@@ -718,6 +718,27 @@ namespace DMS_Authontication1.Controllers
         #endregion
 
         #region Medicines
+        [HttpPost]
+        public JsonResult MedicinesGroupValiadtion(List<MedicineData> medicine, string medicineGroup, string medicineDosageForm)
+        {
+            var model = medicine.Join(db.MedicineDatas, d => d.M_CODE, g => g.M_CODE, (d, g) => new { d, g })
+                 .Select(l => new MedicineData
+                 {
+                     M_CODE = l.d.M_CODE,
+                     DOSAGE_FORM = l.g.DOSAGE_FORM,
+                     MED_GROUP = l.g.MED_GROUP,
+                 }).ToList();
+            bool Samegroup = false;
+            foreach (MedicineData item in model)
+            {
+                if (medicineGroup == item.MED_GROUP && medicineDosageForm == item.DOSAGE_FORM)
+                {
+                    Samegroup = true;
+                }
+            }
+            return new JsonResult { Data = Samegroup, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
         public JsonResult MonthlyMedicines(string id)
         {
             var Mediciens = db.Med_Medicine.Where(x => x.CARD_NO == id).ToList();

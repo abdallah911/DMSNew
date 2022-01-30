@@ -150,9 +150,20 @@
                                 <div class="col-md-3">
                                     <button id="AddMedicien" class=" btn btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#exampleModal"> Add Medicine</button>
                                 </div>
+                                <div class="col-md-3" style="margin-left:180px">
+                                    <button id="ActiveMedicine" class=" btn btn-info glyphicon glyphicon-eye-open" onclick="ActiveOrNotActiveMedicine();">Active</button>
+                                </div>
+                                @*<div class="col-md-3">
+                                        <div class="checkbox-inline">
+                                            <input type="checkbox" id="ActiveMedicine" name="ActiveMedicine" value="ActiveMedicine" data-name="ActiveMedicine">
+                                            <label for="ActiveMedicine" class="control-label sbold col-md-3">
+                                                Active
+                                            </label>
+                                        </div>
+                                    </div>*@
                             </div>
 
-                            <div class="container-fluid">
+                            <div class="container-fluid" style="margin-top:40px">
                                 @*<div class="master"></div>*@
                                 <div class="table-responsive">
                                     <table class="table" id="CardMedicines">
@@ -220,4 +231,4 @@
 
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
-<script src="~/Scripts/DMS/Monthly_Chronic_Approvals.js?V=2.4"></script>
+<script src="~/Scripts/DMS/Monthly_Chronic_Approvals.js?V=3"></script>
