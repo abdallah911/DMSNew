@@ -47,7 +47,6 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Provider" Width="1.5" PointX="13.75" PointY="25.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProviderTypeNew" Width="1.5" PointX="12.75" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RelationShip" Width="1.5" PointX="3.375" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RequestAddProvider" Width="1.5" PointX="15" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RoshitaPharmcyApproved" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.S_Ent_7" Width="1.5" PointX="15.75" PointY="25.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Ser_Prov_Disc" Width="1.5" PointX="25.75" PointY="17.75" IsExpanded="true" />
@@ -62,7 +61,6 @@
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_IndemnityServices_Service" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_MedicineData_MedicineData" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_MedicinesDiagnosis_MedicineData" ManuallyRouted="false" />
-        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RequestAddProvider_ProviderTypeNew" ManuallyRouted="false" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.HrAdminCompany" Width="1.5" PointX="7.375" PointY="29.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Department" Width="1.5" PointX="15.375" PointY="31" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.DMSComplaint" Width="1.5" PointX="17.625" PointY="30" />
@@ -150,6 +148,8 @@
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_EmployeeData_Country" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_EmployeeData_Gender" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_EmployeeData_Region" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RequestAddProvider" Width="1.5" PointX="15" PointY="1.25" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RequestAddProvider_ProviderTypeNew" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

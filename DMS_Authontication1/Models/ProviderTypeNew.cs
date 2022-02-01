@@ -17,8 +17,8 @@ namespace DMS_Authontication1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProviderTypeNew()
         {
-            this.RequestAddProviders = new HashSet<RequestAddProvider>();
             this.ProviderComplaints = new HashSet<ProviderComplaint>();
+            this.RequestAddProviders = new HashSet<RequestAddProvider>();
         }
     
         public int ID { get; set; }
@@ -27,8 +27,8 @@ namespace DMS_Authontication1.Models
         public string PrvEName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RequestAddProvider> RequestAddProviders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProviderComplaint> ProviderComplaints { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequestAddProvider> RequestAddProviders { get; set; }
     }
 }
