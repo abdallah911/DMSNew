@@ -25,6 +25,14 @@
         </div>
     </div>
     <div class="portlet-body">
+        @if (Model == null)
+        {
+            <input id="RegionId1" value="0" hidden />
+        }
+        else
+        {
+            <input id="RegionId1" value="@Model.Region" hidden />
+        }
         <div class="row ">
             <div class="col-md-12">
                 <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
@@ -260,15 +268,15 @@
         $("#Region_select").select2();
         $("#ProviderType").select2();
 
-        $("#Country_select").change(function () {//address
-            $.get("/Account/GetStateList",
-                { id: $("#Country_select").val() }, function (data) {
-                    $("#Region_select").empty();
-                    $.each(data, function (index, row) {
-                        $("#Region_select").append("<option value='" + row.Text + "'>" + row.Value + "</option>")
-                    });
-                });
-        });
+        //$("#Country_select").change(function () {//address
+        //    $.get("/Account/GetStateList",
+        //        { id: $("#Country_select").val() }, function (data) {
+        //            $("#Region_select").empty();
+        //            $.each(data, function (index, row) {
+        //                $("#Region_select").append("<option value='" + row.Text + "'>" + row.Value + "</option>")
+        //            });
+        //        });
+        //});
         $("#Country_select").change(function () {//address
             $.get("/Account/GetStateList",
                 { id: $("#Country_select").val() }, function (data) {
@@ -298,11 +306,10 @@
             alert("You shoud enter valid phone number");
         }
         else {
-            debugger;
             var data = {
                 CompName: $('#CompName').val(),
                 Country: $('#Country_select').val(),
-                Region: $('#Region').val(),
+                Region: $('#Region_select').val(),
                 ProviderType: $('#ProviderType').val(),
                 NumberOfPeople: $("#NumberOfPeople").val(),
                 ServName: $('#ServName').val(),
@@ -365,8 +372,6 @@
                 data: (data),
                 success: function (dat) {
                     if (dat.msg == "ok") {
-                        debugger;
-
                         $("#save").attr("disabled", "disabled");
                         $("#edit").attr("disabled", false);
                         sel = dat.modelreturn.Region;
@@ -380,6 +385,9 @@
                                     $.each(data, function (index, row) {
                                         $("#Region_select").append("<option value='" + row.Text + "'>" + row.Value + "</option>")
                                     });
+                                    //$("#RegionId1").val(dat.modelreturn.Region);
+                                    //var Regionselect = $("#RegionId1").val();
+                                    //$("#Region_select").val(Regionselect).select2();
                                     $('#Region_select').val(dat.modelreturn.Region).select2();
                                 });
                         });
@@ -391,6 +399,9 @@
                         $("#ResponsableFor").val(dat.modelreturn.ResponsableFor);
                         $("#PhoneNumber").val(dat.modelreturn.PhoneNumber);
                         $("#responsestatus").val(dat.modelreturn.RespobeStatus);
+                        if (dat.modelreturn.Status != "W") {
+                            $("#edit").attr("disabled", "disabled");
+                        }
                     }
                     else {
                         alert(dat.msg);

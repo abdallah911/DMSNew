@@ -9,9 +9,12 @@
             </div>
 
             <div class="modal-body " style="padding:0px 10px 0px 10px">
-                
-                <input type="hidden" id="Excess" class="form-control"/>
 
+                <input type="hidden" id="Excess" class="form-control" />
+
+                <div class="form-group row col-md-6" hidden>
+                    <input type="text" id="MedGroup" class="form-control" ReadOnly="readonly" hidden />
+                </div>
                 <div class="form-group row col-md-6">
                     <label for="MedicienCode" class="col-form-label">Medicine Code</label>
                     <input type="text" id="MedicienCode" class="form-control" ReadOnly="readonly" />
@@ -51,15 +54,15 @@
 
                 </div>
                 @*<div class="form-group row col-md-6">
-            <label for="TotalUnits" class="col-form-label">Total Duration</label>
-            <input type="text" id="TotalDuration" class="totalDuration form-control" />
+                        <label for="TotalUnits" class="col-form-label">Total Duration</label>
+                        <input type="text" id="TotalDuration" class="totalDuration form-control" />
 
-        </div>
-        <div class="form-group row col-md-6">
-            <label for="TotalUnits" class="col-form-label">Total Units</label>
-            <input type="text" id="TotalUnits" class="totalDuration form-control" />
+                    </div>
+                    <div class="form-group row col-md-6">
+                        <label for="TotalUnits" class="col-form-label">Total Units</label>
+                        <input type="text" id="TotalUnits" class="totalDuration form-control" />
 
-        </div>*@
+                    </div>*@
                 <div class="form-group row col-md-6">
                     <label for="Amount" class="col-form-label">Amount</label>
                     <input type="text" id="Amount" class="Amount form-control" readonly="readonly" value="0" />
@@ -87,7 +90,7 @@
             <div class="modal-footer">
                 <button id="CloseApproval" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <input id="AddApproval" type="button" class="btn btn-primary" value="Edit" />
-               @* <button id="AddApproval" type="button" class="btn btn-primary"><span>Edit</span></button>*@
+                @* <button id="AddApproval" type="button" class="btn btn-primary"><span>Edit</span></button>*@
             </div>
         </div>
     </div>
@@ -166,11 +169,12 @@
             var Lock = $('.modal-body #Lock').val();
             var MedicineType = $('.modal-body #MedicineType').val();
             var NOM = $('.modal-body #NOM').val();
+            var MedGroup = $('.modal-body #MedGroup').val();
 
             var amount1 = (parseFloat($('.modal-body #UnitPrice').val()) * parseFloat(TotalUnits)).toFixed(2);
             $('.modal-body #Amount').val(amount1);
 
-            var Act="";
+            var Act = "";
             if (Dose != '' && Duration != '') {
                 $('#CardMedicines tbody tr').each(function () {
 
@@ -209,91 +213,284 @@
                         $("TD", row).eq(15).html(Act);
                         $("TD", row).eq(16).html($('.modal-body #Lock').val());
                         edit = 1;
+                        $('#ApprovalEditModal').modal('hide');
                     }
                 });
 
                 if (edit == 0) {
                     //add Row
-                    if ($('#MedicineType').val() == "Monthly") {
-                        var today = new Date();
-                        var mm = today.getMonth() + 1 + parseInt(NOM); //January is 0!
-                        var yyyy = today.getFullYear();
-                        if (mm > 12) {
-                            mm -= 12;
-                            yyyy += 1;
-                        }
-                        if (mm < 10) {
-                            mm = '0' + mm
-                        }
-                        Act = mm + '/' + yyyy;
-                    }
-                    var tBody = $("#CardMedicines > TBODY")[0];
-                    var row = tBody.insertRow(-1);
-                    var cell = $(row.insertCell(-1));
-                    cell.html(MedicienCode);
-                    cell = $(row.insertCell(-1));
-                    cell.html(MedicienName);
-                    cell = $(row.insertCell(-1));
-                    cell.html(DosageForm);
-                    cell = $(row.insertCell(-1));
-                    cell.html(PackSize);
-                    cell = $(row.insertCell(-1));
-                    cell.html(PackPrice);
-                    cell = $(row.insertCell(-1));
-                    cell.html(UnitNumber);
-                    cell = $(row.insertCell(-1));
-                    cell.html(UnitPrice);
-                    cell = $(row.insertCell(-1));
-                    cell.html(Dose);
-                    cell = $(row.insertCell(-1));
-                    cell.html(Duration);
-                    cell = $(row.insertCell(-1));
-                    cell.html(TotalDuration);
-                    cell = $(row.insertCell(-1));
-                    cell.html(TotalUnits);
-                    cell = $(row.insertCell(-1));
-                    cell.html(0);//Exce
-                    cell = $(row.insertCell(-1));
-                    cell.html(amount1);
-                    cell = $(row.insertCell(-1));
-                    cell.html(MedicineType);
-                    cell = $(row.insertCell(-1));
-                    cell.html(NOM);
-                    cell = $(row.insertCell(-1));
-                    cell.html(Act);
-                    cell = $(row.insertCell(-1));
-                    cell.html(Lock);
-                    //Edit button
-                    cell = $(row.insertCell(-1));
-                    var btnEdit = $("<a  />");
-                    btnEdit.attr("type", "button");
-                    btnEdit.addClass("btn btn-warning  glyphicon glyphicon-pencil");
-                    btnEdit.attr("onclick", "EditMedicine(this);");
-                    btnEdit.text("Edit");
-                    cell.append(btnEdit);
-                    // remove button
-                    //cell = $(row.insertCell(-1));
-                    //var btnRemove = $("<a  />");
-                    //btnRemove.attr("type", "button");
-                    //btnRemove.addClass("btn btn-danger  glyphicon glyphicon-trash");
-                    //btnRemove.attr("onclick", "RemoveMedicine(this);");
-                    //btnRemove.text("Remove");
-                    //cell.append(btnRemove);
 
+                    var samegroup = false;
+                    var Mediciens = new Array();
+                    $("#CardMedicines TBODY TR").each(function () {
+
+                        var row = $(this);
+                        var Medicien = {};
+                        Medicien.M_CODE = row.find("TD").eq(0).html();
+                        Medicien.DOSAGE_FORM = row.find("TD").eq(2).html();
+                        Mediciens.push(Medicien);
+                    });
+                    if (Mediciens.length > 0) {
+                        //medicine group
+                        $.ajax({
+                            type: 'POST',
+                            url: '/DoctorApprovals/MedicinesGroupValiadtion/',
+                            dataType: 'Json',
+                            data: {
+                                medicine: Mediciens,
+                                medicineGroup: MedGroup,
+                                medicineDosageForm: DosageForm
+                            },
+                            success: function (r) {
+                                if (r == true) {
+                                    bootbox.dialog({
+                                        closeButton: false,
+                                        title: 'رسالة تحذيرية',
+                                        message: " يوجد دواء مضاف من قبل يحتوي علي نفس المادة الفعالة يمكن اضافتة ولكن علي مسئوليتك الشخصية او الالغاء",
+                                        buttons: {
+                                            Print: {
+                                                label: "اضافة",
+                                                className: 'btn-warning',
+                                                callback: function () {
+                                                    if ($('#MedicineType').val() == "Monthly") {
+                                                        var today = new Date();
+                                                        var mm = today.getMonth() + 1 + parseInt(NOM); //January is 0!
+                                                        var yyyy = today.getFullYear();
+                                                        if (mm > 12) {
+                                                            mm -= 12;
+                                                            yyyy += 1;
+                                                        }
+                                                        if (mm < 10) {
+                                                            mm = '0' + mm
+                                                        }
+                                                        Act = mm + '/' + yyyy;
+                                                    }
+                                                    var tBody = $("#CardMedicines > TBODY")[0];
+                                                    var row = tBody.insertRow(-1);
+                                                    var cell = $(row.insertCell(-1));
+                                                    cell.html(MedicienCode);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(MedicienName);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(DosageForm);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(PackSize);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(PackPrice);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(UnitNumber);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(UnitPrice);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(Dose);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(Duration);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(TotalDuration);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(TotalUnits);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(0);//Exce
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(amount1);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(MedicineType);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(NOM);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(Act);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(Lock);
+                                                    //Edit button
+                                                    cell = $(row.insertCell(-1));
+                                                    var btnEdit = $("<a  />");
+                                                    btnEdit.attr("type", "button");
+                                                    btnEdit.addClass("btn btn-warning  glyphicon glyphicon-pencil");
+                                                    btnEdit.attr("onclick", "EditMedicine(this);");
+                                                    btnEdit.text("Edit");
+                                                    cell.append(btnEdit);
+                                                    $('#ApprovalEditModal').modal('hide');
+                                                    $('.modal-body #Dose').val('');
+                                                    $('.modal-body #Duration').val('');
+                                                    $('#MedicineType').val("Chronic");
+                                                    $('.modal-body #NOM').val('');
+                                                    $('#NOMD').attr("hidden", true);
+                                                }
+                                            },
+                                            New: {
+                                                label: "الغاء",
+                                                className: 'btn-danger',
+                                                callback: function () {
+                                                    $('.modal-body #Dose').val(' ');
+                                                    $('.modal-body #Duration').val(' ');
+                                                    $('#MedicineType').val("Chronic");
+                                                    $('.modal-body #NOM').val(' ');
+                                                    $('#NOMD').attr("hidden", true);
+                                                }
+                                            }
+
+                                        }
+                                    });
+                                    //toastr.error("You can't dispense this medicine");//same Group
+                                    //toastr.error("medicines has the same medicine group");
+                                    samegroup = true;
+                                }
+                                else {
+                                    samegroup = false;
+                                    if ($('#MedicineType').val() == "Monthly") {
+                                        var today = new Date();
+                                        var mm = today.getMonth() + 1 + parseInt(NOM); //January is 0!
+                                        var yyyy = today.getFullYear();
+                                        if (mm > 12) {
+                                            mm -= 12;
+                                            yyyy += 1;
+                                        }
+                                        if (mm < 10) {
+                                            mm = '0' + mm
+                                        }
+                                        Act = mm + '/' + yyyy;
+                                    }
+                                    var tBody = $("#CardMedicines > TBODY")[0];
+                                    var row = tBody.insertRow(-1);
+                                    var cell = $(row.insertCell(-1));
+                                    cell.html(MedicienCode);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(MedicienName);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(DosageForm);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(PackSize);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(PackPrice);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(UnitNumber);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(UnitPrice);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(Dose);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(Duration);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(TotalDuration);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(TotalUnits);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(0);//Exce
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(amount1);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(MedicineType);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(NOM);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(Act);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(Lock);
+                                    //Edit button
+                                    cell = $(row.insertCell(-1));
+                                    var btnEdit = $("<a  />");
+                                    btnEdit.attr("type", "button");
+                                    btnEdit.addClass("btn btn-warning  glyphicon glyphicon-pencil");
+                                    btnEdit.attr("onclick", "EditMedicine(this);");
+                                    btnEdit.text("Edit");
+                                    cell.append(btnEdit);
+                                    $('#ApprovalEditModal').modal('hide');
+                                    $('.modal-body #Dose').val('');
+                                    $('.modal-body #Duration').val('');
+                                    $('#MedicineType').val("Chronic");
+                                    $('.modal-body #NOM').val('');
+                                    $('#NOMD').attr("hidden", true);
+                                }
+                            },
+                            error: function () {
+                                samegroup = false;
+                                toastr.error("حدث بعض الخطاء ");
+                            }
+                        });
+                    }
+                    else {
+
+                        if ($('#MedicineType').val() == "Monthly") {
+                            var today = new Date();
+                            var mm = today.getMonth() + 1 + parseInt(NOM); //January is 0!
+                            var yyyy = today.getFullYear();
+                            if (mm > 12) {
+                                mm -= 12;
+                                yyyy += 1;
+                            }
+                            if (mm < 10) {
+                                mm = '0' + mm
+                            }
+                            Act = mm + '/' + yyyy;
+                        }
+                        var tBody = $("#CardMedicines > TBODY")[0];
+                        var row = tBody.insertRow(-1);
+                        var cell = $(row.insertCell(-1));
+                        cell.html(MedicienCode);
+                        cell = $(row.insertCell(-1));
+                        cell.html(MedicienName);
+                        cell = $(row.insertCell(-1));
+                        cell.html(DosageForm);
+                        cell = $(row.insertCell(-1));
+                        cell.html(PackSize);
+                        cell = $(row.insertCell(-1));
+                        cell.html(PackPrice);
+                        cell = $(row.insertCell(-1));
+                        cell.html(UnitNumber);
+                        cell = $(row.insertCell(-1));
+                        cell.html(UnitPrice);
+                        cell = $(row.insertCell(-1));
+                        cell.html(Dose);
+                        cell = $(row.insertCell(-1));
+                        cell.html(Duration);
+                        cell = $(row.insertCell(-1));
+                        cell.html(TotalDuration);
+                        cell = $(row.insertCell(-1));
+                        cell.html(TotalUnits);
+                        cell = $(row.insertCell(-1));
+                        cell.html(0);//Exce
+                        cell = $(row.insertCell(-1));
+                        cell.html(amount1);
+                        cell = $(row.insertCell(-1));
+                        cell.html(MedicineType);
+                        cell = $(row.insertCell(-1));
+                        cell.html(NOM);
+                        cell = $(row.insertCell(-1));
+                        cell.html(Act);
+                        cell = $(row.insertCell(-1));
+                        cell.html(Lock);
+                        //Edit button
+                        cell = $(row.insertCell(-1));
+                        var btnEdit = $("<a  />");
+                        btnEdit.attr("type", "button");
+                        btnEdit.addClass("btn btn-warning  glyphicon glyphicon-pencil");
+                        btnEdit.attr("onclick", "EditMedicine(this);");
+                        btnEdit.text("Edit");
+                        cell.append(btnEdit);
+                        $('#ApprovalEditModal').modal('hide');
+                        $('.modal-body #Dose').val('');
+                        $('.modal-body #Duration').val('');
+                        $('#MedicineType').val("Chronic");
+                        $('.modal-body #NOM').val('');
+                        $('#NOMD').attr("hidden", true);
+
+                    }
+
+
+                    // Calculation();
                 }
-                $('#ApprovalEditModal').modal('hide');
-                // Calculation();
             }
             else {
                 bootbox.alert("Please Insert Requried Data");
                 $('.modal-body #Dose').focusin();
+
             }
             $('.modal-body #Dose').val('');
             $('.modal-body #Duration').val('');
             $('#MedicineType').val("Chronic");
             $('.modal-body #NOM').val('');
             $('#NOMD').attr("hidden", true);
-           
+
         });
         $('#CloseApproval').click(function () {
             $('.modal-body #Dose').val(' ');

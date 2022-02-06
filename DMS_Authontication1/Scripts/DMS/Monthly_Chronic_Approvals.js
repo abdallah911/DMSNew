@@ -193,7 +193,7 @@ $(function () {
                 data: JSON.stringify(CardIds),
                 dataType: 'Json',
                 success: function (r) {
-                     //  $('#Cards_filter input[type="search"]').val('').keyup();
+                    //  $('#Cards_filter input[type="search"]').val('').keyup();
                     $('#Cards tbody tr').each(function () {
                         var row = $(this);
                         // if ($('#OldMainGroup').val() == $("TD", row).eq(6).html()) { }
@@ -414,7 +414,8 @@ $(function () {
                     "<td>" + r[i].PACK_SIZE + "</td>" +
                     "<td>" + r[i].UNIT_NO + "</td>" +
                     "<td>" + r[i].UNIT_PRICE + "</td>" +
-                    "<td>" + r[i].Group_Type + "</td>"
+                    "<td>" + r[i].Group_Type + "</td>"+
+                    "<td>" + r[i].MED_GROUP + "</td>"+
                 "</tr>"
                 setData.append(data);
             }
@@ -442,7 +443,8 @@ $(function () {
                     "<td>" + r[i].PACK_SIZE + "</td>" +
                     "<td>" + r[i].UNIT_NO + "</td>" +
                     "<td>" + r[i].UNIT_PRICE + "</td>" +
-                    "<td>" + r[i].Group_Type + "</td>"
+                    "<td>" + r[i].Group_Type + "</td>"+
+                    "<td>" + r[i].MED_GROUP + "</td>"+
                 "</tr>"
                 setData.append(data);
 
@@ -635,6 +637,125 @@ $(function () {
     });
 });
 var CardId = "";
+function ActiveOrNotActiveMedicine() {
+    if (CardId != "") {
+        debugger;
+        var buttontype = $("#ActiveMedicine").html();
+        var Mediciens = new Array();
+        $("#CardMedicines TBODY TR").each(function () {
+            var row = $(this);
+            var Medicien = {};
+            Medicien.MED_CODE = row.find("TD").eq(0).html();
+            Medicien.MED_NAME = row.find("TD").eq(1).html();
+            Medicien.DOSAGE_FORM = row.find("TD").eq(2).html();
+            Medicien.PACK_SIZE = row.find("TD").eq(3).html();
+            Medicien.PACK_PRICE = row.find("TD").eq(4).html();
+            Medicien.UNIT_NO = row.find("TD").eq(5).html();
+            Medicien.UNIT_PRICE = row.find("TD").eq(6).html();
+            Medicien.DOSE = row.find("TD").eq(7).html();
+            Medicien.MED_DURATION = row.find("TD").eq(8).html();
+            Medicien.DOS_DUR = row.find("TD").eq(9).html();
+            Medicien.NO_OF_UINT = row.find("TD").eq(10).html();
+            Medicien.EXCESS = row.find("TD").eq(11).html();
+            Medicien.TOTAL_AMT = row.find("TD").eq(12).html();
+            Medicien.MED_TYP = row.find("TD").eq(13).html();
+            Medicien.LFT_MONTH = row.find("TD").eq(14).html();
+            Medicien.MONTH_DATE_STOP = row.find("TD").eq(15).html();
+            Medicien.ACTIVE = row.find("TD").eq(16).html();
+
+            Mediciens.push(Medicien);
+        });
+
+        if (buttontype == "All") {
+            var setData = $("#CardMedicines tbody");
+            setData.empty();
+            for (var i = 0; i < Mediciens.length; i++) {
+                var data = "<tr >" +
+                    "<td>" + Mediciens[i].MED_CODE + "</td>" +
+                    "<td>" + Mediciens[i].MED_NAME + "</td>" +
+                    "<td>" + Mediciens[i].DOSAGE_FORM + "</td>" +
+                    "<td>" + Mediciens[i].PACK_SIZE + "</td>" +
+                    "<td>" + Mediciens[i].PACK_PRICE + "</td>" +
+                    "<td>" + Mediciens[i].UNIT_NO + "</td>" +
+                    "<td>" + Mediciens[i].UNIT_PRICE + "</td>" +
+                    "<td>" + Mediciens[i].DOSE + "</td>" +
+                    "<td>" + Mediciens[i].MED_DURATION + "</td>" +
+                    "<td>" + Mediciens[i].DOS_DUR + "</td>" +
+                    "<td>" + Mediciens[i].NO_OF_UINT + "</td>" +
+                    "<td>" + Mediciens[i].EXCESS + "</td>" +
+                    "<td>" + Mediciens[i].TOTAL_AMT + "</td>" +
+                    "<td>" + Mediciens[i].MED_TYP + "</td>" +
+                    "<td>" + Mediciens[i].LFT_MONTH + "</td>" +
+                    "<td>" + Mediciens[i].MONTH_DATE_STOP + "</td>" +
+                    "<td>" + Mediciens[i].ACTIVE + "</td>" +
+                    " <td>" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditMedicine(this);'>Edit</Button>" + "</td>" +
+                    "</tr>"
+                setData.append(data);
+            }
+
+            $("#ActiveMedicine").html("Active");
+        }
+        else if (buttontype == "Active") {
+
+            var setData = $("#CardMedicines tbody");
+            setData.empty();
+            for (var i = 0; i < Mediciens.length; i++) {
+                if (Mediciens[i].ACTIVE == "N") {
+                    var data = "<tr hidden>" +
+                        "<td>" + Mediciens[i].MED_CODE + "</td>" +
+                        "<td>" + Mediciens[i].MED_NAME + "</td>" +
+                        "<td>" + Mediciens[i].DOSAGE_FORM + "</td>" +
+                        "<td>" + Mediciens[i].PACK_SIZE + "</td>" +
+                        "<td>" + Mediciens[i].PACK_PRICE + "</td>" +
+                        "<td>" + Mediciens[i].UNIT_NO + "</td>" +
+                        "<td>" + Mediciens[i].UNIT_PRICE + "</td>" +
+                        "<td>" + Mediciens[i].DOSE + "</td>" +
+                        "<td>" + Mediciens[i].MED_DURATION + "</td>" +
+                        "<td>" + Mediciens[i].DOS_DUR + "</td>" +
+                        "<td>" + Mediciens[i].NO_OF_UINT + "</td>" +
+                        "<td>" + Mediciens[i].EXCESS + "</td>" +
+                        "<td>" + Mediciens[i].TOTAL_AMT + "</td>" +
+                        "<td>" + Mediciens[i].MED_TYP + "</td>" +
+                        "<td>" + Mediciens[i].LFT_MONTH + "</td>" +
+                        "<td>" + Mediciens[i].MONTH_DATE_STOP + "</td>" +
+                        "<td>" + Mediciens[i].ACTIVE + "</td>" +
+                        " <td>" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditMedicine(this);'>Edit</Button>" + "</td>" +
+                        "</tr>"
+                    setData.append(data);
+                }
+                else {
+                    var data = "<tr >" +
+                        "<td>" + Mediciens[i].MED_CODE + "</td>" +
+                        "<td>" + Mediciens[i].MED_NAME + "</td>" +
+                        "<td>" + Mediciens[i].DOSAGE_FORM + "</td>" +
+                        "<td>" + Mediciens[i].PACK_SIZE + "</td>" +
+                        "<td>" + Mediciens[i].PACK_PRICE + "</td>" +
+                        "<td>" + Mediciens[i].UNIT_NO + "</td>" +
+                        "<td>" + Mediciens[i].UNIT_PRICE + "</td>" +
+                        "<td>" + Mediciens[i].DOSE + "</td>" +
+                        "<td>" + Mediciens[i].MED_DURATION + "</td>" +
+                        "<td>" + Mediciens[i].DOS_DUR + "</td>" +
+                        "<td>" + Mediciens[i].NO_OF_UINT + "</td>" +
+                        "<td>" + Mediciens[i].EXCESS + "</td>" +
+                        "<td>" + Mediciens[i].TOTAL_AMT + "</td>" +
+                        "<td>" + Mediciens[i].MED_TYP + "</td>" +
+                        "<td>" + Mediciens[i].LFT_MONTH + "</td>" +
+                        "<td>" + Mediciens[i].MONTH_DATE_STOP + "</td>" +
+                        "<td>" + Mediciens[i].ACTIVE + "</td>" +
+                        " <td>" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditMedicine(this);'>Edit</Button>" + "</td>" +
+                        "</tr>"
+                    setData.append(data);
+                }
+
+            }
+            $("#ActiveMedicine").html("All");
+
+        }
+    }
+    else {
+        bootbox.alert("Please  Select Card ");
+    }
+}
 function SelectCard(button) {
     $("#wait").css("display", "block");
 
@@ -740,6 +861,8 @@ function EditCard(button) {
     $('.modal-body #OverInsuranceLimit1').val($("TD", row).eq(9).html());
     $('.modal-body #LockStatus1').val($("TD", row).eq(10).html());
     $('.modal-body #NOTES1').val($("TD", row).eq(11).html());
+    $('.modal-body #PhoneNumber1').val($("TD", row).eq(12).html());
+    $('.modal-body #NationalId1').val($("TD", row).eq(13).html());
     $('#EditCardModal').modal();
 
 }

@@ -27,26 +27,47 @@ namespace DMS_Authontication1.Models
         // public string CardID { get; set; }
         //   public virtual DoctorPersonalData doctorPersonalData { get; set; }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, ClaimsIdentity identity)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+            if (identity != null)
+            {
+                //userIdentity.AddClaims(identity.Claims);
+                foreach (var Claim in identity.Claims)
+                {
+                    if (!userIdentity.HasClaim(Claim.Type, Claim.Value))
+                        userIdentity.AddClaim(new Claim(Claim.Type, Claim.Value));
+                }
+            }
             return userIdentity;
         }
+
+        //public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, string> manager, ClaimsIdentity CurrentIdentity)
+        //{
+        //    // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+        //    var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+
+        //    // Re validate existing Claims here
+        //    userIdentity.AddClaims(CurrentIdentity.Claims);
+
+
+        //    return userIdentity;
+        //}
     }
-    
-    public class ApplicationRole:IdentityRole
+
+    public class ApplicationRole : IdentityRole
     {
         public ApplicationRole() : base() { }
         public ApplicationRole(string roleName) : base(roleName) { }
 
-        
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public  DbSet<DoctorPersonalData> DoctorPersonalData { get; set; }
+        public DbSet<DoctorPersonalData> DoctorPersonalData { get; set; }
         public DbSet<DoctorWorkPlace> DoctorWorkPlace { get; set; }
         public DbSet<DailyPermission> DailyPermission { get; set; }
         public DbSet<MonthlyPermission> MonthlyPermission { get; set; }

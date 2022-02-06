@@ -69,7 +69,6 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<Provider> Providers { get; set; }
         public virtual DbSet<ProviderTypeNew> ProviderTypeNews { get; set; }
         public virtual DbSet<RelationShip> RelationShips { get; set; }
-        public virtual DbSet<RequestAddProvider> RequestAddProviders { get; set; }
         public virtual DbSet<RoshitaPharmcyApproved> RoshitaPharmcyApproveds { get; set; }
         public virtual DbSet<S_Ent_7> S_Ent_7 { get; set; }
         public virtual DbSet<Ser_Prov_Disc> Ser_Prov_Disc { get; set; }
@@ -133,6 +132,7 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<DeliveryRequest> DeliveryRequests { get; set; }
         public virtual DbSet<PrescriptionRoshitaDignosi> PrescriptionRoshitaDignosis { get; set; }
         public virtual DbSet<EmployeeData> EmployeeDatas { get; set; }
+        public virtual DbSet<RequestAddProvider> RequestAddProviders { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)

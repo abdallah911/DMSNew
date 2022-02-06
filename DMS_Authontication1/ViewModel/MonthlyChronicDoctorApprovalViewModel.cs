@@ -29,6 +29,8 @@ namespace DMS_Authontication1.ViewModel
         public Nullable<int> NO_OVER { get; set; }
         public Nullable<int> ST_DAY { get; set; }
 
+        public string PhoneNumber { get; set; }
+        public string NationalId { get; set; }
         //comp_Employees
         public string EMP_ANAME { get; set; }
         public Nullable<int> CONTRACT_NO { get; set; }

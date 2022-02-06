@@ -1083,7 +1083,8 @@ namespace DMS_TEST.Controllers
                     UNIT_NO = l.d.UNIT_NO,
                     UNIT_PRICE = l.d.UNIT_PRICE,
                     Group_Type = l.g.GroupType,
-                    IsCovered = l.d.IsCovered
+                    IsCovered = l.d.IsCovered,
+                    MED_GROUP = l.d.MED_GROUP
                 }).ToList();
             var serializer = new JavaScriptSerializer();
             serializer.MaxJsonLength = Int32.MaxValue;
@@ -1107,7 +1108,8 @@ namespace DMS_TEST.Controllers
                     UNIT_NO = l.d.UNIT_NO,
                     UNIT_PRICE = l.d.UNIT_PRICE,
                     Group_Type = l.g.GroupType,
-                    IsCovered = l.d.IsCovered
+                    IsCovered = l.d.IsCovered,
+                    MED_GROUP=l.d.MED_GROUP
                 }).ToList();
             var serializer = new JavaScriptSerializer();
             serializer.MaxJsonLength = Int32.MaxValue;
@@ -1302,6 +1304,7 @@ namespace DMS_TEST.Controllers
             catch (DbEntityValidationException e)
             {
                 db.Roshitas.Remove(roshita);
+                db.SaveChanges();
                 return Json("Failed to Save Prescription");
                 //foreach (var eve in e.EntityValidationErrors)
                 //{

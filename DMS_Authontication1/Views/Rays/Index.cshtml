@@ -1,6 +1,37 @@
 ﻿@model IEnumerable<DMS_Authontication1.Models.Roshita>
-
+@using Microsoft.AspNet.Identity;
+@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
 @{
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    if (User.IsInRole("Admin"))
+    {
+
+        var modellist = new List<ModulesPagesViewModel>();
+        var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+        if (claim != null)
+        {
+            modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+            if (modellist != null)
+            {
+                var obj = modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 4 && (x.FullControl || x.EditPermission
+                                              || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+                if (obj != null)
+                {
+                    edit = obj.EditPermission;
+                    delete = obj.ActivationControl;
+                    view = obj.Preview;
+                    fullcontroll = obj.FullControl;
+
+                }
+            }
+        }
+
+    }
     ViewBag.Title = "Index";
 }
 
@@ -45,7 +76,7 @@
         </div>
     </div>
 }
-@if (User.IsInRole("Admin"))
+@if (User.IsInRole("Admin") && (edit || delete || view || fullcontroll))
 {
     <div class="portlet box  green">
         <div class="portlet-title">
@@ -54,6 +85,11 @@
             </div>
         </div>
         <div class="portlet-body">
+            <input id="edit" value="@edit.ToString()" hidden />
+            <input id="delete" value="@delete.ToString()" hidden />
+            <input id="view" value="@view.ToString()" hidden />
+            <input id="fullcontroll" value="@fullcontroll.ToString()" hidden />
+
             <div class="row" style="padding-bottom: 15px;">
                 <div class="col-md-2">
                     <input id="AdminFrom" type="text" class="col-md-2 form-control " placeholder="From" />
@@ -135,7 +171,7 @@
         </table>
     </div>
 </div>
-@if (User.IsInRole("Admin"))
+@if (User.IsInRole("Admin") && fullcontroll)
 {
     <div class="portlet box  green">
         <div class="portlet-title">
@@ -200,4 +236,4 @@
 
 }
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-<script src="~/Scripts/DMS/Ray/RayIndex.js?V=1.0"></script>
+<script src="~/Scripts/DMS/Ray/RayIndex.js?V=1.1"></script>

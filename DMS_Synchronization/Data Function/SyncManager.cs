@@ -3102,7 +3102,7 @@ namespace DMS_Synchronization
                     con.Open();
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
-                        //cmd.CommandTimeout = 120;
+                        cmd.CommandTimeout = 120;
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
                             da.Fill(dt);
@@ -4426,7 +4426,7 @@ namespace DMS_Synchronization
             var maxiteration = Math.Ceiling(count / 1000);
             //long sequenc = 1689;
             //long.Parse(GetSqlDataTable(@"SELECT ISNULL(MAX(ID),0) FROM SequenceNumber", _connectionSettings.SQlConnection).Rows[0][0].ToString()) + 1;
-            long sequenc = 1;//long.Parse(GetOracleDataTable(@"SELECT NVL(MAX(D_SEQ),0)   FROM DMS_02_EMP_D_ENT ORDER BY D_DATE DESC ", _connectionSettings.OrcaleConnectionTRN_SQL).Rows[0][0].ToString()) + 1;
+            long sequenc = long.Parse(GetOracleDataTable(@"SELECT NVL(MAX(D_SEQ),0)   FROM DMS_02_EMP_D_ENT ORDER BY D_DATE DESC ", _connectionSettings.OrcaleConnectionTRN_SQL).Rows[0][0].ToString()) + 1;
             if (DateTime.Now.Day == 2)
             {
                 sequenc = 1;
@@ -5059,7 +5059,7 @@ namespace DMS_Synchronization
                     " AND Manager NOT IN('Lab_Stop','Ray_Stop','Lab','Ray','Doctor_Chronic') )", _connectionSettings.SQlConnection).Rows[0][0].ToString());
 
                 var maxiteration = Math.Ceiling(count / 10000);
-                long sequenc = 1;// long.Parse(GetOracleDataTable(@"SELECT NVL(MAX(INVT_SEQ),0)   FROM INV_SAL ORDER BY INV_DATE DESC ", _connectionSettings.OrcaleConnectionTRN_SQL).Rows[0][0].ToString()) + 1;
+                long sequenc =  long.Parse(GetOracleDataTable(@"SELECT NVL(MAX(INVT_SEQ),0)   FROM INV_SAL ORDER BY INV_DATE DESC ", _connectionSettings.OrcaleConnectionTRN_SQL).Rows[0][0].ToString()) + 1;
                 if (DateTime.Now.Day == 2)
                 {
                     sequenc = 1;

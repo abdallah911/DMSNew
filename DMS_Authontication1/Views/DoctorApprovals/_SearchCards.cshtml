@@ -106,6 +106,8 @@
                         $('.modal-body #CardId1').val(r.mED_CARD.CARD_NO);
                         $('.modal-body #CardName1').val(r.mED_CARD.EMP_ANAME);
                         $(".modal-body #Provider1").val(r.mED_CARD.PR_ANAME);
+                        $(".modal-body #PhoneNumber1").val(r.mED_CARD.PhoneNumber);
+                        $(".modal-body #NationalId1").val(r.mED_CARD.NationalId);
                         if (r.mED_CARD.MONTH_START_DATE != null) {
                             var MyDate_String_Value = r.mED_CARD.MONTH_START_DATE;
                             var value = new Date
@@ -132,7 +134,6 @@
                         $('#Diagnoise1').select2({
                             dropdownParent: $('#EditCardModal .modal-content')
                         });
-                        debugger;
                         $('.modal-body #Diagnos').val(r.mED_CARD.TASHKHES_01);
                         var DiagnosisList = r.mED_CARD.TASHKHES_01.split('_');
                         let $element = $('#Diagnoise1');

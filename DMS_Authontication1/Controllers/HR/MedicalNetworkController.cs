@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -93,6 +94,12 @@ namespace DMS_Authontication1.Controllers.HR
             //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
             SelectList addresslist = new SelectList(address, "BS_ENAME", "BS_ANAME");
             ViewBag.address = addresslist;
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult RequestReplay()
+        {
             return View();
         }
 
@@ -238,7 +245,101 @@ namespace DMS_Authontication1.Controllers.HR
             return View(requestAddProvidersVM);
         }
 
+        // GET:  MedicalNetwork/Details/5
+        public ActionResult Details(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var model = (from request in db.RequestAddProviders
+                         join provider in db.ProviderTypeNews
+                         on request.ProviderType equals provider.ID
+                         where request.ID==id && request.IsDeleted==false
+                         select new RequestAddProvidersVM
+                         {
+                             ID = request.ID,
+                             CompName = request.CompName,
+                             CreatedBy = request.CreatedBy,
+                             CreatedDate = request.CreatedDate,
+                             Status = request.Status,
+                             ReasonRefuse = request.ReasonRefuse,
+                             RespobeStatus = request.RespobeStatus,
+                             ResponsableFor = request.ResponsableFor,
+                             Country = request.Country,
+                             Region = request.Region,
+                             ServAddress = request.ServAddress,
+                             ServName = request.ServName,
+                             NumberOfPeople = request.NumberOfPeople,
+                             PhoneNumber = request.PhoneNumber,
+                             ProviderTypeName = provider.PrvAName
+                         }).FirstOrDefault();
+            var name = myEntities.Users.Where(u => u.UserName == model.CreatedBy).FirstOrDefault();
+            model.CreatedBy = name.FName + " " + name.LName;
+            int compId = int.Parse(model.CompName);
+            model.CompName = db.Contract_Comp.Where(c => c.C_COMP_ID == compId).FirstOrDefault().C_ANAME;
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
         #region Helper Method
+
+        public JsonResult NonReplayRequestList(int sEcho, int iDisplayStart, int iDisplayLength, string sSearch = "")
+        {
+            long lgSearch;
+            long.TryParse(sSearch, out lgSearch);
+            var result2 = new
+            {
+                sEcho = sEcho,
+                aaData = db.RequestAddProviders.Where(e => e.IsDeleted == false && e.Status == "W").OrderByDescending(m => m.ID).AsEnumerable()
+            .Where(r => sSearch != "" ? r.CompName.Contains(sSearch) || r.ID == lgSearch : true)
+
+            .Select(l => new RequestAddProvider
+            {
+                ID = l.ID,
+                CompName = l.CompName,
+                ProviderType = l.ProviderType,
+                ServName = l.ServName,
+                PhoneNumber = l.PhoneNumber,
+                NumberOfPeople = l.NumberOfPeople,
+                CreatedDate = l.CreatedDate,
+                CreatedBy = l.CreatedBy,
+            }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
+
+                iTotalRecords = db.RequestAddProviders.Where(e => e.IsDeleted == false && e.Status == "W").OrderByDescending(m => m.ID).AsEnumerable()
+            .Where(r => sSearch != "" ? r.CompName.Contains(sSearch) || r.ID == lgSearch : true).Count(),
+                iTotalDisplayRecords = db.RequestAddProviders.Where(e => e.IsDeleted == false && e.Status == "W").OrderByDescending(m => m.ID).AsEnumerable()
+            .Where(r => sSearch != "" ? r.CompName.Contains(sSearch) || r.ID == lgSearch : true).Count()
+            };
+            return new JsonResult { Data = result2, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        public JsonResult ChangeStatus(string Id, string status)
+        {
+            var ID = long.Parse(Id);
+            var request = db.RequestAddProviders.Where(x => x.ID == ID).FirstOrDefault();
+            int result = -2;
+            if (status == "Accept")
+            {
+                request.Status = "Accept";
+                request.UpdatedBy = User.Identity.Name;
+                request.UpdatedDate = DateTime.Now;
+                request.RespobeStatus = " تم قبول الطلب";
+            }
+            else
+            {
+                request.Status = status;
+                request.UpdatedBy = User.Identity.Name;
+                request.UpdatedDate = DateTime.Now;
+                request.RespobeStatus = " تم رفض الطلب";
+            }
+            db.Entry(request).State = EntityState.Modified;
+            result = db.SaveChanges();
+            return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
 
         public JsonResult GetProvidersByClass(string classLevel, string compId, string country, int region, int providerId)
         {
@@ -449,7 +550,8 @@ namespace DMS_Authontication1.Controllers.HR
                 Region = model.Region,
                 ResponsableFor = model.ResponsableFor,
                 RespobeStatus = model.RespobeStatus,
-                ID = model.ID
+                ID = model.ID,
+                Status = model.Status
             };
 
             return new JsonResult { Data = new { modelreturn = requestAddProvider, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -487,7 +589,9 @@ namespace DMS_Authontication1.Controllers.HR
                 SyncBy = model.SyncBy,
                 SyncDate = model.SyncDate,
                 UpdatedBy = User.Identity.GetUserName(),
-                UpdatedDate = DateTime.Now
+                UpdatedDate = DateTime.Now,
+                Status = model.Status,
+                ReasonRefuse = model.ReasonRefuse
             };
             db.Entry(requestAddProvider).State = EntityState.Modified;
             int saved = db.SaveChanges();

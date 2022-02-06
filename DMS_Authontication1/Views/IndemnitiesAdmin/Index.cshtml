@@ -29,9 +29,6 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Id)
                     </th>
-                    @*<th>
-                            @Html.DisplayNameFor(model => model.ServiceCardID)
-                        </th>*@
                     <th>
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
@@ -47,24 +44,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.BankName)
                     </th>
-                    @*<th>
-                            @Html.DisplayNameFor(model => model.BankBranch)
-                        </th>*@
                     <th>
                         @Html.DisplayNameFor(model => model.BankAccount)
                     </th>
-                    @*<th>
-                            @Html.DisplayNameFor(model => model.Type)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ServiceID)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ServiceDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Total)
-                        </th>*@
                     @if (User.IsInRole("Admin"))
                     {
                         <th>
@@ -72,30 +54,6 @@
 
                         </th>
                     }
-                    @*<th>
-                                        @Html.DisplayNameFor(model => model.CreatedDate)
-
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.UpdateDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.UpdateBy)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.DeletedBy)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.DeletedDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.IsDeleted)
-                        </th><th>
-                            @Html.DisplayNameFor(model => model.AttachPDF)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Status)
-                        </th>*@
 
                     <th></th>
                     <th></th>
@@ -108,9 +66,6 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Id)
                     </td>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.ServiceCardID)
-                        </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
@@ -127,58 +82,16 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.BankName)
                     </td>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.BankBranch)
-                        </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.BankAccount)
                     </td>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.Type)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ServiceID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ServiceDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Total)
-                        </td>*@
                     @if (User.IsInRole("Admin"))
                     {
                         <td>
                             @Html.DisplayFor(modelItem => item.CreatedBy)
                         </td>
                     }
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.CreatedDate)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UpdateDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UpdateBy)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DeletedBy)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DeletedDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.IsDeleted)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AttachPDF)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Status)
-                            </td>*@
                     <td>
-                        @*  @Html.ActionLink("Edit", "Edit", new { id=item.BatchID }) |*@
                         @Html.ActionLink(" Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary fa fa-list", @style = " text-transform: none" })
                     </td>
                     <td>

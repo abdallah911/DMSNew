@@ -1390,6 +1390,8 @@
           <Property Name="NO_PAY" Type="int" />
           <Property Name="NO_OVER" Type="int" />
           <Property Name="ST_DAY" Type="int" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="NationalId" Type="nvarchar" MaxLength="14" />
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
@@ -1843,7 +1845,7 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
-          <Property Name="Status" Type="nchar" MaxLength="10" />
+          <Property Name="Status" Type="nvarchar" MaxLength="10" />
           <Property Name="ReasonRefuse" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Roshita">
@@ -1957,7 +1959,7 @@
           <Property Name="DEV_LOC_DIS" Type="float" Nullable="false" />
           <Property Name="IMP_DIS" Type="float" Nullable="false" />
           <Property Name="DEV_IMP_DIS" Type="float" Nullable="false" />
-          <Property Name="PRV_TYPE" Type="float" Nullable="false" />
+          <Property Name="PRV_TYPE" Type="int" Nullable="false" />
           <Property Name="TERMINATE_FLAG" Type="nvarchar(max)" />
           <Property Name="TERMINATE_DATE" Type="date" />
           <Property Name="USER_CR" Type="nvarchar(max)" />
@@ -3929,6 +3931,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NationalId" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Med_Medicine">
           <Key>
@@ -4184,8 +4188,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="PrvType" Type="Int32" Nullable="false" />
           <Property Name="PrvAName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PrvEName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="RequestAddProviders" Relationship="Self.FK_RequestAddProvider_ProviderTypeNew" FromRole="ProviderTypeNew" ToRole="RequestAddProvider" />
           <NavigationProperty Name="ProviderComplaints" Relationship="DB_A45413_DMSERPModel.FK_ProviderComplaint_ProviderTypeNew" FromRole="ProviderTypeNew" ToRole="ProviderComplaint" />
+          <NavigationProperty Name="RequestAddProviders" Relationship="DB_A45413_DMSERPModel.FK_RequestAddProvider_ProviderTypeNew" FromRole="ProviderTypeNew" ToRole="RequestAddProvider" />
         </EntityType>
         <EntityType Name="RelationShip">
           <Key>
@@ -4193,33 +4197,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RelationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="RequestAddProvider">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ServName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ServAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NumberOfPeople" Type="Int32" Nullable="false" />
-          <Property Name="ProviderType" Type="Int32" />
-          <Property Name="Country" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Region" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="ResponsableFor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RespobeStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="IsDeleted" Type="Boolean" />
-          <Property Name="IsSync" Type="Boolean" />
-          <Property Name="SyncDate" Type="DateTime" Precision="3" />
-          <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ReasonRefuse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ProviderTypeNew" Relationship="Self.FK_RequestAddProvider_ProviderTypeNew" FromRole="RequestAddProvider" ToRole="ProviderTypeNew" />
         </EntityType>
         <EntityType Name="RoshitaPharmcyApproved">
           <Key>
@@ -4532,18 +4509,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RequestAddProvider_ProviderTypeNew">
-          <End Role="ProviderTypeNew" Type="Self.ProviderTypeNew" Multiplicity="0..1" />
-          <End Role="RequestAddProvider" Type="Self.RequestAddProvider" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProviderTypeNew">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="RequestAddProvider">
-              <PropertyRef Name="ProviderType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DMS_TESTEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Acceptions" EntityType="Self.Acception" />
           <EntitySet Name="AcceptionReasons" EntityType="Self.AcceptionReason" />
@@ -4587,7 +4552,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="Providers" EntityType="Self.Provider" />
           <EntitySet Name="ProviderTypeNews" EntityType="Self.ProviderTypeNew" />
           <EntitySet Name="RelationShips" EntityType="Self.RelationShip" />
-          <EntitySet Name="RequestAddProviders" EntityType="Self.RequestAddProvider" />
           <EntitySet Name="RoshitaPharmcyApproveds" EntityType="Self.RoshitaPharmcyApproved" />
           <EntitySet Name="S_Ent_7" EntityType="Self.S_Ent_7" />
           <EntitySet Name="Ser_Prov_Disc" EntityType="Self.Ser_Prov_Disc" />
@@ -4619,10 +4583,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <AssociationSet Name="FK_MedicinesDiagnosis_MedicineData" Association="Self.FK_MedicinesDiagnosis_MedicineData">
             <End Role="MedicineData" EntitySet="MedicineDatas" />
             <End Role="MedicinesDiagnosis" EntitySet="MedicinesDiagnosis" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RequestAddProvider_ProviderTypeNew" Association="Self.FK_RequestAddProvider_ProviderTypeNew">
-            <End Role="ProviderTypeNew" EntitySet="ProviderTypeNews" />
-            <End Role="RequestAddProvider" EntitySet="RequestAddProviders" />
           </AssociationSet>
           <FunctionImport Name="fn_GetEmployessForCompany" IsComposable="true" ReturnType="Collection(DB_A45413_DMSERPModel.fn_GetEmployessForCompany_Result)">
             <Parameter Name="CompanyId" Mode="In" Type="Int32" />
@@ -4895,6 +4855,11 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <AssociationSet Name="FK_EmployeeData_Region" Association="DB_A45413_DMSERPModel.FK_EmployeeData_Region">
             <End Role="Region" EntitySet="Regions" />
             <End Role="EmployeeData" EntitySet="EmployeeDatas" />
+          </AssociationSet>
+          <EntitySet Name="RequestAddProviders" EntityType="DB_A45413_DMSERPModel.RequestAddProvider" />
+          <AssociationSet Name="FK_RequestAddProvider_ProviderTypeNew" Association="DB_A45413_DMSERPModel.FK_RequestAddProvider_ProviderTypeNew">
+            <End Role="ProviderTypeNew" EntitySet="ProviderTypeNews" />
+            <End Role="RequestAddProvider" EntitySet="RequestAddProviders" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
@@ -6574,6 +6539,45 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="RequestAddProvider">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ServName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ServAddress" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumberOfPeople" Type="Int32" Nullable="false" />
+          <Property Name="ProviderType" Type="Int32" />
+          <Property Name="Country" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Region" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ResponsableFor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RespobeStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="IsSync" Type="Boolean" />
+          <Property Name="SyncDate" Type="DateTime" Precision="3" />
+          <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ReasonRefuse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProviderTypeNew" Relationship="DB_A45413_DMSERPModel.FK_RequestAddProvider_ProviderTypeNew" FromRole="RequestAddProvider" ToRole="ProviderTypeNew" />
+        </EntityType>
+        <Association Name="FK_RequestAddProvider_ProviderTypeNew">
+          <End Type="DB_A45413_DMSERPModel.ProviderTypeNew" Role="ProviderTypeNew" Multiplicity="0..1" />
+          <End Type="DB_A45413_DMSERPModel.RequestAddProvider" Role="RequestAddProvider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProviderTypeNew">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RequestAddProvider">
+              <PropertyRef Name="ProviderType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7251,6 +7255,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="Med_Card">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Med_Card">
               <MappingFragment StoreEntitySet="Med_Card">
+                <ScalarProperty Name="NationalId" ColumnName="NationalId" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CARD_NO" ColumnName="CARD_NO" />
                 <ScalarProperty Name="PROVIDER_CODE" ColumnName="PROVIDER_CODE" />
@@ -7541,33 +7547,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
               <MappingFragment StoreEntitySet="RelationShip">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="RelationName" ColumnName="RelationName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RequestAddProviders">
-            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RequestAddProvider">
-              <MappingFragment StoreEntitySet="RequestAddProvider">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="CompName" ColumnName="CompName" />
-                <ScalarProperty Name="ServName" ColumnName="ServName" />
-                <ScalarProperty Name="ServAddress" ColumnName="ServAddress" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="NumberOfPeople" ColumnName="NumberOfPeople" />
-                <ScalarProperty Name="ProviderType" ColumnName="ProviderType" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="ResponsableFor" ColumnName="ResponsableFor" />
-                <ScalarProperty Name="RespobeStatus" ColumnName="RespobeStatus" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
-                <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ReasonRefuse" ColumnName="ReasonRefuse" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -9080,6 +9059,33 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="SecArName" ColumnName="SecArName" />
                 <ScalarProperty Name="FirstArName" ColumnName="FirstArName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestAddProviders">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RequestAddProvider">
+              <MappingFragment StoreEntitySet="RequestAddProvider">
+                <ScalarProperty Name="ReasonRefuse" ColumnName="ReasonRefuse" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
+                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="RespobeStatus" ColumnName="RespobeStatus" />
+                <ScalarProperty Name="ResponsableFor" ColumnName="ResponsableFor" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="ProviderType" ColumnName="ProviderType" />
+                <ScalarProperty Name="NumberOfPeople" ColumnName="NumberOfPeople" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ServAddress" ColumnName="ServAddress" />
+                <ScalarProperty Name="ServName" ColumnName="ServName" />
+                <ScalarProperty Name="CompName" ColumnName="CompName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

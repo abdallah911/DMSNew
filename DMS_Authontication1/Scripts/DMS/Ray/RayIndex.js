@@ -2,7 +2,7 @@
 $(function () {
     var id;
     $('#ddlUsers').select2();
-    $('#From').datepicker({maxDate: 0});
+    $('#From').datepicker({ maxDate: 0 });
     $('#To').datepicker({ maxDate: 0 });
     $('#AdminFrom').datepicker({ maxDate: 0 });
     $('#AdminTo').datepicker({ maxDate: 0 });
@@ -10,7 +10,7 @@ $(function () {
         var From = $('#From').val();
         var To = $('#To').val();
         if (From != "" && To != "") {
-            window.open('/Rays/PrintClams?from=' + From + '&&to=' + To+ '&&Branch=' + $('#ddlUsers').val() );
+            window.open('/Rays/PrintClams?from=' + From + '&&to=' + To + '&&Branch=' + $('#ddlUsers').val());
         } else {
             toastr.info('select date first')
         }
@@ -20,10 +20,14 @@ $(function () {
     IndexDatatable();
     $('#adminSearch').click(function () {
         var result = ValidSearchRequest();
+        var edit = $('#edit').val();
+        var deleterosita = $('#delete').val();
+        var view = $('#view').val();
+        var fullcontroll = $('#fullcontroll').val();
         if (result.valid) {
             $('#Index').dataTable().fnDestroy();
             $("#Index").DataTable({
-                "sAjaxSource": '/Rays/PreseptionList?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() + '&&ApprovalNo=' + $("#ApprovalNo").val() + '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val()  + '&&From=' + $("#AdminFrom").val() + '&&To=' + $("#AdminTo").val(),
+                "sAjaxSource": '/Rays/PreseptionList?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() + '&&ApprovalNo=' + $("#ApprovalNo").val() + '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val() + '&&From=' + $("#AdminFrom").val() + '&&To=' + $("#AdminTo").val(),
                 "bServerSide": true,
                 "processing": true,
                 "bFilter": true,
@@ -31,7 +35,6 @@ $(function () {
                 "pageLength": 10,
                 "bInfo": true,
                 "columns": [
-                    //  { "data": "Id", "name": "Id" },
                     { "data": "Oracle_Id", "name": "Oracle_Id" },
                     { "data": "CardId", "name": "Card Id" },
                     { "data": "CompanyPercent", "name": "Company Percent" },
@@ -50,31 +53,37 @@ $(function () {
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            // data = data.toString().slice(8);//remove date
-                            return '<a class="btn btn-warning" href="/Rays/Edit/' + data + '">Edit</a>';
+                            if (edit == "True" || fullcontroll == "True") {
+                                return '<a class="btn btn-warning" href="/Rays/Edit/' + data + '">Edit</a>';
+                            }
+                            else
+                                return '<input  data-id=' + data + '  hidden  /> ';
                         }
                     },
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            //data = data.toString().slice(8);//remove date
-                            return '<a class="btn btn-info" href="/Rays/Details/' + data + '">Details</a>';
+                            if (view == "True" || fullcontroll == "True") {
+                                return '<a class="btn btn-info" href="/Rays/Details/' + data + '">Details</a>';
+                            }
+                            else
+                                return '<input  data-id=' + data + '  hidden  /> ';
                         }
                     }
                     ,
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            //data = data.toString().slice(8);//remove date
-                            //return '<a href="/Rays/Delete/' + data + '">Delete</a>';
-                            return '<button type="button" class="btn btn-danger" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
-
+                            if (deleterosita == "True" || fullcontroll == "True") {
+                                return '<button type="button" class="btn btn-danger" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+                            }
+                            else
+                                return '<input  data-id=' + data + '  hidden  /> ';
                         }
                     },
                     {
                         "data": "Oracle_Id",
                         "mRender": function (data) {
-                            //data = data.toString().slice(8);//remove date
                             return '<button type="button" class="btn btn-default" data-id=' + data + ' onclick="Print(this);"> Print</button>';
                         }
                     }
@@ -82,67 +91,42 @@ $(function () {
 
                 ]
             });
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                url: '/Rays/PreseptionAdminCount?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() + '&&ApprovalNo=' + $("#ApprovalNo").val() + '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val() + '&&From=' + $("#AdminFrom").val() + '&&To=' + $("#AdminTo").val(),
-                success: function (returndata) {
-                    if (returndata.Count != 0) {
-                        var setData = $("#Counts Tbody");
-                        setData.empty();
-                        var data = "<tr >" +
-                            "<td>" + returndata.Count + "</td>" +
-                            "<td>" + returndata.TotalValue.toFixed(2) + "</td>" +
-                            "<td>" + returndata.CompanyPayment.toFixed(2) + "</td>" +
-                            "<td>" + returndata.personpayment.toFixed(2) + "</td>" +
-                            "<td>" + returndata.cash.toFixed(2) + "</td>" +
-                            "<td>" + returndata.overinsurance.toFixed(2) + "</td>" +
-                            "</tr>"
-                        setData.append(data);
+            if (fullcontroll == "True") {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: '/Rays/PreseptionAdminCount?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() + '&&ApprovalNo=' + $("#ApprovalNo").val() + '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val() + '&&From=' + $("#AdminFrom").val() + '&&To=' + $("#AdminTo").val(),
+                    success: function (returndata) {
+                        if (returndata.Count != 0) {
+                            var setData = $("#Counts Tbody");
+                            setData.empty();
+                            var data = "<tr >" +
+                                "<td>" + returndata.Count + "</td>" +
+                                "<td>" + returndata.TotalValue.toFixed(2) + "</td>" +
+                                "<td>" + returndata.CompanyPayment.toFixed(2) + "</td>" +
+                                "<td>" + returndata.personpayment.toFixed(2) + "</td>" +
+                                "<td>" + returndata.cash.toFixed(2) + "</td>" +
+                                "<td>" + returndata.overinsurance.toFixed(2) + "</td>" +
+                                "</tr>"
+                            setData.append(data);
 
-                    } else {
-                        var setData = $("#Counts Tbody");
-                        setData.empty();
-                        var data = "<tr >" +
-                            "<td>0</td>" +
-                            "<td>0</td>" +
-                            "<td>0</td>" +
-                            "<td>0</td>" +
-                            "<td>0</td>" +
-                            "<td>0</td>" +
-                            "</tr>"
-                        setData.append(data);
+                        } else {
+                            var setData = $("#Counts Tbody");
+                            setData.empty();
+                            var data = "<tr >" +
+                                "<td>0</td>" +
+                                "<td>0</td>" +
+                                "<td>0</td>" +
+                                "<td>0</td>" +
+                                "<td>0</td>" +
+                                "<td>0</td>" +
+                                "</tr>"
+                            setData.append(data);
+                        }
+
                     }
-
-                }
-            });
-            //$.ajax({
-            //    type: 'POST',
-            //    url: '/Rays/SaveRequest/',
-            //    dataType: 'Json',
-            //    data: Request,
-            //    success: function (result) {
-
-            //        bootbox.dialog({
-            //            closeButton: false,
-            //            title: 'Added Sucessfully',
-            //            message: "Request Number : " + result,
-            //            buttons: {
-            //                New: {
-            //                    label: "New",
-            //                    className: 'btn-info',
-            //                    callback: function () {
-            //                        ClearSaveRequest();
-            //                    }
-            //                }
-
-            //            }
-            //        });
-            //    },
-            //    error: function (err) {
-            //        bootbox.alert("Error saving Request");
-            //    }
-            //})
+                });
+            }
         }
 
     });
@@ -152,7 +136,7 @@ $(function () {
 
             $('#Index').dataTable().fnDestroy();
             $("#Index").DataTable({
-                "sAjaxSource": '/Rays/PreseptionList?Provider=&&Company=&&ApprovalNo=' + $("#RaysApprovalNo").val() + '&&Branch=' + $('#ddlUsers').val() +'&&CardId=' + $("#RaysCardId").val() + '&&From=' + $("#From").val() + '&&To=' + $("#To").val(),
+                "sAjaxSource": '/Rays/PreseptionList?Provider=&&Company=&&ApprovalNo=' + $("#RaysApprovalNo").val() + '&&Branch=' + $('#ddlUsers').val() + '&&CardId=' + $("#RaysCardId").val() + '&&From=' + $("#From").val() + '&&To=' + $("#To").val(),
                 "bServerSide": true,
                 "processing": true,
                 "bFilter": true,
@@ -160,7 +144,6 @@ $(function () {
                 "pageLength": 10,
                 "bInfo": true,
                 "columns": [
-                    //  { "data": "Id", "name": "Id" },
                     { "data": "Oracle_Id", "name": "Oracle_Id" },
                     { "data": "CardId", "name": "Card Id" },
                     { "data": "CompanyPercent", "name": "Company Percent" },
@@ -192,8 +175,6 @@ $(function () {
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            //data = data.toString().slice(8);//remove date
-                            //return '<a href="/Rays/Delete/' + data + '">Delete</a>';
                             return '<button type="button" disabled class="btn btn-danger" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
 
                         }
@@ -201,7 +182,6 @@ $(function () {
                     {
                         "data": "Oracle_Id",
                         "mRender": function (data) {
-                            //data = data.toString().slice(8);//remove date
                             return '<button type="button" class="btn btn-default" data-id=' + data + ' onclick="Print(this);"> Print</button>';
                         }
                     }
@@ -239,7 +219,6 @@ function Delete(button) {
 }
 function Print(button) {
     var id = $(button).data('id');
-    //name = name.toString().slice(8);
     window.open('/Rays/ControlPenelReport?id=' + id);
 }
 
@@ -259,7 +238,6 @@ function ClearSearchData() {
     $("#ApprovalNo").val("");
     $("#Branch").val("");
     $("#CardId").val("");
-    //$("#ddlType").val('').trigger("change");
 }
 function ValidRaysSearchRequest() {
     $.validity.setup({ outputMode: 'label' });
@@ -286,7 +264,6 @@ function IndexDatatable() {
         "pageLength": 10,
         "bInfo": true,
         "columns": [
-            //{ "data": "Id", "name": "Id" },
             { "data": "Oracle_Id", "name": "Oracle_Id" },
             { "data": "CardId", "name": "Card Id" },
             { "data": "CompanyPercent", "name": "Company Percent" },
@@ -305,14 +282,12 @@ function IndexDatatable() {
             {
                 "data": "Id",
                 "mRender": function (data) {
-                    // data = data.toString().slice(8);//remove date
                     return '<a class="btn btn-warning" href="/Rays/Edit/' + data + '">Edit</a>';
                 }
             },
             {
                 "data": "Id",
                 "mRender": function (data) {
-                    // data = data.toString().slice(8);//remove date
                     return '<a class="btn btn-info" href="/Rays/Details/' + data + '">Details</a>';
                 }
             }
@@ -320,8 +295,6 @@ function IndexDatatable() {
             {
                 "data": "Id",
                 "mRender": function (data) {
-                    //data = data.toString().slice(8);//remove date
-                    //return '<a href="/Rays/Delete/' + data + '">Delete</a>';
                     return '<button type="button" class="btn btn-danger" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
 
                 }
@@ -329,7 +302,6 @@ function IndexDatatable() {
             {
                 "data": "Oracle_Id",
                 "mRender": function (data) {
-                    // data = data.toString().slice(8);//remove date
                     return '<button type="button" class="btn btn-default" data-id=' + data + ' onclick="Print(this);"> Print</button>';
                 }
             }
