@@ -232,6 +232,21 @@
                                 @Html.ValidationMessageFor(model => model.EMP_IMG, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                        <div class="form-group col-md-6 ">
+                            @Html.Label("Download Excel", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-offset-4">
+                                <i class="fa fa-download">
+                                    <input data-step="8" data-intro="DownLoad Excel" id="DownLoadEXCL" type="button" value=" DownLoad Excel " onclick="DownLoadEXCLFunc();" class="btn btn-primary" />
+                                </i>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group col-md-6">
+                            @Html.Label("Upload Excel", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                <input class="form-control text-box single-line" id="UploadExcel" name="UploadExcel" type="File" value="">
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <div class="col-md-offset-10 col-md-2">
@@ -491,7 +506,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <div class="col-md-offset-10 col-md-2">
                             </div>

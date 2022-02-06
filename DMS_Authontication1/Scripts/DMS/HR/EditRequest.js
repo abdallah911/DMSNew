@@ -264,7 +264,6 @@
 
     });
     $('#submit').click(function () {
-        debugger;
         var result = ValidSaveEditRequest();
         if (result.valid) {
 
@@ -424,6 +423,31 @@
             }
         }
         if ($("div.tab-content div.active")[0].id == "CreateEmployee") {
+
+            var files = $("#UploadExcel").get(0).files;//excel
+            if ($("#UploadExcel").get(0).files.length != 0) {
+                var exceldata = new FormData();
+                exceldata.append("File", files[0]);
+
+                $.ajax({
+                    url: '/EmployeeRequest/SendExcelFile/',
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: exceldata,
+                    success: function (response) {
+                        if (response == 1)
+                            toastr.success("Data Send Susseccfuly ");
+                        //response image url instead of session
+                    },
+                    error: function (er) {
+                        //alert("Error Upload Image");
+                    }
+
+                })
+            }
+            
+
             var result = ValidSaveRequest();
             if (result.valid) {
 
@@ -852,6 +876,9 @@ function ClearSaveRequest() {
     $("#EMP_RELATION").val('').trigger("change");
     $("#EMP_IMG").val("");
     $("#EMP_CLASS").val('').trigger("change");
+}
+function DownLoadEXCLFunc() {
+    window.open('/EmployeeRequest/PrintXLC');
 }
 function ClearTerminationRequest() {
     $("#Termination").find('#CARD_ID').val("").change();

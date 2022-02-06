@@ -451,6 +451,41 @@ namespace DMS_Authontication1.Controllers.HR
 
             return new JsonResult { Data = "r", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        public JsonResult SendExcelFile(HttpPostedFileBase File)
+        {
+            if (File != null)
+            {
+                var userid = User.Identity.GetUserId();
+                var Hospitalprovider = UserManager.FindById(userid);
+
+                string sub = @"Request Employee From " + Hospitalprovider.FName + " " + Hospitalprovider.LName + "  Code : " + Hospitalprovider.Provider;
+                SendExcelMail("mediacl.approv@gmail.com", "obad1452@gmail.com", sub, File);
+                SendExcelMail("mediacl.approv@gmail.com", "Operation@dms-eg.com", sub, File);
+                SendExcelMail("mediacl.approv@gmail.com", "Operation.aso@dms-eg.com", sub, File);
+                SendExcelMail("mediacl.approv@gmail.com", "marian@dms-eg.com", sub, File);
+                using (MailMessage mail = new MailMessage("mediacl.approv@gmail.com", "Operation@dms-eg.com"))
+                {
+                    mail.Subject = sub;
+                    mail.Body = "";
+                    string fileName = Path.GetFileName(File.FileName);
+                    mail.Attachments.Add(new Attachment(File.InputStream, fileName));
+
+                    mail.IsBodyHtml = false;
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.EnableSsl = true;
+                    NetworkCredential networkCredential = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "Dms123456");
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = networkCredential;
+                    smtp.Port = 587;
+                    smtp.Send(mail);
+                }
+                return new JsonResult { Data = 1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+
+            return new JsonResult { Data = "r", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
 
         public JsonResult SaveEditRequest(Employee_Request data)
         {
@@ -621,6 +656,28 @@ namespace DMS_Authontication1.Controllers.HR
             mailclient.Send(mail);
         }
 
+        public void SendExcelMail(string from, string to, string sub, HttpPostedFileBase File)
+        {
+            using (MailMessage mail = new MailMessage(from, to))
+            {
+                mail.Subject = sub;
+                mail.Body = "";
+                string fileName = Path.GetFileName(File.FileName);
+                mail.Attachments.Add(new Attachment(File.InputStream, fileName));
+
+                mail.IsBodyHtml = false;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                NetworkCredential networkCredential = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "Dms123456");
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = networkCredential;
+                smtp.Port = 587;
+                smtp.Send(mail);
+            }
+        }
+
+
         public FileResult DownloadAttachment(string FileName)
         {
             var path = System.IO.Path.Combine(Server.MapPath("/Content/EmployeesRequestsImage/"), FileName);
@@ -649,6 +706,22 @@ namespace DMS_Authontication1.Controllers.HR
             {
                 return new JsonResult { Data = "Rrequest not found", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
+            }
+        }
+
+        public ActionResult PrintXLC()
+        {
+            try
+            {
+                var ExcelFile = Server.MapPath("~/Content/EmployeesRequestsImage/Add Employess.xlsx");
+
+                return File(ExcelFile, "application/xls", "Add Employees.xls");
+            }
+            catch (Exception ex)
+            {
+                return View("~/Views/Shared/Error.cshtml");
+
+                throw ex;
             }
         }
     }
