@@ -636,7 +636,10 @@ namespace DMS_Authontication1.Controllers
             mED_CARD = db.Med_Card.Where(x => x.CARD_NO == data.CARD_NO).FirstOrDefault();
             if (mED_CARD != null)
             {
-                if (mED_CARD.UPDATE_BY == "GodaKotb" && User.Identity.Name != "GodaKotb")
+                if ((mED_CARD.UPDATE_BY == "GodaKotb" || mED_CARD.UPDATE_BY == "dr.ayman"
+                    || mED_CARD.UPDATE_BY == "Nancy.mohamed" || mED_CARD.UPDATE_BY == "M.abdeen")
+                    && (User.Identity.Name != "GodaKotb" && User.Identity.Name != "dr.ayman" &&
+                     User.Identity.Name != "Nancy.mohamed" && User.Identity.Name != "M.abdeen"))
                 {
                     return Json("False");
                 }
@@ -753,7 +756,10 @@ namespace DMS_Authontication1.Controllers
             var medUpdate = db.Med_Card.Where(c => c.CARD_NO == car).FirstOrDefault();
             if (medUpdate != null)
             {
-                if (medUpdate.UPDATE_BY == "GodaKotb" && User.Identity.Name != "GodaKotb")
+                if ((medUpdate.UPDATE_BY == "GodaKotb" || medUpdate.UPDATE_BY == "dr.ayman"
+                    || medUpdate.UPDATE_BY == "Nancy.mohamed" || medUpdate.UPDATE_BY == "M.abdeen")
+                    && (User.Identity.Name != "GodaKotb" && User.Identity.Name != "dr.ayman" &&
+                     User.Identity.Name != "Nancy.mohamed" && User.Identity.Name != "M.abdeen"))
                 {
                     return Json("False");
                 }
