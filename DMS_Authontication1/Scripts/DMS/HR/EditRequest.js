@@ -446,8 +446,8 @@
 
                 })
             }
-            
 
+            else {
             var result = ValidSaveRequest();
             if (result.valid) {
 
@@ -531,6 +531,7 @@
                 })
 
             }
+        }
         }
 
         else if ($("div.tab-content div.active")[0].id == "Termination") {
