@@ -459,7 +459,6 @@ namespace DMS_Authontication1.Controllers.HR
                 var Hospitalprovider = UserManager.FindById(userid);
 
                 string sub = @"Request Employee From " + Hospitalprovider.FName + " " + Hospitalprovider.LName + "  Code : " + Hospitalprovider.Provider;
-                SendExcelMail("mediacl.approv@gmail.com", "obad1452@gmail.com", sub, File);
                 SendExcelMail("mediacl.approv@gmail.com", "Operation@dms-eg.com", sub, File);
                 SendExcelMail("mediacl.approv@gmail.com", "Operation.aso@dms-eg.com", sub, File);
                 SendExcelMail("mediacl.approv@gmail.com", "marian@dms-eg.com", sub, File);
