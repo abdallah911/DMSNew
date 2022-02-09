@@ -650,6 +650,8 @@ namespace DMS_Authontication1.Controllers
             roshita.TotalValue = data.TotalValue;
             roshita.Cash = data.Cash;
             roshita.SyncBy = "Update";
+            roshita.UpdatedBy = User.Identity.Name;
+            roshita.UpdatedDate = DateTime.Now;
             if (ModelState.IsValid)
             {
                 db.Entry(roshita).State = EntityState.Modified;

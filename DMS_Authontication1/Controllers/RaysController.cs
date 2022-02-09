@@ -48,7 +48,7 @@ namespace DMS_Authontication1.Controllers
         public JsonResult CheckDaily(string id, string code)
         {
             var createdDate = db.Roshitas.Join(db.RoshitaDetails, x => x.Id, d => d.RoshitaID, (x, d) => new { x, d })
-              .Where(z => z.x.CardId == id && z.d.MedicienCode == code && z.x.Manager=="Ray" && z.d.PaymentGroup != "Cash" && z.d.IsDealed == true)
+              .Where(z => z.x.CardId == id && z.d.MedicienCode == code && z.x.Manager == "Ray" && z.d.PaymentGroup != "Cash" && z.d.IsDealed == true)
               .OrderByDescending(v => v.x.CreatedDate)
               .Select(l => new
               {
@@ -86,12 +86,12 @@ namespace DMS_Authontication1.Controllers
             long userProvider = Convert.ToInt64(user.Provider);
             long lgSearch;
             long.TryParse(sSearch, out lgSearch);
-           // bool UserRole = User.IsInRole("Rays");
+            // bool UserRole = User.IsInRole("Rays");
             var result = new
             {
                 sEcho = sEcho,
                 aaData = db.Serv_Ray.Where(x => x.LAB_CODE == userProvider && x.LOOK == 0).Where(r => sSearch != "" ? r.SERV_ANAME.Contains(sSearch) || r.SERV_CODE == lgSearch : true)
-               // .Where(x => UserRole ? x.LAB_CODE == userProvider : x.LAB_CODE == 1120101/*11206009*/)
+                // .Where(x => UserRole ? x.LAB_CODE == userProvider : x.LAB_CODE == 1120101/*11206009*/)
                 .OrderBy(m => m.SERV_CODE)
           .Select(l => new
           {
@@ -229,7 +229,7 @@ namespace DMS_Authontication1.Controllers
             }
             return Json("savd");
         }
-       
+
         [Authorize(Roles = "Admin,Rays,Rays_Admin")]
         public JsonResult SaveDiagnoises(List<Diagnose> Diagnoises)
         {
@@ -556,8 +556,8 @@ namespace DMS_Authontication1.Controllers
         {
 
             List<DoctorContainerViewModel> data = db.RoshitaDetails.Where(l => l.RoshitaID == id && l.IsDealed == true).AsEnumerable()
-                 //.Join(db.Serv_Ray, d => d.MedicienCode, m => Convert.ToString(m.SERV_CODE), (d, m) => new { d, m })
-               
+               //.Join(db.Serv_Ray, d => d.MedicienCode, m => Convert.ToString(m.SERV_CODE), (d, m) => new { d, m })
+
                .Select(l => new DoctorContainerViewModel
                {
                    Id = l.Id,
@@ -595,8 +595,8 @@ namespace DMS_Authontication1.Controllers
         public ActionResult Edit(int id)
         {
             List<DoctorContainerViewModel> data = db.RoshitaDetails.Where(l => l.RoshitaID == id && l.IsDealed == true).AsEnumerable()
-               //  .Join(db.Serv_Ray, d => d.MedicienCode, m =>Convert.ToString(m.SERV_CODE), (d, m) => new { d, m })
-                 
+                 //  .Join(db.Serv_Ray, d => d.MedicienCode, m =>Convert.ToString(m.SERV_CODE), (d, m) => new { d, m })
+
                  .Select(l => new DoctorContainerViewModel
                  {
                      Id = l.Id,
@@ -628,7 +628,7 @@ namespace DMS_Authontication1.Controllers
             return Json(Rosita, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Update([Bind(Include = "Id,TotalValue,PersonPayment,CompanyPayment,OverInsurance,Cash")]Roshita data)
+        public JsonResult Update([Bind(Include = "Id,TotalValue,PersonPayment,CompanyPayment,OverInsurance,Cash")] Roshita data)
         {
 
             var roshita = db.Roshitas.Where(x => x.Id == data.Id).FirstOrDefault();
@@ -637,6 +637,8 @@ namespace DMS_Authontication1.Controllers
             roshita.CompanyPayment = data.CompanyPayment;
             roshita.TotalValue = data.TotalValue;
             roshita.Cash = data.Cash;
+            roshita.UpdatedBy = User.Identity.Name;
+            roshita.UpdatedDate = DateTime.Now;
             if (ModelState.IsValid)
             {
                 db.Entry(roshita).State = EntityState.Modified;
@@ -805,7 +807,7 @@ namespace DMS_Authontication1.Controllers
             rd.SetParameterValue("Type", data.RoshetaType);
             rd.SetParameterValue("Pharmacy", data.CreatedBy);
             rd.SetParameterValue("Approval", id);
-            rd.SetParameterValue("PhoneNumber", data.PhoneNumber); 
+            rd.SetParameterValue("PhoneNumber", data.PhoneNumber);
             rd.SetParameterValue("CompanyName", Company.C_ENAME);
             rd.SetParameterValue("CardId", data.CardId);
             if (data.Diagnose1 != null && data.Diagnose1 != "Empty")
@@ -861,8 +863,8 @@ namespace DMS_Authontication1.Controllers
                    .AsEnumerable()
                 .Select(d => new RoshitaCompEmolyessReportViewModel
                 {
-                //Id = d.r.Id,
-                Id = Convert.ToInt64("2" + d.r.CreatedDate.Value.ToString("ddMMyy") + d.r.Id),
+                    //Id = d.r.Id,
+                    Id = Convert.ToInt64("2" + d.r.CreatedDate.Value.ToString("ddMMyy") + d.r.Id),
                     CardId = d.r.CardId,
                     EMP_ENAME = d.m.EMP_ENAME,
                     Manager = d.r.Manager,

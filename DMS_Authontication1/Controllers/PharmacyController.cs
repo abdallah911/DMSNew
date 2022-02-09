@@ -2107,8 +2107,10 @@ namespace DMS_TEST.Controllers
             roshita1.Limit = roshita.Limit;
             roshita1.PhoneNumber = roshita.PhoneNumber;
             roshita1.ClaimNumber = roshita.ClaimNumber;
-            roshita1.CreatedBy = User.Identity.Name;
-            roshita1.CreatedDate = DateTime.Now;
+            roshita1.CreatedBy = roshita.CreatedBy;
+            roshita1.CreatedDate = roshita.CreatedDate;
+            roshita1.UpdatedBy = User.Identity.Name;
+            roshita1.UpdatedDate = DateTime.Now;
 
             roshita1.OverInsurance = data.OverInsurance;
             roshita1.PersonPayment = data.PersonPayment;
@@ -2121,6 +2123,9 @@ namespace DMS_TEST.Controllers
 
             roshita.Manager = "Stop-ED";
             roshita.SyncBy = "Update";
+            roshita.UpdatedBy = User.Identity.Name;
+            roshita.UpdatedDate = DateTime.Now;
+
             db.Entry(roshita).State = EntityState.Modified;
 
             //roshita.OverInsurance = data.OverInsurance;
