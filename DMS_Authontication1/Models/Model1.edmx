@@ -1869,10 +1869,12 @@
           <Property Name="Cash" Type="float" />
           <Property Name="Manager" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="PatchId" Type="int" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="ClaimNumber" Type="float" />
-          <Property Name="CreatedDate" Type="datetime" />
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
@@ -5884,6 +5886,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <NavigationProperty Name="RoshitaPharmcyApproveds" Relationship="DB_A45413_DMSERPModel.FK_RoshitaPharmcyApproved_Roshita" FromRole="Roshita" ToRole="RoshitaPharmcyApproved" />
           <NavigationProperty Name="RoshitaDiagnosisAdmins" Relationship="DB_A45413_DMSERPModel.FK_RoshitaDiagnosisAdmin_Roshita" FromRole="Roshita" ToRole="RoshitaDiagnosisAdmin" />
           <NavigationProperty Name="PrescriptionRoshitaDignosis" Relationship="DB_A45413_DMSERPModel.FK_PrescriptionRoshitaDignosis_Roshita" FromRole="Roshita" ToRole="PrescriptionRoshitaDignosi" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_Roshita_Patchs">
           <End Type="DB_A45413_DMSERPModel.Patch" Role="Patch" Multiplicity="0..1" />
@@ -8611,6 +8615,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="Roshitas">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Roshita">
               <MappingFragment StoreEntitySet="Roshita">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
                 <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
