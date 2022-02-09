@@ -220,6 +220,17 @@ namespace DMS_TEST.Controllers
 
             db.Roshitas.Add(roshita);
             db.SaveChanges();
+
+            var med_card= db.Med_Card.Where(m => m.CARD_NO == data.CardId).FirstOrDefault();
+            RoshitaNoOverNoPay roshitaNoOverNoPay = new RoshitaNoOverNoPay
+            {
+                RositaId = roshita.Id,
+                CreatedBy = User.Identity.Name,
+                CreatedDate = DateTime.Now,
+                NoOver = med_card.NO_OVER,
+                NoPay = med_card.NO_PAY,
+            };
+            db.RoshitaNoOverNoPays.Add(roshitaNoOverNoPay);
             // RoshitaDetails
             foreach (RoshitaDetail Medicien in data.roshitaDetail)
             {
@@ -302,6 +313,7 @@ namespace DMS_TEST.Controllers
             catch (DbEntityValidationException e)
             {
                 db.Roshitas.Remove(roshita);
+                db.SaveChanges();
                 return Json("Failed to Save Prescription");
             }
 

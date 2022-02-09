@@ -187,7 +187,6 @@ $(function () {
         });
         if (Mediciens.length != 0) {
             $("#Update").attr("disabled", true);
-            debugger;
             if ($('#txtTotalInvoice').val() != 0 && $('#txtTotalInvoice').val() != undefined && $('#txtTotalInvoice').val() != "") {
                 var UpdatePrescription = {
                     Id: id,

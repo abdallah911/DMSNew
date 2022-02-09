@@ -1109,7 +1109,7 @@ namespace DMS_TEST.Controllers
                     UNIT_PRICE = l.d.UNIT_PRICE,
                     Group_Type = l.g.GroupType,
                     IsCovered = l.d.IsCovered,
-                    MED_GROUP=l.d.MED_GROUP
+                    MED_GROUP = l.d.MED_GROUP
                 }).ToList();
             var serializer = new JavaScriptSerializer();
             serializer.MaxJsonLength = Int32.MaxValue;
@@ -2252,6 +2252,20 @@ namespace DMS_TEST.Controllers
             {
                 db.Roshitas.Add(roshita1);
                 int result = db.SaveChanges();
+                //if (roshita1.Manager == "Pharmacy_Chronic")
+                //{
+                //    var med_card = db.Med_Card.Where(m => m.CARD_NO == data.CardId).FirstOrDefault();
+                //    RoshitaNoOverNoPay roshitaNoOverNoPay = new RoshitaNoOverNoPay
+                //    {
+                //        RositaId = roshita.Id,
+                //        CreatedBy = User.Identity.Name,
+                //        CreatedDate = DateTime.Now,
+                //        NoOver = med_card.NO_OVER,
+                //        NoPay = med_card.NO_PAY,
+                //    };
+                //    db.RoshitaNoOverNoPays.Add(roshitaNoOverNoPay);
+                //    db.SaveChanges();
+                //}
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita1.Id);
 
             }
@@ -2628,9 +2642,19 @@ namespace DMS_TEST.Controllers
                 if (data.RoshetaType == "11602")
                 {
                     data.RoshetaType = "Pharmacy_Chronic";
-                    med_card = db.Med_Card.Where(m => m.CARD_NO == data.CardId).FirstOrDefault();
-                    NoOver = med_card.NO_OVER == null ? 0 : med_card.NO_OVER;
-                    NoPay = med_card.NO_PAY == null ? 0 : med_card.NO_PAY;
+
+                    var RoshitaNoOverNoPays = db.RoshitaNoOverNoPays.Where(m => m.RositaId == data.Id).FirstOrDefault();
+                    if (RoshitaNoOverNoPays != null)
+                    {
+                        NoOver = RoshitaNoOverNoPays.NoOver == null ? 0 : RoshitaNoOverNoPays.NoOver;
+                        NoPay = RoshitaNoOverNoPays.NoPay == null ? 0 : RoshitaNoOverNoPays.NoPay;
+                    }
+                    else
+                    {
+                        med_card = db.Med_Card.Where(m => m.CARD_NO == data.CardId).FirstOrDefault();
+                        NoOver = med_card.NO_OVER == null ? 0 : med_card.NO_OVER;
+                        NoPay = med_card.NO_PAY == null ? 0 : med_card.NO_PAY;
+                    }
                 }
 
                 if (DataService != null)
