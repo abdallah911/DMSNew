@@ -212,56 +212,59 @@
                                 NationalId: $('.modal-body #NationalId1').val()
                             },
                             success: function (r) {
+                                if (r != "False") {
+                                    if (AddOrEdit == 1 || $('#txtSearchCompany').val() == "") {
+                                        //add
+                                        $('#Cards').DataTable({
+                                            "bPaginate": false,
+                                            "bLengthChange": false,
+                                            "bFilter": true,
+                                            "bInfo": false,
+                                            "bAutoWidth": false
+                                        }).row.add([
+                                            "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectCard(this);'></Button>",
+                                            $('.modal-body #CardId1').val(),
+                                            $('.modal-body #CardName1').val(),
+                                            $('.modal-body #Provider1').val(),
+                                            $('.modal-body #StartDate1').val(),
+                                            $('.modal-body #ExchangeDay1').val(),
+                                            $('.modal-body #Group1 :selected').text(),
+                                            DiagnosisStr,
+                                            $('.modal-body #CompanyPaymentLimit1').val(),
+                                            $('.modal-body #OverInsuranceLimit1').val(),
+                                            $('.modal-body #LockStatus1 :selected').text(),
+                                            $('.modal-body #NOTES1').val(),
+                                            $('.modal-body #PhoneNumber1').val(),
+                                            $('.modal-body #NationalId1').val(),
+                                            "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditCard(this);'> Edit</Button>"
+                                        ]).draw();
+                                        $('#txtSearchCompany').val(CompId);
+                                    }
+                                    else {
 
-                                if (AddOrEdit == 1 || $('#txtSearchCompany').val() == "") {
-                                    //add
-                                    $('#Cards').DataTable({
-                                        "bPaginate": false,
-                                        "bLengthChange": false,
-                                        "bFilter": true,
-                                        "bInfo": false,
-                                        "bAutoWidth": false
-                                    }).row.add([
-                                        "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectCard(this);'></Button>",
-                                        $('.modal-body #CardId1').val(),
-                                        $('.modal-body #CardName1').val(),
-                                        $('.modal-body #Provider1').val(),
-                                        $('.modal-body #StartDate1').val(),
-                                        $('.modal-body #ExchangeDay1').val(),
-                                        $('.modal-body #Group1 :selected').text(),
-                                        DiagnosisStr,
-                                        $('.modal-body #CompanyPaymentLimit1').val(),
-                                        $('.modal-body #OverInsuranceLimit1').val(),
-                                        $('.modal-body #LockStatus1 :selected').text(),
-                                        $('.modal-body #NOTES1').val(),
-                                        $('.modal-body #PhoneNumber1').val(),
-                                        $('.modal-body #NationalId1').val(),
-                                        "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditCard(this);'> Edit</Button>"
-                                    ]).draw();
-                                    $('#txtSearchCompany').val(CompId);
+                                        //edit
+                                        $('#Cards tbody tr').each(function () {
+                                            var row = $(this);
+                                            if (row.find("TD").eq(1).html() == $('.modal-body #CardId1').val()) {
+                                                $("TD", row).eq(3).html($('.modal-body #Provider1').val());
+                                                $("TD", row).eq(4).html($('.modal-body #StartDate1').val());
+                                                $("TD", row).eq(5).html($('.modal-body #ExchangeDay1').val());
+                                                $("TD", row).eq(6).html($('.modal-body #Group1 :selected').text());
+                                                $("TD", row).eq(7).html(DiagnosisStr);
+                                                $("TD", row).eq(8).html($('.modal-body #CompanyPaymentLimit1').val());
+                                                $("TD", row).eq(9).html($('.modal-body #OverInsuranceLimit1').val());
+                                                $("TD", row).eq(10).html($('.modal-body #LockStatus1').val());
+                                                $("TD", row).eq(11).html($('.modal-body #NOTES1').val());
+                                                $("TD", row).eq(12).html($('.modal-body #PhoneNumber1').val());
+                                                $("TD", row).eq(13).html($('.modal-body #NationalId1').val());
+                                            }
+                                        });
+                                    }
+                                    $('#Cards_filter input[type="search"]').val($('.modal-body #CardId1').val()).keyup();
                                 }
                                 else {
-
-                                    //edit
-                                    $('#Cards tbody tr').each(function () {
-                                        var row = $(this);
-                                        if (row.find("TD").eq(1).html() == $('.modal-body #CardId1').val()) {
-                                            $("TD", row).eq(3).html($('.modal-body #Provider1').val());
-                                            $("TD", row).eq(4).html($('.modal-body #StartDate1').val());
-                                            $("TD", row).eq(5).html($('.modal-body #ExchangeDay1').val());
-                                            $("TD", row).eq(6).html($('.modal-body #Group1 :selected').text());
-                                            $("TD", row).eq(7).html(DiagnosisStr);
-                                            $("TD", row).eq(8).html($('.modal-body #CompanyPaymentLimit1').val());
-                                            $("TD", row).eq(9).html($('.modal-body #OverInsuranceLimit1').val());
-                                            $("TD", row).eq(10).html($('.modal-body #LockStatus1').val());
-                                            $("TD", row).eq(11).html($('.modal-body #NOTES1').val());
-                                            $("TD", row).eq(12).html($('.modal-body #PhoneNumber1').val());
-                                            $("TD", row).eq(13).html($('.modal-body #NationalId1').val());
-                                        }
-                                    });
+                                    toastr.error("لا يمكن التعديل علي هذا الكارت برجاء الرجوع الي ادارة المراجعه");
                                 }
-                                $('#Cards_filter input[type="search"]').val($('.modal-body #CardId1').val()).keyup();
-
                             },
                             error: function (err) {
                                 toastr.error("Failed to save");

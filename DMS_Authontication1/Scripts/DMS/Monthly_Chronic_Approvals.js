@@ -609,7 +609,7 @@ $(function () {
                     data: JSON.stringify(Mediciens),
                     success: function (r) {
                         if (r == "False") {
-                            bootbox.alert("غير مسموح  بالتعديل او الاضافة  علي هذا الكارت ");
+                            toastr.error("غير مسموح  بالتعديل او الاضافة  علي هذا الكارت يرجي الرجوع الي ادارة المراجعه  ");
                             $("#SubmetChronic").attr("disabled", false);
                         }
                         else {

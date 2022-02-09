@@ -51,14 +51,14 @@ namespace DMS_Authontication1
                     //   regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager, DefaultAuthenticationTypes.ApplicationCookie))
 
                     OnValidateIdentity = context => SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser, string>(
-                       validateInterval: TimeSpan.FromMinutes(30),
+                       validateInterval: TimeSpan.FromDays(1d),
                        regenerateIdentityCallback: (manager, user) => user.GenerateUserIdentityAsync(manager, context.Identity),
                        getUserIdCallback: (ci) => ci.GetUserId()).Invoke(context)
 
                 },
                 /// TODO: Expire Time must be reduced in production do 2h
                 //ExpireTimeSpan = TimeSpan.FromDays(100d),
-                ExpireTimeSpan = TimeSpan.FromMinutes(30),
+                ExpireTimeSpan = TimeSpan.FromDays(1d),
                 SlidingExpiration = true,
                 CookieName = "RMC.AspNet",
             });
