@@ -1925,6 +1925,19 @@
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="RoshitaNoOverNoPay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NoOver" Type="int" />
+          <Property Name="NoPay" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="RositaId" Type="bigint" />
+        </EntityType>
         <EntityType Name="RoshitaPharmcyApproved">
           <Key>
             <PropertyRef Name="Id" />
@@ -3067,6 +3080,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="RoshitaAcceptions" EntityType="Self.RoshitaAcceptions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoshitaDetails" EntityType="Self.RoshitaDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoshitaDiagnosisAdmin" EntityType="Self.RoshitaDiagnosisAdmin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoshitaNoOverNoPay" EntityType="Self.RoshitaNoOverNoPay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoshitaPharmcyApproved" EntityType="Self.RoshitaPharmcyApproved" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="S_Ent_7" EntityType="Self.S_Ent_7" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ser_Prov_Disc" EntityType="Self.Ser_Prov_Disc" Schema="dbo" store:Type="Tables" />
@@ -4863,6 +4877,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <End Role="ProviderTypeNew" EntitySet="ProviderTypeNews" />
             <End Role="RequestAddProvider" EntitySet="RequestAddProviders" />
           </AssociationSet>
+          <EntitySet Name="RoshitaNoOverNoPays" EntityType="DB_A45413_DMSERPModel.RoshitaNoOverNoPay" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -6582,6 +6597,19 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="RoshitaNoOverNoPay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoOver" Type="Int32" />
+          <Property Name="NoPay" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RositaId" Type="Int64" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9092,6 +9120,20 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="ServName" ColumnName="ServName" />
                 <ScalarProperty Name="CompName" ColumnName="CompName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoshitaNoOverNoPays">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RoshitaNoOverNoPay">
+              <MappingFragment StoreEntitySet="RoshitaNoOverNoPay">
+                <ScalarProperty Name="RositaId" ColumnName="RositaId" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="NoPay" ColumnName="NoPay" />
+                <ScalarProperty Name="NoOver" ColumnName="NoOver" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

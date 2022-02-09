@@ -786,6 +786,9 @@
     <Compile Include="Models\RoshitaDiagnosisAdmin.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RoshitaNoOverNoPay.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RoshitaPharmcyApproved.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
