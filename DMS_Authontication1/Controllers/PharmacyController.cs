@@ -2093,7 +2093,8 @@ namespace DMS_TEST.Controllers
         public JsonResult UpdatePrescription(PrescriptionViewModel data)
         {
             //Roshita
-            var roshita = db.Roshitas.Where(x => x.Id == data.Id).FirstOrDefault();
+            var roshita = db.Roshitas.Where(x => x.Id == data.Id)
+                .Include(r => r.PrescriptionRoshitaDignosis).FirstOrDefault();
 
             Roshita roshita1 = new Roshita();
             roshita1.Manager = roshita.Manager;
@@ -2117,7 +2118,6 @@ namespace DMS_TEST.Controllers
             roshita1.CompanyPayment = data.CompanyPayment;
             roshita1.TotalValue = data.TotalValue;
             roshita1.Cash = data.Cash;
-            //roshita1.SyncBy = "Admin";
             roshita1.PatchId = data.PatchId;
 
 
@@ -2127,14 +2127,6 @@ namespace DMS_TEST.Controllers
             roshita.UpdatedDate = DateTime.Now;
 
             db.Entry(roshita).State = EntityState.Modified;
-
-            //roshita.OverInsurance = data.OverInsurance;
-            //roshita.PersonPayment = data.PersonPayment;
-            //roshita.CompanyPayment = data.CompanyPayment;
-            //roshita.TotalValue = data.TotalValue;
-            //roshita.Cash = data.Cash;
-            //roshita.SyncBy = "Update";
-            //roshita.PatchId = data.PatchId;
             if (ModelState.IsValid)
             {
                 //db.Entry(roshita).State = EntityState.Modified;
@@ -2215,6 +2207,14 @@ namespace DMS_TEST.Controllers
 
             }
 
+            roshita1.PrescriptionRoshitaDignosis = new List<PrescriptionRoshitaDignosi>();
+            foreach (var item in roshita.PrescriptionRoshitaDignosis)
+            {
+                roshita1.PrescriptionRoshitaDignosis.Add(new PrescriptionRoshitaDignosi
+                {
+                    DiagnoiseName = item.DiagnoiseName
+                });
+            }
 
             foreach (RoshitaDetail Medicien in data.roshitaDetail)
             {
@@ -2226,7 +2226,6 @@ namespace DMS_TEST.Controllers
                 {
                     if (oneNotification == false)
                     {
-                        //string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
                         NotificationHub objNotifHub = new NotificationHub();
                         Notification notification = new Notification();
                         notification.SentTo = "Admin";
@@ -2252,20 +2251,7 @@ namespace DMS_TEST.Controllers
             {
                 db.Roshitas.Add(roshita1);
                 int result = db.SaveChanges();
-                //if (roshita1.Manager == "Pharmacy_Chronic")
-                //{
-                //    var med_card = db.Med_Card.Where(m => m.CARD_NO == data.CardId).FirstOrDefault();
-                //    RoshitaNoOverNoPay roshitaNoOverNoPay = new RoshitaNoOverNoPay
-                //    {
-                //        RositaId = roshita.Id,
-                //        CreatedBy = User.Identity.Name,
-                //        CreatedDate = DateTime.Now,
-                //        NoOver = med_card.NO_OVER,
-                //        NoPay = med_card.NO_PAY,
-                //    };
-                //    db.RoshitaNoOverNoPays.Add(roshitaNoOverNoPay);
-                //    db.SaveChanges();
-                //}
+                
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita1.Id);
 
             }
