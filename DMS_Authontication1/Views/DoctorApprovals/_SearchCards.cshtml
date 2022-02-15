@@ -115,7 +115,6 @@
                                     parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
                                 );
                             var dat = (value.getMonth() + 1) + "/" + value.getDate() + "/" + value.getFullYear();
-                            // var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
                         }
                         else {
                             dat = null;
@@ -127,35 +126,16 @@
                             return $(this).text() == r.mED_CARD.GROUP_NAME;
                         }).prop('selected', true);
 
-                        //$(".modal-body #Diagnoise1 option").filter(function () {
-                        //    return $(this).text() == r.mED_CARD.TASHKHES_01;
-                        //}).prop('selected', true);Diagnos
-                        //debugger;
                         $('#Diagnoise1').select2({
                             dropdownParent: $('#EditCardModal .modal-content')
                         });
                         $('.modal-body #Diagnos').val(r.mED_CARD.TASHKHES_01);
                         var DiagnosisList = r.mED_CARD.TASHKHES_01.split('_');
                         let $element = $('#Diagnoise1');
-                        //let val = $element.find("option:contains('" + DiagnosisList[0] + "')").val();
                         var stVal = new Array();
                         for (var i = 0; i < DiagnosisList.length; i++) {
                             stVal[i] = $element.find("option:contains('" + DiagnosisList[i] + "')").val();
                         }
-                        //if (DiagnosisList.length == 1)
-                        //    stVal = "'" + val + "'";
-                        //else
-                        //    stVal = "['" + val + "'";
-                        //if (DiagnosisList.length > 1) {
-                        //    for (var i = 1; i < DiagnosisList.length - 1; i++) {
-
-                        //        let val = $element.find("option:contains('" + DiagnosisList[i] + "')").val();
-                        //        stVal = stVal+ ",'" + val + "'";
-                        //    }
-                        //    let val = $element.find("option:contains('" + DiagnosisList[DiagnosisList.length - 1] + "')").val();
-                        //    stVal = stVal+ ",'" + val + "']";
-                        //}
-
                         $element.val(stVal).trigger('change.select2');
 
                         $('.modal-body #CompanyPaymentLimit1').val(r.mED_CARD.NO_PAY);

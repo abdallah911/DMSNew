@@ -6,10 +6,7 @@ input1.addEventListener("keyup", function (event) {
     }
 });
 $(function () {
-    //const Page = "Monthly";
     $('#txtSearchCompany').click(function () {
-        //var table = $("#CardMedicines")[0];
-        //table.deleteRow();
         $("#wait").css("display", "block");
         $.ajax({
             url: '/CompanyGroup/CompanyGroupList',
@@ -127,9 +124,6 @@ $(function () {
         else {
             bootbox.alert("Please insert Card ID")
         }
-        //} else {
-        //    bootbox.alert("Invalid Card")
-        //}
     });
     $('#Cards').on('search.dt', function () {
         var setData = $("#CardMedicines tbody");
@@ -193,10 +187,8 @@ $(function () {
                 data: JSON.stringify(CardIds),
                 dataType: 'Json',
                 success: function (r) {
-                    //  $('#Cards_filter input[type="search"]').val('').keyup();
                     $('#Cards tbody tr').each(function () {
                         var row = $(this);
-                        // if ($('#OldMainGroup').val() == $("TD", row).eq(6).html()) { }
                         $("TD", row).eq(6).html($('#ChangeGroup :selected').text());
 
                     });
@@ -213,17 +205,6 @@ $(function () {
 
         }
     });
-    //$('#ChangeGroup').map(function () {
-
-
-    //    $('#Cards tbody tr').each(function () {
-    //        var row = $(this);
-    //        if ($('#MainGroup').val() != "N") {
-    //            $("TD", row).eq(6).html($('#Main').val());
-    //        }
-    //    });
-
-    //});
 
     $('#CoPayStatus').change(function () {
         $("#wait").css("display", "block");
@@ -262,17 +243,6 @@ $(function () {
             });
         }
     });
-    //$('#CoPayStatus').map(function () {
-
-
-    //    $('#Cards tbody tr').each(function () {
-    //        var row = $(this);
-    //        if ($('#CoPayStatus').val() != "N") {
-    //            $("TD", row).eq(8).html($('#CoPayStatus').val());
-    //        }
-    //    });
-
-    //});
     $('#OverStatus').change(function () {
         $("#wait").css("display", "block");
         if ($('#OverStatus').val() != "N") {
@@ -312,16 +282,6 @@ $(function () {
 
 
     });
-    //$('#OverStatus').map(function () {
-
-    //    $('#Cards tbody tr').each(function () {
-    //        var row = $(this);
-    //        if ($('#OverStatus').val() != "N") {
-    //            $("TD", row).eq(9).html($('#OverStatus').val());
-    //        }
-    //    });
-
-    //});
     $('#LockStatus2').change(function () {
         $("#wait").css("display", "block");
         if ($('#LockStatus2').val() != "N") {
@@ -361,17 +321,6 @@ $(function () {
 
 
     });
-    //$('#LockStatus2').map(function () {
-
-    //    $('#Cards tbody tr').each(function () {
-    //        var row = $(this);
-    //        if ($('#LockStatus2').val() != "N") {
-    //            $("TD", row).eq(10).html($('#LockStatus2').val());
-    //        }
-    //    });
-
-
-    //});
     //Dignosies
     $.ajax({
         type: 'POST',
@@ -511,7 +460,6 @@ $(function () {
                         }
                         $('#ApprvalId').val(r[0].Id);
                         $('#LastProvider_Provider').val(r[0].CreatedBy);
-                        //$('#Branch').val(r[0].);
                         $('#PrescriptionDate').val(dat1);
                         $('#LastProvider_CARD_ID').val(r[0].CardId);
                         $('#LastProvider_EMP_ANAME').val(r[0].EMP_ANAME);
@@ -540,7 +488,6 @@ $(function () {
                             setData.append(data);
 
                         }
-                        // $('#SearchCards').DataTable();
                         $('#LastApprovalModal').modal();
                         $("#wait").css("display", "none");
 
@@ -592,7 +539,6 @@ $(function () {
                     Medicien.MED_TYP = 9;
                 }
                 Medicien.LFT_MONTH = row.find("TD").eq(14).html();
-                //Medicien.ACT_MONTH = row.find("TD").eq(15).html();
                 Medicien.MONTH_DATE_STOP = row.find("TD").eq(15).html();
                 Medicien.ACTIVE = row.find("TD").eq(16).html();
 
@@ -779,7 +725,7 @@ function SelectCard(button) {
                         (
                             parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
                         );
-                    var dat = /*value.getDate() + "/" +*/ (value.getMonth() + 1) + "/" + value.getFullYear();
+                    var dat =  (value.getMonth() + 1) + "/" + value.getFullYear();
                 }
                 else {
                     dat = "";
@@ -810,7 +756,6 @@ function SelectCard(button) {
                     "<td>" + dat + "</td>" +
                     "<td>" + r[i].ACTIVE + "</td>" +
                     " <td >" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditMedicine(this);'>Edit</Button>" + "</td>" +
-                    //" <td >" + "<Button class='btn btn-danger glyphicon glyphicon-trash' onclick='RemoveMedicine(this);'>Remove</Button>" + "</td>" +
                     "</tr>"
                 setData.append(data);
             }
@@ -830,10 +775,6 @@ function SelectCard(button) {
 
 }
 function EditCard(button) {
-    //if (CardId!=""){  
-    //} else {
-    //    toastr.warning("Please select cardId first")
-    //}
     AddOrEdit = 0;
     var row = $(button).closest("TR");
     $('.modal-body #CardId1').val($("TD", row).eq(1).html());
@@ -854,9 +795,6 @@ function EditCard(button) {
         stVal[i] = $element.find("option:contains('" + DiagnosisList[i] + "')").val();
     }
     $element.val(stVal).trigger('change.select2');
-    //$(".modal-body #Diagnoise1 option").filter(function () {
-    //    return $(this).text() == $("TD", row).eq(7).html();
-    //}).prop('selected', true);
     $('.modal-body #CompanyPaymentLimit1').val($("TD", row).eq(8).html());
     $('.modal-body #OverInsuranceLimit1').val($("TD", row).eq(9).html());
     $('.modal-body #LockStatus1').val($("TD", row).eq(10).html());

@@ -94,22 +94,7 @@
                                     $('#compEmp_INS_END_DATE').val(EndDate);
                                     AddNationalId();
                                     $('#CardsModal').modal('hide');
-                                    //$.ajax({
-                                    //    type: "POST",
-                                    //    dataType: "json",
-                                    //    url: '/Pharmacy/GetCompName',
-                                    //    data: { id: CardId },
-
-                                    //    success: function (returndata) {
-                                    //        if (returndata.ok) {
-                                    //            $("#contractComp_C_ANAME").val(returndata.data.C_ANAME);
-                                    //        }
-                                    //        else {
-                                    //            bootbox.alert(' No Company Name ');
-
-                                    //        }
-                                    //    }
-                                    //});
+                                    
                                 }
                                 else {
                                     $("#wait").css("display", "none");
@@ -133,38 +118,16 @@
                             }
                         }
                     });
-                    //ddlLimit
-                    //$.ajax({
-                    //    type: "POST",
-                    //    dataType: "json",
-                    //    url: '/Labs/GetLimit',
-                    //    data: { id: CardId },
-                    //    success: function (returndata) {
-                    //        if (returndata.ok) {
-                    //            limit_Daily = returndata.limit.INSURANCE_DAY_LAB;
-                    //            $("#Co_insurance_INSURANCE_DAY_LAB").val(limit_Daily);
-                    //            //Limit_Monthly = returndata.limit.INSURANCE_MONTH_LAB;
-                    //            //$("#Co_insurance_INSURANCE_MONTH_LAB").val(Limit_Monthly);
-                    //        }
-
-                    //        else {
-                    //            window.alert(' No Limit Amount ');
-                    //            location.reload();
-                    //        }
-                    //    }
-                    //});
-                    //Co-Payment
-
+                   
                     $.ajax({
                         type: "POST",
                         dataType: "json",
-                        url: '/Pharmacy/CellingAmount',
+                        url: '/Labs/CellingAmount',
                         data: {
                             id: CardId,
                             ServiceCode: '11206'
                         },
                         success: function (r) {
-                            //   toastr.info("جميع خدمات كرونا غير مغطاة و يجب محاسبة المريض نقدا");
 
                             if (r.Validation == false) {
                                 alert(r.Message);
@@ -172,7 +135,6 @@
                             } else {
                                 $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
                                 AnuualLimit = r.Limit;
-                                // limit_Daily = r.CoInsurancelimit.INSURANCE_DAY_LAB;
                                 $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
                                 Calculation();
                             }

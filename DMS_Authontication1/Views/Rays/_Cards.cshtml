@@ -58,8 +58,6 @@
         var dd = today.getDate();
         var mm = today.getMonth() + 1; //January is 0!
         var yyyy = today.getFullYear();
-        //  var CurrentDate = new Date(yyyy, mm, dd);
-
 
         if (EndDate != null) {
             newDate = EndDate.split('/').reverse().join('.');
@@ -87,55 +85,14 @@
                         $('#compEmp_EMP_ANAME').val(ArName);
                         $('#compEmp_INS_END_DATE').val(EndDate);
                         AddNationalId();
-
                         $('#CardsModal').modal('hide');
-
-                        //$.ajax({
-                        //    type: "POST",
-                        //    dataType: "json",
-                        //    url: '/Pharmacy/GetCompName',
-                        //    data: { id: CardId },
-
-                        //    success: function (returndata) {
-                        //        if (returndata.ok) {
-
-                        //            $("#contractComp_C_ANAME").val(returndata.data.C_ANAME);
-
-                        //        }
-                        //        else {
-                        //            window.alert(' Error Company Name ' );
-                        //        }
-                        //    }
-                        //});
-
-                        //ddlLimit
-                        //$.ajax({
-                        //    type: "POST",
-                        //    dataType: "json",
-                        //    url: '/Labs/GetLimit',
-                        //    data: { id: CardId },
-                        //    success: function (returndata) {
-                        //        if (returndata.ok) {
-                        //            limit_Daily = returndata.limit.INSURANCE_DAY_LAB;
-                        //            $("#Co_insurance_INSURANCE_DAY_LAB").val(limit_Daily);
-                        //            Limit_Monthly = returndata.limit.INSURANCE_MONTH_LAB;
-                        //            $("#Co_insurance_INSURANCE_MONTH_LAB").val(Limit_Monthly);
-                        //        }
-
-                        //        else {
-                        //            bootbox.alert(' Error Patient Limit ');
-                        //        }
-                        //    }
-                        //});
-                        //Co-Payment
-
                         $.ajax({
                             type: "POST",
                             dataType: "json",
-                            url: '/Pharmacy/CellingAmount',
+                            url: '/Labs/CellingAmount',
                             data: {
                                 id: CardId,
-                                ServiceCode: '11204'
+                                ServiceCode: '11201'
                             },
                             success: function (r) {
                                 if (r.Validation == false) {
@@ -145,8 +102,6 @@
                                     $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
                                     CompanyPayment = r.CeilingPert;
                                     AnuualLimit = r.Limit;
-                                    //   $("#no_data_yet").val(100 - $("#ddEmp_CEILING_PERT").val());
-                                    // limit_Daily = r.CoInsurancelimit.INSURANCE_DAY_LAB;
                                     $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
                                     Calculation();
 
