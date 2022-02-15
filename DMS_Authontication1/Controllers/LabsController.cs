@@ -920,15 +920,12 @@ namespace DMS_Authontication1.Controllers
         public JsonResult CellingAmount(string id, string ServiceCode)
         {
             string Message = "";
-            //ServiceCode = ServiceCode == "11604" ? "11601" : ServiceCode;
             int _IntServiceCode = Convert.ToInt32(ServiceCode);
             string _CompId = id.Split('-')[0];
             string MainService = ServiceCode.Substring(0, 3);
             var CurrentDate = DateTime.Now.Date;
 
             var emp = db.Comp_Employees.Where(c => c.CARD_ID == id && c.INS_START_DATE <= CurrentDate && c.INS_END_DATE >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-            //var emp = db.fn_searchCompEmployees(id).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-            //provider service permision
 
             var provider = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
             if (provider != null)
@@ -957,7 +954,6 @@ namespace DMS_Authontication1.Controllers
                 {
                     CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
                 }
-                //var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
 
                 var DataService1 = new Comp_Customized_D_D();
                 var DataService = db.Comp_Customized_D_D_Emp.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.SER_SERV == ServiceCode && c.CARD_ID == id).FirstOrDefault();
@@ -1125,10 +1121,6 @@ namespace DMS_Authontication1.Controllers
                     }
                     else
                     {
-                        //string Last21 = "21/" + ((DateTime.Now.Day >= 21) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(-1).ToString("MM/yyyy")).ToString();
-                        //string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
-                        //DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
-                        //DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
                         List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
                         bool LimitLabPreceptionCount = false;
                         bool LimitRayPreceptionCount = false;
@@ -1383,11 +1375,6 @@ namespace DMS_Authontication1.Controllers
                   && c.SER_SERV == ServiceCode && c.CLASS_CODE == emp.CLASS_CODE).FirstOrDefault();
                 if (CustemizedMedEmp != null)
                 {
-                    //var CoInsurancelimit = db.Co_Insurance_01.Where(x => x.CO_ID == emp.C_COMP_ID && x.LIVEL == emp.CLASS_CODE).FirstOrDefault();
-                    //string Last21 = "21/" + ((DateTime.Now.Day >= 21) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(-1).ToString("MM/yyyy")).ToString();
-                    //string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
-                    //DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
-                    //DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
                     List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
                     bool LimitLabPreceptionCount = false;
                     bool LimitRayPreceptionCount = false;
@@ -1471,10 +1458,6 @@ namespace DMS_Authontication1.Controllers
                     }
                     else
                     {
-                        //string Last21 = "21/" + ((DateTime.Now.Day >= 21) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(-1).ToString("MM/yyyy")).ToString();
-                        //string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
-                        //DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
-                        //DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
                         List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
                         bool LimitLabPreceptionCount = false;
                         bool LimitRayPreceptionCount = false;

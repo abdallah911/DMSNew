@@ -6,16 +6,12 @@ input.addEventListener("keyup", function (event) {
     }
 });
 var CompanyPayment;
-//var Limit_Monthly;
 
 var AnuualLimit;
 var NationalId;
 
 //
 $(function () {
-    //$("#btnClaim").click(function () {
-    //    window.location.replace('/Rays/index?id=' + CardId);
-    //});
     $("#Help").click(function () {
         introJs().start();
     });
@@ -87,7 +83,6 @@ $(function () {
                             newDate = "";
                         }
                         var date = new Date(newDate);
-                        // today = mm + '/' + dd + '/' + yyyy;
                         var companyId = [];
                         companyId = CardId.split('-', 1);
                         CompId = companyId[0];
@@ -116,20 +111,7 @@ $(function () {
                                                     $('#compEmp_INS_END_DATE').val(EndDate);
                                                     AddNationalId();
                                                     $('#CardsModal').modal('hide');
-                                                    //$.ajax({
-                                                    //    type: "POST",
-                                                    //    dataType: "json",
-                                                    //    url: '/Pharmacy/GetCompName',
-                                                    //    data: { id: CardId },
-                                                    //    success: function (returndata) {
-                                                    //        if (returndata.ok) {
-                                                    //            $("#contractComp_C_ANAME").val(returndata.data.C_ANAME);
-                                                    //        }
-                                                    //        else {
-                                                    //            bootbox.alert(' No Company Name ');
-                                                    //        }
-                                                    //    }
-                                                    //});
+                                                    
                                                 }
                                                 else {
                                                     $("#wait").css("display", "none");
@@ -153,27 +135,7 @@ $(function () {
                                             }
                                         }
                                     });
-                                    //ddlLimit
-                                    //$.ajax({
-                                    //    type: "POST",
-                                    //    dataType: "json",
-                                    //    url: '/Rays/GetLimit',
-                                    //    data: { id: CardId },
-                                    //    success: function (returndata) {
-                                    //        if (returndata.ok) {
-                                    //            limit_Daily = returndata.limit.INSURANCE_DAY_LAB;
-                                    //            $("#Co_insurance_INSURANCE_DAY_LAB").val(limit_Daily);
-                                    //            Limit_Monthly = returndata.limit.INSURANCE_MONTH_LAB;
-                                    //            $("#Co_insurance_INSURANCE_MONTH_LAB").val(Limit_Monthly);
-                                    //        }
-
-                                    //        else {
-                                    //            bootbox.alert(' No Limit Amount ');
-                                    //            location.reload();
-                                    //        }
-                                    //    }
-                                    //});
-                                    //Co-Payment
+                                    
 
                                     $.ajax({
                                         type: "POST",
@@ -190,8 +152,6 @@ $(function () {
                                             } else {
                                                 $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
                                                 AnuualLimit = r.Limit;
-                                                //   $("#no_data_yet").val(100 - $("#ddEmp_CEILING_PERT").val());
-                                                // limit_Daily = r.CoInsurancelimit.INSURANCE_DAY_LAB;
                                                 $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
                                                 Calculation();
                                             }
