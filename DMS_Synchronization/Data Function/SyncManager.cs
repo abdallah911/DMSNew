@@ -5044,7 +5044,7 @@ namespace DMS_Synchronization
 
 
                 var query = "SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY (select null)) AS RowNum, " +
-                    "* FROM RoshitaDetails WHERE roshitaid in (SELECT id FROM roshita  WHERE IsSync=1 AND SyncBy='TEST' " +
+                    "* FROM RoshitaDetails WHERE IsDealed=1 AND roshitaid in (SELECT id FROM roshita  WHERE IsSync=1 AND SyncBy='TEST' " +
                     " AND Manager NOT IN('Lab_Stop','Ray_Stop','Lab','Ray','Doctor_Chronic') ))" +
                     "AS m WHERE RowNum > {0} AND RowNum<= {1}";
 
