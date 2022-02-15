@@ -39,5 +39,6 @@ namespace DMS_Authontication1.Models
         public string SyncBy { get; set; }
         public string PhoneNumber { get; set; }
         public string NationalId { get; set; }
+        public string ExceptionType { get; set; }
     }
 }

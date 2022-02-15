@@ -1395,6 +1395,7 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="ExceptionType" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Med_Medicine">
           <Key>
@@ -3949,6 +3950,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="NationalId" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
+          <Property Name="ExceptionType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Med_Medicine">
           <Key>
@@ -7287,6 +7289,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="Med_Card">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Med_Card">
               <MappingFragment StoreEntitySet="Med_Card">
+                <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
                 <ScalarProperty Name="NationalId" ColumnName="NationalId" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
