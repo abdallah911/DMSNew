@@ -174,7 +174,8 @@ $(function () {
 
                                 }
                             });
-                        } else {
+                        }
+                        else {
                             bootbox.dialog({
                                 title: 'Alert!',
                                 message: ' you are Vip',
@@ -215,7 +216,8 @@ $(function () {
                     }
 
                 });
-            } else {
+            }
+            else {
                 
                 GetLimit();
            
@@ -448,7 +450,8 @@ function GetLimit() {
                 //toastr.info(r.Message);
                 alert(r.Message);
                 window.location = '/Pharmacy/Pharmacy';
-            } else {
+            }
+            else {
                 co = r.CeilingPert;
                 AnuualLimit = r.Limit;
                 //Limit = Math.round(r.CoInsurancelimit.INSURANCE_MONTH);

@@ -118,6 +118,15 @@
                     </textarea>
 
                 </div>
+
+                <div class="form-group row col-md-6">
+                    <label for="ExceptionType" class="col-form-label">Exception Type</label>
+                    <select id="ExceptionType" class="form-control">
+                        <option>Select Exception</option>
+                        <option value="VIP">VIP</option>
+                        <option value="Normal">Normal</option>
+                    </select>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="Close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -184,7 +193,8 @@
                                 LOOK_01: $('.modal-body #LockStatus').val(),
                                 NOTES: $('.modal-body #NOTES').val(),
                                 PhoneNumber: $('.modal-body #PhoneNumber').val(),
-                                NationalId: $('.modal-body #NationalId').val()
+                                NationalId: $('.modal-body #NationalId').val(),
+                                ExceptionType: $('.modal-body #ExceptionType').val()
                             },
                             success: function (r) {
 
@@ -213,6 +223,7 @@
                                     $('.modal-body #NOTES').val(),
                                     $('.modal-body #PhoneNumber').val(),
                                     $('.modal-body #NationalId').val(),
+                                    $('.modal-body #ExceptionType').val(),
                                     "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditCard(this);'> Edit</Button>"
                                 ]).draw();
                                 $('#Cards_filter input[type="search"]').val($('#AddCardTxt').val()).keyup();
@@ -223,6 +234,7 @@
                                 $('.modal-body #NOTES').val();
                                 $('.modal-body #PhoneNumber').val(); 
                                 $('.modal-body #NationalId').val();
+                                $('.modal-body #ExceptionType').val(),
                                 //$('.modal-body #StartDate').val(' ');
                                 $('.modal-body #ExchangeDay').val('1');
                                 $('.modal-body #Group').val();

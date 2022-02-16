@@ -555,7 +555,8 @@ namespace DMS_Authontication1.Controllers
                         ST_DAY = l.x.m.ST_DAY,
                         NOTES = l.x.m.NOTES,
                         PhoneNumber = l.x.m.PhoneNumber,
-                        NationalId = l.x.m.NationalId
+                        NationalId = l.x.m.NationalId,
+                        ExceptionType=l.x.m.ExceptionType
 
                     })
                     .FirstOrDefault();
@@ -598,6 +599,7 @@ namespace DMS_Authontication1.Controllers
             mED_CARD.TASHKHES_01 = data.TASHKHES_01;
             mED_CARD.PhoneNumber = data.PhoneNumber;
             mED_CARD.NationalId = data.NationalId;
+            mED_CARD.ExceptionType = data.ExceptionType;
             db.Med_Card.Add(mED_CARD);
             db.Roshitas.Add(new Roshita
             {
@@ -665,6 +667,7 @@ namespace DMS_Authontication1.Controllers
                 mED_CARD.TASHKHES_01 = data.TASHKHES_01;
                 mED_CARD.PhoneNumber = data.PhoneNumber;
                 mED_CARD.NationalId = data.NationalId;
+                mED_CARD.ExceptionType = data.ExceptionType;
                 mED_CARD.SyncBy = "Updated";
                 if (ModelState.IsValid)
                 {
@@ -724,13 +727,22 @@ namespace DMS_Authontication1.Controllers
         [HttpPost]
         public JsonResult MedicinesGroupValiadtion(List<MedicineData> medicine, string medicineGroup, string medicineDosageForm)
         {
-            var model = medicine.Join(db.MedicineDatas, d => d.M_CODE, g => g.M_CODE, (d, g) => new { d, g })
-                 .Select(l => new MedicineData
-                 {
-                     M_CODE = l.d.M_CODE,
-                     DOSAGE_FORM = l.g.DOSAGE_FORM,
-                     MED_GROUP = l.g.MED_GROUP,
-                 }).ToList();
+            var model = (from med in medicine
+                         join medData in db.MedicineDatas
+                         on med.M_CODE equals medData.M_CODE
+                         select new MedicineData
+                         {
+                             M_CODE = medData.M_CODE,
+                             DOSAGE_FORM = medData.DOSAGE_FORM,
+                             MED_GROUP = medData.MED_GROUP,
+                         }).ToList();
+            //var model = medicine.Join(db.MedicineDatas, d => d.M_CODE, g => g.M_CODE, (d, g) => new { d, g })
+            //     .Select(l => new MedicineData
+            //     {
+            //         M_CODE = l.d.M_CODE,
+            //         DOSAGE_FORM = l.g.DOSAGE_FORM,
+            //         MED_GROUP = l.g.MED_GROUP,
+            //     }).ToList();
             bool Samegroup = false;
             foreach (MedicineData item in model)
             {
@@ -1151,6 +1163,8 @@ namespace DMS_Authontication1.Controllers
             if (mED_CARD.PhoneNumber != data.PhoneNumber)
                 return true;
             if (mED_CARD.NationalId != data.NationalId)
+                return true;
+            if (mED_CARD.ExceptionType != data.ExceptionType)
                 return true;
             var prov = db.Serv_Providers1.Where(d => d.PR_ANAME == data.PR_ANAME).FirstOrDefault();
             if (mED_CARD.PROVIDER_CODE != prov.PR_CODE)

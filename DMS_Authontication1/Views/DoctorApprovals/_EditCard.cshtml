@@ -116,6 +116,15 @@
                     </textarea>
 
                 </div>
+
+                <div class="form-group row col-md-6">
+                    <label for="ExceptionType1" class="col-form-label">Exception Type</label>
+                    <select id="ExceptionType1" class="form-control">
+                        <option >No Exception</option>
+                        <option value="VIP">VIP</option>
+                        <option value="Normal">Normal</option>
+                    </select>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="Close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -127,13 +136,6 @@
 
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
 <script>
-    //var input1 = document.getElementById("Provider1");
-    //input1.addEventListener("keyup", function (event) {
-    //    event.preventDefault();
-    //    if (event.keyCode === 13) {
-    //        $('.modal-body #StartDate1').focus();
-    //    }
-    //});
     var input2 = document.getElementById("StartDate1");
     input2.addEventListener("keyup", function (event) {
         event.preventDefault();
@@ -152,20 +154,9 @@
 
     $(function () {
         $('#StartDate1').datepicker({
-            //dateFormat: 'dd-mm-yyyy',
             minDate: '+0D',
         });
-        //debugger;
-        //$('#Diagnoise1').select2({
-        //    dropdownParent: $('#EditCardModal .modal-content')
-        //    //dropdownParent: $("#AddCardModal")
-        //});
-
-        //var DiagnosisList = $('.modal-content #Diagnos').val().split('_');
-        //for (var i = 0; i < DiagnosisList.length; i++) {
-        //    $("#Diagnoise1").select2("val", $("#Diagnoise1 option:contains('" + DiagnosisList[i]+"')").val()).trigger('change');
-        //    //$(".modal-content #Diagnoise1").val(DiagnosisList[i]).trigger('change');
-        //}
+        
         $('#Edit').click(function () {
             if ($('.modal-body #LockStatus1').val() != null && $('.modal-body #Provider1').val() != ""
                 && $('.modal-body #StartDate1').val() != "" && $('.modal-body #NationalId1').val() != ""
@@ -209,7 +200,8 @@
                                 NOTES: $('.modal-body #NOTES1').val(),
                                 LOOK_01: Lock,
                                 PhoneNumber: $('.modal-body #PhoneNumber1').val(),
-                                NationalId: $('.modal-body #NationalId1').val()
+                                NationalId: $('.modal-body #NationalId1').val(),
+                                ExceptionType: $('.modal-body #ExceptionType1').val()
                             },
                             success: function (r) {
                                 if (r != "False") {
@@ -236,6 +228,7 @@
                                             $('.modal-body #NOTES1').val(),
                                             $('.modal-body #PhoneNumber1').val(),
                                             $('.modal-body #NationalId1').val(),
+                                            $('.modal-body #ExceptionType1').val(),
                                             "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditCard(this);'> Edit</Button>"
                                         ]).draw();
                                         $('#txtSearchCompany').val(CompId);
@@ -257,6 +250,7 @@
                                                 $("TD", row).eq(11).html($('.modal-body #NOTES1').val());
                                                 $("TD", row).eq(12).html($('.modal-body #PhoneNumber1').val());
                                                 $("TD", row).eq(13).html($('.modal-body #NationalId1').val());
+                                                $("TD", row).eq(14).html($('.modal-body #ExceptionType1').val());
                                             }
                                         });
                                     }

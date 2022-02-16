@@ -164,7 +164,6 @@
             var Duration = $('.modal-body #Duration').val();
             var TotalDuration = parseInt(Dose) * parseInt(Duration);
             var TotalUnits = Math.ceil(parseInt(TotalDuration) / (parseInt(PackSize) / parseInt(UnitNumber)));
-            //var Exce = (parseInt(TotalUnits) * (parseInt(PackSize) / parseInt(UnitNumber))) - parseInt(TotalDuration);
             var Amount = (parseFloat($('.modal-body #Amount').val())).toFixed(2);
             var Lock = $('.modal-body #Lock').val();
             var MedicineType = $('.modal-body #MedicineType').val();
@@ -180,40 +179,211 @@
 
                     var row = $(this);
                     if (parseInt(row.find("TD").eq(0).html()) == parseInt($('.modal-body #MedicienCode').val())) {
-                        if ($('#MedicineType').val() == "Monthly") {
-                            var today = new Date();
-                            var mm = today.getMonth() + 1 + parseInt(NOM); //January is 0!
-                            var yyyy = today.getFullYear();
 
-                            if (mm > 12) {
-                                mm -= 12;
-                                yyyy += 1;
-                            }
+                        if ($('.modal-body #Lock').val() != "N") {
+                            var samegroup2 = false;
+                            var Mediciens = new Array();
+                            $("#CardMedicines TBODY TR").each(function () {
 
-                            if (mm < 10) {
-                                mm = '0' + mm
+                                var row = $(this);
+                                if (row.find("TD").eq(16).html() != "N") {
+                                    var Medicien = {};
+                                    Medicien.M_CODE = row.find("TD").eq(0).html();
+                                    Medicien.DOSAGE_FORM = row.find("TD").eq(2).html();
+                                    Mediciens.push(Medicien);
+                                }
+                            });
+                            if (Mediciens.length > 0) {
+                                //medicine group
+                                edit = 1;
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/DoctorApprovals/MedicinesGroupValiadtion/',
+                                    dataType: 'Json',
+                                    data: {
+                                        medicine: Mediciens,
+                                        medicineGroup: MedGroup,
+                                        medicineDosageForm: DosageForm
+                                    },
+                                    success: function (r) {
+                                        if (r == true) {
+                                            bootbox.dialog({
+                                                closeButton: false,
+                                                title: 'رسالة تحذيرية',
+                                                message: " يوجد دواء مضاف من قبل يحتوي علي نفس المادة الفعالة يمكن اضافتة ولكن علي مسئوليتك الشخصية او الالغاء",
+                                                buttons: {
+                                                    Print: {
+                                                        label: "اضافة",
+                                                        className: 'btn-warning',
+                                                        callback: function () {
+                                                            if ($('#MedicineType').val() == "Monthly") {
+                                                                var today = new Date();
+                                                                var mm = today.getMonth() + 1 + parseInt(NOM); //January is 0!
+                                                                var yyyy = today.getFullYear();
+
+                                                                if (mm > 12) {
+                                                                    mm -= 12;
+                                                                    yyyy += 1;
+                                                                }
+
+                                                                if (mm < 10) {
+                                                                    mm = '0' + mm
+                                                                }
+                                                                Act = mm + '/' + yyyy;
+                                                            }
+                                                            $("TD", row).eq(0).html($('.modal-body #MedicienCode').val());
+                                                            $("TD", row).eq(1).html($('.modal-body #MedicienName').val());
+                                                            $("TD", row).eq(2).html($('.modal-body #Dosage').val());
+                                                            ("TD", row).eq(3).html($('.modal-body #PackageSize').val());
+                                                            $("TD", row).eq(4).html($('.modal-body #PackagePrice').val());
+                                                            $("TD", row).eq(5).html($('.modal-body #UnitNumber').val());
+                                                            $("TD", row).eq(6).html($('.modal-body #UnitPrice').val());
+                                                            $("TD", row).eq(7).html($('.modal-body #Dose').val());
+                                                            $("TD", row).eq(8).html($('.modal-body #Duration').val());
+                                                            $("TD", row).eq(9).html(TotalDuration);
+                                                            $("TD", row).eq(10).html(TotalUnits);
+                                                            $("TD", row).eq(11).html($('.modal-body #Excess').val());//Exce
+                                                            $("TD", row).eq(12).html((parseFloat($('.modal-body #Amount').val())).toFixed(2));
+                                                            $("TD", row).eq(13).html($('.modal-body #MedicineType').val());
+                                                            $("TD", row).eq(14).html($('.modal-body #NOM').val());
+                                                            $("TD", row).eq(15).html(Act);
+                                                            $("TD", row).eq(16).html($('.modal-body #Lock').val());
+                                                            edit = 1;
+                                                            $('#ApprovalEditModal').modal('hide');
+                                                        }
+                                                    },
+                                                    New: {
+                                                        label: "الغاء",
+                                                        className: 'btn-danger',
+                                                        callback: function () {
+                                                            edit = 1;
+                                                            $('#ApprovalEditModal').modal('hide');
+                                                        }
+                                                    }
+
+                                                }
+                                            });
+                                            samegroup2 = true;
+                                        }
+                                        else {
+                                            samegroup2 = false;
+                                            if ($('#MedicineType').val() == "Monthly") {
+                                                var today = new Date();
+                                                var mm = today.getMonth() + 1 + parseInt(NOM); //January is 0!
+                                                var yyyy = today.getFullYear();
+
+                                                if (mm > 12) {
+                                                    mm -= 12;
+                                                    yyyy += 1;
+                                                }
+
+                                                if (mm < 10) {
+                                                    mm = '0' + mm
+                                                }
+                                                Act = mm + '/' + yyyy;
+                                            }
+                                            $("TD", row).eq(0).html($('.modal-body #MedicienCode').val());
+                                            $("TD", row).eq(1).html($('.modal-body #MedicienName').val());
+                                            $("TD", row).eq(2).html($('.modal-body #Dosage').val());
+                                            ("TD", row).eq(3).html($('.modal-body #PackageSize').val());
+                                            $("TD", row).eq(4).html($('.modal-body #PackagePrice').val());
+                                            $("TD", row).eq(5).html($('.modal-body #UnitNumber').val());
+                                            $("TD", row).eq(6).html($('.modal-body #UnitPrice').val());
+                                            $("TD", row).eq(7).html($('.modal-body #Dose').val());
+                                            $("TD", row).eq(8).html($('.modal-body #Duration').val());
+                                            $("TD", row).eq(9).html(TotalDuration);
+                                            $("TD", row).eq(10).html(TotalUnits);
+                                            $("TD", row).eq(11).html($('.modal-body #Excess').val());//Exce
+                                            $("TD", row).eq(12).html((parseFloat($('.modal-body #Amount').val())).toFixed(2));
+                                            $("TD", row).eq(13).html($('.modal-body #MedicineType').val());
+                                            $("TD", row).eq(14).html($('.modal-body #NOM').val());
+                                            $("TD", row).eq(15).html(Act);
+                                            $("TD", row).eq(16).html($('.modal-body #Lock').val());
+                                            edit = 1;
+                                            $('#ApprovalEditModal').modal('hide');
+                                        }
+                                    },
+                                    error: function () {
+                                        samegroup2 = false;
+                                        toastr.error("حدث بعض الخطاء ");
+                                    }
+                                });
                             }
-                            Act = mm + '/' + yyyy;
+                            else {
+
+                                if ($('#MedicineType').val() == "Monthly") {
+                                    var today = new Date();
+                                    var mm = today.getMonth() + 1 + parseInt(NOM); //January is 0!
+                                    var yyyy = today.getFullYear();
+
+                                    if (mm > 12) {
+                                        mm -= 12;
+                                        yyyy += 1;
+                                    }
+
+                                    if (mm < 10) {
+                                        mm = '0' + mm
+                                    }
+                                    Act = mm + '/' + yyyy;
+                                }
+                                $("TD", row).eq(0).html($('.modal-body #MedicienCode').val());
+                                $("TD", row).eq(1).html($('.modal-body #MedicienName').val());
+                                $("TD", row).eq(2).html($('.modal-body #Dosage').val());
+                                ("TD", row).eq(3).html($('.modal-body #PackageSize').val());
+                                $("TD", row).eq(4).html($('.modal-body #PackagePrice').val());
+                                $("TD", row).eq(5).html($('.modal-body #UnitNumber').val());
+                                $("TD", row).eq(6).html($('.modal-body #UnitPrice').val());
+                                $("TD", row).eq(7).html($('.modal-body #Dose').val());
+                                $("TD", row).eq(8).html($('.modal-body #Duration').val());
+                                $("TD", row).eq(9).html(TotalDuration);
+                                $("TD", row).eq(10).html(TotalUnits);
+                                $("TD", row).eq(11).html($('.modal-body #Excess').val());//Exce
+                                $("TD", row).eq(12).html((parseFloat($('.modal-body #Amount').val())).toFixed(2));
+                                $("TD", row).eq(13).html($('.modal-body #MedicineType').val());
+                                $("TD", row).eq(14).html($('.modal-body #NOM').val());
+                                $("TD", row).eq(15).html(Act);
+                                $("TD", row).eq(16).html($('.modal-body #Lock').val());
+                                edit = 1;
+                                $('#ApprovalEditModal').modal('hide');
+
+                            }
                         }
-                        $("TD", row).eq(0).html($('.modal-body #MedicienCode').val());
-                        $("TD", row).eq(1).html($('.modal-body #MedicienName').val());
-                        $("TD", row).eq(2).html($('.modal-body #Dosage').val());
-                        ("TD", row).eq(3).html($('.modal-body #PackageSize').val());
-                        $("TD", row).eq(4).html($('.modal-body #PackagePrice').val());
-                        $("TD", row).eq(5).html($('.modal-body #UnitNumber').val());
-                        $("TD", row).eq(6).html($('.modal-body #UnitPrice').val());
-                        $("TD", row).eq(7).html($('.modal-body #Dose').val());
-                        $("TD", row).eq(8).html($('.modal-body #Duration').val());
-                        $("TD", row).eq(9).html(TotalDuration);
-                        $("TD", row).eq(10).html(TotalUnits);
-                        $("TD", row).eq(11).html($('.modal-body #Excess').val());//Exce
-                        $("TD", row).eq(12).html((parseFloat($('.modal-body #Amount').val())).toFixed(2));
-                        $("TD", row).eq(13).html($('.modal-body #MedicineType').val());
-                        $("TD", row).eq(14).html($('.modal-body #NOM').val());
-                        $("TD", row).eq(15).html(Act);
-                        $("TD", row).eq(16).html($('.modal-body #Lock').val());
-                        edit = 1;
-                        $('#ApprovalEditModal').modal('hide');
+                        else {
+                            if ($('#MedicineType').val() == "Monthly") {
+                                var today = new Date();
+                                var mm = today.getMonth() + 1 + parseInt(NOM); //January is 0!
+                                var yyyy = today.getFullYear();
+
+                                if (mm > 12) {
+                                    mm -= 12;
+                                    yyyy += 1;
+                                }
+
+                                if (mm < 10) {
+                                    mm = '0' + mm
+                                }
+                                Act = mm + '/' + yyyy;
+                            }
+                            $("TD", row).eq(0).html($('.modal-body #MedicienCode').val());
+                            $("TD", row).eq(1).html($('.modal-body #MedicienName').val());
+                            $("TD", row).eq(2).html($('.modal-body #Dosage').val());
+                            ("TD", row).eq(3).html($('.modal-body #PackageSize').val());
+                            $("TD", row).eq(4).html($('.modal-body #PackagePrice').val());
+                            $("TD", row).eq(5).html($('.modal-body #UnitNumber').val());
+                            $("TD", row).eq(6).html($('.modal-body #UnitPrice').val());
+                            $("TD", row).eq(7).html($('.modal-body #Dose').val());
+                            $("TD", row).eq(8).html($('.modal-body #Duration').val());
+                            $("TD", row).eq(9).html(TotalDuration);
+                            $("TD", row).eq(10).html(TotalUnits);
+                            $("TD", row).eq(11).html($('.modal-body #Excess').val());//Exce
+                            $("TD", row).eq(12).html((parseFloat($('.modal-body #Amount').val())).toFixed(2));
+                            $("TD", row).eq(13).html($('.modal-body #MedicineType').val());
+                            $("TD", row).eq(14).html($('.modal-body #NOM').val());
+                            $("TD", row).eq(15).html(Act);
+                            $("TD", row).eq(16).html($('.modal-body #Lock').val());
+                            edit = 1;
+                            $('#ApprovalEditModal').modal('hide');
+                        }
                     }
                 });
 
@@ -225,10 +395,12 @@
                     $("#CardMedicines TBODY TR").each(function () {
 
                         var row = $(this);
-                        var Medicien = {};
-                        Medicien.M_CODE = row.find("TD").eq(0).html();
-                        Medicien.DOSAGE_FORM = row.find("TD").eq(2).html();
-                        Mediciens.push(Medicien);
+                        if (row.find("TD").eq(16).html() != "N") {
+                            var Medicien = {};
+                            Medicien.M_CODE = row.find("TD").eq(0).html();
+                            Medicien.DOSAGE_FORM = row.find("TD").eq(2).html();
+                            Mediciens.push(Medicien);
+                        }
                     });
                     if (Mediciens.length > 0) {
                         //medicine group
