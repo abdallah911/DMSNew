@@ -115,7 +115,20 @@ $(function () {
                                                     $('#compEmp_INS_END_DATE').val(EndDate);
                                                     AddNationalId();
                                                     $('#CardsModal').modal('hide');
-                                                    
+                                                    //$.ajax({
+                                                    //    type: "POST",
+                                                    //    dataType: "json",
+                                                    //    url: '/Pharmacy/GetCompName',
+                                                    //    data: { id: CardId },
+                                                    //    success: function (returndata) {
+                                                    //        if (returndata.ok) {
+                                                    //            $("#contractComp_C_ANAME").val(returndata.data.C_ANAME);
+                                                    //        }
+                                                    //        else {
+                                                    //            bootbox.alert(' No Company Name ');
+                                                    //        }
+                                                    //    }
+                                                    //});
                                                 }
                                                 else {
                                                     $("#wait").css("display", "none");
@@ -150,11 +163,15 @@ $(function () {
                                         },
                                         success: function (r) {
 
+                                            // toastr.info("جميع خدمات كرونا غير مغطاة و يجب محاسبة المريض نقدا");
                                             if (r.Validation == false) {
                                                 alert(r.Message);
                                                 window.location.reload();
                                             } else {
                                                 $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
+                                                AnuualLimit = r.Limit;
+                                                //   $("#no_data_yet").val(100 - $("#ddEmp_CEILING_PERT").val());
+                                                //limit_Daily = r.CoInsurancelimit.INSURANCE_DAY_LAB;
                                                 $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
                                                 Calculation();
 
@@ -604,7 +621,7 @@ function SelectLab(event) {
                                 }
                             });
                         }
-                       
+
                     }
                     else {
                         AppendRow();
