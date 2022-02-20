@@ -151,6 +151,7 @@
         });
         $('#AddApproval').click(function () {
             debugger;
+            $("#AddApproval").attr("disabled", "disabled");
             var edit = 0;
 
             var MedicienCode = $('.modal-body #MedicienCode').val();
@@ -234,7 +235,7 @@
                                                             $("TD", row).eq(0).html($('.modal-body #MedicienCode').val());
                                                             $("TD", row).eq(1).html($('.modal-body #MedicienName').val());
                                                             $("TD", row).eq(2).html($('.modal-body #Dosage').val());
-                                                            ("TD", row).eq(3).html($('.modal-body #PackageSize').val());
+                                                            $("TD", row).eq(3).html($('.modal-body #PackageSize').val());
                                                             $("TD", row).eq(4).html($('.modal-body #PackagePrice').val());
                                                             $("TD", row).eq(5).html($('.modal-body #UnitNumber').val());
                                                             $("TD", row).eq(6).html($('.modal-body #UnitPrice').val());
@@ -249,7 +250,13 @@
                                                             $("TD", row).eq(15).html(Act);
                                                             $("TD", row).eq(16).html($('.modal-body #Lock').val());
                                                             edit = 1;
+                                                            $("#AddApproval").attr("disabled", false);
                                                             $('#ApprovalEditModal').modal('hide');
+                                                            $('.modal-body #Dose').val('');
+                                                            $('.modal-body #Duration').val('');
+                                                            $('#MedicineType').val("Chronic");
+                                                            $('.modal-body #NOM').val('');
+                                                            $('#NOMD').attr("hidden", true);
                                                         }
                                                     },
                                                     New: {
@@ -257,6 +264,7 @@
                                                         className: 'btn-danger',
                                                         callback: function () {
                                                             edit = 1;
+                                                            $("#AddApproval").attr("disabled", false);
                                                             $('#ApprovalEditModal').modal('hide');
                                                         }
                                                     }
@@ -285,7 +293,7 @@
                                             $("TD", row).eq(0).html($('.modal-body #MedicienCode').val());
                                             $("TD", row).eq(1).html($('.modal-body #MedicienName').val());
                                             $("TD", row).eq(2).html($('.modal-body #Dosage').val());
-                                            ("TD", row).eq(3).html($('.modal-body #PackageSize').val());
+                                            $("TD", row).eq(3).html($('.modal-body #PackageSize').val());
                                             $("TD", row).eq(4).html($('.modal-body #PackagePrice').val());
                                             $("TD", row).eq(5).html($('.modal-body #UnitNumber').val());
                                             $("TD", row).eq(6).html($('.modal-body #UnitPrice').val());
@@ -300,7 +308,13 @@
                                             $("TD", row).eq(15).html(Act);
                                             $("TD", row).eq(16).html($('.modal-body #Lock').val());
                                             edit = 1;
+                                            $("#AddApproval").attr("disabled", false);
                                             $('#ApprovalEditModal').modal('hide');
+                                            $('.modal-body #Dose').val('');
+                                            $('.modal-body #Duration').val('');
+                                            $('#MedicineType').val("Chronic");
+                                            $('.modal-body #NOM').val('');
+                                            $('#NOMD').attr("hidden", true);
                                         }
                                     },
                                     error: function () {
@@ -329,7 +343,7 @@
                                 $("TD", row).eq(0).html($('.modal-body #MedicienCode').val());
                                 $("TD", row).eq(1).html($('.modal-body #MedicienName').val());
                                 $("TD", row).eq(2).html($('.modal-body #Dosage').val());
-                                ("TD", row).eq(3).html($('.modal-body #PackageSize').val());
+                                $("TD", row).eq(3).html($('.modal-body #PackageSize').val());
                                 $("TD", row).eq(4).html($('.modal-body #PackagePrice').val());
                                 $("TD", row).eq(5).html($('.modal-body #UnitNumber').val());
                                 $("TD", row).eq(6).html($('.modal-body #UnitPrice').val());
@@ -344,7 +358,13 @@
                                 $("TD", row).eq(15).html(Act);
                                 $("TD", row).eq(16).html($('.modal-body #Lock').val());
                                 edit = 1;
+                                $("#AddApproval").attr("disabled", false);
                                 $('#ApprovalEditModal').modal('hide');
+                                $('.modal-body #Dose').val('');
+                                $('.modal-body #Duration').val('');
+                                $('#MedicineType').val("Chronic");
+                                $('.modal-body #NOM').val('');
+                                $('#NOMD').attr("hidden", true);
 
                             }
                         }
@@ -367,7 +387,7 @@
                             $("TD", row).eq(0).html($('.modal-body #MedicienCode').val());
                             $("TD", row).eq(1).html($('.modal-body #MedicienName').val());
                             $("TD", row).eq(2).html($('.modal-body #Dosage').val());
-                            ("TD", row).eq(3).html($('.modal-body #PackageSize').val());
+                            $("TD", row).eq(3).html($('.modal-body #PackageSize').val());
                             $("TD", row).eq(4).html($('.modal-body #PackagePrice').val());
                             $("TD", row).eq(5).html($('.modal-body #UnitNumber').val());
                             $("TD", row).eq(6).html($('.modal-body #UnitPrice').val());
@@ -382,7 +402,13 @@
                             $("TD", row).eq(15).html(Act);
                             $("TD", row).eq(16).html($('.modal-body #Lock').val());
                             edit = 1;
+                            $("#AddApproval").attr("disabled", false);
                             $('#ApprovalEditModal').modal('hide');
+                            $('.modal-body #Dose').val('');
+                            $('.modal-body #Duration').val('');
+                            $('#MedicineType').val("Chronic");
+                            $('.modal-body #NOM').val('');
+                            $('#NOMD').attr("hidden", true);
                         }
                     }
                 });
@@ -481,6 +507,7 @@
                                                     btnEdit.attr("onclick", "EditMedicine(this);");
                                                     btnEdit.text("Edit");
                                                     cell.append(btnEdit);
+                                                    $("#AddApproval").attr("disabled", false);
                                                     $('#ApprovalEditModal').modal('hide');
                                                     $('.modal-body #Dose').val('');
                                                     $('.modal-body #Duration').val('');
@@ -493,6 +520,8 @@
                                                 label: "الغاء",
                                                 className: 'btn-danger',
                                                 callback: function () {
+                                                    $("#AddApproval").attr("disabled", false);
+                                                    $('#ApprovalEditModal').modal('hide');
                                                     $('.modal-body #Dose').val(' ');
                                                     $('.modal-body #Duration').val(' ');
                                                     $('#MedicineType').val("Chronic");
@@ -566,6 +595,7 @@
                                     btnEdit.attr("onclick", "EditMedicine(this);");
                                     btnEdit.text("Edit");
                                     cell.append(btnEdit);
+                                    $("#AddApproval").attr("disabled", false);
                                     $('#ApprovalEditModal').modal('hide');
                                     $('.modal-body #Dose').val('');
                                     $('.modal-body #Duration').val('');
@@ -639,6 +669,7 @@
                         btnEdit.attr("onclick", "EditMedicine(this);");
                         btnEdit.text("Edit");
                         cell.append(btnEdit);
+                        $("#AddApproval").attr("disabled", false);
                         $('#ApprovalEditModal').modal('hide');
                         $('.modal-body #Dose').val('');
                         $('.modal-body #Duration').val('');
@@ -657,14 +688,15 @@
                 $('.modal-body #Dose').focusin();
 
             }
-            $('.modal-body #Dose').val('');
-            $('.modal-body #Duration').val('');
-            $('#MedicineType').val("Chronic");
-            $('.modal-body #NOM').val('');
-            $('#NOMD').attr("hidden", true);
+            //$('.modal-body #Dose').val('');
+            //$('.modal-body #Duration').val('');
+            //$('#MedicineType').val("Chronic");
+            //$('.modal-body #NOM').val('');
+            //$('#NOMD').attr("hidden", true);
 
         });
         $('#CloseApproval').click(function () {
+            $("#AddApproval").attr("disabled", false);
             $('.modal-body #Dose').val(' ');
             $('.modal-body #Duration').val(' ');
             $('#MedicineType').val("Chronic");
