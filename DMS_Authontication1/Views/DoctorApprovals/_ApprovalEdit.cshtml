@@ -82,6 +82,14 @@
 
                     </select>
                 </div>
+                <div class="form-group row col-md-6">
+                    <label for="MedicineNoPay" class="col-form-label">Company Pay</label>
+                    <select id="MedicineNoPay" class="form-control">
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+
+                    </select>
+                </div>
                 <div class="form-group row col-md-6" id="NOMD">
                     <label for="NOM" class="col-form-label">Number Of Months</label>
                     <input type="number" min="0" oninput="validity.valid||(value='');" id="NOM" class="form-control" />
@@ -168,6 +176,7 @@
             var TotalUnits = Math.ceil(parseInt(TotalDuration) / (parseInt(PackSize) / parseInt(UnitNumber)));
             var Amount = (parseFloat($('.modal-body #Amount').val())).toFixed(2);
             var Lock = $('.modal-body #Lock').val();
+            var MedicineNoPay = $('.modal-body #MedicineNoPay').val();
             var MedicineType = $('.modal-body #MedicineType').val();
             var NOM = $('.modal-body #NOM').val();
             var MedGroup = $('.modal-body #MedGroup').val();
@@ -250,10 +259,12 @@
                                                             $("TD", row).eq(14).html($('.modal-body #NOM').val());
                                                             $("TD", row).eq(15).html(Act);
                                                             $("TD", row).eq(16).html($('.modal-body #Lock').val());
+                                                            $("TD", row).eq(17).html($('.modal-body #MedicineNoPay').val());
                                                             edit = 1;
                                                             $("#wait").css("display", "none");
                                                             $("#AddApproval").attr("disabled", false);
                                                             $('#ApprovalEditModal').modal('hide');
+                                                            $('.modal-body #MedicineType').val('No');
                                                             $('.modal-body #Dose').val('');
                                                             $('.modal-body #Duration').val('');
                                                             $('#MedicineType').val("Chronic");
@@ -268,6 +279,7 @@
                                                             edit = 1;
                                                             $("#wait").css("display", "none");
                                                             $("#AddApproval").attr("disabled", false);
+                                                            $('.modal-body #MedicineType').val('No');
                                                             $('#ApprovalEditModal').modal('hide');
                                                         }
                                                     }
@@ -310,6 +322,7 @@
                                             $("TD", row).eq(14).html($('.modal-body #NOM').val());
                                             $("TD", row).eq(15).html(Act);
                                             $("TD", row).eq(16).html($('.modal-body #Lock').val());
+                                            $("TD", row).eq(17).html($('.modal-body #MedicineNoPay').val());
                                             edit = 1;
                                             $("#wait").css("display", "none");
                                             $("#AddApproval").attr("disabled", false);
@@ -317,6 +330,7 @@
                                             $('.modal-body #Dose').val('');
                                             $('.modal-body #Duration').val('');
                                             $('#MedicineType').val("Chronic");
+                                            $('.modal-body #MedicineType').val('No');
                                             $('.modal-body #NOM').val('');
                                             $('#NOMD').attr("hidden", true);
                                         }
@@ -362,6 +376,7 @@
                                 $("TD", row).eq(14).html($('.modal-body #NOM').val());
                                 $("TD", row).eq(15).html(Act);
                                 $("TD", row).eq(16).html($('.modal-body #Lock').val());
+                                $("TD", row).eq(17).html($('.modal-body #MedicineNoPay').val());
                                 edit = 1;
                                 $("#wait").css("display", "none");
                                 $("#AddApproval").attr("disabled", false);
@@ -369,6 +384,7 @@
                                 $('.modal-body #Dose').val('');
                                 $('.modal-body #Duration').val('');
                                 $('#MedicineType').val("Chronic");
+                                $('.modal-body #MedicineType').val('No');
                                 $('.modal-body #NOM').val('');
                                 $('#NOMD').attr("hidden", true);
 
@@ -407,6 +423,7 @@
                             $("TD", row).eq(14).html($('.modal-body #NOM').val());
                             $("TD", row).eq(15).html(Act);
                             $("TD", row).eq(16).html($('.modal-body #Lock').val());
+                            $("TD", row).eq(17).html($('.modal-body #MedicineNoPay').val());
                             edit = 1;
                             $("#wait").css("display", "none");
                             $("#AddApproval").attr("disabled", false);
@@ -414,6 +431,7 @@
                             $('.modal-body #Dose').val('');
                             $('.modal-body #Duration').val('');
                             $('#MedicineType').val("Chronic");
+                            $('.modal-body #MedicineType').val('No');
                             $('.modal-body #NOM').val('');
                             $('#NOMD').attr("hidden", true);
                         }
@@ -506,6 +524,8 @@
                                                     cell.html(Act);
                                                     cell = $(row.insertCell(-1));
                                                     cell.html(Lock);
+                                                    cell = $(row.insertCell(-1));
+                                                    cell.html(MedicineNoPay);
                                                     //Edit button
                                                     cell = $(row.insertCell(-1));
                                                     var btnEdit = $("<a  />");
@@ -520,6 +540,7 @@
                                                     $('.modal-body #Dose').val('');
                                                     $('.modal-body #Duration').val('');
                                                     $('#MedicineType').val("Chronic");
+                                                    $('.modal-body #MedicineType').val('No');
                                                     $('.modal-body #NOM').val('');
                                                     $('#NOMD').attr("hidden", true);
                                                 }
@@ -534,6 +555,7 @@
                                                     $('.modal-body #Dose').val(' ');
                                                     $('.modal-body #Duration').val(' ');
                                                     $('#MedicineType').val("Chronic");
+                                                    $('.modal-body #MedicineType').val('No');
                                                     $('.modal-body #NOM').val(' ');
                                                     $('#NOMD').attr("hidden", true);
                                                 }
@@ -596,6 +618,8 @@
                                     cell.html(Act);
                                     cell = $(row.insertCell(-1));
                                     cell.html(Lock);
+                                    cell = $(row.insertCell(-1));
+                                    cell.html(MedicineNoPay);
                                     //Edit button
                                     cell = $(row.insertCell(-1));
                                     var btnEdit = $("<a  />");
@@ -610,6 +634,7 @@
                                     $('.modal-body #Dose').val('');
                                     $('.modal-body #Duration').val('');
                                     $('#MedicineType').val("Chronic");
+                                    $('.modal-body #MedicineType').val('No');
                                     $('.modal-body #NOM').val('');
                                     $('#NOMD').attr("hidden", true);
                                 }
@@ -672,6 +697,8 @@
                         cell.html(Act);
                         cell = $(row.insertCell(-1));
                         cell.html(Lock);
+                        cell = $(row.insertCell(-1));
+                        cell.html(MedicineNoPay);
                         //Edit button
                         cell = $(row.insertCell(-1));
                         var btnEdit = $("<a  />");
@@ -686,6 +713,7 @@
                         $('.modal-body #Dose').val('');
                         $('.modal-body #Duration').val('');
                         $('#MedicineType').val("Chronic");
+                        $('.modal-body #MedicineType').val('No');
                         $('.modal-body #NOM').val('');
                         $('#NOMD').attr("hidden", true);
 
@@ -707,10 +735,10 @@
             //$('#NOMD').attr("hidden", true);
 
         });
-        $('#CloseApproval').click(function ()
-        {
+        $('#CloseApproval').click(function () {
             $("#wait").css("display", "none");
             $("#AddApproval").attr("disabled", false);
+            $('.modal-body #MedicineType').val('No');
             $('.modal-body #Dose').val(' ');
             $('.modal-body #Duration').val(' ');
             $('#MedicineType').val("Chronic");

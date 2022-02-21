@@ -1432,6 +1432,7 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="MedicineNoPay" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="MedicineData">
           <Key>
@@ -1906,6 +1907,7 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="MedicineNoPay" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="RoshitaDiagnosisAdmin">
           <Key>
@@ -2237,7 +2239,7 @@
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Swap">
           <Key>
             <PropertyRef Name="Id" />
@@ -3987,6 +3989,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MedicineNoPay" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MedicineData">
           <Key>
@@ -5008,6 +5011,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Roshita" Relationship="DB_A45413_DMSERPModel.FK_RoshitaDetails_Roshita" FromRole="RoshitaDetail" ToRole="Roshita" />
+          <Property Name="MedicineNoPay" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SERVICE1">
           <Key>
@@ -7321,6 +7325,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="Med_Medicine">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Med_Medicine">
               <MappingFragment StoreEntitySet="Med_Medicine">
+                <ScalarProperty Name="MedicineNoPay" ColumnName="MedicineNoPay" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="MED_CODE" ColumnName="MED_CODE" />
                 <ScalarProperty Name="CARD_NO" ColumnName="CARD_NO" />
@@ -7894,6 +7899,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="RoshitaDetails">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RoshitaDetail">
               <MappingFragment StoreEntitySet="RoshitaDetails">
+                <ScalarProperty Name="MedicineNoPay" ColumnName="MedicineNoPay" />
                 <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
                 <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />

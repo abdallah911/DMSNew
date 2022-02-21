@@ -1080,49 +1080,49 @@ function SelectMedicien(event) {
                                                     $("#wait").css("display", "none");
                                                     //append row
                                                     if (Group == "NO") {
-                                                        if ($('#txtSearchCard').val().split('-')[0].includes("500")) {
-                                                            Group = "Accepted";
-                                                            AppendRow();
-                                                        }
-                                                        else {
-                                                            var dialog = bootbox.dialog({
-                                                                title: 'This Medicien is Not Covered!',
-                                                                message: "<p>Pay method?</p>",
-                                                                //title: '!هذا الدواء غير مغطى',
-                                                                //message: "<p float='right'>طريقه الدفع؟</p>",
-                                                                onEscape: function () {
-                                                                    RemoveSelection(MedicienCode);
-                                                                },
-                                                                //backdrop: true,
-                                                                buttons: {
-                                                                    Cash: {
-                                                                        label: "Cash",
-                                                                        className: 'btn-info',
-                                                                        callback: function () {
-                                                                            Group = "Cash";
-                                                                            AppendRow();
-                                                                        }
-                                                                    }
-                                                                    //, Approval: {
-                                                                    //    label: "Approved",
-                                                                    //    className: 'btn-info',
-                                                                    //    callback: function () {
-                                                                    //        Group = "Approval";
-                                                                    //        AppendRow();
-                                                                    //    }
-                                                                    //}
-                                                                    , Tele: {
-                                                                        label: "Pending",
-                                                                        className: 'btn-info',
-                                                                        callback: function () {
-                                                                            Group = "Pending";
-                                                                            toastr.info('برجاءالتواصل مع الاداره الطبيه');
-                                                                            AppendRow();
-                                                                        }
+                                                        //if ($('#txtSearchCard').val().split('-')[0].includes("500")) {
+                                                        //    Group = "Accepted";
+                                                        //    AppendRow();
+                                                        //}
+                                                        //else {
+                                                        var dialog = bootbox.dialog({
+                                                            title: 'This Medicien is Not Covered!',
+                                                            message: "<p>Pay method?</p>",
+                                                            //title: '!هذا الدواء غير مغطى',
+                                                            //message: "<p float='right'>طريقه الدفع؟</p>",
+                                                            onEscape: function () {
+                                                                RemoveSelection(MedicienCode);
+                                                            },
+                                                            //backdrop: true,
+                                                            buttons: {
+                                                                Cash: {
+                                                                    label: "Cash",
+                                                                    className: 'btn-info',
+                                                                    callback: function () {
+                                                                        Group = "Cash";
+                                                                        AppendRow();
                                                                     }
                                                                 }
-                                                            });
-                                                        }
+                                                                //, Approval: {
+                                                                //    label: "Approved",
+                                                                //    className: 'btn-info',
+                                                                //    callback: function () {
+                                                                //        Group = "Approval";
+                                                                //        AppendRow();
+                                                                //    }
+                                                                //}
+                                                                , Tele: {
+                                                                    label: "Pending",
+                                                                    className: 'btn-info',
+                                                                    callback: function () {
+                                                                        Group = "Pending";
+                                                                        toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                                                        AppendRow();
+                                                                    }
+                                                                }
+                                                            }
+                                                        });
+                                                        //}
 
                                                     }
                                                     else {

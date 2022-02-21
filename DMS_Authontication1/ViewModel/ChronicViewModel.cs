@@ -54,5 +54,7 @@ namespace DMS_TEST.ViewModel
         public string ACT_MONTH { get; set; }
         public Nullable<int> LFT_MONTH { get; set; }
         public string MONTH_DATE_STOP { get; set; }
+        [DisplayName("Company Pay")]
+        public string MedicineNoPay { get; set; }
     }
 }

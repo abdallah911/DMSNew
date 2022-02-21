@@ -852,6 +852,7 @@ namespace DMS_Authontication1.Controllers
                         update.ACTIVE = item.ACTIVE;
                         update.LFT_MONTH = item.LFT_MONTH;
                         update.MONTH_DATE_STOP = item.MONTH_DATE_STOP;
+                        update.MedicineNoPay = item.MedicineNoPay;
                         update.SyncBy = "Updated";
                         db.Entry(update).State = EntityState.Modified;
 
@@ -1129,6 +1130,8 @@ namespace DMS_Authontication1.Controllers
         public bool CompareMedicine(Med_Medicine newmedicine, Med_Medicine oldmedicine)
         {
             if (newmedicine.DOSE != oldmedicine.DOSE)
+                return true;
+            if (newmedicine.MedicineNoPay != oldmedicine.MedicineNoPay)
                 return true;
             if (newmedicine.MED_DURATION != oldmedicine.MED_DURATION)
                 return true;

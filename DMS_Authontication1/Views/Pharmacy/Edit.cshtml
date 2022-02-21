@@ -67,6 +67,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.PaymentGroup)
                         </th>
+                        <th hidden>
+                            @Html.DisplayNameFor(model => model.MedicineNoPay)
+                        </th>
 
                         <th></th>
                         <th></th>
@@ -114,6 +117,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.PaymentGroup)
+                            </td>
+                            <td hidden>
+                                @Html.DisplayFor(modelItem => item.MedicineNoPay)
                             </td>
 
                         </tr>
@@ -164,4 +170,4 @@
         </div>
     </div>
 </div>
-<script src="~/Scripts/DMS/PharmacyEdit.js?v=3.4"></script>
+<script src="~/Scripts/DMS/PharmacyEdit.js?v=3.5"></script>

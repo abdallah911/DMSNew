@@ -541,6 +541,7 @@ $(function () {
                 Medicien.LFT_MONTH = row.find("TD").eq(14).html();
                 Medicien.MONTH_DATE_STOP = row.find("TD").eq(15).html();
                 Medicien.ACTIVE = row.find("TD").eq(16).html();
+                Medicien.MedicineNoPay = row.find("TD").eq(17).html();
 
                 Mediciens.push(Medicien);
             });
@@ -737,6 +738,9 @@ function SelectCard(button) {
                 if (r[i].LFT_MONTH == null) {
                     r[i].LFT_MONTH = " ";
                 }
+                if (r[i].MedicineNoPay == null) {
+                    r[i].MedicineNoPay = " ";
+                }
                 var data = "<tr >" +
                     "<td>" + r[i].MED_CODE + "</td>" +
                     "<td>" + r[i].MED_NAME + "</td>" +
@@ -755,6 +759,7 @@ function SelectCard(button) {
                     "<td>" + r[i].LFT_MONTH + "</td>" +
                     "<td>" + dat + "</td>" +
                     "<td>" + r[i].ACTIVE + "</td>" +
+                    "<td>" + r[i].MedicineNoPay + "</td>" +
                     " <td >" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditMedicine(this);'>Edit</Button>" + "</td>" +
                     "</tr>"
                 setData.append(data);
@@ -825,6 +830,7 @@ function EditMedicine(button) {
     }
     $('.modal-body #NOM').val($("TD", row).eq(14).html());
     $('.modal-body #Lock').val($("TD", row).eq(16).html()).prop('selected', true);
+    $('.modal-body #MedicineNoPay').val($("TD", row).eq(17).html()).prop('selected', true);
     $('.modal-footer #AddApproval').val("Edit");
     $('.modal-title').html("Edit");
     $('#ApprovalEditModal').modal();
