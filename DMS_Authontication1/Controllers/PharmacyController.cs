@@ -2069,7 +2069,8 @@ namespace DMS_TEST.Controllers
                      UNIT_NO = l.m.UNIT_NO,
                      PACK_PRICE = l.m.PACK_PRICE,
                      PACK_SIZE = l.m.PACK_SIZE,
-                     UNIT_PRICE = l.m.UNIT_PRICE
+                     UNIT_PRICE = l.m.UNIT_PRICE,
+                     MedicineNoPay=l.d.MedicineNoPay
                  })
                  .ToList();
             return View(data);
@@ -2175,6 +2176,7 @@ namespace DMS_TEST.Controllers
                             DoctrorchronicRositaDetails.TotalUnits = medMedicine.NO_OF_UINT;
                             DoctrorchronicRositaDetails.Amount = medMedicine.TOTAL_AMT.Value;
                             DoctrorchronicRositaDetails.IsDealed = false;
+                            DoctrorchronicRositaDetails.MedicineNoPay = OldMedicien.MedicineNoPay;
                             db.Entry(DoctrorchronicRositaDetails).State = EntityState.Modified;
 
 
@@ -2199,7 +2201,8 @@ namespace DMS_TEST.Controllers
                     TotalUnits = old.TotalUnits,
                     Amount = old.Amount,
                     IsDealed = old.IsDealed,
-                    PaymentGroup = old.PaymentGroup
+                    PaymentGroup = old.PaymentGroup,
+                    MedicineNoPay=old.MedicineNoPay
                 };
                 roshita1.RoshitaDetails.Add(oldMedicien);
                 old.PaymentGroup = old.PaymentGroup + "-Stop";
@@ -2597,7 +2600,8 @@ namespace DMS_TEST.Controllers
                     UNIT_NO = Convert.ToInt32(d.m.PACK_SIZE.Value),//size
                     TotalUnits = Convert.ToInt32(d.r.TotalUnits),//count
                     Amount = d.r.Amount,//
-                    PaymentGroup = d.r.PaymentGroup//type
+                    PaymentGroup = d.r.PaymentGroup,//type
+                    MedicineNoPay=d.r.MedicineNoPay
                 }).ToList();
                 rd.SetDataSource(y);
                 if (patient.EMP_ENAME == null)

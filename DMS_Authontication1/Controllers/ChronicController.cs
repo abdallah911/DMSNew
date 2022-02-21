@@ -102,7 +102,8 @@ namespace DMS_TEST.Controllers
                             UNIT_NO = l.m.UNIT_NO,
                             Des_PACK_PRICE = l.m.PACK_PRICE,
                             PACK_SIZE = l.m.PACK_SIZE,
-                            UNIT_PRICE = l.m.UNIT_PRICE
+                            UNIT_PRICE = l.m.UNIT_PRICE,
+                            MedicineNoPay = l.m.MedicineNoPay.Trim()
                         }).ToList();
                         if (data.Count == 0)
                             ViewBag.Message = "No Mediciens";
@@ -221,7 +222,7 @@ namespace DMS_TEST.Controllers
             db.Roshitas.Add(roshita);
             db.SaveChanges();
 
-            var med_card= db.Med_Card.Where(m => m.CARD_NO == data.CardId).FirstOrDefault();
+            var med_card = db.Med_Card.Where(m => m.CARD_NO == data.CardId).FirstOrDefault();
             RoshitaNoOverNoPay roshitaNoOverNoPay = new RoshitaNoOverNoPay
             {
                 RositaId = roshita.Id,
@@ -244,6 +245,7 @@ namespace DMS_TEST.Controllers
                 roshitaDetail1.Duration = Medicien.Duration;
                 roshitaDetail1.TotalDuration = Medicien.TotalDuration;
                 roshitaDetail1.Amount = Medicien.Amount;
+                roshitaDetail1.MedicineNoPay = Medicien.MedicineNoPay;
                 roshitaDetail1.IsDealed = true;
                 db.RoshitaDetails.Add(roshitaDetail1);
             }

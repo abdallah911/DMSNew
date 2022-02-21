@@ -46,10 +46,12 @@ namespace DMS_TEST.ViewModel
         public Nullable<int> UNIT_NO { get; set; }
         [DisplayName("Unit Price")]
         public Nullable<double> UNIT_PRICE { get; set; }
+        [DisplayName("Company Pay")]
+        public string MedicineNoPay { get; set; }
 
-       // public virtual Roshita Roshita { get; set; }
+        // public virtual Roshita Roshita { get; set; }
         //public Roshita Roshita { get; set; }
         //public RoshitaDetail RoshitaDetail { get; set; }
-       // public MEDICINE_DATA MEDICINE_DATA { get; set; }
+        // public MEDICINE_DATA MEDICINE_DATA { get; set; }
     }
 }

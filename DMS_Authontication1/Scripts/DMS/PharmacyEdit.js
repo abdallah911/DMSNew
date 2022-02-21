@@ -14,6 +14,7 @@ var firstDate;
 var NationalId;
 const secondDate = new Date();
 var diffDays = 0;
+var sumNoPay = 0;
 //var diffDays = 265;
 var FixedTotalUnits = [];
 $(function () {
@@ -183,6 +184,9 @@ $(function () {
             Medicien.TotalUnits = $("TD", row).find(".TotalUnits").val();
             Medicien.Amount = $("TD", row).find(".Amount").val();
             Medicien.PaymentGroup = row.find("TD").eq(12).html().trim();
+            if (row.find("TD").eq(13).html().trim() == "Yes") {
+                Medicien.MedicineNoPay = row.find("TD").eq(13).html().trim();
+            }
             Mediciens.push(Medicien);
         });
         if (Mediciens.length != 0) {
@@ -251,7 +255,7 @@ $(function () {
                         $("#Update").attr("disabled", false);
                     }
                 });
-                
+
             }
             else {
                 bootbox.alert("Please wait untaill data load correctly");
@@ -289,12 +293,18 @@ function Remove(button, event) {
 function Calculation() {
     var sum = 0;
     var sumCash = 0;
+    sumNoPay = 0;
     $('#Pharmacy TBODY TR').each(function () {
         var row = $(this);
         if (row.find("TD").eq(12).html().trim() != "Pending") {
             sum += parseFloat(("TD", row).find(".Amount").val());
             if (row.find("TD").eq(12).html().trim() == "Cash" || row.find("TD").eq(12).html().trim() == "Rejected" || row.find("TD").eq(12).html().trim() == "Pending")
                 sumCash += parseFloat(("TD", row).find(".Amount").val());
+        }
+        if (ServiceCode == "11602") {
+            if (row.find("TD").eq(13).html().trim() == "Yes") {
+                sumNoPay += parseFloat(("TD", row).find(".Amount").val());
+            }
         }
     });
     $("#txtTotalInvoice").val(sum.toFixed(2));
@@ -392,13 +402,13 @@ function Calculation() {
             $('#txtOverInsurance').val((total - Limit).toFixed(2));
         }
         else if (Limit > (total) && Limit != 0) {
-            $('#txtValueCredit').val((total * (co / 100)).toFixed(2));
-            $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
+            $('#txtValueCredit').val((((total - sumNoPay) * (co / 100)) + sumNoPay).toFixed(2));
+            $('#txtTotalCopayment').val(((total - sumNoPay) * (person / 100)).toFixed(2));
 
         }
         else {
-            $('#txtValueCredit').val(((total) * (co / 100)).toFixed(2));
-            $('#txtTotalCopayment').val(((total) * (person / 100)).toFixed(2));
+            $('#txtValueCredit').val((((total - sumNoPay) * (co / 100)) + sumNoPay).toFixed(2));
+            $('#txtTotalCopayment').val(((total - sumNoPay) * (person / 100)).toFixed(2));
 
         }
         //var totalcash = (sumCash + parseInt($('#txtTotalCopayment').val())).toFixed(2);
@@ -608,42 +618,42 @@ function SelectMedicien(event) {
                                                     //append row
                                                     if (Group == "NO") {
 
-                                                        if (CompId.includes("500")) {
-                                                            Group = "Accepted";
-                                                            AppendRow();
-                                                        }
-                                                        else {
-                                                            var dialog = bootbox.dialog({
-                                                                title: 'This Medicien is Not Covered!',
-                                                                message: "<p>Pay method?</p>",
-                                                                buttons: {
-                                                                    Cash: {
-                                                                        label: "Cash",
-                                                                        className: 'btn-info',
-                                                                        callback: function () {
-                                                                            Group = "Cash";
-                                                                            AppendRow();
-                                                                        }
-                                                                    },
-                                                                    //Approval: {
-                                                                    //    label: "Approved",
-                                                                    //    className: 'btn-info',
-                                                                    //    callback: function () {
-                                                                    //        Group = "Approval";
-                                                                    //        AppendRow();
-                                                                    //    }
-                                                                    //},
-                                                                    Tele: {
-                                                                        label: "Pending",
-                                                                        className: 'btn-info',
-                                                                        callback: function () {
-                                                                            Group = "Pending";
-                                                                            AppendRow();
-                                                                        }
+                                                        //if (CompId.includes("500")) {
+                                                        //    Group = "Accepted";
+                                                        //    AppendRow();
+                                                        //}
+                                                        //else {
+                                                        var dialog = bootbox.dialog({
+                                                            title: 'This Medicien is Not Covered!',
+                                                            message: "<p>Pay method?</p>",
+                                                            buttons: {
+                                                                Cash: {
+                                                                    label: "Cash",
+                                                                    className: 'btn-info',
+                                                                    callback: function () {
+                                                                        Group = "Cash";
+                                                                        AppendRow();
+                                                                    }
+                                                                },
+                                                                //Approval: {
+                                                                //    label: "Approved",
+                                                                //    className: 'btn-info',
+                                                                //    callback: function () {
+                                                                //        Group = "Approval";
+                                                                //        AppendRow();
+                                                                //    }
+                                                                //},
+                                                                Tele: {
+                                                                    label: "Pending",
+                                                                    className: 'btn-info',
+                                                                    callback: function () {
+                                                                        Group = "Pending";
+                                                                        AppendRow();
                                                                     }
                                                                 }
-                                                            });
-                                                        }
+                                                            }
+                                                        });
+                                                        //}
 
                                                     }
                                                     else {
