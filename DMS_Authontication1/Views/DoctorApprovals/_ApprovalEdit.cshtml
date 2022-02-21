@@ -151,6 +151,7 @@
         });
         $('#AddApproval').click(function () {
             debugger;
+            $("#wait").css("display", "block");
             $("#AddApproval").attr("disabled", "disabled");
             var edit = 0;
 
@@ -250,6 +251,7 @@
                                                             $("TD", row).eq(15).html(Act);
                                                             $("TD", row).eq(16).html($('.modal-body #Lock').val());
                                                             edit = 1;
+                                                            $("#wait").css("display", "none");
                                                             $("#AddApproval").attr("disabled", false);
                                                             $('#ApprovalEditModal').modal('hide');
                                                             $('.modal-body #Dose').val('');
@@ -264,6 +266,7 @@
                                                         className: 'btn-danger',
                                                         callback: function () {
                                                             edit = 1;
+                                                            $("#wait").css("display", "none");
                                                             $("#AddApproval").attr("disabled", false);
                                                             $('#ApprovalEditModal').modal('hide');
                                                         }
@@ -308,6 +311,7 @@
                                             $("TD", row).eq(15).html(Act);
                                             $("TD", row).eq(16).html($('.modal-body #Lock').val());
                                             edit = 1;
+                                            $("#wait").css("display", "none");
                                             $("#AddApproval").attr("disabled", false);
                                             $('#ApprovalEditModal').modal('hide');
                                             $('.modal-body #Dose').val('');
@@ -319,6 +323,7 @@
                                     },
                                     error: function () {
                                         samegroup2 = false;
+                                        $("#wait").css("display", "none");
                                         toastr.error("حدث بعض الخطاء ");
                                     }
                                 });
@@ -358,6 +363,7 @@
                                 $("TD", row).eq(15).html(Act);
                                 $("TD", row).eq(16).html($('.modal-body #Lock').val());
                                 edit = 1;
+                                $("#wait").css("display", "none");
                                 $("#AddApproval").attr("disabled", false);
                                 $('#ApprovalEditModal').modal('hide');
                                 $('.modal-body #Dose').val('');
@@ -402,6 +408,7 @@
                             $("TD", row).eq(15).html(Act);
                             $("TD", row).eq(16).html($('.modal-body #Lock').val());
                             edit = 1;
+                            $("#wait").css("display", "none");
                             $("#AddApproval").attr("disabled", false);
                             $('#ApprovalEditModal').modal('hide');
                             $('.modal-body #Dose').val('');
@@ -507,6 +514,7 @@
                                                     btnEdit.attr("onclick", "EditMedicine(this);");
                                                     btnEdit.text("Edit");
                                                     cell.append(btnEdit);
+                                                    $("#wait").css("display", "none");
                                                     $("#AddApproval").attr("disabled", false);
                                                     $('#ApprovalEditModal').modal('hide');
                                                     $('.modal-body #Dose').val('');
@@ -520,6 +528,7 @@
                                                 label: "الغاء",
                                                 className: 'btn-danger',
                                                 callback: function () {
+                                                    $("#wait").css("display", "none");
                                                     $("#AddApproval").attr("disabled", false);
                                                     $('#ApprovalEditModal').modal('hide');
                                                     $('.modal-body #Dose').val(' ');
@@ -595,6 +604,7 @@
                                     btnEdit.attr("onclick", "EditMedicine(this);");
                                     btnEdit.text("Edit");
                                     cell.append(btnEdit);
+                                    $("#wait").css("display", "none");
                                     $("#AddApproval").attr("disabled", false);
                                     $('#ApprovalEditModal').modal('hide');
                                     $('.modal-body #Dose').val('');
@@ -606,6 +616,7 @@
                             },
                             error: function () {
                                 samegroup = false;
+                                $("#wait").css("display", "none");
                                 toastr.error("حدث بعض الخطاء ");
                             }
                         });
@@ -669,6 +680,7 @@
                         btnEdit.attr("onclick", "EditMedicine(this);");
                         btnEdit.text("Edit");
                         cell.append(btnEdit);
+                        $("#wait").css("display", "none");
                         $("#AddApproval").attr("disabled", false);
                         $('#ApprovalEditModal').modal('hide');
                         $('.modal-body #Dose').val('');
@@ -686,7 +698,7 @@
             else {
                 bootbox.alert("Please Insert Requried Data");
                 $('.modal-body #Dose').focusin();
-
+                $("#wait").css("display", "none");
             }
             //$('.modal-body #Dose').val('');
             //$('.modal-body #Duration').val('');
@@ -695,7 +707,9 @@
             //$('#NOMD').attr("hidden", true);
 
         });
-        $('#CloseApproval').click(function () {
+        $('#CloseApproval').click(function ()
+        {
+            $("#wait").css("display", "none");
             $("#AddApproval").attr("disabled", false);
             $('.modal-body #Dose').val(' ');
             $('.modal-body #Duration').val(' ');
