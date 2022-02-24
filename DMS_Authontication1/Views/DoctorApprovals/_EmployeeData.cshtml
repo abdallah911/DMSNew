@@ -1,0 +1,50 @@
+﻿<div class="modal fade " id="EmployeeDataModal" tabindex="-1" role="dialog" aria-labelledby="EmplyeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="overflow-y: auto; max-height:100%;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Employee Data</h3>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <hr />
+                    <dl class="dl-horizontal">
+
+                        <dt>
+                            @Html.DisplayName("Birth Date")
+                        </dt>
+
+                        <dd id="BirthDate">
+
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayName(" Age ")
+                        </dt>
+
+                        <dd id="Age">
+
+                        </dd>
+                        <dt>
+                            @Html.DisplayName(" Gender")
+                        </dt>
+
+                        <dd id="Gender">
+
+                        </dd>
+                        <dt>
+                            @Html.DisplayName(" Specific Date ")
+                        </dt>
+                        <dd id="SpecificDate">
+
+                        </dd>
+                    </dl>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

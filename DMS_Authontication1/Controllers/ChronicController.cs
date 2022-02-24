@@ -104,7 +104,7 @@ namespace DMS_TEST.Controllers
                             PACK_SIZE = l.m.PACK_SIZE,
                             UNIT_PRICE = l.m.UNIT_PRICE,
                             MedicineNoPay = l.m.MedicineNoPay.Trim()
-                        }).ToList();
+                        }).Distinct().ToList();
                         if (data.Count == 0)
                             ViewBag.Message = "No Mediciens";
                         return View(data);

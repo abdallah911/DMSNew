@@ -1,4 +1,6 @@
 ﻿var input1 = document.getElementById("AddCardTxt");
+var birthdate;
+var SpecificDate;
 input1.addEventListener("keyup", function (event) {
     event.preventDefault();
     if (event.keyCode === 13) {
@@ -363,9 +365,9 @@ $(function () {
                     "<td>" + r[i].PACK_SIZE + "</td>" +
                     "<td>" + r[i].UNIT_NO + "</td>" +
                     "<td>" + r[i].UNIT_PRICE + "</td>" +
-                    "<td>" + r[i].Group_Type + "</td>"+
-                    "<td>" + r[i].MED_GROUP + "</td>"+
-                "</tr>"
+                    "<td>" + r[i].Group_Type + "</td>" +
+                    "<td>" + r[i].MED_GROUP + "</td>" +
+                    "</tr>"
                 setData.append(data);
             }
         },
@@ -392,9 +394,9 @@ $(function () {
                     "<td>" + r[i].PACK_SIZE + "</td>" +
                     "<td>" + r[i].UNIT_NO + "</td>" +
                     "<td>" + r[i].UNIT_PRICE + "</td>" +
-                    "<td>" + r[i].Group_Type + "</td>"+
-                    "<td>" + r[i].MED_GROUP + "</td>"+
-                "</tr>"
+                    "<td>" + r[i].Group_Type + "</td>" +
+                    "<td>" + r[i].MED_GROUP + "</td>" +
+                    "</tr>"
                 setData.append(data);
 
             }
@@ -404,6 +406,57 @@ $(function () {
         }
     });
     var counter = 0;
+    $("#EmployeeData").click(function () {
+        if ($('#AddCardTxt').val() != "") {
+            $("#wait").css("display", "block");
+            debugger;
+            var id = $('#AddCardTxt').val();
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '/DoctorApprovals/EmployeeData',
+                data: {
+                    id: id,
+                },
+                success: function (r) {
+                    if (r.BirthDate != null) {
+                        var MyDate_String_Value1 = r.BirthDate;
+                        var value = new Date
+                            (
+                                parseFloat(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
+                            );
+                        birthdate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                    } else {
+                        birthdate = "";
+                    }
+                    if (r.SpecificDate != null) {
+                        var MyDate_String_Value = r.SpecificDate;
+                        var value = new Date
+                            (
+                                parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                            );
+                        SpecificDate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                    } else {
+                        SpecificDate = "";
+                    }
+                    $("#wait").css("display", "none");
+                    $('#BirthDate').html(birthdate);
+                    $('#Age').html(r.Age);
+                    $('#Gender').html(r.Gender);
+                    $('#SpecificDate').html(SpecificDate);
+                    $('#EmployeeDataModal').modal();
+
+                },
+                error: function (err) {
+                    alert("Failed to retrieve Emplyee Data. please check your internet connection");
+                }
+            });
+
+        }
+        else {
+            bootbox.alert("Please  Select Card ");
+        }
+    });
     $("#AddMedicien").click(function () {
         if (CardId != "") {
             $("#wait").css("display", "block");
@@ -726,7 +779,7 @@ function SelectCard(button) {
                         (
                             parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
                         );
-                    var dat =  (value.getMonth() + 1) + "/" + value.getFullYear();
+                    var dat = (value.getMonth() + 1) + "/" + value.getFullYear();
                 }
                 else {
                     dat = "";

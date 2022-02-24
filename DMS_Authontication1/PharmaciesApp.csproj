@@ -8188,6 +8188,7 @@
     <Content Include="Views\Shared\_AddEmployee.cshtml" />
     <Content Include="Views\MedicalNetwork\RequestReplay.cshtml" />
     <Content Include="Views\MedicalNetwork\Details.cshtml" />
+    <Content Include="Views\DoctorApprovals\_EmployeeData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

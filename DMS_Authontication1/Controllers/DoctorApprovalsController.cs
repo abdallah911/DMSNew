@@ -403,6 +403,31 @@ namespace DMS_Authontication1.Controllers
             }).ToList();
             return new JsonResult { Data = pro, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
+        public JsonResult EmployeeData(string id)
+        {
+            var EmployeeData = db.Comp_Employees.Where(c => c.CARD_ID == id && c.INS_START_DATE <= DateTime.Now && c.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+            string gender;
+            switch (EmployeeData.GENDER)
+            {
+                case 1:
+                    gender = "Male";
+                    break;
+                case 2:
+                    gender = "Female";
+                    break;
+                default:
+                    gender = " Not Defined ";
+                    break;
+            }
+            // Save today's date.
+            var today = DateTime.Today;
+
+            // Calculate the age.
+            var Age = today.Year - EmployeeData.BIRTH_DATE.Value.Year;
+            return Json(new { Age = Age, Gender = gender, BirthDate = EmployeeData.BIRTH_DATE, SpecificDate = EmployeeData.SPECIFIC_DATE });
+
+        }
         #region Companies
         public JsonResult MonthlyCardsApprovals(int id)
         {
@@ -556,7 +581,7 @@ namespace DMS_Authontication1.Controllers
                         NOTES = l.x.m.NOTES,
                         PhoneNumber = l.x.m.PhoneNumber,
                         NationalId = l.x.m.NationalId,
-                        ExceptionType=l.x.m.ExceptionType
+                        ExceptionType = l.x.m.ExceptionType
 
                     })
                     .FirstOrDefault();
