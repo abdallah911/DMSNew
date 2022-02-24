@@ -422,12 +422,12 @@ function SelectMedicien(event) {
                         $("#wait").css("display", "none");
                         //append row
                         if (Group == "NO") {
-                            if (CompId.includes("500")) {
-                                Group = "Accepted";
-                                AppendRow();
-                                Calculation();
-                            }
-                            else {
+                            //if (CompId.includes("500")) {
+                            //    Group = "Accepted";
+                            //    AppendRow();
+                            //    Calculation();
+                            //}
+                            //else {
                                 var dialog = bootbox.dialog({
                                     title: 'This Medicien is Not Covered!',
                                     message: "<p>Pay method?</p>",
@@ -465,7 +465,7 @@ function SelectMedicien(event) {
                                     }
                                 });
 
-                            }
+                            //}
                         }
                         else {
                             AppendRow();

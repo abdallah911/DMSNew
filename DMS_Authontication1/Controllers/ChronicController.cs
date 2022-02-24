@@ -103,7 +103,7 @@ namespace DMS_TEST.Controllers
                             Des_PACK_PRICE = l.m.PACK_PRICE,
                             PACK_SIZE = l.m.PACK_SIZE,
                             UNIT_PRICE = l.m.UNIT_PRICE
-                        }).ToList();
+                        }).Distinct().ToList();
                         if (data.Count == 0)
                             ViewBag.Message = "No Mediciens";
                         return View(data);

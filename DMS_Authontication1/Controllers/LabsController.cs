@@ -165,10 +165,20 @@ namespace DMS_Authontication1.Controllers
 
             //}
             //data.Oracle_Id = Convert.ToInt64(NeworacleId);
-            int result = db.SaveChanges();
-            Session["id"] = data.Id;
-            //data.CreatedDate.ToString();
+            try
+            {
+                int result = db.SaveChanges();
+                Session["id"] = data.Id;
+                //data.CreatedDate.ToString();
+                return Json("2" + data.CreatedDate.Value.ToString("ddMMyy") + data.Id);
+            }
+            catch (Exception ex)
+            {
+
+                var e = ex.InnerException;
+            }
             return Json("2" + data.CreatedDate.Value.ToString("ddMMyy") + data.Id);
+
         }
         [Authorize(Roles = "Admin,Lab,Lab_Admin")]
 

@@ -552,12 +552,12 @@ function SelectRay(event) {
                     });
 
                     if (Group == "NO") {
-                        if ($('#txtSearchCard').val().split('-')[0].includes("500")) {
-                            Group = "Accepted";
-                            AppendRow();
-                            Calculation();
-                        }
-                        else {
+                        //if ($('#txtSearchCard').val().split('-')[0].includes("500")) {
+                        //    Group = "Accepted";
+                        //    AppendRow();
+                        //    Calculation();
+                        //}
+                        //else {
                             var dialog = bootbox.dialog({
                                 title: 'This Rays is Not Covered!',
                                 message: "<p>Pay method?</p>",
@@ -594,7 +594,7 @@ function SelectRay(event) {
                                     }
                                 }
                             });
-                        }
+                        //}
 
                     }
                     else {
