@@ -425,7 +425,9 @@ namespace DMS_Authontication1.Controllers
 
             // Calculate the age.
             var Age = today.Year - EmployeeData.BIRTH_DATE.Value.Year;
-            return Json(new { Age = Age, Gender = gender, BirthDate = EmployeeData.BIRTH_DATE, SpecificDate = EmployeeData.SPECIFIC_DATE });
+            string BirthDate = String.Format("{0:MM/dd/yyyy}", EmployeeData.BIRTH_DATE.Value);
+            string SpecificDate = String.Format("{0:MM/dd/yyyy}", EmployeeData.SPECIFIC_DATE.Value);
+            return Json(new { Age = Age, Gender = gender, BirthDate = BirthDate, SpecificDate = SpecificDate });
 
         }
         #region Companies

@@ -1,6 +1,4 @@
 ﻿var input1 = document.getElementById("AddCardTxt");
-var birthdate;
-var SpecificDate;
 input1.addEventListener("keyup", function (event) {
     event.preventDefault();
     if (event.keyCode === 13) {
@@ -419,31 +417,12 @@ $(function () {
                     id: id,
                 },
                 success: function (r) {
-                    if (r.BirthDate != null) {
-                        var MyDate_String_Value1 = r.BirthDate;
-                        var value = new Date
-                            (
-                                parseFloat(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
-                            );
-                        birthdate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                    } else {
-                        birthdate = "";
-                    }
-                    if (r.SpecificDate != null) {
-                        var MyDate_String_Value = r.SpecificDate;
-                        var value = new Date
-                            (
-                                parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                            );
-                        SpecificDate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                    } else {
-                        SpecificDate = "";
-                    }
+
                     $("#wait").css("display", "none");
-                    $('#BirthDate').html(birthdate);
+                    $('#BirthDate').html(r.BirthDate);
                     $('#Age').html(r.Age);
                     $('#Gender').html(r.Gender);
-                    $('#SpecificDate').html(SpecificDate);
+                    $('#SpecificDate').html(r.SpecificDate);
                     $('#EmployeeDataModal').modal();
 
                 },
