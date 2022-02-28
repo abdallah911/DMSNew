@@ -395,6 +395,7 @@ namespace DMS_Synchronization
 
                 _currenctConnectionString = connectionSettings.SQlConnection;
 
+                CLOSE_EMP_DATASyncToSqlTable();
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED);
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED_EMP>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED_EMP, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED_EMP);
 
@@ -5059,7 +5060,7 @@ namespace DMS_Synchronization
                     " AND Manager NOT IN('Lab_Stop','Ray_Stop','Lab','Ray','Doctor_Chronic') )", _connectionSettings.SQlConnection).Rows[0][0].ToString());
 
                 var maxiteration = Math.Ceiling(count / 10000);
-                long sequenc =  long.Parse(GetOracleDataTable(@"SELECT NVL(MAX(INVT_SEQ),0)   FROM INV_SAL ORDER BY INV_DATE DESC ", _connectionSettings.OrcaleConnectionTRN_SQL).Rows[0][0].ToString()) + 1;
+                long sequenc = long.Parse(GetOracleDataTable(@"SELECT NVL(MAX(INVT_SEQ),0)   FROM INV_SAL ORDER BY INV_DATE DESC ", _connectionSettings.OrcaleConnectionTRN_SQL).Rows[0][0].ToString()) + 1;
                 if (DateTime.Now.Day == 2)
                 {
                     sequenc = 1;
@@ -7771,6 +7772,100 @@ namespace DMS_Synchronization
             {
                 var message = ex.InnerException;
             }
+
+        }
+
+        private static void CLOSE_EMP_DATASyncToSqlTable()
+        {
+            var query = "select * from (select m.*, rownum r from  DMS_TEST.CLOSE_EMP_DATA m WHERE (IS_SYNC=0 OR IS_SYNC IS NULL) AND TRANS_TYP='L') WHERE r > {0} and r<= {1} ";
+
+            double count = double.Parse(GetOracleDataTable("select  COUNT(*) from DMS_TEST.CLOSE_EMP_DATA m WHERE (IS_SYNC=0 OR IS_SYNC IS NULL) AND TRANS_TYP='L' ", _connectionSettings.OrcaleConnection).Rows[0][0].ToString());
+
+            //double count = GetCount(tableName, _connectionSettings.OrcaleConnection);
+            var maxiteration = Math.Ceiling(count / 1000);
+            var tableName = "CLOSE_EMP_DATA";
+            for (int i = 0; i < maxiteration; i = i)
+            {
+                try
+                {
+                    var data = GetOracleTable<CLOSE_EMP_DATA>(string.Format(query, (i * 1000), ((++i) * 1000)), _connectionSettings.OrcaleConnection);
+                    _result.Logs.Add(new ViewModels.Log
+                    {
+                        Order = GetLogOrder(),
+                        Action = SyncAction.Get.ToString(),
+                        Database = GetDatabaseName(_connectionSettings.OrcaleConnection),
+                        Server = GetServerName(_connectionSettings.OrcaleConnection),
+                        Table = tableName,
+                        Note = "All",
+                        AffectedRows = data.Count
+                    });
+
+                    try
+                    {
+                        //var SyncData = FullSyncFieldsSQL<BaseEntityDB>(data.Cast<BaseEntityDB>().ToList());
+                        //var CastData = SyncData.Cast<CLOSE_EMP_DATA>().ToList();
+                        foreach (var item in data)
+                        {
+                            string QueryUser = "SELECT Provider FROM AspNetUsers " +
+                                                    " WHERE UserName='';";
+                            var UserId = GetSqlDataTable(QueryUser, _connectionSettings.SQlConnection);
+                            if (UserId.Rows.Count > 0)
+                            { 
+                            }
+                                var oldcard = item.CARD_ID;
+                            var newcard = item.N_CARD;
+                        }
+                        //AddNewEntities(CastData, SqlTableName, false, _connectionSettings.SQlConnection);
+                        _result.Logs.Add(new ViewModels.Log
+                        {
+                            Order = GetLogOrder(),
+                            Action = SyncAction.Insert.ToString(),
+                            Database = GetDatabaseName(),
+                            Server = GetServerName(),
+                            Table = tableName,
+                            AffectedRows = data.Count
+                        });
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        _result.Errors.Add(new Error()
+                        {
+                            Action = SyncAction.Insert.ToString(),
+                            Database = GetDatabaseName(),
+                            Server = GetServerName(),
+                            Table = tableName,
+                            Exception = ex,
+                        });
+                    }
+                }
+                catch (Exception e)
+                {
+                    _result.Errors.Add(new Error()
+                    {
+                        Action = SyncAction.Get.ToString(),
+                        Database = GetDatabaseName(_connectionSettings.OrcaleConnection),
+                        Server = GetServerName(_connectionSettings.OrcaleConnection),
+                        Table = tableName,
+                        Exception = e,
+                    });
+                }
+            }
+
+            if (tableName == "MEDICINE_DATA")
+            {
+                string queryD = " UPDATE MedicineData SET diagnoisegender = 3, iscovered = 1, DiagnoiseAge = 'All'";
+                ExecuteSQLUpdateQuery(queryD, _connectionSettings.SQlConnection);
+                string queryDa = " UPDATE MedicineData SET ACTIVE = 'Y' WHERE ACTIVE IS NULL";
+                ExecuteSQLUpdateQuery(queryDa, _connectionSettings.SQlConnection);
+            }
+
+
+
+            string OracleQuery = "UPDATE " + tableName + " SET IS_SYNC = 1,SYNC_DATE=SYSDATE,SYNC_BY = 'Admin' WHERE IS_SYNC=0 OR IS_SYNC IS NULL";
+            ExecuteOracleQuery(OracleQuery, _connectionSettings.OrcaleConnection);
+
 
         }
 
