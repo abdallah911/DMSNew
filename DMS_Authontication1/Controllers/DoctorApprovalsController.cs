@@ -564,8 +564,9 @@ namespace DMS_Authontication1.Controllers
                 db.Configuration.ProxyCreationEnabled = false;
 
                 //Retrive
+                DateTime datenow = DateTime.Now.Date;
                 var mED_CARD = db.Med_Card.Where(x => x.CARD_NO == id)
-                     .Join(db.Comp_Employees.Where(x => x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now), m => m.CARD_NO, e => e.CARD_ID, (m, e) => new { m, e })
+                     .Join(db.Comp_Employees.Where(x => x.INS_START_DATE <= datenow && x.INS_END_DATE >= datenow), m => m.CARD_NO, e => e.CARD_ID, (m, e) => new { m, e })
                     .Join(db.Serv_Providers1.Where(a => a.PRV_TYPE == 2), x => x.m.PROVIDER_CODE, z => z.PR_CODE, (x, z) => new { x, z })
                     .Select(l => new MonthlyChronicDoctorApprovalViewModel
                     {
