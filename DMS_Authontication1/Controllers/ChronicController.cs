@@ -40,7 +40,10 @@ namespace DMS_TEST.Controllers
                 ViewBag.Message = "Company is not existed";
                 return View(data);
             }
-            var empCardTerminationFlag = db.Comp_Employees.Where(x => x.CARD_ID == id && x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+            DateTime datenow = DateTime.Now.Date;
+            var da = new DateTime(datenow.Year, datenow.Month, datenow.Day);
+            var empCardTerminationFlag = db.Comp_Employees.Where(x => x.CARD_ID == id && x.INS_START_DATE <= datenow
+            && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
             if (empCardTerminationFlag != null)
             {
                 if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "N")
@@ -221,7 +224,7 @@ namespace DMS_TEST.Controllers
             db.Roshitas.Add(roshita);
             db.SaveChanges();
 
-            var med_card= db.Med_Card.Where(m => m.CARD_NO == data.CardId).FirstOrDefault();
+            var med_card = db.Med_Card.Where(m => m.CARD_NO == data.CardId).FirstOrDefault();
             RoshitaNoOverNoPay roshitaNoOverNoPay = new RoshitaNoOverNoPay
             {
                 RositaId = roshita.Id,
