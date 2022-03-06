@@ -1209,11 +1209,11 @@ namespace DMS_TEST.Controllers
         [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
         public JsonResult SavePrescription(PrescriptionViewModel data)
         {
-            var carduse = db.CardUseds.Where(c => c.CardId == data.CardId).FirstOrDefault();
-            if (carduse == null)
-            {
-                return Json("Failed to Save Prescription");
-            }
+            //var carduse = db.CardUseds.Where(c => c.CardId == data.CardId).FirstOrDefault();
+            //if (carduse == null)
+            //{
+            //    return Json("Failed to Save Prescription");
+            //}
             //Roshita
             Roshita roshita = new Roshita()
             {
@@ -1240,7 +1240,7 @@ namespace DMS_TEST.Controllers
             };
 
             db.Roshitas.Add(roshita);
-            db.CardUseds.Remove(carduse);
+            //db.CardUseds.Remove(carduse);
             db.SaveChanges();
             // RoshitaDetails
             bool oneNotification = false;
@@ -1456,6 +1456,11 @@ namespace DMS_TEST.Controllers
             var found = db.CardUseds.Where(c => c.CardId == CardId).FirstOrDefault();
             if (found != null)
             {
+                if (found.CreatedBy == User.Identity.Name)
+                {
+                    return new JsonResult { Data = "True", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+                }
                 return new JsonResult { Data = "False", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
             CardUsed cardUsed = new CardUsed

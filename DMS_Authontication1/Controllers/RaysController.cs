@@ -144,18 +144,18 @@ namespace DMS_Authontication1.Controllers
 
         public JsonResult Save(Roshita data)
         {
-            var carduse = db.CardUseds.Where(c => c.CardId == data.CardId).FirstOrDefault();
-            if (carduse == null)
-            {
-                return Json("Failed to Save Prescription");
-            }
+            //var carduse = db.CardUseds.Where(c => c.CardId == data.CardId).FirstOrDefault();
+            //if (carduse == null)
+            //{
+            //    return Json("Failed to Save Prescription");
+            //}
             if (data.CreatedBy == null)
             {
                 data.CreatedBy = User.Identity.Name;
             }
             data.CreatedDate = DateTime.Now;
             db.Roshitas.Add(data);
-            db.CardUseds.Remove(carduse);
+            //db.CardUseds.Remove(carduse);
             data.Manager = "Ray";
             data.RoshetaType = "11204";
             
