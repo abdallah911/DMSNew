@@ -2,17 +2,46 @@
 @{
     ViewBag.Title = "Chronic";
 }
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
 @if (ViewBag.Message == "Can despense your medicine at your specific pharmacy")
 {
     <script>
         alert("Can despense your medicine at your specific pharmacy");
+        var url = new URL(window.location.href);
+        var id = url.searchParams.get("id");
+        // disable card
+        $.ajax({
+            dataType: "json",
+            url: '/Pharmacy/DeleteDisableCard',
+            data: {
+                CardId: id,
+            },
+            success: function (r) {
+            },
+            error: function (r) { }
+        });
         window.location.replace("/Pharmacy/Pharmacy");
     </script>
 }
 @if (ViewBag.Message == "No Mediciens")
 {
     <script>
+        var url = new URL(window.location.href);
+        var id = url.searchParams.get("id");
+        // disable card
+        $.ajax({
+            dataType: "json",
+            url: '/Pharmacy/DeleteDisableCard',
+            data: {
+                CardId: id,
+            },
+            success: function (r) {
+            },
+            error: function (r) { }
+        });
         alert("No Medicine to despens");
+
         window.location.replace("/Pharmacy/Pharmacy");
     </script>
 }
@@ -20,6 +49,19 @@
 {
     <script>
         alert("No chronic data");
+        var url = new URL(window.location.href);
+        var id = url.searchParams.get("id");
+        // disable card
+        $.ajax({
+            dataType: "json",
+            url: '/Pharmacy/DeleteDisableCard',
+            data: {
+                CardId: id,
+            },
+            success: function (r) {
+            },
+            error: function (r) { }
+        });
         window.location.replace("/Pharmacy/Pharmacy");
     </script>
 }
@@ -28,6 +70,19 @@
 {
     <script>
         alert("This Card doesn't have chronic medicines");
+        var url = new URL(window.location.href);
+        var id = url.searchParams.get("id");
+        // disable card
+        $.ajax({
+            dataType: "json",
+            url: '/Pharmacy/DeleteDisableCard',
+            data: {
+                CardId: id,
+            },
+            success: function (r) {
+            },
+            error: function (r) { }
+        });
         window.location.replace("/Pharmacy/Pharmacy");
     </script>
 }
@@ -35,6 +90,19 @@
 {
     <script>
         alert("Company is not existed");
+        var url = new URL(window.location.href);
+        var id = url.searchParams.get("id");
+        // disable card
+        $.ajax({
+            dataType: "json",
+            url: '/Pharmacy/DeleteDisableCard',
+            data: {
+                CardId: id,
+            },
+            success: function (r) {
+            },
+            error: function (r) { }
+        });
         window.location.replace("/Pharmacy/Pharmacy");
     </script>
 }
@@ -42,6 +110,19 @@
 {
     <script>
         alert("Expired Card");
+        var url = new URL(window.location.href);
+        var id = url.searchParams.get("id");
+        // disable card
+        $.ajax({
+            dataType: "json",
+            url: '/Pharmacy/DeleteDisableCard',
+            data: {
+                CardId: id,
+            },
+            success: function (r) {
+            },
+            error: function (r) { }
+        });
         window.location.replace("/Pharmacy/Pharmacy");
     </script>
 }
@@ -49,6 +130,19 @@
 {
     <script>
         alert("Card is not existed");
+        var url = new URL(window.location.href);
+        var id = url.searchParams.get("id");
+        // disable card
+        $.ajax({
+            dataType: "json",
+            url: '/Pharmacy/DeleteDisableCard',
+            data: {
+                CardId: id,
+            },
+            success: function (r) {
+            },
+            error: function (r) { }
+        });
         window.location.replace("/Pharmacy/Pharmacy");
     </script>
 }
@@ -56,16 +150,23 @@
 {
     <script>
         alert("Expired Company");
+        var url = new URL(window.location.href);
+        var id = url.searchParams.get("id");
+        // disable card
+        $.ajax({
+            dataType: "json",
+            url: '/Pharmacy/DeleteDisableCard',
+            data: {
+                CardId: id,
+            },
+            success: function (r) {
+            },
+            error: function (r) { }
+        });
         window.location.replace("/Pharmacy/Pharmacy");
     </script>
 }
-@*@if (ViewBag.Message == "ValidationDate")
-    {
-        <script>
-            alert("You can despense your medicines from 1 to 15 of every month");
-            window.location.replace("/Pharmacy/Pharmacy");
-        </script>
-    }*@
+
 <style>
     #PrescriptionDate[readonly] {
         background-color: white;
@@ -95,10 +196,10 @@
                     <span class="glyphicon glyphicon-ok"></span> Has Approval
                 </label>
             </div>
-    </div>
+        </div>
     </div>
     @*<h2 class="portlet-title" style="margin:1px;">Chronic</h2>*@
- 
+
 
     <div class="portlet-body">
         <div class="table-responsive">

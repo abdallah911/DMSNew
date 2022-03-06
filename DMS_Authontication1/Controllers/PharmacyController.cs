@@ -1470,7 +1470,20 @@ namespace DMS_TEST.Controllers
             {
                 return new JsonResult { Data = "True", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
-            
+
+            return new JsonResult { Data = "False", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        //Delete DisableCard
+        public JsonResult DeleteDisableCard(string CardId)
+        {
+            var found = db.CardUseds.Where(c => c.CardId == CardId).FirstOrDefault();
+            if (found != null)
+            {
+                db.CardUseds.Remove(found);
+                db.SaveChanges();
+                return new JsonResult { Data = "True", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
             return new JsonResult { Data = "False", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
