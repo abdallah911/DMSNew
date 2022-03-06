@@ -479,7 +479,7 @@ function Add(button) {
     cell.html(TotalUnits);
     cell = $(row.insertCell(-1));
     cell.html(Amount);
-    
+
     cell = $(row.insertCell(-1));
     cell.html(CompanyPay);
     cell.attr("hidden", true);
@@ -645,17 +645,18 @@ function FirstCalculation() {
 
     person = parseFloat(100 - co);
     //total-cash
-    var total = sum - sumNoPay;
+    var total = sum - sumNoPay; 
     var ValueCredit = 0;
     if (CurrentLimit > AnuualLimit || CurrentLimit == 0) {
         CurrentLimit = AnuualLimit;
     }
     if (CurrentLimit != 0) {
-        ValueCredit = ((total * (co / 100)) + sumNoPay).toFixed(2);
+        ValueCredit = (total * (co / 100)).toFixed(2);
         if ((CurrentLimit * (co / 100)) <= (ValueCredit)) {
             $('#CoPayment').val((CurrentLimit * (person / 100)).toFixed(2));
             CurrentLimit = (CurrentLimit * (co / 100)).toFixed(2);
-            $('#Credit').val(CurrentLimit);
+            var credit = (parseFloat(CurrentLimit) + parseFloat(sumNoPay)).toFixed(2);
+            $('#Credit').val(credit);
             $('#OverInsurance').val((total - CurrentLimit - parseFloat($('#CoPayment').val())).toFixed(2));
         }
         else if ((CurrentLimit * (co / 100)) > (ValueCredit)) {
@@ -693,11 +694,12 @@ function SecandCalculation() {
         CurrentLimit = AnuualLimit;
     }
     if (CurrentLimit != 0) {
-        ValueCredit = ((total * (co / 100)) + sumNoPay).toFixed(2);
+        ValueCredit = (total * (co / 100)).toFixed(2);
         if ((CurrentLimit * (co / 100)) <= (ValueCredit)) {
             $('#CoPayment2').val((CurrentLimit * (person / 100)).toFixed(2));
             CurrentLimit = (CurrentLimit * (co / 100)).toFixed(2);
-            $('#Credit2').val(CurrentLimit);
+            var credit2 = (parseFloat(CurrentLimit) + parseFloat(sumNoPay)).toFixed(2);
+            $('#Credit2').val(credit2);
             $('#OverInsurance2').val((total - CurrentLimit - parseFloat($('#CoPayment2').val())).toFixed(2));
         }
         else if ((CurrentLimit * (co / 100)) > (ValueCredit)) {

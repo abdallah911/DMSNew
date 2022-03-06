@@ -263,7 +263,12 @@ namespace DMS_TEST.Controllers
 
         public JsonResult SavePrescription(PrescriptionViewModel data)
         {
-            
+
+            var carduse = db.CardUseds.Where(c => c.CardId == data.CardId).FirstOrDefault();
+            if (carduse == null)
+            {
+                return Json("Failed to Save Prescription");
+            }
             var DoctorDailyRosita = db.Roshitas.Where(r => r.CardId == data.CardId && r.Id == data.Id).Select(l => new
             {
                 l.CardId,
@@ -301,6 +306,7 @@ namespace DMS_TEST.Controllers
             };
 
             db.Roshitas.Add(roshita);
+            db.CardUseds.Remove(carduse);
             db.SaveChanges();
             // RoshitaDetails
             foreach (RoshitaDetail Medicien in data.roshitaDetail)

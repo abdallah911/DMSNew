@@ -448,6 +448,9 @@
     <Compile Include="Models\CardAcceptionReason.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CardUsed.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Company_Cost_Center.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -8202,72 +8205,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802280728382_editUser.resx">
-      <DependentUpon>201802280728382_editUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803011014281_role.resx">
-      <DependentUpon>201803011014281_role.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803051238383_provider.resx">
-      <DependentUpon>201803051238383_provider.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803061306086_typeid.resx">
-      <DependentUpon>201803061306086_typeid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805101131339_all.resx">
-      <DependentUpon>201805101131339_all.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806061110299_tables.resx">
-      <DependentUpon>201806061110299_tables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811250838574_DoctorPersonalData.resx">
-      <DependentUpon>201811250838574_DoctorPersonalData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811250906329_DoctorWorkPlace.resx">
-      <DependentUpon>201811250906329_DoctorWorkPlace.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811250920481_DailyPermission.resx">
-      <DependentUpon>201811250920481_DailyPermission.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811250925571_MonthlyPermissionTable.resx">
-      <DependentUpon>201811250925571_MonthlyPermissionTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811250953116_DoctorPermissionTable.resx">
-      <DependentUpon>201811250953116_DoctorPermissionTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811251002298_Delete.resx">
-      <DependentUpon>201811251002298_Delete.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811251245496_Basicdata.resx">
-      <DependentUpon>201811251245496_Basicdata.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811260901522_ForigenKey.resx">
-      <DependentUpon>201811260901522_ForigenKey.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811260904386_DailyandMonthly.resx">
-      <DependentUpon>201811260904386_DailyandMonthly.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811260910487_Changes.resx">
-      <DependentUpon>201811260910487_Changes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811260923285_Changes2.resx">
-      <DependentUpon>201811260923285_Changes2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811261331584_Changes3.resx">
-      <DependentUpon>201811261331584_Changes3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811270703061_aad.resx">
-      <DependentUpon>201811270703061_aad.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811271000128_ReName.resx">
-      <DependentUpon>201811271000128_ReName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811271118266_Modification.resx">
-      <DependentUpon>201811271118266_Modification.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811271146400_Modification2.resx">
-      <DependentUpon>201811271146400_Modification2.cs</DependentUpon>
-    </EmbeddedResource>
     <Content Include="Reports\PendingList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>PendingList.cs</LastGenOutput>
@@ -8418,6 +8355,72 @@
       <LastGenOutput>RoshitaReport.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Migrations\201802280728382_editUser.resx">
+      <DependentUpon>201802280728382_editUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803011014281_role.resx">
+      <DependentUpon>201803011014281_role.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803051238383_provider.resx">
+      <DependentUpon>201803051238383_provider.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803061306086_typeid.resx">
+      <DependentUpon>201803061306086_typeid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805101131339_all.resx">
+      <DependentUpon>201805101131339_all.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806061110299_tables.resx">
+      <DependentUpon>201806061110299_tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811250838574_DoctorPersonalData.resx">
+      <DependentUpon>201811250838574_DoctorPersonalData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811250906329_DoctorWorkPlace.resx">
+      <DependentUpon>201811250906329_DoctorWorkPlace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811250920481_DailyPermission.resx">
+      <DependentUpon>201811250920481_DailyPermission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811250925571_MonthlyPermissionTable.resx">
+      <DependentUpon>201811250925571_MonthlyPermissionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811250953116_DoctorPermissionTable.resx">
+      <DependentUpon>201811250953116_DoctorPermissionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811251002298_Delete.resx">
+      <DependentUpon>201811251002298_Delete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811251245496_Basicdata.resx">
+      <DependentUpon>201811251245496_Basicdata.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811260901522_ForigenKey.resx">
+      <DependentUpon>201811260901522_ForigenKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811260904386_DailyandMonthly.resx">
+      <DependentUpon>201811260904386_DailyandMonthly.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811260910487_Changes.resx">
+      <DependentUpon>201811260910487_Changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811260923285_Changes2.resx">
+      <DependentUpon>201811260923285_Changes2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811261331584_Changes3.resx">
+      <DependentUpon>201811261331584_Changes3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811270703061_aad.resx">
+      <DependentUpon>201811270703061_aad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811271000128_ReName.resx">
+      <DependentUpon>201811271000128_ReName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811271118266_Modification.resx">
+      <DependentUpon>201811271118266_Modification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811271146400_Modification2.resx">
+      <DependentUpon>201811271146400_Modification2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\AfterSale\AfterSales.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>AfterSales.cs</LastGenOutput>

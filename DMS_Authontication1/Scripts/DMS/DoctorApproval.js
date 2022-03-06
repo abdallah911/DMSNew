@@ -592,7 +592,6 @@ $(function () {
     $('#submit').click(function () {
         var Id;
         var Mediciens = new Array();
-        debugger;
         $("#Pharmacy TBODY TR").each(function () {
             var row = $(this);
             var Medicien = {};
@@ -1262,7 +1261,6 @@ function Remove(button, event) {
 
 }
 function Calculation() {
-    debugger;
     if ($("#Pharmacy >tbody TR").length != 0) {
         var sum = 0;
         var sumCash = 0;

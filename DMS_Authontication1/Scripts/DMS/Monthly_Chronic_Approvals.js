@@ -641,7 +641,7 @@ function ActiveOrNotActiveMedicine() {
             Medicien.LFT_MONTH = row.find("TD").eq(14).html();
             Medicien.MONTH_DATE_STOP = row.find("TD").eq(15).html();
             Medicien.ACTIVE = row.find("TD").eq(16).html();
-
+            Medicien.MedicineNoPay = row.find("TD").eq(17).html();
             Mediciens.push(Medicien);
         });
 
@@ -667,6 +667,7 @@ function ActiveOrNotActiveMedicine() {
                     "<td>" + Mediciens[i].LFT_MONTH + "</td>" +
                     "<td>" + Mediciens[i].MONTH_DATE_STOP + "</td>" +
                     "<td>" + Mediciens[i].ACTIVE + "</td>" +
+                    "<td>" + Mediciens[i].MedicineNoPay + "</td>" +
                     " <td>" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditMedicine(this);'>Edit</Button>" + "</td>" +
                     "</tr>"
                 setData.append(data);
@@ -698,6 +699,7 @@ function ActiveOrNotActiveMedicine() {
                         "<td>" + Mediciens[i].LFT_MONTH + "</td>" +
                         "<td>" + Mediciens[i].MONTH_DATE_STOP + "</td>" +
                         "<td>" + Mediciens[i].ACTIVE + "</td>" +
+                        "<td>" + Mediciens[i].MedicineNoPay + "</td>" +
                         " <td>" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditMedicine(this);'>Edit</Button>" + "</td>" +
                         "</tr>"
                     setData.append(data);
@@ -721,6 +723,7 @@ function ActiveOrNotActiveMedicine() {
                         "<td>" + Mediciens[i].LFT_MONTH + "</td>" +
                         "<td>" + Mediciens[i].MONTH_DATE_STOP + "</td>" +
                         "<td>" + Mediciens[i].ACTIVE + "</td>" +
+                        "<td>" + Mediciens[i].MedicineNoPay + "</td>" +
                         " <td>" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditMedicine(this);'>Edit</Button>" + "</td>" +
                         "</tr>"
                     setData.append(data);

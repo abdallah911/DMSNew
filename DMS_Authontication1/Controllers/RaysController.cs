@@ -144,28 +144,21 @@ namespace DMS_Authontication1.Controllers
 
         public JsonResult Save(Roshita data)
         {
+            var carduse = db.CardUseds.Where(c => c.CardId == data.CardId).FirstOrDefault();
+            if (carduse == null)
+            {
+                return Json("Failed to Save Prescription");
+            }
             if (data.CreatedBy == null)
             {
                 data.CreatedBy = User.Identity.Name;
             }
             data.CreatedDate = DateTime.Now;
             db.Roshitas.Add(data);
+            db.CardUseds.Remove(carduse);
             data.Manager = "Ray";
             data.RoshetaType = "11204";
-            //Oracle_Id
-            //string NeworacleId = "";
-            //Roshita roshita = db.Roshitas.Where(x => x.Manager != "Doctor_Chronic" && x.Oracle_Id.Value.ToString().StartsWith("2") && (x.SyncBy == null || x.SyncBy == "Sql")).OrderByDescending(x => x.Id).FirstOrDefault();
-            //if (DateTime.Now.Day == 1 && Convert.ToInt64(roshita.Oracle_Id.ToString().Substring(9)) != 1)
-            //{
-            //    NeworacleId = "2" + DateTime.Now.ToString("ddMMyyyy") + "1";
-            //}
-            //else
-            //{
-            //    long OracleId = roshita.Oracle_Id == null ? 0 : Convert.ToInt64(roshita.Oracle_Id.ToString().Substring(9))+1;
-            //    NeworacleId = "2" + DateTime.Now.ToString("ddMMyyyy") +   OracleId;
-
-            //}
-            //data.Oracle_Id = Convert.ToInt64(NeworacleId);
+            
             int result = db.SaveChanges();
             Session["id"] = data.Id;
             return Json("2" + data.CreatedDate.Value.ToString("ddMMyy") + data.Id);

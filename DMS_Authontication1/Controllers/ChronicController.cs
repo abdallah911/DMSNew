@@ -189,6 +189,11 @@ namespace DMS_TEST.Controllers
 
         public JsonResult SavePrescription(PrescriptionViewModel data)
         {
+            var carduse = db.CardUseds.Where(c => c.CardId == data.CardId).FirstOrDefault();
+            if (carduse == null)
+            {
+                return Json("Failed to Save Prescription");
+            }
             //update in Rosita temprory untill knows where to save
             //Docotr_Pharmacy
             Roshita DoctorChronicRoshita = db.Roshitas.Where(r => r.CardId == data.CardId && r.Manager == "Doctor_Chronic").OrderByDescending(c => c.Id).First();
@@ -223,6 +228,7 @@ namespace DMS_TEST.Controllers
             };
 
             db.Roshitas.Add(roshita);
+            db.CardUseds.Remove(carduse);
             db.SaveChanges();
 
             var med_card = db.Med_Card.Where(m => m.CARD_NO == data.CardId).FirstOrDefault();

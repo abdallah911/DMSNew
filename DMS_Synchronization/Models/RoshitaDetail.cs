@@ -22,11 +22,11 @@ namespace DMS_Synchronization.Models
 
         public int Duration { get; set; }
 
-        public int TotalDuration { get; set; }
+        public int? TotalDuration { get; set; }
 
-        public int TotalUnits { get; set; }
+        public int? TotalUnits { get; set; }
 
-        public double Amount { get; set; }
+        public double? Amount { get; set; }
 
         public bool IsDealed { get; set; }
 

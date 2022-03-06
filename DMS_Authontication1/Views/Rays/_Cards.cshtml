@@ -79,34 +79,66 @@
                 data: { id: CompId, CardId: CardId },
                 success: function (returndata) {
                     if (returndata.ok) {
-                        $("#wait").css("display", "none");
 
-                        $('#txtSearchCard').val(CardId);
-                        $('#compEmp_EMP_ANAME').val(ArName);
-                        $('#compEmp_INS_END_DATE').val(EndDate);
-                        AddNationalId();
-                        $('#CardsModal').modal('hide');
+                        // disable card 
                         $.ajax({
-                            type: "POST",
                             dataType: "json",
-                            url: '/Labs/CellingAmount',
+                            url: '/Pharmacy/DisableCard',
                             data: {
-                                id: CardId,
-                                ServiceCode: '11201'
+                                CardId: $('#txtSearchCard').val(),
                             },
                             success: function (r) {
-                                if (r.Validation == false) {
-                                    alert(r.Message);
-                                    window.location.reload();
-                                } else {
-                                    $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
-                                    CompanyPayment = r.CeilingPert;
-                                    AnuualLimit = r.Limit;
-                                    $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
-                                    Calculation();
+                                if (r == "True") {
+                                    $("#wait").css("display", "none");
+
+                                    $('#txtSearchCard').val(CardId);
+                                    $('#compEmp_EMP_ANAME').val(ArName);
+                                    $('#compEmp_INS_END_DATE').val(EndDate);
+                                    AddNationalId();
+                                    $('#CardsModal').modal('hide');
+                                    $.ajax({
+                                        type: "POST",
+                                        dataType: "json",
+                                        url: '/Labs/CellingAmount',
+                                        data: {
+                                            id: CardId,
+                                            ServiceCode: '11201'
+                                        },
+                                        success: function (r) {
+                                            if (r.Validation == false) {
+                                                alert(r.Message);
+                                                window.location.reload();
+                                            } else {
+                                                $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
+                                                CompanyPayment = r.CeilingPert;
+                                                AnuualLimit = r.Limit;
+                                                $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
+                                                Calculation();
+
+                                            }
+                                        }
+                                    });
+                                }
+                                else {
+                                    // bootbox.alert("Card Id is used by another one please wait until it had been released thank you");
+                                    $("#wait").css("display", "none");
+                                    bootbox.dialog({
+                                        title: 'Alert!',
+                                        message: "Card Id is used by another one please wait until it had been released thank you",
+                                        buttons: {
+                                            Ok: {
+                                                label: "Ok",
+                                                className: 'btn-info',
+                                                callback: function () {
+                                                    ClearCardData();
+                                                }
+                                            }
+                                        }
+                                    });
 
                                 }
-                            }
+                            },
+                            error: function (r) { }
                         });
                     }
                     else {

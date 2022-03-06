@@ -852,7 +852,7 @@ namespace DMS_Authontication1.Controllers
                     //roshitaDetail.Duration = Convert.ToInt32(item.MED_DURATION);
                     roshitaDetail.TotalUnits = Convert.ToInt32(item.NO_OF_UINT);
                     roshitaDetail.IsDealed = item.ACTIVE == "Y" && (item.MONTH_DATE_STOP == null || MONTH_DATE_STOP21Time > DateTime.Now) ? false : true;
-                    roshitaDetail.Amount = Convert.ToInt32(item.TOTAL_AMT);
+                    roshitaDetail.Amount = item.TOTAL_AMT.Value;
                     roshitaDetail.RoshitaID = Rosita.Id;
                     roshitaDetail.PaymentGroup = "Yes";
                     roshitaDetail.IsSync = false;
@@ -902,9 +902,9 @@ namespace DMS_Authontication1.Controllers
                         updateroshita.Dose = Convert.ToInt32(item.DOSE);
                         updateroshita.Duration = Convert.ToInt32(item.MED_DURATION);
                         updateroshita.TotalDuration = 28;
-                        updateroshita.Duration = Convert.ToInt32(item.MED_DURATION);
+                        // updateroshita.Duration = Convert.ToInt32(item.MED_DURATION);
                         updateroshita.TotalUnits = Convert.ToInt32(item.NO_OF_UINT);
-                        updateroshita.Amount = Convert.ToInt32(item.TOTAL_AMT);
+                        updateroshita.Amount = item.TOTAL_AMT.Value;
                         updateroshita.IsDealed = item.ACTIVE == "N" ? true : updateroshita.IsDealed;
                         updateroshita.SyncBy = "Updated";
                         db.Entry(updateroshita).State = EntityState.Modified;

@@ -291,6 +291,7 @@ function Remove(button, event) {
 
 }
 function Calculation() {
+    debugger;
     var sum = 0;
     var sumCash = 0;
     sumNoPay = 0;
@@ -346,7 +347,6 @@ function Calculation() {
         $('#txtValueCash').val((sumCash + parseFloat($('#txtTotalCopayment').val()) + parseFloat($('#txtOverInsurance').val())).toFixed(2));
     }
     else if (ServiceCode == "11603") {
-        debugger;
         //monthly
         var Limit = fixedLimit;
         var co = CeilingPert;
@@ -384,11 +384,11 @@ function Calculation() {
     }
     else if (ServiceCode == "11602") {
         var Limit = fixedLimit;
-
+        debugger;
         co = CeilingPert;
         person = parseFloat(100 - co);
         //total-cash
-        var total = sum;
+        var total = sum - sumNoPay;
         //if (Limit != 0) {
         //    Limit += total * (co / 100);
         //}
@@ -397,23 +397,23 @@ function Calculation() {
             Limit = AnuualLimit;
         }
         if (Limit < (total) && Limit != 0) {
-            $('#txtValueCredit').val((Limit * (co / 100)).toFixed(2));
-            $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
+            $('#txtValueCredit').val((Limit * (co / 100) + parseFloat(sumNoPay)).toFixed(2));
+            $('#txtTotalCopayment').val((Limit * (person / 100) ).toFixed(2));
             $('#txtOverInsurance').val((total - Limit).toFixed(2));
         }
         else if (Limit > (total) && Limit != 0) {
-            $('#txtValueCredit').val((((total - sumNoPay) * (co / 100)) + sumNoPay).toFixed(2));
-            $('#txtTotalCopayment').val(((total - sumNoPay) * (person / 100)).toFixed(2));
+            $('#txtValueCredit').val(((total * (co / 100)) + parseFloat(sumNoPay)).toFixed(2));
+            $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
 
         }
         else {
-            $('#txtValueCredit').val((((total - sumNoPay) * (co / 100)) + sumNoPay).toFixed(2));
-            $('#txtTotalCopayment').val(((total - sumNoPay) * (person / 100)).toFixed(2));
+            $('#txtValueCredit').val(((total * (co / 100)) + parseFloat(sumNoPay)).toFixed(2));
+            $('#txtTotalCopayment').val((total  * (person / 100)).toFixed(2));
 
         }
         //var totalcash = (sumCash + parseInt($('#txtTotalCopayment').val())).toFixed(2);
         // $('#txtCash').val((parseFloat($('#txtTotalCopayment').val()) + parseFloat($('#txtOverInsurance').val())).toFixed(2));
-        $('#txtValueCash').val((+ + parseFloat($('#txtTotalCopayment').val()) + parseFloat($('#txtOverInsurance').val())).toFixed(2));
+        $('#txtValueCash').val((sumCash + parseFloat($('#txtTotalCopayment').val()) + parseFloat($('#txtOverInsurance').val())).toFixed(2));
 
     }
     else {

@@ -682,7 +682,7 @@ namespace DMS_TEST.Controllers
                 }
                 double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
                 //SubService Concamution
-                List<Roshita> AcumlatorSubServiceList = db.Roshitas.Where(r => r.CardId == id && r.RoshetaType == ServiceCode && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                List<Roshita> AcumlatorSubServiceList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && r.RoshetaType == ServiceCode && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 double AcumlatorSubServiceAmount = 0;
                 foreach (var item in AcumlatorSubServiceList)
                 {
@@ -1209,6 +1209,11 @@ namespace DMS_TEST.Controllers
         [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
         public JsonResult SavePrescription(PrescriptionViewModel data)
         {
+            var carduse = db.CardUseds.Where(c => c.CardId == data.CardId).FirstOrDefault();
+            if (carduse == null)
+            {
+                return Json("Failed to Save Prescription");
+            }
             //Roshita
             Roshita roshita = new Roshita()
             {
@@ -1235,6 +1240,7 @@ namespace DMS_TEST.Controllers
             };
 
             db.Roshitas.Add(roshita);
+            db.CardUseds.Remove(carduse);
             db.SaveChanges();
             // RoshitaDetails
             bool oneNotification = false;
@@ -1443,6 +1449,31 @@ namespace DMS_TEST.Controllers
             this.Id = id;
             return Json(new { ok = this.Id }, JsonRequestBehavior.AllowGet);
         }
+        //DisableCard
+        public JsonResult DisableCard(string CardId)
+        {
+            int res;
+            var found = db.CardUseds.Where(c => c.CardId == CardId).FirstOrDefault();
+            if (found != null)
+            {
+                return new JsonResult { Data = "False", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            CardUsed cardUsed = new CardUsed
+            {
+                CardId = CardId,
+                CreatedDate = DateTime.Now,
+                CreatedBy = User.Identity.Name
+            };
+            db.CardUseds.Add(cardUsed);
+            res = db.SaveChanges();
+            if (res > 0)
+            {
+                return new JsonResult { Data = "True", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            
+            return new JsonResult { Data = "False", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
         //Gender Validation
         public JsonResult GenderValidation(string CardId, string MedicineCode, string Id)
         {
@@ -2070,7 +2101,7 @@ namespace DMS_TEST.Controllers
                      PACK_PRICE = l.m.PACK_PRICE,
                      PACK_SIZE = l.m.PACK_SIZE,
                      UNIT_PRICE = l.m.UNIT_PRICE,
-                     MedicineNoPay=l.d.MedicineNoPay
+                     MedicineNoPay = l.d.MedicineNoPay
                  })
                  .ToList();
             return View(data);
@@ -2202,7 +2233,7 @@ namespace DMS_TEST.Controllers
                     Amount = old.Amount,
                     IsDealed = old.IsDealed,
                     PaymentGroup = old.PaymentGroup,
-                    MedicineNoPay=old.MedicineNoPay
+                    MedicineNoPay = old.MedicineNoPay
                 };
                 roshita1.RoshitaDetails.Add(oldMedicien);
                 old.PaymentGroup = old.PaymentGroup + "-Stop";
@@ -2254,7 +2285,7 @@ namespace DMS_TEST.Controllers
             {
                 db.Roshitas.Add(roshita1);
                 int result = db.SaveChanges();
-                
+
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita1.Id);
 
             }
@@ -2601,7 +2632,7 @@ namespace DMS_TEST.Controllers
                     TotalUnits = Convert.ToInt32(d.r.TotalUnits),//count
                     Amount = d.r.Amount,//
                     PaymentGroup = d.r.PaymentGroup,//type
-                    MedicineNoPay=d.r.MedicineNoPay
+                    MedicineNoPay = d.r.MedicineNoPay
                 }).ToList();
                 rd.SetDataSource(y);
                 if (patient.EMP_ENAME == null)

@@ -24,6 +24,9 @@ namespace DMS_Synchronization.Models
         public Decimal SEQ { get; set; }
         public Int64 PROVIDER_CODE_OLD { get; set; }
         public string TASHKHES_01 { get; set; }
+        public string PhoneNumber { get; set; }
+        public string NationalId { get; set; }
+        public string ExceptionType { get; set; }
         public Byte NO_PAY { get; set; }
         public Byte NO_OVER { get; set; }
         public Int16 ST_DAY { get; set; }
