@@ -174,45 +174,53 @@ $(function () {
                                             if (returndata.ok) {
                                                 if (returndata.data == "Y") {
 
-                                                    // disable card 
-                                                    $.ajax({
-                                                        dataType: "json",
-                                                        url: '/Pharmacy/DisableCard',
-                                                        data: {
-                                                            CardId: $('#txtSearchCard').val(),
-                                                        },
-                                                        success: function (r) {
-                                                            if (r == "True") {
-                                                                $("#wait").css("display", "none");
-                                                                $('#txtSearchCard').val(CardId);
-                                                                $('#compEmp_EMP_ANAME').val(ArName);
-                                                                $('#compEmp_INS_START_DATE').val(StartDate);
-                                                                $('#compEmp_INS_END_DATE').val(EndDate);
-                                                                $('#compEmp_BIRTH_DATE').val(birthdate);
-                                                                AddNationalId();
-                                                                $('#CardsModal').modal('hide');
-                                                            }
-                                                            else {
-                                                               // bootbox.alert("Card Id is used by another one please wait until it had been released thank you");
-                                                                $("#wait").css("display", "none");
-                                                                bootbox.dialog({
-                                                                    title: 'Alert!',
-                                                                    message: "Card Id is used by another one please wait until it had been released thank you",
-                                                                    buttons: {
-                                                                        Ok: {
-                                                                            label: "Ok",
-                                                                            className: 'btn-info',
-                                                                            callback: function () {
-                                                                                ClearCardData();
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                });
+                                                    $("#wait").css("display", "none");
+                                                    $('#txtSearchCard').val(CardId);
+                                                    $('#compEmp_EMP_ANAME').val(ArName);
+                                                    $('#compEmp_INS_START_DATE').val(StartDate);
+                                                    $('#compEmp_INS_END_DATE').val(EndDate);
+                                                    $('#compEmp_BIRTH_DATE').val(birthdate);
+                                                    AddNationalId();
+                                                    $('#CardsModal').modal('hide');
+                                                    //// disable card 
+                                                    //$.ajax({
+                                                    //    dataType: "json",
+                                                    //    url: '/Pharmacy/DisableCard',
+                                                    //    data: {
+                                                    //        CardId: $('#txtSearchCard').val(),
+                                                    //    },
+                                                    //    success: function (r) {
+                                                    //        if (r == "True") {
+                                                    //            $("#wait").css("display", "none");
+                                                    //            $('#txtSearchCard').val(CardId);
+                                                    //            $('#compEmp_EMP_ANAME').val(ArName);
+                                                    //            $('#compEmp_INS_START_DATE').val(StartDate);
+                                                    //            $('#compEmp_INS_END_DATE').val(EndDate);
+                                                    //            $('#compEmp_BIRTH_DATE').val(birthdate);
+                                                    //            AddNationalId();
+                                                    //            $('#CardsModal').modal('hide');
+                                                    //        }
+                                                    //        else {
+                                                    //           // bootbox.alert("Card Id is used by another one please wait until it had been released thank you");
+                                                    //            $("#wait").css("display", "none");
+                                                    //            bootbox.dialog({
+                                                    //                title: 'Alert!',
+                                                    //                message: "Card Id is used by another one please wait until it had been released thank you",
+                                                    //                buttons: {
+                                                    //                    Ok: {
+                                                    //                        label: "Ok",
+                                                    //                        className: 'btn-info',
+                                                    //                        callback: function () {
+                                                    //                            ClearCardData();
+                                                    //                        }
+                                                    //                    }
+                                                    //                }
+                                                    //            });
 
-                                                            }
-                                                        },
-                                                        error: function (r) { }
-                                                    });
+                                                    //        }
+                                                    //    },
+                                                    //    error: function (r) { }
+                                                    //});
 
                                                     
                                                 }
