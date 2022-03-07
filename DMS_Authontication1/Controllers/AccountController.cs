@@ -12,6 +12,7 @@ using DMS_Authontication1.Models;
 using System.Collections.Generic;
 using DMS_TEST.ViewModel;
 using Newtonsoft.Json;
+using DMS_Authontication1.ViewModel.EmployeeVM;
 
 namespace DMS_Authontication1.Controllers
 {
@@ -134,28 +135,6 @@ namespace DMS_Authontication1.Controllers
                             var userRole = user.Roles.Select(x => x.RoleId).FirstOrDefault();
                             string role = RoleManager.Roles.Where(x => x.Id == userRole).FirstOrDefault().Name;
 
-                            //var claims = new List<Claim>();
-                            //var st = "Brock";
-                            //var st2 = "brockallen@gmail.com";
-                            //claims.Add(new Claim("role", st));
-                            //claims.Add(new Claim("em", st2));
-                            //var id = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
-
-                            //var ctx = Request.GetOwinContext();
-                            //var authenticationManager = ctx.Authentication;
-                            //authenticationManager.SignIn(id);
-                            //user.Claims.Add(new Microsoft.AspNet.Identity.EntityFramework.IdentityUserClaim
-                            //{
-                            //    ClaimType = "asd",
-                            //    ClaimValue = st,
-                            //    UserId = user.Id
-                            //});
-                            //await UserManager.AddClaimAsync(user.Id, new Claim("SomeClaimType", st));
-
-
-                            //var xx = User;
-
-
                             switch (role)
                             {
                                 case "Pharmacy":
@@ -255,8 +234,26 @@ namespace DMS_Authontication1.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Invalied UserName or Password.");
-                return View(model);
+                DateTime datenow = DateTime.Now.Date;
+                var da = new DateTime(datenow.Year, datenow.Month, datenow.Day);
+                var employee = tESTEntities.Comp_Employees.Where(x => x.CARD_ID == model.UserName && x.INS_START_DATE <= datenow
+                            && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                if (employee != null)
+                {
+                    var res = new ConfirmRegisterEmployeeVM
+                    {
+                        FullName = employee.EMP_ENAME,
+                        CardId = employee.CARD_ID,
+                        UserName = employee.CARD_ID,
+                    };
+                    return RedirectToAction("ConfirmRegister", "Employee", res);
+                    //return View("~/Views/Employee/ConfirmRegister", res);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalied UserName or Password.");
+                    return View(model);
+                }
             }
         }
 

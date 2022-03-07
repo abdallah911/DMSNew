@@ -7,6 +7,7 @@ using DMS_Authontication1.ViewModel.HR;
 using DMS_TEST.ViewModel;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,6 +18,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -793,6 +795,152 @@ namespace DMS_Authontication1.Controllers.Employee
             return View(model);
         }
 
+
+
+        // GET: /Account/Register
+        [AllowAnonymous]
+        public ActionResult ConfirmRegister(ConfirmRegisterEmployeeVM model)
+        {
+            return View(model);
+        }
+
+        // POST: /Account/ConfirmRegister
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ConfirmRegisterPost(ConfirmRegisterEmployeeVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var existEmployeeeData = db.EmployeePersonalDatas.FirstOrDefault(u => u.CardId == model.CardId);
+                if (existEmployeeeData != null)
+                {
+                    ViewBag.Error = "This Card had been Registered Before";
+                    return View(model);
+                }
+                var usernamechick = applicationDb.Users.Where(u => u.UserName == model.UserName).FirstOrDefault();
+                if (usernamechick != null)
+                {
+                    ViewBag.Error = "This User Name had been Registered Before";
+                    return View(model);
+                }
+                var emailchick = applicationDb.Users.Where(u => u.Email == model.Email).FirstOrDefault();
+                if (emailchick != null)
+                {
+                    ViewBag.Error = "This Email had been Registered Before";
+                    return View(model);
+                }
+                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                //var compId = model.CardId.Split('-');
+
+
+
+                var fullName = model.FullName.Split(' ');
+
+                var status = ChicActiveCard(model.CardId.Split('-')[0], model.CardId);
+                if (status.data != "Y" && status.message != "ok")
+                {
+                    ViewBag.Error = "You Can't Register With This Card As " + status.message;
+                    return View(model);
+                }
+                var user = new ApplicationUser
+                {
+                    TypeId = "0",
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    FName = fullName[0],
+                    LName = fullName[2],
+                    Type = "User",
+                    Provider = "0",
+                    EmailConfirmed = true,
+
+                };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    result = await UserManager.AddToRoleAsync(user.Id, "User");
+                    var employeeData = new EmployeePersonalData
+                    {
+                        FullName = model.FullName,
+                        CardId = model.CardId,
+                        UserId = user.Id,
+                        BirthDate = DateTime.Now,
+                        NationalId = "Empty",
+                        CreatedDate = DateTime.Now,
+                        IsActive = false,
+                    };
+                    db.EmployeePersonalDatas.Add(employeeData);
+                    db.SaveChanges();
+                    var _ERPRolesUsersPages = db.ERPUsersModulesPages.Where(x => x.UserId == user.Id)
+                         .Join(db.ERPModulesPages, rmp => rmp.PageId, mp => mp.Id, (rmp, mp) => new { rmp, mp })
+                         .Select(l => new ModulesPagesViewModel
+                         {
+                             ModuleName = l.mp.ERPModule.Name,
+                             PageName = l.mp.Name,
+                             FullControl = l.rmp.FullControl,
+                             Preview = l.rmp.Preview,
+                             AddPermission = l.rmp.AddPermission,
+                             EditPermission = l.rmp.EditPermission,
+                             ActivationControl = l.rmp.ActivationControl,
+                             PageId = l.rmp.PageId
+                         }).OrderBy(x => x.ModuleName).ToList();
+                    string seralize = JsonConvert.SerializeObject(_ERPRolesUsersPages);
+
+                    await UserManager.AddClaimAsync(user.Id, new Claim("SomeClaimType", seralize));
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    bool foundUser = false;
+                    bool foundNetworkUser = false;
+                    var cardId = db.EmployeePersonalDatas.Where(e => e.UserId == user.Id).FirstOrDefault().CardId;
+                    var providerUser = int.Parse(cardId.Split('-')[0]);
+                    if (providerUser == 10362)
+                    {
+                        //Session["IsIndemnity"] = foundUser;
+                        Session["IsNetwork"] = foundNetworkUser;
+                    }
+                    else
+                    {
+                        foundNetworkUser = true;
+                        var CurrentDateUser = DateTime.Now.Date;
+                        var companyUser = db.Contract_Data.Where(c => c.C_COMP_ID == providerUser && c.DATE_FROM <= CurrentDateUser
+                       && c.DATE_TO >= CurrentDateUser).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                        if (companyUser != null)
+                        {
+                            var GetServActive = db.COMP_CUSTOMIZED_D.Where(p => p.C_COMP_ID == providerUser && p.CONTRACT_NO == companyUser.CONTRACT_NO
+                              && p.SERV_CODE == "12").FirstOrDefault();
+                            if (GetServActive != null)
+                                foundUser = true;
+                        }
+                    }
+
+                    Session["IsIndemnity"] = foundUser;
+                    Session["IsNetwork"] = foundNetworkUser;
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    //Send an email with this link
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    var employeeActive = db.Comp_Employees.Where(e => e.CARD_ID == model.CardId && e.INS_START_DATE <= DateTime.Now && e.INS_END_DATE >= DateTime.Now)
+                        .OrderByDescending(o => o.CONTRACT_NO).FirstOrDefault();
+                    if (employeeActive != null)
+                    {
+                        employeeActive.DEPT_ID = 1;
+                        db.Entry(employeeActive).State = EntityState.Modified;
+                        int resultSave = db.SaveChanges();
+                        if (resultSave > 0)
+                        {
+                            var x = dbAproval.RunNonQuery(@" update DMS_TEST.COMP_EMPLOYEES set DEPT_ID ='1' where  CARD_ID='" + model.CardId.Trim() + "' and CONTRACT_NO=(select max(CONTRACT_NO) from COMP_EMPLOYEES e where C_COMP_ID='" + model.CardId.Split('-')[0] + "')");
+                        }
+                    }
+
+                    return RedirectToAction("Index", "Employee");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
         [Authorize(Roles = "User")]
         public ActionResult IndexIndemnity()
         {
