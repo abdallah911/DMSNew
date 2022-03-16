@@ -1,18 +1,7 @@
 ﻿@{
     ViewBag.Title = "Inquiries";
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
-    string col = "";
-    if (User.IsInRole("User"))
-    {
-        col = "blue-chambray";
-    }
-    else
-    {
-        col = "green";
-    }
 }
-@*<h2>Index</h2>*@
-
 <br />
 <div style="margin-top:40px">
     <p>
@@ -48,38 +37,57 @@
         <div class="row ">
             <div class="col-md-12">
                 <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
-                    <!-- BEGIN PAGE HEADER-->
-                    <!-- BEGIN THEME PANEL -->
 
                     <div class="form-wizard">
                         <div class="form-body">
                             <div class="tab-content">
                                 <div asp-validation-summary="All" class="text-danger"></div>
-
+                                <input type="hidden" id="CompaName" value="@ViewBag.compnum" />
                                 <div class="row">
                                     @* Search Element and buttons *@
                                     <div class="col-md-12">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-5">
-                                                    Copmany Number :
-                                                </label>
-                                                <div class="col-md-7">
-                                                    <input id="CopmanyNumber" type="number" class="form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-
+                                        @if (User.IsInRole("HR_Admin"))
+                                        {
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-5">
+                                                        Copmany Number :
+                                                    </label>
+                                                    <div class="col-md-7">
+                                                        @Html.DropDownList("CompanyId", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompanyId", @required = "True" })
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                            <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                            <script>
+                                                $(function () {
+                                                    $("#CompanyId").select2();
+                                                });
+                                            </script>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-5">
+                                                        Copmany Number :
+                                                    </label>
+                                                    <div class="col-md-7">
+                                                        <input id="CopmanyNumber" type="number" class="form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="control-label sbold col-md-4">
                                                     Card Number :
                                                 </label>
-                                                @if (User.IsInRole("HR"))
+                                                @if (User.IsInRole("HR") || User.IsInRole("HR_Admin"))
                                                 {
                                                     <div class="col-md-8">
                                                         <select id="CardNumber" class="js-data-example-ajax" style="width: 100%"></select>
-                                                        @*<input id="CardNumber" type="text" placeholder="search for card..." class=" form-control " required />*@
                                                     </div>
                                                     <br />
                                                 }
@@ -87,8 +95,6 @@
                                                 {
                                                     <div class="col-md-8">
                                                         @Html.DropDownList("CardNumber2", ViewBag.Cardslist as SelectList, new { @class = "form-control", @id = "CardNumber2", @required = "True" })
-
-                                                        @*<input id="CardNumber" type="text" value="@ViewBag.cardID" class=" form-control " readonly="readonly" />*@
                                                     </div>
                                                     <br />
                                                 }
@@ -170,15 +176,9 @@
                                                     <th>
                                                         @Html.DisplayName("Total Duration")
                                                     </th>
-                                                    @*<th>
-                                                            @Html.DisplayName("ConMed")
-                                                        </th>*@
                                                     <th>
                                                         @Html.DisplayName("Created Date")
                                                     </th>
-                                                    @*<th>
-                                                            @Html.DisplayName("Status")
-                                                        </th>*@
                                                     <th>
                                                         @Html.DisplayName("Active Status")
                                                     </th>
@@ -237,21 +237,17 @@
         </div>
 
     </div>
-
 </div>
-
-
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>
     $(function () {
-
         $('#Employe_Data').hide();
         $('#listMedicine_div').hide();
         $('#details').hide();
-
         $('#EmployeeDataList').DataTable();
         $('#MedicineDataList').DataTable();
+        $('#CompanyId').select2();
         $('#CardNumber').select2({
             placeholder: 'Search for a cards',
             minimumInputLength: 5,
@@ -280,6 +276,15 @@
 
             }
         });
+        $("#CompanyId").change(function () {// class levels
+            var compNu = $("#CompanyId").val();
+            $("#CardNumber").val(null).trigger('change');
+            $("#CompaName").val(compNu);
+        });
+        $("#CompanyId").map(function () {// class levels
+            var compNu = $("#CompanyId").val();
+            $("#CompaName").val(compNu);
+        });
 
     });
 
@@ -289,13 +294,12 @@
         $('#details').hide();
         var cardNum = $("#CardNumber").val();
         var cardNum2 = $("#CardNumber2").val();
-        var compname = $("#CopmanyNumber").val();
+        var compname = $("#CompaName").val();
         // chick card id  is empty
         if (cardNum == "" || cardNum2 == "") {
             toastr.info("Please Enter Valid Card ID ...");
         }
         else {
-            debugger;
             if (cardNum2 != undefined)
                 cardNum = cardNum2;
             var arra = cardNum.split("-");
@@ -332,34 +336,20 @@
                                 setDataEmploye.append(empdata);
                                 $('#EmployeeDataList').DataTable();
                                 for (var i = 0; i < r.roshDetails.length; i++) {
-                                    debugger;
                                     var dataMed = "<tr >" +
                                         "<td>" + r.roshDetails[i].MedicienCode + "</td>";
-
                                     dataMed += "<td>" + r.roshDetails[i].MedicienName + "</td>";
-
                                     dataMed += "<td>" + r.roshDetails[i].DOSAGE_FORM + "</td>";
                                     dataMed += "<td>" + r.roshDetails[i].UNIT_NO + "</td>";
                                     dataMed += "<td>" + r.roshDetails[i].PACK_SIZE + "</td>";
-
-
                                     dataMed += "<td>" + r.roshDetails[i].Duration + "</td>";
-
                                     dataMed += "<td>" + r.roshDetails[i].TotalDuration + "</td>";
-
-                                    //dataMed += "<td>--</td>";
                                     dataMed += "<td>" + r.roshDetails[i].MedicineCreatedDate + "</td>";
-
-                                    //if (r.roshDetails[i].IsDealed == 0)
-                                    //    dataMed += "<td> NO </td>";
-                                    //else
-                                    //    dataMed += "<td> Yes </td>";
                                     if (r.roshDetails[i].ACTIVE == "N")
                                         dataMed += "<td> DisActive </td>";
                                     else
                                         dataMed += "<td> Active </td>";
                                     dataMed += "</tr>";
-
                                     setDataMedicine.append(dataMed);
                                 }
                                 $('#MedicineDataList').DataTable();

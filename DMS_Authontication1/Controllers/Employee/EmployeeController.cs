@@ -633,33 +633,42 @@ namespace DMS_Authontication1.Controllers.Employee
             var employe = db.Comp_Employees.Where(e => e.CARD_ID == CardId &&
                             DateTime.Now >= e.INS_START_DATE && DateTime.Now <= e.INS_END_DATE)
                            .OrderByDescending(e => e.CONTRACT_NO).FirstOrDefault();
-            DataTable dt = dbAproval.RunReader("SELECT CODE,APROVAL_TYP,MEDICAL_REPLAY,VALUE_AFTER,RECIV_DATE,CREATED_DATE,END_DATE,EXPAIRE_DATE,CREATED_BY FROM MEDICAL_APPROVALS WHERE CARD_NO = '"
-                                       + CardId + "' AND CLASS_CODE = '" + employe.CLASS_CODE + "'" +
-                                       " AND COMP_CONTRACT_NO = '" + employe.CONTRACT_NO + "' AND EXPAIRE_DATE >= sysdate-14 ORDER BY CREATED_DATE DESC");
-            List<Approval> approval = new List<Approval>();
-            if (dt.Rows.Count != 0)
+            if (employe != null)
             {
-                foreach (DataRow row in dt.Rows)
+
+                DataTable dt = dbAproval.RunReader("SELECT CODE,APROVAL_TYP,MEDICAL_REPLAY,VALUE_AFTER,RECIV_DATE,CREATED_DATE,END_DATE,EXPAIRE_DATE,CREATED_BY FROM MEDICAL_APPROVALS WHERE CARD_NO = '"
+                                           + CardId + "' AND CLASS_CODE = '" + employe.CLASS_CODE + "'" +
+                                           " AND COMP_CONTRACT_NO = '" + employe.CONTRACT_NO + "' AND EXPAIRE_DATE >= sysdate-14 ORDER BY CREATED_DATE DESC");
+                List<Approval> approval = new List<Approval>();
+                if (dt.Rows.Count != 0)
                 {
-                    approval.Add(new Approval
+                    foreach (DataRow row in dt.Rows)
                     {
-                        Code = row["CODE"].ToString(),
-                        Approval_Type = row["APROVAL_TYP"].ToString(),
-                        Medical_Replay = row["MEDICAL_REPLAY"].ToString(),
-                        Value_After = float.Parse(row["VALUE_AFTER"].ToString()),
-                        Recieve_Date = row["RECIV_DATE"].ToString(),
-                        Created_Date = row["CREATED_DATE"].ToString(),
-                        End_Date = row["END_DATE"].ToString(),
-                        Expaire_Date = row["EXPAIRE_DATE"].ToString(),
-                        CreatedBy = row["CREATED_BY"].ToString()
+                        approval.Add(new Approval
+                        {
+                            Code = row["CODE"].ToString(),
+                            Approval_Type = row["APROVAL_TYP"].ToString(),
+                            Medical_Replay = row["MEDICAL_REPLAY"].ToString(),
+                            Value_After = float.Parse(row["VALUE_AFTER"].ToString()),
+                            Recieve_Date = row["RECIV_DATE"].ToString(),
+                            Created_Date = row["CREATED_DATE"].ToString(),
+                            End_Date = row["END_DATE"].ToString(),
+                            Expaire_Date = row["EXPAIRE_DATE"].ToString(),
+                            CreatedBy = row["CREATED_BY"].ToString()
 
-                    });
+                        });
+                    }
+                    //return new JsonResult { Data = approval, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
                 }
-                //return new JsonResult { Data = approval, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
+                ViewBag.CardId = CardId;
+                return View(approval);
             }
-            ViewBag.CardId = CardId;
-            return View(approval);
+            else
+            {
+                List<Approval> approval = new List<Approval>();
+                return View(approval);
+            }
         }
 
         //

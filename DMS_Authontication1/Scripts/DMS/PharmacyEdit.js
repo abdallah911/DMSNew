@@ -184,8 +184,10 @@ $(function () {
             Medicien.TotalUnits = $("TD", row).find(".TotalUnits").val();
             Medicien.Amount = $("TD", row).find(".Amount").val();
             Medicien.PaymentGroup = row.find("TD").eq(12).html().trim();
-            if (row.find("TD").eq(13).html().trim() == "Yes") {
-                Medicien.MedicineNoPay = row.find("TD").eq(13).html().trim();
+            if (ServiceCode == "11602") {
+                if (row.find("TD").eq(13).html().trim() == "Yes") {
+                    Medicien.MedicineNoPay = row.find("TD").eq(13).html().trim();
+                }
             }
             Mediciens.push(Medicien);
         });
@@ -398,7 +400,7 @@ function Calculation() {
         }
         if (Limit < (total) && Limit != 0) {
             $('#txtValueCredit').val((Limit * (co / 100) + parseFloat(sumNoPay)).toFixed(2));
-            $('#txtTotalCopayment').val((Limit * (person / 100) ).toFixed(2));
+            $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
             $('#txtOverInsurance').val((total - Limit).toFixed(2));
         }
         else if (Limit > (total) && Limit != 0) {
@@ -408,7 +410,7 @@ function Calculation() {
         }
         else {
             $('#txtValueCredit').val(((total * (co / 100)) + parseFloat(sumNoPay)).toFixed(2));
-            $('#txtTotalCopayment').val((total  * (person / 100)).toFixed(2));
+            $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
 
         }
         //var totalcash = (sumCash + parseInt($('#txtTotalCopayment').val())).toFixed(2);

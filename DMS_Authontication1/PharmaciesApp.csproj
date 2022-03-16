@@ -825,6 +825,9 @@
     <Compile Include="Models\S_Ent_7.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UsersInternalCode.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Reports\AfterSale\AfterSales.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -16,14 +16,12 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace DMS_Authontication1.Controllers.HR
 {
-    [Authorize(Roles = "Admin,HR")]
+    [Authorize(Roles = "Admin,HR,HR_Admin")]
     public class EmployeeRequestController : Controller
     {
+        #region Properties
         private DMS_TESTEntities db = new DMS_TESTEntities();
-
         private ApplicationUserManager _userManager;
-
-
         public ApplicationUserManager UserManager
         {
             get
@@ -35,27 +33,14 @@ namespace DMS_Authontication1.Controllers.HR
                 _userManager = value;
             }
         }
+
+        #endregion
+
+        #region Actions
         // GET: EmployeeRequest
         public ActionResult Index()
         {
-            //if (User.IsInRole("HR"))
-            //{
-            //    var user = await UserManager.FindByNameAsync(User.Identity.Name);
-            //    bool found = false;
-            //    var provider = int.Parse(user.Provider);
-            //    var CurrentDate = DateTime.Now.Date;
-            //    var company = db.Contract_Data.Where(c => c.C_COMP_ID == provider && c.DATE_FROM <= CurrentDate
-            //   && c.DATE_TO >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-            //    if (company != null)
-            //    {
-            //        var GetServActive = db.COMP_CUSTOMIZED_D.Where(p => p.C_COMP_ID == provider && p.CONTRACT_NO == company.CONTRACT_NO
-            //          && p.SERV_CODE == "12").FirstOrDefault();
-            //        if (GetServActive != null)
-            //            found = true;
-            //    }
-            //    ViewBag.IsIndemnity = found;
-            //}
-            // return View(db.Employee_Request.ToList());
+
             return View();
         }
 
@@ -147,7 +132,6 @@ namespace DMS_Authontication1.Controllers.HR
             ViewBag.Branchs = BranchsList;
 
             var Classcodes = db.CompContractClasses.Where(x => x.C_COMP_ID == companyId).Select(x => x.CLASS_CODE).Distinct().ToList();
-            // var livels=db.Insurance_Class.Where(x=>x.CLASS_CODE.Contains(x.Classcodes))
             List<Insurance_Class> levels = new List<Insurance_Class>();
             foreach (var item in Classcodes)
             {
@@ -243,18 +227,44 @@ namespace DMS_Authontication1.Controllers.HR
         {
             ApplicationDbContext users = new ApplicationDbContext();
             var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
-            int companyId = Convert.ToInt32(CurrentUser.Provider);
+            if (User.IsInRole("HR_Admin"))
+            {
+                ViewBag.CompName = null;
+                var compines = db.HrAdminCompanies.Where(x => x.UserId == CurrentUser.Id).Select(c => c.CompId).ToList();
+                if (compines[0] == "All")
+                {
+                    var companyname = db.Contract_Comp
+                        .Select(l => new
+                        {
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
 
+                        }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+                else
+                {
+                    var companyname = (from comp in compines
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+            }
+
+            int companyId = Convert.ToInt32(CurrentUser.Provider);
+            ViewBag.CompName = companyId;
             var Branchs = db.Company_Cost_Center.Where(x => x.C_COMP_ID == companyId).ToList();
             SelectList BranchsList = new SelectList(Branchs, "ID", "A_NAME");
             ViewBag.Branchs = BranchsList;
 
-            //var Branchs = db.Employee_Request_Type.ToList();
-            //SelectList BranchsList = new SelectList(Branchs, "Id", "A_NAME");
-            //ViewBag.Branchs = BranchsList;
-
             var Classcodes = db.CompContractClasses.Where(x => x.C_COMP_ID == companyId).Select(x => x.CLASS_CODE).Distinct().ToList();
-            // var livels=db.Insurance_Class.Where(x=>x.CLASS_CODE.Contains(x.Classcodes))
             List<Insurance_Class> levels = new List<Insurance_Class>();
             foreach (var item in Classcodes)
             {
@@ -265,59 +275,117 @@ namespace DMS_Authontication1.Controllers.HR
             ViewBag.levels = levelsList;
             return View();
         }
+        public ActionResult Termination()
+        {
+            return View();
+        }
+
+        public ActionResult PrintXLC()
+        {
+            try
+            {
+                var ExcelFile = Server.MapPath("~/Content/EmployeesRequestsImage/Add Employess.xlsx");
+
+                return File(ExcelFile, "application/xls", "Add Employees.xls");
+            }
+            catch (Exception ex)
+            {
+                return View("~/Views/Shared/Error.cshtml");
+
+                throw ex;
+            }
+        }
+
+        #endregion
+
+        #region Helper Methods
+        public JsonResult GetClassList(string compId)
+        {
+            int companyId = Convert.ToInt32(compId);
+            var model = (from CompConClass in db.CompContractClasses
+                         where CompConClass.C_COMP_ID == companyId
+                         join InsurClass in db.Insurance_Class
+                         on CompConClass.CLASS_CODE equals InsurClass.CLASS_CODE
+                         select new
+                         {
+                             CLASS_CODE = InsurClass.CLASS_CODE,
+                             ALIAS_CODE = InsurClass.ALIAS_CODE
+                         }).Distinct().ToList();
+
+            SelectList ClassList = new SelectList(model, "CLASS_CODE", "ALIAS_CODE");
+
+            return Json(ClassList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetBranchList(string compId)
+        {
+            int companyId = Convert.ToInt32(compId);
+            var Branchs = db.Company_Cost_Center.Where(x => x.C_COMP_ID == companyId).ToList();
+            SelectList BranchsList = new SelectList(Branchs, "ID", "A_NAME");
+            return Json(BranchsList, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult CardValidation(string id)
         {
             bool CardValidation = db.Comp_Employees.Where(x => x.CARD_ID == id).Any();
             return Json(new { Validation = !CardValidation, Limit = 0, CeilingPert = 0 });
         }
 
-        public ActionResult Termination()
-        {
-            return View();
-        }
-
         public JsonResult GetActiveEmployess(string search, int page)
         {
-            long lgSearch;
-            long.TryParse(search, out lgSearch);
             ApplicationDbContext users = new ApplicationDbContext();
             var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
-            int Provider = Convert.ToInt32(CurrentUser.Provider);
-            int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == Provider).Max(x => x.CONTRACT_NO);
-            var Employees = db.fn_GetEmployessForCompany(Provider, maxcontract, "N", search)
-                // db.Comp_Employees.Where(x => x.C_COMP_ID == Provider && x.TERMINATE_FLAG == "N" && x.CONTRACT_NO == maxcontract)
-                //.AsEnumerable().Where(x=>x.CARD_ID.Contains(search)|| x.EMP_ANAME!=null? x.EMP_ANAME.Contains(search):true)
-                .Select(c => new
+            if (User.IsInRole("HR_Admin"))
+            {
+                var companyId = db.HrAdminCompanies.Where(c => c.UserId == CurrentUser.Id).Select(c => c.CompId).ToList();
+                if (companyId[0] == "All")
                 {
-                    id = c.id,
-                    text = c.text
-                }).ToList();
-            //return Json(cities, JsonRequestBehavior.AllowGet);
-            //var result = new
-            //{ };
-            //sEcho = sEcho,
-            //aaData = db.Employee_Request.Where(x => x.CREATED_BY == User.Identity.Name).OrderByDescending(m => m.Id).AsEnumerable()
-            //.Where(r => sSearch != "" ? r.CARD_ID.Contains(sSearch) || r.APPROVE_FLAG.ToLower().Contains(sSearch.ToLower()) || r.Id == lgSearch : true).Where(x => x.CREATED_DATE.Value.AddDays(90).Date > DateTime.Now.Date)
-            //.Select(l => new Employee_Request
-            //{
-            //    Id = l.Id,
-            //    CARD_ID = l.CARD_ID,
-            //    CHANG_EMP_NAME = l.EMP_ANAME_ST + ' ' + l.EMP_ANAME_SC + ' ' + l.EMP_ANAME_TH,
-            //    APPROVE_FLAG = l.APPROVE_FLAG,
-            //    TYPE = l.TYPE,
-            //    CREATED_DATE = l.CREATED_DATE,
-            //}).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
+                    int compId = int.Parse(search.Split('-')[0]);
+                    int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == compId).Max(x => x.CONTRACT_NO);
+                    var Employees = db.fn_GetEmployessForCompany(compId, maxcontract, "N", search)
+                                     .Select(c => new
+                                     {
+                                         id = c.id,
+                                         text = c.text
+                                     }).ToList();
+                    return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                else
+                {
+                    if (companyId.Contains(search.Split('-')[0]))
+                    {
+                        int compId = int.Parse(search.Split('-')[0]);
+                        int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == compId).Max(x => x.CONTRACT_NO);
+                        var Employees = db.fn_GetEmployessForCompany(compId, maxcontract, "N", search)
+                                         .Select(c => new
+                                         {
+                                             id = c.id,
+                                             text = c.text
+                                         }).ToList();
+                        return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
+                    return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
-            //iTotalRecords = db.Employee_Request.Where(x => x.CREATED_BY == User.Identity.Name /*&& !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray") && !x.Manager.Contains("Stop")*/).OrderBy(m => m.Id).AsEnumerable()
-            //.Where(r => sSearch != "" ? r.CARD_ID.Contains(sSearch) || r.APPROVE_FLAG.ToLower().Contains(sSearch.ToLower()) || r.Id == lgSearch : true).Count(),
-            //iTotalDisplayRecords = db.Employee_Request.Where(x => x.CREATED_BY == User.Identity.Name).OrderBy(m => m.Id).AsEnumerable()
-            //.Where(r => sSearch != "" ? r.CARD_ID.Contains(sSearch) || r.APPROVE_FLAG.ToLower().Contains(sSearch.ToLower()) || r.Id == lgSearch : true).Where(x => x.CREATED_DATE.Value.AddDays(90).Date > DateTime.Now.Date).Count()
+                }
 
-            return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+            {
+                int Provider = Convert.ToInt32(CurrentUser.Provider);
+                int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == Provider).Max(x => x.CONTRACT_NO);
+                var Employees = db.fn_GetEmployessForCompany(Provider, maxcontract, "N", search)
+                   .Select(c => new
+                   {
+                       id = c.id,
+                       text = c.text
+                   }).ToList();
 
+                return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
+            }
 
         }
+
         public JsonResult GetInActiveEmployess(string search, int page)
         {
             long lgSearch;
@@ -451,6 +519,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             return new JsonResult { Data = "r", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
         public JsonResult SendExcelFile(HttpPostedFileBase File)
         {
             if (File != null)
@@ -708,20 +777,6 @@ namespace DMS_Authontication1.Controllers.HR
             }
         }
 
-        public ActionResult PrintXLC()
-        {
-            try
-            {
-                var ExcelFile = Server.MapPath("~/Content/EmployeesRequestsImage/Add Employess.xlsx");
-
-                return File(ExcelFile, "application/xls", "Add Employees.xls");
-            }
-            catch (Exception ex)
-            {
-                return View("~/Views/Shared/Error.cshtml");
-
-                throw ex;
-            }
-        }
+        #endregion
     }
 }

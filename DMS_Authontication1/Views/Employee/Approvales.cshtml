@@ -113,18 +113,10 @@
     $(function () {
         $('#Index').dataTable();
         $("#CARD_ID").select2();
-        debugger;
         $("#CARD_ID").val(@ViewBag.CardId).change();
         $("#CARD_ID").change(function () {//address
-
-            //window.location.href = "/Empolyee/AddEmployee?cardId=" + $("#CARD_ID").val();
-
             $.get("/Employee/Approvales",
                 { card: $("#CARD_ID").val() }, function (data) {
-                    //$("#RegionId").empty();
-                    //$.each(data, function (index, row) {
-                    //    $("#RegionId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
-                    //});
                 });
         });
     });

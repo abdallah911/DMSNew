@@ -135,6 +135,7 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<RequestAddProvider> RequestAddProviders { get; set; }
         public virtual DbSet<RoshitaNoOverNoPay> RoshitaNoOverNoPays { get; set; }
         public virtual DbSet<CardUsed> CardUseds { get; set; }
+        public virtual DbSet<UsersInternalCode> UsersInternalCodes { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)

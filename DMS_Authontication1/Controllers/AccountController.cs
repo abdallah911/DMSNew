@@ -235,7 +235,6 @@ namespace DMS_Authontication1.Controllers
             else
             {
                 DateTime datenow = DateTime.Now.Date;
-                var da = new DateTime(datenow.Year, datenow.Month, datenow.Day);
                 var employee = tESTEntities.Comp_Employees.Where(x => x.CARD_ID == model.UserName && x.INS_START_DATE <= datenow
                             && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
                 if (employee != null)
@@ -251,8 +250,24 @@ namespace DMS_Authontication1.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalied UserName or Password.");
-                    return View(model);
+                    var usercard = tESTEntities.UsersInternalCodes.Where(u => u.InternalCode == model.UserName).FirstOrDefault();
+                    if (usercard != null)
+                    {
+                        var res = new ConfirmRegisterEmployeeVM
+                        {
+                            FullName = usercard.EnglishName,
+                            CardId = usercard.CardId,
+                            UserName = usercard.InternalCode,
+                            Email = usercard.Email,
+
+                        };
+                        return RedirectToAction("ConfirmRegister", "Employee", res);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Invalied UserName or Password.");
+                        return View(model);
+                    }
                 }
             }
         }

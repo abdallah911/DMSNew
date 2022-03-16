@@ -29,29 +29,63 @@
                                 <div asp-validation-summary="All" class="text-danger"></div>
 
                                 @Html.HiddenFor(model => model.ID)
-                                @*@Html.HiddenFor(model => model.TYPE)*@
                                 <div class="row">
                                     <div class="col-md-6">
-
-                                        <div class="form-group">
-                                            <label class="control-label sbold col-md-4">
-                                                @Html.DisplayNameFor(model => model.CompName) :
-                                                <span class="required"> * </span>
-                                            </label>
-                                            <div class="col-md-8">
-                                                @Html.EditorFor(model => model.CompName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
-                                                @Html.ValidationMessageFor(model => model.CompName, "", new { @class = "text-danger" })
+                                        @Html.HiddenFor(model => model.CompName)
+                                        @Html.HiddenFor(model => model.CARD_ID)
+                                        @if (User.IsInRole("HR_Admin"))
+                                        {
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.CompName) :
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownList("CompanyId", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompanyId", @required = "True" })
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label sbold col-md-4">
-                                                @Html.DisplayNameFor(model => model.CARD_ID) :
-                                            </label>
-                                            <div class="col-md-8">
-                                                @Html.DropDownListFor(model => model.CARD_ID, ViewBag.address as SelectList, "Select Card id", new { @class = "form-control", id = "CARD_ID" })
+                                            <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                            <script>
+                                                $(function () {
+                                                    $("#CompanyId").select2();
+                                                });
+                                            </script>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.CompName) :
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" id="companyName" value="@ViewBag.compnum" class="form-control" disabled />
+                                                    @Html.ValidationMessageFor(model => model.CompName, "", new { @class = "text-danger" })
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
+                                        @if (User.IsInRole("HR") || User.IsInRole("HR_Admin"))
+                                        {
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.CARD_ID) :
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownList("CardId", ViewBag.company as SelectList, "Select Card id", new { @class = "form-control", id = "CardId" })
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.CARD_ID) :
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownList("CardId2", ViewBag.address as SelectList, "Select Card id", new { @class = "form-control", id = "CardId2" })
+                                                </div>
+                                            </div>
+                                        }
                                         <div class="form-group">
                                             <label class="control-label sbold col-md-4">
                                                 @Html.DisplayNameFor(model => model.TYPE) :
@@ -63,25 +97,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        @*<div class="form-group" hidden>
-                                            <label class="control-label sbold col-md-4">
-                                                @Html.DisplayNameFor(model => model.TYP_ANAME) :
-                                            </label>
-                                            <div class="col-md-8">
-                                                @Html.DropDownListFor(m => m.TYP_ANAME, ViewBag.provider as SelectList, "Select Provider Type", new { @class = "form-control" })
-                                            </div>
-                                        </div>
-                                        <div class="form-group" hidden>
-                                            <label class="control-label sbold col-md-4">
-                                                @Html.DisplayNameFor(model => model.PR_ENAME) :
-                                            </label>
-                                            <div class="col-md-8">
-                                                @Html.DropDownListFor(model => model.PR_ENAME, new SelectList(""), " Select Provider Name", new
-                                           {
-                                               @class = "form-control"
-                                           })
-                                            </div>
-                                        </div>*@
+
 
                                     </div>
 
@@ -143,8 +159,6 @@
     </div>
 
 </div>
-<input type="text" id="imName" hidden="hidden" />
-
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 <script>
 
@@ -156,9 +170,61 @@
         if (type != '') {
             $("#TYPE").val(type).change();
         }
+        $('#CardId').select2({
+            placeholder: 'Search for a cards',
+            minimumInputLength: 5,
+            ajax: {
+                url: '/EmployeeRequest/GetActiveEmployess/',
+                delay: 250,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+                    return query;
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
 
-        $("#CARD_ID").select2();
+                    return {
+                        results: data,//.results,
+                        pagination: {
+                            more: (params.page * 10) < data.count_filtered
+                        }
+                    };
+                }
+                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
 
+            }
+        });
+        $("#CardId2").select2();
+
+        $("#CardId").change(function () {// class levels
+            var CardId = $("#CardId").val();
+            $("#CARD_ID").val(CardId);
+        });
+        $("#CardId").map(function () {// class levels
+            var compNu = $("#CardId").val();
+            $("#CARD_ID").val(compNu);
+        });
+        $("#CardId2").change(function () {// class levels
+            var CardId = $("#CardId2").val();
+            $("#CARD_ID").val(CardId);
+        });
+        $("#CardId2").map(function () {// class levels
+            var CardId = $("#CardId2").val();
+            $("#CARD_ID").val(CardId);
+        });
+        $("#CompanyId").change(function () {// class levels
+            var compNu = $("#CompanyId").val();
+            $("#CardId").val(null).trigger('change');
+            $("#CompName").val(compNu);
+        });
+        $("#CompanyId").map(function () {// class levels
+            var compNu = $("#CompanyId").val();
+            $("#CompName").val(compNu);
+        });
 
     });
 
@@ -198,8 +264,6 @@
                     contentType: false,
                     data: datag,
                     success: function (response) {
-
-                        //  $('#imName').val(response);
                     },
                     error: function (er) {
                         alert("Upload Image");
@@ -220,8 +284,6 @@
             $.ajax({
                 type: "POST",
                 url: '/HrChronic/SaveRequest',
-                //processData: false,
-                //contentType: false,
                 data: data,
                 success: function (ret) {
                     if (ret.msg == "ok") {
@@ -278,165 +340,4 @@
 
     }
 
-    // Search Request
-    //function SearchRequest() {
-    //    if ($('#txtSearchRequest').val() == "") {
-    //        alert("Please insert valid Request Code ...")
-
-    //    }
-    //    else {
-    //        var data = {
-    //            searchId: $('#txtSearchRequest').val(),
-    //        };
-    //        $.ajax({
-    //            type: "POST",
-    //            url: '/MedicalApproval/SearchRequest',
-    //            data: (data),
-    //            success: function (dat) {
-    //                if (dat.msg == "ok") {
-
-
-    //                    $("#save").attr("disabled", "disabled");
-    //                    $("#edit").attr("disabled", false);
-    //                    sel = dat.modelreturn.Region;
-    //                    $("#RequestCode").html(dat.modelreturn.ID);
-    //                    $('#CompName').val(dat.modelreturn.CompName);
-    //                    $('#TYPE').val(dat.modelreturn.TYPE);
-    //                    debugger;
-    //                    SelectedProviderEname = dat.modelreturn.PR_ENAME;
-    //                    $('#TYP_ANAME').val(dat.modelreturn.TYP_ANAME).change();
-    //                    $('#PR_ENAME').val(dat.modelreturn.PR_ENAME).change();
-    //                    $("#CARD_ID").val(dat.modelreturn.CARD_ID).change();
-    //                    $("#NOTES").val(dat.modelreturn.NOTES);
-    //                    $("#responsestatus").val(dat.modelreturn.REPLAYED_BY);
-
-    //                    //  $("#IMAGE").val(dat.modelreturn.IMAGE);
-    //                    var x = document.getElementById("divimage");
-    //                    if (dat.modelreturn.IMAGE != "") {
-    //                        x.style.display = "block";
-    //                    }
-    //                    else {
-    //                        x.style.display = "none";
-    //                    }
-    //                    debugger;
-
-
-    //                }
-    //                else {
-    //                    alert(dat.msg);
-    //                }
-
-    //            },
-    //            error: function (err) {
-    //                bootbox.alert("Error Data !");
-    //            }
-    //        });
-    //    }
-    //}
-
-    //// Edit Request
-    //function EditRequest() {
-    //    var x = document.getElementById("divimage");
-    //    debugger;
-    //    if ($('#CompName').val() == "") {
-    //        alert("You shoud enter valid company name ..");
-    //    }
-    //    else if ($("#CARD_ID").val() == "") {
-    //        alert("You shoud enter CARD_ID ..");
-    //    }
-    //    else if ($("#IMAGE").val() == "" && x.style.display == "none") {
-    //        alert("You shoud enter IMAGE ..");
-    //    }
-    //    else if ($('#TYPE').val() == "") {
-    //        alert("You shoud enter TYPE  ...");
-    //    }
-
-    //    else {
-
-    //        //var data = {
-    //        //    IMAGE: $('#IMAGE').val()
-
-    //        //};
-    //        debugger;
-    //        var imagname = "";
-    //        if ($('#IMAGE').val() != "") {
-
-    //            var datag = new FormData();//()
-    //            var files = $("#IMAGE").get(0).files;
-    //            imagname = files[0].name;
-    //            datag.append("File", files[0]);
-
-    //            //for (var i = 0; i < files.length; i++) {
-    //            //    data.append("Files", files[i]);
-    //            //    indemnty.AttachPDF += files[i].name ;
-    //            //    if (i < files.length-1) {
-    //            //        indemnty.AttachPDF += ",";
-    //            //    }
-    //            //}
-
-    //            //Saving Image
-    //            $.ajax({
-    //                url: '/MedicalApproval/SaveImage/',
-    //                type: "POST",
-    //                processData: false,
-    //                contentType: false,
-    //                data: datag,
-    //                success: function (response) {
-
-    //                    //  $('#imName').val(response);
-    //                },
-    //                error: function (er) {
-    //                    alert("Upload Image");
-    //                }
-
-    //            });
-    //        }
-
-    //        //var fileName;
-    //        //$('input[type="file"]').change(function (e) {
-    //        //     fileName = e.target.files[0].name;
-    //        //    //alert('The file "' + fileName + '" has been selected.');
-    //        //});
-
-    //        //if (data.IMAGE != String.empty)
-    //        //{
-    //        //    var files = $("#IMAGE").get(0).files;
-    //        //    imagname = files[0].name;
-    //        //}
-    //        debugger;
-    //        data = {
-
-    //            ID: $('#RequestCode').html(),
-    //            CompName: $('#CompName').val(),
-    //            CARD_ID: $('#CARD_ID').val(),
-    //            TYPE: $('#TYPE').val(),
-    //            NOTES: $('#NOTES').val(),
-    //            TYP_ANAME: "Medication",
-    //            PR_ENAME: "Chronic-Non",
-    //            IMAGE: imagname,
-
-    //        };
-    //        $.ajax({
-    //            type: "POST",
-    //            url: '/MedicalApproval/EditRequest',
-    //            //processData: false,
-    //            //contentType: false,
-    //            data: data,
-    //            success: function (ret) {
-    //                if (ret.msg == "ok") {
-    //                    $("#save").attr("disabled", "disabled");
-    //                    bootbox.alert("Saved Datat Success ...");
-    //                    $("#RequestCode").html(ret.respcode);
-    //                }
-    //                else {
-    //                    alert(ret.msg);
-    //                }
-
-    //            },
-    //            error: function (err) {
-    //                bootbox.alert("Error DATA !");
-    //            }
-    //        });
-    //    }
-    //}
 </script>
