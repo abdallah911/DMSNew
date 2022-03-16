@@ -80,21 +80,6 @@ namespace DMS_Authontication1.Controllers.HR
                     ViewBag.company = companylist;
                 }
 
-               // var user = await UserManager.FindByNameAsync(User.Identity.Name);
-               // bool found = false;
-               // var provider = int.Parse(user.Provider);
-               // var CurrentDate = DateTime.Now.Date;
-               // var company = db.Contract_Data.Where(c => c.C_COMP_ID == provider && c.DATE_FROM <= CurrentDate
-               //&& c.DATE_TO >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-               // if (company != null)
-               // {
-               //     var GetServActive = db.COMP_CUSTOMIZED_D.Where(p => p.C_COMP_ID == provider && p.CONTRACT_NO == company.CONTRACT_NO
-               //       && p.SERV_CODE == "12").FirstOrDefault();
-               //     if (GetServActive != null)
-               //         found = true;
-               // }
-               // ViewBag.IsIndemnity = found;
-
                 return View();
             }
             else
@@ -267,7 +252,6 @@ namespace DMS_Authontication1.Controllers.HR
             }
         }
 
-
         public ActionResult ConsumptionPremium()
         {
             if (User.IsInRole("HR_Admin"))
@@ -318,9 +302,6 @@ namespace DMS_Authontication1.Controllers.HR
 
             }
         }
-
-
-
 
         #endregion
 
