@@ -152,6 +152,7 @@
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RequestAddProvider_ProviderTypeNew" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RoshitaNoOverNoPay" Width="1.5" PointX="26.375" PointY="26.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CardUsed" Width="1.5" PointX="28.375" PointY="26.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.UsersInternalCode" Width="1.5" PointX="36.375" PointY="25.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

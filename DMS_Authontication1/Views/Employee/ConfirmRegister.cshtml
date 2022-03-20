@@ -1,0 +1,188 @@
+﻿@model DMS_Authontication1.ViewModel.EmployeeVM.ConfirmRegisterEmployeeVM
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+
+<div class="portlet box blue-chambray" style="margin:auto">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-registered"></i> Confirm Account
+        </div>
+    </div>
+    <br />
+
+    <div class="portlet-body ">
+        <div class="row ">
+            <div class="col-md-12">
+                @using (Html.BeginForm("ConfirmRegisterPost", "Employee", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form", id = "target" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-wizard">
+
+                        <div class="form-body">
+                            <div class="tab-content">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <span class="text-danger">@ViewBag.Error</span>
+                                <div class="row ">
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="CompanyTypeNew">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.FullName) :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", @required = "true", @data_step = "1", @data_intro = "FullName Not Less Than Three Names" } })
+
+                                                @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.CardId) :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.CardId, new { htmlAttributes = new { @class = "col-md-2 form-control ", @required = "true", @data_step = "3", @data_intro = "The ID of your card " } })
+                                                @*<input id="CreatedDate" type="datetime" class="col-md-2 form-control " placeholder="Date" />*@
+                                                @Html.ValidationMessageFor(model => model.CardId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.Email) :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control ", @required = "true", @data_step = "7", @data_intro = "Your Real Access Email " } })
+                                                @*<input type="text" class="form-control" id="Phone" value="" onkeypress="return /[0-9]/i.test(event.key)" />*@
+                                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div id="feedBackDiv">
+
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.UserName) :
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.EditorFor(model => model.UserName, new
+                                               {
+                                                   htmlAttributes = new
+                                                   {
+                                                       @class = "form-control ",
+                                                       @required = "true",
+                                                       @autocomplete = "false",
+                                                       @data_step = "6",
+                                                       @data_intro = "Your Card Id can be your UserName it must be unique"
+                                                   }
+                                               })
+                                                    @*<input type="text" class="form-control" id="Phone" value="" onkeypress="return /[0-9]/i.test(event.key)" />*@
+                                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.Password) :
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-7">
+                                                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", @required = "true",@autocomplete = "false" })
+                                                    @*<textarea type="text" class="form-control" id="ComplaintDescription"></textarea>*@
+                                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.ConfirmPassword) :
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-7">
+                                                    @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", @required = "true" })
+                                                    @*<textarea type="text" class="form-control" id="ComplaintDescription"></textarea>*@
+                                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <br />
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer" style="text-align:right;">
+                        <input data-step="8" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />
+                        <input data-step="9" data-intro="Reset " id="reset" type="button" value="Reset" onclick="ClearVisitDataData();" class="btn btn-warning" />
+                        <input data-step="10" data-intro="Save Account" id="submited" type="button" value="Save" class="btn btn-success" onclick="CheckData()" />
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<!--Save-->
+
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/assets/HomeTemplete/js/intro.js"></script>
+
+<script>
+    var valid = false;
+    $(document).ready(function () {
+        $("#Help").click(function () {
+            introJs().start();
+
+            //$("#submit").click(function (e) {
+            //    debugger;
+            //    if (valid)
+            //        $("#submit").submit();
+            //    else {
+            //        e.preventDefault(e);
+            //        return false;
+            //    }
+
+            //});
+
+        });
+
+    });
+
+    function CheckData() {
+        var arra = $("#CardId").val().split("-");
+        if (arra.length == 4 && arra[3] != "") {
+            var Employeename = $("#FullName").val().split(" ");
+            if (Employeename.length >= 3) {
+                valid = true;
+                $("#target").submit();
+
+            }
+            else {
+                bootbox.alert("Please enter Full Name not less that three names ' First,Second and Third Name' ... ");
+                valid = false;
+            }
+        }
+        else {
+            bootbox.alert("Please enter correct card ... ");
+            valid = false;
+        }
+
+    }
+</script>
+

@@ -2255,6 +2255,18 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
         </EntityType>
+        <EntityType Name="UsersInternalCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CardId" Type="nvarchar(max)" />
+          <Property Name="EnglishName" Type="nvarchar" MaxLength="250" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="250" />
+          <Property Name="InternalCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <Association Name="FK_ApprovalDetails_ApprovalMaster">
           <End Role="ApprovalMaster" Type="Self.ApprovalMaster" Multiplicity="0..1" />
           <End Role="ApprovalDetails" Type="Self.ApprovalDetails" Multiplicity="*" />
@@ -3104,6 +3116,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SERVICES" EntityType="Self.SERVICES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Specialities1" EntityType="Self.Specialities1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersInternalCode" EntityType="Self.UsersInternalCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Swap" EntityType="Self.Swap" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Swap].[Id] AS [Id]
@@ -4894,6 +4907,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           </AssociationSet>
           <EntitySet Name="RoshitaNoOverNoPays" EntityType="DB_A45413_DMSERPModel.RoshitaNoOverNoPay" />
           <EntitySet Name="CardUseds" EntityType="DB_A45413_DMSERPModel.CardUsed" />
+          <EntitySet Name="UsersInternalCodes" EntityType="DB_A45413_DMSERPModel.UsersInternalCode" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -6635,6 +6649,18 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="CardId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UsersInternalCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CardId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EnglishName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="NickName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="InternalCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -9171,6 +9197,19 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
               <MappingFragment StoreEntitySet="CardUsed">
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersInternalCodes">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.UsersInternalCode">
+              <MappingFragment StoreEntitySet="UsersInternalCode">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="InternalCode" ColumnName="InternalCode" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="EnglishName" ColumnName="EnglishName" />
                 <ScalarProperty Name="CardId" ColumnName="CardId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

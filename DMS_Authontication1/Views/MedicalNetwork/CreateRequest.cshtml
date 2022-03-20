@@ -376,7 +376,7 @@
                         $("#edit").attr("disabled", false);
                         sel = dat.modelreturn.Region;
                         $("#RequestCode").html(dat.modelreturn.ID);
-                        $('#CompName').val(dat.modelreturn.CompName);
+                        
                         $('#Country_select').val(dat.modelreturn.Country).select2();
                         $("#Country_select").map(function () {//address
                             $.get("/Account/GetStateList",
@@ -402,6 +402,7 @@
                         if (dat.modelreturn.Status != "W") {
                             $("#edit").attr("disabled", "disabled");
                         }
+                        $('#CompName').val(dat.modelreturn.CompName).select2();
                     }
                     else {
                         alert(dat.msg);

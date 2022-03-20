@@ -71,115 +71,341 @@ namespace DMS_Authontication1.Controllers.HR
             return View();
         }
 
-        [Authorize(Roles = "HR")]//admin later
+        [Authorize(Roles = "HR,HR_Admin")]//admin later
         [HttpGet]
-        public ActionResult Search2()
+        public ActionResult Search2(string CompId = null)
         {
             var HrUserNamre = User.Identity.GetUserName();
             var compcode = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
             var cComp = int.Parse(compcode);
             var CurrentDate = DateTime.Now.Date;
+            ViewBag.CompId = CompId;
+            List<ApprovalComp> approval = new List<ApprovalComp>();
             try
             {
-                var contract = db.Contract_Data.Where(c => c.C_COMP_ID == cComp && c.DATE_FROM <= CurrentDate && c.DATE_TO >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().CONTRACT_NO;
-
-                DataTable dt = dbAproval.RunReader("SELECT CODE,APROVAL_TYP,MEDICAL_REPLAY,VALUE_AFTER,RECIV_DATE,CREATED_DATE,END_DATE,EXPAIRE_DATE,CREATED_BY,CARD_NO FROM MEDICAL_APPROVALS WHERE COMPANY_ID = "
-                                            + compcode +
-                                           " AND COMP_CONTRACT_NO='" + contract + "' AND ACTIVE ='Y' AND  EXPAIRE_DATE >= sysdate-14 ORDER BY CREATED_DATE DESC");
-                List<ApprovalComp> approval = new List<ApprovalComp>();
-                if (dt.Rows.Count != 0)
+                if( CompId!=null)
                 {
-                    foreach (DataRow row in dt.Rows)
+                    var userid2 = User.Identity.GetUserId();
+                    var compines = db.HrAdminCompanies.Where(x => x.UserId == userid2).Select(c => c.CompId).ToList();
+                    if (compines[0] == "All")
                     {
-                        approval.Add(new ApprovalComp
+                        var companyname = db.Contract_Comp
+                        .Select(l => new
                         {
-                            Code = row["CODE"].ToString(),
-                            Approval_Type = row["APROVAL_TYP"].ToString(),
-                            Medical_Replay = row["MEDICAL_REPLAY"].ToString(),
-                            Value_After = float.Parse(row["VALUE_AFTER"].ToString()),
-                            Recieve_Date = row["RECIV_DATE"].ToString(),
-                            Created_Date = row["CREATED_DATE"].ToString(),
-                            End_Date = row["END_DATE"].ToString(),
-                            Expaire_Date = row["EXPAIRE_DATE"].ToString(),
-                            CreatedBy = row["CREATED_BY"].ToString(),
-                            CardId = row["CARD_NO"].ToString(),
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
 
-                        });
+                        }).ToList();
+                        SelectList companylist = new SelectList(companyname, "Code", "Name");
+                        ViewBag.company = companylist;
+                    }
+                    else
+                    {
+                        var companyname = (from comp in compines
+                                           join contCo in db.Contract_Comp
+                                           on int.Parse(comp) equals contCo.C_COMP_ID
+                                           select new
+                                           {
+                                               Code = contCo.C_COMP_ID,
+                                               Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                           }).ToList();
+                        SelectList companylist = new SelectList(companyname, "Code", "Name");
+                        ViewBag.company = companylist;
+
+                    }
+
+                    var cComp2 = int.Parse(CompId);
+                    var contract = db.Contract_Data.Where(c => c.C_COMP_ID == cComp2 && c.DATE_FROM <= CurrentDate && c.DATE_TO >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().CONTRACT_NO;
+
+                    DataTable dt = dbAproval.RunReader("SELECT CODE,APROVAL_TYP,MEDICAL_REPLAY,VALUE_AFTER,RECIV_DATE,CREATED_DATE,END_DATE,EXPAIRE_DATE,CREATED_BY,CARD_NO FROM MEDICAL_APPROVALS WHERE COMPANY_ID = "
+                                                + cComp2 +
+                                               " AND COMP_CONTRACT_NO='" + contract + "' AND ACTIVE ='Y' AND  EXPAIRE_DATE >= sysdate-14 ORDER BY CREATED_DATE DESC");
+
+                    if (dt.Rows.Count != 0)
+                    {
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            approval.Add(new ApprovalComp
+                            {
+                                Code = row["CODE"].ToString(),
+                                Approval_Type = row["APROVAL_TYP"].ToString(),
+                                Medical_Replay = row["MEDICAL_REPLAY"].ToString(),
+                                Value_After = float.Parse(row["VALUE_AFTER"].ToString()),
+                                Recieve_Date = row["RECIV_DATE"].ToString(),
+                                Created_Date = row["CREATED_DATE"].ToString(),
+                                End_Date = row["END_DATE"].ToString(),
+                                Expaire_Date = row["EXPAIRE_DATE"].ToString(),
+                                CreatedBy = row["CREATED_BY"].ToString(),
+                                CardId = row["CARD_NO"].ToString(),
+
+                            });
+                        }
+                        return View(approval);
+                    }
+                    else
+                        return View(approval);
+                }
+                if (User.IsInRole("HR_Admin"))
+                {
+                    var userid = User.Identity.GetUserId();
+                    var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+                    if (compines[0] == "All")
+                    {
+                        var companyname = db.Contract_Comp
+                        .Select(l => new
+                        {
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
+
+                        }).ToList();
+                        SelectList companylist = new SelectList(companyname, "Code", "Name");
+                        ViewBag.company = companylist;
+                        DataTable dt2 = dbAproval.RunReader("SELECT CODE,APROVAL_TYP,MEDICAL_REPLAY,VALUE_AFTER,RECIV_DATE,CREATED_DATE,END_DATE,EXPAIRE_DATE,CREATED_BY,CARD_NO FROM MEDICAL_APPROVALS WHERE"
+
+                                                   + " ACTIVE ='Y' AND  EXPAIRE_DATE >= sysdate-14 ORDER BY CREATED_DATE DESC");
+                        
+                        if (dt2.Rows.Count != 0)
+                        {
+                            foreach (DataRow row in dt2.Rows)
+                            {
+                                approval.Add(new ApprovalComp
+                                {
+                                    Code = row["CODE"].ToString(),
+                                    Approval_Type = row["APROVAL_TYP"].ToString(),
+                                    Medical_Replay = row["MEDICAL_REPLAY"].ToString(),
+                                    Value_After = float.Parse(row["VALUE_AFTER"].ToString()),
+                                    Recieve_Date = row["RECIV_DATE"].ToString(),
+                                    Created_Date = row["CREATED_DATE"].ToString(),
+                                    End_Date = row["END_DATE"].ToString(),
+                                    Expaire_Date = row["EXPAIRE_DATE"].ToString(),
+                                    CreatedBy = row["CREATED_BY"].ToString(),
+                                    CardId = row["CARD_NO"].ToString(),
+
+                                });
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var companyname = (from comp in compines
+                                           join contCo in db.Contract_Comp
+                                           on int.Parse(comp) equals contCo.C_COMP_ID
+                                           select new
+                                           {
+                                               Code = contCo.C_COMP_ID,
+                                               Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                           }).ToList();
+                        SelectList companylist = new SelectList(companyname, "Code", "Name");
+                        ViewBag.company = companylist;
+
+                        foreach (var item in companyname)
+                        {
+                            var contract3 = db.Contract_Data.Where(c => c.C_COMP_ID == item.Code && c.DATE_FROM <= CurrentDate && c.DATE_TO >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().CONTRACT_NO;
+
+                            DataTable dt3 = dbAproval.RunReader("SELECT CODE,APROVAL_TYP,MEDICAL_REPLAY,VALUE_AFTER,RECIV_DATE,CREATED_DATE,END_DATE,EXPAIRE_DATE,CREATED_BY,CARD_NO FROM MEDICAL_APPROVALS WHERE COMPANY_ID = "
+                                                        + item.Code +
+                                                       " AND COMP_CONTRACT_NO='" + contract3 + "' AND ACTIVE ='Y' AND  EXPAIRE_DATE >= sysdate-14 ORDER BY CREATED_DATE DESC");
+
+                            if (dt3.Rows.Count != 0)
+                            {
+                                foreach (DataRow row in dt3.Rows)
+                                {
+                                    approval.Add(new ApprovalComp
+                                    {
+                                        Code = row["CODE"].ToString(),
+                                        Approval_Type = row["APROVAL_TYP"].ToString(),
+                                        Medical_Replay = row["MEDICAL_REPLAY"].ToString(),
+                                        Value_After = float.Parse(row["VALUE_AFTER"].ToString()),
+                                        Recieve_Date = row["RECIV_DATE"].ToString(),
+                                        Created_Date = row["CREATED_DATE"].ToString(),
+                                        End_Date = row["END_DATE"].ToString(),
+                                        Expaire_Date = row["EXPAIRE_DATE"].ToString(),
+                                        CreatedBy = row["CREATED_BY"].ToString(),
+                                        CardId = row["CARD_NO"].ToString(),
+
+                                    });
+                                }
+                            }
+                        }
+
                     }
                     return View(approval);
                 }
                 else
-                    return View(approval);
+                {
+                    var contract = db.Contract_Data.Where(c => c.C_COMP_ID == cComp && c.DATE_FROM <= CurrentDate && c.DATE_TO >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().CONTRACT_NO;
+
+                    DataTable dt = dbAproval.RunReader("SELECT CODE,APROVAL_TYP,MEDICAL_REPLAY,VALUE_AFTER,RECIV_DATE,CREATED_DATE,END_DATE,EXPAIRE_DATE,CREATED_BY,CARD_NO FROM MEDICAL_APPROVALS WHERE COMPANY_ID = "
+                                                + compcode +
+                                               " AND COMP_CONTRACT_NO='" + contract + "' AND ACTIVE ='Y' AND  EXPAIRE_DATE >= sysdate-14 ORDER BY CREATED_DATE DESC");
+
+                    if (dt.Rows.Count != 0)
+                    {
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            approval.Add(new ApprovalComp
+                            {
+                                Code = row["CODE"].ToString(),
+                                Approval_Type = row["APROVAL_TYP"].ToString(),
+                                Medical_Replay = row["MEDICAL_REPLAY"].ToString(),
+                                Value_After = float.Parse(row["VALUE_AFTER"].ToString()),
+                                Recieve_Date = row["RECIV_DATE"].ToString(),
+                                Created_Date = row["CREATED_DATE"].ToString(),
+                                End_Date = row["END_DATE"].ToString(),
+                                Expaire_Date = row["EXPAIRE_DATE"].ToString(),
+                                CreatedBy = row["CREATED_BY"].ToString(),
+                                CardId = row["CARD_NO"].ToString(),
+
+                            });
+                        }
+                        return View(approval);
+                    }
+                    else
+                        return View(approval);
+                }
             }
-            catch (Exception )
+            catch (Exception)
             {
-                List<ApprovalComp> approval = new List<ApprovalComp>();
-                return View(approval);
-            }    
-           
+                List<ApprovalComp> approval2 = new List<ApprovalComp>();
+                return View(approval2);
+            }
+
         }
-        [Authorize(Roles = "HR")]//admin later
+        [Authorize(Roles = "HR,HR_Admin")]//admin later
         [HttpGet]
         public ActionResult Search()
         {
-            var HrUserNamre = User.Identity.GetUserName();
-            var compcode = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
-            ViewBag.CompName = compcode;
-            int companyCode = Convert.ToInt32(compcode);
+            if (User.IsInRole("HR_Admin"))
+            {
+                ViewBag.CompName = null;
+                var userid = User.Identity.GetUserId();
+                var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+                if (compines[0] == "All")
+                {
+                    var companyname = db.Contract_Comp
+                        .Select(l => new
+                        {
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
 
-            var provider = db.ProviderTypeNews.ToList();
-            SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
-            ViewBag.provider = Providerlist;
+                        }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+                else
+                {
+                    var companyname = (from comp in compines
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+            }
+            else
+            {
 
-            var maxcontract = db.CompContractClasses.AsNoTracking().Where(c => c.C_COMP_ID == companyCode).OrderByDescending(y => y.CONTRACT_NO).FirstOrDefault().CONTRACT_NO;
+                var HrUserNamre = User.Identity.GetUserName();
+                var compcode = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
+                ViewBag.CompName = compcode;
+                int companyCode = Convert.ToInt32(compcode);
+                ViewBag.company = null;
+            }
+            //var HrUserNamre = User.Identity.GetUserName();
+            //var compcode = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
+            //ViewBag.CompName = compcode;
+            //int companyCode = Convert.ToInt32(compcode);
 
-            var compclasses = (from comcont in db.CompContractClasses
-                               where comcont.CONTRACT_NO == maxcontract && comcont.C_COMP_ID == companyCode
-                               join insclass in db.Insurance_Class
-                               on comcont.CLASS_CODE equals insclass.CLASS_CODE
-                               select new
-                               {
-                                   ClassCode = comcont.CLASS_CODE,
-                                   ClassString = comcont.CLASS_CODE + " | " + insclass.CLASS_ANAME
-                               }).ToList();
+            //var provider = db.ProviderTypeNews.ToList();
+            //SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
+            //ViewBag.provider = Providerlist;
 
-            //var compclasses = db.CompContractClasses.AsNoTracking().Where(cl=>cl.CONTRACT_NO==maxcontract&& cl.C_COMP_ID== companyCode).ToList();
-            SelectList compclasseslist = new SelectList(compclasses, "ClassCode", "ClassString");
-            ViewBag.compclasseslist = compclasseslist;
+            //var maxcontract = db.CompContractClasses.AsNoTracking().Where(c => c.C_COMP_ID == companyCode).OrderByDescending(y => y.CONTRACT_NO).FirstOrDefault().CONTRACT_NO;
+
+            //var compclasses = (from comcont in db.CompContractClasses
+            //                   where comcont.CONTRACT_NO == maxcontract && comcont.C_COMP_ID == companyCode
+            //                   join insclass in db.Insurance_Class
+            //                   on comcont.CLASS_CODE equals insclass.CLASS_CODE
+            //                   select new
+            //                   {
+            //                       ClassCode = comcont.CLASS_CODE,
+            //                       ClassString = comcont.CLASS_CODE + " | " + insclass.CLASS_ANAME
+            //                   }).ToList();
+
+            ////var compclasses = db.CompContractClasses.AsNoTracking().Where(cl=>cl.CONTRACT_NO==maxcontract&& cl.C_COMP_ID== companyCode).ToList();
+            //SelectList compclasseslist = new SelectList(compclasses, "ClassCode", "ClassString");
+            //ViewBag.compclasseslist = compclasseslist;
 
 
-            var address = db.Basic_Data.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-            //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-            SelectList addresslist = new SelectList(address, "BS_ENAME", "BS_ANAME");
-            ViewBag.address = addresslist;
+            //var address = db.Basic_Data.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+            ////var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+            //SelectList addresslist = new SelectList(address, "BS_ENAME", "BS_ANAME");
+            //ViewBag.address = addresslist;
             return View();
         }
 
-        [Authorize(Roles = "HR,User")]
+        [Authorize(Roles = "HR,User,HR_Admin")]
         [HttpGet]
         public ActionResult CreateRequest(int? id)
         {
-
             Enum_RequestsViewModel ENUM_REQUESTSViewModel = new Enum_RequestsViewModel();
-            var HrUserNamre = User.Identity.GetUserName();
-            var comp_id = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
-            ENUM_REQUESTSViewModel.CompName = comp_id;
+            if (User.IsInRole("HR_Admin"))
+            {
+                var userid = User.Identity.GetUserId();
+                var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+                if (compines[0] == "All")
+                {
+                    var companyname = db.Contract_Comp
+                        .Select(l => new
+                        {
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
 
+                        }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+                else
+                {
 
+                    var companyname = (from compn in compines
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(compn) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+            }
+
+            else
+            {
+                var HrUserNamre = User.Identity.GetUserName();
+                var comp_id = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
+                ENUM_REQUESTSViewModel.CompName = comp_id;
+
+            }
             var provider = db.ProviderTypeNews.ToList();
             SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
             ViewBag.provider = Providerlist;
-            var comp = Convert.ToInt32(comp_id);
+            //var comp = Convert.ToInt32(comp_id);
             var datenow = DateTime.Now.Date;
-            var employees = db.Comp_Employees.Where(m => m.C_COMP_ID == comp && m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
-                  .Select(l => new
-                  {
-                      CARD_ID = l.CARD_ID,
-                      EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
-                  }).ToList();
-            //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-            SelectList addresslist = new SelectList(employees, "CARD_ID", "EMP_ANAME");
-            ViewBag.address = addresslist;
+            //var employees = db.Comp_Employees.Where(m => m.C_COMP_ID == comp && m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
+            //      .Select(l => new
+            //      {
+            //          CARD_ID = l.CARD_ID,
+            //          EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
+            //      }).ToList();
+            ////var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+            //SelectList addresslist = new SelectList(employees, "CARD_ID", "EMP_ANAME");
+            //ViewBag.address = addresslist;
 
             if (User.IsInRole("User"))
             {
@@ -209,6 +435,7 @@ namespace DMS_Authontication1.Controllers.HR
                 }
                 Enum_RequestsViewModel ViewModel = new Enum_RequestsViewModel();
                 ViewModel.ID = model.ID;
+                var comp_id = model.CARD_ID.Split('-')[0];
                 ViewModel.CompName = comp_id;
                 ViewModel.CARD_ID = model.CARD_ID;
                 ViewModel.TYPE = model.TYPE;
@@ -222,7 +449,7 @@ namespace DMS_Authontication1.Controllers.HR
             return View(ENUM_REQUESTSViewModel);
         }
 
-        [Authorize(Roles = "HR,User")]
+        [Authorize(Roles = "HR,User,HR_Admin")]
         [HttpPost]
 
         public ActionResult CreateRequest(Enum_RequestsViewModel addApproval)
@@ -267,7 +494,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             model.NOTES = addApproval.NOTES;
             model.REQ_DATE = DateTime.Now;
-            model.EMP_ENAME = User.Identity.GetUserName();
+            model.EMP_ENAME = db.Comp_Employees.Where(e=>e.CARD_ID==addApproval.CARD_ID).FirstOrDefault().EMP_ENAME;
             model.REQ_TYPE = "M";
 
             model.REQUEST_TYP = "Web";
@@ -339,7 +566,7 @@ namespace DMS_Authontication1.Controllers.HR
                 SendMail("dms.medical1@gmail.com", sub, msg, altView, CompProvider);
                 SendMail("dms.medical2@gmail.com", sub, msg, altView, CompProvider);
             }
-            if(User.IsInRole("User"))
+            if (User.IsInRole("User"))
             {
                 return Redirect("/Employee/Approvales");
             }
@@ -395,7 +622,7 @@ namespace DMS_Authontication1.Controllers.HR
             int Comp_ID = Convert.ToInt32(compId);
 
             // classLevel).OrderByDescending(y => y.CONTRACT_NO).FirstOrDefault().COVER_RELATION;
-            var AproveList = db.fn_MedicalApprovalSearsh(CardID, datefrom, dateto, code).Where(b => b.REQ_DATE >= date_from.Date && b.REQ_DATE <= date_to.Date).OrderBy(b => b.REQ_DATE).ToList();
+            var AproveList = db.fn_MedicalApprovalSearsh(CardID, datefrom, dateto, code).Where(b =>b.CARD_ID.Contains(compId)&& b.REQ_DATE >= date_from.Date && b.REQ_DATE <= date_to.Date).OrderBy(b => b.REQ_DATE).ToList();
             if (AproveList.Count > 0)
             {
                 return new JsonResult { Data = new { AproveList = AproveList, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };

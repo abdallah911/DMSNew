@@ -23,7 +23,6 @@
                     }
                 };
             }
-            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
 
         }
     });
@@ -32,10 +31,6 @@
         yearRange: "-100:+0", // last hundred years
         maxDate: 0,
     });
-    //$('#START_DATE').datepicker({
-    //    changeYear: true,
-    //    minDate: 0,
-    //});
     $("#EMP_RELATION").change(function () {
 
         if ($(this).val() != "1" && $(this).val() != "") {
@@ -448,90 +443,90 @@
             }
 
             else {
-            var result = ValidSaveRequest();
-            if (result.valid) {
+                var result = ValidSaveRequest();
+                if (result.valid) {
 
-                $("#submit").attr("disabled", "disabled");
+                    $("#submit").attr("disabled", "disabled");
 
-                var Request = {
-                    EMP_ENAME_ST: $("#EMP_ENAME_ST").val(),
-                    EMP_ENAME_SC: $("#EMP_ENAME_SC").val(),
-                    EMP_ENAME_FR: $("#EMP_ENAME_FR").val(),
-                    EMP_ANAME_ST: $("#EMP_ANAME_ST").val(),
-                    EMP_ANAME_SC: $("#EMP_ANAME_SC").val(),
-                    EMP_ANAME_TH: $("#EMP_ANAME_TH").val(),
-                    EMP_ENAME_TH: $("#EMP_ENAME_TH").val(),
-                    EMP_ANAME_FR: $("#EMP_ANAME_FR").val(),
-                    CARD_ID: $('#CARD_ID').val(),
-                    NATIONAL_ID: $("#NATIONAL_ID").val(),
-                    BIRTHDATE: $("#BIRTHDATE").val(),
-                    GENDER: $("#GENDER").val(),
-                    MOBILE: $("#MOBILE").val(),
-                    EMAIL: $("#EMAIL").val(),
-                    START_DATE: $("#START_DATE").val(),
-                    ADDRESS: $("#ADDRESS").val(),
-                    BRANCH: $("#BRANCH").val(),
-                    GLASSES: $("#GLASSES").val(),
-                    DISEASE: $("#DISEASE").val(),
-                    EMP_RELATION: $("#EMP_RELATION").val(),
-                    EMP_IMG: $("#EMP_IMG").val(),
-                    EMP_CLASS: $("#EMP_CLASS").val(),
-                    REQUEST_CODE: $("#REQUEST_CODE").val()
+                    var Request = {
+                        EMP_ENAME_ST: $("#EMP_ENAME_ST").val(),
+                        EMP_ENAME_SC: $("#EMP_ENAME_SC").val(),
+                        EMP_ENAME_FR: $("#EMP_ENAME_FR").val(),
+                        EMP_ANAME_ST: $("#EMP_ANAME_ST").val(),
+                        EMP_ANAME_SC: $("#EMP_ANAME_SC").val(),
+                        EMP_ANAME_TH: $("#EMP_ANAME_TH").val(),
+                        EMP_ENAME_TH: $("#EMP_ENAME_TH").val(),
+                        EMP_ANAME_FR: $("#EMP_ANAME_FR").val(),
+                        CARD_ID: $('#CARD_ID').val(),
+                        NATIONAL_ID: $("#NATIONAL_ID").val(),
+                        BIRTHDATE: $("#BIRTHDATE").val(),
+                        GENDER: $("#GENDER").val(),
+                        MOBILE: $("#MOBILE").val(),
+                        EMAIL: $("#EMAIL").val(),
+                        START_DATE: $("#START_DATE").val(),
+                        ADDRESS: $("#ADDRESS").val(),
+                        BRANCH: $("#BRANCH").val(),
+                        GLASSES: $("#GLASSES").val(),
+                        DISEASE: $("#DISEASE").val(),
+                        EMP_RELATION: $("#EMP_RELATION").val(),
+                        EMP_IMG: $("#EMP_IMG").val(),
+                        EMP_CLASS: $("#EMP_CLASS").val(),
+                        REQUEST_CODE: $("#REQUEST_CODE").val()
 
-                };
+                    };
 
-                var data = new FormData();//()
-                var files = $("#EMP_IMG").get(0).files;
-                Request.EMP_IMG = files[0].name;
-                data.append("File", files[0]);
+                    var data = new FormData();//()
+                    var files = $("#EMP_IMG").get(0).files;
+                    Request.EMP_IMG = files[0].name;
+                    data.append("File", files[0]);
 
-                //Saving Image
-                $.ajax({
-                    url: '/EmployeeRequest/SaveImage/',
-                    type: "POST",
-                    processData: false,
-                    contentType: false,
-                    data: data,
-                    success: function (response) {
+                    //Saving Image
+                    $.ajax({
+                        url: '/EmployeeRequest/SaveImage/',
+                        type: "POST",
+                        processData: false,
+                        contentType: false,
+                        data: data,
+                        success: function (response) {
 
-                        //response image url instead of session
-                        $.ajax({
-                            type: 'POST',
-                            url: '/EmployeeRequest/SaveRequest/',
-                            dataType: 'Json',
-                            data: Request,
-                            success: function (result) {
+                            //response image url instead of session
+                            $.ajax({
+                                type: 'POST',
+                                url: '/EmployeeRequest/SaveRequest/',
+                                dataType: 'Json',
+                                data: Request,
+                                success: function (result) {
 
-                                bootbox.dialog({
-                                    closeButton: false,
-                                    title: 'Added Sucessfully',
-                                    message: "Request Number : " + result,
-                                    buttons: {
-                                        New: {
-                                            label: "New",
-                                            className: 'btn-info',
-                                            callback: function () {
-                                                ClearSaveRequest();
-                                                window.location.href = "/EmployeeRequest/index";
+                                    bootbox.dialog({
+                                        closeButton: false,
+                                        title: 'Added Sucessfully',
+                                        message: "Request Number : " + result,
+                                        buttons: {
+                                            New: {
+                                                label: "New",
+                                                className: 'btn-info',
+                                                callback: function () {
+                                                    ClearSaveRequest();
+                                                    window.location.href = "/EmployeeRequest/index";
+                                                }
                                             }
+
                                         }
+                                    });
+                                },
+                                error: function (err) {
+                                    bootbox.alert("Error saving Request");
+                                }
+                            })
+                        },
+                        error: function (er) {
+                            //alert("Error Upload Image");
+                        }
 
-                                    }
-                                });
-                            },
-                            error: function (err) {
-                                bootbox.alert("Error saving Request");
-                            }
-                        })
-                    },
-                    error: function (er) {
-                        //alert("Error Upload Image");
-                    }
+                    })
 
-                })
-
+                }
             }
-        }
         }
 
         else if ($("div.tab-content div.active")[0].id == "Termination") {
@@ -577,6 +572,79 @@
         }
     });
 
+
+    $("#EditLevel").find("#CompanyNumber").change(function () {// class levels
+        $("#CARD_ID").val(null).trigger('change');
+        var compNu = $("#CompanyNumber").val();
+        $("#compname").val(compNu);
+        $("#txtSearchCard").val(null).trigger('change');
+        $.get("/EmployeeRequest/GetClassList",
+            { compId: compNu }, function (data) {
+                $("#EditLevel").find("#EMP_CLASS").empty();
+                $("#EditLevel").find("#EMP_CLASS").append("<option value=''> Select Class</option>")
+                $.each(data, function (index, row) {
+                    $("#EditLevel").find("#EMP_CLASS").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                });
+            });
+    });
+
+    $("#EditLevel").find("#CompanyNumber").map(function () {// class levels
+        var compNu = $("#CompanyNumber").val();
+        $("#compname").val(compNu);
+        $.get("/EmployeeRequest/GetClassList",
+            { compId: compNu }, function (data) {
+                $("#EditLevel").find("#EMP_CLASS").empty();
+                $("#EditLevel").find("#EMP_CLASS").append("<option value=''> Select Class</option>")
+                $.each(data, function (index, row) {
+                    $("#EditLevel").find("#EMP_CLASS").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                });
+            });
+    });
+
+
+    $("#CompanyNumber").change(function () {// class levels
+        $("#CARD_ID").val(null).trigger('change');
+        var compNu = $("#CompanyNumber").val();
+        $("#compname").val(compNu);
+        $("#txtSearchCard").val(null).trigger('change');
+        $.get("/EmployeeRequest/GetClassList",
+            { compId: compNu }, function (data) {
+                $("#EMP_CLASS").empty();
+                $("#EMP_CLASS").append("<option value=''> Select Class</option>")
+                $.each(data, function (index, row) {
+                    $("#EMP_CLASS").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                });
+            });
+        $.get("/EmployeeRequest/GetBranchList",
+            { compId: compNu }, function (data) {
+                $("#BRANCH").empty();
+                $("#BRANCH").append("<option value=''>Select Branch</option>")
+                $.each(data, function (index, row) {
+                    $("#BRANCH").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                });
+            });
+    });
+
+    $("#CompanyNumber").map(function () {// class levels
+        var compNu = $("#CompanyNumber").val();
+        $("#compname").val(compNu);
+        $.get("/EmployeeRequest/GetClassList",
+            { compId: compNu }, function (data) {
+                $("#EMP_CLASS").empty();
+                $("#EMP_CLASS").append("<option value=''> Select Class</option>")
+                $.each(data, function (index, row) {
+                    $("#EMP_CLASS").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                });
+            });
+        $.get("/EmployeeRequest/GetBranchList",
+            { compId: compNu }, function (data) {
+                $("#BRANCH").empty();
+                $("#BRANCH").append("<option value=''>Select Branch</option>")
+                $.each(data, function (index, row) {
+                    $("#BRANCH").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                });
+            });
+    });
 });
 function ValidSaveEditRequest() {
     $.validity.setup({ outputMode: 'label' });

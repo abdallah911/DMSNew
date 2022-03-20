@@ -825,6 +825,9 @@
     <Compile Include="Models\S_Ent_7.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UsersInternalCode.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Reports\AfterSale\AfterSales.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1066,6 +1069,7 @@
     <Compile Include="ViewModel\AdminChangeUserPasswordNM.cs" />
     <Compile Include="ViewModel\AfterSale\AfterSaleViewModel.cs" />
     <Compile Include="ViewModel\EmployeeVM\DeliveryRequestVm.cs" />
+    <Compile Include="ViewModel\EmployeeVM\ConfirmRegisterEmployeeVM.cs" />
     <Compile Include="ViewModel\HospitalVM\ApprovalComp.cs" />
     <Compile Include="ViewModel\ModulesPagesViewModel.cs" />
     <Compile Include="ViewModel\ChronicViewModel.cs" />
@@ -8192,6 +8196,8 @@
     <Content Include="Views\MedicalNetwork\RequestReplay.cshtml" />
     <Content Include="Views\MedicalNetwork\Details.cshtml" />
     <Content Include="Views\DoctorApprovals\_EmployeeData.cshtml" />
+    <Content Include="Views\Employee\ConfirmRegister.cshtml" />
+    <Content Include="Views\Employee\ConfirmRegisterPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

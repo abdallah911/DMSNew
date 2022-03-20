@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace DMS_Authontication1.Controllers.HR
 {
-    [Authorize(Roles = "Admin,HR,User")]
+    [Authorize(Roles = "Admin,HR,User,HR_Admin")]
     [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
     public class HrChronicController : Controller
     {
@@ -34,7 +34,38 @@ namespace DMS_Authontication1.Controllers.HR
         }
         public ActionResult InquiryAboutCard()
         {
-            if (User.IsInRole("HR"))
+            if (User.IsInRole("HR_Admin"))
+            {
+                ViewBag.compnum = null;
+                var userid = User.Identity.GetUserId();
+                var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+                if (compines[0] == "All")
+                {
+                    var companyname = db.Contract_Comp
+                        .Select(l => new
+                        {
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
+
+                        }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+                else
+                {
+                    var companyname = (from comp in compines
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+            }
+            else if (User.IsInRole("HR"))
             {
                 var HrUserNamre = User.Identity.GetUserName();
                 ViewBag.compnum = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
@@ -66,85 +97,46 @@ namespace DMS_Authontication1.Controllers.HR
         public ActionResult CreateRequest(int? id)
         {
             Enum_RequestsViewModel ENUM_REQUESTSViewModel = new Enum_RequestsViewModel();
-            var HrUserNamre = User.Identity.GetUserName();
-            var comp_id = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
-            ENUM_REQUESTSViewModel.CompName = comp_id;
 
-
-            var comp = Convert.ToInt32(comp_id);
-            var datenow = DateTime.Now.Date;
-            var employees = db.Comp_Employees.Where(m => m.C_COMP_ID == comp && m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
-                  .Select(l => new
-                  {
-                      CARD_ID = l.CARD_ID,
-                      EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
-                  }).ToList();
-            //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-            SelectList addresslist = new SelectList(employees, "CARD_ID", "EMP_ANAME");
-            ViewBag.address = addresslist;
-
-            if (User.IsInRole("User"))
+            if (User.IsInRole("HR_Admin"))
             {
-                var usr = User.Identity.GetUserId();
-                var cardId = db.EmployeePersonalDatas.Where(e => e.UserId == usr).FirstOrDefault().CardId;
-                ENUM_REQUESTSViewModel.CARD_ID = cardId;
-                ENUM_REQUESTSViewModel.CompName = cardId.Split('-')[0];
-                var comp2 = int.Parse(ENUM_REQUESTSViewModel.CompName);
-                var employees2 = db.Comp_Employees.Where(m => m.C_COMP_ID == comp2 && m.CARD_ID == cardId &&
-                m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
-                  .Select(l => new
-                  {
-                      CARD_ID = l.CARD_ID,
-                      EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
-                  }).ToList();
-                //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-                SelectList addresslist2 = new SelectList(employees2, "CARD_ID", "EMP_ANAME");
-                ViewBag.address = addresslist2;
-            }
-
-            if (id != null)
-            {
-                var model = db.Enum_Requests.Find(id);
-                if (model == null)
+                ViewBag.compnum = null;
+                var userid = User.Identity.GetUserId();
+                var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+                if (compines[0] == "All")
                 {
-                    return View(ENUM_REQUESTSViewModel);
+                    var companyname = db.Contract_Comp
+                        .Select(l => new
+                        {
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
+
+                        }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
                 }
-                Enum_RequestsViewModel ViewModel = new Enum_RequestsViewModel();
-                ViewModel.ID = model.ID;
-                ViewModel.CompName = comp_id;
-                ViewModel.CARD_ID = model.CARD_ID;
-                ViewModel.TYPE = model.TYPE;
-                ViewModel.TYP_ANAME = model.TYP_ANAME;
-                ViewModel.PR_ENAME = model.PR_ENAME;
-                ViewModel.NOTES = model.NOTES;
-                ViewModel.MAIL_SEND = model.MAIL_SEND;
-                ViewModel.APPROVAL_IMAGE = model.APPROVAL_IMAGE;
-                return View(ViewModel);
+                else
+                {
+                    var companyname = (from comp in compines
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
             }
-            return View(ENUM_REQUESTSViewModel);
-        }
-
-        [HttpPost]
-
-        public ActionResult CreateRequest(Enum_RequestsViewModel addApproval)
-        {
-            var userid = User.Identity.GetUserId();
-            var CompProvider = UserManager.FindById(userid);
-            if (!ModelState.IsValid)
+            else
             {
-                #region Error
-                Enum_RequestsViewModel ENUM_REQUESTSViewModel = new Enum_RequestsViewModel();
-                //var HrUserNamre = User.Identity.GetUserName();
-                //var comp_id = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
-                ENUM_REQUESTSViewModel.CompName = CompProvider.Provider;
-                ENUM_REQUESTSViewModel.TYPE = addApproval.TYPE; ;
-                ENUM_REQUESTSViewModel.PR_ENAME = addApproval.PR_ENAME;
-                ENUM_REQUESTSViewModel.TYP_ANAME = addApproval.TYP_ANAME;
-                ENUM_REQUESTSViewModel.NOTES = addApproval.NOTES;
-                ENUM_REQUESTSViewModel.CARD_ID = addApproval.CARD_ID;
-                ENUM_REQUESTSViewModel.MAIL_SEND = addApproval.MAIL_SEND;
+                var HrUserNamre = User.Identity.GetUserName();
+                var comp_id = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
+                ENUM_REQUESTSViewModel.CompName = comp_id;
 
-                var comp = Convert.ToInt32(CompProvider.Provider);
+
+                var comp = Convert.ToInt32(comp_id);
                 var datenow = DateTime.Now.Date;
                 var employees = db.Comp_Employees.Where(m => m.C_COMP_ID == comp && m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
                       .Select(l => new
@@ -155,6 +147,7 @@ namespace DMS_Authontication1.Controllers.HR
                 //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
                 SelectList addresslist = new SelectList(employees, "CARD_ID", "EMP_ANAME");
                 ViewBag.address = addresslist;
+                ViewBag.compnum = comp_id;
                 if (User.IsInRole("User"))
                 {
                     var usr = User.Identity.GetUserId();
@@ -172,6 +165,115 @@ namespace DMS_Authontication1.Controllers.HR
                     //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
                     SelectList addresslist2 = new SelectList(employees2, "CARD_ID", "EMP_ANAME");
                     ViewBag.address = addresslist2;
+                    ViewBag.compnum = ENUM_REQUESTSViewModel.CompName;
+                }
+            }
+            if (id != null)
+            {
+                var model = db.Enum_Requests.Find(id);
+                if (model == null)
+                {
+                    return View(ENUM_REQUESTSViewModel);
+                }
+                Enum_RequestsViewModel ViewModel = new Enum_RequestsViewModel();
+                ViewModel.ID = model.ID;
+                ViewModel.CompName = model.CARD_ID.Split('-')[0];
+                ViewModel.CARD_ID = model.CARD_ID;
+                ViewModel.TYPE = model.TYPE;
+                ViewModel.TYP_ANAME = model.TYP_ANAME;
+                ViewModel.PR_ENAME = model.PR_ENAME;
+                ViewModel.NOTES = model.NOTES;
+                ViewModel.MAIL_SEND = model.MAIL_SEND;
+                ViewModel.APPROVAL_IMAGE = model.APPROVAL_IMAGE;
+                ViewBag.compnum = ViewModel.CompName;
+                return View(ViewModel);
+            }
+            return View(ENUM_REQUESTSViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult CreateRequest(Enum_RequestsViewModel addApproval)
+        {
+            var userid = User.Identity.GetUserId();
+            var CompProvider = UserManager.FindById(userid);
+            if (!ModelState.IsValid)
+            {
+                #region Error
+                Enum_RequestsViewModel ENUM_REQUESTSViewModel = new Enum_RequestsViewModel();
+                ENUM_REQUESTSViewModel.CompName = CompProvider.Provider;
+                ENUM_REQUESTSViewModel.TYPE = addApproval.TYPE; ;
+                ENUM_REQUESTSViewModel.PR_ENAME = addApproval.PR_ENAME;
+                ENUM_REQUESTSViewModel.TYP_ANAME = addApproval.TYP_ANAME;
+                ENUM_REQUESTSViewModel.NOTES = addApproval.NOTES;
+                ENUM_REQUESTSViewModel.CARD_ID = addApproval.CARD_ID;
+                ENUM_REQUESTSViewModel.MAIL_SEND = addApproval.MAIL_SEND;
+                if (User.IsInRole("HR_Admin"))
+                {
+                    ViewBag.compnum = null;
+                    var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+                    if (compines[0] == "All")
+                    {
+                        var companyname = db.Contract_Comp
+                            .Select(l => new
+                            {
+                                Code = l.C_COMP_ID,
+                                Name = l.C_ENAME + " || " + l.C_COMP_ID
+
+                            }).ToList();
+                        SelectList companylist = new SelectList(companyname, "Code", "Name", addApproval.CompName);
+                        ViewBag.company = companylist;
+                    }
+                    else
+                    {
+                        var companyname = (from comp1 in compines
+                                           join contCo in db.Contract_Comp
+                                           on int.Parse(comp1) equals contCo.C_COMP_ID
+                                           select new
+                                           {
+                                               Code = contCo.C_COMP_ID,
+                                               Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                           }).ToList();
+                        SelectList companylist = new SelectList(companyname, "Code", "Name", addApproval.CompName);
+                        ViewBag.company = companylist;
+                    }
+                }
+
+                //var HrUserNamre = User.Identity.GetUserName();
+                //var comp_id = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
+                
+                else
+                {
+                    var comp = Convert.ToInt32(CompProvider.Provider);
+                    var datenow = DateTime.Now.Date;
+                    var employees = db.Comp_Employees.Where(m => m.C_COMP_ID == comp && m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
+                          .Select(l => new
+                          {
+                              CARD_ID = l.CARD_ID,
+                              EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
+                          }).ToList();
+                    //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+                    SelectList addresslist = new SelectList(employees, "CARD_ID", "EMP_ANAME");
+                    ViewBag.address = addresslist;
+                    ViewBag.compnum = addApproval.CompName;
+                    if (User.IsInRole("User"))
+                    {
+                        var usr = User.Identity.GetUserId();
+                        var cardId = db.EmployeePersonalDatas.Where(e => e.UserId == usr).FirstOrDefault().CardId;
+                        ENUM_REQUESTSViewModel.CARD_ID = cardId;
+                        ENUM_REQUESTSViewModel.CompName = cardId.Split('-')[0];
+                        var comp2 = int.Parse(ENUM_REQUESTSViewModel.CompName);
+                        var employees2 = db.Comp_Employees.Where(m => m.C_COMP_ID == comp2 && m.CARD_ID == cardId &&
+                        m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
+                          .Select(l => new
+                          {
+                              CARD_ID = l.CARD_ID,
+                              EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
+                          }).ToList();
+                        //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+                        SelectList addresslist2 = new SelectList(employees2, "CARD_ID", "EMP_ANAME");
+                        ViewBag.address = addresslist2;
+                        ViewBag.compnum = addApproval.CompName;
+                    }
                 }
                 #endregion
                 return View(ENUM_REQUESTSViewModel);
@@ -190,7 +292,7 @@ namespace DMS_Authontication1.Controllers.HR
             model.CREATED_BY = User.Identity.GetUserName();
             model.CREATED_DATE = DateTime.Now;
             model.STATE = 2;
-            model.TYPE = addApproval.TYPE; ;
+            model.TYPE = addApproval.TYPE;
             model.PR_ENAME = addApproval.PR_ENAME;
             model.TYP_ANAME = addApproval.TYP_ANAME;
             model.NOTES = addApproval.NOTES;
@@ -251,7 +353,6 @@ namespace DMS_Authontication1.Controllers.HR
         }
 
         #region help Methods
-
         public JsonResult GetEmployeeChronicData(string cardId, string compId)
         {
             int Comp_ID = Convert.ToInt32(compId);
@@ -413,15 +514,10 @@ namespace DMS_Authontication1.Controllers.HR
                 return (new ReturnResult { data = "EX", message = ex.Message });
             }
         }
-
         public void SendMail(string to, string subject, string Message, AlternateView altView, ApplicationUser applicationUser)
         {
 
-            //StringBuilder strBody = new StringBuilder();
-            //strBody.Append("One Try To login To Ypur Accoun");
-            //var EmailAndPassword = db.ProviderEmails.Where(p => p.PrvoderCode == applicationUser.Provider).FirstOrDefault();
             System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("dmsdms032@gmail.com", to, subject, Message);
-            //pasing the Gmail credentials to send the email
             mail.AlternateViews.Add(altView);
             System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("dmsdms032@gmail.com", "Dms123456");
 
@@ -430,13 +526,11 @@ namespace DMS_Authontication1.Controllers.HR
             mailclient.UseDefaultCredentials = false;
             mailclient.Credentials = mailAuthenticaion;
             mail.IsBodyHtml = true;
-            //mailclient.UseDefaultCredentials = false;
             mailclient.Send(mail);
         }
 
         public List<Comp_Employees> CardList(string CardId)
         {
-            //var CardId = db.EmployeePersonalDatas.Where(e => e.UserId == userId).FirstOrDefault().CardId;
             var EmpCode = long.Parse(CardId.Split('-')[2]);
             var CompId = int.Parse(CardId.Split('-')[0]);
             var Employee = db.Comp_Employees.Where(e => e.CARD_ID == CardId &&

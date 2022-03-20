@@ -61,14 +61,7 @@ namespace DMS_Authontication1.Controllers.HR
                 }
                 else
                 {
-                    var companyname = db.Contract_Comp
-                        .Select(l => new
-                        {
-                            Code = l.C_COMP_ID,
-                            Name = l.C_ENAME + " || " + l.C_COMP_ID
-
-                        }).ToList();
-                    (from comp in compines
+                    var companyname = (from comp in compines
                      join contCo in db.Contract_Comp
                      on int.Parse(comp) equals contCo.C_COMP_ID
                      select new
@@ -114,14 +107,7 @@ namespace DMS_Authontication1.Controllers.HR
                 }
                 else
                 {
-                    var companyname = db.Contract_Comp
-                        .Select(l => new
-                        {
-                            Code = l.C_COMP_ID,
-                            Name = l.C_ENAME + " || " + l.C_COMP_ID
-
-                        }).ToList();
-                    (from comp in compines
+                    var companyname = (from comp in compines
                      join contCo in db.Contract_Comp
                      on int.Parse(comp) equals contCo.C_COMP_ID
                      select new
@@ -166,14 +152,7 @@ namespace DMS_Authontication1.Controllers.HR
                 }
                 else
                 {
-                    var companyname = db.Contract_Comp
-                        .Select(l => new
-                        {
-                            Code = l.C_COMP_ID,
-                            Name = l.C_ENAME + " || " + l.C_COMP_ID
-
-                        }).ToList();
-                    (from comp in compines
+                    var companyname = (from comp in compines
                      join contCo in db.Contract_Comp
                      on int.Parse(comp) equals contCo.C_COMP_ID
                      select new
@@ -219,14 +198,7 @@ namespace DMS_Authontication1.Controllers.HR
                 }
                 else
                 {
-                    var companyname = db.Contract_Comp
-                        .Select(l => new
-                        {
-                            Code = l.C_COMP_ID,
-                            Name = l.C_ENAME + " || " + l.C_COMP_ID
-
-                        }).ToList();
-                    (from comp in compines
+                    var companyname = (from comp in compines
                      join contCo in db.Contract_Comp
                      on int.Parse(comp) equals contCo.C_COMP_ID
                      select new
@@ -272,14 +244,7 @@ namespace DMS_Authontication1.Controllers.HR
                 }
                 else
                 {
-                    var companyname = db.Contract_Comp
-                        .Select(l => new
-                        {
-                            Code = l.C_COMP_ID,
-                            Name = l.C_ENAME + " || " + l.C_COMP_ID
-
-                        }).ToList();
-                    (from comp in compines
+                    var companyname = (from comp in compines
                      join contCo in db.Contract_Comp
                      on int.Parse(comp) equals contCo.C_COMP_ID
                      select new

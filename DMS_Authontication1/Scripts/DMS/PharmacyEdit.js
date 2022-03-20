@@ -399,7 +399,7 @@ function Calculation() {
         }
         if (Limit < (total) && Limit != 0) {
             $('#txtValueCredit').val((Limit * (co / 100) + parseFloat(sumNoPay)).toFixed(2));
-            $('#txtTotalCopayment').val((Limit * (person / 100) ).toFixed(2));
+            $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
             $('#txtOverInsurance').val((total - Limit).toFixed(2));
         }
         else if (Limit > (total) && Limit != 0) {
@@ -409,7 +409,7 @@ function Calculation() {
         }
         else {
             $('#txtValueCredit').val(((total * (co / 100)) + parseFloat(sumNoPay)).toFixed(2));
-            $('#txtTotalCopayment').val((total  * (person / 100)).toFixed(2));
+            $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
 
         }
         //var totalcash = (sumCash + parseInt($('#txtTotalCopayment').val())).toFixed(2);
