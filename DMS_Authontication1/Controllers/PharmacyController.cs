@@ -236,7 +236,7 @@ namespace DMS_TEST.Controllers
                 string compardatestr = "20/" + ((DateTime.Now.Day <= 20) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString();
                 DateTime compardate = DateTime.ParseExact(compardatestr, "dd/MM/yyyy", null);
 
-                if (emp.INS_END_DATE < compardate)
+                if ((emp.INS_END_DATE < compardate) && !(emp.CARD_ID.Split('-')[0].Contains("500")))
                 {
                     var nextEmployeecontract = db.Comp_Employees.Where(c => c.CARD_ID == id).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
                     if (nextEmployeecontract == null)
@@ -591,7 +591,7 @@ namespace DMS_TEST.Controllers
                 string compardatestr = "20/" + ((DateTime.Now.Day <= 20) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString();
                 DateTime compardate = DateTime.ParseExact(compardatestr, "dd/MM/yyyy", null);
 
-                if (emp.INS_END_DATE < compardate)
+                if ((emp.INS_END_DATE < compardate) && !(emp.CARD_ID.Split('-')[0].Contains("500")))
                 {
                     var nextEmployeecontract = db.Comp_Employees.Where(c => c.CARD_ID == id).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
                     if (nextEmployeecontract == null)
