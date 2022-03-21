@@ -33,6 +33,7 @@ namespace DMS_Authontication1.Controllers.Employee
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private DBApproval dbAproval;
+        private ApplicationRoleManager _roleManager;
         private DMS_TESTEntities db = new DMS_TESTEntities();
         private ApplicationDbContext applicationDb = new ApplicationDbContext();
 
@@ -45,12 +46,24 @@ namespace DMS_Authontication1.Controllers.Employee
             dbAproval = new DBApproval();
         }
 
-        public EmployeeController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public EmployeeController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            RoleManager = roleManager;
         }
 
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
+        }
         public ApplicationSignInManager SignInManager
         {
             get
@@ -752,6 +765,7 @@ namespace DMS_Authontication1.Controllers.Employee
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddToRoleAsync(user.Id, "User");
+                    string roleId = RoleManager.FindByName("User").Id;
                     foreach (ERPRolesModulesPage page in db.ERPRolesModulesPages.Where(x => x.RoleId == roleId))
                     {
                         ERPUsersModulesPage Newmodel = new ERPUsersModulesPage();
