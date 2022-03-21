@@ -7331,23 +7331,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\DoctorImages\201410030118102397181438795.jpg" />
-    <Content Include="Content\DoctorImages\34064695_1937098273015466_6388216708326227968_n181229621.jpg" />
-    <Content Include="Content\DoctorImages\li_evergreen_jobs_ad_300x250_v1180916109.jpg" />
-    <Content Include="Content\DoctorStampImages\201410030118102397181232232.jpg" />
-    <Content Include="Content\DoctorStampImages\34064695_1937098273015466_6388216708326227968_n180931978.jpg" />
-    <Content Include="Content\DoctorStampImages\logo773242063151466883675181438804.jpeg" />
-    <Content Include="Content\EmployeesRequestsImage\120062214.jpg" />
-    <Content Include="Content\EmployeesRequestsImage\220062211.jpg" />
-    <Content Include="Content\EmployeesRequestsImage\301960_461815087231569_1188051221_n20062318.jpg" />
-    <Content Include="Content\EmployeesRequestsImage\420062318.jpg" />
-    <Content Include="Content\EmployeesRequestsImage\calend20121616.PNG" />
-    <Content Include="Content\EmployeesRequestsImage\Capture120062115.PNG" />
-    <Content Include="Content\EmployeesRequestsImage\Capture20062318.PNG" />
-    <Content Include="Content\EmployeesRequestsImage\Capture20081816.PNG" />
-    <Content Include="Content\EmployeesRequestsImage\Capture20081912.PNG" />
-    <Content Include="Content\EmployeesRequestsImage\Capture20081915.PNG" />
-    <Content Include="Content\EmployeesRequestsImage\photo21062315.jpg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\images\Blacklogo.png" />
     <Content Include="Content\images\demo_wait.gif" />
@@ -8202,7 +8185,9 @@
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
     <Folder Include="Content\AddApprovalFiles\" />
-    <Folder Include="Content\EmployeeRegister\temp\" />
+    <Folder Include="Content\DoctorImages\" />
+    <Folder Include="Content\DoctorStampImages\" />
+    <Folder Include="Content\EmployeeRegister\" />
     <Folder Include="Content\EmployeesRoshita\" />
     <Folder Include="Content\IndemnitiesAttachments\temp\" />
     <Folder Include="Views\ProposalBasicData\" />

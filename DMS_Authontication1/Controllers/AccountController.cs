@@ -164,19 +164,19 @@ namespace DMS_Authontication1.Controllers
                                     Session["IsIndemnity"] = found;
                                     return RedirectToLocal("/EmployeeRequest/Index");
                                 case "HR_Admin":
-                                    bool foundAdmin = false;
-                                    var providerAdmin = int.Parse(user.Provider);
-                                    var CurrentDateAdmin = DateTime.Now.Date;
-                                    var companyAdmin = db1.Contract_Data.Where(c => c.C_COMP_ID == providerAdmin && c.DATE_FROM <= CurrentDateAdmin
-                                   && c.DATE_TO >= CurrentDateAdmin).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-                                    if (companyAdmin != null)
-                                    {
-                                        var GetServActive = db1.COMP_CUSTOMIZED_D.Where(p => p.C_COMP_ID == providerAdmin && p.CONTRACT_NO == companyAdmin.CONTRACT_NO
-                                          && p.SERV_CODE == "12").FirstOrDefault();
-                                        if (GetServActive != null)
-                                            foundAdmin = true;
-                                    }
-                                    Session["IsIndemnity"] = foundAdmin;
+                                   // bool foundAdmin = false;
+                                   // var providerAdmin = int.Parse(user.Provider);
+                                   // var CurrentDateAdmin = DateTime.Now.Date;
+                                   // var companyAdmin = db1.Contract_Data.Where(c => c.C_COMP_ID == providerAdmin && c.DATE_FROM <= CurrentDateAdmin
+                                   //&& c.DATE_TO >= CurrentDateAdmin).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                                   // if (companyAdmin != null)
+                                   // {
+                                   //     var GetServActive = db1.COMP_CUSTOMIZED_D.Where(p => p.C_COMP_ID == providerAdmin && p.CONTRACT_NO == companyAdmin.CONTRACT_NO
+                                   //       && p.SERV_CODE == "12").FirstOrDefault();
+                                   //     if (GetServActive != null)
+                                   //         foundAdmin = true;
+                                   // }
+                                    Session["IsIndemnity"] = true;
                                     return RedirectToLocal("/Reports/Index");
                                 case "Hospital":
                                     return RedirectToLocal("/Hospital/Index");

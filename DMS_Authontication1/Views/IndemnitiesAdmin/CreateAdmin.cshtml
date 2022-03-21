@@ -19,8 +19,30 @@
         <div class="portlet-body">
             <div class="form-horizontal">
                 @if (ViewBag.error != "0")
-                {<p><h3 class="text-danger"> يجب ادخال جميع المرفقات بطريقه صحيحه  </h3></p>}
+                {
+                    <p><h3 class="text-danger"> يجب ادخال جميع المرفقات بطريقه صحيحه  </h3></p>
+                }
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                @if (User.IsInRole("HR_Admin"))
+                {
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            @Html.Label("Company", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <span class="required"> * </span>
+                            <div class="col-md-9">
+                                @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
+
+                            </div>
+                        </div>
+                    </div>
+                    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                    <script>
+                        $(document).ready(function () {
+                            $("#CompanyNumber").select2();
+                        });
+                    </script>
+                }
 
                 <div class="row">
                     <div class="form-group col-md-6">

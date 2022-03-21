@@ -17,7 +17,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace DMS_Authontication1.Controllers.HR
 {
-    [Authorize(Roles = "Admin,HR,User")]
+    [Authorize(Roles = "Admin,HR,HR_Admin,User")]
     public class IndemnitiesAdminController : Controller
     {
         private DMS_TESTEntities db = new DMS_TESTEntities();
@@ -75,7 +75,36 @@ namespace DMS_Authontication1.Controllers.HR
             ApplicationDbContext users = new ApplicationDbContext();
             var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
             ViewBag.UserCompId = CurrentUser.Provider;
+            if (User.IsInRole("HR_Admin"))
+            {
+                ViewBag.CompName = null;
+                var compines = db.HrAdminCompanies.Where(x => x.UserId == CurrentUser.Id).Select(c => c.CompId).ToList();
+                if (compines[0] == "All")
+                {
+                    var companyname = db.Contract_Comp
+                        .Select(l => new
+                        {
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
 
+                        }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+                else
+                {
+                    var companyname = (from comp in compines
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+            }
             ViewBag.ServiceId = new SelectList(db.Services, "ID", "NameAr");
             ViewBag.SpecialistId = new SelectList(db.Specialities1, "SPEC_ID", "SPEC_ANAME");
 
@@ -99,7 +128,8 @@ namespace DMS_Authontication1.Controllers.HR
         [ValidateAntiForgeryToken]
         public ActionResult CreateAdmin(IndemnityMasterVm IndemnityMaster)
         {
-
+            int compId = int.Parse(IndemnityMaster.RelatedCardId.Split('-')[0]);
+            var companyname = db.Contract_Comp.Where(c => c.C_COMP_ID == compId).FirstOrDefault().C_ENAME;
             // General Object
             IndemnityMaster model = new IndemnityMaster();
             model.NationalID = IndemnityMaster.NationalId;
@@ -110,7 +140,7 @@ namespace DMS_Authontication1.Controllers.HR
             model.BankBranch = IndemnityMaster.BankBranch;
             model.BankAccount = IndemnityMaster.BankAccount;
             model.Phone = IndemnityMaster.Phone;
-            model.CompanyName = IndemnityMaster.CompanyName;
+            model.CompanyName = companyname;
             model.CardId = IndemnityMaster.RelatedCardId;
             model.CreatedBy = User.Identity.Name;
             model.CreatedDate = DateTime.Now;
@@ -222,7 +252,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             var userid = User.Identity.GetUserId();
             var Hospitalprovider = UserManager.FindById(userid);
-            string sub = @"Request Indemnity From " + Hospitalprovider.FName + " " + Hospitalprovider.LName + "  Code : " + Hospitalprovider.Provider;
+            string sub = @"Request Indemnity From " + Hospitalprovider.FName + " " + Hospitalprovider.LName + "  Code : " + (IndemnityMaster.RelatedCardId.Split('-')[0]);
             string msg = @"<h3> Request Number  : </h3>" + model.Id + "<br/>";
             if (model.Type == 1)
             {
@@ -298,8 +328,7 @@ namespace DMS_Authontication1.Controllers.HR
                 }
             }
 
-            SendMail("indhrrequest@gmail.com", sub, msg, altView/*, Hospitalprovider*/);
-            //SendMail("dms.medical2@gmail.com", sub, msg, altView/*, Hospitalprovider*/);
+            SendMail("indhrrequest@gmail.com", sub, msg, altView);
 
             if (model.Id > 0)
             {
@@ -309,7 +338,36 @@ namespace DMS_Authontication1.Controllers.HR
             ApplicationDbContext users = new ApplicationDbContext();
             var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
             ViewBag.UserCompId = CurrentUser.Provider;
+            if (User.IsInRole("HR_Admin"))
+            {
+                ViewBag.CompName = null;
+                var compines = db.HrAdminCompanies.Where(x => x.UserId == CurrentUser.Id).Select(c => c.CompId).ToList();
+                if (compines[0] == "All")
+                {
+                    var companynam = db.Contract_Comp
+                        .Select(l => new
+                        {
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
 
+                        }).ToList();
+                    SelectList companylist = new SelectList(companynam, "Code", "Name", compId);
+                    ViewBag.company = companylist;
+                }
+                else
+                {
+                    var companynam = (from comp in compines
+                                      join contCo in db.Contract_Comp
+                                      on int.Parse(comp) equals contCo.C_COMP_ID
+                                      select new
+                                      {
+                                          Code = contCo.C_COMP_ID,
+                                          Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                      }).ToList();
+                    SelectList companylist = new SelectList(companynam, "Code", "Name", compId);
+                    ViewBag.company = companylist;
+                }
+            }
             ViewBag.ServiceId = new SelectList(db.Services, "ID", "NameAr");
             ViewBag.SpecialistId = new SelectList(db.Specialities1, "SPEC_ID", "SPEC_ANAME");
             IndemnityMasterVm indemnityVMs = new IndemnityMasterVm
@@ -333,13 +391,11 @@ namespace DMS_Authontication1.Controllers.HR
             return null;
         }
 
-        public void SendMail(string to, string subject, string Message, AlternateView altView/*, ApplicationUser applicationUser*/)
+        public void SendMail(string to, string subject, string Message, AlternateView altView)
         {
-            //System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("IndemnityRequest@dms-eg.com" /*EmailAndPassword.Email*/, to, subject, Message);
-            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("hrindemnity@gmail.com" /*EmailAndPassword.Email*/, to, subject, Message);
+            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("hrindemnity@gmail.com" , to, subject, Message);
             mail.AlternateViews.Add(altView);
-            //System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("IndemnityRequest@dms-eg.com", "I.indemnity12345"/*EmailAndPassword.Email, EmailAndPassword.Password*/);
-            System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("hrindemnity@gmail.com", "dms123456"/*EmailAndPassword.Email, EmailAndPassword.Password*/);
+            System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("hrindemnity@gmail.com", "dms123456");
 
             System.Net.Mail.SmtpClient mailclient = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
             mailclient.EnableSsl = true;
@@ -355,13 +411,8 @@ namespace DMS_Authontication1.Controllers.HR
             ApplicationDbContext users = new ApplicationDbContext();
             var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
             ViewBag.UserCompId = CurrentUser.Provider;
-
             ViewBag.ServiceId = new SelectList(db.Services, "ID", "NameAr");
             ViewBag.SpecialistId = new SelectList(db.Specialities1, "SPEC_ID", "SPEC_ANAME");
-
-            //var services = db.Services.ToList();
-            //SelectList ServicesList = new SelectList(services, "ID", "NameAr");
-            //ViewBag.Services = ServicesList;
             return View();
         }
 
@@ -452,41 +503,12 @@ namespace DMS_Authontication1.Controllers.HR
             string sub = @" Delete Request Indemnity From " + Hospitalprovider.FName + " " + Hospitalprovider.LName + "  Code : " + Hospitalprovider.Provider;
             string msg = @"<h3> Request Number  : </h3>" + id + "<br/>";
             AlternateView altView = AlternateView.CreateAlternateViewFromString(msg, null, MediaTypeNames.Text.Html);
-            SendMail("indhrrequest@gmail.com", sub, msg, altView/*, Hospitalprovider*/);
+            SendMail("indhrrequest@gmail.com", sub, msg, altView);
             return RedirectToAction("Index");
         }
 
-        public JsonResult SaveIndemnity(IndemnityMasterVm indemnityVMs /*, Indemnity data*/)
-        {
-            //data.CreatedBy = User.Identity.Name;
-            //data.CreatedDate = DateTime.Now;
-            //foreach (var item in data.IndemnityCardsServices)
-            //{
-            //    if (item.AttachPDF != null)
-            //    {
-            //        string[] attaches = item.AttachPDF.Split(',');
-            //        string newAttachment = "";
-            //        for (int i = 0; i < attaches.Length - 1; i++)
-            //        {
-            //            string[] singleattach = attaches[i].Split('.');
-            //            string attchName = singleattach[0] + DateTime.Now.ToString("yyMMddHH") + "." + singleattach[1];
-            //            newAttachment += attchName;
-            //            if (i < attaches.Length - 1)
-            //            {
-            //                newAttachment += ",";
-            //            }
-            //        }
-            //        item.AttachPDF = newAttachment;
-            //    }
-            //}
-            //db.Indemnities.Add(data);
-
-            //int result = db.SaveChanges();
-            return Json(1);
-        }
         public JsonResult SaveAttaches(List<HttpPostedFileBase> Files)
         {
-            //HttpPostedFileBase File = Files[0];
             if (Files != null)
             {
                 foreach (HttpPostedFileBase File in Files)
@@ -495,11 +517,8 @@ namespace DMS_Authontication1.Controllers.HR
                     var extention = Path.GetExtension(File.FileName);
                     var filenamewithoutextension = Path.GetFileNameWithoutExtension(File.FileName);
                     fileName = filenamewithoutextension + DateTime.Now.ToString("yyMMddHH") + extention;
-                    //var filenamewithoutextension = Path.GetFileNameWithoutExtension(ImageFile.FileName);
-
-                    File.SaveAs(Server.MapPath("/Content/IndemnitiesAttachments/" + fileName /*ImageFile.FileName*/));
+                    File.SaveAs(Server.MapPath("/Content/IndemnitiesAttachments/" + fileName ));
                 }
-                //  Session["FileName"] = "/Content/IndemnitiesAttaches/" + fileName;
             }
 
             return new JsonResult { Data = "r", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -665,11 +684,6 @@ namespace DMS_Authontication1.Controllers.HR
                         return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                     }
                 }
-                //else if (employe.TERMINATE_FLAG == "N" || employe.TERMINATE_FLAG == null)
-                //{
-                //    var result = new { Success = "Yes" };
-                //    return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                //}
                 else
                 {
                     var result = new { Success = "No", Message = "الكارت خارج التغطية التامينة خلال هذه الفترة" };
@@ -713,7 +727,7 @@ namespace DMS_Authontication1.Controllers.HR
             }
         }
 
-        public JsonResult UpdateStatus( int id, string statustext)
+        public JsonResult UpdateStatus(int id, string statustext)
         {
             var model = db.IndemnityMasters.Where(r => r.Id == id).FirstOrDefault();
             if (model != null)
@@ -741,8 +755,5 @@ namespace DMS_Authontication1.Controllers.HR
             }
             base.Dispose(disposing);
         }
-
-
-
     }
 }
