@@ -347,39 +347,48 @@
                         contentType: false,
                         data: Imagedata,
                         success: function (response) {
-                            $.ajax({
-                                type: 'POST',
-                                url: '/EmployeeRequest/SaveEditRequest/',
-                                dataType: 'Json',
-                                data: Request,
-                                success: function (result) {
-
-                                    bootbox.dialog({
-                                        closeButton: false,
-                                        title: 'Added Sucessfully',
-                                        message: "Request Number : " + result,
-                                        buttons: {
-                                            New: {
-                                                label: "New",
-                                                className: 'btn-info',
-                                                callback: function () {
-                                                    ClearSaveEditRequest();
-                                                    $("#submit").attr("disabled", false);
-                                                    // window.location.href = "/EmployeeRequest/index";
-                                                }
-                                            }
-
-                                        }
-                                    });
-                                },
-                                error: function (err) {
-                                    bootbox.alert("Error saving Request");
+                            if (response != "No") {
+                                if (Request.TYPE == "2") {
+                                    Request.TYP_EMP_UPDATE = response;
                                 }
-                            })
-                            //response image url instead of session
+                                if (Request.TYPE == "4") {
+                                    Request.PRINT_IMG = response;
+                                }
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/EmployeeRequest/SaveEditRequest/',
+                                    dataType: 'Json',
+                                    data: Request,
+                                    success: function (result) {
+
+                                        bootbox.dialog({
+                                            closeButton: false,
+                                            title: 'Added Sucessfully',
+                                            message: "Request Number : " + result,
+                                            buttons: {
+                                                New: {
+                                                    label: "New",
+                                                    className: 'btn-info',
+                                                    callback: function () {
+                                                        ClearSaveEditRequest();
+                                                        $("#submit").attr("disabled", false);
+                                                    }
+                                                }
+
+                                            }
+                                        });
+                                    },
+                                    error: function (err) {
+                                        bootbox.alert("Error saving Request");
+                                    }
+                                })
+                            }
+                            else {
+                                alert("Error Upload Image");
+                            }
                         },
                         error: function (er) {
-                            //alert("Error Upload Image");
+                            alert("Error Upload Image");
                         }
 
                     })

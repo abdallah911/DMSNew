@@ -309,7 +309,6 @@ $(function () {
         }
     });
 
-
     $('#btn_create_new').click(function () {
         //debugger;
         $(this).attr('disabled', true);
@@ -375,6 +374,21 @@ $(function () {
         return false;
     });
 
+    $("#CompanyNumber").change(function () {// class levels
+        $("#CARD_ID").val(null).trigger('change');
+        var compNu = $("#CompanyNumber").val();
+        ClearSaveIndemnty();
+        $("#CompanyName").val(compNu);
+        $("#UserCompId").val(compNu);
+    });
+
+    $("#CompanyNumber").map(function () {// class levels
+        if ($("#userRole").val() != "1") {
+            var compNu = $("#CompanyNumber").val();
+            $("#CompanyName").val(compNu);
+            $("#UserCompId").val(compNu);
+        }
+    });
 
 });
 function ValidSaveIndemnty() {

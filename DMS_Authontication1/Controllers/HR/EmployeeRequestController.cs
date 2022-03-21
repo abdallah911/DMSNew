@@ -501,23 +501,18 @@ namespace DMS_Authontication1.Controllers.HR
 
         public JsonResult SaveImage(HttpPostedFileBase File)
         {
-            //HttpPostedFileBase File = Files[0];
             if (File != null)
             {
-                //foreach (HttpPostedFileBase File in Files)
-                //{}
                 var fileName = Path.GetFileName(File.FileName);
                 var extention = Path.GetExtension(File.FileName);
                 var filenamewithoutextension = Path.GetFileNameWithoutExtension(File.FileName);
                 fileName = filenamewithoutextension + DateTime.Now.ToString("yyMMddHH") + extention;
-                //var filenamewithoutextension = Path.GetFileNameWithoutExtension(ImageFile.FileName);
 
-                File.SaveAs(Server.MapPath("/Content/EmployeesRequestsImage/" + fileName /*ImageFile.FileName*/));
+                File.SaveAs(Server.MapPath("/Content/EmployeesRequestsImage/" + fileName));
 
-                //  Session["FileName"] = "/Content/IndemnitiesAttaches/" + fileName;
+                return new JsonResult { Data = fileName, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
-
-            return new JsonResult { Data = "r", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult { Data = "No", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         public JsonResult SendExcelFile(HttpPostedFileBase File)
@@ -570,14 +565,10 @@ namespace DMS_Authontication1.Controllers.HR
             data.COMP_ID = Convert.ToInt32(CurrentUser.Provider);
             if (data.PRINT_IMG != null)
             {
-                string[] single = data.PRINT_IMG.Split('.');
-                data.PRINT_IMG = single[0] + DateTime.Now.ToString("yyMMddHH") + '.' + single[1];
                 imgPath = data.PRINT_IMG;
             }
             if (data.TYP_EMP_UPDATE != null)
             {
-                string[] single = data.TYP_EMP_UPDATE.Split('.');
-                data.TYP_EMP_UPDATE = single[0] + DateTime.Now.ToString("yyMMddHH") + '.' + single[1];
                 imgPath = data.TYP_EMP_UPDATE;
             }
 
@@ -655,11 +646,9 @@ namespace DMS_Authontication1.Controllers.HR
 
             }
 
-            SendMail("Operation@dms-eg.com", sub, msg, altView/*, Hospitalprovider*/);
-            SendMail("Operation.aso@dms-eg.com", sub, msg, altView/*, Hospitalprovider*/);
-            SendMail("marian@dms-eg.com", sub, msg, altView/*, Hospitalprovider*/);
-            //SendMail("dms.medical1@gmail.com", sub, msg, altView/*, Hospitalprovider*/);
-            //SendMail("dms.medical2@gmail.com", sub, msg, altView/*, Hospitalprovider*/);
+            SendMail("Operation@dms-eg.com", sub, msg, altView);
+            SendMail("Operation.aso@dms-eg.com", sub, msg, altView);
+            SendMail("marian@dms-eg.com", sub, msg, altView);
 
             return Json(data.REQUEST_CODE);
         }
@@ -710,11 +699,11 @@ namespace DMS_Authontication1.Controllers.HR
             base.Dispose(disposing);
         }
 
-        public void SendMail(string to, string subject, string Message, AlternateView altView/*, ApplicationUser applicationUser*/)
+        public void SendMail(string to, string subject, string Message, AlternateView altView)
         {
-            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("mediacl.approv@gmail.com" /*EmailAndPassword.Email*/, to, subject, Message);
+            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("mediacl.approv@gmail.com" , to, subject, Message);
             mail.AlternateViews.Add(altView);
-            System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "Dms123456"/*EmailAndPassword.Email, EmailAndPassword.Password*/);
+            System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "Dms123456");
 
             System.Net.Mail.SmtpClient mailclient = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
             mailclient.EnableSsl = true;

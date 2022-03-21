@@ -71,7 +71,9 @@
                                                     @Html.DisplayNameFor(model => model.CARD_ID) :
                                                 </label>
                                                 <div class="col-md-8">
-                                                    @Html.DropDownList("CardId", ViewBag.company as SelectList, "Select Card id", new { @class = "form-control", id = "CardId" })
+                                                    <select id="CardId" class="form-control js-data-example-ajax" style="width: 100%"></select>
+
+                                                    @*@Html.DropDownList("CardId", null, null, new { @class = "form-control", id = "CardId" })*@
                                                 </div>
                                             </div>
                                         }

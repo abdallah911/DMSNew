@@ -545,8 +545,6 @@ namespace DMS_Authontication1.Controllers.HR
         }
 
 
-
-
         /// <summary>
         /// For print Staff Consumption report as PDF
         /// </summary>
@@ -932,8 +930,6 @@ namespace DMS_Authontication1.Controllers.HR
 
             }
         }
-
-
 
 
 
