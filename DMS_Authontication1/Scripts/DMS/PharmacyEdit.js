@@ -293,7 +293,6 @@ function Remove(button, event) {
 
 }
 function Calculation() {
-    debugger;
     var sum = 0;
     var sumCash = 0;
     sumNoPay = 0;
@@ -916,7 +915,6 @@ function changeTable(button) {
 
     Calculation();
 }
-
 function changeTotalDuration(button) {
     var MinDay = (ServiceCode == "11601") ? 5 : 1;
     var MaxDay = (ServiceCode == "11601") ? 14 : 28;
@@ -940,7 +938,6 @@ function changeTotalDuration(button) {
 
     Calculation();
 }
-
 function changeTotalUnits(button) {
     var row = $(button).closest("TR");
     if (ServiceCode == "11602") {
