@@ -1,16 +1,48 @@
 ﻿@model DMS_Authontication1.Models.Employee_Request
-
+@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
 @{
     ViewBag.Title = "EditRequest";
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+
+
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    var Create = false;
+    var modellist = new List<ModulesPagesViewModel>();
+    var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+    if (claim != null)
+    {
+        modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+        if (modellist != null)
+        {
+            var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 12 && (x.FullControl || x.EditPermission
+                                          || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+            if (obj != null)
+            {
+                edit = obj.EditPermission;
+                delete = obj.ActivationControl;
+                view = obj.Preview;
+                fullcontroll = obj.FullControl;
+                Create = obj.AddPermission;
+
+            }
+        }
+    }
 }
 <div style="margin-top:150px">
     <p>
-        @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn btn-info fa fa-search", @style = " text-transform: none" })
-        @Html.ActionLink(" Create Request", "EditRequest", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-pencil", @style = " text-transform: none" })
-        @*@Html.ActionLink(" New Employee", "Create", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus", @style = " text-transform: none" })
-            @Html.ActionLink(" Edit Employee", "EditRequest", null, htmlAttributes: new { @class = "btn btn-warning fa fa-pencil", @style = " text-transform: none" })
-            @Html.ActionLink(" Termination Request", "Termination", null, htmlAttributes: new { @class = "btn btn-danger fa fa-remove", @style = " text-transform: none" })*@
+        @if (fullcontroll || view)
+        {
+            @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn btn-info fa fa-search", @style = " text-transform: none" })
+        }
+        @if (fullcontroll || Create)
+        {
+            @Html.ActionLink(" Create Request", "EditRequest", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-pencil", @style = " text-transform: none" })
+        }
     </p>
     <div class="portlet box  green">
         <div class="portlet-title">
@@ -691,15 +723,15 @@
 
 
                         @*<div class="form-group col-md-6">
-            @Html.Label("Gender", new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.GENDER, new List<SelectListItem>
-                     {
-                        new SelectListItem{ Text="Male", Value = "1" },
-                        new SelectListItem{ Text="Female", Value = "2" },
-                     }, "--Select--", new { @class = "form-control",@required="True" })
-            </div>
-        </div>*@
+                                @Html.Label("Gender", new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(m => m.GENDER, new List<SelectListItem>
+                                         {
+                                            new SelectListItem{ Text="Male", Value = "1" },
+                                            new SelectListItem{ Text="Female", Value = "2" },
+                                         }, "--Select--", new { @class = "form-control",@required="True" })
+                                </div>
+                            </div>*@
 
 
                         <div class="form-group">

@@ -1,21 +1,76 @@
 ﻿@model DMS_Authontication1.ViewModel.RequestAddProvidersVM
+@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
 @{
     ViewBag.Title = "CreateRequest";
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    var Create = false;
+    var modellist = new List<ModulesPagesViewModel>();
+    var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+    if (claim != null)
+    {
+        modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+        if (modellist != null)
+        {
+            if (User.IsInRole("User"))
+            {
+                var obj = modellist.Where(x => x.ModuleName == "Customers Management" && x.PageId == 23 && (x.FullControl || x.EditPermission
+                                              || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+                if (obj != null)
+                {
+                    edit = obj.EditPermission;
+                    delete = obj.ActivationControl;
+                    view = obj.Preview;
+                    fullcontroll = obj.FullControl;
+                    Create = obj.AddPermission;
+
+                }
+            }
+            else
+            {
+                var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 14 && (x.FullControl || x.EditPermission
+                                  || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+                if (obj != null)
+                {
+                    edit = obj.EditPermission;
+                    delete = obj.ActivationControl;
+                    view = obj.Preview;
+                    fullcontroll = obj.FullControl;
+                    Create = obj.AddPermission;
+
+                }
+            }
+        }
+    }
+
+
 }
 <br />
 <div style="margin-top:40px">
     <p>
         @if (User.IsInRole("User"))
         {
-            @Html.ActionLink(" Search", "MedicalNetwork", "Employee", null, htmlAttributes: new { @class = "btn btn-info fa fa-search ", @style = " text-transform: none" })
+            if (fullcontroll || view)
+            {
+                @Html.ActionLink(" Search", "MedicalNetwork", "Employee", null, htmlAttributes: new { @class = "btn btn-info fa fa-search ", @style = " text-transform: none" })
+            }
         }
         else
         {
-            @Html.ActionLink(" Search", "Search", null, htmlAttributes: new { @class = "btn btn-info fa fa-search ", @style = " text-transform: none" })
+            if (fullcontroll || view)
+            {
+                @Html.ActionLink(" Search", "Search", null, htmlAttributes: new { @class = "btn btn-info fa fa-search ", @style = " text-transform: none" })
+            }
         }
-        @Html.ActionLink(" Create Request ", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-plus ", @style = " text-transform: none" })
-        @*@Html.ActionLink(" Consumption", "Consumption", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })*@
+        @if (fullcontroll || Create)
+        {
+            @Html.ActionLink(" Create Request ", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-plus ", @style = " text-transform: none" })
+        }
     </p>
 </div>
 <div class="portlet box  green">
@@ -268,15 +323,6 @@
         $("#Region_select").select2();
         $("#ProviderType").select2();
 
-        //$("#Country_select").change(function () {//address
-        //    $.get("/Account/GetStateList",
-        //        { id: $("#Country_select").val() }, function (data) {
-        //            $("#Region_select").empty();
-        //            $.each(data, function (index, row) {
-        //                $("#Region_select").append("<option value='" + row.Text + "'>" + row.Value + "</option>")
-        //            });
-        //        });
-        //});
         $("#Country_select").change(function () {//address
             $.get("/Account/GetStateList",
                 { id: $("#Country_select").val() }, function (data) {
@@ -376,7 +422,7 @@
                         $("#edit").attr("disabled", false);
                         sel = dat.modelreturn.Region;
                         $("#RequestCode").html(dat.modelreturn.ID);
-                        
+
                         $('#Country_select').val(dat.modelreturn.Country).select2();
                         $("#Country_select").map(function () {//address
                             $.get("/Account/GetStateList",
