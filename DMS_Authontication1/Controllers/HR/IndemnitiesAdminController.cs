@@ -75,6 +75,7 @@ namespace DMS_Authontication1.Controllers.HR
             ApplicationDbContext users = new ApplicationDbContext();
             var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
             ViewBag.UserCompId = CurrentUser.Provider;
+            ViewBag.CompName = CurrentUser.Provider;
             if (User.IsInRole("HR_Admin"))
             {
                 ViewBag.CompName = null;
@@ -119,7 +120,7 @@ namespace DMS_Authontication1.Controllers.HR
                 var usr = User.Identity.GetUserId();
                 var cardId = db.EmployeePersonalDatas.Where(e => e.UserId == usr).FirstOrDefault().CardId;
                 ViewBag.cardID = cardId;
-                ViewBag.compnum = cardId.Split('-')[0];
+                ViewBag.CompName = cardId.Split('-')[0];
                 ViewBag.UserCompId = cardId.Split('-')[0];
             }
             return View(indemnityVMs);
@@ -128,7 +129,7 @@ namespace DMS_Authontication1.Controllers.HR
         [ValidateAntiForgeryToken]
         public ActionResult CreateAdmin(IndemnityMasterVm IndemnityMaster)
         {
-            int compId = int.Parse(IndemnityMaster.RelatedCardId.Split('-')[0]);
+            int compId = int.Parse(IndemnityMaster.CompanyName);
             var companyname = db.Contract_Comp.Where(c => c.C_COMP_ID == compId).FirstOrDefault().C_ENAME;
             // General Object
             IndemnityMaster model = new IndemnityMaster();
@@ -252,7 +253,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             var userid = User.Identity.GetUserId();
             var Hospitalprovider = UserManager.FindById(userid);
-            string sub = @"Request Indemnity From " + Hospitalprovider.FName + " " + Hospitalprovider.LName + "  Code : " + (IndemnityMaster.RelatedCardId.Split('-')[0]);
+            string sub = @"Request Indemnity From " + Hospitalprovider.FName + " " + Hospitalprovider.LName + "  Code : " + IndemnityMaster.CompanyName;
             string msg = @"<h3> Request Number  : </h3>" + model.Id + "<br/>";
             if (model.Type == 1)
             {
@@ -393,7 +394,7 @@ namespace DMS_Authontication1.Controllers.HR
 
         public void SendMail(string to, string subject, string Message, AlternateView altView)
         {
-            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("hrindemnity@gmail.com" , to, subject, Message);
+            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("hrindemnity@gmail.com", to, subject, Message);
             mail.AlternateViews.Add(altView);
             System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("hrindemnity@gmail.com", "dms123456");
 
@@ -517,7 +518,7 @@ namespace DMS_Authontication1.Controllers.HR
                     var extention = Path.GetExtension(File.FileName);
                     var filenamewithoutextension = Path.GetFileNameWithoutExtension(File.FileName);
                     fileName = filenamewithoutextension + DateTime.Now.ToString("yyMMddHH") + extention;
-                    File.SaveAs(Server.MapPath("/Content/IndemnitiesAttachments/" + fileName ));
+                    File.SaveAs(Server.MapPath("/Content/IndemnitiesAttachments/" + fileName));
                 }
             }
 

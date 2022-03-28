@@ -466,7 +466,7 @@ function ValidSaveIndemnty() {
 function ClearSaveIndemnty() {
     //$("#Type").val('1').trigger("change");
 
-    $("#CompanyName").val("");
+    //$("#CompanyName").val("");
     $("#RelatedCardId").val("").change();
     $("#EmployeeName").val("");
     $("#NationalID").val("");
