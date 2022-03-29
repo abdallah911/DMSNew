@@ -896,6 +896,21 @@ namespace DMS_Authontication1.Controllers.Employee
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddToRoleAsync(user.Id, "User");
+                    string roleId = RoleManager.FindByName("User").Id;
+                    foreach (ERPRolesModulesPage page in db.ERPRolesModulesPages.Where(x => x.RoleId == roleId))
+                    {
+                        ERPUsersModulesPage Newmodel = new ERPUsersModulesPage();
+                        Newmodel.PageId = page.PageId;
+                        Newmodel.UserId = user.Id;
+                        Newmodel.CreatedBy = User.Identity.Name;
+                        Newmodel.CreatedDate = DateTime.Now;
+                        Newmodel.FullControl = page.FullControl;
+                        Newmodel.EditPermission = page.EditPermission;
+                        Newmodel.AddPermission = page.AddPermission;
+                        Newmodel.ActivationControl = page.ActivationControl;
+                        Newmodel.Preview = page.Preview;
+                        db.ERPUsersModulesPages.Add(Newmodel);
+                    }
                     var employeeData = new EmployeePersonalData
                     {
                         FullName = model.FullName,

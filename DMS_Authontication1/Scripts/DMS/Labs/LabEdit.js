@@ -313,8 +313,6 @@ function Remove(button, event) {
 
 }
 function Calculation() {
-    debugger;
-
     var sum = 0;
     var sumCash = 0;
 

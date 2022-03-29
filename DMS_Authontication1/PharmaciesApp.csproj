@@ -307,6 +307,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HospitalSystem\HospitalController.cs" />
     <Compile Include="Controllers\HR\ComplaintController.cs" />
+    <Compile Include="Controllers\HR\ContractorsController.cs" />
     <Compile Include="Controllers\HR\EmployeeRequestController.cs" />
     <Compile Include="Controllers\HR\HrChronicController.cs" />
     <Compile Include="Controllers\HR\IndemnitiesPoliceController.cs" />
@@ -449,6 +450,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CardUsed.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CompanyContractPhoto.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Company_Cost_Center.cs">
@@ -752,6 +756,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProviderComplaint.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProviderContractPhoto.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProviderEmail.cs">
@@ -7340,6 +7347,140 @@
     <Content Include="Content\images\marker.svg" />
     <Content Include="Content\images\OrginalLogo.png" />
     <Content Include="Content\images\tooth.png" />
+    <Content Include="Content\IndemnitiesAttachments\10000-2-100129-1_020210704104314.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\10000-2-100129-1_1002_3_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\10000-2-100129-1_1002_3_1.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\10000-2-100129-1_1002_3_2.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\10000-2-100129-1_120210704104314.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\10000-VIP-100159-1_020211125104912.png" />
+    <Content Include="Content\IndemnitiesAttachments\10000-VIP-100159-1_020211125121517.png" />
+    <Content Include="Content\IndemnitiesAttachments\10000-VIP-100159-1_1002_4_0.png" />
+    <Content Include="Content\IndemnitiesAttachments\10000-VIP-100159-1_1006_3_0.png" />
+    <Content Include="Content\IndemnitiesAttachments\10000-VIP-3-1_1002_2_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\120062521.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\220062521.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\500119-1-10571-1_020210712123415.jpeg" />
+    <Content Include="Content\IndemnitiesAttachments\500119-1-10571-1_1002_3_0.jpeg" />
+    <Content Include="Content\IndemnitiesAttachments\500119-1-10571-1_1006_2_0.jpeg" />
+    <Content Include="Content\IndemnitiesAttachments\500119-1-11377-1_020210712122216.xlsx" />
+    <Content Include="Content\IndemnitiesAttachments\500119-1-11377-1_1004_2_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\500119-1-13893-1_020210727100110.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\500119-1-13893-1_1004_4_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\500119-1-13893-1_1009_1_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\500119-1-3794-1_020211123143428.jpeg" />
+    <Content Include="Content\IndemnitiesAttachments\500119-1-3794-1_1003_2_0.jpeg" />
+    <Content Include="Content\IndemnitiesAttachments\500119-1-3795-1_020211123142912.jpeg" />
+    <Content Include="Content\IndemnitiesAttachments\500119-1-3795-1_020211123143011.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\500119-1-3795-1_1002_2_0.jpeg" />
+    <Content Include="Content\IndemnitiesAttachments\500119-1-3795-1_1006_4_0.jpeg" />
+    <Content Include="Content\IndemnitiesAttachments\500119-1-3795-1_1006_4_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\500119-2-3584-1_020210712123415.jpeg" />
+    <Content Include="Content\IndemnitiesAttachments\500119-2-3584-1_1016_12_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\500135-2-80002762-1_020210708141128.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\500135-2-80002762-1_1011_3_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\500135-2-80003179-1_020210708153149.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\500135-2-80003179-1_1003_1_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\500135-2-80003179-1_1006_4_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\500135-3-80000204-3_1007_5_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\500135-3-80000692-3_1013_6_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\500135-3-80002856-3_1011_3_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\500150-1-188-3_020211206122241.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\500150-1-188-3_1006_6_0.png" />
+    <Content Include="Content\IndemnitiesAttachments\500150-1-203-5_1013_9_0.png" />
+    <Content Include="Content\IndemnitiesAttachments\500150-1-435-1_020210926164153.png" />
+    <Content Include="Content\IndemnitiesAttachments\500150-1-435-1_1012_9_0.png" />
+    <Content Include="Content\IndemnitiesAttachments\500150-1-535-1_020211206120232.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\500150-1-535-1_1002_5_0.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\500150-1-535-3_020211206120232.png" />
+    <Content Include="Content\IndemnitiesAttachments\500150-1-535-3_1010_1_0.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\500150-1-537-2_020210926164810.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\500150-1-537-2_1007_6_0.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\525347_126218770894409_85881012_n20062523.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\580699_502392566491785_1813839683_n20062523.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Capture120061617.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\Capture120061618.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\Capture20061617.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\Capture20081612.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\Capture20081613.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\Capture20081710.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\Capture20081713.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\Capture20081714.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\Capture20081913.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\Company20061617.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\download20081713.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\download20081714.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Indvidual20061617.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_10000-1-100114-1_020220110110402.png" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_10000-VIP-100159-1_020211227163804.png" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_10362-1-175-2_020220116164452.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_10362-1-175-2_020220117092201.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_10362-1-397-3_020220116164452.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_10362-2-567-1_020220116164216.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_10480-4-27507-4_020220319155715.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_10578-1-10003-1_020220320141018.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_10578-2-1511-2_020220320141018.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_10616-1-123-2_020211229122738.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_10616-1-2-1_020211229122738.png" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_10616-1-36-5_020211229120728.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_10616-1-36-5_020211229122738.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500103-1-160653-1_020220302144119.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500103-1-7840-1_020220302144417.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500103-2-93884-1_020220302144417.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500119-1-10693-1_020211228145540.png" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500119-1-14052-1_020211230124916.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500119-1-14631-1_020220228102636.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500119-1-14631-1_020220302104919.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500135-2-80000235-1_020211226143616.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500135-2-80000692-1_020211226153417.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500135-2-80002709-1_020220223094557.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500135-2-80002749-1_020220223093636.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500135-2-80003269-1_020211223114542.png" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500135-2-80004186-1_020220223092756.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500135-2-80004261-1_020220223092756.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500135-2-80004261-1_020220223093804.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500135-3-80000692-3_020211223114050.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500135-3-80000692-4_020211223153902.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500135-3-80002742-3_020220223092856.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500135-3-80003366-3_020211223114050.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500150-1-188-1_020211222114603.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500150-1-203-1_020211222113806.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_10000-1-100114-1_1002_4_0.png" />
+    <Content Include="Content\IndemnitiesAttachments\Service_10000-VIP-100159-1_1012_1_0.png" />
+    <Content Include="Content\IndemnitiesAttachments\Service_10362-1-175-2_1012_7_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_10362-1-397-3_1013_3_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_10362-2-567-1_1002_2_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_10480-4-27507-4_1002_3_0.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\Service_10578-1-10003-1_1003_2_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_10578-1-10003-1_1003_4_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_10578-1-10003-1_1003_4_1.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_10578-2-1511-2_1011_5_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_10616-1-123-2_1002_4_0.png" />
+    <Content Include="Content\IndemnitiesAttachments\Service_10616-1-2-1_1006_12_0.png" />
+    <Content Include="Content\IndemnitiesAttachments\Service_10616-1-36-5_1007_4_0.png" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500103-1-160653-1_1002_2_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500103-1-7840-1_1002_2_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500103-1-7840-1_1004_3_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500103-2-93884-1_1003_3_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500119-1-10693-1_1009_2_0.png" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500119-1-14052-1_1001_1_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500119-1-14052-1_1002_2_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500119-1-14631-1_1011_5_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-2-80000235-1_1002_5_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-2-80000692-1_1002_7_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-2-80002093-1_1015_4_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-2-80002709-1_1007_1_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-2-80002749-1_1001_3_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-2-80003269-1_1007_5_0.png" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-2-80004186-1_1014_2_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-2-80004261-1_1001_1_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-2-80004261-1_1005_1_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-3-80000692-4_1015_5_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-3-80002742-3_1003_2_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-3-80004078-3_1011_2_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500150-1-188-1_1002_1_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500150-1-188-1_1005_8_0.jpg" />
+    <Content Include="Content\IndemnitiesAttachments\temp\NationalID_10480-4-27507-4_020220319155715.PNG" />
+    <Content Include="Content\IndemnitiesAttachments\temp\Service_10480-4-27507-4_1002_3_0.PNG" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -7873,6 +8014,26 @@
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\EmployeesRequestsImage\Add Employess.xlsx" />
+    <Content Include="Content\IndemnitiesAttachments\11082020162453320081612.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\11082020162453320081713.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\16082020163021820081616.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\16082020163021820081709.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\16082020163021820081710.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\16082020163021820081713.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\16082020163021820081714.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\archive.zip" />
+    <Content Include="Content\IndemnitiesAttachments\Goda20081713.xlsx" />
+    <Content Include="Content\IndemnitiesAttachments\Goda20081714.xlsx" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500150-1-188-3_020211222113238.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500150-1-458-2_020211222113806.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\services20061617.xls" />
+    <Content Include="Content\IndemnitiesAttachments\services20061618.xls" />
+    <Content Include="Content\IndemnitiesAttachments\Service_10362-1-175-2_1004_3_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-3-80000692-3_1011_3_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-3-80003366-3_1005_4_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500150-1-188-3_1009_3_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500150-1-203-1_1011_1_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500150-1-458-2_1009_4_0.pdf" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\DeployProfile.pubxml" />
     <None Include="Properties\PublishProfiles\DevelopingProfile.pubxml" />
@@ -8181,6 +8342,8 @@
     <Content Include="Views\DoctorApprovals\_EmployeeData.cshtml" />
     <Content Include="Views\Employee\ConfirmRegister.cshtml" />
     <Content Include="Views\Employee\ConfirmRegisterPost.cshtml" />
+    <Content Include="Views\Contractors\Index.cshtml" />
+    <Content Include="Views\Contractors\ProvidersIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
@@ -8189,7 +8352,6 @@
     <Folder Include="Content\DoctorStampImages\" />
     <Folder Include="Content\EmployeeRegister\" />
     <Folder Include="Content\EmployeesRoshita\" />
-    <Folder Include="Content\IndemnitiesAttachments\temp\" />
     <Folder Include="Views\ProposalBasicData\" />
   </ItemGroup>
   <ItemGroup>

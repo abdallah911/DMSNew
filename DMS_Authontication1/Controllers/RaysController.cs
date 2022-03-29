@@ -575,6 +575,8 @@ namespace DMS_Authontication1.Controllers
                 {
                     roshta.Manager = "Ray_Stop";
                 }
+                roshta.UpdatedBy = User.Identity.Name;
+                roshta.UpdatedDate = DateTime.Now;
                 db.Entry(roshta).State = EntityState.Modified;
                 db.SaveChanges();
                 return Json(new { ok = true, data = db.SaveChanges(), message = "ok" }, JsonRequestBehavior.AllowGet);

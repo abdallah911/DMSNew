@@ -395,18 +395,7 @@ namespace DMS_Authontication1.Controllers.HR
             var provider = db.ProviderTypeNews.ToList();
             SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
             ViewBag.provider = Providerlist;
-            //var comp = Convert.ToInt32(comp_id);
             var datenow = DateTime.Now.Date;
-            //var employees = db.Comp_Employees.Where(m => m.C_COMP_ID == comp && m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
-            //      .Select(l => new
-            //      {
-            //          CARD_ID = l.CARD_ID,
-            //          EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
-            //      }).ToList();
-            ////var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-            //SelectList addresslist = new SelectList(employees, "CARD_ID", "EMP_ANAME");
-            //ViewBag.address = addresslist;
-
             if (User.IsInRole("User"))
             {
                 var usr = User.Identity.GetUserId();
@@ -421,7 +410,6 @@ namespace DMS_Authontication1.Controllers.HR
                       CARD_ID = l.CARD_ID,
                       EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
                   }).ToList();
-                //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
                 SelectList addresslist2 = new SelectList(employees2, "CARD_ID", "EMP_ANAME");
                 ViewBag.address = addresslist2;
             }
@@ -501,7 +489,7 @@ namespace DMS_Authontication1.Controllers.HR
             model.CREATED_BY = User.Identity.GetUserName();
             model.CREATED_DATE = DateTime.Now;
             model.STATE = 2;
-            model.TYPE = addApproval.TYPE; ;
+            model.TYPE = addApproval.TYPE;
             model.PR_ENAME = addApproval.PR_ENAME;
             model.TYP_ANAME = addApproval.TYP_ANAME;
             model.NOTES = addApproval.NOTES;

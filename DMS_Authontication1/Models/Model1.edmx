@@ -537,6 +537,40 @@
           <Property Name="DEPUTY_ADDRESS" Type="nvarchar" MaxLength="100" />
           <Property Name="DEPUTY_JOB" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="CompanyContractPhoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContractNo" Type="int" />
+          <Property Name="CompId" Type="int" />
+          <Property Name="EName" Type="nvarchar" MaxLength="100" />
+          <Property Name="AName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ContractLong" Type="nvarchar" MaxLength="100" />
+          <Property Name="Contractype" Type="nvarchar" MaxLength="100" />
+          <Property Name="Path1" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path2" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path3" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path4" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path5" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path6" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path7" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path8" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path9" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path10" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path11" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path12" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path13" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path14" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path15" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path16" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path17" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path18" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path19" Type="nvarchar" MaxLength="255" />
+          <Property Name="Path20" Type="nvarchar" MaxLength="255" />
+          <Property Name="ContractDate" Type="datetime" />
+          <Property Name="DeleteFlag" Type="nvarchar" MaxLength="5" />
+        </EntityType>
         <EntityType Name="CompContractClass">
           <Key>
             <PropertyRef Name="Id" />
@@ -1771,6 +1805,27 @@
           <Property Name="PhoneNumber" Type="nvarchar(max)" />
           <Property Name="CompName" Type="nvarchar(max)" />
           <Property Name="IsTechnical" Type="bit" />
+        </EntityType>
+        <EntityType Name="ProviderContractPhoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="int" />
+          <Property Name="ProviderCode" Type="int" />
+          <Property Name="ProviderNameAr" Type="nvarchar" MaxLength="50" />
+          <Property Name="TypeImage" Type="int" />
+          <Property Name="NameType" Type="nvarchar" MaxLength="255" />
+          <Property Name="TypeContract" Type="nvarchar" MaxLength="255" />
+          <Property Name="TypeContractCopy" Type="nvarchar" MaxLength="100" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="Path" Type="nvarchar" MaxLength="255" />
+          <Property Name="PathOriginal" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="DeletedBy" Type="nvarchar" MaxLength="255" />
+          <Property Name="DeletedDate" Type="datetime" />
+          <Property Name="Active" Type="nvarchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="ProviderEmails">
           <Key>
@@ -3027,6 +3082,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="COMP_CUSTOMIZED_D_EMP" EntityType="Self.COMP_CUSTOMIZED_D_EMP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comp_Employees" EntityType="Self.Comp_Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company_Cost_Center" EntityType="Self.Company_Cost_Center" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanyContractPhoto" EntityType="Self.CompanyContractPhoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompContractClass" EntityType="Self.CompContractClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompContractClassEmp" EntityType="Self.CompContractClassEmp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactUs" EntityType="Self.ContactUs" Schema="dbo" store:Type="Tables" />
@@ -3094,6 +3150,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="ProposalComment" EntityType="Self.ProposalComment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProposalRenewalSummary" EntityType="Self.ProposalRenewalSummary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProviderComplaint" EntityType="Self.ProviderComplaint" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProviderContractPhoto" EntityType="Self.ProviderContractPhoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProviderEmails" EntityType="Self.ProviderEmails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Providers" EntityType="Self.Providers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProviderServicesPermissions" EntityType="Self.ProviderServicesPermissions" Schema="dbo" store:Type="Tables" />
@@ -4908,6 +4965,8 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="RoshitaNoOverNoPays" EntityType="DB_A45413_DMSERPModel.RoshitaNoOverNoPay" />
           <EntitySet Name="CardUseds" EntityType="DB_A45413_DMSERPModel.CardUsed" />
           <EntitySet Name="UsersInternalCodes" EntityType="DB_A45413_DMSERPModel.UsersInternalCode" />
+          <EntitySet Name="CompanyContractPhotoes" EntityType="DB_A45413_DMSERPModel.CompanyContractPhoto" />
+          <EntitySet Name="ProviderContractPhotoes" EntityType="DB_A45413_DMSERPModel.ProviderContractPhoto" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -6661,6 +6720,61 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="InternalCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="MobileNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CompanyContractPhoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContractNo" Type="Int32" />
+          <Property Name="CompId" Type="Int32" />
+          <Property Name="EName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ContractLong" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Contractype" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Path1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path4" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path5" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path6" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path7" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path8" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path9" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path10" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path11" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path12" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path13" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path14" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path15" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path16" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path17" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path18" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path19" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Path20" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ContractDate" Type="DateTime" Precision="3" />
+          <Property Name="DeleteFlag" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProviderContractPhoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="Int32" />
+          <Property Name="ProviderCode" Type="Int32" />
+          <Property Name="ProviderNameAr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TypeImage" Type="Int32" />
+          <Property Name="NameType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TypeContract" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TypeContractCopy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Path" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PathOriginal" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -9211,6 +9325,63 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
                 <ScalarProperty Name="NickName" ColumnName="NickName" />
                 <ScalarProperty Name="EnglishName" ColumnName="EnglishName" />
                 <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyContractPhotoes">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompanyContractPhoto">
+              <MappingFragment StoreEntitySet="CompanyContractPhoto">
+                <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
+                <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
+                <ScalarProperty Name="Path20" ColumnName="Path20" />
+                <ScalarProperty Name="Path19" ColumnName="Path19" />
+                <ScalarProperty Name="Path18" ColumnName="Path18" />
+                <ScalarProperty Name="Path17" ColumnName="Path17" />
+                <ScalarProperty Name="Path16" ColumnName="Path16" />
+                <ScalarProperty Name="Path15" ColumnName="Path15" />
+                <ScalarProperty Name="Path14" ColumnName="Path14" />
+                <ScalarProperty Name="Path13" ColumnName="Path13" />
+                <ScalarProperty Name="Path12" ColumnName="Path12" />
+                <ScalarProperty Name="Path11" ColumnName="Path11" />
+                <ScalarProperty Name="Path10" ColumnName="Path10" />
+                <ScalarProperty Name="Path9" ColumnName="Path9" />
+                <ScalarProperty Name="Path8" ColumnName="Path8" />
+                <ScalarProperty Name="Path7" ColumnName="Path7" />
+                <ScalarProperty Name="Path6" ColumnName="Path6" />
+                <ScalarProperty Name="Path5" ColumnName="Path5" />
+                <ScalarProperty Name="Path4" ColumnName="Path4" />
+                <ScalarProperty Name="Path3" ColumnName="Path3" />
+                <ScalarProperty Name="Path2" ColumnName="Path2" />
+                <ScalarProperty Name="Path1" ColumnName="Path1" />
+                <ScalarProperty Name="Contractype" ColumnName="Contractype" />
+                <ScalarProperty Name="ContractLong" ColumnName="ContractLong" />
+                <ScalarProperty Name="AName" ColumnName="AName" />
+                <ScalarProperty Name="EName" ColumnName="EName" />
+                <ScalarProperty Name="CompId" ColumnName="CompId" />
+                <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProviderContractPhotoes">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ProviderContractPhoto">
+              <MappingFragment StoreEntitySet="ProviderContractPhoto">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="PathOriginal" ColumnName="PathOriginal" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="TypeContractCopy" ColumnName="TypeContractCopy" />
+                <ScalarProperty Name="TypeContract" ColumnName="TypeContract" />
+                <ScalarProperty Name="NameType" ColumnName="NameType" />
+                <ScalarProperty Name="TypeImage" ColumnName="TypeImage" />
+                <ScalarProperty Name="ProviderNameAr" ColumnName="ProviderNameAr" />
+                <ScalarProperty Name="ProviderCode" ColumnName="ProviderCode" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

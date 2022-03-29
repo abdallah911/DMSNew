@@ -9,6 +9,8 @@
 <br />
 @using (Html.BeginForm("CreateAdmin", "IndemnitiesAdmin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal createInde-form", role = "form" }))
 {
+    <input type="hidden" id="CompanyName" name="CompanyName" value="@ViewBag.CompName" />
+
     @Html.AntiForgeryToken()
     <div class="portlet box  green" style="margin-top:40px">
         <div class="portlet-title">
@@ -148,17 +150,17 @@
                         </div>
                     </div>
                 }
-                <div class="row" hidden>
-                    <div class="form-group col-md-6" id="divCompany">
-                        @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <span class="text-danger">*</span>
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                @*<div class="row" hidden>
+                        <div class="form-group col-md-6" id="divCompany">
+                            @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <span class="text-danger">*</span>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
 
-                </div>
+                    </div>*@
                 <div class="row">
 
                     <div class="form-group col-md-6">
@@ -393,4 +395,4 @@
 
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
 
-<script src="~/Scripts/DMS/HR/IndemnityAdminwithModel.js?V=1.1"></script>
+<script src="~/Scripts/DMS/HR/IndemnityAdminwithModel.js?V=1.2"></script>
