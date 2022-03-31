@@ -155,16 +155,26 @@ namespace DMS_Authontication1.Controllers.HR
                     ENUM_REQUESTSViewModel.CARD_ID = cardId;
                     ENUM_REQUESTSViewModel.CompName = cardId.Split('-')[0];
                     var comp2 = int.Parse(ENUM_REQUESTSViewModel.CompName);
-                    var employees2 = db.Comp_Employees.Where(m => m.C_COMP_ID == comp2 && m.CARD_ID == cardId &&
-                    m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
-                      .Select(l => new
-                      {
-                          CARD_ID = l.CARD_ID,
-                          EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
-                      }).ToList();
-                    //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-                    SelectList addresslist2 = new SelectList(employees2, "CARD_ID", "EMP_ANAME");
-                    ViewBag.address = addresslist2;
+                    //var employees2 = db.Comp_Employees.Where(m => m.C_COMP_ID == comp2 && m.CARD_ID == cardId &&
+                    //m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
+                    //  .Select(l => new
+                    //  {
+                    //      CARD_ID = l.CARD_ID,
+                    //      EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
+                    //  }).ToList();
+                    ////var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+                    //SelectList addresslist2 = new SelectList(employees2, "CARD_ID", "EMP_ANAME");
+                    //ViewBag.address = addresslist2;
+                    var subCards = CardList(cardId);
+
+                    var cards = subCards.Select(c => new
+                    {
+                        CardIDValue = c.CARD_ID,
+                        CardIdString = c.CARD_ID
+                    }).ToList();
+                    SelectList Cardlist = new SelectList(cards, "CardIDValue", "CardIdString");
+                    ViewBag.address = Cardlist;
+
                     ViewBag.compnum = ENUM_REQUESTSViewModel.CompName;
                 }
             }
@@ -240,7 +250,7 @@ namespace DMS_Authontication1.Controllers.HR
 
                 //var HrUserNamre = User.Identity.GetUserName();
                 //var comp_id = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
-                
+
                 else
                 {
                     var comp = Convert.ToInt32(CompProvider.Provider);
@@ -262,16 +272,25 @@ namespace DMS_Authontication1.Controllers.HR
                         ENUM_REQUESTSViewModel.CARD_ID = cardId;
                         ENUM_REQUESTSViewModel.CompName = cardId.Split('-')[0];
                         var comp2 = int.Parse(ENUM_REQUESTSViewModel.CompName);
-                        var employees2 = db.Comp_Employees.Where(m => m.C_COMP_ID == comp2 && m.CARD_ID == cardId &&
-                        m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
-                          .Select(l => new
-                          {
-                              CARD_ID = l.CARD_ID,
-                              EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
-                          }).ToList();
-                        //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-                        SelectList addresslist2 = new SelectList(employees2, "CARD_ID", "EMP_ANAME");
-                        ViewBag.address = addresslist2;
+                        var subCards = CardList(cardId);
+
+                        var cards = subCards.Select(c => new
+                        {
+                            CardIDValue = c.CARD_ID,
+                            CardIdString = c.CARD_ID
+                        }).ToList();
+                        SelectList Cardlist = new SelectList(cards, "CardIDValue", "CardIdString");
+                        ViewBag.address = Cardlist;
+                        //var employees2 = db.Comp_Employees.Where(m => m.C_COMP_ID == comp2 && m.CARD_ID == cardId &&
+                        //m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
+                        //  .Select(l => new
+                        //  {
+                        //      CARD_ID = l.CARD_ID,
+                        //      EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
+                        //  }).ToList();
+                        ////var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+                        //SelectList addresslist2 = new SelectList(employees2, "CARD_ID", "EMP_ANAME");
+                        //ViewBag.address = addresslist2;
                         ViewBag.compnum = addApproval.CompName;
                     }
                 }
@@ -469,7 +488,6 @@ namespace DMS_Authontication1.Controllers.HR
                 else
                 {
                     return new JsonResult { Data = new { employee = 0, roshDetails = 0, msg = status.message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                    //return new JsonResult { Data = new { providerslist = 0, msg = status.message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
 
 
@@ -542,6 +560,13 @@ namespace DMS_Authontication1.Controllers.HR
                 var subCards = db.Comp_Employees.Where(e => e.EMP_CODE == EmpCode &&
                                (e.TERMINATE_FLAG == "N" || e.TERMINATE_FLAG == null) && e.C_COMP_ID == CompId
                                && e.CONTRACT_NO == maxContract).ToList();
+                var compStatement = db.CompStatements.Where(c => c.ContractNo == maxContract && c.MainCompCode == CompId).FirstOrDefault();
+                if (compStatement != null)
+                {
+                    var cards = db.Comp_Employees.Where(e => e.C_COMP_ID == compStatement.CompID
+                      && e.CONTRACT_NO == maxContract && e.EMP_CODE == EmpCode).ToList();
+                    subCards.AddRange(cards);
+                }
                 return subCards;
             }
             else

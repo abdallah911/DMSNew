@@ -138,6 +138,7 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<UsersInternalCode> UsersInternalCodes { get; set; }
         public virtual DbSet<CompanyContractPhoto> CompanyContractPhotoes { get; set; }
         public virtual DbSet<ProviderContractPhoto> ProviderContractPhotoes { get; set; }
+        public virtual DbSet<CompStatement> CompStatements { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)

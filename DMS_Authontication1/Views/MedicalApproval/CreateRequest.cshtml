@@ -11,6 +11,11 @@
     var view = false;
     var fullcontroll = false;
     var Create = false;
+    var rolevalue = 1;
+    if (User.IsInRole("User"))
+    {
+        rolevalue = 2;
+    }
     var modellist = new List<ModulesPagesViewModel>();
     var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
     if (claim != null)
@@ -49,6 +54,7 @@
         }
     }
 }
+<input type="hidden" id="role" name="role" value="@rolevalue" />
 <br />
 <div style="margin-top:40px">
     <p>
@@ -132,17 +138,32 @@
                                                 </div>
                                             </div>
                                         }
-                                        <div class="form-group">
-                                            <label class="control-label sbold col-md-4">
-                                                @Html.DisplayNameFor(model => model.CARD_ID) :
-                                            </label>
-                                            <div class="col-md-8">
-                                                @*<select id="CARD_ID" class="js-data-example-ajax" style="width: 100%"></select>*@
-
-                                                @Html.DropDownListFor(model => model.CARD_ID, new List<SelectListItem>() {
-                                                    new SelectListItem() { Text = "", Value = "" } }, new { @class = "form-control", id = "CARD_ID" })
+                                        @if (User.IsInRole("User"))
+                                        {
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.CARD_ID) :
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownList("CARD_ID", ViewBag.Cardslist as SelectList, new { @class = "form-control", @id = "CARD_ID", @required = "True" })
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    @Html.DisplayNameFor(model => model.CARD_ID) :
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @*<select id="CARD_ID" class="js-data-example-ajax" style="width: 100%"></select>*@
+
+                                                    @Html.DropDownListFor(model => model.CARD_ID, new List<SelectListItem>() {
+                                                        new SelectListItem() { Text = "", Value = "" } }, new { @class = "form-control", id = "CARD_ID" })
+                                                </div>
+                                            </div>
+
+                                        }
                                         <div class="form-group">
                                             <label class="control-label sbold col-md-4">
                                                 @Html.DisplayNameFor(model => model.TYPE) :
@@ -151,7 +172,10 @@
                                                 <select name="TYPE" id="TYPE" class="form-control">
                                                     @*<option value="Medications outpatient">Medications outpatient</option>*@
                                                     <option value="Inpatient">Inpatient</option>
-                                                    <option value="Outpatient services">Outpatient services</option>
+                                                    <option value="Radio">Radio</option>
+                                                    <option value="Physiotherapy ">Physiotherapy </option>
+                                                    <option value="Laboratory">Laboratory</option>
+                                                    @*<option value="Outpatient services">Outpatient services</option>*@
                                                     <option value="Dental services outpatient">Dental services outpatient</option>
                                                     <option value="Maternity">Maternity</option>
                                                     <option value="Optical">Optical</option>

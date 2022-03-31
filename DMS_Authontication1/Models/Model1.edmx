@@ -722,6 +722,22 @@
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="CompStatement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompID" Type="int" />
+          <Property Name="MainCompCode" Type="int" />
+          <Property Name="CompSpecification" Type="nvarchar(max)" />
+          <Property Name="FlagIndependent" Type="nvarchar" MaxLength="1" />
+          <Property Name="ContractNo" Type="int" />
+          <Property Name="Insured" Type="nvarchar" MaxLength="1" />
+          <Property Name="FormerClient" Type="nvarchar" MaxLength="1" />
+          <Property Name="OldCompId" Type="int" />
+          <Property Name="CompNameOther" Type="nvarchar(max)" />
+          <Property Name="DatePrint" Type="datetime" />
+        </EntityType>
         <EntityType Name="ContactUs">
           <Key>
             <PropertyRef Name="Contact_Id" />
@@ -3085,6 +3101,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="CompanyContractPhoto" EntityType="Self.CompanyContractPhoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompContractClass" EntityType="Self.CompContractClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompContractClassEmp" EntityType="Self.CompContractClassEmp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompStatement" EntityType="Self.CompStatement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactUs" EntityType="Self.ContactUs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contract_Comp" EntityType="Self.Contract_Comp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contract_Data" EntityType="Self.Contract_Data" Schema="dbo" store:Type="Tables" />
@@ -4967,6 +4984,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="UsersInternalCodes" EntityType="DB_A45413_DMSERPModel.UsersInternalCode" />
           <EntitySet Name="CompanyContractPhotoes" EntityType="DB_A45413_DMSERPModel.CompanyContractPhoto" />
           <EntitySet Name="ProviderContractPhotoes" EntityType="DB_A45413_DMSERPModel.ProviderContractPhoto" />
+          <EntitySet Name="CompStatements" EntityType="DB_A45413_DMSERPModel.CompStatement" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -6775,6 +6793,22 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="DeletedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="DeletedDate" Type="DateTime" Precision="3" />
           <Property Name="Active" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CompStatement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompID" Type="Int32" />
+          <Property Name="MainCompCode" Type="Int32" />
+          <Property Name="CompSpecification" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FlagIndependent" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="ContractNo" Type="Int32" />
+          <Property Name="Insured" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="FormerClient" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="OldCompId" Type="Int32" />
+          <Property Name="CompNameOther" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DatePrint" Type="DateTime" Precision="3" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -9382,6 +9416,23 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
                 <ScalarProperty Name="ProviderNameAr" ColumnName="ProviderNameAr" />
                 <ScalarProperty Name="ProviderCode" ColumnName="ProviderCode" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompStatements">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompStatement">
+              <MappingFragment StoreEntitySet="CompStatement">
+                <ScalarProperty Name="DatePrint" ColumnName="DatePrint" />
+                <ScalarProperty Name="CompNameOther" ColumnName="CompNameOther" />
+                <ScalarProperty Name="OldCompId" ColumnName="OldCompId" />
+                <ScalarProperty Name="FormerClient" ColumnName="FormerClient" />
+                <ScalarProperty Name="Insured" ColumnName="Insured" />
+                <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
+                <ScalarProperty Name="FlagIndependent" ColumnName="FlagIndependent" />
+                <ScalarProperty Name="CompSpecification" ColumnName="CompSpecification" />
+                <ScalarProperty Name="MainCompCode" ColumnName="MainCompCode" />
+                <ScalarProperty Name="CompID" ColumnName="CompID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -464,6 +464,9 @@
     <Compile Include="Models\CompContractClassEmp.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CompStatement.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\COMP_CUSTOMIZED_D.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

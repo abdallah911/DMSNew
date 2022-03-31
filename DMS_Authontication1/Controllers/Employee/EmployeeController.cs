@@ -562,66 +562,6 @@ namespace DMS_Authontication1.Controllers.Employee
             return View();
         }
 
-
-        //[Authorize(Roles = "User")]
-        //[HttpPost]
-        //public ActionResult DeliveryService(DeliveryRequestVm deliveryRequestVm)
-        //{
-
-
-
-        //    var Country = db.Countries.ToList();
-        //    SelectList Countrylist = new SelectList(Country, "Id", "ArName");
-        //    ViewBag.Country = Countrylist;
-        //    var Providers = db.Serv_Providers1.Where(m => m.PRV_TYPE == 2).ToList();
-        //    SelectList ProviderListlist = new SelectList(Providers, "Id", "PR_ANAME");
-        //    ViewBag.Provider = ProviderListlist;
-        //    ViewBag.hasMed = true;
-        //    if (!ModelState.IsValid)
-        //    {
-        //        ViewBag.hasMed = true;
-
-
-        //        return View(deliveryRequestVm);
-        //    }
-        //    DeliveryRequest deliveryRequest = new DeliveryRequest();
-        //    if (deliveryRequestVm.ImageFile != null)
-        //    {
-
-
-        //        string fileName = Path.GetFileNameWithoutExtension(deliveryRequestVm.ImageFile.FileName);
-        //        string extension = Path.GetExtension(deliveryRequestVm.ImageFile.FileName);
-        //        fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-        //        deliveryRequest.Roshita = "~/Content/EmployeesRoshita/" + fileName;
-        //        fileName = Path.Combine(Server.MapPath("~/Content/EmployeesRoshita/"), fileName);
-        //    }
-
-        //    var usrId = User.Identity.GetUserId();
-        //    var employeeDataId = db.EmployeePersonalDatas.Where(e => e.UserId == usrId).FirstOrDefault().Id;
-
-        //    deliveryRequest.EmployeeDataId = employeeDataId;
-        //    deliveryRequest.CreatedBy = User.Identity.GetUserName();
-        //    deliveryRequest.CreatedDate = DateTime.Now;
-        //    deliveryRequest.IsDeleted = false;
-        //    deliveryRequest.CountryId = deliveryRequestVm.CountryId;
-        //    deliveryRequest.RegionId = deliveryRequestVm.RegionId;
-        //    deliveryRequest.NeighborHood = deliveryRequestVm.NeighborHood;
-        //    deliveryRequest.StreetName = deliveryRequestVm.StreetName;
-        //    deliveryRequest.BuldingNo = deliveryRequestVm.BuldingNo;
-        //    deliveryRequest.FlatNo = deliveryRequestVm.FlatNo;
-        //    deliveryRequest.Phone1 = deliveryRequestVm.Phone1;
-        //    deliveryRequest.Phone2 = deliveryRequestVm.Phone2;
-        //    deliveryRequest.ProviderId = deliveryRequestVm.ProviderId;
-        //    deliveryRequest.BranchId = deliveryRequestVm.BranchId;
-        //    deliveryRequest.Time = deliveryRequestVm.Time;
-
-        //    db.DeliveryRequests.Add(deliveryRequest);
-        //    db.SaveChanges();
-        //    ViewBag.Status = "تم تسجل البيانات بنجاح";
-
-        //    return View();
-        //}
-
         [Authorize(Roles = "User")]
         [HttpGet]
         public ActionResult Approvales(string card = null)
@@ -719,13 +659,7 @@ namespace DMS_Authontication1.Controllers.Employee
                     ViewBag.Error = "This Email had been Registered Before";
                     return View(model);
                 }
-                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                //var compId = model.CardId.Split('-');
-
-
-
                 var fullName = model.FullName.Split(' ');
-
                 var status = ChicActiveCard(model.CardId.Split('-')[0], model.CardId);
                 if (status.data != "Y" && status.message != "ok")
                 {
@@ -746,7 +680,6 @@ namespace DMS_Authontication1.Controllers.Employee
                     string extension = Path.GetExtension(model.ImageFile.FileName);
                     fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
                     model.NationalIdImage = "~/Content/EmployeeRegister/" + fileName;
-                    //fileName = Path.Combine(Server.MapPath("~/Content/EmployeeRegister/"), fileName);
                     model.ImageFile.SaveAs(Server.MapPath("~/Content/EmployeeRegister/" + fileName));
                 }
                 var user = new ApplicationUser
@@ -814,15 +747,6 @@ namespace DMS_Authontication1.Controllers.Employee
                         }
                     }
 
-
-                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -831,8 +755,6 @@ namespace DMS_Authontication1.Controllers.Employee
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-
 
         // GET: /Account/Register
         [AllowAnonymous]
@@ -1079,7 +1001,6 @@ namespace DMS_Authontication1.Controllers.Employee
                         serviceFile.ServicePhotoCard = item.ServiceCardId;
                         serviceFile.FilePath = "~/Content/IndemnitiesAttachments/" + fileName;
                         viewmodel.IndemnityServiceFiles.Add(serviceFile);
-                        //item.AttachPDF[i].FileName.Replace(item.AttachPDF[i].FileName,fileName);
 
                     }
                 }
@@ -1112,9 +1033,6 @@ namespace DMS_Authontication1.Controllers.Employee
                 viewmodel.ServiceId = item.ServiceId;
                 viewmodel.Value = item.Value;
                 viewmodel.ServiceDate = item.ServiceDate;
-
-                //item.AttachPDF.CopyTo(ImageFiles, ImageFiles.Length);
-
                 model.IndemnityServiceMasters.Add(viewmodel);
 
             }
@@ -1246,8 +1164,7 @@ namespace DMS_Authontication1.Controllers.Employee
                 }
             }
 
-            SendMail("indhrrequest@gmail.com", sub, msg, altView/*, Hospitalprovider*/);
-            //SendMail("dms.medical2@gmail.com", sub, msg, altView/*, Hospitalprovider*/);
+            SendMail("indhrrequest@gmail.com", sub, msg, altView);
 
             if (model.Id > 0)
             {
@@ -1296,9 +1213,6 @@ namespace DMS_Authontication1.Controllers.Employee
             }
             return View(indemnity);
         }
-
-
-
         // GET: Indemnities/Delete/5
         [Authorize(Roles = "User")]
         public ActionResult Delete(long? id)
@@ -1485,26 +1399,27 @@ namespace DMS_Authontication1.Controllers.Employee
             try
             {
                 var emp = db.Contract_Comp.Where(x => x.C_COMP_ID == CompId).FirstOrDefault().ACTIVE;
-
-                var empCardTerminationFlag = db.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                DateTime datenow = DateTime.Now.Date;
+                var da = new DateTime(datenow.Year, datenow.Month, datenow.Day);
+                var empCardTerminationFlag = db.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= da && x.INS_END_DATE >= da).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
                 if (empCardTerminationFlag != null)
                 {
                     if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "N")
                     {
                         return (new ReturnResult { data = "Y", message = "ok" });
                     }
-                    else if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "Y" && empCardTerminationFlag.TERMINATE_DATE > DateTime.Now)
+                    else if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "Y" && empCardTerminationFlag.TERMINATE_DATE > da)
                     {
                         return (new ReturnResult { data = "Y", message = "ok" });
                     }
-                    else if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "Y" && empCardTerminationFlag.TERMINATE_DATE < DateTime.Now)
+                    else if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "Y" && empCardTerminationFlag.TERMINATE_DATE < da)
                     {
                         return (new ReturnResult { data = "N", message = "Expired Card" });
                     }
                 }
                 else
                 {
-                    var CompTerminationFlag = db.Contract_Data.Where(x => x.C_COMP_ID == CompId && x.DATE_FROM <= DateTime.Now && x.DATE_TO >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    var CompTerminationFlag = db.Contract_Data.Where(x => x.C_COMP_ID == CompId && x.DATE_FROM <= da && x.DATE_TO >= da).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
                     if (CompTerminationFlag != null)
                     {
                         return (new ReturnResult { data = "N", message = "Card is not existed" });
@@ -1574,6 +1489,13 @@ namespace DMS_Authontication1.Controllers.Employee
                 var subCards = db.Comp_Employees.Where(e => e.EMP_CODE == EmpCode &&
                                (e.TERMINATE_FLAG == "N" || e.TERMINATE_FLAG == null) && e.C_COMP_ID == CompId
                                && e.CONTRACT_NO == maxContract).ToList();
+                var compStatement = db.CompStatements.Where(c => c.ContractNo == maxContract && c.MainCompCode == CompId).FirstOrDefault();
+                if (compStatement != null)
+                {
+                    var cards = db.Comp_Employees.Where(e => e.C_COMP_ID == compStatement.CompID
+                      && e.CONTRACT_NO == maxContract && e.EMP_CODE == EmpCode).ToList();
+                    subCards.AddRange(cards);
+                }
                 return subCards;
             }
             else
@@ -1593,11 +1515,11 @@ namespace DMS_Authontication1.Controllers.Employee
             return null;
         }
 
-        public void SendMail(string to, string subject, string Message, AlternateView altView/*, ApplicationUser applicationUser*/)
+        public void SendMail(string to, string subject, string Message, AlternateView altView)
         {
-            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("hrindemnity@gmail.com" /*EmailAndPassword.Email*/, to, subject, Message);
+            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("hrindemnity@gmail.com", to, subject, Message);
             mail.AlternateViews.Add(altView);
-            System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("hrindemnity@gmail.com", "dms123456"/*EmailAndPassword.Email, EmailAndPassword.Password*/);
+            System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("hrindemnity@gmail.com", "dms123456");
 
             System.Net.Mail.SmtpClient mailclient = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
             mailclient.EnableSsl = true;

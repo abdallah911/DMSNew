@@ -43,13 +43,13 @@ namespace DMS_Authontication1.Controllers.HR
                 else
                 {
                     var companyname = (from comp in compines
-                     join contCo in db.Contract_Comp
-                     on int.Parse(comp) equals contCo.C_COMP_ID
-                     select new
-                     {
-                         Code = contCo.C_COMP_ID,
-                         Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-                     }).ToList();
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
                 }
@@ -120,14 +120,14 @@ namespace DMS_Authontication1.Controllers.HR
                 }
                 else
                 {
-                    var companyname=(from comp in compines
-                     join contCo in db.Contract_Comp
-                     on int.Parse(comp) equals contCo.C_COMP_ID
-                     select new
-                     {
-                         Code = contCo.C_COMP_ID,
-                         Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-                     }).ToList();
+                    var companyname = (from comp in compines
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
                 }
@@ -199,13 +199,13 @@ namespace DMS_Authontication1.Controllers.HR
 
                     //    }).ToList();
                     var companyname = (from comp in compines
-                     join contCo in db.Contract_Comp
-                     on int.Parse(comp) equals contCo.C_COMP_ID
-                     select new
-                     {
-                         Code = contCo.C_COMP_ID,
-                         Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-                     }).ToList();
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
                 }
@@ -241,7 +241,7 @@ namespace DMS_Authontication1.Controllers.HR
             var model = (from request in db.RequestAddProviders
                          join provider in db.ProviderTypeNews
                          on request.ProviderType equals provider.ID
-                         where request.ID==id && request.IsDeleted==false
+                         where request.ID == id && request.IsDeleted == false
                          select new RequestAddProvidersVM
                          {
                              ID = request.ID,
@@ -327,7 +327,7 @@ namespace DMS_Authontication1.Controllers.HR
             return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
-        public JsonResult GetProvidersByClass(string classLevel, string compId, string country, int region, int providerId)
+        public JsonResult GetProvidersByClass(string classLevel, string compId, string country, int region, int providerId, string specialistid)
         {
             int Comp_ID = Convert.ToInt32(compId);
             var coverdRelation = db.CompContractClasses.AsNoTracking().Where(c => c.C_COMP_ID == Comp_ID && c.CLASS_CODE ==
@@ -337,7 +337,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             if (coverdRelation == 1 || coverdRelation == 4)
             {
-                var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y")
+                var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid))
                                     .Select(
                                                   s => new
                                                   {
@@ -354,7 +354,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             else if (coverdRelation == 2)
             {
-                var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && (p.PROV_DEGREE == coverdRelation.ToString() || p.PROV_DEGREE == "3") && p.TERMINATE_FLAG != "Y" && p.AREA_CODE == region /*&& p.PROV_DEGREE == "2" || p.PROV_DEGREE == "3"*/ /*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && (p.PROV_DEGREE == coverdRelation.ToString() || p.PROV_DEGREE == "3") && p.TERMINATE_FLAG != "Y" && p.AREA_CODE == region && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid) /*&& p.PROV_DEGREE == "2" || p.PROV_DEGREE == "3"*/ /*&& p.ADDRESS1.Contains(arbicReagonName)*/)
                     .Select(
                 s => new
                 {
@@ -372,7 +372,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             else
             {
-                var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.PROV_DEGREE == coverdRelation.ToString() && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y")
+                var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.PROV_DEGREE == coverdRelation.ToString() && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid))
                                     .Select(
                                                   s => new
                                                   {
@@ -395,7 +395,7 @@ namespace DMS_Authontication1.Controllers.HR
 
         }
 
-        public JsonResult GetProviders(string cardId, string compId, string country, int region, int providerId)
+        public JsonResult GetProviders(string cardId, string compId, string country, int region, int providerId, string specialistid)
         {
             int Comp_ID = Convert.ToInt32(compId);
             var cardExist = db.Comp_Employees.AsNoTracking().Where(c => c.CARD_ID == cardId).OrderByDescending(y => y.CONTRACT_NO).FirstOrDefault();
@@ -417,7 +417,7 @@ namespace DMS_Authontication1.Controllers.HR
 
                     if (coverdRelation == 1 || coverdRelation == 4)
                     {
-                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y"/*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.ADDRESS1.Contains(arbicReagonName)*/)
                                             .Select(
                                                   s => new
                                                   {
@@ -434,7 +434,7 @@ namespace DMS_Authontication1.Controllers.HR
 
                     else if (coverdRelation == 2)
                     {
-                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.TERMINATE_FLAG != "Y" && (p.PROV_DEGREE == coverdRelation.ToString() || p.PROV_DEGREE == "3") && p.AREA_CODE == region /*&& p.PROV_DEGREE == "2" || p.PROV_DEGREE == "3"*/ /*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.TERMINATE_FLAG != "Y" && (p.PROV_DEGREE == coverdRelation.ToString() || p.PROV_DEGREE == "3") && p.AREA_CODE == region && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.PROV_DEGREE == "2" || p.PROV_DEGREE == "3"*/ /*&& p.ADDRESS1.Contains(arbicReagonName)*/)
                                            .Select(
                                                   s => new
                                                   {
@@ -451,7 +451,7 @@ namespace DMS_Authontication1.Controllers.HR
 
                     else
                     {
-                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.TERMINATE_FLAG != "Y" && p.PROV_DEGREE == coverdRelation.ToString() && p.AREA_CODE == region /*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.TERMINATE_FLAG != "Y" && p.PROV_DEGREE == coverdRelation.ToString() && p.AREA_CODE == region && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid) /*&& p.ADDRESS1.Contains(arbicReagonName)*/)
                                             .Select(
                                                   s => new
                                                   {
@@ -613,6 +613,18 @@ namespace DMS_Authontication1.Controllers.HR
             SelectList compclasseslist = new SelectList(compclasses, "ClassCode", "ClassString");
             ViewBag.compclasseslist = compclasseslist;
             return Json(compclasseslist, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetSpecialistList()
+        {
+            var Specialist = db.Basic_Data.Where(b => b.SOURCE_MOD == "DTYP").Select(c => new
+            {
+                Code = c.BS_CODE,
+                Name = c.BS_ANAME
+            }).ToList();
+
+            SelectList SpecialistList = new SelectList(Specialist, "Code", "Name");
+            //ViewBag.SpecialistList = SpecialistList;
+            return Json(SpecialistList, JsonRequestBehavior.AllowGet);
         }
 
         public ReturnResult ChicActiveCard(string compid, string CardId)

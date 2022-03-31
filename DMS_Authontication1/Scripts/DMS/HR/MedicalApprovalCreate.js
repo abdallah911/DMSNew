@@ -3,40 +3,43 @@ var sel;
 var SelectedProviderEname = "";
 $(document).ready(function () {
     var type = $("#TYPE").val();
+    var role = $("#role").val();
     if (type != '') {
         $("#TYPE").val(type).change();
     }
-
-    //$("#CARD_ID").select2();
-    $('#CARD_ID').select2({
-        placeholder: 'Search for a cards',
-        minimumInputLength: 5,
-        ajax: {
-            url: '/EmployeeRequest/GetActiveEmployess/',
-            delay: 250,
-            dataType: 'json',
-            data: function (params) {
-                var query = {
-                    search: params.term,
-                    page: params.page || 1
-                }
-                return query;
-            },
-            processResults: function (data, params) {
-                params.page = params.page || 1;
-
-                return {
-                    results: data,//.results,
-                    pagination: {
-                        more: (params.page * 10) < data.count_filtered
+    if (role == "2") {
+        $("#CARD_ID").select2();
+    }
+    else {
+        $('#CARD_ID').select2({
+            placeholder: 'Search for a cards',
+            minimumInputLength: 5,
+            ajax: {
+                url: '/EmployeeRequest/GetActiveEmployess/',
+                delay: 250,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
                     }
-                };
+                    return query;
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+
+                    return {
+                        results: data,//.results,
+                        pagination: {
+                            more: (params.page * 10) < data.count_filtered
+                        }
+                    };
+                }
+                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
             }
-            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
-
-        }
-    });
-
+        });
+    }
 
     $("#CompanyNumber").change(function () {// class levels
         var compNu = $("#CompanyNumber").val();

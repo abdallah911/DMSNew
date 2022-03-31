@@ -344,9 +344,9 @@
 
             // chick card id is correct or not
             if (arra.length == 4 && arra[3] != "") {
-
+                debugger;
                 // final chick if card id start with company id or not
-                if (arra[0] == compname) {
+                if (arra[0] == compname ||("@User.IsInRole("User")"=="True")) {
 
                     $.ajax({
                         url: '/HrChronic/GetEmployeeChronicData/',

@@ -155,6 +155,7 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.UsersInternalCode" Width="1.5" PointX="36.375" PointY="25.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompanyContractPhoto" Width="1.5" PointX="38.375" PointY="23.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProviderContractPhoto" Width="1.5" PointX="35.375" PointY="39.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompStatement" Width="1.5" PointX="40.375" PointY="12.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
