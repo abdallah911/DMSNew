@@ -282,11 +282,12 @@
                                 @Html.ValidationMessageFor(model => model.EMP_IMG, "", new { @class = "text-danger" })
                             </div>
                         </div>
+
                         <div class="form-group col-md-6 ">
                             @Html.Label("Download Excel", htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-offset-4">
                                 <i class="fa fa-download">
-                                    <input data-step="8" data-intro="DownLoad Excel" id="DownLoadEXCL" type="button" value=" DownLoad Excel " onclick="DownLoadEXCLFunc();" class="btn btn-primary" />
+                                    <input data-step="8" data-intro="DownLoad Excel" id="DownLoadEXCL" type="button" value=" DownLoad Excel " onclick="DownLoadEXCLFunc('1');" class="btn btn-primary" />
                                 </i>
                             </div>
                         </div>
@@ -379,6 +380,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group col-md-6 ">
+                            @Html.Label("Download Excel", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-offset-4">
+                                <i class="fa fa-download">
+                                    <input data-step="8" data-intro="DownLoad Excel" id="DownLoadEXCL" type="button" value=" DownLoad Excel " onclick="DownLoadEXCLFunc('2');" class="btn btn-primary" />
+                                </i>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group col-md-6">
+                            @Html.Label("Upload Excel", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                <input class="form-control text-box single-line" id="UploadExcelLevel" name="UploadExcelLevel" type="File" value="">
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-md-offset-10 col-md-2">
                             </div>
@@ -428,6 +444,21 @@
                                     @Html.EditorFor(model => model.REOPEN_DATE, new { htmlAttributes = new { @class = "form-control", @required = "True" } })
                                     @Html.ValidationMessageFor(model => model.REOPEN_DATE, "", new { @class = "text-danger" })
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 ">
+                            @Html.Label("Download Excel", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-offset-4">
+                                <i class="fa fa-download">
+                                    <input data-step="8" data-intro="DownLoad Excel" id="DownLoadEXCL" type="button" value=" DownLoad Excel " onclick="DownLoadEXCLFunc('3');" class="btn btn-primary" />
+                                </i>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group col-md-6">
+                            @Html.Label("Upload Excel", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                <input class="form-control text-box single-line" id="UploadExcelReOpen" name="UploadExcelReOpen" type="File" value="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -721,7 +752,21 @@
                             </div>
                         </div>
 
-
+                        <div class="form-group col-md-6 ">
+                            @Html.Label("Download Excel", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-offset-4">
+                                <i class="fa fa-download">
+                                    <input data-step="8" data-intro="DownLoad Excel" id="DownLoadEXCL" type="button" value=" DownLoad Excel " onclick="DownLoadEXCLFunc('4');" class="btn btn-primary" />
+                                </i>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group col-md-6">
+                            @Html.Label("Upload Excel", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                <input class="form-control text-box single-line" id="UploadExcelTermination" name="UploadExcelTermination" type="File" value="">
+                            </div>
+                        </div>
                         @*<div class="form-group col-md-6">
                                 @Html.Label("Gender", new { @class = "col-md-2 control-label" })
                                 <div class="col-md-10">

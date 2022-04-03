@@ -60,22 +60,14 @@
             <div class="caption">
                 <i class="fa fa-gift"></i> Approvales
             </div>
-            @*<div class="actions">
-                    <a id="Create" href="/AfterSales/Create" style=" text-transform: none" class="btn btn-primary  btn-sm">
-                        <i class="fa fa-plus"></i> New Visit
-                    </a>
-                </div>*@
         </div>
         <br />
         <div class="portlet-body">
             <div class="form-group col-md-6">
-                @*<input id="CARD_ID" value="@ViewBag.CardId" hidden />*@
                 @Html.Label("Select CardId", new { @class = "col-md-3 control-label sbold" })
-                @*<span class="required"> * </span>*@
                 <div class="col-md-5">
                     @Html.DropDownList("CARD_ID", ViewBag.Cardslist as SelectList, new { @class = "form-control", @id = "CARD_ID", @required = "True" })
 
-                    @*@Html.ValidationMessageFor(model => model.CARD_ID, "", new { @class = "text-danger" })*@
                 </div>
                 <br />
             </div>
@@ -133,7 +125,6 @@
 
                             <td>
                                 @Html.ActionLink("Print", "PrintApproval", "Employee", new { id = @item.Code }, new { @class = "btn btn-default" })
-                                @*<a class="btn btn-default" href="/Employee/PrintApproval/' + @item.Code + '"> Print </a>*@
                             </td>
                         </tr>
 

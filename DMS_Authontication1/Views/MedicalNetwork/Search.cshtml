@@ -97,19 +97,11 @@
                     <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
                         <!-- BEGIN PAGE HEADER-->
                         <!-- BEGIN THEME PANEL -->
-
                         <div class="form-wizard">
                             <div class="form-body">
                                 <div class="tab-content">
                                     <div asp-validation-summary="All" class="text-danger"></div>
-
-
-
                                     <div class="row">
-
-
-
-                                        @*Date of class *@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <div class="col-md-10">
@@ -133,18 +125,10 @@
                                                 <div class="form-group" id="class_levels" hidden>
                                                     <div class=" col-md-10">
                                                         @Html.DropDownList("class_levels", ViewBag.compclasseslist as SelectList, new { @class = "form-control", id = "class_selectList" })
-
-                                                        @*<select class="form-control" id="class_selectList">
-                                                                <option value="1">Class | 1</option>
-                                                                <option value="2">Class | 2</option>
-                                                                <option value="3">Class | 3</option>
-                                                                <option value="4">Class | 4</option>
-                                                            </select>*@
                                                     </div>
                                                 </div>
                                             }
                                         </div>
-
                                         @*Date of Card *@
                                         <div class="col-md-2">
                                             <div class="form-group">
@@ -160,7 +144,6 @@
                                                 {
                                                     <div class="col-md-12">
                                                         <select id="txtSearchCard" class="js-data-example-ajax" style="width: 100%"></select>
-                                                        @*<input id="CardNumber" type="text" placeholder="search for card..." class=" form-control " required />*@
                                                     </div>
                                                     <br />
                                                 }
@@ -192,28 +175,31 @@
                                                         </div>
                                                         <div class="col-sm-8">
                                                             @Html.DropDownList("Provider_Type", ViewBag.provider as SelectList, "Select Provider", new { @class = "form-control", id = "provider_Type" })
-                                                            @*<select id="provider_Type" class="form-control"></select>*@
                                                         </div>
-                                                        <div style="margin-top:50px;margin-bottom:100px">
+
+                                                        <div class="col-sm-12" id="SpecialistDiv" style="margin-top:25px" hidden>
+                                                            <div class="col-sm-4">
+                                                                @Html.Label("Specialist", htmlAttributes: new { @class = "control-label" })
+                                                            </div>
+                                                            <div class=" col-sm-8">
+                                                                @Html.DropDownList("Specialist", new SelectList(""), new { @class = "form-control", id = "SpecialistId" })
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-12" style="margin-top:25px">
                                                             <div class="col-sm-4">
                                                                 @Html.Label("Governorate", htmlAttributes: new { @class = "control-label" })
                                                             </div>
                                                             <div class="col-sm-8">
                                                                 @Html.DropDownList("Country", ViewBag.address as SelectList, "Select Governorate", new { @class = "form-control", id = "Country_select" })
-
-
-                                                                @*<select id="Country_select" class="form-control">
-
-                                                                    </select>*@
                                                             </div>
                                                         </div>
-                                                        <div>
+                                                        <div class="col-sm-12" style="margin-top:25px">
                                                             <div class="col-sm-4">
                                                                 @Html.Label("Region", htmlAttributes: new { @class = "control-label" })
                                                             </div>
                                                             <div class=" col-sm-8">
                                                                 @Html.DropDownList("Region", new SelectList(""), new { @class = "form-control", id = "Region_select" })
-                                                                @*<select id="Region_select" class="form-control"></select>*@
                                                             </div>
                                                         </div>
                                                     </div>
@@ -292,7 +278,6 @@
         $("#Country_select").select2();
         $("#Region_select").select2();
         $("#provider_Type").select2();
-
         $('#txtSearchCard').select2({
             placeholder: 'Search for a cards',
             minimumInputLength: 5,
@@ -321,7 +306,6 @@
 
             }
         });
-
         $("#Country_select").change(function () {//address
             $.get("/MedicalNetwork/GetStateList",
                 { id: $("#Country_select").val() }, function (data) {
@@ -331,7 +315,6 @@
                     });
                 });
         });
-
         $("#CompanyNumber").change(function () {// class levels
             var compNu = $("#CompanyNumber").val();
             $("#compname").val(compNu);
@@ -344,7 +327,6 @@
                     });
                 });
         });
-
         $("#CompanyNumber").map(function () {// class levels
             var compNu = $("#CompanyNumber").val();
             $("#compname").val(compNu);
@@ -356,7 +338,42 @@
                     });
                 });
         });
+        $("#provider_Type").change(function () {// class levels
+            $('#SpecialistDiv').hide();
+            $("#SpecialistId").empty();
+            var type = $("#provider_Type").val();
+            if (type == "5") {
+                $('#SpecialistDiv').show();
+                $("#SpecialistId").select2();
+                $("#SpecialistId").val(null).trigger('change');
+                $.get("/MedicalNetwork/GetSpecialistList",
+                    function (data) {
+                        $("#SpecialistId").empty();
+                        $("#SpecialistId").append("<option value=''>Select Specialist</option>")
+                        $.each(data, function (index, row) {
+                            $("#SpecialistId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                        });
+                    });
+            }
 
+        });
+        $("#provider_Type").map(function () {// class levels
+            $("#SpecialistId").select2();
+            $('#SpecialistDiv').hide();
+            $("#SpecialistId").empty();
+            var type = $("#provider_Type").val();
+            if (type == "5") {
+                $('#SpecialistDiv').show();
+                $("#SpecialistId").val(null).trigger('change');
+                $.get("/MedicalNetwork/GetSpecialistList",
+                    function (data) {
+                        $("#SpecialistId").empty();
+                        $.each(data, function (index, row) {
+                            $("#SpecialistId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                        });
+                    });
+            }
+        });
         $('input:radio[name="Search_Type"]').change(
             function () {
                 if ($(this).is(':checked')) {
@@ -373,24 +390,20 @@
 
                     }
                 }
-            });
-
+            })
 
     });
 
     //New Request
     function NewRequest() {
         window.location = '/MedicalNetwork/Search';
-
     }
-
     // Search Provider
     function SearchProvider() {
         $('#list_div').hide();
-        //$("#ProviderListBody").html("");
+        //var typeprovider = $("#provider_Type").val();
+        var specialistid = $("#SpecialistId").val();
         var compname = $("#compname").val();
-
-
         if (searchtype == "Class") {
             if ($("#provider_Type").val() == "") {
                 alert("Please select Provider ...");
@@ -404,7 +417,7 @@
                     url: '/MedicalNetwork/GetProvidersByClass/',
                     data: {
                         classLevel: classlevelSelect, compId: compname, country: $("#Country_select").val(),
-                        region: $("#Region_select").val(), providerId: $("#provider_Type").val()
+                        region: $("#Region_select").val(), providerId: $("#provider_Type").val(), specialistid: $("#SpecialistId").val()
                     },
                     dataType: 'Json',
                     success: function (r) {
@@ -477,7 +490,7 @@
                                 url: '/MedicalNetwork/GetProviders/',
                                 data: {
                                     cardId: cardNum, compId: compname, country: $("#Country_select").val(),
-                                    region: $("#Region_select").val(), providerId: $("#provider_Type").val()
+                                    region: $("#Region_select").val(), providerId: $("#provider_Type").val(), specialistid: $("#SpecialistId").val()
                                 },
                                 dataType: 'Json',
                                 success: function (r) {
@@ -537,6 +550,4 @@
         }
 
     }
-
-
 </script>

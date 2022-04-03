@@ -464,6 +464,9 @@
     <Compile Include="Models\CompContractClassEmp.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CompStatement.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\COMP_CUSTOMIZED_D.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -7880,6 +7883,30 @@
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\EmployeesRequestsImage\Add Employess.xlsx" />
+    <Content Include="Content\IndemnitiesAttachments\11082020162453320081612.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\11082020162453320081713.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\16082020163021820081616.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\16082020163021820081709.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\16082020163021820081710.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\16082020163021820081713.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\16082020163021820081714.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\archive.zip" />
+    <Content Include="Content\IndemnitiesAttachments\Goda20081713.xlsx" />
+    <Content Include="Content\IndemnitiesAttachments\Goda20081714.xlsx" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500150-1-188-3_020211222113238.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\NationalID_500150-1-458-2_020211222113806.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\services20061617.xls" />
+    <Content Include="Content\IndemnitiesAttachments\services20061618.xls" />
+    <Content Include="Content\IndemnitiesAttachments\Service_10362-1-175-2_1004_3_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-3-80000692-3_1011_3_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500135-3-80003366-3_1005_4_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500150-1-188-3_1009_3_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500150-1-203-1_1011_1_0.pdf" />
+    <Content Include="Content\IndemnitiesAttachments\Service_500150-1-458-2_1009_4_0.pdf" />
+    <Content Include="Content\EmployeesRequestsImage\Add Employee.xlsx" />
+    <Content Include="Content\EmployeesRequestsImage\Level.xlsx" />
+    <Content Include="Content\EmployeesRequestsImage\Re Open.xlsx" />
+    <Content Include="Content\EmployeesRequestsImage\Termination Request.xlsx" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\DeployProfile.pubxml" />
     <None Include="Properties\PublishProfiles\DevelopingProfile.pubxml" />

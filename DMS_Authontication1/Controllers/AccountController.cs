@@ -204,6 +204,14 @@ namespace DMS_Authontication1.Controllers
 
                                     //Session["IsIndemnity"] = foundUser;
                                     //Session["IsNetwork"] = foundNetworkUser;
+                                    var usr = User.Identity.GetUserId();
+                                    var cardId = tESTEntities.EmployeePersonalDatas.Where(e => e.UserId == usr).FirstOrDefault().CardId;
+                                    var status = ChicActiveCard(cardId.Split('-')[0], cardId);
+                                    if (status.data != "Y" && status.message != "ok")
+                                    {
+                                        ModelState.AddModelError("", "You Can't login With This user As " + status.message);
+                                        return View(model);
+                                    }
                                     if (string.IsNullOrEmpty(returnUrl) && Request.UrlReferrer != null)
                                         returnUrl = Server.UrlEncode(Request.UrlReferrer.PathAndQuery);
 
@@ -234,6 +242,12 @@ namespace DMS_Authontication1.Controllers
                             && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
                 if (employee != null)
                 {
+                    var status = ChicActiveCard(employee.CARD_ID.Split('-')[0], employee.CARD_ID);
+                    if (status.data != "Y" && status.message != "ok")
+                    {
+                        ModelState.AddModelError("", "You Can't Register With This Card As " + status.message);
+                        return View(model);
+                    }
                     var res = new ConfirmRegisterEmployeeVM
                     {
                         FullName = employee.EMP_ENAME,
@@ -241,13 +255,18 @@ namespace DMS_Authontication1.Controllers
                         UserName = employee.CARD_ID,
                     };
                     return RedirectToAction("ConfirmRegister", "Employee", res);
-                    //return View("~/Views/Employee/ConfirmRegister", res);
                 }
                 else
                 {
                     var usercard = tESTEntities.UsersInternalCodes.Where(u => u.InternalCode == model.UserName).FirstOrDefault();
                     if (usercard != null)
                     {
+                        var status = ChicActiveCard(usercard.CardId.Split('-')[0], usercard.CardId);
+                        if (status.data != "Y" && status.message != "ok")
+                        {
+                            ModelState.AddModelError("", "You Can't Register With This Card As " + status.message);
+                            return View(model);
+                        }
                         var res = new ConfirmRegisterEmployeeVM
                         {
                             FullName = usercard.EnglishName,
@@ -761,7 +780,6 @@ namespace DMS_Authontication1.Controllers
             }
         }
 
-
         //
         // GET: /Account/SendCode
         [AllowAnonymous]
@@ -868,7 +886,6 @@ namespace DMS_Authontication1.Controllers
         //
         // POST: /Account/LogOff
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> LogOff()
         {
             var claim = ((ClaimsIdentity)User.Identity);
@@ -918,7 +935,6 @@ namespace DMS_Authontication1.Controllers
 
         #region Helpers
 
-
         public JsonResult Provider(string id)
         {
             int Code = Convert.ToInt32(id);
@@ -950,8 +966,6 @@ namespace DMS_Authontication1.Controllers
             .ToList();
             return Json(CompaniesDb, JsonRequestBehavior.AllowGet);
         }
-
-
 
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
@@ -1009,6 +1023,53 @@ namespace DMS_Authontication1.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
+
+        public ReturnResult ChicActiveCard(string compid, string CardId)
+        {
+            int CompId = Convert.ToInt32(compid);
+            try
+            {
+                var emp = tESTEntities.Contract_Comp.Where(x => x.C_COMP_ID == CompId).FirstOrDefault().ACTIVE;
+                DateTime datenow = DateTime.Now.Date;
+                var da = new DateTime(datenow.Year, datenow.Month, datenow.Day);
+                var empCardTerminationFlag = tESTEntities.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= da && x.INS_END_DATE >= da).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                if (empCardTerminationFlag != null)
+                {
+                    if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "N")
+                    {
+                        return (new ReturnResult { data = "Y", message = "ok" });
+                    }
+                    else if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "Y" && empCardTerminationFlag.TERMINATE_DATE > da)
+                    {
+                        return (new ReturnResult { data = "Y", message = "ok" });
+                    }
+                    else if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "Y" && empCardTerminationFlag.TERMINATE_DATE < da)
+                    {
+                        return (new ReturnResult { data = "N", message = "Expired Card" });
+                    }
+                }
+                else
+                {
+                    var CompTerminationFlag = tESTEntities.Contract_Data.Where(x => x.C_COMP_ID == CompId && x.DATE_FROM <= da && x.DATE_TO >= da).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    if (CompTerminationFlag != null)
+                    {
+                        return (new ReturnResult { data = "N", message = "Card is not existed" });
+
+                    }
+                }
+                return (new ReturnResult { data = "N", message = "Expired Company" });
+            }
+            catch (Exception ex)
+            {
+                return (new ReturnResult { data = "EX", message = ex.Message });
+            }
+        }
+        public class ReturnResult
+        {
+            public string data { get; set; }
+            public string message { get; set; }
+        }
+
         #endregion
     }
 }
