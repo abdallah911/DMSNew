@@ -259,170 +259,217 @@
 
     });
     $('#submit').click(function () {
-        var result = ValidSaveEditRequest();
-        if (result.valid) {
+        var files = $("#UploadExcelReOpen").get(0).files;//excel
+        var files2 = $("#UploadExcelLevel").get(0).files;//excel
+        if ($("#UploadExcelReOpen").get(0).files.length != 0) {
+            var exceldata = new FormData();
+            exceldata.append("File", files[0]);
 
-            if ($("div.tab-content div.active")[0].id != "ChangeEmployeeNumber" &&
-                $("div.tab-content div.active")[0].id != "CreateEmployee" &&
-                $("div.tab-content div.active")[0].id != "Termination") {//save at validation function#exeption because of ajax call
-                $("#submit").attr("disabled", "disabled");
-                var Imagedata = new FormData();//pdf
-
-                var Request = {
-                    CARD_ID: "",
-                    TYPE: "",
-                    EMP_ENAME_ST: "",
-                    EMP_ENAME_SC: "",
-                    EMP_ENAME_FR: "",
-                    EMP_ANAME_ST: "",
-                    EMP_ANAME_SC: "",
-                    EMP_ANAME_TH: "",
-                    EMP_ENAME_TH: "",
-                    EMP_ANAME_FR: "",
-                    NEW_CARD_ID: "",
-                    PRINT_REASON: "",
-                    PRINT_IMG: "",
-                    REOPEN_DATE: "",
-                    EMP_CLASS: "",
-                    RESON: "",
-                    TYP_EMP_UPDATE: ""
-
-                };
-
-                if ($("div.tab-content div.active")[0].id == "ChangeName") {
-
-                    Request.CARD_ID = $("#ChangeName ").find('#CARD_ID').val();
-                    Request.EMP_ENAME_ST = $("#ChangeName").find("#EMP_ENAME_ST").val();
-                    Request.EMP_ENAME_SC = $("#ChangeName").find("#EMP_ENAME_SC").val();
-                    Request.EMP_ENAME_FR = $("#ChangeName").find("#EMP_ENAME_FR").val();
-                    Request.EMP_ANAME_ST = $("#ChangeName").find("#EMP_ANAME_ST").val();
-                    Request.EMP_ANAME_SC = $("#ChangeName").find("#EMP_ANAME_SC").val();
-                    Request.EMP_ANAME_TH = $("#ChangeName").find("#EMP_ANAME_TH").val();
-                    Request.EMP_ENAME_TH = $("#ChangeName").find("#EMP_ENAME_TH").val();
-                    Request.EMP_ANAME_FR = $("#ChangeName").find("#EMP_ANAME_FR").val();
-                    Request.TYPE = "7";
+            $.ajax({
+                url: '/EmployeeRequest/SendExcelFile/',
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: exceldata,
+                success: function (response) {
+                    if (response == 1)
+                        toastr.success("Data Send Susseccfuly ");
+                    //response image url instead of session
+                },
+                error: function (er) {
+                    //alert("Error Upload Image");
                 }
-                else if ($("div.tab-content div.active")[0].id == "ChangeEmployeeNumber") {
-                    Request.CARD_ID = $("#ChangeEmployeeNumber ").find('#CARD_ID').val();
-                    var NewCardId = $("#lbSplitCard1").text() + $("#NEW_CARD_ID").val() + $("#lbSplitCard2").text();
-                    Request.NEW_CARD_ID = NewCardId;
-                    Request.TYPE = "6";
+
+            })
+        }
+        else if ($("#UploadExcelLevel").get(0).files.length != 0) {
+            var exceldata = new FormData();
+            exceldata.append("File", files2[0]);
+
+            $.ajax({
+                url: '/EmployeeRequest/SendExcelFile/',
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: exceldata,
+                success: function (response) {
+                    if (response == 1)
+                        toastr.success("Data Send Susseccfuly ");
+                    //response image url instead of session
+                },
+                error: function (er) {
+                    //alert("Error Upload Image");
                 }
-                else if ($("div.tab-content div.active")[0].id == "Reprint") {
-                    Request.CARD_ID = $("#Reprint ").find('#CARD_ID').val();
-                    Request.PRINT_REASON = $("#PRINT_REASON").val();
-                    Request.TYPE = "4";
-                    if ($("#PRINT_REASON").val() == "تغير صوره") {
-                        var files = $("#PRINT_IMG").get(0).files;//pdf
-                        Request.PRINT_IMG = files[0].name;
+
+            })
+        }
+
+        else {
+            var result = ValidSaveEditRequest();
+            if (result.valid) {
+
+                if ($("div.tab-content div.active")[0].id != "ChangeEmployeeNumber" &&
+                    $("div.tab-content div.active")[0].id != "CreateEmployee" &&
+                    $("div.tab-content div.active")[0].id != "Termination") {//save at validation function#exeption because of ajax call
+                    $("#submit").attr("disabled", "disabled");
+                    var Imagedata = new FormData();//pdf
+
+                    var Request = {
+                        CARD_ID: "",
+                        TYPE: "",
+                        EMP_ENAME_ST: "",
+                        EMP_ENAME_SC: "",
+                        EMP_ENAME_FR: "",
+                        EMP_ANAME_ST: "",
+                        EMP_ANAME_SC: "",
+                        EMP_ANAME_TH: "",
+                        EMP_ENAME_TH: "",
+                        EMP_ANAME_FR: "",
+                        NEW_CARD_ID: "",
+                        PRINT_REASON: "",
+                        PRINT_IMG: "",
+                        REOPEN_DATE: "",
+                        EMP_CLASS: "",
+                        RESON: "",
+                        TYP_EMP_UPDATE: ""
+
+                    };
+
+                    if ($("div.tab-content div.active")[0].id == "ChangeName") {
+
+                        Request.CARD_ID = $("#ChangeName ").find('#CARD_ID').val();
+                        Request.EMP_ENAME_ST = $("#ChangeName").find("#EMP_ENAME_ST").val();
+                        Request.EMP_ENAME_SC = $("#ChangeName").find("#EMP_ENAME_SC").val();
+                        Request.EMP_ENAME_FR = $("#ChangeName").find("#EMP_ENAME_FR").val();
+                        Request.EMP_ANAME_ST = $("#ChangeName").find("#EMP_ANAME_ST").val();
+                        Request.EMP_ANAME_SC = $("#ChangeName").find("#EMP_ANAME_SC").val();
+                        Request.EMP_ANAME_TH = $("#ChangeName").find("#EMP_ANAME_TH").val();
+                        Request.EMP_ENAME_TH = $("#ChangeName").find("#EMP_ENAME_TH").val();
+                        Request.EMP_ANAME_FR = $("#ChangeName").find("#EMP_ANAME_FR").val();
+                        Request.TYPE = "7";
+                    }
+                    else if ($("div.tab-content div.active")[0].id == "ChangeEmployeeNumber") {
+                        Request.CARD_ID = $("#ChangeEmployeeNumber ").find('#CARD_ID').val();
+                        var NewCardId = $("#lbSplitCard1").text() + $("#NEW_CARD_ID").val() + $("#lbSplitCard2").text();
+                        Request.NEW_CARD_ID = NewCardId;
+                        Request.TYPE = "6";
+                    }
+                    else if ($("div.tab-content div.active")[0].id == "Reprint") {
+                        Request.CARD_ID = $("#Reprint ").find('#CARD_ID').val();
+                        Request.PRINT_REASON = $("#PRINT_REASON").val();
+                        Request.TYPE = "4";
+                        if ($("#PRINT_REASON").val() == "تغير صوره") {
+                            var files = $("#PRINT_IMG").get(0).files;//pdf
+                            Request.PRINT_IMG = files[0].name;
+                            Imagedata.append("File", files[0]);
+
+
+                        }
+                    }
+                    else if ($("div.tab-content div.active")[0].id == "Reactive") {
+                        Request.CARD_ID = $("#Reactive ").find('#CARD_ID').val();
+                        Request.TYPE = "5";
+                        Request.REOPEN_DATE = $("#REOPEN_DATE").val();
+                    }
+                    else if ($("div.tab-content div.active")[0].id == "EditLevel") {
+                        Request.CARD_ID = $("#EditLevel ").find('#CARD_ID').val();
+                        Request.TYPE = "2";
+                        Request.EMP_CLASS = $("#EMP_CLASS").val();
+                        Request.RESON = $("#RESON").val();
+                        Request.START_DATE = $("#START_DATE2").val(),
+                            Request.TYP_EMP_UPDATE = $("#TYP_EMP_UPDATE").val();//pdf
+                        var files = $("#TYP_EMP_UPDATE").get(0).files;
+                        Request.TYP_EMP_UPDATE = files[0].name;
                         Imagedata.append("File", files[0]);
 
-
                     }
-                }
-                else if ($("div.tab-content div.active")[0].id == "Reactive") {
-                    Request.CARD_ID = $("#Reactive ").find('#CARD_ID').val();
-                    Request.TYPE = "5";
-                    Request.REOPEN_DATE = $("#REOPEN_DATE").val();
-                }
-                else if ($("div.tab-content div.active")[0].id == "EditLevel") {
-                    Request.CARD_ID = $("#EditLevel ").find('#CARD_ID').val();
-                    Request.TYPE = "2";
-                    Request.EMP_CLASS = $("#EMP_CLASS").val();
-                    Request.RESON = $("#RESON").val();
-                    Request.START_DATE = $("#START_DATE2").val(),
-                        Request.TYP_EMP_UPDATE = $("#TYP_EMP_UPDATE").val();//pdf
-                    var files = $("#TYP_EMP_UPDATE").get(0).files;
-                    Request.TYP_EMP_UPDATE = files[0].name;
-                    Imagedata.append("File", files[0]);
 
-                }
-
-                //Saving Image
-                if (Request.TYP_EMP_UPDATE != "" || Request.PRINT_IMG != "") {
-                    $.ajax({
-                        url: '/EmployeeRequest/SaveImage/',
-                        type: "POST",
-                        processData: false,
-                        contentType: false,
-                        data: Imagedata,
-                        success: function (response) {
-                            if (response != "No") {
-                                if (Request.TYPE == "2") {
-                                    Request.TYP_EMP_UPDATE = response;
-                                }
-                                if (Request.TYPE == "4") {
-                                    Request.PRINT_IMG = response;
-                                }
-                                $.ajax({
-                                    type: 'POST',
-                                    url: '/EmployeeRequest/SaveEditRequest/',
-                                    dataType: 'Json',
-                                    data: Request,
-                                    success: function (result) {
-
-                                        bootbox.dialog({
-                                            closeButton: false,
-                                            title: 'Added Sucessfully',
-                                            message: "Request Number : " + result,
-                                            buttons: {
-                                                New: {
-                                                    label: "New",
-                                                    className: 'btn-info',
-                                                    callback: function () {
-                                                        ClearSaveEditRequest();
-                                                        $("#submit").attr("disabled", false);
-                                                    }
-                                                }
-
-                                            }
-                                        });
-                                    },
-                                    error: function (err) {
-                                        bootbox.alert("Error saving Request");
+                    //Saving Image
+                    if (Request.TYP_EMP_UPDATE != "" || Request.PRINT_IMG != "") {
+                        $.ajax({
+                            url: '/EmployeeRequest/SaveImage/',
+                            type: "POST",
+                            processData: false,
+                            contentType: false,
+                            data: Imagedata,
+                            success: function (response) {
+                                if (response != "No") {
+                                    if (Request.TYPE == "2") {
+                                        Request.TYP_EMP_UPDATE = response;
                                     }
-                                })
-                            }
-                            else {
+                                    if (Request.TYPE == "4") {
+                                        Request.PRINT_IMG = response;
+                                    }
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '/EmployeeRequest/SaveEditRequest/',
+                                        dataType: 'Json',
+                                        data: Request,
+                                        success: function (result) {
+
+                                            bootbox.dialog({
+                                                closeButton: false,
+                                                title: 'Added Sucessfully',
+                                                message: "Request Number : " + result,
+                                                buttons: {
+                                                    New: {
+                                                        label: "New",
+                                                        className: 'btn-info',
+                                                        callback: function () {
+                                                            ClearSaveEditRequest();
+                                                            $("#submit").attr("disabled", false);
+                                                        }
+                                                    }
+
+                                                }
+                                            });
+                                        },
+                                        error: function (err) {
+                                            bootbox.alert("Error saving Request");
+                                        }
+                                    })
+                                }
+                                else {
+                                    alert("Error Upload Image");
+                                }
+                            },
+                            error: function (er) {
                                 alert("Error Upload Image");
                             }
-                        },
-                        error: function (er) {
-                            alert("Error Upload Image");
-                        }
 
-                    })
-                }
-                else {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/EmployeeRequest/SaveEditRequest/',
-                        dataType: 'Json',
-                        data: Request,
-                        success: function (result) {
+                        })
+                    }
+                    else {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/EmployeeRequest/SaveEditRequest/',
+                            dataType: 'Json',
+                            data: Request,
+                            success: function (result) {
 
-                            bootbox.dialog({
-                                closeButton: false,
-                                title: 'Added Sucessfully',
-                                message: "Request Number : " + result,
-                                buttons: {
-                                    New: {
-                                        label: "New",
-                                        className: 'btn-info',
-                                        callback: function () {
-                                            ClearSaveEditRequest();
-                                            $("#submit").attr("disabled", false);
-                                            //window.location.href = "/EmployeeRequest/index";
+                                bootbox.dialog({
+                                    closeButton: false,
+                                    title: 'Added Sucessfully',
+                                    message: "Request Number : " + result,
+                                    buttons: {
+                                        New: {
+                                            label: "New",
+                                            className: 'btn-info',
+                                            callback: function () {
+                                                ClearSaveEditRequest();
+                                                $("#submit").attr("disabled", false);
+                                                //window.location.href = "/EmployeeRequest/index";
+                                            }
                                         }
-                                    }
 
-                                }
-                            });
-                        },
-                        error: function (err) {
-                            bootbox.alert("Error saving Request");
-                        }
-                    })
+                                    }
+                                });
+                            },
+                            error: function (err) {
+                                bootbox.alert("Error saving Request");
+                            }
+                        })
+                    }
                 }
             }
         }
@@ -539,44 +586,69 @@
         }
 
         else if ($("div.tab-content div.active")[0].id == "Termination") {
-            var result = ValidTerminationRequest();
-            if (result.valid) {
-                $("#submit").attr("disabled", "disabled");
-                var Request = {
-                    CARD_ID: $("#CARD_ID").val(),
-                    TERMINATE_DATE: $("#TERMINATE_DATE").val(),
-                    DELIVER_CARD_FLAG: $("#DELIVER_CARD_FLAG").val(),
-                    DELIVER_CARD_DATE: $("#DELIVER_CARD_DATE").val()
-                };
+            var files = $("#UploadExcelTermination").get(0).files;//excel
+            if ($("#UploadExcelTermination").get(0).files.length != 0) {
+                var exceldata = new FormData();
+                exceldata.append("File", files[0]);
 
                 $.ajax({
-                    type: 'POST',
-                    url: '/EmployeeRequest/SaveTerminationRequest/',
-                    dataType: 'Json',
-                    data: Request,
-                    success: function (result) {
-
-                        bootbox.dialog({
-                            closeButton: false,
-                            title: 'Added Sucessfully',
-                            message: "Request Number : " + result,
-                            buttons: {
-                                New: {
-                                    label: "New",
-                                    className: 'btn-info',
-                                    callback: function () {
-                                        ClearTerminationRequest();
-                                        $("#submit").attr("disabled", false);
-                                    }
-                                }
-
-                            }
-                        });
+                    url: '/EmployeeRequest/SendExcelFile/',
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: exceldata,
+                    success: function (response) {
+                        if (response == 1)
+                            toastr.success("Data Send Susseccfuly ");
+                        //response image url instead of session
                     },
-                    error: function (err) {
-                        bootbox.alert("Error saving Request");
+                    error: function (er) {
+                        //alert("Error Upload Image");
                     }
+
                 })
+            }
+
+            else {
+                var result = ValidTerminationRequest();
+                if (result.valid) {
+                    $("#submit").attr("disabled", "disabled");
+                    var Request = {
+                        CARD_ID: $("#CARD_ID").val(),
+                        TERMINATE_DATE: $("#TERMINATE_DATE").val(),
+                        DELIVER_CARD_FLAG: $("#DELIVER_CARD_FLAG").val(),
+                        DELIVER_CARD_DATE: $("#DELIVER_CARD_DATE").val()
+                    };
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/EmployeeRequest/SaveTerminationRequest/',
+                        dataType: 'Json',
+                        data: Request,
+                        success: function (result) {
+
+                            bootbox.dialog({
+                                closeButton: false,
+                                title: 'Added Sucessfully',
+                                message: "Request Number : " + result,
+                                buttons: {
+                                    New: {
+                                        label: "New",
+                                        className: 'btn-info',
+                                        callback: function () {
+                                            ClearTerminationRequest();
+                                            $("#submit").attr("disabled", false);
+                                        }
+                                    }
+
+                                }
+                            });
+                        },
+                        error: function (err) {
+                            bootbox.alert("Error saving Request");
+                        }
+                    })
+                }
             }
         }
     });
@@ -955,8 +1027,8 @@ function ClearSaveRequest() {
     $("#EMP_IMG").val("");
     $("#EMP_CLASS").val('').trigger("change");
 }
-function DownLoadEXCLFunc() {
-    window.open('/EmployeeRequest/PrintXLC');
+function DownLoadEXCLFunc(Type) {
+    window.open('/EmployeeRequest/PrintXLC?Type=' + Type);
 }
 function ClearTerminationRequest() {
     $("#Termination").find('#CARD_ID').val("").change();

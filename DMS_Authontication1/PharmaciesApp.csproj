@@ -8037,6 +8037,10 @@
     <Content Include="Content\IndemnitiesAttachments\Service_500150-1-188-3_1009_3_0.pdf" />
     <Content Include="Content\IndemnitiesAttachments\Service_500150-1-203-1_1011_1_0.pdf" />
     <Content Include="Content\IndemnitiesAttachments\Service_500150-1-458-2_1009_4_0.pdf" />
+    <Content Include="Content\EmployeesRequestsImage\Add Employee.xlsx" />
+    <Content Include="Content\EmployeesRequestsImage\Level.xlsx" />
+    <Content Include="Content\EmployeesRequestsImage\Re Open.xlsx" />
+    <Content Include="Content\EmployeesRequestsImage\Termination Request.xlsx" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\DeployProfile.pubxml" />
     <None Include="Properties\PublishProfiles\DevelopingProfile.pubxml" />
