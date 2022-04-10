@@ -902,6 +902,25 @@ namespace DMS_TEST.Controllers
             return new JsonResult { Data = new { check = check, messa = message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+        public JsonResult CheckVip(string id)
+        {
+            int IsVip = 0;
+            DateTime datenow = DateTime.Now.Date;
+            var empCardTerminationFlag = db.Comp_Employees.Where(x => x.CARD_ID == id && x.INS_START_DATE <= datenow
+            && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+            if (empCardTerminationFlag.USR_TYP == "V")
+            {
+                IsVip = 1; //Accept pending
+                return new JsonResult { Data = new { IsVip = IsVip }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+            {
+                IsVip = 0;
+                return new JsonResult { Data = new { IsVip = IsVip }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+
+        }
+
         public JsonResult Medicines()
         {
             var med = db.MedicineDatas.Where(x => x.ACTIVE == "Y").Join(db.MedicineGroups, d => d.MED_GROUP, g => g.GroupId, (d, g) => new { d, g }).OrderBy(m => m.d.M_CODE).Take(11000)

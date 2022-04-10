@@ -420,50 +420,59 @@ function SelectMedicien(event) {
                         $("#wait").css("display", "none");
                         //append row
                         if (Group == "NO") {
-                            //if (CompId.includes("500")) {
-                            //    Group = "Accepted";
-                            //    AppendRow();
-                            //    Calculation();
-                            //}
-                            //else {
-                                var dialog = bootbox.dialog({
-                                    title: 'This Medicien is Not Covered!',
-                                    message: "<p>Pay method?</p>",
-                                    onEscape: function () {
-                                        RemoveSelection(MedicienCode);
-                                    },
-                                    buttons: {
-                                        Cash: {
-                                            label: "Cash",
-                                            className: 'btn-info',
-                                            callback: function () {
-                                                Group = "Cash";
-                                                AppendRow();
-                                                Calculation();
-                                            }
-                                        },
-                                        Approval: {
-                                            label: "Approved",
-                                            className: 'btn-info',
-                                            callback: function () {
-                                                Group = "Approval";
-                                                AppendRow();
-                                                Calculation();
-                                            }
-                                        },
-                                        Tele: {
-                                            label: "Pending",
-                                            className: 'btn-info',
-                                            callback: function () {
-                                                Group = "Pending";
-                                                AppendRow();
-                                                Calculation();
-                                            }
-                                        }
+                            $.ajax({
+                                dataType: "json",
+                                url: '/Pharmacy/CheckVip',
+                                data: {
+                                    id: CardId
+                                },
+                                success: function (r) {
+                                    if (r.IsVip == 1) {
+                                        Group = "Accepted";
+                                        AppendRow();
+                                        Calculation();
                                     }
-                                });
+                                    else {
+                                        var dialog = bootbox.dialog({
+                                            title: 'This Medicien is Not Covered!',
+                                            message: "<p>Pay method?</p>",
+                                            onEscape: function () {
+                                                RemoveSelection(MedicienCode);
+                                            },
+                                            buttons: {
+                                                Cash: {
+                                                    label: "Cash",
+                                                    className: 'btn-info',
+                                                    callback: function () {
+                                                        Group = "Cash";
+                                                        AppendRow();
+                                                        Calculation();
+                                                    }
+                                                },
+                                                Approval: {
+                                                    label: "Approved",
+                                                    className: 'btn-info',
+                                                    callback: function () {
+                                                        Group = "Approval";
+                                                        AppendRow();
+                                                        Calculation();
+                                                    }
+                                                },
+                                                Tele: {
+                                                    label: "Pending",
+                                                    className: 'btn-info',
+                                                    callback: function () {
+                                                        Group = "Pending";
+                                                        AppendRow();
+                                                        Calculation();
+                                                    }
+                                                }
+                                            }
+                                        });
 
-                            //}
+                                    }
+                                }
+                            });
                         }
                         else {
                             AppendRow();

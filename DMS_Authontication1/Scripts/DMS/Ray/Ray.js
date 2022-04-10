@@ -149,8 +149,8 @@ $(function () {
                                                     //    },
                                                     //    error: function (r) { }
                                                     //});
-                                                    
-                                                    
+
+
                                                 }
                                                 else {
                                                     $("#wait").css("display", "none");
@@ -174,7 +174,7 @@ $(function () {
                                             }
                                         }
                                     });
-                                    
+
 
                                     $.ajax({
                                         type: "POST",
@@ -591,50 +591,58 @@ function SelectRay(event) {
                     });
 
                     if (Group == "NO") {
-                        //if ($('#txtSearchCard').val().split('-')[0].includes("500")) {
-                        //    Group = "Accepted";
-                        //    AppendRow();
-                        //    Calculation();
-                        //}
-                        //else {
-                            var dialog = bootbox.dialog({
-                                title: 'This Rays is Not Covered!',
-                                message: "<p>Pay method?</p>",
-                                onEscape: function () {
-                                    RemoveSelection(Code);
-                                },
-                                buttons: {
-                                    Cash: {
-                                        Rayel: "Cash",
-                                        className: 'btn-info',
-                                        callback: function () {
-                                            Group = "Cash";
-                                            AppendRow();
-                                            Calculation();
-                                        }
-                                    },
-                                    Approval: {
-                                        Rayel: "Approval",
-                                        className: 'btn-info',
-                                        callback: function () {
-                                            Group = "Approval";
-                                            AppendRow();
-                                            Calculation();
-                                        }
-                                    },
-                                    Pending: {
-                                        Rayel: "Pending",
-                                        className: 'btn-info',
-                                        callback: function () {
-                                            Group = "Pending";
-                                            AppendRow();
-                                            Calculation();
-                                        }
-                                    }
+                        $.ajax({
+                            dataType: "json",
+                            url: '/Pharmacy/CheckVip',
+                            data: {
+                                id: $('#txtSearchCard').val()
+                            },
+                            success: function (r) {
+                                if (r.IsVip == 1) {
+                                    Group = "Accepted";
+                                    AppendRow();
+                                    Calculation();
                                 }
-                            });
-                        //}
-
+                                else {
+                                    var dialog = bootbox.dialog({
+                                        title: 'This Rays is Not Covered!',
+                                        message: "<p>Pay method?</p>",
+                                        onEscape: function () {
+                                            RemoveSelection(Code);
+                                        },
+                                        buttons: {
+                                            Cash: {
+                                                Rayel: "Cash",
+                                                className: 'btn-info',
+                                                callback: function () {
+                                                    Group = "Cash";
+                                                    AppendRow();
+                                                    Calculation();
+                                                }
+                                            },
+                                            Approval: {
+                                                Rayel: "Approval",
+                                                className: 'btn-info',
+                                                callback: function () {
+                                                    Group = "Approval";
+                                                    AppendRow();
+                                                    Calculation();
+                                                }
+                                            },
+                                            Pending: {
+                                                Rayel: "Pending",
+                                                className: 'btn-info',
+                                                callback: function () {
+                                                    Group = "Pending";
+                                                    AppendRow();
+                                                    Calculation();
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        });
                     }
                     else {
                         AppendRow();

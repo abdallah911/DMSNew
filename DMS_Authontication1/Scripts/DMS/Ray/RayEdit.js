@@ -63,63 +63,6 @@ $(function () {
             }
         });
         getlimit()
-        //GetLimit
-        //$.ajax({
-        //    type: "POST",
-        //    dataType: "json",
-        //    url: '/Pharmacy/GetLimit',
-        //    data: { id: CardId },
-        //    success: function (returndata) {
-        //        if (returndata.ok) {
-        //            Limit = returndata.limit.INSURANCE_DAY;
-
-        //            //if (ServiceCode == "11601") {
-        //            //    Limit = returndata.limit.INSURANCE_DAY;
-        //            //    fixedLimit = Limit;
-        //            //}
-        //            //else if (ServiceCode == "11603" || ServiceCode == "11602") {
-        //            //    if (returndata.limit.INSURANCE_MONTH < 0) {
-        //            //        alert("Exceed the limit");
-        //            //        // window.location.reload();
-        //            //        window.location = "/Labs/index";
-
-        //            //    }
-        //            //    Limit = returndata.limit.INSURANCE_MONTH;
-        //            //    fixedLimit = Limit;
-        //            //}
-        //            Calculation();
-
-        //        }
-        //        else {
-        //            bootbox.alert('No Limit Amount ');
-        //        }
-        //    }
-        //});
-        ////Co-Payment
-        //$.ajax({
-        //    type: "POST",
-        //    dataType: "json",
-        //    url: '/Pharmacy/CellingAmount',
-        //    data: {
-        //        id: CardId,
-        //        ServiceCode: ServiceCode
-        //    },
-        //    success: function (r) {
-        //        if (r.Validation == false) {
-        //            toastr.info(r.Message);
-        //        } else {
-        //            CeilingPert = r.CeilingPert;
-        //            AnuualLimit = r.Limit;
-        //            Limit = r.CoInsurancelimit.INSURANCE_DAY_LAB;
-        //            fixedLimit = Limit;
-        //            Calculation();
-        //        }
-        //    },
-        //    error: function (err) {
-        //        alert("Company Annual Amount");
-        //        location.reload();
-        //    }
-        //});
 
     }).done(function () {
         $("#wait").css("display", "none");
@@ -157,14 +100,7 @@ $(function () {
         }
     });
     $('#AddRays').on('select2:selecting', function (event) {
-        //if (ServiceCode != "11602") { } else {
-        //    toastr.warning('Can not add chronic medicine');
-        //    event.preventDefault();
-
-        //}
         SelectMedicien(event);
-
-
     });
     $('#AddRays').on("select2:unselecting", function (event) {
         $('#Rays tbody tr').each(function () {
@@ -358,7 +294,6 @@ function Calculation() {
 
 
 }
-
 function SelectMedicien(event) {
     var Code = event.params.args.data.id
     $("#wait").css("display", "block");
@@ -409,50 +344,58 @@ function SelectMedicien(event) {
                         $("#wait").css("display", "none");
                         //append row
                         if (Group == "NO") {
-                            //if (CompId.includes("500")) {
-                            //    Group = "Accepted";
-                            //    AppendRow();
-                            //    Calculation();
-                            //}
-                            //else {
-                                var dialog = bootbox.dialog({
-                                    title: 'This Ray is Not Covered!',
-                                    message: "<p>Pay method?</p>",
-                                    onEscape: function () {
-                                        RemoveSelection(MedicienCode);
-                                    },
-                                    buttons: {
-                                        Cash: {
-                                            label: "Cash",
-                                            className: 'btn-info',
-                                            callback: function () {
-                                                Group = "Cash";
-                                                AppendRow();
-                                                Calculation();
-                                            }
-                                        },
-                                        Approval: {
-                                            label: "Approved",
-                                            className: 'btn-info',
-                                            callback: function () {
-                                                Group = "Approval";
-                                                AppendRow();
-                                                Calculation();
-                                            }
-                                        },
-                                        Tele: {
-                                            label: "Pending",
-                                            className: 'btn-info',
-                                            callback: function () {
-                                                Group = "Pending";
-                                                AppendRow();
-                                                Calculation();
-                                            }
-                                        }
+                            $.ajax({
+                                dataType: "json",
+                                url: '/Pharmacy/CheckVip',
+                                data: {
+                                    id: CardId
+                                },
+                                success: function (r) {
+                                    if (r.IsVip == 1) {
+                                        Group = "Accepted";
+                                        AppendRow();
+                                        Calculation();
                                     }
-                                });
-                            //}
-
+                                    else {
+                                        var dialog = bootbox.dialog({
+                                            title: 'This Ray is Not Covered!',
+                                            message: "<p>Pay method?</p>",
+                                            onEscape: function () {
+                                                RemoveSelection(MedicienCode);
+                                            },
+                                            buttons: {
+                                                Cash: {
+                                                    label: "Cash",
+                                                    className: 'btn-info',
+                                                    callback: function () {
+                                                        Group = "Cash";
+                                                        AppendRow();
+                                                        Calculation();
+                                                    }
+                                                },
+                                                Approval: {
+                                                    label: "Approved",
+                                                    className: 'btn-info',
+                                                    callback: function () {
+                                                        Group = "Approval";
+                                                        AppendRow();
+                                                        Calculation();
+                                                    }
+                                                },
+                                                Tele: {
+                                                    label: "Pending",
+                                                    className: 'btn-info',
+                                                    callback: function () {
+                                                        Group = "Pending";
+                                                        AppendRow();
+                                                        Calculation();
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            });
                         }
                         else {
                             AppendRow();
