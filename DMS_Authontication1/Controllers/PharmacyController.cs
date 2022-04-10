@@ -1966,34 +1966,8 @@ namespace DMS_TEST.Controllers
             //ViewBag.RoshitaId = id;
             return View(pharmacyAdminVm);
         }
-        //public ActionResult Details(long id)
-        //{
-        //    List<DoctorContainerViewModel> data = db.RoshitaDetails
-        //         .Join(db.MedicineDatas, d => d.MedicienCode, m => m.M_CODE, (d, m) => new { d, m })
-        //         .Where(l => l.d.RoshitaID == id && l.d.IsDealed == true)
-        //         .Select(l => new DoctorContainerViewModel
-        //         {
-        //             Id = l.d.Id,
-        //             MedicienCode = l.d.MedicienCode,
-        //             MedicienName = l.d.MedicienName,
-        //             Dose = l.d.Dose,
-        //             Duration = l.d.Duration,
-        //             TotalDuration = l.d.TotalDuration,
-        //             TotalUnits = l.d.TotalUnits,
-        //             Amount = l.d.Amount,
-        //             DOSAGE_FORM = l.m.DOSAGE_FORM,
-        //             UNIT_NO = l.m.UNIT_NO,
-        //             PACK_PRICE = l.m.PACK_PRICE,
-        //             PACK_SIZE = l.m.PACK_SIZE,
-        //             UNIT_PRICE = l.m.UNIT_PRICE
-        //         })
-        //         .ToList();
-        //    return View(data);
-        //}
-
 
         [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
-
         [HttpPost]
         public JsonResult PharmacyDelete(long id)
         {
@@ -2458,122 +2432,6 @@ namespace DMS_TEST.Controllers
 
         }
 
-        //public JsonResult Update([Bind(Include = "Id,TotalValue,PersonPayment,CompanyPayment,OverInsurance,Cash")] Roshita data)
-        //{
-
-        //    var roshita = db.Roshitas.Where(x => x.Id == data.Id).FirstOrDefault();
-        //    roshita.OverInsurance = data.OverInsurance;
-        //    roshita.PersonPayment = data.PersonPayment;
-        //    roshita.CompanyPayment = data.CompanyPayment;
-        //    roshita.TotalValue = data.TotalValue;
-        //    roshita.Cash = data.Cash;
-        //    roshita.SyncBy = "Update";
-        //    roshita.PatchId = data.PatchId;
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(roshita).State = EntityState.Modified;
-        //        RoshitaAcception roshitaAcception = db.RoshitaAcceptions.Where(x => x.RoshitaId == data.Id).FirstOrDefault();
-        //        if (roshitaAcception != null)
-        //        {
-        //            db.RoshitaAcceptions.Remove(roshitaAcception);
-
-        //        }
-        //        db.SaveChanges();
-        //    }
-        //    Session["id"] = data.Id;
-        //    return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita.Id);
-        //}
-
-        //public JsonResult UpdateMediciens(List<RoshitaDetail> Medciens)
-        //{
-        //    long id = Convert.ToInt64(Session["id"]);
-        //    //var mediciens = db.RoshitaDetails.Where(x => x.RoshitaID == id && x.PaymentGroup != "Pending").ToList();
-        //    List<RoshitaDetail> List_R_Details = db.RoshitaDetails.Where(x => x.RoshitaID == id).ToList();
-        //    var mediciens = List_R_Details.Where(x => x.RoshitaID == id && x.IsDealed == true).ToList();
-        //    db.RoshitaDetails.RemoveRange(mediciens);
-        //    //db.SaveChanges();
-        //    bool oneNotification = (List_R_Details.Where(x => x.RoshitaID == id && x.PaymentGroup == "Pending").ToList().Count == 0) ? false : true; ;
-        //    foreach (RoshitaDetail Medicien in Medciens)
-        //    {
-        //        Medicien.RoshitaID = Convert.ToInt64(Session["id"]);
-        //        //Medicien.IsDealed = true;
-        //        //Medicien.Dose = 0;
-        //        //Medicien.Duration = 0;
-        //        //Medicien.TotalDuration = 7;
-        //        //Medicien.TotalUnits = 1;
-
-        //        if (Medicien.PaymentGroup == "Pending" || Medicien.PaymentGroup == "Cash")
-        //        {
-        //            RoshitaDetail roshitaDetail = List_R_Details.Where(x => x.RoshitaID == id && x.MedicienCode == Medicien.MedicienCode && x.IsDealed == false).FirstOrDefault();
-        //            if (roshitaDetail != null)
-        //            {
-        //                if (Medicien.PaymentGroup == "Pending")
-        //                {
-        //                    Medicien.PaymentGroup = roshitaDetail.PaymentGroup;
-        //                }
-        //                //added before and insert pending or cash
-        //                oneNotification = true;
-        //                db.RoshitaDetails.Remove(roshitaDetail);
-        //                //db.SaveChanges();
-        //            }
-
-        //            if (oneNotification == false && Medicien.PaymentGroup == "Pending")
-        //            {
-        //                //if new pending and didn't have notification
-        //                string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
-        //                var NotificationList = db.Notifications.Where(x => x.Details == CardId && x.DetailsURL == "/DoctorMedicinesLabsRaysApproval/index" && x.IsRead == false).ToList();
-        //                if (NotificationList.Count == 0)
-        //                {
-        //                    NotificationHub objNotifHub = new NotificationHub();
-        //                    Notification notification = new Notification();
-        //                    notification.SentTo = "Admin";
-        //                    notification.CreatedBy = User.Identity.Name;
-        //                    notification.CreatedDate = DateTime.Now;
-        //                    notification.Type = 1;//pending
-        //                    notification.Details = CardId;
-        //                    notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
-        //                    notification.Title = "Pending";
-        //                    db.Notifications.Add(notification);
-        //                    objNotifHub.SendMessages();
-        //                }
-        //                oneNotification = true;
-        //            }
-        //            Medicien.IsDealed = (Medicien.PaymentGroup == "Cash") ? true : false;
-        //        }
-        //        else
-        //        {
-        //            Medicien.IsDealed = true;
-        //        }
-
-
-        //        db.RoshitaDetails.Add(Medicien);
-        //    }
-        //    //foreach (RoshitaDetail Medicien in Medciens)
-        //    //{
-        //    //    Medicien.RoshitaID = Convert.ToInt64(Session["id"]);
-        //    //    Medicien.IsDealed = true;
-        //    //    db.RoshitaDetails.Add(Medicien);
-        //    //}
-        //    try
-        //    {
-        //        int result = db.SaveChanges();
-        //    }
-        //    catch (DbEntityValidationException e)
-        //    {
-        //        foreach (var eve in e.EntityValidationErrors)
-        //        {
-        //            Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-        //                eve.Entry.Entity.GetType().Name, eve.Entry.State);
-        //            foreach (var ve in eve.ValidationErrors)
-        //            {
-        //                Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-        //                    ve.PropertyName, ve.ErrorMessage);
-        //            }
-        //        }
-        //        throw;
-        //    }
-        //    return Json("savd");
-        //}
         public ActionResult ControlPenelReport(string id)
         {
             try
@@ -2655,9 +2513,16 @@ namespace DMS_TEST.Controllers
                     MedicineNoPay = d.r.MedicineNoPay
                 }).ToList();
                 rd.SetDataSource(y);
-                if (patient.EMP_ENAME == null)
+                if (string.IsNullOrEmpty(patient.EMP_ENAME) || patient.EMP_ENAME == "NULL")
                 {
-                    rd.SetParameterValue("PatientName", "Unnamed");
+                    if (string.IsNullOrEmpty(patient.EMP_ANAME) || patient.EMP_ANAME == "NULL")
+                    {
+                        rd.SetParameterValue("PatientName", "Unnamed");
+                    }
+                    else
+                    {
+                        rd.SetParameterValue("PatientName", patient.EMP_ANAME);
+                    }
                 }
                 else
                 {

@@ -871,7 +871,7 @@ namespace DMS_Authontication1.Controllers
                         update.MED_TYP = item.MED_TYP;
                         update.DOSE = Convert.ToInt32(item.DOSE);
                         update.NO_OF_UINT = Convert.ToInt32(item.NO_OF_UINT);
-                        update.TOTAL_AMT = item.TOTAL_AMT;
+                        update.TOTAL_AMT = System.Math.Round(item.TOTAL_AMT.Value, 5);
                         update.MED_DURATION = Convert.ToInt32(item.MED_DURATION);
                         update.DOS_DUR = Convert.ToInt32(item.DOS_DUR);
                         update.EXCESS = item.EXCESS;

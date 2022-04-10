@@ -158,7 +158,7 @@ namespace DMS_Authontication1.Controllers
             //db.CardUseds.Remove(carduse);
             data.Manager = "Ray";
             data.RoshetaType = "11204";
-            
+
             int result = db.SaveChanges();
             Session["id"] = data.Id;
             return Json("2" + data.CreatedDate.Value.ToString("ddMMyy") + data.Id);
@@ -787,16 +787,22 @@ namespace DMS_Authontication1.Controllers
                  PaymentGroup = d.PaymentGroup
              }).ToList();
             rd.SetDataSource(y);
-            if (patient.EMP_ENAME == null)
+            if (string.IsNullOrEmpty(patient.EMP_ENAME) || patient.EMP_ENAME == "NULL")
             {
-                rd.SetParameterValue("PatientName", "Unnamed");
+                if (string.IsNullOrEmpty(patient.EMP_ANAME) || patient.EMP_ANAME == "NULL")
+                {
+                    rd.SetParameterValue("PatientName", "Unnamed");
+                }
+                else
+                {
+                    rd.SetParameterValue("PatientName", patient.EMP_ANAME);
+                }
             }
             else
             {
                 rd.SetParameterValue("PatientName", patient.EMP_ENAME);
             }
             data.RoshetaType = "Ray";
-
             rd.SetParameterValue("Type", data.RoshetaType);
             rd.SetParameterValue("Pharmacy", data.CreatedBy);
             rd.SetParameterValue("Approval", id);

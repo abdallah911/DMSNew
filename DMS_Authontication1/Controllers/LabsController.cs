@@ -822,9 +822,16 @@ namespace DMS_Authontication1.Controllers
                  PaymentGroup = d.PaymentGroup
              }).ToList();
             rd.SetDataSource(y);
-            if (patient.EMP_ENAME == null)
+            if (string.IsNullOrEmpty(patient.EMP_ENAME) || patient.EMP_ENAME == "NULL")
             {
-                rd.SetParameterValue("PatientName", "Unnamed");
+                if (string.IsNullOrEmpty(patient.EMP_ANAME) || patient.EMP_ANAME == "NULL")
+                {
+                    rd.SetParameterValue("PatientName", "Unnamed");
+                }
+                else
+                {
+                    rd.SetParameterValue("PatientName", patient.EMP_ANAME);
+                }
             }
             else
             {
