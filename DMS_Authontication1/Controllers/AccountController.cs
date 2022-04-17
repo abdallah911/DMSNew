@@ -156,20 +156,6 @@ namespace DMS_Authontication1.Controllers
                                 case "Admin":
                                     return RedirectToLocal("/ControlPanel/Main");
                                 case "HR":
-                                    // //var user = await UserManager.FindByNameAsync(User.Identity.Name);
-                                    // bool found = false;
-                                    // var provider = int.Parse(user.Provider);
-                                    // var CurrentDate = DateTime.Now.Date;
-                                    // var company = tESTEntities.Contract_Data.Where(c => c.C_COMP_ID == provider && c.DATE_FROM <= CurrentDate
-                                    //&& c.DATE_TO >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-                                    // if (company != null)
-                                    // {
-                                    //     var GetServActive = tESTEntities.COMP_CUSTOMIZED_D.Where(p => p.C_COMP_ID == provider && p.CONTRACT_NO == company.CONTRACT_NO
-                                    //       && p.SERV_CODE == "12").FirstOrDefault();
-                                    //     if (GetServActive != null)
-                                    //         found = true;
-                                    // }
-                                    // Session["IsIndemnity"] = found;
                                     return RedirectToLocal("/EmployeeRequest/Index");
                                 case "HR_Admin":
                                     return RedirectToLocal("/Reports/Index");
@@ -178,32 +164,6 @@ namespace DMS_Authontication1.Controllers
                                 case "AfterSale":
                                     return RedirectToLocal("/AfterSales/Index");
                                 case "User":
-                                    //bool foundUser = false;
-                                    //bool foundNetworkUser = false;
-                                    //var cardId = tESTEntities.EmployeePersonalDatas.Where(e => e.UserId == user.Id).FirstOrDefault().CardId;
-                                    //var providerUser = int.Parse(cardId.Split('-')[0]);
-                                    //if (providerUser == 10362)
-                                    //{
-                                    //    //Session["IsIndemnity"] = foundUser;
-                                    //    Session["IsNetwork"] = foundNetworkUser;
-                                    //}
-                                    //else
-                                    //{
-                                    //    foundNetworkUser = true;
-                                    //    var CurrentDateUser = DateTime.Now.Date;
-                                    //    var companyUser = tESTEntities.Contract_Data.Where(c => c.C_COMP_ID == providerUser && c.DATE_FROM <= CurrentDateUser
-                                    //   && c.DATE_TO >= CurrentDateUser).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-                                    //    if (companyUser != null)
-                                    //    {
-                                    //        var GetServActive = tESTEntities.COMP_CUSTOMIZED_D.Where(p => p.C_COMP_ID == providerUser && p.CONTRACT_NO == companyUser.CONTRACT_NO
-                                    //          && p.SERV_CODE == "12").FirstOrDefault();
-                                    //        if (GetServActive != null)
-                                    //            foundUser = true;
-                                    //    }
-                                    //}
-
-                                    //Session["IsIndemnity"] = foundUser;
-                                    //Session["IsNetwork"] = foundNetworkUser;
                                     var usr = User.Identity.GetUserId();
                                     var cardId = tESTEntities.EmployeePersonalDatas.Where(e => e.UserId == usr).FirstOrDefault().CardId;
                                     var status = ChicActiveCard(cardId.Split('-')[0], cardId);
@@ -1057,7 +1017,7 @@ namespace DMS_Authontication1.Controllers
 
                     }
                 }
-                return (new ReturnResult { data = "N", message = "Expired Company" });
+                return (new ReturnResult { data = "N", message = "Expired card" });
             }
             catch (Exception ex)
             {

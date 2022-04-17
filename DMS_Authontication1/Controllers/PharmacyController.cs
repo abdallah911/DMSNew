@@ -230,7 +230,8 @@ namespace DMS_TEST.Controllers
             if (ServiceCode == "11602")
             {
 
-                string compardatestr = "20/" + ((DateTime.Now.Day <= 20) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString();
+                //string compardatestr = "05/" + ((DateTime.Now.Day <= 5) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString();
+                string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
                 DateTime compardate = DateTime.ParseExact(compardatestr, "dd/MM/yyyy", null);
 
                 if ((emp.INS_END_DATE < compardate) && !(emp.CARD_ID.Split('-')[0].Contains("500")))
