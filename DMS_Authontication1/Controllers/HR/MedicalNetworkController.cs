@@ -429,6 +429,7 @@ namespace DMS_Authontication1.Controllers.HR
                                                       s.ADDRESS2,
                                                       s.TEL1,
                                                       s.TEL2,
+                                                      s.PR_DESC
 
                                                   }).ToList();
 
@@ -446,6 +447,7 @@ namespace DMS_Authontication1.Controllers.HR
                                                       s.ADDRESS2,
                                                       s.TEL1,
                                                       s.TEL2,
+                                                      s.PR_DESC
 
                                                   }).ToList();
                         //var providerList = db.Serv_Providers1.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == bsCode && p.ADDRESS1.Contains(arbicReagonName) && p.PROV_DEGREE == "2" || p.PROV_DEGREE == "3").ToList();
@@ -463,7 +465,7 @@ namespace DMS_Authontication1.Controllers.HR
                                                       s.ADDRESS2,
                                                       s.TEL1,
                                                       s.TEL2,
-
+                                                      s.PR_DESC
                                                   }).ToList();
 
                         //var providerList = db.Serv_Providers1.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == bsCode && p.ADDRESS1.Contains(arbicReagonName) && p.PROV_DEGREE == "3").ToList();

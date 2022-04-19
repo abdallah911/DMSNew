@@ -523,7 +523,11 @@
                                             if (r.providerslist[i].TEL2 == null)
                                                 data += "<td>--</td>";
                                             else
-                                                data += "<td>" + r.providerslist[i].TEL2 + "</td>" +
+                                                data += "<td>" + r.providerslist[i].PR_DESC + "</td>";
+                                            if (r.providerslist[i].PR_DESC == null)
+                                                data += "<td>--</td>";
+                                            else
+                                                data += "<td>" + r.providerslist[i].PR_DESC + "</td>" +
                                                     "</tr>";
                                             setData.append(data);
                                         }
