@@ -243,6 +243,9 @@
                                                         <th>
                                                             @Html.DisplayName("TEL 2")
                                                         </th>
+                                                        <th>
+                                                            @Html.DisplayName("Specialist")
+                                                        </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="ProviderListBody"></tbody>
@@ -444,7 +447,11 @@
                                 if (r.providerslist[i].TEL2 == null)
                                     data += "<td>--</td>";
                                 else
-                                    data += "<td>" + r.providerslist[i].TEL2 + "</td>" +
+                                    data += "<td>" + r.providerslist[i].TEL2 + "</td>";
+                                if (r.providerslist[i].PR_DESC == null)
+                                    data += "<td>--</td>";
+                                else
+                                    data += "<td>" + r.providerslist[i].PR_DESC + "</td>" +
                                         "</tr>";
                                 setData.append(data);
                             }

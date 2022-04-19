@@ -549,23 +549,23 @@ namespace DMS_Authontication1.Controllers.HR
                 SendExcelMail("mediacl.approv@gmail.com", "Operation@dms-eg.com", sub, File);
                 SendExcelMail("mediacl.approv@gmail.com", "Operation.aso@dms-eg.com", sub, File);
                 SendExcelMail("mediacl.approv@gmail.com", "marian@dms-eg.com", sub, File);
-                using (MailMessage mail = new MailMessage("mediacl.approv@gmail.com", "Operation@dms-eg.com"))
-                {
-                    mail.Subject = sub;
-                    mail.Body = "";
-                    string fileName = Path.GetFileName(File.FileName);
-                    mail.Attachments.Add(new Attachment(File.InputStream, fileName));
+                //using (MailMessage mail = new MailMessage("mediacl.approv@gmail.com", "Operation@dms-eg.com"))
+                //{
+                //    mail.Subject = sub;
+                //    mail.Body = "";
+                //    string fileName = Path.GetFileName(File.FileName);
+                //    mail.Attachments.Add(new Attachment(File.InputStream, fileName));
 
-                    mail.IsBodyHtml = false;
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.EnableSsl = true;
-                    NetworkCredential networkCredential = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "Dms123456");
-                    smtp.UseDefaultCredentials = true;
-                    smtp.Credentials = networkCredential;
-                    smtp.Port = 587;
-                    smtp.Send(mail);
-                }
+                //    mail.IsBodyHtml = false;
+                //    SmtpClient smtp = new SmtpClient();
+                //    smtp.Host = "smtp.gmail.com";
+                //    smtp.EnableSsl = true;
+                //    NetworkCredential networkCredential = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "Dms123456");
+                //    smtp.UseDefaultCredentials = true;
+                //    smtp.Credentials = networkCredential;
+                //    smtp.Port = 587;
+                //    smtp.Send(mail);
+                //}
                 return new JsonResult { Data = 1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
             }

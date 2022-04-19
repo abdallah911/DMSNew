@@ -346,6 +346,7 @@ namespace DMS_Authontication1.Controllers.HR
                                                       s.ADDRESS2,
                                                       s.TEL1,
                                                       s.TEL2,
+                                                      s.PR_DESC
 
                                                   }).ToList();
 
@@ -363,6 +364,7 @@ namespace DMS_Authontication1.Controllers.HR
                     s.ADDRESS2,
                     s.TEL1,
                     s.TEL2,
+                    s.PR_DESC
 
                 }).ToList();
 
@@ -381,6 +383,7 @@ namespace DMS_Authontication1.Controllers.HR
                                                       s.ADDRESS2,
                                                       s.TEL1,
                                                       s.TEL2,
+                                                      s.PR_DESC
 
                                                   }).ToList();
 

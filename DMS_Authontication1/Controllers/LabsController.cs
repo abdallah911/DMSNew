@@ -764,6 +764,146 @@ namespace DMS_Authontication1.Controllers
             }
             return Json("savd");
         }
+
+        public JsonResult UpdatePrescription(PrescriptionViewModel data)
+        {
+            //Roshita
+            var roshita = db.Roshitas.Where(x => x.Id == data.Id)
+                .Include(r => r.PrescriptionRoshitaDignosis).FirstOrDefault();
+
+            Roshita roshita1 = new Roshita();
+            roshita1.Manager = roshita.Manager;
+            roshita1.CardId = roshita.CardId;
+            roshita1.Speciality = roshita.Speciality;
+            roshita1.Diagnose1 = roshita.Diagnose1;
+            roshita1.Diagnose2 = roshita.Diagnose2;
+            roshita1.diagnose3 = roshita.diagnose3;
+            roshita1.RoshetaType = roshita.RoshetaType;
+            roshita1.CompanyPercent = roshita.CompanyPercent;
+            roshita1.Limit = roshita.Limit;
+            roshita1.PhoneNumber = roshita.PhoneNumber;
+            roshita1.ClaimNumber = roshita.ClaimNumber;
+            roshita1.CreatedBy = roshita.CreatedBy;
+            roshita1.CreatedDate = roshita.CreatedDate;
+            roshita1.UpdatedBy = User.Identity.Name;
+            roshita1.UpdatedDate = DateTime.Now;
+
+            roshita1.OverInsurance = data.OverInsurance;
+            roshita1.PersonPayment = data.PersonPayment;
+            roshita1.CompanyPayment = data.CompanyPayment;
+            roshita1.TotalValue = data.TotalValue;
+            roshita1.Cash = data.Cash;
+            roshita1.PatchId = data.PatchId;
+
+            roshita.Manager = "Stop-ED";
+            roshita.SyncBy = "Update";
+            roshita.UpdatedBy = User.Identity.Name;
+            roshita.UpdatedDate = DateTime.Now;
+
+            db.Entry(roshita).State = EntityState.Modified;
+            if (ModelState.IsValid)
+            {
+                RoshitaAcception roshitaAcception = db.RoshitaAcceptions.Where(x => x.RoshitaId == data.Id).FirstOrDefault();
+                if (roshitaAcception != null)
+                {
+                    db.RoshitaAcceptions.Remove(roshitaAcception);
+
+                }
+            }
+            roshita1.PrescriptionRoshitaDignosis = new List<PrescriptionRoshitaDignosi>();
+            foreach (var item in roshita.PrescriptionRoshitaDignosis)
+            {
+                roshita1.PrescriptionRoshitaDignosis.Add(new PrescriptionRoshitaDignosi
+                {
+                    DiagnoiseName = item.DiagnoiseName
+                });
+            }
+            // RoshitaDetails
+
+            roshita1.RoshitaDetails = new List<RoshitaDetail>();
+            
+            List<RoshitaDetail> List_R_Details = db.RoshitaDetails.Where(x => x.RoshitaID == data.Id).ToList();
+            bool oneNotification = (List_R_Details.Where(x => x.RoshitaID == data.Id && x.PaymentGroup == "Pending").ToList().Count == 0) ? false : true;
+            var oldpending = List_R_Details.Where(r => r.RoshitaID == data.Id && (r.PaymentGroup == "Pending" || r.PaymentGroup == "Accepted"
+            || r.PaymentGroup == "Rejected") && r.IsDealed == false).ToList();
+            foreach (var old in oldpending)
+            {
+                RoshitaDetail oldMedicien = new RoshitaDetail
+                {
+                    MedicienCode = old.MedicienCode,
+                    MedicienName = old.MedicienName,
+                    Dose = old.Dose,
+                    Duration = old.Duration,
+                    TotalDuration = old.TotalDuration,
+                    TotalUnits = old.TotalUnits,
+                    Amount = old.Amount,
+                    IsDealed = old.IsDealed,
+                    PaymentGroup = old.PaymentGroup,
+                    MedicineNoPay = old.MedicineNoPay
+                };
+                roshita1.RoshitaDetails.Add(oldMedicien);
+                old.PaymentGroup = old.PaymentGroup + "-Stop";
+                db.Entry(old).State = EntityState.Modified;
+
+            }
+            foreach (RoshitaDetail Medicien in data.roshitaDetail)
+            {
+                Medicien.RoshitaID = 0;
+                Medicien.Dose = 0;
+                Medicien.Duration = 0;
+                Medicien.TotalDuration = 7;
+                Medicien.TotalUnits = 1;
+
+                if (Medicien.PaymentGroup == "Pending" || Medicien.PaymentGroup == "Cash")
+                {
+                    if (oneNotification == false && Medicien.PaymentGroup == "Pending")
+                    {
+                        //if new pending and didn't have notification
+                        string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
+                        var NotificationList = db.Notifications.Where(x => x.Details == CardId && x.DetailsURL == "/DoctorMedicinesLabsRaysApproval/index" && x.IsRead == false).ToList();
+                        if (NotificationList.Count == 0)
+                        {
+                            NotificationHub objNotifHub = new NotificationHub();
+                            Notification notification = new Notification();
+                            notification.SentTo = "Admin";
+                            notification.CreatedBy = User.Identity.Name;
+                            notification.CreatedDate = DateTime.Now;
+                            notification.Type = 1;//pending
+                            notification.Details = CardId;
+                            notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
+                            notification.Title = "Pending";
+                            db.Notifications.Add(notification);
+                            objNotifHub.SendMessages();
+                        }
+                        oneNotification = true;
+                    }
+                    Medicien.IsDealed = (Medicien.PaymentGroup == "Cash") ? true : false;
+                }
+                else
+                {
+                    Medicien.IsDealed = true;
+                }
+
+                roshita1.RoshitaDetails.Add(Medicien);
+            }
+
+
+            ////
+            try
+            {
+                db.Roshitas.Add(roshita1);
+                int result = db.SaveChanges();
+
+                return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita1.Id);
+
+            }
+            catch (DbEntityValidationException e)
+            {
+                return Json("Failed to Save Prescription");
+            }
+
+        }
+
         public ActionResult ControlPenelReport(string id)
         {
             var data = new Roshita();

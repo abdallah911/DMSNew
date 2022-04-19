@@ -176,90 +176,77 @@ $(function () {
 
     $('#Update').click(function () {
 
-        $.ajax({
-            type: 'POST',
-            url: '/Labs/update/',
-            dataType: 'Json',
-            data: {
-                Id: id,
-                //calculation
-                TotalValue: $('#txtTotalInvoice').val(),
-                PersonPayment: $('#txtTotalCopayment').val(),
-                CompanyPayment: $('#txtValueCredit').val(),
-                OverInsurance: $('#txtOverInsurance').val(),
-                Cash: $('#txtValueCash').val()
-            },
-            success: function (Oracle_Id) {
-                //var ReportId = r;
-                //Date.prototype.yyyymmdd = function () {
-                //    var mm = this.getMonth() + 1; // getMonth() is zero-based
-                //    var dd = this.getDate();
-                //    return [(dd > 9 ? '' : '0') + dd,
-                //    (mm > 9 ? '' : '0') + mm,
-                //    this.getFullYear()
-                //    ].join('');
-                //};
-                //var date = new Date();
-                //d = date.yyyymmdd()
-                //r = r + d;
-                //approval = r;
-                bootbox.dialog({
-                    closeButton: false,
-                    title: 'Updated Sucessfully',
-                    message: "Roshita ID : " + Oracle_Id,
-                    buttons: {
-                        Print: {
-                            label: "Print",
-                            className: 'btn-info',
-                            callback: function () {
-                                window.location.reload();
-                                window.open('/Labs/ControlPenelReport?id=' + Oracle_Id);
-                            }
-                        },
-                        New: {
-                            label: "Back",
-                            className: 'btn-info',
-                            callback: function () {
-                                window.location = "/Labs/index?id=undefined";
-                            }
-                        }
+        var Mediciens = new Array();
+        $("#Labs TBODY TR").each(function () {
 
-                    }
-                });
-            },
-            error: function (err) {
-                bootbox.alert("Error prescription");
-            }
-        }).done(function () {
-
-            var Mediciens = new Array();
-            $("#Labs TBODY TR").each(function () {
-
-                var row = $(this);
-                var Medicien = {};
-                Medicien.MedicienCode = row.find("TD").eq(0).html().trim();
-                Medicien.MedicienName = row.find("TD").eq(1).html().trim();
-                Medicien.Amount = parseFloat(("TD", row).find(".Amount").val());
-                Medicien.PaymentGroup = row.find("TD").eq(3).html().trim();
-                Mediciens.push(Medicien);
-            });
-
-            $.ajax({
-                type: 'POST',
-                url: '/Labs/UpdateMediciens/',
-                dataType: 'Json',
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(Mediciens),
-                success: function (r) {
-
-                },
-                error: function (err) {
-                    bootbox.alert("Error Medicien");
-                }
-            });
-
+            var row = $(this);
+            var Medicien = {};
+            Medicien.MedicienCode = row.find("TD").eq(0).html().trim();
+            Medicien.MedicienName = row.find("TD").eq(1).html().trim();
+            Medicien.Amount = parseFloat(("TD", row).find(".Amount").val());
+            Medicien.PaymentGroup = row.find("TD").eq(3).html().trim();
+            Mediciens.push(Medicien);
         });
 
+        if (Mediciens.length != 0) {
+            $("#Update").attr("disabled", true);
+            if ($('#txtTotalInvoice').val() != 0 && $('#txtTotalInvoice').val() != undefined && $('#txtTotalInvoice').val() != "") {
+                var UpdatePrescription = {
+                    Id: id,
+                    TotalValue: $('#txtTotalInvoice').val(),
+                    PersonPayment: $('#txtTotalCopayment').val(),
+                    CompanyPayment: $('#txtValueCredit').val(),
+                    OverInsurance: $('#txtOverInsurance').val(),
+                    Cash: $('#txtValueCash').val(),
+                    roshitaDetail: Mediciens,
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/Labs/UpdatePrescription/',
+                    dataType: 'Json',
+                    data: UpdatePrescription,
+                    success: function (OracleId) {
+                        bootbox.dialog({
+                            closeButton: false,
+                            title: 'Added Sucessfully',
+                            message: " يرجي اعادة الطباعه حيث ان الكليم القديم يعتبر لاغي وعدم الطباعه سيؤدي الي خصم الكيم بالكامل علي مقدم الخدمه " + "Approval Number : " + OracleId,
+                            buttons: {
+                                Print: {
+                                    label: "Print",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        window.open('/Labs/ControlPenelReport?id=' + OracleId);
+                                        $("#Update").attr("disabled", false);
+                                    }
+                                },
+                                New: {
+                                    label: "New",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        window.location = "/Labs/index?id=undefined";
+                                        $("#Update").attr("disabled", false);
+                                    }
+                                }
+
+                            }
+                        });
+                    },
+                    error: function (err) {
+                        bootbox.alert("Error saving roshita,please check your internet connection");
+                        $("#Update").attr("disabled", false);
+                    }
+                });
+
+            }
+            else {
+                bootbox.alert("Please wait untaill data load correctly");
+                $("#Update").attr("disabled", false);
+            }
+        }
+        else {
+            bootbox.alert("Please Insert medicines");
+            $("#Update").attr("disabled", false);
+        }
     })
 });
 function getlimit() {
