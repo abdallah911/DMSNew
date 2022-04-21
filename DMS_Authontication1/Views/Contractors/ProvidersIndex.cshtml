@@ -17,7 +17,7 @@
         modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
         if (modellist != null)
         {
-            var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 49 && (x.FullControl || x.EditPermission
+            var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 48 && (x.FullControl || x.EditPermission
                                           || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
             if (obj != null)
             {
