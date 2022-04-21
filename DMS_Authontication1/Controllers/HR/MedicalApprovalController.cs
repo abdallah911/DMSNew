@@ -614,7 +614,7 @@ namespace DMS_Authontication1.Controllers.HR
         }
         public JsonResult GetAproveder(int id)
         {
-            var listproveders = db.SERV_PROVIDERS_NEW.Where(m => m.PRV_TYPE == id).Select(l => new { PR_CODE = l.PR_CODE, PR_ANAME = l.PR_ANAME }).ToList();
+            var listproveders = db.SERV_PROVIDERS_NEW.Where(m => m.PRV_TYPE == id).Select(l => new { PR_CODE = l.PR_CODE, PR_ANAME = l.PR_ANAME }).ToList().Distinct();
             SelectList Providerlist = new SelectList(listproveders, "PR_CODE", "PR_ANAME");
             return new JsonResult { Data = new { providerslist = Providerlist }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
