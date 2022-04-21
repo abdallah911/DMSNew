@@ -63,63 +63,6 @@ $(function () {
             }
         });
         getlimit()
-        //GetLimit
-        //$.ajax({
-        //    type: "POST",
-        //    dataType: "json",
-        //    url: '/Pharmacy/GetLimit',
-        //    data: { id: CardId },
-        //    success: function (returndata) {
-        //        if (returndata.ok) {
-        //            Limit = returndata.limit.INSURANCE_DAY;
-
-        //            //if (ServiceCode == "11601") {
-        //            //    Limit = returndata.limit.INSURANCE_DAY;
-        //            //    fixedLimit = Limit;
-        //            //}
-        //            //else if (ServiceCode == "11603" || ServiceCode == "11602") {
-        //            //    if (returndata.limit.INSURANCE_MONTH < 0) {
-        //            //        alert("Exceed the limit");
-        //            //        // window.location.reload();
-        //            //        window.location = "/Labs/index";
-
-        //            //    }
-        //            //    Limit = returndata.limit.INSURANCE_MONTH;
-        //            //    fixedLimit = Limit;
-        //            //}
-        //            Calculation();
-
-        //        }
-        //        else {
-        //            bootbox.alert('No Limit Amount ');
-        //        }
-        //    }
-        //});
-        ////Co-Payment
-        //$.ajax({
-        //    type: "POST",
-        //    dataType: "json",
-        //    url: '/Pharmacy/CellingAmount',
-        //    data: {
-        //        id: CardId,
-        //        ServiceCode: ServiceCode
-        //    },
-        //    success: function (r) {
-        //        if (r.Validation == false) {
-        //            toastr.info(r.Message);
-        //        } else {
-        //            CeilingPert = r.CeilingPert;
-        //            AnuualLimit = r.Limit;
-        //            Limit = r.CoInsurancelimit.INSURANCE_DAY_LAB;
-        //            fixedLimit = Limit;
-        //            Calculation();
-        //        }
-        //    },
-        //    error: function (err) {
-        //        alert("Company Annual Amount");
-        //        location.reload();
-        //    }
-        //});
 
     }).done(function () {
         $("#wait").css("display", "none");
@@ -157,14 +100,7 @@ $(function () {
         }
     });
     $('#AddRays').on('select2:selecting', function (event) {
-        //if (ServiceCode != "11602") { } else {
-        //    toastr.warning('Can not add chronic medicine');
-        //    event.preventDefault();
-
-        //}
         SelectMedicien(event);
-
-
     });
     $('#AddRays').on("select2:unselecting", function (event) {
         $('#Rays tbody tr').each(function () {
@@ -178,76 +114,78 @@ $(function () {
 
     $('#Update').click(function () {
 
-        $.ajax({
-            type: 'POST',
-            url: '/Rays/update/',
-            dataType: 'Json',
-            data: {
-                Id: id,
-                //calculation
-                TotalValue: $('#txtTotalInvoice').val(),
-                PersonPayment: $('#txtTotalCopayment').val(),
-                CompanyPayment: $('#txtValueCredit').val(),
-                OverInsurance: $('#txtOverInsurance').val(),
-                Cash: $('#txtValueCash').val()
-            },
-            success: function (Oracle_Id) {
-                bootbox.dialog({
-                    closeButton: false,
-                    title: 'Updated Sucessfully',
-                    message: "Roshita ID : " + Oracle_Id,
-                    buttons: {
-                        Print: {
-                            label: "Print",
-                            className: 'btn-info',
-                            callback: function () {
-                                window.location.reload();
-                                window.open('/Rays/ControlPenelReport?id=' + Oracle_Id);
-                            }
-                        },
-                        New: {
-                            label: "Back",
-                            className: 'btn-info',
-                            callback: function () {
-                                window.location = "/Rays/index";
-                            }
-                        }
+        var Mediciens = new Array();
+        $("#Rays TBODY TR").each(function () {
 
+            var row = $(this);
+            var Medicien = {};
+            Medicien.MedicienCode = row.find("TD").eq(0).html().trim();
+            Medicien.MedicienName = row.find("TD").eq(1).html().trim();
+            Medicien.Amount = parseFloat(("TD", row).find(".Amount").val());
+            Medicien.PaymentGroup = row.find("TD").eq(3).html().trim();
+            Mediciens.push(Medicien);
+        });
+
+        if (Mediciens.length != 0) {
+            $("#Update").attr("disabled", true);
+            if ($('#txtTotalInvoice').val() != 0 && $('#txtTotalInvoice').val() != undefined && $('#txtTotalInvoice').val() != "") {
+                var UpdatePrescription = {
+                    Id: id,
+                    TotalValue: $('#txtTotalInvoice').val(),
+                    PersonPayment: $('#txtTotalCopayment').val(),
+                    CompanyPayment: $('#txtValueCredit').val(),
+                    OverInsurance: $('#txtOverInsurance').val(),
+                    Cash: $('#txtValueCash').val(),
+                    roshitaDetail: Mediciens,
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/Rays/UpdatePrescription/',
+                    dataType: 'Json',
+                    data: UpdatePrescription,
+                    success: function (OracleId) {
+                        bootbox.dialog({
+                            closeButton: false,
+                            title: 'Added Sucessfully',
+                            message: " يرجي اعادة الطباعه حيث ان الكليم القديم يعتبر لاغي وعدم الطباعه سيؤدي الي خصم الكيم بالكامل علي مقدم الخدمه " + "Approval Number : " + OracleId,
+                            buttons: {
+                                Print: {
+                                    label: "Print",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        window.open('/Rays/ControlPenelReport?id=' + OracleId);
+                                        $("#Update").attr("disabled", false);
+                                    }
+                                },
+                                New: {
+                                    label: "New",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        window.location = "/Rays/index?id=undefined";
+                                        $("#Update").attr("disabled", false);
+                                    }
+                                }
+
+                            }
+                        });
+                    },
+                    error: function (err) {
+                        bootbox.alert("Error saving roshita,please check your internet connection");
+                        $("#Update").attr("disabled", false);
                     }
                 });
-            },
-            error: function (err) {
-                bootbox.alert("Error prescription");
+
             }
-        }).done(function () {
+            else {
+                bootbox.alert("Please wait untaill data load correctly");
+                $("#Update").attr("disabled", false);
+            }
+        }
+        else {
+            bootbox.alert("Please Insert medicines");
+            $("#Update").attr("disabled", false);
+        }
 
-            var Mediciens = new Array();
-            $("#Rays TBODY TR").each(function () {
-
-                var row = $(this);
-                var Medicien = {};
-                Medicien.MedicienCode = row.find("TD").eq(0).html().trim();
-                Medicien.MedicienName = row.find("TD").eq(1).html().trim();
-                Medicien.Amount = parseFloat(("TD", row).find(".Amount").val());
-                Medicien.PaymentGroup = row.find("TD").eq(3).html().trim();
-                Mediciens.push(Medicien);
-            });
-
-            $.ajax({
-                type: 'POST',
-                url: '/Rays/UpdateMediciens/',
-                dataType: 'Json',
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(Mediciens),
-                success: function (r) {
-
-                },
-                error: function (err) {
-                    bootbox.alert("Error Deatils");
-                }
-            });
-
-        });
 
     })
 });
@@ -358,7 +296,6 @@ function Calculation() {
 
 
 }
-
 function SelectMedicien(event) {
     var Code = event.params.args.data.id
     $("#wait").css("display", "block");
@@ -409,50 +346,58 @@ function SelectMedicien(event) {
                         $("#wait").css("display", "none");
                         //append row
                         if (Group == "NO") {
-                            //if (CompId.includes("500")) {
-                            //    Group = "Accepted";
-                            //    AppendRow();
-                            //    Calculation();
-                            //}
-                            //else {
-                                var dialog = bootbox.dialog({
-                                    title: 'This Ray is Not Covered!',
-                                    message: "<p>Pay method?</p>",
-                                    onEscape: function () {
-                                        RemoveSelection(MedicienCode);
-                                    },
-                                    buttons: {
-                                        Cash: {
-                                            label: "Cash",
-                                            className: 'btn-info',
-                                            callback: function () {
-                                                Group = "Cash";
-                                                AppendRow();
-                                                Calculation();
-                                            }
-                                        },
-                                        Approval: {
-                                            label: "Approved",
-                                            className: 'btn-info',
-                                            callback: function () {
-                                                Group = "Approval";
-                                                AppendRow();
-                                                Calculation();
-                                            }
-                                        },
-                                        Tele: {
-                                            label: "Pending",
-                                            className: 'btn-info',
-                                            callback: function () {
-                                                Group = "Pending";
-                                                AppendRow();
-                                                Calculation();
-                                            }
-                                        }
+                            $.ajax({
+                                dataType: "json",
+                                url: '/Pharmacy/CheckVip',
+                                data: {
+                                    id: CardId
+                                },
+                                success: function (r) {
+                                    if (r.IsVip == 1) {
+                                        Group = "Accepted";
+                                        AppendRow();
+                                        Calculation();
                                     }
-                                });
-                            //}
-
+                                    else {
+                                        var dialog = bootbox.dialog({
+                                            title: 'This Ray is Not Covered!',
+                                            message: "<p>Pay method?</p>",
+                                            onEscape: function () {
+                                                RemoveSelection(MedicienCode);
+                                            },
+                                            buttons: {
+                                                Cash: {
+                                                    label: "Cash",
+                                                    className: 'btn-info',
+                                                    callback: function () {
+                                                        Group = "Cash";
+                                                        AppendRow();
+                                                        Calculation();
+                                                    }
+                                                },
+                                                Approval: {
+                                                    label: "Approved",
+                                                    className: 'btn-info',
+                                                    callback: function () {
+                                                        Group = "Approval";
+                                                        AppendRow();
+                                                        Calculation();
+                                                    }
+                                                },
+                                                Tele: {
+                                                    label: "Pending",
+                                                    className: 'btn-info',
+                                                    callback: function () {
+                                                        Group = "Pending";
+                                                        AppendRow();
+                                                        Calculation();
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            });
                         }
                         else {
                             AppendRow();

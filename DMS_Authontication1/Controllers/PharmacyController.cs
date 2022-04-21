@@ -17,9 +17,6 @@ using System.Net;
 using System.Data.Entity;
 using Newtonsoft.Json;
 using DMS_Authontication1;
-using System.Net.Http;
-using System.Security.Cryptography;
-using System.Text;
 using DMS_Authontication1.ViewModel.PharmacyAdmin;
 
 namespace DMS_TEST.Controllers
@@ -233,7 +230,8 @@ namespace DMS_TEST.Controllers
             if (ServiceCode == "11602")
             {
 
-                string compardatestr = "20/" + ((DateTime.Now.Day <= 20) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString();
+                //string compardatestr = "20/" + ((DateTime.Now.Day <= 20) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString();                string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
+                string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
                 DateTime compardate = DateTime.ParseExact(compardatestr, "dd/MM/yyyy", null);
 
                 if ((emp.INS_END_DATE < compardate) && !(emp.CARD_ID.Split('-')[0].Contains("500")))
@@ -252,10 +250,7 @@ namespace DMS_TEST.Controllers
                     emp = nextEmployeecontract;
                 }
             }
-
-            //var emp = db.fn_searchCompEmployees(id).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
             //provider service permision
-
             var provider = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
             if (provider != null)
             {
@@ -352,33 +347,8 @@ namespace DMS_TEST.Controllers
                 double Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
                 Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
                 //polling
-                //long lgServiceCode = Convert.ToInt64(ServiceCode);
-                //PollInformation PollInformations = db.PollInformations.Where(x => x.COMP_ID == emp.C_COMP_ID && x.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
-                //if (PollInformations != null)
-                //{
-                //    PollDataService PollDataServices = db.PollDataServices.Where(x => x.SERV_CODE == lgServiceCode && x.POLL_CODE == PollInformations.POLL_CODE).FirstOrDefault();
-                //    if (PollDataServices != null)
-                //    {
-                //        Limit = (Limit >= PollInformations.REMAINING.Value) ? PollInformations.REMAINING.Value : Limit;
-
-                //    }
-                //}
-
-                //var med_card = db.Med_Card.Where(m => m.CARD_NO == id).FirstOrDefault();
-                //if (med_card != null && ServiceCode == "11602")
-                //{
-                //    //if (Limit <= 0 && (med_card.NO_PAY == 1 || med_card.NO_OVER == 1))
-                //    if (med_card.NO_OVER == 1)
-                //    {
-                //        Limit = 30000;
-                //    }
-                //}
-
-
                 bool Validation = Limit > 0 ? true : false;
                 Message = Validation ? "Ok" : "Exceeded his annual contract limit";
-
-
                 //Co-insurance
                 Co_Insurance_01 CoInsurancelimit2 = new Co_Insurance_01();
                 var CustemizedMedEmp = db.COMP_CUSTOMIZED_D_D_MED_EMP.Where(c => c.CARD_ID == emp.CARD_ID && c.C_COMP_ID == emp.C_COMP_ID
@@ -517,62 +487,6 @@ namespace DMS_TEST.Controllers
                     }
                 }
 
-                #region Old CoInsurance
-                //var CoInsurancelimit = db.Co_Insurance_01.Where(x => x.CO_ID == emp.C_COMP_ID && x.LIVEL == emp.CLASS_CODE).FirstOrDefault();
-                //string Last21 = "21/" + ((DateTime.Now.Day >= 21) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(-1).ToString("MM/yyyy")).ToString();
-                //string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
-                //DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
-                //DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
-                //List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
-                //List<Roshita> YearlyDailyAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Daily").ToList();
-                //List<Roshita> YearlyMonthlyAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
-                //List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
-                //List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
-                //bool LimitDailyPreceptionCount = false;
-                //bool LimitMonthlyPreceptionCount = false;
-                //LimitDailyPreceptionCount = (CoInsurancelimit.NO_CLEEM_YEAR == 0 || (CoInsurancelimit.NO_CLEEM_YEAR - MonthlyDailyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Daily count
-                //LimitMonthlyPreceptionCount = (CoInsurancelimit.NO_CLAEM_WEEK == 0 || (CoInsurancelimit.NO_CLAEM_WEEK - MonthlyMonthlyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Monthly count
-                //LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CoInsurancelimit.NO_CLM_DAY_YYYY == 0 || (CoInsurancelimit.NO_CLM_DAY_YYYY - YearlyDailyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
-                //LimitMonthlyPreceptionCount = (LimitMonthlyPreceptionCount && (CoInsurancelimit.NO_CLM_MON_YYYY == 0 || (CoInsurancelimit.NO_CLM_MON_YYYY - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Monthly count
-
-                //Double LimitDailyMonthlyPreceptionAmount = CoInsurancelimit.COST_DALLY_YEAR == 0 ? Convert.ToDouble(CoInsurancelimit.COST_DALLY_YEAR) : (Convert.ToDouble(CoInsurancelimit.COST_DALLY_YEAR - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment)))) == 0 ? .001 : Convert.ToDouble(CoInsurancelimit.COST_DALLY_YEAR - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment)));//Monthly&Daily Amount
-                //Double LimitMonthlyMonthlyPreceptionAmount = CoInsurancelimit.COST_MONTHLY_YEAR == 0 ? Convert.ToDouble(CoInsurancelimit.COST_DALLY_YEAR) : (Convert.ToDouble(CoInsurancelimit.COST_MONTHLY_YEAR - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment)))) == 0 ? .001 : Convert.ToDouble(CoInsurancelimit.COST_MONTHLY_YEAR - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment)));//Monthly&Monthly Amount
-
-                //Double LimitDailyYearlyPreceptionAmount = CoInsurancelimit.MONY_CLM_DAY_YYYY == 0 ? Convert.ToDouble(CoInsurancelimit.MONY_CLM_DAY_YYYY) : (Convert.ToDouble(CoInsurancelimit.MONY_CLM_DAY_YYYY - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment)))) == 0 ? .001 : Convert.ToDouble(CoInsurancelimit.MONY_CLM_DAY_YYYY - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment)));//Yearly&Daily Amount
-                //Double LimitMonthlyYearlyPreceptionAmount = CoInsurancelimit.MONY_CLM_MON_YYYY == 0 ? Convert.ToDouble(CoInsurancelimit.MONY_CLM_MON_YYYY) : (Convert.ToDouble(CoInsurancelimit.MONY_CLM_MON_YYYY - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment)))) == 0 ? .001 : Convert.ToDouble(CoInsurancelimit.MONY_CLM_MON_YYYY - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment)));//Yearly&Monthly Amount
-
-                //CoInsurancelimit.INSURANCE_DAY = LimitDailyMonthlyPreceptionAmount == 0 ? CoInsurancelimit.INSURANCE_DAY : Math.Min(Convert.ToDouble(CoInsurancelimit.INSURANCE_DAY), Convert.ToDouble(LimitDailyMonthlyPreceptionAmount));
-                //CoInsurancelimit.INSURANCE_DAY = LimitDailyYearlyPreceptionAmount == 0 ? CoInsurancelimit.INSURANCE_DAY : Math.Min(Convert.ToDouble(CoInsurancelimit.INSURANCE_DAY), Convert.ToDouble(LimitDailyYearlyPreceptionAmount));
-                //CoInsurancelimit.INSURANCE_MONTH = LimitMonthlyMonthlyPreceptionAmount == 0 ? CoInsurancelimit.INSURANCE_MONTH : Math.Min(Convert.ToDouble(CoInsurancelimit.INSURANCE_MONTH), Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount));
-                //CoInsurancelimit.INSURANCE_MONTH = LimitMonthlyYearlyPreceptionAmount == 0 ? CoInsurancelimit.INSURANCE_MONTH : Math.Min(Convert.ToDouble(CoInsurancelimit.INSURANCE_MONTH), Convert.ToDouble(LimitMonthlyYearlyPreceptionAmount));
-
-                //if (CoInsurancelimit.INSURANCE_DAY < 0)
-                //{
-                //    CoInsurancelimit.INSURANCE_DAY = .001;
-                //}
-                //if (CoInsurancelimit.INSURANCE_MONTH < 0)
-                //{
-                //    CoInsurancelimit.INSURANCE_MONTH = .001;
-                //}
-                ////approval ceiling
-                //if (Validation == false)
-                //{
-                //    var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
-                //    if (accption == null)
-                //    {
-                //        return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
-                //    }
-                //    var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
-                //    if (reasons != null)
-                //    {
-                //        return Json(new { Validation = true, Message = "Has Approval", Limit = ".001", CoInsurancelimit = CoInsurancelimit, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, CeilingPert = CeilingPert });
-                //    }
-
-                //}
-                ////return Json(new { ok = true, limit = limit, message = "ok", LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount }, JsonRequestBehavior.AllowGet);
-                //return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, CoInsurancelimit = CoInsurancelimit, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount });
-                #endregion
-
             }
             return Json(new { Validation = false, Message = "Employee contract issue ,you can call operation department", Limit = 0, CeilingPert = 0 });
         }
@@ -588,7 +502,8 @@ namespace DMS_TEST.Controllers
             if (ServiceCode == "11602")
             {
 
-                string compardatestr = "20/" + ((DateTime.Now.Day <= 20) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString();
+                //string compardatestr = "20/" + ((DateTime.Now.Day <= 20) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString();
+                string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
                 DateTime compardate = DateTime.ParseExact(compardatestr, "dd/MM/yyyy", null);
 
                 if ((emp.INS_END_DATE < compardate) && !(emp.CARD_ID.Split('-')[0].Contains("500")))
@@ -693,29 +608,6 @@ namespace DMS_TEST.Controllers
                 double Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
                 Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
                 //polling
-                //long lgServiceCode = Convert.ToInt64(ServiceCode);
-                //PollInformation PollInformations = db.PollInformations.Where(x => x.COMP_ID == emp.C_COMP_ID && x.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
-                //if (PollInformations != null)
-                //{
-                //    PollDataService PollDataServices = db.PollDataServices.Where(x => x.SERV_CODE == lgServiceCode && x.POLL_CODE == PollInformations.POLL_CODE).FirstOrDefault();
-                //    if (PollDataServices != null)
-                //    {
-                //        Limit = (Limit >= PollInformations.REMAINING.Value) ? PollInformations.REMAINING.Value : Limit;
-
-                //    }
-                //}
-
-                //var med_card = db.Med_Card.Where(m => m.CARD_NO == id).FirstOrDefault();
-                //if (med_card != null && ServiceCode == "11602")
-                //{
-                //    //if (Limit <= 0 && (med_card.NO_PAY == 1 || med_card.NO_OVER == 1))
-                //    if (med_card.NO_OVER == 1)
-                //    {
-                //        Limit = 30000;
-                //    }
-                //}
-
-
                 bool Validation = Limit > 0 ? true : false;
                 Message = Validation ? "Ok" : "Exceeded his annual contract limit";
 
@@ -838,66 +730,8 @@ namespace DMS_TEST.Controllers
 
                     }
                 }
-                #region Olde CoInsurance
-                ////Co-insurance
-                //var CoInsurancelimit = db.Co_Insurance_01.Where(x => x.CO_ID == emp.C_COMP_ID && x.LIVEL == emp.CLASS_CODE).FirstOrDefault();
-                //string Last21 = "21/" + ((DateTime.Now.Day >= 21) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(-1).ToString("MM/yyyy")).ToString();
-                //string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
-                //DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
-                //DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
-                //List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
-                //List<Roshita> YearlyDailyAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Daily").ToList();
-                //List<Roshita> YearlyMonthlyAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
-                //List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
-                //List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
-                //bool LimitDailyPreceptionCount = false;
-                //bool LimitMonthlyPreceptionCount = false;
-                //LimitDailyPreceptionCount = (CoInsurancelimit.NO_CLEEM_YEAR == 0 || (CoInsurancelimit.NO_CLEEM_YEAR - MonthlyDailyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Daily count
-                //LimitMonthlyPreceptionCount = (CoInsurancelimit.NO_CLAEM_WEEK == 0 || (CoInsurancelimit.NO_CLAEM_WEEK - MonthlyMonthlyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Monthly count
-                //LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CoInsurancelimit.NO_CLM_DAY_YYYY == 0 || (CoInsurancelimit.NO_CLM_DAY_YYYY - YearlyDailyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
-                //LimitMonthlyPreceptionCount = (LimitMonthlyPreceptionCount && (CoInsurancelimit.NO_CLM_MON_YYYY == 0 || (CoInsurancelimit.NO_CLM_MON_YYYY - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Monthly count
 
-                //Double LimitDailyMonthlyPreceptionAmount = CoInsurancelimit.COST_DALLY_YEAR == 0 ? Convert.ToDouble(CoInsurancelimit.COST_DALLY_YEAR) : (Convert.ToDouble(CoInsurancelimit.COST_DALLY_YEAR - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment)))) == 0 ? .001 : Convert.ToDouble(CoInsurancelimit.COST_DALLY_YEAR - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment)));//Monthly&Daily Amount
-                //Double LimitMonthlyMonthlyPreceptionAmount = CoInsurancelimit.COST_MONTHLY_YEAR == 0 ? Convert.ToDouble(CoInsurancelimit.COST_DALLY_YEAR) : (Convert.ToDouble(CoInsurancelimit.COST_MONTHLY_YEAR - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment)))) == 0 ? .001 : Convert.ToDouble(CoInsurancelimit.COST_MONTHLY_YEAR - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment)));//Monthly&Monthly Amount
-
-                //Double LimitDailyYearlyPreceptionAmount = CoInsurancelimit.MONY_CLM_DAY_YYYY == 0 ? Convert.ToDouble(CoInsurancelimit.MONY_CLM_DAY_YYYY) : (Convert.ToDouble(CoInsurancelimit.MONY_CLM_DAY_YYYY - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment)))) == 0 ? .001 : Convert.ToDouble(CoInsurancelimit.MONY_CLM_DAY_YYYY - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment)));//Yearly&Daily Amount
-                //Double LimitMonthlyYearlyPreceptionAmount = CoInsurancelimit.MONY_CLM_MON_YYYY == 0 ? Convert.ToDouble(CoInsurancelimit.MONY_CLM_MON_YYYY) : (Convert.ToDouble(CoInsurancelimit.MONY_CLM_MON_YYYY - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment)))) == 0 ? .001 : Convert.ToDouble(CoInsurancelimit.MONY_CLM_MON_YYYY - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment)));//Yearly&Monthly Amount
-
-                //CoInsurancelimit.INSURANCE_DAY = LimitDailyMonthlyPreceptionAmount == 0 ? CoInsurancelimit.INSURANCE_DAY : Math.Min(Convert.ToDouble(CoInsurancelimit.INSURANCE_DAY), Convert.ToDouble(LimitDailyMonthlyPreceptionAmount));
-                //CoInsurancelimit.INSURANCE_DAY = LimitDailyYearlyPreceptionAmount == 0 ? CoInsurancelimit.INSURANCE_DAY : Math.Min(Convert.ToDouble(CoInsurancelimit.INSURANCE_DAY), Convert.ToDouble(LimitDailyYearlyPreceptionAmount));
-                //CoInsurancelimit.INSURANCE_MONTH = LimitMonthlyMonthlyPreceptionAmount == 0 ? CoInsurancelimit.INSURANCE_MONTH : Math.Min(Convert.ToDouble(CoInsurancelimit.INSURANCE_MONTH), Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount));
-                //CoInsurancelimit.INSURANCE_MONTH = LimitMonthlyYearlyPreceptionAmount == 0 ? CoInsurancelimit.INSURANCE_MONTH : Math.Min(Convert.ToDouble(CoInsurancelimit.INSURANCE_MONTH), Convert.ToDouble(LimitMonthlyYearlyPreceptionAmount));
-
-
-                #endregion
-                //var editPreception = db.Roshitas.Find(RoshitaId);
-                //var overInsurancePlus = db.Roshitas.Where(x => x.Id > RoshitaId && x.CardId == emp.CARD_ID && x.Manager == editPreception.Manager && !x.Manager.Contains("Stop")).Sum(x => x.OverInsurance);
-
-                //if (editPreception.Manager == "Daily")
-                //{
-
-                //    CoInsurancelimit2.INSURANCE_DAY += overInsurancePlus == null ? 0 : overInsurancePlus;
-                //}
-                //else if (editPreception.Manager == "Monthly" || editPreception.Manager == "Pharmacy_Chronic")
-                //{
-                //    //CoInsurancelimit.INSURANCE_MONTH += overInsurancePlus;
-                //    CoInsurancelimit2.INSURANCE_MONTH += overInsurancePlus == null ? 0 : overInsurancePlus;
-
-
-                //}
-                //if (CoInsurancelimit2.INSURANCE_DAY < 0)
-                //{
-                //    CoInsurancelimit2.INSURANCE_DAY = .001;
-                //}
-                //if (CoInsurancelimit2.INSURANCE_MONTH < 0)
-                //{
-                //    CoInsurancelimit2.INSURANCE_MONTH = .001;
-                //}
-
-                //return Json(new { ok = true, limit = limit, message = "ok", LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount }, JsonRequestBehavior.AllowGet);
                 return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount });
-
-
             }
             return Json(new { Validation = false, Limit = 0, CeilingPert = 0 });
         }
@@ -1070,6 +904,25 @@ namespace DMS_TEST.Controllers
             return new JsonResult { Data = new { check = check, messa = message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+        public JsonResult CheckVip(string id)
+        {
+            int IsVip = 0;
+            DateTime datenow = DateTime.Now.Date;
+            var empCardTerminationFlag = db.Comp_Employees.Where(x => x.CARD_ID == id && x.INS_START_DATE <= datenow
+            && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+            if (empCardTerminationFlag.USR_TYP == "V")
+            {
+                IsVip = 1; //Accept pending
+                return new JsonResult { Data = new { IsVip = IsVip }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+            {
+                IsVip = 0;
+                return new JsonResult { Data = new { IsVip = IsVip }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+
+        }
+
         public JsonResult Medicines()
         {
             var med = db.MedicineDatas.Where(x => x.ACTIVE == "Y").Join(db.MedicineGroups, d => d.MED_GROUP, g => g.GroupId, (d, g) => new { d, g }).OrderBy(m => m.d.M_CODE).Take(11000)
@@ -1190,22 +1043,7 @@ namespace DMS_TEST.Controllers
             }
             return new JsonResult { Data = Samegroup, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-        //         try
-        //            {}
-        //            catch (DbEntityValidationException e)
-        //            {
-        //                foreach (var eve in e.EntityValidationErrors)
-        //                {
-        //                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-        //                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-        //                    foreach (var ve in eve.ValidationErrors)
-        //                    {
-        //                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-        //                            ve.PropertyName, ve.ErrorMessage);
-        //                    }
-        //}
-        //throw;
-        //            }
+
         [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
         public JsonResult SavePrescription(PrescriptionViewModel data)
         {
@@ -1326,123 +1164,6 @@ namespace DMS_TEST.Controllers
             }
 
         }
-        //save version 2 
-
-        //[Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
-        //public JsonResult Save(Roshita data)
-        //{
-        //    //long oracleId = db.Roshitas.Max(x => x.Oracle_Id).Value;
-        //    if (data.CreatedBy == null)
-        //    {
-        //        data.CreatedBy = User.Identity.Name;
-        //    }
-        //    data.CreatedDate = DateTime.Now;
-        //    if (data.RoshetaType == "11601")
-        //    {
-        //        data.Manager = "Daily";
-        //    }
-        //    else if (data.RoshetaType == "11603")
-        //    {
-        //        data.Manager = "Monthly";
-        //    }
-        //    db.Roshitas.Add(data);
-        //    int result = db.SaveChanges();
-        //    Session["id"] = data.Id;
-        //    return Json("2" + data.CreatedDate.Value.ToString("ddMMyy") + data.Id);
-        //}
-        //[Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
-        //public JsonResult SaveMediciens(List<RoshitaDetail> Medciens)
-        //{
-        //    bool oneNotification = false;
-        //    foreach (RoshitaDetail Medicien in Medciens)
-        //    {
-        //        Medicien.RoshitaID = Convert.ToInt64(Session["id"]);
-        //        if (Medicien.PaymentGroup == "Pending")
-        //        {
-        //            if (oneNotification == false)
-        //            {
-        //                string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
-        //                NotificationHub objNotifHub = new NotificationHub();
-        //                Notification notification = new Notification();
-        //                notification.SentTo = "Admin";
-        //                notification.CreatedBy = User.Identity.Name;
-        //                notification.CreatedDate = DateTime.Now;
-        //                notification.Type = 1;//pending
-        //                notification.Details = CardId;
-        //                notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
-        //                notification.Title = "Pending";
-        //                db.Notifications.Add(notification);
-        //                objNotifHub.SendMessages();
-        //                oneNotification = true;
-        //            }
-        //            Medicien.IsDealed = false;
-        //        }
-        //        else
-        //        {
-        //            Medicien.IsDealed = true;
-        //        }
-        //        db.RoshitaDetails.Add(Medicien);
-        //    }
-        //    try
-        //    {
-        //        int result = db.SaveChanges();
-        //    }
-        //    catch (DbEntityValidationException e)
-        //    {
-        //        foreach (var eve in e.EntityValidationErrors)
-        //        {
-        //            Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-        //                eve.Entry.Entity.GetType().Name, eve.Entry.State);
-        //            foreach (var ve in eve.ValidationErrors)
-        //            {
-        //                Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-        //                    ve.PropertyName, ve.ErrorMessage);
-        //            }
-        //        }
-        //        throw;
-        //    }
-        //    return Json("savd");
-        //}
-
-
-        //[Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
-        //public JsonResult SaveDiagnoises(List<Diagnose> Diagnoises)
-        //{
-        //    foreach (Diagnose item in Diagnoises)
-        //    {
-        //        PrescriptionRoshitaDignosi dignosi = new PrescriptionRoshitaDignosi();
-        //        dignosi.RositaId = Convert.ToInt64(Session["id"]);
-        //        dignosi.DiagnoiseName = item.DIAG_ANAME;
-        //        db.PrescriptionRoshitaDignosis.Add(dignosi);
-        //    }
-        //    db.SaveChanges();
-        //    return new JsonResult { Data = "ok", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        //}
-
-
-        //[Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
-        //public JsonResult SaveDealApproval(string id)
-        //{
-        //    int EmpId = db.Comp_Employees.Where(c => c.CARD_ID == id && c.INS_START_DATE <= DateTime.Now && c.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
-
-
-        //    var accptionlist = db.Acceptions.Where(x => x.CompEmployeesId == EmpId && x.AcceptionFlag == true).ToList();
-        //    foreach (var item in accptionlist)
-        //    {
-        //        if (item.ApprovalType != "Vip")
-        //        {
-        //            item.AcceptionFlag = false;
-        //            item.UpdatedDate = DateTime.Now;
-        //            item.UpdatedBy = User.Identity.Name;
-        //            db.Entry(item).State = EntityState.Modified;
-        //        }
-        //    }
-        //    RoshitaAcception roshitaAcception = new RoshitaAcception();
-        //    roshitaAcception.AcceptionId = accptionlist.OrderByDescending(x => x.Id).FirstOrDefault().Id;
-        //    roshitaAcception.RoshitaId = Convert.ToInt64(Session["id"]);
-        //    db.RoshitaAcceptions.Add(roshitaAcception);
-        //    return Json(db.SaveChanges());
-        //}
 
         public JsonResult AgeAndGender(string id)
         {
@@ -1714,26 +1435,7 @@ namespace DMS_TEST.Controllers
                  l.r.CreatedDate
 
              }).ToList().Distinct();
-            //var serializer = new JavaScriptSerializer();
-            //serializer.MaxJsonLength = Int32.MaxValue;
-            //var result = new ContentResult
-            //{
-            //    Content = serializer.Serialize(approvals),
-            //    ContentType = "application/json"
-            //};
             return new JsonResult { Data = approvals, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }
-        public class RTCPendingDatasource
-        {
-            public string MedicienCode { get; set; }
-            public string MedicienName { get; set; }
-            public int Dose { get; set; }
-            public int Duration { get; set; }
-            public int TotalDuration { get; set; }
-            public int TotalUnits { get; set; }
-            public double Amount { get; set; }
-            public bool IsDealed { get; set; }
-            public string PaymentGroup { get; set; }
         }
         public ActionResult PendingReport(string id)
         {
@@ -1796,7 +1498,6 @@ namespace DMS_TEST.Controllers
         #region  Control Panel Pharmacy
         //Main Roshta
         [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
-
         public ActionResult Index()
         {
             var context = new ApplicationDbContext();
@@ -2831,8 +2532,6 @@ namespace DMS_TEST.Controllers
 
             var CurrentUser = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
             int userProvider = Convert.ToInt32(CurrentUser.Provider);
-            //var Provider = db.Serv_Providers1.Where(x => x.PR_CODE == userProvider).FirstOrDefault();
-
             var medCards = db.Med_Card.Where(m => m.PROVIDER_CODE == userProvider && m.LOOK_01 == 0)
                 .Join(db.Contract_Comp, m => m.C_COMP_ID, c => c.C_COMP_ID, (m, c) => new { m, c }).Select(
                 l => new
@@ -2856,14 +2555,11 @@ namespace DMS_TEST.Controllers
                     value = l.GROUP_ID,
                     text = l.GROUP_ID + "||" + l.GROUP_NAME,
                 }).Distinct().ToList();
-            //  return new JsonResult { Data = Providerlist, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             return Json(new SelectList(medCards, "value", "text"));
         }
 
         public JsonResult CompaniesChronicMedicinesList(int sEcho, int iDisplayStart, int iDisplayLength, string sSearch = "", string Date = "", int CompId = 0, int GroupId = 0, string CardId = "")
         {
-            //long lgSearch;
-            //long.TryParse(sSearch, out lgSearch);
             DateTime dateTime = Convert.ToDateTime(Date);
             var CurrentUser = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
             int userProvider = Convert.ToInt32(CurrentUser.Provider);
@@ -2873,8 +2569,6 @@ namespace DMS_TEST.Controllers
                 aaData = db.Med_Card.Where(x => x.PROVIDER_CODE == userProvider && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
                 .Join(db.Med_Medicine, MC => MC.CARD_NO, MM => MM.CARD_NO, (MC, MM) => new { MC, MM }).Where(x => x.MM.ACTIVE == "Y" && (x.MM.MONTH_DATE_STOP == null || x.MM.MONTH_DATE_STOP >= dateTime))
                 .Join(db.Comp_Employees, M => M.MM.CARD_NO, E => E.CARD_ID, (M, E) => new { M, E }).Where(x => x.E.INS_START_DATE <= DateTime.Now && x.E.INS_END_DATE >= DateTime.Now && (x.E.TERMINATE_FLAG == "N" || (x.E.TERMINATE_FLAG == "Y" && x.E.TERMINATE_DATE > DateTime.Now ? true : false))).OrderByDescending(x => x.E.CONTRACT_NO)
-                //.AsEnumerable()
-                //.Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Where(x => x.CreatedDate.Value.AddDays(7).Date > DateTime.Now.Date).OrderByDescending(m => m.Id)
                 .Select(l => new
                 {
                     CardId = l.M.MC.CARD_NO,
@@ -2889,10 +2583,8 @@ namespace DMS_TEST.Controllers
                     Dose = l.M.MM.DOSE,
                     DoseDuration = l.M.MM.DOS_DUR,
                     MedicineDuration = l.M.MM.MED_DURATION,
-                    //TotalDuration = l.MM.TOT_DUR,
                     TotalUnits = l.M.MM.NO_OF_UINT,
                     Amount = l.M.MM.TOTAL_AMT,
-                    //MedicineType = l.M.MM.MED_TYP,
                     Month = l.M.MM.MONTH_DATE_STOP,
                     Act = l.M.MM.ACT_MONTH
                 }).Distinct().OrderByDescending(m => m.CardId).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
@@ -2904,10 +2596,6 @@ namespace DMS_TEST.Controllers
             };
             return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
-
-
-
-
         }
         public JsonResult CompaniesChronicMedicinesListCount(string Date = "", int CompId = 0, int GroupId = 0, string CardId = "")
         {
@@ -2917,7 +2605,6 @@ namespace DMS_TEST.Controllers
 
             var Cards = db.Med_Card.Where(x => x.PROVIDER_CODE == userProvider && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
                 .Join(db.Med_Medicine, MC => MC.CARD_NO, MM => MM.CARD_NO, (MC, MM) => new { MC, MM }).Where(x => x.MM.ACTIVE == "Y" && (x.MM.MONTH_DATE_STOP == null || x.MM.MONTH_DATE_STOP >= dateTime)).Join(db.Comp_Employees, M => M.MM.CARD_NO, E => E.CARD_ID, (M, E) => new { M, E }).Where(x => x.E.INS_START_DATE <= DateTime.Now && x.E.INS_END_DATE >= DateTime.Now && (x.E.TERMINATE_FLAG == "N" || (x.E.TERMINATE_FLAG == "Y" && x.E.TERMINATE_DATE > DateTime.Now ? true : false))).OrderByDescending(x => x.E.CONTRACT_NO)
-                //.AsEnumerable()
                 .Select(l => new
                 {
                     CardId = l.M.MC.CARD_NO,
@@ -2947,29 +2634,22 @@ namespace DMS_TEST.Controllers
             ApplicationDbContext users = new ApplicationDbContext();
             var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
             int ProviderId = Convert.ToInt32(CurrentUser.Provider);
-            //var sericeProviderDiscounts = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).FirstOrDefault();
             rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
-            //rd.SetParameterValue("@CompanyPercent", "30%");
-
             rd.SetParameterValue("@ProviderId", ProviderId);
             rd.SetParameterValue("@ProviderName", CurrentUser.UserName);
             rd.SetParameterValue("@CompId", CompId);
             rd.SetParameterValue("@CardId", CardId);
             rd.SetParameterValue("@DispenseDate", DispenseDate);
             rd.SetParameterValue("@GroupId", GroupId);
-
-
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
-
             Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
             stream.Seek(0, SeekOrigin.Begin);
             rd.Close();
             rd.Dispose();
             GC.Collect();
             return File(stream, "application/pdf", Date + "CompanyChronicDelivery.pdf");
-
         }
         #endregion
 
@@ -3006,6 +2686,18 @@ namespace DMS_TEST.Controllers
             }
         }
 
+        public class RTCPendingDatasource
+        {
+            public string MedicienCode { get; set; }
+            public string MedicienName { get; set; }
+            public int Dose { get; set; }
+            public int Duration { get; set; }
+            public int TotalDuration { get; set; }
+            public int TotalUnits { get; set; }
+            public double Amount { get; set; }
+            public bool IsDealed { get; set; }
+            public string PaymentGroup { get; set; }
+        }
         #endregion
     }
 }

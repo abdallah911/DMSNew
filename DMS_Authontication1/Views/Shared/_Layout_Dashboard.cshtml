@@ -149,10 +149,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
 
-                @*<a href="~/EmployeeRequest/DashBoard"><img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="width: 75px;height:50px;" /></a>*@
-
                 <a href="~/Home/Index"><img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="width: 75px;height:50px;" /></a>
-
 
                 <ul class="nav navbar-nav nav-admin-cus" style="color: #000">
                     @{
@@ -188,7 +185,6 @@
                     @{
                         if ((User.IsInRole("Pharmacy") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
                         {
-                            @*<li><a id="btnClaim" class="link-cus">Claims</a></li>*@
                             <li>@Html.ActionLink("Claims", "index", "Pharmacy", null, new { style = "color: #6c757d" })</li>
                             <li>@Html.ActionLink("Chronic Delivery", "CompaniesChronicDelivery", "Pharmacy", null, new { style = "color: #6c757d" })</li>
 
@@ -264,24 +260,55 @@
                         if ((User.IsInRole("HR")) || (User.IsInRole("HR_Admin")))
                         {
 
-
-                            <li><a href="/EmployeeRequest/index" class="link-cus">Operation</a></li>
-                            if (Session["IsIndemnity"] != null)
+                            if (modellist != null)
                             {
-                                if ((bool)Session["IsIndemnity"] == true)
+                                if (modellist.Where(x => x.ModuleName == "Company Human Resourses Management").FirstOrDefault() != null)
                                 {
-                                    <li><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
-                                    @*<li><a href="/IndemnitiesPolice/index" class="link-cus">Indemnity Terms</a></li>*@
+                                    if (modellist.Where(x => x.PageId == 12 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
 
+                                        <li><a href="/EmployeeRequest/index" class="link-cus">Operation</a></li>
+                                    }
+
+                                    if (modellist.Where(x => x.PageId == 13 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+
+                                        <li><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
+                                    }
+                                    if (modellist.Where(x => x.PageId == 14 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+
+                                        <li><a href="/MedicalNetwork/Search" class="link-cus">Medical Network</a></li>
+                                    }
+                                    if (modellist.Where(x => x.PageId == 15 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+
+                                        <li><a href="/MedicalApproval/Search2" class="link-cus">Medical Approval</a></li>
+                                    }
+                                    if (modellist.Where(x => x.PageId == 16 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+
+                                        <li><a href="/HrChronic/InquiryAboutCard" class="link-cus">Medication</a></li>
+                                    }
+                                    if (modellist.Where(x => x.PageId == 49 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+
+                                        <li><a href="/Contractors/Index" class="link-cus">Contracts</a></li>
+                                    }
+                                    if (modellist.Where(x => x.PageId == 17 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+
+                                        <li><a href="/Reports/Index" class="link-cus">Reports</a></li>
+                                    }
                                 }
                             }
-                            @*<li><a href="/MedicalNetwork/CreateRequest" class="link-cus">Request Add Provider</a></li>*@
-                            <li><a href="/MedicalNetwork/Search" class="link-cus">Medical Network</a></li>
-                            <li><a href="/MedicalApproval/Search2" class="link-cus">Medical Approval</a></li>
-                            <li><a href="/HrChronic/InquiryAboutCard" class="link-cus">Medication</a></li>
-                            <li><a href="/Reports/Index" class="link-cus">Reports</a></li>
-                            @*<li><a href="/Complaint/CreateDMSComplaint" class="link-cus">Complaints</a></li>*@
-
                         }
                     }
 
@@ -325,23 +352,43 @@
                     @{
                         if (User.IsInRole("User"))
                         {
-                            <li><a href="/Employee/AddEmployee" class="link-cus">Update Data</a></li>
-                            if (Session["IsIndemnity"] != null)
+                            if (modellist != null)
                             {
-                                if ((bool)Session["IsIndemnity"] == true)
+                                if (modellist.Where(x => x.ModuleName == "Customers Management").FirstOrDefault() != null)
                                 {
-                                    <li><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
-                                    @*<li><a href="/IndemnitiesPolice/index" class="link-cus">Indemnities Police</a></li>*@
+                                    if (modellist.Where(x => x.PageId == 21 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+                                        <li><a href="/Employee/AddEmployee" class="link-cus">Update Data</a></li>
+                                    }
 
+                                    @*if (modellist.Where(x => x.PageId == 22 && (x.FullControl || x.EditPermission
+                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        {
+                                            <li><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
+                                        }*@
+                                    if (modellist.Where(x => x.PageId == 23 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+                                        <li><a href="/Employee/MedicalNetwork" class="link-cus">Medical Network</a></li>
+                                    }
+                                    if (modellist.Where(x => x.PageId == 25 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+                                        <li><a href="/HrChronic/InquiryAboutCard" class="link-cus">Medication</a></li>
+                                    }
+                                    if (modellist.Where(x => x.PageId == 26 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+                                        <li><a href="/Employee/DeliveryService2" class="link-cus">Medication Delievery</a></li>
+                                    }
+                                    if (modellist.Where(x => x.PageId == 24 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+                                        <li><a href="/Employee/Approvales" class="link-cus">Medical Approval</a></li>
+                                    }
                                 }
                             }
-                            @*<li><a href="/Employee/IndexIndemnity" class="link-cus">Indemnity</a></li>*@
-                            <li><a href="/Employee/MedicalNetwork" class="link-cus">Medical Network</a></li>
-                            @*<li><a href="/Complaint/CreateDMSComplaint" class="link-cus">Complaints</a></li>*@
-                            <li><a href="/HrChronic/InquiryAboutCard" class="link-cus">Medication</a></li>
-                            <li><a href="/Employee/DeliveryService2" class="link-cus">Medication Delievery</a></li>
-                            <li><a href="/Employee/Approvales" class="link-cus">Medical Approval</a></li>
-
                         }
                     }
 
@@ -402,7 +449,7 @@
                         }
                         @if (modellist != null)
                         {
-                            if (modellist.Where(x => (x.PageId == 2 ||x.PageId == 4 || x.PageId == 10 || x.PageId == 8 || x.PageId == 44)
+                            if (modellist.Where(x => (x.PageId == 2 || x.PageId == 4 || x.PageId == 10 || x.PageId == 8 || x.PageId == 44)
                             && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
                             {
                                 <li class="nav-header">
@@ -441,9 +488,9 @@
 
                         @if (modellist != null)
                         {
-                            if (modellist.Where(x =>( x.PageId == 34 || x.PageId == 35 || x.PageId == 36 || x.PageId == 37
+                            if (modellist.Where(x => (x.PageId == 34 || x.PageId == 35 || x.PageId == 36 || x.PageId == 37
                             || x.PageId == 38 || x.PageId == 39 || x.PageId == 40 || x.PageId == 41 || x.PageId == 46 || x.PageId == 47)
-                            &&(x.FullControl||x.ActivationControl||x.AddPermission||x.EditPermission||x.Preview)).FirstOrDefault() != null)
+                            && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
                             {
                                 <li class="nav-header">
                                     <div class="link"><i class="fa fa-archive"></i>Management<i class="fa fa-chevron-down"></i></div>
@@ -662,14 +709,10 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script src="~/assets/admindashdoardmenu/sidebarmenu.js"></script>
-
-
     <script src="~/assets/admindashdoardmenu/CustomAfterSales/moment.min.js"></script>
     <script src="~/assets/admindashdoardmenu/CustomAfterSales/bootstrap-datetimepicker.min.js"></script>
     @*<script src="~/Scripts/moment.min.js"></script>*@
     @*<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>*@
-
-
     @*<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>*@
 
     <script src="~/assets/HomeTemplete/Scripts/jquery.signalR-2.4.1.js"></script>

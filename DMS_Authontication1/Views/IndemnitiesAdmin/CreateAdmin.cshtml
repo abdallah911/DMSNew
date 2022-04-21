@@ -10,6 +10,7 @@
 @using (Html.BeginForm("CreateAdmin", "IndemnitiesAdmin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal createInde-form", role = "form" }))
 {
     <input type="hidden" id="CompanyName" name="CompanyName" value="@ViewBag.CompName" />
+
     @Html.AntiForgeryToken()
     <div class="portlet box  green" style="margin-top:40px">
         <div class="portlet-title">
@@ -79,6 +80,11 @@
                                 @Html.Label("Card Id", htmlAttributes: new { @class = "control-label col-md-3" })
                                 <div class="col-md-9">
                                     <input type="text" id="RelatedCardId" value="@ViewBag.cardID" class="form-control" disabled />
+                                    @*@Html.DropDownListFor(model => model.RelatedCardId, Enumerable.Empty<SelectListItem>()
+                                        , htmlAttributes: new { @class = "js-data-example-ajax", @style = "width: 100%" })*@
+                                    @*<select id="RelatedCardId" class="js-data-example-ajax" style="width: 100%"></select>*@
+
+                                    @*@Html.EditorFor(model => model.CardID, new { htmlAttributes = new { @class = "form-control", @required = "True" } })*@
                                     @Html.ValidationMessageFor(model => model.RelatedCardId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -115,6 +121,9 @@
                                 <div class="col-md-9">
                                     @Html.DropDownListFor(model => model.RelatedCardId, Enumerable.Empty<SelectListItem>()
                                    , htmlAttributes: new { @class = "js-data-example-ajax", @style = "width: 100%" })
+                                    @*<select id="RelatedCardId" class="js-data-example-ajax" style="width: 100%"></select>*@
+
+                                    @*@Html.EditorFor(model => model.CardID, new { htmlAttributes = new { @class = "form-control", @required = "True" } })*@
                                     @Html.ValidationMessageFor(model => model.RelatedCardId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -122,6 +131,7 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+                                @*<span class="text-danger">*</span>*@
                                 <div class="col-md-9">
                                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -140,6 +150,17 @@
                         </div>
                     </div>
                 }
+                @*<div class="row" hidden>
+                        <div class="form-group col-md-6" id="divCompany">
+                            @Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <span class="text-danger">*</span>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>*@
                 <div class="row">
 
                     <div class="form-group col-md-6">
@@ -208,8 +229,21 @@
                                 <div class="col-md-10">
                                     <select id="CardId" class="js-data-example-ajax" style="width: 100%"></select>
 
+                                    @*@Html.EditorFor(model => model.IndemnityCardsServices.First().CardId, new { htmlAttributes = new { @class = "form-control", @required = "True" } })*@
+                                    @*@Html.ValidationMessageFor(model => model.IndemnityServiceMasters.First().CardId, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
+                            @*<div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.IndemnityCardsServices.First().AttachPDF, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.IndemnityCardsServices.First().AttachPDF, new { htmlAttributes = new { @class = "form-control", @type = "File", @multiple = "True", @required = "True" } })
+                                        @Html.ValidationMessageFor(model => model.IndemnityCardsServices.First().AttachPDF, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
+
+
+
+                            @*<input type="button" id="addCardServices" value="Add" class="btn btn-success" style="text-transform: none" />*@
                             <div class="form-group"></div>
                             <div class="portlet box  green">
                                 <div class="portlet-title">
@@ -261,7 +295,10 @@
                             <div class="form-group col-md-3">
                                 @Html.Label("Specialist", htmlAttributes: new { @class = "control -label col-md-3" })
                                 <div class="col-md-6">
+                                    @* @Html.EditorFor(model => model.ServiceID, new { htmlAttributes = new { @class = "form-control" } })*@
                                     @Html.DropDownList("Specialist", ViewBag.SpecialistId as SelectList, "--Select--", new { @class = "form-control col-md-8", id = "Specialist", @required = "True" })
+
+                                    @*@Html.ValidationMessageFor(model => model.ServiceTest.First().ServiceId, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
 
@@ -269,8 +306,10 @@
                             <div class="form-group col-md-3">
                                 @Html.Label("Service", htmlAttributes: new { @class = "control-label col-md-3" })
                                 <div class="col-md-6">
+                                    @* @Html.EditorFor(model => model.ServiceID, new { htmlAttributes = new { @class = "form-control" } })*@
                                     @Html.DropDownList("Service", ViewBag.ServiceId as SelectList, "--Select--", new { @class = "form-control col-md-8", id = "Services", @required = "True" })
 
+                                    @*@Html.ValidationMessageFor(model => model.Service.First().ServiceId, "", new { @class = "text-danger" })*@
                                 </div>
                             </div>
 
@@ -346,6 +385,7 @@
         </div>
         <div class="panel-footer" style="text-align:right;">
             <input data-step="9" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ResetSaveIndemnty();" class="btn btn-warning" />
+            @*<input type="submit" id="submit" value="Create" class="btn btn-success" style="text-transform: none" />*@
             <button id="btn_create_new" type="submit" class="btn btn-success" style="text-transform: none">
                 <i class="fa fa-check"></i> Create
             </button>

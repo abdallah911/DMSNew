@@ -280,13 +280,36 @@ namespace DMS_Authontication1.Controllers.HR
             return View();
         }
 
-        public ActionResult PrintXLC()
+        public ActionResult PrintXLC(int Type)
         {
             try
             {
-                var ExcelFile = Server.MapPath("~/Content/EmployeesRequestsImage/Add Employess.xlsx");
+                switch (Type)
+                {
+                    case 1:
+                        var ExcelFile = Server.MapPath("~/Content/EmployeesRequestsImage/Add Employee.xlsx");
 
-                return File(ExcelFile, "application/xls", "Add Employees.xls");
+                        return File(ExcelFile, "application/xls", "Add Employees.xls");
+                    case 2:
+                        var ExcelFile2 = Server.MapPath("~/Content/EmployeesRequestsImage/Level.xlsx");
+
+                        return File(ExcelFile2, "application/xls", "Level.xls");
+                    case 3:
+                        var ExcelFile3 = Server.MapPath("~/Content/EmployeesRequestsImage/Re Open.xlsx");
+
+                        return File(ExcelFile3, "application/xls", "Re Open.xls");
+                    case 4:
+                        var ExcelFile4 = Server.MapPath("~/Content/EmployeesRequestsImage/Termination Request.xlsx");
+
+                        return File(ExcelFile4, "application/xls", "Termination Request.xls");
+                    default:
+                        var ExcelFile5 = Server.MapPath("~/Content/EmployeesRequestsImage/Add Employess.xlsx");
+
+                        return File(ExcelFile5, "application/xls", "Add Employees.xls");
+                }
+                //var ExcelFile2 = Server.MapPath("~/Content/EmployeesRequestsImage/Add Employess.xlsx");
+
+                //return File(ExcelFile2, "application/xls", "Add Employees.xls");
             }
             catch (Exception ex)
             {
@@ -526,23 +549,23 @@ namespace DMS_Authontication1.Controllers.HR
                 SendExcelMail("mediacl.approv@gmail.com", "Operation@dms-eg.com", sub, File);
                 SendExcelMail("mediacl.approv@gmail.com", "Operation.aso@dms-eg.com", sub, File);
                 SendExcelMail("mediacl.approv@gmail.com", "marian@dms-eg.com", sub, File);
-                using (MailMessage mail = new MailMessage("mediacl.approv@gmail.com", "Operation@dms-eg.com"))
-                {
-                    mail.Subject = sub;
-                    mail.Body = "";
-                    string fileName = Path.GetFileName(File.FileName);
-                    mail.Attachments.Add(new Attachment(File.InputStream, fileName));
+                //using (MailMessage mail = new MailMessage("mediacl.approv@gmail.com", "Operation@dms-eg.com"))
+                //{
+                //    mail.Subject = sub;
+                //    mail.Body = "";
+                //    string fileName = Path.GetFileName(File.FileName);
+                //    mail.Attachments.Add(new Attachment(File.InputStream, fileName));
 
-                    mail.IsBodyHtml = false;
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.EnableSsl = true;
-                    NetworkCredential networkCredential = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "Dms123456");
-                    smtp.UseDefaultCredentials = true;
-                    smtp.Credentials = networkCredential;
-                    smtp.Port = 587;
-                    smtp.Send(mail);
-                }
+                //    mail.IsBodyHtml = false;
+                //    SmtpClient smtp = new SmtpClient();
+                //    smtp.Host = "smtp.gmail.com";
+                //    smtp.EnableSsl = true;
+                //    NetworkCredential networkCredential = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "Dms123456");
+                //    smtp.UseDefaultCredentials = true;
+                //    smtp.Credentials = networkCredential;
+                //    smtp.Port = 587;
+                //    smtp.Send(mail);
+                //}
                 return new JsonResult { Data = 1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
             }
@@ -701,7 +724,7 @@ namespace DMS_Authontication1.Controllers.HR
 
         public void SendMail(string to, string subject, string Message, AlternateView altView)
         {
-            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("mediacl.approv@gmail.com" , to, subject, Message);
+            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("mediacl.approv@gmail.com", to, subject, Message);
             mail.AlternateViews.Add(altView);
             System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "Dms123456");
 

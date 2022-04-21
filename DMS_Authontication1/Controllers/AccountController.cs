@@ -19,12 +19,16 @@ namespace DMS_Authontication1.Controllers
     // [Authorize]
     public class AccountController : Controller
     {
-
+        #region Property
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
         private ApplicationDbContext db;
         private DMS_TESTEntities tESTEntities;
+
+        #endregion
+
+        #region Constractor
         public AccountController()
         {
             db = new ApplicationDbContext();
@@ -73,6 +77,10 @@ namespace DMS_Authontication1.Controllers
                 _userManager = value;
             }
         }
+
+        #endregion
+
+        #region Actions
 
         //
         // GET: /Account/Login
@@ -148,67 +156,22 @@ namespace DMS_Authontication1.Controllers
                                 case "Admin":
                                     return RedirectToLocal("/ControlPanel/Main");
                                 case "HR":
-                                    //var user = await UserManager.FindByNameAsync(User.Identity.Name);
-                                    bool found = false;
-                                    var provider = int.Parse(user.Provider);
-                                    var CurrentDate = DateTime.Now.Date;
-                                    var company = db1.Contract_Data.Where(c => c.C_COMP_ID == provider && c.DATE_FROM <= CurrentDate
-                                   && c.DATE_TO >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-                                    if (company != null)
-                                    {
-                                        var GetServActive = db1.COMP_CUSTOMIZED_D.Where(p => p.C_COMP_ID == provider && p.CONTRACT_NO == company.CONTRACT_NO
-                                          && p.SERV_CODE == "12").FirstOrDefault();
-                                        if (GetServActive != null)
-                                            found = true;
-                                    }
-                                    Session["IsIndemnity"] = found;
                                     return RedirectToLocal("/EmployeeRequest/Index");
                                 case "HR_Admin":
-                                   // bool foundAdmin = false;
-                                   // var providerAdmin = int.Parse(user.Provider);
-                                   // var CurrentDateAdmin = DateTime.Now.Date;
-                                   // var companyAdmin = db1.Contract_Data.Where(c => c.C_COMP_ID == providerAdmin && c.DATE_FROM <= CurrentDateAdmin
-                                   //&& c.DATE_TO >= CurrentDateAdmin).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-                                   // if (companyAdmin != null)
-                                   // {
-                                   //     var GetServActive = db1.COMP_CUSTOMIZED_D.Where(p => p.C_COMP_ID == providerAdmin && p.CONTRACT_NO == companyAdmin.CONTRACT_NO
-                                   //       && p.SERV_CODE == "12").FirstOrDefault();
-                                   //     if (GetServActive != null)
-                                   //         foundAdmin = true;
-                                   // }
-                                    Session["IsIndemnity"] = true;
                                     return RedirectToLocal("/Reports/Index");
                                 case "Hospital":
                                     return RedirectToLocal("/Hospital/Index");
                                 case "AfterSale":
                                     return RedirectToLocal("/AfterSales/Index");
                                 case "User":
-                                    bool foundUser = false;
-                                    bool foundNetworkUser = false;
-                                    var cardId = db1.EmployeePersonalDatas.Where(e => e.UserId == user.Id).FirstOrDefault().CardId;
-                                    var providerUser = int.Parse(cardId.Split('-')[0]);
-                                    if (providerUser == 10362)
+                                    var usr = User.Identity.GetUserId();
+                                    var cardId = tESTEntities.EmployeePersonalDatas.Where(e => e.UserId == usr).FirstOrDefault().CardId;
+                                    var status = ChicActiveCard(cardId.Split('-')[0], cardId);
+                                    if (status.data != "Y" && status.message != "ok")
                                     {
-                                        //Session["IsIndemnity"] = foundUser;
-                                        Session["IsNetwork"] = foundNetworkUser;
+                                        ModelState.AddModelError("", "You Can't login With This user As " + status.message);
+                                        return View(model);
                                     }
-                                    else
-                                    {
-                                        foundNetworkUser = true;
-                                        var CurrentDateUser = DateTime.Now.Date;
-                                        var companyUser = db1.Contract_Data.Where(c => c.C_COMP_ID == providerUser && c.DATE_FROM <= CurrentDateUser
-                                       && c.DATE_TO >= CurrentDateUser).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-                                        if (companyUser != null)
-                                        {
-                                            var GetServActive = db1.COMP_CUSTOMIZED_D.Where(p => p.C_COMP_ID == providerUser && p.CONTRACT_NO == companyUser.CONTRACT_NO
-                                              && p.SERV_CODE == "12").FirstOrDefault();
-                                            if (GetServActive != null)
-                                                foundUser = true;
-                                        }
-                                    }
-
-                                    Session["IsIndemnity"] = foundUser;
-                                    Session["IsNetwork"] = foundNetworkUser;
                                     if (string.IsNullOrEmpty(returnUrl) && Request.UrlReferrer != null)
                                         returnUrl = Server.UrlEncode(Request.UrlReferrer.PathAndQuery);
 
@@ -239,6 +202,12 @@ namespace DMS_Authontication1.Controllers
                             && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
                 if (employee != null)
                 {
+                    var status = ChicActiveCard(employee.CARD_ID.Split('-')[0], employee.CARD_ID);
+                    if (status.data != "Y" && status.message != "ok")
+                    {
+                        ModelState.AddModelError("", "You Can't Register With This Card As " + status.message);
+                        return View(model);
+                    }
                     var res = new ConfirmRegisterEmployeeVM
                     {
                         FullName = employee.EMP_ENAME,
@@ -246,13 +215,18 @@ namespace DMS_Authontication1.Controllers
                         UserName = employee.CARD_ID,
                     };
                     return RedirectToAction("ConfirmRegister", "Employee", res);
-                    //return View("~/Views/Employee/ConfirmRegister", res);
                 }
                 else
                 {
                     var usercard = tESTEntities.UsersInternalCodes.Where(u => u.InternalCode == model.UserName).FirstOrDefault();
                     if (usercard != null)
                     {
+                        var status = ChicActiveCard(usercard.CardId.Split('-')[0], usercard.CardId);
+                        if (status.data != "Y" && status.message != "ok")
+                        {
+                            ModelState.AddModelError("", "You Can't Register With This Card As " + status.message);
+                            return View(model);
+                        }
                         var res = new ConfirmRegisterEmployeeVM
                         {
                             FullName = usercard.EnglishName,
@@ -273,71 +247,8 @@ namespace DMS_Authontication1.Controllers
         }
 
         //
-        // GET: /Account/VerifyCode
-        [AllowAnonymous]
-        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
-        {
-            // Require that the user has already logged in via username/password or external login
-            if (!await SignInManager.HasBeenVerifiedAsync())
-            {
-                return View("Error");
-            }
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
-        }
-
-        //
-        // POST: /Account/VerifyCode
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            // The following code protects for brute force attacks against the two factor codes. 
-            // If a user enters incorrect codes for a specified amount of time then the user account 
-            // will be locked out for a specified amount of time. 
-            // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(model.ReturnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid code.");
-                    return View(model);
-            }
-        }
-
-        public JsonResult Provider(string id)
-        {
-            int Code = Convert.ToInt32(id);
-            var provider = db1.Serv_Providers1.Where(x => x.PRV_TYPE == Code).ToList();
-            SelectList Providerlist = new SelectList(provider, "PR_CODE", "PR_ENAME");
-            //  return new JsonResult { Data = Providerlist, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            return Json(Providerlist);
-        }
-
-        public JsonResult ContractCompanies()
-        {
-            // int Code = Convert.ToInt32(id);
-            var provider = db1.Contract_Comp.Where(x => x.ACTIVE == "Y").ToList();
-            SelectList Providerlist = new SelectList(provider, "C_COMP_ID", "C_ANAME");
-            //  return new JsonResult { Data = Providerlist, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            return Json(Providerlist);
-        }
-
-        //
         // GET: /Account/Register
 
-        ApplicationDbContext myEntities = new ApplicationDbContext();
-        DMS_TESTEntities db1 = new DMS_TESTEntities();
         [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Register()
@@ -347,11 +258,11 @@ namespace DMS_Authontication1.Controllers
                 list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
             ViewBag.Roles = list;
 
-            var provider = db1.Serv_Providers1.Where(x => x.PRV_TYPE == 2).ToList();
+            var provider = tESTEntities.Serv_Providers1.Where(x => x.PRV_TYPE == 2).ToList();
             SelectList Providerlist = new SelectList(provider, "PR_CODE", "PR_ENAME");
             ViewBag.provider = Providerlist;
 
-            var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+            var address = db.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
             SelectList addresslist = new SelectList(address, "BS_ENAME", "BS_ENAME");
             ViewBag.address = addresslist;
 
@@ -372,11 +283,11 @@ namespace DMS_Authontication1.Controllers
                 list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
             ViewBag.Roles = list;
 
-            var provider = db1.Serv_Providers1.Where(x => x.PRV_TYPE == 2).ToList();
+            var provider = tESTEntities.Serv_Providers1.Where(x => x.PRV_TYPE == 2).ToList();
             SelectList Providerlist = new SelectList(provider, "PR_CODE", "PR_ENAME");
             ViewBag.provider = Providerlist;
 
-            var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+            var address = db.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
             SelectList addresslist = new SelectList(address, "BS_ENAME", "BS_ENAME");
             ViewBag.address = addresslist;
 
@@ -387,7 +298,7 @@ namespace DMS_Authontication1.Controllers
                 string typeid;
                 if (model.Type == "5")//Doctor
                 {
-                    var PreTypeId = Convert.ToInt32(myEntities.Users.Where(s => s.Type == "Doctor").Max(x => x.TypeId));
+                    var PreTypeId = Convert.ToInt32(db.Users.Where(s => s.Type == "Doctor").Max(x => x.TypeId));
                     typeid = Convert.ToString(PreTypeId + 1);
                     model.Type = "Doctor";
                     model.Provider = "NULL";
@@ -395,7 +306,7 @@ namespace DMS_Authontication1.Controllers
                 }
                 else if (model.Type == "7")//HR Admin
                 {
-                    var PreTypeId = Convert.ToInt32(myEntities.Users.Where(s => s.Type == "HR_Admin").Max(x => x.TypeId));
+                    var PreTypeId = Convert.ToInt32(db.Users.Where(s => s.Type == "HR_Admin").Max(x => x.TypeId));
                     typeid = Convert.ToString(PreTypeId + 1);
                     model.Type = "HR_Admin";
                     model.Provider = "0";
@@ -404,8 +315,8 @@ namespace DMS_Authontication1.Controllers
                 else
                 {
                     int ProviderCode = Convert.ToInt32(model.Provider);
-                    var provider1 = db1.Serv_Providers1.Where(x => x.PR_CODE == ProviderCode).FirstOrDefault();
-                    //typeid = provider.FirstOrDefault().PR_CODE.ToString() + "-" + Convert.ToString(Convert.ToInt32(myEntities.AspNetUsers.Max(x => x.TypeId)) + 1);
+                    var provider1 = tESTEntities.Serv_Providers1.Where(x => x.PR_CODE == ProviderCode).FirstOrDefault();
+                    //typeid = provider.FirstOrDefault().PR_CODE.ToString() + "-" + Convert.ToString(Convert.ToInt32(db.AspNetUsers.Max(x => x.TypeId)) + 1);
                     int max = 0;
                     var counter = db.Users.Where(m => m.Provider == model.Provider).ToList();
                     if (model.Type == "1")
@@ -601,7 +512,7 @@ namespace DMS_Authontication1.Controllers
                     result = await UserManager.AddToRoleAsync(user.Id, model.RoleName);
                     string roleId = RoleManager.FindByName(model.RoleName).Id;
                     //User Permission
-                    foreach (ERPRolesModulesPage page in db1.ERPRolesModulesPages.Where(x => x.RoleId == roleId))
+                    foreach (ERPRolesModulesPage page in tESTEntities.ERPRolesModulesPages.Where(x => x.RoleId == roleId))
                     {
                         ERPUsersModulesPage Newmodel = new ERPUsersModulesPage();
                         Newmodel.PageId = page.PageId;
@@ -613,9 +524,9 @@ namespace DMS_Authontication1.Controllers
                         Newmodel.AddPermission = page.AddPermission;
                         Newmodel.ActivationControl = page.ActivationControl;
                         Newmodel.Preview = page.Preview;
-                        db1.ERPUsersModulesPages.Add(Newmodel);
+                        tESTEntities.ERPUsersModulesPages.Add(Newmodel);
                     }
-                    db1.SaveChanges();
+                    tESTEntities.SaveChanges();
                     //
 
                     // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -638,15 +549,15 @@ namespace DMS_Authontication1.Controllers
                                 UserId = user.Id,
                                 CompId = item
                             };
-                            db1.HrAdminCompanies.Add(hrAdminCompany);
+                            tESTEntities.HrAdminCompanies.Add(hrAdminCompany);
                         }
-                        db1.SaveChanges();
+                        tESTEntities.SaveChanges();
 
                     }
                     if (model.Type == "Doctor")
                     {
-                        ApplicationUser aspNetUser = myEntities.Users.Where(m => m.UserName == model.UserName).FirstOrDefault();
-                        return RedirectToAction("Create", "DoctorPersonalDatas", new { id = aspNetUser.Id });// myEntities.AspNetUsers.Find().Id.FirstOrDefault().Id });
+                        ApplicationUser aspNetUser = db.Users.Where(m => m.UserName == model.UserName).FirstOrDefault();
+                        return RedirectToAction("Create", "DoctorPersonalDatas", new { id = aspNetUser.Id });// db.AspNetUsers.Find().Id.FirstOrDefault().Id });
                     }
                     return RedirectToAction("Index", "Home");
                 }
@@ -660,66 +571,18 @@ namespace DMS_Authontication1.Controllers
         public JsonResult GetStateList(string id)
         {
 
-            myEntities.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
 
-            var Number = myEntities.BASIC_DATA.Where(m => m.BS_ENAME == id).Select(l => l.BS_CODE).FirstOrDefault();
-            var State = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == Number.ToString()).ToList();
+            var Number = db.BASIC_DATA.Where(m => m.BS_ENAME == id).Select(l => l.BS_CODE).FirstOrDefault();
+            var State = db.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == Number.ToString()).ToList();
             SelectList StateListlist = new SelectList(State, "BS_ENAME", "BS_ANAME");
             ViewBag.State = StateListlist;
 
             return Json(StateListlist, JsonRequestBehavior.AllowGet);
 
         }
-        // POST: /Account/Register
-        //[Authorize(Roles = "Admin")]
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Register(RegisterViewModel model)
-        //{
-        //    var provider1 = myEntities.SERV_PROVIDERS.ToList();
-        //    SelectList Providerlist = new SelectList(provider1, "PR_ENAME", "PR_ENAME");
-        //    ViewBag.provider = Providerlist;
-        //    if (ModelState.IsValid)
-        //    {
-        //        string typeid;
-        //        if (model.Type == "Doctor")
-        //        {
-        //            typeid = Convert.ToString(Convert.ToInt32(myEntities.AspNetUsers.Max(x => x.TypeId)) + 1);
-        //            model.Provider = "NULL";
 
-        //        }
-        //        else
-        //        {
-        //            var provider = myEntities.SERV_PROVIDERS.Where(x => x.PR_ENAME == model.Provider);
-        //            //typeid = provider.FirstOrDefault().PR_CODE.ToString() + "-" + Convert.ToString(Convert.ToInt32(myEntities.AspNetUsers.Max(x => x.TypeId)) + 1);
-        //            typeid = provider.FirstOrDefault().PR_CODE.ToString() + "-" + Convert.ToString(Convert.ToInt32(myEntities.AspNetUsers.Max(x => x.TypeId)) + 1);
-        //        }
-        //        var user = new ApplicationUser { TypeId = typeid, UserName = model.UserName, Email = model.Email, FName = model.FName, LName = model.LName, Type = model.RoleName, Provider = model.Provider, Address = model.Address, PhoneNumber = model.PhoneNumber, PhoneNumder1 = model.PhoneNumber1 };
-        //        var result = await UserManager.CreateAsync(user, model.Password);
-        //        if (result.Succeeded)
-        //        {
-        //            result = await UserManager.AddToRoleAsync(user.Id, model.RoleName);
-        //            // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
-        //            // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-        //            //Send an email with this link
-        //            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-        //            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-        //            await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-        //            if (model.Type == "Doctor")
-        //            {
-        //                AspNetUser aspNetUser = myEntities.AspNetUsers.Where(m => m.UserName == model.UserName).FirstOrDefault();
-        //                return RedirectToAction("Create", "DoctorPersonalDatas", new { id = aspNetUser.Id });// myEntities.AspNetUsers.Find().Id.FirstOrDefault().Id });
-        //            }
-        //            return RedirectToAction("Index", "Home");
-        //        }
-        //        AddErrors(result);
-        //    }
-
-        //    // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}
+        #region Password rest and confirm
 
         //
         // GET: /Account/ConfirmEmail
@@ -820,6 +683,8 @@ namespace DMS_Authontication1.Controllers
             return View();
         }
 
+        #endregion
+
         //
         // POST: /Account/ExternalLogin
         [HttpPost]
@@ -829,6 +694,50 @@ namespace DMS_Authontication1.Controllers
         {
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+        }
+
+
+        //
+        // GET: /Account/VerifyCode
+        [AllowAnonymous]
+        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
+        {
+            // Require that the user has already logged in via username/password or external login
+            if (!await SignInManager.HasBeenVerifiedAsync())
+            {
+                return View("Error");
+            }
+            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
+        }
+
+        //
+        // POST: /Account/VerifyCode
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // The following code protects for brute force attacks against the two factor codes. 
+            // If a user enters incorrect codes for a specified amount of time then the user account 
+            // will be locked out for a specified amount of time. 
+            // You can configure the account lockout settings in IdentityConfig
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToLocal(model.ReturnUrl);
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid code.");
+                    return View(model);
+            }
         }
 
         //
@@ -937,7 +846,6 @@ namespace DMS_Authontication1.Controllers
         //
         // POST: /Account/LogOff
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> LogOff()
         {
             var claim = ((ClaimsIdentity)User.Identity);
@@ -954,7 +862,6 @@ namespace DMS_Authontication1.Controllers
             return RedirectToAction("Index", "Home");
 
         }
-
 
         //
         // GET: /Account/ExternalLoginFailure
@@ -984,12 +891,32 @@ namespace DMS_Authontication1.Controllers
             base.Dispose(disposing);
         }
 
+        #endregion
+
         #region Helpers
+
+        public JsonResult Provider(string id)
+        {
+            int Code = Convert.ToInt32(id);
+            var provider = tESTEntities.Serv_Providers1.Where(x => x.PRV_TYPE == Code).ToList();
+            SelectList Providerlist = new SelectList(provider, "PR_CODE", "PR_ENAME");
+            //  return new JsonResult { Data = Providerlist, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return Json(Providerlist);
+        }
+
+        public JsonResult ContractCompanies()
+        {
+            // int Code = Convert.ToInt32(id);
+            var provider = tESTEntities.Contract_Comp.Where(x => x.ACTIVE == "Y").ToList();
+            SelectList Providerlist = new SelectList(provider, "C_COMP_ID", "C_ANAME");
+            //  return new JsonResult { Data = Providerlist, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return Json(Providerlist);
+        }
 
 
         public JsonResult getCompines()
         {
-            var CompaniesDb = db1.Contract_Comp
+            var CompaniesDb = tESTEntities.Contract_Comp
                 .Select(l => new
                 {
                     Code = l.C_COMP_ID,
@@ -999,8 +926,6 @@ namespace DMS_Authontication1.Controllers
             .ToList();
             return Json(CompaniesDb, JsonRequestBehavior.AllowGet);
         }
-
-
 
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
@@ -1058,6 +983,53 @@ namespace DMS_Authontication1.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
+
+        public ReturnResult ChicActiveCard(string compid, string CardId)
+        {
+            int CompId = Convert.ToInt32(compid);
+            try
+            {
+                var emp = tESTEntities.Contract_Comp.Where(x => x.C_COMP_ID == CompId).FirstOrDefault().ACTIVE;
+                DateTime datenow = DateTime.Now.Date;
+                var da = new DateTime(datenow.Year, datenow.Month, datenow.Day);
+                var empCardTerminationFlag = tESTEntities.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= da && x.INS_END_DATE >= da).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                if (empCardTerminationFlag != null)
+                {
+                    if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "N")
+                    {
+                        return (new ReturnResult { data = "Y", message = "ok" });
+                    }
+                    else if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "Y" && empCardTerminationFlag.TERMINATE_DATE > da)
+                    {
+                        return (new ReturnResult { data = "Y", message = "ok" });
+                    }
+                    else if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "Y" && empCardTerminationFlag.TERMINATE_DATE < da)
+                    {
+                        return (new ReturnResult { data = "N", message = "Expired Card" });
+                    }
+                }
+                else
+                {
+                    var CompTerminationFlag = tESTEntities.Contract_Data.Where(x => x.C_COMP_ID == CompId && x.DATE_FROM <= da && x.DATE_TO >= da).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    if (CompTerminationFlag != null)
+                    {
+                        return (new ReturnResult { data = "N", message = "Card is not existed" });
+
+                    }
+                }
+                return (new ReturnResult { data = "N", message = "Expired card" });
+            }
+            catch (Exception ex)
+            {
+                return (new ReturnResult { data = "EX", message = ex.Message });
+            }
+        }
+        public class ReturnResult
+        {
+            public string data { get; set; }
+            public string message { get; set; }
+        }
+
         #endregion
     }
 }

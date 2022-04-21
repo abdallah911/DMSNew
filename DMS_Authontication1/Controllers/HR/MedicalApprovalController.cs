@@ -71,7 +71,7 @@ namespace DMS_Authontication1.Controllers.HR
             return View();
         }
 
-        [Authorize(Roles = "HR,HR_Admin")]//admin later
+        [Authorize(Roles = "HR,HR_Admin")]
         [HttpGet]
         public ActionResult Search2(string CompId = null)
         {
@@ -83,7 +83,7 @@ namespace DMS_Authontication1.Controllers.HR
             List<ApprovalComp> approval = new List<ApprovalComp>();
             try
             {
-                if( CompId!=null)
+                if (CompId != null)
                 {
                     var userid2 = User.Identity.GetUserId();
                     var compines = db.HrAdminCompanies.Where(x => x.UserId == userid2).Select(c => c.CompId).ToList();
@@ -163,7 +163,7 @@ namespace DMS_Authontication1.Controllers.HR
                         DataTable dt2 = dbAproval.RunReader("SELECT CODE,APROVAL_TYP,MEDICAL_REPLAY,VALUE_AFTER,RECIV_DATE,CREATED_DATE,END_DATE,EXPAIRE_DATE,CREATED_BY,CARD_NO FROM MEDICAL_APPROVALS WHERE"
 
                                                    + " ACTIVE ='Y' AND  EXPAIRE_DATE >= sysdate-14 ORDER BY CREATED_DATE DESC");
-                        
+
                         if (dt2.Rows.Count != 0)
                         {
                             foreach (DataRow row in dt2.Rows)
@@ -271,7 +271,7 @@ namespace DMS_Authontication1.Controllers.HR
             }
 
         }
-        [Authorize(Roles = "HR,HR_Admin")]//admin later
+        [Authorize(Roles = "HR,HR_Admin")]
         [HttpGet]
         public ActionResult Search()
         {
@@ -315,36 +315,7 @@ namespace DMS_Authontication1.Controllers.HR
                 int companyCode = Convert.ToInt32(compcode);
                 ViewBag.company = null;
             }
-            //var HrUserNamre = User.Identity.GetUserName();
-            //var compcode = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
-            //ViewBag.CompName = compcode;
-            //int companyCode = Convert.ToInt32(compcode);
 
-            //var provider = db.ProviderTypeNews.ToList();
-            //SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
-            //ViewBag.provider = Providerlist;
-
-            //var maxcontract = db.CompContractClasses.AsNoTracking().Where(c => c.C_COMP_ID == companyCode).OrderByDescending(y => y.CONTRACT_NO).FirstOrDefault().CONTRACT_NO;
-
-            //var compclasses = (from comcont in db.CompContractClasses
-            //                   where comcont.CONTRACT_NO == maxcontract && comcont.C_COMP_ID == companyCode
-            //                   join insclass in db.Insurance_Class
-            //                   on comcont.CLASS_CODE equals insclass.CLASS_CODE
-            //                   select new
-            //                   {
-            //                       ClassCode = comcont.CLASS_CODE,
-            //                       ClassString = comcont.CLASS_CODE + " | " + insclass.CLASS_ANAME
-            //                   }).ToList();
-
-            ////var compclasses = db.CompContractClasses.AsNoTracking().Where(cl=>cl.CONTRACT_NO==maxcontract&& cl.C_COMP_ID== companyCode).ToList();
-            //SelectList compclasseslist = new SelectList(compclasses, "ClassCode", "ClassString");
-            //ViewBag.compclasseslist = compclasseslist;
-
-
-            //var address = db.Basic_Data.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-            ////var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-            //SelectList addresslist = new SelectList(address, "BS_ENAME", "BS_ANAME");
-            //ViewBag.address = addresslist;
             return View();
         }
 
@@ -395,18 +366,7 @@ namespace DMS_Authontication1.Controllers.HR
             var provider = db.ProviderTypeNews.ToList();
             SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
             ViewBag.provider = Providerlist;
-            //var comp = Convert.ToInt32(comp_id);
             var datenow = DateTime.Now.Date;
-            //var employees = db.Comp_Employees.Where(m => m.C_COMP_ID == comp && m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
-            //      .Select(l => new
-            //      {
-            //          CARD_ID = l.CARD_ID,
-            //          EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
-            //      }).ToList();
-            ////var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-            //SelectList addresslist = new SelectList(employees, "CARD_ID", "EMP_ANAME");
-            //ViewBag.address = addresslist;
-
             if (User.IsInRole("User"))
             {
                 var usr = User.Identity.GetUserId();
@@ -414,16 +374,24 @@ namespace DMS_Authontication1.Controllers.HR
                 ENUM_REQUESTSViewModel.CARD_ID = cardId;
                 ENUM_REQUESTSViewModel.CompName = cardId.Split('-')[0];
                 var comp2 = int.Parse(ENUM_REQUESTSViewModel.CompName);
-                var employees2 = db.Comp_Employees.Where(m => m.C_COMP_ID == comp2 && m.CARD_ID == cardId &&
-                m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
-                  .Select(l => new
-                  {
-                      CARD_ID = l.CARD_ID,
-                      EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
-                  }).ToList();
-                //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-                SelectList addresslist2 = new SelectList(employees2, "CARD_ID", "EMP_ANAME");
-                ViewBag.address = addresslist2;
+                var subCards = CardList(cardId);
+
+                var cards = subCards.Select(c => new
+                {
+                    CardIDValue = c.CARD_ID,
+                    CardIdString = c.CARD_ID
+                }).ToList();
+                SelectList Cardlist = new SelectList(cards, "CardIDValue", "CardIdString");
+                ViewBag.Cardslist = Cardlist;
+                //var employees2 = db.Comp_Employees.Where(m => m.C_COMP_ID == comp2 && m.CARD_ID == cardId &&
+                //m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
+                //  .Select(l => new
+                //  {
+                //      CARD_ID = l.CARD_ID,
+                //      EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
+                //  }).ToList();
+                //SelectList addresslist2 = new SelectList(employees2, "CARD_ID", "EMP_ANAME");
+                //ViewBag.address = addresslist2;
             }
 
             if (id != null)
@@ -459,6 +427,8 @@ namespace DMS_Authontication1.Controllers.HR
             if (!ModelState.IsValid)
             {
                 #region Error
+                var usr = User.Identity.GetUserId();
+                var cardId = db.EmployeePersonalDatas.Where(e => e.UserId == usr).FirstOrDefault().CardId;
                 Enum_RequestsViewModel ENUM_REQUESTSViewModel = new Enum_RequestsViewModel();
                 //var HrUserNamre = User.Identity.GetUserName();
                 //var comp_id = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
@@ -473,17 +443,26 @@ namespace DMS_Authontication1.Controllers.HR
                 var provider = db.ProviderTypeNews.ToList();
                 SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
                 ViewBag.provider = Providerlist;
-                var comp = Convert.ToInt32(addApproval.CARD_ID.Split('-')[0]);
-                var datenow = DateTime.Now.Date;
-                var employees = db.Comp_Employees.Where(m => m.C_COMP_ID == comp && m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
-                      .Select(l => new
-                      {
-                          CARD_ID = l.CARD_ID,
-                          EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
-                      }).ToList();
-                //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-                SelectList addresslist = new SelectList(employees, "CARD_ID", "EMP_ANAME");
-                ViewBag.address = addresslist;
+                var subCards = CardList(cardId);
+
+                var cards = subCards.Select(c => new
+                {
+                    CardIDValue = c.CARD_ID,
+                    CardIdString = c.CARD_ID
+                }).ToList();
+                SelectList Cardlist = new SelectList(cards, "CardIDValue", "CardIdString");
+                ViewBag.Cardslist = Cardlist;
+                //var comp = Convert.ToInt32(addApproval.CARD_ID.Split('-')[0]);
+                //var datenow = DateTime.Now.Date;
+                //var employees = db.Comp_Employees.Where(m => m.C_COMP_ID == comp && m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
+                //      .Select(l => new
+                //      {
+                //          CARD_ID = l.CARD_ID,
+                //          EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
+                //      }).ToList();
+                ////var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+                //SelectList addresslist = new SelectList(employees, "CARD_ID", "EMP_ANAME");
+                //ViewBag.address = addresslist;
                 #endregion
                 return View(ENUM_REQUESTSViewModel);
 
@@ -494,14 +473,14 @@ namespace DMS_Authontication1.Controllers.HR
 
             model.NOTES = addApproval.NOTES;
             model.REQ_DATE = DateTime.Now;
-            model.EMP_ENAME = db.Comp_Employees.Where(e=>e.CARD_ID==addApproval.CARD_ID).FirstOrDefault().EMP_ENAME;
+            model.EMP_ENAME = db.Comp_Employees.Where(e => e.CARD_ID == addApproval.CARD_ID).FirstOrDefault().EMP_ENAME;
             model.REQ_TYPE = "M";
 
             model.REQUEST_TYP = "Web";
             model.CREATED_BY = User.Identity.GetUserName();
             model.CREATED_DATE = DateTime.Now;
             model.STATE = 2;
-            model.TYPE = addApproval.TYPE; ;
+            model.TYPE = addApproval.TYPE;
             model.PR_ENAME = addApproval.PR_ENAME;
             model.TYP_ANAME = addApproval.TYP_ANAME;
             model.NOTES = addApproval.NOTES;
@@ -622,7 +601,7 @@ namespace DMS_Authontication1.Controllers.HR
             int Comp_ID = Convert.ToInt32(compId);
 
             // classLevel).OrderByDescending(y => y.CONTRACT_NO).FirstOrDefault().COVER_RELATION;
-            var AproveList = db.fn_MedicalApprovalSearsh(CardID, datefrom, dateto, code).Where(b =>b.CARD_ID.Contains(compId)&& b.REQ_DATE >= date_from.Date && b.REQ_DATE <= date_to.Date).OrderBy(b => b.REQ_DATE).ToList();
+            var AproveList = db.fn_MedicalApprovalSearsh(CardID, datefrom, dateto, code).Where(b => b.CARD_ID.Contains(compId) && b.REQ_DATE >= date_from.Date && b.REQ_DATE <= date_to.Date).OrderBy(b => b.REQ_DATE).ToList();
             if (AproveList.Count > 0)
             {
                 return new JsonResult { Data = new { AproveList = AproveList, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -635,10 +614,8 @@ namespace DMS_Authontication1.Controllers.HR
         }
         public JsonResult GetAproveder(int id)
         {
-            var listproveders = db.SERV_PROVIDERS_NEW.Where(m => m.PRV_TYPE == id).Select(l => new { PR_CODE = l.PR_CODE, PR_ANAME = l.PR_ANAME }).Distinct().ToList();
+            var listproveders = db.SERV_PROVIDERS_NEW.Where(m => m.PRV_TYPE == id).Select(l => new { PR_CODE = l.PR_CODE, PR_ANAME = l.PR_ANAME }).ToList().Distinct();
             SelectList Providerlist = new SelectList(listproveders, "PR_CODE", "PR_ANAME");
-
-
             return new JsonResult { Data = new { providerslist = Providerlist }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
@@ -927,6 +904,34 @@ namespace DMS_Authontication1.Controllers.HR
             mailclient.Send(mail);
         }
 
+
+        public List<Comp_Employees> CardList(string CardId)
+        {
+            var EmpCode = long.Parse(CardId.Split('-')[2]);
+            var CompId = int.Parse(CardId.Split('-')[0]);
+            var Employee = db.Comp_Employees.Where(e => e.CARD_ID == CardId &&
+                             DateTime.Now >= e.INS_START_DATE && DateTime.Now <= e.INS_END_DATE)
+                            .OrderByDescending(e => e.CONTRACT_NO).FirstOrDefault();
+            if (Employee != null)
+            {
+                var maxContract = Employee.CONTRACT_NO;
+                var subCards = db.Comp_Employees.Where(e => e.EMP_CODE == EmpCode &&
+                               (e.TERMINATE_FLAG == "N" || e.TERMINATE_FLAG == null) && e.C_COMP_ID == CompId
+                               && e.CONTRACT_NO == maxContract).ToList();
+                var compStatement = db.CompStatements.Where(c => c.ContractNo == maxContract && c.MainCompCode == CompId).FirstOrDefault();
+                if (compStatement != null)
+                {
+                    var cards = db.Comp_Employees.Where(e => e.C_COMP_ID == compStatement.CompID
+                      && e.CONTRACT_NO == maxContract && e.EMP_CODE == EmpCode).ToList();
+                    subCards.AddRange(cards);
+                }
+                return subCards;
+            }
+            else
+            {
+                return new List<Comp_Employees>();
+            }
+        }
         #endregion
 
     }

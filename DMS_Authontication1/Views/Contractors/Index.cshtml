@@ -1,0 +1,170 @@
+﻿@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    var Create = false;
+    var modellist = new List<ModulesPagesViewModel>();
+    var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+    if (claim != null)
+    {
+        modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+        if (modellist != null)
+        {
+            var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 49 && (x.FullControl || x.EditPermission
+                                          || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+            if (obj != null)
+            {
+                edit = obj.EditPermission;
+                delete = obj.ActivationControl;
+                view = obj.Preview;
+                fullcontroll = obj.FullControl;
+                Create = obj.AddPermission;
+
+            }
+        }
+    }
+}
+
+<br />
+
+<div style="margin-top:40px">
+    <p>
+        @if (fullcontroll || view)
+        {
+            @Html.ActionLink(" Company Contracts", "Index", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search", @style = " text-transform: none" })
+        }
+        @if (fullcontroll || Create)
+        {
+            @Html.ActionLink(" Providers Contracts", "ProvidersIndex", null, htmlAttributes: new { @class = "btn btn-info fa fa-search", @style = " text-transform: none" })
+        }
+    </p>
+</div>
+@if (fullcontroll || view)
+{
+    <div class="portlet box  green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i> Search
+            </div>
+        </div>
+        <div class="portlet-body">
+            <input id="compname" type="text" value="@ViewBag.CompName" hidden="hidden" />
+            <div class="row" style="padding-bottom: 15px;">
+                @if (User.IsInRole("HR_Admin"))
+                {
+
+                    <div class="col-sm-2" data-step="6" data-intro="Select Contract type Default is Contract">
+                        @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
+
+                    </div>
+
+                    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                    <script>
+                        $(document).ready(function () {
+                            $("#CompanyNumber").select2();
+                        });
+                    </script>
+                }
+                <div class="col-sm-2" data-step="6" data-intro="Select Contract type Default is Contract">
+                    <select id="ddlType" class="form-control">
+                        <option value="">Select Type</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Endorsement ">Endorsement </option>
+                    </select>
+                </div>
+            </div>
+            <div style=" text-align:right">
+                <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
+                <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />
+            </div>
+        </div>
+    </div>
+
+    <div class="portlet box  green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i>Company Contract
+            </div>
+
+        </div>
+        <br />
+        <div class="portlet-body">
+
+            <table class="ui celled table" id="Index" width="100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="contractImage"></tbody>
+
+            </table>
+        </div>
+    </div>
+}
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script>
+    $(function () {
+        var compNu = $("#compname").val();
+
+
+        $("#CompanyNumber").change(function () {// class levels
+            var compNu = $("#CompanyNumber").val();
+            $("#compname").val(compNu);
+
+        });
+
+        $("#CompanyNumber").map(function () {// class levels
+            var compNu = $("#CompanyNumber").val();
+            $("#compname").val(compNu);
+        });
+
+        $('#adminSearch').click(function () {
+            if ($("#compname").val() != "") {
+                if ($("#ddlType").val() != "") {
+                    $('#Index').dataTable().fnDestroy();
+                    $("#Index").DataTable({
+                        "sAjaxSource": '/Contractors/CompContractList?compId=' + $("#compname").val() + '&&Type=' + $("#ddlType").val(),
+                        "bServerSide": true,
+                        "processing": true,
+                        "bFilter": false,
+                        "bSort": false,
+                        "pageLength": 1,
+                        "bInfo": false,
+                        "lengthChange": false,
+
+                        "columns": [
+                            {
+                                "data": "path",
+                                "mRender": function (data) {
+                                    if ("@fullcontroll" == "True" || "@view" == "True") {
+                                        return '<img style="width: 100%;height: 100%;background: #ccc;" src="' + data+'">';
+                                    }
+                                    else
+                                        return '<input  data-id=' + data + '  hidden  /> ';
+                                }
+                            },
+
+
+                        ]
+                    });
+                }
+                else {
+                    toastr.error("Please select Type")
+                }
+            }
+            else {
+                toastr.error("Please select company")
+            }
+
+        });
+    })
+</script>

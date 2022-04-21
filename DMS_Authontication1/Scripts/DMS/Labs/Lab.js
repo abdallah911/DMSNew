@@ -604,49 +604,58 @@ function SelectLab(event) {
                     });
 
                     if (Group == "NO") {
-                        //if ($('#txtSearchCard').val().split('-')[0].includes("500")) {
-                        //    Group = "Accepted";
-                        //    AppendRow();
-                        //    Calculation();
-                        //}
-                        //else {
-                        var dialog = bootbox.dialog({
-                            title: 'This Test is Not Covered!',
-                            message: "<p>Pay method?</p>",
-                            onEscape: function () {
-                                RemoveSelection(Code);
+                        $.ajax({
+                            dataType: "json",
+                            url: '/Pharmacy/CheckVip',
+                            data: {
+                                id: $('#txtSearchCard').val()
                             },
-                            buttons: {
-                                Cash: {
-                                    label: "Cash",
-                                    className: 'btn-info',
-                                    callback: function () {
-                                        Group = "Cash";
-                                        AppendRow();
-                                        Calculation();
-                                    }
-                                },
-                                Approval: {
-                                    label: "Approval",
-                                    className: 'btn-info',
-                                    callback: function () {
-                                        Group = "Approval";
-                                        AppendRow();
-                                        Calculation();
-                                    }
-                                },
-                                Tele: {
-                                    label: "Pending",
-                                    className: 'btn-info',
-                                    callback: function () {
-                                        Group = "Pending";
-                                        AppendRow();
-                                        Calculation();
-                                    }
+                            success: function (r) {
+                                if (r.IsVip == 1) {
+                                    Group = "Accepted";
+                                    AppendRow();
+                                    Calculation();
+                                }
+                                else {
+                                    var dialog = bootbox.dialog({
+                                        title: 'This Test is Not Covered!',
+                                        message: "<p>Pay method?</p>",
+                                        onEscape: function () {
+                                            RemoveSelection(Code);
+                                        },
+                                        buttons: {
+                                            Cash: {
+                                                label: "Cash",
+                                                className: 'btn-info',
+                                                callback: function () {
+                                                    Group = "Cash";
+                                                    AppendRow();
+                                                    Calculation();
+                                                }
+                                            },
+                                            Approval: {
+                                                label: "Approval",
+                                                className: 'btn-info',
+                                                callback: function () {
+                                                    Group = "Approval";
+                                                    AppendRow();
+                                                    Calculation();
+                                                }
+                                            },
+                                            Tele: {
+                                                label: "Pending",
+                                                className: 'btn-info',
+                                                callback: function () {
+                                                    Group = "Pending";
+                                                    AppendRow();
+                                                    Calculation();
+                                                }
+                                            }
+                                        }
+                                    });
                                 }
                             }
                         });
-                        //}
 
                     }
                     else {
