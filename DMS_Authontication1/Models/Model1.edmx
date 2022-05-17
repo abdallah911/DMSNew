@@ -2319,7 +2319,7 @@
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Swap">
           <Key>
             <PropertyRef Name="Id" />
@@ -3075,6 +3075,30 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
                 <Property Name="TERMINATE_DATE" Type="date" />
                 <Property Name="CONTRACT_NO" Type="int" />
                 <Property Name="Now" Type="datetime" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="fn_StopEditAdminClamsList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FROM" Type="nvarchar" Mode="In" />
+          <Parameter Name="TO" Type="nvarchar" Mode="In" />
+          <Parameter Name="Company" Type="nvarchar" Mode="In" />
+          <Parameter Name="Provider" Type="nvarchar" Mode="In" />
+          <Parameter Name="Branch" Type="nvarchar" Mode="In" />
+          <Parameter Name="ApprovalNo" Type="nvarchar" Mode="In" />
+          <Parameter Name="CardId" Type="nvarchar" Mode="In" />
+          <Parameter Name="TYPE" Type="nvarchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Oracle_Id" Type="bigint" />
+                <Property Name="Id" Type="bigint" Nullable="false" />
+                <Property Name="CardId" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="CompanyPercent" Type="int" Nullable="false" />
+                <Property Name="TotalValue" Type="float" />
+                <Property Name="Manager" Type="nvarchar" MaxLength="50" />
+                <Property Name="UpdatedDate" Type="datetime" />
+                <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
               </RowType>
             </CollectionType>
           </ReturnType>
@@ -4985,6 +5009,16 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="CompanyContractPhotoes" EntityType="DB_A45413_DMSERPModel.CompanyContractPhoto" />
           <EntitySet Name="ProviderContractPhotoes" EntityType="DB_A45413_DMSERPModel.ProviderContractPhoto" />
           <EntitySet Name="CompStatements" EntityType="DB_A45413_DMSERPModel.CompStatement" />
+          <FunctionImport Name="fn_StopEditAdminClamsList" IsComposable="true" ReturnType="Collection(DB_A45413_DMSERPModel.fn_StopEditAdminClamsList_Result)">
+            <Parameter Name="FROM" Mode="In" Type="String" />
+            <Parameter Name="TO" Mode="In" Type="String" />
+            <Parameter Name="Company" Mode="In" Type="String" />
+            <Parameter Name="Provider" Mode="In" Type="String" />
+            <Parameter Name="Branch" Mode="In" Type="String" />
+            <Parameter Name="ApprovalNo" Mode="In" Type="String" />
+            <Parameter Name="CardId" Mode="In" Type="String" />
+            <Parameter Name="TYPE" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -6810,6 +6844,16 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="CompNameOther" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DatePrint" Type="DateTime" Precision="3" />
         </EntityType>
+        <ComplexType Name="fn_StopEditAdminClamsList_Result">
+          <Property Type="Int64" Name="Oracle_Id" Nullable="true" />
+          <Property Type="Int64" Name="Id" Nullable="false" />
+          <Property Type="String" Name="CardId" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CompanyPercent" Nullable="false" />
+          <Property Type="Double" Name="TotalValue" Nullable="true" />
+          <Property Type="String" Name="Manager" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="50" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9437,6 +9481,20 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="fn_StopEditAdminClamsList" FunctionName="DB_A45413_DMSERPModel.Store.fn_StopEditAdminClamsList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A45413_DMSERPModel.fn_StopEditAdminClamsList_Result">
+                <ScalarProperty Name="Oracle_Id" ColumnName="Oracle_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="CompanyPercent" ColumnName="CompanyPercent" />
+                <ScalarProperty Name="TotalValue" ColumnName="TotalValue" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

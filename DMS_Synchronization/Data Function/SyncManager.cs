@@ -378,7 +378,7 @@ namespace DMS_Synchronization
             {
                 //PullUsers();
                 //PullRoles();
-
+                //PullMan();
                 PullRoshita();
                 PullRoshitaDetails();
                 UpdatePullRoshita();
@@ -1362,12 +1362,8 @@ namespace DMS_Synchronization
                 ExecuteSQLUpdateQuery(queryDa, _connectionSettings.SQlConnection);
             }
 
-
-
             string OracleQuery = "UPDATE " + tableName + " SET IS_SYNC = 1,SYNC_DATE=SYSDATE,SYNC_BY = 'Admin' WHERE IS_SYNC=0 OR IS_SYNC IS NULL";
             ExecuteOracleQuery(OracleQuery, conn);
-
-
         }
         private static void SyncToSqlTableSH<T>(string query, string tableName)
         {
@@ -2688,6 +2684,365 @@ namespace DMS_Synchronization
             }
 
             //string OracleQuery = "UPDATE  SH_01.DMS_02_EMP_D_ENT SET IS_SYNC = 1,SYNC_DATE=SYSDATE WHERE (IS_SYNC = 0 OR IS_SYNC IS NULL OR IS_SYNC=9) AND SYNC_BY='ORA' ";
+            //ExecuteOracleQuery(OracleQuery, _connectionSettings.OrcaleConnectionSH65);
+        }
+
+        private static void PullMan()
+        {
+            var query = "SELECT * FROM (SELECT m.*, ROWNUM r FROM SH_01.DMS_02_EMP_D_ENT_MAN m  INNER JOIN DMS_02_EMP_D_ENT e ON m.D_ID=e.D_ID WHERE (m.IS_SYNC = 0 OR m.IS_SYNC IS NULL OR m.IS_SYNC = 9) AND e.EMP_NAME='منوال') WHERE r >{0} AND r<= {1} ;";
+
+            double count = double.Parse(GetOracleDataTable("select  COUNT(*) FROM SH_01.DMS_02_EMP_D_ENT_MAN m  INNER JOIN DMS_02_EMP_D_ENT e ON m.D_ID=e.D_ID WHERE (m.IS_SYNC = 0 OR m.IS_SYNC IS NULL OR m.IS_SYNC = 9) AND e.EMP_NAME='منوال' ", _connectionSettings.OrcaleConnectionSH65).Rows[0][0].ToString());
+
+
+            var maxiteration = Math.Ceiling(count / 1000);
+
+            for (int i = 0; i < maxiteration; i = i)
+            {
+                try
+                {
+                    var data = GetOracleTable<DMS_02_EMP_D_ENT_MAN>(string.Format(query, (i * 1000), ((++i) * 1000)), _connectionSettings.OrcaleConnectionSH65);
+                    _result.Logs.Add(new ViewModels.Log
+                    {
+                        Order = GetLogOrder(),
+                        Action = SyncAction.Get.ToString(),
+                        Database = GetDatabaseName(_connectionSettings.OrcaleConnectionSH65),
+                        Server = GetServerName(_connectionSettings.OrcaleConnectionSH65),
+                        Table = "DMS_02_EMP_D_ENT_MAN",
+                        Note = "All",
+                        AffectedRows = data.Count
+                    });
+
+                    try
+                    {
+                        var SyncData = FullSyncFieldsSQL<BaseEntityDB>(data.Cast<BaseEntityDB>().ToList());
+                        var CastData = SyncData.Cast<DMS_02_EMP_D_ENT_MAN>().ToList();
+                        foreach (var item in CastData)
+                        {
+                            switch(item.MANAGER)
+                            {
+                                case "YES":
+                                case "MON":
+                                case "MON_PH":
+                                    if (item.CARD_ID.Split('-')[0].Contains("500"))
+                                    {
+                                        item.Gross = item.MAN_IMP + item.MAN_LOC;
+                                        item.PersonPayment = item.PERCENT_MONY_M;
+                                        item.OverInsurance = item.OVER_INSURANCE;
+                                        double? discountlocal, discountImp;
+                                        if ((item.PERCENT_MONY_M + item.OVER_INSURANCE) > item.MAN_LOC)
+                                        {
+                                            discountlocal = 0;
+                                            discountImp = (item.P_2 / 100) * (item.MAN_IMP + (item.MAN_LOC - item.PERCENT_MONY_M - item.OVER_INSURANCE));
+                                        }
+                                        else
+                                        {
+                                            discountlocal = ((item.P_3 / 100) * (item.MAN_LOC - item.PERCENT_MONY_M - item.OVER_INSURANCE));
+                                            discountImp = (item.P_2 / 100) * item.MAN_IMP;
+                                        }
+                                        item.TotalDiscount = discountlocal + discountImp;
+                                        item.Net = item.Gross - item.TotalDiscount - item.OVER_INSURANCE - item.PERCENT_MONY_M;
+                                    }
+                                    else
+                                    {
+                                        item.Gross = item.MAN_IMP + item.MAN_LOC;
+                                        item.PersonPayment = item.PERCENT_MONY_M;
+                                        item.OverInsurance = item.OVER_INSURANCE;
+                                        item.TotalDiscount = 0;
+                                        item.Net = item.Gross - item.PERCENT_MONY_M - item.OVER_INSURANCE;
+                                    }
+                                    break;
+                                case "LAB":
+                                case "RAY":
+                                    if (item.CARD_ID.Split('-')[0].Contains("500"))
+                                    {
+                                        item.Gross = item.TOT_DISC_EXP;
+                                        item.PersonPayment = item.PERCENT_MONY_M;
+                                        item.OverInsurance = item.OVER_INSURANCE;
+                                        if (item.DISC_TYPE_LOC==9||item.DISC_TYPE_LOC==15)
+                                        {
+                                            item.Net = item.MAN_TOT;
+                                            item.TotalDiscount = item.Gross - item.Net - item.PERCENT_MONY_M; ;
+                                        }
+                                        else
+                                        {
+                                            item.Net = item.Gross - item.OVER_INSURANCE - item.PERCENT_MONY_M;
+                                            item.TotalDiscount = item.Gross - item.Net;
+                                        }
+                                        
+                                    }
+                                    else
+                                    {
+                                        item.Gross = item.TOT_DISC_EXP*1.5;
+                                        item.PersonPayment = item.PERCENT_MONY_M;
+                                        item.OverInsurance = item.OVER_INSURANCE;
+                                        item.TotalDiscount = item.TOT_DISC_EXP * 0.15;
+                                        item.Net = item.Gross - item.PERCENT_MONY_M - item.OVER_INSURANCE - item.TotalDiscount;
+
+
+                                    }
+                                    break;
+
+                            }
+
+                            switch (item.MANAGER)
+                            {
+                                case "YES":
+                                    item.MANAGER = "Daily_Manual";
+                                    
+                                    break;
+                                case "MON":
+                                    item.MANAGER = "Pharmacy_Chronic_Manual";
+                                    break;
+                                case "MON_PH":
+                                    item.MANAGER = "Monthly_Manual";
+                                    break;
+                                case "LAB":
+                                    item.MANAGER = "Lab_Manual";
+                                    break;
+                                case "RAY":
+                                    item.MANAGER = "Ray_Manual";
+                                    break;
+                                default:
+                                    item.MANAGER = item.MANAGER + "_Manual";
+                                    break;
+                            }
+
+
+                        }
+
+                        AddNewEntities(CastData, "DMS_02_EMP_D_ENT_MAN", false, _connectionSettings.SQlConnection);
+                        _result.Logs.Add(new ViewModels.Log
+                        {
+                            Order = GetLogOrder(),
+                            Action = SyncAction.Insert.ToString(),
+                            Database = GetDatabaseName(),
+                            Server = GetServerName(),
+                            Table = "DMS_02_EMP_D_ENT_MAN",
+                            AffectedRows = data.Count
+                        });
+                        if (CastData.Count == 1)
+                        {
+                            string OracleQuery = "UPDATE  SH_01.DMS_02_EMP_D_ENT_MAN SET IS_SYNC = 1,SYNC_DATE=SYSDATE WHERE (IS_SYNC = 0 OR IS_SYNC IS NULL OR IS_SYNC=9) " +
+                                " AND D_ID IN= " + CastData[0].D_ID;
+                            ExecuteOracleQuery(OracleQuery, _connectionSettings.OrcaleConnectionSH65);
+                        }
+                        else if (CastData.Count > 1)
+                        {
+                            string OracleQuery = "UPDATE  SH_01.DMS_02_EMP_D_ENT_MAN SET IS_SYNC = 1,SYNC_DATE=SYSDATE WHERE (IS_SYNC = 0 OR IS_SYNC IS NULL OR IS_SYNC=9) " +
+                                " AND D_ID IN( " + CastData[0].D_ID + ",";
+
+                            for (int j = 1; j < CastData.Count - 1; j++)
+                            {
+                                OracleQuery += CastData[j].D_ID + ",";
+                            }
+                            OracleQuery += CastData[CastData.Count - 1].D_ID + ")";
+                            ExecuteOracleQuery(OracleQuery, _connectionSettings.OrcaleConnectionSH65);
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        _result.Errors.Add(new Error()
+                        {
+                            Action = SyncAction.Insert.ToString(),
+                            Database = GetDatabaseName(),
+                            Server = GetServerName(),
+                            Table = "DMS_02_EMP_D_ENT_MAN",
+                            Exception = ex,
+                        });
+                    }
+                }
+                catch (Exception e)
+                {
+                    _result.Errors.Add(new Error()
+                    {
+                        Action = SyncAction.Get.ToString(),
+                        Database = GetDatabaseName(_connectionSettings.OrcaleConnectionSH65),
+                        Server = GetServerName(_connectionSettings.OrcaleConnectionSH65),
+                        Table = "DMS_02_EMP_D_ENT_MAN",
+                        Exception = e,
+                    });
+                }
+            }
+
+            var query2 = "SELECT * FROM (SELECT m.*, ROWNUM r FROM SH_01.DMS_02_EMP_D_ENT_MAN m   WHERE (m.IS_SYNC = 0 OR m.IS_SYNC IS NULL OR m.IS_SYNC = 9) ) WHERE r >{0} AND r<= {1} ;";
+
+            double count2 = double.Parse(GetOracleDataTable("select  COUNT(*) FROM SH_01.DMS_02_EMP_D_ENT_MAN m  WHERE (m.IS_SYNC = 0 OR m.IS_SYNC IS NULL OR m.IS_SYNC = 9) ", _connectionSettings.OrcaleConnectionSH65).Rows[0][0].ToString());
+
+
+            var maxiteration2 = Math.Ceiling(count2 / 1000);
+
+            for (int i = 0; i < maxiteration2; i = i)
+            {
+                try
+                {
+                    var data = GetOracleTable<DMS_02_EMP_D_ENT_MAN>(string.Format(query2, (i * 1000), ((++i) * 1000)), _connectionSettings.OrcaleConnectionSH65);
+                    _result.Logs.Add(new ViewModels.Log
+                    {
+                        Order = GetLogOrder(),
+                        Action = SyncAction.Get.ToString(),
+                        Database = GetDatabaseName(_connectionSettings.OrcaleConnectionSH65),
+                        Server = GetServerName(_connectionSettings.OrcaleConnectionSH65),
+                        Table = "DMS_02_EMP_D_ENT_MAN",
+                        Note = "All",
+                        AffectedRows = data.Count
+                    });
+
+                    try
+                    {
+                        var SyncData = FullSyncFieldsSQL<BaseEntityDB>(data.Cast<BaseEntityDB>().ToList());
+                        var CastData = SyncData.Cast<DMS_02_EMP_D_ENT_MAN>().ToList();
+                        foreach (var item in CastData)
+                        {
+                            switch (item.MANAGER)
+                            {
+                                case "YES":
+                                case "MON":
+                                case "MON_PH":
+                                    if (item.CARD_ID.Split('-')[0].Contains("500"))
+                                    {
+                                        item.Gross = item.MAN_IMP + item.MAN_LOC;
+                                        item.PersonPayment = item.PERCENT_MONY_M;
+                                        item.OverInsurance = item.OVER_INSURANCE;
+                                        double? discountlocal, discountImp;
+                                        if ((item.PERCENT_MONY_M + item.OVER_INSURANCE) > item.MAN_LOC)
+                                        {
+                                            discountlocal = 0;
+                                            discountImp = (item.P_2 / 100) * (item.MAN_IMP + (item.MAN_LOC - item.PERCENT_MONY_M - item.OVER_INSURANCE));
+                                        }
+                                        else
+                                        {
+                                            discountlocal = ((item.P_3 / 100) * (item.MAN_LOC - item.PERCENT_MONY_M - item.OVER_INSURANCE));
+                                            discountImp = (item.P_2 / 100) * item.MAN_IMP;
+                                        }
+                                        item.TotalDiscount = discountlocal + discountImp;
+                                        item.Net = item.Gross - item.TotalDiscount - item.OVER_INSURANCE - item.PERCENT_MONY_M;
+                                    }
+                                    else
+                                    {
+                                        item.Gross = item.MAN_IMP + item.MAN_LOC;
+                                        item.PersonPayment = item.PERCENT_MONY_M;
+                                        item.OverInsurance = item.OVER_INSURANCE;
+                                        item.TotalDiscount = 0;
+                                        item.Net = item.Gross - item.PERCENT_MONY_M - item.OVER_INSURANCE;
+                                    }
+                                    break;
+                                case "LAB":
+                                case "RAY":
+                                    if (item.CARD_ID.Split('-')[0].Contains("500"))
+                                    {
+                                        item.Gross = item.TOT_DISC_EXP;
+                                        item.PersonPayment = item.PERCENT_MONY_M;
+                                        item.OverInsurance = item.OVER_INSURANCE;
+                                        if (item.DISC_TYPE_LOC == 9 || item.DISC_TYPE_LOC == 15)
+                                        {
+                                            item.Net = item.MAN_TOT;
+                                            item.TotalDiscount = item.Gross - item.Net - item.PERCENT_MONY_M; ;
+                                        }
+                                        else
+                                        {
+                                            item.Net = item.Gross - item.OVER_INSURANCE - item.PERCENT_MONY_M;
+                                            item.TotalDiscount = item.Gross - item.Net;
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        item.Gross = item.TOT_DISC_EXP * 1.5;
+                                        item.PersonPayment = item.PERCENT_MONY_M;
+                                        item.OverInsurance = item.OVER_INSURANCE;
+                                        item.TotalDiscount = item.TOT_DISC_EXP * 0.15;
+                                        item.Net = item.Gross - item.PERCENT_MONY_M - item.OVER_INSURANCE - item.TotalDiscount;
+
+
+                                    }
+                                    break;
+
+                            }
+
+                            switch (item.MANAGER)
+                            {
+                                case "YES":
+                                    item.MANAGER = "Daily_Manual";
+
+                                    break;
+                                case "MON":
+                                    item.MANAGER = "Pharmacy_Chronic_Manual";
+                                    break;
+                                case "MON_PH":
+                                    item.MANAGER = "Monthly_Manual";
+                                    break;
+                                case "LAB":
+                                    item.MANAGER = "Lab_Manual";
+                                    break;
+                                case "RAY":
+                                    item.MANAGER = "Ray_Manual";
+                                    break;
+                                default:
+                                    item.MANAGER = item.MANAGER + "_Manual";
+                                    break;
+                            }
+
+
+                        }
+
+                        AddNewEntities(CastData, "DMS_02_EMP_D_ENT_MAN", false, _connectionSettings.SQlConnection);
+                        _result.Logs.Add(new ViewModels.Log
+                        {
+                            Order = GetLogOrder(),
+                            Action = SyncAction.Insert.ToString(),
+                            Database = GetDatabaseName(),
+                            Server = GetServerName(),
+                            Table = "DMS_02_EMP_D_ENT_MAN",
+                            AffectedRows = data.Count
+                        });
+                        if (CastData.Count == 1)
+                        {
+                            string OracleQuery = "UPDATE  SH_01.DMS_02_EMP_D_ENT_MAN SET IS_SYNC = 1,SYNC_DATE=SYSDATE WHERE (IS_SYNC = 0 OR IS_SYNC IS NULL OR IS_SYNC=9) " +
+                                " AND D_ID IN= " + CastData[0].D_ID;
+                            ExecuteOracleQuery(OracleQuery, _connectionSettings.OrcaleConnectionSH65);
+                        }
+                        else if (CastData.Count > 1)
+                        {
+                            string OracleQuery = "UPDATE  SH_01.DMS_02_EMP_D_ENT_MAN SET IS_SYNC = 1,SYNC_DATE=SYSDATE WHERE (IS_SYNC = 0 OR IS_SYNC IS NULL OR IS_SYNC=9) " +
+                                " AND D_ID IN( " + CastData[0].D_ID + ",";
+
+                            for (int j = 1; j < CastData.Count - 1; j++)
+                            {
+                                OracleQuery += CastData[j].D_ID + ",";
+                            }
+                            OracleQuery += CastData[CastData.Count - 1].D_ID + ")";
+                            ExecuteOracleQuery(OracleQuery, _connectionSettings.OrcaleConnectionSH65);
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        _result.Errors.Add(new Error()
+                        {
+                            Action = SyncAction.Insert.ToString(),
+                            Database = GetDatabaseName(),
+                            Server = GetServerName(),
+                            Table = "DMS_02_EMP_D_ENT_MAN",
+                            Exception = ex,
+                        });
+                    }
+                }
+                catch (Exception e)
+                {
+                    _result.Errors.Add(new Error()
+                    {
+                        Action = SyncAction.Get.ToString(),
+                        Database = GetDatabaseName(_connectionSettings.OrcaleConnectionSH65),
+                        Server = GetServerName(_connectionSettings.OrcaleConnectionSH65),
+                        Table = "DMS_02_EMP_D_ENT_MAN",
+                        Exception = e,
+                    });
+                }
+            }
+
+
+            //string OracleQuery = "UPDATE  SET IS_SYNC = 1,SYNC_DATE=SYSDATE,SYNC_BY = 'Admin' WHERE IS_SYNC=0 OR IS_SYNC IS NULL";
             //ExecuteOracleQuery(OracleQuery, _connectionSettings.OrcaleConnectionSH65);
         }
 

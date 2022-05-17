@@ -471,5 +471,43 @@ namespace DMS_Authontication1.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_consumption_update_Result>("[DMS_TESTEntities].[fn_consumption_update](@id, @ServiceCode, @Roshita_id)", idParameter, serviceCodeParameter, roshita_idParameter);
         }
+    
+        [DbFunction("DMS_TESTEntities", "fn_StopEditAdminClamsList")]
+        public virtual IQueryable<fn_StopEditAdminClamsList_Result> fn_StopEditAdminClamsList(string fROM, string tO, string company, string provider, string branch, string approvalNo, string cardId, string tYPE)
+        {
+            var fROMParameter = fROM != null ?
+                new ObjectParameter("FROM", fROM) :
+                new ObjectParameter("FROM", typeof(string));
+    
+            var tOParameter = tO != null ?
+                new ObjectParameter("TO", tO) :
+                new ObjectParameter("TO", typeof(string));
+    
+            var companyParameter = company != null ?
+                new ObjectParameter("Company", company) :
+                new ObjectParameter("Company", typeof(string));
+    
+            var providerParameter = provider != null ?
+                new ObjectParameter("Provider", provider) :
+                new ObjectParameter("Provider", typeof(string));
+    
+            var branchParameter = branch != null ?
+                new ObjectParameter("Branch", branch) :
+                new ObjectParameter("Branch", typeof(string));
+    
+            var approvalNoParameter = approvalNo != null ?
+                new ObjectParameter("ApprovalNo", approvalNo) :
+                new ObjectParameter("ApprovalNo", typeof(string));
+    
+            var cardIdParameter = cardId != null ?
+                new ObjectParameter("CardId", cardId) :
+                new ObjectParameter("CardId", typeof(string));
+    
+            var tYPEParameter = tYPE != null ?
+                new ObjectParameter("TYPE", tYPE) :
+                new ObjectParameter("TYPE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_StopEditAdminClamsList_Result>("[DMS_TESTEntities].[fn_StopEditAdminClamsList](@FROM, @TO, @Company, @Provider, @Branch, @ApprovalNo, @CardId, @TYPE)", fROMParameter, tOParameter, companyParameter, providerParameter, branchParameter, approvalNoParameter, cardIdParameter, tYPEParameter);
+        }
     }
 }

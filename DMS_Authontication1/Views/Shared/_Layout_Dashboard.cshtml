@@ -449,7 +449,7 @@
                         }
                         @if (modellist != null)
                         {
-                            if (modellist.Where(x => (x.PageId == 2 || x.PageId == 4 || x.PageId == 10 || x.PageId == 8 || x.PageId == 44)
+                            if (modellist.Where(x => (x.PageId == 2 || x.PageId == 4 || x.PageId == 10 || x.PageId == 8 || x.PageId == 44 || x.PageId == 49)
                             && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
                             {
                                 <li class="nav-header">
@@ -464,6 +464,11 @@
                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Pharmacy/index">Pharmacy Clames</a></li>
+                                        }
+                                        @if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 49 && (x.FullControl || x.EditPermission
+                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        {
+                                            <li><a href="/Pharmacy/DeletedStopRoshita">Pharmacy Stop Edit Clames</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Rays Centers Management" && x.PageId == 10 && (x.FullControl || x.EditPermission
                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)

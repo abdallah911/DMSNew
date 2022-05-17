@@ -45,7 +45,7 @@
             <div class="form-group">
                 @Html.Label("Medicine Name", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.TRADE_NAME, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.TRADE_NAME, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
                     @Html.ValidationMessageFor(model => model.TRADE_NAME, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -53,7 +53,7 @@
             <div class="form-group">
                 @Html.Label("Dosage Form", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.DropDownList("DOSAGE_FORM", ViewBag.DosageForm as SelectList, new { @class = "form-control" })
+                    @Html.DropDownList("DOSAGE_FORM", ViewBag.DosageForm as SelectList, new { @class = "form-control", @disabled = true })
                     @*@Html.EditorFor(model => model.DOSAGE_FORM, new { htmlAttributes = new { @class = "form-control" } })*@
                     @Html.ValidationMessageFor(model => model.DOSAGE_FORM, "", new { @class = "text-danger" })
                 </div>
@@ -62,7 +62,7 @@
             <div class="form-group">
                 @Html.Label("Package Size", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.PACK_SIZE, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.PACK_SIZE, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
                     @Html.ValidationMessageFor(model => model.PACK_SIZE, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -95,7 +95,7 @@
             <div class="form-group">
                 @Html.Label("Unit Number", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.UNIT_NO, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.UNIT_NO, new { htmlAttributes = new { @class = "form-control", @disabled = true } })
                     @Html.ValidationMessageFor(model => model.UNIT_NO, "", new { @class = "text-danger" })
                 </div>
             </div>

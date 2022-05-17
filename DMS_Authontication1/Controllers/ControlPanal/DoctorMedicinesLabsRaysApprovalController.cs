@@ -76,6 +76,9 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                 db.Entry(emp).State = EntityState.Modified;
                 var Roshita = db.Roshitas.Where(x => x.Id == emp.RoshitaID).FirstOrDefault();
                 string CardId = Roshita.CardId;
+                Roshita.SyncBy = "Update";
+                Roshita.UpdatedBy = User.Identity.Name;
+                Roshita.UpdatedDate = DateTime.Now;
                 NotificationHub objNotifHub = new NotificationHub();
                 Notification notification = db.Notifications.Where(x => x.Details == CardId).OrderByDescending(x => x.Id).FirstOrDefault();
                 if (notification.CreatedBy != User.Identity.Name)
@@ -132,7 +135,6 @@ namespace DMS_Authontication1.Controllers.ControlPanal
             int result = db.SaveChanges();
             return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-
         public ActionResult Create()
         {
             return View();
@@ -141,7 +143,6 @@ namespace DMS_Authontication1.Controllers.ControlPanal
         {
             return View();
         }
-
         public JsonResult getDiag()
         {
             //connection
@@ -164,9 +165,6 @@ namespace DMS_Authontication1.Controllers.ControlPanal
             //    data.OnlineLiveConsumption = Convert.ToInt32(dt.Rows[0][0]);
             return new JsonResult { Data = diagnoise, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-
-
-
         public JsonResult PersonalData(string id)
         {
             string[] CompId = id.Split('-');

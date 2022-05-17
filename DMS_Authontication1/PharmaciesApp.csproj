@@ -621,6 +621,9 @@
     <Compile Include="Models\fn_searchCompEmployees_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\fn_StopEditAdminClamsList_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Gender.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -7403,6 +7406,7 @@
     <Content Include="Scripts\DMS\PharmacyAdmin\PharmacyAdmin.js" />
     <Content Include="Scripts\DMS\PharmacyEdit.js" />
     <Content Include="Scripts\DMS\CompaniesChronicDelivery.js" />
+    <Content Include="Scripts\DMS\DeleteStopRoshita.js" />
     <Content Include="Scripts\DMS\Proposal\Create.js" />
     <Content Include="Scripts\DMS\Proposal\ProposalBasicDataCreate.js" />
     <Content Include="Scripts\DMS\Proposal\ProposalBasicDataIndex.js" />
@@ -8197,6 +8201,7 @@
     <Content Include="Views\Employee\ConfirmRegisterPost.cshtml" />
     <Content Include="Views\Contractors\Index.cshtml" />
     <Content Include="Views\Contractors\ProvidersIndex.cshtml" />
+    <Content Include="Views\Pharmacy\DeletedStopRoshita.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

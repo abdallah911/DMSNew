@@ -8,7 +8,7 @@ namespace DMS_Synchronization.Models
     {
 
         //public long Id { get; set; }
-        //public Nullable<long> D_ID { get; set; }
+        public Nullable<decimal> D_ID { get; set; }
         public string CARD_ID { get; set; }
         public string MANAGER { get; set; }
         public int EMP_ID_ID { get; set; }
@@ -78,5 +78,11 @@ namespace DMS_Synchronization.Models
         public string D_EXP { get; set; }
         public string D_EXP_2 { get; set; }
         public string D_EXP_3 { get; set; }
+
+        public double? Gross { get; set; }
+        public double? PersonPayment { get; set; }
+        public double? OverInsurance { get; set; }
+        public double? TotalDiscount { get; set; }
+        public double? Net { get; set; }
     }
 }

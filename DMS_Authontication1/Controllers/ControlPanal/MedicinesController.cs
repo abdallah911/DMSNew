@@ -45,14 +45,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
             db.LicenseTypes.Add(model);
             db.SaveChanges();
             return RedirectToAction("MedicineLicenseType");
-            //var Isduplicated = db.LicenseTypes.Where(x => x.LicenseName == viewmodel.licType).Select(x => x.LicenseName).FirstOrDefault();
-            //if (Isduplicated != viewmodel.licType)
-            //{ }
-            //else
-            //{
-            //    ViewBag.Error = "done";
-            //}
-            //return View();
+            
         }
         public JsonResult MedicineLicenseDelete(int id)
         {
@@ -130,23 +123,9 @@ namespace DMS_Authontication1.Controllers.ControlPanal
             db.MedicineTypes.Add(model);
             db.SaveChanges();
             return RedirectToAction("MedicineType");
-            //  var Isduplicated = db.MedicineTypes.Where(x => x.MedicineTypeName == viewmodel.MedicineTypeName).Select(x => x.MedicineTypeName).FirstOrDefault();
-            //if (Isduplicated != viewmodel.MedicineTypeName)
-            //{}
-            //else
-            //{
-            //    ViewBag.Error = "done";
-            //}
-            //return View();
+           
         }
-        //public ActionResult MedTypeList()
-        //{
-        //    var viewmodel = new MedicineTypeViewmodel()
-        //    {
-        //        medtypelist = db.MedicineTypes.ToList()
-        //    };
-        //    return View(viewmodel);
-        //}
+        
         public JsonResult MedicineTypeDelete(int id)
         {
             MedicineType _MedicineType = db.MedicineTypes.Find(id);
@@ -260,13 +239,10 @@ namespace DMS_Authontication1.Controllers.ControlPanal
             var mcode = db.MedicineDatas.Where(x => x.M_CODE == data.M_CODE).ToList();
             if (mcode.Count == 1)
             {
-                //return new JsonResult { Data = "Medicine Code is existed", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 return Json(new { ok = false, message = "Medicine Code is existed" }, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                //int MedicineDataId = Convert.ToInt32(data.M_CODE);
-
                 var obi = new MedicineData()
                 {
                     COMP_ID = 1,
@@ -324,20 +300,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                 //return new JsonResult { Data = "Row is Added", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
-        //public JsonResult SaveDiagnoises(List<MedicinesDiagnosi> DiagnosisList)
-        //{
-        //    Task.WaitAll(Task.Delay(3000));
-        //    foreach (MedicinesDiagnosi item in DiagnosisList)
-        //    {
-        //        MedicinesDiagnosi dignosi = new MedicinesDiagnosi();
-        //        dignosi.MedicineId = item.MedicineId;
-        //        dignosi.DiagnoiseId = item.DiagnoiseId;
-        //        db.MedicinesDiagnosis.Add(dignosi);
-
-        //    }
-        //    db.SaveChanges();
-        //    return new JsonResult { Data = "ok", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        //}
+        
         // GET: Medicines/Edit/5
         public ActionResult Edit(int id)
         {
@@ -457,48 +420,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
             return Json(new { ok = true, message = "Updated Successfully" }, JsonRequestBehavior.AllowGet);
 
         }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "M_CODE,LIC_TYPE,MED_GROUP,TRADE_NAME,DOSAGE_FORM,PACK_SIZE,PACK_PRICE,M_TYPE,CON_MED,UNIT_NO,UNIT_PRICE,GRN_CODE,IsCovered,DiagnoiseGender,DiagnoiseAge")] MedicineData mEDICINE_DATA)
-        //{
-        //    ViewBag.LicenceType = new SelectList(db.LicenseTypes, "LicenseName", "LicenseName", mEDICINE_DATA.LIC_TYPE);
-        //    ViewBag.MedicineType = new SelectList(db.MedicineTypes, "MedicineTypeName", "MedicineTypeName", mEDICINE_DATA.M_TYPE);
-        //    ViewBag.DosageForm = new SelectList(db.DosageForms, "DosageFormName", "DosageFormName", mEDICINE_DATA.DOSAGE_FORM);
-        //    ViewBag.MedicineGroup = new SelectList(db.MedicineGroups, "GroupId", "GroupName", mEDICINE_DATA.MED_GROUP);
-        //    if (ModelState.IsValid)
-        //    {
-        //        mEDICINE_DATA.ACTIVE = "Y";
-        //        mEDICINE_DATA.UPDATE_BY = User.Identity.Name;
-        //        mEDICINE_DATA.UPDATE_DATE = DateTime.Now;
-
-        //        db.Entry(mEDICINE_DATA).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(mEDICINE_DATA);
-        //}
-        //public JsonResult EditDiagnoises(List<MedicinesDiagnosi> DiagnosisList)
-        //{
-        //    //Task.WaitAll(Task.Delay(3000));
-        //    //delete
-        //    int MedicineId = DiagnosisList.FirstOrDefault().MedicineId;
-
-        //    List<MedicinesDiagnosi> MD = db.MedicinesDiagnosis.Where(x => x.MedicineId == MedicineId).ToList();
-        //    db.MedicinesDiagnosis.RemoveRange(MD);
-        //    db.SaveChanges();
-        //    //insert
-        //    foreach (MedicinesDiagnosi item in DiagnosisList)
-        //    {
-        //        MedicinesDiagnosi dignosi = new MedicinesDiagnosi();
-        //        dignosi.MedicineId = item.MedicineId;
-        //        dignosi.DiagnoiseId = item.DiagnoiseId;
-        //        db.MedicinesDiagnosis.Add(dignosi);
-
-        //    }
-        //    db.SaveChanges();
-        //    return new JsonResult { Data = "ok", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        //}
-
+       
         // GET: Medicines/Delete/5
         public ActionResult MedicineActivation(int id)
         {
