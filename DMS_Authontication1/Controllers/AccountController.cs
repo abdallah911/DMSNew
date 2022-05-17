@@ -304,7 +304,7 @@ namespace DMS_Authontication1.Controllers
                     model.Provider = "NULL";
 
                 }
-                else if (model.Type == "7")//HR Admin
+                else if (model.Type == "10")//HR Admin
                 {
                     var PreTypeId = Convert.ToInt32(db.Users.Where(s => s.Type == "HR_Admin").Max(x => x.TypeId));
                     typeid = Convert.ToString(PreTypeId + 1);
@@ -427,7 +427,61 @@ namespace DMS_Authontication1.Controllers
                         }
 
                     }
-                    else if (model.Type == "6")//hr
+                    else if (model.Type == "6")
+                    {
+                        model.Type = "Physical Therapy";
+                        string c;
+
+                        foreach (var item in counter)
+                        {
+                            string x;
+                            if (item.TypeId != null)
+                            {
+                                x = item.TypeId.ToString();
+                                if (x.Contains('-'))
+                                {
+                                    c = item.TypeId.Split('-')[1];
+                                }
+                                else
+                                {
+                                    c = item.TypeId;
+                                }
+                                if (Convert.ToInt32(c) >= max)
+                                {
+                                    max = Convert.ToInt32(c);
+                                }
+                            }
+                        }
+
+                    }
+                    else if (model.Type == "7")
+                    {
+                        model.Type = "Dental Clinic";
+                        string c;
+
+                        foreach (var item in counter)
+                        {
+                            string x;
+                            if (item.TypeId != null)
+                            {
+                                x = item.TypeId.ToString();
+                                if (x.Contains('-'))
+                                {
+                                    c = item.TypeId.Split('-')[1];
+                                }
+                                else
+                                {
+                                    c = item.TypeId;
+                                }
+                                if (Convert.ToInt32(c) >= max)
+                                {
+                                    max = Convert.ToInt32(c);
+                                }
+                            }
+                        }
+
+                    }
+                    else if (model.Type == "9")//hr
                     {
                         model.Type = "HR";
                         string c;
