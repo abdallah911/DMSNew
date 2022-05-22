@@ -1,0 +1,88 @@
+﻿<div class="col-sm-10" id="session_type" style=" padding:10px 20px">
+    <div style="margin-top:60px">
+
+        <div style="text-align : right ">
+
+            @* first row *@
+
+            <div>
+
+                <label class="control-label" id="session_style2">
+                    <input id="Seession_Num" type="text" placeholder="ادخل عدد الجلسات" style="text-align : center ; margin-right:10px" size="10" onkeypress="return /[0-9]/i.test(event.key)"/>
+                    عدد الجلسات
+                </label>
+
+                <label class="control-label" id="session_style2" style="margin-right:10px">
+                    <select required id="Specialist" class="search_categories" style="margin-right:10px ; margin-top:20px" required>
+                        <option value="">اختر التخصص</option>
+                        <option value="1">علاج طبيعي</option>
+                        <option value="2">اسنان</option>
+                    </select>
+                    اختر التخصص
+                </label>
+
+                <label class="control-label" id="session_style2" style="margin-right:10px">
+                    <input id="Doct_Name" type="text" onkeypress="return /[a-z ا-ي]/i.test(event.key)" placeholder="ادخل اسم الدكتور" style="text-align :center ; margin-right:10px " size="15" />
+                    اسم الدكتور
+                </label>
+
+            </div>
+
+            <br />
+
+            @*second row*@
+            <div>
+                <label class="control-label" id="session_style2" style="margin-right:10px">
+                    <input type="text" id="Seession_Price" placeholder="ادخل السعر"  onkeyup="Accounting_Info()"  style="text-align : center ; margin-right:10px" size="10" onkeypress="return /[0-9 .]/i.test(event.key)"/>
+                    @*<input id="Seession_Price" type="text" onkeypress="return /[1-9]/i.test(event.key)"  style="text-align : center ; margin-right:10px" size="10" />*@
+                    
+                    سعر الجلسه
+                </label>
+
+                <label class="control-label" id="session_style2">
+
+                    @*<input  type="number" id="Members_Num" class="" placeholder="ادخل عدد الاعضاء" style="text-align : center "  min="0" onkeypress="return event.charCode != 45"/>*@
+                    <input type="text" id="Members_Num" class="" placeholder="ادخل عدد الاعضاء" style="text-align : center " onkeypress="return /[0-9]/i.test(event.key)" />
+                    عدد الاعضاء
+
+                </label>
+
+            </div>
+
+            <br />
+
+            @*Button*@
+            <div style="text-align : center ; margin-top:25px ">
+                <input id="sub_New" type="button" value="اضافة" onclick="MyFunc()" class="btn btn-primary" style="padding:10px 20px" />
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</div>
+
+<div class="col-sm-2" style="text-align : right ">
+    <div style="margin-top:60px">
+        <div>
+            <fieldset>
+                <legend>  اختر نوع الجلسه</legend>
+
+                <input id="NEW" style="margin-right:10px" type="checkbox" name="Medical_session" value="New" checked="checked" onclick="ValidatePetSelection()">
+                <label class="control-label" id="session_style">جلسه جديده</label><br>
+
+                <input id="OLD" style="margin-right:11px" type="checkbox" name="Medical_session" value="Old" onclick="ValidatePetSelection2()">
+                <label class="control-label" id="session_style">جلسه قديمه</label><br>
+
+
+                <input id="EXTEND" style="margin-right:28px" type="checkbox" name="Medical_session" value="Extend" onclick="ValidatePetSelection3()">
+                <label class="control-label" id="session_style">مد جلسه</label><br>
+
+
+            </fieldset>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,140 @@
+﻿@*/// OLD Session*@
+
+<div class="col-lg-12">
+
+    <div class="col-sm-5" id="session_type" style=" padding:10px 20px">
+        <div style="margin-top:60px">
+
+            <div style="text-align : right ">
+
+                @*first row*@
+
+                <div>
+
+                    <label class="control-label" id="session_style2">
+                        <input id="Seession_Num" type="text" placeholder="ادخل عدد الجلسات" ReadOnly="readonly" style="text-align : center ; margin-right:10px" size="10" min="0" onkeypress="return event.charCode != 45" />
+                        عدد الجلسات
+                    </label>
+
+                    <label class="control-label" id="session_style2" style="margin-right:10px">
+                        <select id="Specialist" class="search_categories"  style="margin-right:10px ; margin-top:20px">
+                            <option value="0" selected="selected">اختر التخصص</option>
+                            <option value="1">علاج طبيعي</option>
+                            <option value="2">اسنان</option>
+                        </select>
+                         التخصص
+                    </label>
+
+                    <label class="control-label" id="session_style2" style="margin-right:10px">
+                        <input id="Doct_Name" type="text" placeholder="ادخل اسم الدكتور" ReadOnly="readonly" style="text-align :center ; margin-right:10px; margin-top:20px " size="15" />
+                        اسم الدكتور
+                    </label>
+
+                </div>
+
+                <br />
+
+                @*second row*@
+                <div>
+                    <label class="control-label" id="session_style2">
+
+                        <input type="number" id="Members_Num" class="" placeholder="ادخل عدد الاعضاء" ReadOnly="readonly" style="text-align : center " min="0"  onkeypress="return event.charCode != 45"/>
+                        عدد الاعضاء
+
+                    </label>
+
+                    <label class="control-label" id="session_style2" style="margin-right:10px">
+                        <input type="text" id="Seession_Price" placeholder="ادخل السعر" ReadOnly="readonly" style="text-align : center ; margin-right:10px;margin-top:20px" size="10" min="0"  onkeypress="return event.charCode != 45"/>
+                        سعر الجلسه
+                    </label>
+
+                </div>
+
+                <br />
+
+                @*Button*@
+                <div style="text-align : center ; margin-top:25px ">
+
+                    <input id="sub_OLD" type="button" value="اضافة جلسة" onclick="MyFunc_Extend2()" class="btn btn-primary" style="padding:10px 20px" disabled="disabled"/>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="table-responsive col-md-2 " id="session_type" style="HEIGHT: 350px; padding:10px 20px ; margin-top:50px ; margin-left:-5px">
+        <div >
+            <div >
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                               Seesion Date
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="Details">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3" id="session_type" style=" padding:10px 20px">
+        <div style="margin-top:30px;margin-left:-20px">
+
+            <div  style="margin-left:-10px">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Code
+
+                            </th>
+
+                            <th>
+                                Doctor Name
+                            </th>
+                            <th>
+                                Doctor Specialist
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table1"></tbody>
+                </table>
+               
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-2" style="text-align : right ">
+        <div style="margin-top:60px ">
+            <div>
+                <fieldset>
+                    <legend>  اختر نوع الجلسه</legend>
+
+
+                    <input id="NEW" style="margin-right:10px" type="checkbox" name="Medical_session" value="New"  onclick="return ValidatePetSelection();">
+                    <label class="control-label" id="session_style">جلسه جديده</label><br>
+
+                    <input id="OLD" style="margin-right:11px" type="checkbox" name="Medical_session" value="Old" checked="checked" onclick="return ValidatePetSelection2();">
+                    <label class="control-label" id="session_style">جلسه قديمه</label><br>
+
+
+                    <input id="EXTEND" style="margin-right:28px" type="checkbox" name="Medical_session" value="Extend" onclick="return ValidatePetSelection3();">
+                    <label class="control-label" id="session_style">مد جلسه</label><br>
+
+
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+</div>

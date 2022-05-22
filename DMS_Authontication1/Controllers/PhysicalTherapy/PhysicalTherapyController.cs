@@ -17,11 +17,11 @@ using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 
-namespace DMS_Authontication1.Controllers.HospitalSystem
+namespace DMS_Authontication1.Controllers.PhysicalTherapy
 {
     [Authorize(Roles = "Admin,Hospital,HR,User,HR_Admin")]
     [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-    public class HospitalController : Controller
+    public class PhysicalTherapyController : Controller
     {
 
         #region Fields
@@ -36,7 +36,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
         #region Ctor
 
-        public HospitalController()
+        public PhysicalTherapyController()
         {
             db = new DMS_TESTEntities();
             myEntities = new ApplicationDbContext();
@@ -65,18 +65,35 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
         /// <returns> hospital view </returns>
         public ActionResult Index()
         {
-            // System.Data.SqlClient.SqlParameter[] @params =
-            //{
-            //   new System.Data.SqlClient.SqlParameter("@return_value", 0) {Direction = System.Data.ParameterDirection.Output}
-            // };
-            // var a = db.Database.ExecuteSqlCommand("exec @return_value = [dbo].[DB_A45413_DMSERP].[spGetNextClaimNO]", @params);
-
-            // var result = @params[0].Value;
-
+            NotificationHub objNotifHub = new NotificationHub();
+            objNotifHub.SendMessages();
+            Session.Clear();
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.ddlUsers = new SelectList(myEntities.Users.Where(x => x.Type == "Physical Therapy" || x.Type == "Admin").ToList(), "UserName", "UserName", User.Identity.Name);
+            }
             var HrUserNamre = User.Identity.GetUserName();
-            ViewBag.SpecialitySelect = new SelectList(db.Specialities1, "SPEC_ID", "SPEC_ANAME");
             ViewBag.Provider = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
             return View();
+        }
+
+        public ActionResult PhysicalTherapyView()
+        {
+            return PartialView("~/Views/PhysicalTherapy/_PhysicalTherapy.cshtml");
+        }
+
+        //Seession View
+        public ActionResult NEW()
+        {
+            return PartialView("~/Views/PhysicalTherapy/_NEWSeesion.cshtml");
+        }
+        public ActionResult OLD()
+        {
+            return PartialView("~/Views/PhysicalTherapy/_OldSeession.cshtml");
+        }
+        public ActionResult Extend()
+        {
+            return PartialView("~/Views/PhysicalTherapy/_ExtendSeession.cshtml");
         }
 
         /// <summary>
@@ -231,70 +248,6 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
         #region Helper Methods
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"> Card Id </param>
-        /// <param name="provider"> provider code for the hospital </param>
-        /// <returns> Employee data if founded and have contract </returns>
-        public JsonResult AddCard(string id, int provider)
-        {
-            var employe = db.Comp_Employees.Where(e => e.CARD_ID == id &&
-                            DateTime.Now >= e.INS_START_DATE && DateTime.Now <= e.INS_END_DATE)
-                           .OrderByDescending(e => e.CONTRACT_NO).FirstOrDefault();
-            if (employe == null)
-            {
-                var result = new { Success = "Enter Correct Card ID " };
-                return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            }
-            else
-            {
-                int compID = Convert.ToInt32(id.Split('-')[0].ToString());
-                int Provider_Level = Convert.ToInt32(db.SERV_PROVIDERS_NEW.Where(s => s.PR_CODE == provider).FirstOrDefault().PROV_DEGREE);
-                int HOSPITAL_DEGREE = Convert.ToInt32(db.CompContractClasses.Where(c => c.C_COMP_ID == compID
-                                   && c.CONTRACT_NO == employe.CONTRACT_NO && c.CLASS_CODE == employe.CLASS_CODE)
-                                   .FirstOrDefault().COVER_RELATION);
-                var C_ENAME2 = db.Contract_Comp.Where(c => c.C_COMP_ID == compID).FirstOrDefault().C_ENAME;
-                List<EmployeeHospitalVM> EmployeeVM = new List<EmployeeHospitalVM>();
-                EmployeeVM.Add(new EmployeeHospitalVM
-                {
-
-                    EMP_ANAME = employe.EMP_ANAME_ST + " " + employe.EMP_ANAME_SC + " " + employe.EMP_ANAME_TH,
-                    EMP_ENAME = employe.EMP_ENAME_ST + " " + employe.EMP_ENAME_SC + " " + employe.EMP_ENAME_TH,
-                    INS_START_DATE = employe.INS_START_DATE,
-                    INS_END_DATE = employe.INS_END_DATE,
-                    TERMINATE_DATE = DateTime.Now,
-                    TERMINATE_FLAG = employe.TERMINATE_FLAG,
-                    CLASS_CODE = employe.CLASS_CODE,
-                    COMP_ID = compID,
-                    CONTRACT_NO = employe.CONTRACT_NO,
-                    C_ENAME = C_ENAME2,
-                    CARD_ID = id,
-                    Provider_Level = Provider_Level,
-                    Now = DateTime.Now,
-                    HOSPITAL_DEGREE = HOSPITAL_DEGREE
-                });
-                var exception = (from a in db.Acceptions
-                                 join c in db.CardAcceptionReasons on a.Id equals c.AcceptionId
-                                 where (a.ProvidersId == 2 && a.AcceptionFlag == true
-                                 && a.CompEmployeesId == employe.Id && c.AcceptionReasonsId == 8)
-                                 select new
-                                 {
-                                     ExceptionId = a.Id
-                                 }).Select(x => x.ExceptionId).FirstOrDefault();
-                if (exception != 0)
-                {
-                    string message = "ok";
-                    var result1 = new { Success = "True", Data = EmployeeVM, Exceptions = exception, messages = message };
-                    return new JsonResult { Data = result1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
-                }
-                var result = new { Success = "True", Data = EmployeeVM, Exceptions = exception, messages = "no" };
-                return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
-
-            }
-        }
 
         public JsonResult GetExceptions(string cardID, int exceptionReasonId)
         {
@@ -629,14 +582,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             {
                 msg = " لا يمكن تقديم الخدمة لهذا الموظف حيث ان الخدمة غير مغطاة وسوف يتحمل المريض اجمالى قيمة الخدمة نقدا  ";
             }
-            if (Services_id == "11204")
-            {
-                Specialists = db.SERVICES1.Where(x => x.SERV_CODE.Contains("11204")).Select(x => new SERV_PROVIDERS
-                {
-                    PR_CODE = x.SERV_CODE,
-                    PR_ANAME = x.SERV_ANAME
-                }).ToList();
-            }
+
             #region old services
             //switch (Services_id)
             //{
@@ -709,53 +655,6 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
 
         }
-
-
-        //public JsonResult GetSpecialityList(  int sEcho = 1, int iDisplayStart = 0, int iDisplayLength = 24, string sSearch = "")
-        //{
-        //        if (sSearch != null)
-        //        {
-        //            sSearch = sSearch.ToLower();
-        //            var result = new
-        //            {
-        //                sEcho = sEcho,
-        //                aaData = db.Specialities1.Where(s => s.MainServiceCode.StartsWith(Services_id) &&
-        //                (s.HospitalCode == Provider || s.HospitalCode == "0") && (s.MainServiceCode.StartsWith(sSearch) ||
-        //                s.ServiceArName.Contains(sSearch) || s.ServiceEnName.Contains(sSearch))).OrderBy(m => m.MainServiceCode)
-        //                .Select(se =>
-        //                       new HospitalServices
-        //                       {
-        //                           Price = se.Price == null ? "0 | " + se.Id : se.Price.ToString() + " | " + se.Id,
-        //                           ServiceName = se.ServiceArName
-        //                       }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
-
-        //                iTotalRecords = db.Specialities1.Count(),
-        //                iTotalDisplayRecords = db.Specialities1.Count()
-        //            };
-        //            return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        //        }
-        //        else
-        //        {
-        //            var result = new
-        //            {
-        //                sEcho = sEcho,
-        //                aaData = db.Specialities1.AsEnumerable().Select(se =>
-        //                       new Specialities1
-        //                       {
-        //                           SPEC_ID = se.SPEC_ID,
-        //                           SPEC_ANAME = se.SPEC_ANAME
-        //                       }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
-        //                iTotalRecords = db.Specialities1.Count(),
-        //                iTotalDisplayRecords = db.Specialities1.Count()
-        //            };
-        //            return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        //        }
-
-
-        //    }
-
-
-
 
         public JsonResult Get_Specialist2(string Provider, string Services_id, string cardID, int ContractNum, string ClassCode, int sEcho = 1, int iDisplayStart = 0, int iDisplayLength = 24, string sSearch = "")
         {
@@ -863,9 +762,6 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
 
         }
-
-
-
 
         /// <summary>
         /// 
@@ -1093,8 +989,6 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
         }
 
-
-
         public JsonResult GetSer_Services(int Services_id, string SubServiceCode, string CardId)
         {
             double Celling_Pert = 0;
@@ -1105,11 +999,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             var claim = db.HospitalClaims.Where(h => h.CARD_ID == CardId && h.CONTRACT_NO == emp.CONTRACT_NO && h.IsDeleted == false).ToList();
             double ConsServe = 0;
             double SumAllOfServ = 0;
-            string MainService = "";
-            if (Services_id == 11204)
-                MainService = Services_id.ToString().Substring(0, 3);
-            else
-                MainService = SubServiceCode.Substring(0, 3);
+            string MainService = SubServiceCode.Substring(0, 3);
             Services_id = int.Parse(MainService);
             if (claim.Count > 0)
             {

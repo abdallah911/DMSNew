@@ -67,6 +67,9 @@ namespace DMS_Synchronization.ViewModels
         public static string GetQyertCOMP_CUSTOMIZED_D_D_MED = "select * from (select m.*, rownum r from  APP.COMP_CUSTOMIZED_D_D_MED m WHERE IS_SYNC=0 OR IS_SYNC IS NULL) WHERE r > {0} and r<= {1} ";
         public static string GetTableNameCOMP_CUSTOMIZED_D_D_MED = "APP.COMP_CUSTOMIZED_D_D_MED";
         
+        public static string GetQyertREMAIN_CONSUMATION = "select * from (select m.*, rownum r from  APP.REMAIN_CONSUMATION m WHERE IS_SYNC=0 OR IS_SYNC IS NULL) WHERE r > {0} and r<= {1} ";
+        public static string GetTableNameREMAIN_CONSUMATION = "APP.REMAIN_CONSUMATION";
+        
         public static string GetQyertCLOSE_EMP_DATA = "select * from (select m.*, rownum r from  DMS_TEST.CLOSE_EMP_DATA m WHERE (IS_SYNC=0 OR IS_SYNC IS NULL) AND TRANS_TYP='L') WHERE r > {0} and r<= {1} ";
         public static string GetTableNameCLOSE_EMP_DATA = "DMS_TEST.CLOSE_EMP_DATA";
 

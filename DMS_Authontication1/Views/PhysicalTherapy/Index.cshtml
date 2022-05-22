@@ -1,0 +1,134 @@
+﻿@model DMS_TEST.ViewModel.Container1
+@{
+    ViewBag.Title = "Pharmacy";
+}
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+<style>
+    #PrescriptionDate[readonly] {
+        background-color: white;
+        cursor: pointer !important;
+    }
+
+    .btn span.glyphicon {
+        opacity: 0;
+    }
+
+    .btn.active span.glyphicon {
+        opacity: 1;
+    }
+</style>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+<!--Card Id Row-->
+<br />
+
+<br />
+<input type="text" id="max_amount0" value="" hidden="hidden" />
+<input type="text" id="max_amount1" value="0" hidden="hidden" />
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-ambulance"></i>Physical Therapy
+        </div>
+    </div>
+    <br />
+    <div class="portlet-body">
+        <div id="Contaner">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <input id="txtSearchCard" type="text" placeholder="search for card..." class="form-control" />
+                    </div>
+                    <div class="col-sm-3">
+                        <button id="Search" type="button" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-search"></span> Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br />
+            @Html.Partial("_Cards")
+            <div class="panel panel-info">
+                <h2 class="panel-heading" style="margin:1px;">Card ID</h2>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group">
+
+                            <div class="col-sm-2">
+                                @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="control-label">Celling Pert</label>
+                            @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "form-control celling-pert", @ReadOnly = "true" } })
+                        </div>
+
+                        <div class="col-sm-2">
+                            <input type="text" id="Con_Num" value="" hidden="hidden" />
+                            <input type="text" id="Class_Code" value="" hidden="hidden" />
+                            <input type="text" id="Company_ID" value="" hidden="hidden" />
+                            <input type="text" id="Num_Seessions" value="" hidden="hidden" />
+                            <input type="text" id="Seession_Code" value="" hidden="hidden" />
+                            <input type="text" id="providerHospialCode" value="@ViewBag.Provider" hidden="hidden" />
+
+                        </div>
+
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-2">
+
+                        </div>
+
+                    </div>
+                    <br />
+                </div>
+            </div>
+
+            @*Session Type*@
+
+            @*///NEW Session*@
+            <div class="panel panel-info" id="pan">
+                <h2 class="panel-heading" style="margin:1px; text-align : right">اختر نوع الجلسة </h2>
+                <div class="panel-body">
+                    <div id="Physical" class="col-lg-12">
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            @*//History*@
+
+            <!--Save-->
+            <div id="SaveAll" style="padding:10px 0; text-align:right">
+
+                <input id="submit" type="button" value="Save1" onclick="Submit_Save()" class="btn btn-success" style="padding:10px 20px" />
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@*//////////////////////////////////////////////////////  Sccripts /////////////////////// *@
+
+
+<script src="~/assets/HomeTemplete/js/intro.js"></script>
+<script src="~/Scripts/DMS/PhysicalTherapy/PhysicalTherapy.js?V=1"></script>
+

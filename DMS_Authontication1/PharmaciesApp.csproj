@@ -320,6 +320,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PharmacyAdmin\PharmacyAdminController.cs" />
     <Compile Include="Controllers\PharmacyController.cs" />
+    <Compile Include="Controllers\PhysicalTherapy\PhysicalTherapyController.cs" />
     <Compile Include="Controllers\Proposal\ProposalBasicDatasController.cs" />
     <Compile Include="Controllers\Proposal\ProposalBenefitsController.cs" />
     <Compile Include="Controllers\Proposal\ProposalClassesController.cs" />
@@ -7407,6 +7408,7 @@
     <Content Include="Scripts\DMS\PharmacyEdit.js" />
     <Content Include="Scripts\DMS\CompaniesChronicDelivery.js" />
     <Content Include="Scripts\DMS\DeleteStopRoshita.js" />
+    <Content Include="Scripts\DMS\PhysicalTherapy\PhysicalTherapy.js" />
     <Content Include="Scripts\DMS\Proposal\Create.js" />
     <Content Include="Scripts\DMS\Proposal\ProposalBasicDataCreate.js" />
     <Content Include="Scripts\DMS\Proposal\ProposalBasicDataIndex.js" />
@@ -8202,6 +8204,14 @@
     <Content Include="Views\Contractors\Index.cshtml" />
     <Content Include="Views\Contractors\ProvidersIndex.cshtml" />
     <Content Include="Views\Pharmacy\DeletedStopRoshita.cshtml" />
+    <Content Include="Views\PhysicalTherapy\Index2.cshtml" />
+    <Content Include="Views\PhysicalTherapy\_Cards.cshtml" />
+    <Content Include="Views\PhysicalTherapy\Index.cshtml" />
+    <Content Include="Views\PhysicalTherapy\_Diagnoise.cshtml" />
+    <Content Include="Views\PhysicalTherapy\_ExtendSeession.cshtml" />
+    <Content Include="Views\PhysicalTherapy\_NEWSeesion.cshtml" />
+    <Content Include="Views\PhysicalTherapy\_OLDSeession.cshtml" />
+    <Content Include="Views\PhysicalTherapy\_PhysicalTherapy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

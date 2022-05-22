@@ -1191,7 +1191,7 @@ namespace DMS_Synchronization
                 || tableName == "APP.POLL_PERCENT_CARD" || tableName == "APP.POLL_AMOUNT" || tableName == "APP.POLL_AMOUNT_CARD"
                 || tableName == "APP.POLL_DATA_CHRONIC" || tableName == "APP.POLL_DATA_DIAG" || tableName == "APP.POLL_DATA_EXCEPTIONS"
                 || tableName == "APP.POLL_DATA_PREX" || tableName == "APP.COMP_CUSTOMIZED_D_D_MED_EMP"
-                || tableName == "APP.COMP_CUSTOMIZED_D_D_MED")
+                || tableName == "APP.COMP_CUSTOMIZED_D_D_MED"|| tableName == "APP.REMAIN_CONSUMATION")
             {
                 conn = _connectionSettings.OrcaleConnectionApp;
             }

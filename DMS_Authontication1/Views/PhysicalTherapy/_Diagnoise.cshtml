@@ -1,0 +1,97 @@
+﻿@model IEnumerable<DMS_HOSPITAL.ViewModel.Container1>
+
+<div class="modal fade " id="DiagnoiseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Specialists</h3>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class=" table" id="Diagnoises">
+                    <thead>
+                        <tr>
+                            <th></th>
+
+                            <th id="th1">
+                                @Html.DisplayName("Code")
+                            </th>
+
+                            <th id="th2">
+                                @Html.DisplayName("Name")
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+            <div class="modal-footer">
+
+                <button id="Close" type="button" class="btn btn-secondary glyphicon glyphicon-ok" data-dismiss="modal"> Ok</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/scripts/jquery-3.0.0.js"></script>
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<script src="~/Scripts/toastr.min.js"></script>
+<script src="~/Scripts/DMS/Hospital.js"></script>
+<script>
+    var DiagnoiseCode = "";
+    //var AddOrEdit = 0;
+    var DiagnoiseName = "";
+    var DiagnosisList = new Array();
+
+    function SelectDiagnoise(button) {
+
+        var row = $(button).closest("TR");
+        DiagnoiseCode = $("TD", row).eq(1).html();
+        DiagnoiseName = $("TD", row).eq(2).html();
+        $('#Diagnoise').css("border-color", "#CCC");
+        var splited = $('#Diagnoise').val().split("\n");
+        var add = 1;
+        for (var i = 0; i < splited.length; i++) {
+            if (splited[i] == DiagnoiseName){
+                toastr.error('Added Before')
+                add = 0;
+            }
+
+        }
+        if (add == 1) {
+            toastr.success('Added')
+            var Diagnoises = {};
+            Diagnoises.DIAG_ANAME = DiagnoiseName;
+            Diagnoises.DIAG_CODE = DiagnoiseCode;
+            DiagnosisList.push(Diagnoises);
+
+            //if ($("#Services").val() == 11102)
+            //{
+            //    $("#txtTotalCopayment").val("");
+            //    var total = DiagnoiseCode.split("التكلفه النهائيه :");
+            //    $("#txtTotalCopayment").val(total);
+
+            //}
+
+
+            $('#Diagnoise').val( $('#Diagnoise').val() +   DiagnoiseName + "\n");
+        }
+        //$('#DiagnoiseModal').modal('hide');
+
+    }
+    $(function () {
+        $('#DiagnoiseModal .modal-footer #Close').click(function () {
+            $('#DiagnoiseModal').modal('hide');
+        });
+
+
+    })
+
+
+</script>
