@@ -164,7 +164,7 @@ namespace DMS_Authontication1.Controllers
                                 case "AfterSale":
                                     return RedirectToLocal("/AfterSales/Index");
                                 case "User":
-                                    var usr = db.Users.Where(u=>u.UserName== model.UserName).FirstOrDefault().Id;
+                                    var usr = db.Users.Where(u => u.UserName == model.UserName).FirstOrDefault().Id;
                                     //var usr = User.Identity.GetUserId();
                                     var cardId = tESTEntities.EmployeePersonalDatas.Where(e => e.UserId == usr).FirstOrDefault().CardId;
                                     var status = ChicActiveCard(cardId.Split('-')[0], cardId);
