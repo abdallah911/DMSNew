@@ -645,21 +645,21 @@ function FirstCalculation() {
 
     person = parseFloat(100 - co);
     //total-cash
-    var total = sum - sumNoPay; 
+    var total = sum - sumNoPay;
     var ValueCredit = 0;
     if (CurrentLimit > AnuualLimit || CurrentLimit == 0) {
         CurrentLimit = AnuualLimit;
     }
     if (CurrentLimit != 0) {
         ValueCredit = (total * (co / 100)).toFixed(2);
-        if ((CurrentLimit * (co / 100)) <= (ValueCredit)) {
+        if ((CurrentLimit * (co / 100)) <= (ValueCredit) && co != 0) {
             $('#CoPayment').val((CurrentLimit * (person / 100)).toFixed(2));
             CurrentLimit = (CurrentLimit * (co / 100)).toFixed(2);
             var credit = (parseFloat(CurrentLimit) + parseFloat(sumNoPay)).toFixed(2);
             $('#Credit').val(credit);
             $('#OverInsurance').val((total - CurrentLimit - parseFloat($('#CoPayment').val())).toFixed(2));
         }
-        else if ((CurrentLimit * (co / 100)) > (ValueCredit)) {
+        else if ((CurrentLimit * (co / 100)) > (ValueCredit) || co == 0) {
             $('#Credit').val(((total * (co / 100)) + sumNoPay).toFixed(2));
             $('#CoPayment').val((total * (person / 100)).toFixed(2));
         }
@@ -695,14 +695,14 @@ function SecandCalculation() {
     }
     if (CurrentLimit != 0) {
         ValueCredit = (total * (co / 100)).toFixed(2);
-        if ((CurrentLimit * (co / 100)) <= (ValueCredit)) {
+        if ((CurrentLimit * (co / 100)) <= (ValueCredit) && co != 0) {
             $('#CoPayment2').val((CurrentLimit * (person / 100)).toFixed(2));
             CurrentLimit = (CurrentLimit * (co / 100)).toFixed(2);
             var credit2 = (parseFloat(CurrentLimit) + parseFloat(sumNoPay)).toFixed(2);
             $('#Credit2').val(credit2);
             $('#OverInsurance2').val((total - CurrentLimit - parseFloat($('#CoPayment2').val())).toFixed(2));
         }
-        else if ((CurrentLimit * (co / 100)) > (ValueCredit)) {
+        else if ((CurrentLimit * (co / 100)) > (ValueCredit) || co == 0) {
             $('#Credit2').val(((total * (co / 100)) + sumNoPay).toFixed(2));
             $('#CoPayment2').val((total * (person / 100)).toFixed(2));
         }

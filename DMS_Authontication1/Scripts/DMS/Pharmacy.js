@@ -1577,13 +1577,13 @@ function Calculation() {
             }
             if (Limit != 0) {
                 ValueCredit = (total * (co / 100)).toFixed(2);
-                if ((Limit * (co / 100)) <= (ValueCredit)) {//over insurance
+                if ((Limit * (co / 100)) <= (ValueCredit) && co != 0) {//over insurance
                     $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
                     Limit = (Limit * (co / 100)).toFixed(2);
                     $('#txtValueCredit').val(Limit);
                     $('#txtOverInsurance').val((total - Limit - parseFloat($('#txtTotalCopayment').val())).toFixed(2));
                 }
-                else if ((Limit * (co / 100)) > (ValueCredit)) {//no over insurance
+                else if ((Limit * (co / 100)) > (ValueCredit) || co == 0) {//no over insurance
                     $('#txtValueCredit').val((total * (co / 100)).toFixed(2));
                     $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
                 }
@@ -1609,13 +1609,13 @@ function Calculation() {
 
             if (Limit != 0) {
                 ValueCredit = (total * (co / 100)).toFixed(2);
-                if ((Limit * (co / 100)) <= (ValueCredit)) {
+                if ((Limit * (co / 100)) <= (ValueCredit) && co != 0) {
                     $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
                     Limit = (Limit * (co / 100)).toFixed(2);
                     $('#txtValueCredit').val(Limit);//(Limit * (co / 100)).toFixed(2)
                     $('#txtOverInsurance').val((total - Limit - parseFloat($('#txtTotalCopayment').val())).toFixed(2));
                 }
-                else if ((Limit * (co / 100)) > (ValueCredit)) {
+                else if ((Limit * (co / 100)) > (ValueCredit) || co == 0) {
                     $('#txtValueCredit').val((total * (co / 100)).toFixed(2));
                     $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
                 }
