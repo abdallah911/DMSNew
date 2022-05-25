@@ -75,170 +75,170 @@ $(function () {
                     firstDate = new Date(parseFloat(r[0].INS_END_DATE.replace(/(^.*\()|([+-].*$)/g, '')));
                     diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
                     var EndDate = dat1;
-                    var today = new Date();
-                    var dd = today.getDate();
-                    var mm = today.getMonth(); //January is 0!
-                    var yyyy = today.getFullYear();
-                    var CurrentDate = new Date(yyyy, mm, dd);
-                    if (EndDate != "") {
-                        newDate = EndDate.split('/').reverse().join('.');
-                    } else {
-                        newDate = "";
-                    }
+                    //var today = new Date();
+                    //var dd = today.getDate();
+                    //var mm = today.getMonth(); //January is 0!
+                    //var yyyy = today.getFullYear();
+                    //var CurrentDate = new Date(yyyy, mm, dd);
+                    //if (EndDate != "") {
+                    //    newDate = EndDate.split('/').reverse().join('.');
+                    //} else {
+                    //    newDate = "";
+                    //}
 
-                    var date = new Date(newDate);
+                    //var date = new Date(newDate);
                     // today = mm + '/' + dd + '/' + yyyy;
 
-                    if (date > CurrentDate || newDate == "null") {
-                        $('#txtSearchCard').val(CardId);
-                        $('#compEmp_EMP_ANAME').val(ArName);
-                        $('#compEmp_INS_END_DATE').val(EndDate);
+                    //if (date > CurrentDate || newDate == "null") {
+                    $('#txtSearchCard').val(CardId);
+                    $('#compEmp_EMP_ANAME').val(ArName);
+                    $('#compEmp_INS_END_DATE').val(EndDate);
 
-                        $('#CardsModal').modal('hide');
-                        //var url = "/Doctor/Doctor/" + CardId;
-                        //$('#Doctor').attr("disabled", false).attr("href", url);
-                        $.ajax({
-                            type: "POST",
-                            dataType: "json",
-                            url: '/Pharmacy/GetCompName',
-                            data: { id: CardId },
+                    $('#CardsModal').modal('hide');
+                    //var url = "/Doctor/Doctor/" + CardId;
+                    //$('#Doctor').attr("disabled", false).attr("href", url);
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: '/Pharmacy/GetCompName',
+                        data: { id: CardId },
 
-                            success: function (returndata) {
-                                if (returndata.ok) {
+                        success: function (returndata) {
+                            if (returndata.ok) {
 
-                                    $("#contractComp_C_ANAME").val(returndata.data.C_ANAME);
+                                $("#contractComp_C_ANAME").val(returndata.data.C_ANAME);
+
+                            }
+                            else {
+                                window.alert(' No Company Data ');
+
+                            }
+                        }
+                    });
+                    //GetLimit
+                    //$.ajax({
+                    //    type: "POST",
+                    //    dataType: "json",
+                    //    url: '/Pharmacy/GetLimit',
+                    //    data: { id: CardId },
+                    //    success: function (returndata) {
+                    //        if (returndata.ok) {
+                    //            $("#insurance_LIVEL").val(returndata.limit.INSURANCE_DAY);
+                    //        }
+                    //        else {
+                    //            bootbox.alert('No Limit Amount ');
+                    //        }
+                    //    }
+                    //});
+                    //CellingAmount
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: '/Pharmacy/CellingAmount',
+                        data: {
+                            id: CardId,
+                            ServiceCode: '11601'
+                        },
+                        success: function (r) {
+                            if (r.Validation == false) {
+                                toastr.info(r.Message);
+                                ClearCardData();
+                            } else {
+                                $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
+                                AnuualLimit = r.Limit;
+                                if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
+                                    $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
+                                } else {
+                                    alert(" لقد تم استهلاك العدد المحدد للروشتات وسوف تكون خارج التغطه ");
+                                    $("#insurance_LIVEL").val("0.001");
+
+                                    $('#ddEmp_CEILING_PERT').val("0");
+                                }
+                            }
+                        },
+                        error: function (err) {
+                            alert("Company Annual Amount");
+                            location.reload();
+                        }
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: '/DoctorApprovals/History',
+                        data: { id: CardId },
+                        success: function (r) {
+                            $('#From').attr("disabled", false);
+                            $('#To').attr("disabled", false);
+                            $('#History').dataTable().fnDestroy();
+                            var setData = $("#History Tbody");
+                            setData.empty();
+                            var dat;
+                            for (var i = 0; i < r.length; i++) {
+                                if (r[i].CreatedDate != null) {
+                                    var MyDate_String_Value = r[i].CreatedDate;
+                                    var value = new Date
+                                        (
+                                            parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                        );
+                                    dat = (value.getMonth() + 1) + "/" + value.getDate() + "/" + value.getFullYear();
 
                                 }
                                 else {
-                                    window.alert(' No Company Data ');
+                                    dat = null;
 
                                 }
-                            }
-                        });
-                        //GetLimit
-                        //$.ajax({
-                        //    type: "POST",
-                        //    dataType: "json",
-                        //    url: '/Pharmacy/GetLimit',
-                        //    data: { id: CardId },
-                        //    success: function (returndata) {
-                        //        if (returndata.ok) {
-                        //            $("#insurance_LIVEL").val(returndata.limit.INSURANCE_DAY);
-                        //        }
-                        //        else {
-                        //            bootbox.alert('No Limit Amount ');
-                        //        }
-                        //    }
-                        //});
-                        //CellingAmount
-                        $.ajax({
-                            type: "POST",
-                            dataType: "json",
-                            url: '/Pharmacy/CellingAmount',
-                            data: {
-                                id: CardId,
-                                ServiceCode: '11601'
-                            },
-                            success: function (r) {
-                                if (r.Validation == false) {
-                                    toastr.info(r.Message);
-                                    ClearCardData();
-                                } else {
-                                    $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
-                                    AnuualLimit = r.Limit;
-                                    if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
-                                        $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
-                                    } else {
-                                        alert(" لقد تم استهلاك العدد المحدد للروشتات وسوف تكون خارج التغطه ");
-                                        $("#insurance_LIVEL").val("0.001");
-
-                                        $('#ddEmp_CEILING_PERT').val("0");
-                                    }
+                                if (i == 0) {
+                                    $('#From').val(dat);
                                 }
-                            },
-                            error: function (err) {
-                                alert("Company Annual Amount");
-                                location.reload();
-                            }
-                        });
-
-                        $.ajax({
-                            type: "POST",
-                            dataType: "json",
-                            url: '/DoctorApprovals/History',
-                            data: { id: CardId },
-                            success: function (r) {
-                                $('#From').attr("disabled", false);
-                                $('#To').attr("disabled", false);
-                                $('#History').dataTable().fnDestroy();
-                                var setData = $("#History Tbody");
-                                setData.empty();
-                                var dat;
-                                for (var i = 0; i < r.length; i++) {
-                                    if (r[i].CreatedDate != null) {
-                                        var MyDate_String_Value = r[i].CreatedDate;
-                                        var value = new Date
-                                            (
-                                                parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                                            );
-                                        dat = (value.getMonth() + 1) + "/" + value.getDate() + "/" + value.getFullYear();
-
-                                    }
-                                    else {
-                                        dat = null;
-
-                                    }
-                                    if (i == 0) {
-                                        $('#From').val(dat);
-                                    }
-                                    if (i == r.length - 1) {
-                                        $('#To').val(dat);
-                                    }
-                                    var data = "<tr >" +
-                                        //"<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectHistory(this);'></Button>" + "</td>" +
-                                        "<td>" + r[i].MedicienCode + "</td>" +
-                                        "<td>" + r[i].MedicienName + "</td>" +
-                                        "<td>" + r[i].DOSAGE_FORM + "</td>" +
-                                        "<td>" + r[i].Dose + "</td>" +
-                                        "<td>" + r[i].Duration + "</td>" +
-                                        "<td>" + r[i].TotalDuration + "</td>" +
-                                        "<td>" + r[i].TotalUnits + "</td>" +
-                                        "<td>" + r[i].Amount + "</td>" +
-                                        "<td>" + r[i].M_TYPE + "</td>" +
-                                        "<td>" + dat + "</td>" +
-                                        "<td>" + r[i].CreatedBy + "</td>" +
-                                        "</tr>"
-                                    setData.append(data);
-
+                                if (i == r.length - 1) {
+                                    $('#To').val(dat);
                                 }
-                                $('#History').DataTable();
-                            },
-                            error: function (ex) {
-                                alert("Error History");
+                                var data = "<tr >" +
+                                    //"<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectHistory(this);'></Button>" + "</td>" +
+                                    "<td>" + r[i].MedicienCode + "</td>" +
+                                    "<td>" + r[i].MedicienName + "</td>" +
+                                    "<td>" + r[i].DOSAGE_FORM + "</td>" +
+                                    "<td>" + r[i].Dose + "</td>" +
+                                    "<td>" + r[i].Duration + "</td>" +
+                                    "<td>" + r[i].TotalDuration + "</td>" +
+                                    "<td>" + r[i].TotalUnits + "</td>" +
+                                    "<td>" + r[i].Amount + "</td>" +
+                                    "<td>" + r[i].M_TYPE + "</td>" +
+                                    "<td>" + dat + "</td>" +
+                                    "<td>" + r[i].CreatedBy + "</td>" +
+                                    "</tr>"
+                                setData.append(data);
 
                             }
-                        });
-                    }
-                    else {
-                        bootbox.dialog({
-                            title: 'Alert!',
-                            message: ' Expired Card',// "Roshita ID : " + r,
-                            buttons: {
-                                Ok: {
-                                    label: "Ok",
-                                    className: 'btn-info',
-                                    callback: function () {
-                                        location.reload();
-                                    }
-                                }
-                            }
-                        });
-                        //bootbox.alert("Expired Card");
+                            $('#History').DataTable();
+                        },
+                        error: function (ex) {
+                            alert("Error History");
+
+                        }
+                    });
+                    //}
+                    //else {
+                    //    bootbox.dialog({
+                    //        title: 'Alert!',
+                    //        message: ' Expired Card',// "Roshita ID : " + r,
+                    //        buttons: {
+                    //            Ok: {
+                    //                label: "Ok",
+                    //                className: 'btn-info',
+                    //                callback: function () {
+                    //                    location.reload();
+                    //                }
+                    //            }
+                    //        }
+                    //    });
+                    //    //bootbox.alert("Expired Card");
 
 
 
 
-                    }
+                    //}
                 } else if (r.length == 0) {
                     alert(' Invalid Card Number ');
                     $('#CardsModal').modal('hide');
