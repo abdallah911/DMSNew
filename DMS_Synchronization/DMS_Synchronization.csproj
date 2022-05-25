@@ -150,6 +150,7 @@
     <Compile Include="BaseEntity\BaseEntityOraDB.cs" />
     <Compile Include="Controllers\SyncController.cs" />
     <Compile Include="Models\CLOSE_EMP_DATA.cs" />
+    <Compile Include="Models\REMAIN_CONSUMATION.cs" />
     <Compile Include="Models\COMP_CUSTOMIZED_D_D_MED_EMP.cs" />
     <Compile Include="Data Function\SQLDBConnection.cs" />
     <Compile Include="Data Function\SyncManager.cs" />

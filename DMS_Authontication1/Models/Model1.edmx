@@ -1904,6 +1904,20 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RelationName" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="RemainConsumption">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CARD_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CONTRACT_NO" Type="int" />
+          <Property Name="MAX_AMOUNT" Type="float" />
+          <Property Name="NET" Type="float" />
+          <Property Name="REMAINING" Type="float" />
+          <Property Name="IsSync" Type="bit" />
+          <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="SyncDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="RequestAddProvider">
           <Key>
             <PropertyRef Name="ID" />
@@ -3198,6 +3212,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="ProviderTypeNew" EntityType="Self.ProviderTypeNew" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelationShip" EntityType="Self.RelationShip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RemainConsumption" EntityType="Self.RemainConsumption" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestAddProvider" EntityType="Self.RequestAddProvider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roshita" EntityType="Self.Roshita" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoshitaAcceptions" EntityType="Self.RoshitaAcceptions" Schema="dbo" store:Type="Tables" />
@@ -5019,6 +5034,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <Parameter Name="CardId" Mode="In" Type="String" />
             <Parameter Name="TYPE" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="RemainConsumptions" EntityType="DB_A45413_DMSERPModel.RemainConsumption" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -6854,6 +6870,20 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="RemainConsumption">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CARD_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CONTRACT_NO" Type="Int32" />
+          <Property Name="MAX_AMOUNT" Type="Double" />
+          <Property Name="NET" Type="Double" />
+          <Property Name="REMAINING" Type="Double" />
+          <Property Name="IsSync" Type="Boolean" />
+          <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SyncDate" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9495,6 +9525,21 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="RemainConsumptions">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RemainConsumption">
+              <MappingFragment StoreEntitySet="RemainConsumption">
+                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
+                <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="REMAINING" ColumnName="REMAINING" />
+                <ScalarProperty Name="NET" ColumnName="NET" />
+                <ScalarProperty Name="MAX_AMOUNT" ColumnName="MAX_AMOUNT" />
+                <ScalarProperty Name="CONTRACT_NO" ColumnName="CONTRACT_NO" />
+                <ScalarProperty Name="CARD_ID" ColumnName="CARD_ID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

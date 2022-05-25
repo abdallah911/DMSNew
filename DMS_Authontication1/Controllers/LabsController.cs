@@ -173,6 +173,17 @@ namespace DMS_Authontication1.Controllers
             //data.Oracle_Id = Convert.ToInt64(NeworacleId);
             try
             {
+                if (data.CompanyPayment > 0)
+                {
+                    var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == data.CardId)
+                        .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    if (remaining != null)
+                    {
+                        remaining.REMAINING = remaining.REMAINING - data.CompanyPayment;
+                        remaining.NET = remaining.NET + data.CompanyPayment;
+                        db.Entry(remaining).State = EntityState.Modified;
+                    }
+                }
                 int result = db.SaveChanges();
                 Session["id"] = data.Id;
                 //data.CreatedDate.ToString();
@@ -613,6 +624,17 @@ namespace DMS_Authontication1.Controllers
                 roshta.UpdatedBy = User.Identity.Name;
                 roshta.UpdatedDate = DateTime.Now;
                 db.Entry(roshta).State = EntityState.Modified;
+                if (roshta.CompanyPayment > 0)
+                {
+                    var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshta.CardId)
+                        .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    if (remaining != null)
+                    {
+                        remaining.REMAINING = remaining.REMAINING + roshta.CompanyPayment;
+                        remaining.NET = remaining.NET - roshta.CompanyPayment;
+                        db.Entry(remaining).State = EntityState.Modified;
+                    }
+                }
                 db.SaveChanges();
                 return Json(new { ok = true, data = db.SaveChanges(), message = "ok" }, JsonRequestBehavior.AllowGet);
             }
@@ -821,7 +843,7 @@ namespace DMS_Authontication1.Controllers
             // RoshitaDetails
 
             roshita1.RoshitaDetails = new List<RoshitaDetail>();
-            
+
             List<RoshitaDetail> List_R_Details = db.RoshitaDetails.Where(x => x.RoshitaID == data.Id).ToList();
             bool oneNotification = (List_R_Details.Where(x => x.RoshitaID == data.Id && x.PaymentGroup == "Pending").ToList().Count == 0) ? false : true;
             var oldpending = List_R_Details.Where(r => r.RoshitaID == data.Id && (r.PaymentGroup == "Pending" || r.PaymentGroup == "Accepted"
@@ -892,6 +914,15 @@ namespace DMS_Authontication1.Controllers
             try
             {
                 db.Roshitas.Add(roshita1);
+
+                var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshita1.CardId)
+                    .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                if (remaining != null)
+                {
+                    remaining.REMAINING = (remaining.REMAINING + roshita.CompanyPayment) - roshita1.CompanyPayment;
+                    remaining.NET = (remaining.NET - roshita.CompanyPayment) + roshita1.CompanyPayment;
+                    db.Entry(remaining).State = EntityState.Modified;
+                }
                 int result = db.SaveChanges();
 
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita1.Id);
@@ -1095,11 +1126,31 @@ namespace DMS_Authontication1.Controllers
             var provider = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
             if (provider != null)
             {
-                ProviderServicesPermission _permision = db.ProviderServicesPermissions.Where(x => x.IsDeleted == false && x.ServiceCode == _IntServiceCode && (x.ProviderName == provider.Provider || x.ProviderName == "ALL") && (x.CardId == id || x.CompId == "ALL" || ((x.ClassCode == "" || x.ClassCode == null) ? x.CompId == _CompId : (x.CompId == _CompId && x.ClassCode == emp.CLASS_CODE)))).OrderByDescending(x => x.Id).FirstOrDefault();
+                var permission = db.ProviderServicesPermissions.Where(x => x.IsDeleted == false && x.ServiceCode == _IntServiceCode
+                && (x.ProviderName == provider.Provider || x.ProviderName == "ALL")
+                && (x.CompId == _CompId || x.CompId == "ALL" || x.CardId == id)).ToList().OrderByDescending(x => x.Id);
+                var _permision = permission.Where(x => x.CardId == id || x.ClassCode == emp.CLASS_CODE).FirstOrDefault();
+                if (_permision == null)
+                {
+                    _permision = permission.Where(x => x.CompId == "ALL" || x.CompId == _CompId).FirstOrDefault();
+                }
                 if (_permision != null && _permision.IsActive == false)
                 {
+                    if (_permision.CardId == "All" || _permision.CompId == "All" || _permision.CardId == id)
+                    {
+                        return Json(new { Validation = false, Message = "هذا الكارت او مقدم الخدمه ليس له صلاحيه للصرف لهذه الخدمه... برجاء الرجوع للإداره الطبيه ", Limit = 0, CeilingPert = 0 });
 
-                    return Json(new { Validation = false, Message = "هذا الكارت او مقدم الخدمه ليس له صلاحيه للصرف لهذه الخدمه... برجاء الرجوع للإداره الطبيه ", Limit = 0, CeilingPert = 0 });
+                    }
+                    else if (_permision.ClassCode == emp.CLASS_CODE)
+                    {
+                        return Json(new { Validation = false, Message = "هذا الكارت او مقدم الخدمه ليس له صلاحيه للصرف لهذه الخدمه... برجاء الرجوع للإداره الطبيه ", Limit = 0, CeilingPert = 0 });
+
+                    }
+                    else if ((_permision.CardId == "" || _permision.CardId == null) && (_permision.ClassCode == null || _permision.ClassCode == "") && (_permision.CompId == _CompId || _permision.CompId == "ALL"))
+                    {
+                        return Json(new { Validation = false, Message = "هذا الكارت او مقدم الخدمه ليس له صلاحيه للصرف لهذه الخدمه... برجاء الرجوع للإداره الطبيه ", Limit = 0, CeilingPert = 0 });
+
+                    }
                 }
             }
             //
@@ -1109,15 +1160,33 @@ namespace DMS_Authontication1.Controllers
                 double MaxServiceAmount = 0;
                 double CeilingPert;
                 double MaxSubServiceAmount;
-                var CompContractClassEmp = db.CompContractClassEmps.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.CARD_ID == id).FirstOrDefault();
-                if (CompContractClassEmp == null)
+                bool type = false;
+                var remainingconsumption = db.RemainConsumptions.Where(x => x.CARD_ID == id && x.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
+                if (remainingconsumption != null)
                 {
-                    var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
-                    CompContractClassMAX_AMOUNT = Convert.ToDouble(classLimit.MAX_AMOUNT * 0.85);
+                    if (remainingconsumption.REMAINING >= 0)
+                    {
+                        CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value;
+                        type = true;
+                    }
+                    else
+                    {
+                        return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                    }
                 }
                 else
                 {
-                    CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
+                    var CompContractClassEmp = db.CompContractClassEmps.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.CARD_ID == id).FirstOrDefault();
+                    if (CompContractClassEmp == null)
+                    {
+                        var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
+                        CompContractClassMAX_AMOUNT = Convert.ToDouble(classLimit.MAX_AMOUNT * 0.85);
+                    }
+                    else
+                    {
+                        CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
+                    }
+                    type = false;
                 }
 
                 var DataService1 = new Comp_Customized_D_D();
@@ -1160,15 +1229,26 @@ namespace DMS_Authontication1.Controllers
 
                 }
                 //Main consumption
-                List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
-                double AcumlatorAmount = 0;
-                foreach (var item in AcumlatorList)
+                double Available = 0;
+                List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                     && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                if (type == true)
                 {
-                    AcumlatorAmount += item.CompanyPayment;
+                    Available = CompContractClassMAX_AMOUNT;
+
                 }
-                double Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
+                else
+                {
+                    //Main consumption
+                    double AcumlatorAmount = 0;
+                    foreach (var item in AcumlatorList)
+                    {
+                        AcumlatorAmount += item.CompanyPayment;
+                    }
+                    Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
+                }
                 //Service consumption
-                List<Roshita> AcumlatorServiceList = db.Roshitas.Where(r => r.CardId == id && r.RoshetaType.Contains(MainService) && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
                 double AcumlatorServiceAmount = 0;
                 foreach (var item in AcumlatorServiceList)
                 {
@@ -1176,7 +1256,7 @@ namespace DMS_Authontication1.Controllers
                 }
                 double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
                 //SubService consumption
-                List<Roshita> AcumlatorSubServiceList = db.Roshitas.Where(r => r.CardId == id && r.RoshetaType == ServiceCode && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
                 double AcumlatorSubServiceAmount = 0;
                 foreach (var item in AcumlatorSubServiceList)
                 {
@@ -1203,13 +1283,13 @@ namespace DMS_Authontication1.Controllers
                     //string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
                     //DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
                     //DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
-                    List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
+                    //List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
                     bool LimitLabPreceptionCount = false;
                     bool LimitRayPreceptionCount = false;
                     //For lab
                     if (ServiceCode == "11206")
                     {
-                        List<Roshita> LabAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Lab").ToList();
+                        List<Roshita> LabAcumlatorList = AcumlatorList.Where(x => x.Manager == "Lab").ToList();
                         LimitLabPreceptionCount = (CustemizedMedEmp.LAB_NO_MON == null || (CustemizedMedEmp.LAB_NO_MON - LabAcumlatorList.Count() > 0)) ?
                             true : false;//Monthly count
                         Double LimiLabPreceptionAmount = CustemizedMedEmp.LAB_NO == null ? Convert.ToDouble(CustemizedMedEmp.LAB_NO) :
@@ -1244,7 +1324,7 @@ namespace DMS_Authontication1.Controllers
                     // For Ray
                     else if (ServiceCode == "11201")
                     {
-                        List<Roshita> RayAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Ray").ToList();
+                        List<Roshita> RayAcumlatorList = AcumlatorList.Where(x => x.Manager == "Ray").ToList();
                         LimitRayPreceptionCount = (CustemizedMedEmp.LAB_NO_MON == null || (CustemizedMedEmp.LAB_NO_MON - RayAcumlatorList.Count() > 0)) ?
                            true : false;//Monthly count
                         Double LimiLabPreceptionAmount = CustemizedMedEmp.RAY_NO == null ? Convert.ToDouble(CustemizedMedEmp.RAY_NO) :
@@ -1286,13 +1366,13 @@ namespace DMS_Authontication1.Controllers
                     }
                     else
                     {
-                        List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
+                        //List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
                         bool LimitLabPreceptionCount = false;
                         bool LimitRayPreceptionCount = false;
                         //For lab
                         if (ServiceCode == "11206")
                         {
-                            List<Roshita> LabAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Lab").ToList();
+                            List<Roshita> LabAcumlatorList = AcumlatorList.Where(x => x.Manager == "Lab").ToList();
                             LimitLabPreceptionCount = (CustemizedMed.LAB_NO_MON == null || (CustemizedMed.LAB_NO_MON - LabAcumlatorList.Count() > 0)) ?
                                 true : false;//Monthly count
                             Double LimiLabPreceptionAmount = CustemizedMed.LAB_NO == null ? Convert.ToDouble(CustemizedMed.LAB_NO) :
@@ -1327,7 +1407,7 @@ namespace DMS_Authontication1.Controllers
                         // For Ray
                         else if (ServiceCode == "11201")
                         {
-                            List<Roshita> RayAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Ray").ToList();
+                            List<Roshita> RayAcumlatorList = AcumlatorList.Where(x => x.Manager == "Ray").ToList();
                             LimitRayPreceptionCount = (CustemizedMed.RAY_NO_MON == null || (CustemizedMed.RAY_NO_MON - RayAcumlatorList.Count() > 0)) ?
                                true : false;//Monthly count
                             Double LimiLabPreceptionAmount = CustemizedMed.RAY_NO == null ? Convert.ToDouble(CustemizedMed.RAY_NO) :
@@ -1435,15 +1515,34 @@ namespace DMS_Authontication1.Controllers
                 double MaxServiceAmount = 0;
                 double CeilingPert;
                 double MaxSubServiceAmount;
-                var CompContractClassEmp = db.CompContractClassEmps.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.CARD_ID == id).FirstOrDefault();
-                if (CompContractClassEmp == null)
+                bool type = false;
+                var remainingconsumption = db.RemainConsumptions.Where(x => x.CARD_ID == id && x.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
+                if (remainingconsumption != null)
                 {
-                    var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
-                    CompContractClassMAX_AMOUNT = Convert.ToDouble(classLimit.MAX_AMOUNT * 0.85);
+                    if (remainingconsumption.REMAINING >= 0)
+                    {
+                        var rosita = db.Roshitas.Where(r => r.Id == RoshitaId).FirstOrDefault();
+                        CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value + rosita.CompanyPayment;
+                        type = true;
+                    }
+                    else
+                    {
+                        return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                    }
                 }
                 else
                 {
-                    CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
+                    var CompContractClassEmp = db.CompContractClassEmps.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.CARD_ID == id).FirstOrDefault();
+                    if (CompContractClassEmp == null)
+                    {
+                        var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
+                        CompContractClassMAX_AMOUNT = Convert.ToDouble(classLimit.MAX_AMOUNT * 0.85);
+                    }
+                    else
+                    {
+                        CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
+                    }
+                    type = false;
                 }
                 //var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
 
@@ -1486,16 +1585,26 @@ namespace DMS_Authontication1.Controllers
                     return Json(new { Validation = false, Message = Message, Limit = 0, CeilingPert = 0 });
 
                 }
-                //Main Concamution
-                List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
-                double AcumlatorAmount = 0;
-                foreach (var item in AcumlatorList)
+                double Available = 0;
+                List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                     && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                if (type == true)
                 {
-                    AcumlatorAmount += item.CompanyPayment;
+                    Available = CompContractClassMAX_AMOUNT;
+
                 }
-                double Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
+                else
+                {
+                    //Main consumption
+                    double AcumlatorAmount = 0;
+                    foreach (var item in AcumlatorList)
+                    {
+                        AcumlatorAmount += item.CompanyPayment;
+                    }
+                    Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
+                }
                 //Service Concamution
-                List<Roshita> AcumlatorServiceList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && r.RoshetaType.Contains(MainService) && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
                 double AcumlatorServiceAmount = 0;
                 foreach (var item in AcumlatorServiceList)
                 {
@@ -1503,7 +1612,7 @@ namespace DMS_Authontication1.Controllers
                 }
                 double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
                 //SubService Concamution
-                List<Roshita> AcumlatorSubServiceList = db.Roshitas.Where(r => r.CardId == id && r.RoshetaType == ServiceCode && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
                 double AcumlatorSubServiceAmount = 0;
                 foreach (var item in AcumlatorSubServiceList)
                 {
@@ -1540,13 +1649,13 @@ namespace DMS_Authontication1.Controllers
                   && c.SER_SERV == ServiceCode && c.CLASS_CODE == emp.CLASS_CODE).FirstOrDefault();
                 if (CustemizedMedEmp != null)
                 {
-                    List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
+                    //List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
                     bool LimitLabPreceptionCount = false;
                     bool LimitRayPreceptionCount = false;
                     //For lab
                     if (ServiceCode == "11206")
                     {
-                        List<Roshita> LabAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Lab").ToList();
+                        List<Roshita> LabAcumlatorList = AcumlatorList.Where(x => x.Manager == "Lab").ToList();
                         LimitLabPreceptionCount = (CustemizedMedEmp.LAB_NO_MON == null || (CustemizedMedEmp.LAB_NO_MON - LabAcumlatorList.Count() > 0)) ?
                             true : false;//Monthly count
                         Double LimiLabPreceptionAmount = CustemizedMedEmp.LAB_NO == null ? Convert.ToDouble(CustemizedMedEmp.LAB_NO) :
@@ -1581,7 +1690,7 @@ namespace DMS_Authontication1.Controllers
                     // For Ray
                     else if (ServiceCode == "11201")
                     {
-                        List<Roshita> RayAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Ray").ToList();
+                        List<Roshita> RayAcumlatorList = AcumlatorList.Where(x => x.Manager == "Ray").ToList();
                         LimitRayPreceptionCount = (CustemizedMedEmp.LAB_NO_MON == null || (CustemizedMedEmp.LAB_NO_MON - RayAcumlatorList.Count() > 0)) ?
                            true : false;//Monthly count
                         Double LimiLabPreceptionAmount = CustemizedMedEmp.RAY_NO == null ? Convert.ToDouble(CustemizedMedEmp.RAY_NO) :
@@ -1623,13 +1732,13 @@ namespace DMS_Authontication1.Controllers
                     }
                     else
                     {
-                        List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
+                        // List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
                         bool LimitLabPreceptionCount = false;
                         bool LimitRayPreceptionCount = false;
                         //For lab
                         if (ServiceCode == "11206")
                         {
-                            List<Roshita> LabAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Lab").ToList();
+                            List<Roshita> LabAcumlatorList = AcumlatorList.Where(x => x.Manager == "Lab").ToList();
                             LimitLabPreceptionCount = (CustemizedMed.LAB_NO_MON == null || (CustemizedMed.LAB_NO_MON - LabAcumlatorList.Count() > 0)) ?
                                 true : false;//Monthly count
                             Double LimiLabPreceptionAmount = CustemizedMed.LAB_NO == null ? Convert.ToDouble(CustemizedMed.LAB_NO) :
@@ -1664,7 +1773,7 @@ namespace DMS_Authontication1.Controllers
                         // For Ray
                         else if (ServiceCode == "11201")
                         {
-                            List<Roshita> RayAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Ray").ToList();
+                            List<Roshita> RayAcumlatorList = AcumlatorList.Where(x => x.Manager == "Ray").ToList();
                             LimitRayPreceptionCount = (CustemizedMed.RAY_NO_MON == null || (CustemizedMed.RAY_NO_MON - RayAcumlatorList.Count() > 0)) ?
                                true : false;//Monthly count
                             Double LimiLabPreceptionAmount = CustemizedMed.RAY_NO == null ? Convert.ToDouble(CustemizedMed.RAY_NO) :
