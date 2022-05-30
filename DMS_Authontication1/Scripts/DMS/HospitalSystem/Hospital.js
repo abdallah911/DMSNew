@@ -192,7 +192,7 @@ $(function () {
                                         var from = new Date(d1[2], parseInt(d1[1]) - 1, d1[0]);  // -1 because months are from 0 to 11
                                         var to = new Date(d2[2], parseInt(d2[1]) - 1, d2[0]);
 
-                                        if (from < to) {
+                                        //if (from < to) {
 
                                             var com_Name = r.Data[0].C_ENAME;
                                             if (r.Data[0].INS_START_DATE != null) {
@@ -241,10 +241,10 @@ $(function () {
                                             }
 
 
-                                        }
-                                        else {
-                                            alert(' لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
-                                        }
+                                        //}
+                                        //else {
+                                        //    alert(' لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
+                                        //}
                                     }
 
                                 }
@@ -290,7 +290,7 @@ $(function () {
                                         var d1 = Mysysdate.split("/");
                                         var from = new Date(d1[2], parseInt(d1[1]) - 1, d1[0]);  // -1 because months are from 0 to 11
                                         var to = new Date(d2[2], parseInt(d2[1]) - 1, d2[0]);
-                                        if (from < to && from < DTer) {
+                                        //if (from < to && from < DTer) {
 
                                             var com_Name = r.Data[0].C_ENAME;
                                             if (r.Data[0].INS_START_DATE != null) {
@@ -339,10 +339,10 @@ $(function () {
                                                     '<option value="112"> عيادات خارجية  </option>' +
                                                     '<option value="11104"> طوارئ  </option>');
                                             }
-                                        }
-                                        else {
-                                            alert('لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
-                                        }
+                                        //}
+                                        //else {
+                                        //    alert('لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
+                                        //}
 
 
                                     }
@@ -434,7 +434,7 @@ $(function () {
                                         var from = new Date(d1[2], parseInt(d1[1]) - 1, d1[0]);  // -1 because months are from 0 to 11
                                         var to = new Date(d2[2], parseInt(d2[1]) - 1, d2[0]);
 
-                                        if (from < to) {
+                                        //if (from < to) {
 
                                             var com_Name = r.Data[0].C_ENAME;
                                             if (r.Data[0].INS_START_DATE != null) {
@@ -486,10 +486,10 @@ $(function () {
 
 
 
-                                        }
-                                        else {
-                                            alert(' لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
-                                        }
+                                        //}
+                                        //else {
+                                        //    alert(' لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
+                                        //}
                                     }
 
                                 }
@@ -535,7 +535,7 @@ $(function () {
                                         var d1 = Mysysdate.split("/");
                                         var from = new Date(d1[2], parseInt(d1[1]) - 1, d1[0]);  // -1 because months are from 0 to 11
                                         var to = new Date(d2[2], parseInt(d2[1]) - 1, d2[0]);
-                                        if (from < to && from < DTer) {
+                                        //if (from < to && from < DTer) {
 
                                             var com_Name = r.Data[0].C_ENAME;
                                             if (r.Data[0].INS_START_DATE != null) {
@@ -584,10 +584,10 @@ $(function () {
                                                 $("#main_services").prop("disabled", true);
                                                 $("#emergancyTxt").show();
                                             }
-                                        }
-                                        else {
-                                            alert('لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
-                                        }
+                                        //}
+                                        //else {
+                                        //    alert('لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
+                                        //}
 
 
                                     }

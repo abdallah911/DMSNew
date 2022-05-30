@@ -239,9 +239,12 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
         /// <returns> Employee data if founded and have contract </returns>
         public JsonResult AddCard(string id, int provider)
         {
+            DateTime datenow = DateTime.Now.Date;
+            var da = new DateTime(datenow.Year, datenow.Month, datenow.Day);
             var employe = db.Comp_Employees.Where(e => e.CARD_ID == id &&
-                            DateTime.Now >= e.INS_START_DATE && DateTime.Now <= e.INS_END_DATE)
+                            da >= e.INS_START_DATE && da <= e.INS_END_DATE)
                            .OrderByDescending(e => e.CONTRACT_NO).FirstOrDefault();
+            
             if (employe == null)
             {
                 var result = new { Success = "Enter Correct Card ID " };
