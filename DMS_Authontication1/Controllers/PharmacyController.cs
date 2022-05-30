@@ -359,6 +359,7 @@ namespace DMS_TEST.Controllers
 
                 }
                 double Available = 0;
+                double Limit = 0;
                 List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 if (type == true)
@@ -376,26 +377,33 @@ namespace DMS_TEST.Controllers
                     }
                     Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
                 }
-
-                //Service consumption
-                List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
-                double AcumlatorServiceAmount = 0;
-                foreach (var item in AcumlatorServiceList)
+                if (remainingconsumption != null && remainingconsumption.REMAINING != null &&
+                    (remainingconsumption.REMAINING == Available))
                 {
-                    AcumlatorServiceAmount += item.CompanyPayment;
+                    Limit = Available;
                 }
-                double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
-                //SubService consumption
-                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
-                double AcumlatorSubServiceAmount = 0;
-                foreach (var item in AcumlatorSubServiceList)
+                else
                 {
-                    AcumlatorSubServiceAmount += item.CompanyPayment;
+                    //Service consumption
+                    List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
+                    double AcumlatorServiceAmount = 0;
+                    foreach (var item in AcumlatorServiceList)
+                    {
+                        AcumlatorServiceAmount += item.CompanyPayment;
+                    }
+                    double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
+                    //SubService consumption
+                    List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
+                    double AcumlatorSubServiceAmount = 0;
+                    foreach (var item in AcumlatorSubServiceList)
+                    {
+                        AcumlatorSubServiceAmount += item.CompanyPayment;
+                    }
+                    double SubServiceAvailable = (MaxSubServiceAmount - AcumlatorSubServiceAmount) < 0 ? 0 : MaxSubServiceAmount - AcumlatorSubServiceAmount;
+                    //limit
+                    Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
+                    Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
                 }
-                double SubServiceAvailable = (MaxSubServiceAmount - AcumlatorSubServiceAmount) < 0 ? 0 : MaxSubServiceAmount - AcumlatorSubServiceAmount;
-                //limit
-                double Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
-                Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
                 //polling
                 bool Validation = Limit > 0 ? true : false;
                 Message = Validation ? "Ok" : "Exceeded his annual contract limit";
@@ -592,6 +600,7 @@ namespace DMS_TEST.Controllers
                         var rosita = db.Roshitas.Where(r => r.Id == RoshitaId).FirstOrDefault();
                         CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value + rosita.CompanyPayment;
                         type = true;
+                        remainingconsumption.REMAINING = remainingconsumption.REMAINING.Value + rosita.CompanyPayment;
                     }
                     else
                     {
@@ -655,6 +664,7 @@ namespace DMS_TEST.Controllers
                 }
 
                 double Available = 0;
+                double Limit = 0;
                 List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 if (type == true)
@@ -672,35 +682,33 @@ namespace DMS_TEST.Controllers
                     }
                     Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
                 }
-
-                ////Main Concamution
-                //List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
-                //double AcumlatorAmount = 0;
-                //foreach (var item in AcumlatorList)
-                //{
-                //    AcumlatorAmount += item.CompanyPayment;
-                //}
-                //double Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
-
-                //Service Concamution
-                List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
-                double AcumlatorServiceAmount = 0;
-                foreach (var item in AcumlatorServiceList)
+                if (remainingconsumption != null && remainingconsumption.REMAINING != null &&
+                    (remainingconsumption.REMAINING == Available))
                 {
-                    AcumlatorServiceAmount += item.CompanyPayment;
+                    Limit = Available;
                 }
-                double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
-                //SubService Concamution
-                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
-                double AcumlatorSubServiceAmount = 0;
-                foreach (var item in AcumlatorSubServiceList)
+                else
                 {
-                    AcumlatorSubServiceAmount += item.CompanyPayment;
+                    //Service Concamution
+                    List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
+                    double AcumlatorServiceAmount = 0;
+                    foreach (var item in AcumlatorServiceList)
+                    {
+                        AcumlatorServiceAmount += item.CompanyPayment;
+                    }
+                    double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
+                    //SubService Concamution
+                    List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
+                    double AcumlatorSubServiceAmount = 0;
+                    foreach (var item in AcumlatorSubServiceList)
+                    {
+                        AcumlatorSubServiceAmount += item.CompanyPayment;
+                    }
+                    double SubServiceAvailable = (MaxSubServiceAmount - AcumlatorSubServiceAmount) < 0 ? 0 : MaxSubServiceAmount - AcumlatorSubServiceAmount;
+                    //limit
+                    Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
+                    Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
                 }
-                double SubServiceAvailable = (MaxSubServiceAmount - AcumlatorSubServiceAmount) < 0 ? 0 : MaxSubServiceAmount - AcumlatorSubServiceAmount;
-                //limit
-                double Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
-                Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
                 //polling
                 bool Validation = Limit > 0 ? true : false;
                 Message = Validation ? "Ok" : "Exceeded his annual contract limit";
