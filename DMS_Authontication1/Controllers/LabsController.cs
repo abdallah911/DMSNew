@@ -1171,7 +1171,21 @@ namespace DMS_Authontication1.Controllers
                     }
                     else
                     {
-                        return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                        var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
+                        if (accption == null)
+                        {
+                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
+                        }
+                        var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
+                        if (reasons != null)
+                        {
+                            CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value;
+                            type = true;
+                        }
+                        else
+                        {
+                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
+                        }
                     }
                 }
                 else
@@ -1222,7 +1236,7 @@ namespace DMS_Authontication1.Controllers
                 }
                 else
                 {
-                    Message = "Service is Not Coverted";
+                    Message = "هذه الخدمه غير مغطاه برجاء الرجوع للاداره الطبيه";
                     CeilingPert = 100;
                     MaxSubServiceAmount = 0;
                     return Json(new { Validation = false, Message = Message, Limit = 0, CeilingPert = 0 });
@@ -1230,45 +1244,54 @@ namespace DMS_Authontication1.Controllers
                 }
                 //Main consumption
                 double Available = 0;
+                double Limit = 0;
                 List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
-                if (type == true)
+                if (remainingconsumption != null && remainingconsumption.REMAINING != null &&
+                    (remainingconsumption.REMAINING == Available))
                 {
-                    Available = CompContractClassMAX_AMOUNT;
-
+                    Limit = Available;
                 }
                 else
                 {
-                    //Main consumption
-                    double AcumlatorAmount = 0;
-                    foreach (var item in AcumlatorList)
+                    
+                    if (type == true)
                     {
-                        AcumlatorAmount += item.CompanyPayment;
-                    }
-                    Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
-                }
-                //Service consumption
-                List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
-                double AcumlatorServiceAmount = 0;
-                foreach (var item in AcumlatorServiceList)
-                {
-                    AcumlatorServiceAmount += item.CompanyPayment;
-                }
-                double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
-                //SubService consumption
-                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
-                double AcumlatorSubServiceAmount = 0;
-                foreach (var item in AcumlatorSubServiceList)
-                {
-                    AcumlatorSubServiceAmount += item.CompanyPayment;
-                }
-                double SubServiceAvailable = (MaxSubServiceAmount - AcumlatorSubServiceAmount) < 0 ? 0 : MaxSubServiceAmount - AcumlatorSubServiceAmount;
-                //limit
-                double Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
-                Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
+                        Available = CompContractClassMAX_AMOUNT;
 
+                    }
+                    else
+                    {
+                        //Main consumption
+                        double AcumlatorAmount = 0;
+                        foreach (var item in AcumlatorList)
+                        {
+                            AcumlatorAmount += item.CompanyPayment;
+                        }
+                        Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
+                    }
+                    //Service consumption
+                    List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
+                    double AcumlatorServiceAmount = 0;
+                    foreach (var item in AcumlatorServiceList)
+                    {
+                        AcumlatorServiceAmount += item.CompanyPayment;
+                    }
+                    double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
+                    //SubService consumption
+                    List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
+                    double AcumlatorSubServiceAmount = 0;
+                    foreach (var item in AcumlatorSubServiceList)
+                    {
+                        AcumlatorSubServiceAmount += item.CompanyPayment;
+                    }
+                    double SubServiceAvailable = (MaxSubServiceAmount - AcumlatorSubServiceAmount) < 0 ? 0 : MaxSubServiceAmount - AcumlatorSubServiceAmount;
+                    //limit
+                    Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
+                    Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
+                }
                 bool Validation = Limit > 0 ? true : false;
-                Message = Validation ? "Ok" : "Exceeded his annual contract limit";
+                Message = Validation ? "Ok" : "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد";
 
 
                 //Co-insurance
@@ -1307,7 +1330,7 @@ namespace DMS_Authontication1.Controllers
                             var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
                             if (accption == null)
                             {
-                                return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                                return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
                             }
                             var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                             if (reasons != null)
@@ -1342,7 +1365,7 @@ namespace DMS_Authontication1.Controllers
                             var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
                             if (accption == null)
                             {
-                                return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                                return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
                             }
                             var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                             if (reasons != null)
@@ -1390,7 +1413,7 @@ namespace DMS_Authontication1.Controllers
                                 var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
                                 if (accption == null)
                                 {
-                                    return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                                    return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
                                 }
                                 var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                                 if (reasons != null)
@@ -1425,7 +1448,7 @@ namespace DMS_Authontication1.Controllers
                                 var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
                                 if (accption == null)
                                 {
-                                    return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                                    return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
                                 }
                                 var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                                 if (reasons != null)
@@ -1524,10 +1547,29 @@ namespace DMS_Authontication1.Controllers
                         var rosita = db.Roshitas.Where(r => r.Id == RoshitaId).FirstOrDefault();
                         CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value + rosita.CompanyPayment;
                         type = true;
+                        remainingconsumption.REMAINING = remainingconsumption.REMAINING.Value + rosita.CompanyPayment;
+
                     }
                     else
                     {
-                        return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                        var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
+                        if (accption == null)
+                        {
+                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
+                        }
+                        var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
+                        if (reasons != null)
+                        {
+                            var rosita = db.Roshitas.Where(r => r.Id == RoshitaId).FirstOrDefault();
+                            CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value + rosita.CompanyPayment;
+                            type = true;
+                            remainingconsumption.REMAINING = remainingconsumption.REMAINING.Value + rosita.CompanyPayment;
+
+                        }
+                        else
+                        {
+                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
+                        }
                     }
                 }
                 else
@@ -1579,13 +1621,14 @@ namespace DMS_Authontication1.Controllers
                 }
                 else
                 {
-                    Message = "Service is Not Coverted";
+                    Message = "هذه الخدمه غير مغطاه برجاء الرجوع للاداره الطبيه";
                     CeilingPert = 100;
                     MaxSubServiceAmount = 0;
                     return Json(new { Validation = false, Message = Message, Limit = 0, CeilingPert = 0 });
 
                 }
                 double Available = 0;
+                double Limit = 0;
                 List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 if (type == true)
@@ -1603,28 +1646,36 @@ namespace DMS_Authontication1.Controllers
                     }
                     Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
                 }
-                //Service Concamution
-                List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
-                double AcumlatorServiceAmount = 0;
-                foreach (var item in AcumlatorServiceList)
-                {
-                    AcumlatorServiceAmount += item.CompanyPayment;
-                }
-                double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
-                //SubService Concamution
-                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
-                double AcumlatorSubServiceAmount = 0;
-                foreach (var item in AcumlatorSubServiceList)
-                {
-                    AcumlatorSubServiceAmount += item.CompanyPayment;
-                }
-                double SubServiceAvailable = (MaxSubServiceAmount - AcumlatorSubServiceAmount) < 0 ? 0 : MaxSubServiceAmount - AcumlatorSubServiceAmount;
-                //limit
-                double Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
-                Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
 
+                if (remainingconsumption != null && remainingconsumption.REMAINING != null &&
+                    (remainingconsumption.REMAINING == Available))
+                {
+                    Limit = Available;
+                }
+                else
+                {
+                    //Service Concamution
+                    List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
+                    double AcumlatorServiceAmount = 0;
+                    foreach (var item in AcumlatorServiceList)
+                    {
+                        AcumlatorServiceAmount += item.CompanyPayment;
+                    }
+                    double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
+                    //SubService Concamution
+                    List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
+                    double AcumlatorSubServiceAmount = 0;
+                    foreach (var item in AcumlatorSubServiceList)
+                    {
+                        AcumlatorSubServiceAmount += item.CompanyPayment;
+                    }
+                    double SubServiceAvailable = (MaxSubServiceAmount - AcumlatorSubServiceAmount) < 0 ? 0 : MaxSubServiceAmount - AcumlatorSubServiceAmount;
+                    //limit
+                    Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
+                    Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
+                }
                 bool Validation = Limit > 0 ? true : false;
-                Message = Validation ? "Ok" : "Exceeded his annual contract limit";
+                Message = Validation ? "Ok" : "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد";
 
                 //approval ceiling
                 if (Validation == false)
@@ -1632,7 +1683,7 @@ namespace DMS_Authontication1.Controllers
                     var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
                     if (accption == null)
                     {
-                        return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                        return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
                     }
                     var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                     if (reasons != null)
@@ -1673,7 +1724,7 @@ namespace DMS_Authontication1.Controllers
                             var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
                             if (accption == null)
                             {
-                                return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                                return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
                             }
                             var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                             if (reasons != null)
@@ -1708,7 +1759,7 @@ namespace DMS_Authontication1.Controllers
                             var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
                             if (accption == null)
                             {
-                                return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                                return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
                             }
                             var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                             if (reasons != null)
@@ -1756,7 +1807,7 @@ namespace DMS_Authontication1.Controllers
                                 var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
                                 if (accption == null)
                                 {
-                                    return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                                    return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
                                 }
                                 var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                                 if (reasons != null)
@@ -1791,7 +1842,7 @@ namespace DMS_Authontication1.Controllers
                                 var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
                                 if (accption == null)
                                 {
-                                    return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                                    return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
                                 }
                                 var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                                 if (reasons != null)

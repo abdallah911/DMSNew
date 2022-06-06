@@ -263,7 +263,7 @@ $(function () {
 
                     }
                     else if (r.length == 0) {
-                        alert(' Invalid Card Number ');
+                        alert(' برجاء التأكد من الرقم الطبي وفي حاله استمرار المشكله ارسال صوره البطاقه علي رقم01205566050 ');
                         $('#CardsModal').modal('hide');
                         $("#wait").css("display", "none");
                     }
@@ -486,7 +486,6 @@ $(function () {
     }
     $("#ddlType").change(function () {
         if ($('#txtSearchCard').val() != '') {
-            debugger;
             $("#Pharmacy >tbody").empty();
             $("#AddMedicine").empty();
 
@@ -638,11 +637,11 @@ $(function () {
 
                     }
                     else {
-                        toastr.info("Please insert Diagnoise Data");
+                        toastr.info("برجاء ادخال التشخيص الصحيح الموجود بالنموذج وفي حاله عدم مطابقه التشخيص الموجود بالنموذج للادويه او عدم وجود تشخيص يتم الرجوع الي الاداره الطبيه");
                         event.preventDefault();
                     }
                 } else {
-                    toastr.info("Please insert Vaild Phone number");
+                    toastr.info("برجاء ادخال رقم الموبايل صحيح المتكون من 11 رقم");
                     event.preventDefault();
                 }
             } else {
@@ -980,7 +979,7 @@ function SelectMedicien(event) {
         success: function (r) {
             if (r.M_TYPE == "CHRONIC") {
                 edit = 1;
-                toastr.error('Can Not Add This Medicine Chronic');
+                toastr.error('لا يمكن صرف هذا الدواء ضمن الادويه اليوميه للاستفسار برجاء الاتصال علي رقم الادارة الطبيه');
                 $("#AddMedicine option[value='" + Code + "']").remove();
                 $("#wait").css("display", "none");
             }
@@ -1655,8 +1654,8 @@ function GetLimit() {
                 // toastr.info(r.Message);
                 //ClearCardData();
                 alert(r.Message);
-                history.go(0);
-                window.location.href = "/Pharmacy/Pharmacy";
+                //history.go(0);
+                window.location.replace("/Pharmacy/Pharmacy");
                 //window.location.reload();
 
             } else {
@@ -1666,7 +1665,7 @@ function GetLimit() {
                     if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
                         $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
                     } else {
-                        alert(" لقد تم استهلاك العدد المحدد للروشتات وسوف تكون خارج التغطه ");
+                        alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
                         $("#insurance_LIVEL").val("0.001");
 
                         $('#ddEmp_CEILING_PERT').val("0");
@@ -1682,7 +1681,7 @@ function GetLimit() {
                         $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_MONTH);
 
                     } else {
-                        alert(" لقد تم استهلاك العدد المحدد للروشتات وسوف تكون خارج التغطه ");
+                        alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
                         $("#insurance_LIVEL").val("0.001");
                         $('#ddEmp_CEILING_PERT').val("0");
                     }
@@ -1783,7 +1782,7 @@ function AddNationalId() {
                 return true;
             }
             if (result === "" || result.length != 14 || isNaN(result)) {
-                toastr.error("Invalid Value");
+                toastr.error("برجاء ادخال الرقم القومي الصحيح المتكون من 14 رقم");
                 return false;
             } else {
                 //$("#wait").css("display", "block");

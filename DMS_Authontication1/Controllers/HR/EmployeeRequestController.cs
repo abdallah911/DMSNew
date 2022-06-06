@@ -392,6 +392,20 @@ namespace DMS_Authontication1.Controllers.HR
                 }
 
             }
+
+            else if (User.IsInRole("Admin"))
+            {
+                int compId = int.Parse(search.Split('-')[0]);
+                int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == compId).Max(x => x.CONTRACT_NO);
+                var Employees = db.fn_GetEmployessForCompany(compId, maxcontract, "N", search)
+                                 .Select(c => new
+                                 {
+                                     id = c.id,
+                                     text = c.text
+                                 }).ToList();
+                return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
             else
             {
                 int Provider = Convert.ToInt32(CurrentUser.Provider);

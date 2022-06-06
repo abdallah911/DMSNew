@@ -119,8 +119,6 @@ $(function () {
         $("#total_id").show();
         $("#DoctortName").hide();
 
-        //$('#AddDiagnoise').attr('disabled', true);
-        //$('#RemoveDiagnoise').attr('disabled', true);
         $("#Physical").html("");
         $("#main_services").html("");
         $("#div_of_serv").hide();
@@ -136,28 +134,8 @@ $(function () {
 
                     if (r.Success == "True") {
                         if (r.Data.length == 1) {
-                            //var excepitonResult = null;
                             exceptionHospital = null;
                             exceptionLabRay = null;
-                            //$.ajax({
-                            //    type: 'POST',
-                            //    url: '/Hospital/GetExceptions/',
-                            //    dataType: 'json',
-                            //    data: {
-                            //        cardID: $('#txtSearchCard').val(),
-                            //        exceptionReasonId: 8,
-                            //    },
-
-                            //    success: function (r2) {
-                            //        exceptionHospital = r2.msg;
-                            //        excepitonResult = r2.ExceptionResult.ExceptionId;
-                            //    },
-                            //    error: function (Data) {
-
-                            //        //alert("Card Not Found");
-                            //    }
-
-                            //});
                             exceptionHospital = r.Exceptions;
                             $("#main_services").prop("disabled", false);
 
@@ -192,59 +170,59 @@ $(function () {
                                         var from = new Date(d1[2], parseInt(d1[1]) - 1, d1[0]);  // -1 because months are from 0 to 11
                                         var to = new Date(d2[2], parseInt(d2[1]) - 1, d2[0]);
 
-                                        if (from < to) {
+                                        //if (from < to) {
 
-                                            var com_Name = r.Data[0].C_ENAME;
-                                            if (r.Data[0].INS_START_DATE != null) {
-                                                var MyDate_String_Value = r.Data[0].INS_START_DATE;
-                                                var value = new Date
-                                                    (
-                                                        parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                                                    );
-                                                var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                                            } else {
-                                                dat = null;
-                                            }
-                                            if (r.Data[0].INS_END_DATE != null) {
-                                                //end date
-                                                var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
-                                                var value1 = new Date
-                                                    (
-                                                        parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
-                                                    );
-                                                var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
-                                            }
-                                            else {
-                                                dat1 = null;
-                                            }
-                                            CardId = r.Data[0].CARD_ID;
-                                            var ArName = r.Data[0].EMP_ANAME;
-                                            ///r[0].EMP_ENAME ;
-                                            ///dat ;
-                                            var EndDate = dat1;
-                                            var StartDate = dat2;
-                                            $('#txtSearchCard').val(CardId);
-                                            $('#compEmp_EMP_ANAME').val(ArName);
-                                            $('#compEmp_INS_END_DATE').val(EndDate);
-                                            $('#compEmp_INS_START_DATE').val(StartDate);
-                                            $("#contractComp_C_ANAME").val(com_Name);
-                                            $('#Con_Num').val(r.Data[0].CONTRACT_NO);
-                                            $('#Class_Code').val(r.Data[0].CLASS_CODE);
-                                            $('#Company_ID').val(r.Data[0].COMP_ID);
-
-                                            if (!$('#main_services').val()) {
-                                                // do something
-                                                $("#main_services").append('<option value="0"> اختر نوع الخدمه المطلوبه </option>' +
-                                                    '<option value="111">  عمليات  </option>' +
-                                                    '<option value="112"> عيادات خارجية  </option>' +
-                                                    '<option value="11104"> طوارئ  </option>');
-                                            }
-
-
+                                        var com_Name = r.Data[0].C_ENAME;
+                                        if (r.Data[0].INS_START_DATE != null) {
+                                            var MyDate_String_Value = r.Data[0].INS_START_DATE;
+                                            var value = new Date
+                                                (
+                                                    parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                );
+                                            var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                                        } else {
+                                            dat = null;
+                                        }
+                                        if (r.Data[0].INS_END_DATE != null) {
+                                            //end date
+                                            var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
+                                            var value1 = new Date
+                                                (
+                                                    parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                );
+                                            var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
                                         }
                                         else {
-                                            alert(' لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
+                                            dat1 = null;
                                         }
+                                        CardId = r.Data[0].CARD_ID;
+                                        var ArName = r.Data[0].EMP_ANAME;
+                                        ///r[0].EMP_ENAME ;
+                                        ///dat ;
+                                        var EndDate = dat1;
+                                        var StartDate = dat2;
+                                        $('#txtSearchCard').val(CardId);
+                                        $('#compEmp_EMP_ANAME').val(ArName);
+                                        $('#compEmp_INS_END_DATE').val(EndDate);
+                                        $('#compEmp_INS_START_DATE').val(StartDate);
+                                        $("#contractComp_C_ANAME").val(com_Name);
+                                        $('#Con_Num').val(r.Data[0].CONTRACT_NO);
+                                        $('#Class_Code').val(r.Data[0].CLASS_CODE);
+                                        $('#Company_ID').val(r.Data[0].COMP_ID);
+
+                                        if (!$('#main_services').val()) {
+                                            // do something
+                                            $("#main_services").append('<option value="0"> اختر نوع الخدمه المطلوبه </option>' +
+                                                '<option value="111">  عمليات  </option>' +
+                                                '<option value="112"> عيادات خارجية  </option>' +
+                                                '<option value="11104"> طوارئ  </option>');
+                                        }
+
+
+                                        //}
+                                        //else {
+                                        //    alert(' لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
+                                        //}
                                     }
 
                                 }
@@ -796,11 +774,11 @@ $(function () {
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url: '/Hospital/GetSer_Services',
+                    url: '/Hospital/CellingAmount',
                     data: {
-                        Services_id: 111,
-                        SubServiceCode: 11104,
-                        CardId: $('#txtSearchCard').val()
+                        //Services_id: 111,
+                        ServiceCode: 11104,
+                        id: $('#txtSearchCard').val()
                     },
                     success: function (r) {
                         //if (r.Validation == false) {
@@ -829,14 +807,22 @@ $(function () {
                                 exceptionHospital = r2.ExceptionResult;
                                 if (excepitonResult == "ok") {
                                     $(".celling-pert").val(0);
-                                    $("#Limit").val(r.max_am);
-                                    $("#max_amount0").val(r.max_am);
+                                    $("#Limit").val(r.Limit);
+                                    $("#max_amount0").val(r.Limit);
 
                                 }
                                 else {
-                                    $(".celling-pert").val(100 - r.celing);
-                                    $("#Limit").val(r.max_am);
-                                    $("#max_amount0").val(r.max_am);
+                                    if (r.Validation != false) {
+                                        $(".celling-pert").val(100 - r.CeilingPert);
+                                        $("#Limit").val(r.Limit);
+                                        $("#max_amount0").val(r.Limit);
+                                    }
+                                    else {
+                                        alert(r.Message);
+                                        $(".celling-pert").val(100 - r.CeilingPert);
+                                        $("#Limit").val(r.Limit);
+                                        $("#max_amount0").val(r.Limit);
+                                    }
                                 }
                                 $.ajax({
                                     type: "POST",
@@ -865,7 +851,7 @@ $(function () {
                             },
                             error: function (Data) {
 
-                                //alert("Card Not Found");
+                                alert("Card Not Found");
                             }
 
                         });
@@ -923,11 +909,11 @@ $(function () {
             $.ajax({
                 type: "POST",
                 dataType: "json",
-                url: '/Hospital/GetSer_Services',
+                url: '/Hospital/CellingAmount',
                 data: {
-                    Services_id: $("#main_services").val(),
-                    SubServiceCode: $("#Services").val(),
-                    CardId: $('#txtSearchCard').val()
+                    //Services_id: $("#main_services").val(),
+                    ServiceCode: $("#Services").val(),
+                    id: $('#txtSearchCard').val()
                 },
                 success: function (r) {
 
@@ -948,14 +934,24 @@ $(function () {
                             if (excepitonResult == "ok") {
                                 exceptionHospital = r2.ExceptionResult
                                 $(".celling-pert").val(0);
-                                $("#Limit").val(r.max_am);
-                                $("#max_amount0").val(r.max_am);
+                                $("#Limit").val(r.Limit);
+                                $("#max_amount0").val(r.Limit);
 
                             }
                             else {
-                                $(".celling-pert").val(100 - r.celing);
-                                $("#Limit").val(r.max_am);
-                                $("#max_amount0").val(r.max_am);
+                                if (r.Validation != false) {
+                                    $(".celling-pert").val(100 - r.CeilingPert);
+                                    $("#Limit").val(r.Limit);
+                                    $("#max_amount0").val(r.Limit);
+                                }
+                                else {
+                                    alert(r.Message);
+                                    $(".celling-pert").val(100 - r.CeilingPert);
+                                    $("#Limit").val(r.Limit);
+                                    $("#max_amount0").val(r.Limit);
+                                    $("#insurance_LIVEL").val(100);
+                                    $("#IsCash").val(1);
+                                }
                             }
 
 
@@ -1171,7 +1167,6 @@ $(function () {
         }
     });
     $('#ddlDiagnoises').on('select2:selecting', function (event) {
-        debugger;
         var price = parseFloat((event.params.args.data.id).split("|")[0]);
         var total = $("#txtTotal").val() == "" ? 0 : parseFloat($("#txtTotal").val());
         var result = total + price;
@@ -1180,7 +1175,6 @@ $(function () {
     });
 
     $('#ddlDiagnoises').on("select2:unselecting", function (event) {
-        debugger;
         var price = parseFloat((event.params.args.data.id).split("|")[0]);
         var total = $("#txtTotal").val() == "" ? 0 : parseFloat($("#txtTotal").val());
         var result = total - price;

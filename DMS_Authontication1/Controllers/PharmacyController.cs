@@ -291,6 +291,7 @@ namespace DMS_TEST.Controllers
                 double CeilingPert;
                 double MaxSubServiceAmount;
                 bool type = false;
+                //bool hasException = false;
                 var remainingconsumption = db.RemainConsumptions.Where(x => x.CARD_ID == id && x.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
                 if (remainingconsumption != null)
                 {
@@ -301,7 +302,21 @@ namespace DMS_TEST.Controllers
                     }
                     else
                     {
-                        return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                        var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
+                        if (accption == null)
+                        {
+                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
+                        }
+                        var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
+                        if (reasons != null)
+                        {
+                            CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value;
+                            type = true;
+                        }
+                        else
+                        {
+                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
+                        }
                     }
                 }
                 else
@@ -352,7 +367,7 @@ namespace DMS_TEST.Controllers
                 }
                 else
                 {
-                    Message = "Service is Not Coverted";
+                    Message = "هذه الخدمه غير مغطاه برجاء الرجوع للاداره الطبيه";
                     CeilingPert = 100;
                     MaxSubServiceAmount = 0;
                     return Json(new { Validation = false, Message = Message, Limit = 0, CeilingPert = 0 });
@@ -406,7 +421,8 @@ namespace DMS_TEST.Controllers
                 }
                 //polling
                 bool Validation = Limit > 0 ? true : false;
-                Message = Validation ? "Ok" : "Exceeded his annual contract limit";
+                Message = Validation ? "Ok" : "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد";
+                //Message = Validation ? "Ok" : "Exceeded his annual contract limit";
                 //Co-insurance
                 Co_Insurance_01 CoInsurancelimit2 = new Co_Insurance_01();
                 var CustemizedMedEmp = db.COMP_CUSTOMIZED_D_D_MED_EMP.Where(c => c.CARD_ID == emp.CARD_ID && c.C_COMP_ID == emp.C_COMP_ID
@@ -456,7 +472,7 @@ namespace DMS_TEST.Controllers
                         var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
                         if (accption == null)
                         {
-                            return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
                         }
                         var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                         if (reasons != null)
@@ -530,7 +546,7 @@ namespace DMS_TEST.Controllers
                             var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
                             if (accption == null)
                             {
-                                return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                                return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
                             }
                             var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                             if (reasons != null)
@@ -604,7 +620,24 @@ namespace DMS_TEST.Controllers
                     }
                     else
                     {
-                        return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                        var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
+                        if (accption == null)
+                        {
+                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
+                        }
+                        var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
+                        if (reasons != null)
+                        {
+                            var rosita = db.Roshitas.Where(r => r.Id == RoshitaId).FirstOrDefault();
+                            CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value + rosita.CompanyPayment;
+                            type = true;
+                            remainingconsumption.REMAINING = remainingconsumption.REMAINING.Value + rosita.CompanyPayment;
+
+                        }
+                        else
+                        {
+                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
+                        }
                     }
                 }
                 else
@@ -656,7 +689,7 @@ namespace DMS_TEST.Controllers
                 }
                 else
                 {
-                    Message = "Service is Not Coverted";
+                    Message = "هذه الخدمه غير مغطاه برجاء الرجوع للاداره الطبيه";
                     CeilingPert = 100;
                     MaxSubServiceAmount = 0;
                     return Json(new { Validation = false, Message = Message, Limit = 0, CeilingPert = 0 });
@@ -711,7 +744,7 @@ namespace DMS_TEST.Controllers
                 }
                 //polling
                 bool Validation = Limit > 0 ? true : false;
-                Message = Validation ? "Ok" : "Exceeded his annual contract limit";
+                Message = Validation ? "Ok" : "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد";
 
                 //approval ceiling
                 if (Validation == false)
@@ -719,7 +752,7 @@ namespace DMS_TEST.Controllers
                     var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
                     if (accption == null)
                     {
-                        return Json(new { Validation = false, Message = "Exceeded his annual contract limit", Limit = 0, CeilingPert = 0 });
+                        return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
                     }
                     var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                     if (reasons != null)
@@ -957,7 +990,7 @@ namespace DMS_TEST.Controllers
                 }
                 else
                 {
-                    Message = "Service is Not Coverted";
+                    Message = "هذه الخدمه غير مغطاه برجاء الرجوع للاداره الطبيه";
                     CeilingPert = 100;
                     MaxSubServiceAmount = 0;
                     return Json(new { Validation = false, Message = Message, Limit = 0, CeilingPert = 0 });
@@ -1218,7 +1251,7 @@ namespace DMS_TEST.Controllers
                 }
                 else
                 {
-                    Message = "Service is Not Coverted";
+                    Message = "هذه الخدمه غير مغطاه برجاء الرجوع للاداره الطبيه";
                     CeilingPert = 100;
                     MaxSubServiceAmount = 0;
                     return Json(new { Validation = false, Message = Message, Limit = 0, CeilingPert = 0 });

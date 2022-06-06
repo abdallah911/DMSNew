@@ -297,6 +297,7 @@
     <Compile Include="Controllers\ControlPanal\ProviderServicesPermissionsController.cs" />
     <Compile Include="Controllers\ControlPanal\RaysManagementController.cs" />
     <Compile Include="Controllers\DMSMembers\PatchsController.cs" />
+    <Compile Include="Controllers\DMSMembers\ConsumptionAdminController.cs" />
     <Compile Include="Controllers\DoctorApprovalsController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\DoctorPersonalDatasController.cs" />
@@ -8215,6 +8216,8 @@
     <Content Include="Views\PhysicalTherapy\_NEWSeesion.cshtml" />
     <Content Include="Views\PhysicalTherapy\_OLDSeession.cshtml" />
     <Content Include="Views\PhysicalTherapy\_PhysicalTherapy.cshtml" />
+    <Content Include="Views\ConsumptionAdmin\Index.cshtml" />
+    <Content Include="Reports\Consumption\ConsumptionofCard.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
