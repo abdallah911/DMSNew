@@ -819,6 +819,7 @@ $(function () {
                                     }
                                     else {
                                         alert(r.Message);
+                                        window.location.replace("/Hospital/Index");
                                         $(".celling-pert").val(100 - r.CeilingPert);
                                         $("#Limit").val(r.Limit);
                                         $("#max_amount0").val(r.Limit);
@@ -946,6 +947,7 @@ $(function () {
                                 }
                                 else {
                                     alert(r.Message);
+                                    window.location.replace("/Hospital/Index");
                                     $(".celling-pert").val(100 - r.CeilingPert);
                                     $("#Limit").val(r.Limit);
                                     $("#max_amount0").val(r.Limit);
@@ -1258,7 +1260,6 @@ function Accounting_Info() {
 }
 
 function PersonPayments() {
-    debugger;
     var Limit = parseFloat($("#max_amount0").val());
     var Total = parseFloat($("#txtTotal").val());
     var PatientPercent = $(".celling-pert").val();
