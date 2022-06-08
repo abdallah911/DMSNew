@@ -155,11 +155,22 @@ namespace DMS_Authontication1.Controllers
                 data.CreatedBy = User.Identity.Name;
             }
             data.CreatedDate = DateTime.Now;
-            db.Roshitas.Add(data);
-            //db.CardUseds.Remove(carduse);
             data.Manager = "Ray";
             data.RoshetaType = "11204";
+            db.Roshitas.Add(data);
+            //db.CardUseds.Remove(carduse);
 
+            if (data.CompanyPayment > 0)
+            {
+                var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == data.CardId)
+                    .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                if (remaining != null)
+                {
+                    remaining.REMAINING = remaining.REMAINING - data.CompanyPayment;
+                    remaining.NET = remaining.NET + data.CompanyPayment;
+                    db.Entry(remaining).State = EntityState.Modified;
+                }
+            }
             int result = db.SaveChanges();
             Session["id"] = data.Id;
             return Json("2" + data.CreatedDate.Value.ToString("ddMMyy") + data.Id);
@@ -277,6 +288,7 @@ namespace DMS_Authontication1.Controllers
             {
                 Flag = true;
                 var Roshta = db.Roshitas.Where(x => x.Id == emp.RoshitaID).FirstOrDefault();
+                double OldCompanyPayment = Roshta.CompanyPayment;
                 if (emp.PaymentGroup == "Accepted")
                 {
                     Roshta.TotalValue += emp.Amount;
@@ -325,7 +337,17 @@ namespace DMS_Authontication1.Controllers
                         Roshta.Cash += Roshta.PersonPayment;
 
                     }
-
+                    if ((Roshta.CompanyPayment - OldCompanyPayment) > 0)
+                    {
+                        var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == Roshta.CardId)
+                            .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                        if (remaining != null)
+                        {
+                            remaining.REMAINING = remaining.REMAINING - (Roshta.CompanyPayment - OldCompanyPayment);
+                            remaining.NET = remaining.NET + (Roshta.CompanyPayment - OldCompanyPayment);
+                            db.Entry(remaining).State = EntityState.Modified;
+                        }
+                    }
 
                     // Roshta.CompanyPayment += emp.Amount * (Convert.ToDouble(Roshta.CompanyPercent) / 100);
                     // Roshta.PersonPayment += emp.Amount * (Convert.ToDouble((100 - Roshta.CompanyPercent)) / 100);
@@ -579,6 +601,17 @@ namespace DMS_Authontication1.Controllers
                 roshta.UpdatedBy = User.Identity.Name;
                 roshta.UpdatedDate = DateTime.Now;
                 db.Entry(roshta).State = EntityState.Modified;
+                if (roshta.CompanyPayment > 0)
+                {
+                    var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshta.CardId)
+                        .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    if (remaining != null)
+                    {
+                        remaining.REMAINING = remaining.REMAINING + roshta.CompanyPayment;
+                        remaining.NET = remaining.NET - roshta.CompanyPayment;
+                        db.Entry(remaining).State = EntityState.Modified;
+                    }
+                }
                 db.SaveChanges();
                 return Json(new { ok = true, data = db.SaveChanges(), message = "ok" }, JsonRequestBehavior.AllowGet);
             }
@@ -857,6 +890,16 @@ namespace DMS_Authontication1.Controllers
             try
             {
                 db.Roshitas.Add(roshita1);
+
+                var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshita1.CardId)
+                    .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                if (remaining != null)
+                {
+                    remaining.REMAINING = (remaining.REMAINING + roshita.CompanyPayment) - roshita1.CompanyPayment;
+                    remaining.NET = (remaining.NET - roshita.CompanyPayment) + roshita1.CompanyPayment;
+                    db.Entry(remaining).State = EntityState.Modified;
+                }
+
                 int result = db.SaveChanges();
 
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita1.Id);

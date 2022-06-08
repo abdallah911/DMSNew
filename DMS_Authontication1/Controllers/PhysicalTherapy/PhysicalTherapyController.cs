@@ -17,11 +17,11 @@ using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 
-namespace DMS_Authontication1.Controllers.HospitalSystem
+namespace DMS_Authontication1.Controllers.PhysicalTherapy
 {
     [Authorize(Roles = "Admin,Hospital,HR,User,HR_Admin")]
     [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-    public class HospitalController : Controller
+    public class PhysicalTherapyController : Controller
     {
 
         #region Fields
@@ -36,7 +36,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
         #region Ctor
 
-        public HospitalController()
+        public PhysicalTherapyController()
         {
             db = new DMS_TESTEntities();
             myEntities = new ApplicationDbContext();
@@ -65,18 +65,35 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
         /// <returns> hospital view </returns>
         public ActionResult Index()
         {
-            // System.Data.SqlClient.SqlParameter[] @params =
-            //{
-            //   new System.Data.SqlClient.SqlParameter("@return_value", 0) {Direction = System.Data.ParameterDirection.Output}
-            // };
-            // var a = db.Database.ExecuteSqlCommand("exec @return_value = [dbo].[DB_A45413_DMSERP].[spGetNextClaimNO]", @params);
-
-            // var result = @params[0].Value;
-
+            NotificationHub objNotifHub = new NotificationHub();
+            objNotifHub.SendMessages();
+            Session.Clear();
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.ddlUsers = new SelectList(myEntities.Users.Where(x => x.Type == "Physical Therapy" || x.Type == "Admin").ToList(), "UserName", "UserName", User.Identity.Name);
+            }
             var HrUserNamre = User.Identity.GetUserName();
-            ViewBag.SpecialitySelect = new SelectList(db.Specialities1, "SPEC_ID", "SPEC_ANAME");
             ViewBag.Provider = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
             return View();
+        }
+
+        public ActionResult PhysicalTherapyView()
+        {
+            return PartialView("~/Views/PhysicalTherapy/_PhysicalTherapy.cshtml");
+        }
+
+        //Seession View
+        public ActionResult NEW()
+        {
+            return PartialView("~/Views/PhysicalTherapy/_NEWSeesion.cshtml");
+        }
+        public ActionResult OLD()
+        {
+            return PartialView("~/Views/PhysicalTherapy/_OldSeession.cshtml");
+        }
+        public ActionResult Extend()
+        {
+            return PartialView("~/Views/PhysicalTherapy/_ExtendSeession.cshtml");
         }
 
         /// <summary>
@@ -231,73 +248,6 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
         #region Helper Methods
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"> Card Id </param>
-        /// <param name="provider"> provider code for the hospital </param>
-        /// <returns> Employee data if founded and have contract </returns>
-        public JsonResult AddCard(string id, int provider)
-        {
-            DateTime datenow = DateTime.Now.Date;
-            var da = new DateTime(datenow.Year, datenow.Month, datenow.Day);
-            var employe = db.Comp_Employees.Where(e => e.CARD_ID == id &&
-                            da >= e.INS_START_DATE && da <= e.INS_END_DATE)
-                           .OrderByDescending(e => e.CONTRACT_NO).FirstOrDefault();
-            
-            if (employe == null)
-            {
-                var result = new { Success = "برجاء التأكد من الرقم الطبي وفي حاله استمرار المشكله ارسال صوره البطاقه علي رقم 01205566050 " };
-                return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            }
-            else
-            {
-                int compID = Convert.ToInt32(id.Split('-')[0].ToString());
-                int Provider_Level = Convert.ToInt32(db.SERV_PROVIDERS_NEW.Where(s => s.PR_CODE == provider).FirstOrDefault().PROV_DEGREE);
-                int HOSPITAL_DEGREE = Convert.ToInt32(db.CompContractClasses.Where(c => c.C_COMP_ID == compID
-                                   && c.CONTRACT_NO == employe.CONTRACT_NO && c.CLASS_CODE == employe.CLASS_CODE)
-                                   .FirstOrDefault().COVER_RELATION);
-                var C_ENAME2 = db.Contract_Comp.Where(c => c.C_COMP_ID == compID).FirstOrDefault().C_ENAME;
-                List<EmployeeHospitalVM> EmployeeVM = new List<EmployeeHospitalVM>();
-                EmployeeVM.Add(new EmployeeHospitalVM
-                {
-
-                    EMP_ANAME = employe.EMP_ANAME_ST + " " + employe.EMP_ANAME_SC + " " + employe.EMP_ANAME_TH,
-                    EMP_ENAME = employe.EMP_ENAME_ST + " " + employe.EMP_ENAME_SC + " " + employe.EMP_ENAME_TH,
-                    INS_START_DATE = employe.INS_START_DATE,
-                    INS_END_DATE = employe.INS_END_DATE,
-                    TERMINATE_DATE = DateTime.Now,
-                    TERMINATE_FLAG = employe.TERMINATE_FLAG,
-                    CLASS_CODE = employe.CLASS_CODE,
-                    COMP_ID = compID,
-                    CONTRACT_NO = employe.CONTRACT_NO,
-                    C_ENAME = C_ENAME2,
-                    CARD_ID = id,
-                    Provider_Level = Provider_Level,
-                    Now = DateTime.Now,
-                    HOSPITAL_DEGREE = HOSPITAL_DEGREE
-                });
-                var exception = (from a in db.Acceptions
-                                 join c in db.CardAcceptionReasons on a.Id equals c.AcceptionId
-                                 where (a.ProvidersId == 2 && a.AcceptionFlag == true
-                                 && a.CompEmployeesId == employe.Id && c.AcceptionReasonsId == 8)
-                                 select new
-                                 {
-                                     ExceptionId = a.Id
-                                 }).Select(x => x.ExceptionId).FirstOrDefault();
-                if (exception != 0)
-                {
-                    string message = "ok";
-                    var result1 = new { Success = "True", Data = EmployeeVM, Exceptions = exception, messages = message };
-                    return new JsonResult { Data = result1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
-                }
-                var result = new { Success = "True", Data = EmployeeVM, Exceptions = exception, messages = "no" };
-                return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
-
-            }
-        }
 
         public JsonResult GetExceptions(string cardID, int exceptionReasonId)
         {
@@ -632,14 +582,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             {
                 msg = " لا يمكن تقديم الخدمة لهذا الموظف حيث ان الخدمة غير مغطاة وسوف يتحمل المريض اجمالى قيمة الخدمة نقدا  ";
             }
-            if (Services_id == "11204")
-            {
-                Specialists = db.SERVICES1.Where(x => x.SERV_CODE.Contains("11204")).Select(x => new SERV_PROVIDERS
-                {
-                    PR_CODE = x.SERV_CODE,
-                    PR_ANAME = x.SERV_ANAME
-                }).ToList();
-            }
+
             #region old services
             //switch (Services_id)
             //{
@@ -712,53 +655,6 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
 
         }
-
-
-        //public JsonResult GetSpecialityList(  int sEcho = 1, int iDisplayStart = 0, int iDisplayLength = 24, string sSearch = "")
-        //{
-        //        if (sSearch != null)
-        //        {
-        //            sSearch = sSearch.ToLower();
-        //            var result = new
-        //            {
-        //                sEcho = sEcho,
-        //                aaData = db.Specialities1.Where(s => s.MainServiceCode.StartsWith(Services_id) &&
-        //                (s.HospitalCode == Provider || s.HospitalCode == "0") && (s.MainServiceCode.StartsWith(sSearch) ||
-        //                s.ServiceArName.Contains(sSearch) || s.ServiceEnName.Contains(sSearch))).OrderBy(m => m.MainServiceCode)
-        //                .Select(se =>
-        //                       new HospitalServices
-        //                       {
-        //                           Price = se.Price == null ? "0 | " + se.Id : se.Price.ToString() + " | " + se.Id,
-        //                           ServiceName = se.ServiceArName
-        //                       }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
-
-        //                iTotalRecords = db.Specialities1.Count(),
-        //                iTotalDisplayRecords = db.Specialities1.Count()
-        //            };
-        //            return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        //        }
-        //        else
-        //        {
-        //            var result = new
-        //            {
-        //                sEcho = sEcho,
-        //                aaData = db.Specialities1.AsEnumerable().Select(se =>
-        //                       new Specialities1
-        //                       {
-        //                           SPEC_ID = se.SPEC_ID,
-        //                           SPEC_ANAME = se.SPEC_ANAME
-        //                       }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
-        //                iTotalRecords = db.Specialities1.Count(),
-        //                iTotalDisplayRecords = db.Specialities1.Count()
-        //            };
-        //            return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        //        }
-
-
-        //    }
-
-
-
 
         public JsonResult Get_Specialist2(string Provider, string Services_id, string cardID, int ContractNum, string ClassCode, int sEcho = 1, int iDisplayStart = 0, int iDisplayLength = 24, string sSearch = "")
         {
@@ -866,9 +762,6 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
 
         }
-
-
-
 
         /// <summary>
         /// 
@@ -1096,8 +989,6 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
         }
 
-
-
         public JsonResult GetSer_Services(int Services_id, string SubServiceCode, string CardId)
         {
             double Celling_Pert = 0;
@@ -1108,11 +999,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             var claim = db.HospitalClaims.Where(h => h.CARD_ID == CardId && h.CONTRACT_NO == emp.CONTRACT_NO && h.IsDeleted == false).ToList();
             double ConsServe = 0;
             double SumAllOfServ = 0;
-            string MainService = "";
-            if (Services_id == 11204)
-                MainService = Services_id.ToString().Substring(0, 3);
-            else
-                MainService = SubServiceCode.Substring(0, 3);
+            string MainService = SubServiceCode.Substring(0, 3);
             Services_id = int.Parse(MainService);
             if (claim.Count > 0)
             {
@@ -1288,175 +1175,5 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
         #endregion
 
-        #region Celling
-
-        public JsonResult CellingAmount(string id, string ServiceCode)
-        {
-            string Message = "";
-            int _IntServiceCode = Convert.ToInt32(ServiceCode);
-            string _CompId = id.Split('-')[0];
-            string MainService = ServiceCode.Substring(0, 3);
-            DateTime datenow = DateTime.Now.Date;
-            var CurrentDate = new DateTime(datenow.Year, datenow.Month, datenow.Day);
-            //var CurrentDate = DateTime.Now.Date;
-            Comp_Employees emp = new Comp_Employees();
-            emp = db.Comp_Employees.Where(c => c.CARD_ID == id && c.INS_START_DATE <= CurrentDate && c.INS_END_DATE >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-
-            if (emp != null)
-            {
-                double CompContractClassMAX_AMOUNT = 0;
-                double MaxServiceAmount = 0;
-                double CeilingPert;
-                double MaxSubServiceAmount;
-                bool type = false;
-                var remainingconsumption = db.RemainConsumptions.Where(x => x.CARD_ID == id && x.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
-                if (remainingconsumption != null)
-                {
-                    if (remainingconsumption.REMAINING >= 0)
-                    {
-                        CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value;
-                        type = true;
-                    }
-                    else
-                    {
-                        var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
-                        if (accption == null)
-                        {
-                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
-                        }
-                        var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
-                        if (reasons != null)
-                        {
-                            CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value;
-                            type = true;
-                        }
-                        else
-                        {
-                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
-                        }
-                    }
-                }
-                else
-                {
-                    var CompContractClassEmp = db.CompContractClassEmps.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.CARD_ID == id).FirstOrDefault();
-                    if (CompContractClassEmp == null)
-                    {
-                        var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
-                        CompContractClassMAX_AMOUNT = Convert.ToDouble(classLimit.MAX_AMOUNT * 0.85);
-                    }
-                    else
-                    {
-                        CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
-                    }
-                    type = false;
-                }
-
-                var DataService1 = new Comp_Customized_D_D();
-                var DataService = db.Comp_Customized_D_D_Emp.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.SER_SERV == ServiceCode && c.CARD_ID == id).FirstOrDefault();
-                if (DataService != null)
-                {
-                    var max_serv = db.COMP_CUSTOMIZED_D_EMP.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.D_SERV_CODE == MainService && c.CARD_ID == id).FirstOrDefault();
-                    MaxServiceAmount = (max_serv == null || max_serv.CEILING_AMT == null) ? Convert.ToDouble(CompContractClassMAX_AMOUNT) : Convert.ToDouble(max_serv.CEILING_AMT);
-
-                }
-                else if (DataService == null)
-                {
-                    DataService1 = db.Comp_Customized_D_D.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.SER_SERV == ServiceCode).FirstOrDefault();
-                    if (DataService1 != null)
-                    {
-                        var max_serv = db.COMP_CUSTOMIZED_D.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.CLASS_CODE == emp.CLASS_CODE && c.D_SERV_CODE == MainService).FirstOrDefault();
-                        MaxServiceAmount = (max_serv == null || max_serv.CEILING_AMT == null) ? Convert.ToDouble(CompContractClassMAX_AMOUNT) : Convert.ToDouble(max_serv.CEILING_AMT);
-
-                    }
-
-                }
-                //Ceiling pert
-                if (DataService != null)
-                {
-                    CeilingPert = DataService.CEILING_PERT != null ? Convert.ToDouble(DataService.CEILING_PERT) : 100;
-                    MaxSubServiceAmount = (DataService.CEILING_AMT == null) ? MaxServiceAmount : Convert.ToDouble(DataService.CEILING_AMT);
-
-                }
-                else if (DataService1 != null)
-                {
-                    CeilingPert = DataService1.CEILING_PERT != null ? Convert.ToDouble(DataService1.CEILING_PERT) : 100;
-                    MaxSubServiceAmount = (DataService1.CEILING_AMT == null) ? MaxServiceAmount : Convert.ToDouble(DataService1.CEILING_AMT);
-                }
-                else
-                {
-                    Message = "هذه الخدمه غير مغطاه برجاء الرجوع للاداره الطبيه";
-                    CeilingPert = 100;
-                    MaxSubServiceAmount = 0;
-                    return Json(new { Validation = false, Message = Message, Limit = 0, CeilingPert = 0 });
-
-                }
-                double Available = 0;
-                double Limit = 0;
-                List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
-                     && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
-                if (type == true)
-                {
-                    Available = CompContractClassMAX_AMOUNT;
-
-                }
-                else
-                {
-                    //Main consumption
-                    double AcumlatorAmount = 0;
-                    foreach (var item in AcumlatorList)
-                    {
-                        AcumlatorAmount += item.CompanyPayment;
-                    }
-                    Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
-                }
-                if (remainingconsumption != null && remainingconsumption.REMAINING != null &&
-                    (remainingconsumption.REMAINING == Available))
-                {
-                    Limit = Available;
-                }
-                else
-                {
-                    //Service consumption
-                    List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
-                    double AcumlatorServiceAmount = 0;
-                    foreach (var item in AcumlatorServiceList)
-                    {
-                        AcumlatorServiceAmount += item.CompanyPayment;
-                    }
-                    double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
-                    //SubService consumption
-                    List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
-                    double AcumlatorSubServiceAmount = 0;
-                    foreach (var item in AcumlatorSubServiceList)
-                    {
-                        AcumlatorSubServiceAmount += item.CompanyPayment;
-                    }
-                    double SubServiceAvailable = (MaxSubServiceAmount - AcumlatorSubServiceAmount) < 0 ? 0 : MaxSubServiceAmount - AcumlatorSubServiceAmount;
-                    //limit
-                    Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
-                    Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
-                }
-                //polling
-                bool Validation = Limit > 0 ? true : false;
-                Message = Validation ? "Ok" : "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد";
-                //Message = Validation ? "Ok" : "Exceeded his annual contract limit";
-                //approval ceiling
-                if (Validation == false)
-                {
-                    return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
-
-                }
-                return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert });
-
-            }
-            else
-            {
-                return Json(new { Validation = false, Message = "Employee contract issue ,you can call operation department", Limit = 0, CeilingPert = 0 });
-
-            }
-
-        }
-
-        #endregion
     }
 }

@@ -53,7 +53,11 @@ namespace DMS_Authontication1.Controllers.ControlPanal
         {
             if (User.IsInRole("Admin"))
             {
-                ViewBag.provider = new SelectList(db.Serv_Providers1.Where(x => x.PRV_TYPE == 4).ToList(), "PR_CODE", "PR_ENAME");
+                ViewBag.provider = new SelectList(db.Serv_Providers1.Where(x => x.PRV_TYPE == 4).Select(x => new
+                {
+                    PR_CODE = x.PR_CODE,
+                    PR_ENAME = x.PR_CODE + "||" + x.PR_ENAME
+                }).ToList(), "PR_CODE", "PR_ENAME");
                 List<SelectListItem> list = new List<SelectListItem>();
                 list.Add(new SelectListItem() { Value = "YES", Text = "YES" });
                 list.Add(new SelectListItem() { Value = "NO", Text = "NO" });
@@ -74,7 +78,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
         {
             if (ModelState.IsValid)
             {
-               // var maxcode = db.Serv_Ray.Where(x => x.LAB_CODE == serv_Ray.LAB_CODE).ToList();
+                // var maxcode = db.Serv_Ray.Where(x => x.LAB_CODE == serv_Ray.LAB_CODE).ToList();
                 var user = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
                 long userProvider = Convert.ToInt64(user.Provider);
                 if (!User.IsInRole("Admin"))
@@ -85,7 +89,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                     serv_Ray.PR_ANAME = "";
                 }
                 serv_Ray.GRUOP_NAME = db.Group_Ray.FirstOrDefault(x => x.Group_Id == serv_Ray.GRUOP_ID).Group_Name;
-                
+
                 if (db.Serv_Ray.Where(x => x.LAB_CODE == serv_Ray.LAB_CODE && x.SERV_CODE == serv_Ray.SERV_CODE).ToList().Count != 0)
                 {
                     if (User.IsInRole("Admin"))

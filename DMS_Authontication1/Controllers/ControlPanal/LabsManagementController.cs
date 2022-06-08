@@ -54,7 +54,11 @@ namespace DMS_Authontication1.Controllers.ControlPanal
         {
             if (User.IsInRole("Admin"))
             {
-                ViewBag.provider = new SelectList(db.Serv_Providers1.Where(x => x.PRV_TYPE == 3).ToList(), "PR_CODE", "PR_ENAME");
+                ViewBag.provider = new SelectList(db.Serv_Providers1.Where(x => x.PRV_TYPE == 3).Select(x=>new
+                {
+                    PR_CODE=x.PR_CODE,
+                    PR_ENAME=x.PR_CODE+"||"+x.PR_ENAME
+                }).ToList(), "PR_CODE", "PR_ENAME");
                 List<SelectListItem> list = new List<SelectListItem>();
                 list.Add(new SelectListItem() { Value = "YES", Text = "YES" });
                 list.Add(new SelectListItem() { Value = "NO", Text = "NO" });

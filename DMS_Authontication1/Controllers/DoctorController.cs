@@ -351,6 +351,17 @@ namespace DMS_TEST.Controllers
             }
             try
             {
+                if (roshita.CompanyPayment > 0)
+                {
+                    var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshita.CardId)
+                        .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    if (remaining != null)
+                    {
+                        remaining.REMAINING = remaining.REMAINING - roshita.CompanyPayment;
+                        remaining.NET = remaining.NET + roshita.CompanyPayment;
+                        db.Entry(remaining).State = EntityState.Modified;
+                    }
+                }
                 int result = db.SaveChanges();
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita.Id);
 

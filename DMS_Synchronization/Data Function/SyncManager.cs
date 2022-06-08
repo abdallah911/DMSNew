@@ -396,6 +396,7 @@ namespace DMS_Synchronization
                 _currenctConnectionString = connectionSettings.SQlConnection;
 
                 CLOSE_EMP_DATASyncToSqlTable();
+                SyncToSqlTable<REMAIN_CONSUMATION>(StringHelper.GetQyertREMAIN_CONSUMATION, StringHelper.GetTableNameREMAIN_CONSUMATION);
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED);
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED_EMP>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED_EMP, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED_EMP);
 
@@ -452,6 +453,7 @@ namespace DMS_Synchronization
 
                 #region Update DMS TEST
 
+                UpdateSqlTable<REMAIN_CONSUMATION>(StringHelper.GetUpdateQyertREMAIN_CONSUMATION, StringHelper.GetTableNameREMAIN_CONSUMATION, "RemainConsumption");
                 UpdateSqlTable<COMP_CUSTOMIZED_D_D_MED>(StringHelper.GetUpdateQyertCOMP_CUSTOMIZED_D_D_MED, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED, "COMP_CUSTOMIZED_D_D_MED");
                 UpdateSqlTable<COMP_CUSTOMIZED_D_D_MED_EMP>(StringHelper.GetUpdateQyertCOMP_CUSTOMIZED_D_D_MED_EMP, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED_EMP, "COMP_CUSTOMIZED_D_D_MED_EMP");
                 UpdateSqlTable<DMS_02_EMP_D_ENT_MAN>(StringHelper.GetUpdateQyertDMS_02_EMP_D_ENT_MAN, StringHelper.GetTableNameDMS_02_EMP_D_ENT_MAN, "DMS_02_EMP_D_ENT_MAN");
@@ -914,7 +916,7 @@ namespace DMS_Synchronization
             }
             else if (tableName == "APP.SERV_PROVIDERS_NEW" || tableName == "APP.POLL_DATA_PREX" || tableName == "APP.POLL_DATA_EXCEPTIONS"
                 || tableName == "APP.POLL_DATA_DIAG" || tableName == "APP.POLL_DATA_CHRONIC" || tableName == "APP.POLL_AMOUNT_CARD"
-                || tableName == "APP.COMP_CUSTOMIZED_D_D_MED" || tableName == "APP.COMP_CUSTOMIZED_D_D_MED_EMP")
+                || tableName == "APP.COMP_CUSTOMIZED_D_D_MED" || tableName == "APP.COMP_CUSTOMIZED_D_D_MED_EMP" || tableName == "APP.REMAIN_CONSUMATION")
             {
                 conn = _connectionSettings.OrcaleConnectionApp;
             }
@@ -1085,6 +1087,9 @@ namespace DMS_Synchronization
                                      + ORACLEdatatable.Rows[i][3] + " AND CLASS_CODE='" + ORACLEdatatable.Rows[i][4] + "' AND " +
                                     " CARD_ID='" + ORACLEdatatable.Rows[i][5] + "'";
                                 break;
+                            case "RemainConsumption":
+                                UpdateQuery = UpdateQuery + " WHERE CARD_ID='" + ORACLEdatatable.Rows[i][0] + "'";
+                                break;
                             #endregion
                             case "PollDataPreX":
                                 UpdateQuery = UpdateQuery + " WHERE POLL_CODE=" + ORACLEdatatable.Rows[i][0] + " AND PREX_CODE=" +
@@ -1191,7 +1196,7 @@ namespace DMS_Synchronization
                 || tableName == "APP.POLL_PERCENT_CARD" || tableName == "APP.POLL_AMOUNT" || tableName == "APP.POLL_AMOUNT_CARD"
                 || tableName == "APP.POLL_DATA_CHRONIC" || tableName == "APP.POLL_DATA_DIAG" || tableName == "APP.POLL_DATA_EXCEPTIONS"
                 || tableName == "APP.POLL_DATA_PREX" || tableName == "APP.COMP_CUSTOMIZED_D_D_MED_EMP"
-                || tableName == "APP.COMP_CUSTOMIZED_D_D_MED")
+                || tableName == "APP.COMP_CUSTOMIZED_D_D_MED" || tableName == "APP.REMAIN_CONSUMATION")
             {
                 conn = _connectionSettings.OrcaleConnectionApp;
             }
@@ -1286,6 +1291,9 @@ namespace DMS_Synchronization
 
                             case "SER_PROV_DISC_SQL":
                                 SqlTableName = "Ser_Prov_Disc";
+                                break;
+                            case "REMAIN_CONSUMATION":
+                                SqlTableName = "RemainConsumption";
                                 break;
                             //case "DMS_02_EMP_D_ENT_MAN":
                             //    SqlTableName = "DMS_02_EMP_D_ENT_MAN3";
@@ -2718,7 +2726,7 @@ namespace DMS_Synchronization
                         var CastData = SyncData.Cast<DMS_02_EMP_D_ENT_MAN>().ToList();
                         foreach (var item in CastData)
                         {
-                            switch(item.MANAGER)
+                            switch (item.MANAGER)
                             {
                                 case "YES":
                                 case "MON":
@@ -2758,7 +2766,7 @@ namespace DMS_Synchronization
                                         item.Gross = item.TOT_DISC_EXP;
                                         item.PersonPayment = item.PERCENT_MONY_M;
                                         item.OverInsurance = item.OVER_INSURANCE;
-                                        if (item.DISC_TYPE_LOC==9||item.DISC_TYPE_LOC==15)
+                                        if (item.DISC_TYPE_LOC == 9 || item.DISC_TYPE_LOC == 15)
                                         {
                                             item.Net = item.MAN_TOT;
                                             item.TotalDiscount = item.Gross - item.Net - item.PERCENT_MONY_M; ;
@@ -2768,11 +2776,11 @@ namespace DMS_Synchronization
                                             item.Net = item.Gross - item.OVER_INSURANCE - item.PERCENT_MONY_M;
                                             item.TotalDiscount = item.Gross - item.Net;
                                         }
-                                        
+
                                     }
                                     else
                                     {
-                                        item.Gross = item.TOT_DISC_EXP*1.5;
+                                        item.Gross = item.TOT_DISC_EXP * 1.5;
                                         item.PersonPayment = item.PERCENT_MONY_M;
                                         item.OverInsurance = item.OVER_INSURANCE;
                                         item.TotalDiscount = item.TOT_DISC_EXP * 0.15;
@@ -2788,7 +2796,7 @@ namespace DMS_Synchronization
                             {
                                 case "YES":
                                     item.MANAGER = "Daily_Manual";
-                                    
+
                                     break;
                                 case "MON":
                                     item.MANAGER = "Pharmacy_Chronic_Manual";
