@@ -138,6 +138,7 @@ namespace DMS_Synchronization.ViewModels
 
         public static string GetUpdateQyertDMS_02_EMP_D_ENT_MAN = "SELECT * FROM SH_01.DMS_02_EMP_D_ENT_MAN WHERE SYNC_BY = 'UPDATE' AND IS_SYNC=1";
         public static string GetUpdateQyertCOMP_CUSTOMIZED_D_D_MED = "SELECT * FROM APP.COMP_CUSTOMIZED_D_D_MED WHERE SYNC_BY = 'UPDATE' AND IS_SYNC=1";
+        public static string GetUpdateQyertREMAIN_CONSUMATION = "SELECT * FROM APP.REMAIN_CONSUMATION WHERE SYNC_BY = 'UPDATE' AND IS_SYNC=1";
         public static string GetUpdateQyertCOMP_CUSTOMIZED_D_D_MED_EMP = "SELECT * FROM APP.COMP_CUSTOMIZED_D_D_MED_EMP WHERE SYNC_BY = 'UPDATE' AND IS_SYNC=1";
 
         public static string GetUpdateQyertCONTRACT_DATA = "SELECT * FROM DMS_TEST.CONTRACT_DATA WHERE SYNC_BY = 'UPDATE' AND IS_SYNC=1";

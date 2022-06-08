@@ -200,8 +200,6 @@ namespace DMS_TEST.Controllers
             data.Speciality = DoctorChronicRoshita.Speciality;
             data.RoshetaType = "11602";
             data.Manager = "Pharmacy_Chronic";
-
-
             //Roshita
             Roshita roshita = new Roshita()
             {
@@ -226,7 +224,17 @@ namespace DMS_TEST.Controllers
                 SyncDate = null,
                 SyncBy = null
             };
-
+            if (roshita.CompanyPayment > 0)
+            {
+                var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshita.CardId)
+                    .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                if (remaining != null)
+                {
+                    remaining.REMAINING = remaining.REMAINING - roshita.CompanyPayment;
+                    remaining.NET = remaining.NET + roshita.CompanyPayment;
+                    db.Entry(remaining).State = EntityState.Modified;
+                }
+            }
             db.Roshitas.Add(roshita);
             //db.CardUseds.Remove(carduse);
             db.SaveChanges();

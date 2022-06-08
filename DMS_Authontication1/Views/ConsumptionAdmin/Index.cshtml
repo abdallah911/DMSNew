@@ -1,0 +1,127 @@
+﻿@using Microsoft.AspNet.Identity;
+@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    if (User.IsInRole("Admin"))
+    {
+
+        var modellist = new List<ModulesPagesViewModel>();
+        var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+        if (claim != null)
+        {
+            modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+            if (modellist != null)
+            {
+                var obj = modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 50 && (x.FullControl || x.EditPermission
+                                              || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+                if (obj != null)
+                {
+                    edit = obj.EditPermission;
+                    delete = obj.ActivationControl;
+                    view = obj.Preview;
+                    fullcontroll = obj.FullControl;
+
+                }
+            }
+        }
+
+    }
+    ViewBag.Title = "Index";
+}
+@if (User.IsInRole("Admin") && (edit || delete || view || fullcontroll))
+{
+
+    <div class="portlet box  green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i>Admin Search
+            </div>
+        </div>
+        <div class="portlet-body">
+            <input id="edit" value="@edit.ToString()" hidden />
+            <input id="delete" value="@delete.ToString()" hidden />
+            <input id="view" value="@view.ToString()" hidden />
+            <input id="fullcontroll" value="@fullcontroll.ToString()" hidden />
+
+            <div class="row" style="padding-bottom: 15px;">
+                <div class="col-md-3">
+                    <input id="AdminFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                </div>
+                <div class="col-md-3">
+                    <input id="AdminTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                </div>
+                <div class="col-md-3">
+                    <select id="CardId" class="js-data-example-ajax" style="width: 100%"></select>
+
+                    @*<input id="CardId" type="text" class="col-md-2 form-control " placeholder="Card ID" />*@
+                </div>
+
+            </div>
+            <div class="row">
+
+            </div>
+            <div style=" text-align:right">
+                <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
+                <input id="Print" type="button" value="Print" class="btn btn-success fa-file-excel-o " />
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+    $(function () {
+        // bootbox.alert("نحيط علم سيادتكم بان سيكون هناك بعد التحديثات ع الصفحه من الساعه الثالثه مساءا الى الساعه الرابعه مساءا ");
+        $('#CardId').select2({
+            placeholder: 'Search for a cards',
+            minimumInputLength: 5,
+            ajax: {
+                url: '/EmployeeRequest/GetActiveEmployess/',
+                delay: 250,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+                    return query;
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+
+                    return {
+                        results: data,//.results,
+                        pagination: {
+                            more: (params.page * 10) < data.count_filtered
+                        }
+                    };
+                }
+                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+            }
+        });
+        $('#AdminFrom').datepicker({ maxDate: 0 });
+        $('#AdminTo').datepicker({ maxDate: 0 });
+        $('#Print').click(function () {
+            var From = $('#AdminFrom').val();
+            var To = $('#AdminTo').val();
+            var cardid = $('#CardId').val();
+            if (From != "" && To != "" && cardid != "") {
+                window.open('/ConsumptionAdmin/PrintConsumption?from=' + From + '&&to=' + To + '&&CardId=' + cardid);
+            } else {
+                toastr.info('select date first and Card Id')
+            }
+
+        });
+    });
+    function ClearSearchData() {
+        $("#AdminFrom").val("");
+        $("#AdminTo").val("");
+        $("#CardId").val(null).trigger('change');
+    }
+</script>

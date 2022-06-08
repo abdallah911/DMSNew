@@ -659,7 +659,7 @@ function FirstCalculation() {
             $('#Credit').val(credit);
             $('#OverInsurance').val((total - CurrentLimit - parseFloat($('#CoPayment').val())).toFixed(2));
         }
-        else if ((CurrentLimit * (co / 100)) > (ValueCredit)||co==0) {
+        else if ((CurrentLimit * (co / 100)) > (ValueCredit) || co == 0) {
             $('#Credit').val(((total * (co / 100)) + sumNoPay).toFixed(2));
             $('#CoPayment').val((total * (person / 100)).toFixed(2));
         }
