@@ -75,21 +75,21 @@ $(function () {
                     firstDate = new Date(parseFloat(r[0].INS_END_DATE.replace(/(^.*\()|([+-].*$)/g, '')));
                     diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
                     var EndDate = dat1;
-                    var today = new Date();
-                    var dd = today.getDate();
-                    var mm = today.getMonth(); //January is 0!
-                    var yyyy = today.getFullYear();
-                    var CurrentDate = new Date(yyyy, mm, dd);
-                    if (EndDate != "") {
-                        newDate = EndDate.split('/').reverse().join('.');
-                    } else {
-                        newDate = "";
-                    }
+                    //var today = new Date();
+                    //var dd = today.getDate();
+                    //var mm = today.getMonth(); //January is 0!
+                    //var yyyy = today.getFullYear();
+                    //var CurrentDate = new Date(yyyy, mm, dd);
+                    //if (EndDate != "") {
+                    //    newDate = EndDate.split('/').reverse().join('.');
+                    //} else {
+                    //    newDate = "";
+                    //}
 
-                    var date = new Date(newDate);
+                    //var date = new Date(newDate);
                     // today = mm + '/' + dd + '/' + yyyy;
-
-                    if (date > CurrentDate || newDate == "null") {
+                    
+                    //if (date > CurrentDate || newDate == "null") {
                         $('#txtSearchCard').val(CardId);
                         $('#compEmp_EMP_ANAME').val(ArName);
                         $('#compEmp_INS_END_DATE').val(EndDate);
@@ -218,27 +218,27 @@ $(function () {
 
                             }
                         });
-                    }
-                    else {
-                        bootbox.dialog({
-                            title: 'Alert!',
-                            message: ' Expired Card',// "Roshita ID : " + r,
-                            buttons: {
-                                Ok: {
-                                    label: "Ok",
-                                    className: 'btn-info',
-                                    callback: function () {
-                                        location.reload();
-                                    }
-                                }
-                            }
-                        });
-                        //bootbox.alert("Expired Card");
+                    //}
+                    //else {
+                    //    bootbox.dialog({
+                    //        title: 'Alert!',
+                    //        message: ' Expired Card',// "Roshita ID : " + r,
+                    //        buttons: {
+                    //            Ok: {
+                    //                label: "Ok",
+                    //                className: 'btn-info',
+                    //                callback: function () {
+                    //                    location.reload();
+                    //                }
+                    //            }
+                    //        }
+                    //    });
+                    //    //bootbox.alert("Expired Card");
 
 
 
 
-                    }
+                    //}
                 } else if (r.length == 0) {
                     alert(' Invalid Card Number ');
                     $('#CardsModal').modal('hide');

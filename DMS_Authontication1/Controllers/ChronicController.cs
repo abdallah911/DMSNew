@@ -293,7 +293,7 @@ namespace DMS_TEST.Controllers
             //diagnoise
             PrescriptionRoshitaDignosi diagnose = new PrescriptionRoshitaDignosi();
             diagnose.RositaId = roshita.Id;
-            diagnose.DiagnoiseName = DoctorChronicRoshita.Diagnose1;
+            diagnose.DiagnoiseName = med_card.TASHKHES_01;
             db.PrescriptionRoshitaDignosis.Add(diagnose);
 
             if (data.hasApproval)
