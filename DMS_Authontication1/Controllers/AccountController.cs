@@ -133,7 +133,29 @@ namespace DMS_Authontication1.Controllers
                              PageId = l.rmp.PageId
                          }).OrderBy(x => x.ModuleName).ToList();
                     string seralize = JsonConvert.SerializeObject(_ERPRolesUsersPages);
+                    var claims = await UserManager.GetClaimsAsync(user.Id);
+                    if (claims.Count() != 0)
+                    {
+                        for (int i = 0; i < claims.Count; i++)
+                        {
+                            await UserManager.RemoveClaimAsync(user.Id, claims[i]);
+                        }
+                        //foreach (var item in claims)
+                        //{
+                        //    await UserManager.RemoveClaimAsync(user.Id, item);
 
+                        //}
+                    }
+                    //var claim = ((ClaimsIdentity)User.Identity);
+                    //if (claim != null)
+                    //{
+                    //    foreach (var item in claim.Claims)
+                    //    {
+                    //        await UserManager.RemoveClaimAsync(user.Id, item);
+
+                    //    }
+
+                    //}
                     await UserManager.AddClaimAsync(user.Id, new Claim("SomeClaimType", seralize));
                     var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
 
@@ -146,7 +168,7 @@ namespace DMS_Authontication1.Controllers
                             switch (role)
                             {
                                 case "Pharmacy":
-                                    return RedirectToLocal("/Pharmacy/Pharmacy");
+                                    return Redirect("/Pharmacy/Pharmacy");
                                 case "Lab":
                                     return RedirectToLocal("/Labs/Lab");
                                 case "Rays":

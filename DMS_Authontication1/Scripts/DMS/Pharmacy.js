@@ -134,21 +134,20 @@ $(function () {
                         firstDate = new Date(parseFloat(r[0].INS_END_DATE.replace(/(^.*\()|([+-].*$)/g, '')));
                         diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
                         var EndDate = dat1;
-                        var today = new Date();
-                        var dd = today.getDate();
-                        var mm = today.getMonth(); //January is 0!
-                        var yyyy = today.getFullYear();
-                        var CurrentDate = new Date(yyyy, mm, dd);
-                        if (EndDate != null) {
-                            newDate = EndDate.split('/').reverse().join('.');
-                        } else {
-                            newDate = "";
-                        }
-                        var date = new Date(newDate);
+                        //var today = new Date();
+                        //var dd = today.getDate();
+                        //var mm = today.getMonth(); //January is 0!
+                        //var yyyy = today.getFullYear();
+                        //var CurrentDate = new Date(yyyy, mm, dd);
+                        //if (EndDate != null) {
+                        //    newDate = EndDate.split('/').reverse().join('.');
+                        //} else {
+                        //    newDate = "";
+                        //}
+                        //var date = new Date(newDate);
                         var companyId = [];
                         companyId = CardId.split('-', 1);
                         CompId = companyId[0];
-                        debugger;
                         // Chick company is closed or oopen
 
                         $.ajax({
@@ -683,7 +682,6 @@ $(function () {
         }
     }
 
-    var approval = " ";
     $('#submit').click(function () {
         var Id;
         var Mediciens = new Array();

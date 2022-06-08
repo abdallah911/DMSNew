@@ -3233,6 +3233,7 @@ namespace DMS_TEST.Controllers
                 {
                     data.RoshetaType = "Pharmacy_Chronic";
 
+                    med_card = db.Med_Card.Where(m => m.CARD_NO == data.CardId).FirstOrDefault();
                     var RoshitaNoOverNoPays = db.RoshitaNoOverNoPays.Where(m => m.RositaId == data.Id).FirstOrDefault();
                     if (RoshitaNoOverNoPays != null)
                     {
@@ -3241,10 +3242,13 @@ namespace DMS_TEST.Controllers
                     }
                     else
                     {
-                        med_card = db.Med_Card.Where(m => m.CARD_NO == data.CardId).FirstOrDefault();
                         NoOver = med_card.NO_OVER == null ? 0 : med_card.NO_OVER;
                         NoPay = med_card.NO_PAY == null ? 0 : med_card.NO_PAY;
                     }
+
+                    diagnoisesString = data.Speciality == "Empty" ? " " : data.Speciality + '-';
+                    diagnoisesString += String.Join(",", med_card.TASHKHES_01);
+
                 }
 
                 if (DataService != null)
