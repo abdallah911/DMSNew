@@ -647,7 +647,7 @@ function Edit(button) {
 }
 function SecandCalculation() {
     //Secend calculation
-
+    debugger;
     var sum = 0;
     $('#Secand TBODY TR').each(function () {
         var row = $(this);

@@ -310,6 +310,7 @@ namespace DMS_Authontication1.Controllers
             {
                 Flag = true;
                 var Roshta = db.Roshitas.Where(x => x.Id == emp.RoshitaID).FirstOrDefault();
+                double OldCompanyPayment = Roshta.CompanyPayment; 
                 if (emp.PaymentGroup == "Accepted")
                 {
                     Roshta.TotalValue += emp.Amount;
@@ -358,7 +359,17 @@ namespace DMS_Authontication1.Controllers
                         Roshta.Cash += Roshta.PersonPayment;
 
                     }
-
+                    if ((Roshta.CompanyPayment - OldCompanyPayment) > 0)
+                    {
+                        var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == Roshta.CardId)
+                            .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                        if (remaining != null)
+                        {
+                            remaining.REMAINING = remaining.REMAINING - (Roshta.CompanyPayment - OldCompanyPayment);
+                            remaining.NET = remaining.NET + (Roshta.CompanyPayment - OldCompanyPayment);
+                            db.Entry(remaining).State = EntityState.Modified;
+                        }
+                    }
 
                     // Roshta.CompanyPayment += emp.Amount * (Convert.ToDouble(Roshta.CompanyPercent) / 100);
                     // Roshta.PersonPayment += emp.Amount * (Convert.ToDouble((100 - Roshta.CompanyPercent)) / 100);

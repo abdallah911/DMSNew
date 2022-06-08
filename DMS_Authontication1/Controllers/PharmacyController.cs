@@ -270,17 +270,14 @@ namespace DMS_TEST.Controllers
                     if (_permision.CardId == "All" || _permision.CompId == "All" || _permision.CardId == id)
                     {
                         return Json(new { Validation = false, Message = "هذا الكارت او مقدم الخدمه ليس له صلاحيه للصرف لهذه الخدمه... برجاء الرجوع للإداره الطبيه ", Limit = 0, CeilingPert = 0 });
-
                     }
                     else if (_permision.ClassCode == emp.CLASS_CODE)
                     {
                         return Json(new { Validation = false, Message = "هذا الكارت او مقدم الخدمه ليس له صلاحيه للصرف لهذه الخدمه... برجاء الرجوع للإداره الطبيه ", Limit = 0, CeilingPert = 0 });
-
                     }
                     else if ((_permision.CardId == "" || _permision.CardId == null) && (_permision.ClassCode == null || _permision.ClassCode == "") && (_permision.CompId == _CompId || _permision.CompId == "ALL"))
                     {
                         return Json(new { Validation = false, Message = "هذا الكارت او مقدم الخدمه ليس له صلاحيه للصرف لهذه الخدمه... برجاء الرجوع للإداره الطبيه ", Limit = 0, CeilingPert = 0 });
-
                     }
                 }
             }
@@ -436,7 +433,7 @@ namespace DMS_TEST.Controllers
                     DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
                     DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
                     //List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
-                    List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Daily").ToList();
+                    List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor").ToList();
                     List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
                     List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
                     List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
@@ -501,7 +498,7 @@ namespace DMS_TEST.Controllers
                         DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
                         DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
                         //List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
-                        List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Daily").ToList();
+                        List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor").ToList();
                         List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
                         List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
                         List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
@@ -777,7 +774,7 @@ namespace DMS_TEST.Controllers
                     DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
                     DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
                     List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
-                    List<Roshita> YearlyDailyAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Daily").ToList();
+                    List<Roshita> YearlyDailyAcumlatorList = MainAcumlatorList.Where(x => (x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor") && x.CompanyPayment > 0).ToList();
                     List<Roshita> YearlyMonthlyAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
                     List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
                     List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
@@ -824,7 +821,7 @@ namespace DMS_TEST.Controllers
                         DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
                         DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
                         //List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
-                        List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Daily").ToList();
+                        List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => (x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor") && x.CompanyPayment > 0).ToList();
                         List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
                         List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
                         List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
@@ -2041,6 +2038,7 @@ namespace DMS_TEST.Controllers
                 {
                     Flag = true;
                     var Roshta = db.Roshitas.Where(x => x.Id == emp.RoshitaID).FirstOrDefault();
+                    double OldCompanyPayment = Roshta.CompanyPayment;
                     if (emp.PaymentGroup == "Accepted")
                     {
                         Roshta.TotalValue += emp.Amount;
@@ -2080,7 +2078,17 @@ namespace DMS_TEST.Controllers
                             Roshta.PersonPayment = TotalValue * PersonPercent;
                             Roshta.Cash += Roshta.PersonPayment;
                         }
-
+                        if ((Roshta.CompanyPayment - OldCompanyPayment) > 0)
+                        {
+                            var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == Roshta.CardId)
+                                .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                            if (remaining != null)
+                            {
+                                remaining.REMAINING = remaining.REMAINING - (Roshta.CompanyPayment - OldCompanyPayment);
+                                remaining.NET = remaining.NET + (Roshta.CompanyPayment - OldCompanyPayment);
+                                db.Entry(remaining).State = EntityState.Modified;
+                            }
+                        }
                     }
                     else if (emp.PaymentGroup == "Rejected")
                     {
