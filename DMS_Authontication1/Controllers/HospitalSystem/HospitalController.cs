@@ -244,7 +244,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             var employe = db.Comp_Employees.Where(e => e.CARD_ID == id &&
                             da >= e.INS_START_DATE && da <= e.INS_END_DATE)
                            .OrderByDescending(e => e.CONTRACT_NO).FirstOrDefault();
-            
+
             if (employe == null)
             {
                 var result = new { Success = "برجاء التأكد من الرقم الطبي وفي حاله استمرار المشكله ارسال صوره البطاقه علي رقم 01205566050 " };
@@ -694,7 +694,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             //        break;
 
             //    // To list Doctor Visit 
-            //    case "11205":
+            //    case "11105":
             //        Specialists = db.DoctorSpecialists.Select(se =>
             //                new SERV_PROVIDERS
             //                {
@@ -895,7 +895,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
         [HttpPost]
         public JsonResult Save([Bind] int C_Com_ID, int Provider_Code, string Card_ID, int Services_ID, string CLAIM_NO,
-            string Total_Cash, string Person_Payment, string Services, string Contract_Number, string Class_Code
+            string Total_Cash, string Person_Payment, string Services, string Specialist, string Contract_Number, string Class_Code
             , string Comp_Payment, string TotalValue, string OverInsurance, string Cash, string ServType, string NATIONAL_ID,
             string Phone, string COMP_PERC, string Notes, int? HospitalException, int? ExceptionLabRayDoctor
             , int? SpecalistID, string DoctorName)
@@ -935,30 +935,28 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 DoctorName = DoctorName,
                 SpecialistId = SpecalistID
             };
-            if (Services_ID == 11205)
+            if (Services_ID == 11105 || Services_ID == 11203)
             {
-                string checkdoctorvisit = checkDoctorVisit(C_Com_ID, Provider_Code, Card_ID, Services_ID.ToString(), Services);
-                if (checkdoctorvisit == "sorry")
+                hospitalClaim.SERVICES = Specialist;
+                DateTime datenow = DateTime.Now.Date;
+                var CurrentDate = new DateTime(datenow.Year, datenow.Month, datenow.Day);
+                CurrentDate = CurrentDate.AddDays(-7);
+                string serviceId = Services_ID.ToString();
+                int ContractNumber = int.Parse(Contract_Number);
+                var hospitaClaims = db.HospitalClaims.Where(c => c.CARD_ID == Card_ID && c.C_COMP_ID == C_Com_ID && c.PROVIDER_CODE == Provider_Code && c.IsDeleted != true
+                && c.SERVICE_CODE == serviceId && c.SERVICES == Specialist && c.SpecialistId == SpecalistID && c.CONTRACT_NO == ContractNumber
+                && c.CLASS_CODE == Class_Code && DbFunctions.TruncateTime(c.CreatedDate) >= DbFunctions.TruncateTime(CurrentDate)).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                if (hospitaClaims != null)
                 {
+                    // return Json(new { Validation = false, Message = "لا يمكن تسجيل هذا الكشف وذلك لعدم تعدي الكشف لهذا التخصص 7 ايام ويعتبر استشارة فقط" });
 
-                    return new JsonResult { Data = new { result = "لا يمكن حفظ الكشف وذلك لعدم مرور 7 ايام من تاريخ الكشف لنفس التخصص ", ok = "NO" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    return new JsonResult { Data = new { result = "لا يمكن تسجيل هذا الكشف وذلك لعدم تعدي الكشف لهذا التخصص 7 ايام ويعتبر استشارة فقط", msg = "NO" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
+                // Services = "كشف دكتور ";
                 else
                 {
-                    // Services = "كشف دكتور ";
-
                     var x = db.HospitalClaims.Add(hospitalClaim);
                     var xx = db.SaveChanges();
-
-                    //x = db.RunNonQuery
-                    //   ("insert into PATIENT_REQUIST(REQUEST_NUM,C_COMP_ID,PROVIDER_CODE,CARD_ID,SERVICE_CODE,TOTAL_CASH," +
-                    //   "PERSON_PAYMENT,SERVICES,CREATED_DATE,COMPANY_PAYMENT,ID,CLASS_CODE,CONTRACT_NO" +
-                    //   ",TOTAL_VALUE,OVER_INSURANCE,CASH,COMP_PERC,PHONE,NATIONAL_ID,CLAIM_NO,SERV_TYP)" +
-                    //   "values('" + codeRequestDate + "','" + C_Com_ID + "','" + Provider_Code + "','" + Card_ID + "','" + Services_ID + "','"
-                    //       + Total_Cash + "','" + Person_Payment + "','" + Services + "',sysdate , '" + Comp_Payment + "' , '" + Convert.ToInt32(len) + "' , '" + Class_Code + "' ," + Contract_Number +
-                    //      "," + TotalValue + "," + OverInsurance + "," + Cash + "," + COMP_PERC + "," + Phone + "," + NATIONAL_ID +
-                    //      "," + CLAIM_NO + "," + ServType + ")");
-
 
                     if (xx > 0)
                         return new JsonResult { Data = new { result = "تم حفظ العملية بنجاح كود الموافقة  :" + codeRequestDate, ID = hospitalClaim.IdPrimary, msg = "OK" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -966,7 +964,6 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                         return new JsonResult { Data = new { result = "Invalid Request", msg = "NO" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
                 }
-
             }
             else
             {
@@ -1289,6 +1286,44 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
         #endregion
 
         #region Celling
+
+        public JsonResult CheckExamination(int C_Com_ID, int Provider_Code, string Card_ID, string Services_ID,
+             string Specialist, int Contract_Number, string Class_Code, int? SpecalistID)
+        {
+            DateTime datenow = DateTime.Now.Date;
+            var CurrentDate = new DateTime(datenow.Year, datenow.Month, datenow.Day);
+            var AllhospitaClaimsPerDay = db.HospitalClaims.Where(c => c.CARD_ID == Card_ID && c.C_COMP_ID == C_Com_ID && c.PROVIDER_CODE == Provider_Code && c.IsDeleted != true
+            && c.CONTRACT_NO == Contract_Number && c.CLASS_CODE == Class_Code && DbFunctions.TruncateTime(c.CreatedDate) == DbFunctions.TruncateTime(CurrentDate)).ToList();
+            if (AllhospitaClaimsPerDay != null && AllhospitaClaimsPerDay.Count >= 2)
+            {
+                var employe = db.Comp_Employees.Where(e => e.CARD_ID == Card_ID &&
+                            CurrentDate >= e.INS_START_DATE && CurrentDate <= e.INS_END_DATE)
+                           .OrderByDescending(e => e.CONTRACT_NO).FirstOrDefault();
+                var exception = (from a in db.Acceptions
+                                 join c in db.CardAcceptionReasons on a.Id equals c.AcceptionId
+                                 where (a.ProvidersId == 2 && a.AcceptionFlag == true
+                                 && a.CompEmployeesId == employe.Id && c.AcceptionReasonsId == 10)
+                                 select new
+                                 {
+                                     ExceptionId = a.Id
+                                 }).Select(x => x.ExceptionId).FirstOrDefault();
+                if (exception != 0)
+                {
+                    return Json(new { Validation = true, Message = "Ok" });
+
+                }
+                else
+                {
+                    return Json(new { Validation = false, Message = " لا يمكن تقديم الخدمة لتعدي المريض عدد الكشوفات اليوميه " });
+                }
+
+            }
+            else
+            {
+                return Json(new { Validation = true, Message = "Ok" });
+
+            }
+        }
 
         public JsonResult CellingAmount(string id, string ServiceCode)
         {

@@ -43,7 +43,7 @@ function setInputFilter(textbox, inputFilter) {
 }
 var exceptionHospital = null;
 var exceptionLabRay = null;
-$(function () {
+$(function () { 
 
     $('#Search').map(function () {
         exceptionHospital = null;
@@ -755,7 +755,7 @@ $(function () {
                     + '<option value="11201"> أشعة </option>'
                     + '<option value="11206">  تحاليل </option>'
                     + '<option value="11203"> خدمة العيادة الخارجية </option>'
-                    + '<option value="11205"> كشف </option>'
+                    + '<option value="11105"> كشف </option>'
                     + '<option value="11414"> كشف أسنان </option>'
                     + '<option value="11301"> رمد </option>');
                 $("#emergancyTxt").hide();
@@ -898,9 +898,6 @@ $(function () {
         $("#SpecialityDiv").hide();
         $("#serviceselect").hide();
         $("#ddlDiagnoises").empty();
-
-        //$('#AddDiagnoise').attr('disabled', true);
-        //$('#RemoveDiagnoise').attr('disabled', true);
         $("#Physical").html("");
         $("#SaveAll").html('<input id="submit" type="button"  onclick="Submit_Save()" value="Save" class="btn btn-success" style="padding:10px 20px" />');
 
@@ -983,7 +980,7 @@ $(function () {
                                 if ($("#Services").val() == "11201" || $("#Services").val() == "11206") {
                                     ExceptionId = 9;
                                 }
-                                else if ($("#Services").val() == "11205") {
+                                else if ($("#Services").val() == "11105" || $("#Services").val() == "11203") {
                                     ExceptionId = 10;
                                 }
                                 var excepitonResult = null;
@@ -1034,7 +1031,7 @@ $(function () {
                     ///////
                     // }
 
-                    if ($("#Services").val() == 11205 /*|| $("#Services").val() == 11414*/ || $("#Services").val() == 11203) {
+                    if ($("#Services").val() == 11105  || $("#Services").val() == 11203) {
 
                         $("#other-data").hide();
                         $("#divNotes").hide();
@@ -1079,23 +1076,30 @@ $(function () {
                             }
                         });
 
+                        // check number of examination and check if examination time greater than 7 days or not 
+                                                                                                 
+                        $.ajax({
+                            type: 'POST',
+                            url: '/Hospital/CheckExamination/',
+                            dataType: 'json',
+                            data: {
+                                Card_ID: $('#txtSearchCard').val(), Services_ID: $("#Services option:selected").val(), Specialist: $("#SpecialitySelect option:selected").text(),
+                                SpecalistID: $("#SpecialitySelect").val(), C_Com_ID: $('#Company_ID').val(), Contract_Number: $('#Con_Num').val(),
+                                Class_Code: $('#Class_Code').val(),Provider_Code: $("#providerHospialCode").val(),
+                            },
 
+                            success: function (result) {
+                                if (result.Validation == false) {
+                                    alert(result.Message);
+                                    window.location.replace("/Hospital/Index");
+                                }
+                            },
+                            error: function (err) {
+                                bootbox.alert('لا يمكن تقديم الخدمة لهذا الموظف ');
+                                window.location.replace("/Hospital/Index");
+                            }
+                        });
 
-                        //$.ajax({
-                        //    type: "GET",
-                        //    dataType: "json",
-                        //    url: '/Hospital/GetDoctors',
-                        //    //data: {
-                        //    //    id: $('#txtSearchCard').val(),
-                        //    //    ServiceCode: $("#Services").val()
-                        //    //},
-                        //    success: function (result) {
-
-                        //    },
-                        //    error: function (err) {
-                        //        bootbox.alert('لا يوجد دكاترة مسجلين لهذة المستشفي  ');
-                        //    }
-                        //});
                     }
                     if ($("#Services").val() == 11414 || $("#Services").val() == 11301) {
                         $("#other-data").hide();
@@ -1116,6 +1120,7 @@ $(function () {
                 },
                 error: function (err) {
                     bootbox.alert('لا يمكن تقديم الخدمة لهذا الموظف ');
+                    window.location.replace("/Hospital/Index");
                 }
             });
         }
@@ -1664,7 +1669,7 @@ function ChickSaveData() {
                 C_Com_ID: $('#Company_ID').val(),
                 Provider_Code: $("#providerHospialCode").val(),
                 Card_ID: $('#txtSearchCard').val(),
-                Services_ID: serviceID,
+                Services_ID: $("#Services option:selected").val(),
                 ServType: mainSerEmer,
                 Services: AllDiagnos,
                 Contract_Number: $('#Con_Num').val(),
@@ -1683,6 +1688,7 @@ function ChickSaveData() {
                 HospitalException: exceptionHospital,
                 ExceptionLabRayDoctor: exceptionLabRay,
                 SpecalistID: $("#SpecialitySelect").val(),
+                Specialist: $("#SpecialitySelect option:selected").text(),
                 DoctorName: $("#doctorNameSelect").val()
             };
             $.ajax({
@@ -1692,6 +1698,7 @@ function ChickSaveData() {
                 success: function (rwt) {
                     if (rwt.msg.toString() != "OK") {
                         alert(rwt.result.toString());
+                        window.location.replace("/Hospital/Index");
                     }
                     else {
 
@@ -1740,7 +1747,6 @@ function ChickSaveData() {
                                 if (subser > 0) {
                                     //if (subser != 4) {
                                     if ($("#ddlDiagnoises").val() != "") {
-                                        debugger;
                                         var oArea = document.getElementById('ddlDiagnoises');
                                         var aNewlines = oArea.innerText.split("\n");
                                         var AllDiagnos = "";
@@ -1773,6 +1779,7 @@ function ChickSaveData() {
                                             Notes: $("#Notetext").val(),
                                             HospitalException: exceptionHospital,
                                             ExceptionLabRayDoctor: exceptionLabRay,
+                                            Specialist: $("#SpecialitySelect option:selected").text(),
                                             SpecalistID: 0
                                         };
                                         $.ajax({
@@ -1880,7 +1887,7 @@ function ChickSaveData() {
                                     Contract_Number: $('#Con_Num').val(),
                                     Class_Code: $('#Class_Code').val(),
                                     Comp_Payment: $("#Com_Cach").val()
-                                };
+                                }; 
                                 $.ajax({
                                     type: "POST",
                                     url: '/User/Save',
