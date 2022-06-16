@@ -1,0 +1,424 @@
+﻿@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "Inquiries";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    var Create = false;
+    var modellist = new List<ModulesPagesViewModel>();
+    var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+    if (claim != null)
+    {
+        modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+        if (modellist != null)
+        {
+
+            var obj = modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 53 && (x.FullControl || x.EditPermission
+                                              || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+            if (obj != null)
+            {
+                edit = obj.EditPermission;
+                delete = obj.ActivationControl;
+                view = obj.Preview;
+                fullcontroll = obj.FullControl;
+                Create = obj.AddPermission;
+
+            }
+        }
+    }
+}
+
+<br />
+@if (fullcontroll || view)
+{
+    <div class="portlet box  green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i> Consumption Reports
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row ">
+                <div class="col-md-12">
+                    <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+
+                        <div class="form-wizard">
+                            <div class="form-body">
+                                <div class="tab-content">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                                    <div class="row">
+                                        @*Date of Registration*@
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Date of Registration :
+
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <label class="control-label sbold col-md-3">
+                                                        From
+
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label sbold col-md-2">
+                                                TO
+
+                                            </label>
+                                            <div class="col-md-10">
+                                                <input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                                            </div>
+                                        </div>
+
+                                        @*Date of Service*@
+
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Date of Service :
+
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <label class="control-label sbold col-md-3">
+                                                        From
+
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input id="ServiceFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label sbold col-md-2">
+                                                TO
+
+                                            </label>
+                                            <div class="col-md-10">
+                                                <input id="ServiceTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                                            </div>
+                                        </div>
+
+                                        @* Company Number *@
+
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Copmany Number :
+
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <label class="control-label sbold col-md-3">
+                                                        From
+
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumberFrom" })
+
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label sbold col-md-2">
+                                                TO
+
+                                            </label>
+                                            <div class="col-md-10">
+                                                @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumberTo" })
+
+                                            </div>
+                                        </div>
+
+                                        @* Card Number *@
+
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Card Number :
+
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <label class="control-label sbold col-md-3">
+                                                        From
+
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <select id="CardIdFrom" class="col-md-2 js-data-example-ajax" style="width: 100%"></select>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label sbold col-md-2">
+                                                TO
+
+                                            </label>
+                                            <div class="col-md-10">
+                                                <select id="CardIdTo" class="col-md-2 js-data-example-ajax" style="width: 100%"></select>
+                                            </div>
+                                        </div>
+
+                                        <br />
+
+                                        @* Service provider number *@
+
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    Service Provider Number :
+
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <select id="ProviderName" name="ProviderName" class="col-md-2 form-control js-data-example-ajax" style="width: 100%"></select>
+                                                    @*<input id="SerProvNumber" type="number" class="col-md-2 form-control " min="0" />*@
+
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
+
+                                        @* Repot Type *@
+
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Repot Type :
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <select id="RepotType" class="form-control">
+                                                        <option value="901">Comprehensive Detailed Report</option>
+                                                        <option value="9011">Detailed Report</option>
+                                                        <option value="902">Employees with the highest consumption according to values</option>
+                                                        <option value="903">The employees with the highest consumption according to the frequency for each service</option>
+                                                        <option value="904">Service providers with the highest consumption according to values</option>
+                                                        <option value="905">The service providers that consume the most according to the frequency</option>
+                                                        <option value="907">Distribution of consumption according to the type of service provider according to frequency</option>
+                                                        <option value="915">Summary of the card's total consumption</option>
+                                                        <option value="916">Summary of card consumption for the type of service</option>
+                                                    </select>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
+
+                                        @* For Buttons *@
+
+                                        <div class="col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
+
+                                            <div class="col-sm-4" id="div_of_serv">
+                                                <button id="Consumption" type="button" class="btn btn-primary" onclick="ConsumptionPrint()">
+                                                    <span class="fa fa-save"></span> Print
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script>
+
+    $(function () {
+        $('#CopmanyNumberTo').select2();
+        $('#CopmanyNumberFrom').select2();
+
+        $('#RegistrationFrom').datepicker({});
+        $('#RegistrationTo').datepicker({});
+
+        $('#ServiceFrom').datepicker({});
+        $('#ServiceTo').datepicker({});
+
+        $('#ProviderName').select2({
+            placeholder: 'Search for a Provider ',
+            minimumInputLength: 3,
+            ajax: {
+                url: '/ConsumptionAdmin/GetProviderUsers/',
+                delay: 250,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+                    return query;
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    var obj = {};
+                    data.push(obj)
+                    return {
+                        results: data,//.results,
+                        pagination: {
+                            more: (params.page * 10) < data.count_filtered
+                        }
+                    };
+                }
+                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+            }
+        });
+        $('#CardIdTo').select2({
+            placeholder: 'Search for a card',
+            minimumInputLength: 5,
+            ajax: {
+                url: '/EmployeeRequest/GetActiveEmployess/',
+                delay: 250,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+                    return query;
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    var obj = {};
+                    data.push(obj)
+                    return {
+                        results: data,//.results,
+                        pagination: {
+                            more: (params.page * 10) < data.count_filtered
+                        }
+                    };
+                }
+                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+            }
+        });
+        $('#CardIdFrom').select2({
+            placeholder: 'Search for a card',
+            minimumInputLength: 5,
+            ajax: {
+                url: '/EmployeeRequest/GetActiveEmployess/',
+                delay: 250,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+                    return query;
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    var obj = {};
+                    data.push(obj)
+                    return {
+                        results: data,//.results,
+                        pagination: {
+                            more: (params.page * 10) < data.count_filtered
+                        }
+                    };
+                }
+                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+            }
+        });
+    });
+
+    function ConsumptionPrint() {
+        var RegistrationFrom = $('#RegistrationFrom').val();
+        var RegistrationTo = $('#RegistrationTo').val();
+        var ServiceFrom = $('#ServiceFrom').val();
+        var ServiceTo = $('#ServiceTo').val();
+        var CompanyFrom = $('#CopmanyNumberFrom').val();
+        var CompanyTo = $('#CopmanyNumberTo').val();
+        var CardFrom = $('#CardIdFrom').val();
+        var CardTo = $('#CardIdTo').val();
+        var ProviderName = $('#ProviderName').val();
+        var RepotType = $('#RepotType').val();
+
+        if ((RegistrationFrom != "" && RegistrationTo != "") || (ServiceFrom != "" && ServiceTo != "")) {
+
+            if (CompanyFrom != 0 && CompanyTo != 0) {
+
+                //chick if not search with card number
+                if ((CardFrom == "" || CardFrom == null) && (CardTo == "" || CardTo == null)) {
+
+                    // Print PDF as Default
+                    window.open('/ConsumptionAdmin/PrintConsumptionReports?Regfrom=' + RegistrationFrom +
+                        '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                        ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                        '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                        CardTo + '&&RepotType=' + RepotType);
+
+                }
+                //chick if card from have value and card to hasnot value to search with card number
+                else if (CardFrom != "" && (CardTo == "" || CardTo == null)) {
+                    toastr.info("Please Enter Valid Card To ...");
+                }
+                //chick if card to  have value and card from hasnot value to search with card number
+                else if ((CardFrom == "" || CardFrom == null) && CardTo != "") {
+                    toastr.info("Please Enter Valid Card From ...");
+                }
+                //chick if  search with card number , card form and card to have values
+                else if ((CardFrom != "" || CardFrom != null) && (CardTo != "" || CardTo != null)) {
+                    var arraFrom = CardFrom.split("-");
+                    var arraTo = CardTo.split("-");
+                    // chick card id is correct or not
+                    if ((arraFrom.length == 4 && arraFrom[3] != "") || (arraTo.length == 4 && arraTo[3] != "")) {
+
+                        // final chick if card id start with company id or not
+                        if ((arraFrom[0] == CompanyFrom) && (arraTo[0] == CompanyTo)) {
+                            // Print PDF as Default
+                            window.open('/ConsumptionAdmin/PrintConsumptionReports?Regfrom=' + RegistrationFrom +
+                                '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                                ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                                '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                                CardTo + '&&RepotType=' + RepotType);
+
+
+                        }
+                        else {
+                            toastr.info("Please enter correct card that belongs to your company only start with : " + CompanyTo);
+                        }
+                    }
+                    else {
+                        toastr.info("Please enter correct Card From and Card To ... ");
+                    }
+                }
+            }
+            else {
+                toastr.info('Enter valid Company Number From and To must be with you compinies range ');
+            }
+        }
+        else {
+            toastr.info('select date " From " and " TO " of Registration or date of Service  first');
+        }
+
+
+    }
+
+
+</script>

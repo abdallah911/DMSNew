@@ -7,9 +7,10 @@
     var delete = false;
     var view = false;
     var fullcontroll = false;
+    var role = 1;
     if (User.IsInRole("Admin"))
     {
-
+        role = 0;
         var modellist = new List<ModulesPagesViewModel>();
         var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
         if (claim != null)
@@ -33,6 +34,7 @@
     }
     ViewBag.Title = "Index";
 }
+<input id="role" value="@role.ToString()" hidden />
 @if (!User.IsInRole("Admin"))
 {
     <div class="portlet box  green">
@@ -94,10 +96,10 @@
             </div>
         </div>
         <div class="portlet-body">
-            <input id="edit" value="@edit.ToString()" hidden/>
-            <input id="delete" value="@delete.ToString()" hidden/>
-            <input id="view" value="@view.ToString()" hidden/>
-            <input id="fullcontroll"  value="@fullcontroll.ToString()" hidden/>
+            <input id="edit" value="@edit.ToString()" hidden />
+            <input id="delete" value="@delete.ToString()" hidden />
+            <input id="view" value="@view.ToString()" hidden />
+            <input id="fullcontroll" value="@fullcontroll.ToString()" hidden />
 
             <div class="row" style="padding-bottom: 15px;">
                 <div class="col-md-2">
@@ -255,5 +257,5 @@
 
 }
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-<script src="~/Scripts/DMS/PharmacyIndex.js?V=6.1"></script>
+<script src="~/Scripts/DMS/PharmacyIndex.js?V=6.2"></script>
 

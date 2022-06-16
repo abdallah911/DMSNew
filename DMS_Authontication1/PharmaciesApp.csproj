@@ -8218,6 +8218,28 @@
     <Content Include="Views\PhysicalTherapy\_PhysicalTherapy.cshtml" />
     <Content Include="Views\ConsumptionAdmin\Index.cshtml" />
     <Content Include="Reports\Consumption\ConsumptionofCard.rpt" />
+    <Content Include="Views\ConsumptionAdmin\HrConsumptionReports.cshtml" />
+    <Content Include="Views\ConsumptionAdmin\HighAdminConsumptionReports.cshtml" />
+    <Content Include="Reports\ReportsConsumption\Consum901-1.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum901.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum902.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum903.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum904.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum905.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum906.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum908.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum909.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum910.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum911.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum912.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum913.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum914.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum915.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum916.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum917.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum918.rpt" />
+    <Content Include="Views\ConsumptionAdmin\NormalAdminConsumptionReports.cshtml" />
+    <Content Include="Views\Reports\ConsumptionHR.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
