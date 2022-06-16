@@ -8218,6 +8218,7 @@
     <Content Include="Views\PhysicalTherapy\_PhysicalTherapy.cshtml" />
     <Content Include="Views\ConsumptionAdmin\Index.cshtml" />
     <Content Include="Reports\Consumption\ConsumptionofCard.rpt" />
+    <Content Include="Views\Reports\ConsumptionHR.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
