@@ -229,6 +229,35 @@
                                         </div>
                                         <br />
 
+                                        @*Print Type*@
+
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Print Type :
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <div class="checkbox-inline">
+                                                        <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
+                                                        <label for="pdf">
+                                                            PDF
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <div class="checkbox-inline">
+                                                        <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
+                                                        <label for="excel">
+                                                            EXCEL
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
+
                                         @* For Buttons *@
 
                                         <div class="col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
@@ -376,12 +405,42 @@
                 //chick if not search with card number
                 if ((CardFrom == "" || CardFrom == null) && (CardTo == "" || CardTo == null)) {
 
-                    // Print PDF as Default
-                    window.open('/ConsumptionAdmin/PrintConsumptionReports?Regfrom=' + RegistrationFrom +
-                        '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
-                        ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
-                        '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
-                        CardTo + '&&RepotType=' + RepotType);
+                    if ($("#excel").is(":checked")) {
+                        // do something if the excel is  checked
+                        if ($("#pdf").is(":checked")) {
+                            // do something if the pdf is  checked
+                            // Print PDF and EXCEL
+                            window.open('/ConsumptionAdmin/PrintConsumptionReports?Regfrom=' + RegistrationFrom +
+                                '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                                ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                                '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                                CardTo + '&&RepotType=' + RepotType);
+
+                            window.open('/ConsumptionAdmin/PrintConsumptionReportsXlx?Regfrom=' + RegistrationFrom +
+                                '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                                ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                                '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                                CardTo + '&&RepotType=' + RepotType);
+                        }
+                        else {
+                            // Print EXCEL Only
+                            window.open('/ConsumptionAdmin/PrintConsumptionReportsXlx?Regfrom=' + RegistrationFrom +
+                                '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                                ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                                '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                                CardTo + '&&RepotType=' + RepotType);
+                        }
+
+                    }
+                    else {
+                        // Print PDF as Default
+                        window.open('/ConsumptionAdmin/PrintConsumptionReports?Regfrom=' + RegistrationFrom +
+                            '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                            ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                            '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                            CardTo + '&&RepotType=' + RepotType);
+                    }
+
 
                 }
                 //chick if card from have value and card to hasnot value to search with card number
@@ -401,12 +460,41 @@
 
                         // final chick if card id start with company id or not
                         if ((arraFrom[0] == CompanyFrom) && (arraTo[0] == CompanyTo)) {
-                            // Print PDF as Default
-                            window.open('/ConsumptionAdmin/PrintConsumptionReports?Regfrom=' + RegistrationFrom +
-                                '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
-                                ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
-                                '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
-                                CardTo + '&&RepotType=' + RepotType);
+                            if ($("#excel").is(":checked")) {
+                                // do something if the excel is  checked
+                                if ($("#pdf").is(":checked")) {
+                                    // do something if the pdf is  checked
+                                    // Print PDF and EXCEL
+                                    window.open('/ConsumptionAdmin/PrintConsumptionReports?Regfrom=' + RegistrationFrom +
+                                        '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                                        ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                                        '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                                        CardTo + '&&RepotType=' + RepotType);
+
+                                    window.open('/ConsumptionAdmin/PrintConsumptionReportsXlx?Regfrom=' + RegistrationFrom +
+                                        '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                                        ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                                        '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                                        CardTo + '&&RepotType=' + RepotType);
+                                }
+                                else {
+                                    // Print EXCEL Only
+                                    window.open('/ConsumptionAdmin/PrintConsumptionReportsXlx?Regfrom=' + RegistrationFrom +
+                                        '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                                        ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                                        '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                                        CardTo + '&&RepotType=' + RepotType);
+                                }
+
+                            }
+                            else {
+                                // Print PDF as Default
+                                window.open('/ConsumptionAdmin/PrintConsumptionReports?Regfrom=' + RegistrationFrom +
+                                    '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                                    ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                                    '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                                    CardTo + '&&RepotType=' + RepotType);
+                            }
 
 
                         }
