@@ -28,7 +28,19 @@ namespace DMS_Authontication1.Controllers.ControlPanal
 
         [Authorize(Roles = "Admin,Doctor")]
 
-        public ActionResult Index(string Id)
+        public ActionResult Index(int NotificationId)
+        {
+            var model = db.Notifications.Where(n => n.Id == NotificationId && n.IsDeleted == false && n.IsRead == false)
+                .Include(x => x.Roshita).Include(r => r.Roshita.RoshitaDetails).Include(rd => rd.Roshita.PrescriptionRoshitaDignosis)
+                .FirstOrDefault();
+            model.Roshita.RoshitaDetails = model.Roshita.RoshitaDetails.Where(x => x.PaymentGroup == "Pending").ToList();
+            return View(model);
+        }
+        // GET: DoctorMedicinesLabsRaysApproval
+
+        [Authorize(Roles = "Admin,Doctor")]
+
+        public ActionResult Index2(string Id)
         {
             ViewBag.cardId = Id;
             return View();
@@ -46,7 +58,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                 }).Distinct().ToList();
             foreach (var item in RoshitaDetails)
             {
-                List<Roshita_RoshitaDetails> currentRoshitaDetailsList =db.Roshitas.Where(x => x.Id == item.Id)
+                List<Roshita_RoshitaDetails> currentRoshitaDetailsList = db.Roshitas.Where(x => x.Id == item.Id)
                 .Join(db.RoshitaDetails, r => r.Id, d => d.RoshitaID, (r, d) => new { r, d })
                 .Select(l => new Roshita_RoshitaDetails
                 {
@@ -58,13 +70,102 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                     Manager = l.r.Manager,
                     CreatedDate = l.r.CreatedDate,
                     PaymentGroup = l.d.PaymentGroup,
-                }).OrderBy(x=>x.Id).ThenBy(x => x.PaymentGroup).ToList();
+                }).OrderBy(x => x.Id).ThenBy(x => x.PaymentGroup).ToList();
                 RoshitaDetailsList.AddRange(currentRoshitaDetailsList);
             }
 
             return new JsonResult { Data = RoshitaDetailsList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-        public JsonResult ChangeStatus(int ApprovalId, string status)
+        public JsonResult ChangeStatus(int MedicineId, int NotificationId, string status)
+        {
+
+
+
+            if (status != "N")
+            {
+                var emp = db.RoshitaDetails.Where(x => x.Id == MedicineId).FirstOrDefault();
+                emp.PaymentGroup = status;
+                db.Entry(emp).State = EntityState.Modified;
+                var Roshita = db.Roshitas.Where(x => x.Id == emp.RoshitaID).FirstOrDefault();
+                string CardId = Roshita.CardId;
+                Roshita.SyncBy = "Update";
+                Roshita.UpdatedBy = User.Identity.Name;
+                Roshita.UpdatedDate = DateTime.Now;
+                Notification notification = new Notification();
+                Notification notificationchick = db.Notifications.Where(x => x.Id == NotificationId && x.Title != "Pending").OrderByDescending(x => x.Id).FirstOrDefault();
+                if (notificationchick != null)
+                {
+                    notification = notificationchick;
+                }
+                else
+                {
+                    notification = db.Notifications.Where(x => x.Id == NotificationId).OrderByDescending(x => x.Id).FirstOrDefault();
+                }
+                NotificationHub objNotifHub = new NotificationHub();
+                //Notification notification = db.Notifications.Where(x => x.Id == NotificationId).OrderByDescending(x => x.Id).FirstOrDefault();
+                if (notification.CreatedBy != User.Identity.Name)
+                {
+                    notification.SentTo = notification.CreatedBy;
+                    notification.CreatedBy = User.Identity.Name;
+                }
+                notification.CreatedDate = DateTime.Now;
+                //notification.Title = status;
+                if (status == "Accepted")
+                {
+                    notification.Type = 2;//Accepted
+                    notification.Title = status;
+
+                    if (Roshita.Manager == "Daily" || Roshita.Manager == "Monthly")
+                    {
+                        notification.DetailsURL = "/Pharmacy/Pending";
+                        notification.TypeNmae = "Medicine";//Accepted
+                    }
+                    else if (Roshita.Manager == "Lab")
+                    {
+                        notification.DetailsURL = "/Labs/Pending";
+                        notification.TypeNmae = "Lab";//Accepted
+                    }
+                    else if (Roshita.Manager == "Ray")
+                    {
+                        notification.DetailsURL = "/Rays/Pending";
+                        notification.TypeNmae = "Ray";//Accepted
+                    }
+                }
+                else if (status == "Rejected")
+                {
+                    var roshitaList = db.RoshitaDetails.Where(x => x.RoshitaID == Roshita.Id && x.Id != MedicineId && x.PaymentGroup == "Accepted" && x.IsDealed == false).ToList();
+                    if (roshitaList.Count == 0)
+                    {
+                        notification.Type = 3;//Rejected
+                        notification.Title = status;
+                        if (Roshita.Manager == "Daily" || Roshita.Manager == "Monthly")
+                        {
+                            notification.DetailsURL = "/Pharmacy/Pharmacy";
+                            notification.TypeNmae = "Medicine";//Rejected
+                        }
+                        else if (Roshita.Manager == "Lab")
+                        {
+                            notification.DetailsURL = "/Labs/Lab";
+                            notification.TypeNmae = "Lab";//Rejected
+                        }
+                        else if (Roshita.Manager == "Ray")
+                        {
+                            notification.DetailsURL = "/Rays/Ray";
+                            notification.TypeNmae = "Ray";//Rejected
+                        }
+                    }
+
+                }
+                db.Entry(notification).State = EntityState.Modified;
+                if (notificationchick == null)
+                {
+                    objNotifHub.SendMessages();
+                }
+            }
+            int result = db.SaveChanges();
+            return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public JsonResult ChangeStatus2(int ApprovalId, string status)
         {
 
 

@@ -1771,7 +1771,9 @@ namespace DMS_TEST.Controllers
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
+                        notification.TypeNmae = "Medicine";//pending
                         notification.Details = CardId;
+                        notification.RoshitaId = roshita.Id;
                         notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
                         notification.Title = "Pending";
                         db.Notifications.Add(notification);
@@ -2003,7 +2005,16 @@ namespace DMS_TEST.Controllers
         #endregion
         //--------------------------------------------------------------------
         #region pending
-        public ActionResult Pending(string Id)
+        public ActionResult Pending(int NotificationId)
+        {
+            var model = db.Notifications.Where(n => n.Id == NotificationId && n.IsDeleted == false && n.IsRead == false)
+                .Include(x => x.Roshita).Include(r => r.Roshita.RoshitaDetails).Include(rd => rd.Roshita.PrescriptionRoshitaDignosis)
+                .FirstOrDefault();
+            model.Roshita.RoshitaDetails = model.Roshita.RoshitaDetails.Where(x => x.PaymentGroup == "Pending" || x.PaymentGroup == "Accepted"
+            || x.PaymentGroup == "Rejected").ToList();
+            return View(model);
+        }
+        public ActionResult Pending2(string Id)
         {
             return View();
         }
@@ -2027,9 +2038,9 @@ namespace DMS_TEST.Controllers
 
             return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-        public JsonResult ChangeStatus(int ApprovalId, string status)
+        public JsonResult ChangeStatus(int MedicineId, string status)
         {
-            var emp = db.RoshitaDetails.Where(x => x.Id == ApprovalId).FirstOrDefault();
+            var emp = db.RoshitaDetails.Where(x => x.Id == MedicineId).FirstOrDefault();
             bool Flag;
             int result = -2;
             if (emp.IsDealed == false)
@@ -2108,9 +2119,9 @@ namespace DMS_TEST.Controllers
                 if (status != "N")
                 {
 
-                    string CardId = db.Roshitas.Where(x => x.Id == emp.RoshitaID).FirstOrDefault().CardId;
+                    //string CardId = db.Roshitas.Where(x => x.Id == emp.RoshitaID).FirstOrDefault().CardId;
                     NotificationHub objNotifHub = new NotificationHub();
-                    Notification notification = db.Notifications.Where(x => x.Details == CardId).OrderByDescending(x => x.Id).FirstOrDefault();
+                    Notification notification = db.Notifications.Where(x => x.RoshitaId == emp.RoshitaID).OrderByDescending(x => x.Id).FirstOrDefault();
                     notification.IsRead = true;
                     db.Entry(notification).State = EntityState.Modified;
 
@@ -2450,9 +2461,9 @@ namespace DMS_TEST.Controllers
                 roshta.UpdatedDate = DateTime.Now;
                 if (roshta.Manager == "Daily")
                 {
-                    string CardId = roshta.CardId;
+                    //string CardId = roshta.CardId;
                     NotificationHub objNotifHub = new NotificationHub();
-                    Notification notification = db.Notifications.AsEnumerable().Where(x => x.Details == CardId && x.CreatedDate.ToShortDateString() == roshta.CreatedDate.Value.ToShortDateString()).OrderByDescending(x => x.Id).FirstOrDefault();
+                    Notification notification = db.Notifications.AsEnumerable().Where(x => x.RoshitaId == roshta.Id && x.CreatedDate.ToShortDateString() == roshta.CreatedDate.Value.ToShortDateString()).OrderByDescending(x => x.Id).FirstOrDefault();
                     if (notification != null)
                     {
                         notification.IsRead = true;
@@ -2463,9 +2474,9 @@ namespace DMS_TEST.Controllers
                 }
                 else if (roshta.Manager == "Monthly")
                 {
-                    string CardId = roshta.CardId;
+                    //string CardId = roshta.CardId;
                     NotificationHub objNotifHub = new NotificationHub();
-                    Notification notification = db.Notifications.AsEnumerable().Where(x => x.Details == CardId && x.CreatedDate.ToShortDateString() == roshta.CreatedDate.Value.ToShortDateString()).OrderByDescending(x => x.Id).FirstOrDefault();
+                    Notification notification = db.Notifications.AsEnumerable().Where(x => x.RoshitaId == roshta.Id && x.CreatedDate.ToShortDateString() == roshta.CreatedDate.Value.ToShortDateString()).OrderByDescending(x => x.Id).FirstOrDefault();
                     if (notification != null)
                     {
                         notification.IsRead = true;
@@ -2743,7 +2754,9 @@ namespace DMS_TEST.Controllers
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
+                        notification.TypeNmae = "Medicine";//pending
                         notification.Details = roshita.CardId;
+                        notification.RoshitaId = roshita.Id;
                         notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
                         notification.Title = "Pending";
                         db.Notifications.Add(notification);
@@ -2883,7 +2896,9 @@ namespace DMS_TEST.Controllers
                             notification.CreatedBy = User.Identity.Name;
                             notification.CreatedDate = DateTime.Now;
                             notification.Type = 1;//pending
+                            notification.TypeNmae = "Medicine";//pending
                             notification.Details = CardId;
+                            notification.RoshitaId = roshita.Id;
                             notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
                             notification.Title = "Pending";
                             db.Notifications.Add(notification);

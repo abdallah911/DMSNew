@@ -8003,7 +8003,7 @@
     <Content Include="Views\DoctorApprovals\_SearchCards.cshtml" />
     <Content Include="Views\DoctorApprovals\_LastApproval.cshtml" />
     <Content Include="Views\ControlPanel\Main.cshtml" />
-    <Content Include="Views\DoctorMedicinesLabsRaysApproval\Index.cshtml" />
+    <Content Include="Views\DoctorMedicinesLabsRaysApproval\Index2.cshtml" />
     <Content Include="Views\DoctorMedicinesLabsRaysApproval\_SearchCards.cshtml" />
     <Content Include="Views\Labs\Pending.cshtml" />
     <Content Include="Views\Doctor\_Approvals.cshtml" />
@@ -8017,7 +8017,7 @@
     <Content Include="Views\Rays\Details.cshtml" />
     <Content Include="Views\Rays\_ControlRays.cshtml" />
     <Content Include="Views\Rays\_Approvals.cshtml" />
-    <Content Include="Views\Pharmacy\Pending.cshtml" />
+    <Content Include="Views\Pharmacy\Pending2.cshtml" />
     <Content Include="Views\Pharmacy\_Approvals.cshtml" />
     <Content Include="Views\MedicineGroups\Create.cshtml" />
     <Content Include="Views\MedicineGroups\Edit.cshtml" />
@@ -8240,6 +8240,8 @@
     <Content Include="Reports\ReportsConsumption\Consum918.rpt" />
     <Content Include="Views\ConsumptionAdmin\NormalAdminConsumptionReports.cshtml" />
     <Content Include="Views\Reports\ConsumptionHR.cshtml" />
+    <Content Include="Views\DoctorMedicinesLabsRaysApproval\Index.cshtml" />
+    <Content Include="Views\Pharmacy\Pending.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

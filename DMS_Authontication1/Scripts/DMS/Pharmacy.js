@@ -172,7 +172,7 @@ $(function () {
                                         success: function (returndata) {
                                             if (returndata.ok) {
                                                 if (returndata.data == "Y") {
-
+                                                    debugger;
                                                     $("#wait").css("display", "none");
                                                     $('#txtSearchCard').val(CardId);
                                                     $('#compEmp_EMP_ANAME').val(ArName);
@@ -1545,7 +1545,6 @@ function Remove(button, event) {
 
 }
 function Calculation() {
-    debugger;
     if ($("#Pharmacy >tbody TR").length != 0) {
         var sum = 0;
         var sumCash = 0;

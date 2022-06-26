@@ -198,7 +198,9 @@ namespace DMS_Authontication1.Controllers
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
+                        notification.TypeNmae = "Ray";//pending
                         notification.Details = CardId;
+                        notification.RoshitaId = Medicien.RoshitaID;
                         notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
                         notification.Title = "Pending";
                         db.Notifications.Add(notification);
@@ -371,7 +373,7 @@ namespace DMS_Authontication1.Controllers
             {
                 string CardId = db.Roshitas.Where(x => x.Id == emp.RoshitaID).FirstOrDefault().CardId;
                 NotificationHub objNotifHub = new NotificationHub();
-                Notification notification = db.Notifications.Where(x => x.Details == CardId).OrderByDescending(x => x.Id).FirstOrDefault();
+                Notification notification = db.Notifications.Where(x => x.RoshitaId == emp.RoshitaID).OrderByDescending(x => x.Id).FirstOrDefault();
                 notification.IsRead = true;
                 db.Entry(notification).State = EntityState.Modified;
 
@@ -724,7 +726,9 @@ namespace DMS_Authontication1.Controllers
                             notification.CreatedBy = User.Identity.Name;
                             notification.CreatedDate = DateTime.Now;
                             notification.Type = 1;//pending
+                            notification.TypeNmae = "Ray";//pending
                             notification.Details = CardId;
+                            notification.RoshitaId = Medicien.RoshitaID;
                             notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
                             notification.Title = "Pending";
                             db.Notifications.Add(notification);
@@ -867,7 +871,9 @@ namespace DMS_Authontication1.Controllers
                             notification.CreatedBy = User.Identity.Name;
                             notification.CreatedDate = DateTime.Now;
                             notification.Type = 1;//pending
+                            notification.TypeNmae = "Ray";//pending
                             notification.Details = CardId;
+                            notification.RoshitaId = Medicien.RoshitaID;
                             notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
                             notification.Title = "Pending";
                             db.Notifications.Add(notification);

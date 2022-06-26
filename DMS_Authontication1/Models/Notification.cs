@@ -25,5 +25,9 @@ namespace DMS_Authontication1.Models
         public bool IsReminder { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
+        public Nullable<long> RoshitaId { get; set; }
+        public string TypeNmae { get; set; }
+    
+        public virtual Roshita Roshita { get; set; }
     }
 }

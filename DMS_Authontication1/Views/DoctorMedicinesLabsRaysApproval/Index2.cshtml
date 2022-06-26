@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+<br />
+@Html.Partial("_ApprovalsSearchCards")
+<div class="portlet box green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Approvals
+        </div>
+
+    </div>
+    <div class="portlet-body">
+        <br />
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <input id="AddCardTxt" type="text" placeholder="Add Card" class="form-control" value="@ViewBag.cardId" />
+                </div>
+                <div class="col-sm-3">
+                    <button id="AddCard" class=" btn btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#exampleModal"> search</button>
+                </div>
+
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="table-responsive" style="HEIGHT: 300px;position:relative">
+            <table class="table table-fixed" id="Approvals">
+                <thead>
+                    <tr>
+                        <th scope="col">Approval Id</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">Category</th>
+                        <th scope="col" align="center">Name</th>
+                        @*<th scope="col">Branch Id</th>*@
+                        <th scope="col">Branch Name</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Status</th>
+
+                        <th scope="col">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+
+            </table>
+        </div>
+     </div>
+    </div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/Scripts/DMS/DoctorRaysLabsMedicinesApproval.js?V=1"></script>
