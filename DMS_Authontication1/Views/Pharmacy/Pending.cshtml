@@ -8,10 +8,10 @@
         <h2 class="panel-heading" style="margin:1px;">Pending</h2>
         <div class="panel-body">
             <input type="text" id="CardId" name="CardId" hidden value="@Model.Details" />
-            <div class="input-group col-md-3">
+            @*<div class="input-group col-md-3">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                 <input id="txtSearchApproval" class="form-control" placeholder="Click To Search">
-            </div>
+            </div>*@
             <table class="table" id="Index">
                 <thead>
                     <tr>
@@ -80,7 +80,7 @@
     </div>
 </div>
 <script>
-    var CardId = $('#CardId').val();;
+    var CardId = $('#CardId').val();
     var CompanyPayment;
     var AnuualLimit;
     $(function () {

@@ -275,7 +275,16 @@ namespace DMS_Authontication1.Controllers
         //--------------------------------------------------------------------
         #region pending
 
-        public ActionResult Pending(string Id)
+        public ActionResult Pending(int NotificationId)
+        {
+            var model = db.Notifications.Where(n => n.Id == NotificationId && n.IsDeleted == false && n.IsRead == false)
+                .Include(x => x.Roshita).Include(r => r.Roshita.RoshitaDetails).Include(rd => rd.Roshita.PrescriptionRoshitaDignosis)
+                .FirstOrDefault();
+            model.Roshita.RoshitaDetails = model.Roshita.RoshitaDetails.Where(x => x.PaymentGroup == "Pending" || x.PaymentGroup == "Accepted"
+            || x.PaymentGroup == "Rejected").ToList();
+            return View(model);
+        }
+        public ActionResult Pending2(string Id)
         {
 
             return View();

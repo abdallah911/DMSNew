@@ -41,7 +41,13 @@ namespace DMS_Authontication1.Controllers
             {
                 notifications = db.Notifications.Where(x => x.IsRead == false && x.SentTo == UserName)
                     .AsEnumerable().Where(x => x.CreatedDate.AddDays(7).Date > DateTime.Now.Date)
-               .OrderByDescending(x => x.Id)
+               .OrderByDescending(x => x.Id).Select(x => new Notification
+               {
+                   DetailsURL = x.DetailsURL,
+                   Id = x.Id,
+                   TypeNmae = x.TypeNmae,
+                   Details = x.Details
+               })
                .ToList();
             }
 
