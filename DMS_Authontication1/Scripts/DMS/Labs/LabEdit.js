@@ -359,155 +359,168 @@ function Calculation() {
 
 function SelectMedicien(event) {
     var Code = event.params.args.data.id
-    $("#wait").css("display", "block");
-    var MedicienCode;
-    var MedicienName;
-    var Group;
-    // var IsCover;
-    $.ajax({
-        type: 'POST',
-        url: '/Labs/GetLabByCode/',
-        dataType: 'json',
-        data: { code: Code },
-        success: function (r) {
-            MedicienCode = r.SERV_CODE;
-            MedicienName = r.SERV_ANAME;
-            Group = r.GRUOP_TYPE;
-            Amount = r.SERV_AMOUNT;
-            //IsCover = r.IsCovered.toString();
-            var medicineGroups = new Array();
-            var medicineGroup = {};
-            medicineGroup.TRADE_NAME = MedicienCode; //current medicine code
-            medicineGroups.push(medicineGroup);
-            $('#Labs tbody tr').each(function () {
-                var row = $(this);
+    var done = 0;
+    $('#PharmacyPending tbody tr').each(function () {
+        var row = $(this);
+        if (parseInt(row.find("TD").eq(0).html()) == parseInt(Code)) {
+            done = 1;
+            //$("#AddMedicine option[value='" + id + "']").prop("selected", false);
+            $("#AddMedicine option[value='" + Code + "']").prop("selected", false);
+            //$("#AddMedicine").(Code);
+            toastr.error('تم ارسال هذا الدواء من قبل للموافقة و جارى الرد من الادارة الطبية');
+        }
+    });
+    if (done == 0) {
+        $("#wait").css("display", "block");
+        var MedicienCode;
+        var MedicienName;
+        var Group;
+        // var IsCover;
+        $.ajax({
+            type: 'POST',
+            url: '/Labs/GetLabByCode/',
+            dataType: 'json',
+            data: { code: Code },
+            success: function (r) {
+                MedicienCode = r.SERV_CODE;
+                MedicienName = r.SERV_ANAME;
+                Group = r.GRUOP_TYPE;
+                Amount = r.SERV_AMOUNT;
+                //IsCover = r.IsCovered.toString();
+                var medicineGroups = new Array();
                 var medicineGroup = {};
-                medicineGroup.M_CODE = parseInt(row.find("TD").eq(0).html());
+                medicineGroup.TRADE_NAME = MedicienCode; //current medicine code
                 medicineGroups.push(medicineGroup);
-                if (parseInt(row.find("TD").eq(0).html()) == parseInt(MedicienCode)) {
-                    event.preventDefault();
-                    toastr.error('Added before');
-                    $("#wait").css("display", "none");
-
-                }
-            });
-
-            var samegroup = false;
-            var Duration = false;
-            //check Daily
-            $.ajax({
-                dataType: "json",
-                url: '/Labs/CheckDaily',
-                data: {
-                    id: CardId,
-                    code: MedicienCode
-                },
-                success: function (r) {
-                    if (r == 0) {
+                $('#Labs tbody tr').each(function () {
+                    var row = $(this);
+                    var medicineGroup = {};
+                    medicineGroup.M_CODE = parseInt(row.find("TD").eq(0).html());
+                    medicineGroups.push(medicineGroup);
+                    if (parseInt(row.find("TD").eq(0).html()) == parseInt(MedicienCode)) {
+                        event.preventDefault();
+                        toastr.error('Added before');
                         $("#wait").css("display", "none");
-                        //append row
-                        if (Group == "NO") {
-                            $.ajax({
-                                dataType: "json",
-                                url: '/Pharmacy/CheckVip',
-                                data: {
-                                    id: CardId
-                                },
-                                success: function (r) {
-                                    if (r.IsVip == 1) {
-                                        Group = "Accepted";
-                                        AppendRow();
-                                        Calculation();
-                                    }
-                                    else {
-                                        var dialog = bootbox.dialog({
-                                            title: 'This Medicien is Not Covered!',
-                                            message: "<p>Pay method?</p>",
-                                            onEscape: function () {
-                                                RemoveSelection(MedicienCode);
-                                            },
-                                            buttons: {
-                                                Cash: {
-                                                    label: "Cash",
-                                                    className: 'btn-info',
-                                                    callback: function () {
-                                                        Group = "Cash";
-                                                        AppendRow();
-                                                        Calculation();
-                                                    }
+
+                    }
+                });
+
+                var samegroup = false;
+                var Duration = false;
+                //check Daily
+                $.ajax({
+                    dataType: "json",
+                    url: '/Labs/CheckDaily',
+                    data: {
+                        id: CardId,
+                        code: MedicienCode
+                    },
+                    success: function (r) {
+                        if (r == 0) {
+                            $("#wait").css("display", "none");
+                            //append row
+                            if (Group == "NO") {
+                                $.ajax({
+                                    dataType: "json",
+                                    url: '/Pharmacy/CheckVip',
+                                    data: {
+                                        id: CardId
+                                    },
+                                    success: function (r) {
+                                        if (r.IsVip == 1) {
+                                            Group = "Accepted";
+                                            AppendRow();
+                                            Calculation();
+                                        }
+                                        else {
+                                            var dialog = bootbox.dialog({
+                                                title: 'This Medicien is Not Covered!',
+                                                message: "<p>Pay method?</p>",
+                                                onEscape: function () {
+                                                    RemoveSelection(MedicienCode);
                                                 },
-                                                Approval: {
-                                                    label: "Approved",
-                                                    className: 'btn-info',
-                                                    callback: function () {
-                                                        Group = "Approval";
-                                                        AppendRow();
-                                                        Calculation();
-                                                    }
-                                                },
-                                                Tele: {
-                                                    label: "Pending",
-                                                    className: 'btn-info',
-                                                    callback: function () {
-                                                        Group = "Pending";
-                                                        AppendRow();
-                                                        Calculation();
+                                                buttons: {
+                                                    Cash: {
+                                                        label: "Cash",
+                                                        className: 'btn-info',
+                                                        callback: function () {
+                                                            Group = "Cash";
+                                                            AppendRow();
+                                                            Calculation();
+                                                        }
+                                                    },
+                                                    Approval: {
+                                                        label: "Approved",
+                                                        className: 'btn-info',
+                                                        callback: function () {
+                                                            Group = "Approval";
+                                                            AppendRow();
+                                                            Calculation();
+                                                        }
+                                                    },
+                                                    Tele: {
+                                                        label: "Pending",
+                                                        className: 'btn-info',
+                                                        callback: function () {
+                                                            Group = "Pending";
+                                                            AppendRow();
+                                                            Calculation();
+                                                        }
                                                     }
                                                 }
-                                            }
-                                        });
+                                            });
 
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
+                            else {
+                                AppendRow();
+                                Calculation();
+                            }
                         }
                         else {
-                            AppendRow();
-                            Calculation();
+                            RemoveSelection(Code);
+                            bootbox.alert("This Medicine had been exchanged Today ");
+                            $("#wait").css("display", "none");
                         }
-                    }
-                    else {
-                        RemoveSelection(Code);
-                        bootbox.alert("This Medicine had been exchanged Today ");
+                    },
+                    error: function (r) {
+                        bootbox.alert("Ajax exchanged Today  Error");
                         $("#wait").css("display", "none");
                     }
-                },
-                error: function (r) {
-                    bootbox.alert("Ajax exchanged Today  Error");
-                    $("#wait").css("display", "none");
-                }
 
-            });
+                });
+                $("#wait").css("display", "none");
+
+            },
+            error: function (ex) {
+                bootbox.alert('Failed to retrieve Lab Data.');
+            }
+
+        });
+        function AppendRow() {
+            var tBody = $("#Labs > TBODY")[0];
+            var row = tBody.insertRow(-1);
+            var cell = $(row.insertCell(-1));
+            cell.html(MedicienCode);
+            cell = $(row.insertCell(-1));
+            cell.html(MedicienName);
+
+            cell = $(row.insertCell(-1));
+            var AppendAmount = $("<input />");
+            AppendAmount.attr("type", "text");
+            //AppendAmount.attr('readonly', 'readonly');
+            AppendAmount.addClass("form-control");
+            AppendAmount.attr("onkeyup", "Calculation();");
+            AppendAmount.addClass('Amount');
+            AppendAmount.val(Amount);
+
+            cell.append(AppendAmount);
+            cell = $(row.insertCell(-1));
+            cell.html(Group);
+            toastr.success('Added successfully ');
             $("#wait").css("display", "none");
-
-        },
-        error: function (ex) {
-            bootbox.alert('Failed to retrieve Lab Data.');
         }
-
-    });
-    function AppendRow() {
-        var tBody = $("#Labs > TBODY")[0];
-        var row = tBody.insertRow(-1);
-        var cell = $(row.insertCell(-1));
-        cell.html(MedicienCode);
-        cell = $(row.insertCell(-1));
-        cell.html(MedicienName);
-
-        cell = $(row.insertCell(-1));
-        var AppendAmount = $("<input />");
-        AppendAmount.attr("type", "text");
-        //AppendAmount.attr('readonly', 'readonly');
-        AppendAmount.addClass("form-control");
-        AppendAmount.attr("onkeyup", "Calculation();");
-        AppendAmount.addClass('Amount');
-        AppendAmount.val(Amount);
-
-        cell.append(AppendAmount);
-        cell = $(row.insertCell(-1));
-        cell.html(Group);
-        toastr.success('Added successfully ');
-        $("#wait").css("display", "none");
     }
 }
 

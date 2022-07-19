@@ -33,7 +33,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
             var model = db.Notifications.Where(n => n.Id == NotificationId && n.IsDeleted == false && n.IsRead == false)
                 .Include(x => x.Roshita).Include(r => r.Roshita.RoshitaDetails).Include(rd => rd.Roshita.PrescriptionRoshitaDignosis)
                 .FirstOrDefault();
-            model.Roshita.RoshitaDetails = model.Roshita.RoshitaDetails.Where(x => x.PaymentGroup == "Pending").ToList();
+            //model.Roshita.RoshitaDetails = model.Roshita.RoshitaDetails.Where(x => x.PaymentGroup == "Pending").ToList();
             return View(model);
         }
         // GET: DoctorMedicinesLabsRaysApproval

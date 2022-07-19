@@ -511,7 +511,7 @@ $(function () {
         }
     });
     $('#Pending').click(function () {
-        location.replace("/Pharmacy/Pending?id=" + CardId);
+        location.replace("/Pharmacy/Pending2?id=" + CardId);
     });
     function DatePickerModel(flag) {
         if (flag == 0) {

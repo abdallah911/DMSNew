@@ -658,6 +658,16 @@ namespace DMS_Authontication1.Controllers
                     }
                 }
                 db.SaveChanges();
+                NotificationHub objNotifHub = new NotificationHub();
+                Notification notification = db.Notifications.AsEnumerable().Where(x => x.RoshitaId == roshta.Id && x.CreatedDate.ToShortDateString() == roshta.CreatedDate.Value.ToShortDateString()).OrderByDescending(x => x.Id).FirstOrDefault();
+                if (notification != null)
+                {
+                    notification.IsRead = true;
+                    db.Entry(notification).State = EntityState.Modified;
+                    db.SaveChanges();
+                    objNotifHub.SendMessages();
+                }
+
                 return Json(new { ok = true, data = db.SaveChanges(), message = "ok" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -669,7 +679,7 @@ namespace DMS_Authontication1.Controllers
 
         public ActionResult Edit(long id)
         {
-            List<DoctorContainerViewModel> data = db.RoshitaDetails.Where(l => l.RoshitaID == id && l.IsDealed == true)//.AsEnumerable()
+            List<DoctorContainerViewModel> data = db.RoshitaDetails.Where(l => l.RoshitaID == id /*&& l.IsDealed == true*/)//.AsEnumerable()
                                                                                                                        //.Join(db.Serv_Lab, d => d.MedicienCode, m =>Convert.ToString(m.Id), (d, m) => new { d, m })
                                                                                                                        //.Where(l => l.d.RoshitaID == id && l.d.IsDealed == true)
                  .Select(l => new DoctorContainerViewModel
@@ -870,6 +880,14 @@ namespace DMS_Authontication1.Controllers
 
             List<RoshitaDetail> List_R_Details = db.RoshitaDetails.Where(x => x.RoshitaID == data.Id).ToList();
             bool oneNotification = (List_R_Details.Where(x => x.RoshitaID == data.Id && x.PaymentGroup == "Pending").ToList().Count == 0) ? false : true;
+            if (oneNotification)
+            {
+                var noteficationdelete = db.Notifications.Where(n => n.RoshitaId == roshita.Id).FirstOrDefault();
+                noteficationdelete.IsDeleted = true;
+                noteficationdelete.IsRead = true;
+                db.Entry(noteficationdelete).State = EntityState.Modified;
+                oneNotification = false;
+            }
             var oldpending = List_R_Details.Where(r => r.RoshitaID == data.Id && (r.PaymentGroup == "Pending" || r.PaymentGroup == "Accepted"
             || r.PaymentGroup == "Rejected") && r.IsDealed == false).ToList();
             foreach (var old in oldpending)
@@ -905,25 +923,23 @@ namespace DMS_Authontication1.Controllers
                     if (oneNotification == false && Medicien.PaymentGroup == "Pending")
                     {
                         //if new pending and didn't have notification
-                        string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
-                        var NotificationList = db.Notifications.Where(x => x.Details == CardId && x.DetailsURL == "/DoctorMedicinesLabsRaysApproval/index" && x.IsRead == false).ToList();
-                        if (NotificationList.Count == 0)
-                        {
-                            NotificationHub objNotifHub = new NotificationHub();
-                            Notification notification = new Notification();
-                            notification.SentTo = "Admin";
-                            notification.CreatedBy = User.Identity.Name;
-                            notification.CreatedDate = DateTime.Now;
-                            notification.Type = 1;//pending
-                            notification.TypeNmae = "Lab";//pending
-                            notification.Details = CardId;
-                            notification.RoshitaId = roshita.Id;
-                            notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
-                            notification.Title = "Pending";
-                            db.Notifications.Add(notification);
-                            objNotifHub.SendMessages();
-                        }
+                        //NotificationHub objNotifHub = new NotificationHub();
+
+                        Notification notification = new Notification();
+                        notification.SentTo = "Admin";
+                        notification.CreatedBy = User.Identity.Name;
+                        notification.CreatedDate = DateTime.Now;
+                        notification.Type = 1;//pending
+                        notification.TypeNmae = "Lab";//pending
+                        notification.Details = roshita1.CardId;
+                        //notification.RoshitaId = roshita1.Id;
+                        notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
+                        notification.Title = "Pending";
+                        roshita1.Notifications.Add(notification);
+                        //db.Notifications.Add(notification);
+                        //objNotifHub.SendMessages();
                         oneNotification = true;
+
                     }
                     Medicien.IsDealed = (Medicien.PaymentGroup == "Cash") ? true : false;
                 }
@@ -950,7 +966,8 @@ namespace DMS_Authontication1.Controllers
                     db.Entry(remaining).State = EntityState.Modified;
                 }
                 int result = db.SaveChanges();
-
+                NotificationHub objNotifHub = new NotificationHub();
+                objNotifHub.SendMessages();
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita1.Id);
 
             }

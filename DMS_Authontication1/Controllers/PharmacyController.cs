@@ -2132,6 +2132,88 @@ namespace DMS_TEST.Controllers
             return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+        public JsonResult ChangeStatus2(int ApprovalId, string status)
+        {
+            var emp = db.RoshitaDetails.Where(x => x.Id == ApprovalId).FirstOrDefault();
+            bool Flag;
+            int result = -2;
+            if (emp.IsDealed == false)
+            {
+                if (status == "true")
+                {
+                    Flag = true;
+                    var Roshta = db.Roshitas.Where(x => x.Id == emp.RoshitaID).FirstOrDefault();
+                    if (emp.PaymentGroup == "Accepted")
+                    {
+                        Roshta.TotalValue += emp.Amount;
+                        double TotalValue = Roshta.TotalValue.Value - (Roshta.Cash.Value - (Roshta.OverInsurance.Value + Roshta.PersonPayment));// - Roshta.Cash.Value;//actally cash 
+                        double Limit = Roshta.Limit;
+
+                        double CompanyPercent = Convert.ToDouble(Roshta.CompanyPercent) / 100;
+                        double PersonPercent = Math.Round(1 - CompanyPercent, 2);
+                        double CompanyPayment = 0;
+                        if (Limit != 0)
+                        {
+                            CompanyPayment = TotalValue * CompanyPercent;
+                            if (Limit * CompanyPercent <= CompanyPayment)
+                            {
+                                Roshta.Cash = Roshta.Cash - Roshta.OverInsurance - Roshta.PersonPayment;
+                                Roshta.PersonPayment = Limit * PersonPercent;
+                                Limit = Limit * CompanyPercent;
+                                Roshta.CompanyPayment = Limit;
+                                Roshta.OverInsurance = TotalValue - Limit - Roshta.PersonPayment;
+                                Roshta.Cash = Roshta.Cash + Roshta.PersonPayment + Roshta.OverInsurance;//total cash
+
+                            }
+                            else
+                            {
+                                Roshta.CompanyPayment = CompanyPayment;
+                                Roshta.Cash -= Roshta.PersonPayment;
+                                Roshta.PersonPayment = TotalValue * PersonPercent;
+                                Roshta.Cash += Roshta.PersonPayment;
+
+                            }
+
+                        }
+                        else
+                        {
+                            Roshta.CompanyPayment = TotalValue * CompanyPercent;
+                            Roshta.Cash -= Roshta.PersonPayment;
+                            Roshta.PersonPayment = TotalValue * PersonPercent;
+                            Roshta.Cash += Roshta.PersonPayment;
+                        }
+
+                    }
+                    else if (emp.PaymentGroup == "Rejected")
+                    {
+                        Roshta.TotalValue += emp.Amount;
+                        Roshta.Cash += emp.Amount;
+                    }
+                    db.Entry(Roshta).State = EntityState.Modified;
+
+                }
+                else
+                {
+                    Flag = false;
+                }
+
+                emp.IsDealed = Flag;
+                db.Entry(emp).State = EntityState.Modified;
+                if (status != "N")
+                {
+
+                    string CardId = db.Roshitas.Where(x => x.Id == emp.RoshitaID).FirstOrDefault().CardId;
+                    NotificationHub objNotifHub = new NotificationHub();
+                    Notification notification = db.Notifications.Where(x => x.Details == CardId).OrderByDescending(x => x.Id).FirstOrDefault();
+                    notification.IsRead = true;
+                    db.Entry(notification).State = EntityState.Modified;
+
+                    objNotifHub.SendMessages();
+                }
+                result = db.SaveChanges();
+            }
+            return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         public JsonResult Approvals(string id)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -2468,6 +2550,7 @@ namespace DMS_TEST.Controllers
                     {
                         notification.IsRead = true;
                         db.Entry(notification).State = EntityState.Modified;
+                        db.SaveChanges();
                         objNotifHub.SendMessages();
                     }
                     roshta.Manager = "Daily_Stop";
@@ -2481,6 +2564,7 @@ namespace DMS_TEST.Controllers
                     {
                         notification.IsRead = true;
                         db.Entry(notification).State = EntityState.Modified;
+                        db.SaveChanges();
                         objNotifHub.SendMessages();
                     }
                     roshta.Manager = "Monthly_Stop";
@@ -2570,29 +2654,38 @@ namespace DMS_TEST.Controllers
 
         public ActionResult Edit(long id)
         {
-            List<DoctorContainerViewModel> data = db.RoshitaDetails
-                 .Join(db.MedicineDatas, d => d.MedicienCode, m => m.M_CODE, (d, m) => new { d, m })
-                 .Where(l => l.d.RoshitaID == id && l.d.IsDealed == true)
-                 .Select(l => new DoctorContainerViewModel
-                 {
-                     Id = l.d.Id,
-                     MedicienCode = l.d.MedicienCode,
-                     MedicienName = l.d.MedicienName,
-                     Dose = l.d.Dose,
-                     Duration = l.d.Duration,
-                     TotalDuration = l.d.TotalDuration,
-                     TotalUnits = l.d.TotalUnits,
-                     Amount = l.d.Amount,
-                     PaymentGroup = l.d.PaymentGroup,
-                     DOSAGE_FORM = l.m.DOSAGE_FORM,
-                     UNIT_NO = l.m.UNIT_NO,
-                     PACK_PRICE = l.m.PACK_PRICE,
-                     PACK_SIZE = l.m.PACK_SIZE,
-                     UNIT_PRICE = l.m.UNIT_PRICE,
-                     MedicineNoPay = l.d.MedicineNoPay
-                 })
-                 .ToList();
-            return View(data);
+            var roshita = db.Roshitas.Where(r => r.Id == id && !r.Manager.Contains("Stop")).FirstOrDefault();
+            if (roshita != null)
+            {
+                List<DoctorContainerViewModel> data = db.RoshitaDetails
+                     .Join(db.MedicineDatas, d => d.MedicienCode, m => m.M_CODE, (d, m) => new { d, m })
+                     .Where(l => l.d.RoshitaID == id)
+                     .Select(l => new DoctorContainerViewModel
+                     {
+                         Id = l.d.Id,
+                         MedicienCode = l.d.MedicienCode,
+                         MedicienName = l.d.MedicienName,
+                         Dose = l.d.Dose,
+                         Duration = l.d.Duration,
+                         TotalDuration = l.d.TotalDuration,
+                         TotalUnits = l.d.TotalUnits,
+                         Amount = l.d.Amount,
+                         PaymentGroup = l.d.PaymentGroup,
+                         DOSAGE_FORM = l.m.DOSAGE_FORM,
+                         UNIT_NO = l.m.UNIT_NO,
+                         PACK_PRICE = l.m.PACK_PRICE,
+                         PACK_SIZE = l.m.PACK_SIZE,
+                         UNIT_PRICE = l.m.UNIT_PRICE,
+                         MedicineNoPay = l.d.MedicineNoPay,
+                         IsDealed=l.d.IsDealed
+                     })
+                     .ToList();
+                return View(data);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
         }
         public JsonResult Manger(long id)
         {
@@ -2662,6 +2755,14 @@ namespace DMS_TEST.Controllers
             // RoshitaDetails
             List<RoshitaDetail> List_R_Details = db.RoshitaDetails.Where(x => x.RoshitaID == data.Id).ToList();
             bool oneNotification = (List_R_Details.Where(x => x.RoshitaID == data.Id && x.PaymentGroup == "Pending").ToList().Count == 0) ? false : true;
+            if (oneNotification)
+            {
+                var noteficationdelete = db.Notifications.Where(n => n.RoshitaId == roshita.Id).FirstOrDefault();
+                noteficationdelete.IsDeleted = true;
+                noteficationdelete.IsRead = true;
+                db.Entry(noteficationdelete).State = EntityState.Modified;
+                oneNotification = false;
+            }
             if (roshita1.Manager == "Pharmacy_Chronic")
             {
                 foreach (RoshitaDetail OldMedicien in List_R_Details)
@@ -2724,6 +2825,26 @@ namespace DMS_TEST.Controllers
                     MedicineNoPay = old.MedicineNoPay
                 };
                 roshita1.RoshitaDetails.Add(oldMedicien);
+                if (oldMedicien.PaymentGroup == "Pending")
+                {
+                    if (oneNotification == false)
+                    {
+                        //NotificationHub objNotifHub = new NotificationHub();
+
+                        Notification notification = new Notification();
+                        notification.SentTo = "Admin";
+                        notification.CreatedBy = User.Identity.Name;
+                        notification.CreatedDate = DateTime.Now;
+                        notification.Type = 1;//pending
+                        notification.TypeNmae = "Medicine";//pending
+                        notification.Details = roshita1.CardId;
+                        //notification.RoshitaId = roshita1.Id;
+                        notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
+                        notification.Title = "Pending";
+                        roshita1.Notifications.Add(notification);
+                        oneNotification = true;
+                    }
+                }
                 old.PaymentGroup = old.PaymentGroup + "-Stop";
                 db.Entry(old).State = EntityState.Modified;
 
@@ -2748,19 +2869,21 @@ namespace DMS_TEST.Controllers
                 {
                     if (oneNotification == false)
                     {
-                        NotificationHub objNotifHub = new NotificationHub();
+                        //NotificationHub objNotifHub = new NotificationHub();
+
                         Notification notification = new Notification();
                         notification.SentTo = "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
                         notification.TypeNmae = "Medicine";//pending
-                        notification.Details = roshita.CardId;
-                        notification.RoshitaId = roshita.Id;
+                        notification.Details = roshita1.CardId;
+                        //notification.RoshitaId = roshita1.Id;
                         notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
                         notification.Title = "Pending";
-                        db.Notifications.Add(notification);
-                        objNotifHub.SendMessages();
+                        roshita1.Notifications.Add(notification);
+                        //db.Notifications.Add(notification);
+                        //objNotifHub.SendMessages();
                         oneNotification = true;
                     }
                     Medicien.IsDealed = false;
@@ -2786,7 +2909,8 @@ namespace DMS_TEST.Controllers
                     }
                 }
                 int result = db.SaveChanges();
-
+                NotificationHub objNotifHub = new NotificationHub();
+                objNotifHub.SendMessages();
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita1.Id);
 
             }

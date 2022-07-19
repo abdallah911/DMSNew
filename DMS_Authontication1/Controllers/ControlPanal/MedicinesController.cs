@@ -45,7 +45,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
             db.LicenseTypes.Add(model);
             db.SaveChanges();
             return RedirectToAction("MedicineLicenseType");
-            
+
         }
         public JsonResult MedicineLicenseDelete(int id)
         {
@@ -123,9 +123,9 @@ namespace DMS_Authontication1.Controllers.ControlPanal
             db.MedicineTypes.Add(model);
             db.SaveChanges();
             return RedirectToAction("MedicineType");
-           
+
         }
-        
+
         public JsonResult MedicineTypeDelete(int id)
         {
             MedicineType _MedicineType = db.MedicineTypes.Find(id);
@@ -300,15 +300,10 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                 //return new JsonResult { Data = "Row is Added", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
-        
+
         // GET: Medicines/Edit/5
         public ActionResult Edit(int id)
         {
-
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             MedicineData mEDICINE_DATA = db.MedicineDatas.Find(id);
             if (mEDICINE_DATA == null)
             {
@@ -397,30 +392,35 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                 mcodeChronic.PACK_PRICE = data.PACK_PRICE;
                 mcodeChronic.UNIT_NO = data.UNIT_NO;
                 mcodeChronic.UNIT_PRICE = data.UNIT_PRICE;
-                mcodeChronic.NO_OF_UINT = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(((mcodeChronic.DOSE * mcodeChronic.MED_DURATION) - Convert.ToDouble(mcodeChronic.EXCESS)) / (Convert.ToDouble(mcodeChronic.PACK_SIZE) / Convert.ToDouble(mcodeChronic.UNIT_NO)))));
+                mcodeChronic.NO_OF_UINT = Convert.ToInt32(Math.Ceiling(Convert.ToDouble((mcodeChronic.DOS_DUR / data.PACK_SIZE) * data.UNIT_NO)));
+                //    ((mcodeChronic.DOSE * mcodeChronic.MED_DURATION) - Convert.ToDouble(mcodeChronic.EXCESS)) / (Convert.ToDouble(mcodeChronic.PACK_SIZE) / Convert.ToDouble(mcodeChronic.UNIT_NO)))));
+                //mcodeChronic.NO_OF_UINT = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(((mcodeChronic.DOSE * mcodeChronic.MED_DURATION) - Convert.ToDouble(mcodeChronic.EXCESS)) / (Convert.ToDouble(mcodeChronic.PACK_SIZE) / Convert.ToDouble(mcodeChronic.UNIT_NO)))));
                 mcodeChronic.TOTAL_AMT = data.UNIT_PRICE * mcodeChronic.NO_OF_UINT;
                 mcodeChronic.UPDATE_BY = User.Identity.Name;
                 mcodeChronic.UPDATE_DATE = DateTime.Now;
                 mcodeChronic.SyncBy = "Updated";
                 db.Entry(mcodeChronic).State = EntityState.Modified;
 
-                Roshita roshita = db.Roshitas.Where(x => x.CardId == mcodeChronic.CARD_NO && x.Manager == "Doctor_chronic").FirstOrDefault();
-                if (roshita != null)
+                var roshitaDetails = db.RoshitaDetails.Where(r => r.MedicienCode == mcodeChronic.MED_CODE && r.Roshita.CardId == mcodeChronic.CARD_NO &&
+                  r.Roshita.Manager == "Doctor_chronic").FirstOrDefault();
+                //Roshita roshita = db.Roshitas.Where(x => x.CardId == mcodeChronic.CARD_NO && x.Manager == "Doctor_chronic").FirstOrDefault();
+                //if (roshita != null)
+                //{
+                //    RoshitaDetail roshitaDetail = db.RoshitaDetails.Where(x => x.RoshitaID == roshita.Id && x.MedicienCode == mcodeChronic.MED_CODE).FirstOrDefault();
+                if (roshitaDetails != null)
                 {
-                    RoshitaDetail roshitaDetail = db.RoshitaDetails.Where(x => x.RoshitaID == roshita.Id && x.MedicienCode == mcodeChronic.MED_CODE).FirstOrDefault();
-                    if (roshitaDetail != null)
-                    {
-                        roshitaDetail.Amount = mcodeChronic.TOTAL_AMT.Value;
-                        db.Entry(roshitaDetail).State = EntityState.Modified;
-                    }
+                    roshitaDetails.TotalUnits = mcodeChronic.NO_OF_UINT;
+                    roshitaDetails.Amount = mcodeChronic.TOTAL_AMT.Value;
+                    db.Entry(roshitaDetails).State = EntityState.Modified;
                 }
+                //}
 
             }
             db.SaveChanges();
             return Json(new { ok = true, message = "Updated Successfully" }, JsonRequestBehavior.AllowGet);
 
         }
-       
+
         // GET: Medicines/Delete/5
         public ActionResult MedicineActivation(int id)
         {

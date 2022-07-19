@@ -31,13 +31,14 @@
                     <label class="control-label">Diagnosis:</label>
                 </div>
                 <div class="col-sm-3">
-                    @for (int i = 0; i < Model.Roshita.PrescriptionRoshitaDignosis.Count; i++)
-                    {
-                        <div class="col-lg-12">
-                            <h3>@Model.Roshita.PrescriptionRoshitaDignosis.ElementAt(i).DiagnoiseName</h3>
-                            <br />
-                        </div>
-                    }
+                    <div class="col-lg-12">
+
+                        @for (int i = 0; i < Model.Roshita.PrescriptionRoshitaDignosis.Count; i++)
+                        {
+                                <h3>@Model.Roshita.PrescriptionRoshitaDignosis.ElementAt(i).DiagnoiseName</h3>
+                               
+                        }
+                    </div>
                 </div>
 
             </div>

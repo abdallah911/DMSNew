@@ -247,7 +247,7 @@ $(function () {
 
     $('#Pending').click(function () {
 
-        location.replace("/Labs/Pending?id=" + CardId);
+        location.replace("/Labs/Pending2?id=" + CardId);
     });
 
     $("#PrescriptionDate").datepicker({

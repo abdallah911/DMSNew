@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DMS_TEST.ViewModel.DoctorContainerViewModel>
 
 @{
- ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit";
 }
 
 <div class="portlet box  green">
@@ -67,6 +67,35 @@
                 </TBODY>
             </table>
         </div>
+
+
+        @*Hiden table for pendin medicine*@
+
+
+        <div class="table-responsive" hidden>
+            <table class="table" id="PharmacyPending">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MedicienCode)
+                        </th>
+                    </tr>
+                </thead>
+                <TBODY>
+                    @foreach (var item in (Model.Where(m => m.PaymentGroup == "Pending").ToList()))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MedicienCode)
+                            </td>
+
+                        </tr>
+                    }
+                </TBODY>
+            </table>
+        </div>
+
+
         <!--Caculation-->
         <div class="row">
             <div class="form-group">

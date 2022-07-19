@@ -706,7 +706,10 @@ namespace DMS_Authontication1.Controllers.Employee
                         Newmodel.UserId = user.Id;
                         Newmodel.CreatedBy = User.Identity.Name;
                         Newmodel.CreatedDate = DateTime.Now;
-                        Newmodel.FullControl = page.FullControl;
+                        if (page.PageId == 22 && model.CardId.Contains("500144"))
+                            Newmodel.FullControl = true;
+                        else
+                            Newmodel.FullControl = page.FullControl;
                         Newmodel.EditPermission = page.EditPermission;
                         Newmodel.AddPermission = page.AddPermission;
                         Newmodel.ActivationControl = page.ActivationControl;
@@ -826,7 +829,10 @@ namespace DMS_Authontication1.Controllers.Employee
                         Newmodel.UserId = user.Id;
                         Newmodel.CreatedBy = User.Identity.Name;
                         Newmodel.CreatedDate = DateTime.Now;
-                        Newmodel.FullControl = page.FullControl;
+                        if (page.PageId == 22 && model.CardId.Contains("500144"))
+                            Newmodel.FullControl = true;
+                        else
+                            Newmodel.FullControl = page.FullControl;
                         Newmodel.EditPermission = page.EditPermission;
                         Newmodel.AddPermission = page.AddPermission;
                         Newmodel.ActivationControl = page.ActivationControl;

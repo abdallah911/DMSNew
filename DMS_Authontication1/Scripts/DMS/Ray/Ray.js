@@ -240,7 +240,7 @@ $(function () {
 
     $('#Pending').click(function () {
 
-        location.replace("/Rays/Pending?id=" + CardId);
+        location.replace("/Rays/Pending2?id=" + CardId);
     });
 
     $("#PrescriptionDate").datepicker({

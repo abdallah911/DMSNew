@@ -76,7 +76,7 @@
                     </tr>
                 </thead>
                 <TBODY>
-                    @foreach (var item in Model)
+                    @foreach (var item in (Model.Where(x => x.IsDealed == true).ToList()))
                     {
                         <tr>
                             <td>
@@ -110,7 +110,7 @@
                                 @Html.EditorFor(modelItem => item.TotalDuration, new { htmlAttributes = new { @class = "form-control TotalDuration", onfocusout = "changeTotalDuration(this);", id = "TotalDuration", @type = "text" } })
                             </td>
                             <td>
-                                @Html.EditorFor(modelItem => item.TotalUnits, new { htmlAttributes = new { @class = "form-control TotalUnits ", @onkeyup = "changeTotalUnits(this);" ,@readonly = "readonly", @type = "text" } })
+                                @Html.EditorFor(modelItem => item.TotalUnits, new { htmlAttributes = new { @class = "form-control TotalUnits ", @onkeyup = "changeTotalUnits(this);", @readonly = "readonly", @type = "text" } })
                             </td>
                             <td>
                                 @Html.EditorFor(modelItem => item.Amount, new { htmlAttributes = new { @class = "form-control Amount ", @readonly = "readonly" } })
@@ -127,6 +127,34 @@
                 </TBODY>
             </table>
         </div>
+
+        @*Hiden table for pendin medicine*@
+
+
+        <div class="table-responsive" hidden>
+            <table class="table" id="PharmacyPending">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MedicienCode)
+                        </th>
+                    </tr>
+                </thead>
+                <TBODY>
+                    @foreach (var item in (Model.Where(m => m.PaymentGroup == "Pending").ToList()))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MedicienCode)
+                            </td>
+
+                        </tr>
+                    }
+                </TBODY>
+            </table>
+        </div>
+
+
         <!--Caculation-->
         <div class="row">
             <div class="form-group">
@@ -170,4 +198,4 @@
         </div>
     </div>
 </div>
-<script src="~/Scripts/DMS/PharmacyEdit.js?v=3.3"></script>
+<script src="~/Scripts/DMS/PharmacyEdit.js?v=3.4"></script>
