@@ -693,7 +693,7 @@ namespace DMS_Authontication1.Controllers
                      Amount = l.Amount,
                      IsDealed = l.IsDealed,
                      PaymentGroup = l.PaymentGroup
-                 })
+                 }) 
                    .GroupBy(x => new { x.MedicienCode })
                 .Select(x => x.FirstOrDefault())
                  .ToList();
