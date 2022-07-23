@@ -679,21 +679,30 @@ namespace DMS_Authontication1.Controllers
 
         public ActionResult Edit(long id)
         {
-            List<DoctorContainerViewModel> data = db.RoshitaDetails.Where(l => l.RoshitaID == id /*&& l.IsDealed == true*/)//.AsEnumerable()
-                                                                                                                       //.Join(db.Serv_Lab, d => d.MedicienCode, m =>Convert.ToString(m.Id), (d, m) => new { d, m })
-                                                                                                                       //.Where(l => l.d.RoshitaID == id && l.d.IsDealed == true)
+            var roshita = db.Roshitas.Where(r => r.Id == id && !r.Manager.Contains("Stop")).FirstOrDefault();
+            if (roshita != null)
+            {
+                List<DoctorContainerViewModel> data = db.RoshitaDetails.Where(l => l.RoshitaID == id /*&& l.IsDealed == true*/)//.AsEnumerable()
+                                                                                                                               //.Join(db.Serv_Lab, d => d.MedicienCode, m =>Convert.ToString(m.Id), (d, m) => new { d, m })
+                                                                                                                               //.Where(l => l.d.RoshitaID == id && l.d.IsDealed == true)
                  .Select(l => new DoctorContainerViewModel
                  {
                      Id = l.Id,
                      MedicienCode = l.MedicienCode,
                      MedicienName = l.MedicienName,
                      Amount = l.Amount,
+                     IsDealed = l.IsDealed,
                      PaymentGroup = l.PaymentGroup
                  })
                    .GroupBy(x => new { x.MedicienCode })
                 .Select(x => x.FirstOrDefault())
                  .ToList();
-            return View(data);
+                return View(data);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
         }
         public JsonResult Manger(long id)
         {
@@ -906,6 +915,23 @@ namespace DMS_Authontication1.Controllers
                     MedicineNoPay = old.MedicineNoPay
                 };
                 roshita1.RoshitaDetails.Add(oldMedicien);
+                if (oldMedicien.PaymentGroup == "Pending")
+                {
+                    if (oneNotification == false)
+                    {
+                        Notification notification = new Notification();
+                        notification.SentTo = "Admin";
+                        notification.CreatedBy = User.Identity.Name;
+                        notification.CreatedDate = DateTime.Now;
+                        notification.Type = 1;//pending
+                        notification.TypeNmae = "Lab";//pending
+                        notification.Details = roshita1.CardId;
+                        notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
+                        notification.Title = "Pending";
+                        roshita1.Notifications.Add(notification);
+                        oneNotification = true;
+                    }
+                }
                 old.PaymentGroup = old.PaymentGroup + "-Stop";
                 db.Entry(old).State = EntityState.Modified;
 
@@ -966,6 +992,27 @@ namespace DMS_Authontication1.Controllers
                     db.Entry(remaining).State = EntityState.Modified;
                 }
                 int result = db.SaveChanges();
+                if (oneNotification)
+                {
+                    var noteficationdelete = db.Notifications.Where(n => n.RoshitaId == roshita.Id).FirstOrDefault();
+                    if (noteficationdelete != null)
+                    {
+                        noteficationdelete.IsDeleted = true;
+                        noteficationdelete.IsRead = true;
+                        db.Entry(noteficationdelete).State = EntityState.Modified;
+                        int result2 = db.SaveChanges();
+                    }
+                }
+                else
+                {
+                    var noteficationdelete = db.Notifications.Where(n => n.RoshitaId == roshita.Id).FirstOrDefault();
+                    if (noteficationdelete != null)
+                    {
+                        noteficationdelete.RoshitaId = roshita1.Id;
+                        db.Entry(noteficationdelete).State = EntityState.Modified;
+                        int result3 = db.SaveChanges();
+                    }
+                }
                 NotificationHub objNotifHub = new NotificationHub();
                 objNotifHub.SendMessages();
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita1.Id);

@@ -456,10 +456,14 @@ function SelectMedicien(event) {
         var row = $(this);
         if (parseInt(row.find("TD").eq(0).html()) == parseInt(Code)) {
             done = 1;
+
             //$("#AddMedicine option[value='" + id + "']").prop("selected", false);
-            $("#AddMedicine option[value='" + Code + "']").prop("selected", false);
+            //$("#AddMedicine option[value='" + Code + "']").prop("selected", false);
             //$("#AddMedicine").(Code);
             toastr.error('تم ارسال هذا الدواء من قبل للموافقة و جارى الرد من الادارة الطبية');
+            var currentMedicine = parseInt(row.find("TD").eq(0).html());
+            var newOption = new Option(row.find("TD").eq(1).html(), currentMedicine, false, false);
+            $('#AddMedicine').Remove(newOption).trigger('change');
         }
     });
     if (done == 0) {

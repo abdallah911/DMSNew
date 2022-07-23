@@ -45,7 +45,7 @@
                     </tr>
                 </thead>
                 <TBODY>
-                    @foreach (var item in Model)
+                    @foreach (var item in (Model.Where(x => x.PaymentGroup != "Pending" && x.IsDealed == true).ToList()))
                     {
                         <tr>
                             <td>
@@ -79,14 +79,20 @@
                         <th>
                             @Html.DisplayNameFor(model => model.MedicienCode)
                         </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MedicienName)
+                        </th>
                     </tr>
                 </thead>
                 <TBODY>
-                    @foreach (var item in (Model.Where(m => m.PaymentGroup == "Pending").ToList()))
+                    @foreach (var item in (Model.Where(m => m.PaymentGroup == "Pending"|| m.PaymentGroup == "Accepted" || m.PaymentGroup == "Rejected").ToList()))
                     {
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.MedicienCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MedicienName)
                             </td>
 
                         </tr>

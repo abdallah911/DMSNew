@@ -215,16 +215,17 @@ $(function () {
                                     label: "Print",
                                     className: 'btn-info',
                                     callback: function () {
+                                        $("#Update").attr("disabled", "disabled");
                                         window.open('/Labs/ControlPenelReport?id=' + OracleId);
-                                        $("#Update").attr("disabled", false);
                                     }
                                 },
                                 New: {
                                     label: "New",
                                     className: 'btn-info',
                                     callback: function () {
-                                        window.location = "/Labs/index?id=undefined";
-                                        $("#Update").attr("disabled", false);
+                                        $("#Update").attr("disabled", "disabled");
+                                        window.location = "/Labs/index";
+                                        //$("#Update").attr("disabled", false);
                                     }
                                 }
 
@@ -363,11 +364,16 @@ function SelectMedicien(event) {
     $('#PharmacyPending tbody tr').each(function () {
         var row = $(this);
         if (parseInt(row.find("TD").eq(0).html()) == parseInt(Code)) {
+            debugger;
             done = 1;
+            
             //$("#AddMedicine option[value='" + id + "']").prop("selected", false);
-            $("#AddMedicine option[value='" + Code + "']").prop("selected", false);
+            //$("#AddMedicine option[value='" + Code + "']").prop("selected", false);
             //$("#AddMedicine").(Code);
             toastr.error('تم ارسال هذا الدواء من قبل للموافقة و جارى الرد من الادارة الطبية');
+            var currentMedicine = parseInt(row.find("TD").eq(0).html());
+            var newOption = new Option(row.find("TD").eq(1).html(), currentMedicine, false, false);
+            $('#AddLabs').RemoveSelection(newOption).trigger('change');
         }
     });
     if (done == 0) {

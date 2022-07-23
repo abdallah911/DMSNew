@@ -140,18 +140,39 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                         notification.Title = status;
                         if (Roshita.Manager == "Daily" || Roshita.Manager == "Monthly")
                         {
-                            notification.DetailsURL = "/Pharmacy/Pharmacy";
-                            notification.TypeNmae = "Medicine";//Rejected
+                            notification.DetailsURL = "/Pharmacy/Pending";
+                            notification.TypeNmae = "Medicine";//Accepted
                         }
                         else if (Roshita.Manager == "Lab")
                         {
-                            notification.DetailsURL = "/Labs/Lab";
-                            notification.TypeNmae = "Lab";//Rejected
+                            notification.DetailsURL = "/Labs/Pending";
+                            notification.TypeNmae = "Lab";//Accepted
                         }
                         else if (Roshita.Manager == "Ray")
                         {
-                            notification.DetailsURL = "/Rays/Ray";
-                            notification.TypeNmae = "Ray";//Rejected
+                            notification.DetailsURL = "/Rays/Pending";
+                            notification.TypeNmae = "Ray";//Accepted
+                        }
+                    }
+                    else
+                    {
+                        notification.Type = 2;//Accepted
+                        notification.Title = status;
+
+                        if (Roshita.Manager == "Daily" || Roshita.Manager == "Monthly")
+                        {
+                            notification.DetailsURL = "/Pharmacy/Pending";
+                            notification.TypeNmae = "Medicine";//Accepted
+                        }
+                        else if (Roshita.Manager == "Lab")
+                        {
+                            notification.DetailsURL = "/Labs/Pending";
+                            notification.TypeNmae = "Lab";//Accepted
+                        }
+                        else if (Roshita.Manager == "Ray")
+                        {
+                            notification.DetailsURL = "/Rays/Pending";
+                            notification.TypeNmae = "Ray";//Accepted
                         }
                     }
 

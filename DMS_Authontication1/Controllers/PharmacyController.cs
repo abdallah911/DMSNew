@@ -2677,7 +2677,7 @@ namespace DMS_TEST.Controllers
                          PACK_SIZE = l.m.PACK_SIZE,
                          UNIT_PRICE = l.m.UNIT_PRICE,
                          MedicineNoPay = l.d.MedicineNoPay,
-                         IsDealed=l.d.IsDealed
+                         IsDealed = l.d.IsDealed
                      })
                      .ToList();
                 return View(data);
@@ -2909,6 +2909,27 @@ namespace DMS_TEST.Controllers
                     }
                 }
                 int result = db.SaveChanges();
+                if (oneNotification)
+                {
+                    var noteficationdelete = db.Notifications.Where(n => n.RoshitaId == roshita.Id).FirstOrDefault();
+                    if (noteficationdelete != null)
+                    {
+                        noteficationdelete.IsDeleted = true;
+                        noteficationdelete.IsRead = true;
+                        db.Entry(noteficationdelete).State = EntityState.Modified;
+                        int result2 = db.SaveChanges();
+                    }
+                }
+                else
+                {
+                    var noteficationdelete = db.Notifications.Where(n => n.RoshitaId == roshita.Id).FirstOrDefault();
+                    if (noteficationdelete != null)
+                    {
+                        noteficationdelete.RoshitaId = roshita1.Id;
+                        db.Entry(noteficationdelete).State = EntityState.Modified;
+                        int result3 = db.SaveChanges();
+                    }
+                }
                 NotificationHub objNotifHub = new NotificationHub();
                 objNotifHub.SendMessages();
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita1.Id);
