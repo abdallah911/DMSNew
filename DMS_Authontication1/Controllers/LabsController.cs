@@ -668,7 +668,7 @@ namespace DMS_Authontication1.Controllers
                      MedicienName = l.MedicienName,
                      Amount = l.Amount,
                      PaymentGroup = l.PaymentGroup
-                 })
+                 }) 
                    .GroupBy(x => new { x.MedicienCode })
                 .Select(x => x.FirstOrDefault())
                  .ToList();
