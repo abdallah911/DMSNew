@@ -310,7 +310,7 @@ namespace DMS_Authontication1.Controllers
             {
                 Flag = true;
                 var Roshta = db.Roshitas.Where(x => x.Id == emp.RoshitaID).FirstOrDefault();
-                double OldCompanyPayment = Roshta.CompanyPayment; 
+                double OldCompanyPayment = Roshta.CompanyPayment;
                 if (emp.PaymentGroup == "Accepted")
                 {
                     Roshta.TotalValue += emp.Amount;
@@ -1258,6 +1258,22 @@ namespace DMS_Authontication1.Controllers
                 double Limit = 0;
                 List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+
+                if (type == true)
+                {
+                    Available = CompContractClassMAX_AMOUNT;
+
+                }
+                else
+                {
+                    //Main consumption
+                    double AcumlatorAmount = 0;
+                    foreach (var item in AcumlatorList)
+                    {
+                        AcumlatorAmount += item.CompanyPayment;
+                    }
+                    Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
+                }
                 if (remainingconsumption != null && remainingconsumption.REMAINING != null &&
                     (remainingconsumption.REMAINING == Available))
                 {
@@ -1265,22 +1281,8 @@ namespace DMS_Authontication1.Controllers
                 }
                 else
                 {
-                    
-                    if (type == true)
-                    {
-                        Available = CompContractClassMAX_AMOUNT;
 
-                    }
-                    else
-                    {
-                        //Main consumption
-                        double AcumlatorAmount = 0;
-                        foreach (var item in AcumlatorList)
-                        {
-                            AcumlatorAmount += item.CompanyPayment;
-                        }
-                        Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
-                    }
+
                     //Service consumption
                     List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
                     double AcumlatorServiceAmount = 0;
