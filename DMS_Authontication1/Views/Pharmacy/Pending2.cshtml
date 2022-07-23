@@ -1,17 +1,22 @@
-﻿@model DMS_Authontication1.Models.Notification
+﻿@model IEnumerable<DMS_TEST.ViewModel.Roshita_RoshitaDetails>
 @{
     ViewBag.Title = "Pending";
 }
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+@Html.Partial("_Approvals")
 <div class="container">
     <div class="panel panel-info">
         <h2 class="panel-heading" style="margin:1px;">Pending</h2>
         <div class="panel-body">
-            <input type="text" id="CardId" name="CardId" hidden value="@Model.Details" />
+            <div class="input-group col-md-3">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                <input id="txtSearchApproval" class="form-control" placeholder="Click To Search">
+            </div>
             <table class="table" id="Index">
                 <thead>
                     <tr>
-                        <th scope="col" hidden>Medicine Id</th>
+                        <th scope="col">Approval Id</th>
+                        <th scope="col">Id</th>
                         <th scope="col" align="center">Name</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Medical Reply</th>
@@ -20,49 +25,7 @@
                     </tr>
 
                 </thead>
-                <tbody>
-                    @for (int i = 0; i < Model.Roshita.RoshitaDetails.Count; i++)
-                    {
-                        <tr>
-                            <td hidden>
-                                @Model.Roshita.RoshitaDetails.ElementAt(i).Id
-                            </td>
-                            <td>
-                                @Model.Roshita.RoshitaDetails.ElementAt(i).MedicienName
-                            </td>
-                            <td>
-                                @Model.Roshita.RoshitaDetails.ElementAt(i).Amount
-                            </td>
-                            <td>
-                                @Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup
-                            </td>
-                            <td>
-                                @Model.Roshita.RoshitaDetails.ElementAt(i).IsDealed
-                            </td>
-                            @if ((Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Accepted" || Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Rejected")
-                                 && Model.Roshita.RoshitaDetails.ElementAt(i).IsDealed == false)
-                            {
-                                <td>
-                                    <select id='ChangeStatus' class='form-control' onchange='SelectDealed(this);'>
-                                        <option value='N'> Change IsDealed</option>
-                                        <option value='true'>Yes</option>
-                                        <option value='false'>No</option>
-                                    </select>
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    <select disabled id='ChangeStatus' class='form-control' onchange='SelectDealed(this);'>
-                                        <option value='N'> Change IsDealed</option>
-                                        <option value='true'>Yes</option>
-                                        <option value='false'>No</option>
-                                    </select>
-                                </td>
-                            }
-                        </tr>
-                    }
-                </tbody>
+                <tbody></tbody>
             </table>
             <div class="row">
 
@@ -72,48 +35,83 @@
                 </div>
 
                 @*<div class="col-md-3">
-                        <label class="control-label">Cash</label>
-                        <input id="Cash" disabled class="form-control col-md-3" />
-                    </div>*@
+            <label class="control-label">Cash</label>
+            <input id="Cash" disabled class="form-control col-md-3" />
+        </div>*@
 
 
             </div>
-            <br />
+            <br/>
             @*<div class="panel-footer" style="text-align:right;">
-                    <a id="Print" href="#" class="btn btn-success glyphicon glyphicon-print " disabled> Print</a>
+                <a id="Print" href="#" class="btn btn-success glyphicon glyphicon-print " disabled> Print</a>
 
 
-                </div>*@
+            </div>*@
         </div>
     </div>
 </div>
 <script>
-    var CardId = $('#CardId').val();
+    var url = window.location.href;
+    var CardId = url.substring(url.lastIndexOf('=') + 1);
     var CompanyPayment;
     var AnuualLimit;
     $(function () {
-        $("#Index").DataTable({
-            "bPaginate": false,
-            "bLengthChange": false,
-            "bFilter": false,
-            "bInfo": false,
-            "bAutoWidth": false
+        $('#txtSearchApproval').click(function () {
+            $('#TotalAmount').val('0');
+            $('#Cash').val('0')
+            $.ajax({
+                url: '/Pharmacy/approvals/',
+                data: { id: CardId },
+                dataType: 'json',
+                success: function (r) {
+                    var setData = $("#Approvals Tbody");
+                    setData.empty();
+
+                    for (var i = 0; i < r.length; i++) {
+                        if (r[i].CreatedDate != null) {
+                            var MyDate_String_Value = r[i].CreatedDate;
+                            var value = new Date
+                                (
+                                parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                        }
+                        else {
+                            dat = null;
+
+                        }
+                        var data = "<tr >" +
+                            "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Select(this);'></Button>" + "</td>" +
+                            "<td>" + r[i].Id + "</td>" +
+                            "<td>" + dat + "</td>"
+
+                        "</tr>"
+                        setData.append(data);
+
+                    }
+                    $('#Approvals').DataTable();
+                    $('#ApprovalsModal').modal();
+                },
+                error: function (r) {
+                    alert(':(')
+                }
+
+            });
+
         });
-        $('#TotalAmount').val('0');
-        $('#Cash').val('0');
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: '/Labs/CellingAmount',
+            url: '/Pharmacy/CellingAmount',
             data: {
                 id: CardId,
-                ServiceCode: '11201'
+                ServiceCode: '11601'
             },
             success: function (r) {
                 if (r.Validation == false) {
-                    // toastr.info("Exceeded his annual contract limit");
+                   // toastr.info("Exceeded his annual contract limit");
                     toastr.info(r.Message);
-                    window.location.replace("/Rays/Ray");
+                    window.location.replace("/Pharmacy/Pharmacy");
                 } else {
                     CompanyPayment = r.CeilingPert;
                     AnuualLimit = r.Limit;
@@ -146,21 +144,22 @@
     });
     function SelectDealed(button) {
         var row = $(button).closest("TR");
-        var MedicineId = $("TD", row).eq(0).html();
-        MedicineId = parseInt(MedicineId);
+        var ApprovalId = $("TD", row).eq(1).html();
+        ApprovalId = parseInt(ApprovalId);
         //debugger;
         $.ajax({
             type: 'POST',
-            url: '/Pharmacy/ChangeStatus',
+            url: '/Pharmacy/ChangeStatus2',
             dataType: 'Json',
             data: {
-                MedicineId: MedicineId,
+                ApprovalId: ApprovalId,
                 status: $(button).val()
             },
             dataType: 'Json',
             success: function (r) {
                 if ($(button).val() != "N" && r != -2) {
-                    $("TD", row).eq(4).html($(button).val());
+                    $("TD", row).eq(5).html($(button).val());
+                    $("#ChangeStatus").prop('disabled', 'disabled');
                     //if ($(button).val() == "false") {
                     //    $("TD", row).eq(4).html('Accepted');
                     //}
@@ -183,12 +182,12 @@
         // debugger;
         $('#Index TBODY TR').each(function () {
             var row = $(this);
-            if (row.find("TD").eq(4).html() == "true" && row.find("TD").eq(5).html().search("disabled") == -1) {
-                if (row.find("TD").eq(3).html() == "Accepted") {
-                    sum += parseFloat(row.find("TD").eq(2).html());
+            if (row.find("TD").eq(5).html() == "true" && row.find("TD").eq(6).html().search("disabled") == -1) {
+                if (row.find("TD").eq(4).html() == "Accepted") {
+                    sum += parseFloat(row.find("TD").eq(3).html());
                 }
-                else if (row.find("TD").eq(3).html() == "Rejected") {
-                    Cash += parseFloat(row.find("TD").eq(2).html());
+                else if (row.find("TD").eq(4).html() == "Rejected") {
+                    Cash += parseFloat(row.find("TD").eq(3).html());
                 }
             }
         });

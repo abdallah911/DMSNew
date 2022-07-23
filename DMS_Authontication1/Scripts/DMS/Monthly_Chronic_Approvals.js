@@ -46,7 +46,7 @@ $(function () {
             $('.modal-body #StartDate').val('');
             $('.modal-body #ExchangeDay').val('1');
             $(".modal-body #Group option:eq(0)").attr('selected', 'selected');
-            $(".modal-body #Diagnoise option:eq(0)").attr('selected', 'selected');
+            //$(".modal-body #Diagnoise option:eq(0)").attr('selected', 'selected');
             $('.modal-body #CompanyPaymentLimit').val('1');
             $('.modal-body #OverInsuranceLimit').val('1');
             $('.modal-body #LockStatus').val('Open');
@@ -55,7 +55,7 @@ $(function () {
             $('.modal-body #StartDate1').val('');
             $('.modal-body #ExchangeDay1').val('1');
             $(".modal-body #Group1 option:eq(0)").attr('selected', 'selected');
-            $(".modal-body #Diagnoise1 option:eq(0)").attr('selected', 'selected');
+            //$(".modal-body #Diagnoise1 option:eq(0)").attr('selected', 'selected');
             $('.modal-body #CompanyPaymentLimit1').val('1');
             $('.modal-body #OverInsuranceLimit1').val('1');
             $('.modal-body #LockStatus1').val('Open');
@@ -334,7 +334,7 @@ $(function () {
                 $("#Diagnoise1").append('<option value="' + ddlDiag1.Code + '">' +
                     ddlDiag1.Name + '</option>');
             });
-            $('#Diagnoise  option:eq(0)').attr('selected', 'selected');
+            //$('#Diagnoise  option:eq(0)').attr('selected', 'selected');
         },
         error: function (ex) {
             alert('Failed to retrieve Diagnoses.');

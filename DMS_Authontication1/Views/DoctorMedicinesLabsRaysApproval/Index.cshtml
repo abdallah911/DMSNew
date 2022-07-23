@@ -1,10 +1,9 @@
-﻿
+﻿@model DMS_Authontication1.Models.Notification
 @{
     ViewBag.Title = "Index";
 }
 <br />
 <br />
-@Html.Partial("_ApprovalsSearchCards")
 <div class="portlet box green">
     <div class="portlet-title">
         <div class="caption">
@@ -16,38 +15,153 @@
         <br />
         <div class="row">
             <div class="form-group">
-                <div class="col-sm-3">
-                    <input id="AddCardTxt" type="text" placeholder="Add Card" class="form-control" value="@ViewBag.cardId" />
+                <div class="col-sm-1">
+                    <label class="control-label">Card Id:</label>
                 </div>
                 <div class="col-sm-3">
-                    <button id="AddCard" class=" btn btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#exampleModal"> search</button>
+                    <input id="AddCardTxt" type="text" class="form-control" value="@Model.Details" disabled />
+                </div>
+                <div class="col-sm-1">
+                    <label class="control-label">Time:</label>
+                </div>
+                <div class="col-sm-3">
+                    <input id="CreatedTime" type="text" class="form-control" value="@Model.CreatedDate" disabled />
+                </div>
+                <div class="col-sm-1">
+                    <label class="control-label">Diagnosis:</label>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col-lg-12">
+
+                        @for (int i = 0; i < Model.Roshita.PrescriptionRoshitaDignosis.Count; i++)
+                        {
+                                <h3>@Model.Roshita.PrescriptionRoshitaDignosis.ElementAt(i).DiagnoiseName</h3>
+                               
+                        }
+                    </div>
                 </div>
 
             </div>
         </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-1">
+                    <label class="control-label">Manager</label>
+                </div>
+                <div class="col-sm-3">
+                    <input id="AddCardTxt" type="text" class="form-control" value="@Model.Roshita.Manager" disabled />
+                </div>
+                <div class="col-sm-1">
+                    <label class="control-label">Created By</label>
+                </div>
+                <div class="col-sm-3">
+                    <input id="AddCardTxt" type="text" class="form-control" value="@Model.CreatedBy" disabled />
+                </div>
+            </div>
+        </div>
         <br />
         <br />
+        <input id="NotificationId" name="NotificationId" type="text" value="@Model.Id" hidden />
         <div class="table-responsive" style="HEIGHT: 300px;position:relative">
             <table class="table table-fixed" id="Approvals">
                 <thead>
                     <tr>
-                        <th scope="col">Approval Id</th>
-                        <th scope="col">Id</th>
-                        <th scope="col">Category</th>
+                        <th scope="col" hidden>Medicine Id</th>
+                        @*<th scope="col">Manager Type</th>*@
                         <th scope="col" align="center">Name</th>
                         @*<th scope="col">Branch Id</th>*@
-                        <th scope="col">Branch Name</th>
+                        @*<th scope="col">Created By</th>*@
                         <th scope="col">Amount</th>
                         <th scope="col">Status</th>
 
                         <th scope="col">&nbsp;</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    @for (int i = 0; i < Model.Roshita.RoshitaDetails.Count; i++)
+                    {
+                        <tr>
+                            <td hidden>
+                                @Model.Roshita.RoshitaDetails.ElementAt(i).Id
+                            </td>
+                            <td>
+                                @Model.Roshita.RoshitaDetails.ElementAt(i).MedicienName
+                            </td>
+                            <td>
+                                @Model.Roshita.RoshitaDetails.ElementAt(i).Amount
+                            </td>
+                            <td>
+                                @Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup
+                            </td>
+                            @if (@Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Pending")
+                            {
+                                <td>
+                                    <select id='ChangeStatus' class='form-control' onchange='Select(this);'>
+                                        <option value='N'> ChangeStatus</option>
+                                        <option value='Accepted'>Accepted</option>
+                                        <option value='Rejected'>Rejected</option>
+                                    </select>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    Dispensed
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
 
             </table>
         </div>
-     </div>
     </div>
+</div>
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
-<script src="~/Scripts/DMS/DoctorRaysLabsMedicinesApproval.js?V=1"></script>
+<script>
+    $(function () {
+        $("#Approvals").DataTable({
+            "bPaginate": false,
+            "bLengthChange": false,
+            "bFilter": true,
+            "bInfo": false,
+            "bAutoWidth": false
+        });
+    });
+
+    function Select(button) {
+
+        debugger;
+        var row = $(button).closest("TR");
+        var MedicineId = $("TD", row).eq(0).html();
+        MedicineId = parseInt(MedicineId);
+        var NotificationId = $("#NotificationId").val();
+        NotificationId = parseInt(NotificationId);
+        debugger;
+        $.ajax({
+            type: 'POST',
+            url: '/DoctorMedicinesLabsRaysApproval/ChangeStatus',
+            dataType: 'Json',
+            data: {
+                MedicineId: MedicineId,
+                NotificationId: NotificationId,
+                status: $(button).val()
+            },
+            dataType: 'Json',
+            success: function (r) {
+
+                if ($(button).val() != "N") {
+                    $("TD", row).eq(3).html($(button).val());
+                    toastr.success($(button).val());
+
+                }
+
+            },
+            error: function () {
+                alert("Error Retrieve");
+            }
+        });
+
+
+    }
+</script>

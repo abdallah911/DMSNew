@@ -172,7 +172,7 @@ $(function () {
                                         success: function (returndata) {
                                             if (returndata.ok) {
                                                 if (returndata.data == "Y") {
-
+                                                    debugger;
                                                     $("#wait").css("display", "none");
                                                     $('#txtSearchCard').val(CardId);
                                                     $('#compEmp_EMP_ANAME').val(ArName);
@@ -511,7 +511,7 @@ $(function () {
         }
     });
     $('#Pending').click(function () {
-        location.replace("/Pharmacy/Pending?id=" + CardId);
+        location.replace("/Pharmacy/Pending2?id=" + CardId);
     });
     function DatePickerModel(flag) {
         if (flag == 0) {
@@ -1545,7 +1545,6 @@ function Remove(button, event) {
 
 }
 function Calculation() {
-    debugger;
     if ($("#Pharmacy >tbody TR").length != 0) {
         var sum = 0;
         var sumCash = 0;

@@ -169,88 +169,95 @@
                     if ($('.modal-body #NationalId').val().length == 14) {
                         $("#Add").attr("disabled", "disabled");
                         var SelectedDiagnosisList = $('#Diagnoise').select2('data');
-                        var DiagnosisStr = SelectedDiagnosisList[0].text;
-                        if (SelectedDiagnosisList.length > 1) {
-                            for (var i = 1; i < SelectedDiagnosisList.length - 1; i++) {
 
-                                DiagnosisStr = DiagnosisStr + '_' + SelectedDiagnosisList[i].text;
+                        if (SelectedDiagnosisList.length > 0) {
+
+                            var DiagnosisStr = SelectedDiagnosisList[0].text;
+                            if (SelectedDiagnosisList.length > 1) {
+                                for (var i = 1; i < SelectedDiagnosisList.length - 1; i++) {
+
+                                    DiagnosisStr = DiagnosisStr + '_' + SelectedDiagnosisList[i].text;
+                                }
+                                DiagnosisStr = DiagnosisStr + '_' + SelectedDiagnosisList[SelectedDiagnosisList.length - 1].text;
                             }
-                            DiagnosisStr = DiagnosisStr + '_' + SelectedDiagnosisList[SelectedDiagnosisList.length - 1].text;
-                        }
-                        $.ajax({
-                            type: 'POST',
-                            url: '/DoctorApprovals/InsertCard/',
-                            dataType: 'Json',
-                            data: {
-                                CARD_NO: $('.modal-body #CardId').val(),
-                                PR_ANAME: $('.modal-body #Provider').val(),
-                                MONTH_START_DATE: $('.modal-body #StartDate').val(),
-                                ST_DAY: $('.modal-body #ExchangeDay').val(),
-                                GROUP_ID: $('.modal-body #Group').val(),
-                                TASHKHES_01: DiagnosisStr /*$('.modal-body #Diagnoise :selected').text()*/,
-                                NO_PAY: $('.modal-body #CompanyPaymentLimit').val(),
-                                NO_OVER: $('.modal-body #OverInsuranceLimit').val(),
-                                LOOK_01: $('.modal-body #LockStatus').val(),
-                                NOTES: $('.modal-body #NOTES').val(),
-                                PhoneNumber: $('.modal-body #PhoneNumber').val(),
-                                NationalId: $('.modal-body #NationalId').val(),
-                                ExceptionType: $('.modal-body #ExceptionType').val()
-                            },
-                            success: function (r) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/DoctorApprovals/InsertCard/',
+                                dataType: 'Json',
+                                data: {
+                                    CARD_NO: $('.modal-body #CardId').val(),
+                                    PR_ANAME: $('.modal-body #Provider').val(),
+                                    MONTH_START_DATE: $('.modal-body #StartDate').val(),
+                                    ST_DAY: $('.modal-body #ExchangeDay').val(),
+                                    GROUP_ID: $('.modal-body #Group').val(),
+                                    TASHKHES_01: DiagnosisStr /*$('.modal-body #Diagnoise :selected').text()*/,
+                                    NO_PAY: $('.modal-body #CompanyPaymentLimit').val(),
+                                    NO_OVER: $('.modal-body #OverInsuranceLimit').val(),
+                                    LOOK_01: $('.modal-body #LockStatus').val(),
+                                    NOTES: $('.modal-body #NOTES').val(),
+                                    PhoneNumber: $('.modal-body #PhoneNumber').val(),
+                                    NationalId: $('.modal-body #NationalId').val(),
+                                    ExceptionType: $('.modal-body #ExceptionType').val()
+                                },
+                                success: function (r) {
 
-                                $('#AddCardModal').modal('hide');
-                                $('#Cards').dataTable().fnDestroy();
+                                    $('#AddCardModal').modal('hide');
+                                    $('#Cards').dataTable().fnDestroy();
 
-                                var setData = $("#Cards Tbody");
-                                $('#Cards').DataTable({
-                                    "bPaginate": false,
-                                    "bLengthChange": false,
-                                    "bFilter": true,
-                                    "bInfo": false,
-                                    "bAutoWidth": false
-                                }).row.add([
-                                    "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectCard(this);'></Button>",
-                                    $('.modal-body #CardId').val(),
-                                    $('.modal-body #CardName').val(),
-                                    $('.modal-body #Provider').val(),
-                                    $('.modal-body #StartDate').val(),
-                                    $('.modal-body #ExchangeDay').val(),
-                                    $('.modal-body #Group :selected').text(),
-                                    DiagnosisStr,
-                                    $('.modal-body #CompanyPaymentLimit').val(),
-                                    $('.modal-body #OverInsuranceLimit').val(),
-                                    $('.modal-body #LockStatus :selected').text(),
-                                    $('.modal-body #NOTES').val(),
-                                    $('.modal-body #PhoneNumber').val(),
-                                    $('.modal-body #NationalId').val(),
+                                    var setData = $("#Cards Tbody");
+                                    $('#Cards').DataTable({
+                                        "bPaginate": false,
+                                        "bLengthChange": false,
+                                        "bFilter": true,
+                                        "bInfo": false,
+                                        "bAutoWidth": false
+                                    }).row.add([
+                                        "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectCard(this);'></Button>",
+                                        $('.modal-body #CardId').val(),
+                                        $('.modal-body #CardName').val(),
+                                        $('.modal-body #Provider').val(),
+                                        $('.modal-body #StartDate').val(),
+                                        $('.modal-body #ExchangeDay').val(),
+                                        $('.modal-body #Group :selected').text(),
+                                        DiagnosisStr,
+                                        $('.modal-body #CompanyPaymentLimit').val(),
+                                        $('.modal-body #OverInsuranceLimit').val(),
+                                        $('.modal-body #LockStatus :selected').text(),
+                                        $('.modal-body #NOTES').val(),
+                                        $('.modal-body #PhoneNumber').val(),
+                                        $('.modal-body #NationalId').val(),
+                                        $('.modal-body #ExceptionType').val(),
+                                        "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditCard(this);'> Edit</Button>"
+                                    ]).draw();
+                                    $('#Cards_filter input[type="search"]').val($('#AddCardTxt').val()).keyup();
+                                    $("#Add").attr("disabled", false);
+                                    $('#txtSearchCompany').val($('.modal-body #CardId').val().split('-', 1)[0]);
+                                    //reset values
+                                    $('.modal-body #Provider').val();
+                                    $('.modal-body #NOTES').val();
+                                    $('.modal-body #PhoneNumber').val();
+                                    $('.modal-body #NationalId').val();
                                     $('.modal-body #ExceptionType').val(),
-                                    "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditCard(this);'> Edit</Button>"
-                                ]).draw();
-                                $('#Cards_filter input[type="search"]').val($('#AddCardTxt').val()).keyup();
-                                $("#Add").attr("disabled", false);
-                                $('#txtSearchCompany').val($('.modal-body #CardId').val().split('-', 1)[0]);
-                                //reset values
-                                $('.modal-body #Provider').val();
-                                $('.modal-body #NOTES').val();
-                                $('.modal-body #PhoneNumber').val(); 
-                                $('.modal-body #NationalId').val();
-                                $('.modal-body #ExceptionType').val(),
-                                //$('.modal-body #StartDate').val(' ');
-                                $('.modal-body #ExchangeDay').val('1');
-                                $('.modal-body #Group').val();
-                                $('.modal-body #Diagnoise').val();
-                                $('.modal-body #CompanyPaymentLimit').val('0');
-                                $('.modal-body #OverInsuranceLimit').val('0');
-                                $('.modal-body #LockStatus').val('0');
+                                        //$('.modal-body #StartDate').val(' ');
+                                        $('.modal-body #ExchangeDay').val('1');
+                                    $('.modal-body #Group').val();
+                                    $('.modal-body #Diagnoise').val();
+                                    $('.modal-body #CompanyPaymentLimit').val('0');
+                                    $('.modal-body #OverInsuranceLimit').val('0');
+                                    $('.modal-body #LockStatus').val('0');
 
-                            },
-                            error: function (err) {
-                                bootbox.alert("Error Adding");
-                                $("#Add").attr("disabled", false);
+                                },
+                                error: function (err) {
+                                    bootbox.alert("Error Adding");
+                                    $("#Add").attr("disabled", false);
 
-                            }
-                        });
-
+                                }
+                            });
+                        }
+                        else {
+                            toastr.warning("please select Diagnoise")
+                            $("#Add").attr("disabled", false);
+                        }
 
                     }
                     else {

@@ -21,6 +21,7 @@ namespace DMS_Authontication1.Models
             this.RoshitaPharmcyApproveds = new HashSet<RoshitaPharmcyApproved>();
             this.RoshitaDiagnosisAdmins = new HashSet<RoshitaDiagnosisAdmin>();
             this.PrescriptionRoshitaDignosis = new HashSet<PrescriptionRoshitaDignosi>();
+            this.Notifications = new HashSet<Notification>();
         }
     
         public long Id { get; set; }
@@ -59,5 +60,7 @@ namespace DMS_Authontication1.Models
         public virtual ICollection<RoshitaDiagnosisAdmin> RoshitaDiagnosisAdmins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PrescriptionRoshitaDignosi> PrescriptionRoshitaDignosis { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notification> Notifications { get; set; }
     }
 }

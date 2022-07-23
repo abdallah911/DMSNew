@@ -368,11 +368,11 @@
                                         <li><a href="/Employee/AddEmployee" class="link-cus">Update Data</a></li>
                                     }
 
-                                    @*if (modellist.Where(x => x.PageId == 22 && (x.FullControl || x.EditPermission
+                                    if (modellist.Where(x => x.PageId == 22 && (x.FullControl || x.EditPermission
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
-                                        }*@
+                                    {
+                                        <li><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
+                                    }
                                     if (modellist.Where(x => x.PageId == 23 && (x.FullControl || x.EditPermission
                                                     || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                     {
@@ -803,7 +803,7 @@
                     $('#notification').text(result.length);
                     $('#divNotificationValues').empty();
                     $.each(result, function (key, value) {
-                        $('#divNotificationValues').append('<a href="' + value.DetailsURL + '?id=' + value.Details + '">' + value.Title + '-' + value.Details + '</a>');
+                        $('#divNotificationValues').append('<a href="' + value.DetailsURL + '?NotificationId=' + value.Id + '">' + value.TypeNmae + '-' + value.Details + '</a>');
                     });
                 }
             });

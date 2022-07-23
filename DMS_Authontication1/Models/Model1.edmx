@@ -1635,6 +1635,8 @@
           <Property Name="IsReminder" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="RoshitaId" Type="bigint" />
+          <Property Name="TypeNmae" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Patchs">
           <Key>
@@ -2333,7 +2335,7 @@
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Swap">
           <Key>
             <PropertyRef Name="Id" />
@@ -2637,6 +2639,18 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Principal>
             <Dependent Role="MedicinesDiagnosis">
               <PropertyRef Name="MedicineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_Roshita">
+          <End Role="Roshita" Type="Self.Roshita" Multiplicity="0..1" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roshita">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="RoshitaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3330,6 +3344,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <AssociationSet Name="FK_MedicinesDiagnosis_MedicineData" Association="Self.FK_MedicinesDiagnosis_MedicineData">
             <End Role="MedicineData" EntitySet="MedicineData" />
             <End Role="MedicinesDiagnosis" EntitySet="MedicinesDiagnosis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_Roshita" Association="Self.FK_Notification_Roshita">
+            <End Role="Roshita" EntitySet="Roshita" />
+            <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
           <AssociationSet Name="FK_PrescriptionRoshitaDignosis_Roshita" Association="Self.FK_PrescriptionRoshitaDignosis_Roshita">
             <End Role="Roshita" EntitySet="Roshita" />
@@ -4273,6 +4291,9 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="IsReminder" Type="Boolean" Nullable="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RoshitaId" Type="Int64" />
+          <NavigationProperty Name="Roshita" Relationship="DB_A45413_DMSERPModel.FK_Notification_Roshita" FromRole="Notification" ToRole="Roshita" />
+          <Property Name="TypeNmae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Patch">
           <Key>
@@ -5035,6 +5056,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <Parameter Name="TYPE" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="RemainConsumptions" EntityType="DB_A45413_DMSERPModel.RemainConsumption" />
+          <AssociationSet Name="FK_Notification_Roshita" Association="DB_A45413_DMSERPModel.FK_Notification_Roshita">
+            <End Role="Roshita" EntitySet="Roshitas" />
+            <End Role="Notification" EntitySet="Notifications" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -6061,6 +6086,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <NavigationProperty Name="PrescriptionRoshitaDignosis" Relationship="DB_A45413_DMSERPModel.FK_PrescriptionRoshitaDignosis_Roshita" FromRole="Roshita" ToRole="PrescriptionRoshitaDignosi" />
           <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Notifications" Relationship="DB_A45413_DMSERPModel.FK_Notification_Roshita" FromRole="Roshita" ToRole="Notification" />
         </EntityType>
         <Association Name="FK_Roshita_Patchs">
           <End Type="DB_A45413_DMSERPModel.Patch" Role="Patch" Multiplicity="0..1" />
@@ -6884,6 +6910,18 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <Association Name="FK_Notification_Roshita">
+          <End Type="DB_A45413_DMSERPModel.Roshita" Role="Roshita" Multiplicity="0..1" />
+          <End Type="DB_A45413_DMSERPModel.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roshita">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="RoshitaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7761,6 +7799,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="Notifications">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Notification">
               <MappingFragment StoreEntitySet="Notification">
+                <ScalarProperty Name="TypeNmae" ColumnName="TypeNmae" />
+                <ScalarProperty Name="RoshitaId" ColumnName="RoshitaId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Details" ColumnName="Details" />

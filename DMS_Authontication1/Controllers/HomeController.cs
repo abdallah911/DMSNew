@@ -28,14 +28,26 @@ namespace DMS_Authontication1.Controllers
             {
                 notifications = db.Notifications.Where(x => x.IsRead == false && x.SentTo == "Admin")
                      .AsEnumerable().Where(x => x.CreatedDate.AddDays(7).Date > DateTime.Now.Date)
-               .OrderByDescending(x => x.Id)
+               .OrderByDescending(x => x.Id).Select(x => new Notification
+               {
+                   DetailsURL = x.DetailsURL,
+                   Id = x.Id,
+                   TypeNmae = x.TypeNmae,
+                   Details = x.Details
+               })
                .ToList();
             }
             else
             {
                 notifications = db.Notifications.Where(x => x.IsRead == false && x.SentTo == UserName)
                     .AsEnumerable().Where(x => x.CreatedDate.AddDays(7).Date > DateTime.Now.Date)
-               .OrderByDescending(x => x.Id)
+               .OrderByDescending(x => x.Id).Select(x => new Notification
+               {
+                   DetailsURL = x.DetailsURL,
+                   Id = x.Id,
+                   TypeNmae = x.TypeNmae,
+                   Details = x.Details
+               })
                .ToList();
             }
 
@@ -69,7 +81,8 @@ namespace DMS_Authontication1.Controllers
             return Json(new { SqlUserCount, OracleUserCount, SqlClamesCount, OracleClamesCount }, JsonRequestBehavior.AllowGet);
         }
 
-        class ProviderClamesCounts{
+        class ProviderClamesCounts
+        {
 #pragma warning disable CS0169 // The field 'HomeController.ProviderClamesCounts.provider' is never used
             string provider;
 #pragma warning restore CS0169 // The field 'HomeController.ProviderClamesCounts.provider' is never used
@@ -82,11 +95,11 @@ namespace DMS_Authontication1.Controllers
             string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
             DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
 
-            var PharmacyClames = db.Roshitas.Where(x => x.CreatedDate >= firstDayOfMonthTime &&(x.Manager == "Daily"||x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic")).GroupBy(x=>x.CreatedBy)
-          .Select(l=>new 
+            var PharmacyClames = db.Roshitas.Where(x => x.CreatedDate >= firstDayOfMonthTime && (x.Manager == "Daily" || x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic")).GroupBy(x => x.CreatedBy)
+          .Select(l => new
           {
-              provider=l.Key,
-              clames=l.Count()
+              provider = l.Key,
+              clames = l.Count()
           })
                 .ToList();
             return Json(new { PharmacyClames }, JsonRequestBehavior.AllowGet);
@@ -96,11 +109,11 @@ namespace DMS_Authontication1.Controllers
             string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
             DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
 
-            var UserClames = db.Roshitas.Where(x => x.CreatedDate >= firstDayOfMonthTime &&x.CreatedBy==User.Identity.Name).GroupBy(x=>x.Manager)
-          .Select(l=>new 
+            var UserClames = db.Roshitas.Where(x => x.CreatedDate >= firstDayOfMonthTime && x.CreatedBy == User.Identity.Name).GroupBy(x => x.Manager)
+          .Select(l => new
           {
-              manger=l.Key,
-              clames=l.Count()
+              manger = l.Key,
+              clames = l.Count()
           })
                 .ToList();
             return Json(new { UserClames }, JsonRequestBehavior.AllowGet);
@@ -110,11 +123,11 @@ namespace DMS_Authontication1.Controllers
             string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
             DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
 
-            var MangerClames = db.Roshitas.Where(x => x.CreatedDate >= firstDayOfMonthTime && x.Manager != "Doctor_Chronic" && x.Manager != "Empty").GroupBy(x=>x.Manager)
-          .Select(l=>new 
+            var MangerClames = db.Roshitas.Where(x => x.CreatedDate >= firstDayOfMonthTime && x.Manager != "Doctor_Chronic" && x.Manager != "Empty").GroupBy(x => x.Manager)
+          .Select(l => new
           {
-              manger=l.Key,
-              clames=l.Count()
+              manger = l.Key,
+              clames = l.Count()
           })
                 .ToList();
             return Json(new { MangerClames }, JsonRequestBehavior.AllowGet);

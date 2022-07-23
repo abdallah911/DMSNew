@@ -395,8 +395,8 @@ namespace DMS_Synchronization
 
                 _currenctConnectionString = connectionSettings.SQlConnection;
 
-                CLOSE_EMP_DATASyncToSqlTable();
                 SyncToSqlTable<REMAIN_CONSUMATION>(StringHelper.GetQyertREMAIN_CONSUMATION, StringHelper.GetTableNameREMAIN_CONSUMATION);
+                CLOSE_EMP_DATASyncToSqlTable();
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED);
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED_EMP>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED_EMP, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED_EMP);
 
@@ -1303,7 +1303,7 @@ namespace DMS_Synchronization
                                 SqlTableName = tableName;
                                 break;
                         }
-
+                        // هنا بيضيف يا ايه اول ما يقف هنا تمسحي الجدول اللي فال SQL  وتدوسي Continue
                         AddNewEntities(CastData, SqlTableName, false, _connectionSettings.SQlConnection);
                         _result.Logs.Add(new ViewModels.Log
                         {

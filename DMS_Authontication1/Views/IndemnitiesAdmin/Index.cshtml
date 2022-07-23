@@ -15,19 +15,40 @@
     var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
     if (claim != null)
     {
-        modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
-        if (modellist != null)
+        if (User.IsInRole("User"))
         {
-            var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 13 && (x.FullControl || x.EditPermission
-                                          || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
-            if (obj != null)
+            modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+            if (modellist != null)
             {
-                edit = obj.EditPermission;
-                delete = obj.ActivationControl;
-                view = obj.Preview;
-                fullcontroll = obj.FullControl;
-                Create = obj.AddPermission;
+                var obj = modellist.Where(x => x.ModuleName == "Customers Management" && x.PageId == 22 && (x.FullControl || x.EditPermission
+                                              || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+                if (obj != null)
+                {
+                    edit = obj.EditPermission;
+                    delete = obj.ActivationControl;
+                    view = obj.Preview;
+                    fullcontroll = obj.FullControl;
+                    Create = obj.AddPermission;
 
+                }
+            }
+        }
+        else
+        {
+            modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+            if (modellist != null)
+            {
+                var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 13 && (x.FullControl || x.EditPermission
+                                              || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+                if (obj != null)
+                {
+                    edit = obj.EditPermission;
+                    delete = obj.ActivationControl;
+                    view = obj.Preview;
+                    fullcontroll = obj.FullControl;
+                    Create = obj.AddPermission;
+
+                }
             }
         }
     }
