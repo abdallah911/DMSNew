@@ -926,11 +926,12 @@ namespace DMS_Authontication1.Controllers
         public async Task<ActionResult> LogOff()
         {
             var claim = ((ClaimsIdentity)User.Identity);
-            if (claim != null)
+            var userid = User.Identity.GetUserId();
+            if (claim != null && userid != null)
             {
                 foreach (var item in claim.Claims)
                 {
-                    await UserManager.RemoveClaimAsync(User.Identity.GetUserId(), item);
+                    await UserManager.RemoveClaimAsync(userid, item);
 
                 }
 
