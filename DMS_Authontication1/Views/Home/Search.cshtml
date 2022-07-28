@@ -1,0 +1,303 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+@*<h2>Index</h2>*@
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+
+
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Inquiries about an Invoice
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row ">
+
+            @*Date of company *@
+            @*@if (User.IsInRole("HR_Admin"))
+                {
+                    <div class="col-md-4">
+
+                        <div class="form-group" id="Company_Number">
+                            <div class="col-sm-6">
+
+                                @Html.Label("Company Number", htmlAttributes: new { @class = "control-label" })
+                            </div>
+                            <div class=" col-md-6">
+                                @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                    <script>
+                        $(document).ready(function () {
+                            $("#CompanyNumber").select2();
+                        });
+                    </script>
+                }
+                else
+                {
+                    <input id="compname" type="text" value="@ViewBag.CompName" hidden="hidden" />
+
+                }
+
+                <br />*@
+
+            <div class="col-md-12">
+                <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN THEME PANEL -->
+                    <div class="form-wizard">
+                        <div class="form-body">
+                            <div class="tab-content">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="row">
+                                    
+
+                                    <div class="portlet box  green  col-md-6" style="margin-left:340px;">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <i class="fa fa-search"></i>Search
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="portlet-body">
+                                            <div class="row " style="margin-left:30px;margin-right:30px">
+                                                <div class="form-group">
+
+                                                    <div class="col-sm-4">
+                                                        @Html.Label("Provider Type", htmlAttributes: new { @class = "control-label" })
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        @Html.DropDownList("Provider_Type", ViewBag.provider as SelectList, "Select Provider", new { @class = "form-control", id = "provider_Type" })
+                                                    </div>
+
+                                                    <div class="col-sm-12" id="SpecialistDiv" style="margin-top:25px" hidden>
+                                                        <div class="col-sm-4">
+                                                            @Html.Label("Specialist", htmlAttributes: new { @class = "control-label" })
+                                                        </div>
+                                                        <div class=" col-sm-8">
+                                                            @Html.DropDownList("Specialist", new SelectList(""), new { @class = "form-control", id = "SpecialistId" })
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-12" style="margin-top:25px">
+                                                        <div class="col-sm-4">
+                                                            @Html.Label("Governorate", htmlAttributes: new { @class = "control-label" })
+                                                        </div>
+                                                        <div class="col-sm-8">
+                                                            @Html.DropDownList("Country", ViewBag.address as SelectList, "Select Governorate", new { @class = "form-control", id = "Country_select" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12" style="margin-top:25px">
+                                                        <div class="col-sm-4">
+                                                            @Html.Label("Region", htmlAttributes: new { @class = "control-label" })
+                                                        </div>
+                                                        <div class=" col-sm-8">
+                                                            @Html.DropDownList("Region", new SelectList(""), new { @class = "form-control", id = "Region_select" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="col-sm-6">
+                                            <button id="Search" type="button" class="btn btn-success" onclick="SearchProvider()">
+                                                <span class="glyphicon glyphicon-search"></span> Search
+                                            </button>
+                                        </div>
+                                        <div class="col-sm-6" id="div_of_serv">
+                                            <button id="new" type="button" class="btn btn-secondary-outline" onclick="NewRequest()">
+                                                <span class="fa fa-reply"></span> New
+                                            </button>
+
+                                        </div>
+                                    </div>
+
+                                    @*Date of Service*@
+
+                                    <div class="col-md-offset-1 col-md-10" style="margin-top:80px;margin-bottom:100px" id="list_div">
+
+                                        <table class="table" id="ProviderList">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        @Html.DisplayName("PRENAME")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("ADDRESS 1")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("ADDRESS 2")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("TEL 1")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("TEL 2")
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayName("Specialist")
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ProviderListBody"></tbody>
+                                        </table>
+                                    </div>
+                                    <br />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+    //var input = document.getElementById("txtSearchCard");
+    //input.addEventListener("keyup", function (event) {
+    //    event.preventDefault();
+    //    if (event.keyCode === 13) {
+
+    //        $('#Search').click();
+    //    }
+    //});
+    var searchtype = "unselect";
+    $(document).ready(function () {
+        $('#list_div').hide();
+        $("#Country_select").select2();
+        $("#Region_select").select2();
+        $("#provider_Type").select2();
+        $("#Country_select").change(function () {//address
+            $.get("/MedicalNetwork/GetStateList",
+                { id: $("#Country_select").val() }, function (data) {
+                    $("#Region_select").empty();
+                    $.each(data, function (index, row) {
+                        $("#Region_select").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                });
+        });
+        $("#provider_Type").change(function () {// class levels
+            $('#SpecialistDiv').hide();
+            $("#SpecialistId").empty();
+            var type = $("#provider_Type").val();
+            if (type == "5") {
+                $('#SpecialistDiv').show();
+                $("#SpecialistId").select2();
+                $("#SpecialistId").val(null).trigger('change');
+                $.get("/MedicalNetwork/GetSpecialistList",
+                    function (data) {
+                        $("#SpecialistId").empty();
+                        $("#SpecialistId").append("<option value=''>Select Specialist</option>")
+                        $.each(data, function (index, row) {
+                            $("#SpecialistId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                        });
+                    });
+            }
+
+        });
+        $("#provider_Type").map(function () {// class levels
+            $("#SpecialistId").select2();
+            $('#SpecialistDiv').hide();
+            $("#SpecialistId").empty();
+            var type = $("#provider_Type").val();
+            if (type == "5") {
+                $('#SpecialistDiv').show();
+                $("#SpecialistId").val(null).trigger('change');
+                $.get("/MedicalNetwork/GetSpecialistList",
+                    function (data) {
+                        $("#SpecialistId").empty();
+                        $.each(data, function (index, row) {
+                            $("#SpecialistId").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                        });
+                    });
+            }
+        });
+
+
+    });
+
+    //New Request
+    function NewRequest() {
+        window.location = '/Home/Search';
+    }
+    // Search Provider
+    function SearchProvider() {
+        $('#list_div').hide();
+        if ($("#provider_Type").val() == "") {
+            alert("Please select Provider ...");
+        }
+        if ($("#Country_select").val() == "") {
+            alert("Please select Country ...");
+        }
+        else {
+            $.ajax({
+                url: '/Home/GetProviders/',
+                data: {
+                    country: $("#Country_select").val(),
+                    region: $("#Region_select").val(), providerId: $("#provider_Type").val(), specialistid: $("#SpecialistId").val()
+                },
+                dataType: 'Json',
+                success: function (r) {
+                    $('#ProviderList').dataTable().fnDestroy();
+                    //$('#ProviderList').empty();
+                    if (r.msg == "ok") {
+                        var setData = $("#ProviderList Tbody");
+                        setData.empty();
+                        for (var i = 0; i < r.providerslist.length; i++) {
+                            var data = "<tr >" +
+                                "<td>" + r.providerslist[i].PR_ANAME + "</td>";
+                            if (r.providerslist[i].ADDRESS1 == null)
+                                data += "<td>--</td>";
+                            else
+                                data += "<td>" + r.providerslist[i].ADDRESS1 + "</td>";
+                            if (r.providerslist[i].ADDRESS2 == null)
+                                data += "<td>--</td>";
+                            else
+                                data += "<td>" + r.providerslist[i].ADDRESS2 + "</td>";
+                            if (r.providerslist[i].TEL1 == null)
+                                data += "<td>--</td>";
+                            else
+                                data += "<td>" + r.providerslist[i].TEL1 + "</td>";
+                            if (r.providerslist[i].TEL2 == null)
+                                data += "<td>--</td>";
+                            else
+                                data += "<td>" + r.providerslist[i].TEL2 + "</td>";
+                            if (r.providerslist[i].PR_DESC == null)
+                                data += "<td>--</td>";
+                            else
+                                data += "<td>" + r.providerslist[i].PR_DESC + "</td>" +
+                                    "</tr>";
+                            setData.append(data);
+                        }
+                        $('#ProviderList').DataTable();
+                        $('#list_div').show();
+                    }
+                    else {
+                        alert(r.msg);
+                    }
+
+                },
+                error: function () {
+                    alert("Invalid Request ");
+                }
+            });
+        }
+
+    }
+</script>

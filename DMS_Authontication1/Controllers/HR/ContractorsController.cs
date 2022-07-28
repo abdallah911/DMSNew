@@ -165,6 +165,96 @@ namespace DMS_Authontication1.Controllers.HR
 
         }
 
+        public ActionResult Print(int ProviderCode, int ProviderType, string Type)
+        {
+            string filePath = "";
+            string fileName = ProviderCode.ToString() + ".PDF";
+            switch (Type)
+            {
+                case "Contract":
+                    switch (ProviderType)
+                    {
+                        case 1:
+                            filePath = "ProviderContractsPDF/Hospital/Contracts/";
+                            break;
+                        case 2:
+                            filePath = "ProviderContractsPDF/Pharmacy/Contracts/";
+                            break;
+                        case 3:
+                            filePath = "ProviderContractsPDF/Lab/Contracts/";
+                            break;
+                        case 4:
+                            filePath = "ProviderContractsPDF/Ray/Contracts/";
+                            break;
+                        case 5:
+                            filePath = "ProviderContractsPDF/Doctor/Contracts/";
+                            break;
+                        case 6:
+                            filePath = "ProviderContractsPDF/PhysicalTherapy/Contracts/";
+                            break;
+                        case 7:
+                            filePath = "ProviderContractsPDF/DentalClinic/Contracts/";
+                            break;
+                        case 8:
+                            filePath = "ProviderContractsPDF/EyeClinic/Contracts/";
+                            break;
+                        case 9:
+                            filePath = "ProviderContractsPDF/PolyClinic/Contracts/";
+                            break;
+                        default:
+                            return HttpNotFound();
+                    }
+                    break;
+                case "Endorsement":
+                    switch (ProviderType)
+                    {
+                        case 1:
+                            filePath = "ProviderContractsPDF/Hospital/Endorsement/";
+                            break;
+                        case 2:
+                            filePath = "ProviderContractsPDF/Pharmacy/Endorsement/";
+                            break;
+                        case 3:
+                            filePath = "ProviderContractsPDF/Lab/Endorsement/";
+                            break;
+                        case 4:
+                            filePath = "ProviderContractsPDF/Ray/CoEndorsementntracts/";
+                            break;
+                        case 5:
+                            filePath = "ProviderContractsPDF/Doctor/Endorsement/";
+                            break;
+                        case 6:
+                            filePath = "ProviderContractsPDF/PhysicalTherapy/Endorsement/";
+                            break;
+                        case 7:
+                            filePath = "ProviderContractsPDF/DentalClinic/Endorsement/";
+                            break;
+                        case 8:
+                            filePath = "ProviderContractsPDF/EyeClinic/Endorsement/";
+                            break;
+                        case 9:
+                            filePath = "ProviderContractsPDF/PolyClinic/Endorsement/";
+                            break;
+                        default:
+                            return HttpNotFound();
+                    }
+                    break;
+                default: return HttpNotFound();
+            }
+            string path = Server.MapPath("~/" + filePath + fileName);
+            //string path = Path.Combine("~/" + filePath + fileName);
+            if (System.IO.File.Exists(path))
+            {
+
+                var htmlCode = System.IO.File.ReadAllBytes(path);
+                FileResult fileResult = new FileContentResult(htmlCode, "application/pdf")
+                {
+                    FileDownloadName = fileName
+                };
+                return fileResult;
+            }
+            return HttpNotFound();
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

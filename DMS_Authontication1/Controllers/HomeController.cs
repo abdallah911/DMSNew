@@ -66,6 +66,39 @@ namespace DMS_Authontication1.Controllers
 
             return View();
         }
+
+        public ActionResult Search()
+        {
+            var provider = db.ProviderTypeNews.ToList();
+            SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
+            ViewBag.provider = Providerlist;
+
+            var address = db.Basic_Data.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+            //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+            SelectList addresslist = new SelectList(address, "BS_CODE", "BS_ANAME");
+            ViewBag.address = addresslist;
+            return View();
+        }
+        public JsonResult GetProviders(string country, int region, int providerId, string specialistid)
+        {
+
+
+            var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid))
+                                .Select(
+                                              s => new
+                                              {
+                                                  s.PR_ANAME,
+                                                  s.ADDRESS1,
+                                                  s.ADDRESS2,
+                                                  s.TEL1,
+                                                  s.TEL2,
+                                                  s.PR_DESC
+
+                                              }).ToList();
+
+            return new JsonResult { Data = new { providerslist = providerList, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
         public JsonResult getUser(int id)
         {
             string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
@@ -81,15 +114,6 @@ namespace DMS_Authontication1.Controllers
             return Json(new { SqlUserCount, OracleUserCount, SqlClamesCount, OracleClamesCount }, JsonRequestBehavior.AllowGet);
         }
 
-        class ProviderClamesCounts
-        {
-#pragma warning disable CS0169 // The field 'HomeController.ProviderClamesCounts.provider' is never used
-            string provider;
-#pragma warning restore CS0169 // The field 'HomeController.ProviderClamesCounts.provider' is never used
-#pragma warning disable CS0169 // The field 'HomeController.ProviderClamesCounts.clames' is never used
-            int clames;
-#pragma warning restore CS0169 // The field 'HomeController.ProviderClamesCounts.clames' is never used
-        }
         public JsonResult getProviderClames(int id)
         {
             string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();

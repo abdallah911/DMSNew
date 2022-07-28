@@ -71,13 +71,14 @@
                     <select id="ddlType" class="form-control">
                         <option value="">Select Type</option>
                         <option value="Contract">Contract</option>
-                        <option value="Endorsement ">Endorsement </option>
+                        <option value="Endorsement">Endorsement </option>
                     </select>
                 </div>
             </div>
             <div style=" text-align:right">
                 <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
-                <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />
+                <input id="Print" type="button" value="Print" class="btn btn-primary fa fa-search" />
+                @*<input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />*@
             </div>
         </div>
     </div>
@@ -163,6 +164,30 @@
             }
             else {
                 toastr.error("Please select Provider Type")
+            }
+
+        });
+
+        $('#Print').click(function () {
+            var ProviderCode = $('#Provider').val();
+            var ProviderType = $('#ProviderType').val();
+            var Type = $('#ddlType').val();
+            if (ProviderType!="") {
+                if (ProviderCode != "") {
+                    if (Type != "") {
+                        window.open('/Contractors/Print?ProviderCode=' + ProviderCode + '&&ProviderType=' + ProviderType + '&&Type=' + Type);
+
+                    }
+                    else {
+                        toastr.error('Please select Type');
+                    }
+                }
+                else {
+                    toastr.error('Please select Provider Name');
+                }
+            }
+            else {
+                toastr.error('Please select Provider Type');
             }
 
         });
