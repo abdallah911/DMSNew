@@ -255,6 +255,14 @@ namespace DMS_Authontication1.Controllers.HR
             }
             return HttpNotFound();
         }
+
+        public JsonResult GetAproveder(int id)
+        {
+            var listproveders = db.ProviderContracts.Where(m => m.PrType == id).Select(l => new { PR_CODE = l.PrCode, PR_ANAME = l.PrCode + "||" + l.PrAName }).ToList().Distinct();
+            SelectList Providerlist = new SelectList(listproveders, "PR_CODE", "PR_ANAME");
+            return new JsonResult { Data = new { providerslist = Providerlist }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

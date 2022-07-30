@@ -110,7 +110,7 @@
 <script>
     $(function () {
         $("#ProviderType").change(function () {// class levels
-            $.get("/MedicalApproval/GetAproveder",
+            $.get("/Contractors/GetAproveder",
                 { id: $("#ProviderType").val() }, function (data) {
                     $("#Provider").empty();
                     $("#Provider").append("<option value='0'>Select Provider</option>");

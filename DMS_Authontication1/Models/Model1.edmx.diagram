@@ -158,6 +158,7 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompStatement" Width="1.5" PointX="40.375" PointY="12.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RemainConsumption" Width="1.5" PointX="37.375" PointY="5.75" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_Notification_Roshita" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProviderContract" Width="1.5" PointX="28.375" PointY="29.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

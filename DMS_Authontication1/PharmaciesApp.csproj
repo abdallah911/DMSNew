@@ -766,6 +766,9 @@
     <Compile Include="Models\ProviderComplaint.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProviderContract.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ProviderContractPhoto.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -8245,16 +8248,6 @@
     <Content Include="Views\Labs\Pending.cshtml" />
     <Content Include="Views\Rays\Pending.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
-    <Content Include="ProviderContractsPDF\DentalClinic\Contracts\16638.pdf" />
-    <Content Include="ProviderContractsPDF\Doctor\Contracts\16638.pdf" />
-    <Content Include="ProviderContractsPDF\EyeClinic\Contracts\16638.pdf" />
-    <Content Include="ProviderContractsPDF\Hospital\Contracts\16638.pdf" />
-    <Content Include="ProviderContractsPDF\Lab\Contracts\16638.pdf" />
-    <Content Include="ProviderContractsPDF\Pharmacy\Contracts\16638.pdf" />
-    <Content Include="ProviderContractsPDF\Pharmacy\Endorsement\16638.pdf" />
-    <Content Include="ProviderContractsPDF\PhysicalTherapy\Contracts\16638.pdf" />
-    <Content Include="ProviderContractsPDF\PolyClinic\Contracts\16638.pdf" />
-    <Content Include="ProviderContractsPDF\Ray\Contracts\16638.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
@@ -8264,13 +8257,23 @@
     <Folder Include="Content\EmployeeRegister\" />
     <Folder Include="Content\EmployeesRoshita\" />
     <Folder Include="Content\IndemnitiesAttachments\temp\" />
+    <Folder Include="ProviderContractsPDF\DentalClinic\Contracts\" />
     <Folder Include="ProviderContractsPDF\DentalClinic\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\Doctor\Contracts\" />
     <Folder Include="ProviderContractsPDF\Doctor\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\EyeClinic\Contracts\" />
     <Folder Include="ProviderContractsPDF\EyeClinic\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\Hospital\Contracts\" />
     <Folder Include="ProviderContractsPDF\Hospital\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\Lab\Contracts\" />
     <Folder Include="ProviderContractsPDF\Lab\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\Pharmacy\Contracts\" />
+    <Folder Include="ProviderContractsPDF\Pharmacy\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\PhysicalTherapy\Contracts\" />
     <Folder Include="ProviderContractsPDF\PhysicalTherapy\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\PolyClinic\Contracts\" />
     <Folder Include="ProviderContractsPDF\PolyClinic\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\Ray\Contracts\" />
     <Folder Include="ProviderContractsPDF\Ray\Endorsement\" />
     <Folder Include="Views\ProposalBasicData\" />
   </ItemGroup>

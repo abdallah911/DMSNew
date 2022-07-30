@@ -1845,6 +1845,16 @@
           <Property Name="DeletedDate" Type="datetime" />
           <Property Name="Active" Type="nvarchar" MaxLength="5" />
         </EntityType>
+        <EntityType Name="ProviderContracts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PrCode" Type="int" />
+          <Property Name="PrType" Type="int" />
+          <Property Name="PrAName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PrEName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="ProviderEmails">
           <Key>
             <PropertyRef Name="Id" />
@@ -2335,7 +2345,7 @@
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Swap">
           <Key>
             <PropertyRef Name="Id" />
@@ -3220,6 +3230,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="ProposalRenewalSummary" EntityType="Self.ProposalRenewalSummary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProviderComplaint" EntityType="Self.ProviderComplaint" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProviderContractPhoto" EntityType="Self.ProviderContractPhoto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProviderContracts" EntityType="Self.ProviderContracts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProviderEmails" EntityType="Self.ProviderEmails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Providers" EntityType="Self.Providers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProviderServicesPermissions" EntityType="Self.ProviderServicesPermissions" Schema="dbo" store:Type="Tables" />
@@ -5060,6 +5071,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
             <End Role="Roshita" EntitySet="Roshitas" />
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
+          <EntitySet Name="ProviderContracts" EntityType="DB_A45413_DMSERPModel.ProviderContract" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -6922,6 +6934,16 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ProviderContract">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PrCode" Type="Int32" />
+          <Property Name="PrType" Type="Int32" />
+          <Property Name="PrAName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PrEName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9576,6 +9598,17 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
                 <ScalarProperty Name="MAX_AMOUNT" ColumnName="MAX_AMOUNT" />
                 <ScalarProperty Name="CONTRACT_NO" ColumnName="CONTRACT_NO" />
                 <ScalarProperty Name="CARD_ID" ColumnName="CARD_ID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProviderContracts">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ProviderContract">
+              <MappingFragment StoreEntitySet="ProviderContracts">
+                <ScalarProperty Name="PrEName" ColumnName="PrEName" />
+                <ScalarProperty Name="PrAName" ColumnName="PrAName" />
+                <ScalarProperty Name="PrType" ColumnName="PrType" />
+                <ScalarProperty Name="PrCode" ColumnName="PrCode" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
