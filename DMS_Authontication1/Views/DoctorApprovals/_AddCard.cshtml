@@ -95,6 +95,10 @@
                     </select>
 
                 </div>
+                <div class="form-group row col-md-6" id="CompanyPaymentDatediv">
+                    <label for="CompanyPaymentDate" class="col-form-label">Company Payment Exception End Date</label>
+                    <input type="text" id="CompanyPaymentDate" class="Package_Size form-control" />
+                </div>
                 <div class="form-group row col-md-6">
                     <label for="OverInsuranceLimit" class="col-form-label">OverInsurance Exception</label>
                     <select id="OverInsuranceLimit" class="form-control">
@@ -102,6 +106,10 @@
                         <option value="1">On</option>
                     </select>
 
+                </div>
+                <div class="form-group row col-md-6" id="OverInsuranceDatediv">
+                    <label for="OverInsuranceDate" class="col-form-label"> OverInsurance Exception End Date</label>
+                    <input type="text" id="OverInsuranceDate" class="Package_Size form-control" />
                 </div>
                 <div class="form-group row col-md-6">
                     <label for="LockStatus" class="col-form-label">Active Status</label>
@@ -273,6 +281,14 @@
             }
         });
         $('#StartDate').datepicker({
+            // dateFormat: 'dd-mm-yyyy',
+            minDate: '+0D',
+        });
+        $('#OverInsuranceDate').datepicker({
+            // dateFormat: 'dd-mm-yyyy',
+            minDate: '+0D',
+        });
+        $('#CompanyPaymentDate').datepicker({
             // dateFormat: 'dd-mm-yyyy',
             minDate: '+0D',
         });
