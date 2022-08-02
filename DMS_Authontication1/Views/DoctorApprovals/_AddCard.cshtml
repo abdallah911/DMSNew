@@ -196,6 +196,8 @@
                                     CARD_NO: $('.modal-body #CardId').val(),
                                     PR_ANAME: $('.modal-body #Provider').val(),
                                     MONTH_START_DATE: $('.modal-body #StartDate').val(),
+                                    NoPayEndDate: $('.modal-body #CompanyPaymentDate').val(),
+                                    NoOverEndDate: $('.modal-body #OverInsuranceDate').val(),
                                     ST_DAY: $('.modal-body #ExchangeDay').val(),
                                     GROUP_ID: $('.modal-body #Group').val(),
                                     TASHKHES_01: DiagnosisStr /*$('.modal-body #Diagnoise :selected').text()*/,
@@ -235,6 +237,8 @@
                                         $('.modal-body #PhoneNumber').val(),
                                         $('.modal-body #NationalId').val(),
                                         $('.modal-body #ExceptionType').val(),
+                                        $('.modal-body #CompanyPaymentDate').val(),
+                                        $('.modal-body #OverInsuranceDate').val(),
                                         "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditCard(this);'> Edit</Button>"
                                     ]).draw();
                                     $('#Cards_filter input[type="search"]').val($('#AddCardTxt').val()).keyup();
@@ -291,6 +295,53 @@
         $('#CompanyPaymentDate').datepicker({
             // dateFormat: 'dd-mm-yyyy',
             minDate: '+0D',
+        });
+        $('#CompanyPaymentLimit').change(function () {
+
+            if ($('#CompanyPaymentLimit').val() == "0") {
+                $('#CompanyPaymentDatediv').attr("hidden", true);
+                $('#CompanyPaymentDate').val(" ");
+            }
+            else {
+                $('#CompanyPaymentDatediv').attr("hidden", false);
+            }
+
+        });
+        $('#CompanyPaymentLimit').map(function () {
+            if ($('#CompanyPaymentLimit').val() == "0") {
+                $('#CompanyPaymentDatediv').attr("hidden", true);
+                $('#CompanyPaymentDate').val(" ");
+            }
+            else {
+                $('#CompanyPaymentDatediv').attr("hidden", false);
+            }
+
+
+
+        });
+
+        $('#OverInsuranceLimit').change(function () {
+
+            if ($('#OverInsuranceLimit').val() == "0") {
+                $('#OverInsuranceDatediv').attr("hidden", true);
+                $('#OverInsuranceDate').val(" ");
+            }
+            else {
+                $('#OverInsuranceDatediv').attr("hidden", false);
+            }
+
+        });
+        $('#OverInsuranceLimit').map(function () {
+            if ($('#OverInsuranceLimit').val() == "0") {
+                $('#OverInsuranceDatediv').attr("hidden", true);
+                $('#OverInsuranceDate').val(" ");
+            }
+            else {
+                $('#OverInsuranceDatediv').attr("hidden", false);
+            }
+
+
+
         });
         $('#Provider').click(function () {
             //providers

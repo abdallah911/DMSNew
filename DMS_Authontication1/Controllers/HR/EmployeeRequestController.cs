@@ -740,7 +740,7 @@ namespace DMS_Authontication1.Controllers.HR
         {
             System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("mediacl.approv@gmail.com", to, subject, Message);
             mail.AlternateViews.Add(altView);
-            System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "Dms123456");
+            System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "mqaumlhlrnxqbjre");
 
             System.Net.Mail.SmtpClient mailclient = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
             mailclient.EnableSsl = true;

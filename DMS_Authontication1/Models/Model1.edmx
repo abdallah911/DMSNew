@@ -1455,6 +1455,8 @@
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
           <Property Name="ExceptionType" Type="nvarchar" MaxLength="20" />
+          <Property Name="NoPayEndDate" Type="date" />
+          <Property Name="NoOverEndDate" Type="date" />
         </EntityType>
         <EntityType Name="Med_Medicine">
           <Key>
@@ -2345,7 +2347,7 @@
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Swap">
           <Key>
             <PropertyRef Name="Id" />
@@ -4118,6 +4120,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="NationalId" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
           <Property Name="ExceptionType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NoPayEndDate" Type="DateTime" Precision="0" />
+          <Property Name="NoOverEndDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Med_Medicine">
           <Key>
@@ -7621,6 +7625,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="Med_Card">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Med_Card">
               <MappingFragment StoreEntitySet="Med_Card">
+                <ScalarProperty Name="NoOverEndDate" ColumnName="NoOverEndDate" />
+                <ScalarProperty Name="NoPayEndDate" ColumnName="NoPayEndDate" />
                 <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
                 <ScalarProperty Name="NationalId" ColumnName="NationalId" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />

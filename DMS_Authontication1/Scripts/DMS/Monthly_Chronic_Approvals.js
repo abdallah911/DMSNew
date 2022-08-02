@@ -841,6 +841,8 @@ function EditCard(button) {
     $('.modal-body #NOTES1').val($("TD", row).eq(11).html());
     $('.modal-body #PhoneNumber1').val($("TD", row).eq(12).html());
     $('.modal-body #NationalId1').val($("TD", row).eq(13).html());
+    $('.modal-body #CompanyPaymentDate1').val($("TD", row).eq(15).html());
+    $('.modal-body #OverInsuranceDate1').val($("TD", row).eq(16).html());
     $('#EditCardModal').modal();
 
 }

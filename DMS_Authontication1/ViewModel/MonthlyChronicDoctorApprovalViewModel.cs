@@ -18,6 +18,8 @@ namespace DMS_Authontication1.ViewModel
         public string UPDATE_BY { get; set; }
         public Nullable<System.DateTime> UPDATE_DATE { get; set; }
         public Nullable<System.DateTime> MONTH_START_DATE { get; set; }
+        public Nullable<System.DateTime> NoPayEndDate { get; set; }
+        public Nullable<System.DateTime> NoOverEndDate { get; set; }
         public Nullable<System.DateTime> MONTH_END_DATE { get; set; }
         public Nullable<int> GROUP_ID { get; set; }
         public string GROUP_NAME { get; set; }
@@ -35,6 +37,6 @@ namespace DMS_Authontication1.ViewModel
         //comp_Employees
         public string EMP_ANAME { get; set; }
         public Nullable<int> CONTRACT_NO { get; set; }
-        
+
     }
 }

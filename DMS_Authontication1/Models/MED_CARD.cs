@@ -40,5 +40,7 @@ namespace DMS_Authontication1.Models
         public string PhoneNumber { get; set; }
         public string NationalId { get; set; }
         public string ExceptionType { get; set; }
+        public Nullable<System.DateTime> NoPayEndDate { get; set; }
+        public Nullable<System.DateTime> NoOverEndDate { get; set; }
     }
 }

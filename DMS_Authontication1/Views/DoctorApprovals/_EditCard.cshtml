@@ -92,6 +92,10 @@
                     </select>
 
                 </div>
+                <div class="form-group row col-md-6" id="CompanyPaymentDatediv1">
+                    <label for="CompanyPaymentDate1" class="col-form-label">Company Payment Exception End Date</label>
+                    <input type="text" id="CompanyPaymentDate1" class="Package_Size form-control" />
+                </div>
                 <div class="form-group row col-md-6">
                     <label for="OverInsuranceLimit1" class="col-form-label">OverInsurance Exception</label>
                     <select id="OverInsuranceLimit1" class="form-control">
@@ -100,6 +104,10 @@
 
                     </select>
 
+                </div>
+                <div class="form-group row col-md-6" id="OverInsuranceDatediv1">
+                    <label for="OverInsuranceDate1" class="col-form-label"> OverInsurance Exception End Date</label>
+                    <input type="text" id="OverInsuranceDate1" class="Package_Size form-control" />
                 </div>
                 <div class="form-group row col-md-6">
                     <label for="LockStatus1" class="col-form-label">Active Status</label>
@@ -156,7 +164,60 @@
         $('#StartDate1').datepicker({
             minDate: '+0D',
         });
-        
+        $('#OverInsuranceDate1').datepicker({
+            minDate: '+0D',
+        });
+        $('#CompanyPaymentDate1').datepicker({
+            minDate: '+0D',
+        });
+        $('#CompanyPaymentLimit1').change(function () {
+
+            if ($('#CompanyPaymentLimit1').val() == "0") {
+                $('#CompanyPaymentDatediv1').attr("hidden", true);
+                $('#CompanyPaymentDate1').val(" ");
+            }
+            else {
+                $('#CompanyPaymentDatediv1').attr("hidden", false);
+            }
+
+        });
+        //$('#CompanyPaymentLimit1').map(function () {
+        //    if ($('#CompanyPaymentLimit1').val() == "0") {
+        //        $('#CompanyPaymentDatediv1').attr("hidden", true);
+        //        $('#CompanyPaymentDate1').val(" ");
+        //    }
+        //    else {
+        //        $('#CompanyPaymentDatediv1').attr("hidden", false);
+        //    }
+
+
+
+        //});
+
+        $('#OverInsuranceLimit1').change(function () {
+
+            if ($('#OverInsuranceLimit1').val() == "0") {
+                $('#OverInsuranceDatediv1').attr("hidden", true);
+                $('#OverInsuranceDate1').val(" ");
+            }
+            else {
+                $('#OverInsuranceDatediv1').attr("hidden", false);
+            }
+
+        });
+        //$('#OverInsuranceLimit1').map(function () {
+        //    if ($('#OverInsuranceLimit1').val() == "0") {
+        //        $('#OverInsuranceDatediv1').attr("hidden", true);
+        //        $('#OverInsuranceDate1').val(" ");
+        //    }
+        //    else {
+        //        $('#OverInsuranceDatediv1').attr("hidden", false);
+        //    }
+
+
+
+        //});
+
         $('#Edit').click(function () {
             if ($('.modal-body #LockStatus1').val() != null && $('.modal-body #Provider1').val() != ""
                 && $('.modal-body #StartDate1').val() != "" && $('.modal-body #NationalId1').val() != ""
@@ -192,6 +253,8 @@
                                 CARD_NO: $('.modal-body #CardId1').val(),
                                 PR_ANAME: $('.modal-body #Provider1').val(),
                                 MONTH_START_DATE: $('.modal-body #StartDate1').val(),
+                                NoPayEndDate: $('.modal-body #CompanyPaymentDate1').val(),
+                                NoOverEndDate: $('.modal-body #OverInsuranceDate1').val(),
                                 ST_DAY: $('.modal-body #ExchangeDay1').val(),
                                 GROUP_ID: $('.modal-body #Group1').val(),
                                 TASHKHES_01: DiagnosisStr /*$('.modal-body #Diagnoise1 :selected').text()*/,
@@ -229,6 +292,8 @@
                                             $('.modal-body #PhoneNumber1').val(),
                                             $('.modal-body #NationalId1').val(),
                                             $('.modal-body #ExceptionType1').val(),
+                                            $('.modal-body #CompanyPaymentDate1').val(),
+                                            $('.modal-body #OverInsuranceDate1').val(),
                                             "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditCard(this);'> Edit</Button>"
                                         ]).draw();
                                         $('#txtSearchCompany').val(CompId);
@@ -251,6 +316,8 @@
                                                 $("TD", row).eq(12).html($('.modal-body #PhoneNumber1').val());
                                                 $("TD", row).eq(13).html($('.modal-body #NationalId1').val());
                                                 $("TD", row).eq(14).html($('.modal-body #ExceptionType1').val());
+                                                $("TD", row).eq(15).html($('.modal-body #CompanyPaymentDate1').val());
+                                                $("TD", row).eq(16).html($('.modal-body #OverInsuranceDate1').val());
                                             }
                                         });
                                     }

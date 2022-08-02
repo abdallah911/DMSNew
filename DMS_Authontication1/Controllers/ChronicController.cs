@@ -149,7 +149,17 @@ namespace DMS_TEST.Controllers
         {
             try
             {
+                DateTime datenow = DateTime.Now.Date;
+                var date = new DateTime(datenow.Year, datenow.Month, datenow.Day);
                 Med_Card medCard = db.Med_Card.Where(m => m.CARD_NO == id && m.LOOK_01 == 0).FirstOrDefault();
+                if (medCard.NO_PAY == 1 && (medCard.NoPayEndDate == null || medCard.NoPayEndDate > date))
+                    medCard.NO_PAY = 1;
+                else
+                    medCard.NO_PAY = 0;
+                if (medCard.NO_OVER == 1 && (medCard.NoOverEndDate == null || medCard.NoOverEndDate > date))
+                    medCard.NO_OVER = 1;
+                else
+                    medCard.NO_OVER = 0;
                 return Json(new { ok = true, medCard = medCard, message = "ok" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -238,8 +248,17 @@ namespace DMS_TEST.Controllers
             db.Roshitas.Add(roshita);
             //db.CardUseds.Remove(carduse);
             db.SaveChanges();
-
+            DateTime datenow = DateTime.Now.Date;
+            var date = new DateTime(datenow.Year, datenow.Month, datenow.Day);
             var med_card = db.Med_Card.Where(m => m.CARD_NO == data.CardId).FirstOrDefault();
+            if (med_card.NO_PAY == 1 && (med_card.NoPayEndDate == null || med_card.NoPayEndDate > date))
+                med_card.NO_PAY = 1;
+            else
+                med_card.NO_PAY = 0;
+            if (med_card.NO_OVER == 1 && (med_card.NoOverEndDate == null || med_card.NoOverEndDate > date))
+                med_card.NO_OVER = 1;
+            else
+                med_card.NO_OVER = 0;
             RoshitaNoOverNoPay roshitaNoOverNoPay = new RoshitaNoOverNoPay
             {
                 RositaId = roshita.Id,

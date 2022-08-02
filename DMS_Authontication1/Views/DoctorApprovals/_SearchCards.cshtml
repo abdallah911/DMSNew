@@ -138,9 +138,39 @@
                             stVal[i] = $element.find("option:contains('" + DiagnosisList[i] + "')").val();
                         }
                         $element.val(stVal).trigger('change.select2');
-
+                        debugger;
                         $('.modal-body #CompanyPaymentLimit1').val(r.mED_CARD.NO_PAY);
                         $('.modal-body #OverInsuranceLimit1').val(r.mED_CARD.NO_OVER);
+                        if (r.mED_CARD.NoPayEndDate != null) {
+                            var MyDate_String_Value = r.mED_CARD.NoPayEndDate;
+                            var value = new Date
+                                (
+                                    parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            var dat = (value.getMonth() + 1) + "/" + value.getDate() + "/" + value.getFullYear();
+                            $('.modal-body #CompanyPaymentDatediv1').attr("hidden", false);
+                        }
+                        else {
+                            dat = null;
+                            if (r.mED_CARD.NO_PAY != 1)
+                                $('.modal-body #CompanyPaymentDatediv1').attr("hidden", true);
+                        }
+                        $('.modal-body #CompanyPaymentDate1').val(dat);
+                        if (r.mED_CARD.NoOverEndDate != null) {
+                            var MyDate_String_Value = r.mED_CARD.NoOverEndDate;
+                            var value = new Date
+                                (
+                                    parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            var dat = (value.getMonth() + 1) + "/" + value.getDate() + "/" + value.getFullYear();
+                            $('.modal-body #OverInsuranceDatediv1').attr("hidden", false);
+                        }
+                        else {
+                            dat = null;
+                            if (r.mED_CARD.NO_OVER != 1)
+                                $('.modal-body #OverInsuranceDatediv1').attr("hidden", true);
+                        }
+                        $('.modal-body #OverInsuranceDate1').val(dat);
                         var lock;
                         if (r.mED_CARD.LOOK_01 == 0) {
                             Lock = "Open"

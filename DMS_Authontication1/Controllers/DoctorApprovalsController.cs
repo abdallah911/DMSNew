@@ -584,7 +584,9 @@ namespace DMS_Authontication1.Controllers
                         NOTES = l.x.m.NOTES,
                         PhoneNumber = l.x.m.PhoneNumber,
                         NationalId = l.x.m.NationalId,
-                        ExceptionType = l.x.m.ExceptionType
+                        ExceptionType = l.x.m.ExceptionType,
+                        NoOverEndDate = l.x.m.NoOverEndDate,
+                        NoPayEndDate = l.x.m.NoPayEndDate
 
                     })
                     .FirstOrDefault();
@@ -617,6 +619,8 @@ namespace DMS_Authontication1.Controllers
             mED_CARD.GROUP_NAME = Group.S_NAME;
             mED_CARD.LOOK_01 = data.LOOK_01;
             mED_CARD.MONTH_START_DATE = data.MONTH_START_DATE;
+            mED_CARD.NoPayEndDate = data.NoPayEndDate;
+            mED_CARD.NoOverEndDate = data.NoOverEndDate;
             mED_CARD.MONTH_END_DATE = emp.INS_END_DATE;
             mED_CARD.NO_OVER = data.NO_OVER;
             mED_CARD.NO_PAY = data.NO_PAY;
@@ -686,6 +690,8 @@ namespace DMS_Authontication1.Controllers
                 mED_CARD.GROUP_NAME = Group.S_NAME;
                 mED_CARD.LOOK_01 = data.LOOK_01;
                 mED_CARD.MONTH_START_DATE = data.MONTH_START_DATE;
+                mED_CARD.NoPayEndDate = data.NoPayEndDate;
+                mED_CARD.NoOverEndDate = data.NoOverEndDate;
                 // mED_CARD.MONTH_END_DATE
                 mED_CARD.NO_OVER = data.NO_OVER;
                 mED_CARD.NO_PAY = data.NO_PAY;
@@ -972,6 +978,10 @@ namespace DMS_Authontication1.Controllers
             if (mED_CARD.NationalId != data.NationalId)
                 return true;
             if (mED_CARD.ExceptionType != data.ExceptionType)
+                return true;
+            if (mED_CARD.NoPayEndDate != data.NoPayEndDate)
+                return true;
+            if (mED_CARD.NoOverEndDate != data.NoOverEndDate)
                 return true;
             var prov = db.Serv_Providers1.Where(d => d.PR_ANAME == data.PR_ANAME).FirstOrDefault();
             if (mED_CARD.PROVIDER_CODE != prov.PR_CODE)
