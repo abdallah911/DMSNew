@@ -425,20 +425,92 @@ namespace DMS_Authontication1.Controllers.HR
 
         public JsonResult GetInActiveEmployess(string search, int page)
         {
-            long lgSearch;
-            long.TryParse(search, out lgSearch);
+
             ApplicationDbContext users = new ApplicationDbContext();
             var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
-            int Provider = Convert.ToInt32(CurrentUser.Provider);
-            int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == Provider).Max(x => x.CONTRACT_NO);
-            var Employees = db.fn_GetEmployessForCompany(Provider, maxcontract, "Y", search)
+            if (User.IsInRole("HR_Admin"))
+            {
+                var companyId = db.HrAdminCompanies.Where(c => c.UserId == CurrentUser.Id).Select(c => c.CompId).ToList();
+                if (companyId[0] == "All")
+                {
+                    int compId = int.Parse(search.Split('-')[0]);
+                    int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == compId).Max(x => x.CONTRACT_NO);
+                    var Employees = db.fn_GetEmployessForCompany(compId, maxcontract, "Y", search)
                  .Select(c => new
                  {
                      id = c.id,
                      text = c.text
                  }).ToList();
 
-            return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+                }
+                else
+                {
+                    if (companyId.Contains(search.Split('-')[0]))
+                    {
+                        int compId = int.Parse(search.Split('-')[0]);
+                        int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == compId).Max(x => x.CONTRACT_NO);
+                        var Employees = db.fn_GetEmployessForCompany(compId, maxcontract, "Y", search)
+                  .Select(c => new
+                  {
+                      id = c.id,
+                      text = c.text
+                  }).ToList();
+
+                        return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+                    }
+                    return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+                }
+
+            }
+
+            else if (User.IsInRole("Admin"))
+            {
+                int compId = int.Parse(search.Split('-')[0]);
+                int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == compId).Max(x => x.CONTRACT_NO);
+                var Employees = db.fn_GetEmployessForCompany(compId, maxcontract, "Y", search)
+                 .Select(c => new
+                 {
+                     id = c.id,
+                     text = c.text
+                 }).ToList();
+
+                return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+            }
+            else
+            {
+                int Provider = Convert.ToInt32(CurrentUser.Provider);
+                int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == Provider).Max(x => x.CONTRACT_NO);
+                var Employees = db.fn_GetEmployessForCompany(Provider, maxcontract, "Y", search)
+                 .Select(c => new
+                 {
+                     id = c.id,
+                     text = c.text
+                 }).ToList();
+
+                return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+            }
+            //long lgSearch;
+            //long.TryParse(search, out lgSearch);
+            //ApplicationDbContext users = new ApplicationDbContext();
+            //var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+            //int Provider = Convert.ToInt32(CurrentUser.Provider);
+            //int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == Provider).Max(x => x.CONTRACT_NO);
+            //var Employees = db.fn_GetEmployessForCompany(Provider, maxcontract, "Y", search)
+            //     .Select(c => new
+            //     {
+            //         id = c.id,
+            //         text = c.text
+            //     }).ToList();
+
+            //return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
 
 
@@ -740,7 +812,7 @@ namespace DMS_Authontication1.Controllers.HR
         {
             System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("mediacl.approv@gmail.com", to, subject, Message);
             mail.AlternateViews.Add(altView);
-            System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "Dms123456");
+            System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "mqaumlhlrnxqbjre");
 
             System.Net.Mail.SmtpClient mailclient = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
             mailclient.EnableSsl = true;
@@ -763,7 +835,7 @@ namespace DMS_Authontication1.Controllers.HR
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "smtp.gmail.com";
                 smtp.EnableSsl = true;
-                NetworkCredential networkCredential = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "Dms123456");
+                NetworkCredential networkCredential = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "mqaumlhlrnxqbjre");
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = networkCredential;
                 smtp.Port = 587;
