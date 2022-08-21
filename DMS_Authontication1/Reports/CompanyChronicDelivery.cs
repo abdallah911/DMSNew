@@ -138,7 +138,7 @@ namespace DMS_Authontication1.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_ProviderName_ {
+        public CrystalDecisions.Shared.IParameterField Parameter_ProviderName {
             get {
                 return this.DataDefinition.ParameterFields[4];
             }
@@ -146,17 +146,9 @@ namespace DMS_Authontication1.Reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CompanyPercent {
-            get {
-                return this.DataDefinition.ParameterFields[5];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.Shared.IParameterField Parameter_ProviderId {
             get {
-                return this.DataDefinition.ParameterFields[6];
+                return this.DataDefinition.ParameterFields[5];
             }
         }
     }

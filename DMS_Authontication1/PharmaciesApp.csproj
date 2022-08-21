@@ -8248,6 +8248,7 @@
     <Content Include="Views\Labs\Pending.cshtml" />
     <Content Include="Views\Rays\Pending.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Reports\HrClaims.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

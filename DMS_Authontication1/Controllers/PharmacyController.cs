@@ -3713,9 +3713,11 @@ namespace DMS_TEST.Controllers
             var result = new
             {
                 sEcho = sEcho,
-                aaData = db.Med_Card.Where(x => x.PROVIDER_CODE == userProvider && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
-                .Join(db.Med_Medicine, MC => MC.CARD_NO, MM => MM.CARD_NO, (MC, MM) => new { MC, MM }).Where(x => x.MM.ACTIVE == "Y" && (x.MM.MONTH_DATE_STOP == null || x.MM.MONTH_DATE_STOP >= dateTime))
-                .Join(db.Comp_Employees, M => M.MM.CARD_NO, E => E.CARD_ID, (M, E) => new { M, E }).Where(x => x.E.INS_START_DATE <= DateTime.Now && x.E.INS_END_DATE >= DateTime.Now && (x.E.TERMINATE_FLAG == "N" || (x.E.TERMINATE_FLAG == "Y" && x.E.TERMINATE_DATE > DateTime.Now ? true : false))).OrderByDescending(x => x.E.CONTRACT_NO)
+                aaData = db.Med_Card.Where(x => (x.PROVIDER_CODE == userProvider|| x.PROVIDER_CODE == 1268) && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
+                .Join(db.Med_Medicine, MC => MC.CARD_NO, MM => MM.CARD_NO, (MC, MM) => new { MC, MM })
+                .Where(x => x.MM.ACTIVE == "Y" && (x.MM.MONTH_DATE_STOP == null || x.MM.MONTH_DATE_STOP >= dateTime)&&x.MM.EXCESS==0)
+                .Join(db.Comp_Employees, M => M.MM.CARD_NO, E => E.CARD_ID, (M, E) => new { M, E })
+                .Where(x => x.E.INS_START_DATE <= DateTime.Now && x.E.INS_END_DATE >= DateTime.Now && (x.E.TERMINATE_FLAG == "N" || (x.E.TERMINATE_FLAG == "Y" && x.E.TERMINATE_DATE > DateTime.Now ? true : false))).OrderByDescending(x => x.E.CONTRACT_NO)
                 .Select(l => new
                 {
                     CardId = l.M.MC.CARD_NO,
@@ -3736,10 +3738,10 @@ namespace DMS_TEST.Controllers
                     Act = l.M.MM.ACT_MONTH
                 }).Distinct().OrderByDescending(m => m.CardId).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                iTotalRecords = db.Med_Card.Where(x => x.PROVIDER_CODE == userProvider && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
-                .Join(db.Med_Medicine, MC => MC.CARD_NO, MM => MM.CARD_NO, (MC, MM) => new { MC, MM }).Where(x => x.MM.ACTIVE == "Y" && (x.MM.MONTH_DATE_STOP == null || x.MM.MONTH_DATE_STOP >= dateTime)).Join(db.Comp_Employees, M => M.MM.CARD_NO, E => E.CARD_ID, (M, E) => new { M, E }).Where(x => x.E.INS_START_DATE <= DateTime.Now && x.E.INS_END_DATE >= DateTime.Now && (x.E.TERMINATE_FLAG == "N" || (x.E.TERMINATE_FLAG == "Y" && x.E.TERMINATE_DATE > DateTime.Now ? true : false))).OrderByDescending(x => x.E.CONTRACT_NO).Count(),
-                iTotalDisplayRecords = db.Med_Card.Where(x => x.PROVIDER_CODE == userProvider && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
-                .Join(db.Med_Medicine, MC => MC.CARD_NO, MM => MM.CARD_NO, (MC, MM) => new { MC, MM }).Where(x => x.MM.ACTIVE == "Y" && (x.MM.MONTH_DATE_STOP == null || x.MM.MONTH_DATE_STOP >= dateTime)).Join(db.Comp_Employees, M => M.MM.CARD_NO, E => E.CARD_ID, (M, E) => new { M, E }).Where(x => x.E.INS_START_DATE <= DateTime.Now && x.E.INS_END_DATE >= DateTime.Now && (x.E.TERMINATE_FLAG == "N" || (x.E.TERMINATE_FLAG == "Y" && x.E.TERMINATE_DATE > DateTime.Now ? true : false))).OrderByDescending(x => x.E.CONTRACT_NO).Count()
+                iTotalRecords = db.Med_Card.Where(x => (x.PROVIDER_CODE == userProvider || x.PROVIDER_CODE == 1268) && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
+                .Join(db.Med_Medicine, MC => MC.CARD_NO, MM => MM.CARD_NO, (MC, MM) => new { MC, MM }).Where(x => x.MM.ACTIVE == "Y" && x.MM.EXCESS == 0 && (x.MM.MONTH_DATE_STOP == null || x.MM.MONTH_DATE_STOP >= dateTime)).Join(db.Comp_Employees, M => M.MM.CARD_NO, E => E.CARD_ID, (M, E) => new { M, E }).Where(x => x.E.INS_START_DATE <= DateTime.Now && x.E.INS_END_DATE >= DateTime.Now && (x.E.TERMINATE_FLAG == "N" || (x.E.TERMINATE_FLAG == "Y" && x.E.TERMINATE_DATE > DateTime.Now ? true : false))).OrderByDescending(x => x.E.CONTRACT_NO).Count(),
+                iTotalDisplayRecords = db.Med_Card.Where(x => (x.PROVIDER_CODE == userProvider || x.PROVIDER_CODE == 1268) && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
+                .Join(db.Med_Medicine, MC => MC.CARD_NO, MM => MM.CARD_NO, (MC, MM) => new { MC, MM }).Where(x => x.MM.ACTIVE == "Y" && x.MM.EXCESS == 0 && (x.MM.MONTH_DATE_STOP == null || x.MM.MONTH_DATE_STOP >= dateTime)).Join(db.Comp_Employees, M => M.MM.CARD_NO, E => E.CARD_ID, (M, E) => new { M, E }).Where(x => x.E.INS_START_DATE <= DateTime.Now && x.E.INS_END_DATE >= DateTime.Now && (x.E.TERMINATE_FLAG == "N" || (x.E.TERMINATE_FLAG == "Y" && x.E.TERMINATE_DATE > DateTime.Now ? true : false))).OrderByDescending(x => x.E.CONTRACT_NO).Count()
             };
             return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -3750,8 +3752,8 @@ namespace DMS_TEST.Controllers
             int userProvider = Convert.ToInt32(CurrentUser.Provider);
             DateTime dateTime = Convert.ToDateTime(Date);
 
-            var Cards = db.Med_Card.Where(x => x.PROVIDER_CODE == userProvider && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
-                .Join(db.Med_Medicine, MC => MC.CARD_NO, MM => MM.CARD_NO, (MC, MM) => new { MC, MM }).Where(x => x.MM.ACTIVE == "Y" && (x.MM.MONTH_DATE_STOP == null || x.MM.MONTH_DATE_STOP >= dateTime)).Join(db.Comp_Employees, M => M.MM.CARD_NO, E => E.CARD_ID, (M, E) => new { M, E }).Where(x => x.E.INS_START_DATE <= DateTime.Now && x.E.INS_END_DATE >= DateTime.Now && (x.E.TERMINATE_FLAG == "N" || (x.E.TERMINATE_FLAG == "Y" && x.E.TERMINATE_DATE > DateTime.Now ? true : false))).OrderByDescending(x => x.E.CONTRACT_NO)
+            var Cards = db.Med_Card.Where(x => (x.PROVIDER_CODE == userProvider || x.PROVIDER_CODE == 1268) && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
+                .Join(db.Med_Medicine, MC => MC.CARD_NO, MM => MM.CARD_NO, (MC, MM) => new { MC, MM }).Where(x => x.MM.ACTIVE == "Y" && x.MM.EXCESS == 0 && (x.MM.MONTH_DATE_STOP == null || x.MM.MONTH_DATE_STOP >= dateTime)).Join(db.Comp_Employees, M => M.MM.CARD_NO, E => E.CARD_ID, (M, E) => new { M, E }).Where(x => x.E.INS_START_DATE <= DateTime.Now && x.E.INS_END_DATE >= DateTime.Now && (x.E.TERMINATE_FLAG == "N" || (x.E.TERMINATE_FLAG == "Y" && x.E.TERMINATE_DATE > DateTime.Now ? true : false))).OrderByDescending(x => x.E.CONTRACT_NO)
                 .Select(l => new
                 {
                     CardId = l.M.MC.CARD_NO,

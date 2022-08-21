@@ -1,10 +1,13 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using DMS_Authontication1.Models;
+using DMS_TEST.ViewModel;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Oracle.ManagedDataAccess.Client;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -62,13 +65,13 @@ namespace DMS_Authontication1.Controllers.HR
                 else
                 {
                     var companyname = (from comp in compines
-                     join contCo in db.Contract_Comp
-                     on int.Parse(comp) equals contCo.C_COMP_ID
-                     select new
-                     {
-                         Code = contCo.C_COMP_ID,
-                         Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-                     }).ToList();
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
                 }
@@ -108,13 +111,13 @@ namespace DMS_Authontication1.Controllers.HR
                 else
                 {
                     var companyname = (from comp in compines
-                     join contCo in db.Contract_Comp
-                     on int.Parse(comp) equals contCo.C_COMP_ID
-                     select new
-                     {
-                         Code = contCo.C_COMP_ID,
-                         Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-                     }).ToList();
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
                 }
@@ -153,13 +156,13 @@ namespace DMS_Authontication1.Controllers.HR
                 else
                 {
                     var companyname = (from comp in compines
-                     join contCo in db.Contract_Comp
-                     on int.Parse(comp) equals contCo.C_COMP_ID
-                     select new
-                     {
-                         Code = contCo.C_COMP_ID,
-                         Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-                     }).ToList();
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
                 }
@@ -199,13 +202,13 @@ namespace DMS_Authontication1.Controllers.HR
                 else
                 {
                     var companyname = (from comp in compines
-                     join contCo in db.Contract_Comp
-                     on int.Parse(comp) equals contCo.C_COMP_ID
-                     select new
-                     {
-                         Code = contCo.C_COMP_ID,
-                         Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-                     }).ToList();
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
                 }
@@ -245,13 +248,13 @@ namespace DMS_Authontication1.Controllers.HR
                 else
                 {
                     var companyname = (from comp in compines
-                     join contCo in db.Contract_Comp
-                     on int.Parse(comp) equals contCo.C_COMP_ID
-                     select new
-                     {
-                         Code = contCo.C_COMP_ID,
-                         Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-                     }).ToList();
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
                 }
@@ -312,6 +315,667 @@ namespace DMS_Authontication1.Controllers.HR
                     return View();
                 }
                 return View("~/Views/Reports/Premium.cshtml");
+            }
+        }
+
+        public ActionResult HrClaims()
+        {
+            if (User.IsInRole("HR_Admin"))
+            {
+                var userid = User.Identity.GetUserId();
+                var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+                if (compines[0] == "All")
+                {
+                    var companyname = db.Contract_Comp
+                        .Select(l => new
+                        {
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
+
+                        }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+                else
+                {
+                    var companyname = (from comp in compines
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+
+                return View();
+            }
+            else
+            {
+                var HrUserNamre = User.Identity.GetUserName();
+                string compa = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
+                ViewBag.compnum = compa;
+                return View();
+            }
+        }
+
+
+        public JsonResult PreseptionList(int sEcho, int iDisplayStart, int iDisplayLength, int ClaimType, long? ApprovalNo,
+            string sSearch = "", string CompanyNumber = "", string From = "", string To = "", string CardId = "", string Type = "")
+        {
+            //all
+            if (ClaimType == 0)
+            {
+                DateTime dateFrom = Convert.ToDateTime(From);
+                DateTime dateTo = Convert.ToDateTime(To);
+                var result1 = new
+                {
+                    sEcho = sEcho,
+                    aaData = db.Roshitas.OrderByDescending(m => m.CreatedDate)
+                   .Where(r => (sSearch != "" ? (r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch)
+                   ) : true)
+                   && (CardId != "" ? r.CardId.Contains(CardId) : true) && (ApprovalNo != null ? r.Oracle_Id == ApprovalNo : true)
+                   && (CompanyNumber != "" ? r.CardId.Contains(CompanyNumber) : true) && !r.Manager.Contains("Stop")
+                   && !r.Manager.Contains("Doctor_Daily") && !r.Manager.Contains("Doctor_Chronic") &&
+                   (DbFunctions.TruncateTime(r.CreatedDate) >= dateFrom && DbFunctions.TruncateTime(r.CreatedDate) <= dateTo))
+                   .AsEnumerable()
+                   .Select(l => new
+                   {
+                       Id = l.Id,
+                       Oracle_Id = ((l.Oracle_Id == null || l.Oracle_Id == 0) ? Convert.ToString("2" + l.CreatedDate.Value.ToString("ddMMyy") + l.Id) : Convert.ToString(l.Oracle_Id)),
+                       CardId = l.CardId,
+                       CompanyPercent = l.CompanyPercent,
+                       TotalValue = l.TotalValue,
+                       Manager = l.Manager,
+                       CreatedDate = l.CreatedDate,
+                       CreatedBy = l.CreatedBy
+                   }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
+
+                    iTotalRecords = db.Roshitas.OrderByDescending(m => m.CreatedDate)
+                   .Where(r => (sSearch != "" ? (r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch)
+                   ) : true)
+                   && (CardId != "" ? r.CardId.Contains(CardId) : true) && (ApprovalNo != null ? r.Oracle_Id == ApprovalNo : true)
+                   && (CompanyNumber != "" ? r.CardId.Contains(CompanyNumber) : true) && !r.Manager.Contains("Stop")
+                   && !r.Manager.Contains("Doctor_Daily") && !r.Manager.Contains("Doctor_Chronic") &&
+                   (DbFunctions.TruncateTime(r.CreatedDate) >= dateFrom && DbFunctions.TruncateTime(r.CreatedDate) <= dateTo))
+                   .AsEnumerable()
+                   .ToList().Count(),
+                    iTotalDisplayRecords = db.Roshitas.OrderByDescending(m => m.CreatedDate)
+                   .Where(r => (sSearch != "" ? (r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch)
+                   ) : true)
+                   && (CardId != "" ? r.CardId.Contains(CardId) : true) && (ApprovalNo != null ? r.Oracle_Id == ApprovalNo : true)
+                   && (CompanyNumber != "" ? r.CardId.Contains(CompanyNumber) : true) && !r.Manager.Contains("Stop")
+                   && !r.Manager.Contains("Doctor_Daily") && !r.Manager.Contains("Doctor_Chronic") &&
+                   (DbFunctions.TruncateTime(r.CreatedDate) >= dateFrom && DbFunctions.TruncateTime(r.CreatedDate) <= dateTo))
+                   .AsEnumerable()
+                   .ToList().Count()
+                };
+                return new JsonResult { Data = result1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+            }
+            //pharmacy
+            else if (ClaimType == 1)
+            {
+                DateTime dateFrom = Convert.ToDateTime(From);
+                DateTime dateTo = Convert.ToDateTime(To);
+                var result1 = new
+                {
+                    sEcho = sEcho,
+                    aaData = db.Roshitas.OrderByDescending(m => m.CreatedDate)
+                   .Where(r => (sSearch != "" ? (r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch)
+                   ) : true)
+                   && (CardId != "" ? r.CardId.Contains(CardId) : true) && (ApprovalNo != null ? r.Oracle_Id == ApprovalNo : true) 
+                   && (Type != "" ? r.Manager.Contains(Type) : true)
+                   && (CompanyNumber != "" ? r.CardId.Contains(CompanyNumber) : true) && !r.Manager.Contains("Stop")
+                   && !r.Manager.Contains("Doctor_Daily") && !r.Manager.Contains("Doctor_Chronic") &&
+                   !r.Manager.Contains("Lab") &&!r.Manager.Contains("Ray") &&
+                   (DbFunctions.TruncateTime(r.CreatedDate) >= dateFrom && DbFunctions.TruncateTime(r.CreatedDate) <= dateTo))
+                   .AsEnumerable()
+                   .Select(l => new
+                   {
+                       Id = l.Id,
+                       Oracle_Id = ((l.Oracle_Id == null || l.Oracle_Id == 0) ? Convert.ToString("2" + l.CreatedDate.Value.ToString("ddMMyy") + l.Id) : Convert.ToString(l.Oracle_Id)),
+                       CardId = l.CardId,
+                       CompanyPercent = l.CompanyPercent,
+                       TotalValue = l.TotalValue,
+                       Manager = l.Manager,
+                       CreatedDate = l.CreatedDate,
+                       CreatedBy = l.CreatedBy
+                   }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
+
+                    iTotalRecords = db.Roshitas.OrderByDescending(m => m.CreatedDate)
+                   .Where(r => (sSearch != "" ? (r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch)
+                   ) : true)
+                   && (CardId != "" ? r.CardId.Contains(CardId) : true) && (ApprovalNo != null ? r.Oracle_Id == ApprovalNo : true) && (Type != "" ? r.Manager.Contains(Type) : true)
+                   && (CompanyNumber != "" ? r.CardId.Contains(CompanyNumber) : true) && !r.Manager.Contains("Stop")
+                   && !r.Manager.Contains("Doctor_Daily") && !r.Manager.Contains("Doctor_Chronic") &&
+                   !r.Manager.Contains("Lab") && !r.Manager.Contains("Ray") &&
+                   (DbFunctions.TruncateTime(r.CreatedDate) >= dateFrom && DbFunctions.TruncateTime(r.CreatedDate) <= dateTo))
+                   .AsEnumerable()
+                   .ToList().Count(),
+                    iTotalDisplayRecords = db.Roshitas.OrderByDescending(m => m.CreatedDate)
+                   .Where(r => (sSearch != "" ? (r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch)
+                   ) : true)
+                   && (CardId != "" ? r.CardId.Contains(CardId) : true) && (ApprovalNo != null ? r.Oracle_Id == ApprovalNo : true) && (Type != "" ? r.Manager.Contains(Type) : true)
+                   && (CompanyNumber != "" ? r.CardId.Contains(CompanyNumber) : true) && !r.Manager.Contains("Stop")
+                   && !r.Manager.Contains("Doctor_Daily") && !r.Manager.Contains("Doctor_Chronic") &&
+                   !r.Manager.Contains("Lab") && !r.Manager.Contains("Ray") &&
+                   (DbFunctions.TruncateTime(r.CreatedDate) >= dateFrom && DbFunctions.TruncateTime(r.CreatedDate) <= dateTo))
+                   .AsEnumerable()
+                   .ToList().Count()
+                };
+                return new JsonResult { Data = result1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            //lab 
+            else if (ClaimType == 2)
+            {
+                DateTime dateFrom = Convert.ToDateTime(From);
+                DateTime dateTo = Convert.ToDateTime(To);
+                var result1 = new
+                {
+                    sEcho = sEcho,
+                    aaData = db.Roshitas.OrderByDescending(m => m.CreatedDate)
+                   .Where(r => (sSearch != "" ? (r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch)
+                   ) : true)
+                   && (CardId != "" ? r.CardId.Contains(CardId) : true) && (ApprovalNo != null ? r.Oracle_Id == ApprovalNo : true) && (Type != "" ? r.Manager.Contains(Type) : true)
+                   && (CompanyNumber != "" ? r.CardId.Contains(CompanyNumber) : true) && !r.Manager.Contains("Stop") && r.Manager.Contains("Lab")
+                   && !r.Manager.Contains("Doctor_Daily") && !r.Manager.Contains("Doctor_Chronic") &&
+                   (DbFunctions.TruncateTime(r.CreatedDate) >= dateFrom && DbFunctions.TruncateTime(r.CreatedDate) <= dateTo))
+                   .AsEnumerable()
+                   .Select(l => new
+                   {
+                       Id = l.Id,
+                       Oracle_Id = ((l.Oracle_Id == null || l.Oracle_Id == 0) ? Convert.ToString("2" + l.CreatedDate.Value.ToString("ddMMyy") + l.Id) : Convert.ToString(l.Oracle_Id)),
+                       CardId = l.CardId,
+                       CompanyPercent = l.CompanyPercent,
+                       TotalValue = l.TotalValue,
+                       Manager = l.Manager,
+                       CreatedDate = l.CreatedDate,
+                       CreatedBy = l.CreatedBy
+                   }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
+
+                    iTotalRecords = db.Roshitas.OrderByDescending(m => m.CreatedDate)
+                   .Where(r => (sSearch != "" ? (r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch)
+                   ) : true)
+                   && (CardId != "" ? r.CardId.Contains(CardId) : true) && (ApprovalNo != null ? r.Oracle_Id == ApprovalNo : true) && (Type != "" ? r.Manager.Contains(Type) : true)
+                   && (CompanyNumber != "" ? r.CardId.Contains(CompanyNumber) : true) && !r.Manager.Contains("Stop") && r.Manager.Contains("Lab")
+                   && !r.Manager.Contains("Doctor_Daily") && !r.Manager.Contains("Doctor_Chronic") &&
+                   (DbFunctions.TruncateTime(r.CreatedDate) >= dateFrom && DbFunctions.TruncateTime(r.CreatedDate) <= dateTo))
+                   .AsEnumerable()
+                   .ToList().Count(),
+                    iTotalDisplayRecords = db.Roshitas.OrderByDescending(m => m.CreatedDate)
+                   .Where(r => (sSearch != "" ? (r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch)
+                   ) : true)
+                   && (CardId != "" ? r.CardId.Contains(CardId) : true) && (ApprovalNo != null ? r.Oracle_Id == ApprovalNo : true) && (Type != "" ? r.Manager.Contains(Type) : true)
+                   && (CompanyNumber != "" ? r.CardId.Contains(CompanyNumber) : true) && !r.Manager.Contains("Stop") && r.Manager.Contains("Lab")
+                   && !r.Manager.Contains("Doctor_Daily") && !r.Manager.Contains("Doctor_Chronic") &&
+                   (DbFunctions.TruncateTime(r.CreatedDate) >= dateFrom && DbFunctions.TruncateTime(r.CreatedDate) <= dateTo))
+                   .AsEnumerable()
+                   .ToList().Count()
+                };
+                return new JsonResult { Data = result1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            //Ray 
+            else if (ClaimType == 3)
+            {
+                DateTime dateFrom = Convert.ToDateTime(From);
+                DateTime dateTo = Convert.ToDateTime(To);
+                var result1 = new
+                {
+                    sEcho = sEcho,
+                    aaData = db.Roshitas.OrderByDescending(m => m.CreatedDate)
+                   .Where(r => (sSearch != "" ? (r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch)
+                   ) : true)
+                   && (CardId != "" ? r.CardId.Contains(CardId) : true) && (ApprovalNo != null ? r.Oracle_Id == ApprovalNo : true) && (Type != "" ? r.Manager.Contains(Type) : true)
+                   && (CompanyNumber != "" ? r.CardId.Contains(CompanyNumber) : true) && !r.Manager.Contains("Stop") && r.Manager.Contains("Ray")
+                   && !r.Manager.Contains("Doctor_Daily") && !r.Manager.Contains("Doctor_Chronic") &&
+                   (DbFunctions.TruncateTime(r.CreatedDate) >= dateFrom && DbFunctions.TruncateTime(r.CreatedDate) <= dateTo))
+                   .AsEnumerable()
+                   .Select(l => new
+                   {
+                       Id = l.Id,
+                       Oracle_Id = ((l.Oracle_Id == null || l.Oracle_Id == 0) ? Convert.ToString("2" + l.CreatedDate.Value.ToString("ddMMyy") + l.Id) : Convert.ToString(l.Oracle_Id)),
+                       CardId = l.CardId,
+                       CompanyPercent = l.CompanyPercent,
+                       TotalValue = l.TotalValue,
+                       Manager = l.Manager,
+                       CreatedDate = l.CreatedDate,
+                       CreatedBy = l.CreatedBy
+                   }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
+
+                    iTotalRecords = db.Roshitas.OrderByDescending(m => m.CreatedDate)
+                   .Where(r => (sSearch != "" ? (r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch)
+                   ) : true)
+                   && (CardId != "" ? r.CardId.Contains(CardId) : true) && (ApprovalNo != null ? r.Oracle_Id == ApprovalNo : true) && (Type != "" ? r.Manager.Contains(Type) : true)
+                   && (CompanyNumber != "" ? r.CardId.Contains(CompanyNumber) : true) && !r.Manager.Contains("Stop") && r.Manager.Contains("Ray")
+                   && !r.Manager.Contains("Doctor_Daily") && !r.Manager.Contains("Doctor_Chronic") &&
+                   (DbFunctions.TruncateTime(r.CreatedDate) >= dateFrom && DbFunctions.TruncateTime(r.CreatedDate) <= dateTo))
+                   .AsEnumerable()
+                   .ToList().Count(),
+                    iTotalDisplayRecords = db.Roshitas.OrderByDescending(m => m.CreatedDate)
+                   .Where(r => (sSearch != "" ? (r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch)
+                   ) : true)
+                   && (CardId != "" ? r.CardId.Contains(CardId) : true) && (ApprovalNo != null ? r.Oracle_Id == ApprovalNo : true) && (Type != "" ? r.Manager.Contains(Type) : true)
+                   && (CompanyNumber != "" ? r.CardId.Contains(CompanyNumber) : true) && !r.Manager.Contains("Stop") && r.Manager.Contains("Ray")
+                   && !r.Manager.Contains("Doctor_Daily") && !r.Manager.Contains("Doctor_Chronic") &&
+                   (DbFunctions.TruncateTime(r.CreatedDate) >= dateFrom && DbFunctions.TruncateTime(r.CreatedDate) <= dateTo))
+                   .AsEnumerable()
+                   .ToList().Count()
+                };
+                return new JsonResult { Data = result1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            #region defult
+            var result = new
+            {
+                sEcho = sEcho,
+                aaData = db.Roshitas.Where(x => !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray") && !x.Manager.Contains("Stop")).AsEnumerable()
+                .Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Where(x => x.CreatedDate.Value.AddDays(7).Date > DateTime.Now.Date).OrderByDescending(m => m.Id)
+                .Select(l => new Roshita
+                {
+                    Oracle_Id = (l.Oracle_Id == null || l.Oracle_Id == 0) ? Convert.ToInt64("2" + l.CreatedDate.Value.ToString("ddMMyy") + l.Id) : l.Oracle_Id,
+                    Id = l.Id,
+                    // Oracle_Id = l.Oracle_Id,
+                    CardId = l.CardId,
+                    CompanyPercent = l.CompanyPercent,
+                    TotalValue = Math.Round(l.TotalValue.Value, 3),
+                    Manager = l.Manager,
+                    CreatedDate = l.CreatedDate,
+                    CreatedBy = l.CreatedBy
+                }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
+
+                iTotalRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray") && !x.Manager.Contains("Stop")).OrderBy(m => m.Id).AsEnumerable()
+                .Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Count(),
+                iTotalDisplayRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray") && !x.Manager.Contains("Stop")).OrderBy(m => m.Id).AsEnumerable()
+                .Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Where(x => x.CreatedDate.Value.AddDays(7).Date > DateTime.Now.Date).Count()
+            };
+            return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            #endregion
+
+
+
+        }
+        public ActionResult ControlPenelReport(string id)
+        {
+            try
+            {
+                var data = new Roshita();
+                int Approval;//= Convert.ToInt32(id.Substring(7));
+                long Id = Convert.ToInt64(id);
+
+                if (id.StartsWith("2") && id.Length >= 14)
+                {
+                    Approval = Convert.ToInt32(id.Substring(7));
+                    data = db.Roshitas.Where(r => r.Id == Approval).FirstOrDefault();
+                    if (data == null)
+                    {
+                        data = db.Roshitas.Where(r => r.Oracle_Id == Id).FirstOrDefault();
+                        Approval = Convert.ToInt32(data.Id);
+                    }
+
+                }
+                else
+                {
+                    //long Id = Convert.ToInt64(id);
+                    data = db.Roshitas.Where(r => r.Oracle_Id == Id).FirstOrDefault();
+                    Approval = Convert.ToInt32(data.Id);
+
+                }
+                if (data.Manager.Contains("Lab"))
+                {
+                    var patient = db.Comp_Employees.Where(c => c.CARD_ID == data.CardId /*&& c.INS_START_DATE <= DateTime.Now && c.INS_END_DATE >= DateTime.Now*/).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    var Company = db.Contract_Comp.Where(c => c.C_COMP_ID == patient.C_COMP_ID).FirstOrDefault();
+                    List<PrescriptionRoshitaDignosi> diagnoises = db.PrescriptionRoshitaDignosis.Where(x => x.RositaId == data.Id).ToList();
+                    string diagnoisesString = data.Speciality == "Empty" ? " " : data.Speciality + '-';
+                    diagnoisesString += String.Join(",", diagnoises.Select(p => p.DiagnoiseName).ToArray());
+                    string accptionlistString = "";
+                    RoshitaAcception _RoshitaAcception = db.RoshitaAcceptions.Where(x => x.RoshitaId == Approval).FirstOrDefault();
+                    if (_RoshitaAcception != null)
+                    {
+                        var acception = db.Acceptions.Where(x => x.Id == _RoshitaAcception.AcceptionId).FirstOrDefault();
+                        if (acception != null && acception.ApprovalType == "Vip")
+                        {
+                            accptionlistString = "Vip";
+                        }
+                        else
+                        {
+                            //var accptionlist = db.Acceptions.Where(x => x.CompEmployeesId == patient.Id && x.AcceptionFlag == false && x.UpdatedDate == DateTime.Today).OrderByDescending(d => d.Id).FirstOrDefault();
+                            List<CardAcceptionReason> reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == acception.Id).ToList();
+                            accptionlistString = String.Join(",", reasons.Select(p => p.AcceptionReason.Name.Trim()).ToArray());
+
+                        }
+                    }
+                    else
+                    {
+                        accptionlistString = "No Exeption";
+                    }
+                    ReportDocument rd = new ReportDocument();
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "labs.rpt"));
+                    var y = db.RoshitaDetails.Where(r => r.RoshitaID == data.Id && r.IsDealed == true)
+                     .Select(d => new
+                     {
+                         MedicienName = d.MedicienName,
+                         Amount = d.Amount,
+                         PaymentGroup = d.PaymentGroup
+                     }).ToList();
+                    rd.SetDataSource(y);
+                    if (string.IsNullOrEmpty(patient.EMP_ENAME) || patient.EMP_ENAME == "NULL")
+                    {
+                        if (string.IsNullOrEmpty(patient.EMP_ANAME) || patient.EMP_ANAME == "NULL")
+                        {
+                            rd.SetParameterValue("PatientName", "Unnamed");
+                        }
+                        else
+                        {
+                            rd.SetParameterValue("PatientName", patient.EMP_ANAME);
+                        }
+                    }
+                    else
+                    {
+                        rd.SetParameterValue("PatientName", patient.EMP_ENAME);
+                    }
+                    data.RoshetaType = "Lab";
+
+                    rd.SetParameterValue("Type", data.RoshetaType);
+                    rd.SetParameterValue("Pharmacy", data.CreatedBy);
+                    rd.SetParameterValue("Approval", id);
+                    rd.SetParameterValue("PhoneNumber", data.PhoneNumber);
+                    rd.SetParameterValue("CompanyName", Company.C_ENAME);
+                    rd.SetParameterValue("CardId", data.CardId);
+                    if (data.Diagnose1 != null && data.Diagnose1 != "Empty")
+                        rd.SetParameterValue("Notes", data.Diagnose1);
+                    else rd.SetParameterValue("Notes", "");
+                    rd.SetParameterValue("Diagnosis", diagnoisesString);
+                    rd.SetParameterValue("Permission", accptionlistString);
+                    rd.SetParameterValue("TotalValue", data.TotalValue);
+                    rd.SetParameterValue("OverInsurance", data.OverInsurance);
+                    rd.SetParameterValue("PersonPayment", data.PersonPayment);
+                    rd.SetParameterValue("CompanyPayment", data.CompanyPayment);
+                    rd.SetParameterValue("Cash", data.Cash);
+                    Response.Buffer = false;
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    try
+                    {
+                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                        stream.Seek(0, SeekOrigin.Begin);
+                        rd.Close();
+                        rd.Dispose();
+                        GC.Collect();
+                        DateTime ApprovalDate = Convert.ToDateTime(data.CreatedDate);
+                        return File(stream, "application/pfd", ApprovalDate.ToString("ddMMyyyy") + Approval.ToString() + "Lab" + ".pdf");
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                }
+                else if (data.Manager.Contains("Ray"))
+                {
+                    var patient = db.Comp_Employees.Where(c => c.CARD_ID == data.CardId /*&& c.INS_START_DATE <= DateTime.Now && c.INS_END_DATE >= DateTime.Now*/).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    var Company = db.Contract_Comp.Where(c => c.C_COMP_ID == patient.C_COMP_ID).FirstOrDefault();
+                    List<PrescriptionRoshitaDignosi> diagnoises = db.PrescriptionRoshitaDignosis.Where(x => x.RositaId == data.Id).ToList();
+                    string diagnoisesString = data.Speciality == "Empty" ? " " : data.Speciality + '-';
+                    diagnoisesString += String.Join(",", diagnoises.Select(p => p.DiagnoiseName).ToArray());
+                    string accptionlistString = "";
+                    RoshitaAcception _RoshitaAcception = db.RoshitaAcceptions.Where(x => x.RoshitaId == Approval).FirstOrDefault();
+                    if (_RoshitaAcception != null)
+                    {
+                        var acception = db.Acceptions.Where(x => x.Id == _RoshitaAcception.AcceptionId).FirstOrDefault();
+                        if (acception != null && acception.ApprovalType == "Vip")
+                        {
+                            accptionlistString = "Vip";
+                        }
+                        else
+                        {
+                            //var accptionlist = db.Acceptions.Where(x => x.CompEmployeesId == patient.Id && x.AcceptionFlag == false && x.UpdatedDate == DateTime.Today).OrderByDescending(d => d.Id).FirstOrDefault();
+                            List<CardAcceptionReason> reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == acception.Id).ToList();
+                            accptionlistString = String.Join(",", reasons.Select(p => p.AcceptionReason.Name.Trim()).ToArray());
+
+                        }
+                    }
+                    else
+                    {
+                        accptionlistString = "No Exeption";
+                    }
+                    ReportDocument rd = new ReportDocument();
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "Rays.rpt"));
+                    // rd.Subreports[0].SetDataSource(db.RoshitaDetails.Where(r=>r.RoshitaID==Approval).ToList());
+                    var y = db.RoshitaDetails.Where(r => r.RoshitaID == data.Id && r.IsDealed == true)
+                     .Select(d => new
+                     {
+                         MedicienName = d.MedicienName,
+                         Amount = d.Amount,
+                         PaymentGroup = d.PaymentGroup
+                     }).ToList();
+                    rd.SetDataSource(y);
+                    if (string.IsNullOrEmpty(patient.EMP_ENAME) || patient.EMP_ENAME == "NULL")
+                    {
+                        if (string.IsNullOrEmpty(patient.EMP_ANAME) || patient.EMP_ANAME == "NULL")
+                        {
+                            rd.SetParameterValue("PatientName", "Unnamed");
+                        }
+                        else
+                        {
+                            rd.SetParameterValue("PatientName", patient.EMP_ANAME);
+                        }
+                    }
+                    else
+                    {
+                        rd.SetParameterValue("PatientName", patient.EMP_ENAME);
+                    }
+                    data.RoshetaType = "Ray";
+                    rd.SetParameterValue("Type", data.RoshetaType);
+                    rd.SetParameterValue("Pharmacy", data.CreatedBy);
+                    rd.SetParameterValue("Approval", id);
+                    rd.SetParameterValue("PhoneNumber", data.PhoneNumber);
+                    rd.SetParameterValue("CompanyName", Company.C_ENAME);
+                    rd.SetParameterValue("CardId", data.CardId);
+                    if (data.Diagnose1 != null && data.Diagnose1 != "Empty")
+                        rd.SetParameterValue("Notes", data.Diagnose1);
+                    else rd.SetParameterValue("Notes", "");
+                    rd.SetParameterValue("Diagnosis", diagnoisesString);
+                    rd.SetParameterValue("Permission", accptionlistString);
+                    rd.SetParameterValue("TotalValue", data.TotalValue);
+                    rd.SetParameterValue("OverInsurance", data.OverInsurance);
+                    rd.SetParameterValue("PersonPayment", data.PersonPayment);
+                    rd.SetParameterValue("CompanyPayment", data.CompanyPayment);
+                    rd.SetParameterValue("Cash", data.Cash);
+                    Response.Buffer = false;
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    try
+                    {
+                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                        stream.Seek(0, SeekOrigin.Begin);
+                        rd.Close();
+                        rd.Dispose();
+                        GC.Collect();
+                        DateTime ApprovalDate = Convert.ToDateTime(data.CreatedDate);
+                        return File(stream, "application/pfd", Approval.ToString() + "Ray" + ".pdf");
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                }
+                else
+                {
+
+
+                    // based on type
+                    DateTime datecompare = new DateTime(data.CreatedDate.Value.Year, data.CreatedDate.Value.Month,
+                        data.CreatedDate.Value.Day);
+                    var patient = db.Comp_Employees.Where(c => c.CARD_ID == data.CardId && c.INS_START_DATE <= datecompare
+                    && c.INS_END_DATE >= datecompare).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    var Company = db.Contract_Comp.Where(c => c.C_COMP_ID == patient.C_COMP_ID).FirstOrDefault();
+                    List<PrescriptionRoshitaDignosi> diagnoises = db.PrescriptionRoshitaDignosis.Where(x => x.RositaId == data.Id).ToList();
+                    string diagnoisesString = data.Speciality == "Empty" ? " " : data.Speciality + '-';
+                    diagnoisesString += String.Join(",", diagnoises.Select(p => p.DiagnoiseName).ToArray());
+                    string accptionlistString = "";
+                    var DataService1 = new Comp_Customized_D_D();
+                    var med_card = new Med_Card();
+                    int? NoOver = 0, NoPay = 0;
+                    double CellingPert;
+                    var DataService = db.Comp_Customized_D_D_Emp.Where(c => c.C_COMP_ID == patient.C_COMP_ID && c.CONTRACT_NO == patient.CONTRACT_NO && c.SER_SERV == data.RoshetaType && c.CARD_ID == patient.CARD_ID).FirstOrDefault();
+                    if (DataService == null)
+                    {
+                        DataService1 = db.Comp_Customized_D_D.Where(c => c.C_COMP_ID == patient.C_COMP_ID && c.CLASS_CODE == patient.CLASS_CODE && c.CONTRACT_NO == patient.CONTRACT_NO && c.SER_SERV == data.RoshetaType).FirstOrDefault();
+                    }
+                    RoshitaAcception _RoshitaAcception = db.RoshitaAcceptions.Where(x => x.RoshitaId == Approval).FirstOrDefault();
+                    if (_RoshitaAcception != null)
+                    {
+                        var acception = db.Acceptions.Where(x => x.Id == _RoshitaAcception.AcceptionId).FirstOrDefault();
+                        if (acception != null && acception.ApprovalType == "Vip")
+                        {
+                            accptionlistString = "Vip";
+                        }
+                        else
+                        {
+                            //var accptionlist = db.Acceptions.Where(x => x.CompEmployeesId == patient.Id && x.AcceptionFlag == false && x.UpdatedDate == DateTime.Today).OrderByDescending(d => d.Id).FirstOrDefault();
+                            List<CardAcceptionReason> reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == acception.Id).ToList();
+                            accptionlistString = String.Join(",", reasons.Select(p => p.AcceptionReason.Name.Trim()).ToArray());
+
+                        }
+                    }
+                    else
+                    {
+                        accptionlistString = "No Exeption";
+                    }
+
+
+                    ReportDocument rd = new ReportDocument();
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReport.rpt"));
+
+                    var y = db.RoshitaDetails.Where(r => r.RoshitaID == data.Id && r.IsDealed == true)
+                       .Join(db.MedicineDatas, r => r.MedicienCode, m => m.M_CODE, (r, m) => new { r, m })
+                       .AsEnumerable()
+                    .Select(d => new RoshitaDetailsMedicineDataReportViewModel
+                    {
+                        MedicienName = d.r.MedicienName,//name
+                        LIC_TYPE = d.m.LIC_TYPE,//form
+                        UNIT_NO = Convert.ToInt32(d.m.PACK_SIZE.Value),//size
+                        TotalUnits = Convert.ToInt32(d.r.TotalUnits),//count
+                        Amount = d.r.Amount,//
+                        PaymentGroup = d.r.PaymentGroup,//type
+                        MedicineNoPay = d.r.MedicineNoPay
+                    }).ToList();
+                    rd.SetDataSource(y);
+                    if (string.IsNullOrEmpty(patient.EMP_ENAME) || patient.EMP_ENAME == "NULL")
+                    {
+                        if (string.IsNullOrEmpty(patient.EMP_ANAME) || patient.EMP_ANAME == "NULL")
+                        {
+                            rd.SetParameterValue("PatientName", "Unnamed");
+                        }
+                        else
+                        {
+                            rd.SetParameterValue("PatientName", patient.EMP_ANAME);
+                        }
+                    }
+                    else
+                    {
+                        rd.SetParameterValue("PatientName", patient.EMP_ENAME);
+                    }
+                    if (data.RoshetaType == "11601")
+                    {
+                        if (data.Manager == "Pharmacy_Doctor")
+                        {
+                            data.RoshetaType = "Pharmacy_Doctor";
+                        }
+                        else
+                        {
+                            data.RoshetaType = "Daily";
+                        }
+
+
+                    }
+                    if (data.RoshetaType == "11603")
+                    {
+                        data.RoshetaType = "Monthly";
+                    }
+                    if (data.RoshetaType == "11602")
+                    {
+                        data.RoshetaType = "Pharmacy_Chronic";
+
+                        med_card = db.Med_Card.Where(m => m.CARD_NO == data.CardId).FirstOrDefault();
+                        var RoshitaNoOverNoPays = db.RoshitaNoOverNoPays.Where(m => m.RositaId == data.Id).FirstOrDefault();
+                        if (RoshitaNoOverNoPays != null)
+                        {
+                            NoOver = RoshitaNoOverNoPays.NoOver == null ? 0 : RoshitaNoOverNoPays.NoOver;
+                            NoPay = RoshitaNoOverNoPays.NoPay == null ? 0 : RoshitaNoOverNoPays.NoPay;
+                        }
+                        else
+                        {
+                            NoOver = med_card.NO_OVER == null ? 0 : med_card.NO_OVER;
+                            NoPay = med_card.NO_PAY == null ? 0 : med_card.NO_PAY;
+                        }
+
+                        diagnoisesString = data.Speciality == "Empty" ? " " : data.Speciality + '-';
+                        diagnoisesString += String.Join(",", med_card.TASHKHES_01);
+
+                    }
+
+                    if (DataService != null)
+                    {
+                        CellingPert = DataService.CEILING_PERT != null ? Convert.ToDouble(DataService.CEILING_PERT) : 100;
+
+                    }
+                    else if (DataService1 != null)
+                    {
+                        CellingPert = DataService1.CEILING_PERT != null ? Convert.ToDouble(DataService1.CEILING_PERT) : 100;
+                    }
+                    else
+                    {
+                        CellingPert = 100;
+                    }
+
+                    rd.SetParameterValue("pay", NoPay);
+                    rd.SetParameterValue("over", NoOver);
+                    rd.SetParameterValue("perc", CellingPert);
+                    rd.SetParameterValue("Type", data.RoshetaType);
+                    rd.SetParameterValue("Pharmacy", data.CreatedBy);
+                    //rd.SetParameterValue("Approval", Convert.ToDateTime(data.CreatedDate).ToString("ddMMyyyy") + Approval.ToString());
+                    rd.SetParameterValue("Approval", id);
+                    if (data.PhoneNumber != null && data.PhoneNumber != "Now")
+                        rd.SetParameterValue("PhoneNumber", data.PhoneNumber);
+                    else rd.SetParameterValue("PhoneNumber", "");
+                    rd.SetParameterValue("CompanyName", Company.C_ENAME);
+                    rd.SetParameterValue("CardId", data.CardId);
+                    if (data.Diagnose1 != null && data.Diagnose1 != "Empty")
+                        rd.SetParameterValue("Notes", data.Diagnose1);
+                    else rd.SetParameterValue("Notes", "");
+                    rd.SetParameterValue("Diagnosis", diagnoisesString);
+                    rd.SetParameterValue("Permission", accptionlistString);
+                    rd.SetParameterValue("TotalValue", data.TotalValue);
+                    rd.SetParameterValue("OverInsurance", data.OverInsurance);
+                    rd.SetParameterValue("PersonPayment", data.PersonPayment);
+                    rd.SetParameterValue("CompanyPayment", data.CompanyPayment);
+                    rd.SetParameterValue("Cash", data.Cash);
+                    rd.SetParameterValue("CreatedDate", data.CreatedDate.Value);
+                    Response.Buffer = false;
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+
+                    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    rd.Close();
+                    rd.Dispose();
+                    GC.Collect();
+                    DateTime ApprovalDate = Convert.ToDateTime(data.CreatedDate);
+                    return File(stream, "application/pfd", id.ToString() + ".pdf");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                // throw ex;
+                return View("~/Views/Shared/Error.cshtml");
+
             }
         }
         #endregion

@@ -41,6 +41,10 @@
         {
             @Html.ActionLink(" Consumption", "ConsumptionPremium", null, htmlAttributes: new { @class = " btn btn-secondary-outline", @style = " text-transform: none" })
         }
+        @if (fullcontroll || delete)
+        {
+            @Html.ActionLink(" Claims", "HrClaims", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+        }
     </p>
 </div>
 @if (fullcontroll || edit)
