@@ -142,15 +142,15 @@ namespace DMS_TEST.Controllers
             , string CompanyFrom, string CompanyTo, string ProviderName, string CardFrom
             , string CardTo, string RepotType)
         {
-            Int64 CompanyStart, CompanyEnd,ProviderNumber1, ProviderNumber2;
+            Int64 CompanyStart, CompanyEnd, ProviderNumber1, ProviderNumber2;
             string CardStart, CardEnd;
             DateTime RegDateFrom, RegDateTo, SerDateFrom, SerDateTo;
-            CompanyStart = string.IsNullOrEmpty(CompanyFrom)  ? 0 : Convert.ToInt64(CompanyFrom);
-            CompanyEnd =  string.IsNullOrEmpty(CompanyTo) ? 999999999 : Convert.ToInt64(CompanyTo);
-            ProviderNumber1 = ProviderName=="null" ? 0 : Convert.ToInt64(ProviderName);
+            CompanyStart = string.IsNullOrEmpty(CompanyFrom) ? 0 : Convert.ToInt64(CompanyFrom);
+            CompanyEnd = string.IsNullOrEmpty(CompanyTo) ? 999999999 : Convert.ToInt64(CompanyTo);
+            ProviderNumber1 = ProviderName == "null" ? 0 : Convert.ToInt64(ProviderName);
             ProviderNumber2 = ProviderName == "null" ? 999999999 : Convert.ToInt64(ProviderName);
-            CardStart = CardFrom=="null" ? "0" : CardFrom;
-            CardEnd = CardTo=="null" ? "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" : CardTo;
+            CardStart = CardFrom == "null" ? "0" : CardFrom;
+            CardEnd = CardTo == "null" ? "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" : CardTo;
 
 
 
@@ -164,18 +164,30 @@ namespace DMS_TEST.Controllers
             switch (Convert.ToInt32(RepotType))
             {
                 case 901:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901.rpt"));
                     break;
                 case 9011:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901-1.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901-1InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901-1.rpt"));
                     break;
 
                 case 902:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum902.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum902InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum902.rpt"));
                     break;
 
                 case 903:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum903.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum903InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum903.rpt"));
                     break;
                 case 904:
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum904.rpt"));
@@ -211,16 +223,28 @@ namespace DMS_TEST.Controllers
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum914.rpt"));
                     break;
                 case 915:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum915.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum915InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum915.rpt"));
                     break;
                 case 916:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum916.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum916InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum916.rpt"));
                     break;
                 case 917:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum917.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum917InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum917.rpt"));
                     break;
                 case 918:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum918.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum918InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum918.rpt"));
                     break;
                 default:
                     return View();
@@ -258,20 +282,20 @@ namespace DMS_TEST.Controllers
                 throw ex;
             }
         }
-        
+
         public ActionResult PrintConsumptionReportsXlx(string Regfrom, string Regto, string Serfrom, string Serto
             , string CompanyFrom, string CompanyTo, string ProviderName, string CardFrom
             , string CardTo, string RepotType)
         {
-            Int64 CompanyStart, CompanyEnd,ProviderNumber1, ProviderNumber2;
+            Int64 CompanyStart, CompanyEnd, ProviderNumber1, ProviderNumber2;
             string CardStart, CardEnd;
             DateTime RegDateFrom, RegDateTo, SerDateFrom, SerDateTo;
-            CompanyStart = string.IsNullOrEmpty(CompanyFrom)  ? 0 : Convert.ToInt64(CompanyFrom);
-            CompanyEnd =  string.IsNullOrEmpty(CompanyTo) ? 999999999 : Convert.ToInt64(CompanyTo);
-            ProviderNumber1 = ProviderName=="null" ? 0 : Convert.ToInt64(ProviderName);
+            CompanyStart = string.IsNullOrEmpty(CompanyFrom) ? 0 : Convert.ToInt64(CompanyFrom);
+            CompanyEnd = string.IsNullOrEmpty(CompanyTo) ? 999999999 : Convert.ToInt64(CompanyTo);
+            ProviderNumber1 = ProviderName == "null" ? 0 : Convert.ToInt64(ProviderName);
             ProviderNumber2 = ProviderName == "null" ? 999999999 : Convert.ToInt64(ProviderName);
-            CardStart = CardFrom=="null" ? "0" : CardFrom;
-            CardEnd = CardTo=="null" ? "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" : CardTo;
+            CardStart = CardFrom == "null" ? "0" : CardFrom;
+            CardEnd = CardTo == "null" ? "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" : CardTo;
 
 
 

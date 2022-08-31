@@ -438,6 +438,7 @@ namespace DMS_TEST.Controllers
                 Message = Validation ? "Ok" : "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد";
                 //Message = Validation ? "Ok" : "Exceeded his annual contract limit";
                 //Co-insurance
+                double nopaylast21day = 0;
                 Co_Insurance_01 CoInsurancelimit2 = new Co_Insurance_01();
                 var CustemizedMedEmp = db.COMP_CUSTOMIZED_D_D_MED_EMP.Where(c => c.CARD_ID == emp.CARD_ID && c.C_COMP_ID == emp.C_COMP_ID
                   && c.CONTRACT_NO == emp.CONTRACT_NO && c.SERV_CODE == "11" && c.D_SERV_CODE == MainService
@@ -449,6 +450,16 @@ namespace DMS_TEST.Controllers
                     string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
                     DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
                     DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
+
+                    nopaylast21day = (from roshita in db.Roshitas
+                                      join details in db.RoshitaDetails
+                                            on roshita.Id equals details.RoshitaID
+                                      where roshita.CardId == id && roshita.Manager == "Pharmacy_Chronic"
+                                      && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= Last21Time
+                                      select new
+                                      {
+                                          Amount = details.Amount,
+                                      }).ToList().Sum(r => r.Amount);
                     //List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
                     List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor").ToList();
                     List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
@@ -461,8 +472,8 @@ namespace DMS_TEST.Controllers
                     LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CustemizedMedEmp.DAY_NO_ROSHTA_YEAR == null || (CustemizedMedEmp.DAY_NO_ROSHTA_YEAR - YearlyDailyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
                     LimitMonthlyPreceptionCount = (LimitMonthlyPreceptionCount && (CustemizedMedEmp.MON_NO_ROSHTA_YEAR == null || (CustemizedMedEmp.MON_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Monthly count
 
-                    Double LimitDailyMonthlyPreceptionAmount = CustemizedMedEmp.DAY_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON) : (Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Monthly&Daily Amount
-                    Double LimitMonthlyMonthlyPreceptionAmount = CustemizedMedEmp.MON_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_MON) : (Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Monthly&Monthly Amount
+                    Double LimitDailyMonthlyPreceptionAmount = CustemizedMedEmp.DAY_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON) : (Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Daily Amount
+                    Double LimitMonthlyMonthlyPreceptionAmount = CustemizedMedEmp.MON_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_MON) : (Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Monthly Amount
 
                     Double LimitDailyYearlyPreceptionAmount = CustemizedMedEmp.DAY_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Daily Amount
                     Double LimitMonthlyYearlyPreceptionAmount = CustemizedMedEmp.MON_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Monthly Amount
@@ -509,11 +520,20 @@ namespace DMS_TEST.Controllers
                     }
                     else
                     {
-
+                       
                         string Last21 = "21/" + ((DateTime.Now.Day >= 21) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(-1).ToString("MM/yyyy")).ToString();
                         string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
                         DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
                         DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
+                        nopaylast21day = (from roshita in db.Roshitas
+                                          join details in db.RoshitaDetails
+                                                on roshita.Id equals details.RoshitaID
+                                          where roshita.CardId == id && roshita.Manager == "Pharmacy_Chronic"
+                                          && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= Last21Time
+                                          select new
+                                          {
+                                              Amount = details.Amount,
+                                          }).ToList().Sum(r => r.Amount);
                         //List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
                         List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor").ToList();
                         List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
@@ -526,8 +546,8 @@ namespace DMS_TEST.Controllers
                         LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CustemizedMed.DAY_NO_ROSHTA_YEAR == null || (CustemizedMed.DAY_NO_ROSHTA_YEAR - YearlyDailyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
                         LimitMonthlyPreceptionCount = (LimitMonthlyPreceptionCount && (CustemizedMed.MON_NO_ROSHTA_YEAR == null || (CustemizedMed.MON_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Monthly count
 
-                        Double LimitDailyMonthlyPreceptionAmount = CustemizedMed.DAY_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON) : (Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Monthly&Daily Amount
-                        Double LimitMonthlyMonthlyPreceptionAmount = CustemizedMed.MON_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMed.MON_MED_AMT_MON) : (Convert.ToDouble(CustemizedMed.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Monthly&Monthly Amount
+                        Double LimitDailyMonthlyPreceptionAmount = CustemizedMed.DAY_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON) : (Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Daily Amount
+                        Double LimitMonthlyMonthlyPreceptionAmount = CustemizedMed.MON_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMed.MON_MED_AMT_MON) : (Convert.ToDouble(CustemizedMed.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Monthly Amount
 
                         Double LimitDailyYearlyPreceptionAmount = CustemizedMed.DAY_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMed.DAY_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMed.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Daily Amount
                         Double LimitMonthlyYearlyPreceptionAmount = CustemizedMed.MON_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMed.MON_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMed.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Monthly Amount
@@ -804,7 +824,7 @@ namespace DMS_TEST.Controllers
 
                 }
                 //Co-insurance
-
+                double nopaylast21day = 0;
                 Co_Insurance_01 CoInsurancelimit2 = new Co_Insurance_01();
                 bool LimitDailyPreceptionCount = false;
                 bool LimitMonthlyPreceptionCount = false;
@@ -818,6 +838,15 @@ namespace DMS_TEST.Controllers
                     string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
                     DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
                     DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
+                    nopaylast21day = (from roshita in db.Roshitas
+                                      join details in db.RoshitaDetails
+                                            on roshita.Id equals details.RoshitaID
+                                      where roshita.CardId == id && roshita.Id != RoshitaId && roshita.Manager == "Pharmacy_Chronic"
+                                      && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= Last21Time
+                                      select new
+                                      {
+                                          Amount = details.Amount,
+                                      }).ToList().Sum(r => r.Amount);
                     List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
                     List<Roshita> YearlyDailyAcumlatorList = MainAcumlatorList.Where(x => (x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor") && x.CompanyPayment > 0).ToList();
                     List<Roshita> YearlyMonthlyAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
@@ -829,8 +858,8 @@ namespace DMS_TEST.Controllers
                     LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CustemizedMedEmp.DAY_NO_ROSHTA_YEAR == null || (CustemizedMedEmp.DAY_NO_ROSHTA_YEAR - YearlyDailyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
                     LimitMonthlyPreceptionCount = (LimitMonthlyPreceptionCount && (CustemizedMedEmp.MON_NO_ROSHTA_YEAR == null || (CustemizedMedEmp.MON_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Monthly count
 
-                    Double LimitDailyMonthlyPreceptionAmount = CustemizedMedEmp.DAY_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON) : (Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Monthly&Daily Amount
-                    Double LimitMonthlyMonthlyPreceptionAmount = CustemizedMedEmp.MON_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_MON) : (Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Monthly&Monthly Amount
+                    Double LimitDailyMonthlyPreceptionAmount = CustemizedMedEmp.DAY_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON) : (Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Daily Amount
+                    Double LimitMonthlyMonthlyPreceptionAmount = CustemizedMedEmp.MON_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_MON) : (Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Monthly Amount
 
                     Double LimitDailyYearlyPreceptionAmount = CustemizedMedEmp.DAY_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Daily Amount
                     Double LimitMonthlyYearlyPreceptionAmount = CustemizedMedEmp.MON_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Monthly Amount
@@ -866,6 +895,16 @@ namespace DMS_TEST.Controllers
                         DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
                         DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
                         //List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
+
+                        nopaylast21day = (from roshita in db.Roshitas
+                                          join details in db.RoshitaDetails
+                                                on roshita.Id equals details.RoshitaID
+                                          where roshita.CardId == id && roshita.Id != RoshitaId && roshita.Manager == "Pharmacy_Chronic"
+                                          && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= Last21Time
+                                          select new
+                                          {
+                                              Amount = details.Amount,
+                                          }).ToList().Sum(r => r.Amount); 
                         List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => (x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor") && x.CompanyPayment > 0).ToList();
                         List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
                         List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
@@ -876,8 +915,8 @@ namespace DMS_TEST.Controllers
                         LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CustemizedMed.DAY_NO_ROSHTA_YEAR == null || (CustemizedMed.DAY_NO_ROSHTA_YEAR - YearlyDailyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
                         LimitMonthlyPreceptionCount = (LimitMonthlyPreceptionCount && (CustemizedMed.MON_NO_ROSHTA_YEAR == null || (CustemizedMed.MON_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Monthly count
 
-                        Double LimitDailyMonthlyPreceptionAmount = CustemizedMed.DAY_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON) : (Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Monthly&Daily Amount
-                        Double LimitMonthlyMonthlyPreceptionAmount = CustemizedMed.MON_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMed.MON_MED_AMT_MON) : (Convert.ToDouble(CustemizedMed.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Monthly&Monthly Amount
+                        Double LimitDailyMonthlyPreceptionAmount = CustemizedMed.DAY_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON) : (Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Daily Amount
+                        Double LimitMonthlyMonthlyPreceptionAmount = CustemizedMed.MON_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMed.MON_MED_AMT_MON) : (Convert.ToDouble(CustemizedMed.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Monthly Amount
 
                         Double LimitDailyYearlyPreceptionAmount = CustemizedMed.DAY_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMed.DAY_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMed.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Daily Amount
                         Double LimitMonthlyYearlyPreceptionAmount = CustemizedMed.MON_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMed.MON_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMed.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Monthly Amount
