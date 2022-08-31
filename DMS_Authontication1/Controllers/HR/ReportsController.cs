@@ -62,13 +62,13 @@ namespace DMS_Authontication1.Controllers.HR
                 else
                 {
                     var companyname = (from comp in compines
-                     join contCo in db.Contract_Comp
-                     on int.Parse(comp) equals contCo.C_COMP_ID
-                     select new
-                     {
-                         Code = contCo.C_COMP_ID,
-                         Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-                     }).ToList();
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
                 }
@@ -108,13 +108,13 @@ namespace DMS_Authontication1.Controllers.HR
                 else
                 {
                     var companyname = (from comp in compines
-                     join contCo in db.Contract_Comp
-                     on int.Parse(comp) equals contCo.C_COMP_ID
-                     select new
-                     {
-                         Code = contCo.C_COMP_ID,
-                         Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-                     }).ToList();
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
                 }
@@ -153,13 +153,13 @@ namespace DMS_Authontication1.Controllers.HR
                 else
                 {
                     var companyname = (from comp in compines
-                     join contCo in db.Contract_Comp
-                     on int.Parse(comp) equals contCo.C_COMP_ID
-                     select new
-                     {
-                         Code = contCo.C_COMP_ID,
-                         Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-                     }).ToList();
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
                 }
@@ -199,13 +199,13 @@ namespace DMS_Authontication1.Controllers.HR
                 else
                 {
                     var companyname = (from comp in compines
-                     join contCo in db.Contract_Comp
-                     on int.Parse(comp) equals contCo.C_COMP_ID
-                     select new
-                     {
-                         Code = contCo.C_COMP_ID,
-                         Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-                     }).ToList();
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
                 }
@@ -245,13 +245,13 @@ namespace DMS_Authontication1.Controllers.HR
                 else
                 {
                     var companyname = (from comp in compines
-                     join contCo in db.Contract_Comp
-                     on int.Parse(comp) equals contCo.C_COMP_ID
-                     select new
-                     {
-                         Code = contCo.C_COMP_ID,
-                         Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-                     }).ToList();
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
                 }
@@ -496,11 +496,17 @@ namespace DMS_Authontication1.Controllers.HR
             ReportDocument rd = new ReportDocument();
             if (ButtType == "Active")
             {
-                rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReportEmp.rpt"));
+                if (CompNumber == 10362 || CompNumber == 500144)
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReportEmpInternalCode.rpt"));
+                else
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReportEmp.rpt"));
             }
             else if (ButtType == "Closed")
             {
-                rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReportEmpY.rpt"));
+                if (CompNumber == 10362 || CompNumber == 500144)
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReportEmpYInternalCode.rpt"));
+                else
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReportEmpY.rpt"));
             }
 
 
@@ -555,11 +561,17 @@ namespace DMS_Authontication1.Controllers.HR
             ReportDocument rd = new ReportDocument();
             if (ButtType == "Active")
             {
-                rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReportEmp.rpt"));
+                if (CompNumber == 10362 || CompNumber == 500144)
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReportEmpInternalCode.rpt"));
+                else
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReportEmp.rpt"));
             }
             else if (ButtType == "Closed")
             {
-                rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReportEmpY.rpt"));
+                if (CompNumber == 10362 || CompNumber == 500144)
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReportEmpYInternalCode.rpt"));
+                else
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReportEmpY.rpt"));
             }
 
 
@@ -1033,7 +1045,10 @@ namespace DMS_Authontication1.Controllers.HR
             switch (Convert.ToInt32(RepotType))
             {
                 case 1:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub1.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub1InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub1.rpt"));
 
                     rd.SetDatabaseLogon("APP", "12369");
 
@@ -1134,8 +1149,10 @@ namespace DMS_Authontication1.Controllers.HR
                     }
 
                 case 4:
-
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub7.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub7InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub7.rpt"));
 
                     rd.SetDatabaseLogon("APP", "12369");
 
@@ -1236,8 +1253,10 @@ namespace DMS_Authontication1.Controllers.HR
 
                 case 7:
 
-
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub12.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub12InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub12.rpt"));
 
                     rd.SetDatabaseLogon("APP", "12369");
                     rd.SetParameterValue("crda1", RegDateFrom);
@@ -1438,7 +1457,10 @@ namespace DMS_Authontication1.Controllers.HR
             switch (Convert.ToInt32(RepotType))
             {
                 case 1:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub1.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub1InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub1.rpt"));
 
                     rd.SetDatabaseLogon("APP", "12369");
 
@@ -1542,8 +1564,10 @@ namespace DMS_Authontication1.Controllers.HR
                     }
 
                 case 4:
-
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub7.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub7InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub7.rpt"));
 
                     rd.SetDatabaseLogon("APP", "12369");
 
@@ -1642,9 +1666,11 @@ namespace DMS_Authontication1.Controllers.HR
                     }
 
                 case 7:
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub12InternalCode.rpt"));
+                    else
 
-
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub12.rpt"));
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub12.rpt"));
 
                     rd.SetDatabaseLogon("APP", "12369");
                     rd.SetParameterValue("crda1", RegDateFrom);
