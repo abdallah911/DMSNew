@@ -2243,9 +2243,9 @@ namespace DMS_Authontication1.Controllers.HR
                     rd.SetParameterValue("crd2", CardEnd);
                     rd.SetParameterValue("srda1", SerDateFrom);
                     rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("per", per);
+                    /*rd.SetParameterValue("per", per);
                     rd.SetParameterValue("larg", lrg);
-                    rd.SetParameterValue("small", sml);
+                    rd.SetParameterValue("small", sml);*/
                     rd.SetParameterValue("cls1", ClassStart);
                     rd.SetParameterValue("cls2", ClassEnd);
                     Response.Buffer = false;

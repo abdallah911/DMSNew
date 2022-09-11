@@ -106,7 +106,7 @@ namespace DMS_Authontication1.Reports.HR {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_per {
+        public CrystalDecisions.Shared.IParameterField Parameter_CRDA1 {
             get {
                 return this.DataDefinition.ParameterFields[0];
             }
@@ -114,7 +114,7 @@ namespace DMS_Authontication1.Reports.HR {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_larg {
+        public CrystalDecisions.Shared.IParameterField Parameter_CRDA2 {
             get {
                 return this.DataDefinition.ParameterFields[1];
             }
@@ -122,7 +122,7 @@ namespace DMS_Authontication1.Reports.HR {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_small {
+        public CrystalDecisions.Shared.IParameterField Parameter_SRDA1 {
             get {
                 return this.DataDefinition.ParameterFields[2];
             }
@@ -130,7 +130,7 @@ namespace DMS_Authontication1.Reports.HR {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CRDA1 {
+        public CrystalDecisions.Shared.IParameterField Parameter_SRDA2 {
             get {
                 return this.DataDefinition.ParameterFields[3];
             }
@@ -138,7 +138,7 @@ namespace DMS_Authontication1.Reports.HR {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CRDA2 {
+        public CrystalDecisions.Shared.IParameterField Parameter_COMP1 {
             get {
                 return this.DataDefinition.ParameterFields[4];
             }
@@ -146,7 +146,7 @@ namespace DMS_Authontication1.Reports.HR {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_SRDA1 {
+        public CrystalDecisions.Shared.IParameterField Parameter_COMP2 {
             get {
                 return this.DataDefinition.ParameterFields[5];
             }
@@ -154,7 +154,7 @@ namespace DMS_Authontication1.Reports.HR {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_SRDA2 {
+        public CrystalDecisions.Shared.IParameterField Parameter_CRD1 {
             get {
                 return this.DataDefinition.ParameterFields[6];
             }
@@ -162,7 +162,7 @@ namespace DMS_Authontication1.Reports.HR {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_COMP1 {
+        public CrystalDecisions.Shared.IParameterField Parameter_CRD2 {
             get {
                 return this.DataDefinition.ParameterFields[7];
             }
@@ -170,7 +170,7 @@ namespace DMS_Authontication1.Reports.HR {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_COMP2 {
+        public CrystalDecisions.Shared.IParameterField Parameter_CLS1 {
             get {
                 return this.DataDefinition.ParameterFields[8];
             }
@@ -178,33 +178,9 @@ namespace DMS_Authontication1.Reports.HR {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CRD1 {
-            get {
-                return this.DataDefinition.ParameterFields[9];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CRD2 {
-            get {
-                return this.DataDefinition.ParameterFields[10];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_CLS1 {
-            get {
-                return this.DataDefinition.ParameterFields[11];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.Shared.IParameterField Parameter_CLS2 {
             get {
-                return this.DataDefinition.ParameterFields[12];
+                return this.DataDefinition.ParameterFields[9];
             }
         }
     }
