@@ -846,6 +846,9 @@
     <Compile Include="Models\S_Ent_7.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserCompanyPermission.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UsersInternalCode.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -303,10 +303,10 @@
                                     }
                                     if (modellist.Where(x => x.PageId == 17 && (x.FullControl || x.EditPermission
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
+                                    {
 
-                                            <li><a href="/Reports/Index" class="link-cus">Reports</a></li>
-                                        }
+                                        <li><a href="/Reports/Index" class="link-cus">Reports</a></li>
+                                    }
                                     if (modellist.Where(x => x.PageId == 54 && (x.FullControl || x.EditPermission
                                                     || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                     {
@@ -413,7 +413,8 @@
                         @{
                             if (modellist != null)
                             {
-                                if (modellist.Where(x => x.ModuleName == "Doctors Department Management").FirstOrDefault() != null)
+                                if (modellist.Where(x => x.ModuleName == "Doctors Department Management" && (x.PageId == 28 || x.PageId == 29 || x.PageId == 30 || x.PageId == 31)
+                            && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
                                 {
 
 
@@ -581,15 +582,49 @@
                         <li class="nav-header">
                             <div class="link"><i class="fa fa-users"></i>Human Resourses<i class="fa fa-chevron-down"></i></div>
                             <ul class="submenu">
-                                <li><a href="/EmployeeRequest/index" class="link-cus">Requests</a></li>
-                                <li><a href="/IndemnitiesAdmin/index" class="link-cus">indemnity</a></li>
-                                <li><a href="/MedicalNetwork/RequestReplay" class="link-cus">Medical Network Request</a></li>
+                                @if (modellist.Where(x => x.ModuleName == "Company Human Resourses Management").FirstOrDefault() != null)
+                                {
+
+                                    if (modellist.Where(x => x.PageId == 12 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+                                        <li><a href="/EmployeeRequest/index" class="link-cus">Operation</a></li>
+
+
+                                        @*<li><a href="/EmployeeRequest/index" class="link-cus">Operation</a></li>*@
+                                    }
+
+                                    if (modellist.Where(x => x.PageId == 13 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+
+                                        <li><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
+                                    }
+                                    if (modellist.Where(x => x.PageId == 14 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+
+                                        <li><a href="/MedicalNetwork/RequestReplay" class="link-cus">Medical Network Request</a></li>
+                                    }
+                                }
                                 @*<li><a href="/MedicalApproval/Search" class="link-cus">Medical Approval</a></li>
                                     <li><a href="/HrChronic/InquiryAboutCard" class="link-cus">Chronic</a></li>
                                     <li><a href="/Reports/Index" class="link-cus">Reports</a></li>*@
                                 @*<li><a href="/Complaint/CreateDMSComplaint" class="link-cus">Complaints</a></li>*@
-                                <li><a href="/Employee/IndexAdmin" class="link-cus">Delievery Requests</a></li>
-                                <li><a href="/Employee/Activation_Employee" class="link-cus">Activation Employee</a></li>
+
+                                @if (modellist != null)
+                                {
+                                    if (modellist.Where(x => x.ModuleName == "Customers Management").FirstOrDefault() != null)
+                                    {
+                                        if (modellist.Where(x => x.PageId == 21 && (x.FullControl || x.EditPermission
+                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        {
+                                            <li><a href="/Employee/IndexAdmin" class="link-cus">Delievery Requests</a></li>
+                                            <li><a href="/Employee/Activation_Employee" class="link-cus">Activation Employee</a></li>
+                                        }
+                                    }
+                                }
+
                             </ul>
                         </li>
                         @if (modellist != null)

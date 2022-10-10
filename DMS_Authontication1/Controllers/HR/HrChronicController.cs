@@ -398,8 +398,8 @@ namespace DMS_Authontication1.Controllers.HR
                         return new JsonResult { Data = new { employee = 0, roshDetails = 0, msg = "No Chronic For This Card Number" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
                     }
-
-                    var provider = db.Serv_Providers1.Where(p => p.PR_CODE == medCard.PROVIDER_CODE).FirstOrDefault();
+                    var provid = int.Parse(medCard.PROVIDER_CODE.Split('_')[0]);
+                    var provider = db.Serv_Providers1.Where(p => p.PR_CODE == provid).FirstOrDefault();
 
 
                     var Employee = new HrChronicEmployee
@@ -408,7 +408,7 @@ namespace DMS_Authontication1.Controllers.HR
                         EmployeeFN = cardExist.EMP_ANAME_ST,
                         EmployeeSN = cardExist.EMP_ANAME_SC,
                         EmployeeTN = cardExist.EMP_ANAME_TH,
-                        ProviderCode = medCard.PROVIDER_CODE,
+                        ProviderCode = provid,
                         ProviderName = provider.PR_ANAME,
                         PharmacyName = "---",
                         UserName = "",

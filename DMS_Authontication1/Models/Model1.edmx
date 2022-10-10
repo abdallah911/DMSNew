@@ -1431,7 +1431,7 @@
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CARD_NO" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="PROVIDER_CODE" Type="int" />
+          <Property Name="PROVIDER_CODE" Type="nvarchar" MaxLength="50" />
           <Property Name="C_COMP_ID" Type="int" />
           <Property Name="NOTES" Type="nvarchar" MaxLength="255" />
           <Property Name="CREATED_BY" Type="nvarchar" MaxLength="250" />
@@ -2354,6 +2354,15 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" />
         </EntityType>
+        <EntityType Name="UserCompanyPermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+          <Property Name="CompId" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="UsersInternalCode">
           <Key>
             <PropertyRef Name="Id" />
@@ -3256,6 +3265,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SERVICES" EntityType="Self.SERVICES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Specialities1" EntityType="Self.Specialities1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserCompanyPermission" EntityType="Self.UserCompanyPermission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersInternalCode" EntityType="Self.UsersInternalCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Swap" EntityType="Self.Swap" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -4090,39 +4100,6 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Med_Card">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CARD_NO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PROVIDER_CODE" Type="Int32" />
-          <Property Name="C_COMP_ID" Type="Int32" />
-          <Property Name="NOTES" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CREATED_BY" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
-          <Property Name="UPDATE_BY" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="UPDATE_DATE" Type="DateTime" Precision="0" />
-          <Property Name="MONTH_START_DATE" Type="DateTime" Precision="0" />
-          <Property Name="MONTH_END_DATE" Type="DateTime" Precision="0" />
-          <Property Name="GROUP_ID" Type="Int32" />
-          <Property Name="GROUP_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="LOOK_01" Type="Int32" />
-          <Property Name="SEQ" Type="Int32" />
-          <Property Name="PROVIDER_CODE_OLD" Type="Int32" />
-          <Property Name="TASHKHES_01" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="NO_PAY" Type="Int32" />
-          <Property Name="NO_OVER" Type="Int32" />
-          <Property Name="ST_DAY" Type="Int32" />
-          <Property Name="IsSync" Type="Boolean" />
-          <Property Name="SyncDate" Type="DateTime" Precision="3" />
-          <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="NationalId" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
-          <Property Name="ExceptionType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="NoPayEndDate" Type="DateTime" Precision="0" />
-          <Property Name="NoOverEndDate" Type="DateTime" Precision="0" />
-        </EntityType>
         <EntityType Name="Med_Medicine">
           <Key>
             <PropertyRef Name="Id" />
@@ -4728,7 +4705,6 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="IndemnityServices" EntityType="Self.IndemnityService" />
           <EntitySet Name="Insurance_Class" EntityType="Self.Insurance_Class" />
           <EntitySet Name="LicenseTypes" EntityType="Self.LicenseType" />
-          <EntitySet Name="Med_Card" EntityType="Self.Med_Card" />
           <EntitySet Name="Med_Medicine" EntityType="Self.Med_Medicine" />
           <EntitySet Name="MedicineDatas" EntityType="Self.MedicineData" />
           <EntitySet Name="MedicineGroups" EntityType="Self.MedicineGroup" />
@@ -5076,6 +5052,8 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
             <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
           <EntitySet Name="ProviderContracts" EntityType="DB_A45413_DMSERPModel.ProviderContract" />
+          <EntitySet Name="UserCompanyPermissions" EntityType="DB_A45413_DMSERPModel.UserCompanyPermission" />
+          <EntitySet Name="Med_Card" EntityType="DB_A45413_DMSERPModel.Med_Card" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -6948,6 +6926,48 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="PrAName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PrEName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="UserCompanyPermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CompId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Med_Card">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CARD_NO" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PROVIDER_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="C_COMP_ID" Type="Int32" />
+          <Property Name="NOTES" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="UPDATE_BY" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATE_DATE" Type="DateTime" Precision="0" />
+          <Property Name="MONTH_START_DATE" Type="DateTime" Precision="0" />
+          <Property Name="MONTH_END_DATE" Type="DateTime" Precision="0" />
+          <Property Name="GROUP_ID" Type="Int32" />
+          <Property Name="GROUP_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LOOK_01" Type="Int32" />
+          <Property Name="SEQ" Type="Int32" />
+          <Property Name="PROVIDER_CODE_OLD" Type="Int32" />
+          <Property Name="TASHKHES_01" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NO_PAY" Type="Int32" />
+          <Property Name="NO_OVER" Type="Int32" />
+          <Property Name="ST_DAY" Type="Int32" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NationalId" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
+          <Property Name="IsSync" Type="Boolean" />
+          <Property Name="SyncDate" Type="DateTime" Precision="3" />
+          <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ExceptionType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NoPayEndDate" Type="DateTime" Precision="0" />
+          <Property Name="NoOverEndDate" Type="DateTime" Precision="0" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7616,40 +7636,6 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
               <MappingFragment StoreEntitySet="LicenseType">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="LicenseName" ColumnName="LicenseName" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
-                <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Med_Card">
-            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Med_Card">
-              <MappingFragment StoreEntitySet="Med_Card">
-                <ScalarProperty Name="NoOverEndDate" ColumnName="NoOverEndDate" />
-                <ScalarProperty Name="NoPayEndDate" ColumnName="NoPayEndDate" />
-                <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
-                <ScalarProperty Name="NationalId" ColumnName="NationalId" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="CARD_NO" ColumnName="CARD_NO" />
-                <ScalarProperty Name="PROVIDER_CODE" ColumnName="PROVIDER_CODE" />
-                <ScalarProperty Name="C_COMP_ID" ColumnName="C_COMP_ID" />
-                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
-                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
-                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
-                <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
-                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
-                <ScalarProperty Name="MONTH_START_DATE" ColumnName="MONTH_START_DATE" />
-                <ScalarProperty Name="MONTH_END_DATE" ColumnName="MONTH_END_DATE" />
-                <ScalarProperty Name="GROUP_ID" ColumnName="GROUP_ID" />
-                <ScalarProperty Name="GROUP_NAME" ColumnName="GROUP_NAME" />
-                <ScalarProperty Name="LOOK_01" ColumnName="LOOK_01" />
-                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
-                <ScalarProperty Name="PROVIDER_CODE_OLD" ColumnName="PROVIDER_CODE_OLD" />
-                <ScalarProperty Name="TASHKHES_01" ColumnName="TASHKHES_01" />
-                <ScalarProperty Name="NO_PAY" ColumnName="NO_PAY" />
-                <ScalarProperty Name="NO_OVER" ColumnName="NO_OVER" />
-                <ScalarProperty Name="ST_DAY" ColumnName="ST_DAY" />
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
                 <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
                 <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
@@ -9615,6 +9601,50 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
                 <ScalarProperty Name="PrAName" ColumnName="PrAName" />
                 <ScalarProperty Name="PrType" ColumnName="PrType" />
                 <ScalarProperty Name="PrCode" ColumnName="PrCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserCompanyPermissions">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.UserCompanyPermission">
+              <MappingFragment StoreEntitySet="UserCompanyPermission">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CompId" ColumnName="CompId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Med_Card">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Med_Card">
+              <MappingFragment StoreEntitySet="Med_Card">
+                <ScalarProperty Name="NoOverEndDate" ColumnName="NoOverEndDate" />
+                <ScalarProperty Name="NoPayEndDate" ColumnName="NoPayEndDate" />
+                <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
+                <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
+                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="NationalId" ColumnName="NationalId" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ST_DAY" ColumnName="ST_DAY" />
+                <ScalarProperty Name="NO_OVER" ColumnName="NO_OVER" />
+                <ScalarProperty Name="NO_PAY" ColumnName="NO_PAY" />
+                <ScalarProperty Name="TASHKHES_01" ColumnName="TASHKHES_01" />
+                <ScalarProperty Name="PROVIDER_CODE_OLD" ColumnName="PROVIDER_CODE_OLD" />
+                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
+                <ScalarProperty Name="LOOK_01" ColumnName="LOOK_01" />
+                <ScalarProperty Name="GROUP_NAME" ColumnName="GROUP_NAME" />
+                <ScalarProperty Name="GROUP_ID" ColumnName="GROUP_ID" />
+                <ScalarProperty Name="MONTH_END_DATE" ColumnName="MONTH_END_DATE" />
+                <ScalarProperty Name="MONTH_START_DATE" ColumnName="MONTH_START_DATE" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+                <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
+                <ScalarProperty Name="C_COMP_ID" ColumnName="C_COMP_ID" />
+                <ScalarProperty Name="PROVIDER_CODE" ColumnName="PROVIDER_CODE" />
+                <ScalarProperty Name="CARD_NO" ColumnName="CARD_NO" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

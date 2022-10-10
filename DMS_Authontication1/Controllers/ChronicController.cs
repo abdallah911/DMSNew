@@ -85,7 +85,8 @@ namespace DMS_TEST.Controllers
                 var Rosita = db.Roshitas.Where(r => r.CardId == medCard.CARD_NO && r.Manager == "Doctor_Chronic").Where(x => x.RoshetaType == "11603" || x.RoshetaType == "11602").OrderByDescending(c => c.CreatedDate).FirstOrDefault();
                 if (Rosita != null)
                 {
-                    if (medCard.PROVIDER_CODE == 1268 || medCard.PROVIDER_CODE == Provider.PR_CODE)
+                    var providers = medCard.PROVIDER_CODE.Split('_');
+                    if (providers.Contains("1268") || providers.Contains(Provider.PR_CODE.ToString()))
                     {
 
                         data = db.RoshitaDetails.Where(x => x.RoshitaID == Rosita.Id && x.IsDealed == false && x.TotalUnits != 0)

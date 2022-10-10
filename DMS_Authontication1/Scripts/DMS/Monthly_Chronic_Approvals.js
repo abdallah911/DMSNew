@@ -42,7 +42,7 @@ $(function () {
         var AddCardTxt = $('#AddCardTxt').val();
         if (AddCardTxt != "") {
             //Clear Data
-            $(".modal-body #Provider").val('');
+            //$(".modal-body #Provider").val('');
             $('.modal-body #StartDate').val('');
             $('.modal-body #ExchangeDay').val('1');
             $(".modal-body #Group option:eq(0)").attr('selected', 'selected');
@@ -66,7 +66,8 @@ $(function () {
                 url: '/Pharmacy/AddCard',
                 data: { id: AddCardTxt },
                 success: function (r) {
-                    if (r != null) {
+                    console.log(r);
+                    if (r != "null") {
                         $('#SearchCards').dataTable().fnDestroy();
                         var setData = $("#SearchCards Tbody");
                         setData.empty();
@@ -111,7 +112,8 @@ $(function () {
                     }
                     else {
                         $("#wait").css("display", "none");
-                        bootbox.alert("Inviled Card");
+                        bootbox.alert("You can't process this card");
+                        //bootbox.alert("Inviled Card");
                     }
                 },
                 error: function (r) {
@@ -333,6 +335,26 @@ $(function () {
                     ddlDiag1.Name + '</option>');
                 $("#Diagnoise1").append('<option value="' + ddlDiag1.Code + '">' +
                     ddlDiag1.Name + '</option>');
+            });
+            //$('#Diagnoise  option:eq(0)').attr('selected', 'selected');
+        },
+        error: function (ex) {
+            alert('Failed to retrieve Diagnoses.');
+        }
+
+    });
+    //Providers
+    $.ajax({
+        type: 'POST',
+        url: '/DoctorApprovals/getProviders/',
+        dataType: 'json',
+        data: {},
+        success: function (diag) {
+            $.each(diag, function (i, ddlDiag1) {
+                $("#Provider").append('<option value="' + ddlDiag1.PR_CODE + '">' +
+                    ddlDiag1.PR_ANAME + '</option>');
+                $("#Provider1").append('<option value="' + ddlDiag1.PR_CODE + '">' +
+                    ddlDiag1.PR_ANAME + '</option>');
             });
             //$('#Diagnoise  option:eq(0)').attr('selected', 'selected');
         },
@@ -819,7 +841,7 @@ function EditCard(button) {
     var row = $(button).closest("TR");
     $('.modal-body #CardId1').val($("TD", row).eq(1).html());
     $('.modal-body #CardName1').val($("TD", row).eq(2).html());
-    $(".modal-body #Provider1").val($("TD", row).eq(3).html());
+    //$(".modal-body #Provider1").val($("TD", row).eq(3).html());
     $('.modal-body #StartDate1').val($("TD", row).eq(4).html());
     $('.modal-body #ExchangeDay1').val($("TD", row).eq(5).html());
     $(".modal-body #Group1 option").filter(function () {
@@ -835,6 +857,17 @@ function EditCard(button) {
         stVal[i] = $element.find("option:contains('" + DiagnosisList[i] + "')").val();
     }
     $element.val(stVal).trigger('change.select2');
+
+    var ProviderList = $("TD", row).eq(3).html().split('_');
+    $('#Provider1').select2({
+        dropdownParent: $('#EditCardModal .modal-content')
+    });
+    let $element2 = $('#Provider1');
+    var stVal = new Array();
+    for (var i = 0; i < ProviderList.length; i++) {
+        stVal[i] = $element2.find("option:contains('" + ProviderList[i] + "')").val();
+    }
+    $element2.val(stVal).trigger('change.select2');
     $('.modal-body #CompanyPaymentLimit1').val($("TD", row).eq(8).html());
     $('.modal-body #OverInsuranceLimit1').val($("TD", row).eq(9).html());
     $('.modal-body #LockStatus1').val($("TD", row).eq(10).html());

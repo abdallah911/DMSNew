@@ -18,6 +18,7 @@ using System.Data.Entity;
 using Newtonsoft.Json;
 using DMS_Authontication1;
 using DMS_Authontication1.ViewModel.PharmacyAdmin;
+using Microsoft.AspNet.Identity;
 
 namespace DMS_TEST.Controllers
 {
@@ -52,29 +53,24 @@ namespace DMS_TEST.Controllers
 
         public JsonResult AddCard(string id)
         {
+            var company = id.Split('-')[0];
+            var userID = User.Identity.GetUserId();
+            var isPermission = db.UserCompanyPermissions.Where(u => u.UserId == userID && u.IsActive != false).Select(c => c.CompId).ToList();
+            if (isPermission == null || isPermission.Count == 0)
+            {
+                var emp = db.fn_searchCompEmployees(id).ToList();
+                return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+            {
+                if (isPermission.Contains(company))
+                {
+                    var emp = db.fn_searchCompEmployees(id).ToList();
+                    return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                return new JsonResult { Data = "null", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
-            var emp = db.fn_searchCompEmployees(id).ToList();
-            //List<CompEmployeeViewModel> emp = new List<CompEmployeeViewModel>();
-            //emp = db.Comp_Employees.Where(x => x.CARD_ID.Contains(id) || x.EMP_ENAME.Contains(id) || x.EMP_ANAME.Contains(id))
-            //    .Select(l => new CompEmployeeViewModel
-            //    {
-            //        CARD_ID = l.CARD_ID,
-            //        EMP_ANAME = l.EMP_ANAME,
-            //        EMP_ENAME = l.EMP_ENAME,
-            //        INS_START_DATE = l.INS_START_DATE,
-            //        SPECIFIC_DATE = l.SPECIFIC_DATE,
-            //        BIRTH_DATE = l.BIRTH_DATE,
-            //        INS_END_DATE = l.INS_END_DATE,
-            //        TERMINATE_DATE = l.TERMINATE_DATE,
-            //        CONTRACT_NO = l.CONTRACT_NO,
-            //        Now = DateTime.Now
-            //    }
-            //    )
-            //    .GroupBy(x => new { x.CARD_ID })
-            //    .Select(x => x.OrderByDescending(y => y.CONTRACT_NO).FirstOrDefault())
-            //    .ToList();
-
-            return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
         }
 
         public JsonResult GetSecondContract(string id)
@@ -231,8 +227,9 @@ namespace DMS_TEST.Controllers
             if (ServiceCode == "11602")
             {
 
-                //string compardatestr = "20/" + ((DateTime.Now.Day <= 20) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString();                string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
+                //string compardatestr = "20/" + ((DateTime.Now.Day <= 20) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString(); 
                 string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
+                //string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
                 DateTime compardate = DateTime.ParseExact(compardatestr, "dd/MM/yyyy", null);
 
                 if ((emp.INS_END_DATE < compardate) && !(emp.CARD_ID.Split('-')[0].Contains("500")))
@@ -520,7 +517,7 @@ namespace DMS_TEST.Controllers
                     }
                     else
                     {
-                       
+
                         string Last21 = "21/" + ((DateTime.Now.Day >= 21) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(-1).ToString("MM/yyyy")).ToString();
                         string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
                         DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
@@ -904,7 +901,7 @@ namespace DMS_TEST.Controllers
                                           select new
                                           {
                                               Amount = details.Amount,
-                                          }).ToList().Sum(r => r.Amount); 
+                                          }).ToList().Sum(r => r.Amount);
                         List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => (x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor") && x.CompanyPayment > 0).ToList();
                         List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
                         List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
@@ -3762,8 +3759,8 @@ namespace DMS_TEST.Controllers
         {
 
             var CurrentUser = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
-            int userProvider = Convert.ToInt32(CurrentUser.Provider);
-            var medCards = db.Med_Card.Where(m => (m.PROVIDER_CODE == userProvider || m.PROVIDER_CODE == 1268) && m.LOOK_01 == 0)
+            //int userProvider = Convert.ToInt32(CurrentUser.Provider);
+            var medCards = db.Med_Card.Where(m => (m.PROVIDER_CODE.Contains(CurrentUser.Provider) || m.PROVIDER_CODE.Contains("1268")) && m.LOOK_01 == 0)
                 .Join(db.Contract_Comp, m => m.C_COMP_ID, c => c.C_COMP_ID, (m, c) => new { m, c }).Select(
                 l => new
                 {
@@ -3778,8 +3775,8 @@ namespace DMS_TEST.Controllers
         public JsonResult CompanyGroupsList(int CompId)
         {
             var CurrentUser = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
-            int userProvider = Convert.ToInt32(CurrentUser.Provider);
-            var medCards = db.Med_Card.Where(m => m.PROVIDER_CODE == userProvider && m.LOOK_01 == 0 && m.C_COMP_ID == CompId)
+            //int userProvider = Convert.ToInt32(CurrentUser.Provider);
+            var medCards = db.Med_Card.Where(m => m.PROVIDER_CODE.Contains(CurrentUser.Provider) && m.LOOK_01 == 0 && m.C_COMP_ID == CompId)
                 .Select(
                 l => new
                 {
@@ -3793,11 +3790,11 @@ namespace DMS_TEST.Controllers
         {
             DateTime dateTime = Convert.ToDateTime(Date);
             var CurrentUser = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
-            int userProvider = Convert.ToInt32(CurrentUser.Provider);
+            //int userProvider = Convert.ToInt32(CurrentUser.Provider);
             var result = new
             {
                 sEcho = sEcho,
-                aaData = db.Med_Card.Where(x => (x.PROVIDER_CODE == userProvider || x.PROVIDER_CODE == 1268) && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
+                aaData = db.Med_Card.Where(x => (x.PROVIDER_CODE.Contains(CurrentUser.Provider) || x.PROVIDER_CODE.Contains("1268")) && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
                 .Join(db.Med_Medicine, MC => MC.CARD_NO, MM => MM.CARD_NO, (MC, MM) => new { MC, MM })
                 .Where(x => x.MM.ACTIVE == "Y" && (x.MM.MONTH_DATE_STOP == null || x.MM.MONTH_DATE_STOP >= dateTime) && x.MM.EXCESS == 0)
                 .Join(db.Comp_Employees, M => M.MM.CARD_NO, E => E.CARD_ID, (M, E) => new { M, E })
@@ -3822,9 +3819,9 @@ namespace DMS_TEST.Controllers
                     Act = l.M.MM.ACT_MONTH
                 }).Distinct().OrderByDescending(m => m.CardId).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                iTotalRecords = db.Med_Card.Where(x => (x.PROVIDER_CODE == userProvider || x.PROVIDER_CODE == 1268) && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
+                iTotalRecords = db.Med_Card.Where(x => (x.PROVIDER_CODE.Contains(CurrentUser.Provider) || x.PROVIDER_CODE.Contains("1268")) && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
                 .Join(db.Med_Medicine, MC => MC.CARD_NO, MM => MM.CARD_NO, (MC, MM) => new { MC, MM }).Where(x => x.MM.ACTIVE == "Y" && x.MM.EXCESS == 0 && (x.MM.MONTH_DATE_STOP == null || x.MM.MONTH_DATE_STOP >= dateTime)).Join(db.Comp_Employees, M => M.MM.CARD_NO, E => E.CARD_ID, (M, E) => new { M, E }).Where(x => x.E.INS_START_DATE <= DateTime.Now && x.E.INS_END_DATE >= DateTime.Now && (x.E.TERMINATE_FLAG == "N" || (x.E.TERMINATE_FLAG == "Y" && x.E.TERMINATE_DATE > DateTime.Now ? true : false))).OrderByDescending(x => x.E.CONTRACT_NO).Count(),
-                iTotalDisplayRecords = db.Med_Card.Where(x => (x.PROVIDER_CODE == userProvider || x.PROVIDER_CODE == 1268) && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
+                iTotalDisplayRecords = db.Med_Card.Where(x => (x.PROVIDER_CODE.Contains(CurrentUser.Provider) || x.PROVIDER_CODE.Contains("1268")) && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
                 .Join(db.Med_Medicine, MC => MC.CARD_NO, MM => MM.CARD_NO, (MC, MM) => new { MC, MM }).Where(x => x.MM.ACTIVE == "Y" && x.MM.EXCESS == 0 && (x.MM.MONTH_DATE_STOP == null || x.MM.MONTH_DATE_STOP >= dateTime)).Join(db.Comp_Employees, M => M.MM.CARD_NO, E => E.CARD_ID, (M, E) => new { M, E }).Where(x => x.E.INS_START_DATE <= DateTime.Now && x.E.INS_END_DATE >= DateTime.Now && (x.E.TERMINATE_FLAG == "N" || (x.E.TERMINATE_FLAG == "Y" && x.E.TERMINATE_DATE > DateTime.Now ? true : false))).OrderByDescending(x => x.E.CONTRACT_NO).Count()
             };
             return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -3833,10 +3830,10 @@ namespace DMS_TEST.Controllers
         public JsonResult CompaniesChronicMedicinesListCount(string Date = "", int CompId = 0, int GroupId = 0, string CardId = "")
         {
             var CurrentUser = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
-            int userProvider = Convert.ToInt32(CurrentUser.Provider);
+            //int userProvider = Convert.ToInt32(CurrentUser.Provider);
             DateTime dateTime = Convert.ToDateTime(Date);
 
-            var Cards = db.Med_Card.Where(x => (x.PROVIDER_CODE == userProvider || x.PROVIDER_CODE == 1268) && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
+            var Cards = db.Med_Card.Where(x => (x.PROVIDER_CODE.Contains(CurrentUser.Provider) || x.PROVIDER_CODE.Contains("1268")) && x.LOOK_01 == 0 && x.C_COMP_ID == CompId && (GroupId != 0 ? x.GROUP_ID == GroupId : true) && (CardId != "" ? x.CARD_NO == CardId : true))
                 .Join(db.Med_Medicine, MC => MC.CARD_NO, MM => MM.CARD_NO, (MC, MM) => new { MC, MM }).Where(x => x.MM.ACTIVE == "Y" && x.MM.EXCESS == 0 && (x.MM.MONTH_DATE_STOP == null || x.MM.MONTH_DATE_STOP >= dateTime)).Join(db.Comp_Employees, M => M.MM.CARD_NO, E => E.CARD_ID, (M, E) => new { M, E }).Where(x => x.E.INS_START_DATE <= DateTime.Now && x.E.INS_END_DATE >= DateTime.Now && (x.E.TERMINATE_FLAG == "N" || (x.E.TERMINATE_FLAG == "Y" && x.E.TERMINATE_DATE > DateTime.Now ? true : false))).OrderByDescending(x => x.E.CONTRACT_NO)
                 .Select(l => new
                 {

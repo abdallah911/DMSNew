@@ -52,7 +52,6 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<IndemnityService> IndemnityServices { get; set; }
         public virtual DbSet<Insurance_Class> Insurance_Class { get; set; }
         public virtual DbSet<LicenseType> LicenseTypes { get; set; }
-        public virtual DbSet<Med_Card> Med_Card { get; set; }
         public virtual DbSet<Med_Medicine> Med_Medicine { get; set; }
         public virtual DbSet<MedicineData> MedicineDatas { get; set; }
         public virtual DbSet<MedicineGroup> MedicineGroups { get; set; }
@@ -141,6 +140,8 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<CompStatement> CompStatements { get; set; }
         public virtual DbSet<RemainConsumption> RemainConsumptions { get; set; }
         public virtual DbSet<ProviderContract> ProviderContracts { get; set; }
+        public virtual DbSet<UserCompanyPermission> UserCompanyPermissions { get; set; }
+        public virtual DbSet<Med_Card> Med_Card { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)
