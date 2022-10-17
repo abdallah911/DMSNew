@@ -1452,7 +1452,6 @@ namespace DMS_Authontication1.Controllers.HR
                 default:
                     return View();
 
-
             }
 
         }
@@ -1679,7 +1678,7 @@ namespace DMS_Authontication1.Controllers.HR
             , string CardTo, string ContractNumber, string RepotType, string larg, string smal, string Percent)
         {
             Int64 CompanyStart, CompanyEnd,
-                ContrNumber, per, lrg, sml;
+                ContrNumber, per, lrg, sml, prv1 = 0, prv2 = 999999999999999999;
             string CardStart, CardEnd, ClassStart, ClassEnd;
             DateTime RegDateFrom, RegDateTo, SerDateFrom, SerDateTo;
 
@@ -1694,7 +1693,7 @@ namespace DMS_Authontication1.Controllers.HR
 
 
             per = Percent == string.Empty ? 0 : Convert.ToInt64(Percent);
-            lrg = larg == string.Empty ? 0 : Convert.ToInt64(larg);
+            lrg = larg == string.Empty? 999999999999999999 : Convert.ToInt64(larg);
             sml = smal == string.Empty ? 0 : Convert.ToInt64(smal);
 
 
@@ -1714,103 +1713,17 @@ namespace DMS_Authontication1.Controllers.HR
                     else
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub1.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/pdf", RegDateFrom.ToString("ddMMyyyy") + "Consumption.pdf");
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    break;
 
                 case 2:
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub2.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("per", per);
-                    rd.SetParameterValue("larg", lrg);
-                    rd.SetParameterValue("small", sml);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/pdf", RegDateFrom.ToString("ddMMyyyy") + "Consumption.pdf");
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    break;
 
                 case 3:
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub4.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("per", per);
-                    rd.SetParameterValue("larg", lrg);
-                    rd.SetParameterValue("small", sml);
-                    rd.SetParameterValue("cls1", ClassStart);
-                    rd.SetParameterValue("cls2", ClassEnd);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/pdf", RegDateFrom.ToString("ddMMyyyy") + "Consumption.pdf");
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    break;
 
                 case 4:
                     if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
@@ -1818,102 +1731,20 @@ namespace DMS_Authontication1.Controllers.HR
                     else
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub7.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("per", per);
-                    rd.SetParameterValue("larg", lrg);
-                    rd.SetParameterValue("small", sml);
-                    rd.SetParameterValue("cls1", ClassStart);
-                    rd.SetParameterValue("cls2", ClassEnd);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/pdf", RegDateFrom.ToString("ddMMyyyy") + "Consumption.pdf");
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    break;
 
                 case 5:
 
-
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub10.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/pdf", RegDateFrom.ToString("ddMMyyyy") + "Consumption.pdf");
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    break;
 
                 case 6:
 
 
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub11.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("per", per);
-                    rd.SetParameterValue("larg", lrg);
-                    rd.SetParameterValue("small", sml);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/pdf", RegDateFrom.ToString("ddMMyyyy") + "Consumption.pdf");
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    break;
 
                 case 7:
 
@@ -1922,147 +1753,76 @@ namespace DMS_Authontication1.Controllers.HR
                     else
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub12.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/pdf", RegDateFrom.ToString("ddMMyyyy") + "Consumption.pdf");
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    break;
 
                 case 8:
 
 
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub13.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("cls1", ClassStart);
-                    rd.SetParameterValue("cls2", ClassEnd);
-                    rd.SetParameterValue("per", per);
-                    rd.SetParameterValue("larg", lrg);
-                    rd.SetParameterValue("small", sml);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/pdf", RegDateFrom.ToString("ddMMyyyy") + "Consumption.pdf");
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    break;
 
                 case 9:
 
-
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub14New.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("per", per);
-                    rd.SetParameterValue("larg", lrg);
-                    rd.SetParameterValue("small", sml);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/pdf", RegDateFrom.ToString("ddMMyyyy") + "Consumption.pdf");
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    break;
 
                 case 10:
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "IndemnityCheckInternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "IndemnityCheck.rpt"));
 
+                    break;
+
+
+                case 11:
 
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub2New.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("per", per);
-                    rd.SetParameterValue("larg", lrg);
-                    rd.SetParameterValue("small", sml);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/pdf", RegDateFrom.ToString("ddMMyyyy") + "Consumption.pdf");
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-
+                    break;
+                                    
                 default:
                     return View();
 
 
+            }
+
+            rd.SetDatabaseLogon("APP", "12369");
+
+            rd.SetParameterValue("crda1", RegDateFrom);
+            rd.SetParameterValue("crda2", RegDateTo);
+            rd.SetParameterValue("srda1", SerDateFrom);
+            rd.SetParameterValue("srda2", SerDateTo);
+            rd.SetParameterValue("comp1", CompanyStart);
+            rd.SetParameterValue("comp2", CompanyEnd);
+            rd.SetParameterValue("crd1", CardStart);
+            rd.SetParameterValue("crd2", CardEnd);
+            rd.SetParameterValue("cls1", ClassStart);
+            rd.SetParameterValue("cls2", ClassEnd);          
+            rd.SetParameterValue("prv1", prv1);
+            rd.SetParameterValue("prv2", prv2);
+            rd.SetParameterValue("lrg", lrg);
+            rd.SetParameterValue("sml", sml);
+            rd.SetParameterValue("UserName", "");
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pdf", RegDateFrom.ToString("ddMMyyyy") + "Consumption.pdf");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -2091,7 +1851,7 @@ namespace DMS_Authontication1.Controllers.HR
             , string CardTo, string ContractNumber, string RepotType, string larg, string smal, string Percent)
         {
             Int64 CompanyStart, CompanyEnd,
-                ContrNumber, per, lrg, sml;
+                ContrNumber, per, lrg, sml, prv1 = 0, prv2 = 999999999999999999;
             string CardStart, CardEnd, ClassStart, ClassEnd;
             DateTime RegDateFrom, RegDateTo, SerDateFrom, SerDateTo;
 
@@ -2106,7 +1866,7 @@ namespace DMS_Authontication1.Controllers.HR
 
 
             per = Percent == string.Empty ? 0 : Convert.ToInt64(Percent);
-            lrg = larg == string.Empty ? 0 : Convert.ToInt64(larg);
+            lrg = larg == string.Empty ? 999999999999999999 : Convert.ToInt64(larg);
             sml = smal == string.Empty ? 0 : Convert.ToInt64(smal);
 
 
@@ -2126,106 +1886,17 @@ namespace DMS_Authontication1.Controllers.HR
                     else
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub1.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/xls", RegDateFrom.ToString("ddMMyyyy") + "Consumption.xls");
-
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    break;
 
                 case 2:
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub2.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("per", per);
-                    rd.SetParameterValue("larg", lrg);
-                    rd.SetParameterValue("small", sml);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/xls", RegDateFrom.ToString("ddMMyyyy") + "Consumption.xls");
-
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    break;
 
                 case 3:
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub4.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("per", per);
-                    rd.SetParameterValue("larg", lrg);
-                    rd.SetParameterValue("small", sml);
-                    rd.SetParameterValue("cls1", ClassStart);
-                    rd.SetParameterValue("cls2", ClassEnd);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/xls", RegDateFrom.ToString("ddMMyyyy") + "Consumption.xls");
-
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    break; 
 
                 case 4:
                     if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
@@ -2233,101 +1904,19 @@ namespace DMS_Authontication1.Controllers.HR
                     else
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub7.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    /*rd.SetParameterValue("per", per);
-                    rd.SetParameterValue("larg", lrg);
-                    rd.SetParameterValue("small", sml);*/
-                    rd.SetParameterValue("cls1", ClassStart);
-                    rd.SetParameterValue("cls2", ClassEnd);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/xls", RegDateFrom.ToString("ddMMyyyy") + "Consumption.xls");
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-
+                    break;
                 case 5:
 
 
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub10.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/xls", RegDateFrom.ToString("ddMMyyyy") + "Consumption.xls");
-
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-
+                    break;
                 case 6:
 
 
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub11.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("per", per);
-                    rd.SetParameterValue("larg", lrg);
-                    rd.SetParameterValue("small", sml);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/xls", RegDateFrom.ToString("ddMMyyyy") + "Consumption.xls");
-
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    break;
 
                 case 7:
                     if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
@@ -2336,147 +1925,76 @@ namespace DMS_Authontication1.Controllers.HR
 
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub12.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/xls", RegDateFrom.ToString("ddMMyyyy") + "Consumption.xls");
-
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    break;
 
                 case 8:
 
 
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub13.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("cls1", ClassStart);
-                    rd.SetParameterValue("cls2", ClassEnd);
-                    rd.SetParameterValue("per", per);
-                    rd.SetParameterValue("larg", lrg);
-                    rd.SetParameterValue("small", sml);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/xls", RegDateFrom.ToString("ddMMyyyy") + "Consumption.xls");
-
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-
+                    break;
                 case 9:
 
 
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub14New.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("per", per);
-                    rd.SetParameterValue("larg", lrg);
-                    rd.SetParameterValue("small", sml);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/xls", RegDateFrom.ToString("ddMMyyyy") + "Consumption.xls");
-
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-
+                    break;
                 case 10:
+                    
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "IndemnityCheckInternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "IndemnityCheck.rpt"));
 
+
+                    break;
+                case 11:
 
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub2New.rpt"));
 
-                    rd.SetDatabaseLogon("APP", "12369");
-                    rd.SetParameterValue("crda1", RegDateFrom);
-                    rd.SetParameterValue("crda2", RegDateTo);
-                    rd.SetParameterValue("comp1", CompanyStart);
-                    rd.SetParameterValue("comp2", CompanyEnd);
-                    rd.SetParameterValue("crd1", CardStart);
-                    rd.SetParameterValue("crd2", CardEnd);
-                    rd.SetParameterValue("srda1", SerDateFrom);
-                    rd.SetParameterValue("srda2", SerDateTo);
-                    rd.SetParameterValue("per", per);
-                    rd.SetParameterValue("larg", lrg);
-                    rd.SetParameterValue("small", sml);
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-                    try
-                    {
-                        Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
-                        stream.Seek(0, SeekOrigin.Begin);
-                        rd.Close();
-                        rd.Dispose();
-                        GC.Collect();
-                        return File(stream, "application/xls", RegDateFrom.ToString("ddMMyyyy") + "Consumption.xls");
+                    break;
 
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
 
                 default:
                     return View();
+            }
+            rd.SetDatabaseLogon("APP", "12369");
 
+            rd.SetParameterValue("crda1", RegDateFrom);
+            rd.SetParameterValue("crda2", RegDateTo);
+            rd.SetParameterValue("srda1", SerDateFrom);
+            rd.SetParameterValue("srda2", SerDateTo);
+            rd.SetParameterValue("comp1", CompanyStart);
+            rd.SetParameterValue("comp2", CompanyEnd);
+            rd.SetParameterValue("crd1", CardStart);
+            rd.SetParameterValue("crd2", CardEnd);
+            rd.SetParameterValue("cls1", ClassStart);
+            rd.SetParameterValue("cls2", ClassEnd);
+            rd.SetParameterValue("cls1", ClassStart);
+            rd.SetParameterValue("cls2", ClassEnd);
+            rd.SetParameterValue("prv1", prv1);
+            rd.SetParameterValue("prv2", prv2);
+            rd.SetParameterValue("lrg", lrg);
+            rd.SetParameterValue("sml", sml);
+            rd.SetParameterValue("UserName", "");
 
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/xls", RegDateFrom.ToString("ddMMyyyy") + "Consumption.xls");
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
         #endregion
