@@ -352,10 +352,12 @@ $(function () {
         success: function (diag) {
             $.each(diag, function (i, ddlDiag1) {
                 $("#Provider").append('<option value="' + ddlDiag1.PR_CODE + '">' +
-                    ddlDiag1.PR_ANAME + '</option>');
+                    ddlDiag1.PR_ANAME + '||' + ddlDiag1.PR_CODE + '</option>');
                 $("#Provider1").append('<option value="' + ddlDiag1.PR_CODE + '">' +
-                    ddlDiag1.PR_ANAME + '</option>');
+                    ddlDiag1.PR_ANAME + '||' + ddlDiag1.PR_CODE + '</option>');
+
             });
+            //$("#Provider").select2();
             //$('#Diagnoise  option:eq(0)').attr('selected', 'selected');
         },
         error: function (ex) {

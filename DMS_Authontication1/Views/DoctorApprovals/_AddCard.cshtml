@@ -172,6 +172,10 @@
             dropdownParent: $('#AddCardModal .modal-content')
             //dropdownParent: $("#AddCardModal")
         })
+        $('#Provider').select2({
+            dropdownParent: $('#AddCardModal .modal-content')
+            //dropdownParent: $("#AddCardModal")
+        })
         $('#Add').click(function () {
             if ($('.modal-body #LockStatus').val() != null && $('.modal-body #Provider').val() != ""
                 && $('.modal-body #StartDate').val() != "" && $('.modal-body #NationalId').val() != ""
@@ -194,7 +198,8 @@
                                     DiagnosisStr = DiagnosisStr + '_' + SelectedDiagnosisList[SelectedDiagnosisList.length - 1].text;
                                 }
                                 var ProviderStr = SelectedProviderList[0].text;
-                                var c = SelectedProviderList[0].id;
+                                var Provider2Str = SelectedProviderList[0].id;
+                                //var c = SelectedProviderList[0].id;
                                 if (SelectedProviderList.length > 1) {
                                     for (var i = 1; i < SelectedProviderList.length - 1; i++) {
 
@@ -210,7 +215,7 @@
                                     dataType: 'Json',
                                     data: {
                                         CARD_NO: $('.modal-body #CardId').val(),
-                                        PR_ANAME: ProviderStr,
+                                        PR_ANAME: Provider2Str,
                                         MONTH_START_DATE: $('.modal-body #StartDate').val(),
                                         NoPayEndDate: $('.modal-body #CompanyPaymentDate').val(),
                                         NoOverEndDate: $('.modal-body #OverInsuranceDate').val(),
