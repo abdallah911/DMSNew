@@ -1,0 +1,176 @@
+﻿@model DMS_Authontication1.Models.CustomerService
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+
+<div class="portlet box red-pink" style="margin:auto">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-info-circle"></i>Delete
+        </div>
+        <div class="actions">
+            <a id="Create" href="/AfterSales/Index" style=" text-transform: none" class="btn btn-primary  btn-sm">
+                <i class="fa fa-list"></i> Visit List
+            </a>
+        </div>
+    </div>
+    <br />
+    <div class="portlet-body">
+        <div class="row ">
+            <div class="col-md-12">
+                <!-- BEGIN PAGE HEADER-->
+                <!-- BEGIN THEME PANEL -->
+
+                <div class="form-wizard">
+
+                    <div class="form-body">
+                        <div class="tab-content">
+                            <div class="row ">
+                                <dl class="dl-horizontal">
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.CompanyName)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.CompanyName)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.BranchName)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.BranchName)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.VisitReason)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.VisitReason)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.PersonName)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.PersonName)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.VisitDate)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.VisitDate)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Region)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Region)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Phone)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Phone)
+                                    </dd>
+
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.FeedBackText)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.FeedBackText)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Note)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Note)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.FeedBackDate)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.FeedBackDate)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.CreatedDate)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.CreatedDate)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.UpdatedDate)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.UpdatedDate)
+                                    </dd>
+
+
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.CreatedBy)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.CreatedBy)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.UpdatedBy)
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.UpdatedBy)
+                                    </dd>
+
+                                </dl>
+
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="form-actions no-color col-md-offset-2" >
+                                        <input type="submit" value="Delete" class="btn btn-danger" style=" text-transform: none"/> 
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!--<div class="panel panel-info" style="margin-top:-21px">-->
+<!--Save-->
+<!--<div class="panel-footer" style="text-align:right;">
+        <input data-step="6" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />
+        <input data-step="7" data-intro="Reset " id="reset" type="button" value="Reset" onclick="ClearVisitDataData();" class="btn btn-warning" />
+        <input data-step="8" data-intro="Save Visit" id="submit" type="button" value="Save" class="btn btn-success" onclick="Submit_Save()" />
+    </div>
+</div>-->
