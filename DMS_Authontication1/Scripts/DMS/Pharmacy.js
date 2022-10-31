@@ -171,7 +171,7 @@ $(function () {
                                         data: { id: CompId, CardId: CardId },
                                         success: function (returndata) {
                                             if (returndata.ok) {
-                                                if (returndata.data == "Y") {
+                                                if (returndata.data == "Yes") {
                                                     debugger;
                                                     $("#wait").css("display", "none");
                                                     $('#txtSearchCard').val(CardId);
@@ -181,47 +181,9 @@ $(function () {
                                                     $('#compEmp_BIRTH_DATE').val(birthdate);
                                                     AddNationalId();
                                                     $('#CardsModal').modal('hide');
-                                                    //// disable card 
-                                                    //$.ajax({
-                                                    //    dataType: "json",
-                                                    //    url: '/Pharmacy/DisableCard',
-                                                    //    data: {
-                                                    //        CardId: $('#txtSearchCard').val(),
-                                                    //    },
-                                                    //    success: function (r) {
-                                                    //        if (r == "True") {
-                                                    //            $("#wait").css("display", "none");
-                                                    //            $('#txtSearchCard').val(CardId);
-                                                    //            $('#compEmp_EMP_ANAME').val(ArName);
-                                                    //            $('#compEmp_INS_START_DATE').val(StartDate);
-                                                    //            $('#compEmp_INS_END_DATE').val(EndDate);
-                                                    //            $('#compEmp_BIRTH_DATE').val(birthdate);
-                                                    //            AddNationalId();
-                                                    //            $('#CardsModal').modal('hide');
-                                                    //        }
-                                                    //        else {
-                                                    //           // bootbox.alert("Card Id is used by another one please wait until it had been released thank you");
-                                                    //            $("#wait").css("display", "none");
-                                                    //            bootbox.dialog({
-                                                    //                title: 'Alert!',
-                                                    //                message: "Card Id is used by another one please wait until it had been released thank you",
-                                                    //                buttons: {
-                                                    //                    Ok: {
-                                                    //                        label: "Ok",
-                                                    //                        className: 'btn-info',
-                                                    //                        callback: function () {
-                                                    //                            ClearCardData();
-                                                    //                        }
-                                                    //                    }
-                                                    //                }
-                                                    //            });
-
-                                                    //        }
-                                                    //    },
-                                                    //    error: function (r) { }
-                                                    //});
-
-
+                                                    //Get ceiling and Limit
+                                                    GetLimit();
+                                                    
                                                 }
                                                 else {
                                                     $("#wait").css("display", "none");
@@ -241,13 +203,44 @@ $(function () {
                                                 }
                                             }
                                             else {
-                                                bootbox.alert('failed  company activation , please check your internet connection ');
+                                                if (returndata.data == "Hold") {
+                                                    $("#wait").css("display", "none");
+                                                    bootbox.dialog({
+                                                        title: 'Alert!',
+                                                        message: returndata.message,
+                                                        buttons: {
+                                                            Ok: {
+                                                                label: "Ok",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    ClearCardData();
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                                else if (returndata.data == "Expire") {
+                                                    $("#wait").css("display", "none");
+                                                    bootbox.dialog({
+                                                        title: 'Alert!',
+                                                        message: returndata.message,
+                                                        buttons: {
+                                                            Ok: {
+                                                                label: "Ok",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    ClearCardData();
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                                else
+                                                    bootbox.alert('failed  company activation , please check your internet connection ');
                                             }
                                         }
                                     });
 
-                                    //Get ceiling and Limit
-                                    GetLimit();
                                 }
                                 else {
                                     bootbox.alert('برجاء الرجوع الى ادارة الشركة التابعة لسيادتكم ..');

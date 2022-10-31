@@ -105,7 +105,7 @@ namespace DMS_TEST.Controllers
                 }
                 else
                 {
-                    return Json(new { ok = true, data = "N", message = "Company is not existed" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { ok = false, data = "Expire", message = "Company is not existed" }, JsonRequestBehavior.AllowGet);
                 }
                 var CurrentDate = DateTime.Now.Date;
                 var empCardTerminationFlag = db.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= CurrentDate && x.INS_END_DATE >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
@@ -114,15 +114,23 @@ namespace DMS_TEST.Controllers
                 {
                     if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "N")
                     {
-                        return Json(new { ok = true, data = "Y", message = "ok" }, JsonRequestBehavior.AllowGet);
+                        return Json(new { ok = true, data = "Yes", message = "ok" }, JsonRequestBehavior.AllowGet);
                     }
-                    else if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "Y" && empCardTerminationFlag.TERMINATE_DATE > DateTime.Now)
+                    else if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "Y" && ((empCardTerminationFlag.TERMINATE_DATE > DateTime.Now) || empCardTerminationFlag.TERMINATE_DATE == null))
                     {
-                        return Json(new { ok = true, data = "Y", message = "ok" }, JsonRequestBehavior.AllowGet);
+                        return Json(new { ok = true, data = "Yes", message = "ok" }, JsonRequestBehavior.AllowGet);
+                    }
+                    else if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "H"/* && ((empCardTerminationFlag.TERMINATE_DATE >= DateTime.Now) || empCardTerminationFlag.TERMINATE_DATE == null)*/)
+                    {
+                        return Json(new { ok = false, data = "Hold", message = "تم استهلاك النسبه المقررة للحد الاقصي للتغطية برجاء الرجوع الي ادارة الموارد البشريه الخاصه بسياداتكم " }, JsonRequestBehavior.AllowGet);
                     }
                     else if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "Y" && empCardTerminationFlag.TERMINATE_DATE < DateTime.Now)
                     {
-                        return Json(new { ok = true, data = "N", message = "Expired Card" }, JsonRequestBehavior.AllowGet);
+                        return Json(new { ok = false, data = "Expire", message = "كارت مغلق Expired Card" }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { ok = false, data = "Expire", message = "Expired Card" }, JsonRequestBehavior.AllowGet);
                     }
                 }
                 else
@@ -130,11 +138,11 @@ namespace DMS_TEST.Controllers
                     var CompTerminationFlag = db.Contract_Data.Where(x => x.C_COMP_ID == CompId && x.DATE_FROM <= DateTime.Now && x.DATE_TO >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
                     if (CompTerminationFlag != null)
                     {
-                        return Json(new { ok = true, data = "N", message = "Card is not existed" }, JsonRequestBehavior.AllowGet);
+                        return Json(new { ok = false, data = "Expire", message = "Card is not existed" }, JsonRequestBehavior.AllowGet);
 
                     }
                 }
-                return Json(new { ok = true, data = "N", message = "Expired Company" }, JsonRequestBehavior.AllowGet);
+                return Json(new { ok = false, data = "Expire", message = "Expired Company" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -1572,7 +1580,7 @@ namespace DMS_TEST.Controllers
             MedicineData CurentMedicine2 = db.MedicineDatas.Where(x => x.M_CODE == code).FirstOrDefault();
             string message = "";
             int check;
-            var createdDate = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Doctor_Chronic") && !r.Manager.Contains("Stop"))
+            var createdDate = db.Roshitas.Where(r => r.CardId == id /*&& !r.Manager.Contains("Doctor_Chronic")*/ && !r.Manager.Contains("Stop"))
                 .Join(db.RoshitaDetails, x => x.Id, d => d.RoshitaID, (x, d) => new { x, d })
               .Where(z => z.d.MedicienCode == code && z.d.PaymentGroup != "Cash" && z.d.IsDealed == true)
               .OrderByDescending(v => v.x.CreatedDate)

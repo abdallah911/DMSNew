@@ -15,6 +15,11 @@ $(function () {
     //$("#btnClaim").click(function () {
     //    window.location.replace('/labs/index?id=' + CardId);
     //});
+    $("#PrescriptionDate").datepicker({
+        maxDate: '0',
+        minDate: '-13D',
+        dateFormat: 'dd-mm-yy',
+    });
     $("#Help").click(function () {
         introJs().start();
     });
@@ -108,53 +113,42 @@ $(function () {
                                         data: { id: CompId, CardId: CardId },
                                         success: function (returndata) {
                                             if (returndata.ok) {
-                                                if (returndata.data == "Y") {
-
+                                                if (returndata.data == "Yes") {
                                                     $("#wait").css("display", "none");
                                                     $('#txtSearchCard').val(CardId);
                                                     $('#compEmp_EMP_ANAME').val(ArName);
                                                     $('#compEmp_INS_END_DATE').val(EndDate);
                                                     AddNationalId();
                                                     $('#CardsModal').modal('hide');
-                                                    //// disable card 
-                                                    //$.ajax({
-                                                    //    dataType: "json",
-                                                    //    url: '/Pharmacy/DisableCard',
-                                                    //    data: {
-                                                    //        CardId: $('#txtSearchCard').val(),
-                                                    //    },
-                                                    //    success: function (r) {
-                                                    //        if (r == "True") {
-                                                    //            $("#wait").css("display", "none");
-                                                    //            $('#txtSearchCard').val(CardId);
-                                                    //            $('#compEmp_EMP_ANAME').val(ArName);
-                                                    //            $('#compEmp_INS_END_DATE').val(EndDate);
-                                                    //            AddNationalId();
-                                                    //            $('#CardsModal').modal('hide');
-                                                    //        }
-                                                    //        else {
-                                                    //            // bootbox.alert("Card Id is used by another one please wait until it had been released thank you");
-                                                    //            $("#wait").css("display", "none");
-                                                    //            bootbox.dialog({
-                                                    //                title: 'Alert!',
-                                                    //                message: "Card Id is used by another one please wait until it had been released thank you",
-                                                    //                buttons: {
-                                                    //                    Ok: {
-                                                    //                        label: "Ok",
-                                                    //                        className: 'btn-info',
-                                                    //                        callback: function () {
-                                                    //                            ClearCardData();
-                                                    //                        }
-                                                    //                    }
-                                                    //                }
-                                                    //            });
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        dataType: "json",
+                                                        url: '/Labs/CellingAmount',
+                                                        data: {
+                                                            id: CardId,
+                                                            ServiceCode: '11206'
+                                                        },
+                                                        success: function (r) {
 
-                                                    //        }
-                                                    //    },
-                                                    //    error: function (r) { }
-                                                    //});
+                                                            // toastr.info("جميع خدمات كرونا غير مغطاة و يجب محاسبة المريض نقدا");
+                                                            if (r.Validation == false) {
+                                                                alert(r.Message);
+                                                                window.location.reload();
+                                                            } else {
+                                                                $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
+                                                                AnuualLimit = r.Limit;
+                                                                //   $("#no_data_yet").val(100 - $("#ddEmp_CEILING_PERT").val());
+                                                                //limit_Daily = r.CoInsurancelimit.INSURANCE_DAY_LAB;
+                                                                $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
+                                                                Calculation();
 
-
+                                                            }
+                                                        },
+                                                        error: function (err) {
+                                                            alert("Company Annual Amount");
+                                                            location.reload();
+                                                        }
+                                                    });
                                                 }
                                                 else {
                                                     $("#wait").css("display", "none");
@@ -174,40 +168,46 @@ $(function () {
                                                 }
                                             }
                                             else {
-                                                bootbox.alert('Error activation ');
+                                                if (returndata.data == "Hold") {
+                                                    $("#wait").css("display", "none");
+                                                    bootbox.dialog({
+                                                        title: 'Alert!',
+                                                        message: returndata.message,
+                                                        buttons: {
+                                                            Ok: {
+                                                                label: "Ok",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    ClearCardData();
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                                else if (returndata.data == "Expire") {
+                                                    $("#wait").css("display", "none");
+                                                    bootbox.dialog({
+                                                        title: 'Alert!',
+                                                        message: returndata.message,
+                                                        buttons: {
+                                                            Ok: {
+                                                                label: "Ok",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    ClearCardData();
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                                else
+                                                    bootbox.alert('failed  company activation , please check your internet connection ');
                                             }
                                         }
+
                                     });
 
-                                    $.ajax({
-                                        type: "POST",
-                                        dataType: "json",
-                                        url: '/Labs/CellingAmount',
-                                        data: {
-                                            id: CardId,
-                                            ServiceCode: '11206'
-                                        },
-                                        success: function (r) {
 
-                                            // toastr.info("جميع خدمات كرونا غير مغطاة و يجب محاسبة المريض نقدا");
-                                            if (r.Validation == false) {
-                                                alert(r.Message);
-                                                window.location.reload();
-                                            } else {
-                                                $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
-                                                AnuualLimit = r.Limit;
-                                                //   $("#no_data_yet").val(100 - $("#ddEmp_CEILING_PERT").val());
-                                                //limit_Daily = r.CoInsurancelimit.INSURANCE_DAY_LAB;
-                                                $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
-                                                Calculation();
-
-                                            }
-                                        },
-                                        error: function (err) {
-                                            alert("Company Annual Amount");
-                                            location.reload();
-                                        }
-                                    });
                                 }
                                 else {
                                     $("#wait").css("display", "none");
@@ -250,11 +250,25 @@ $(function () {
         location.replace("/Labs/Pending2?id=" + CardId);
     });
 
-    $("#PrescriptionDate").datepicker({
-        maxDate: '0',
-        minDate: '-6D',
-        dateFormat: 'dd-mm-yy',
-    });
+    //$("#PrescriptionDate").datepicker({
+    //    maxDate: '0',
+    //    minDate: '-6D',
+    //    dateFormat: 'dd-mm-yy',
+    //});
+    function DatePickerModel(flag) {
+        if (flag == 0) {
+            $("#PrescriptionDate").datepicker({
+                maxDate: '0',
+                minDate: '-13D',
+                dateFormat: 'dd-mm-yy',
+            });
+        }
+        else {
+            $("#PrescriptionDate").datepicker({
+                dateFormat: 'dd-mm-yy'
+            });
+        }
+    }
     $("#ddlSpeciality").change(function () {
         $("#wait").css("display", "block");
         $.ajax({
@@ -418,129 +432,135 @@ $(function () {
                 var TotalDuration = $("TD", row).find(".TotalDuration").val();
                 var row = $(this);
                 if (phonenumber(te) == true && number(te) == true) {
-                    if (row.val != "") {
-                        if (TotalDuration != 0) {
-                            if (Mediciens.length != 0) {
+                    if ($('#PrescriptionDate').val() != '') {
+                        if (row.val != "") {
+                            if (TotalDuration != 0) {
+                                if (Mediciens.length != 0) {
 
-                                $("#submit").attr("disabled", "disabled");
+                                    $("#submit").attr("disabled", "disabled");
 
-                                $.ajax({
-                                    type: 'POST',
-                                    url: '/Labs/SAVE/',
-                                    dataType: 'Json',
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '/Labs/SAVE/',
+                                        dataType: 'Json',
 
-                                    data: {
-                                        CardId: $('#txtSearchCard').val(),
-                                        CompanyPercent: $('#ddEmp_CEILING_PERT').val(),
-                                        Limit: $('#Co_insurance_INSURANCE_DAY_LAB').val(),
-                                        Speciality: $('#ddlSpeciality option:selected').text(),
-                                        Diagnose1: $('#Diagnoise').val(),
-                                        //calculation
-                                        TotalValue: $('#txtTotalInvoice').val(),
-                                        PersonPayment: $('#txtTotalCopayment').val(),
-                                        CompanyPayment: $('#txtValueCredit').val(),
-                                        OverInsurance: $('#txtOverInsurance').val(),
-                                        Cash: $('#txtValueCash').val(),
-                                        PhoneNumber: $('#PhoneNumber').val(),
-                                        Diagnose1: $('#Comments').val(),
-                                        Diagnose2: NationalId,
-                                        createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val()
+                                        data: {
+                                            CardId: $('#txtSearchCard').val(),
+                                            CompanyPercent: $('#ddEmp_CEILING_PERT').val(),
+                                            Limit: $('#Co_insurance_INSURANCE_DAY_LAB').val(),
+                                            Speciality: $('#ddlSpeciality option:selected').text(),
+                                            Diagnose1: $('#Diagnoise').val(),
+                                            //calculation
+                                            TotalValue: $('#txtTotalInvoice').val(),
+                                            PersonPayment: $('#txtTotalCopayment').val(),
+                                            CompanyPayment: $('#txtValueCredit').val(),
+                                            OverInsurance: $('#txtOverInsurance').val(),
+                                            Cash: $('#txtValueCash').val(),
+                                            PhoneNumber: $('#PhoneNumber').val(),
+                                            Diagnose1: $('#Comments').val(),
+                                            Diagnose2: NationalId,
+                                            createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val()
 
 
 
-                                    },
-                                    success: function (Oracle_Id) {
-                                        //var ReportId = r;
+                                        },
+                                        success: function (Oracle_Id) {
+                                            //var ReportId = r;
 
-                                        //Date.prototype.yyyymmdd = function () {
-                                        //    var mm = this.getMonth() + 1; // getMonth() is zero-based
-                                        //    var dd = this.getDate();
-                                        //    return [(dd > 9 ? '' : '0') + dd,
-                                        //    (mm > 9 ? '' : '0') + mm,
-                                        //    this.getFullYear()
-                                        //    ].join('');
-                                        //};
-                                        //var date = new Date();
-                                        //d = date.yyyymmdd()
-                                        //r = d + r;
-                                        //approval = r;
-                                        //bootbox.alert("Roshita ID : " + r);
-                                        bootbox.dialog({
-                                            closeButton: false,
-                                            title: 'Added Sucessfully',
-                                            message: "Roshita ID : " + Oracle_Id,
-                                            buttons: {
-                                                Print: {
-                                                    label: "Print",
-                                                    className: 'btn-info',
-                                                    callback: function () {
-                                                        window.location.reload();
-                                                        window.open('/Labs/ControlPenelReport?id=' + Oracle_Id);
+                                            //Date.prototype.yyyymmdd = function () {
+                                            //    var mm = this.getMonth() + 1; // getMonth() is zero-based
+                                            //    var dd = this.getDate();
+                                            //    return [(dd > 9 ? '' : '0') + dd,
+                                            //    (mm > 9 ? '' : '0') + mm,
+                                            //    this.getFullYear()
+                                            //    ].join('');
+                                            //};
+                                            //var date = new Date();
+                                            //d = date.yyyymmdd()
+                                            //r = d + r;
+                                            //approval = r;
+                                            //bootbox.alert("Roshita ID : " + r);
+                                            bootbox.dialog({
+                                                closeButton: false,
+                                                title: 'Added Sucessfully',
+                                                message: "Roshita ID : " + Oracle_Id,
+                                                buttons: {
+                                                    Print: {
+                                                        label: "Print",
+                                                        className: 'btn-info',
+                                                        callback: function () {
+                                                            window.location.reload();
+                                                            window.open('/Labs/ControlPenelReport?id=' + Oracle_Id);
+                                                        }
+                                                    },
+                                                    New: {
+                                                        label: "New",
+                                                        className: 'btn-info',
+                                                        callback: function () {
+                                                            window.location.reload();
+                                                        }
                                                     }
-                                                },
-                                                New: {
-                                                    label: "New",
-                                                    className: 'btn-info',
-                                                    callback: function () {
-                                                        window.location.reload();
-                                                    }
+
                                                 }
+                                            });
+                                        },
+                                        error: function (err) {
+                                            bootbox.alert("Error Roshita");
+                                            $("#submit").attr("disabled", false);
+                                        }
+                                    }).done(function () {
 
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: '/Labs/SaveMediciens/',
+                                            dataType: 'Json',
+                                            contentType: "application/json; charset=utf-8",
+                                            data: JSON.stringify(Mediciens),
+                                            success: function (r) {
+                                                $("#submit").attr("disabled", false);
+                                            },
+                                            error: function (err) {
+                                                $("#submit").attr("disabled", false);
+                                                bootbox.alert("Error Medicien");
                                             }
                                         });
-                                    },
-                                    error: function (err) {
-                                        bootbox.alert("Error Roshita");
-                                        $("#submit").attr("disabled", false);
-                                    }
-                                }).done(function () {
-
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: '/Labs/SaveMediciens/',
-                                        dataType: 'Json',
-                                        contentType: "application/json; charset=utf-8",
-                                        data: JSON.stringify(Mediciens),
-                                        success: function (r) {
-                                            $("#submit").attr("disabled", false);
-                                        },
-                                        error: function (err) {
-                                            $("#submit").attr("disabled", false);
-                                            bootbox.alert("Error Medicien");
+                                        var SelectedDiagnosisList = $('#ddlDiagnoises').select2('data');
+                                        var DiagnosisList = [];
+                                        for (var i = 0; i < SelectedDiagnosisList.length; i++) {
+                                            var current = {};
+                                            current.DIAG_CODE = SelectedDiagnosisList[i].id;
+                                            current.DIAG_ANAME = SelectedDiagnosisList[i].text;
+                                            DiagnosisList.push(current);
                                         }
-                                    });
-                                    var SelectedDiagnosisList = $('#ddlDiagnoises').select2('data');
-                                    var DiagnosisList = [];
-                                    for (var i = 0; i < SelectedDiagnosisList.length; i++) {
-                                        var current = {};
-                                        current.DIAG_CODE = SelectedDiagnosisList[i].id;
-                                        current.DIAG_ANAME = SelectedDiagnosisList[i].text;
-                                        DiagnosisList.push(current);
-                                    }
-                                    //Diagnoises
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: '/Labs/SaveDiagnoises/',
-                                        dataType: 'Json',
-                                        contentType: "application/json; charset=utf-8",
-                                        data: JSON.stringify(DiagnosisList),
-                                        success: function (r) {
-                                        },
-                                        error: function (err) {
-                                            bootbox.alert("Error Diagnoises,please check your connection");
-                                            $("#submit").attr("disabled", false);
-                                        }
+                                        //Diagnoises
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: '/Labs/SaveDiagnoises/',
+                                            dataType: 'Json',
+                                            contentType: "application/json; charset=utf-8",
+                                            data: JSON.stringify(DiagnosisList),
+                                            success: function (r) {
+                                            },
+                                            error: function (err) {
+                                                bootbox.alert("Error Diagnoises,please check your connection");
+                                                $("#submit").attr("disabled", false);
+                                            }
 
+                                        });
                                     });
-                                });
-                            } else {
-                                bootbox.alert("Please Insert Medical tests");
+                                } else {
+                                    bootbox.alert("Please Insert Medical tests");
+                                }
+                            }
+
+                            else {
+                                bootbox.alert("Invalid Total Duration");
                             }
                         }
-
-                        else {
-                            bootbox.alert("Invalid Total Duration");
-                        }
+                    }
+                    else {
+                        toastr.info("Please insert Prescription Date");
+                        event.preventDefault();
                     }
                 } else { bootbox.alert("Please Insert Valid PhoneNumber"); }
 

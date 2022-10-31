@@ -66,7 +66,6 @@ $(function () {
                 url: '/Pharmacy/AddCard',
                 data: { id: AddCardTxt },
                 success: function (r) {
-                    console.log(r);
                     if (r != "null") {
                         $('#SearchCards').dataTable().fnDestroy();
                         var setData = $("#SearchCards Tbody");

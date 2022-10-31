@@ -88,52 +88,37 @@
                         data: { id: CompId, CardId: CardId },
                         success: function (returndata) {
                             if (returndata.ok) {
-                                if (returndata.data == "Y") {
-
+                                if (returndata.data == "Yes") {
                                     $('#txtSearchCard').val(CardId);
                                     $('#compEmp_EMP_ANAME').val(ArName);
                                     $('#compEmp_INS_END_DATE').val(EndDate);
                                     AddNationalId();
                                     $('#CardsModal').modal('hide');
+                                    $.ajax({
+                                        type: "POST",
+                                        dataType: "json",
+                                        url: '/Labs/CellingAmount',
+                                        data: {
+                                            id: CardId,
+                                            ServiceCode: '11206'
+                                        },
+                                        success: function (r) {
 
-                                    //// disable card
-                                    //$.ajax({
-                                    //    dataType: "json",
-                                    //    url: '/Pharmacy/DisableCard',
-                                    //    data: {
-                                    //        CardId: $('#txtSearchCard').val(),
-                                    //    },
-                                    //    success: function (r) {
-                                    //        if (r == "True") {
-                                    //            $('#txtSearchCard').val(CardId);
-                                    //            $('#compEmp_EMP_ANAME').val(ArName);
-                                    //            $('#compEmp_INS_END_DATE').val(EndDate);
-                                    //            AddNationalId();
-                                    //            $('#CardsModal').modal('hide');
-                                    //        }
-                                    //        else {
-                                    //            // bootbox.alert("Card Id is used by another one please wait until it had been released thank you");
-                                    //            $("#wait").css("display", "none");
-                                    //            bootbox.dialog({
-                                    //                title: 'Alert!',
-                                    //                message: "Card Id is used by another one please wait until it had been released thank you",
-                                    //                buttons: {
-                                    //                    Ok: {
-                                    //                        label: "Ok",
-                                    //                        className: 'btn-info',
-                                    //                        callback: function () {
-                                    //                            ClearCardData();
-                                    //                        }
-                                    //                    }
-                                    //                }
-                                    //            });
-
-                                    //        }
-                                    //    },
-                                    //    error: function (r) { }
-                                    //});
-
-
+                                            if (r.Validation == false) {
+                                                alert(r.Message);
+                                                window.location.reload();
+                                            } else {
+                                                $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
+                                                AnuualLimit = r.Limit;
+                                                $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
+                                                Calculation();
+                                            }
+                                        },
+                                        error: function (err) {
+                                            alert("Company Annual Amount");
+                                            location.reload();
+                                        }
+                                    });
 
                                 }
                                 else {
@@ -154,36 +139,44 @@
                                 }
                             }
                             else {
-                                bootbox.alert('Error activation ');
+                                if (returndata.data == "Hold") {
+                                    $("#wait").css("display", "none");
+                                    bootbox.dialog({
+                                        title: 'Alert!',
+                                        message: returndata.message,
+                                        buttons: {
+                                            Ok: {
+                                                label: "Ok",
+                                                className: 'btn-info',
+                                                callback: function () {
+                                                    ClearCardData();
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                                else if (returndata.data == "Expire") {
+                                    $("#wait").css("display", "none");
+                                    bootbox.dialog({
+                                        title: 'Alert!',
+                                        message: returndata.message,
+                                        buttons: {
+                                            Ok: {
+                                                label: "Ok",
+                                                className: 'btn-info',
+                                                callback: function () {
+                                                    ClearCardData();
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                                else
+                                    bootbox.alert('failed  company activation , please check your internet connection ');
                             }
                         }
                     });
 
-                    $.ajax({
-                        type: "POST",
-                        dataType: "json",
-                        url: '/Labs/CellingAmount',
-                        data: {
-                            id: CardId,
-                            ServiceCode: '11206'
-                        },
-                        success: function (r) {
-
-                            if (r.Validation == false) {
-                                alert(r.Message);
-                                window.location.reload();
-                            } else {
-                                $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
-                                AnuualLimit = r.Limit;
-                                $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
-                                Calculation();
-                            }
-                        },
-                        error: function (err) {
-                            alert("Company Annual Amount");
-                            location.reload();
-                        }
-                    });
 
 
                 }

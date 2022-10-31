@@ -36,7 +36,8 @@ $(function () {
             data: { id: CompId, CardId: CardId },
             success: function (returndata) {
                 if (returndata.ok) {
-                    if (returndata.data == "Y") {
+                    if (returndata.data == "Yes") {
+                        
                     }
                     else {
                         $("#wait").css("display", "none");
@@ -56,9 +57,40 @@ $(function () {
                     }
                 }
                 else {
-                    bootbox.alert('Error activation ');
-                    window.location.replace('/Labs/index?id=undefined');
-
+                    if (returndata.data == "Hold") {
+                        $("#wait").css("display", "none");
+                        bootbox.dialog({
+                            title: 'Alert!',
+                            message: returndata.message,
+                            buttons: {
+                                Ok: {
+                                    label: "Ok",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        window.location.replace('/Labs/index?id=undefined');
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    else if (returndata.data == "Expire") {
+                        $("#wait").css("display", "none");
+                        bootbox.dialog({
+                            title: 'Alert!',
+                            message: returndata.message,
+                            buttons: {
+                                Ok: {
+                                    label: "Ok",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        window.location.replace('/Labs/index?id=undefined');
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    else
+                        bootbox.alert('failed  company activation , please check your internet connection ');
                 }
             }
         });
@@ -366,7 +398,7 @@ function SelectMedicien(event) {
         if (parseInt(row.find("TD").eq(0).html()) == parseInt(Code)) {
             debugger;
             done = 1;
-            
+
             //$("#AddMedicine option[value='" + id + "']").prop("selected", false);
             //$("#AddMedicine option[value='" + Code + "']").prop("selected", false);
             //$("#AddMedicine").(Code);

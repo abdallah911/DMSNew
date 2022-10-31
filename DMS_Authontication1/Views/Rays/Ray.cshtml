@@ -4,34 +4,6 @@
 }
 <link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
-@*<style>
-    #ddlCard {
-        margin-top: -55px;
-        margin-left: 430px;
-        width: 200px;
-    }
-
-    #ddlM_Code {
-        margin-top: -55px;
-        margin-left: 450px;
-        width: 200px;
-    }
-
-    label {
-        font-weight: normal;
-    }
-
-    span.error {
-        display: block;
-        visibility: hidden;
-        color: red;
-        font-size: 90%;
-    }
-
-    tr.error {
-        background-color: rgba(255,0,0,0.35);
-    }
-</style>*@
 
 <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
     <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
@@ -77,9 +49,9 @@
                 <div class="row">
                     <div class="form-group">
                         @*<div class="col-sm-2">
-            @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })
-            @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-        </div>*@
+                                @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                            </div>*@
                         <div class="col-sm-2">
                             @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
                             @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
@@ -102,7 +74,7 @@
                                 <textarea id="Comments" style="height: 31px;" type="text" class="form-control" name="Comments" placeholder="" value=""></textarea>
                             </div>
                         </div>
-                     
+
                     </div>
                 </div>
 
@@ -112,19 +84,23 @@
                         @Html.EditorFor(model => model.Co_insurance.INSURANCE_DAY_LAB, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                     </div>
                     @*<div class="col-sm-2">
-                        @Html.LabelFor(model => model.Co_insurance.INSURANCE_MONTH_LAB, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Co_insurance.INSURANCE_MONTH_LAB, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>*@
+                            @Html.LabelFor(model => model.Co_insurance.INSURANCE_MONTH_LAB, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Co_insurance.INSURANCE_MONTH_LAB, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>*@
 
                     <div class="col-sm-2">
                         @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                     </div>
-                    <div class="col-sm-2" data-step="3"  data-intro="Enter Phone with 11 Number ">
+                    <div class="col-sm-2" data-step="3" data-intro="Enter Preception Date">
+                        @Html.Label("Prescription Date", htmlAttributes: new { @class = "control-label", @title = "لابد ان يكون ف اخر 14 ايام " })
+                        @Html.Editor("PrescriptionDate", new { htmlAttributes = new { @class = "form-control", @title = "لابد ان يكون ف اخر 14 ايام " } })
+                    </div>
+                    <div class="col-sm-2" data-step="3" data-intro="Enter Phone with 11 Number ">
                         @Html.Label("Phone Number", htmlAttributes: new { @class = "control-label" })
                         @Html.Editor("PhoneNumber", new { htmlAttributes = new { @class = "form-control", @id = "PhoneNumber", required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
                     </div>
-                    
+
 
 
                 </div>
