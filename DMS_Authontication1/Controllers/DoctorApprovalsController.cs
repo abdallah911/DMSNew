@@ -611,12 +611,13 @@ namespace DMS_Authontication1.Controllers
         [Authorize(Roles = "Admin,Doctor")]
         public JsonResult InsertCard(MonthlyChronicDoctorApprovalViewModel data)
         {
+            DateTime datenow = DateTime.Now.Date;
             Med_Card mED_CARD = new Med_Card();
             mED_CARD.CARD_NO = data.CARD_NO;
             mED_CARD.NOTES = data.NOTES;
             mED_CARD.CREATED_BY = User.Identity.Name;
             mED_CARD.CREATED_DATE = DateTime.Now;
-            var emp = db.Comp_Employees.Where(x => x.CARD_ID == data.CARD_NO && x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+            var emp = db.Comp_Employees.Where(x => x.CARD_ID == data.CARD_NO && x.INS_START_DATE <= datenow && x.INS_END_DATE>= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
             mED_CARD.C_COMP_ID = emp.C_COMP_ID;
             mED_CARD.GROUP_ID = data.GROUP_ID;
             var Group = db.S_Ent_7.Where(x => x.C_COMP_ID == emp.C_COMP_ID && x.S_ID == data.GROUP_ID).FirstOrDefault();
