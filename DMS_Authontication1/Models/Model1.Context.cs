@@ -75,7 +75,6 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<Serv_Providers1> Serv_Providers1 { get; set; }
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<Specialities1> Specialities1 { get; set; }
-        public virtual DbSet<Swap> Swaps { get; set; }
         public virtual DbSet<HrAdminCompany> HrAdminCompanies { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<DMSComplaint> DMSComplaints { get; set; }
@@ -142,6 +141,7 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<ProviderContract> ProviderContracts { get; set; }
         public virtual DbSet<UserCompanyPermission> UserCompanyPermissions { get; set; }
         public virtual DbSet<Med_Card> Med_Card { get; set; }
+        public virtual DbSet<Swap> Swaps { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)

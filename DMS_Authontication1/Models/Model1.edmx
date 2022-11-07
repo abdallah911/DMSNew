@@ -1639,6 +1639,8 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="RoshitaId" Type="bigint" />
           <Property Name="TypeNmae" Type="nvarchar" MaxLength="50" />
+          <Property Name="NoteAdmin" Type="nvarchar(max)" />
+          <Property Name="NotePharmacy" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Patchs">
           <Key>
@@ -4286,6 +4288,8 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="RoshitaId" Type="Int64" />
           <NavigationProperty Name="Roshita" Relationship="DB_A45413_DMSERPModel.FK_Notification_Roshita" FromRole="Notification" ToRole="Roshita" />
           <Property Name="TypeNmae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NoteAdmin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NotePharmacy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Patch">
           <Key>
@@ -4601,12 +4605,6 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="IndemnityServiceMasters" Relationship="DB_A45413_DMSERPModel.FK_IndemnityServiceMaster_Specialities1" FromRole="Specialities1" ToRole="IndemnityServiceMaster" />
         </EntityType>
-        <EntityType Name="Swap">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" />
-        </EntityType>
         <Association Name="FK_CardAcceptionReasons_AcceptionReasons">
           <End Role="AcceptionReasons" Type="Self.AcceptionReason" Multiplicity="1" />
           <End Role="CardAcceptionReasons" Type="Self.CardAcceptionReason" Multiplicity="*" />
@@ -4728,7 +4726,6 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="Serv_Providers1" EntityType="Self.Serv_Providers1" />
           <EntitySet Name="Services" EntityType="Self.Service" />
           <EntitySet Name="Specialities1" EntityType="Self.Specialities1" />
-          <EntitySet Name="Swaps" EntityType="Self.Swap" />
           <AssociationSet Name="FK_CardAcceptionReasons_AcceptionReasons" Association="Self.FK_CardAcceptionReasons_AcceptionReasons">
             <End Role="AcceptionReasons" EntitySet="AcceptionReasons" />
             <End Role="CardAcceptionReasons" EntitySet="CardAcceptionReasons" />
@@ -5054,6 +5051,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="ProviderContracts" EntityType="DB_A45413_DMSERPModel.ProviderContract" />
           <EntitySet Name="UserCompanyPermissions" EntityType="DB_A45413_DMSERPModel.UserCompanyPermission" />
           <EntitySet Name="Med_Card" EntityType="DB_A45413_DMSERPModel.Med_Card" />
+          <EntitySet Name="Swaps" EntityType="DB_A45413_DMSERPModel.Swap" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -6968,6 +6966,12 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="NoPayEndDate" Type="DateTime" Precision="0" />
           <Property Name="NoOverEndDate" Type="DateTime" Precision="0" />
         </EntityType>
+        <EntityType Name="Swap">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7813,6 +7817,8 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySetMapping Name="Notifications">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Notification">
               <MappingFragment StoreEntitySet="Notification">
+                <ScalarProperty Name="NotePharmacy" ColumnName="NotePharmacy" />
+                <ScalarProperty Name="NoteAdmin" ColumnName="NoteAdmin" />
                 <ScalarProperty Name="TypeNmae" ColumnName="TypeNmae" />
                 <ScalarProperty Name="RoshitaId" ColumnName="RoshitaId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -8141,13 +8147,6 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
                 <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
                 <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Swaps">
-            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Swap">
-              <MappingFragment StoreEntitySet="Swap">
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -9645,6 +9644,13 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
                 <ScalarProperty Name="C_COMP_ID" ColumnName="C_COMP_ID" />
                 <ScalarProperty Name="PROVIDER_CODE" ColumnName="PROVIDER_CODE" />
                 <ScalarProperty Name="CARD_NO" ColumnName="CARD_NO" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Swaps">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Swap">
+              <MappingFragment StoreEntitySet="Swap">
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

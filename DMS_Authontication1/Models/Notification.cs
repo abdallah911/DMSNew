@@ -27,6 +27,8 @@ namespace DMS_Authontication1.Models
         public System.DateTime CreatedDate { get; set; }
         public Nullable<long> RoshitaId { get; set; }
         public string TypeNmae { get; set; }
+        public string NoteAdmin { get; set; }
+        public string NotePharmacy { get; set; }
     
         public virtual Roshita Roshita { get; set; }
     }
