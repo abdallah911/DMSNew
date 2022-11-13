@@ -362,6 +362,8 @@ namespace DMS_Authontication1.Controllers.HR
         }
 
 
+
+
         public JsonResult PreseptionList(int sEcho, int iDisplayStart, int iDisplayLength, int ClaimType, long? ApprovalNo,
             string sSearch = "", string CompanyNumber = "", string From = "", string To = "", string CardId = "", string Type = "")
         {
@@ -1059,6 +1061,59 @@ namespace DMS_Authontication1.Controllers.HR
             }
         }
 
+        //Print Hr Claim Xsl
+       /* window.open('/Reports/PrintXlxConsumption?From=' + $("#From").val() +
+            '&&To=' + $("#To").val() + '&&ApprovalNo=' + $("#PharmacyApprovalNo").val() +
+            '&&CardId=' + $("#PharmacyApprovalNo").val() + '&&TypePrint=' + $("#ddlType").val() +
+            '&&CompanyNumber=' + $("#CopmanyNumber").val());*/
+        public ActionResult PrintHrClaimXsl(string From, string To, string ApprovalNo, string CardId, 
+                                            string TypePrint, string CompanyNumber)
+        {
+            Int64 ClaimStart, ClaimEnd, CompNumber;
+            DateTime dat1, dat2;
+
+            ClaimStart = ApprovalNo == string.Empty ? 0 : Convert.ToInt64(ApprovalNo);
+            ClaimEnd = ApprovalNo == string.Empty ? 999999999999999999 : Convert.ToInt64(ApprovalNo);
+            CompNumber = Convert.ToInt64(CompanyNumber);
+
+            dat1 = From == string.Empty ? new DateTime(2018, 1, 1) : (Convert.ToDateTime(From)).Date;
+            dat2 = To == string.Empty ? DateTime.Now.Date : (Convert.ToDateTime(To)).Date;
+            
+            ReportDocument rd = new ReportDocument();
+            
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "HrClaimsReport.rpt"));
+
+
+            //  rd.SetDatabaseLogon("APP", "12369");
+
+            rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+
+            rd.SetParameterValue("@from", dat1);
+            rd.SetParameterValue("@to", dat2);            
+            rd.SetParameterValue("@ClaimStart", ClaimStart);
+            rd.SetParameterValue("@ClaimEnd", ClaimEnd);
+            rd.SetParameterValue("@typ", TypePrint);
+            rd.SetParameterValue("@CardId", CardId);
+            rd.SetParameterValue("@cmp", CompanyNumber);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/xls", "AllClaims" + DateTime.Now.ToString("ddMMyyyy") + ".xls");
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         /// <summary>
         /// For Print MedicalServices Report as EXCEL
@@ -1080,7 +1135,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             ClaimStart = Claimfrom == string.Empty ? 0 : Convert.ToInt64(Claimfrom);
             ClaimEnd = Claimto == string.Empty ? 999999999999999999 : Convert.ToInt64(Claimto);
-            CompNumber = Convert.ToInt64(CompNum);
+            //CompNumber = Convert.ToInt64(CompNum);
 
             ServNum1 = ServNum == string.Empty ? 0 : Convert.ToInt64(ServNum);
             ServNum2 = ServNum == string.Empty ? 9999999999999 : Convert.ToInt64(ServNum);
@@ -1112,7 +1167,7 @@ namespace DMS_Authontication1.Controllers.HR
             rd.SetParameterValue("crda2", RegDateTo);
             rd.SetParameterValue("clno1", ClaimStart);
             rd.SetParameterValue("clno2", ClaimEnd);
-            rd.SetParameterValue("comp", CompNumber);
+            rd.SetParameterValue("comp", CompNum);
             rd.SetParameterValue("prv1", ServNum1);
             rd.SetParameterValue("prv2", ServNum2);
 
