@@ -46,6 +46,48 @@ $(function () {
         });
     }
 
+    //if (id.split('-')[0] == "10000") {
+    //    //Verfication code
+    //    bootbox.prompt({
+    //        title: "Please Enter your verification code :",
+    //        centerVertical: true,
+    //        closeButton: false,
+    //        inputType: 'password',
+    //        callback: function (result) {
+    //            if (result === null) {
+    //                window.location = '/Pharmacy/Pharmacy';
+    //                return true;
+    //            }
+    //            $.ajax({
+    //                type: "POST",
+    //                dataType: "json",
+    //                url: '/Shared/VerificationCode',
+    //                data: {
+    //                    CardId: id,
+    //                    VerificationCode: result
+    //                },
+    //                success: function (r) {
+    //                    if (r.Validation == false) {
+    //                        alert(r.Message + " ,you can call technical support at 01099887396 | 01021975433 | 01021974375");
+    //                        location.reload();
+    //                    } else {
+    //                        toastr.success(r.Message);
+    //                        return true
+    //                    }
+    //                },
+    //                error: function (err) {
+    //                    alert("VerificationCode,please check your internet connection");
+    //                    location.reload();
+    //                }
+    //            })
+
+    //        }
+    //    });
+    //}
+    ////Get Ceiling and Limit
+
+
+
     //Get Ceiling and Limit
     GetLimit();
     $('#HasApproval').change(function () {
