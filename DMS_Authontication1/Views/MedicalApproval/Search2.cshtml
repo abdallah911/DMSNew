@@ -35,7 +35,7 @@
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
-<input type="text" id="compname" value="@ViewBag.CompName" hidden="hidden" />
+<input type="text" id="compname" value="@ViewBag.CompId" hidden="hidden" />
 <br />
 
 <div style="margin-top:40px">
@@ -93,7 +93,7 @@
                                         else
                                         {
                                     <div class="col-md-6" hidden>
-                                        <input id="CopmanyNumber" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+                                        <input id="CopmanyNumber" type="number" class="col-md-2 form-control " value="@ViewBag.CompId" min="0" readonly="readonly" />
                                         @*@ViewBag.CompId*@
                                     </div>
 
@@ -286,13 +286,13 @@
         $('#RegistrationTo').datepicker({});
         $('#AproveList').DataTable();
 
-        //$("#CompanyId").change(function () {// class levels
-        //    var compNu = $("#CompanyId").val();
+        //$("#CopmanyNumber").change(function () {// class levels
+        //    var compNu = $("#CopmanyNumber").val();
         //    $("#compname").val(compNu);
         //});
 
-        //$("#CompanyId").map(function () {// class levels
-        //    var compNu = $("#CompanyId").val();
+        //$("#CopmanyNumber").map(function () {// class levels
+        //    var compNu = $("#CopmanyNumber").val();
         //    $("#compname").val(compNu);
         //});
     });

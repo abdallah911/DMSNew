@@ -81,7 +81,7 @@ namespace DMS_Authontication1.Controllers.HR
             var compcode = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
             var cComp = int.Parse(compcode);
             var CurrentDate = DateTime.Now.Date;
-            ViewBag.CompId = CompId;
+            ViewBag.CompId = CompId != null? CompId: cComp.ToString();
             List<ApprovalComp> approval = new List<ApprovalComp>();
             try
             {
