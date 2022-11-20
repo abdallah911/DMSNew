@@ -31,11 +31,13 @@
         }
     }
 }
+@*<h2>Index</h2>*@
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
-<input type="text" id="compname" value="@ViewBag.CompName" hidden="hidden" />
+<input type="text" id="compname" value="@ViewBag.CompId" hidden="hidden" />
 <br />
+
 <div style="margin-top:40px">
     <p>
         @if (fullcontroll || view)
@@ -49,8 +51,100 @@
         }
     </p>
 </div>
+
 @if (fullcontroll || view)
 {
+    <div class="portlet box  green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i>Approval Search
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row ">
+                <div class="col-md-12">
+                    <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+                        <!-- BEGIN PAGE HEADER-->
+                        <!-- BEGIN THEME PANEL -->
+
+                        <div class="form-wizard">
+                            <div class="form-body">
+                                <div class="tab-content">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                                    <div class="row">
+
+                                    </div>
+
+                                    <div class="row" style="padding-bottom: 15px;">
+                                        @if (User.IsInRole("HR_Admin"))
+                                        {
+                                            <div class="col-md-2">
+                                                @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CopmanyNumber" })
+
+                                            </div>
+                                            <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                            <script>
+                                                $(document).ready(function () {
+                                                    $('#CopmanyNumber').select2();
+                                                });
+                                            </script>
+                                        }
+                                        else
+                                        {
+                                    <div class="col-md-6" hidden>
+                                        <input id="CopmanyNumber" type="number" class="col-md-2 form-control " value="@ViewBag.CompId" min="0" readonly="readonly" />
+                                        @*@ViewBag.CompId*@
+                                    </div>
+
+                                            
+                                        }
+                                    </div>
+                                    <div class="row" style="padding-bottom: 15px;">
+                                        <div class="col-md-2">
+                                            <input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="Registration From" />
+                                            @*<input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="From" />*@
+
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="Registration To" />
+                                            @*<input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="To" />*@
+
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <input id="txtSearchCard" type="text" class="col-md-2 form-control " placeholder="Card ID" />
+                                            @*<input class="form-control col-md-6" id="txtSearchCard" type="text" placeholder="search  card ..." />*@
+
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            @*<input class="form-control col-md-6" id="txtSearchCode" type="text" placeholder="search  code..." />*@
+
+                                            <input id="txtSearchCode" type="text" class="col-md-2 form-control " placeholder="Code" />
+                                        </div>
+                                      
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div style=" text-align:right">
+                <button id="new" type="button" class="btn btn-secondary-outline" onclick="ResetSearch()"><span class="fa fa-refresh"></span> Reset</button>
+                @* <button id="Search" type="button" class="btn btn-success" onclick="SearchProvider()"><span class="glyphicon glyphicon-search"></span> Search</button>*@
+                <input id="Print" type="button" value="Print" class="btn btn-primary fa fa-file-pdf-o" onclick="PrintApprovalXsl()" />
+
+                @*<input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
+                    <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />*@
+
+            </div>
+        </div>
+    </div>
+
+
     <div class="portlet box  green">
         <div class="portlet-title">
             <div class="caption">
@@ -96,10 +190,10 @@
                                             </script>
                                         }
                                         @*<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                                            <script>
-                                                $('#AproveList').dataTable().fnClearTable();
-                                                $('#AproveList').dataTable().fnDestroy();
-                                            </script>*@
+        <script>
+            $('#AproveList').dataTable().fnClearTable();
+            $('#AproveList').dataTable().fnDestroy();
+        </script>*@
                                         <table class="table" id="AproveList">
                                             <thead>
                                                 <tr>
@@ -180,12 +274,27 @@
         </div>
 
     </div>
+
+
 }
 
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
 <script>
     $(document).ready(function () {
+        $('#RegistrationFrom').datepicker({});
+        $('#RegistrationTo').datepicker({});
         $('#AproveList').DataTable();
+
+        //$("#CopmanyNumber").change(function () {// class levels
+        //    var compNu = $("#CopmanyNumber").val();
+        //    $("#compname").val(compNu);
+        //});
+
+        //$("#CopmanyNumber").map(function () {// class levels
+        //    var compNu = $("#CopmanyNumber").val();
+        //    $("#compname").val(compNu);
+        //});
     });
     $(function () {
         $("#CompanyId").change(function () {//address
@@ -196,5 +305,21 @@
         var x = String(AppCode);
         //  window.location.reload();
         window.open('/Hospital/Print?ApprovalCode=' + AppCode);
+    }
+
+    function ResetSearch() {
+
+        $("#RegistrationFrom").val("");
+        $('#RegistrationTo').val("");
+        $('#txtSearchCard').val("");
+        $('#txtSearchCode').val("");
+
+    }
+    //Print Approval xls
+    function PrintApprovalXsl() {
+
+        window.open('/MedicalApproval/PrintApprovalXsl/?DateFrom=' + $("#RegistrationFrom").val() +
+            '&&DateTo=' + $("#RegistrationTo").val() + '&&ApprovalCode=' + $("#txtSearchCode").val() +
+            '&&CardId=' + $("#txtSearchCard").val() + '&&CopmanyNumber=' + $("#CopmanyNumber").val());
     }
 </script>

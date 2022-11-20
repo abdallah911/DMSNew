@@ -14,6 +14,8 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
+using CrystalDecisions.CrystalReports.Engine;
+
 
 namespace DMS_Authontication1.Controllers.HR
 {
@@ -79,7 +81,7 @@ namespace DMS_Authontication1.Controllers.HR
             var compcode = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
             var cComp = int.Parse(compcode);
             var CurrentDate = DateTime.Now.Date;
-            ViewBag.CompId = CompId;
+            ViewBag.CompId = CompId != null? CompId: cComp.ToString();
             List<ApprovalComp> approval = new List<ApprovalComp>();
             try
             {
@@ -933,6 +935,61 @@ namespace DMS_Authontication1.Controllers.HR
             }
         }
         #endregion
+
+        //Print Approval
+        public ActionResult PrintApprovalXsl(string DateFrom, string DateTo, string ApprovalCode, string CardId, string CopmanyNumber)
+        {
+            Int64 ApprovalStart, ApprovalEnd, Comp1, Comp2;
+            DateTime dat1, dat2;
+            String Card1, Card2;
+            ApprovalStart = ApprovalCode == string.Empty ? 0 : Convert.ToInt64(ApprovalCode);
+            ApprovalEnd = ApprovalCode == string.Empty ? 999999999999999999 : Convert.ToInt64(ApprovalCode);
+
+            Comp1 = CopmanyNumber == string.Empty ? 0 : Convert.ToInt64(CopmanyNumber);
+            Comp2 = CopmanyNumber == string.Empty ? 99999999999999999 : Convert.ToInt64(CopmanyNumber);
+
+            Card1 = CardId == string.Empty ? " " : CardId;
+            Card2 = CardId == string.Empty ? "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" : CardId;
+            //CompNumber = Convert.ToInt64(CompanyNumber);
+
+            dat1 = DateFrom == string.Empty ? new DateTime(2018, 1, 1) : (Convert.ToDateTime(DateFrom)).Date;
+            dat2 = DateTo == string.Empty ? DateTime.Now.Date : (Convert.ToDateTime(DateTo)).Date;
+
+            ReportDocument rd = new ReportDocument();
+
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ApprovalHr.rpt"));
+
+
+            rd.SetDatabaseLogon("APP", "12369");
+            
+            rd.SetParameterValue("dat1", dat1);
+            rd.SetParameterValue("dat2", dat2);
+            rd.SetParameterValue("comp1", Comp1);
+            rd.SetParameterValue("comp2", Comp2);
+            rd.SetParameterValue("crd1", Card1);
+            rd.SetParameterValue("crd2", Card2);
+            rd.SetParameterValue("cod1", ApprovalStart);
+            rd.SetParameterValue("cod2", ApprovalEnd);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/xls", "AllApprovals" + DateTime.Now.ToString("ddMMyyyy") + ".xls");
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
     }
 }

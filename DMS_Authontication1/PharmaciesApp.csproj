@@ -298,6 +298,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CustomerService\CustomerServiceController.cs" />
     <Compile Include="Controllers\AfterSales\AfterSalesController.cs" />
     <Compile Include="Controllers\ChronicController.cs" />
     <Compile Include="Controllers\ControlPanal\CompanyGroupController.cs" />
@@ -1182,6 +1183,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AcceptionViewModel.cs" />
     <Compile Include="ViewModel\AdminChangeUserPasswordNM.cs" />
+    <Compile Include="ViewModel\CustomerService\CustomerServiceViewModel.cs" />
     <Compile Include="ViewModel\AfterSale\AfterSaleViewModel.cs" />
     <Compile Include="ViewModel\EmployeeVM\DeliveryRequestVm.cs" />
     <Compile Include="ViewModel\EmployeeVM\ConfirmRegisterEmployeeVM.cs" />
@@ -8345,6 +8347,12 @@
     <Content Include="Views\Reports\HrClaims.cshtml" />
     <Content Include="Reports\HR\IndemnityCheck.rpt" />
     <Content Include="Reports\HR\IndemnityCheckInternalCode.rpt" />
+    <Content Include="Views\CustomerService\Create.cshtml" />
+    <Content Include="Views\CustomerService\Delete.cshtml" />
+    <Content Include="Views\CustomerService\Details.cshtml" />
+    <Content Include="Views\CustomerService\Edit.cshtml" />
+    <Content Include="Views\CustomerService\Index.cshtml" />
+    <Content Include="Views\CustomerService\Map.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
