@@ -244,6 +244,161 @@ namespace DMS_Authontication1.Data_Function
                 }
             }
         }
+        public DataTable getClaim(string crd, DateTime dat1, DateTime dat2, string ncrd)
+        {
+            OracleConnection con = new OracleConnection(connectionStr);
+            OracleCommand cmd = new OracleCommand();
+            OracleDataAdapter da;
+            DataTable dd = new DataTable();
+            try
+            {
+
+                cmd = new OracleCommand(@"          SELECT CLAIM_NO1, TO_CHAR(CLAIM_DATE,'DD-MM-YYYY') CLAIM_DATE, TO_NUMBER(BATCH_NO) BATCH_NO, ' ' GROUP_NO, CLAIM_AMOUNT GROSS, CLAIM_NET AMOUNT, ' ' NOTES, 1 F, TO_DATE(CLAIM_DATE,'DD-MM-YYYY') CLAIM_DATE1
+                                                    FROM IRS_CLAIM_REC_H WHERE (card_no = :crd OR card_no = :ncrd) AND claim_date BETWEEN :dat1 AND :dat2 AND PRV_NO != 99999
+                                                    union all
+                                                    select D_ID, TO_CHAR(CLAIM_DATE,'DD-MM-YYYY') CLAIM_DATE, BATSH_NO, GROUP_NO, GROSS_AMOUNT GROSS, CLAIM_AMOUNT AMOUNT, NOTES, 2 F, TO_DATE(CLAIM_DATE,'DD-MM-YYYY') CLAIM_DATE1
+                                                    FROM ONLINE_CONS_01 WHERE (card_no = :crd OR card_no = :ncrd) AND claim_date BETWEEN :dat1 AND :dat2 AND GROUP_NO != 121
+                                                    ORDER BY CLAIM_DATE1 DESC", con);
+
+
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(":dat1", OracleType.DateTime).Value = dat1;
+                cmd.Parameters.Add(":dat2", OracleType.DateTime).Value = dat2;
+                cmd.Parameters.Add(":crd", OracleType.VarChar).Value = crd;
+                cmd.Parameters.Add(":ncrd", OracleType.VarChar).Value = ncrd;
+
+                da = new OracleDataAdapter(cmd);
+
+                da.Fill(dd);
+                con.Dispose();
+                con.Close();
+
+                OracleConnection.ClearAllPools();
+
+                return dd;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);                
+                return dd;
+            }
+
+            finally
+            {
+                if (con.State != ConnectionState.Closed)
+                {
+                    con.Dispose();
+                    con.Close();
+
+                    OracleConnection.ClearAllPools();
+                }
+            }
+        }
+        public DataTable getIndemnity(string crd, DateTime dat1, DateTime dat2, string ncrd)
+        {
+            OracleConnection con = new OracleConnection(connectionStr);
+            OracleCommand cmd = new OracleCommand();
+            OracleDataAdapter da;
+            DataTable dd = new DataTable();
+            try
+            {
+
+                cmd = new OracleCommand(@"       SELECT CLAIM_NO1, TO_CHAR(CLAIM_DATE,'DD-MM-YYYY') CLAIM_DATE, CLAIM_AMOUNT, CLAIM_NET, TO_DATE(CLAIM_DATE,'DD-MM-YYYY') CLAIM_DATE1 
+                                                 FROM IRS_CLAIM_REC_H 
+                                                 WHERE PRV_NO = 99999 AND (card_no = :crd OR card_no = :ncrd) AND TO_DATE(CLAIM_DATE) BETWEEN :dat1 AND :dat2 
+                                                 UNION ALL
+                                                 SELECT D_ID, TO_CHAR(CLAIM_DATE,'DD-MM-YYYY') CLAIM_DATE, CLAIM_PAID, CLAIM_AMOUNT , TO_DATE(CLAIM_DATE,'DD-MM-YYYY') CLAIM_DATE1
+                                                 FROM ONLINE_CONS_01
+                                                 WHERE SERV_CODE = 12101 AND (card_no = :crd OR card_no = :ncrd) AND TO_DATE(CLAIM_DATE) BETWEEN :dat1 AND :dat2 ORDER BY CLAIM_DATE1 DESC", con);
+
+
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(":dat1", OracleType.DateTime).Value = dat1;
+                cmd.Parameters.Add(":dat2", OracleType.DateTime).Value = dat2;
+                cmd.Parameters.Add(":crd", OracleType.VarChar).Value = crd;
+                cmd.Parameters.Add(":ncrd", OracleType.VarChar).Value = ncrd;
+
+                da = new OracleDataAdapter(cmd);
+
+                da.Fill(dd);
+                con.Dispose();
+                con.Close();
+
+                OracleConnection.ClearAllPools();
+
+                return dd;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);                
+                return dd;
+            }
+
+            finally
+            {
+                if (con.State != ConnectionState.Closed)
+                {
+                    con.Dispose();
+                    con.Close();
+
+                    OracleConnection.ClearAllPools();
+                }
+            }
+        }
+        public DataTable getLive(string crd, DateTime dat1, DateTime dat2, string ncrd)
+        {
+            OracleConnection con = new OracleConnection(connectionStr);
+            OracleCommand cmd = new OracleCommand();
+            OracleDataAdapter da;
+            DataTable dd = new DataTable();
+            try
+            {
+
+                cmd = new OracleCommand(@"       SELECT D_ID Claim, TO_CHAR(D_DATE,'DD-MM-YYYY') D_DATE, PR_NAME Provid, PR_BRANCH_NAME Branch, decode(SERV_NAME, 'YES', 'Daily', 'MON', 'Chronic', 'MON_PH', 'Monthly') kind,  
+                                                        D_VD Total, CARRY Co_Pay, OVER_INSURANCE  OVER, VALUE_CASH Cash, VALUE_CREDIT CREDIT 
+                                                 FROM APP.DMS 
+                                                 WHERE (card_id = :crd or card_id = :ncrd) AND TO_DATE(D_DATE) BETWEEN :dat1 AND :dat2 ORDER BY TO_DATE(D_DATE,'DD-MM-YYYY') DESC", con);
+
+
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(":dat1", OracleType.DateTime).Value = dat1;
+                cmd.Parameters.Add(":dat2", OracleType.DateTime).Value = dat2;
+                cmd.Parameters.Add(":crd", OracleType.VarChar).Value = crd;
+                cmd.Parameters.Add(":ncrd", OracleType.VarChar).Value = ncrd;
+
+                da = new OracleDataAdapter(cmd);
+
+                da.Fill(dd);
+                con.Dispose();
+                con.Close();
+
+                OracleConnection.ClearAllPools();
+
+                return dd;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);                
+                return dd;
+            }
+
+            finally
+            {
+                if (con.State != ConnectionState.Closed)
+                {
+                    con.Dispose();
+                    con.Close();
+
+                    OracleConnection.ClearAllPools();
+                }
+            }
+        }
 
 
     }

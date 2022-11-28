@@ -347,6 +347,7 @@
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\SyncController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Data Function\DBData.cs" />
     <Compile Include="Data Function\DBApproval.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1180,6 +1181,12 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AcceptionViewModel.cs" />
     <Compile Include="ViewModel\AdminChangeUserPasswordNM.cs" />
+    <Compile Include="ViewModel\CustomerService\CustomerServicePhoneViewModel.cs" />
+    <Compile Include="ViewModel\CustomerService\ApprovalCustomerServiceViewModel.cs" />
+    <Compile Include="ViewModel\CustomerService\ClaimCustomerServiceViewModel.cs" />
+    <Compile Include="ViewModel\CustomerService\IndemnityCustomerServiceViewModel.cs" />
+    <Compile Include="ViewModel\CustomerService\LiveCustomerServiceViewModel.cs" />
+    <Compile Include="ViewModel\CustomerService\MonthlyCustomerServiceViewModel.cs" />
     <Compile Include="ViewModel\CustomerService\CustomerServiceViewModel.cs" />
     <Compile Include="ViewModel\AfterSale\AfterSaleViewModel.cs" />
     <Compile Include="ViewModel\EmployeeVM\DeliveryRequestVm.cs" />
@@ -7478,6 +7485,11 @@
     <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap-datetimepicker.min.js" />
     <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap.js" />
     <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap.min.js" />
+    <Content Include="Scripts\DMS\CustomerService\CustomerService.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\DMS\CustomerService\Create.js" />
+    <Content Include="Scripts\DMS\CustomerService\Edit.js" />
     <Content Include="Scripts\DMS\AfterSale\AfterSale.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -8350,6 +8362,9 @@
     <Content Include="Views\CustomerService\Edit.cshtml" />
     <Content Include="Views\CustomerService\Index.cshtml" />
     <Content Include="Views\CustomerService\Map.cshtml" />
+    <Content Include="Reports\HR\HrClaimsReport.rpt" />
+    <Content Include="Reports\HR\ApprovalHr.rpt" />
+    <Content Include="Reports\ReportPrintHorizontal6.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

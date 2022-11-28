@@ -33,9 +33,9 @@ function getConsumption() {
             url: '/CustomerService/getConsumption',
             data: { CardId: $('#CardID').val(), dat1: $('#StartDate').val(), dat2: $('#EndDate').val(), oldcardd: $('#OldCard').val(), maxamt: $('#MaxAmount').val() },
             success: function (cardDetails) {
+                $("#wait").css("display", "none");
                 if (cardDetails.length > 0) {
                     //debugger;
-                    $("#wait").css("display", "none");
                     $('#MedicationClaims').val(cardDetails[0].MedicationClaims);
                     $('#MedicationClaimsUnderReview').val(cardDetails[0].MedicationClaimsUnderReview);
                     $('#OtherConsumption').val(cardDetails[0].OtherConsumption);
@@ -116,9 +116,167 @@ function getApprovalData(flg) {
                             "</tr>";
                         setData2.append(data);
                     }
-                    $("#ApprovalsDetails").DataTable();
-                    
+                    $("#wait").css("display", "none");
+                    $("#ApprovalsDetails").DataTable();                    
                 }
+                $("#wait").css("display", "none");
+            }
+        });
+    }
+}
+function getClaimData(flg) {
+    debugger;
+    if ($('#CardID').val() != "") {
+        $("#wait").css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: '/CustomerService/getClaimData',
+            data: { CardId: $('#CardID').val(), dat1: $('#StartDate').val(), dat2: $('#EndDate').val(), oldcardd: $('#OldCard').val(), flg: flg },
+            success: function (apprs) {
+                debugger;
+                //approval, cout, totl
+
+                if (apprs.clm.length > 0) {
+                    var setData2 = $("#ClaimsDetails Tbody");
+                    setData2.empty();
+                    $("#CountClaims").val(apprs.cout);
+                    $("#TotalGrossClaims").val(apprs.totlgros);
+                    $("#TotalNetClaims").val(apprs.totlnet);
+                    for (var i = 0; i < apprs.clm.length; i++) {
+                        var data = "<tr >" +
+
+                            "<td>" + apprs.clm[i].ClaimNo + "</td>" +
+                            "<td>" + apprs.clm[i].ClaimDate + "</td>" +
+                            "<td>" + apprs.clm[i].BatchNo + "</td>" +
+                            "<td>" + apprs.clm[i].GroupNo + "</td>" +
+                            "<td>" + apprs.clm[i].Gross + "</td>" +
+                            "<td>" + apprs.clm[i].Amount + "</td>" +
+                            "<td>" + apprs.clm[i].Notes + "</td>" +
+                            "<td>" + apprs.clm[i].F + "</td>" +
+                            "<td >" + "<Button  class='btn btn-Primary ' onclick='Printclm(\"" + apprs.clm[i].clmNo + "\");'>Details</Button>" + "</td>" +
+                            "</tr>";
+                        setData2.append(data);
+                    }
+                    $("#wait").css("display", "none");
+                    $("#ClaimsDetails").DataTable();
+                }
+                $("#wait").css("display", "none");
+            }
+        });
+    }
+}
+function getIndemnityData(flg) {
+    debugger;
+    if ($('#CardID').val() != "") {
+        $("#wait").css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: '/CustomerService/getIndemnityData',
+            data: { CardId: $('#CardID').val(), dat1: $('#StartDate').val(), dat2: $('#EndDate').val(), oldcardd: $('#OldCard').val(), flg: flg },
+            success: function (apprs) {
+                //debugger;
+                //approval, cout, totl
+
+                if (apprs.clm.length > 0) {
+                    var setData2 = $("#IndemnityDetails Tbody");
+                    setData2.empty();
+                    $("#CountIndemnity").val(apprs.cout);
+                    $("#TotalGrossIndemnity").val(apprs.totlgros);
+                    $("#TotalNetIndemnity").val(apprs.totlnet);
+                    for (var i = 0; i < apprs.clm.length; i++) {
+                        var data = "<tr >" +
+
+                            "<td>" + apprs.clm[i].ClaimNo + "</td>" +
+                            "<td>" + apprs.clm[i].ClaimDate + "</td>" +
+                            "<td>" + apprs.clm[i].Gross + "</td>" +
+                            "<td>" + apprs.clm[i].Net + "</td>" +
+                            "<td >" + "<Button  class='btn btn-Primary ' onclick='Printclm(\"" + apprs.clm[i].clmNo + "\");'>Details</Button>" + "</td>" +
+                            "</tr>";
+                        setData2.append(data);
+                    }                   
+                    $("#wait").css("display", "none");
+                    $("#IndemnityDetails").DataTable();
+                }
+                $("#wait").css("display", "none");
+            }
+        });
+    }
+}
+function getMonthlyData(flg) {
+    debugger;
+    if ($('#CardID').val() != "") {
+        $("#wait").css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: '/CustomerService/getMonthlyData',
+            data: { CardId: $('#CardID').val(), dat1: $('#StartDate').val(), dat2: $('#EndDate').val(), oldcardd: $('#OldCard').val(), flg: flg },
+            success: function (apprs) {
+                //debugger;
+                //approval, cout, totl
+
+                if (apprs.clm.length > 0) {
+                    var setData2 = $("#MonthlyDetails Tbody");
+                    setData2.empty();
+                    $("#CountMonthly").val(apprs.cout);                    
+                    for (var i = 0; i < apprs.clm.length; i++) {
+                        var data = "<tr >" +
+
+                            "<td>" + apprs.clm[i].CreatedDate + "</td>" +
+                            "<td>" + apprs.clm[i].ProviderCode + "</td>" +
+                            "<td>" + apprs.clm[i].UserN + "</td>" +
+                            "<td>" + apprs.clm[i].GroupName + "</td>" +
+                            "<td >" + "<Button  class='btn btn-Primary ' onclick='Printclm(\"" + apprs.clm[i].clmNo + "\");'>Details</Button>" + "</td>" +
+                            "</tr>";
+                        setData2.append(data);
+                    }
+                    $("#wait").css("display", "none");
+                    $("#MonthlyDetails").DataTable();
+                }
+                $("#wait").css("display", "none");
+            }
+        });
+    }
+}
+function getLiveData(flg) {
+    debugger;
+    if ($('#CardID').val() != "") {
+        $("#wait").css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: '/CustomerService/getLiveData',
+            data: { CardId: $('#CardID').val(), dat1: $('#StartDate').val(), dat2: $('#EndDate').val(), oldcardd: $('#OldCard').val(), flg: flg },
+            success: function (apprs) {
+                //debugger;
+                //approval, cout, totl
+
+                if (apprs.clm.length > 0) {
+                    var setData2 = $("#LiveDetails Tbody");
+                    setData2.empty();
+                    $("#CountLive").val(apprs.cout);
+                    $("#TotalLive").val(apprs.totliv);
+                    $("#TotalCredit").val(apprs.totlcrdit);
+                    for (var i = 0; i < apprs.clm.length; i++) {
+                        var data = "<tr >" +
+
+                            "<td>" + apprs.clm[i].ClaimNo + "</td>" +
+                            "<td>" + apprs.clm[i].ClaimDate + "</td>" +
+                            "<td>" + apprs.clm[i].ProviderId + "</td>" +
+                            "<td>" + apprs.clm[i].Branch + "</td>" +
+                            "<td>" + apprs.clm[i].Kind + "</td>" +
+                            "<td>" + apprs.clm[i].Total + "</td>" +
+                            "<td>" + apprs.clm[i].Copay + "</td>" +
+                            "<td>" + apprs.clm[i].Over + "</td>" +
+                            "<td>" + apprs.clm[i].Cash + "</td>" +
+                            "<td>" + apprs.clm[i].Credit + "</td>" +                           
+
+                            "<td >" + "<Button  class='btn btn-Primary ' onclick='Printclm(\"" + apprs.clm[i].clmNo + "\");'>Details</Button>" + "</td>" +
+                            "</tr>";
+                        setData2.append(data);
+                    }
+                    $("#wait").css("display", "none");
+                    $("#LiveDetails").DataTable();
+                }
+                $("#wait").css("display", "none");
             }
         });
     }
@@ -129,6 +287,10 @@ function PrintApproval(AppCode) {
     var x = String(AppCode);
     //  window.location.reload();
     window.open('/CustomerService/PrintApproval?ApprovalCode=' + AppCode);
+}
+function PrintCardDesgin(Card) {
+    debugger;   
+    window.open('/CustomerService/PrintCardDesign?CardId=' + Card);
 }
 function ShowApprovalConsmptionDetails() {
     debugger;
@@ -152,6 +314,7 @@ function ShowClaimsConsmptionDetails() {
     $('#LiveScreen').hide();
 
     $('#ClaimsScreen').show();
+    getClaimData(1);
 }
 function ShowIndemnityConsmptionDetails() {
     $('#ApprovalsScreen').hide();
@@ -162,6 +325,7 @@ function ShowIndemnityConsmptionDetails() {
     $('#LiveScreen').hide();
 
     $('#IndemnityScreen').show();
+    getIndemnityData(1);
 }
 function ShowMonthlyConsmptionDetails() {
     $('#ApprovalsScreen').hide();
@@ -171,7 +335,8 @@ function ShowMonthlyConsmptionDetails() {
     $('#MonthlyScreen').hide();
     $('#LiveScreen').hide();
 
-    $('#IndemnityScreen').show();
+    $('#MonthlyScreen').show();
+    getMonthlyData(1);
 }
 function ShowLiveConsmptionDetails() {
     $('#ApprovalsScreen').hide();
@@ -182,6 +347,7 @@ function ShowLiveConsmptionDetails() {
     $('#LiveScreen').hide();
 
     $('#LiveScreen').show();
+    getLiveData(1);
 }
 
 function ShowMedicalNetworkScreen() {
@@ -207,7 +373,9 @@ function ShowCardDesignPrint() {
     $('#MonthlyScreen').hide();
     $('#LiveScreen').hide();
 
-
+    if ($('#CardID').val() != "") {
+        PrintCardDesgin($('#CardID').val());
+    }
 }
 
 function ClearAll() {    
@@ -227,8 +395,18 @@ function ClearAll() {
 function moreApprovalsDetailsEvent() {
     getApprovalData(2);
 }
-
-
+function moreClaimsDetailsEvent() {
+    getClaimData(2);
+}
+function moreIndemnityDetailsEvent() {
+    getIndemnityData(2);
+}
+function moreMonthlyDetailsEvent() {
+    getMonthlyData(2);
+}
+function moreLiveDetailsEvent() {
+    getLiveData(2);
+}
 
 $(document).ready(function () {
     $("#Help").click(function () {
@@ -385,6 +563,7 @@ function getDataByPhone(num) {
 }
 function getData(crd) {
     //debugger;
+    $("#wait").css("display", "block");
     $.ajax({
 
         type: "POST",

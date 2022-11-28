@@ -399,6 +399,190 @@ namespace DMS_Authontication1.Controllers.CustomerService
                 return new JsonResult { Data = new { approval, cout, totl }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
+
+        public JsonResult getClaimData(string CardId, string dat1, string dat2, string oldcardd, int flg)
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+            string oldcrd = oldcardd != string.Empty ? oldcardd : CardId;
+            DataTable dt = new DataTable();
+            
+            if (flg == 1)
+                dt = dbData2.getClaim(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd);
+            else
+                dt = dbData2.getClaim(CardId, Convert.ToDateTime("01-01-2012"), Convert.ToDateTime(dat2.ToString()), oldcrd);
+
+            string cout = "", totlnet = "", totlgros = "";
+
+            List<ClaimCustomerServiceViewModel> clm = new List<ClaimCustomerServiceViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {
+                cout = dt.Rows.Count.ToString();               
+                totlgros = dt.Compute("SUM(GROSS)", "").ToString();
+                totlnet = dt.Compute("SUM(AMOUNT)", "").ToString();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    clm.Add(new ClaimCustomerServiceViewModel
+                    {
+                        ClaimNo = row["CLAIM_NO1"].ToString(),
+                        ClaimDate = row["CLAIM_DATE"].ToString(),
+                        BatchNo = row["BATCH_NO"].ToString(),
+                        GroupNo = row["GROUP_NO"].ToString(),
+                        Gross = row["GROSS"].ToString(),
+                        Amount = row["AMOUNT"].ToString(),
+                        Notes = row["NOTES"].ToString(),
+                        F = row["F"].ToString()
+                    });
+                }
+                return new JsonResult { Data = new { clm, cout, totlgros, totlnet }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            else
+                return new JsonResult { Data = new { clm, cout, totlgros, totlnet }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+        public JsonResult getIndemnityData(string CardId, string dat1, string dat2, string oldcardd, int flg)
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+            string oldcrd = oldcardd != string.Empty ? oldcardd : CardId;
+            DataTable dt = new DataTable();
+
+            if (flg == 1)
+                dt = dbData2.getIndemnity(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd);
+            else
+                dt = dbData2.getIndemnity(CardId, Convert.ToDateTime("01-01-2012"), Convert.ToDateTime(dat2.ToString()), oldcrd);
+
+            string cout = "", totlnet = "", totlgros = "";
+
+            List<IndemnityCustomerServiceViewModel> clm = new List<IndemnityCustomerServiceViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {
+                cout = dt.Rows.Count.ToString();
+                totlgros = dt.Compute("SUM(CLAIM_AMOUNT)", "").ToString();
+                totlnet = dt.Compute("SUM(CLAIM_NET)", "").ToString();
+               
+                foreach (DataRow row in dt.Rows)
+                {
+                    clm.Add(new IndemnityCustomerServiceViewModel
+                    {
+                        ClaimNo = row ["CLAIM_NO1"].ToString(),
+                        ClaimDate = row ["CLAIM_DATE"].ToString(),
+                        Gross = row ["CLAIM_AMOUNT"].ToString(),
+                        Net = row["CLAIM_NET"].ToString()                        
+                    });
+                }
+                return new JsonResult { Data = new { clm, cout, totlgros, totlnet }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            else
+                return new JsonResult { Data = new { clm, cout, totlgros, totlnet }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+        public JsonResult getMonthlyData(string CardId, string dat1, string dat2, string oldcardd, int flg)
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+            string oldcrd = oldcardd != string.Empty ? oldcardd : CardId;
+            DataTable dt = new DataTable();
+
+            if(flg == 1)
+                dt = dbData.RunReader(@"SELECT * FROM(
+                                                                          select distinct V_MED_CARD_1.CARD_NO , TO_CHAR(V_MED_CARD_1.CREATED_DATE,'DD-MM-YYYY') CREATED_DATE, COMP_EMPLOYEESS.EMP_ENAME_ST , COMP_EMPLOYEESS.EMP_ENAME_SC,COMP_EMPLOYEESS.EMP_ENAME_TH, V_MED_CARD_1.PROVIDER_CODE,V_PROVIDERS.USER_N ,V_MED_CARD_1.GROUP_NAME 
+                                                                          from V_MED_CARD_1 ,COMP_EMPLOYEESS ,V_PROVIDERS 
+                                                                          where (V_MED_CARD_1.CARD_NO = '" + CardId + "' OR V_MED_CARD_1.CARD_NO = '" + oldcardd + "') and COMP_EMPLOYEESS.CONTRACT_NO = (select max (CONTRACT_NO) FROM COMP_EMPLOYEESS where COMP_EMPLOYEESS.CARD_ID = '" + CardId + "') " +
+                                                                        " and V_MED_CARD_1.PROVIDER_CODE=V_PROVIDERS.USER_CO and V_MED_CARD_1.CARD_NO=COMP_EMPLOYEESS.CARD_ID and V_PROVIDERS.USER_ID_ID= 1 ORDER BY TO_DATE(CREATED_DATE,'DD-MM-YYYY') DESC) WHERE rownum < 6");
+
+            else
+                dt = dbData.RunReader(@"select distinct V_MED_CARD_1.CARD_NO , TO_CHAR(V_MED_CARD_1.CREATED_DATE,'DD-MM-YYYY') CREATED_DATE, COMP_EMPLOYEESS.EMP_ENAME_ST , COMP_EMPLOYEESS.EMP_ENAME_SC,COMP_EMPLOYEESS.EMP_ENAME_TH, V_MED_CARD_1.PROVIDER_CODE,V_PROVIDERS.USER_N ,V_MED_CARD_1.GROUP_NAME 
+                                                                          from V_MED_CARD_1 ,COMP_EMPLOYEESS ,V_PROVIDERS 
+                                                                          where (V_MED_CARD_1.CARD_NO = '" + CardId + "' OR V_MED_CARD_1.CARD_NO = '" + oldcardd + "') and COMP_EMPLOYEESS.CONTRACT_NO = (select max (CONTRACT_NO) FROM COMP_EMPLOYEESS where COMP_EMPLOYEESS.CARD_ID = '" + CardId + "') " +
+                                                                           " and V_MED_CARD_1.PROVIDER_CODE=V_PROVIDERS.USER_CO and V_MED_CARD_1.CARD_NO=COMP_EMPLOYEESS.CARD_ID and V_PROVIDERS.USER_ID_ID= 1 ORDER BY TO_DATE(CREATED_DATE,'DD-MM-YYYY') DESC");
+
+            string cout = "";
+
+            List<MonthlyCustomerServiceViewModel> clm = new List<MonthlyCustomerServiceViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {
+                cout = dt.Rows.Count.ToString();             
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    clm.Add(new MonthlyCustomerServiceViewModel
+                    {
+                        CreatedDate = row["CREATED_DATE"].ToString(),
+                        ProviderCode = row["PROVIDER_CODE"].ToString(),
+                        UserN = row["USER_N"].ToString(),
+                        GroupName = row["GROUP_NAME"].ToString()
+                    });
+                }
+                return new JsonResult { Data = new { clm, cout }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            else
+                return new JsonResult { Data = new { clm, cout }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+        public JsonResult getLiveData(string CardId, string dat1, string dat2, string oldcardd, int flg)
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+            string oldcrd = oldcardd != string.Empty ? oldcardd : CardId;
+            DataTable dt = new DataTable();
+
+            if (flg == 1)
+                dt = dbData2.getLive(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd);
+            else
+                dt = dbData2.getLive(CardId, Convert.ToDateTime("01-01-2012"), Convert.ToDateTime(dat2.ToString()), oldcrd);
+
+            string cout = "", totliv = "", totlcrdit = "";
+
+            List<LiveCustomerServiceViewModel> clm = new List<LiveCustomerServiceViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {
+                cout = dt.Rows.Count.ToString();
+                totliv = dt.Compute("SUM(Total)", "").ToString();
+                totlcrdit = dt.Compute("SUM(CREDIT)", "").ToString();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    clm.Add(new LiveCustomerServiceViewModel
+                    {
+                        /*
+                        decode(SERV_NAME, 'YES', 'Daily', 'MON', 'Chronic', 'MON_PH', 'Monthly') ,  
+                                                        D_VD , CARRY , OVER_INSURANCE  , VALUE_CASH , VALUE_CREDIT  
+                         */
+
+                        ClaimNo = row["Claim"].ToString(),
+                        ClaimDate = row["D_DATE"].ToString(),
+                        ProviderId = row["Provid"].ToString(),
+                        Branch = row["Branch"].ToString(),
+                        Kind = row["kind"].ToString(),
+                        Total = row["Total"].ToString(),
+                        Copay = row["Co_Pay"].ToString(),
+                        Over = row["OVER"].ToString(),
+                        Cash = row["Cash"].ToString(),
+                        Credit = row["CREDIT"].ToString()
+                    });
+                }
+                return new JsonResult { Data = new { clm, cout, totliv, totlcrdit }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            else
+                return new JsonResult { Data = new { clm, cout, totliv, totlcrdit }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+
+
         /* public List<Comp_Employees> CardList(string CardId)
          {            
              var EmpCode = long.Parse(CardId.Split('-')[2]);
@@ -606,6 +790,109 @@ namespace DMS_Authontication1.Controllers.CustomerService
 
         }
 
+        public ActionResult PrintCardDesign(string CardId)
+        {
+            string cod2 = "", cod = "", rr = "1", srt = "1";
+           
+            DataTable dtshowcrd = new DataTable();
+            dtshowcrd = dbData.RunReader(@"SELECT CODE, CODE_DESIGN FROM PRINT_CARD_TOP WHERE CARD_ID = '" + CardId + "' ORDER BY CODE DESC");
+            if (dtshowcrd.Rows.Count > 0)
+            {
+                cod2 = dtshowcrd.Rows[0][0].ToString();
+                cod = dtshowcrd.Rows[0][1].ToString();
+
+            }
+
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReportPrintHorizontal6.rpt"));
+
+            rd.SetDatabaseLogon("APP", "12369");
+
+            rd.SetParameterValue("cod2", cod2);
+            rd.SetParameterValue("cod", cod);
+            rd.SetParameterValue("crd", CardId);
+            rd.SetParameterValue("rr", rr);
+            rd.SetParameterValue("srt", srt);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pdf", DateTime.Now.ToString("ddMMyyyy") + "CardDesign.pdf");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            #region Old Report
+            //DataTable dtApproval = dbAproval.RunReader("select MEDICAL_APPROVALS.* , SEALS.image_seal from MEDICAL_APPROVALS left outer join SEALS on (MEDICAL_APPROVALS.servece_typ = SEALS.provider AND MEDICAL_APPROVALS.replay = SEALS.answer AND MEDICAL_APPROVALS.created_by = SEALS.doctor_name) WHERE       MEDICAL_APPROVALS.CODE= '" + ApprovalCode + "' AND  MEDICAL_APPROVALS.CARD_NO = '" + dts.Rows[0][0].ToString() + "' ORDER BY MEDICAL_APPROVALS.CREATED_DATE DESC");
+            //string diaggg = dts.Rows[0][1].ToString();
+            //string services = dts.Rows[0][2].ToString();
+
+
+            //byte[] imageByteData;
+            //ViewBag.createBy = dts.Rows[0][3].ToString();
+            //List<ApprovalReport> approvalReports = new List<ApprovalReport>();
+            //if (dtApproval.Rows.Count > 0)
+            //{
+            //    foreach (DataRow row in dtApproval.Rows)
+            //    {
+            //        if (row["BIRTHDAY"].ToString() != "")
+            //            birthDate = Convert.ToDateTime(row["BIRTHDAY"].ToString());
+            //        if (row["START_DATE"].ToString() != "")
+            //            startDaaate = Convert.ToDateTime(row["START_DATE"].ToString());
+            //        if (row["END_DATE"].ToString() != "")
+            //            endDaate = Convert.ToDateTime(row["END_DATE"].ToString());
+            //        if (row["CREATED_DATE"].ToString() != "")
+            //            approvalDate = Convert.ToDateTime(row["CREATED_DATE"].ToString());
+            //        approvalReports.Add(new ApprovalReport
+            //        {
+            //            ApprovalCode = row["CODE"].ToString(),
+            //            PatientName = row["EMP_ANAME"].ToString(),
+            //            ApprovalType = row["SERVECE_TYP"].ToString(),
+            //            ApprovalDate = approvalDate.ToShortDateString(),
+            //            CardNo = row["CARD_NO"].ToString(),
+            //            CompanyName = row["COMP_NAME"].ToString(),
+            //            DateOfBirth = birthDate.ToShortDateString(),
+            //            StartDate = startDaaate.ToShortDateString(),
+            //            EndDate = endDaate.ToShortDateString(),
+            //            Email = row["EMAIL"].ToString(),
+            //            Diagnos = diaggg,
+            //            Service = services,
+            //            MedicalReplay = row["MEDICAL_REPLAY"].ToString(),
+            //            ReplayNotes = row["NOTS"].ToString()
+            //        });
+            //        ViewBag.img = null;
+            //        if (!DBNull.Value.Equals(row["APROVAL_IMAG"]))
+            //        {
+            //            imageByteData = (byte[])row["APROVAL_IMAG"];
+            //            ViewBag.img = imageByteData;
+            //        }
+            //        ViewBag.approvalImage = null;
+            //        ViewBag.logo = "/Content/images/logo.png";
+            //        if (!DBNull.Value.Equals(row["image_seal"]))
+            //        {
+            //            imageByteData = (byte[])row["image_seal"];
+            //            ViewBag.approvalImage = imageByteData;
+            //        }
+
+
+
+            //    }
+
+            //}
+            //return View("~/Views/User/ApprovalReport.cshtml", approvalReports);
+
+            #endregion
+
+        }
 
         /// <summary>
         /// </summary>
