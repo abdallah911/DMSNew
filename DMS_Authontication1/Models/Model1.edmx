@@ -1807,6 +1807,16 @@
           <Property Name="Last3YearsChangeNoSubscribersCurrent" Type="int" />
           <Property Name="PreviousControlMeasures" Type="int" />
         </EntityType>
+        <EntityType Name="ProviderBlock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar(max)" />
+          <Property Name="CompId" Type="int" />
+          <Property Name="ServiceCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="ProviderComplaint">
           <Key>
             <PropertyRef Name="Id" />
@@ -2349,7 +2359,7 @@
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Swap">
           <Key>
             <PropertyRef Name="Id" />
@@ -2530,6 +2540,18 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
             </Principal>
             <Dependent Role="EmployeeData">
               <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeesSMSCode_Comp_Employees">
+          <End Role="Comp_Employees" Type="Self.Comp_Employees" Multiplicity="1" />
+          <End Role="EmployeesSMSCode" Type="Self.EmployeesSMSCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comp_Employees">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeesSMSCode">
+              <PropertyRef Name="EmpId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3241,6 +3263,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="ProposalClassRelation" EntityType="Self.ProposalClassRelation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProposalComment" EntityType="Self.ProposalComment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProposalRenewalSummary" EntityType="Self.ProposalRenewalSummary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProviderBlock" EntityType="Self.ProviderBlock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProviderComplaint" EntityType="Self.ProviderComplaint" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProviderContractPhoto" EntityType="Self.ProviderContractPhoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProviderContracts" EntityType="Self.ProviderContracts" Schema="dbo" store:Type="Tables" />
@@ -3325,6 +3348,10 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <AssociationSet Name="FK_EmployeeData_Region" Association="Self.FK_EmployeeData_Region">
             <End Role="Region" EntitySet="Region" />
             <End Role="EmployeeData" EntitySet="EmployeeData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeesSMSCode_Comp_Employees" Association="Self.FK_EmployeesSMSCode_Comp_Employees">
+            <End Role="Comp_Employees" EntitySet="Comp_Employees" />
+            <End Role="EmployeesSMSCode" EntitySet="EmployeesSMSCode" />
           </AssociationSet>
           <AssociationSet Name="FK_ERPModulesPages_ERPModules" Association="Self.FK_ERPModulesPages_ERPModules">
             <End Role="ERPModules" EntitySet="ERPModules" />
@@ -3768,6 +3795,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EmployeesSMSCodes" Relationship="DB_A45413_DMSERPModel.FK_EmployeesSMSCode_Comp_Employees" FromRole="Comp_Employees" ToRole="EmployeesSMSCode" />
         </EntityType>
         <EntityType Name="Company_Cost_Center">
           <Key>
@@ -5052,6 +5080,11 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="UserCompanyPermissions" EntityType="DB_A45413_DMSERPModel.UserCompanyPermission" />
           <EntitySet Name="Med_Card" EntityType="DB_A45413_DMSERPModel.Med_Card" />
           <EntitySet Name="Swaps" EntityType="DB_A45413_DMSERPModel.Swap" />
+          <EntitySet Name="ProviderBlocks" EntityType="DB_A45413_DMSERPModel.ProviderBlock" />
+          <AssociationSet Name="FK_EmployeesSMSCode_Comp_Employees" Association="DB_A45413_DMSERPModel.FK_EmployeesSMSCode_Comp_Employees">
+            <End Role="Comp_Employees" EntitySet="Comp_Employees" />
+            <End Role="EmployeesSMSCode" EntitySet="EmployeesSMSCodes" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -5563,6 +5596,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="LastSentDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Comp_Employees" Relationship="DB_A45413_DMSERPModel.FK_EmployeesSMSCode_Comp_Employees" FromRole="EmployeesSMSCode" ToRole="Comp_Employees" />
         </EntityType>
         <EntityType Name="DosageForm">
           <Key>
@@ -6972,6 +7006,28 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" />
         </EntityType>
+        <EntityType Name="ProviderBlock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompId" Type="Int32" />
+          <Property Name="ServiceCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_EmployeesSMSCode_Comp_Employees">
+          <End Type="DB_A45413_DMSERPModel.Comp_Employees" Role="Comp_Employees" Multiplicity="1" />
+          <End Type="DB_A45413_DMSERPModel.EmployeesSMSCode" Role="EmployeesSMSCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comp_Employees">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeesSMSCode">
+              <PropertyRef Name="EmpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9651,6 +9707,17 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySetMapping Name="Swaps">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Swap">
               <MappingFragment StoreEntitySet="Swap">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProviderBlocks">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ProviderBlock">
+              <MappingFragment StoreEntitySet="ProviderBlock">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ServiceCode" ColumnName="ServiceCode" />
+                <ScalarProperty Name="CompId" ColumnName="CompId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

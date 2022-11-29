@@ -301,11 +301,10 @@
         $("#PharmacyddlType").val('').trigger("change");
         $('#Index').dataTable().fnDestroy();
     }
-    //function Print(button, manager) {
-    //    console.log(manager);
-    //    var id = $(button).data('id');
-    //    window.open('/Reports/ControlPenelReport?id=' + id);
-    //}
+    function Print(button) {
+        var id = $(button).data('id');
+        window.open('/Reports/ControlPenelReport?id=' + id);
+    }
 
     function PrintHrClaimsXsl() {
 

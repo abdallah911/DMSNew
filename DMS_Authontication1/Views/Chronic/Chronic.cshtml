@@ -26,24 +26,24 @@
 }
 @if (ViewBag.Message == "No Mediciens")
 {
-<script>
-    alert("No Medicine to despens");
-    //var url = new URL(window.location.href);
-    //var id = url.searchParams.get("id");
-    //// disable card
-    //$.ajax({
-    //    dataType: "json",
-    //    url: '/Pharmacy/DeleteDisableCard',
-    //    data: {
-    //        CardId: id,
-    //    },
-    //    success: function (r) {
-    //    },
-    //    error: function (r) { }
-    //});
+    <script>
+        alert("No Medicine to despens");
+        //var url = new URL(window.location.href);
+        //var id = url.searchParams.get("id");
+        //// disable card
+        //$.ajax({
+        //    dataType: "json",
+        //    url: '/Pharmacy/DeleteDisableCard',
+        //    data: {
+        //        CardId: id,
+        //    },
+        //    success: function (r) {
+        //    },
+        //    error: function (r) { }
+        //});
 
-    window.location.replace("/Pharmacy/Pharmacy");
-</script>
+        window.location.replace("/Pharmacy/Pharmacy");
+    </script>
 }
 @if (ViewBag.Message == "No Roshita")
 {
@@ -163,6 +163,15 @@
         //    },
         //    error: function (r) { }
         //});
+        window.location.replace("/Pharmacy/Pharmacy");
+    </script>
+}
+
+@if (ViewBag.Message == "Block")
+{
+    <script>
+        alert("برجاء تحديث البيانات و الاتصال على رقم (0226390390) الرقم الداخلي 110");
+       
         window.location.replace("/Pharmacy/Pharmacy");
     </script>
 }
@@ -443,4 +452,4 @@
 @*AJAX*@
 <script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
 
-<script src="~/scripts/DMS/Chronic.js?V=3.3"></script>
+<script src="~/scripts/DMS/Chronic.js?V=3.4"></script>

@@ -14,6 +14,12 @@ namespace DMS_Authontication1.Models
     
     public partial class Comp_Employees
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Comp_Employees()
+        {
+            this.EmployeesSMSCodes = new HashSet<EmployeesSMSCode>();
+        }
+    
         public int Id { get; set; }
         public string CARD_ID { get; set; }
         public Nullable<int> COMP_ID { get; set; }
@@ -85,5 +91,8 @@ namespace DMS_Authontication1.Models
         public Nullable<bool> IsSync { get; set; }
         public Nullable<System.DateTime> SyncDate { get; set; }
         public string SyncBy { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeesSMSCode> EmployeesSMSCodes { get; set; }
     }
 }

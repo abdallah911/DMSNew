@@ -160,6 +160,8 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.UserCompanyPermission" Width="1.5" PointX="34.375" PointY="14.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Med_Card" Width="1.5" PointX="13.375" PointY="40.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Swap" Width="1.5" PointX="24.375" PointY="7.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProviderBlock" Width="1.5" PointX="39.375" PointY="5.75" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_EmployeesSMSCode_Comp_Employees" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

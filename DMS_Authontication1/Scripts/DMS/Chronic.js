@@ -45,7 +45,58 @@ $(function () {
             }
         });
     }
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: '/Shared/VerificationCardForCode',
+        data: {
+            CardId: id,
+        },
+        success: function (r) {
+            if (r.Validation == true) {
+                //Verfication code
+                bootbox.prompt({
+                    title: "Please Enter your verification code :",
+                    centerVertical: true,
+                    closeButton: false,
+                    inputType: 'password',
+                    callback: function (result) {
+                        if (result === null) {
+                            window.location = '/Pharmacy/Pharmacy';
+                            return true;
+                        }
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: '/Shared/VerificationCode',
+                            data: {
+                                CardId: id,
+                                VerificationCode: result
+                            },
+                            success: function (r) {
+                                if (r.Validation == false) {
+                                    alert( "برجاء دخول الكود المرسل لسيادتكم علي رقم الهاتف المسجل لدي الشركة وللحصول علي الكود برجاء الاتصال علي الرقم التالي (26390990) الرقم الداخلي 110");
+                                    location.reload();
+                                } else {
+                                    toastr.success(r.Message);
+                                    return true
+                                }
+                            },
+                            error: function (err) {
+                                alert("VerificationCode,please check your internet connection");
+                                location.reload();
+                            }
+                        });
 
+                    }
+                });
+            }
+        },
+        error: function (err) {
+            alert("VerificationCode,please check your internet connection");
+            location.reload();
+        }
+    });
     //if (id.split('-')[0] == "10000") {
     //    //Verfication code
     //    bootbox.prompt({
@@ -79,12 +130,12 @@ $(function () {
     //                    alert("VerificationCode,please check your internet connection");
     //                    location.reload();
     //                }
-    //            })
+    //            });
 
     //        }
     //    });
     //}
-    ////Get Ceiling and Limit
+    //////Get Ceiling and Limit
 
 
 
@@ -782,4 +833,3 @@ function GetChronicMedData() {
         }
     });
 }
-

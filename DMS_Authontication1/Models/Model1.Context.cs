@@ -142,6 +142,7 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<UserCompanyPermission> UserCompanyPermissions { get; set; }
         public virtual DbSet<Med_Card> Med_Card { get; set; }
         public virtual DbSet<Swap> Swaps { get; set; }
+        public virtual DbSet<ProviderBlock> ProviderBlocks { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)

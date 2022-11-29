@@ -24,6 +24,53 @@ namespace DMS_Authontication1.Controllers.ControlPanal
             //return View(db.Comp_Employees.Where(x => x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).ToList());
             return View();
         }
+        // GET: CompEmployees
+        public ActionResult IndexSms()
+        {
+            //return View(db.Comp_Employees.Where(x => x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).ToList());
+            return View();
+        }
+        public JsonResult EmployeesListSms(int sEcho, int iDisplayStart, int iDisplayLength, string sSearch, string CardId = "", string Company = "")
+        {
+            int outresut = 0;
+            int.TryParse(Company, out outresut);
+            var result = new
+            {
+                sEcho = sEcho,
+                aaData = (db.Comp_Employees.Where(x => x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now && x.TERMINATE_FLAG != "Y")//.OrderByDescending(x => x.CONTRACT_NO)
+                .Where(r => sSearch != "" ? (r.EMP_ANAME.Contains(sSearch) || r.EMP_ENAME.Contains(sSearch) || r.CARD_ID.Contains(sSearch)) : true
+                && CardId != "" ? r.CARD_ID.Contains(CardId) : true && Company != "" ? r.C_COMP_ID == outresut : true)
+                .Include(x => x.EmployeesSMSCodes))
+                .Join(db.Med_Card, d => d.CARD_ID, m => m.CARD_NO, (d, m) => new { d, m })
+                        .Where(l => l.m.CARD_NO == l.d.CARD_ID && l.m.LOOK_01 == 0)
+                .Select(l => new //Comp_Employees
+                {
+                    Id = l.d.Id,
+                    CARD_ID = l.d.CARD_ID,
+                    EMP_ENAME = l.d.EMP_ENAME,
+                    CONTRACT_NO = l.d.CONTRACT_NO,
+                    EMP_ID = l.d.EMP_ID,
+                    TEL1 = l.d.TEL1,
+                    Code = l.d.EmployeesSMSCodes.Where(x => x.EmpId == l.d.Id && x.IsActive).FirstOrDefault().SMSCode ?? ""
+                }).OrderBy(x => x.Id).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
+
+                iTotalRecords = (db.Comp_Employees.Where(x => x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now &&x.TERMINATE_FLAG != "Y")//.OrderByDescending(x => x.CONTRACT_NO)
+                .Where(r => sSearch != "" ? (r.EMP_ANAME.Contains(sSearch) || r.EMP_ENAME.Contains(sSearch) || r.CARD_ID.Contains(sSearch)) : true
+                && CardId != "" ? r.CARD_ID.Contains(CardId) : true && Company != "" ? r.C_COMP_ID == outresut : true))
+                .Join(db.Med_Card, d => d.CARD_ID, m => m.CARD_NO, (d, m) => new { d, m })
+                        .Where(l => l.m.CARD_NO == l.d.CARD_ID && l.m.LOOK_01 == 0).Count(),
+                iTotalDisplayRecords = (db.Comp_Employees.Where(x => x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now &&x.TERMINATE_FLAG != "Y")//.OrderByDescending(x => x.CONTRACT_NO)
+                .Where(r => sSearch != "" ? (r.EMP_ANAME.Contains(sSearch) || r.EMP_ENAME.Contains(sSearch) || r.CARD_ID.Contains(sSearch)) : true
+                && CardId != "" ? r.CARD_ID.Contains(CardId) : true && Company != "" ? r.C_COMP_ID == outresut : true))
+                .Join(db.Med_Card, d => d.CARD_ID, m => m.CARD_NO, (d, m) => new { d, m })
+                        .Where(l => l.m.CARD_NO == l.d.CARD_ID && l.m.LOOK_01 == 0).Count()
+            };
+            return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+
+        }
+
         public JsonResult EmployeesList(int sEcho, int iDisplayStart, int iDisplayLength, string sSearch)
         {
             if (sSearch != "")
@@ -86,11 +133,11 @@ namespace DMS_Authontication1.Controllers.ControlPanal
 
 
             Comp_Employees employee = db.Comp_Employees.Where(c => c.Id == id).FirstOrDefault();
-            if (employee.TEL1 != "" && employee.TEL1 != null && employee.TEL1.Length==11)
+            if (employee.TEL1 != "" && employee.TEL1 != null && employee.TEL1.Length == 11)
             {
                 Random generator = new Random();
                 String SMSCode = generator.Next(0, 1000000).ToString("D6");
-                EmployeesSMSCode EmpSMSCode = db.EmployeesSMSCodes.Where(c => c.EmpId == id).FirstOrDefault();
+                EmployeesSMSCode EmpSMSCode = db.EmployeesSMSCodes.Where(c => c.EmpId == id && c.SMSCode == SMSCode && c.IsActive).FirstOrDefault();
                 if (EmpSMSCode == null)//insert
                 {
                     EmployeesSMSCode NewEmpSMSCode = new EmployeesSMSCode();
@@ -115,11 +162,64 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                 }
                 db.SaveChanges();
 
-                PostSMSData("your DMS verification code to dispense chronic medicines is "+SMSCode, employee.TEL1);
+                PostSMSData("your DMS verification code to dispense chronic medicines is " + SMSCode, employee.TEL1);
                 return Json(new { ok = true, returndata = SMSCode, message = "ok" }, JsonRequestBehavior.AllowGet);
 
             }
             return Json(new { ok = false, returndata = "Invalid Telephone,Please Update Telephone 1 Number", message = "ok" }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        public JsonResult SMSCodeForAll(int CopmId)
+        {
+            try
+            {
+
+
+                var result = (db.Comp_Employees.Where(x => x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now && x.C_COMP_ID == CopmId && x.TERMINATE_FLAG == "Y")
+                    .Include(x => x.EmployeesSMSCodes))
+                    .Join(db.Med_Card, d => d.CARD_ID, m => m.CARD_NO, (d, m) => new { d, m })
+                            .Where(l => l.m.CARD_NO == l.d.CARD_ID && l.m.LOOK_01 == 0)
+                    .Select(l => new //Comp_Employees
+                    {
+                        Id = l.d.Id,
+                        TEL1 = l.d.TEL1,
+                        Code = l.d.EmployeesSMSCodes.Where(c => c.IsActive == true)
+                    }).OrderBy(x => x.Id).ToList();
+                foreach (var employee in result)
+                {
+                    if (employee.Code.Count() == 0)
+                    {
+                        if (employee.TEL1 != "" && employee.TEL1 != null && employee.TEL1.Length == 11)
+                        {
+                            Random generator = new Random();
+                            String SMSCode = generator.Next(0, 1000000).ToString("D6");
+                            EmployeesSMSCode NewEmpSMSCode = new EmployeesSMSCode();
+                            NewEmpSMSCode.EmpId = employee.Id;
+                            NewEmpSMSCode.SMSCode = SMSCode;
+                            NewEmpSMSCode.IsActive = true;
+                            NewEmpSMSCode.CreatedBy = User.Identity.Name;
+                            NewEmpSMSCode.CreatedDate = DateTime.Now;
+                            NewEmpSMSCode.LastSentDate = DateTime.Now;
+                            db.EmployeesSMSCodes.Add(NewEmpSMSCode);
+
+                            db.SaveChanges();
+
+                            PostSMSData("your DMS verification code to dispense chronic medicines is " + SMSCode, employee.TEL1);
+
+                        }
+                    }
+                }
+                return Json(new { ok = true, returndata = "Send all", message = "ok" }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+                return Json(new { ok = false, returndata = "Invalid Telephone,Please Update Telephone 1 Number", message = "ok" }, JsonRequestBehavior.AllowGet);
+
+            }
 
         }
         // GET: CompEmployees/Details/5
@@ -204,7 +304,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
 
                 db.Entry(current).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexSms");
             }
             return View(comp_Employees);
         }
