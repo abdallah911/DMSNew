@@ -513,5 +513,15 @@ namespace DMS_Authontication1.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_StopEditAdminClamsList_Result>("[DMS_TESTEntities].[fn_StopEditAdminClamsList](@FROM, @TO, @Company, @Provider, @Branch, @ApprovalNo, @CardId, @TYPE)", fROMParameter, tOParameter, companyParameter, providerParameter, branchParameter, approvalNoParameter, cardIdParameter, tYPEParameter);
         }
+    
+        [DbFunction("DMS_TESTEntities", "fn_searchCompEmployeesForNextContract")]
+        public virtual IQueryable<fn_searchCompEmployeesForNextContract_Result> fn_searchCompEmployeesForNextContract(string search)
+        {
+            var searchParameter = search != null ?
+                new ObjectParameter("search", search) :
+                new ObjectParameter("search", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_searchCompEmployeesForNextContract_Result>("[DMS_TESTEntities].[fn_searchCompEmployeesForNextContract](@search)", searchParameter);
+        }
     }
 }

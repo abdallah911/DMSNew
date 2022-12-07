@@ -118,7 +118,7 @@ $(function () {
                                                     $('#txtSearchCard').val(CardId);
                                                     $('#compEmp_EMP_ANAME').val(ArName);
                                                     $('#compEmp_INS_END_DATE').val(EndDate);
-                                                    AddNationalId();
+                                                    //AddNationalId();
                                                     $('#CardsModal').modal('hide');
                                                     $.ajax({
                                                         type: "POST",

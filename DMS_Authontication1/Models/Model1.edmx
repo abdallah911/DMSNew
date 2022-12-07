@@ -2359,7 +2359,7 @@
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Swap">
           <Key>
             <PropertyRef Name="Id" />
@@ -3134,6 +3134,25 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           </ReturnType>
         </Function>
         <Function Name="fn_searchCompEmployees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="search" Type="varchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="CARD_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="EMP_ANAME" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ENAME" Type="nvarchar" MaxLength="100" />
+                <Property Name="INS_START_DATE" Type="date" />
+                <Property Name="SPECIFIC_DATE" Type="date" />
+                <Property Name="BIRTH_DATE" Type="date" />
+                <Property Name="INS_END_DATE" Type="date" />
+                <Property Name="TERMINATE_DATE" Type="date" />
+                <Property Name="CONTRACT_NO" Type="int" />
+                <Property Name="Now" Type="datetime" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="fn_searchCompEmployeesForNextContract" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="search" Type="varchar" Mode="In" />
           <ReturnType>
             <CollectionType>
@@ -5085,6 +5104,9 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <End Role="Comp_Employees" EntitySet="Comp_Employees" />
             <End Role="EmployeesSMSCode" EntitySet="EmployeesSMSCodes" />
           </AssociationSet>
+          <FunctionImport Name="fn_searchCompEmployeesForNextContract" IsComposable="true" ReturnType="Collection(DB_A45413_DMSERPModel.fn_searchCompEmployeesForNextContract_Result)">
+            <Parameter Name="search" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7028,6 +7050,18 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="fn_searchCompEmployeesForNextContract_Result">
+          <Property Type="String" Name="CARD_ID" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="EMP_ANAME" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EMP_ENAME" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="INS_START_DATE" Nullable="true" Precision="10" />
+          <Property Type="DateTime" Name="SPECIFIC_DATE" Nullable="true" Precision="10" />
+          <Property Type="DateTime" Name="BIRTH_DATE" Nullable="true" Precision="10" />
+          <Property Type="DateTime" Name="INS_END_DATE" Nullable="true" Precision="10" />
+          <Property Type="DateTime" Name="TERMINATE_DATE" Nullable="true" Precision="10" />
+          <Property Type="Int32" Name="CONTRACT_NO" Nullable="true" />
+          <Property Type="DateTime" Name="Now" Nullable="false" Precision="23" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9722,6 +9756,22 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="fn_searchCompEmployeesForNextContract" FunctionName="DB_A45413_DMSERPModel.Store.fn_searchCompEmployeesForNextContract">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A45413_DMSERPModel.fn_searchCompEmployeesForNextContract_Result">
+                <ScalarProperty Name="CARD_ID" ColumnName="CARD_ID" />
+                <ScalarProperty Name="EMP_ANAME" ColumnName="EMP_ANAME" />
+                <ScalarProperty Name="EMP_ENAME" ColumnName="EMP_ENAME" />
+                <ScalarProperty Name="INS_START_DATE" ColumnName="INS_START_DATE" />
+                <ScalarProperty Name="SPECIFIC_DATE" ColumnName="SPECIFIC_DATE" />
+                <ScalarProperty Name="BIRTH_DATE" ColumnName="BIRTH_DATE" />
+                <ScalarProperty Name="INS_END_DATE" ColumnName="INS_END_DATE" />
+                <ScalarProperty Name="TERMINATE_DATE" ColumnName="TERMINATE_DATE" />
+                <ScalarProperty Name="CONTRACT_NO" ColumnName="CONTRACT_NO" />
+                <ScalarProperty Name="Now" ColumnName="Now" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
