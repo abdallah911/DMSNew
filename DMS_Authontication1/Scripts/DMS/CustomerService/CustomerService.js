@@ -95,9 +95,10 @@ function getApprovalData(flg) {
             url: '/CustomerService/getAprovalData',
             data: { CardId: $('#CardID').val(), dat1: $('#StartDate').val(), dat2: $('#EndDate').val(), oldcardd: $('#OldCard').val(), flg: flg },
             success: function (apprs) {
-                debugger;
                 //approval, cout, totl
                 if (apprs.approval.length > 0) {
+
+                   // $('#ApprovalsDetails').dataTable().fnDestroy();
                     var setData2 = $("#ApprovalsDetails Tbody");
                     setData2.empty();
                     $("#CountApprovals").val(apprs.cout);
@@ -359,9 +360,41 @@ function ShowMedicalNetworkScreen() {
     $('#IndemnityScreen').hide();
     $('#MonthlyScreen').hide();
     $('#LiveScreen').hide();
-    debugger;
-    window.open('/Employee/MedicalNetwork/Search');
-    //window.location = '/MedicalNetwork/Search';
+    //debugger;
+   // window.open('/Employee/MedicalNetwork/Search');
+   //window.location = '/MedicalNetwork/Search';
+    $("#wait").css("display", "block");
+    if (document.getElementById('provider_Type').options.length == 0) {
+        $.get("/CustomerService/GetProviderTypeList",
+                function (data) {
+                    $("#provider_Type").empty();
+                    $('#provider_Type').append('<option value="0">Select Provider</option>');
+                    $.each(data, function (index, row) {
+                        $("#provider_Type").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                });
+    }
+    else
+        document.getElementById('provider_Type').selectedIndex = "0";
+
+    if (document.getElementById('Country_select').options.length == 0) {
+        $.get("/CustomerService/GetCountryList",
+            function (data) {
+                $("#Country_select").empty();
+                $('#Country_select').append('<option value="0">Select Governorate</option>');
+                $.each(data, function (index, row) {
+                    $("#Country_select").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                });
+            });
+    }
+    else
+        document.getElementById('Country_select').selectedIndex = "0";
+
+
+    $("#wait").css("display", "none");
+
+
+    $('#MedicalNetworkCustomerServiceModal').modal();
 }
 function ShowCardDesignPrint() {
     $('#CardInformationDetails').show();
@@ -479,7 +512,7 @@ function AddPhoneNumber(notss) {
         callback: function (result) {
 
             if (result === null) {
-               // window.location = '/Pharmacy/Pharmacy';
+              //  window.location = '/CustomerService/Index';
                 return true;
             }
             if (result === "" || result.length != 11 || isNaN(result)) {
@@ -592,6 +625,7 @@ function getData(crd) {
                 else
                     flgShow = AddPhoneNumber(cardDetails.nots);
                 */
+             //   flgShow = AddPhoneNumber(cardDetails.nots);
                 var flgShow = true;
 
                 if (flgShow) {
@@ -621,6 +655,7 @@ function getData(crd) {
         
                     fillPhoneNumber(cardDetails.phonlst);
                     StartTime();
+                    bootbox.alert(newPhone);
                 }
             }                                       
         }
@@ -635,6 +670,7 @@ function getData(crd) {
 
 $('#Search').click(function () {
     debugger;
+
     var txtsrch = $("#txtSearch").val();
     if (txtsrch != "") {
         if (isNumeric(txtsrch) == false) {

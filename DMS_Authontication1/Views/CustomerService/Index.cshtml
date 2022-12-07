@@ -3,6 +3,11 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
 }
+
+<br />
+<br />
+@Html.Partial("_MedicalNetworkCustomerService")
+
 <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
@@ -82,304 +87,304 @@
     </div>
 </div>
 
-    <div class="panel panel-info"  id="CardDetails">
-        <h2 class="panel-heading" style="margin:1px;">Card Details</h2>
-        <div class="panel-body">
-            <div class="row">
-                <div class="form-group">
-                    <div class="col-sm-4">
-                        @Html.LabelFor(model => model.CardID, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.CardID, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-4">
-                        @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.MaxAmount, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.MaxAmount, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.ClassName, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.ClassName, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.HospitalDegree, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.HospitalDegree, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.MedicalNetwork, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.MedicalNetwork, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.ExceptionPayment, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.ExceptionPayment, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.ExceptionOver, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.ExceptionOver, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.NationalId, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.NationalId, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.CardColor, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.CardColor, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.Mobile1, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Mobile1, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.Mobile2, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Mobile2, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2" id="OldCardScreen" hidden ="hidden">
-                        @Html.LabelFor(model => model.OldCard, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.OldCard, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-  
-
-    <div class="panel panel-info" id="CardInformationDetails" hidden="hidden">
-        <h2 class="panel-heading" style="margin:1px;">Card Information</h2>
-        <div class="row" style=" text-align:left">
-            <div class="col-md-12">
-                <input id="ShowConsumption" type="button" value="Show Consumption" onclick="ShowAllConsmptionDetails()" class="btn btn-primary" />
-                <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalConsmptionDetails()" />
-                <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsConsmptionDetails()" />
-                <input id="ShowIndemnity" type="button" value="Indemnity" class="btn btn-success  fa fa-search" onclick="ShowIndemnityConsmptionDetails()" />
-                <input id="ShowMonthly" type="button" value="Monthly treatment" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMonthlyConsmptionDetails()" />
-                <input id="ShowLive" type="button" value="Online Live" class="btn btn-success fa-file-excel-o " onclick="ShowLiveConsmptionDetails()" />
-                <input id="ShowMedicalNetwork" type="button" value="Medical Network" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMedicalNetworkScreen()" />
-                <input id="ShowCardDesgin" type="button" value="Card Desgin" class="btn btn-success fa-file-excel-o " onclick="ShowCardDesignPrint()" />
-            </div>
-        </div>
-        
-        <div class="panel-body">
-            
-            <div class="form-group" id="ConsumptionScreen">
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.MedicationClaims, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.MedicationClaims, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>                
+<div class="panel panel-info" id="CardDetails">
+    <h2 class="panel-heading" style="margin:1px;">Card Details</h2>
+    <div class="panel-body">
+        <div class="row">
+            <div class="form-group">
                 <div class="col-sm-4">
-                    @Html.LabelFor(model => model.MedicationClaimsUnderReview, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.MedicationClaimsUnderReview, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.LabelFor(model => model.CardID, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CardID, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                 </div>
-
-                <div class="col-sm-3">
-                    @Html.LabelFor(model => model.OtherConsumption, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.OtherConsumption, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.AllConsumption, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.AllConsumption, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.Remaining, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.Remaining, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                 </div>
                 <div class="col-sm-2">
-                    @Html.LabelFor(model => model.Percent, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.Percent, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-
-                <div class="col-sm-3">
-                    @Html.LabelFor(model => model.ApprovalConsumption, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.ApprovalConsumption, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-            </div>
-            <div class="table-responsive" id="ApprovalsScreen">
-                <table class="table table-fixed" id="ApprovalsDetails">
-                    <thead>
-                        <tr>
-                            <th scope="col" align="center">Approval No</th>
-                            <th scope="col" align="center">Approval Type</th>
-                            <th scope="col" align="center">Reply</th>
-                            <th scope="col" align="center">Approval Amount</th>
-                            <th scope="col" align="center">Medical Reply</th>
-                            <th scope="col" align="center">Created By</th>
-                            <th scope="col" align="center">Created Date</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.CountApprovals, htmlAttributes: new { @class = "control-label" })
+                    @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                 </div>
                 <div class="col-sm-2">
-                    @Html.EditorFor(model => model.CountApprovals, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-                <div class="col-sm-3">
-                    @Html.LabelFor(model => model.TotalAmountApprovals, htmlAttributes: new { @class = "control-label" })
+                    @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                 </div>
                 <div class="col-sm-2">
-                    @Html.EditorFor(model => model.TotalAmountApprovals, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-
-                <div class="col-sm-3">
-                    <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreApprovalsDetailsEvent()" class="btn btn-primary" />
-                </div>
-
-
-            </div>
-            <div class="table-responsive" id="ClaimsScreen">
-                <table class="table table-fixed" id="ClaimsDetails">
-                    <thead>
-                        <tr>
-                            <th scope="col" align="center">Claim No</th>
-                            <th scope="col" align="center">Claim Date</th>
-                            <th scope="col" align="center">Batch No</th>
-                            <th scope="col" align="center">Group No</th>
-                            <th scope="col" align="center">Gross</th>
-                            <th scope="col" align="center">Amount</th>
-                            <th scope="col" align="center">Notes</th>
-                            <th scope="col" align="center">F</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.CountClaims, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.CountClaims, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                 </div>
                 <div class="col-sm-2">
-                    @Html.LabelFor(model => model.TotalGrossClaims, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.TotalGrossClaims, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                 </div>
                 <div class="col-sm-2">
-                    @Html.LabelFor(model => model.TotalNetClaims, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.TotalNetClaims, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-
-                <div class="col-sm-6">
-                    <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreClaimsDetailsEvent();" class="btn btn-primary" />
-                </div>
-
-            </div>
-
-            <div class="table-responsive" id="IndemnityScreen">
-                <table class="table table-fixed" id="IndemnityDetails">
-                    <thead>
-                        <tr>
-                            <th scope="col" align="center">Claim No</th>
-                            <th scope="col" align="center">Claim Date</th>
-                            <th scope="col" align="center">Gross</th>
-                            <th scope="col" align="center">Net</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.CountIndemnity, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.CountIndemnity, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.LabelFor(model => model.MaxAmount, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.MaxAmount, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                 </div>
                 <div class="col-sm-2">
-                    @Html.LabelFor(model => model.TotalGrossIndemnity, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.TotalGrossIndemnity, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.LabelFor(model => model.ClassName, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.ClassName, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                 </div>
                 <div class="col-sm-2">
-                    @Html.LabelFor(model => model.TotalNetIndemnity, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.TotalNetIndemnity, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-
-                <div class="col-sm-6">
-                    <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreIndemnityDetailsEvent();" class="btn btn-primary" />
-                </div>
-
-            </div>
-
-            <div class="table-responsive" id="MonthlyScreen">
-                <table class="table table-fixed" id="MonthlyDetails">
-                    <thead>
-                        <tr>
-                            <th scope="col" align="center">Created Date</th>
-                            <th scope="col" align="center">Provider Code</th>
-                            <th scope="col" align="center">User N</th>
-                            <th scope="col" align="center">Group Name</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.CountMonthly, htmlAttributes: new { @class = "control-label" })
+                    @Html.LabelFor(model => model.HospitalDegree, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.HospitalDegree, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                 </div>
                 <div class="col-sm-2">
-                    @Html.EditorFor(model => model.CountMonthly, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-
-                </div>
-
-                <div class="col-sm-8">
-                    <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreMonthlyDetailsEvent();" class="btn btn-primary" />
-                </div>
-
-            </div>
-          
-            <div class="table-responsive" id="LiveScreen">
-                <table class="table table-fixed" id="LiveDetails">
-                    <thead>
-                        <tr>
-                            <th scope="col" align="center">Claim No</th>
-                            <th scope="col" align="center">Claim Date</th>
-                            <th scope="col" align="center">Provider Id</th>
-                            <th scope="col" align="center">Branch</th>
-                            <th scope="col" align="center">Kind</th>
-                            <th scope="col" align="center">Total</th>
-                            <th scope="col" align="center">Copay</th>
-                            <th scope="col" align="center">Over</th>
-                            <th scope="col" align="center">Cash</th>
-                            <th scope="col" align="center">Credit</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.CountLive, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.CountLive, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.LabelFor(model => model.MedicalNetwork, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.MedicalNetwork, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                 </div>
                 <div class="col-sm-2">
-                    @Html.LabelFor(model => model.TotalLive, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.TotalLive, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.LabelFor(model => model.ExceptionPayment, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.ExceptionPayment, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                 </div>
                 <div class="col-sm-2">
-                    @Html.LabelFor(model => model.TotalCredit, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.TotalCredit, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.LabelFor(model => model.ExceptionOver, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.ExceptionOver, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                 </div>
-
-                <div class="col-sm-6">
-                    <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreLiveDetailsEvent();" class="btn btn-primary" />
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.NationalId, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.NationalId, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                 </div>
-
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.CardColor, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CardColor, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.Mobile1, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Mobile1, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.Mobile2, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Mobile2, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2" id="OldCardScreen" hidden="hidden">
+                    @Html.LabelFor(model => model.OldCard, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.OldCard, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-    <script src="~/Scripts/DMS/CustomerService/CustomerService.js?V=3.2"></script>
+
+<div class="panel panel-info" id="CardInformationDetails" hidden="hidden">
+    <h2 class="panel-heading" style="margin:1px;">Card Information</h2>
+    <div class="row" style=" text-align:left">
+        <div class="col-md-12">
+            <input id="ShowConsumption" type="button" value="Show Consumption" onclick="ShowAllConsmptionDetails()" class="btn btn-primary" />
+            <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalConsmptionDetails()" />
+            <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsConsmptionDetails()" />
+            <input id="ShowIndemnity" type="button" value="Indemnity" class="btn btn-success  fa fa-search" onclick="ShowIndemnityConsmptionDetails()" />
+            <input id="ShowMonthly" type="button" value="Monthly treatment" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMonthlyConsmptionDetails()" />
+            <input id="ShowLive" type="button" value="Online Live" class="btn btn-success fa-file-excel-o " onclick="ShowLiveConsmptionDetails()" />
+            <input id="ShowMedicalNetwork" type="button" value="Medical Network" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMedicalNetworkScreen()" />
+            <input id="ShowCardDesgin" type="button" value="Card Desgin" class="btn btn-success fa-file-excel-o " onclick="ShowCardDesignPrint()" />
+        </div>
+    </div>
+
+    <div class="panel-body">
+
+        <div class="form-group" id="ConsumptionScreen">
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.MedicationClaims, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.MedicationClaims, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-4">
+                @Html.LabelFor(model => model.MedicationClaimsUnderReview, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.MedicationClaimsUnderReview, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.OtherConsumption, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.OtherConsumption, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.AllConsumption, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.AllConsumption, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.Remaining, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Remaining, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.Percent, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Percent, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.ApprovalConsumption, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.ApprovalConsumption, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+        </div>
+        <div class="col-md-12" style="width:100%;" id="ApprovalsScreen">
+            <table class="ui celled table" id="ApprovalsDetails">
+                <thead>
+                    <tr>
+                        <th scope="col" align="center">Approval No</th>
+                        <th scope="col" align="center">Approval Type</th>
+                        <th scope="col" align="center">Reply</th>
+                        <th scope="col" align="center">Approval Amount</th>
+                        <th scope="col" align="center">Medical Reply</th>
+                        <th scope="col" align="center">Created By</th>
+                        <th scope="col" align="center">Created Date</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.CountApprovals, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-sm-2">
+                @Html.EditorFor(model => model.CountApprovals, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.TotalAmountApprovals, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-sm-2">
+                @Html.EditorFor(model => model.TotalAmountApprovals, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+
+            <div class="col-sm-3">
+                <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreApprovalsDetailsEvent()" class="btn btn-primary" />
+            </div>
+
+
+        </div>
+        <div class="table-responsive" id="ClaimsScreen">
+            <table class="table table-fixed" id="ClaimsDetails">
+                <thead>
+                    <tr>
+                        <th scope="col" align="center">Claim No</th>
+                        <th scope="col" align="center">Claim Date</th>
+                        <th scope="col" align="center">Batch No</th>
+                        <th scope="col" align="center">Group No</th>
+                        <th scope="col" align="center">Gross</th>
+                        <th scope="col" align="center">Amount</th>
+                        <th scope="col" align="center">Notes</th>
+                        <th scope="col" align="center">F</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.CountClaims, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.CountClaims, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.TotalGrossClaims, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.TotalGrossClaims, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.TotalNetClaims, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.TotalNetClaims, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+
+            <div class="col-sm-6">
+                <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreClaimsDetailsEvent();" class="btn btn-primary" />
+            </div>
+
+        </div>
+
+        <div class="table-responsive" id="IndemnityScreen">
+            <table class="table table-fixed" id="IndemnityDetails">
+                <thead>
+                    <tr>
+                        <th scope="col" align="center">Claim No</th>
+                        <th scope="col" align="center">Claim Date</th>
+                        <th scope="col" align="center">Gross</th>
+                        <th scope="col" align="center">Net</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.CountIndemnity, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.CountIndemnity, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.TotalGrossIndemnity, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.TotalGrossIndemnity, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.TotalNetIndemnity, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.TotalNetIndemnity, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+
+            <div class="col-sm-6">
+                <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreIndemnityDetailsEvent();" class="btn btn-primary" />
+            </div>
+
+        </div>
+
+        <div class="table-responsive" id="MonthlyScreen">
+            <table class="table table-fixed" id="MonthlyDetails">
+                <thead>
+                    <tr>
+                        <th scope="col" align="center">Created Date</th>
+                        <th scope="col" align="center">Provider Code</th>
+                        <th scope="col" align="center">User N</th>
+                        <th scope="col" align="center">Group Name</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.CountMonthly, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-sm-2">
+                @Html.EditorFor(model => model.CountMonthly, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+
+            </div>
+
+            <div class="col-sm-8">
+                <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreMonthlyDetailsEvent();" class="btn btn-primary" />
+            </div>
+
+        </div>
+
+        <div class="table-responsive" id="LiveScreen">
+            <table class="table table-fixed" id="LiveDetails">
+                <thead>
+                    <tr>
+                        <th scope="col" align="center">Claim No</th>
+                        <th scope="col" align="center">Claim Date</th>
+                        <th scope="col" align="center">Provider Id</th>
+                        <th scope="col" align="center">Branch</th>
+                        <th scope="col" align="center">Kind</th>
+                        <th scope="col" align="center">Total</th>
+                        <th scope="col" align="center">Copay</th>
+                        <th scope="col" align="center">Over</th>
+                        <th scope="col" align="center">Cash</th>
+                        <th scope="col" align="center">Credit</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.CountLive, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.CountLive, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.TotalLive, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.TotalLive, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.TotalCredit, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.TotalCredit, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+
+            <div class="col-sm-6">
+                <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreLiveDetailsEvent();" class="btn btn-primary" />
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/DMS/CustomerService/CustomerService.js?V=3.2"></script>

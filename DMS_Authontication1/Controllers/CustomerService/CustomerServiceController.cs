@@ -200,6 +200,110 @@ namespace DMS_Authontication1.Controllers.CustomerService
             }
             return list;
         }
+        public JsonResult GetProviderTypeList()
+        {
+
+            var provider = db.ProviderTypeNews.ToList();
+            SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
+//            ViewBag.provider = Providerlist;
+
+            return Json(Providerlist, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetCountryList()
+        {
+
+            var address = db.Basic_Data.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+            SelectList addresslist = new SelectList(address, "BS_CODE", "BS_ANAME");
+
+            return Json(addresslist, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetRegionList(int? id)
+        {
+
+            db.Configuration.ProxyCreationEnabled = false;
+            var Region = db.Regions.Where(r => r.GovernmentId == id).ToList();
+            SelectList Regionlist = new SelectList(Region, "Id", "ArName");
+
+            return Json(Regionlist, JsonRequestBehavior.AllowGet);
+
+        }
+        public JsonResult GetProviders(string cardId, string compId, string country, int region, int providerId, string specialistid)
+        {
+            int Comp_ID = Convert.ToInt32(compId);
+            var cardExist = db.Comp_Employees.AsNoTracking().Where(c => c.CARD_ID == cardId).OrderByDescending(y => y.CONTRACT_NO).FirstOrDefault();
+            if (cardExist == null)
+            {
+                return new JsonResult { Data = new { providerslist = 0, msg = "Card Not Found ..." }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            else
+            {
+                var coverdRelation = db.CompContractClasses.AsNoTracking().Where(c => c.C_COMP_ID == Comp_ID && c.CLASS_CODE ==
+                                         cardExist.CLASS_CODE && c.CONTRACT_NO == cardExist.CONTRACT_NO).FirstOrDefault().COVER_RELATION;
+
+                //var status = ChicActiveCard(compId, cardId); TOP
+                /*if (status.data == "Y" && status.message == "ok")
+                {*/
+                    //var bsCode = db.Basic_Data.Where(b => b.BS_ENAME == country && b.SOURCE_MOD == "M").FirstOrDefault().BS_CODE;
+                    //var arbicReagonName = db.Basic_Data.Where(r => r.SOURCE_MOD == "M" && r.BS_ENAME == region).FirstOrDefault().BS_CODE;
+
+                    if (coverdRelation == 1 || coverdRelation == 4)
+                    {
+                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                                            .Select(
+                                                  s => new
+                                                  {
+                                                      s.PR_ANAME,
+                                                      s.ADDRESS1,
+                                                      s.ADDRESS2,
+                                                      s.TEL1,
+                                                      s.TEL2,
+                                                      s.PR_DESC
+
+                                                  }).ToList();
+
+                        return new JsonResult { Data = new { providerslist = providerList, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+                    }
+
+                    else if (coverdRelation == 2)
+                    {
+                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.TERMINATE_FLAG != "Y" && (p.PROV_DEGREE == coverdRelation.ToString() || p.PROV_DEGREE == "3") && p.AREA_CODE == region && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.PROV_DEGREE == "2" || p.PROV_DEGREE == "3"*/ /*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                                           .Select(
+                                                  s => new
+                                                  {
+                                                      s.PR_ANAME,
+                                                      s.ADDRESS1,
+                                                      s.ADDRESS2,
+                                                      s.TEL1,
+                                                      s.TEL2,
+                                                      s.PR_DESC
+
+                                                  }).ToList();
+                        //var providerList = db.Serv_Providers1.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == bsCode && p.ADDRESS1.Contains(arbicReagonName) && p.PROV_DEGREE == "2" || p.PROV_DEGREE == "3").ToList();
+                        return new JsonResult { Data = new { providerslist = providerList, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+                    }
+
+                    else
+                    {
+                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.TERMINATE_FLAG != "Y" && p.PROV_DEGREE == coverdRelation.ToString() && p.AREA_CODE == region && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid) /*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                                            .Select(
+                                                  s => new
+                                                  {
+                                                      s.PR_ANAME,
+                                                      s.ADDRESS1,
+                                                      s.ADDRESS2,
+                                                      s.TEL1,
+                                                      s.TEL2,
+                                                      s.PR_DESC
+                                                  }).ToList();
+
+                        //var providerList = db.Serv_Providers1.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == bsCode && p.ADDRESS1.Contains(arbicReagonName) && p.PROV_DEGREE == "3").ToList();
+                        return new JsonResult { Data = new { providerslist = providerList, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+                    }                
+            }
+
+        }
+
         public JsonResult getData(string CardId)
         {
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
