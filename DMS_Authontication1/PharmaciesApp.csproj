@@ -8365,6 +8365,8 @@
     <Content Include="Reports\HR\HrClaimsReport.rpt" />
     <Content Include="Reports\HR\ApprovalHr.rpt" />
     <Content Include="Reports\ReportPrintHorizontal6.rpt" />
+    <Content Include="Views\CustomerService\_MedicalNetworkCustomerService.cshtml" />
+    <Content Include="Views\CustomerService\_MedicalNetworkCustomerService - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
