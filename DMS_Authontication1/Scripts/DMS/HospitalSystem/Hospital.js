@@ -43,7 +43,7 @@ function setInputFilter(textbox, inputFilter) {
 }
 var exceptionHospital = null;
 var exceptionLabRay = null;
-$(function () { 
+$(function () {
 
     $('#Search').map(function () {
         exceptionHospital = null;
@@ -138,446 +138,460 @@ $(function () {
                             exceptionLabRay = null;
                             exceptionHospital = r.Exceptions;
                             $("#main_services").prop("disabled", false);
+                            var companyId = [];
+                            companyId = $('#txtSearchCard').val().split('-');
+                            CompId = companyId[0];
+                            $.ajax({
+                                type: "POST",
+                                dataType: "json",
+                                url: '/Pharmacy/CkeckCompanyClosedorOpen',
+                                data: { id: CompId, CardId: $('#txtSearchCard').val() },
+                                success: function (returndata) {
+                                    if (returndata.ok) {
+                                        if (r.Data[0].HOSPITAL_DEGREE <= r.Data[0].Provider_Level || r.messages == "ok") {
+                                            if (r.Data[0].TERMINATE_FLAG == 'N' || r.Data[0].TERMINATE_FLAG == null) {
+                                                if (r.Data[0].INS_END_DATE != null) {
+                                                    //end date
+                                                    var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
+                                                    var MyDate_String_Value2 = r.Data[0].INS_START_DATE;
+                                                    var myTerminateDate_String_Value = r.Data[0].TERMINATE_DATE;
+                                                    var value1 = new Date
+                                                        (
+                                                            parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                        );
+                                                    var value2 = new Date
+                                                        (
+                                                            parseInt(MyDate_String_Value2.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                        );
+                                                    var TerminateDatevalue = new Date
+                                                        (
+                                                            parseInt(myTerminateDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                        );
+                                                    var dateTerminate = TerminateDatevalue.getDate() + "/" + (TerminateDatevalue.getMonth() + 1) + "/" + TerminateDatevalue.getFullYear();
+                                                    var datTer = dateTerminate.split("/");
+                                                    var DTer = new Date(datTer[2], parseInt(datTer[1]) - 1, datTer[0]);
+                                                    var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
+                                                    var dat2 = value2.getDate() + "/" + (value2.getMonth() + 1) + "/" + value2.getFullYear();
+                                                    var d2 = dat1.split("/");
+                                                    var d = new Date();
+                                                    var Mysysdate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
+                                                    var d1 = Mysysdate.split("/");
+                                                    var from = new Date(d1[2], parseInt(d1[1]) - 1, d1[0]);  // -1 because months are from 0 to 11
+                                                    var to = new Date(d2[2], parseInt(d2[1]) - 1, d2[0]);
 
-                            if (r.Data[0].HOSPITAL_DEGREE <= r.Data[0].Provider_Level || r.messages == "ok") {
-                                if (r.Data[0].TERMINATE_FLAG == 'N' || r.Data[0].TERMINATE_FLAG == null) {
-                                    if (r.Data[0].INS_END_DATE != null) {
-                                        //end date
-                                        var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
-                                        var MyDate_String_Value2 = r.Data[0].INS_START_DATE;
-                                        var myTerminateDate_String_Value = r.Data[0].TERMINATE_DATE;
-                                        var value1 = new Date
-                                            (
-                                                parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
-                                            );
-                                        var value2 = new Date
-                                            (
-                                                parseInt(MyDate_String_Value2.replace(/(^.*\()|([+-].*$)/g, ''))
-                                            );
-                                        var TerminateDatevalue = new Date
-                                            (
-                                                parseInt(myTerminateDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                                            );
-                                        var dateTerminate = TerminateDatevalue.getDate() + "/" + (TerminateDatevalue.getMonth() + 1) + "/" + TerminateDatevalue.getFullYear();
-                                        var datTer = dateTerminate.split("/");
-                                        var DTer = new Date(datTer[2], parseInt(datTer[1]) - 1, datTer[0]);
-                                        var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
-                                        var dat2 = value2.getDate() + "/" + (value2.getMonth() + 1) + "/" + value2.getFullYear();
-                                        var d2 = dat1.split("/");
-                                        var d = new Date();
-                                        var Mysysdate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
-                                        var d1 = Mysysdate.split("/");
-                                        var from = new Date(d1[2], parseInt(d1[1]) - 1, d1[0]);  // -1 because months are from 0 to 11
-                                        var to = new Date(d2[2], parseInt(d2[1]) - 1, d2[0]);
+                                                    //if (from < to) {
 
-                                        //if (from < to) {
+                                                    var com_Name = r.Data[0].C_ENAME;
+                                                    if (r.Data[0].INS_START_DATE != null) {
+                                                        var MyDate_String_Value = r.Data[0].INS_START_DATE;
+                                                        var value = new Date
+                                                            (
+                                                                parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                            );
+                                                        var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                                                    } else {
+                                                        dat = null;
+                                                    }
+                                                    if (r.Data[0].INS_END_DATE != null) {
+                                                        //end date
+                                                        var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
+                                                        var value1 = new Date
+                                                            (
+                                                                parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                            );
+                                                        var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
+                                                    }
+                                                    else {
+                                                        dat1 = null;
+                                                    }
+                                                    CardId = r.Data[0].CARD_ID;
+                                                    var ArName = r.Data[0].EMP_ANAME;
+                                                    ///r[0].EMP_ENAME ;
+                                                    ///dat ;
+                                                    var EndDate = dat1;
+                                                    var StartDate = dat2;
+                                                    $('#txtSearchCard').val(CardId);
+                                                    $('#compEmp_EMP_ANAME').val(ArName);
+                                                    $('#compEmp_INS_END_DATE').val(EndDate);
+                                                    $('#compEmp_INS_START_DATE').val(StartDate);
+                                                    $("#contractComp_C_ANAME").val(com_Name);
+                                                    $('#Con_Num').val(r.Data[0].CONTRACT_NO);
+                                                    $('#Class_Code').val(r.Data[0].CLASS_CODE);
+                                                    $('#Company_ID').val(r.Data[0].COMP_ID);
 
-                                        var com_Name = r.Data[0].C_ENAME;
-                                        if (r.Data[0].INS_START_DATE != null) {
-                                            var MyDate_String_Value = r.Data[0].INS_START_DATE;
-                                            var value = new Date
-                                                (
-                                                    parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                                                );
-                                            var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                                        } else {
-                                            dat = null;
-                                        }
-                                        if (r.Data[0].INS_END_DATE != null) {
-                                            //end date
-                                            var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
-                                            var value1 = new Date
-                                                (
-                                                    parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
-                                                );
-                                            var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
-                                        }
-                                        else {
-                                            dat1 = null;
-                                        }
-                                        CardId = r.Data[0].CARD_ID;
-                                        var ArName = r.Data[0].EMP_ANAME;
-                                        ///r[0].EMP_ENAME ;
-                                        ///dat ;
-                                        var EndDate = dat1;
-                                        var StartDate = dat2;
-                                        $('#txtSearchCard').val(CardId);
-                                        $('#compEmp_EMP_ANAME').val(ArName);
-                                        $('#compEmp_INS_END_DATE').val(EndDate);
-                                        $('#compEmp_INS_START_DATE').val(StartDate);
-                                        $("#contractComp_C_ANAME").val(com_Name);
-                                        $('#Con_Num').val(r.Data[0].CONTRACT_NO);
-                                        $('#Class_Code').val(r.Data[0].CLASS_CODE);
-                                        $('#Company_ID').val(r.Data[0].COMP_ID);
-
-                                        if (!$('#main_services').val()) {
-                                            // do something
-                                            $("#main_services").append('<option value="0"> اختر نوع الخدمه المطلوبه </option>' +
-                                                '<option value="111">  عمليات  </option>' +
-                                                '<option value="112"> عيادات خارجية  </option>' +
-                                                '<option value="11104"> طوارئ  </option>');
-                                        }
-
-
-                                        //}
-                                        //else {
-                                        //    alert(' لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
-                                        //}
-                                    }
-
-                                }
-                                else if (r.Data[0].TERMINATE_FLAG == 'Y') {
-                                    var EndDateIns = r.Data[0].INS_END_DATE;
-                                    var newDateIns = EndDateIns.split('/').reverse().join('.');
-                                    var dateIns = new Date(newDateIns);
-
-                                    var EndDateCard = r.Data[0].TERMINATE_DATE;
-                                    var newDateCard = EndDateCard.split('/').reverse().join('.');
-                                    var dateCard = new Date(newDateCard);
-
-                                    var today = new Date();
-                                    var dd = today.getDate();
-                                    var mm = today.getMonth() + 1; //January is 0!
-                                    var yyyy = today.getFullYear();
-                                    var CurrentDate = new Date(yyyy, mm, dd);
-                                    var myTerminateDate_String_Value = r.Data[0].TERMINATE_DATE;
-
-                                    if (r.Data[0].TERMINATE_DATE >= r.Data[0].Now) {
-                                        var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
-                                        var MyDate_String_Value2 = r.Data[0].INS_START_DATE;
-                                        var value1 = new Date
-                                            (
-                                                parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
-                                            );
-                                        var value2 = new Date
-                                            (
-                                                parseInt(MyDate_String_Value2.replace(/(^.*\()|([+-].*$)/g, ''))
-                                            );
-                                        var TerminateDatevalue = new Date
-                                            (
-                                                parseInt(myTerminateDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                                            );
-                                        var dateTerminate = TerminateDatevalue.getDate() + "/" + (TerminateDatevalue.getMonth() + 1) + "/" + TerminateDatevalue.getFullYear();
-                                        var datTer = dateTerminate.split("/");
-                                        var DTer = new Date(datTer[2], parseInt(datTer[1]) - 1, datTer[0]);
-                                        var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
-                                        var dat2 = value2.getDate() + "/" + (value2.getMonth() + 1) + "/" + value2.getFullYear();
-                                        var d2 = dat1.split("/");
-                                        var d = new Date();
-                                        var Mysysdate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
-                                        var d1 = Mysysdate.split("/");
-                                        var from = new Date(d1[2], parseInt(d1[1]) - 1, d1[0]);  // -1 because months are from 0 to 11
-                                        var to = new Date(d2[2], parseInt(d2[1]) - 1, d2[0]);
-                                        //if (from < to && from < DTer) {
-
-                                        var com_Name = r.Data[0].C_ENAME;
-                                        if (r.Data[0].INS_START_DATE != null) {
-                                            var MyDate_String_Value = r.Data[0].INS_START_DATE;
-                                            var value = new Date
-                                                (
-                                                    parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                                                );
-                                            var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                                        } else {
-                                            dat = null;
-                                        }
-                                        if (r.Data[0].INS_END_DATE != null) {
-                                            //end date
-                                            var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
-                                            var value1 = new Date
-                                                (
-                                                    parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
-                                                );
-                                            var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
-                                        }
-                                        else {
-                                            dat1 = null;
-                                        }
-                                        CardId = r.Data[0].CARD_ID;
-                                        var ArName = r.Data[0].EMP_ANAME;
-                                        ///r[0].EMP_ENAME ;
-                                        ///dat ;
-                                        var EndDate = dat1;
-                                        var StartDate = dat2;
-
-                                        $('#txtSearchCard').val(CardId);
-                                        $('#compEmp_EMP_ANAME').val(ArName);
-                                        $('#compEmp_INS_END_DATE').val(EndDate);
-                                        $('#compEmp_INS_START_DATE').val(StartDate);
-
-                                        $("#contractComp_C_ANAME").val(com_Name);
-
-                                        $('#Con_Num').val(r.Data[0].CONTRACT_NO);
-                                        $('#Class_Code').val(r.Data[0].CLASS_CODE);
-                                        $('#Company_ID').val(r.Data[0].COMP_ID);
-
-                                        if (!$('#main_services').val()) {
-                                            $("#main_services").append('<option value="0"> اختر نوع الخدمه المطلوبه </option>' +
-                                                '<option value="111">  عمليات  </option>' +
-                                                '<option value="112"> عيادات خارجية  </option>' +
-                                                '<option value="11104"> طوارئ  </option>');
-                                        }
-                                        //}
-                                        //else {
-                                        //    alert('لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
-                                        //}
+                                                    if (!$('#main_services').val()) {
+                                                        // do something
+                                                        $("#main_services").append('<option value="0"> اختر نوع الخدمه المطلوبه </option>' +
+                                                            '<option value="111">  عمليات  </option>' +
+                                                            '<option value="112"> عيادات خارجية  </option>' +
+                                                            '<option value="11104"> طوارئ  </option>');
+                                                    }
 
 
-                                    }
-                                    else {
-                                        alert(' لا يمكن تقديم الخدمه لهذا الموظف لانتهاء الكارت');
-                                    }
-                                }
-                                else {
-                                    alert(' Invalid Card Number Termintate Flag ');
-                                }
-                            }
-                            else {
-                                alert(" لا يمكن تقديم الخدمة للموظف الا فى حالات الطوارئ");
-
-                                $("#other-data").hide();
-                                $("#divNotes").hide();
-                                $("#total_id").hide();
-                                $("#DoctortName").show();
-                                $("#SpecialityDiv").show();
-                                $("#serviceselect").hide();
-                                $("#doctorNameSelect").select2({
-                                    placeholder: "Select a Doctor",
-                                    ajax: {
-                                        url: '/Hospital/GetDoctors/',
-                                        dataType: 'json',
-                                        data: function (params) {
-                                            var query = {
-                                                sEcho: params.page || 1,
-                                                //iColumns=10,
-                                                //iDisplayLength=10,
-                                                sSearch: params.term,
-                                                Provider: $("#providerHospialCode").val(),
-
-                                            }
-
-                                            // Query parameters will be ?search=[term]&page=[page]
-                                            return query;
-                                        },
-                                        processResults: function (data, params) {
-                                            params.page = params.page || 1;
-                                            var result = [];
-                                            for (var i = 0; i < data.aaData.length; i++) {
-                                                var current = {};
-                                                current.id = data.aaData[i].Doctorid;
-                                                current.text = data.aaData[i].doctorName;
-                                                result.push(current);
-                                            }
-                                            return {
-                                                results: result,
-                                                pagination: {
-                                                    more: (params.page * 10) < data.count_filtered
+                                                    //}
+                                                    //else {
+                                                    //    alert(' لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
+                                                    //}
                                                 }
-                                            };
+
+                                            }
+                                            else if (r.Data[0].TERMINATE_FLAG == 'Y') {
+                                                var EndDateIns = r.Data[0].INS_END_DATE;
+                                                var newDateIns = EndDateIns.split('/').reverse().join('.');
+                                                var dateIns = new Date(newDateIns);
+
+                                                var EndDateCard = r.Data[0].TERMINATE_DATE;
+                                                var newDateCard = EndDateCard.split('/').reverse().join('.');
+                                                var dateCard = new Date(newDateCard);
+
+                                                var today = new Date();
+                                                var dd = today.getDate();
+                                                var mm = today.getMonth() + 1; //January is 0!
+                                                var yyyy = today.getFullYear();
+                                                var CurrentDate = new Date(yyyy, mm, dd);
+                                                var myTerminateDate_String_Value = r.Data[0].TERMINATE_DATE;
+
+                                                if (r.Data[0].TERMINATE_DATE >= r.Data[0].Now) {
+                                                    var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
+                                                    var MyDate_String_Value2 = r.Data[0].INS_START_DATE;
+                                                    var value1 = new Date
+                                                        (
+                                                            parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                        );
+                                                    var value2 = new Date
+                                                        (
+                                                            parseInt(MyDate_String_Value2.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                        );
+                                                    var TerminateDatevalue = new Date
+                                                        (
+                                                            parseInt(myTerminateDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                        );
+                                                    var dateTerminate = TerminateDatevalue.getDate() + "/" + (TerminateDatevalue.getMonth() + 1) + "/" + TerminateDatevalue.getFullYear();
+                                                    var datTer = dateTerminate.split("/");
+                                                    var DTer = new Date(datTer[2], parseInt(datTer[1]) - 1, datTer[0]);
+                                                    var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
+                                                    var dat2 = value2.getDate() + "/" + (value2.getMonth() + 1) + "/" + value2.getFullYear();
+                                                    var d2 = dat1.split("/");
+                                                    var d = new Date();
+                                                    var Mysysdate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
+                                                    var d1 = Mysysdate.split("/");
+                                                    var from = new Date(d1[2], parseInt(d1[1]) - 1, d1[0]);  // -1 because months are from 0 to 11
+                                                    var to = new Date(d2[2], parseInt(d2[1]) - 1, d2[0]);
+                                                    //if (from < to && from < DTer) {
+
+                                                    var com_Name = r.Data[0].C_ENAME;
+                                                    if (r.Data[0].INS_START_DATE != null) {
+                                                        var MyDate_String_Value = r.Data[0].INS_START_DATE;
+                                                        var value = new Date
+                                                            (
+                                                                parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                            );
+                                                        var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                                                    } else {
+                                                        dat = null;
+                                                    }
+                                                    if (r.Data[0].INS_END_DATE != null) {
+                                                        //end date
+                                                        var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
+                                                        var value1 = new Date
+                                                            (
+                                                                parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                            );
+                                                        var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
+                                                    }
+                                                    else {
+                                                        dat1 = null;
+                                                    }
+                                                    CardId = r.Data[0].CARD_ID;
+                                                    var ArName = r.Data[0].EMP_ANAME;
+                                                    ///r[0].EMP_ENAME ;
+                                                    ///dat ;
+                                                    var EndDate = dat1;
+                                                    var StartDate = dat2;
+
+                                                    $('#txtSearchCard').val(CardId);
+                                                    $('#compEmp_EMP_ANAME').val(ArName);
+                                                    $('#compEmp_INS_END_DATE').val(EndDate);
+                                                    $('#compEmp_INS_START_DATE').val(StartDate);
+
+                                                    $("#contractComp_C_ANAME").val(com_Name);
+
+                                                    $('#Con_Num').val(r.Data[0].CONTRACT_NO);
+                                                    $('#Class_Code').val(r.Data[0].CLASS_CODE);
+                                                    $('#Company_ID').val(r.Data[0].COMP_ID);
+
+                                                    if (!$('#main_services').val()) {
+                                                        $("#main_services").append('<option value="0"> اختر نوع الخدمه المطلوبه </option>' +
+                                                            '<option value="111">  عمليات  </option>' +
+                                                            '<option value="112"> عيادات خارجية  </option>' +
+                                                            '<option value="11104"> طوارئ  </option>');
+                                                    }
+                                                    //}
+                                                    //else {
+                                                    //    alert('لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
+                                                    //}
+
+
+                                                }
+                                                else {
+                                                    alert(' لا يمكن تقديم الخدمه لهذا الموظف لانتهاء الكارت');
+                                                }
+                                            }
+                                            else {
+                                                alert(' Invalid Card Number Termintate Flag ');
+                                            }
+                                        }
+                                        else {
+                                            alert(" لا يمكن تقديم الخدمة للموظف الا فى حالات الطوارئ");
+
+                                            $("#other-data").hide();
+                                            $("#divNotes").hide();
+                                            $("#total_id").hide();
+                                            $("#DoctortName").show();
+                                            $("#SpecialityDiv").show();
+                                            $("#serviceselect").hide();
+                                            $("#doctorNameSelect").select2({
+                                                placeholder: "Select a Doctor",
+                                                ajax: {
+                                                    url: '/Hospital/GetDoctors/',
+                                                    dataType: 'json',
+                                                    data: function (params) {
+                                                        var query = {
+                                                            sEcho: params.page || 1,
+                                                            //iColumns=10,
+                                                            //iDisplayLength=10,
+                                                            sSearch: params.term,
+                                                            Provider: $("#providerHospialCode").val(),
+
+                                                        }
+
+                                                        // Query parameters will be ?search=[term]&page=[page]
+                                                        return query;
+                                                    },
+                                                    processResults: function (data, params) {
+                                                        params.page = params.page || 1;
+                                                        var result = [];
+                                                        for (var i = 0; i < data.aaData.length; i++) {
+                                                            var current = {};
+                                                            current.id = data.aaData[i].Doctorid;
+                                                            current.text = data.aaData[i].doctorName;
+                                                            result.push(current);
+                                                        }
+                                                        return {
+                                                            results: result,
+                                                            pagination: {
+                                                                more: (params.page * 10) < data.count_filtered
+                                                            }
+                                                        };
+                                                    }
+                                                }
+                                            });
+
+                                            $(".celling-pert").val("100");
+                                            $("#Limit").val(0);
+                                            if (r.Data[0].TERMINATE_FLAG == 'N' || r.Data[0].TERMINATE_FLAG == null) {
+                                                if (r.Data[0].INS_END_DATE != null) {
+                                                    //end date
+                                                    var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
+                                                    var MyDate_String_Value2 = r.Data[0].INS_START_DATE;
+                                                    var myTerminateDate_String_Value = r.Data[0].TERMINATE_DATE;
+                                                    var value1 = new Date
+                                                        (
+                                                            parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                        );
+                                                    var value2 = new Date
+                                                        (
+                                                            parseInt(MyDate_String_Value2.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                        );
+                                                    var TerminateDatevalue = new Date
+                                                        (
+                                                            parseInt(myTerminateDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                        );
+                                                    var dateTerminate = TerminateDatevalue.getDate() + "/" + (TerminateDatevalue.getMonth() + 1) + "/" + TerminateDatevalue.getFullYear();
+                                                    var datTer = dateTerminate.split("/");
+                                                    var DTer = new Date(datTer[2], parseInt(datTer[1]) - 1, datTer[0]);
+
+
+                                                    var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
+                                                    var dat2 = value2.getDate() + "/" + (value2.getMonth() + 1) + "/" + value2.getFullYear();
+                                                    var d2 = dat1.split("/");
+                                                    var d = new Date();
+                                                    var Mysysdate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
+                                                    var d1 = Mysysdate.split("/");
+                                                    var from = new Date(d1[2], parseInt(d1[1]) - 1, d1[0]);  // -1 because months are from 0 to 11
+                                                    var to = new Date(d2[2], parseInt(d2[1]) - 1, d2[0]);
+
+                                                    //if (from < to) {
+
+                                                    var com_Name = r.Data[0].C_ENAME;
+                                                    if (r.Data[0].INS_START_DATE != null) {
+                                                        var MyDate_String_Value = r.Data[0].INS_START_DATE;
+                                                        var value = new Date
+                                                            (
+                                                                parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                            );
+                                                        var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                                                    }
+                                                    else {
+                                                        dat = null;
+                                                    }
+                                                    if (r.Data[0].INS_END_DATE != null) {
+                                                        //end date
+                                                        var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
+                                                        var value1 = new Date
+                                                            (
+                                                                parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                            );
+                                                        var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
+                                                    }
+                                                    else {
+                                                        dat1 = null;
+                                                    }
+                                                    CardId = r.Data[0].CARD_ID;
+                                                    var ArName = r.Data[0].EMP_ANAME;
+                                                    ///r[0].EMP_ENAME ;
+                                                    ///dat ;
+                                                    var EndDate = dat1;
+                                                    var StartDate = dat2;
+                                                    $('#txtSearchCard').val(CardId);
+                                                    $('#compEmp_EMP_ANAME').val(ArName);
+                                                    $('#compEmp_INS_END_DATE').val(EndDate);
+                                                    $("#contractComp_C_ANAME").val(com_Name);
+                                                    $('#compEmp_INS_START_DATE').val(StartDate);
+
+
+                                                    $('#Con_Num').val(r.Data[0].CONTRACT_NO);
+                                                    $('#Class_Code').val(r.Data[0].CLASS_CODE);
+                                                    $('#Company_ID').val(r.Data[0].COMP_ID);
+                                                    if (!$('#main_services').val()) {
+                                                        // do something
+                                                        $("#main_services").append(
+                                                            '<option value="11104"> طوارئ  </option>');
+                                                        $("#main_services").prop("disabled", true);
+                                                        $("#emergancyTxt").show();
+                                                    }
+
+
+
+                                                    //}
+                                                    //else {
+                                                    //    alert(' لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
+                                                    //}
+                                                }
+
+                                            }
+                                            else if (r.Data[0].TERMINATE_FLAG == 'Y') {
+                                                var EndDateIns = r.Data[0].INS_END_DATE;
+                                                var newDateIns = EndDateIns.split('/').reverse().join('.');
+                                                var dateIns = new Date(newDateIns);
+
+                                                var EndDateCard = r.Data[0].TERMINATE_DATE;
+                                                var newDateCard = EndDateCard.split('/').reverse().join('.');
+                                                var dateCard = new Date(newDateCard);
+
+                                                var today = new Date();
+                                                var dd = today.getDate();
+                                                var mm = today.getMonth() + 1; //January is 0!
+                                                var yyyy = today.getFullYear();
+                                                var CurrentDate = new Date(yyyy, mm, dd);
+                                                var myTerminateDate_String_Value = r.Data[0].TERMINATE_DATE;
+
+                                                if (r.Data[0].TERMINATE_DATE >= r.Data[0].Now) {
+                                                    var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
+                                                    var MyDate_String_Value2 = r.Data[0].INS_START_DATE;
+                                                    var value1 = new Date
+                                                        (
+                                                            parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                        );
+                                                    var value2 = new Date
+                                                        (
+                                                            parseInt(MyDate_String_Value2.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                        );
+                                                    var TerminateDatevalue = new Date
+                                                        (
+                                                            parseInt(myTerminateDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                        );
+                                                    var dateTerminate = TerminateDatevalue.getDate() + "/" + (TerminateDatevalue.getMonth() + 1) + "/" + TerminateDatevalue.getFullYear();
+                                                    var datTer = dateTerminate.split("/");
+                                                    var DTer = new Date(datTer[2], parseInt(datTer[1]) - 1, datTer[0]);
+                                                    var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
+                                                    var dat2 = value2.getDate() + "/" + (value2.getMonth() + 1) + "/" + value2.getFullYear();
+                                                    var d2 = dat1.split("/");
+                                                    var d = new Date();
+                                                    var Mysysdate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
+                                                    var d1 = Mysysdate.split("/");
+                                                    var from = new Date(d1[2], parseInt(d1[1]) - 1, d1[0]);  // -1 because months are from 0 to 11
+                                                    var to = new Date(d2[2], parseInt(d2[1]) - 1, d2[0]);
+                                                    //if (from < to && from < DTer) {
+
+                                                    var com_Name = r.Data[0].C_ENAME;
+                                                    if (r.Data[0].INS_START_DATE != null) {
+                                                        var MyDate_String_Value = r.Data[0].INS_START_DATE;
+                                                        var value = new Date
+                                                            (
+                                                                parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                            );
+                                                        var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                                                    }
+                                                    else {
+                                                        dat = null;
+                                                    }
+                                                    if (r.Data[0].INS_END_DATE != null) {
+                                                        //end date
+                                                        var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
+                                                        var value1 = new Date
+                                                            (
+                                                                parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                            );
+                                                        var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
+                                                    }
+                                                    else {
+                                                        dat1 = null;
+                                                    }
+                                                    CardId = r.Data[0].CARD_ID;
+                                                    var ArName = r.Data[0].EMP_ANAME;
+                                                    ///r[0].EMP_ENAME ;
+                                                    ///dat ;
+                                                    var EndDate = dat1;
+                                                    var StartDate = dat2;
+
+                                                    $('#txtSearchCard').val(CardId);
+                                                    $('#compEmp_EMP_ANAME').val(ArName);
+                                                    $('#compEmp_INS_END_DATE').val(EndDate);
+                                                    $("#contractComp_C_ANAME").val(com_Name);
+                                                    $('#compEmp_INS_START_DATE').val(StartDate);
+                                                    $('#Con_Num').val(r.Data[0].CONTRACT_NO);
+                                                    $('#Class_Code').val(r.Data[0].CLASS_CODE);
+                                                    $('#Company_ID').val(r.Data[0].COMP_ID);
+
+                                                    if (!$('#main_services').val()) {
+                                                        // do something
+                                                        $("#main_services").append(
+                                                            '<option value="11104"> طوارئ  </option>');
+                                                        $("#main_services").prop("disabled", true);
+                                                        $("#emergancyTxt").show();
+                                                    }
+                                                    //}
+                                                    //else {
+                                                    //    alert('لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
+                                                    //}
+
+
+                                                }
+                                                else {
+                                                    alert(' لا يمكن تقديم الخدمه لهذا الموظف لانتهاء الكارت');
+                                                }
+                                            }
+                                            else {
+                                                bootbox.alert(' Invalid Card Number Termintate Flag ');
+                                            }
                                         }
                                     }
-                                });
-
-                                $(".celling-pert").val("100");
-                                $("#Limit").val(0);
-                                if (r.Data[0].TERMINATE_FLAG == 'N' || r.Data[0].TERMINATE_FLAG == null) {
-                                    if (r.Data[0].INS_END_DATE != null) {
-                                        //end date
-                                        var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
-                                        var MyDate_String_Value2 = r.Data[0].INS_START_DATE;
-                                        var myTerminateDate_String_Value = r.Data[0].TERMINATE_DATE;
-                                        var value1 = new Date
-                                            (
-                                                parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
-                                            );
-                                        var value2 = new Date
-                                            (
-                                                parseInt(MyDate_String_Value2.replace(/(^.*\()|([+-].*$)/g, ''))
-                                            );
-                                        var TerminateDatevalue = new Date
-                                            (
-                                                parseInt(myTerminateDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                                            );
-                                        var dateTerminate = TerminateDatevalue.getDate() + "/" + (TerminateDatevalue.getMonth() + 1) + "/" + TerminateDatevalue.getFullYear();
-                                        var datTer = dateTerminate.split("/");
-                                        var DTer = new Date(datTer[2], parseInt(datTer[1]) - 1, datTer[0]);
-
-
-                                        var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
-                                        var dat2 = value2.getDate() + "/" + (value2.getMonth() + 1) + "/" + value2.getFullYear();
-                                        var d2 = dat1.split("/");
-                                        var d = new Date();
-                                        var Mysysdate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
-                                        var d1 = Mysysdate.split("/");
-                                        var from = new Date(d1[2], parseInt(d1[1]) - 1, d1[0]);  // -1 because months are from 0 to 11
-                                        var to = new Date(d2[2], parseInt(d2[1]) - 1, d2[0]);
-
-                                        //if (from < to) {
-
-                                            var com_Name = r.Data[0].C_ENAME;
-                                            if (r.Data[0].INS_START_DATE != null) {
-                                                var MyDate_String_Value = r.Data[0].INS_START_DATE;
-                                                var value = new Date
-                                                    (
-                                                        parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                                                    );
-                                                var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                                            }
-                                            else {
-                                                dat = null;
-                                            }
-                                            if (r.Data[0].INS_END_DATE != null) {
-                                                //end date
-                                                var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
-                                                var value1 = new Date
-                                                    (
-                                                        parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
-                                                    );
-                                                var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
-                                            }
-                                            else {
-                                                dat1 = null;
-                                            }
-                                            CardId = r.Data[0].CARD_ID;
-                                            var ArName = r.Data[0].EMP_ANAME;
-                                            ///r[0].EMP_ENAME ;
-                                            ///dat ;
-                                            var EndDate = dat1;
-                                            var StartDate = dat2;
-                                            $('#txtSearchCard').val(CardId);
-                                            $('#compEmp_EMP_ANAME').val(ArName);
-                                            $('#compEmp_INS_END_DATE').val(EndDate);
-                                            $("#contractComp_C_ANAME").val(com_Name);
-                                            $('#compEmp_INS_START_DATE').val(StartDate);
-
-
-                                            $('#Con_Num').val(r.Data[0].CONTRACT_NO);
-                                            $('#Class_Code').val(r.Data[0].CLASS_CODE);
-                                            $('#Company_ID').val(r.Data[0].COMP_ID);
-                                            if (!$('#main_services').val()) {
-                                                // do something
-                                                $("#main_services").append(
-                                                    '<option value="11104"> طوارئ  </option>');
-                                                $("#main_services").prop("disabled", true);
-                                                $("#emergancyTxt").show();
-                                            }
-
-
-
-                                        //}
-                                        //else {
-                                        //    alert(' لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
-                                        //}
-                                    }
-
-                                }
-                                else if (r.Data[0].TERMINATE_FLAG == 'Y') {
-                                    var EndDateIns = r.Data[0].INS_END_DATE;
-                                    var newDateIns = EndDateIns.split('/').reverse().join('.');
-                                    var dateIns = new Date(newDateIns);
-
-                                    var EndDateCard = r.Data[0].TERMINATE_DATE;
-                                    var newDateCard = EndDateCard.split('/').reverse().join('.');
-                                    var dateCard = new Date(newDateCard);
-
-                                    var today = new Date();
-                                    var dd = today.getDate();
-                                    var mm = today.getMonth() + 1; //January is 0!
-                                    var yyyy = today.getFullYear();
-                                    var CurrentDate = new Date(yyyy, mm, dd);
-                                    var myTerminateDate_String_Value = r.Data[0].TERMINATE_DATE;
-
-                                    if (r.Data[0].TERMINATE_DATE >= r.Data[0].Now) {
-                                        var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
-                                        var MyDate_String_Value2 = r.Data[0].INS_START_DATE;
-                                        var value1 = new Date
-                                            (
-                                                parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
-                                            );
-                                        var value2 = new Date
-                                            (
-                                                parseInt(MyDate_String_Value2.replace(/(^.*\()|([+-].*$)/g, ''))
-                                            );
-                                        var TerminateDatevalue = new Date
-                                            (
-                                                parseInt(myTerminateDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                                            );
-                                        var dateTerminate = TerminateDatevalue.getDate() + "/" + (TerminateDatevalue.getMonth() + 1) + "/" + TerminateDatevalue.getFullYear();
-                                        var datTer = dateTerminate.split("/");
-                                        var DTer = new Date(datTer[2], parseInt(datTer[1]) - 1, datTer[0]);
-                                        var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
-                                        var dat2 = value2.getDate() + "/" + (value2.getMonth() + 1) + "/" + value2.getFullYear();
-                                        var d2 = dat1.split("/");
-                                        var d = new Date();
-                                        var Mysysdate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
-                                        var d1 = Mysysdate.split("/");
-                                        var from = new Date(d1[2], parseInt(d1[1]) - 1, d1[0]);  // -1 because months are from 0 to 11
-                                        var to = new Date(d2[2], parseInt(d2[1]) - 1, d2[0]);
-                                        //if (from < to && from < DTer) {
-
-                                            var com_Name = r.Data[0].C_ENAME;
-                                            if (r.Data[0].INS_START_DATE != null) {
-                                                var MyDate_String_Value = r.Data[0].INS_START_DATE;
-                                                var value = new Date
-                                                    (
-                                                        parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                                                    );
-                                                var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                                            }
-                                            else {
-                                                dat = null;
-                                            }
-                                            if (r.Data[0].INS_END_DATE != null) {
-                                                //end date
-                                                var MyDate_String_Value1 = r.Data[0].INS_END_DATE;
-                                                var value1 = new Date
-                                                    (
-                                                        parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
-                                                    );
-                                                var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
-                                            }
-                                            else {
-                                                dat1 = null;
-                                            }
-                                            CardId = r.Data[0].CARD_ID;
-                                            var ArName = r.Data[0].EMP_ANAME;
-                                            ///r[0].EMP_ENAME ;
-                                            ///dat ;
-                                            var EndDate = dat1;
-                                            var StartDate = dat2;
-
-                                            $('#txtSearchCard').val(CardId);
-                                            $('#compEmp_EMP_ANAME').val(ArName);
-                                            $('#compEmp_INS_END_DATE').val(EndDate);
-                                            $("#contractComp_C_ANAME").val(com_Name);
-                                            $('#compEmp_INS_START_DATE').val(StartDate);
-                                            $('#Con_Num').val(r.Data[0].CONTRACT_NO);
-                                            $('#Class_Code').val(r.Data[0].CLASS_CODE);
-                                            $('#Company_ID').val(r.Data[0].COMP_ID);
-
-                                            if (!$('#main_services').val()) {
-                                                // do something
-                                                $("#main_services").append(
-                                                    '<option value="11104"> طوارئ  </option>');
-                                                $("#main_services").prop("disabled", true);
-                                                $("#emergancyTxt").show();
-                                            }
-                                        //}
-                                        //else {
-                                        //    alert('لا يمكن تقديم الخدمه لهذا الموظف لانتهاء تعاقد الشركة');
-                                        //}
-
-
-                                    }
                                     else {
-                                        alert(' لا يمكن تقديم الخدمه لهذا الموظف لانتهاء الكارت');
+                                        bootbox.alert('برجاء الرجوع الى ادارة الشركة التابعة لسيادتكم ..');
                                     }
                                 }
-                                else {
-                                    bootbox.alert(' Invalid Card Number Termintate Flag ');
-                                }
-                            }
-
+                            });
                         }
                         else {
 
@@ -1031,7 +1045,7 @@ $(function () {
                     ///////
                     // }
 
-                    if ($("#Services").val() == 11105  || $("#Services").val() == 11203) {
+                    if ($("#Services").val() == 11105 || $("#Services").val() == 11203) {
 
                         $("#other-data").hide();
                         $("#divNotes").hide();
@@ -1077,7 +1091,7 @@ $(function () {
                         });
 
                         // check number of examination and check if examination time greater than 7 days or not 
-                                                                                                 
+
                         $.ajax({
                             type: 'POST',
                             url: '/Hospital/CheckExamination/',
@@ -1085,7 +1099,7 @@ $(function () {
                             data: {
                                 Card_ID: $('#txtSearchCard').val(), Services_ID: $("#Services option:selected").val(), Specialist: $("#SpecialitySelect option:selected").text(),
                                 SpecalistID: $("#SpecialitySelect").val(), C_Com_ID: $('#Company_ID').val(), Contract_Number: $('#Con_Num').val(),
-                                Class_Code: $('#Class_Code').val(),Provider_Code: $("#providerHospialCode").val(),
+                                Class_Code: $('#Class_Code').val(), Provider_Code: $("#providerHospialCode").val(),
                             },
 
                             success: function (result) {
@@ -1887,7 +1901,7 @@ function ChickSaveData() {
                                     Contract_Number: $('#Con_Num').val(),
                                     Class_Code: $('#Class_Code').val(),
                                     Comp_Payment: $("#Com_Cach").val()
-                                }; 
+                                };
                                 $.ajax({
                                     type: "POST",
                                     url: '/User/Save',

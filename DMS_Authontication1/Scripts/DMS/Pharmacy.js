@@ -179,7 +179,7 @@ $(function () {
                                                     $('#compEmp_INS_START_DATE').val(StartDate);
                                                     $('#compEmp_INS_END_DATE').val(EndDate);
                                                     $('#compEmp_BIRTH_DATE').val(birthdate);
-                                                    AddNationalId();
+                                                    //AddNationalId();
                                                     $('#CardsModal').modal('hide');
                                                     //Get ceiling and Limit
                                                     GetLimit();

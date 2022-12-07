@@ -17,34 +17,34 @@ var BasicPackagePrice;
 var AnuualLimit;
 var sumNoPay = 0;
 $(function () {
-    //bootbox.alert("السادة العملاء جاري تحديث بيانات العلاج الشهرى برجاء إعادة المحاولة بعد الساعة ١٢ و شكرا");
-    //add National Id
-    if (NationalId == "undefined" || NationalId == null) {
-        bootbox.prompt({
-            title: "Please,Enter Patient National ID  : ",
-            centerVertical: true,
-            closeButton: false,
-            //required: true,
-            //cancel: "Reset",
-            callback: function (result) {
-                if (result === null) {
-                    window.location = '/Pharmacy/Pharmacy';
-                    return true;
-                }
-                if (result === "" || result.length != 14 || isNaN(result)) {
-                    toastr.error("Invalid Value");
-                    return false;
-                } else {
-                    //$("#wait").css("display", "block");
-                    NationalId = result;
-                    return true;
+    ////bootbox.alert("السادة العملاء جاري تحديث بيانات العلاج الشهرى برجاء إعادة المحاولة بعد الساعة ١٢ و شكرا");
+    ////add National Id
+    //if (NationalId == "undefined" || NationalId == null) {
+    //    bootbox.prompt({
+    //        title: "Please,Enter Patient National ID  : ",
+    //        centerVertical: true,
+    //        closeButton: false,
+    //        //required: true,
+    //        //cancel: "Reset",
+    //        callback: function (result) {
+    //            if (result === null) {
+    //                window.location = '/Pharmacy/Pharmacy';
+    //                return true;
+    //            }
+    //            if (result === "" || result.length != 14 || isNaN(result)) {
+    //                toastr.error("Invalid Value");
+    //                return false;
+    //            } else {
+    //                //$("#wait").css("display", "block");
+    //                NationalId = result;
+    //                return true;
 
-                }
-                return false;
+    //            }
+    //            return false;
 
-            }
-        });
-    }
+    //        }
+    //    });
+    //}
     $.ajax({
         type: "POST",
         dataType: "json",
