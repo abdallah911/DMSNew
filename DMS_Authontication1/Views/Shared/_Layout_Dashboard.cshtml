@@ -667,6 +667,19 @@
                             }
                         }
 
+                            @*@if (modellist != null)
+                            {
+                                if (modellist.Where(x => x.ModuleName == "CustomerService Management" && x.PageId == 33 && (x.FullControl || x.EditPermission
+                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                {*@
+                                    <li class="nav-header"> 
+                                        <div class="link"><i class="fa fa-user-circle-o"></i>Customer Service<i class="fa fa-chevron-down"></i></div>
+                                        <ul class="submenu">
+                                            <li><a href="/CustomerService/Index">Customer Service</a></li>
+                                        </ul>
+                                    </li>
+                                @*}
+                            }*@
 
                     </ul>
                 </aside>
