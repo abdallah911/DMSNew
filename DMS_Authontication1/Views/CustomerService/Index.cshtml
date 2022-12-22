@@ -3,6 +3,11 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
 }
+
+<br />
+<br />
+@Html.Partial("_MedicalNetworkCustomerService")
+
 <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
@@ -11,463 +16,375 @@
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 
-<div class="portlet box  blue-pink">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Hello world
-        </div>
+<div class="panel panel-info">
+    <h2 class="panel-heading" style="margin:1px;">Card ID</h2>
+
+    <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
+        <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
     </div>
 
+    <div class="row">
 
-    <div class="panel panel-info">
-        <h2 class="panel-heading" style="margin:1px;">Card ID</h2>
-        <div class="panel-body">
-            <div class="row">
-                <div class="form-group">
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>
-
-                    <div class="col-sm-2" data-step="3" data-intro="Select speciality">
-                        <label class="control-label">Main Services</label>
-                        <select id="main_services" class="form-control">
-                        </select>
-                        @*@Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })*@
-                        @*@Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "form-control", @id = "ddlSpeciality" })*@
-                    </div>
-                    <div class="col-sm-2" id="div_of_serv" data-step="4" data-intro="Select Sub Services">
-                        <label class="control-label">Sub Services</label>
-                        <select id="Services" class="form-control">
-                            <option value="0"> اختر نوع الخدمه المطلوبه </option>
-                        </select>
-
-                    </div>
+        <div class="col-sm-3" data-step="1" data-hint='Step one!' data-intro="Enter Card ID OR Phone">
+            <input id="txtSearch" type="text" placeholder="Enter Card Or Phone ...." class="form-control" />
+        </div>
+        <div class="col-sm-4" data-step="2" data-intro="click Search">
+            <button id="Search" type="button" class="btn btn-primary">
+                <i class="glyphicon glyphicon-search"></i> Search
+            </button>
+        </div>
 
 
-                    @*<div class="col-sm-2" data-step="8" data-intro="Select Diagnoises">
-                            @Html.Label("Diagnoise", new { @class = "control-label" })
-                            <select id="ddlDiagnoises" style="width:100%" multiple></select>
-                        </div>*@
-                    <div class="col-sm-2">
-                        <input type="text" id="Con_Num" value="" hidden="hidden" />
-                        <input type="text" id="Class_Code" value="" hidden="hidden" />
-                        <input type="text" id="Company_ID" value="" hidden="hidden" />
-                        <input type="text" id="IsCash" value="0" hidden="hidden" />
-                        <input type="text" id="Num_Seessions" value="" hidden="hidden" />
-                        <input type="text" id="Seession_Code" value="" hidden="hidden" />
-                        <input type="text" id="providerHospialCode" value="@ViewBag.Provider" hidden="hidden" />
+        @*<div data-step="1" data-hint='Step one!' data-intro="Enter Card ID" class="col-sm-1">
+                <input id="txtSearchCard" type="text" placeholder="search for card..." class="form-control" />
+            </div>*@
 
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                @*<div class="col-sm-2">
-                        @Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>*@
-                <div class="col-sm-2" hidden="hidden">
-                    <label class="control-label"> Limit </label>
-                    <input id="Limit" type="text" class="form-control " ReadOnly="readonly" />
-                </div>
-
-                @*   نسبة تحمل المريض  *@
-
-                <div class="col-sm-2">
-                    <label class="control-label">Patient Percent </label>
-                    <input id="celling-pert" type="text" class="form-control celling-pert" ReadOnly="readonly" />
-                </div>
-
-                <div id="serviceselect" class="col-sm-4" data-step="5" data-intro="Select Diagnoises" hidden="hidden">
-                    @Html.Label("Service", new { @class = "control-label" })
-                    <select id="ddlDiagnoises" style="width:100%" multiple="multiple">
-                        <option value="0"> اختر نوع الخدمه المطلوبه </option>
-
-                    </select>
-                </div>
-                <div id="SpecialityDiv" class="col-sm-4" data-step="5" data-intro="Select Diagnoises" hidden="hidden">
-                    @Html.Label("Speciality", new { @class = "control-label" })
-                    @Html.DropDownList("SpecialitySelect", null, htmlAttributes: new { @style = "width:100%", @id = "SpecialitySelect" })
-                    @*<select id="SpecialitySelect" style="width:100%" multiple="multiple">
-                            <option value="0"> اختر نوع الخدمه المطلوبه </option>
-
-                        </select>*@
-                </div>
-
-                <div id="divNotes" class="col-sm-2" hidden="hidden" @*data-step="5" data-intro="Select Diagnoises"*@>
-                    @Html.Label("Notes", new { @class = "control-label" })
-                    <textarea id="Notetext" @*style="width:100%" multiple="multiple"*@>
-                        </textarea>
-                </div>
-
-                @*<div id="DoctortDegree" class="col-sm-2" hidden="hidden" >
-                        @Html.Label("Degree", new { @class = "control-label" })
-                        <select id="degreeSelect" style="width:100%">
-                            <option value="0"> اختر الدرجه العلميه </option>
-                        </select>
-                    </div>*@
-
-                <div id="DoctortName" class="col-sm-4" hidden="hidden" @*data-step="5" data-intro="Select Diagnoises"*@>
-                    @Html.Label("Doctor Name", new { @class = "control-label" })
-                    <select id="doctorNameSelect" style="width:100%" multiple="multiple">
-                    </select>
-                </div>
+        <div class="col-sm-3" data-step="3" data-intro="Select speciality">
+            <select id="txtCardRelation" class="form-control" placeholder="Card Relation ..."></select>
+        </div>
 
 
 
-            </div>
-            <br />
-            <div class="row" id="other-data">
-                <div class="form-group">
-                    <div class="col-sm-2" data-step="6" data-intro="Enter Phone Number">
-                        @Html.Label("Phone Number", htmlAttributes: new { @class = "control-label" })
-                        @Html.Editor("PhoneNumber", new { htmlAttributes = new { @class = "form-control", @onkeypress = "return /[0-9]/i.test(event.key)", @required = "true" } })
-                    </div>
-                    @*<div class="col-sm-2" data-step="7" data-intro="Enter Claim Number">
-                            @Html.Label("Claim Number", htmlAttributes: new { @class = "control-label" })
-                            @Html.Editor("ClaimNumber", new { htmlAttributes = new { @class = "form-control", @onkeypress = "return /[0-9]/i.test(event.key)", @required = "true" } })
-                        </div>*@
-                    <div class="col-sm-2" data-step="8" data-intro="National Id">
-                        @Html.Label("National Id", htmlAttributes: new { @class = "control-label " })
-                        @Html.Editor("NationalId", new { htmlAttributes = new { @class = "form-control", @maxlength = "14", @minlength = "14", @required = "true" } })
-                        @Html.ValidationMessage("NationalId", "", new { @class = "text-danger" })
+        <div class="col-sm-2" data-step="4" data-intro="click Search">
+            <button id="SearchRelation" type="button" class="btn btn-primary">
+                <i class="glyphicon glyphicon-search"></i> Search
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="margin-top:40px;margin-bottom:40px;margin-left:40px">
+            @*Button Start Metting*@
 
-                    </div>
-                </div>
-            </div>
-            <br />
-            <div id="total_id" class="row">
-
-                <div class="form-group">
-                    <div class="col-sm-2" data-step="9" data-intro="Total Value">
-                        <label class="control-label">Total Value </label>
-                        <input id="txtTotal" type="text" class="form-control" onkeyup="PersonPayments()" onkeypress="return /[0-9 .]/i.test(event.key)" />
-                    </div>
-
-                    <div class="col-sm-2">
-                        @Html.Label("Company Payment", htmlAttributes: new { @class = "control-label" })
-                        @Html.Editor("CompanyPayment", new { htmlAttributes = new { @class = "form-control", @onkeypress = "return /[0-9]/i.test(event.key)", @ReadOnly = "readonly" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.Label("Patient Co-Payment", htmlAttributes: new { @class = "control-label" })
-                        @Html.Editor("PatientCoPayment", new { htmlAttributes = new { @class = "form-control", @onkeypress = "return /[0-9]/i.test(event.key)", @ReadOnly = "readonly" } })
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.Label("Over Insurance", htmlAttributes: new { @class = "control-label" })
-                        @Html.Editor("OverInsurance", new { htmlAttributes = new { @class = "form-control", @onkeypress = "return /[0-9]/i.test(event.key)", @ReadOnly = "readonly" } })
-                        @Html.ValidationMessage("OverInsurance", "", new { @class = "text-danger" })
-
-                    </div>
-
-                    <div class="col-sm-2">
-                        <label class="control-label">Total Cash </label>
-                        <input id="txtTotalCopayment" type="text" class="form-control" ReadOnly="readonly" />
-                    </div>
-                    <div class="col-sm-2">
-                        <label class="control-label"> Cash </label>
-                        <input id="Cash" type="text" class="form-control" ReadOnly="readonly" />
-                    </div>
-
-                </div>
+            @*background-color: #e6b3cc;*@
+            @*Label Timer*@
+            <div class="col-md-4" style="text-align: center;margin-top: 5px;font:bold;font-size:20px;font-style:italic">
+                <span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span>
             </div>
 
+
+
+            @*Button End Metting*@
+            <div class="col-md-4">
+                <input data-step="8" data-intro="End Call" type="button" value="End Call" class="btn btn-success" onclick="StopTime()" style="background-color:cornflowerblue; text-transform: none" />
+            </div>
+
+            <div class="col-sm-3" data-step="3" data-intro="Select speciality">
+                <select id="txtPhone" class="form-control" placeholder="Phone Numbers ..."></select>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row" style=" text-align:right">
+        <div class="col-md-12">
+            <input id="ResetSearch" type="button" value="New" onclick="ClearAfterSalesSearchData();" class="btn btn-warning" />
+            <input id="ShowInformation" type="button" value="Show Information" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowInformationCard()" />
+            @*<input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o " />
+                <input id="AfterSalesSearch" type="button" value="Search" class="btn btn-default  fa fa-search" />*@
 
         </div>
     </div>
-
-
-    <!--<div class="portlet-body">
-        <div class="row">
-
-            <div class="form-group">
-                <div class="row">
-
-                    <div data-step="1" data-hint='Step one!' data-intro="Enter Card ID" class="col-sm-3">
-                        <input id="txtSearchCard" type="text" placeholder="search for card..." class="form-control" />
-                    </div>
-                    <div class="col-sm-1" data-step="2" data-intro="click Search">
-                        <button id="Search" type="button" class="btn btn-primary">
-                            <i class="glyphicon glyphicon-search"></i> Search
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-
-
-            <div class="col-md-2">
-                <input id="From" type="text" class="col-md-2 form-control " placeholder="From" />
-            </div>
-            <div class="col-md-2">
-                <input id="To" type="text" class="col-md-2 form-control " placeholder="To" />
-            </div>
-            <div class="col-md-2">
-                @Html.DropDownList("CompName", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompName" })-->
-    @*<input id="CompName" type="text" class="col-md-2 form-control " placeholder="Company Name" />*@
-    <!--</div>
-    @if (User.IsInRole("Admin"))
-    {
-        <div class="col-md-2">
-            @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = "form-control", @id = "userName" })-->
-    @*<input id="userName" type="text" class="col-md-2 form-control " placeholder="User Name" />*@
-    <!--</div>
-        }
-        <!--<div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
-    <select id="PharmacyddlType" class="form-control">
-        <option value="">Select Type</option>
-        <option value="Daily">Daily</option>
-        <option value="Monthly">Monthly</option>
-        <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>-->
-    -->
-    <!--@*<option value="11604">Doctor</option>*@-->
-    <!--</select>
-    </div>-->
-    <!--</div>
-        <br />
-        <div class="row" style=" text-align:right">
-            <div class="col-md-12">
-                <input id="ResetSearch" type="button" value="Reset" onclick="ClearAfterSalesSearchData();" class="btn btn-warning" />
-                <input id="Print" type="button" value="Pdf" class="btn btn-primary fa fa-file-pdf-o" />
-                <input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o " />
-                <input id="AfterSalesSearch" type="button" value="Search" class="btn btn-default  fa fa-search" />
-
-            </div>
-        </div>
-    </div>-->
 </div>
 
-@*<div class="portlet box  red-pink">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i> Hello world
-        </div>
-        <div class="actions">
-            <a id="Create" href="/AfterSales/Create" style=" text-transform: none" class="btn btn-primary  btn-sm">
-                <i class="fa fa-plus"></i> New Visit
-            </a>
+<div class="panel panel-info" id="CardDetails">
+    <h2 class="panel-heading" style="margin:1px;">Card Details</h2>
+    <div class="panel-body">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => model.CardID, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CardID, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.MaxAmount, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.MaxAmount, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.ClassName, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.ClassName, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.HospitalDegree, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.HospitalDegree, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.MedicalNetwork, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.MedicalNetwork, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.ExceptionPayment, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.ExceptionPayment, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.ExceptionOver, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.ExceptionOver, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.NationalId, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.NationalId, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.CardColor, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CardColor, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.Mobile1, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Mobile1, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(model => model.Mobile2, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Mobile2, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+                <div class="col-sm-2" id="OldCardScreen" hidden="hidden">
+                    @Html.LabelFor(model => model.OldCard, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.OldCard, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                </div>
+            </div>
         </div>
     </div>
-    <br />
-    <div class="portlet-body">
+</div>
 
-        <table class="ui celled table" id="Index" width="100%">
-            <thead>
-                <tr>
-                    <th>
-                        Visit Id
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CompanyName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.BranchName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.VisitReason)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.VisitDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.PersonName)
-                    </th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody></tbody>
 
-        </table>
+<div class="panel panel-info" id="CardInformationDetails" hidden="hidden">
+    <h2 class="panel-heading" style="margin:1px;">Card Information</h2>
+    <div class="row" style=" text-align:left">
+        <div class="col-md-12">
+            <input id="ShowConsumption" type="button" value="Show Consumption" onclick="ShowAllConsmptionDetails()" class="btn btn-primary" />
+            <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalConsmptionDetails()" />
+            <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsConsmptionDetails()" />
+            <input id="ShowIndemnity" type="button" value="Indemnity" class="btn btn-success  fa fa-search" onclick="ShowIndemnityConsmptionDetails()" />
+            <input id="ShowMonthly" type="button" value="Monthly treatment" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMonthlyConsmptionDetails()" />
+            <input id="ShowLive" type="button" value="Online Live" class="btn btn-success fa-file-excel-o " onclick="ShowLiveConsmptionDetails()" />
+            <input id="ShowMedicalNetwork" type="button" value="Medical Network" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMedicalNetworkScreen()" />
+            <input id="ShowCardDesgin" type="button" value="Card Desgin" class="btn btn-success fa-file-excel-o " onclick="ShowCardDesignPrint()" />
+        </div>
     </div>
-</div>*@
+
+    <div class="panel-body">
+
+        <div class="form-group" id="ConsumptionScreen">
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.MedicationClaims, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.MedicationClaims, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-4">
+                @Html.LabelFor(model => model.MedicationClaimsUnderReview, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.MedicationClaimsUnderReview, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.OtherConsumption, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.OtherConsumption, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.AllConsumption, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.AllConsumption, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.Remaining, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Remaining, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.Percent, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Percent, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.ApprovalConsumption, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.ApprovalConsumption, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+        </div>
+        <div class="col-md-12" style="width:100%;" id="ApprovalsScreen">
+            <table class="ui celled table" id="ApprovalsDetails">
+                <thead>
+                    <tr>
+                        <th scope="col" align="center">Approval No</th>
+                        <th scope="col" align="center">Approval Type</th>
+                        <th scope="col" align="center">Reply</th>
+                        <th scope="col" align="center">Approval Amount</th>
+                        <th scope="col" align="center">Medical Reply</th>
+                        <th scope="col" align="center">Created By</th>
+                        <th scope="col" align="center">Created Date</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.CountApprovals, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-sm-2">
+                @Html.EditorFor(model => model.CountApprovals, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.TotalAmountApprovals, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-sm-2">
+                @Html.EditorFor(model => model.TotalAmountApprovals, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+
+            <div class="col-sm-3">
+                <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreApprovalsDetailsEvent()" class="btn btn-primary" />
+            </div>
+
+
+        </div>
+        <div class="table-responsive" id="ClaimsScreen">
+            <table class="table table-fixed" id="ClaimsDetails">
+                <thead>
+                    <tr>
+                        <th scope="col" align="center">Claim No</th>
+                        <th scope="col" align="center">Claim Date</th>
+                        <th scope="col" align="center">Batch No</th>
+                        <th scope="col" align="center">Group No</th>
+                        <th scope="col" align="center">Gross</th>
+                        <th scope="col" align="center">Amount</th>
+                        <th scope="col" align="center">Notes</th>
+                        <th scope="col" align="center">F</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.CountClaims, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.CountClaims, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.TotalGrossClaims, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.TotalGrossClaims, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.TotalNetClaims, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.TotalNetClaims, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+
+            <div class="col-sm-6">
+                <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreClaimsDetailsEvent();" class="btn btn-primary" />
+            </div>
+
+        </div>
+
+        <div class="table-responsive" id="IndemnityScreen">
+            <table class="table table-fixed" id="IndemnityDetails">
+                <thead>
+                    <tr>
+                        <th scope="col" align="center">Claim No</th>
+                        <th scope="col" align="center">Claim Date</th>
+                        <th scope="col" align="center">Gross</th>
+                        <th scope="col" align="center">Net</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.CountIndemnity, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.CountIndemnity, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.TotalGrossIndemnity, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.TotalGrossIndemnity, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.TotalNetIndemnity, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.TotalNetIndemnity, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+
+            <div class="col-sm-6">
+                <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreIndemnityDetailsEvent();" class="btn btn-primary" />
+            </div>
+
+        </div>
+
+        <div class="table-responsive" id="MonthlyScreen">
+            <table class="table table-fixed" id="MonthlyDetails">
+                <thead>
+                    <tr>
+                        <th scope="col" align="center">Created Date</th>
+                        <th scope="col" align="center">Provider Code</th>
+                        <th scope="col" align="center">User N</th>
+                        <th scope="col" align="center">Group Name</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.CountMonthly, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-sm-2">
+                @Html.EditorFor(model => model.CountMonthly, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+
+            </div>
+
+            <div class="col-sm-8">
+                <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreMonthlyDetailsEvent();" class="btn btn-primary" />
+            </div>
+
+        </div>
+
+        <div class="table-responsive" id="LiveScreen">
+            <table class="table table-fixed" id="LiveDetails">
+                <thead>
+                    <tr>
+                        <th scope="col" align="center">Claim No</th>
+                        <th scope="col" align="center">Claim Date</th>
+                        <th scope="col" align="center">Provider Id</th>
+                        <th scope="col" align="center">Branch</th>
+                        <th scope="col" align="center">Kind</th>
+                        <th scope="col" align="center">Total</th>
+                        <th scope="col" align="center">Copay</th>
+                        <th scope="col" align="center">Over</th>
+                        <th scope="col" align="center">Cash</th>
+                        <th scope="col" align="center">Credit</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.CountLive, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.CountLive, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.TotalLive, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.TotalLive, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.TotalCredit, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.TotalCredit, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+            </div>
+
+            <div class="col-sm-6">
+                <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreLiveDetailsEvent();" class="btn btn-primary" />
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-@*<script>
-
-    $(function () {
-        $('#From').datetimepicker({
-            format: "l"
-        });
-        $('#To').datetimepicker({
-            format: "l"
-        });
-
-        $('#userName').select2();
-        $('#CompName').select2();
-
-        //  $(document).ready(function () {
-        $("#Index").DataTable();
-        $('#Print').click(function () {
-            var result = ValidSearchRequest();
-            if (result.valid) {
-                window.open('/AfterSales/PrintVisits?from=' + $("#From").val() + '&&to=' + $("#To").val() + '&&CompName=' + $("#CompName").val() + '&&username=' + $("#userName").val());
-            } else {
-                toastr.info('Enter Valid Data')
-            }
-
-        });
-        $('#PrintExcel').click(function () {
-            var result = ValidSearchRequest();
-            if (result.valid) {
-                window.open('/AfterSales/PrintXlxVisits?from=' + $("#From").val() + '&&to=' + $("#To").val() + '&&CompName=' + $("#CompName").val() + '&&username=' + $("#userName").val());
-            } else {
-                toastr.info('Enter Valid Data')
-            }
-
-        });
-
-        IndexDatatable();
-
-        $('#AfterSalesSearch').click(function () {
-            var result = ValidSearchRequest();
-            if (result.valid) {
-                $('#Index').dataTable().fnDestroy();
-                $("#Index").DataTable({
-                    "sAjaxSource": '/AfterSales/AfterSaleList?From=' + $("#From").val() + '&&To=' + $("#To").val() + '&&CompName=' + $("#CompName").val() + '&&userName=' + $("#userName").val(),
-                    "bServerSide": true,
-                    "processing": true,
-                    "bFilter": true,
-                    "bSort": false,
-                    "pageLength": 10,
-                    "bInfo": true,
-                    "columns": [
-                        //{ "data": "Id", "name": "Id" },
-                        { "data": "Id", "name": "Id" },
-                        { "data": "CompanyName", "name": "CompanyName" },
-                        { "data": "BranchName", "name": "BranchName" },
-                        { "data": "VisitReason", "name": "VisitReason" },
-                        { "data": "VisitDate", "name": "VisitDate" },
-                        { "data": "PersonName", "name": "PersonName" },
-                        //{
-                        //    "data": "VisitDate",
-                        //    "name": "VisitDate",
-                        //    "mRender": function (data) {
-                        //        var value = new Date(parseFloat(data.replace(/(^.*\()|([+-].*$)/g, '')));
-                        //        var date = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                        //        return date;
-                        //    }
-                        //},
-                        {
-                            "data": "Id",
-                            "mRender": function (data) {
-                                // data = data.toString().slice(8);//remove date
-                                return '<a class="btn btn-warning fa fa-edit" href="/AfterSales/Edit/' + data + '" style = " text-transform: none"> Edit</a>';
-                            }
-                        },
-                        {
-                            "data": "Id",
-                            "mRender": function (data) {
-                                // data = data.toString().slice(8);//remove date
-                                return '<a class="btn btn-primary fa fa-list" href="/AfterSales/Details/' + data + '" style = " text-transform: none"> Details</a>';
-                            }
-                        }
-                        ,
-                        {
-                            "data": "Id",
-                            "mRender": function (data) {
-                                //data = data.toString().slice(8);//remove date
-                                //return '<a href="/Pharmacy/Delete/' + data + '">Delete</a>';
-                                return '<a class="btn btn-danger fa fa-remove" href="/AfterSales/Delete/' + data + '" style = " text-transform: none"> Delete</a>';
-                                // return '<button type="button" class="btn btn-danger fa fa-remove" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
-
-                            }
-                        },
-
-
-                    ]
-                });
-            }
-        });
-    });
-    function ClearAfterSalesSearchData() {
-        $("#From").val("");
-        $("#To").val("");
-        $("#CompName").val("");
-        $("#userName").val('').trigger("change");
-        $("#CompName").val('').trigger("change");
-        
-        IndexDatatable();
-    }
-    function ValidSearchRequest() {
-        $.validity.setup({ outputMode: 'label' });
-        $.validity.start();
-        //$("#EMP_ENAME_ST").require();
-
-        if ($("#From").val() == "" && $("#To").val() != "") { toastr.error("Please,select From Date."); return { valid: false }; }
-        if ($("#To").val() == "" && $("#From").val() != "") { toastr.error("Please,select To date."); return { valid: false }; }
-        return $.validity.end();
-    }
-
-    function IndexDatatable() {
-        $('#Index').dataTable().fnDestroy();
-        $("#Index").DataTable({
-            "sAjaxSource": '/AfterSales/AfterSaleList',
-            "bServerSide": true,
-            "processing": true,
-            "bFilter": true,
-            "bSort": false,
-            "pageLength": 10,
-            "bInfo": true,
-            "columns": [
-                //{ "data": "Id", "name": "Id" },
-                { "data": "Id", "name": "Id" },
-                { "data": "CompanyName", "name": "CompanyName" },
-                { "data": "BranchName", "name": "BranchName" },
-                { "data": "VisitReason", "name": "VisitReason" },
-                { "data": "VisitDate", "name": "VisitDate" },
-                { "data": "PersonName", "name": "PersonName" },
-                //{
-                //    "data": "VisitDate",
-                //    "name": "VisitDate",
-                //    "mRender": function (data) {
-                //        var value = new Date(parseFloat(data.replace(/(^.*\()|([+-].*$)/g, '')));
-                //        var date = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                //        return date;
-                //    }
-                //},
-                {
-                    "data": "Id",
-                    "mRender": function (data) {
-                        // data = data.toString().slice(8);//remove date
-                        return '<a class="btn btn-warning fa fa-edit" href="/AfterSales/Edit/' + data + '" style = " text-transform: none"> Edit</a>';
-                    }
-                },
-                {
-                    "data": "Id",
-                    "mRender": function (data) {
-                        // data = data.toString().slice(8);//remove date
-                        return '<a class="btn btn-primary fa fa-list" href="/AfterSales/Details/' + data + '" style = " text-transform: none"> Details</a>';
-                    }
-                }
-                ,
-                {
-                    "data": "Id",
-                    "mRender": function (data) {
-                        //data = data.toString().slice(8);//remove date
-                        //return '<a href="/Pharmacy/Delete/' + data + '">Delete</a>';
-                        return '<a class="btn btn-danger fa fa-remove" href="/AfterSales/Delete/' + data + '" style = " text-transform: none"> Delete</a>';
-                        // return '<button type="button" class="btn btn-danger fa fa-remove" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
-
-                    }
-                },
-
-
-            ]
-        });
-    }
-
-
-</script>*@
-
+<script src="~/Scripts/DMS/CustomerService/CustomerService.js?V=3.2"></script>
