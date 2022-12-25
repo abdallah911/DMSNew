@@ -1190,6 +1190,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AcceptionViewModel.cs" />
     <Compile Include="ViewModel\AdminChangeUserPasswordNM.cs" />
+    <Compile Include="ViewModel\CustomerService\DetailsCustomerServiceViewModel.cs" />
     <Compile Include="ViewModel\CustomerService\CustomerServicePhoneViewModel.cs" />
     <Compile Include="ViewModel\CustomerService\ApprovalCustomerServiceViewModel.cs" />
     <Compile Include="ViewModel\CustomerService\ClaimCustomerServiceViewModel.cs" />
@@ -8376,7 +8377,6 @@
     <Content Include="Reports\HR\ApprovalHr.rpt" />
     <Content Include="Reports\ReportPrintHorizontal6.rpt" />
     <Content Include="Views\CustomerService\_MedicalNetworkCustomerService.cshtml" />
-    <Content Include="Views\CustomerService\_MedicalNetworkCustomerService - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

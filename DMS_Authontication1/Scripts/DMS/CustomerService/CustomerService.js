@@ -14,7 +14,7 @@ function StartTime() {
 
 function StopTime() {
     if (isStopTimeClick != -2) {
-        bootbox.alert("You shoud click ' Start Meeting ' first ");
+        bootbox.alert("You shoud click Start Meeting first ");
     }
     else {
         dateOfEndMeeting = new Date($.now());
@@ -154,7 +154,10 @@ function getClaimData(flg) {
                             "<td>" + apprs.clm[i].Amount + "</td>" +
                             "<td>" + apprs.clm[i].Notes + "</td>" +
                             "<td>" + apprs.clm[i].F + "</td>" +
-                            "<td >" + "<Button  class='btn btn-Primary ' onclick='Printclm(\"" + apprs.clm[i].clmNo + "\");'>Details</Button>" + "</td>" +
+                            "<td >" + "<Button  class='btn btn-Primary ' onclick='getClaimDetails(" + apprs.clm[i].ClaimNo + "," + apprs.clm[i].GroupNo +");'>Details</Button>" + "</td>" +
+
+
+
                             "</tr>";
                         setData2.append(data);
                     }
@@ -166,6 +169,67 @@ function getClaimData(flg) {
         });
     }
 }
+
+function ClearAllDetails() {
+    $('#TitleMedical').hide();
+    $('#TitleDetails').hide();
+    $('#MedicalNetworkScreen').hide();
+    $('#ClaimsDetailsScreen').hide();
+    $('#IndemnityDetailsScreen').hide();
+    $('#MonthlyDetailsScreen').hide();
+    $('#ClaimsLiveDetailsScreen').hide();
+
+    //$('#IndemnityScreen').hide();
+}
+
+
+function getClaimDetails(clm, grp) {
+    debugger;   
+        
+        $("#wait").css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: '/CustomerService/getClaimDetails',
+            data: { ClaimNo: clm, grp: grp },
+            success: function (apprs) {
+                debugger;
+                //approval, cout, totl
+
+                if (apprs.clmD.length > 0) {
+                    var setData2 = $("#ClaimsDataDetails Tbody");
+
+                    setData2.empty();
+                   
+                    for (var i = 0; i < apprs.clmD.length; i++) {
+                        var data = "<tr >" +
+
+                            "<td>" + apprs.clmD[i].PRV_NAME + "</td>" +
+                            "<td>" + apprs.clmD[i].SERV_ANAME + "</td>" +
+                            "<td>" + apprs.clmD[i].DIAGNOSIS + "</td>" +
+                            "<td>" + apprs.clmD[i].INVT_NO + "</td>" +
+                            "<td>" + apprs.clmD[i].INVT_NAM + "</td>" +
+                            "<td>" + apprs.clmD[i].AMOUNT + "</td>" +
+                            "<td>" + apprs.clmD[i].NOTES_DET + "</td>" +
+
+                            "</tr>";
+                        setData2.append(data);
+                    }
+                    $("#wait").css("display", "none");
+                    $("#ClaimsDataDetails").DataTable();
+                }
+                $("#wait").css("display", "none");
+
+
+                ClearAllDetails();
+                $('#ClaimNo').val(clm);
+                $('#ClaimsDetailsScreen').show();
+                $('#TitleDetails').show();
+                $('#MedicalNetworkCustomerServiceModal').modal();
+            }
+        });
+    
+}
+
 function getIndemnityData(flg) {
     debugger;
     if ($('#CardID').val() != "") {
@@ -191,7 +255,7 @@ function getIndemnityData(flg) {
                             "<td>" + apprs.clm[i].ClaimDate + "</td>" +
                             "<td>" + apprs.clm[i].Gross + "</td>" +
                             "<td>" + apprs.clm[i].Net + "</td>" +
-                            "<td >" + "<Button  class='btn btn-Primary ' onclick='Printclm(\"" + apprs.clm[i].clmNo + "\");'>Details</Button>" + "</td>" +
+                            "<td >" + "<Button  class='btn btn-Primary ' onclick='getIndemnityDetails(\"" + apprs.clm[i].ClaimNo + "\");'>Details</Button>" + "</td>" +
                             "</tr>";
                         setData2.append(data);
                     }                   
@@ -203,6 +267,68 @@ function getIndemnityData(flg) {
         });
     }
 }
+
+
+function getIndemnityDetails(clm) {
+    debugger;
+
+    $("#wait").css("display", "block");
+    $.ajax({
+        type: "POST",
+        url: '/CustomerService/getIndemnityDetails',
+        data: { ClaimNo: clm },
+        success: function (apprs) {
+            debugger;
+            //approval, cout, totl
+
+            if (apprs.clmD.length > 0) {
+                var setData2 = $("#IndemnityDetailsData Tbody");
+
+                setData2.empty();
+
+                for (var i = 0; i < apprs.clmD.length; i++) {
+                    var data = "<tr >" +
+
+                        "<td>" + apprs.clmD[i].DIA_CODE + "</td>" +
+                        "<td>" + apprs.clmD[i].DIA_ENAME + "</td>" +
+                        "<td>" + apprs.clmD[i].DIA_NOTES + "</td>" +
+
+                        "</tr>";
+                    setData2.append(data);
+                }
+
+                if (apprs.clmD2.length > 0) {
+                    var setData3 = $("#IndemnityDedDetailsBody Tbody");
+                    for (var i = 0; i < apprs.clmD2.length; i++) {
+                        var data = "<tr >" +
+
+                            "<td>" + apprs.clmD2[i].DED_CODE + "</td>" +
+                            "<td>" + apprs.clmD2[i].DED_DESC + "</td>" +
+
+                            "</tr>";
+                        setData3.append(data);
+                        $("#IndemnityDedDetailsBody").DataTable();
+                    }
+                }
+
+                $("#wait").css("display", "none");
+
+                $("#IndemnityDetailsData").DataTable();
+                
+            }
+            $("#wait").css("display", "none");
+
+
+            ClearAllDetails();
+            $('#ClaimNo').val(clm);
+            $('#IndemnityDetailsScreen').show();
+            $('#TitleDetails').show();
+            $('#MedicalNetworkCustomerServiceModal').modal();
+        }
+    });
+
+}
+
 function getMonthlyData(flg) {
     debugger;
     if ($('#CardID').val() != "") {
@@ -226,7 +352,7 @@ function getMonthlyData(flg) {
                             "<td>" + apprs.clm[i].ProviderCode + "</td>" +
                             "<td>" + apprs.clm[i].UserN + "</td>" +
                             "<td>" + apprs.clm[i].GroupName + "</td>" +
-                            "<td >" + "<Button  class='btn btn-Primary ' onclick='Printclm(\"" + apprs.clm[i].clmNo + "\");'>Details</Button>" + "</td>" +
+                            "<td >" + "<Button  class='btn btn-Primary ' onclick='getMonthlyDetailsData(\"" + $('#CardID').val() + "\");'>Details</Button>" + "</td>" +
                             "</tr>";
                         setData2.append(data);
                     }
@@ -238,6 +364,104 @@ function getMonthlyData(flg) {
         });
     }
 }
+
+function getMonthlyDetailsData(crdm) {
+    debugger;
+
+    $("#wait").css("display", "block");
+    $.ajax({
+        type: "POST",
+        url: '/CustomerService/getMonthlyDetailsData',
+        data: { CardId: crdm },
+        success: function (apprs) {
+            debugger;
+            if (apprs.clmD.length > 0) {
+                var setData2 = $("#MonthlyDataDetails Tbody");
+                setData2.empty();               
+                for (var i = 0; i < apprs.clmD.length; i++) {
+                    var data = "<tr >" +
+
+                        "<td>" + apprs.clmD[i].MED_CODE + "</td>" +
+                        "<td>" + apprs.clmD[i].MED_NAME + "</td>" +
+                        "<td>" + apprs.clmD[i].DOSAGE_FORM + "</td>" +
+                        "<td>" + apprs.clmD[i].UNIT_NO + "</td>" +
+                        "<td>" + apprs.clmD[i].PACK_SIZE + "</td>" +
+                        "<td>" + apprs.clmD[i].DOS_DUR + "</td>" +
+                        "<td>" + apprs.clmD[i].TOT_DUR + "</td>" +
+                        "<td>" + apprs.clmD[i].CON_MED + "</td>" +
+                        "<td>" + apprs.clmD[i].ACTIVE + "</td>" +
+                        "<td>" + apprs.clmD[i].INV_DATE + "</td>" +
+                        "<td>" + apprs.clmD[i].STATE + "</td>" +
+
+                        "</tr>";
+                    setData2.append(data);
+                }
+                $("#wait").css("display", "none");
+                $("#MonthlyDataDetails").DataTable();
+            }
+            $("#wait").css("display", "none");
+
+            ClearAllDetails();
+            $('#CardIdM').val(crdm);
+            $('#MonthlyDetailsScreen').show();
+            $('#TitleDetails').show();
+            $('#MedicalNetworkCustomerServiceModal').modal();
+        }
+    });
+
+}
+
+function getLiveDetailsData(clm) {
+    debugger;
+
+    $("#wait").css("display", "block");
+    $.ajax({
+        type: "POST",
+        url: '/CustomerService/getLiveDetailsData',
+        data: { ClaimNo: clm },
+        success: function (apprs) {
+            debugger;
+            if (apprs.clmD.length > 0) {
+                var setData2 = $("#ClaimsLiveDataDetails Tbody");
+                setData2.empty();
+                for (var i = 0; i < apprs.clmD.length; i++) {
+                    var data = "<tr >" +
+
+                        "<td>" + apprs.clmD[i].INVT_NO + "</td>" +
+                        "<td>" + apprs.clmD[i].INVT_NAM + "</td>" +
+                        "<td>" + apprs.clmD[i].DOSAGE + "</td>" +
+                        "<td>" + apprs.clmD[i].PACK_PRICE + "</td>" +
+
+                        "<td>" + apprs.clmD[i].SIZE_UNIT + "</td>" +
+                        "<td>" + apprs.clmD[i].UNIT + "</td>" +
+                        "<td>" + apprs.clmD[i].PRICE_UNIT + "</td>" +
+
+                        "<td>" + apprs.clmD[i].DOSE + "</td>" +
+                        "<td>" + apprs.clmD[i].DUR + "</td>" +
+                        "<td>" + apprs.clmD[i].DURATION + "</td>" +
+                        "<td>" + apprs.clmD[i].REPEAT + "</td>" +
+
+                        "<td>" + apprs.clmD[i].COUNT + "</td>" +
+                        "<td>" + apprs.clmD[i].AMOUNT + "</td>" +
+
+                        "</tr>";
+                    setData2.append(data);
+                }
+                $("#wait").css("display", "none");
+                $("#ClaimsLiveDataDetails").DataTable();
+            }
+            $("#wait").css("display", "none");
+
+            ClearAllDetails();
+            $('#ClaimNo').val(clm);
+            $('#ClaimsLiveDetailsScreen').show();
+            $('#TitleDetails').show();
+            $('#MedicalNetworkCustomerServiceModal').modal();
+        }
+    });
+
+}
+
 function getLiveData(flg) {
     debugger;
     if ($('#CardID').val() != "") {
@@ -270,7 +494,7 @@ function getLiveData(flg) {
                             "<td>" + apprs.clm[i].Cash + "</td>" +
                             "<td>" + apprs.clm[i].Credit + "</td>" +                           
 
-                            "<td >" + "<Button  class='btn btn-Primary ' onclick='Printclm(\"" + apprs.clm[i].clmNo + "\");'>Details</Button>" + "</td>" +
+                            "<td >" + "<Button  class='btn btn-Primary ' onclick='getLiveDetailsData(\"" + apprs.clm[i].ClaimNo + "\");'>Details</Button>" + "</td>" +
                             "</tr>";
                         setData2.append(data);
                     }
@@ -283,6 +507,7 @@ function getLiveData(flg) {
     }
 }
 ///Hospital/Get_Approvels
+
 function PrintApproval(AppCode) {
     debugger;
     var x = String(AppCode);
@@ -393,7 +618,9 @@ function ShowMedicalNetworkScreen() {
 
     $("#wait").css("display", "none");
 
-
+    ClearAllDetails();
+    $('#TitleMedical').show();
+    $('#MedicalNetworkScreen').show();
     $('#MedicalNetworkCustomerServiceModal').modal();
 }
 function ShowCardDesignPrint() {
@@ -523,7 +750,7 @@ function AddPhoneNumber(notss) {
             } else if (result.length == 11 || isNaN(result) == false) {
                 //$("#wait").css("display", "block");
                 newPhone = result;
-                
+                console.log(result);
                 flagNum = true;
                 return true;
             }
@@ -652,10 +879,16 @@ function getData(crd) {
                     $('#CardColor').val(cardDetails.dtDetails[0].CardColor);
                     $('#OldCard').val(cardDetails.dtDetails[0].OldCard);
 
-        
+
+                  //  AddPhoneNumber(cardDetails.nots);
+
+                   // debugger;
+                   // bootbox.alert(newPhone);
+
+
                     fillPhoneNumber(cardDetails.phonlst);
                     StartTime();
-                    bootbox.alert(newPhone);
+                  //  bootbox.alert(newPhone);
                 }
             }                                       
         }
@@ -1151,13 +1384,6 @@ function Submit_Save() {
     }
 }
 
-function Accounting_Info() {
-
-    var Person_Payments = ($("#Seession_Price").val() * $("#Seession_Num").val() * $("#insurance_LIVEL").val()) / 100.00;
-    $("#Patient_Pay").val(Person_Payments);
-    var tot = $("#Seession_Price").val() * $("#Seession_Num").val();
-    $("#Total_Amount").val(tot);
-}
 
 function PersonPayments() {
     debugger;
@@ -1267,6 +1493,7 @@ function PersonPayments1() {
     ////var ComCach = $("#txtTotal").val() - Person_Payments;
     //alert(Comp_Payment); Com_Cach
 }
+
 function Print(AppCode) {
     var x = String(AppCode);
     //  window.location.reload();
