@@ -507,6 +507,13 @@
                                                 <li><a href="/ProviderServicesPermissions/index">Provider Services Permissions</a></li>
                                             }
 
+                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && /*x.PageId == 44 &&*/ (x.FullControl || x.EditPermission
+                                               || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/LossRatio/index">Analysis Loss Ratio</a></li>
+                                            }
+
+
                                         </ul>
                                     </li>
                                 }

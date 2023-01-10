@@ -1,0 +1,1498 @@
+﻿$(function () {
+    $('#From').datetimepicker({
+        format: "l"
+    });
+    $('#To').datetimepicker({
+        format: "l"
+    });
+
+    $('#CompName').select2();
+  //  $('#ContractNo').select2();
+
+});
+
+
+
+function getApprovalData(flg) {
+    debugger;
+    if ($('#CardID').val() != "") {
+        $("#wait").css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: '/CustomerService/getAprovalData',
+            data: { CardId: $('#CardID').val(), dat1: $('#StartDate').val(), dat2: $('#EndDate').val(), oldcardd: $('#OldCard').val(), flg: flg },
+            success: function (apprs) {
+                //approval, cout, totl
+                if (apprs.approval.length > 0) {
+
+                   // $('#ApprovalsDetails').dataTable().fnDestroy();
+                    var setData2 = $("#ApprovalsDetails Tbody");
+                    setData2.empty();
+                    $("#CountApprovals").val(apprs.cout);
+                    $("#TotalAmountApprovals").val(apprs.totl);
+                    for (var i = 0; i < apprs.approval.length; i++) {
+                        var data = "<tr >" +
+
+                            "<td>" + apprs.approval[i].ApprovalNo + "</td>" +
+                            "<td>" + apprs.approval[i].ApprovalType + "</td>" +
+                            "<td>" + apprs.approval[i].Reply + "</td>" +
+                            "<td>" + apprs.approval[i].ApprovalAmount + "</td>" +
+                            "<td>" + apprs.approval[i].MedicalReply + "</td>" +
+                            "<td>" + apprs.approval[i].CreatedBy + "</td>" +
+                            "<td>" + apprs.approval[i].CreatedDate + "</td>" +
+                            "<td >" + "<Button  class='btn btn-Primary ' onclick='PrintApproval(\"" + apprs.approval[i].ApprovalNo + "\");'>Print</Button>" + "</td>" +
+                            "</tr>";
+                        setData2.append(data);
+                    }
+                    $("#wait").css("display", "none");
+                    $("#ApprovalsDetails").DataTable();                    
+                }
+                $("#wait").css("display", "none");
+            }
+        });
+    }
+}
+function getClaimData(flg) {
+    debugger;
+    if ($('#CardID').val() != "") {
+        $("#wait").css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: '/CustomerService/getClaimData',
+            data: { CardId: $('#CardID').val(), dat1: $('#StartDate').val(), dat2: $('#EndDate').val(), oldcardd: $('#OldCard').val(), flg: flg },
+            success: function (apprs) {
+                debugger;
+                //approval, cout, totl
+
+                if (apprs.clm.length > 0) {
+                    var setData2 = $("#ClaimsDetails Tbody");
+                    setData2.empty();
+                    $("#CountClaims").val(apprs.cout);
+                    $("#TotalGrossClaims").val(apprs.totlgros);
+                    $("#TotalNetClaims").val(apprs.totlnet);
+                    for (var i = 0; i < apprs.clm.length; i++) {
+                        var data = "<tr >" +
+
+                            "<td>" + apprs.clm[i].ClaimNo + "</td>" +
+                            "<td>" + apprs.clm[i].ClaimDate + "</td>" +
+                            "<td>" + apprs.clm[i].BatchNo + "</td>" +
+                            "<td>" + apprs.clm[i].GroupNo + "</td>" +
+                            "<td>" + apprs.clm[i].Gross + "</td>" +
+                            "<td>" + apprs.clm[i].Amount + "</td>" +
+                            "<td>" + apprs.clm[i].Notes + "</td>" +
+                            "<td>" + apprs.clm[i].F + "</td>" +
+                            "<td >" + "<Button  class='btn btn-Primary ' onclick='getClaimDetails(" + apprs.clm[i].ClaimNo + "," + apprs.clm[i].GroupNo +");'>Details</Button>" + "</td>" +
+
+
+
+                            "</tr>";
+                        setData2.append(data);
+                    }
+                    $("#wait").css("display", "none");
+                    $("#ClaimsDetails").DataTable();
+                }
+                $("#wait").css("display", "none");
+            }
+        });
+    }
+}
+
+function ClearAllDetails() {
+    $('#TitleMedical').hide();
+    $('#TitleDetails').hide();
+    $('#MedicalNetworkScreen').hide();
+    $('#ClaimsDetailsScreen').hide();
+    $('#IndemnityDetailsScreen').hide();
+    $('#MonthlyDetailsScreen').hide();
+    $('#ClaimsLiveDetailsScreen').hide();
+
+    //$('#IndemnityScreen').hide();
+}
+
+
+function getClaimDetails(clm, grp) {
+    debugger;   
+        
+        $("#wait").css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: '/CustomerService/getClaimDetails',
+            data: { ClaimNo: clm, grp: grp },
+            success: function (apprs) {
+                debugger;
+                //approval, cout, totl
+
+                if (apprs.clmD.length > 0) {
+                    var setData2 = $("#ClaimsDataDetails Tbody");
+
+                    setData2.empty();
+                   
+                    for (var i = 0; i < apprs.clmD.length; i++) {
+                        var data = "<tr >" +
+
+                            "<td>" + apprs.clmD[i].PRV_NAME + "</td>" +
+                            "<td>" + apprs.clmD[i].SERV_ANAME + "</td>" +
+                            "<td>" + apprs.clmD[i].DIAGNOSIS + "</td>" +
+                            "<td>" + apprs.clmD[i].INVT_NO + "</td>" +
+                            "<td>" + apprs.clmD[i].INVT_NAM + "</td>" +
+                            "<td>" + apprs.clmD[i].AMOUNT + "</td>" +
+                            "<td>" + apprs.clmD[i].NOTES_DET + "</td>" +
+
+                            "</tr>";
+                        setData2.append(data);
+                    }
+                    $("#wait").css("display", "none");
+                    $("#ClaimsDataDetails").DataTable();
+                }
+                $("#wait").css("display", "none");
+
+
+                ClearAllDetails();
+                $('#ClaimNo').val(clm);
+                $('#ClaimsDetailsScreen').show();
+                $('#TitleDetails').show();
+                $('#MedicalNetworkCustomerServiceModal').modal();
+            }
+        });
+    
+}
+
+function getIndemnityData(flg) {
+    debugger;
+    if ($('#CardID').val() != "") {
+        $("#wait").css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: '/CustomerService/getIndemnityData',
+            data: { CardId: $('#CardID').val(), dat1: $('#StartDate').val(), dat2: $('#EndDate').val(), oldcardd: $('#OldCard').val(), flg: flg },
+            success: function (apprs) {
+                //debugger;
+                //approval, cout, totl
+
+                if (apprs.clm.length > 0) {
+                    var setData2 = $("#IndemnityDetails Tbody");
+                    setData2.empty();
+                    $("#CountIndemnity").val(apprs.cout);
+                    $("#TotalGrossIndemnity").val(apprs.totlgros);
+                    $("#TotalNetIndemnity").val(apprs.totlnet);
+                    for (var i = 0; i < apprs.clm.length; i++) {
+                        var data = "<tr >" +
+
+                            "<td>" + apprs.clm[i].ClaimNo + "</td>" +
+                            "<td>" + apprs.clm[i].ClaimDate + "</td>" +
+                            "<td>" + apprs.clm[i].Gross + "</td>" +
+                            "<td>" + apprs.clm[i].Net + "</td>" +
+                            "<td >" + "<Button  class='btn btn-Primary ' onclick='getIndemnityDetails(\"" + apprs.clm[i].ClaimNo + "\");'>Details</Button>" + "</td>" +
+                            "</tr>";
+                        setData2.append(data);
+                    }                   
+                    $("#wait").css("display", "none");
+                    $("#IndemnityDetails").DataTable();
+                }
+                $("#wait").css("display", "none");
+            }
+        });
+    }
+}
+
+
+function getIndemnityDetails(clm) {
+    debugger;
+
+    $("#wait").css("display", "block");
+    $.ajax({
+        type: "POST",
+        url: '/CustomerService/getIndemnityDetails',
+        data: { ClaimNo: clm },
+        success: function (apprs) {
+            debugger;
+            //approval, cout, totl
+
+            if (apprs.clmD.length > 0) {
+                var setData2 = $("#IndemnityDetailsData Tbody");
+
+                setData2.empty();
+
+                for (var i = 0; i < apprs.clmD.length; i++) {
+                    var data = "<tr >" +
+
+                        "<td>" + apprs.clmD[i].DIA_CODE + "</td>" +
+                        "<td>" + apprs.clmD[i].DIA_ENAME + "</td>" +
+                        "<td>" + apprs.clmD[i].DIA_NOTES + "</td>" +
+
+                        "</tr>";
+                    setData2.append(data);
+                }
+
+                if (apprs.clmD2.length > 0) {
+                    var setData3 = $("#IndemnityDedDetailsBody Tbody");
+                    for (var i = 0; i < apprs.clmD2.length; i++) {
+                        var data = "<tr >" +
+
+                            "<td>" + apprs.clmD2[i].DED_CODE + "</td>" +
+                            "<td>" + apprs.clmD2[i].DED_DESC + "</td>" +
+
+                            "</tr>";
+                        setData3.append(data);
+                        $("#IndemnityDedDetailsBody").DataTable();
+                    }
+                }
+
+                $("#wait").css("display", "none");
+
+                $("#IndemnityDetailsData").DataTable();
+                
+            }
+            $("#wait").css("display", "none");
+
+
+            ClearAllDetails();
+            $('#ClaimNo').val(clm);
+            $('#IndemnityDetailsScreen').show();
+            $('#TitleDetails').show();
+            $('#MedicalNetworkCustomerServiceModal').modal();
+        }
+    });
+
+}
+
+function getMonthlyData(flg) {
+    debugger;
+    if ($('#CardID').val() != "") {
+        $("#wait").css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: '/CustomerService/getMonthlyData',
+            data: { CardId: $('#CardID').val(), dat1: $('#StartDate').val(), dat2: $('#EndDate').val(), oldcardd: $('#OldCard').val(), flg: flg },
+            success: function (apprs) {
+                //debugger;
+                //approval, cout, totl
+
+                if (apprs.clm.length > 0) {
+                    var setData2 = $("#MonthlyDetails Tbody");
+                    setData2.empty();
+                    $("#CountMonthly").val(apprs.cout);                    
+                    for (var i = 0; i < apprs.clm.length; i++) {
+                        var data = "<tr >" +
+
+                            "<td>" + apprs.clm[i].CreatedDate + "</td>" +
+                            "<td>" + apprs.clm[i].ProviderCode + "</td>" +
+                            "<td>" + apprs.clm[i].UserN + "</td>" +
+                            "<td>" + apprs.clm[i].GroupName + "</td>" +
+                            "<td >" + "<Button  class='btn btn-Primary ' onclick='getMonthlyDetailsData(\"" + $('#CardID').val() + "\");'>Details</Button>" + "</td>" +
+                            "</tr>";
+                        setData2.append(data);
+                    }
+                    $("#wait").css("display", "none");
+                    $("#MonthlyDetails").DataTable();
+                }
+                $("#wait").css("display", "none");
+            }
+        });
+    }
+}
+
+function getMonthlyDetailsData(crdm) {
+    debugger;
+
+    $("#wait").css("display", "block");
+    $.ajax({
+        type: "POST",
+        url: '/CustomerService/getMonthlyDetailsData',
+        data: { CardId: crdm },
+        success: function (apprs) {
+            debugger;
+            if (apprs.clmD.length > 0) {
+                var setData2 = $("#MonthlyDataDetails Tbody");
+                setData2.empty();               
+                for (var i = 0; i < apprs.clmD.length; i++) {
+                    var data = "<tr >" +
+
+                        "<td>" + apprs.clmD[i].MED_CODE + "</td>" +
+                        "<td>" + apprs.clmD[i].MED_NAME + "</td>" +
+                        "<td>" + apprs.clmD[i].DOSAGE_FORM + "</td>" +
+                        "<td>" + apprs.clmD[i].UNIT_NO + "</td>" +
+                        "<td>" + apprs.clmD[i].PACK_SIZE + "</td>" +
+                        "<td>" + apprs.clmD[i].DOS_DUR + "</td>" +
+                        "<td>" + apprs.clmD[i].TOT_DUR + "</td>" +
+                        "<td>" + apprs.clmD[i].CON_MED + "</td>" +
+                        "<td>" + apprs.clmD[i].ACTIVE + "</td>" +
+                        "<td>" + apprs.clmD[i].INV_DATE + "</td>" +
+                        "<td>" + apprs.clmD[i].STATE + "</td>" +
+
+                        "</tr>";
+                    setData2.append(data);
+                }
+                $("#wait").css("display", "none");
+                $("#MonthlyDataDetails").DataTable();
+            }
+            $("#wait").css("display", "none");
+
+            ClearAllDetails();
+            $('#CardIdM').val(crdm);
+            $('#MonthlyDetailsScreen').show();
+            $('#TitleDetails').show();
+            $('#MedicalNetworkCustomerServiceModal').modal();
+        }
+    });
+
+}
+
+function getLiveDetailsData(clm) {
+    debugger;
+
+    $("#wait").css("display", "block");
+    $.ajax({
+        type: "POST",
+        url: '/CustomerService/getLiveDetailsData',
+        data: { ClaimNo: clm },
+        success: function (apprs) {
+            debugger;
+            if (apprs.clmD.length > 0) {
+                var setData2 = $("#ClaimsLiveDataDetails Tbody");
+                setData2.empty();
+                for (var i = 0; i < apprs.clmD.length; i++) {
+                    var data = "<tr >" +
+
+                        "<td>" + apprs.clmD[i].INVT_NO + "</td>" +
+                        "<td>" + apprs.clmD[i].INVT_NAM + "</td>" +
+                        "<td>" + apprs.clmD[i].DOSAGE + "</td>" +
+                        "<td>" + apprs.clmD[i].PACK_PRICE + "</td>" +
+
+                        "<td>" + apprs.clmD[i].SIZE_UNIT + "</td>" +
+                        "<td>" + apprs.clmD[i].UNIT + "</td>" +
+                        "<td>" + apprs.clmD[i].PRICE_UNIT + "</td>" +
+
+                        "<td>" + apprs.clmD[i].DOSE + "</td>" +
+                        "<td>" + apprs.clmD[i].DUR + "</td>" +
+                        "<td>" + apprs.clmD[i].DURATION + "</td>" +
+                        "<td>" + apprs.clmD[i].REPEAT + "</td>" +
+
+                        "<td>" + apprs.clmD[i].COUNT + "</td>" +
+                        "<td>" + apprs.clmD[i].AMOUNT + "</td>" +
+
+                        "</tr>";
+                    setData2.append(data);
+                }
+                $("#wait").css("display", "none");
+                $("#ClaimsLiveDataDetails").DataTable();
+            }
+            $("#wait").css("display", "none");
+
+            ClearAllDetails();
+            $('#ClaimNo').val(clm);
+            $('#ClaimsLiveDetailsScreen').show();
+            $('#TitleDetails').show();
+            $('#MedicalNetworkCustomerServiceModal').modal();
+        }
+    });
+
+}
+
+function getLiveData(flg) {
+    debugger;
+    if ($('#CardID').val() != "") {
+        $("#wait").css("display", "block");
+        $.ajax({
+            type: "POST",
+            url: '/CustomerService/getLiveData',
+            data: { CardId: $('#CardID').val(), dat1: $('#StartDate').val(), dat2: $('#EndDate').val(), oldcardd: $('#OldCard').val(), flg: flg },
+            success: function (apprs) {
+                //debugger;
+                //approval, cout, totl
+
+                if (apprs.clm.length > 0) {
+                    var setData2 = $("#LiveDetails Tbody");
+                    setData2.empty();
+                    $("#CountLive").val(apprs.cout);
+                    $("#TotalLive").val(apprs.totliv);
+                    $("#TotalCredit").val(apprs.totlcrdit);
+                    for (var i = 0; i < apprs.clm.length; i++) {
+                        var data = "<tr >" +
+
+                            "<td>" + apprs.clm[i].ClaimNo + "</td>" +
+                            "<td>" + apprs.clm[i].ClaimDate + "</td>" +
+                            "<td>" + apprs.clm[i].ProviderId + "</td>" +
+                            "<td>" + apprs.clm[i].Branch + "</td>" +
+                            "<td>" + apprs.clm[i].Kind + "</td>" +
+                            "<td>" + apprs.clm[i].Total + "</td>" +
+                            "<td>" + apprs.clm[i].Copay + "</td>" +
+                            "<td>" + apprs.clm[i].Over + "</td>" +
+                            "<td>" + apprs.clm[i].Cash + "</td>" +
+                            "<td>" + apprs.clm[i].Credit + "</td>" +                           
+
+                            "<td >" + "<Button  class='btn btn-Primary ' onclick='getLiveDetailsData(\"" + apprs.clm[i].ClaimNo + "\");'>Details</Button>" + "</td>" +
+                            "</tr>";
+                        setData2.append(data);
+                    }
+                    $("#wait").css("display", "none");
+                    $("#LiveDetails").DataTable();
+                }
+                $("#wait").css("display", "none");
+            }
+        });
+    }
+}
+///Hospital/Get_Approvels
+
+function PrintApproval(AppCode) {
+    debugger;
+    var x = String(AppCode);
+    //  window.location.reload();
+    window.open('/CustomerService/PrintApproval?ApprovalCode=' + AppCode);
+}
+function PrintCardDesgin(Card) {
+    debugger;   
+    window.open('/CustomerService/PrintCardDesign?CardId=' + Card);
+}
+function ShowApprovalConsmptionDetails() {
+    debugger;
+    $('#ApprovalsScreen').hide();
+    $('#ClaimsScreen').hide();
+    $('#ConsumptionScreen').hide();
+    $('#IndemnityScreen').hide();
+    $('#MonthlyScreen').hide();
+    $('#LiveScreen').hide();
+
+    $('#ApprovalsScreen').show();
+    getApprovalData(1);
+
+}
+function ShowClaimsConsmptionDetails() {
+    $('#ApprovalsScreen').hide();
+    $('#ClaimsScreen').hide();
+    $('#ConsumptionScreen').hide();    
+    $('#IndemnityScreen').hide();
+    $('#MonthlyScreen').hide();
+    $('#LiveScreen').hide();
+
+    $('#ClaimsScreen').show();
+    getClaimData(1);
+}
+function ShowIndemnityConsmptionDetails() {
+    $('#ApprovalsScreen').hide();
+    $('#ClaimsScreen').hide();
+    $('#ConsumptionScreen').hide();
+    $('#IndemnityScreen').hide();
+    $('#MonthlyScreen').hide();
+    $('#LiveScreen').hide();
+
+    $('#IndemnityScreen').show();
+    getIndemnityData(1);
+}
+function ShowMonthlyConsmptionDetails() {
+    $('#ApprovalsScreen').hide();
+    $('#ClaimsScreen').hide();
+    $('#ConsumptionScreen').hide();
+    $('#IndemnityScreen').hide();
+    $('#MonthlyScreen').hide();
+    $('#LiveScreen').hide();
+
+    $('#MonthlyScreen').show();
+    getMonthlyData(1);
+}
+function ShowLiveConsmptionDetails() {
+    $('#ApprovalsScreen').hide();
+    $('#ClaimsScreen').hide();
+    $('#ConsumptionScreen').hide();
+    $('#IndemnityScreen').hide();
+    $('#MonthlyScreen').hide();
+    $('#LiveScreen').hide();
+
+    $('#LiveScreen').show();
+    getLiveData(1);
+}
+
+function ShowMedicalNetworkScreen() {
+    $('#CardInformationDetails').show();
+    
+    $('#ApprovalsScreen').hide();
+    $('#ClaimsScreen').hide();
+    $('#ConsumptionScreen').hide();
+    $('#IndemnityScreen').hide();
+    $('#MonthlyScreen').hide();
+    $('#LiveScreen').hide();
+    //debugger;
+   // window.open('/Employee/MedicalNetwork/Search');
+   //window.location = '/MedicalNetwork/Search';
+    $("#wait").css("display", "block");
+    if (document.getElementById('provider_Type').options.length == 0) {
+        $.get("/CustomerService/GetProviderTypeList",
+                function (data) {
+                    $("#provider_Type").empty();
+                    $('#provider_Type').append('<option value="0">Select Provider</option>');
+                    $.each(data, function (index, row) {
+                        $("#provider_Type").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                });
+    }
+    else
+        document.getElementById('provider_Type').selectedIndex = "0";
+
+    if (document.getElementById('Country_select').options.length == 0) {
+        $.get("/CustomerService/GetCountryList",
+            function (data) {
+                $("#Country_select").empty();
+                $('#Country_select').append('<option value="0">Select Governorate</option>');
+                $.each(data, function (index, row) {
+                    $("#Country_select").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                });
+            });
+    }
+    else
+        document.getElementById('Country_select').selectedIndex = "0";
+
+
+    $("#wait").css("display", "none");
+
+    ClearAllDetails();
+    $('#TitleMedical').show();
+    $('#MedicalNetworkScreen').show();
+    $('#MedicalNetworkCustomerServiceModal').modal();
+}
+function ShowCardDesignPrint() {
+    $('#CardInformationDetails').show();
+
+    $('#ApprovalsScreen').hide();
+    $('#ClaimsScreen').hide();
+    $('#ConsumptionScreen').hide();
+    $('#IndemnityScreen').hide();
+    $('#MonthlyScreen').hide();
+    $('#LiveScreen').hide();
+
+    if ($('#CardID').val() != "") {
+        PrintCardDesgin($('#CardID').val());
+    }
+}
+
+function ClearAll() {    
+        $("#Pharmacy >tbody").empty();
+        $("#AddMedicine").empty();
+        $("#ddlDiagnoises").val(null).change();
+
+        $('#txtTotalInvoice').val('');
+        $('#txtTotalCopayment').val('');
+        $('#txtValueCredit').val('');
+        $('#txtOverInsurance').val('');
+        $('#txtCash').val('');
+        $('#txtValueCash').val('');
+    }
+
+
+function moreApprovalsDetailsEvent() {
+    getApprovalData(2);
+}
+function moreClaimsDetailsEvent() {
+    getClaimData(2);
+}
+function moreIndemnityDetailsEvent() {
+    getIndemnityData(2);
+}
+function moreMonthlyDetailsEvent() {
+    getMonthlyData(2);
+}
+function moreLiveDetailsEvent() {
+    getLiveData(2);
+}
+
+$(document).ready(function () {
+    $("#Help").click(function () {
+        introJs().start();
+    });
+   
+});
+$(function () {
+  //  $('.CreatDate').datetimepicker();
+    $('#txtCardRelation').select2();
+    $('#txtPhone').select2();
+   /* $('#VisitReasonList').select2();
+    $('#FeedBackText').select2();
+    $('#feedBackDiv').hide();
+    $('#CompanyTypeNew').hide();
+    if ($("#HasFeedBack").is(":checked")) {
+        $('#feedBackDiv').show();
+    }
+    else {
+        $('#feedBackDiv').hide();
+    }
+    if ($("#New").is(":checked")) {
+        $('#CompanyTypeNew').show();
+        $('#CompanyTypeOld').hide();
+    }
+    else {
+        $('#CompanyTypeNew').hide();
+        $('#CompanyTypeOld').show();
+    }
+    */
+});
+function ShowFeedBackDiv() {
+    if ($("#HasFeedBack").is(":checked")) {
+        $('#feedBackDiv').show();
+    }
+    else {
+        $('#feedBackDiv').hide();
+    }
+}
+
+function ShowCompanyDiv() {
+    if ($("#New").is(":checked")) {
+        $('#CompanyTypeNew').show();
+        $('#CompanyTypeOld').hide();
+    }
+    else {
+        $('#CompanyTypeNew').hide();
+        $('#CompanyTypeOld').show();
+    }
+}
+
+var flagNum = false;
+function isNumeric(str) {
+    if (typeof str != "string") return false // we only process strings!  
+    return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+        !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+}
+
+var newPhone;
+function AddPhoneNumber(notss) {
+    //add National Id
+    debugger;
+   flagNum = false;
+    bootbox.prompt({
+        title: notss,//"Please,Enter Patient National ID  : ",
+        centerVertical: true,
+        closeButton: false,
+        //required: true,
+        //cancel: "Reset",
+        callback: function (result) {
+
+            if (result === null) {
+              //  window.location = '/CustomerService/Index';
+                return true;
+            }
+            if (result === "" || result.length != 11 || isNaN(result)) {
+                toastr.error("برجاء ادخال رقم هاتف صحيح متكون من 11 رقم");
+                //flagNum = false;
+                return false;
+                
+            } else if (result.length == 11 || isNaN(result) == false) {
+                //$("#wait").css("display", "block");
+                newPhone = result;
+                console.log(result);
+                flagNum = true;
+                return true;
+            }
+
+            //return false;
+        }
+    });    
+}
+
+function fillRelatedCard(crd) {
+    $.ajax({
+        url: '/CustomerService/GetRelatedCards',
+        data: { CardId: crd },
+        dataType: 'Json',
+        success: function (r) {
+            $('#txtCardRelation').append('<option value="0">Select Card Id </option>');
+            //$('#CardId').append('<option value="' + cardsearch + '">' + cardsearch + '</option>');
+            if (r.Success == "Yes" && r.subCards.length > 0) {
+                for (var i = 0; i < r.subCards.length; i++) {
+                    $('#txtCardRelation').append('<option value="' + r.subCards[i].CardIDValue + '">' + r.subCards[i].CardIdString + '</option>');
+                }
+                $('#txtCardRelation').select2();
+            }
+            else {
+                $('#txtCardRelation').append('<option value="' + crd + '">' + cardsearch + '</option>');
+                $('#txtCardRelation').select2();
+            }
+        }        
+    });
+}
+function fillPhoneNumber(phonee) {
+    debugger;
+    $('#txtPhone').append('<option value="0">Phone Number </option>');
+    if (phonee.length > 0) {
+        for (var i = 0; i < phonee.length; i++) {
+            $('#txtPhone').append('<option value="' + (i + 1) + '">' + phonee[i].phoneNumber + '</option>');
+        }
+        $('#txtPhone').select2();
+    }    
+}
+function getDataByPhone(num) {
+    $.ajax({
+        url: '/CustomerService/GetDataByPhone',
+        data: { Phonee: num },
+        dataType: 'Json',
+        success: function (r) {
+            //$('#txtCardRelation').append('<option value="0">Select Card Id </option>');
+            //$('#CardId').append('<option value="' + cardsearch + '">' + cardsearch + '</option>');
+            if (r.flg == "1") {
+                bootbox.alert(r.nots);
+            }
+            else if (r.cards.length > 0) {
+                for (var i = 0; i < r.cards.length; i++) {
+                    $('#txtCardRelation').append('<option value="' + r.cards[i] + '">' + r.cards[i] + '</option>');
+                }
+
+                if (r.cards.length == 1) {
+                    getData(r.cards[0]);
+                }
+
+                //if (r.cards.length == 1) {
+                //    debugger;
+                //    $('#txtCardRelation option:selected').text()
+                // //   $('#txtCardRelation').select.value(1);
+                //}
+
+            }
+        }
+    });
+}
+function getData(crd) {
+    //debugger;
+    $("#wait").css("display", "block");
+    $.ajax({
+
+        type: "POST",
+        dataType: "json",
+        url: '/CustomerService/getData',
+        data: { CardId: crd },
+
+        success: function (cardDetails) {
+            
+            if (cardDetails.flg == "3") {
+                debugger;
+                bootbox.alert(cardDetails.nots);
+            }
+            else if (cardDetails.flg == "1" || cardDetails.flg == "2") {
+                debugger;
+                bootbox.alert(cardDetails.nots);
+            }
+            else //if (cardDetails.phon.length == 0)
+            {
+                debugger;
+                /*
+                var flgShow;
+
+                if (cardDetails.phonlst.length != 0)
+                    flgShow = true;
+                else
+                    flgShow = AddPhoneNumber(cardDetails.nots);
+                */
+             //   flgShow = AddPhoneNumber(cardDetails.nots);
+                var flgShow = true;
+
+                if (flgShow) {
+
+                    $("#wait").css("display", "none");
+                    $('#CardID').val(cardDetails.dtDetails[0].CardID);
+                    $('#EmployeeName').val(cardDetails.dtDetails[0].EmployeeName);
+                    $('#BirthDate').val(cardDetails.dtDetails[0].BirthDate);
+                    $('#Age').val(cardDetails.dtDetails[0].Age);
+                    $('#StartDate').val(cardDetails.dtDetails[0].StartDate);
+
+                    $('#EndDate').val(cardDetails.dtDetails[0].EndDate);
+                    $('#MaxAmount').val(cardDetails.dtDetails[0].MaxAmount);
+                    $('#ClassName').val(cardDetails.dtDetails[0].ClassName);
+                    $('#HospitalDegree').val(cardDetails.dtDetails[0].HospitalDegree);
+                    $('#MedicalNetwork').val(cardDetails.dtDetails[0].MedicalNetwork);
+
+                    $('#ExceptionPayment').val(cardDetails.dtDetails[0].ExceptionPayment);
+                    $('#ExceptionOver').val(cardDetails.dtDetails[0].ExceptionOver);
+                    $('#NationalId').val(cardDetails.dtDetails[0].NationalId);
+                    $('#Mobile1').val(cardDetails.dtDetails[0].Mobile1);
+                    $('#Mobile2').val(cardDetails.dtDetails[0].Mobile2);
+
+                    $('#CardColor').val(cardDetails.dtDetails[0].CardColor);
+                    $('#OldCard').val(cardDetails.dtDetails[0].OldCard);
+
+
+                  //  AddPhoneNumber(cardDetails.nots);
+
+                   // debugger;
+                   // bootbox.alert(newPhone);
+
+
+                    fillPhoneNumber(cardDetails.phonlst);
+                    StartTime();
+                  //  bootbox.alert(newPhone);
+                }
+            }                                       
+        }
+    });
+   // debugger;
+    if ($('#OldCard').val() != "")
+        $('#OldCardScreen').show;
+    else
+        $('#OldCardScreen').hide;
+}        
+
+
+$('#Search').click(function () {
+    debugger;
+
+    var txtsrch = $("#txtSearch").val();
+    if (txtsrch != "") {
+        if (isNumeric(txtsrch) == false) {
+            getData(txtsrch);
+            fillRelatedCard(txtsrch);
+        }
+        else if (isNumeric(txtsrch) == true && txtsrch.length == 11) {
+
+            getDataByPhone(txtsrch);
+            //number phone
+        }
+        else if (isNumeric(txtsrch) == true && txtsrch.length != 11) {
+            bootbox.alert("رقم الهاتف غير صحيح");
+        }
+    }     
+});
+
+
+$('#SearchRelation').click(function () {
+    debugger;
+    var txtsrch = $("#txtCardRelation").val();
+    if (txtsrch != "") {
+        getData(txtsrch);
+    }
+});
+
+
+//Save Data
+function Submit_Save() {
+    debugger;
+    if ($('#txtSearchCard').val() != "") {
+        var mainSer = $("#main_services option:selected").index();
+        var mainSerEmer = $("#main_services option:selected").val();
+        var subser = $("#Services option:selected").index();
+        var serviceID = 0;
+        var compPercent = parseFloat(100 - $(".celling-pert").val());
+        if ($("#txtTotal").val() != "") {
+            if ($("#PhoneNumber").val() != "") {
+                if ($("#NationalId").val() != "") {
+                    if ($("#ClaimNumber").val() != "") {
+                        if (mainSerEmer != "11104") {
+                            if ($("#main_services option:selected").index() > 0) {
+                                if (mainSer == 2) {
+                                    if (subser > 0) {
+                                        //if (subser != 4) {
+                                        if ($("#ddlDiagnoises").val() != "") {
+                                            var oArea = document.getElementById('ddlDiagnoises');
+                                            var aNewlines = oArea.value.split("\n");
+                                            var AllDiagnos = "";
+                                            for (i = 0; i < aNewlines.length; i++) {
+                                                if (aNewlines[i] != "")
+                                                    AllDiagnos += aNewlines[i] + '-';
+                                            }
+
+                                            //  var iNewlineCount = aNewlines.length();
+                                            serviceID = $("#Services").val();
+                                            var data = {
+                                                C_Com_ID: $('#Company_ID').val(),
+                                                Provider_Code: $("#providerHospialCode").val(),
+                                                Card_ID: $('#txtSearchCard').val(),
+                                                Services_ID: serviceID,
+                                                ServType: mainSerEmer,
+                                                Person_Payment: $("#PatientCoPayment").val(),
+                                                Services: AllDiagnos,
+                                                Contract_Number: $('#Con_Num').val(),
+                                                Class_Code: $('#Class_Code').val(),
+                                                Comp_Payment: $("#CompanyPayment").val(),
+                                                Phone: $("#PhoneNumber").val(),
+                                                NATIONAL_ID: $("#NationalId").val(),
+                                                CLAIM_NO: $("#ClaimNumber").val(),
+                                                COMP_PERC: compPercent,
+                                                OverInsurance: $("#OverInsurance").val(),
+                                                TotalValue: $("#txtTotal").val(),
+                                                Total_Cash: $("#txtTotalCopayment").val(),
+                                                Cash: $("#Cash").val(),
+                                            };
+                                            $.ajax({
+                                                type: "POST",
+                                                url: '/Hospital/Save',
+                                                data: (data),
+                                                success: function (rwt) {
+
+                                                    if (rwt.msg != "OK") {
+                                                        bootbox.alert(rwt.result.toString());
+                                                    }
+                                                    else {
+
+                                                        bootbox.confirm({
+                                                            title: "حالة الطلب ",
+                                                            message: rwt.result.toString(),
+                                                            buttons: {
+                                                                cancel: {
+                                                                    label: '<i class="fa fa-reply"></i> جديد'
+                                                                },
+                                                                confirm: {
+                                                                    label: '<i class="fa fa-check"></i> طباعه'
+                                                                }
+                                                            },
+                                                            callback: function (result) {
+                                                                $('#compEmp_EMP_ANAME').val("");
+                                                                $('#compEmp_INS_END_DATE').val("");
+                                                                $("#contractComp_C_ANAME").val("");
+                                                                $("#Services").empty();
+                                                                $("#ddlDiagnoises").empty();
+                                                                $("#txtTotal").val("");
+                                                                $(".celling-pert").val("");
+                                                                $("#txtTotalCopayment").val("");
+                                                                $("#Limit").val("");
+                                                                $('#compEmp_INS_START_DATE').val("");
+
+                                                                $("#PhoneNumber").val("");
+                                                                $("#ClaimNumber").val("");
+                                                                $("#NationalId").val("");
+                                                                $("#CompanyPayment").val("");
+                                                                $("#PatientCoPayment").val("");
+                                                                $("#OverInsurance").val("");
+                                                                $("#Cash").val("");
+
+                                                                //$('#AddDiagnoise').attr('disabled', true);
+                                                                //$('#RemoveDiagnoise').attr('disabled', true);
+                                                                $("#Physical").html("");
+                                                                $("#main_services").html("");
+                                                                $("#div_of_serv").hide();
+                                                                if (result == false) {
+
+                                                                }
+                                                                else {
+                                                                    window.open('/Hospital/PrintRequest?ID=' + rwt.ID);
+
+                                                                }
+                                                            }
+                                                        });
+
+
+
+                                                    }                                                //bootbox.alert({
+                                                    //    message: rwt.result.toString(),
+                                                    //    callback: function () {
+                                                    //        document.location.reload();
+                                                    //    }
+                                                    //});
+
+                                                },
+                                                error: function (err) {
+                                                    bootbox.alert("You'r session has been expired please  log in again and try it ...!");
+                                                    //bootbox.alert("Error DATA 24 !");
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            alert("قم بتحديد الخدمة...!");
+
+                                        }
+                                        //}
+                                        //else if (subser == 4) {
+                                        //    if ($("#Diagnoise").val() != "") {
+                                        //        oArea = document.getElementById('Diagnoise');
+                                        //        aNewlines = oArea.value.split("\n");
+                                        //        AllDiagnos = "";
+                                        //        for (i = 0; i < aNewlines.length; i++) {
+                                        //            if (aNewlines[i] != "")
+                                        //                AllDiagnos += aNewlines[i] + '-';
+                                        //        }
+                                        //        serviceID = $("#Services").val();
+                                        //        data = {
+                                        //            C_Com_ID: $('#Company_ID').val(),
+                                        //            Provider_Code: $("#providerHospialCode").val(),
+                                        //            Card_ID: $('#txtSearchCard').val(),
+                                        //            Services_ID: serviceID,
+                                        //            Total_Cash: $("#txtTotal").val(),
+                                        //            Person_Payment: $("#txtTotalCopayment").val(),
+                                        //            Services: AllDiagnos,
+                                        //            EmergancyTxt: $("#emergancyTxt").val(),
+                                        //            Contract_Number: $('#Con_Num').val(),
+                                        //            Class_Code: $('#Class_Code').val(),
+                                        //            Comp_Payment: $("#Com_Cach").val()
+                                        //        };
+                                        //        $.ajax({
+                                        //            type: "POST",
+                                        //            url: '/User/Save',
+                                        //            data: (data),
+                                        //            success: function (rwt) {
+
+                                        //                if (rwt.result.toString() == "لا يمكن صرف لتعدي الحد الاقصي") {
+                                        //                    alert(rwt.result.toString());
+                                        //                }
+                                        //                else {
+                                        //                    bootbox.alert({
+                                        //                        message: rwt.result.toString(),
+                                        //                        callback: function () {
+                                        //                            document.location.reload();
+                                        //                        }
+                                        //                    });
+                                        //                }
+                                        //            },
+                                        //            error: function (err) {
+                                        //                bootbox.alert("Error DATA !");
+                                        //            }
+                                        //        });
+
+                                        //    }
+                                        //    else {
+                                        //        alert("قم بتحديد الخدمة ...!");
+
+                                        //    }
+                                        //}
+                                        //else {
+                                        //    alert("قم بتحديد الخدمة ...!");
+                                        //    $("#AddDiagnoise").focus();
+                                        //}
+                                    }
+                                    else {
+                                        alert("Please Choose Services ...!");
+                                        $("#Services").focus();
+                                    }
+                                }
+                                else if (mainSer == 1) {
+                                    serviceID = $("#main_services").val();
+                                    data = {
+                                        C_Com_ID: $('#Company_ID').val(),
+                                        Provider_Code: $("#providerHospialCode").val(),
+                                        Card_ID: $('#txtSearchCard').val(),
+                                        Services_ID: serviceID,
+                                        Total_Cash: $("#txtTotal").val(),
+                                        Person_Payment: $("#txtTotalCopayment").val(),
+                                        Services: $("#Diagnoise").val(),
+                                        EmergancyTxt: $("#emergancyTxt").val(),
+                                        Contract_Number: $('#Con_Num').val(),
+                                        Class_Code: $('#Class_Code').val(),
+                                        Comp_Payment: $("#Com_Cach").val()
+                                    };
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '/User/Save',
+                                        data: (data),
+                                        success: function (rwt) {
+                                            if (rwt.msg != "OK") {
+                                                alert(rwt.result.toString());
+                                            }
+                                            else {
+                                                bootbox.alert({
+                                                    message: rwt.result.toString(),
+                                                    callback: function () {
+                                                        document.location.reload();
+                                                    }
+                                                });
+                                            }
+                                        },
+                                        error: function (err) {
+                                            bootbox.alert("Error DATA !");
+                                        }
+                                    });
+                                }
+                                else if (mainSer == 3) {
+                                    serviceID = $("#main_services").val();
+                                    if ($('#emergancyTxt').val() != "") {
+                                        var data = {
+                                            C_Com_ID: $('#Company_ID').val(),
+                                            Provider_Code: $("#providerHospialCode").val(),
+                                            Card_ID: $('#txtSearchCard').val(),
+                                            Services_ID: serviceID,
+                                            ServType: mainSerEmer,
+                                            Person_Payment: $("#PatientCoPayment").val(),
+                                            Services: AllDiagnos,
+                                            Contract_Number: $('#Con_Num').val(),
+                                            Class_Code: $('#Class_Code').val(),
+                                            Comp_Payment: $("#CompanyPayment").val(),
+                                            Phone: $("#PhoneNumber").val(),
+                                            NATIONAL_ID: $("#NationalId").val(),
+                                            CLAIM_NO: $("#ClaimNumber").val(),
+                                            COMP_PERC: compPercent,
+                                            OverInsurance: $("#OverInsurance").val(),
+                                            TotalValue: $("#txtTotal").val(),
+                                            Total_Cash: $("#txtTotalCopayment").val(),
+                                            Cash: $("#Cash").val(),
+                                        };
+                                        $.ajax({
+                                            type: "POST",
+                                            url: '/Hospital/Save',
+                                            data: (data),
+                                            success: function (rwt) {
+                                                if (rwt.msg != "OK") {
+                                                    alert(rwt.result.toString());
+                                                }
+                                                else {
+
+                                                    bootbox.confirm({
+                                                        title: "حالة الطلب ",
+                                                        message: rwt.result.toString(),
+                                                        buttons: {
+                                                            cancel: {
+                                                                label: '<i class="fa fa-reply"></i> جديد'
+                                                            },
+                                                            confirm: {
+                                                                label: '<i class="fa fa-check"></i> طباعه'
+                                                            }
+                                                        },
+                                                        callback: function (result) {
+                                                            $('#compEmp_EMP_ANAME').val("");
+                                                            $('#compEmp_INS_END_DATE').val("");
+                                                            $("#contractComp_C_ANAME").val("");
+                                                            $("#Services").empty();
+                                                            $("#ddlDiagnoises").empty();
+                                                            $("#txtTotal").val("");
+                                                            $(".celling-pert").val("");
+                                                            $("#txtTotalCopayment").val("");
+                                                            $("#Limit").val("");
+                                                            $('#compEmp_INS_START_DATE').val("");
+
+                                                            $("#PhoneNumber").val("");
+                                                            $("#ClaimNumber").val("");
+                                                            $("#NationalId").val("");
+                                                            $("#CompanyPayment").val("");
+                                                            $("#PatientCoPayment").val("");
+                                                            $("#OverInsurance").val("");
+                                                            $("#Cash").val("");
+
+                                                            //$('#AddDiagnoise').attr('disabled', true);
+                                                            //$('#RemoveDiagnoise').attr('disabled', true);
+                                                            $("#Physical").html("");
+                                                            $("#main_services").html("");
+                                                            $("#div_of_serv").hide();
+                                                            if (result == false) {
+
+                                                            }
+                                                            else {
+                                                                window.open('/Hospital/PrintRequest?ID=' + rwt.ID);
+
+                                                            }
+                                                        }
+                                                    });
+
+
+
+                                                }
+                                            },
+                                            error: function (err) {
+                                                bootbox.alert("Error DATA !");
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        alert("Please Enter Emergance Data ...!");
+                                        $("#emergancyTxt").focus();
+
+                                    }
+
+                                }
+                                else {
+                                    alert("Please Complete Data ...!");
+                                }
+                            }
+
+                            else {
+                                alert("Please Choose Main Services.....!");
+                                $("#main_services").focus();
+                            }
+                        }
+                        else if (mainSerEmer == "11104") {
+                            serviceID = $("#main_services").val();
+                            if ($('#emergancyTxt').val() != "") {
+                                var data = {
+                                    C_Com_ID: $('#Company_ID').val(),
+                                    Provider_Code: $("#providerHospialCode").val(),
+                                    Card_ID: $('#txtSearchCard').val(),
+                                    Services_ID: serviceID,
+                                    ServType: mainSerEmer,
+                                    Person_Payment: $("#PatientCoPayment").val(),
+                                    Services: AllDiagnos,
+                                    Contract_Number: $('#Con_Num').val(),
+                                    Class_Code: $('#Class_Code').val(),
+                                    Comp_Payment: $("#CompanyPayment").val(),
+                                    Phone: $("#PhoneNumber").val(),
+                                    NATIONAL_ID: $("#NationalId").val(),
+                                    CLAIM_NO: $("#ClaimNumber").val(),
+                                    COMP_PERC: compPercent,
+                                    OverInsurance: $("#OverInsurance").val(),
+                                    TotalValue: $("#txtTotal").val(),
+                                    Total_Cash: $("#txtTotalCopayment").val(),
+                                    Cash: $("#Cash").val(),
+                                };
+                                $.ajax({
+                                    type: "POST",
+                                    url: '/Hospital/Save',
+                                    data: (data),
+                                    success: function (rwt) {
+                                        if (rwt.msg.toString() != "OK") {
+                                            alert(rwt.result.toString());
+                                        }
+                                        else {
+
+                                            bootbox.confirm({
+                                                title: "حالة الطلب ",
+                                                message: rwt.result.toString(),
+                                                buttons: {
+                                                    cancel: {
+                                                        label: '<i class="fa fa-reply"></i> جديد'
+                                                    },
+                                                    confirm: {
+                                                        label: '<i class="fa fa-check"></i> طباعه'
+                                                    }
+                                                },
+                                                callback: function (result) {
+                                                    $('#compEmp_EMP_ANAME').val("");
+                                                    $('#compEmp_INS_END_DATE').val("");
+                                                    $("#contractComp_C_ANAME").val("");
+                                                    $("#Services").empty();
+                                                    $("#ddlDiagnoises").empty();
+                                                    $("#txtTotal").val("");
+                                                    $(".celling-pert").val("");
+                                                    $("#txtTotalCopayment").val("");
+                                                    $("#Limit").val("");
+                                                    $('#compEmp_INS_START_DATE').val("");
+
+                                                    $("#PhoneNumber").val("");
+                                                    $("#ClaimNumber").val("");
+                                                    $("#NationalId").val("");
+                                                    $("#CompanyPayment").val("");
+                                                    $("#PatientCoPayment").val("");
+                                                    $("#OverInsurance").val("");
+                                                    $("#Cash").val("");
+
+                                                    //$('#AddDiagnoise').attr('disabled', true);
+                                                    //$('#RemoveDiagnoise').attr('disabled', true);
+                                                    $("#Physical").html("");
+                                                    $("#main_services").html("");
+                                                    $("#div_of_serv").hide();
+                                                    if (result == false) {
+
+                                                    }
+                                                    else {
+                                                        window.open('/Hospital/PrintRequest?ID=' + rwt.ID);
+
+                                                    }
+                                                }
+                                            });
+
+
+
+                                        }
+                                    },
+                                    error: function (err) {
+                                        bootbox.alert("Error DATA !");
+                                    }
+                                });
+                            }
+                            else {
+                                alert("Please Enter Emergance Data ...!");
+                                $("#emergancyTxt").focus();
+
+                            }
+                        }
+                    }
+                    else {
+                        alert("Please Enter Claim Number ...!");
+                        $("#txtTotal").focus();
+                    }
+                }
+                else {
+                    alert("Please Enter National Id ...!");
+                    $("#txtTotal").focus();
+                }
+            }
+            else {
+                alert("Please Enter Phone Number ...!");
+                $("#txtTotal").focus();
+            }
+        }
+        else {
+            alert("Please Enter Total Invoice ...!");
+            $("#txtTotal").focus();
+        }
+    }
+
+    else {
+        bootbox.alert("Please Insert Card ID");
+        $("#txtSearchCard").focus();
+    }
+}
+
+
+function PersonPayments() {
+    debugger;
+    var Limit = parseFloat($("#max_amount0").val());
+    var Total = parseFloat($("#txtTotal").val());
+    var PatientPercent = $(".celling-pert").val();
+    var isCash = parseFloat($("#IsCash").val());
+    if (Limit > Total || Limit == Total) {
+        var PersonPayment = parseFloat(PatientPercent / 100) * Total;
+        var CompanyPayment = Total - PersonPayment;
+        $("#CompanyPayment").val(CompanyPayment);
+        $("#PatientCoPayment").val(PersonPayment);
+        $("#OverInsurance").val(0);
+        $("#Cash").val(0);
+        $("#txtTotalCopayment").val(PersonPayment);
+    }
+    else if (Limit < Total && isCash == 0) {
+        var overInsurace = Total - Limit;
+        var PersonPayment = parseFloat(PatientPercent / 100) * Limit;
+        var CompanyPayment = Limit - PersonPayment;
+        $("#CompanyPayment").val(CompanyPayment);
+        $("#PatientCoPayment").val(PersonPayment);
+        $("#OverInsurance").val(overInsurace);
+        $("#Cash").val(0);
+        $("#txtTotalCopayment").val(PersonPayment + overInsurace);
+    }
+    else {
+        $("#CompanyPayment").val(0);
+        $("#PatientCoPayment").val(0);
+        $("#OverInsurance").val(0);
+        $("#Cash").val(Total);
+        $("#txtTotalCopayment").val(0);
+    }
+
+}
+
+function PersonPayments1() {
+    var mainSerEmer = $("#main_services option:selected").val();
+    //if (mainSerEmer != "11104") {
+    debugger;
+    var Person_Payments = (parseFloat($("#txtTotal").val()) * parseFloat($(".celling-pert").val() / 100.00));
+    if (isNaN(Person_Payments)) {
+        Person_Payments = 0;
+    }
+
+    var price = $("#txtTotal").val();
+    //if ($("#main_services option:selected").index() == 3) {
+    //    // $(".celling-pert").val() = 100;
+    //    // $(".celling-pert").text("100");
+    //    Person_Payments = 0;
+    //}
+
+    var Comp_Payment = (parseFloat($("#txtTotal").val()) * parseFloat((100 - $(".celling-pert").val()) / 100.00));
+    if (isNaN(Comp_Payment)) {
+        Comp_Payment = 0;
+    }
+    var insurance_LIVEL = $("#insurance_LIVEL").val();
+    var Max_Amount3 = $("#max_amount0").val();
+    //alert(Max_Amount3);
+    if (Max_Amount3 == -2) {
+        $("#txtTotalCopayment").val(Person_Payments);
+    }
+    else {
+        if (Comp_Payment > Max_Amount3) {
+            alert("لا يمكن تقديم الخدمة طبقا لاسعار التعاقد وسوف يتم دفع خدمات الموظف نقدا ");
+            var x = parseFloat(Max_Amount3 * 100 / (100 - $(".celling-pert").val()));
+
+            var remain = parseFloat(price - x);
+            alert(" سيتم دفع الفرق نقدا بقيمه  " + remain);
+            $("#max_amount1").val(-1);
+            Comp_Payment = Max_Amount3;
+            //alert(Max_Amount3);
+            Person_Payments = parseFloat((x * $(".celling-pert").val() / 100.00) + remain);
+
+            //parseFloat(Max_Amount3) * parseFloat((100 - $(".celling-pert").val()) / 100.00);
+            $("#txtTotalCopayment").val(Person_Payments);
+        }
+        else
+            $("#txtTotalCopayment").val(Person_Payments);
+    }
+    //}
+
+    //else {
+    //    Person_Payments = (parseFloat($("#txtTotal").val()) * parseFloat((100 - 100) / 100.00));
+    //    if (isNaN(Person_Payments)) {
+    //        Person_Payments = 0;
+    //    }
+
+
+    //    //var price = $("#txtTotal").val();
+    //    if ($("#main_services option:selected").index() == 3) {
+    //        // $(".celling-pert").val() = 100;
+    //        // $(".celling-pert").text("100");
+    //        Person_Payments = 0;
+    //    }
+
+    //    Comp_Payment = (parseFloat($("#txtTotal").val()) * parseFloat(100 / 100.00));
+    //    if (isNaN(Comp_Payment)) {
+    //        Comp_Payment = 0;
+    //    }
+
+    //    $("#txtTotalCopayment").val(Math.round(Person_Payments));
+
+    //}
+
+    $("#Com_Cach").val(Math.round(Comp_Payment));
+    ////var ComCach = $("#txtTotal").val() - Person_Payments;
+    //alert(Comp_Payment); Com_Cach
+}
+
+function Print(AppCode) {
+    var x = String(AppCode);
+    //  window.location.reload();
+    window.open('/Hospital/Print?ApprovalCode=' + AppCode);
+}
+
+function selectionChanged() {
+    var txt;
+    var r = confirm("هل تريد طباعة موافقات مرة اخري ؟");
+    if (r == true) {
+        var data = {
+            CardId: $('#txtSearchCard').val(),
+            ContractNum: $('#Con_Num').val(),
+            ClassCode: $('#Class_Code').val(),
+            ProvideCode: '0'
+        };
+        $.ajax({
+            type: "POST",
+            url: '/User/Get_Approvels',
+            data: (data),
+            success: function (apprs) {
+
+                var setData2 = $("#Approvals Tbody");
+                setData2.empty();
+                for (var i = 0; i < apprs.length; i++) {
+                    var data = "<tr >" +
+
+                        "<td>" + apprs[i].Code + "</td>" +
+                        "<td>" + apprs[i].Approval_Type + "</td>" +
+                        "<td>" + apprs[i].Medical_Replay + "</td>" +
+                        "<td>" + apprs[i].Value_After + "</td>" +
+                        "<td>" + apprs[i].Recieve_Date + "</td>" +
+                        "<td>" + apprs[i].Created_Date + "</td>" +
+                        "<td>" + apprs[i].End_Date + "</td>" +
+                        "<td>" + apprs[i].Expaire_Date + "</td>" +
+                        "<td >" + "<Button  class='btn btn-Primary ' onclick='Print(\"" + apprs[i].Code + "\");'>Print</Button>" + "</td>" +
+                        "</tr>"
+                    setData2.append(data);
+                }
+                $("#Approvals").DataTable();
+                $("#ApprovalModal").modal();
+                var xs = $("#main_services").val();
+                var sas = $('#Con_Num').val();
+                var xdfss = $("#Class_Code").val();
+                var sgfdgdas = $('#Company_ID').val();
+                var xewws = $("#txtSearchCard").val();
+            },
+            error: function (err) {
+                bootbox.alert("No Approvals Retriev ... !");
+            }
+        });
+        $("#emergancyTxt").hide();
+    } else {
+        // txt = "You pressed Cancel!";
+        // $('#Approvals').dataTable().fnClearTable();
+        //$('#ApprovalModal').remove();
+        $('#ApprovalModal').modal('hide');
+
+        // var table = $('#ApprovalModal').DataTable();
+        // table.destroy();
+        //  $('#Approvals').dataTable().fnDestroy();
+    }
+    if ($("#Diagnoise").val() == "") {
+        //  $("#main_services").val(0);
+    }
+}
+function selectionChang() {
+    if ($("#Diagnoise").val() == "") {
+        $("#Services").val(0);
+        $("#AddDiagnoise").attr("disabled", true);
+        $("#RemoveDiagnoise").attr("disabled", true);
+
+    }
+}
+
