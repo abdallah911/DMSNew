@@ -548,6 +548,8 @@ namespace DMS_TEST.Controllers
                     {
                         CoInsurancelimit2.INSURANCE_MONTH = .001;
                     }
+                    if (LimitMonthlyYearlyPreceptionAmount < 0 && CoInsurancelimit2.INSURANCE_MONTH == 0)
+                        CoInsurancelimit2.INSURANCE_MONTH = .001;
                     //approval ceiling
                     if (Validation == false)
                     {
@@ -645,6 +647,8 @@ namespace DMS_TEST.Controllers
                         {
                             CoInsurancelimit2.INSURANCE_MONTH = 0;
                         }
+                        if (LimitMonthlyYearlyPreceptionAmount < 0 && CoInsurancelimit2.INSURANCE_MONTH == 0)
+                            CoInsurancelimit2.INSURANCE_MONTH = .001;
                         //approval ceiling
                         if (Validation == false)
                         {
@@ -967,7 +971,8 @@ namespace DMS_TEST.Controllers
                     {
                         CoInsurancelimit2.INSURANCE_MONTH = .001;
                     }
-
+                    if (LimitMonthlyYearlyPreceptionAmount < 0 && CoInsurancelimit2.INSURANCE_MONTH == 0)
+                        CoInsurancelimit2.INSURANCE_MONTH = .001;
                 }
                 else
                 {
@@ -1047,6 +1052,8 @@ namespace DMS_TEST.Controllers
                         {
                             CoInsurancelimit2.INSURANCE_MONTH = 0;
                         }
+                        if (LimitMonthlyYearlyPreceptionAmount < 0 && CoInsurancelimit2.INSURANCE_MONTH == 0)
+                            CoInsurancelimit2.INSURANCE_MONTH = .001;
 
                     }
                 }
@@ -3503,6 +3510,7 @@ namespace DMS_TEST.Controllers
                 var med_card = new Med_Card();
                 int? NoOver = 0, NoPay = 0;
                 double CellingPert;
+               
                 var DataService = db.Comp_Customized_D_D_Emp.Where(c => c.C_COMP_ID == patient.C_COMP_ID && c.CONTRACT_NO == patient.CONTRACT_NO && c.SER_SERV == data.RoshetaType && c.CARD_ID == patient.CARD_ID).FirstOrDefault();
                 if (DataService == null)
                 {
@@ -3529,8 +3537,16 @@ namespace DMS_TEST.Controllers
                     accptionlistString = "No Exeption";
                 }
                 ReportDocument rd = new ReportDocument();
-                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReport.rpt"));
-
+                ////500142+500103+500125+10560
+                if (data.ClaimNumber == null && (data.RoshetaType == "11601" || data.RoshetaType == "11603")&&
+                    (data.CardId.Contains("500142") ||data.CardId.Contains("500103") ||data.CardId.Contains("500125") ||data.CardId.Contains("10560")))
+                {
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReport2.rpt"));
+                }
+                else
+                {
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReport.rpt"));
+                }
                 var y = db.RoshitaDetails.Where(r => r.RoshitaID == data.Id && r.IsDealed == true)
                    .Join(db.MedicineDatas, r => r.MedicienCode, m => m.M_CODE, (r, m) => new { r, m })
                    .AsEnumerable()

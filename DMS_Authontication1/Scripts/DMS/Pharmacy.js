@@ -63,6 +63,11 @@ $(function () {
         $('#compEmp_BIRTH_DATE').val('');
         $('#insurance_LIVEL').val('');
         $('#ddEmp_CEILING_PERT').val('');
+        var companid = $('#txtSearchCard').val().split('-')[0];
+        if (companid == "500142" || companid == "500103" || companid == "500125" || companid == "10560") {
+            alert("هذا العميل لايحتاج موافقة علي الروشتات الخارجية علي ان يتم ادخال كافة البيانات والادوية علي السيستم");
+
+        }
         if ($('#txtSearchCard').val() != "") {
             $('#txtSearchCard').val($('#txtSearchCard').val().trim())
             $("#wait").css("display", "block");
@@ -183,7 +188,7 @@ $(function () {
                                                     $('#CardsModal').modal('hide');
                                                     //Get ceiling and Limit
                                                     GetLimit();
-                                                    
+
                                                 }
                                                 else {
                                                     $("#wait").css("display", "none");
@@ -923,14 +928,22 @@ $(function () {
                     }
                     else {
                         //bootbox.confirm("يرجي التحقق من وجود ختم الطبيب المعالج وفي  حاله عدم وجود ختم مقدم الخدمه لايتم صرف الروشته والا سيتم خصمها بالكامل علي سيادتكم"
-                        //شاملا الحرف الموجود مع الرقم
-                        bootbox.confirm("رجاء كتابه رقم النموذج وذلك بشكل صحيح وف حالة الصرف من نموذج خارجى يلزم الحصول على رقم موافقة من الشركة وذلك بالاتصال على الارقام التالية:01099887396 | 01021975433 | 01021974375 هام جدا وذلك لعدم الخصم"
-                            , function (result) {
-                                if (result) {
-                                    $('#ClaimNumber').val(' ');
-                                    $('#submit').click();
-                                } else toastr.error('Please Insert Valid ClaimNumber');
-                            });
+                        //شاملا الحرف الموجود مع الرقم 
+                        var compid = $('#txtSearchCard').val().split('-')[0];
+                        if ((compid == "500142" || compid == "500103" || compid == "500125" || compid == "10560") && ($('#ddlType').val() == "11603" || $('#ddlType').val() == "11601")) {
+                            alert("هذا العميل لايحتاج موافقة علي الروشتات الخارجية علي ان يتم ادخال كافة البيانات والادوية علي السيستم");
+                            $('#ClaimNumber').val(' ');
+                            $('#submit').click();
+                        }
+                        else {
+                            bootbox.confirm("رجاء كتابه رقم النموذج وذلك بشكل صحيح وف حالة الصرف من نموذج خارجى يلزم الحصول على رقم موافقة من الشركة وذلك بالاتصال على الارقام التالية:01099887396 | 01021975433 | 01021974375 هام جدا وذلك لعدم الخصم"
+                                , function (result) {
+                                    if (result) {
+                                        $('#ClaimNumber').val(' ');
+                                        $('#submit').click();
+                                    } else toastr.error('Please Insert Valid ClaimNumber');
+                                });
+                        }
                     }
 
 

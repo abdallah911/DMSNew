@@ -83,7 +83,7 @@ $(function () {
                                 }
                             },
                             error: function (err) {
-                                alert("VerificationCode,please check your internet connection");
+                                alert("VerificationCode,please check your internet connection1");
                                 location.reload();
                             }
                         });
@@ -93,7 +93,7 @@ $(function () {
             }
         },
         error: function (err) {
-            alert("VerificationCode,please check your internet connection");
+            alert("VerificationCode,please check your internet connection2");
             location.reload();
         }
     });

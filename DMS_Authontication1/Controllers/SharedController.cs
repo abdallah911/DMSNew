@@ -31,8 +31,8 @@ namespace DMS_Authontication1.Controllers
         }
         public JsonResult VerificationCardForCode(string CardId)
         {
-
-            var emp = db.Comp_Employees.Where(c => c.CARD_ID == CardId && c.INS_START_DATE <= DateTime.Now && c.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+            DateTime datenow = DateTime.Now.Date;
+            var emp = db.Comp_Employees.Where(c => c.CARD_ID == CardId && c.INS_START_DATE <= datenow && c.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
             EmployeesSMSCode _permision = db.EmployeesSMSCodes.Where(x => x.EmpId == emp.Id && x.IsActive == true).OrderByDescending(x => x.Id).FirstOrDefault();
             if (_permision != null)
             {

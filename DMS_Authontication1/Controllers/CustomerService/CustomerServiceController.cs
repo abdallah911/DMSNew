@@ -548,6 +548,221 @@ namespace DMS_Authontication1.Controllers.CustomerService
                 return new JsonResult { Data = new { clm, cout, totlgros, totlnet }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
+        public JsonResult getClaimDetails(string ClaimNo, string grp)
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            DataTable dt = new DataTable();
+            /*
+             if (row[3].ToString() == "116")
+                ClaimsDetailsMainCustmer.ItemsSource = 
+
+            else
+                ClaimsDetailsMainCustmer.ItemsSource = db.RunReader(@"SELECT  PRV_NAME, SERV_ANAME, DIAGNOSIS, INVT_NO , INVT_NAM , CASE WHEN COUNT_NO > 0 THEN TOT_AMT ELSE AMT END AMOUNT, NOTES_DET FROM ONLINE_CONS_01 
+                                                                        LEFT OUTER JOIN A_REP_DETAILS ON ONLINE_CONS_01.D_ID = A_REP_DETAILS.INV_ID
+                                                                      WHERE INV_ID = '" + row[0].ToString() + "'").Result.DefaultView;
+
+             
+             
+             */
+
+
+
+            if (grp == "116")
+                dt = dbData.RunReader(@"SELECT  PRV_NAME, SERV_ANAME, DIAGNOSIS, INVT_NO , INVT_NAM , AMOUNT, "" NOTES_DET FROM ONLINE_CONS_01
+                                                                        LEFT OUTER JOIN M_INV_SAL_ALL ON ONLINE_CONS_01.D_ID = M_INV_SAL_ALL.INV_ID
+                                                                      WHERE INV_ID = '" + ClaimNo + "'");
+            else
+                dt = dbData.RunReader(@"SELECT  PRV_NAME, SERV_ANAME, DIAGNOSIS, INVT_NO , INVT_NAM , CASE WHEN COUNT_NO > 0 THEN TOT_AMT ELSE AMT END AMOUNT, NOTES_DET FROM ONLINE_CONS_01 
+                                                                        LEFT OUTER JOIN A_REP_DETAILS ON ONLINE_CONS_01.D_ID = A_REP_DETAILS.INV_ID
+                                                                      WHERE INV_ID = '" + ClaimNo + "'");
+
+            
+            List<DetailsCustomerServiceViewModel> clmD = new List<DetailsCustomerServiceViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    clmD.Add(new DetailsCustomerServiceViewModel
+                    {
+                        PRV_NAME = row["PRV_NAME"].ToString(),
+                        SERV_ANAME = row["SERV_ANAME"].ToString(),
+                        DIAGNOSIS = row["DIAGNOSIS"].ToString(),
+                        INVT_NO = row["INVT_NO"].ToString(),
+                        INVT_NAM = row["INVT_NAM"].ToString(),
+                        AMOUNT = row["AMOUNT"].ToString(),
+                        NOTES_DET = row["NOTES_DET"].ToString()
+                    });
+                }
+                return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+                return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+
+        public JsonResult getIndemnityDetails(string ClaimNo)
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            DataTable dt = new DataTable();
+            DataTable dt2 = new DataTable();
+            /*
+             IndemityDetailsMainCustmer.ItemsSource = db.RunReader(@"SELECT IRS_DIAGNOSIS.DIA_CODE, IRS_DIAGNOSIS.DIA_ENAME, CLAIM_DIAGNOSES.DIA_NOTES
+                                                                    FROM IRS_DIAGNOSIS, IRS_CLAIM_REC_H 
+                                                                    LEFT OUTER JOIN CLAIM_DIAGNOSES ON IRS_CLAIM_REC_H.CLAIM_NO = CLAIM_DIAGNOSES.CLAIM_NO AND IRS_CLAIM_REC_H.year = CLAIM_DIAGNOSES.year
+                                                                    WHERE CLAIM_DIAGNOSES.DIA_CODE = IRS_DIAGNOSIS.DIA_CODE AND IRS_CLAIM_REC_H.CLAIM_NO1 = '" + row[0].ToString() + "' "
+                                                               + "   UNION ALL "
+                                                               + "   SELECT null DIA_CODE, DIAGNOSIS, NOTES "
+                                                               + "   FROM ONLINE_CONS_01 "
+                                                               + "   WHERE D_ID = '" + row[0].ToString() + "'").Result.DefaultView;
+
+            IndemityDetailsDedMainCustmer.ItemsSource = db.RunReader(@"SELECT DISTINCT DED_CODE, DED_DESC
+                                                                       FROM IRS_CLAIM_REC_H, CLAIM_ITEM_DEDUCTIONS 
+                                                                       WHERE IRS_CLAIM_REC_H.CLAIM_NO = CLAIM_ITEM_DEDUCTIONS.CLAIM_NO 
+                                                                           AND IRS_CLAIM_REC_H.year = CLAIM_ITEM_DEDUCTIONS.year
+                                                                           AND IRS_CLAIM_REC_H.CLAIM_NO1 = '" + row[0].ToString() + "' ").Result.DefaultView;
+
+
+             */
+
+
+
+            dt = dbData.RunReader(@"SELECT IRS_DIAGNOSIS.DIA_CODE, IRS_DIAGNOSIS.DIA_ENAME, CLAIM_DIAGNOSES.DIA_NOTES
+                                                                    FROM IRS_DIAGNOSIS, IRS_CLAIM_REC_H 
+                                                                    LEFT OUTER JOIN CLAIM_DIAGNOSES ON IRS_CLAIM_REC_H.CLAIM_NO = CLAIM_DIAGNOSES.CLAIM_NO AND IRS_CLAIM_REC_H.year = CLAIM_DIAGNOSES.year
+                                                                    WHERE CLAIM_DIAGNOSES.DIA_CODE = IRS_DIAGNOSIS.DIA_CODE AND IRS_CLAIM_REC_H.CLAIM_NO1 = '" + ClaimNo + "' "
+                                                               + "   UNION ALL "
+                                                               + "   SELECT null DIA_CODE, DIAGNOSIS, NOTES "
+                                                               + "   FROM ONLINE_CONS_01 "
+                                                               + "   WHERE D_ID = '" + ClaimNo + "'");
+       
+                dt2 = dbData.RunReader(@"SELECT DISTINCT DED_CODE, DED_DESC
+                                                                       FROM IRS_CLAIM_REC_H, CLAIM_ITEM_DEDUCTIONS 
+                                                                       WHERE IRS_CLAIM_REC_H.CLAIM_NO = CLAIM_ITEM_DEDUCTIONS.CLAIM_NO 
+                                                                           AND IRS_CLAIM_REC_H.year = CLAIM_ITEM_DEDUCTIONS.year
+                                                                           AND IRS_CLAIM_REC_H.CLAIM_NO1 = '" + ClaimNo + "' ");
+
+           
+            List<DetailsCustomerServiceViewModel> clmD = new List<DetailsCustomerServiceViewModel>();
+            List<DetailsCustomerServiceViewModel> clmD2 = new List<DetailsCustomerServiceViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    clmD.Add(new DetailsCustomerServiceViewModel
+                    {
+                        DIA_CODE = row["DIA_CODE"].ToString(),
+                        DIA_ENAME = row["DIA_ENAME"].ToString(),
+                        DIA_NOTES = row["DIA_NOTES"].ToString()
+                    });
+                }
+            }
+
+            if (dt2.Rows.Count != 0)
+            {
+                foreach (DataRow row in dt2.Rows)
+                {
+                    clmD2.Add(new DetailsCustomerServiceViewModel
+                    {
+                        DED_CODE = row["DIA_CODE"].ToString(),
+                        DED_DESC = row["DIA_ENAME"].ToString()           
+                    });
+                }
+            }
+            return new JsonResult { Data = new { clmD, clmD2 }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+         }
+        public JsonResult getMonthlyDetailsData(string CardId)
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            DataTable dt = new DataTable();
+        
+            
+            dt = dbData.RunReader(@"select  V_MED_MEDICINE_1.MED_CODE, V_MED_MEDICINE_1.MED_NAME, V_MED_MEDICINE_1.DOSAGE_FORM, V_MED_MEDICINE_1.UNIT_NO, 
+                                                                                    V_MED_MEDICINE_1.PACK_SIZE, V_MED_MEDICINE_1.DOS_DUR, V_MED_MEDICINE_1.TOT_DUR, V_MED_MEDICINE_1.CON_MED, V_MED_MEDICINE_1.ACTIVE, TO_CHAR(INV_SAL_ONLINE.INV_DATE,'DD-MM-YYYY') INV_DATE,
+                                                                                    CASE WHEN INV_SAL_ONLINE.INV_DATE = (select max(INV_DATE) FROM INV_SAL_ONLINE WHERE V_MED_MEDICINE_1.CARD_NO = INV_SAL_ONLINE.CARD_ID AND cash_item = 'MON') THEN 'YES' ELSE 'NO' END STATE
+                                                                            from    V_MED_MEDICINE_1 
+                                                                                 LEFT OUTER JOIN INV_SAL_ONLINE ON  V_MED_MEDICINE_1.MED_CODE = INV_SAL_ONLINE.INVT_NO AND V_MED_MEDICINE_1.CARD_NO = INV_SAL_ONLINE.CARD_ID
+                                                                            where   V_MED_MEDICINE_1.CARD_NO = '" + CardId + "' AND INV_SAL_ONLINE.INV_DATE = (select max(INV_DATE) FROM INV_SAL_ONLINE WHERE V_MED_MEDICINE_1.CARD_NO = INV_SAL_ONLINE.CARD_ID AND cash_item = 'MON' AND V_MED_MEDICINE_1.MED_CODE = INV_SAL_ONLINE.INVT_NO) " +
+                                                                          " ORDER BY INV_SAL_ONLINE.INV_DATE DESC");
+            
+
+            List<DetailsCustomerServiceViewModel> clmD = new List<DetailsCustomerServiceViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    clmD.Add(new DetailsCustomerServiceViewModel
+                    {
+                        MED_CODE = row["MED_CODE"].ToString(),
+                        MED_NAME = row["MED_NAME"].ToString(),
+                        DOSAGE_FORM = row["DOSAGE_FORM"].ToString(),
+                        UNIT_NO = row["UNIT_NO"].ToString(),
+                        PACK_SIZE = row["PACK_SIZE"].ToString(),
+                        DOS_DUR = row["DOS_DUR"].ToString(),
+                        TOT_DUR = row["TOT_DUR"].ToString(),
+                        CON_MED = row["CON_MED"].ToString(),
+                        ACTIVE = row["ACTIVE"].ToString(),
+                        INV_DATE = row["INV_DATE"].ToString(),
+                        STATE = row["STATE"].ToString()
+                    });
+                }
+                return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+                return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+        public JsonResult getLiveDetailsData(string ClaimNo)
+        {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            DataTable dt = new DataTable();
+            
+            dt = dbData.RunReader(@"SELECT INVT_NO , INVT_NAM , DOSAGE, PACK_PRICE, SIZE_UNIT, UNIT, PRICE_UNIT, DOSE, DURATION DUR, T_DURATION DURATION, REPEAT, COUNT, AMOUNT FROM INV_SAL_ONLINE WHERE INV_ID =  '" + ClaimNo + "'");
+            
+            List<DetailsCustomerServiceViewModel> clmD = new List<DetailsCustomerServiceViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    clmD.Add(new DetailsCustomerServiceViewModel
+                    {
+                        INVT_NO = row["INVT_NO"].ToString(),
+                        INVT_NAM = row["INVT_NAM"].ToString(),
+                        DOSAGE = row["DOSAGE"].ToString(),
+                        PACK_PRICE = row["PACK_PRICE"].ToString(),
+                        SIZE_UNIT = row["SIZE_UNIT"].ToString(),
+                        UNIT = row["UNIT"].ToString(),
+                        PRICE_UNIT = row["PRICE_UNIT"].ToString(),
+                        DOSE = row["DOSE"].ToString(),
+                        DUR = row["DUR"].ToString(),
+                        DURATION = row["DURATION"].ToString(),
+                        REPEAT = row["REPEAT"].ToString(),
+                        COUNT = row["COUNT"].ToString(),
+                        AMOUNT = row["AMOUNT"].ToString()
+                    });
+                }
+                return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+                return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+
         public JsonResult getIndemnityData(string CardId, string dat1, string dat2, string oldcardd, int flg)
         {
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
