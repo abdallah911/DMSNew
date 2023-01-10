@@ -63,7 +63,7 @@ $(function () {
             //-------------------
             $.ajax({
                 dataType: "json",
-                url: '/Pharmacy/AddCard',
+                url: '/Pharmacy/AddCardForAddChronic',
                 data: { id: AddCardTxt },
                 success: function (r) {
                     if (r != "null") {
