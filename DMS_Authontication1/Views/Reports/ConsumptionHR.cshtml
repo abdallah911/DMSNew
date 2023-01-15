@@ -278,18 +278,23 @@
                                                 <div class="col-md-6">
                                                     <select id="RepotType" class="form-control">
                                                         <option value="1">106-1-Consumption Per Employee VS. Service</option>
+
                                                         @*<option value="2">106-2-Consumption Per Super Group Service</option>*@
                                                         <option value="3">106-3-Medicine Consumption</option>
                                                         <option value="4">106-4-Consumption Per Employee</option>
                                                         <option value="5">106-5-Consumption Summary</option>
                                                         <option value="6">106-6-Consumption Per Relation</option>
-                                                       @* <option value="7">106-7-Consumption Details</option>*@
+                                                        @if (ViewBag.IsIos)
+                                                        {
+                                                            <option value="7">106-7-Consumption Details</option>
+                                                        }
+                                                        @* <option value="7">106-7-Consumption Details</option>*@
                                                         <option value="8">106-8-Consumption Per Provider</option>
                                                         <option value="9">106-9-Consumption Per Service Group</option>
 
                                                         <option value="10">106-10-Indemnity Check</option>
 
-                                                       @* <option value="11">106-2-2-Consumption Per Super Group Service New</option>*@
+                                                        @* <option value="11">106-2-2-Consumption Per Super Group Service New</option>*@
 
 
                                                     </select>

@@ -122,15 +122,25 @@
             filter: alpha(opacity=50);
         }
     </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-227248876-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-227248876-1');
+    </script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125728980-2"></script>
+    @*<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125728980-2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'UA-125728980-2');
-    </script>
+    </script>*@
 
 </head>
 <body>
@@ -402,7 +412,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script src="//code.tidio.co/eff9zrkxtblqvosje5rz9c0yva7wg8a2.js" async></script>
+    @*<script src="//code.tidio.co/eff9zrkxtblqvosje5rz9c0yva7wg8a2.js" async></script>*@
     <script type='text/javascript' src='~/assets/global/plugins/design/js/jquery.collapsible.min.js'></script>
     <script type='text/javascript' src='~/assets/global/plugins/design/js/swiper.min.js'></script>
     <script type='text/javascript' src='~/assets/global/plugins/design/js/circle-progress.min.js'></script>

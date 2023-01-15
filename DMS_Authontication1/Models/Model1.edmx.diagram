@@ -30,7 +30,6 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.IndemnityService" Width="1.5" PointX="12.25" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Insurance_Class" Width="1.5" PointX="11.75" PointY="22.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.LicenseType" Width="1.5" PointX="23.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Med_Card" Width="1.5" PointX="23.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Med_Medicine" Width="1.5" PointX="4.75" PointY="23.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.MedicineData" Width="1.5" PointX="7.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.MedicineGroup" Width="1.5" PointX="23.75" PointY="10.75" IsExpanded="true" />
@@ -54,7 +53,6 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Serv_Providers1" Width="1.5" PointX="10.75" PointY="27.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Service" Width="1.5" PointX="10" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Specialities1" Width="1.5" PointX="27.75" PointY="21.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Swap" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_CardAcceptionReasons_AcceptionReasons" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_IndemnityCardsServices_Indemnity" ManuallyRouted="false" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_IndemnityServices_IndemnityCardsServices" ManuallyRouted="false" />
@@ -159,6 +157,11 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RemainConsumption" Width="1.5" PointX="37.375" PointY="5.75" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_Notification_Roshita" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProviderContract" Width="1.5" PointX="28.375" PointY="29.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.UserCompanyPermission" Width="1.5" PointX="34.375" PointY="14.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Med_Card" Width="1.5" PointX="13.375" PointY="40.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Swap" Width="1.5" PointX="24.375" PointY="7.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProviderBlock" Width="1.5" PointX="39.375" PointY="5.75" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_EmployeesSMSCode_Comp_Employees" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

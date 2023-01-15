@@ -76,7 +76,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
 
             return new JsonResult { Data = RoshitaDetailsList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-        public JsonResult ChangeStatus(int MedicineId, int NotificationId, string status)
+        public JsonResult ChangeStatus(int MedicineId, int NotificationId, string status, string NoteAdmin, string NotePharmacy)
         {
 
 
@@ -177,6 +177,8 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                     }
 
                 }
+                notification.NoteAdmin = NoteAdmin;
+                notification.NotePharmacy = NotePharmacy;
                 db.Entry(notification).State = EntityState.Modified;
                 if (notificationchick == null)
                 {

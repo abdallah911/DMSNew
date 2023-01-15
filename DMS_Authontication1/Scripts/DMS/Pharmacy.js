@@ -63,6 +63,11 @@ $(function () {
         $('#compEmp_BIRTH_DATE').val('');
         $('#insurance_LIVEL').val('');
         $('#ddEmp_CEILING_PERT').val('');
+        var companid = $('#txtSearchCard').val().split('-')[0];
+        if (companid == "500142" || companid == "500103" || companid == "500125" || companid == "10560") {
+            alert("هذا العميل لايحتاج موافقة علي الروشتات الخارجية علي ان يتم ادخال كافة البيانات والادوية علي السيستم");
+
+        }
         if ($('#txtSearchCard').val() != "") {
             $('#txtSearchCard').val($('#txtSearchCard').val().trim())
             $("#wait").css("display", "block");
@@ -171,7 +176,7 @@ $(function () {
                                         data: { id: CompId, CardId: CardId },
                                         success: function (returndata) {
                                             if (returndata.ok) {
-                                                if (returndata.data == "Y") {
+                                                if (returndata.data == "Yes") {
                                                     debugger;
                                                     $("#wait").css("display", "none");
                                                     $('#txtSearchCard').val(CardId);
@@ -179,48 +184,10 @@ $(function () {
                                                     $('#compEmp_INS_START_DATE').val(StartDate);
                                                     $('#compEmp_INS_END_DATE').val(EndDate);
                                                     $('#compEmp_BIRTH_DATE').val(birthdate);
-                                                    AddNationalId();
+                                                    //AddNationalId();
                                                     $('#CardsModal').modal('hide');
-                                                    //// disable card 
-                                                    //$.ajax({
-                                                    //    dataType: "json",
-                                                    //    url: '/Pharmacy/DisableCard',
-                                                    //    data: {
-                                                    //        CardId: $('#txtSearchCard').val(),
-                                                    //    },
-                                                    //    success: function (r) {
-                                                    //        if (r == "True") {
-                                                    //            $("#wait").css("display", "none");
-                                                    //            $('#txtSearchCard').val(CardId);
-                                                    //            $('#compEmp_EMP_ANAME').val(ArName);
-                                                    //            $('#compEmp_INS_START_DATE').val(StartDate);
-                                                    //            $('#compEmp_INS_END_DATE').val(EndDate);
-                                                    //            $('#compEmp_BIRTH_DATE').val(birthdate);
-                                                    //            AddNationalId();
-                                                    //            $('#CardsModal').modal('hide');
-                                                    //        }
-                                                    //        else {
-                                                    //           // bootbox.alert("Card Id is used by another one please wait until it had been released thank you");
-                                                    //            $("#wait").css("display", "none");
-                                                    //            bootbox.dialog({
-                                                    //                title: 'Alert!',
-                                                    //                message: "Card Id is used by another one please wait until it had been released thank you",
-                                                    //                buttons: {
-                                                    //                    Ok: {
-                                                    //                        label: "Ok",
-                                                    //                        className: 'btn-info',
-                                                    //                        callback: function () {
-                                                    //                            ClearCardData();
-                                                    //                        }
-                                                    //                    }
-                                                    //                }
-                                                    //            });
-
-                                                    //        }
-                                                    //    },
-                                                    //    error: function (r) { }
-                                                    //});
-
+                                                    //Get ceiling and Limit
+                                                    GetLimit();
 
                                                 }
                                                 else {
@@ -241,13 +208,44 @@ $(function () {
                                                 }
                                             }
                                             else {
-                                                bootbox.alert('failed  company activation , please check your internet connection ');
+                                                if (returndata.data == "Hold") {
+                                                    $("#wait").css("display", "none");
+                                                    bootbox.dialog({
+                                                        title: 'Alert!',
+                                                        message: returndata.message,
+                                                        buttons: {
+                                                            Ok: {
+                                                                label: "Ok",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    ClearCardData();
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                                else if (returndata.data == "Expire") {
+                                                    $("#wait").css("display", "none");
+                                                    bootbox.dialog({
+                                                        title: 'Alert!',
+                                                        message: returndata.message,
+                                                        buttons: {
+                                                            Ok: {
+                                                                label: "Ok",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    ClearCardData();
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                                else
+                                                    bootbox.alert('failed  company activation , please check your internet connection ');
                                             }
                                         }
                                     });
 
-                                    //Get ceiling and Limit
-                                    GetLimit();
                                 }
                                 else {
                                     bootbox.alert('برجاء الرجوع الى ادارة الشركة التابعة لسيادتكم ..');
@@ -930,14 +928,22 @@ $(function () {
                     }
                     else {
                         //bootbox.confirm("يرجي التحقق من وجود ختم الطبيب المعالج وفي  حاله عدم وجود ختم مقدم الخدمه لايتم صرف الروشته والا سيتم خصمها بالكامل علي سيادتكم"
-                        //شاملا الحرف الموجود مع الرقم
-                        bootbox.confirm("رجاء كتابه رقم النموذج وذلك بشكل صحيح وف حالة الصرف من نموذج خارجى يلزم الحصول على رقم موافقة من الشركة وذلك بالاتصال على الارقام التالية:01099887396 | 01021975433 | 01021974375 هام جدا وذلك لعدم الخصم"
-                            , function (result) {
-                                if (result) {
-                                    $('#ClaimNumber').val(' ');
-                                    $('#submit').click();
-                                } else toastr.error('Please Insert Valid ClaimNumber');
-                            });
+                        //شاملا الحرف الموجود مع الرقم 
+                        var compid = $('#txtSearchCard').val().split('-')[0];
+                        if ((compid == "500142" || compid == "500103" || compid == "500125" || compid == "10560") && ($('#ddlType').val() == "11603" || $('#ddlType').val() == "11601")) {
+                            alert("هذا العميل لايحتاج موافقة علي الروشتات الخارجية علي ان يتم ادخال كافة البيانات والادوية علي السيستم");
+                            $('#ClaimNumber').val(' ');
+                            $('#submit').click();
+                        }
+                        else {
+                            bootbox.confirm("رجاء كتابه رقم النموذج وذلك بشكل صحيح وف حالة الصرف من نموذج خارجى يلزم الحصول على رقم موافقة من الشركة وذلك بالاتصال على الارقام التالية:01099887396 | 01021975433 | 01021974375 هام جدا وذلك لعدم الخصم"
+                                , function (result) {
+                                    if (result) {
+                                        $('#ClaimNumber').val(' ');
+                                        $('#submit').click();
+                                    } else toastr.error('Please Insert Valid ClaimNumber');
+                                });
+                        }
                     }
 
 
@@ -1579,7 +1585,7 @@ function Calculation() {
                     $('#txtValueCredit').val(Limit);
                     $('#txtOverInsurance').val((total - Limit - parseFloat($('#txtTotalCopayment').val())).toFixed(2));
                 }
-                else if ((Limit * (co / 100)) > (ValueCredit) || co == 0) {//no over insurance
+                else if ((Limit * (co / 100)) > (ValueCredit) /*|| co == 0*/) {//no over insurance
                     $('#txtValueCredit').val((total * (co / 100)).toFixed(2));
                     $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
                 }
@@ -1611,7 +1617,7 @@ function Calculation() {
                     $('#txtValueCredit').val(Limit);//(Limit * (co / 100)).toFixed(2)
                     $('#txtOverInsurance').val((total - Limit - parseFloat($('#txtTotalCopayment').val())).toFixed(2));
                 }
-                else if ((Limit * (co / 100)) > (ValueCredit) || co == 0) {
+                else if ((Limit * (co / 100)) > (ValueCredit) /*|| co == 0*/) {
                     $('#txtValueCredit').val((total * (co / 100)).toFixed(2));
                     $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
                 }

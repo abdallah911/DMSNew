@@ -105,7 +105,7 @@
                         $('#EditCardModal').modal();
                         $('.modal-body #CardId1').val(r.mED_CARD.CARD_NO);
                         $('.modal-body #CardName1').val(r.mED_CARD.EMP_ANAME);
-                        $(".modal-body #Provider1").val(r.mED_CARD.PR_ANAME);
+                        //$(".modal-body #Provider1").val(r.mED_CARD.PR_ANAME);
                         $(".modal-body #PhoneNumber1").val(r.mED_CARD.PhoneNumber);
                         $(".modal-body #NationalId1").val(r.mED_CARD.NationalId);
                         $(".modal-body #ExceptionType1").val(r.mED_CARD.ExceptionType);
@@ -138,6 +138,19 @@
                             stVal[i] = $element.find("option:contains('" + DiagnosisList[i] + "')").val();
                         }
                         $element.val(stVal).trigger('change.select2');
+                        /// Provider
+                        $('#Provider1').select2({
+                            dropdownParent: $('#EditCardModal .modal-content')
+                        });
+                        debugger;
+                        $('.modal-body #Provider').val(r.mED_CARD.PR_ANAME);
+                        var Provider1List = r.mED_CARD.PR_ANAME.split('_');
+                        let $element2 = $('#Provider1');
+                        //var stVal = new Array();
+                        //for (var i = 0; i < Provider1List.length; i++) {
+                        //    stVal[i] = $element2.find("option:contains('" + Provider1List[i] + "')").text();
+                        //}
+                        $element2.val(Provider1List).trigger('change.select2');
                         debugger;
                         $('.modal-body #CompanyPaymentLimit1').val(r.mED_CARD.NO_PAY);
                         $('.modal-body #OverInsuranceLimit1').val(r.mED_CARD.NO_OVER);

@@ -29,5 +29,17 @@ namespace DMS_Authontication1.Controllers
             }
             return Json(new { Validation = false, Message = "invalid Code", Limit = 0, CeilingPert = 0 });
         }
+        public JsonResult VerificationCardForCode(string CardId)
+        {
+            DateTime datenow = DateTime.Now.Date;
+            var emp = db.Comp_Employees.Where(c => c.CARD_ID == CardId && c.INS_START_DATE <= datenow && c.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+            EmployeesSMSCode _permision = db.EmployeesSMSCodes.Where(x => x.EmpId == emp.Id && x.IsActive == true).OrderByDescending(x => x.Id).FirstOrDefault();
+            if (_permision != null)
+            {
+
+                return Json(new { Validation = true});
+            }
+            return Json(new { Validation = false });
+        }
     }
 }

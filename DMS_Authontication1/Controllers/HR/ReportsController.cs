@@ -274,6 +274,7 @@ namespace DMS_Authontication1.Controllers.HR
 
         public ActionResult ConsumptionHR()
         {
+            bool IsIos = false;
             if (User.IsInRole("HR_Admin"))
             {
                 var userid = User.Identity.GetUserId();
@@ -289,6 +290,7 @@ namespace DMS_Authontication1.Controllers.HR
                         }).ToList();
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
+                    IsIos = true;
                 }
                 else
                 {
@@ -302,7 +304,9 @@ namespace DMS_Authontication1.Controllers.HR
                                        }).ToList();
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
+                    IsIos = companyname.Where(x => x.Name.Contains("500")).FirstOrDefault() != null ? true : false;
                 }
+                ViewBag.IsIos = IsIos;
                 return View();
             }
             else
@@ -312,6 +316,7 @@ namespace DMS_Authontication1.Controllers.HR
                 ViewBag.compnum = compa;
                 if (compa.Contains("500") || compa.Contains("800"))
                 {
+                    ViewBag.IsIos = compa.Contains("500") ? true : false;
                     return View();
                 }
                 return View("~/Views/Reports/Premium.cshtml");
@@ -429,11 +434,11 @@ namespace DMS_Authontication1.Controllers.HR
                     aaData = db.Roshitas.OrderByDescending(m => m.CreatedDate)
                    .Where(r => (sSearch != "" ? (r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch)
                    ) : true)
-                   && (CardId != "" ? r.CardId.Contains(CardId) : true) && (ApprovalNo != null ? r.Oracle_Id == ApprovalNo : true) 
+                   && (CardId != "" ? r.CardId.Contains(CardId) : true) && (ApprovalNo != null ? r.Oracle_Id == ApprovalNo : true)
                    && (Type != "" ? r.Manager.Contains(Type) : true)
                    && (CompanyNumber != "" ? r.CardId.Contains(CompanyNumber) : true) && !r.Manager.Contains("Stop")
                    && !r.Manager.Contains("Doctor_Daily") && !r.Manager.Contains("Doctor_Chronic") &&
-                   !r.Manager.Contains("Lab") &&!r.Manager.Contains("Ray") &&
+                   !r.Manager.Contains("Lab") && !r.Manager.Contains("Ray") &&
                    (DbFunctions.TruncateTime(r.CreatedDate) >= dateFrom && DbFunctions.TruncateTime(r.CreatedDate) <= dateTo))
                    .AsEnumerable()
                    .Select(l => new
@@ -1062,11 +1067,11 @@ namespace DMS_Authontication1.Controllers.HR
         }
 
         //Print Hr Claim Xsl
-       /* window.open('/Reports/PrintXlxConsumption?From=' + $("#From").val() +
-            '&&To=' + $("#To").val() + '&&ApprovalNo=' + $("#PharmacyApprovalNo").val() +
-            '&&CardId=' + $("#PharmacyApprovalNo").val() + '&&TypePrint=' + $("#ddlType").val() +
-            '&&CompanyNumber=' + $("#CopmanyNumber").val());*/
-        public ActionResult PrintHrClaimXsl(string From, string To, string ApprovalNo, string CardId, 
+        /* window.open('/Reports/PrintXlxConsumption?From=' + $("#From").val() +
+             '&&To=' + $("#To").val() + '&&ApprovalNo=' + $("#PharmacyApprovalNo").val() +
+             '&&CardId=' + $("#PharmacyApprovalNo").val() + '&&TypePrint=' + $("#ddlType").val() +
+             '&&CompanyNumber=' + $("#CopmanyNumber").val());*/
+        public ActionResult PrintHrClaimXsl(string From, string To, string ApprovalNo, string CardId,
                                             string TypePrint, string CompanyNumber)
         {
             Int64 ClaimStart, ClaimEnd, CompNumber;
@@ -1078,9 +1083,9 @@ namespace DMS_Authontication1.Controllers.HR
 
             dat1 = From == string.Empty ? new DateTime(2018, 1, 1) : (Convert.ToDateTime(From)).Date;
             dat2 = To == string.Empty ? DateTime.Now.Date : (Convert.ToDateTime(To)).Date;
-            
+
             ReportDocument rd = new ReportDocument();
-            
+
             rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "HrClaimsReport.rpt"));
 
 
@@ -1089,7 +1094,7 @@ namespace DMS_Authontication1.Controllers.HR
             rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
 
             rd.SetParameterValue("@from", dat1);
-            rd.SetParameterValue("@to", dat2);            
+            rd.SetParameterValue("@to", dat2);
             rd.SetParameterValue("@ClaimStart", ClaimStart);
             rd.SetParameterValue("@ClaimEnd", ClaimEnd);
             rd.SetParameterValue("@typ", TypePrint);
@@ -1739,16 +1744,16 @@ namespace DMS_Authontication1.Controllers.HR
 
             CompanyStart = CompanyFrom == string.Empty ? 0 : Convert.ToInt64(CompanyFrom);
             CompanyEnd = CompanyTo == string.Empty ? 999999999 : Convert.ToInt64(CompanyTo);
-            ClassStart = ClassFrom == string.Empty ? "0" : ClassFrom;
+            ClassStart = ClassFrom == string.Empty ? " " : ClassFrom;
             ClassEnd = ClassTo == string.Empty ? "zzzzz" : ClassTo;
-            CardStart = CardFrom == string.Empty ? "0" : CardFrom;
-            CardEnd = CardTo == string.Empty ? "9999999999999999999999" : CardTo;
+            CardStart = CardFrom == string.Empty ? " " : CardFrom;
+            CardEnd = CardTo == string.Empty ? "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" : CardTo;
             ContrNumber = ContractNumber == string.Empty ? 0 : Convert.ToInt64(ContractNumber);
 
 
 
             per = Percent == string.Empty ? 0 : Convert.ToInt64(Percent);
-            lrg = larg == string.Empty? 999999999999999999 : Convert.ToInt64(larg);
+            lrg = (larg == string.Empty || larg == "0") ? 999999999999999999 : Convert.ToInt64(larg);
             sml = smal == string.Empty ? 0 : Convert.ToInt64(smal);
 
 
@@ -1837,7 +1842,7 @@ namespace DMS_Authontication1.Controllers.HR
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub2New.rpt"));
 
                     break;
-                                    
+
                 default:
                     return View();
 
@@ -1855,7 +1860,7 @@ namespace DMS_Authontication1.Controllers.HR
             rd.SetParameterValue("crd1", CardStart);
             rd.SetParameterValue("crd2", CardEnd);
             rd.SetParameterValue("cls1", ClassStart);
-            rd.SetParameterValue("cls2", ClassEnd);          
+            rd.SetParameterValue("cls2", ClassEnd);
             rd.SetParameterValue("prv1", prv1);
             rd.SetParameterValue("prv2", prv2);
             rd.SetParameterValue("lrg", lrg);
@@ -1951,7 +1956,7 @@ namespace DMS_Authontication1.Controllers.HR
                 case 3:
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "Reportaub4.rpt"));
 
-                    break; 
+                    break;
 
                 case 4:
                     if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
@@ -1995,7 +2000,7 @@ namespace DMS_Authontication1.Controllers.HR
 
                     break;
                 case 10:
-                    
+
                     if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "IndemnityCheckInternalCode.rpt"));
                     else

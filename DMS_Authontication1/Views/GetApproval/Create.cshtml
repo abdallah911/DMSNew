@@ -54,11 +54,11 @@
                 <div class="col-sm-2">
                     @Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })
                     @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div> 
+                </div>
                 @*<div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.gender, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.gender, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>*@
+                        @Html.LabelFor(model => model.compEmp.gender, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.compEmp.gender, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>*@
 
 
             </div>
@@ -93,7 +93,7 @@
                 <div hidden id="Hidde" style="margin-left:10px;" class="col-sm-2">
                     <label>Provider</label>
                     @Html.DropDownListFor(m => m.Provider, (new SelectList(Model.GetProvidersList, "Id", "Name")),
-        new { @class = "form-control" , id = "Provider"})
+        new { @class = "form-control", id = "Provider" })
 
                 </div>
 
@@ -199,10 +199,10 @@
                             var MyDate_String_Value = r[i].BIRTH_DATE;
                             var value = new Date
                                 (
-                                parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                    parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
                                 );
                             birthdate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                            if (value.getDate() == "NAN" || value.getMonth() == "NAN" || value.getFullYear() == "NAN"){
+                            if (value.getDate() == "NAN" || value.getMonth() == "NAN" || value.getFullYear() == "NAN") {
                                 birthdate = null;
                             }
                         } else {
@@ -212,7 +212,7 @@
                             var MyDate_String_Value = r[i].SPECIFIC_DATE;
                             var value = new Date
                                 (
-                                parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                    parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
                                 );
                             StartDate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
                         } else {
@@ -223,9 +223,9 @@
                             var MyDate_String_Value1 = r[i].INS_END_DATE;
                             var value1 = new Date
                                 (
-                                parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
+                                    parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
                                 );
-                             dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
+                            dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
                         }
                         else {
                             dat1 = null;
@@ -279,7 +279,7 @@
                             data: { id: CompId, CardId: CardId },
                             success: function (returndata) {
                                 if (returndata.ok) {
-                                    if (returndata.data == "Y") {
+                                    if (returndata.data == "Yes") {
                                         $('#txtSearchCard').val(CardId);
                                         $('#compEmp_EMP_ANAME').val(ArName);
                                         $('#compEmp_INS_START_DATE').val(StartDate);
@@ -317,15 +317,14 @@
                                             success: function (r) {
                                                 if (r.Validation == false) {
                                                     toastr.info(r.Message);
-                                                   // window.location.reload();
-                                                } 
+                                                    // window.location.reload();
+                                                }
                                             },
                                             error: function (err) {
                                                 alert("Company Annual Amount");
-                                               // location.reload();
+                                                // location.reload();
                                             }
                                         });
-
                                     }
                                     else {
                                         $("#wait").css("display", "none");
@@ -342,10 +341,40 @@
                                             }
                                         });
                                     }
-
                                 }
                                 else {
-                                    bootbox.alert('Error activation ');
+                                    if (returndata.data == "Hold") {
+                                        $("#wait").css("display", "none");
+                                        bootbox.dialog({
+                                            title: 'Alert!',
+                                            message: returndata.message,
+                                            buttons: {
+                                                Ok: {
+                                                    label: "Ok",
+                                                    className: 'btn-info',
+                                                    callback: function () {
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else if (returndata.data == "Expire") {
+                                        $("#wait").css("display", "none");
+                                        bootbox.dialog({
+                                            title: 'Alert!',
+                                            message: returndata.message,
+                                            buttons: {
+                                                Ok: {
+                                                    label: "Ok",
+                                                    className: 'btn-info',
+                                                    callback: function () {
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else
+                                        bootbox.alert('failed  company activation , please check your internet connection ');
                                 }
                             }
                         });

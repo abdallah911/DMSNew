@@ -16,7 +16,7 @@ namespace DMS_Authontication1.Models
     {
         public long Id { get; set; }
         public string CARD_NO { get; set; }
-        public Nullable<int> PROVIDER_CODE { get; set; }
+        public string PROVIDER_CODE { get; set; }
         public Nullable<int> C_COMP_ID { get; set; }
         public string NOTES { get; set; }
         public string CREATED_BY { get; set; }
@@ -34,11 +34,11 @@ namespace DMS_Authontication1.Models
         public Nullable<int> NO_PAY { get; set; }
         public Nullable<int> NO_OVER { get; set; }
         public Nullable<int> ST_DAY { get; set; }
+        public string PhoneNumber { get; set; }
+        public string NationalId { get; set; }
         public Nullable<bool> IsSync { get; set; }
         public Nullable<System.DateTime> SyncDate { get; set; }
         public string SyncBy { get; set; }
-        public string PhoneNumber { get; set; }
-        public string NationalId { get; set; }
         public string ExceptionType { get; set; }
         public Nullable<System.DateTime> NoPayEndDate { get; set; }
         public Nullable<System.DateTime> NoOverEndDate { get; set; }

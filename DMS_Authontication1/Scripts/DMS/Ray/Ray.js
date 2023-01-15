@@ -12,6 +12,12 @@ var NationalId;
 
 //
 $(function () {
+    $("#PrescriptionDate").datepicker({
+        maxDate: '0',
+        minDate: '-13D',
+        dateFormat: 'dd-mm-yy',
+    });
+
     $("#Help").click(function () {
         introJs().start();
     });
@@ -104,53 +110,37 @@ $(function () {
                                         data: { id: CompId, CardId: CardId },
                                         success: function (returndata) {
                                             if (returndata.ok) {
-                                                if (returndata.data == "Y") {
+                                                if (returndata.data == "Yes") {
                                                     $("#wait").css("display", "none");
                                                     $('#txtSearchCard').val(CardId);
                                                     $('#compEmp_EMP_ANAME').val(ArName);
                                                     $('#compEmp_INS_END_DATE').val(EndDate);
-                                                    AddNationalId();
+                                                    //AddNationalId();
                                                     $('#CardsModal').modal('hide');
-
-                                                    //// disable card 
-                                                    //$.ajax({
-                                                    //    dataType: "json",
-                                                    //    url: '/Pharmacy/DisableCard',
-                                                    //    data: {
-                                                    //        CardId: $('#txtSearchCard').val(),
-                                                    //    },
-                                                    //    success: function (r) {
-                                                    //        if (r == "True") {
-                                                    //            $("#wait").css("display", "none");
-                                                    //            $('#txtSearchCard').val(CardId);
-                                                    //            $('#compEmp_EMP_ANAME').val(ArName);
-                                                    //            $('#compEmp_INS_END_DATE').val(EndDate);
-                                                    //            AddNationalId();
-                                                    //            $('#CardsModal').modal('hide');
-                                                    //        }
-                                                    //        else {
-                                                    //            // bootbox.alert("Card Id is used by another one please wait until it had been released thank you");
-                                                    //            $("#wait").css("display", "none");
-                                                    //            bootbox.dialog({
-                                                    //                title: 'Alert!',
-                                                    //                message: "Card Id is used by another one please wait until it had been released thank you",
-                                                    //                buttons: {
-                                                    //                    Ok: {
-                                                    //                        label: "Ok",
-                                                    //                        className: 'btn-info',
-                                                    //                        callback: function () {
-                                                    //                            ClearCardData();
-                                                    //                        }
-                                                    //                    }
-                                                    //                }
-                                                    //            });
-
-                                                    //        }
-                                                    //    },
-                                                    //    error: function (r) { }
-                                                    //});
-
-
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        dataType: "json",
+                                                        url: '/Labs/CellingAmount',
+                                                        data: {
+                                                            id: CardId,
+                                                            ServiceCode: '11201'
+                                                        },
+                                                        success: function (r) {
+                                                            if (r.Validation == false) {
+                                                                alert(r.Message);
+                                                                window.location.reload();
+                                                            } else {
+                                                                $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
+                                                                AnuualLimit = r.Limit;
+                                                                $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
+                                                                Calculation();
+                                                            }
+                                                        },
+                                                        error: function (err) {
+                                                            alert("Company Annual Amount");
+                                                            location.reload();
+                                                        }
+                                                    });
                                                 }
                                                 else {
                                                     $("#wait").css("display", "none");
@@ -159,7 +149,7 @@ $(function () {
                                                         message: returndata.message,
                                                         buttons: {
                                                             Ok: {
-                                                                Rayel: "Ok",
+                                                                label: "Ok",
                                                                 className: 'btn-info',
                                                                 callback: function () {
                                                                     ClearCardData();
@@ -170,34 +160,41 @@ $(function () {
                                                 }
                                             }
                                             else {
-                                                bootbox.alert('Error activation ');
+                                                if (returndata.data == "Hold") {
+                                                    $("#wait").css("display", "none");
+                                                    bootbox.dialog({
+                                                        title: 'Alert!',
+                                                        message: returndata.message,
+                                                        buttons: {
+                                                            Ok: {
+                                                                label: "Ok",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    ClearCardData();
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                                else if (returndata.data == "Expire") {
+                                                    $("#wait").css("display", "none");
+                                                    bootbox.dialog({
+                                                        title: 'Alert!',
+                                                        message: returndata.message,
+                                                        buttons: {
+                                                            Ok: {
+                                                                label: "Ok",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    ClearCardData();
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                                else
+                                                    bootbox.alert('failed  company activation , please check your internet connection ');
                                             }
-                                        }
-                                    });
-
-
-                                    $.ajax({
-                                        type: "POST",
-                                        dataType: "json",
-                                        url: '/Labs/CellingAmount',
-                                        data: {
-                                            id: CardId,
-                                            ServiceCode: '11201'
-                                        },
-                                        success: function (r) {
-                                            if (r.Validation == false) {
-                                                alert(r.Message);
-                                                window.location.reload();
-                                            } else {
-                                                $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
-                                                AnuualLimit = r.Limit;
-                                                $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
-                                                Calculation();
-                                            }
-                                        },
-                                        error: function (err) {
-                                            alert("Company Annual Amount");
-                                            location.reload();
                                         }
                                     });
                                 }
@@ -407,129 +404,135 @@ $(function () {
         });
         if ($('#txtSearchCard').val() != "") {
             if ($('#PhoneNumber').val() != "" && $("#PhoneNumber").val().length == 11) {
-                var TotalDuration = $("TD", row).find(".TotalDuration").val();
-                var row = $(this); if (row.val != "") {
-                    if (TotalDuration != 0) {
-                        if (Mediciens.length != 0) {
-                            $("#submit").attr("disabled", "disabled");
+                if ($('#PrescriptionDate').val() != '') {
+                    var TotalDuration = $("TD", row).find(".TotalDuration").val();
+                    var row = $(this); if (row.val != "") {
+                        if (TotalDuration != 0) {
+                            if (Mediciens.length != 0) {
+                                $("#submit").attr("disabled", "disabled");
 
-                            $.ajax({
-                                type: 'POST',
-                                url: '/Rays/SAVE/',
-                                dataType: 'Json',
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/Rays/SAVE/',
+                                    dataType: 'Json',
 
-                                data: {
-                                    CardId: $('#txtSearchCard').val(),
-                                    CompanyPercent: $('#ddEmp_CEILING_PERT').val(),
-                                    Limit: $('#Co_insurance_INSURANCE_DAY_LAB').val(),
-                                    Speciality: $('#ddlSpeciality option:selected').text(),
-                                    Diagnose1: $('#Diagnoise').val(),
-                                    //calculation
-                                    TotalValue: $('#txtTotalInvoice').val(),
-                                    PersonPayment: $('#txtTotalCopayment').val(),
-                                    CompanyPayment: $('#txtValueCredit').val(),
-                                    OverInsurance: $('#txtOverInsurance').val(),
-                                    Cash: $('#txtValueCash').val(),
-                                    PhoneNumber: $('#PhoneNumber').val(),
-                                    Diagnose1: $('#Comments').val(),
-                                    Diagnose2: NationalId,
-                                    createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val()
+                                    data: {
+                                        CardId: $('#txtSearchCard').val(),
+                                        CompanyPercent: $('#ddEmp_CEILING_PERT').val(),
+                                        Limit: $('#Co_insurance_INSURANCE_DAY_LAB').val(),
+                                        Speciality: $('#ddlSpeciality option:selected').text(),
+                                        Diagnose1: $('#Diagnoise').val(),
+                                        //calculation
+                                        TotalValue: $('#txtTotalInvoice').val(),
+                                        PersonPayment: $('#txtTotalCopayment').val(),
+                                        CompanyPayment: $('#txtValueCredit').val(),
+                                        OverInsurance: $('#txtOverInsurance').val(),
+                                        Cash: $('#txtValueCash').val(),
+                                        PhoneNumber: $('#PhoneNumber').val(),
+                                        Diagnose1: $('#Comments').val(),
+                                        Diagnose2: NationalId,
+                                        createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val()
 
 
-                                },
-                                success: function (Oracle_Id) {
-                                    //var ReportId = r;
+                                    },
+                                    success: function (Oracle_Id) {
+                                        //var ReportId = r;
 
-                                    //Date.prototype.yyyymmdd = function () {
-                                    //    var mm = this.getMonth() + 1; // getMonth() is zero-based
-                                    //    var dd = this.getDate();
-                                    //    return [(dd > 9 ? '' : '0') + dd,
-                                    //    (mm > 9 ? '' : '0') + mm,
-                                    //    this.getFullYear()
-                                    //    ].join('');
-                                    //};
-                                    //var date = new Date();
-                                    //d = date.yyyymmdd()
-                                    //r = d + r;
-                                    //approval = r;
-                                    //bootbox.alert("Roshita ID : " + r);
-                                    bootbox.dialog({
-                                        closeButton: false,
-                                        title: 'Added Sucessfully',
-                                        message: "Roshita ID : " + Oracle_Id,
-                                        buttons: {
-                                            Print: {
-                                                Rayel: "Print",
-                                                className: 'btn-info',
-                                                callback: function () {
-                                                    window.location.reload();
-                                                    window.open('/Rays/ControlPenelReport?id=' + Oracle_Id);
+                                        //Date.prototype.yyyymmdd = function () {
+                                        //    var mm = this.getMonth() + 1; // getMonth() is zero-based
+                                        //    var dd = this.getDate();
+                                        //    return [(dd > 9 ? '' : '0') + dd,
+                                        //    (mm > 9 ? '' : '0') + mm,
+                                        //    this.getFullYear()
+                                        //    ].join('');
+                                        //};
+                                        //var date = new Date();
+                                        //d = date.yyyymmdd()
+                                        //r = d + r;
+                                        //approval = r;
+                                        //bootbox.alert("Roshita ID : " + r);
+                                        bootbox.dialog({
+                                            closeButton: false,
+                                            title: 'Added Sucessfully',
+                                            message: "Roshita ID : " + Oracle_Id,
+                                            buttons: {
+                                                Print: {
+                                                    Rayel: "Print",
+                                                    className: 'btn-info',
+                                                    callback: function () {
+                                                        window.location.reload();
+                                                        window.open('/Rays/ControlPenelReport?id=' + Oracle_Id);
+                                                    }
+                                                },
+                                                New: {
+                                                    Rayel: "New",
+                                                    className: 'btn-info',
+                                                    callback: function () {
+                                                        window.location.reload();
+                                                    }
                                                 }
-                                            },
-                                            New: {
-                                                Rayel: "New",
-                                                className: 'btn-info',
-                                                callback: function () {
-                                                    window.location.reload();
-                                                }
+
                                             }
+                                        });
+                                    },
+                                    error: function (err) {
+                                        bootbox.alert("Error Roshita");
+                                        $("#submit").attr("disabled", false);
+                                    }
+                                }).done(function () {
 
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '/Rays/SaveMediciens/',
+                                        dataType: 'Json',
+                                        contentType: "application/json; charset=utf-8",
+                                        data: JSON.stringify(Mediciens),
+                                        success: function (r) {
+                                            $("#submit").attr("disabled", false);
+                                        },
+                                        error: function (err) {
+                                            $("#submit").attr("disabled", false);
+                                            bootbox.alert("Error Medicien");
                                         }
                                     });
-                                },
-                                error: function (err) {
-                                    bootbox.alert("Error Roshita");
-                                    $("#submit").attr("disabled", false);
-                                }
-                            }).done(function () {
+                                    var SelectedDiagnosisList = $('#ddlDiagnoises').select2('data');
+                                    var DiagnosisList = [];
+                                    for (var i = 0; i < SelectedDiagnosisList.length; i++) {
+                                        var current = {};
+                                        current.DIAG_CODE = SelectedDiagnosisList[i].id;
+                                        current.DIAG_ANAME = SelectedDiagnosisList[i].text;
+                                        DiagnosisList.push(current);
+                                    }
+                                    //Diagnoises
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '/Rays/SaveDiagnoises/',
+                                        dataType: 'Json',
+                                        contentType: "application/json; charset=utf-8",
+                                        data: JSON.stringify(DiagnosisList),
+                                        success: function (r) {
+                                        },
+                                        error: function (err) {
+                                            bootbox.alert("Error Diagnoises,please check your connection");
+                                            $("#submit").attr("disabled", false);
+                                        }
 
-                                $.ajax({
-                                    type: 'POST',
-                                    url: '/Rays/SaveMediciens/',
-                                    dataType: 'Json',
-                                    contentType: "application/json; charset=utf-8",
-                                    data: JSON.stringify(Mediciens),
-                                    success: function (r) {
-                                        $("#submit").attr("disabled", false);
-                                    },
-                                    error: function (err) {
-                                        $("#submit").attr("disabled", false);
-                                        bootbox.alert("Error Medicien");
-                                    }
-                                });
-                                var SelectedDiagnosisList = $('#ddlDiagnoises').select2('data');
-                                var DiagnosisList = [];
-                                for (var i = 0; i < SelectedDiagnosisList.length; i++) {
-                                    var current = {};
-                                    current.DIAG_CODE = SelectedDiagnosisList[i].id;
-                                    current.DIAG_ANAME = SelectedDiagnosisList[i].text;
-                                    DiagnosisList.push(current);
-                                }
-                                //Diagnoises
-                                $.ajax({
-                                    type: 'POST',
-                                    url: '/Rays/SaveDiagnoises/',
-                                    dataType: 'Json',
-                                    contentType: "application/json; charset=utf-8",
-                                    data: JSON.stringify(DiagnosisList),
-                                    success: function (r) {
-                                    },
-                                    error: function (err) {
-                                        bootbox.alert("Error Diagnoises,please check your connection");
-                                        $("#submit").attr("disabled", false);
-                                    }
+                                    });
 
                                 });
+                            } else {
+                                bootbox.alert("Please Insert Rays");
+                            }
+                        }
 
-                            });
-                        } else {
-                            bootbox.alert("Please Insert Rays");
+                        else {
+                            bootbox.alert("Invalid Total Duration");
                         }
                     }
-
-                    else {
-                        bootbox.alert("Invalid Total Duration");
-                    }
+                }
+                else {
+                    toastr.info("Please insert Prescription Date");
+                    event.preventDefault();
                 }
             } else {
                 bootbox.alert("PleaseInsert phoneNumber ");
@@ -539,6 +542,22 @@ $(function () {
             bootbox.alert("Please Insert Card ID");
     });
 });
+
+function DatePickerModel(flag) {
+    if (flag == 0) {
+        $("#PrescriptionDate").datepicker({
+            maxDate: '0',
+            minDate: '-13D',
+            dateFormat: 'dd-mm-yy',
+        });
+    }
+    else {
+        $("#PrescriptionDate").datepicker({
+            dateFormat: 'dd-mm-yy'
+        });
+    }
+}
+
 function SelectRay(event) {
     var Code = event.params.args.data.id
     $("#wait").css("display", "block");

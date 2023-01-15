@@ -2,12 +2,16 @@
 using DMS_Authontication1.Models;
 using DMS_Authontication1.ViewModel;
 using DMS_TEST.ViewModel;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -17,6 +21,7 @@ namespace DMS_TEST.Controllers
     public class ChronicController : Controller
     {
         DMS_TESTEntities db = new DMS_TESTEntities();
+        ApplicationDbContext myEntities = new ApplicationDbContext();
         // GET: Chronic
         //[Authorize(Roles = "Admin,Pharmacy")]
         public ActionResult Chronic(string id, string NationalId)
@@ -29,6 +34,14 @@ namespace DMS_TEST.Controllers
             //}
             int CompId = Convert.ToInt32(id.Split('-')[0].ToString());
 
+            var HrUserNamre = User.Identity.GetUserName();
+            var userid = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Id;
+            var found = db.ProviderBlocks.Where(x => x.UserId == userid && x.CompId == CompId && x.ServiceCode == "11602" && x.IsActive == true).Any();
+            if (found)
+            {
+                ViewBag.Message = "Block";
+                return View(data);
+            }
             Contract_Comp contractComp = db.Contract_Comp.Where(x => x.C_COMP_ID == CompId).FirstOrDefault();
             string emp = "";
             if (contractComp != null)
@@ -85,7 +98,8 @@ namespace DMS_TEST.Controllers
                 var Rosita = db.Roshitas.Where(r => r.CardId == medCard.CARD_NO && r.Manager == "Doctor_Chronic").Where(x => x.RoshetaType == "11603" || x.RoshetaType == "11602").OrderByDescending(c => c.CreatedDate).FirstOrDefault();
                 if (Rosita != null)
                 {
-                    if (medCard.PROVIDER_CODE == 1268 || medCard.PROVIDER_CODE == Provider.PR_CODE)
+                    var providers = medCard.PROVIDER_CODE.Split('_');
+                    if (providers.Contains("1268") || providers.Contains(Provider.PR_CODE.ToString()))
                     {
 
                         data = db.RoshitaDetails.Where(x => x.RoshitaID == Rosita.Id && x.IsDealed == false && x.TotalUnits != 0)
@@ -344,6 +358,29 @@ namespace DMS_TEST.Controllers
             }
             try
             {
+                //Comp_Employees employee = db.Comp_Employees.Where(x => x.CARD_ID == data.CardId && x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now)
+                //    .Include(x => x.EmployeesSMSCodes)
+                //    .FirstOrDefault();
+                var model = db.EmployeesSMSCodes.Include(c => c.Comp_Employees).Where(x => x.Comp_Employees.CARD_ID == data.CardId).FirstOrDefault();
+                if (model != null)
+                {
+                    model.IsActive = false;
+                    model.UpdatedBy = User.Identity.Name;
+                    model.UpdatedDate = DateTime.Now;
+                    model.LastSentDate = DateTime.Now;
+                    db.Entry(model).State = EntityState.Modified;
+                    Random generator = new Random();
+                    String SMSCode = generator.Next(0, 1000000).ToString("D6");
+                    EmployeesSMSCode NewEmpSMSCode = new EmployeesSMSCode();
+                    NewEmpSMSCode.EmpId = model.Comp_Employees.Id;
+                    NewEmpSMSCode.SMSCode = SMSCode;
+                    NewEmpSMSCode.IsActive = true;
+                    NewEmpSMSCode.CreatedBy = User.Identity.Name;
+                    NewEmpSMSCode.CreatedDate = DateTime.Now;
+                    NewEmpSMSCode.LastSentDate = DateTime.Now;
+                    db.EmployeesSMSCodes.Add(NewEmpSMSCode);
+                    PostSMSData("your DMS verification code to dispense chronic medicines is " + SMSCode, model.Comp_Employees.TEL1);
+                }
                 int result = db.SaveChanges();
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita.Id);
 
@@ -355,6 +392,55 @@ namespace DMS_TEST.Controllers
                 return Json("Failed to Save Prescription");
             }
 
+        }
+        private string SecretHashMethod(string Message, string PhoneNumber)
+        {
+            string secret = "B88551A75DC04D78BB92ABAD298BB19F";
+            StringBuilder SecretHash = new StringBuilder();
+
+            //var encoding = new System.Text.ASCIIEncoding();
+            byte[] keyByte = System.Text.Encoding.UTF8.GetBytes(secret);
+            byte[] messageBytes = System.Text.Encoding.UTF8.GetBytes("AccountId=200001555&Password=Vodafone.1&SenderName=DIAMOND MED&ReceiverMSISDN=" + PhoneNumber + "&SMSText=" + Message);
+            //byte[] messageBytes = encoding.GetBytes("AccountId=200001555&Password=Vodafone.1&SenderName=DIAMOND MED&ReceiverMSISDN=01028599477&SMSText=Hello World");
+            using (var hmacsha256 = new HMACSHA256(keyByte))
+            {
+                byte[] hashmessage = hmacsha256.ComputeHash(messageBytes);
+                foreach (Byte b in hashmessage)
+                    SecretHash.Append(b.ToString("x2"));
+                return SecretHash.ToString().ToUpper();
+            }
+        }
+        public string PostSMSData(string Message, string PhoneNumber)
+        {
+            string requestXml =
+                "<SubmitSMSRequest xmlns='http://www.edafa.com/web2sms/sms/model/'>" +
+                "<AccountId>200001555</AccountId>" +
+                "<Password>Vodafone.1</Password>" +
+                "<SecureHash>" + SecretHashMethod(Message, PhoneNumber) + "</SecureHash>" +
+                "<SMSList>" +
+                "<SenderName>DIAMOND MED</SenderName>" +
+                "<ReceiverMSISDN>" + PhoneNumber + "</ReceiverMSISDN>" +
+                "<SMSText>" + Message + "</SMSText>" +
+                "</SMSList>" +
+                "</SubmitSMSRequest>";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://e3len.vodafone.com.eg/web2sms/sms/submit/");
+            byte[] bytes;
+            bytes = System.Text.Encoding.ASCII.GetBytes(requestXml);
+            request.ContentType = "application/xml; encoding='utf-8'";
+            request.ContentLength = bytes.Length;
+            request.Method = "POST";
+            Stream requestStream = request.GetRequestStream();
+            requestStream.Write(bytes, 0, bytes.Length);
+            requestStream.Close();
+            HttpWebResponse response;
+            response = (HttpWebResponse)request.GetResponse();
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Stream responseStream = response.GetResponseStream();
+                string responseStr = new StreamReader(responseStream).ReadToEnd();
+                return responseStr;
+            }
+            return null;
         }
 
         //[Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]

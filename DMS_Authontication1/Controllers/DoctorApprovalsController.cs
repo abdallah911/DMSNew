@@ -438,21 +438,22 @@ namespace DMS_Authontication1.Controllers
 
                 var Cards = db.Med_Card.Where(x => x.C_COMP_ID == id)
                     .Join(db.Comp_Employees, m => m.CARD_NO, e => e.CARD_ID, (m, e) => new { m, e })
-                    .Join(db.Serv_Providers1.Where(a => a.PRV_TYPE == 2), x => x.m.PROVIDER_CODE, z => z.PR_CODE, (x, z) => new { x, z })
+                    //.Join(db.Serv_Providers1.Where(a => a.PRV_TYPE == 2), x => x.m.PROVIDER_CODE, z => z.PR_CODE, (x, z) => new { x, z })
                     .Select(l => new MonthlyChronicDoctorApprovalViewModel
                     {
-                        CARD_NO = l.x.m.CARD_NO,
-                        EMP_ANAME = l.x.e.EMP_ANAME,
-                        PR_ENAME = l.z.PR_ENAME,
-                        PR_ANAME = l.z.PR_ANAME,
-                        MONTH_START_DATE = l.x.m.MONTH_START_DATE,
-                        GROUP_NAME = l.x.m.GROUP_NAME,
-                        LOOK_01 = l.x.m.LOOK_01,
-                        NO_PAY = l.x.m.NO_PAY,
-                        NO_OVER = l.x.m.NO_OVER,
-                        TASHKHES_01 = l.x.m.TASHKHES_01,
-                        ST_DAY = l.x.m.ST_DAY,
-                        CONTRACT_NO = l.x.e.CONTRACT_NO
+                        CARD_NO = l.m.CARD_NO,
+                        EMP_ANAME = l.e.EMP_ANAME,
+                        PR_ANAME = l.m.PROVIDER_CODE,
+                        //PR_ENAME = l.z.PR_ENAME,
+                        //PR_ANAME = l.z.PR_ANAME,
+                        MONTH_START_DATE = l.m.MONTH_START_DATE,
+                        GROUP_NAME = l.m.GROUP_NAME,
+                        LOOK_01 = l.m.LOOK_01,
+                        NO_PAY = l.m.NO_PAY,
+                        NO_OVER = l.m.NO_OVER,
+                        TASHKHES_01 = l.m.TASHKHES_01,
+                        ST_DAY = l.m.ST_DAY,
+                        CONTRACT_NO = l.e.CONTRACT_NO
 
                     })
                      .GroupBy(x => new { x.CARD_NO })
@@ -487,8 +488,10 @@ namespace DMS_Authontication1.Controllers
             foreach (var item in Ids)
             {
                 Med_Card Change = db.Med_Card.Where(x => x.CARD_NO == item.CARD_NO).FirstOrDefault();
-                Change.PROVIDER_CODE_OLD = Change.PROVIDER_CODE;
-                Change.PROVIDER_CODE = item.DOSE;//Dose contains provider code
+                Change.PROVIDER_CODE_OLD = 0;
+                Change.PROVIDER_CODE = item.DOSE.ToString();//Dose contains provider code
+                                                            //Change.PROVIDER_CODE_OLD = Change.PROVIDER_CODE;
+                                                            //Change.PROVIDER_CODE = item.DOSE;//Dose contains provider code
                 db.Entry(Change).State = EntityState.Modified;
             }
 
@@ -567,26 +570,27 @@ namespace DMS_Authontication1.Controllers
                 DateTime datenow = DateTime.Now.Date;
                 var mED_CARD = db.Med_Card.Where(x => x.CARD_NO == id)
                      .Join(db.Comp_Employees.Where(x => x.INS_START_DATE <= datenow && x.INS_END_DATE >= datenow), m => m.CARD_NO, e => e.CARD_ID, (m, e) => new { m, e })
-                    .Join(db.Serv_Providers1.Where(a => a.PRV_TYPE == 2), x => x.m.PROVIDER_CODE, z => z.PR_CODE, (x, z) => new { x, z })
+                    //.Join(db.Serv_Providers1.Where(a => a.PRV_TYPE == 2), x => x.m.PROVIDER_CODE, z => z.PR_CODE, (x, z) => new { x, z })
                     .Select(l => new MonthlyChronicDoctorApprovalViewModel
                     {
-                        CARD_NO = l.x.m.CARD_NO,
-                        EMP_ANAME = l.x.e.EMP_ANAME,
-                        PR_ANAME = l.z.PR_ANAME,
-                        PR_ENAME = l.z.PR_ENAME,
-                        MONTH_START_DATE = l.x.m.MONTH_START_DATE,
-                        GROUP_NAME = l.x.m.GROUP_NAME,
-                        LOOK_01 = l.x.m.LOOK_01,
-                        NO_PAY = l.x.m.NO_PAY,
-                        NO_OVER = l.x.m.NO_OVER,
-                        TASHKHES_01 = l.x.m.TASHKHES_01,
-                        ST_DAY = l.x.m.ST_DAY,
-                        NOTES = l.x.m.NOTES,
-                        PhoneNumber = l.x.m.PhoneNumber,
-                        NationalId = l.x.m.NationalId,
-                        ExceptionType = l.x.m.ExceptionType,
-                        NoOverEndDate = l.x.m.NoOverEndDate,
-                        NoPayEndDate = l.x.m.NoPayEndDate
+                        CARD_NO = l.m.CARD_NO,
+                        EMP_ANAME = l.e.EMP_ANAME,
+                        PR_ANAME = l.m.PROVIDER_CODE,
+                        //PR_ANAME = l.z.PR_ANAME,
+                        //PR_ENAME = l.z.PR_ENAME,
+                        MONTH_START_DATE = l.m.MONTH_START_DATE,
+                        GROUP_NAME = l.m.GROUP_NAME,
+                        LOOK_01 = l.m.LOOK_01,
+                        NO_PAY = l.m.NO_PAY,
+                        NO_OVER = l.m.NO_OVER,
+                        TASHKHES_01 = l.m.TASHKHES_01,
+                        ST_DAY = l.m.ST_DAY,
+                        NOTES = l.m.NOTES,
+                        PhoneNumber = l.m.PhoneNumber,
+                        NationalId = l.m.NationalId,
+                        ExceptionType = l.m.ExceptionType,
+                        NoOverEndDate = l.m.NoOverEndDate,
+                        NoPayEndDate = l.m.NoPayEndDate
 
                     })
                     .FirstOrDefault();
@@ -607,12 +611,13 @@ namespace DMS_Authontication1.Controllers
         [Authorize(Roles = "Admin,Doctor")]
         public JsonResult InsertCard(MonthlyChronicDoctorApprovalViewModel data)
         {
+            DateTime datenow = DateTime.Now.Date;
             Med_Card mED_CARD = new Med_Card();
             mED_CARD.CARD_NO = data.CARD_NO;
             mED_CARD.NOTES = data.NOTES;
             mED_CARD.CREATED_BY = User.Identity.Name;
             mED_CARD.CREATED_DATE = DateTime.Now;
-            var emp = db.Comp_Employees.Where(x => x.CARD_ID == data.CARD_NO && x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+            var emp = db.Comp_Employees.Where(x => x.CARD_ID == data.CARD_NO && x.INS_START_DATE <= datenow && x.INS_END_DATE>= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
             mED_CARD.C_COMP_ID = emp.C_COMP_ID;
             mED_CARD.GROUP_ID = data.GROUP_ID;
             var Group = db.S_Ent_7.Where(x => x.C_COMP_ID == emp.C_COMP_ID && x.S_ID == data.GROUP_ID).FirstOrDefault();
@@ -624,8 +629,8 @@ namespace DMS_Authontication1.Controllers
             mED_CARD.MONTH_END_DATE = emp.INS_END_DATE;
             mED_CARD.NO_OVER = data.NO_OVER;
             mED_CARD.NO_PAY = data.NO_PAY;
-            var prov = db.Serv_Providers1.Where(d => d.PR_ANAME == data.PR_ANAME).FirstOrDefault();
-            mED_CARD.PROVIDER_CODE = prov.PR_CODE;
+            //var prov = db.Serv_Providers1.Where(d => d.PR_ANAME == data.PR_ANAME).FirstOrDefault();
+            mED_CARD.PROVIDER_CODE = data.PR_ANAME;
             mED_CARD.PROVIDER_CODE_OLD = 1268;
             mED_CARD.ST_DAY = data.ST_DAY;
             mED_CARD.TASHKHES_01 = data.TASHKHES_01;
@@ -695,8 +700,8 @@ namespace DMS_Authontication1.Controllers
                 // mED_CARD.MONTH_END_DATE
                 mED_CARD.NO_OVER = data.NO_OVER;
                 mED_CARD.NO_PAY = data.NO_PAY;
-                var prov = db.Serv_Providers1.Where(d => d.PR_ANAME == data.PR_ANAME).FirstOrDefault();
-                mED_CARD.PROVIDER_CODE = prov.PR_CODE;
+                //var prov = db.Serv_Providers1.Where(d => d.PR_ANAME == data.PR_ANAME).FirstOrDefault();
+                mED_CARD.PROVIDER_CODE = data.PR_ANAME;
                 mED_CARD.ST_DAY = data.ST_DAY;
                 mED_CARD.TASHKHES_01 = data.TASHKHES_01;
                 mED_CARD.PhoneNumber = data.PhoneNumber;
@@ -911,7 +916,7 @@ namespace DMS_Authontication1.Controllers
         #endregion
         #endregion
 
-        public JsonResult UpdateProvider(int CompId, int ProviderName, int OldProviderName)
+        public JsonResult UpdateProvider(int CompId, string ProviderName, string OldProviderName)
         {
             List<Med_Card> all = db.Med_Card.Where(x => x.C_COMP_ID == CompId && x.PROVIDER_CODE == OldProviderName).ToList();
             foreach (var item in all)
@@ -983,8 +988,8 @@ namespace DMS_Authontication1.Controllers
                 return true;
             if (mED_CARD.NoOverEndDate != data.NoOverEndDate)
                 return true;
-            var prov = db.Serv_Providers1.Where(d => d.PR_ANAME == data.PR_ANAME).FirstOrDefault();
-            if (mED_CARD.PROVIDER_CODE != prov.PR_CODE)
+            //var prov = db.Serv_Providers1.Where(d => d.PR_ANAME == data.PR_ANAME).FirstOrDefault();
+            if (mED_CARD.PROVIDER_CODE != data.PR_ANAME)
                 return true;
             return false;
         }

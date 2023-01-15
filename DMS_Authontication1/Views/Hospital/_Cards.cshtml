@@ -27,7 +27,7 @@
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.compEmp.INS_END_DATE)
-                            </th> 
+                            </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.compEmp.BIRTH_DATE)
                             </th>
@@ -68,8 +68,8 @@
             url: '/Pharmacy/GetCompActivation',
             data: { id: CompId, CardId: CardId },
             success: function (returndata) {
-                if (returndata.ok) {
-                    if (returndata.data == "Y") {
+                if (returndata.ok ) {
+                    if (returndata.data == "Yes") {
                         $('#txtSearchCard').val(CardId);
                         $('#compEmp_EMP_ANAME').val(ArName);
                         $('#compEmp_INS_START_DATE').val(StartDate);
@@ -156,7 +156,40 @@
                     }
                 }
                 else {
-                    bootbox.alert('Error activation ');
+                    if (returndata.data == "Hold") {
+                        $("#wait").css("display", "none");
+                        bootbox.dialog({
+                            title: 'Alert!',
+                            message: returndata.message,
+                            buttons: {
+                                Ok: {
+                                    label: "Ok",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        ClearCardData();
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    else if (returndata.data == "Expire") {
+                        $("#wait").css("display", "none");
+                        bootbox.dialog({
+                            title: 'Alert!',
+                            message: returndata.message,
+                            buttons: {
+                                Ok: {
+                                    label: "Ok",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        ClearCardData();
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    else
+                        bootbox.alert('failed  company activation , please check your internet connection ');
                 }
             }
         });

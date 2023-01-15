@@ -52,7 +52,6 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<IndemnityService> IndemnityServices { get; set; }
         public virtual DbSet<Insurance_Class> Insurance_Class { get; set; }
         public virtual DbSet<LicenseType> LicenseTypes { get; set; }
-        public virtual DbSet<Med_Card> Med_Card { get; set; }
         public virtual DbSet<Med_Medicine> Med_Medicine { get; set; }
         public virtual DbSet<MedicineData> MedicineDatas { get; set; }
         public virtual DbSet<MedicineGroup> MedicineGroups { get; set; }
@@ -76,7 +75,6 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<Serv_Providers1> Serv_Providers1 { get; set; }
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<Specialities1> Specialities1 { get; set; }
-        public virtual DbSet<Swap> Swaps { get; set; }
         public virtual DbSet<HrAdminCompany> HrAdminCompanies { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<DMSComplaint> DMSComplaints { get; set; }
@@ -141,6 +139,10 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<CompStatement> CompStatements { get; set; }
         public virtual DbSet<RemainConsumption> RemainConsumptions { get; set; }
         public virtual DbSet<ProviderContract> ProviderContracts { get; set; }
+        public virtual DbSet<UserCompanyPermission> UserCompanyPermissions { get; set; }
+        public virtual DbSet<Med_Card> Med_Card { get; set; }
+        public virtual DbSet<Swap> Swaps { get; set; }
+        public virtual DbSet<ProviderBlock> ProviderBlocks { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)
@@ -510,6 +512,16 @@ namespace DMS_Authontication1.Models
                 new ObjectParameter("TYPE", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_StopEditAdminClamsList_Result>("[DMS_TESTEntities].[fn_StopEditAdminClamsList](@FROM, @TO, @Company, @Provider, @Branch, @ApprovalNo, @CardId, @TYPE)", fROMParameter, tOParameter, companyParameter, providerParameter, branchParameter, approvalNoParameter, cardIdParameter, tYPEParameter);
+        }
+    
+        [DbFunction("DMS_TESTEntities", "fn_searchCompEmployeesForNextContract")]
+        public virtual IQueryable<fn_searchCompEmployeesForNextContract_Result> fn_searchCompEmployeesForNextContract(string search)
+        {
+            var searchParameter = search != null ?
+                new ObjectParameter("search", search) :
+                new ObjectParameter("search", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_searchCompEmployeesForNextContract_Result>("[DMS_TESTEntities].[fn_searchCompEmployeesForNextContract](@search)", searchParameter);
         }
     }
 }

@@ -50,6 +50,48 @@ namespace DMS_Authontication1.Controllers.HR
                 return View(db.IndemnityMasters.Where(se => se.IsDeleted == false).OrderByDescending(x => x.Id).ToList());
 
             }
+            else if (User.IsInRole("HR_Admin"))
+            {
+                ApplicationDbContext users = new ApplicationDbContext();
+                var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                var compines = db.HrAdminCompanies.Where(x => x.UserId == CurrentUser.Id).Select(c => c.CompId).ToList();
+                if (compines[0] == "All")
+                {
+                    return View(db.IndemnityMasters.Where(se => se.IsDeleted == false).OrderByDescending(x => x.Id).ToList());
+
+                }
+                else
+                {
+                    var companyname = (from comp in compines
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID.ToString(),
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
+                    List<IndemnityMaster> indemnityMaster = new List<IndemnityMaster>();
+                    foreach (var item in companyname)
+                    {
+                        indemnityMaster.AddRange(
+                            db.IndemnityMasters.Where(se => se.IsDeleted == false && se.RelatedCardId.Contains(item.Code)).OrderByDescending(x => x.Id).ToList()
+                            );
+                    }
+                    indemnityMaster.AddRange(
+                            db.IndemnityMasters.Where(se => se.IsDeleted == false && se.CreatedBy == User.Identity.Name).OrderByDescending(x => x.Id).ToList()
+                            );
+                    return View(indemnityMaster);
+                }
+
+            }
+            else if (User.IsInRole("HR"))
+            {
+                ApplicationDbContext users = new ApplicationDbContext();
+                var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                ViewBag.UserCompId = CurrentUser.Provider;
+                return View(db.IndemnityMasters.Where(x => (x.CreatedBy == User.Identity.Name || x.RelatedCardId.Contains(CurrentUser.Provider)) && x.IsDeleted == false).OrderByDescending(x => x.Id).ToList());
+
+            }
             return View(db.IndemnityMasters.Where(x => x.CreatedBy == User.Identity.Name && x.IsDeleted == false).OrderByDescending(x => x.Id).ToList());
         }
 
@@ -120,6 +162,7 @@ namespace DMS_Authontication1.Controllers.HR
                 var usr = User.Identity.GetUserId();
                 var cardId = db.EmployeePersonalDatas.Where(e => e.UserId == usr).FirstOrDefault().CardId;
                 ViewBag.cardID = cardId;
+                indemnityVMs.RelatedCardId = cardId;
                 ViewBag.CompName = cardId.Split('-')[0];
                 ViewBag.UserCompId = cardId.Split('-')[0];
             }

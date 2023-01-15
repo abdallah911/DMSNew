@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/DMS_Authontication1/Models/fn_searchCompEmployees_Result1.cs

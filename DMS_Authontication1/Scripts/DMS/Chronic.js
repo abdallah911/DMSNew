@@ -17,34 +17,127 @@ var BasicPackagePrice;
 var AnuualLimit;
 var sumNoPay = 0;
 $(function () {
-    //bootbox.alert("السادة العملاء جاري تحديث بيانات العلاج الشهرى برجاء إعادة المحاولة بعد الساعة ١٢ و شكرا");
-    //add National Id
-    if (NationalId == "undefined" || NationalId == null) {
-        bootbox.prompt({
-            title: "Please,Enter Patient National ID  : ",
-            centerVertical: true,
-            closeButton: false,
-            //required: true,
-            //cancel: "Reset",
-            callback: function (result) {
-                if (result === null) {
-                    window.location = '/Pharmacy/Pharmacy';
-                    return true;
-                }
-                if (result === "" || result.length != 14 || isNaN(result)) {
-                    toastr.error("Invalid Value");
-                    return false;
-                } else {
-                    //$("#wait").css("display", "block");
-                    NationalId = result;
-                    return true;
+    ////bootbox.alert("السادة العملاء جاري تحديث بيانات العلاج الشهرى برجاء إعادة المحاولة بعد الساعة ١٢ و شكرا");
+    ////add National Id
+    //if (NationalId == "undefined" || NationalId == null) {
+    //    bootbox.prompt({
+    //        title: "Please,Enter Patient National ID  : ",
+    //        centerVertical: true,
+    //        closeButton: false,
+    //        //required: true,
+    //        //cancel: "Reset",
+    //        callback: function (result) {
+    //            if (result === null) {
+    //                window.location = '/Pharmacy/Pharmacy';
+    //                return true;
+    //            }
+    //            if (result === "" || result.length != 14 || isNaN(result)) {
+    //                toastr.error("Invalid Value");
+    //                return false;
+    //            } else {
+    //                //$("#wait").css("display", "block");
+    //                NationalId = result;
+    //                return true;
 
-                }
-                return false;
+    //            }
+    //            return false;
 
+    //        }
+    //    });
+    //}
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: '/Shared/VerificationCardForCode',
+        data: {
+            CardId: id,
+        },
+        success: function (r) {
+            if (r.Validation == true) {
+                //Verfication code
+                bootbox.prompt({
+                    title: "Please Enter your verification code :",
+                    centerVertical: true,
+                    closeButton: false,
+                    inputType: 'password',
+                    callback: function (result) {
+                        if (result === null) {
+                            window.location = '/Pharmacy/Pharmacy';
+                            return true;
+                        }
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: '/Shared/VerificationCode',
+                            data: {
+                                CardId: id,
+                                VerificationCode: result
+                            },
+                            success: function (r) {
+                                if (r.Validation == false) {
+                                    alert( "برجاء دخول الكود المرسل لسيادتكم علي رقم الهاتف المسجل لدي الشركة وللحصول علي الكود برجاء الاتصال علي الرقم التالي (26390990) الرقم الداخلي 110");
+                                    location.reload();
+                                } else {
+                                    toastr.success(r.Message);
+                                    return true
+                                }
+                            },
+                            error: function (err) {
+                                alert("VerificationCode,please check your internet connection1");
+                                location.reload();
+                            }
+                        });
+
+                    }
+                });
             }
-        });
-    }
+        },
+        error: function (err) {
+            alert("VerificationCode,please check your internet connection2");
+            location.reload();
+        }
+    });
+    //if (id.split('-')[0] == "10000") {
+    //    //Verfication code
+    //    bootbox.prompt({
+    //        title: "Please Enter your verification code :",
+    //        centerVertical: true,
+    //        closeButton: false,
+    //        inputType: 'password',
+    //        callback: function (result) {
+    //            if (result === null) {
+    //                window.location = '/Pharmacy/Pharmacy';
+    //                return true;
+    //            }
+    //            $.ajax({
+    //                type: "POST",
+    //                dataType: "json",
+    //                url: '/Shared/VerificationCode',
+    //                data: {
+    //                    CardId: id,
+    //                    VerificationCode: result
+    //                },
+    //                success: function (r) {
+    //                    if (r.Validation == false) {
+    //                        alert(r.Message + " ,you can call technical support at 01099887396 | 01021975433 | 01021974375");
+    //                        location.reload();
+    //                    } else {
+    //                        toastr.success(r.Message);
+    //                        return true
+    //                    }
+    //                },
+    //                error: function (err) {
+    //                    alert("VerificationCode,please check your internet connection");
+    //                    location.reload();
+    //                }
+    //            });
+
+    //        }
+    //    });
+    //}
+    //////Get Ceiling and Limit
+
+
 
     //Get Ceiling and Limit
     GetLimit();
@@ -740,4 +833,3 @@ function GetChronicMedData() {
         }
     });
 }
-

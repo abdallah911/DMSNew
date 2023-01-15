@@ -9,9 +9,9 @@
         <div class="panel-body">
             <input type="text" id="CardId" name="CardId" hidden value="@Model.Details" />
             @*<div class="input-group col-md-3">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                <input id="txtSearchApproval" class="form-control" placeholder="Click To Search">
-            </div>*@
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                    <input id="txtSearchApproval" class="form-control" placeholder="Click To Search">
+                </div>*@
             <table class="table" id="Index">
                 <thead>
                     <tr>
@@ -20,6 +20,7 @@
                         <th scope="col">Amount</th>
                         <th scope="col">Medical Reply</th>
                         <th scope="col">Dispense</th>
+                        <th scope="col">Note</th>
                         <th></th>
                     </tr>
 
@@ -27,44 +28,48 @@
                 <tbody>
                     @for (int i = 0; i < Model.Roshita.RoshitaDetails.Count; i++)
                     {
-                        <tr>
-                            <td hidden>
-                                @Model.Roshita.RoshitaDetails.ElementAt(i).Id
-                            </td>
+                    <tr>
+                        <td hidden>
+                            @Model.Roshita.RoshitaDetails.ElementAt(i).Id
+                        </td>
+                        <td>
+                            @Model.Roshita.RoshitaDetails.ElementAt(i).MedicienName
+                        </td>
+                        <td>
+                            @Model.Roshita.RoshitaDetails.ElementAt(i).Amount
+                        </td>
+                        <td>
+                            @Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup
+                        </td>
+                        <td>
+                            @Model.Roshita.RoshitaDetails.ElementAt(i).IsDealed
+                        </td>
+                        <td>
+                            @Model.NotePharmacy
+                        </td>
+                        @if ((Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Accepted" || Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Rejected")
+                             && Model.Roshita.RoshitaDetails.ElementAt(i).IsDealed == false)
+                        {
                             <td>
-                                @Model.Roshita.RoshitaDetails.ElementAt(i).MedicienName
+                                <select id='ChangeStatus' class='form-control' onchange='SelectDealed(this);'>
+                                    <option value='N'> Change IsDealed</option>
+                                    <option value='true'>Yes</option>
+                                    <option value='false'>No</option>
+                                </select>
                             </td>
+                        }
+                        else
+                        {
                             <td>
-                                @Model.Roshita.RoshitaDetails.ElementAt(i).Amount
+                                <select disabled id='ChangeStatus' class='form-control' onchange='SelectDealed(this);'>
+                                    <option value='N'> Change IsDealed</option>
+                                    <option value='true'>Yes</option>
+                                    <option value='false'>No</option>
+                                </select>
                             </td>
-                            <td>
-                                @Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup
-                            </td>
-                            <td>
-                                @Model.Roshita.RoshitaDetails.ElementAt(i).IsDealed
-                            </td>
-                            @if ((Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Accepted" || Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Rejected")
-                                 && Model.Roshita.RoshitaDetails.ElementAt(i).IsDealed == false)
-                            {
-                                <td>
-                                    <select id='ChangeStatus' class='form-control' onchange='SelectDealed(this);'>
-                                        <option value='N'> Change IsDealed</option>
-                                        <option value='true'>Yes</option>
-                                        <option value='false'>No</option>
-                                    </select>
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    <select disabled id='ChangeStatus' class='form-control' onchange='SelectDealed(this);'>
-                                        <option value='N'> Change IsDealed</option>
-                                        <option value='true'>Yes</option>
-                                        <option value='false'>No</option>
-                                    </select>
-                                </td>
-                            }
-                        </tr>
+                        }
+
+                    </tr>
                     }
                 </tbody>
             </table>

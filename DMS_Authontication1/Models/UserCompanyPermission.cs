@@ -12,18 +12,11 @@ namespace DMS_Authontication1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class EmployeesSMSCode
+    public partial class UserCompanyPermission
     {
         public int Id { get; set; }
-        public int EmpId { get; set; }
-        public string SMSCode { get; set; }
-        public bool IsActive { get; set; }
-        public string CreatedBy { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public string UpdatedBy { get; set; }
-        public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public Nullable<System.DateTime> LastSentDate { get; set; }
-    
-        public virtual Comp_Employees Comp_Employees { get; set; }
+        public string UserId { get; set; }
+        public string CompId { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     }
 }

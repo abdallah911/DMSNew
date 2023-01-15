@@ -54,7 +54,8 @@ $(function () {
             data: { id: CompId, CardId: CardId },
             success: function (returndata) {
                 if (returndata.ok) {
-                    if (returndata.data == "Y") {
+                    if (returndata.data == "Yes") {
+                       
                     }
                     else {
                         $("#wait").css("display", "none");
@@ -74,9 +75,40 @@ $(function () {
                     }
                 }
                 else {
-                    bootbox.alert('failed  company activation , please check your internet connection ');
-                    window.location.replace('/Pharmacy/index?id=undefined');
-
+                    if (returndata.data == "Hold") {
+                        $("#wait").css("display", "none");
+                        bootbox.dialog({
+                            title: 'Alert!',
+                            message: returndata.message,
+                            buttons: {
+                                Ok: {
+                                    label: "Ok",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        window.location.replace('/Pharmacy/index?id=undefined');
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    else if (returndata.data == "Expire") {
+                        $("#wait").css("display", "none");
+                        bootbox.dialog({
+                            title: 'Alert!',
+                            message: returndata.message,
+                            buttons: {
+                                Ok: {
+                                    label: "Ok",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        window.location.replace('/Pharmacy/index?id=undefined');
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    else
+                        bootbox.alert('failed  company activation , please check your internet connection ');
                 }
             }
         });
