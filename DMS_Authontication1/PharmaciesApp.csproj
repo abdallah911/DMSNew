@@ -298,6 +298,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\LossRatio\LossRatioController.cs" />
     <Compile Include="Controllers\CustomerService\CustomerServiceController.cs" />
     <Compile Include="Controllers\AfterSales\AfterSalesController.cs" />
     <Compile Include="Controllers\ChronicController.cs" />
@@ -449,6 +450,9 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AfterSale.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AnalysisLossRatio.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ApprovalDetail.cs">
@@ -7500,6 +7504,9 @@
     <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap-datetimepicker.min.js" />
     <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap.js" />
     <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap.min.js" />
+    <Content Include="Scripts\DMS\LossRatio.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\DMS\CustomerService\CustomerService.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -8371,10 +8378,6 @@
     <Content Include="Views\Reports\HrClaims.cshtml" />
     <Content Include="Reports\HR\IndemnityCheck.rpt" />
     <Content Include="Reports\HR\IndemnityCheckInternalCode.rpt" />
-    <Content Include="Views\CustomerService\Create.cshtml" />
-    <Content Include="Views\CustomerService\Delete.cshtml" />
-    <Content Include="Views\CustomerService\Details.cshtml" />
-    <Content Include="Views\CustomerService\Edit.cshtml" />
     <Content Include="Views\CustomerService\Index.cshtml" />
     <Content Include="Views\CustomerService\Map.cshtml" />
     <Content Include="Views\CompEmployees\IndexSms.cshtml" />
@@ -8382,6 +8385,8 @@
     <Content Include="Reports\HR\ApprovalHr.rpt" />
     <Content Include="Reports\ReportPrintHorizontal6.rpt" />
     <Content Include="Views\CustomerService\_MedicalNetworkCustomerService.cshtml" />
+    <Content Include="Views\LossRatio\_MedicalNetworkCustomerService.cshtml" />
+    <Content Include="Views\LossRatio\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
