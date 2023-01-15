@@ -674,7 +674,6 @@ namespace DMS_Authontication1.Controllers.HR
 
         public JsonResult GetStateList(string id)
         {
-
             myEntities.Configuration.ProxyCreationEnabled = false;
 
             //var Number = myEntities.BASIC_DATA.Where(m => m.BS_ENAME == id).Select(l => l.BS_CODE).FirstOrDefault();
@@ -683,7 +682,6 @@ namespace DMS_Authontication1.Controllers.HR
             ViewBag.State = StateListlist;
 
             return Json(StateListlist, JsonRequestBehavior.AllowGet);
-
         }
 
         public class ReturnResult

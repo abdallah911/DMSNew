@@ -638,18 +638,69 @@ function ShowCardDesignPrint() {
     }
 }
 
-function ClearAll() {    
-        $("#Pharmacy >tbody").empty();
-        $("#AddMedicine").empty();
-        $("#ddlDiagnoises").val(null).change();
+function ClearAll() {
 
-        $('#txtTotalInvoice').val('');
-        $('#txtTotalCopayment').val('');
-        $('#txtValueCredit').val('');
-        $('#txtOverInsurance').val('');
-        $('#txtCash').val('');
-        $('#txtValueCash').val('');
-    }
+    StopTime();
+
+    $("#txtSearch").val('');
+    $("#txtPhone").empty();
+    $("#txtCardRelation").empty();
+    
+    $("#provider_Type").empty();
+    $("#Country_select").empty();
+    $("#Region_select").empty();    
+
+    $('#CardInformationDetails').hide();
+    //$("#ClaimsDataDetails").dataTable().fnDestroy();
+    //$("#IndemnityDetailsData").dataTable().fnDestroy();
+    //$("#MonthlyDetails").dataTable().fnDestroy();
+    //$("#MonthlyDataDetails").dataTable().fnDestroy();
+    //$("#LiveDetails").dataTable().fnDestroy();
+    //$("#ProviderList").dataTable().fnDestroy();
+    //$("#ApprovalsDetails").dataTable().fnDestroy();
+
+    $('#hours').html('');
+    $('#minutes').html('');
+    $('#seconds').html('');
+
+    $('#CardIdM').val('');
+    $('#ClaimNo').val('');
+    $('#CardID').val('');
+    $('#EmployeeName').val('');
+    $('#BirthDate').val('');
+    $('#Age').val('');
+    $('#StartDate').val('');
+
+    $('#EndDate').val('');
+    $('#MaxAmount').val('');
+    $('#ClassName').val('');
+    $('#HospitalDegree').val('');
+    $('#MedicalNetwork').val('');
+
+    $('#ExceptionPayment').val('');
+    $('#ExceptionOver').val('');
+    $('#NationalId').val('');
+    $('#Mobile1').val('');
+    $('#Mobile2').val('');
+
+    $('#CardColor').val('');
+    $('#OldCard').val('');
+
+    $('#MedicationClaims').val('');
+    $('#MedicationClaimsUnderReview').val('');
+    $('#OtherConsumption').val('');
+    $('#AllConsumption').val('');
+    $('#Remaining').val('');
+    $('#Percent').val('');
+    $('#ApprovalConsumption').val('');
+
+    $("#CountApprovals").val('');
+    $("#TotalAmountApprovals").val('');
+
+    $("#CountClaims").val('');
+    $("#TotalGrossClaims").val('');
+    $("#TotalNetClaims").val('');
+}
 
 
 function moreApprovalsDetailsEvent() {
