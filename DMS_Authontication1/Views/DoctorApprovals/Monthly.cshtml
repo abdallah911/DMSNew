@@ -12,6 +12,9 @@
 @Html.Partial("_SearchCards")
 @Html.Partial("_LastApproval")
 @Html.Partial("_EmployeeData")
+
+@Html.Partial("~/Views/DoctorMedicinesLabsRaysApproval/_ShowDetails.cshtml", (DMS_Authontication1.ViewModel.CustomerService.CustomerServiceViewModel)new DMS_Authontication1.ViewModel.CustomerService.CustomerServiceViewModel())
+
 <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px; z-index:100000;">
     <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
 </div>
@@ -138,18 +141,20 @@
 
                         </table>
                     </div>
+                    
+                    <input id="ShowDetailsCard" type="button" value="Show more details" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowDetailsCard($('#AddCardTxt').val())" />
                     <br /><br />
                     <div class="panel panel-info">
                         <h2 class="panel-heading" style="margin:1px;">Medicines</h2>
                         <div class="panel-body">
                             <!--Search Medicine-->
                             @*<div class="row">
-                                    <div class="col-sm-12" data-step="9" data-intro="Select Medicines to Despense">
-                                        <select id="AddMedicine" multiple="multiple" style="width:100%">
-                                            <option value="0">select medicine</option>
-                                        </select>
-                                    </div>
-                                </div>*@
+                    <div class="col-sm-12" data-step="9" data-intro="Select Medicines to Despense">
+                        <select id="AddMedicine" multiple="multiple" style="width:100%">
+                            <option value="0">select medicine</option>
+                        </select>
+                    </div>
+                </div>*@
                             <div class="row">
                                 <div class="col-md-3">
                                     <button id="AddMedicien" class=" btn btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#exampleModal"> Add Medicine</button>
@@ -224,3 +229,4 @@
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script src="~/Scripts/DMS/Monthly_Chronic_Approvals.js?V=3"></script>
+<script src="~/Scripts/DMS/SharedShowDetails.js?V=3"></script>
