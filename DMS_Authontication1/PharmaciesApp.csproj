@@ -8380,7 +8380,6 @@
     <Content Include="Reports\HR\IndemnityCheck.rpt" />
     <Content Include="Reports\HR\IndemnityCheckInternalCode.rpt" />
     <Content Include="Views\CustomerService\Index.cshtml" />
-    <Content Include="Views\CustomerService\Map.cshtml" />
     <Content Include="Views\CompEmployees\IndexSms.cshtml" />
     <Content Include="Reports\HR\HrClaimsReport.rpt" />
     <Content Include="Reports\HR\ApprovalHr.rpt" />
