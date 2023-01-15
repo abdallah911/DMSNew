@@ -29,7 +29,7 @@ namespace DMS_Authontication1.Data_Function
             DataTable dd = new DataTable();
             try
             {
-                cmd = new OracleCommand(@" SELECT NVL(SUM(CLAIM_NET),0) FROM CONSM_ONLINE WHERE (CARD_NO =:crd OR CARD_NO =:ncrd) and CLAIM_DATE BETWEEN :dat1 AND SYSDATE AND GROUP_NO = 116", con);
+                cmd = new OracleCommand(@" SELECT NVL(SUM(CLAIM_NET),0) FROM CONSM_APPROVAL WHERE TYPE = 'Online' AND (CARD_NO =:crd OR CARD_NO =:ncrd) and CLAIM_DATE BETWEEN :dat1 AND SYSDATE AND GROUP_NO = 116", con);
                
                //     cmd = new OracleCommand(@" SELECT NVL(SUM(CLAIM_NET),0) FROM CONSM_APPROVAL WHERE (CARD_NO =:crd OR CARD_NO =:ncrd) and CLAIM_DATE BETWEEN :dat1 AND SYSDATE AND GROUP_NO != 116", con);
 

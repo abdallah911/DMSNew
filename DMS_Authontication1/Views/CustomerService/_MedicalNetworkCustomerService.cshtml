@@ -273,7 +273,7 @@
 
         $("#Country_select").change(function () {//address
             if ($("#Country_select").val() != "" && $("#Country_select").val() != "0") {
-                $.get("/CustomerService/GetRegionList",
+                $.get("/MedicalNetwork/GetStateList",
                     { id: $("#Country_select").val() }, function (data) {
                         $("#Region_select").empty();
                         $('#Region_select').append('<option value="0">Select Region</option>');

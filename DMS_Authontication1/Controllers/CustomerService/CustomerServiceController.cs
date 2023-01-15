@@ -219,13 +219,11 @@ namespace DMS_Authontication1.Controllers.CustomerService
         }
         public JsonResult GetRegionList(int? id)
         {
-
             db.Configuration.ProxyCreationEnabled = false;
             var Region = db.Regions.Where(r => r.GovernmentId == id).ToList();
             SelectList Regionlist = new SelectList(Region, "Id", "ArName");
 
             return Json(Regionlist, JsonRequestBehavior.AllowGet);
-
         }
         public JsonResult GetProviders(string cardId, string compId, string country, int region, int providerId, string specialistid)
         {
@@ -444,7 +442,7 @@ namespace DMS_Authontication1.Controllers.CustomerService
             string consmOther = dbData2.getConsumptionOther(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd).Rows[0][0].ToString();
             string consmAll = (double.Parse(consmMedClaim) + double.Parse(consmMedOnline) + double.Parse(consmOther)).ToString();
             string remain = (double.Parse(maxamt) - double.Parse(consmAll)).ToString();
-            double tm = Convert.ToDouble(remain) / Convert.ToDouble(maxamt) * 100;
+            double tm = Convert.ToDouble(consmAll) / Convert.ToDouble(maxamt) * 100;
             string perct = Math.Round(tm, 2).ToString() + " %";
             string consmApproval = dbData2.getConsumptionApproval(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd).Rows[0][0].ToString();
 
