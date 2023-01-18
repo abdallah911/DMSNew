@@ -981,11 +981,53 @@ function SelectMedicien(event) {
         dataType: 'json',
         data: { code: Code },
         success: function (r) {
+            MedicienCode = r.M_CODE;
+            MedicienName = r.TRADE_NAME;
+            DosageForm = r.DOSAGE_FORM;
+            PackPrice = r.PACK_PRICE;
+            PackSize = r.PACK_SIZE;
+            UnitNumber = r.UNIT_NO;
+            UnitPrice = r.UNIT_PRICE;
+            Group = r.Group_Type;
+            IsCover = r.IsCovered.toString();
+            var medicineGroups = new Array();
+            var medicineGroup = {};
+            medicineGroup.TRADE_NAME = MedicienCode; //current medicine code
+            medicineGroups.push(medicineGroup);
+
             if (r.M_TYPE == "CHRONIC") {
-                edit = 1;
-                toastr.error('لا يمكن صرف هذا الدواء ضمن الادويه اليوميه للاستفسار برجاء الاتصال علي رقم الادارة الطبيه');
-                $("#AddMedicine option[value='" + Code + "']").remove();
-                $("#wait").css("display", "none");
+                //edit = 1;
+                //toastr.error('لا يمكن صرف هذا الدواء ضمن الادويه اليوميه للاستفسار برجاء الاتصال علي رقم الادارة الطبيه');
+                //$("#AddMedicine option[value='" + Code + "']").remove();
+                //$("#wait").css("display", "none");
+                var dialog = bootbox.dialog({
+                    //title: 'This Medicien is Not Covered!',
+                    title: 'This medicine requires approval',
+                    message: "<p>Pay method?</p>",
+                    onEscape: function () {
+                        RemoveSelection(MedicienCode);
+                    },
+                    //backdrop: true,
+                    buttons: {
+                        Cash: {
+                            label: "Cash",
+                            className: 'btn-info',
+                            callback: function () {
+                                Group = "Cash";
+                                AppendRow();
+                            }
+                        }
+                        , Tele: {
+                            label: "Pending",
+                            className: 'btn-info',
+                            callback: function () {
+                                Group = "PendingChronic";
+                                toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                AppendRow();
+                            }
+                        }
+                    }
+                });
             }
             else {
                 MedicienCode = r.M_CODE;
@@ -1147,7 +1189,8 @@ function SelectMedicien(event) {
                                                                     }
                                                                     else {
                                                                         var dialog = bootbox.dialog({
-                                                                            title: 'This Medicien is Not Covered!',
+                                                                            //title: 'This Medicien is Not Covered!',
+                                                                            title: 'This medicine requires approval',
                                                                             message: "<p>Pay method?</p>",
                                                                             onEscape: function () {
                                                                                 RemoveSelection(MedicienCode);
@@ -1556,7 +1599,7 @@ function Calculation() {
         var sumCash = 0;
         $('#Pharmacy TBODY TR').each(function () {
             var row = $(this);
-            if (row.find("TD").eq(12).html() != "Pending") {
+            if (row.find("TD").eq(12).html() != "Pending" && row.find("TD").eq(12).html() != "PendingChronic") {
                 sum += parseFloat(("TD", row).find(".Amount").val());
                 if (row.find("TD").eq(12).html() == "Cash")
                     sumCash += parseFloat(("TD", row).find(".Amount").val());
