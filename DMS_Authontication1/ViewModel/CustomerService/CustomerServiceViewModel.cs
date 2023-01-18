@@ -24,7 +24,10 @@ namespace DMS_Authontication1.ViewModel.CustomerService
         [Required]
         [Display(Name = "Age:")]
         public string Age { get; set; }
-
+        [Display(Name = "Gender:")]
+        public string Gender { get; set; }
+        [Display(Name = "Specific Date:")]
+        public string SpecificDate { get; set; }
         [Required]
         [Display(Name = "Start Date:")]
         public string StartDate { get; set; }
@@ -64,6 +67,10 @@ namespace DMS_Authontication1.ViewModel.CustomerService
         public string MedicationClaims { get; set; }
         [Display(Name = "Medication Claims Under Review:")]
         public string MedicationClaimsUnderReview { get; set; }
+        
+        [Display(Name = "Medication Consumption:")]
+        public string MedicationConsumption { get; set; }
+
         [Display(Name = "Other Consumption:")]
         public string OtherConsumption { get; set; }
         [Display(Name = "All Consumption:")]

@@ -1,89 +1,16 @@
-﻿
-function StartTime() {
+﻿$(function () {
+    $('#From').datetimepicker({
+        format: "l"
+    });
+    $('#To').datetimepicker({
+        format: "l"
+    });
 
-    dateOfStartMeeting = new Date($.now());
-    var sec = 0;
-    function pad(val) { return val > 9 ? val : "0" + val; }
-    interval = setInterval(function () {
-        $("#seconds").html(pad(++sec % 60));
-        $("#minutes").html(pad(parseInt(sec / 60, 10)));
-        $("#hours").html(pad(parseInt((sec / 60) / 60, 10)));
-    }, 1000);
-    isStopTimeClick = -2;
-}
+    $('#CompName').select2();
+  //  $('#ContractNo').select2();
 
-function StopTime() {
-    if (isStopTimeClick != -2) {
-        bootbox.alert("You shoud click Start Meeting first ");
-    }
-    else {
-        dateOfEndMeeting = new Date($.now());
-        clearInterval(interval);
-        isStopTimeClick = 1;
-      //  bootbox.alert("You'r Location will be Shared with you'r Company Manager ");
-    }
-}
-function getConsumption() {
-    debugger;
-    if ($('#CardID').val() != "") {
-        $("#wait").css("display", "block");
-        $.ajax({
-            type: "POST",
-            dataType: "json",            
-            url: '/CustomerService/getConsumption',
-            data: { CardId: $('#CardID').val(), dat1: $('#StartDate').val(), dat2: $('#EndDate').val(), oldcardd: $('#OldCard').val(), maxamt: $('#MaxAmount').val() },
-            success: function (cardDetails) {
-                $("#wait").css("display", "none");
-                if (cardDetails.length > 0) {
-                    //debugger;
-                    $('#MedicationClaims').val(cardDetails[0].MedicationClaims);
-                    $('#MedicationClaimsUnderReview').val(cardDetails[0].MedicationClaimsUnderReview);
-                    $('#OtherConsumption').val(cardDetails[0].OtherConsumption);
-                    $('#AllConsumption').val(cardDetails[0].AllConsumption);
-                    $('#Remaining').val(cardDetails[0].Remaining);
-                    $('#Percent').val(cardDetails[0].Percent);
-                    $('#ApprovalConsumption').val(cardDetails[0].ApprovalConsumption);                 
-                }
-                
-            }
-        });
-    }    
-}
+});
 
-function ShowInformationCard() {
-    $('#CardInformationDetails').show();
-
-    $('#ApprovalsScreen').hide();
-    $('#ClaimsScreen').hide();
-    $('#ConsumptionScreen').hide();
-    $('#IndemnityScreen').hide();
-    $('#MonthlyScreen').hide();
-    $('#LiveScreen').hide();
-
-    $('#ConsumptionScreen').show();
-
-    /*
-    if ($('#MedicationClaims').val != "") {
-        getConsumption();
-    }
-    */
-}
-
-function ShowAllConsmptionDetails() {
-
-    $('#ApprovalsScreen').hide();
-    $('#ClaimsScreen').hide();
-    $('#ConsumptionScreen').hide();
-    $('#IndemnityScreen').hide();
-    $('#MonthlyScreen').hide();
-    $('#LiveScreen').hide();
-
-    $('#ConsumptionScreen').show();
-
-    if ($('#MedicationClaims').val != "") {
-        getConsumption();
-    }
-}
 
 
 function getApprovalData(flg) {
@@ -638,69 +565,18 @@ function ShowCardDesignPrint() {
     }
 }
 
-function ClearAll() {
+function ClearAll() {    
+        $("#Pharmacy >tbody").empty();
+        $("#AddMedicine").empty();
+        $("#ddlDiagnoises").val(null).change();
 
-    StopTime();
-
-    $("#txtSearch").val('');
-    $("#txtPhone").empty();
-    $("#txtCardRelation").empty();
-    
-    $("#provider_Type").empty();
-    $("#Country_select").empty();
-    $("#Region_select").empty();    
-
-    $('#CardInformationDetails').hide();
-    //$("#ClaimsDataDetails").dataTable().fnDestroy();
-    //$("#IndemnityDetailsData").dataTable().fnDestroy();
-    //$("#MonthlyDetails").dataTable().fnDestroy();
-    //$("#MonthlyDataDetails").dataTable().fnDestroy();
-    //$("#LiveDetails").dataTable().fnDestroy();
-    //$("#ProviderList").dataTable().fnDestroy();
-    //$("#ApprovalsDetails").dataTable().fnDestroy();
-
-    $('#hours').html('');
-    $('#minutes').html('');
-    $('#seconds').html('');
-
-    $('#CardIdM').val('');
-    $('#ClaimNo').val('');
-    $('#CardID').val('');
-    $('#EmployeeName').val('');
-    $('#BirthDate').val('');
-    $('#Age').val('');
-    $('#StartDate').val('');
-
-    $('#EndDate').val('');
-    $('#MaxAmount').val('');
-    $('#ClassName').val('');
-    $('#HospitalDegree').val('');
-    $('#MedicalNetwork').val('');
-
-    $('#ExceptionPayment').val('');
-    $('#ExceptionOver').val('');
-    $('#NationalId').val('');
-    $('#Mobile1').val('');
-    $('#Mobile2').val('');
-
-    $('#CardColor').val('');
-    $('#OldCard').val('');
-
-    $('#MedicationClaims').val('');
-    $('#MedicationClaimsUnderReview').val('');
-    $('#OtherConsumption').val('');
-    $('#AllConsumption').val('');
-    $('#Remaining').val('');
-    $('#Percent').val('');
-    $('#ApprovalConsumption').val('');
-
-    $("#CountApprovals").val('');
-    $("#TotalAmountApprovals").val('');
-
-    $("#CountClaims").val('');
-    $("#TotalGrossClaims").val('');
-    $("#TotalNetClaims").val('');
-}
+        $('#txtTotalInvoice').val('');
+        $('#txtTotalCopayment').val('');
+        $('#txtValueCredit').val('');
+        $('#txtOverInsurance').val('');
+        $('#txtCash').val('');
+        $('#txtValueCash').val('');
+    }
 
 
 function moreApprovalsDetailsEvent() {

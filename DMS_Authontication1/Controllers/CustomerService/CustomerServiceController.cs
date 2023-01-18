@@ -219,13 +219,11 @@ namespace DMS_Authontication1.Controllers.CustomerService
         }
         public JsonResult GetRegionList(int? id)
         {
-
             db.Configuration.ProxyCreationEnabled = false;
             var Region = db.Regions.Where(r => r.GovernmentId == id).ToList();
             SelectList Regionlist = new SelectList(Region, "Id", "ArName");
 
             return Json(Regionlist, JsonRequestBehavior.AllowGet);
-
         }
         public JsonResult GetProviders(string cardId, string compId, string country, int region, int providerId, string specialistid)
         {
@@ -312,7 +310,7 @@ namespace DMS_Authontication1.Controllers.CustomerService
 
             DataTable dtcrd = new DataTable();
 
-            dtcrd = dbData.RunReader("select  to_char(BIRTH_DATE,'DD-MM-YYYY'),C_COMP_ID,CLASS_CODE,NVL(to_char(SPECIFIC_DATE,'DD-MM-YYYY'),to_char(INS_START_DATE,'DD-MM-YYYY')),to_char(INS_END_DATE,'DD-MM-YYYY'),TERMINATE_FLAG ,EMP_ANAME_ST ,EMP_ANAME_SC,EMP_ANAME_TH ,EMP_ENAME_ST ,EMP_ENAME_SC,EMP_ENAME_TH, to_char(INS_START_DATE,'DD-MM-YYYY'), to_char(TERMINATE_DATE,'DD-MM-YYYY') ,CONTRACT_NO, TEL1, TEL2, EMP_ID  from dms_test.COMP_EMPLOYEES where CARD_ID='" + CardId + "' order by ins_start_date DESC");
+            dtcrd = dbData.RunReader("select  to_char(BIRTH_DATE,'DD-MM-YYYY'),C_COMP_ID,CLASS_CODE,NVL(to_char(SPECIFIC_DATE,'DD-MM-YYYY'),to_char(INS_START_DATE,'DD-MM-YYYY')),to_char(INS_END_DATE,'DD-MM-YYYY'),TERMINATE_FLAG ,EMP_ANAME_ST ,EMP_ANAME_SC,EMP_ANAME_TH ,EMP_ENAME_ST ,EMP_ENAME_SC,EMP_ENAME_TH, to_char(INS_START_DATE,'DD-MM-YYYY'), to_char(TERMINATE_DATE,'DD-MM-YYYY') ,CONTRACT_NO, TEL1, TEL2, EMP_ID,  DECODE (GENDER, 1, 'Male', 2, 'Female')  Gender  from dms_test.COMP_EMPLOYEES where CARD_ID='" + CardId + "' order by ins_start_date DESC");
 
             string flg = "", nots = "";
             DataTable phon = new DataTable();        
@@ -375,6 +373,7 @@ namespace DMS_Authontication1.Controllers.CustomerService
                         EmployeeName = dtcrd.Rows[0][6].ToString() + " " + dtcrd.Rows[0][7].ToString() + " " + dtcrd.Rows[0][8].ToString(),
                         BirthDate = dtcrd.Rows[0][0].ToString(),
                         Age = (DateTime.Now.Year - Convert.ToDateTime(dtcrd.Rows[0][0]).Year).ToString(),
+                        SpecificDate = dtcrd.Rows[0][3].ToString(),
                         StartDate = dtcrd.Rows[0][12].ToString(),
                         EndDate = dtcrd.Rows[0][4].ToString(),
                         MaxAmount = getMaxAmountForCard(dtcrd.Rows[0][1].ToString(), dtcrd.Rows[0][14].ToString(), dtcrd.Rows[0][2].ToString(), CardId),
@@ -386,6 +385,7 @@ namespace DMS_Authontication1.Controllers.CustomerService
                         NationalId = dtcrd.Rows[0]["EMP_ID"].ToString(),
                         Mobile1 = dtcrd.Rows[0]["TEL1"].ToString(),
                         Mobile2 = dtcrd.Rows[0]["TEL2"].ToString(),
+                        Gender = dtcrd.Rows[0]["Gender"].ToString(),
                         CardColor = getColorCardApproval(CardId, oldcrd),
                         OldCard = oldcrd,
                         // Flag = flg,
@@ -441,10 +441,11 @@ namespace DMS_Authontication1.Controllers.CustomerService
             
             string consmMedClaim = dbData2.getConsumptionMedClaim(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd).Rows[0][0].ToString();
             string consmMedOnline = dbData2.getConsumptionMedOnline(CardId, Convert.ToDateTime(dat1), Convert.ToDateTime(dat2), oldcrd).Rows[0][0].ToString();
+            string consmMed = (double.Parse(consmMedClaim) + double.Parse(consmMedOnline)).ToString();
             string consmOther = dbData2.getConsumptionOther(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd).Rows[0][0].ToString();
             string consmAll = (double.Parse(consmMedClaim) + double.Parse(consmMedOnline) + double.Parse(consmOther)).ToString();
             string remain = (double.Parse(maxamt) - double.Parse(consmAll)).ToString();
-            double tm = Convert.ToDouble(remain) / Convert.ToDouble(maxamt) * 100;
+            double tm = Convert.ToDouble(consmAll) / Convert.ToDouble(maxamt) * 100;
             string perct = Math.Round(tm, 2).ToString() + " %";
             string consmApproval = dbData2.getConsumptionApproval(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd).Rows[0][0].ToString();
 
@@ -452,6 +453,7 @@ namespace DMS_Authontication1.Controllers.CustomerService
             {
                 MedicationClaims = consmMedClaim,
                 MedicationClaimsUnderReview = consmMedOnline,
+                MedicationConsumption = consmMed,
                 OtherConsumption = consmOther,                
                 AllConsumption = consmAll,
                 Remaining = remain,

@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Index";
 }
+
+@Html.Partial("_ShowDetails", (DMS_Authontication1.ViewModel.CustomerService.CustomerServiceViewModel) new DMS_Authontication1.ViewModel.CustomerService.CustomerServiceViewModel())
+
 <br />
 <br />
 <div class="portlet box green">
@@ -59,8 +62,12 @@
                 </div>
             </div>
         </div>
+
+
         <br />
         <br />
+        <input id="ShowDetailsCard" type="button" value="Show more details" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowDetailsCard($('#AddCardTxt').val())" />
+
         <input id="NotificationId" name="NotificationId" type="text" value="@Model.Id" hidden />
         <div class="table-responsive" style="HEIGHT: 300px;position:relative">
             <table class="table table-fixed" id="Approvals">
@@ -131,6 +138,9 @@
     </div>
 </div>
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+
+<script src="~/Scripts/DMS/SharedShowDetails.js?V=3"></script>
+
 <script>
     $(function () {
         $("#Approvals").DataTable({
