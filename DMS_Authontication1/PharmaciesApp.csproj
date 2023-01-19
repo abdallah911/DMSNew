@@ -348,6 +348,8 @@
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\SyncController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Data Function\DBApproval106.cs" />
+    <Compile Include="Data Function\DBData106.cs" />
     <Compile Include="Data Function\DBData.cs" />
     <Compile Include="Data Function\DBApproval.cs" />
     <Compile Include="Global.asax.cs">
