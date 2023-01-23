@@ -189,7 +189,8 @@ namespace DMS_TEST.Controllers
         {
             db.Configuration.ProxyCreationEnabled = false;
             List<Roshita> approvals = new List<Roshita>();
-            approvals = db.Roshitas.Where(r => r.CardId == id && r.Manager == "Doctor_Daily").ToList();
+            var date = DateTime.Now.AddDays(-14);
+            approvals = db.Roshitas.Where(r => r.CardId == id && r.Manager == "Doctor_Daily" && r.CreatedDate >= date).OrderByDescending(x => x.Id).ToList();
             var serializer = new JavaScriptSerializer();
 
             serializer.MaxJsonLength = Int32.MaxValue;
@@ -278,8 +279,8 @@ namespace DMS_TEST.Controllers
                 l.Limit,
                 l.CompanyPercent
             }).FirstOrDefault();
-        
-           
+
+
             //Roshita
             Roshita roshita = new Roshita()
             {
@@ -317,7 +318,7 @@ namespace DMS_TEST.Controllers
                 Medicien.IsDealed = true;
                 Medicien.PaymentGroup = DoctorDailyRoshitaDetails.PaymentGroup;
                 DoctorDailyRoshitaDetails.IsDealed = true;
-                db.RoshitaDetails.Add(Medicien); 
+                db.RoshitaDetails.Add(Medicien);
                 db.Entry(DoctorDailyRoshitaDetails).State = EntityState.Modified;
             }
             //SaveDiagnoises

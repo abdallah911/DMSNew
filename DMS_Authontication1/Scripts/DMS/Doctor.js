@@ -17,33 +17,33 @@ var BasicTotalUnits;
 var AnuualLimit;
 
 $(function () {
-    //add National Id
-    if (NationalId == "undefined" || NationalId == null) {
-        bootbox.prompt({
-            title: "Please,Enter Patient National ID  : ",
-            centerVertical: true,
-            closeButton: false,
-            //required: true,
-            //cancel: "Reset",
-            callback: function (result) {
-                if (result === null) {
-                    window.location = '/Pharmacy/Pharmacy';
-                    return true;
-                }
-                if (result === "" || result.length != 14 || isNaN(result)) {
-                    toastr.error("Invalid Value");
-                    return false;
-                } else {
-                    //$("#wait").css("display", "block");
-                    NationalId = result;
-                    return true;
+    ////add National Id
+    //if (NationalId == "undefined" || NationalId == null) {
+    //    bootbox.prompt({
+    //        title: "Please,Enter Patient National ID  : ",
+    //        centerVertical: true,
+    //        closeButton: false,
+    //        //required: true,
+    //        //cancel: "Reset",
+    //        callback: function (result) {
+    //            if (result === null) {
+    //                window.location = '/Pharmacy/Pharmacy';
+    //                return true;
+    //            }
+    //            if (result === "" || result.length != 14 || isNaN(result)) {
+    //                toastr.error("Invalid Value");
+    //                return false;
+    //            } else {
+    //                //$("#wait").css("display", "block");
+    //                NationalId = result;
+    //                return true;
 
-                }
-                return false;
+    //            }
+    //            return false;
 
-            }
-        });
-    }
+    //        }
+    //    });
+    //}
     //GetLimit();
     var TxtSearch = parseInt($('#TxtSearch').val());
     $('#TxtSearch').click(function () {
@@ -106,7 +106,7 @@ $(function () {
                                 type: "POST",
                                 dataType: "json",
                                 url: '/Pharmacy/GetLastApproval',
-                                data: { CardId: id, Type: 3},
+                                data: { CardId: id, Type: 3 },
                                 success: function (returndata) {
                                     if (returndata == false) {
                                         bootbox.dialog({
@@ -136,18 +136,18 @@ $(function () {
                                             DisregardCeiling = DisregardCeiling == true ? true : returndata[i].includes("Disregard Ceiling");
 
                                         }
-                                   
+
                                         if (LimitBool == true) {
-                                            Limit=0;
+                                            Limit = 0;
                                             //SecandCalculation();
                                         }
                                         if (Copayment == true) {
-                                            co=100;
+                                            co = 100;
                                             //SecandCalculation();
                                         }
                                         if (DisregardCeiling == true) {
                                             AnuualLimit = 30000;
-                                            
+
                                         }
                                         SecandCalculation();
                                         bootbox.dialog({
@@ -191,8 +191,8 @@ $(function () {
                                         label: "Ok",
                                         className: 'btn-info',
                                         callback: function () {
-                                            Limit=0;
-                                            co=100;
+                                            Limit = 0;
+                                            co = 100;
                                             AnuualLimit = 30000;
                                             SecandCalculation();
 

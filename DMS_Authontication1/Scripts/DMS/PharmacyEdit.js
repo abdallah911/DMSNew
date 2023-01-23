@@ -55,7 +55,7 @@ $(function () {
             success: function (returndata) {
                 if (returndata.ok) {
                     if (returndata.data == "Yes") {
-                       
+
                     }
                     else {
                         $("#wait").css("display", "none");
@@ -512,6 +512,7 @@ function SelectMedicien(event) {
         var GenderValidation = false;
         var AgeValiation = false;
         var edit = 0;
+        var isChronic = 0;
         $.ajax({
             type: 'POST',
             url: '/Pharmacy/GetMedicineByCode/',
@@ -519,48 +520,71 @@ function SelectMedicien(event) {
             data: { code: Code },
             success: function (r) {
                 if (ServiceCode != "11602" && r.M_TYPE == "CHRONIC") {
-                    edit = 1;
-                    toastr.error('Can Not Add This Medicine Chronic');
-                    $("#AddMedicine option[value='" + Code + "']").remove();
-                    $("#wait").css("display", "none");
+                    isChronic = 1;
+                    //edit = 1;
+                    //toastr.error('Can Not Add This Medicine Chronic');
+                    //$("#AddMedicine option[value='" + Code + "']").remove();
+                    //$("#wait").css("display", "none");
                 }
-                else {
-                    MedicienCode = r.M_CODE;
-                    MedicienName = r.TRADE_NAME;
-                    DosageForm = r.DOSAGE_FORM;
-                    PackPrice = r.PACK_PRICE;
-                    PackSize = r.PACK_SIZE;
-                    UnitNumber = r.UNIT_NO;
-                    UnitPrice = r.UNIT_PRICE;
-                    Group = r.Group_Type;
-                    IsCover = r.IsCovered.toString();
-                    var medicineGroups = new Array();
+                //else {
+                MedicienCode = r.M_CODE;
+                MedicienName = r.TRADE_NAME;
+                DosageForm = r.DOSAGE_FORM;
+                PackPrice = r.PACK_PRICE;
+                PackSize = r.PACK_SIZE;
+                UnitNumber = r.UNIT_NO;
+                UnitPrice = r.UNIT_PRICE;
+                Group = r.Group_Type;
+                IsCover = r.IsCovered.toString();
+                var medicineGroups = new Array();
+                var medicineGroup = {};
+                medicineGroup.TRADE_NAME = MedicienCode; //current medicine code
+                medicineGroups.push(medicineGroup);
+                $('#Pharmacy tbody tr').each(function () {
+                    var row = $(this);
                     var medicineGroup = {};
-                    medicineGroup.TRADE_NAME = MedicienCode; //current medicine code
+                    medicineGroup.M_CODE = parseInt(row.find("TD").eq(0).html());
                     medicineGroups.push(medicineGroup);
-                    $('#Pharmacy tbody tr').each(function () {
-                        var row = $(this);
-                        var medicineGroup = {};
-                        medicineGroup.M_CODE = parseInt(row.find("TD").eq(0).html());
-                        medicineGroups.push(medicineGroup);
-                        if (parseInt(row.find("TD").eq(0).html()) == parseInt(MedicienCode)) {
-                            edit = 1;
-                            event.preventDefault();
-                            toastr.error('Added before');
-                            $("#wait").css("display", "none");
+                    if (parseInt(row.find("TD").eq(0).html()) == parseInt(MedicienCode)) {
+                        edit = 1;
+                        event.preventDefault();
+                        toastr.error('Added before');
+                        $("#wait").css("display", "none");
 
-                        }
-                    });
+                    }
+                });
 
-                    var samegroup = false;
-                    var Duration = false;
-                    //
-                    if (edit == 0) {
-                        if (IsCover == "true") {
-                            //Gender Check
+                var samegroup = false;
+                var Duration = false;
+                //
+                if (edit == 0) {
+                    if (IsCover == "true") {
+                        //Gender Check
+                        $.ajax({
+                            dataType: "json",
+                            url: '/Pharmacy/GenderValidation',
+                            data: {
+                                CardId: CardId,
+                                MedicineCode: MedicienCode,
+                                Id: 1
+                            },
+                            success: function (r) {
+                                if (r == "True") {
+                                    GenderValidation = true;
+                                }
+                                else {
+                                    RemoveSelection(Code);
+                                    toastr.error("this medicine dosn't match patient's gender");
+                                    $("#wait").css("display", "none");
+
+                                }
+                            },
+                            error: function (r) { }
+                        }).done(function () {
+                            //Age Check
                             $.ajax({
                                 dataType: "json",
-                                url: '/Pharmacy/GenderValidation',
+                                url: '/Pharmacy/AgeValidation',
                                 data: {
                                     CardId: CardId,
                                     MedicineCode: MedicienCode,
@@ -568,102 +592,82 @@ function SelectMedicien(event) {
                                 },
                                 success: function (r) {
                                     if (r == "True") {
-                                        GenderValidation = true;
+                                        AgeValiation = true;
                                     }
                                     else {
-                                        RemoveSelection(Code);
-                                        toastr.error("this medicine dosn't match patient's gender");
-                                        $("#wait").css("display", "none");
-
+                                        if (GenderValidation = true) {
+                                            RemoveSelection(Code);
+                                            toastr.error("this medicine dosn't match patient's Age");
+                                            $("#wait").css("display", "none");
+                                        }
                                     }
                                 },
                                 error: function (r) { }
                             }).done(function () {
-                                //Age Check
+                                //medicine group
                                 $.ajax({
-                                    dataType: "json",
-                                    url: '/Pharmacy/AgeValidation',
-                                    data: {
-                                        CardId: CardId,
-                                        MedicineCode: MedicienCode,
-                                        Id: 1
-                                    },
+                                    type: 'POST',
+                                    url: '/Pharmacy/MedicinesGroupValiadtion/',
+                                    dataType: 'Json',
+                                    contentType: "application/json; charset=utf-8",
+                                    data: JSON.stringify(medicineGroups),
                                     success: function (r) {
-                                        if (r == "True") {
-                                            AgeValiation = true;
-                                        }
-                                        else {
-                                            if (GenderValidation = true) {
+                                        if (r == true) {
+                                            if (AgeValiation = true) {
                                                 RemoveSelection(Code);
-                                                toastr.error("this medicine dosn't match patient's Age");
+                                                toastr.error("medicines has the same medicine group");
                                                 $("#wait").css("display", "none");
                                             }
+                                            samegroup = true;
+                                        }
+                                        else {
+                                            samegroup = false;
                                         }
                                     },
-                                    error: function (r) { }
+                                    error: function () {
+                                        samegroup = false;
+                                    }
                                 }).done(function () {
-                                    //medicine group
                                     $.ajax({
-                                        type: 'POST',
-                                        url: '/Pharmacy/MedicinesGroupValiadtion/',
+                                        url: '/Pharmacy/MedicinesDurationValiadtion/',
                                         dataType: 'Json',
                                         contentType: "application/json; charset=utf-8",
-                                        data: JSON.stringify(medicineGroups),
+                                        data: {
+                                            CardId: CardId,
+                                            MedicineCode: MedicienCode
+                                        },
                                         success: function (r) {
                                             if (r == true) {
-                                                if (AgeValiation = true) {
+                                                if (samegroup = false) {
                                                     RemoveSelection(Code);
-                                                    toastr.error("medicines has the same medicine group");
+                                                    toastr.error("this medicine still in your previous duration ");//'Duration Validation'
                                                     $("#wait").css("display", "none");
+                                                    Duration = true;
                                                 }
-                                                samegroup = true;
+
                                             }
                                             else {
-                                                samegroup = false;
+                                                Duration = false;
                                             }
                                         },
                                         error: function () {
-                                            samegroup = false;
+                                            Duration = false;
                                         }
                                     }).done(function () {
-                                        $.ajax({
-                                            url: '/Pharmacy/MedicinesDurationValiadtion/',
-                                            dataType: 'Json',
-                                            contentType: "application/json; charset=utf-8",
-                                            data: {
-                                                CardId: CardId,
-                                                MedicineCode: MedicienCode
-                                            },
-                                            success: function (r) {
-                                                if (r == true) {
-                                                    if (samegroup = false) {
-                                                        RemoveSelection(Code);
-                                                        toastr.error("this medicine still in your previous duration ");//'Duration Validation'
+                                        if (GenderValidation == true && AgeValiation == true && IsCover == "true" && samegroup == false && Duration == false) {
+                                            //check Daily
+                                            $.ajax({
+                                                dataType: "json",
+                                                url: '/Pharmacy/CheckDaily',
+                                                data: {
+                                                    id: CardId,
+                                                    code: MedicienCode
+                                                },
+                                                success: function (r) {
+                                                    if (r.check == 0) {
                                                         $("#wait").css("display", "none");
-                                                        Duration = true;
-                                                    }
-
-                                                }
-                                                else {
-                                                    Duration = false;
-                                                }
-                                            },
-                                            error: function () {
-                                                Duration = false;
-                                            }
-                                        }).done(function () {
-                                            if (GenderValidation == true && AgeValiation == true && IsCover == "true" && samegroup == false && Duration == false) {
-                                                //check Daily
-                                                $.ajax({
-                                                    dataType: "json",
-                                                    url: '/Pharmacy/CheckDaily',
-                                                    data: {
-                                                        id: CardId,
-                                                        code: MedicienCode
-                                                    },
-                                                    success: function (r) {
-                                                        if (r.check == 0) {
-                                                            $("#wait").css("display", "none");
+                                                        // chick if chronic or no
+                                                        if (isChronic == 0) {
                                                             //append row
                                                             if (Group == "NO") {
                                                                 $.ajax({
@@ -715,32 +719,63 @@ function SelectMedicien(event) {
                                                             }
                                                         }
                                                         else {
-                                                            RemoveSelection(Code);
-                                                            bootbox.alert(r.messa);
-                                                            $("#wait").css("display", "none");
+                                                            var dialog = bootbox.dialog({
+                                                                //title: 'This Medicien is Not Covered!',
+                                                                title: 'This medicine requires approval',
+                                                                message: "<p>Pay method?</p>",
+                                                                onEscape: function () {
+                                                                    RemoveSelection(MedicienCode);
+                                                                },
+                                                                //backdrop: true,
+                                                                buttons: {
+                                                                    Cash: {
+                                                                        label: "Cash",
+                                                                        className: 'btn-info',
+                                                                        callback: function () {
+                                                                            Group = "Cash";
+                                                                            AppendRow();
+                                                                        }
+                                                                    }
+                                                                    , Tele: {
+                                                                        label: "Pending",
+                                                                        className: 'btn-info',
+                                                                        callback: function () {
+                                                                            Group = "PendingChronic";
+                                                                            toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                                                            AppendRow();
+                                                                        }
+                                                                    }
+                                                                }
+                                                            });
                                                         }
-                                                    },
-                                                    error: function (r) {
-                                                        bootbox.alert("failed Exchanged validation ,chacke your internet connection ");
+                                                    }
+                                                    else {
+                                                        RemoveSelection(Code);
+                                                        bootbox.alert(r.messa);
                                                         $("#wait").css("display", "none");
                                                     }
+                                                },
+                                                error: function (r) {
+                                                    bootbox.alert("failed Exchanged validation ,chacke your internet connection ");
+                                                    $("#wait").css("display", "none");
+                                                }
 
-                                                });
-                                            }
-                                        });
+                                            });
+                                        }
                                     });
-                                })
+                                });
                             })
-                        }
-                        else {
-                            RemoveSelection(Code);
-                            toastr.error("Medicine isn't covered");
-                        }
+                        })
                     }
-
-                    $("#wait").css("display", "none");
-
+                    else {
+                        RemoveSelection(Code);
+                        toastr.error("Medicine isn't covered");
+                    }
                 }
+
+                $("#wait").css("display", "none");
+
+                //}
             },
             error: function (ex) {
                 bootbox.alert('Failed to retrieve Medicine Data,please chack your internet connection');
