@@ -359,20 +359,17 @@ namespace DMS_TEST.Controllers
                         }
                     }
                 }
+                var CompContractClassEmp = db.CompContractClassEmps.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.CARD_ID == id).FirstOrDefault();
+                if (CompContractClassEmp == null)
+                {
+                    var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
+                    CompContractClassMAX_AMOUNT = Convert.ToDouble(classLimit.MAX_AMOUNT * 0.85);
+                }
                 else
                 {
-                    var CompContractClassEmp = db.CompContractClassEmps.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.CARD_ID == id).FirstOrDefault();
-                    if (CompContractClassEmp == null)
-                    {
-                        var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
-                        CompContractClassMAX_AMOUNT = Convert.ToDouble(classLimit.MAX_AMOUNT * 0.85);
-                    }
-                    else
-                    {
-                        CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
-                    }
-                    type = false;
+                    CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
                 }
+                type = false;
 
                 var DataService1 = new Comp_Customized_D_D();
                 var DataService = db.Comp_Customized_D_D_Emp.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.SER_SERV == ServiceCode && c.CARD_ID == id).FirstOrDefault();
@@ -430,52 +427,56 @@ namespace DMS_TEST.Controllers
                                    }).ToList().Sum(r => r.Amount);
                 }
 
-                if (type == true)
-                {
-                    Available = CompContractClassMAX_AMOUNT;
+                //if (type == true)
+                //{
+                //    Available = CompContractClassMAX_AMOUNT;
 
-                }
-                else
+                //}
+                //else
+                //{
+                //Main consumption
+                double AcumlatorAmount = 0;
+                foreach (var item in AcumlatorList)
                 {
-                    //Main consumption
-                    double AcumlatorAmount = 0;
-                    foreach (var item in AcumlatorList)
-                    {
-                        AcumlatorAmount += item.CompanyPayment;
-                    }
-                    AcumlatorAmount -= PersonNoPay;
-                    Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
+                    AcumlatorAmount += item.CompanyPayment;
                 }
-                if (remainingconsumption != null && remainingconsumption.REMAINING != null &&
-                    (remainingconsumption.REMAINING == Available))
+                AcumlatorAmount -= PersonNoPay;
+                Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
+                //}
+                //if (remainingconsumption != null && remainingconsumption.REMAINING != null &&
+                //    (remainingconsumption.REMAINING == Available))
+                //{
+                //    Limit = Available;
+                //}
+                //else
+                //{
+                //Service consumption
+                List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
+                double AcumlatorServiceAmount = 0;
+                foreach (var item in AcumlatorServiceList)
                 {
-                    Limit = Available;
+                    AcumlatorServiceAmount += item.CompanyPayment;
                 }
-                else
+                AcumlatorServiceAmount -= PersonNoPay;
+                double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
+                //SubService consumption
+                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
+                double AcumlatorSubServiceAmount = 0;
+                foreach (var item in AcumlatorSubServiceList)
                 {
-                    //Service consumption
-                    List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
-                    double AcumlatorServiceAmount = 0;
-                    foreach (var item in AcumlatorServiceList)
-                    {
-                        AcumlatorServiceAmount += item.CompanyPayment;
-                    }
-                    AcumlatorServiceAmount -= PersonNoPay;
-                    double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
-                    //SubService consumption
-                    List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
-                    double AcumlatorSubServiceAmount = 0;
-                    foreach (var item in AcumlatorSubServiceList)
-                    {
-                        AcumlatorSubServiceAmount += item.CompanyPayment;
-                    }
-                    AcumlatorSubServiceAmount -= PersonNoPay;
-                    double SubServiceAvailable = (MaxSubServiceAmount - AcumlatorSubServiceAmount) < 0 ? 0 : MaxSubServiceAmount - AcumlatorSubServiceAmount;
-                    //limit
-                    Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
-                    Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
+                    AcumlatorSubServiceAmount += item.CompanyPayment;
                 }
+                AcumlatorSubServiceAmount -= PersonNoPay;
+                double SubServiceAvailable = (MaxSubServiceAmount - AcumlatorSubServiceAmount) < 0 ? 0 : MaxSubServiceAmount - AcumlatorSubServiceAmount;
+                //limit
+                Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
+                Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
+                //}
                 //polling
+                if (remainingconsumption != null)
+                {
+                    Limit = (double)(remainingconsumption.REMAINING.Value < Limit ? remainingconsumption.REMAINING : Limit);
+                }
                 bool Validation = Limit > 0 ? true : false;
                 Message = Validation ? "Ok" : "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد";
                 //Message = Validation ? "Ok" : "Exceeded his annual contract limit";
@@ -520,11 +521,24 @@ namespace DMS_TEST.Controllers
 
                     Double LimitDailyYearlyPreceptionAmount = CustemizedMedEmp.DAY_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Daily Amount
                     Double LimitMonthlyYearlyPreceptionAmount = CustemizedMedEmp.MON_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Monthly Amount
-
-                    CoInsurancelimit2.INSURANCE_DAY = LimitDailyMonthlyPreceptionAmount == 0 ? 0 : Math.Min(Convert.ToDouble(CustemizedMedEmp.DAY_AMT), Convert.ToDouble(LimitDailyMonthlyPreceptionAmount));
-                    CoInsurancelimit2.INSURANCE_DAY = LimitDailyYearlyPreceptionAmount == 0 ? 0 : Math.Min(Convert.ToDouble(CustemizedMedEmp.DAY_AMT), Convert.ToDouble(LimitDailyYearlyPreceptionAmount));
-                    CoInsurancelimit2.INSURANCE_MONTH = LimitMonthlyMonthlyPreceptionAmount == 0 ? 0 : Math.Min(Convert.ToDouble(CustemizedMedEmp.MON_AMT), Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount));
-                    CoInsurancelimit2.INSURANCE_MONTH = LimitMonthlyYearlyPreceptionAmount == 0 ? 0 : Math.Min(Convert.ToDouble(CustemizedMedEmp.MON_AMT), Convert.ToDouble(LimitMonthlyYearlyPreceptionAmount));
+                    if (ServiceCode == "11601" || ServiceCode == "11604")
+                    {
+                        if (LimitDailyMonthlyPreceptionAmount != 0 && Limit > LimitDailyMonthlyPreceptionAmount)
+                            Limit = LimitDailyMonthlyPreceptionAmount;
+                        if (LimitDailyYearlyPreceptionAmount != 0 && Limit > LimitDailyYearlyPreceptionAmount)
+                            Limit = LimitDailyYearlyPreceptionAmount;
+                    }
+                    if (ServiceCode == "11602" || ServiceCode == "11603")
+                    {
+                        if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount)
+                            Limit = LimitMonthlyMonthlyPreceptionAmount;
+                        if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount)
+                            Limit = LimitMonthlyYearlyPreceptionAmount;
+                    }
+                    CoInsurancelimit2.INSURANCE_DAY = LimitDailyYearlyPreceptionAmount == 0 ? Convert.ToDouble(LimitDailyMonthlyPreceptionAmount) : Math.Min(Convert.ToDouble(LimitDailyMonthlyPreceptionAmount), Convert.ToDouble(LimitDailyYearlyPreceptionAmount));
+                    CoInsurancelimit2.INSURANCE_DAY = LimitDailyMonthlyPreceptionAmount == 0 ? Convert.ToDouble(CustemizedMedEmp.DAY_AMT) : Math.Min(Convert.ToDouble(CustemizedMedEmp.DAY_AMT), Convert.ToDouble(LimitDailyMonthlyPreceptionAmount));
+                    CoInsurancelimit2.INSURANCE_MONTH = LimitMonthlyYearlyPreceptionAmount == 0 ? Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount) : Math.Min(Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount), Convert.ToDouble(LimitMonthlyYearlyPreceptionAmount));
+                    CoInsurancelimit2.INSURANCE_MONTH = LimitMonthlyMonthlyPreceptionAmount == 0 ? Convert.ToDouble(CustemizedMedEmp.MON_AMT) : Math.Min(Convert.ToDouble(CustemizedMedEmp.MON_AMT), Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount));
 
                     if (CoInsurancelimit2.INSURANCE_DAY < 0)
                     {
@@ -597,7 +611,20 @@ namespace DMS_TEST.Controllers
 
                         Double LimitDailyYearlyPreceptionAmount = CustemizedMed.DAY_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMed.DAY_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMed.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Daily Amount
                         Double LimitMonthlyYearlyPreceptionAmount = CustemizedMed.MON_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMed.MON_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMed.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Monthly Amount
-
+                        if (ServiceCode == "11601" || ServiceCode == "11604")
+                        {
+                            if (LimitDailyMonthlyPreceptionAmount != 0 && Limit > LimitDailyMonthlyPreceptionAmount)
+                                Limit = LimitDailyMonthlyPreceptionAmount;
+                            if (LimitDailyYearlyPreceptionAmount != 0 && Limit > LimitDailyYearlyPreceptionAmount)
+                                Limit = LimitDailyYearlyPreceptionAmount;
+                        }
+                        if (ServiceCode == "11602"||ServiceCode == "11603")
+                        {
+                            if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount)
+                                Limit = LimitMonthlyMonthlyPreceptionAmount;
+                            if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount)
+                                Limit = LimitMonthlyYearlyPreceptionAmount;
+                        }
                         CoInsurancelimit2.INSURANCE_DAY = LimitDailyYearlyPreceptionAmount == 0 ? Convert.ToDouble(LimitDailyMonthlyPreceptionAmount) : Math.Min(Convert.ToDouble(LimitDailyMonthlyPreceptionAmount), Convert.ToDouble(LimitDailyYearlyPreceptionAmount));
                         CoInsurancelimit2.INSURANCE_DAY = LimitDailyMonthlyPreceptionAmount == 0 ? Convert.ToDouble(CustemizedMed.DAY_AMT) : Math.Min(Convert.ToDouble(CustemizedMed.DAY_AMT), Convert.ToDouble(LimitDailyMonthlyPreceptionAmount));
                         CoInsurancelimit2.INSURANCE_MONTH = LimitMonthlyYearlyPreceptionAmount == 0 ? Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount) : Math.Min(Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount), Convert.ToDouble(LimitMonthlyYearlyPreceptionAmount));
@@ -747,20 +774,20 @@ namespace DMS_TEST.Controllers
                         }
                     }
                 }
+                //else
+                //{
+                var CompContractClassEmp = db.CompContractClassEmps.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.CARD_ID == id).FirstOrDefault();
+                if (CompContractClassEmp == null)
+                {
+                    var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
+                    CompContractClassMAX_AMOUNT = Convert.ToDouble(classLimit.MAX_AMOUNT * 0.85);
+                }
                 else
                 {
-                    var CompContractClassEmp = db.CompContractClassEmps.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.CARD_ID == id).FirstOrDefault();
-                    if (CompContractClassEmp == null)
-                    {
-                        var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
-                        CompContractClassMAX_AMOUNT = Convert.ToDouble(classLimit.MAX_AMOUNT * 0.85);
-                    }
-                    else
-                    {
-                        CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
-                    }
-                    type = false;
+                    CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
                 }
+                type = false;
+                //}
                 //var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
 
                 var DataService1 = new Comp_Customized_D_D();
@@ -807,52 +834,56 @@ namespace DMS_TEST.Controllers
                 double Limit = 0;
                 List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
-                if (type == true)
-                {
-                    Available = CompContractClassMAX_AMOUNT;
+                //if (type == true)
+                //{
+                //    Available = CompContractClassMAX_AMOUNT;
 
-                }
-                else
+                //}
+                //else
+                //{
+                //Main consumption
+                double AcumlatorAmount = 0;
+                foreach (var item in AcumlatorList)
                 {
-                    //Main consumption
-                    double AcumlatorAmount = 0;
-                    foreach (var item in AcumlatorList)
-                    {
-                        AcumlatorAmount += item.CompanyPayment;
-                    }
-                    AcumlatorAmount -= PersonNoPay;
-                    Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
+                    AcumlatorAmount += item.CompanyPayment;
                 }
-                if (remainingconsumption != null && remainingconsumption.REMAINING != null &&
-                    (remainingconsumption.REMAINING == Available))
+                AcumlatorAmount -= PersonNoPay;
+                Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
+                //}
+                //if (remainingconsumption != null && remainingconsumption.REMAINING != null &&
+                //    (remainingconsumption.REMAINING == Available))
+                //{
+                //    Limit = Available;
+                //}
+                //else
+                //{
+                //Service Concamution
+                List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
+                double AcumlatorServiceAmount = 0;
+                foreach (var item in AcumlatorServiceList)
                 {
-                    Limit = Available;
+                    AcumlatorServiceAmount += item.CompanyPayment;
                 }
-                else
+                AcumlatorServiceAmount -= PersonNoPay;
+                double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
+                //SubService Concamution
+                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
+                double AcumlatorSubServiceAmount = 0;
+                foreach (var item in AcumlatorSubServiceList)
                 {
-                    //Service Concamution
-                    List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
-                    double AcumlatorServiceAmount = 0;
-                    foreach (var item in AcumlatorServiceList)
-                    {
-                        AcumlatorServiceAmount += item.CompanyPayment;
-                    }
-                    AcumlatorServiceAmount -= PersonNoPay;
-                    double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
-                    //SubService Concamution
-                    List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
-                    double AcumlatorSubServiceAmount = 0;
-                    foreach (var item in AcumlatorSubServiceList)
-                    {
-                        AcumlatorSubServiceAmount += item.CompanyPayment;
-                    }
-                    AcumlatorSubServiceAmount -= PersonNoPay;
-                    double SubServiceAvailable = (MaxSubServiceAmount - AcumlatorSubServiceAmount) < 0 ? 0 : MaxSubServiceAmount - AcumlatorSubServiceAmount;
-                    //limit
-                    Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
-                    Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
+                    AcumlatorSubServiceAmount += item.CompanyPayment;
                 }
+                AcumlatorSubServiceAmount -= PersonNoPay;
+                double SubServiceAvailable = (MaxSubServiceAmount - AcumlatorSubServiceAmount) < 0 ? 0 : MaxSubServiceAmount - AcumlatorSubServiceAmount;
+                //limit
+                Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
+                Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
+                //}
                 //polling
+                if (remainingconsumption != null)
+                {
+                    Limit = (double)(remainingconsumption.REMAINING.Value < Limit ? remainingconsumption.REMAINING : Limit);
+                }
                 bool Validation = Limit > 0 ? true : false;
                 Message = Validation ? "Ok" : "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد";
 
@@ -912,11 +943,25 @@ namespace DMS_TEST.Controllers
 
                     Double LimitDailyYearlyPreceptionAmount = CustemizedMedEmp.DAY_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Daily Amount
                     Double LimitMonthlyYearlyPreceptionAmount = CustemizedMedEmp.MON_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Monthly Amount
+                    if (ServiceCode == "11601" || ServiceCode == "11604")
+                    {
+                        if (LimitDailyMonthlyPreceptionAmount != 0 && Limit > LimitDailyMonthlyPreceptionAmount)
+                            Limit = LimitDailyMonthlyPreceptionAmount;
+                        if (LimitDailyYearlyPreceptionAmount != 0 && Limit > LimitDailyYearlyPreceptionAmount)
+                            Limit = LimitDailyYearlyPreceptionAmount;
+                    }
+                    if (ServiceCode == "11602" || ServiceCode == "11603")
+                    {
+                        if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount)
+                            Limit = LimitMonthlyMonthlyPreceptionAmount;
+                        if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount)
+                            Limit = LimitMonthlyYearlyPreceptionAmount;
+                    }
 
-                    CoInsurancelimit2.INSURANCE_DAY = LimitDailyMonthlyPreceptionAmount == 0 ? 0 : Math.Min(Convert.ToDouble(CustemizedMedEmp.DAY_AMT), Convert.ToDouble(LimitDailyMonthlyPreceptionAmount));
-                    CoInsurancelimit2.INSURANCE_DAY = LimitDailyYearlyPreceptionAmount == 0 ? 0 : Math.Min(Convert.ToDouble(CustemizedMedEmp.DAY_AMT), Convert.ToDouble(LimitDailyYearlyPreceptionAmount));
-                    CoInsurancelimit2.INSURANCE_MONTH = LimitMonthlyMonthlyPreceptionAmount == 0 ? 0 : Math.Min(Convert.ToDouble(CustemizedMedEmp.MON_AMT), Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount));
-                    CoInsurancelimit2.INSURANCE_MONTH = LimitMonthlyYearlyPreceptionAmount == 0 ? 0 : Math.Min(Convert.ToDouble(CustemizedMedEmp.MON_AMT), Convert.ToDouble(LimitMonthlyYearlyPreceptionAmount));
+                    CoInsurancelimit2.INSURANCE_DAY = LimitDailyYearlyPreceptionAmount == 0 ? Convert.ToDouble(LimitDailyMonthlyPreceptionAmount) : Math.Min(Convert.ToDouble(LimitDailyMonthlyPreceptionAmount), Convert.ToDouble(LimitDailyYearlyPreceptionAmount));
+                    CoInsurancelimit2.INSURANCE_DAY = LimitDailyMonthlyPreceptionAmount == 0 ? Convert.ToDouble(CustemizedMedEmp.DAY_AMT) : Math.Min(Convert.ToDouble(CustemizedMedEmp.DAY_AMT), Convert.ToDouble(LimitDailyMonthlyPreceptionAmount));
+                    CoInsurancelimit2.INSURANCE_MONTH = LimitMonthlyYearlyPreceptionAmount == 0 ? Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount) : Math.Min(Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount), Convert.ToDouble(LimitMonthlyYearlyPreceptionAmount));
+                    CoInsurancelimit2.INSURANCE_MONTH = LimitMonthlyMonthlyPreceptionAmount == 0 ? Convert.ToDouble(CustemizedMedEmp.MON_AMT) : Math.Min(Convert.ToDouble(CustemizedMedEmp.MON_AMT), Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount));
 
                     if (CoInsurancelimit2.INSURANCE_DAY < 0)
                     {
@@ -971,7 +1016,20 @@ namespace DMS_TEST.Controllers
 
                         Double LimitDailyYearlyPreceptionAmount = CustemizedMed.DAY_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMed.DAY_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMed.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.DAY_MED_AMT_YEAR - (YearlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Daily Amount
                         Double LimitMonthlyYearlyPreceptionAmount = CustemizedMed.MON_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMed.MON_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMed.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Monthly Amount
-
+                        if (ServiceCode == "11601" || ServiceCode == "11604")
+                        {
+                            if (LimitDailyMonthlyPreceptionAmount != 0 && Limit > LimitDailyMonthlyPreceptionAmount)
+                                Limit = LimitDailyMonthlyPreceptionAmount;
+                            if (LimitDailyYearlyPreceptionAmount != 0 && Limit > LimitDailyYearlyPreceptionAmount)
+                                Limit = LimitDailyYearlyPreceptionAmount;
+                        }
+                        if (ServiceCode == "11602" || ServiceCode == "11603")
+                        {
+                            if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount)
+                                Limit = LimitMonthlyMonthlyPreceptionAmount;
+                            if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount)
+                                Limit = LimitMonthlyYearlyPreceptionAmount;
+                        }
                         CoInsurancelimit2.INSURANCE_DAY = LimitDailyYearlyPreceptionAmount == 0 ? Convert.ToDouble(LimitDailyMonthlyPreceptionAmount) : Math.Min(Convert.ToDouble(LimitDailyMonthlyPreceptionAmount), Convert.ToDouble(LimitDailyYearlyPreceptionAmount));
                         CoInsurancelimit2.INSURANCE_DAY = LimitDailyMonthlyPreceptionAmount == 0 ? Convert.ToDouble(CustemizedMed.DAY_AMT) : Math.Min(Convert.ToDouble(CustemizedMed.DAY_AMT), Convert.ToDouble(LimitDailyMonthlyPreceptionAmount));
                         CoInsurancelimit2.INSURANCE_MONTH = LimitMonthlyYearlyPreceptionAmount == 0 ? Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount) : Math.Min(Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount), Convert.ToDouble(LimitMonthlyYearlyPreceptionAmount));

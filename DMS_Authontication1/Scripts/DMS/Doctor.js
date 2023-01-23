@@ -17,33 +17,33 @@ var BasicTotalUnits;
 var AnuualLimit;
 
 $(function () {
-    //add National Id
-    if (NationalId == "undefined" || NationalId == null) {
-        bootbox.prompt({
-            title: "Please,Enter Patient National ID  : ",
-            centerVertical: true,
-            closeButton: false,
-            //required: true,
-            //cancel: "Reset",
-            callback: function (result) {
-                if (result === null) {
-                    window.location = '/Pharmacy/Pharmacy';
-                    return true;
-                }
-                if (result === "" || result.length != 14 || isNaN(result)) {
-                    toastr.error("Invalid Value");
-                    return false;
-                } else {
-                    //$("#wait").css("display", "block");
-                    NationalId = result;
-                    return true;
+    ////add National Id
+    //if (NationalId == "undefined" || NationalId == null) {
+    //    bootbox.prompt({
+    //        title: "Please,Enter Patient National ID  : ",
+    //        centerVertical: true,
+    //        closeButton: false,
+    //        //required: true,
+    //        //cancel: "Reset",
+    //        callback: function (result) {
+    //            if (result === null) {
+    //                window.location = '/Pharmacy/Pharmacy';
+    //                return true;
+    //            }
+    //            if (result === "" || result.length != 14 || isNaN(result)) {
+    //                toastr.error("Invalid Value");
+    //                return false;
+    //            } else {
+    //                //$("#wait").css("display", "block");
+    //                NationalId = result;
+    //                return true;
 
-                }
-                return false;
+    //            }
+    //            return false;
 
-            }
-        });
-    }
+    //        }
+    //    });
+    //}
     //GetLimit();
     var TxtSearch = parseInt($('#TxtSearch').val());
     $('#TxtSearch').click(function () {
