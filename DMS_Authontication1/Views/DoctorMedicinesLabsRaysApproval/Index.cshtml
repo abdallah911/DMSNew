@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 }
 
-@Html.Partial("_ShowDetails", (DMS_Authontication1.ViewModel.CustomerService.CustomerServiceViewModel) new DMS_Authontication1.ViewModel.CustomerService.CustomerServiceViewModel())
+@Html.Partial("_ShowDetails", (DMS_Authontication1.ViewModel.CustomerService.CustomerServiceViewModel)new DMS_Authontication1.ViewModel.CustomerService.CustomerServiceViewModel())
 
 <br />
 <br />
@@ -84,6 +84,7 @@
                         <th scope="col">&nbsp;</th>
                         <th scope="col">Note Pharmacy</th>
                         <th scope="col">Note Admin</th>
+                        <th scope="col">Group</th>
 
                     </tr>
                 </thead>
@@ -103,7 +104,7 @@
                             <td>
                                 @Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup
                             </td>
-                            @if (@Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Pending")
+                            @if (Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Pending" || Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "PendingChronic")
                             {
                                 <td>
                                     <select id='ChangeStatus' class='form-control' onchange='Select(this);'>
@@ -129,6 +130,16 @@
                                 <textarea id="NoteAdmin" style="height: 31px;" type="text" class="form-control NoteAdmin" name="Comments" placeholder="" value=""></textarea>
                                 @*</div>*@
                             </td>
+                            @if (Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "PendingChronic")
+                            {
+                                <td>Chronic</td>
+
+                            }
+                            else
+                            {
+                                <td>No</td>
+
+                            }
                         </tr>
                     }
                 </tbody>
