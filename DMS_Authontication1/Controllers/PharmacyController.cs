@@ -1955,7 +1955,7 @@ namespace DMS_TEST.Controllers
             foreach (RoshitaDetail Medicien in data.roshitaDetail)
             {
                 Medicien.RoshitaID = roshita.Id;
-                if (Medicien.PaymentGroup == "Pending")
+                if (Medicien.PaymentGroup == "Pending" || Medicien.PaymentGroup == "PendingChronic")
                 {
                     if (oneNotification == false)
                     {
@@ -2205,7 +2205,7 @@ namespace DMS_TEST.Controllers
             var model = db.Notifications.Where(n => n.Id == NotificationId && n.IsDeleted == false && n.IsRead == false)
                 .Include(x => x.Roshita).Include(r => r.Roshita.RoshitaDetails).Include(rd => rd.Roshita.PrescriptionRoshitaDignosis)
                 .FirstOrDefault();
-            model.Roshita.RoshitaDetails = model.Roshita.RoshitaDetails.Where(x => x.PaymentGroup == "Pending" || x.PaymentGroup == "Accepted"
+            model.Roshita.RoshitaDetails = model.Roshita.RoshitaDetails.Where(x => x.PaymentGroup == "Pending" || x.PaymentGroup == "PendingChronic" || x.PaymentGroup == "Accepted"
             || x.PaymentGroup == "Rejected").ToList();
             return View(model);
         }
@@ -2413,7 +2413,7 @@ namespace DMS_TEST.Controllers
         {
             db.Configuration.ProxyCreationEnabled = false;
             var approvals = db.Roshitas.Where(x => x.CardId == id && x.CreatedBy == User.Identity.Name && (x.Manager == "Daily" || x.Manager == "Monthly" || x.Manager == "Lab" || x.Manager == "Ray"))
-              .Join(db.RoshitaDetails, r => r.Id, d => d.RoshitaID, (r, d) => new { r, d }).Where(x => x.d.IsDealed == false).Where(x => x.d.PaymentGroup == "Pending" || x.d.PaymentGroup == "Accepted" || x.d.PaymentGroup == "Rejected")
+              .Join(db.RoshitaDetails, r => r.Id, d => d.RoshitaID, (r, d) => new { r, d }).Where(x => x.d.IsDealed == false).Where(x => x.d.PaymentGroup == "Pending" || x.d.PaymentGroup == "PendingChronic" || x.d.PaymentGroup == "Accepted" || x.d.PaymentGroup == "Rejected")
              .Select(l => new
              {
                  l.r.Id,
@@ -2949,7 +2949,7 @@ namespace DMS_TEST.Controllers
             }
             // RoshitaDetails
             List<RoshitaDetail> List_R_Details = db.RoshitaDetails.Where(x => x.RoshitaID == data.Id).ToList();
-            bool oneNotification = (List_R_Details.Where(x => x.RoshitaID == data.Id && x.PaymentGroup == "Pending").ToList().Count == 0) ? false : true;
+            bool oneNotification = (List_R_Details.Where(x => x.RoshitaID == data.Id && (x.PaymentGroup == "Pending" || x.PaymentGroup == "PendingChronic")).ToList().Count == 0) ? false : true;
             if (oneNotification)
             {
                 var noteficationdelete = db.Notifications.Where(n => n.RoshitaId == roshita.Id).FirstOrDefault();
@@ -3002,7 +3002,7 @@ namespace DMS_TEST.Controllers
             }
 
             roshita1.RoshitaDetails = new List<RoshitaDetail>();
-            var oldpending = db.RoshitaDetails.Where(r => r.RoshitaID == data.Id && (r.PaymentGroup == "Pending" || r.PaymentGroup == "Accepted"
+            var oldpending = db.RoshitaDetails.Where(r => r.RoshitaID == data.Id && (r.PaymentGroup == "Pending" || r.PaymentGroup == "PendingChronic" || r.PaymentGroup == "Accepted"
             || r.PaymentGroup == "Rejected") && r.IsDealed == false).ToList();
             foreach (var old in oldpending)
             {
@@ -3020,7 +3020,7 @@ namespace DMS_TEST.Controllers
                     MedicineNoPay = old.MedicineNoPay
                 };
                 roshita1.RoshitaDetails.Add(oldMedicien);
-                if (oldMedicien.PaymentGroup == "Pending")
+                if (oldMedicien.PaymentGroup == "Pending" || oldMedicien.PaymentGroup == "PendingChronic")
                 {
                     if (oneNotification == false)
                     {
@@ -3060,7 +3060,7 @@ namespace DMS_TEST.Controllers
                 Medicien.IsSync = null;
                 Medicien.SyncBy = null;
                 Medicien.SyncDate = null;
-                if (Medicien.PaymentGroup == "Pending")
+                if (Medicien.PaymentGroup == "Pending" || Medicien.PaymentGroup == "PendingChronic")
                 {
                     if (oneNotification == false)
                     {
@@ -3205,15 +3205,15 @@ namespace DMS_TEST.Controllers
             var mediciens = List_R_Details.Where(x => x.RoshitaID == data.Id && x.IsDealed == true).ToList();
             db.RoshitaDetails.RemoveRange(mediciens);
             //db.SaveChanges();
-            bool oneNotification = (List_R_Details.Where(x => x.RoshitaID == data.Id && x.PaymentGroup == "Pending").ToList().Count == 0) ? false : true; ;
+            bool oneNotification = (List_R_Details.Where(x => x.RoshitaID == data.Id && (x.PaymentGroup == "Pending" || x.PaymentGroup == "PendingChronic")).ToList().Count == 0) ? false : true; ;
             foreach (RoshitaDetail Medicien in data.roshitaDetail)
             {
-                if (Medicien.PaymentGroup == "Pending" || Medicien.PaymentGroup == "Cash")
+                if (Medicien.PaymentGroup == "Pending" || Medicien.PaymentGroup == "PendingChronic" || Medicien.PaymentGroup == "Cash")
                 {
                     RoshitaDetail roshitaDetail = List_R_Details.Where(x => x.RoshitaID == data.Id && x.MedicienCode == Medicien.MedicienCode && x.IsDealed == false).FirstOrDefault();
                     if (roshitaDetail != null)
                     {
-                        if (Medicien.PaymentGroup == "Pending")
+                        if (Medicien.PaymentGroup == "Pending" || Medicien.PaymentGroup == "PendingChronic")
                         {
                             Medicien.PaymentGroup = roshitaDetail.PaymentGroup;
                         }
@@ -3223,7 +3223,7 @@ namespace DMS_TEST.Controllers
                         //db.SaveChanges();
                     }
 
-                    if (oneNotification == false && Medicien.PaymentGroup == "Pending")
+                    if (oneNotification == false && (Medicien.PaymentGroup == "Pending" || Medicien.PaymentGroup == "PendingChronic"))
                     {
                         //if new pending and didn't have notification
                         string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
@@ -3510,7 +3510,7 @@ namespace DMS_TEST.Controllers
                 var med_card = new Med_Card();
                 int? NoOver = 0, NoPay = 0;
                 double CellingPert;
-               
+
                 var DataService = db.Comp_Customized_D_D_Emp.Where(c => c.C_COMP_ID == patient.C_COMP_ID && c.CONTRACT_NO == patient.CONTRACT_NO && c.SER_SERV == data.RoshetaType && c.CARD_ID == patient.CARD_ID).FirstOrDefault();
                 if (DataService == null)
                 {
@@ -3538,8 +3538,8 @@ namespace DMS_TEST.Controllers
                 }
                 ReportDocument rd = new ReportDocument();
                 ////500142+500103+500125+10560
-                if (data.ClaimNumber == null && (data.RoshetaType == "11601" || data.RoshetaType == "11603")&&
-                    (data.CardId.Contains("500142") ||data.CardId.Contains("500103") ||data.CardId.Contains("500125") ||data.CardId.Contains("10560")))
+                if (data.ClaimNumber == null && (data.RoshetaType == "11601" || data.RoshetaType == "11603") &&
+                    (data.CardId.Contains("500142") || data.CardId.Contains("500103") || data.CardId.Contains("500125") || data.CardId.Contains("10560")))
                 {
                     rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReport2.rpt"));
                 }
