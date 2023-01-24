@@ -740,7 +740,7 @@ function FirstCalculation() {
     //total-cash
     var total = sum - sumNoPay;
     var ValueCredit = 0;
-    if (CurrentLimit > AnuualLimit || CurrentLimit == 0) {
+    if ((CurrentLimit > AnuualLimit && CurrentLimit != .001) || CurrentLimit == 0) {
         CurrentLimit = AnuualLimit;
     }
     if (CurrentLimit != 0) {
@@ -765,6 +765,7 @@ function FirstCalculation() {
 
 }
 function SecandCalculation() {
+    debugger;
     sumNoPay = 0;
     sum = 0;
 
@@ -783,7 +784,7 @@ function SecandCalculation() {
     //total-cash
     var total = sum - sumNoPay;
     var ValueCredit = 0;
-    if (CurrentLimit > AnuualLimit || CurrentLimit == 0) {
+    if ((CurrentLimit > AnuualLimit && CurrentLimit != .001) || CurrentLimit == 0) {
         CurrentLimit = AnuualLimit;
     }
     if (CurrentLimit != 0) {
