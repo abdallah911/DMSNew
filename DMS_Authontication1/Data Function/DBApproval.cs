@@ -11,7 +11,7 @@ namespace DMS_Authontication1.Data_Function
     public class DBApproval
     {
          public static string connectionStr = @"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)
-                                            (HOST=72.52.116.106)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDECATED)
+                                            (HOST=196.221.203.129)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDECATED)
                                             (SERVICE_NAME=ora11g)));User Id=app;Password=12369";
 
 

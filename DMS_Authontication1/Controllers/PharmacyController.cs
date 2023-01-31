@@ -1686,7 +1686,7 @@ namespace DMS_TEST.Controllers
             MedicineData CurentMedicine2 = db.MedicineDatas.Where(x => x.M_CODE == code).FirstOrDefault();
             string message = "";
             int check;
-            var createdDate = db.Roshitas.Where(r => r.CardId == id /*&& !r.Manager.Contains("Doctor_Chronic")*/ && !r.Manager.Contains("Stop"))
+            var createdDate = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Doctor_Chronic") && !r.Manager.Contains("Stop"))
                 .Join(db.RoshitaDetails, x => x.Id, d => d.RoshitaID, (x, d) => new { x, d })
               .Where(z => z.d.MedicienCode == code && z.d.PaymentGroup != "Cash" && z.d.IsDealed == true)
               .OrderByDescending(v => v.x.CreatedDate)

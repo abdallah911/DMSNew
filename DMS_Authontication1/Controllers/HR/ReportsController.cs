@@ -274,6 +274,48 @@ namespace DMS_Authontication1.Controllers.HR
 
         public ActionResult ConsumptionHR()
         {
+            if (User.IsInRole("HR_Admin"))
+            {
+                var userid = User.Identity.GetUserId();
+                var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+                if (compines[0] == "All")
+                {
+                    var companyname = db.Contract_Comp
+                        .Select(l => new
+                        {
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
+
+                        }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+                else
+                {
+                    var companyname = (from comp in compines
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+
+                return View();
+            }
+            else
+            {
+                var HrUserNamre = User.Identity.GetUserName();
+                string compa = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
+                ViewBag.compnum = compa;
+                return View();
+            }
+        }
+        public ActionResult ConsumptionHR2()
+        {
             bool IsIos = false;
             if (User.IsInRole("HR_Admin"))
             {

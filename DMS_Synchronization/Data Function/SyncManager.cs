@@ -5422,7 +5422,7 @@ namespace DMS_Synchronization
                 double count = double.Parse(GetSqlDataTable("SELECT Count(*) FROM Roshitadetails WHERE roshitaid in (SELECT id FROM Roshita  WHERE IsSync=1 AND SyncBy='TEST'" +
                     " AND Manager NOT IN('Lab_Stop','Ray_Stop','Lab','Ray','Doctor_Chronic') )", _connectionSettings.SQlConnection).Rows[0][0].ToString());
 
-                var maxiteration = Math.Ceiling(count / 10000);
+                var maxiteration = Math.Ceiling(count / 100000);
                 long sequenc = long.Parse(GetOracleDataTable(@"SELECT NVL(MAX(INVT_SEQ),0)   FROM INV_SAL ORDER BY INV_DATE DESC ", _connectionSettings.OrcaleConnectionTRN_SQL).Rows[0][0].ToString()) + 1;
                 if (DateTime.Now.Day == 2)
                 {
@@ -5440,7 +5440,7 @@ namespace DMS_Synchronization
 
 
                     List<RoshitaDetail> roshitaDetail = new List<RoshitaDetail>();
-                    var data2 = GetSqlDataTable(string.Format(query, (i * 10000), ((++i) * 10000)), _connectionSettings.SQlConnection);
+                    var data2 = GetSqlDataTable(string.Format(query, (i * 100000), ((++i) * 100000)), _connectionSettings.SQlConnection);
 
                     //var data2 = GetSqlDataTable(string.Format(query), _connectionSettings.SQlConnection);
                     try

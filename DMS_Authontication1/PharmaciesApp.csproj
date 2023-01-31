@@ -8387,6 +8387,7 @@
     <Content Include="Views\LossRatio\_MedicalNetworkCustomerService.cshtml" />
     <Content Include="Views\LossRatio\Index.cshtml" />
     <Content Include="Views\DoctorMedicinesLabsRaysApproval\_ShowDetails.cshtml" />
+    <Content Include="Views\Reports\ConsumptionHR2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

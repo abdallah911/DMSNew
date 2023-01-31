@@ -47,7 +47,7 @@
         }
         @if (fullcontroll || delete)
         {
-            @Html.ActionLink(" Claims", "HrClaims", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+            @Html.ActionLink(" Online Claims", "HrClaims", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
         }
     </p>
 </div>
@@ -56,15 +56,13 @@
     <div class="portlet box  green">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-gift"></i>Inquiries about an invoice
+                <i class="fa fa-gift"></i>Consumption Details
             </div>
         </div>
         <div class="portlet-body">
             <div class="row ">
                 <div class="col-md-12">
                     <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
-                        <!-- BEGIN PAGE HEADER-->
-                        <!-- BEGIN THEME PANEL -->
 
                         <div class="form-wizard">
                             <div class="form-body">
@@ -76,13 +74,13 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label class="control-label sbold col-md-3">
-                                                    Date of Registration :
-                                                    <span class="required"> * </span>
+                                                    Record Date :
+
                                                 </label>
                                                 <div class="col-md-6">
                                                     <label class="control-label sbold col-md-3">
                                                         From
-                                                        <span class="required"> * </span>
+
                                                     </label>
                                                     <div class="col-md-9">
                                                         <input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="From" />
@@ -94,7 +92,7 @@
                                         <div class="col-md-4">
                                             <label class="control-label sbold col-md-2">
                                                 TO
-                                                <span class="required"> * </span>
+
                                             </label>
                                             <div class="col-md-10">
                                                 <input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="To" />
@@ -107,11 +105,12 @@
                                             <div class="form-group">
                                                 <label class="control-label sbold col-md-3">
                                                     Date of Service :
-                                                    <span class="required"> * </span>
+
                                                 </label>
                                                 <div class="col-md-6">
                                                     <label class="control-label sbold col-md-3">
                                                         From
+
                                                     </label>
                                                     <div class="col-md-9">
                                                         <input id="ServiceFrom" type="text" class="col-md-2 form-control " placeholder="From" />
@@ -123,6 +122,7 @@
                                         <div class="col-md-4">
                                             <label class="control-label sbold col-md-2">
                                                 TO
+
                                             </label>
                                             <div class="col-md-10">
                                                 <input id="ServiceTo" type="text" class="col-md-2 form-control " placeholder="To" />
@@ -135,79 +135,30 @@
                                             <div class="form-group">
                                                 <label class="control-label sbold col-md-3">
                                                     Company Number :
+
                                                 </label>
                                                 <div class="col-md-6">
                                                     <label class="control-label sbold col-md-3">
                                                         From
-                                                    </label>
 
-
-                                                    @if (User.IsInRole("HR_Admin"))
-                                                    {
-                                                        <div class="col-md-9">
-                                                            @Html.DropDownList("CompanyFrom", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", id = "CompanyFrom" })
-
-                                                        </div>
-                                                        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                                                        <script>
-                                                            $(document).ready(function () {
-                                                                $('#CompanyFrom').select2();
-                                                            });
-                                                        </script>
-                                                    }
-                                                    else
-                                                    {
-                                                        <div class="col-md-9">
-                                                            <input id="CompanyFrom" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-
-                                                        </div>
-                                                    }
-                                                </div>
-                                                <br />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="control-label sbold col-md-2">
-                                                TO
-                                            </label>
-
-                                            @if (User.IsInRole("HR_Admin"))
-                                            {
-                                                <div class="col-md-10">
-                                                    @Html.DropDownList("CompanyTo", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", id = "CompanyTo" })
-
-                                                </div>
-                                                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                                                <script>
-                                                    $(document).ready(function () {
-                                                        $('#CompanyTo').select2();
-                                                    });
-                                                </script>
-                                            }
-                                            else
-                                            {
-                                                <div class="col-md-10">
-                                                    <input id="CompanyTo" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-
-                                                </div>
-                                            }
-
-                                        </div>
-
-
-                                        @* Class Number *@
-
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Class Number :
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <label class="control-label sbold col-md-3">
-                                                        From
                                                     </label>
                                                     <div class="col-md-9">
-                                                        <input id="ClassFrom" type="text" class="col-md-2 form-control " placeholder="From" onkeypress="return /[0-9 .]/i.test(event.key)" />
+                                                        @if (User.IsInRole("HR_Admin"))
+                                                        {
+                                                            @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumberFrom" })
+                                                            <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                            <script>
+                                                                $(document).ready(function () {
+                                                                    $('#CopmanyNumberFrom').select2();
+                                                                });
+                                                            </script>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <input id="CopmanyNumberFrom" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+
+                                                        }
                                                     </div>
                                                 </div>
                                                 <br />
@@ -216,13 +167,29 @@
                                         <div class="col-md-4">
                                             <label class="control-label sbold col-md-2">
                                                 TO
+
                                             </label>
                                             <div class="col-md-10">
-                                                <input id="ClassTo" type="text" class="col-md-2 form-control " placeholder="To" onkeypress="return /[0-9 .]/i.test(event.key)" />
+
+                                                @if (User.IsInRole("HR_Admin"))
+                                                {
+                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumberTo" })
+                                                    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                    <script>
+                                                        $(document).ready(function () {
+                                                            $('#CopmanyNumberTo').select2();
+                                                        });
+                                                    </script>
+
+                                                }
+                                                else
+                                                {
+                                                    <input id="CopmanyNumberTo" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+
+                                                }
+
                                             </div>
                                         </div>
-
-
 
                                         @* Card Number *@
 
@@ -230,14 +197,15 @@
                                             <div class="form-group">
                                                 <label class="control-label sbold col-md-3">
                                                     Card Number :
-                                                    <span class="required"> * </span>
+
                                                 </label>
                                                 <div class="col-md-6">
                                                     <label class="control-label sbold col-md-3">
                                                         From
+
                                                     </label>
                                                     <div class="col-md-9">
-                                                        <input id="CardFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                        <select id="CardIdFrom" class="col-md-2 js-data-example-ajax" style="width: 100%"></select>
                                                     </div>
                                                 </div>
                                                 <br />
@@ -246,21 +214,26 @@
                                         <div class="col-md-4">
                                             <label class="control-label sbold col-md-2">
                                                 TO
+
                                             </label>
                                             <div class="col-md-10">
-                                                <input id="CardTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                                                <select id="CardIdTo" class="col-md-2 js-data-example-ajax" style="width: 100%"></select>
                                             </div>
                                         </div>
 
-                                        @* Contract Number *@
+                                        <br />
+
+                                        @* Service provider number *@
 
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Contract Number :
+                                                <label class="control-label sbold col-md-4">
+                                                    Service Provider Number :
+
                                                 </label>
-                                                <div class="col-md-6">
-                                                    <input id="ContractNumber" type="number" class="col-md-2 form-control " min="0" onkeypress="return /[0-9 .]/i.test(event.key)" />
+                                                <div class="col-md-5">
+                                                    <select id="ProviderName" name="ProviderName" class="col-md-2 form-control js-data-example-ajax" style="width: 100%"></select>
+                                                    @*<input id="SerProvNumber" type="number" class="col-md-2 form-control " min="0" />*@
 
                                                 </div>
                                                 <br />
@@ -274,32 +247,24 @@
                                             <div class="form-group">
                                                 <label class="control-label sbold col-md-3">
                                                     Repot Type :
+                                                    <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
                                                     <select id="RepotType" class="form-control">
-                                                        <option value="1">106-1-Consumption Per Employee VS. Service</option>
-
-                                                        @*<option value="2">106-2-Consumption Per Super Group Service</option>*@
-                                                        <option value="3">106-3-Medicine Consumption</option>
-                                                        <option value="4">106-4-Consumption Per Employee</option>
-                                                        <option value="5">106-5-Consumption Summary</option>
-                                                        <option value="6">106-6-Consumption Per Relation</option>
-                                                        @if (ViewBag.IsIos)
-                                                        {
-                                                            <option value="7">106-7-Consumption Details</option>
-                                                        }
-                                                        @* <option value="7">106-7-Consumption Details</option>*@
-                                                        <option value="8">106-8-Consumption Per Provider</option>
-                                                        <option value="9">106-9-Consumption Per Service Group</option>
-
-                                                        <option value="10">106-10-Indemnity Check</option>
-
-                                                        @* <option value="11">106-2-2-Consumption Per Super Group Service New</option>*@
-
-
+                                                        @*<option value="901">Report Details 901</option>*@
+                                                        @*<option value="9011">Report Details 901-1</option>*@
+                                                        <option value="902">Top 20 employees in terms of Values (902)  </option>
+                                                        <option value="903">Top 20 employees in terms of Usage (903)</option>
+                                                        <option value="904">consumption per Provider with the highest according to values (904)</option>
+                                                        <option value="905">consumption per Provider with the highest according to Usage (905)</option>
+                                                        <option value="906">consumption per type of service according to values (906)</option>
+                                                        <option value="906">Distribution of consumption according to the type of service provider according to Usage (907)</option>
+                                                        <option value="908">Distribution of consumption according to the type of service and according to the values (908)</option>
+                                                        <option value="909">Distribution of consumption according to the type of service and according to values  (909)</option>
+                                                        <option value="912">Distribution of consumption according to the type of medical card (employee / family) (912)</option>
+                                                        <option value="915">Consumption per Card (915)</option>
+                                                        <option value="917">consumption for the type of service provider (917)</option>
                                                     </select>
-                                                    @*<input id="ServiceType" type="text" class="col-md-2 form-control " />*@
-
                                                 </div>
                                                 <br />
                                             </div>
@@ -334,47 +299,8 @@
                                             </div>
                                         </div>
                                         <br />
-
-                                        @*Compare Number*@
-
-                                        <div class="form-group col-md-12">
-                                            <div class="col-md-12">
-                                                <div class="col-md-offset-2" style="margin-top:20px">
-                                                    <label class="control-label sbold col-md-2">
-                                                        Claimnet :
-                                                    </label>
-                                                    <div class="col-md-10 row">
-                                                        <div class="checkbox-inline col-md-3">
-                                                            <label for="Greater">
-                                                                Greater Than
-                                                            </label>
-                                                            <input type="radio" id="Greater" name="Greater" value="GreaterThan" data-name="GreaterThan">
-
-                                                        </div>
-                                                        <div class="checkbox-inline col-md-3">
-                                                            <label for="Smaller">
-                                                                Smaller Than
-                                                            </label>
-                                                            <input type="radio" id="Greater" name="Greater" value="SmallerThan" data-name="SmallerThan">
-
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <input id="CompareNumber" type="text" class="col-md-2 form-control " onkeypress="return /[0-9 .]/i.test(event.key)" />
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <br />
-
-
-                                            </div>
-                                        </div>
-                                        <br />
-
-
-
                                         @* For Buttons *@
+
                                         <div class="col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
 
                                             <div class="col-sm-4" id="div_of_serv">
@@ -385,15 +311,10 @@
                                             </div>
 
                                         </div>
-
-
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
@@ -401,35 +322,106 @@
         </div>
 
     </div>
-
 }
+
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>
-    var larg = "999999999999999999";
-    var smal = "0";
+
     $(function () {
-        var id;
         $('#RegistrationFrom').datepicker({});
         $('#RegistrationTo').datepicker({});
 
         $('#ServiceFrom').datepicker({});
         $('#ServiceTo').datepicker({});
 
-        $('input:radio[name="Greater"]').change(
-            function () {
-                if ($(this).is(':checked')) {
-                    // append goes here
-                    if ($(this).val() == 'SmallerThan') {
-                        smal = $('#CompareNumber').val();
+        $('#ProviderName').select2({
+            placeholder: 'Search for a Provider ',
+            minimumInputLength: 3,
+            ajax: {
+                url: '/ConsumptionAdmin/GetProviderUsers/',
+                delay: 250,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
                     }
-                    else if ($(this).val() == 'GreaterThan') {
-                        larg = $('#CompareNumber').val().tostring();
-
-                    }
+                    return query;
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    var obj = {};
+                    data.push(obj)
+                    return {
+                        results: data,//.results,
+                        pagination: {
+                            more: (params.page * 10) < data.count_filtered
+                        }
+                    };
                 }
-            });
+                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
 
+            }
+        });
+        $('#CardIdTo').select2({
+            placeholder: 'Search for a card',
+            minimumInputLength: 5,
+            ajax: {
+                url: '/EmployeeRequest/GetActiveEmployess/',
+                delay: 250,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+                    return query;
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    var obj = {};
+                    data.push(obj)
+                    return {
+                        results: data,//.results,
+                        pagination: {
+                            more: (params.page * 10) < data.count_filtered
+                        }
+                    };
+                }
+                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+            }
+        });
+        $('#CardIdFrom').select2({
+            placeholder: 'Search for a card',
+            minimumInputLength: 5,
+            ajax: {
+                url: '/EmployeeRequest/GetActiveEmployess/',
+                delay: 250,
+                dataType: 'json',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+                    return query;
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    var obj = {};
+                    data.push(obj)
+                    return {
+                        results: data,//.results,
+                        pagination: {
+                            more: (params.page * 10) < data.count_filtered
+                        }
+                    };
+                }
+                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+            }
+        });
     });
 
     function ConsumptionPrint() {
@@ -437,13 +429,11 @@
         var RegistrationTo = $('#RegistrationTo').val();
         var ServiceFrom = $('#ServiceFrom').val();
         var ServiceTo = $('#ServiceTo').val();
-        var CompanyFrom = $('#CompanyFrom').val();
-        var CompanyTo = $('#CompanyTo').val();
-        var ClassFrom = $('#ClassFrom').val();
-        var ClassTo = $('#ClassTo').val();
-        var CardFrom = $('#CardFrom').val();
-        var CardTo = $('#CardTo').val();
-        var ContractNumber = $('#ContractNumber').val();
+        var CompanyFrom = $('#CopmanyNumberFrom').val();
+        var CompanyTo = $('#CopmanyNumberTo').val();
+        var CardFrom = $('#CardIdFrom').val();
+        var CardTo = $('#CardIdTo').val();
+        var ProviderName = $('#ProviderName').val();
         var RepotType = $('#RepotType').val();
 
         if ((RegistrationFrom != "" && RegistrationTo != "") || (ServiceFrom != "" && ServiceTo != "")) {
@@ -451,61 +441,55 @@
             if (CompanyFrom != 0 && CompanyTo != 0) {
 
                 //chick if not search with card number
-                if (CardFrom == "" && CardTo == "") {
+                if ((CardFrom == "" || CardFrom == null) && (CardTo == "" || CardTo == null)) {
+
                     if ($("#excel").is(":checked")) {
                         // do something if the excel is  checked
                         if ($("#pdf").is(":checked")) {
                             // do something if the pdf is  checked
                             // Print PDF and EXCEL
-                            window.open('/Reports/PrintConsumption?Regfrom=' + RegistrationFrom +
-                                '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom +
-                                '&&Serto=' + ServiceTo + '&&CompanyFrom=' + CompanyFrom + '&&CompanyTo=' +
-                                CompanyTo + '&&ClassFrom=' + ClassFrom + '&&ClassTo=' +
-                                ClassTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
-                                CardTo + '&&ContractNumber=' + ContractNumber + '&&RepotType=' + RepotType +
-                                '&&larg=' + larg + '&&smal=' + smal + '&&Percent=' + $('#CompareNumber').val());
+                            window.open('/ConsumptionAdmin/PrintConsumptionReports?Regfrom=' + RegistrationFrom +
+                                '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                                ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                                '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                                CardTo + '&&RepotType=' + RepotType);
 
-                            window.open('/Reports/PrintXlxConsumption?Regfrom=' + RegistrationFrom +
-                                '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom +
-                                '&&Serto=' + ServiceTo + '&&CompanyFrom=' + CompanyFrom + '&&CompanyTo=' +
-                                CompanyTo + '&&ClassFrom=' + ClassFrom + '&&ClassTo=' +
-                                ClassTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
-                                CardTo + '&&ContractNumber=' + ContractNumber + '&&RepotType=' + RepotType +
-                                '&&larg=' + larg + '&&smal=' + smal + '&&Percent=' + $('#CompareNumber').val());
+                            window.open('/ConsumptionAdmin/PrintConsumptionReportsXlx?Regfrom=' + RegistrationFrom +
+                                '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                                ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                                '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                                CardTo + '&&RepotType=' + RepotType);
                         }
                         else {
                             // Print EXCEL Only
-                            window.open('/Reports/PrintXlxConsumption?Regfrom=' + RegistrationFrom +
-                                '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom +
-                                '&&Serto=' + ServiceTo + '&&CompanyFrom=' + CompanyFrom + '&&CompanyTo=' +
-                                CompanyTo + '&&ClassFrom=' + ClassFrom + '&&ClassTo=' +
-                                ClassTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
-                                CardTo + '&&ContractNumber=' + ContractNumber + '&&RepotType=' + RepotType +
-                                '&&larg=' + larg + '&&smal=' + smal + '&&Percent=' + $('#CompareNumber').val());
+                            window.open('/ConsumptionAdmin/PrintConsumptionReportsXlx?Regfrom=' + RegistrationFrom +
+                                '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                                ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                                '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                                CardTo + '&&RepotType=' + RepotType);
                         }
 
                     }
                     else {
                         // Print PDF as Default
-                        window.open('/Reports/PrintConsumption?Regfrom=' + RegistrationFrom +
-                            '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom +
-                            '&&Serto=' + ServiceTo + '&&CompanyFrom=' + CompanyFrom + '&&CompanyTo=' +
-                            CompanyTo + '&&ClassFrom=' + ClassFrom + '&&ClassTo=' +
-                            ClassTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
-                            CardTo + '&&ContractNumber=' + ContractNumber + '&&RepotType=' + RepotType +
-                            '&&larg=' + larg + '&&smal=' + smal + '&&Percent=' + $('#CompareNumber').val());
+                        window.open('/ConsumptionAdmin/PrintConsumptionReports?Regfrom=' + RegistrationFrom +
+                            '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                            ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                            '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                            CardTo + '&&RepotType=' + RepotType);
                     }
+
                 }
                 //chick if card from have value and card to hasnot value to search with card number
-                else if (CardFrom != "" && CardTo == "") {
+                else if (CardFrom != "" && (CardTo == "" || CardTo == null)) {
                     toastr.info("Please Enter Valid Card To ...");
                 }
                 //chick if card to  have value and card from hasnot value to search with card number
-                else if (CardFrom == "" && CardTo != "") {
+                else if ((CardFrom == "" || CardFrom == null) && CardTo != "") {
                     toastr.info("Please Enter Valid Card From ...");
                 }
                 //chick if  search with card number , card form and card to have values
-                else {
+                else if ((CardFrom != "" || CardFrom != null) && (CardTo != "" || CardTo != null)) {
                     var arraFrom = CardFrom.split("-");
                     var arraTo = CardTo.split("-");
                     // chick card id is correct or not
@@ -513,50 +497,40 @@
 
                         // final chick if card id start with company id or not
                         if ((arraFrom[0] == CompanyFrom) && (arraTo[0] == CompanyTo)) {
-
-                            // Code For Excute her
                             if ($("#excel").is(":checked")) {
                                 // do something if the excel is  checked
                                 if ($("#pdf").is(":checked")) {
                                     // do something if the pdf is  checked
                                     // Print PDF and EXCEL
-                                    window.open('/Reports/PrintConsumption?Regfrom=' + RegistrationFrom +
-                                        '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom +
-                                        '&&Serto=' + ServiceTo + '&&CompanyFrom=' + CompanyFrom + '&&CompanyTo=' +
-                                        CompanyTo + '&&ClassFrom=' + ClassFrom + '&&ClassTo=' +
-                                        ClassTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
-                                        CardTo + '&&ContractNumber=' + ContractNumber + '&&RepotType=' + RepotType +
-                                        '&&larg=' + larg + '&&smal=' + smal + '&&Percent=' + $('#CompareNumber').val());
+                                    window.open('/ConsumptionAdmin/PrintConsumptionReports?Regfrom=' + RegistrationFrom +
+                                        '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                                        ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                                        '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                                        CardTo + '&&RepotType=' + RepotType);
 
-                                    window.open('/Reports/PrintXlxConsumption?Regfrom=' + RegistrationFrom +
-                                        '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom +
-                                        '&&Serto=' + ServiceTo + '&&CompanyFrom=' + CompanyFrom + '&&CompanyTo=' +
-                                        CompanyTo + '&&ClassFrom=' + ClassFrom + '&&ClassTo=' +
-                                        ClassTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
-                                        CardTo + '&&ContractNumber=' + ContractNumber + '&&RepotType=' + RepotType +
-                                        '&&larg=' + larg + '&&smal=' + smal + '&&Percent=' + $('#CompareNumber').val());
+                                    window.open('/ConsumptionAdmin/PrintConsumptionReportsXlx?Regfrom=' + RegistrationFrom +
+                                        '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                                        ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                                        '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                                        CardTo + '&&RepotType=' + RepotType);
                                 }
                                 else {
                                     // Print EXCEL Only
-                                    window.open('/Reports/PrintXlxConsumption?Regfrom=' + RegistrationFrom +
-                                        '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom +
-                                        '&&Serto=' + ServiceTo + '&&CompanyFrom=' + CompanyFrom + '&&CompanyTo=' +
-                                        CompanyTo + '&&ClassFrom=' + ClassFrom + '&&ClassTo=' +
-                                        ClassTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
-                                        CardTo + '&&ContractNumber=' + ContractNumber + '&&RepotType=' + RepotType +
-                                        '&&larg=' + larg + '&&smal=' + smal + '&&Percent=' + $('#CompareNumber').val());
+                                    window.open('/ConsumptionAdmin/PrintConsumptionReportsXlx?Regfrom=' + RegistrationFrom +
+                                        '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                                        ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                                        '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                                        CardTo + '&&RepotType=' + RepotType);
                                 }
 
                             }
                             else {
                                 // Print PDF as Default
-                                window.open('/Reports/PrintConsumption?Regfrom=' + RegistrationFrom +
-                                    '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom +
-                                    '&&Serto=' + ServiceTo + '&&CompanyFrom=' + CompanyFrom + '&&CompanyTo=' +
-                                    CompanyTo + '&&ClassFrom=' + ClassFrom + '&&ClassTo=' +
-                                    ClassTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
-                                    CardTo + '&&ContractNumber=' + ContractNumber + '&&RepotType=' + RepotType +
-                                    '&&larg=' + larg + '&&smal=' + smal + '&&Percent=' + $('#CompareNumber').val());
+                                window.open('/ConsumptionAdmin/PrintConsumptionReports?Regfrom=' + RegistrationFrom +
+                                    '&&Regto=' + RegistrationTo + '&&Serfrom=' + ServiceFrom + '&&Serto=' +
+                                    ServiceTo + '&&ProviderName=' + ProviderName + '&&CompanyFrom=' + CompanyFrom +
+                                    '&&CompanyTo=' + CompanyTo + '&&CardFrom=' + CardFrom + '&&CardTo=' +
+                                    CardTo + '&&RepotType=' + RepotType);
                             }
 
                         }
@@ -579,5 +553,6 @@
 
 
     }
+
 
 </script>

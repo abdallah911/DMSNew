@@ -75,7 +75,7 @@ $(function () {
                             },
                             success: function (r) {
                                 if (r.Validation == false) {
-                                    alert( "برجاء دخول الكود المرسل لسيادتكم علي رقم الهاتف المسجل لدي الشركة وللحصول علي الكود برجاء الاتصال علي الرقم التالي (26390990) الرقم الداخلي 110");
+                                    alert("برجاء دخول الكود المرسل لسيادتكم علي رقم الهاتف المسجل لدي الشركة وللحصول علي الكود برجاء الاتصال علي الرقم التالي (26390990) الرقم الداخلي 110");
                                     location.reload();
                                 } else {
                                     toastr.success(r.Message);
@@ -728,7 +728,7 @@ function FirstCalculation() {
         var row = $(this);
         sum += parseFloat(row.find("TD").eq(12).html());
         //var x = row.find("TD").eq(13).html().trim();
-        if (row.find("TD").eq(13).html().trim() == "Yes") {
+        if (row.find("TD").eq(13).html().trim() == "yes" || row.find("TD").eq(13).html().trim() == "Yes") {
             sumNoPay += parseFloat(row.find("TD").eq(12).html());
         }
     });
@@ -772,7 +772,7 @@ function SecandCalculation() {
     $('#Secand TBODY TR').each(function () {
         var row = $(this);
         sum += parseFloat(row.find("TD").eq(11).html());
-        if (row.find("TD").eq(12).html().trim() == "Yes") {
+        if (row.find("TD").eq(12).html().trim() == "Yes" || row.find("TD").eq(12).html().trim() == "yes") {
             sumNoPay += parseFloat(row.find("TD").eq(11).html());
         }
     });
