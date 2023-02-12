@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DMS_HOSPITAL.Reports {
+namespace DMS_Authontication1.Reports.Hospital {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -41,7 +41,7 @@ namespace DMS_HOSPITAL.Reports {
         
         public override string FullResourceName {
             get {
-                return "DMS_HOSPITAL.Reports.ReportApproval.rpt";
+                return "DMS_Authontication1.Reports.Hospital.ReportApproval.rpt";
             }
             set {
                 // Do nothing

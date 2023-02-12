@@ -93,6 +93,15 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             return View(claimList);
         }
 
+        public ActionResult AprovalsEdit()
+        {
+            var HrUserName = User.Identity.GetUserName();
+            var Provider = Convert.ToInt32(myEntities.Users.Where(u => u.UserName == HrUserName).FirstOrDefault().Provider);
+            var claimList = db.ApprovalBils.Where(c => c.ProviderCode == Provider && c.IsDeleted != true)
+                .ToList().OrderByDescending(m => m.Id);
+            return View(claimList);
+        }
+
 
         public ActionResult AddApproval()
         {
@@ -159,18 +168,47 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             return View();
         }
 
-        public ActionResult Edit(long? Id)
+        public ActionResult Chat()
         {
-            if (Id == null)
+            return View();
+        }
+        public ActionResult Edit(string code)
+        {
+            var model = new ApprovalBil();
+            model.Code = code;
+            if (code == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View(model);
             }
-            var model = db.HospitalClaims.Where(c => c.ID == Id && c.IsDeleted != true).FirstOrDefault();
+
+            model = db.ApprovalBils.Where(c => c.Code == code).FirstOrDefault();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(ApprovalBil obj)
+        {
+            var model = db.ApprovalBils.Where(c => c.Code == obj.Code).FirstOrDefault();
             if (model == null)
             {
-                return HttpNotFound();
+                var HUserName = User.Identity.GetUserName();
+                obj.ProviderCode = Convert.ToInt32(myEntities.Users.Where(u => u.UserName == HUserName).FirstOrDefault().Provider);
+                obj.CreatedBy = User.Identity.GetUserName();
+                obj.CreatedDate = DateTime.Now;
+                obj.IsDeleted = false;
+                db.ApprovalBils.Add(obj);
+                db.SaveChanges();
+                return RedirectToAction("AprovalsEdit");
             }
-            return View(model);
+            model.EnterDate = obj.EnterDate;
+            model.ExitDate = obj.ExitDate;
+            model.TotalValue = obj.TotalValue;
+            model.UpdatedBy = User.Identity.GetUserName();
+            model.UpdatedDate = DateTime.Now;
+            db.Entry(model).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("AprovalsEdit");
         }
 
         // GET: Hospital/Delete/5
@@ -214,10 +252,10 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             //StringBuilder strBody = new StringBuilder();
             //strBody.Append("One Try To login To Ypur Accoun");
             //var EmailAndPassword = db.ProviderEmails.Where(p => p.PrvoderCode == applicationUser.Provider).FirstOrDefault();
-            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("mediacl.approv@gmail.com" /*EmailAndPassword.Email*/, to, subject, Message);
+            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("hrindemnity@gmail.com" /*EmailAndPassword.Email*/, to, subject, Message);
             //pasing the Gmail credentials to send the email
             mail.AlternateViews.Add(altView);
-            System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "Dms123456"/*EmailAndPassword.Email, EmailAndPassword.Password*/);
+            System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("hrindemnity@gmail.com", "maadtyhyszskumob"/*EmailAndPassword.Email, EmailAndPassword.Password*/);
 
             System.Net.Mail.SmtpClient mailclient = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
             mailclient.EnableSsl = true;

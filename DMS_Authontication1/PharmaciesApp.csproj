@@ -454,7 +454,7 @@
     <Compile Include="Models\AfterSale.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AnalysisLossRatio.cs">
+    <Compile Include="Models\ApprovalBil.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ApprovalDetail.cs">
@@ -8390,6 +8390,10 @@
     <Content Include="Views\LossRatio\Index.cshtml" />
     <Content Include="Views\DoctorMedicinesLabsRaysApproval\_ShowDetails.cshtml" />
     <Content Include="Views\Reports\ConsumptionHR2.cshtml" />
+    <Content Include="Views\Hospital\Edit.cshtml" />
+    <Content Include="Views\Hospital\Chat.cshtml" />
+    <Content Include="Views\Hospital\Chat - Copy.cshtml" />
+    <Content Include="Views\Hospital\AprovalsEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

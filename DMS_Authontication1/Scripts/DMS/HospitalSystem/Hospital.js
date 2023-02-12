@@ -705,6 +705,7 @@ $(function () {
                                     "<td>" + apprs[i].End_Date + "</td>" +
                                     "<td>" + apprs[i].Expaire_Date + "</td>" +
                                     "<td >" + "<Button  class='btn btn-Primary ' onclick='Print(\"" + apprs[i].Code + "\");'>Print</Button>" + "</td>" +
+                                    "<td >" + "<a class='btn btn-warning fa fa-edit' href='/Hospital/Edit?code=" + apprs[i].Code + "' style='text-transform: none'> Edit</a>" +
                                     "</tr>";
                                 setData2.append(data);
                             }
@@ -1429,6 +1430,7 @@ function selectionChanged() {
                         "<td>" + apprs[i].End_Date + "</td>" +
                         "<td>" + apprs[i].Expaire_Date + "</td>" +
                         "<td >" + "<Button  class='btn btn-Primary ' onclick='Print(\"" + apprs[i].Code + "\");'>Print</Button>" + "</td>" +
+                        "<td >" + "<a class='btn btn-warning fa fa-edit' href='/Hospital/Edit?code=" + apprs[i].Code + "' style='text-transform: none'> Edit</a>" +
                         "</tr>"
                     setData2.append(data);
                 }

@@ -1,0 +1,132 @@
+﻿@model DMS_Authontication1.Models.ApprovalBil
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+@if (Model != null)
+{
+    @Html.Hidden("Edate", @Model.ExitDate, new { @id = "Edate", @name = "Edate" })
+    @Html.Hidden("Endate", @Model.EnterDate, new { @id = "Endate", @name = "Endate" })
+}
+<div class="portlet box green" style="margin-top:80px">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-edit"></i> Edit Approval
+        </div>
+        <div class="actions">
+            <a id="Create" href="/Hospital/AprovalsEdit" style=" text-transform: none" class="btn btn-primary  btn-sm dark">
+                <i class="fa fa-backward"></i> Back To List
+            </a>
+        </div>
+    </div>
+    <br />
+    <input id="count" value="0" hidden="hidden" />
+    <div class="portlet-body ">
+        <div class="row ">
+            <div class="col-md-12">
+                @using (Html.BeginForm("Edit", "Hospital", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-wizard">
+                        <div class="form-body">
+                            <div class="tab-content">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <span class="text-danger">@ViewBag.Error</span>
+                                <div class="row ">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayName("Code") :
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+
+                                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="CompanyTypeNew">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayName("Enter Date") :
+                                                @*<span class="required"> * </span>*@
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.EnterDate, new { htmlAttributes = new { @class = "form-control CreatDate" } })
+
+                                                @Html.ValidationMessageFor(model => model.EnterDate, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayName("Exit Date") :
+                                                @*<span class="required"> * </span>*@
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.ExitDate, new { htmlAttributes = new { @class = "form-control CreatDate" } })
+
+                                                @Html.ValidationMessageFor(model => model.ExitDate, "", new { @class = "text-danger" })
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayName("Total") :
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.TotalValue, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+
+                                                @Html.ValidationMessageFor(model => model.TotalValue, "", new { @class = "text-danger" })
+
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <br />
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer" style="text-align:right;">
+                        @*<input data-step="8" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
+                        <input id="reset" type="button" value="Reset" onclick="ClearData();" class="btn btn-warning" />
+                        <input id="submit" type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    $(function () {
+        var Edate = $("#Edate").val();
+        var Endate = $("#Endate").val();
+
+        $('.CreatDate').datepicker({
+            minDate: '-2D',
+        });
+        //$('.CreatDate').datetimepicker({
+        //    minDate: new Date()
+        //});
+        $('#EnterDate').val(Endate);
+        $('#ExitDate').val(Edate);
+    });
+
+    function ClearData() {
+
+        $('#Note').val("");
+        $('#ImageFile').val("");
+    }
+</script>
+

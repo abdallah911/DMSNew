@@ -80,6 +80,24 @@
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="ApprovalBil">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProviderCode" Type="int" />
+          <Property Name="EnterDate" Type="datetime" />
+          <Property Name="ExitDate" Type="datetime" />
+          <Property Name="TotalValue" Type="float" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar(max)" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="DeletedBy" Type="nvarchar(max)" />
+          <Property Name="DeletedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar(max)" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="ApprovalDetails">
           <Key>
             <PropertyRef Name="Id" />
@@ -2359,7 +2377,7 @@
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Swap">
           <Key>
             <PropertyRef Name="Id" />
@@ -3200,6 +3218,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="AcceptionReasons" EntityType="Self.AcceptionReasons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AfterSale" EntityType="Self.AfterSale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="APPROVAL_BAD" EntityType="Self.APPROVAL_BAD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApprovalBil" EntityType="Self.ApprovalBil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApprovalDetails" EntityType="Self.ApprovalDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApprovalMaster" EntityType="Self.ApprovalMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Basic_Data" EntityType="Self.Basic_Data" Schema="dbo" store:Type="Tables" />
@@ -5105,8 +5124,9 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
             <End Role="EmployeesSMSCode" EntitySet="EmployeesSMSCodes" />
           </AssociationSet>
           <FunctionImport Name="fn_searchCompEmployeesForNextContract" IsComposable="true" ReturnType="Collection(DB_A45413_DMSERPModel.fn_searchCompEmployeesForNextContract_Result)">
-            <Parameter Name="search" Mode="In" Type="String" />
+          <Parameter Name="search" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="ApprovalBils" EntityType="DB_A45413_DMSERPModel.ApprovalBil" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7062,6 +7082,24 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Type="Int32" Name="CONTRACT_NO" Nullable="true" />
           <Property Type="DateTime" Name="Now" Nullable="false" Precision="23" />
         </ComplexType>
+        <EntityType Name="ApprovalBil">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EnterDate" Type="DateTime" Precision="3" />
+          <Property Name="ExitDate" Type="DateTime" Precision="3" />
+          <Property Name="TotalValue" Type="Double" />
+          <Property Name="ProviderCode" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="DeletedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9772,6 +9810,25 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="ApprovalBils">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ApprovalBil">
+              <MappingFragment StoreEntitySet="ApprovalBil">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ProviderCode" ColumnName="ProviderCode" />
+                <ScalarProperty Name="TotalValue" ColumnName="TotalValue" />
+                <ScalarProperty Name="ExitDate" ColumnName="ExitDate" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
