@@ -117,6 +117,13 @@
                             </select>
 
                         </div>
+                        <div class="col-sm-2" id="div_of_servEmergancy" data-step="4" data-intro="Select Sub Services">
+                            <label class="control-label">Sub Services</label>
+                            <select id="ServicesEmergancy" class="form-control">
+                                <option value="0"> اختر نوع الخدمه المطلوبه </option>
+                            </select>
+
+                        </div>
 
 
                         @*<div class="col-sm-2" data-step="8" data-intro="Select Diagnoises">
@@ -186,6 +193,11 @@
                         <select id="doctorNameSelect" style="width:100%" multiple="multiple">
                             
                         </select>
+                    </div>
+                    <div id="DoctortNameEmergancydiv" class="col-sm-4" hidden="hidden" @*data-step="5" data-intro="Select Diagnoises"*@>
+                        @Html.Label("Doctor Name", new { @class = "control-label" })
+                        @Html.Editor("DoctortNameEmergancy", new { htmlAttributes = new { @class = "form-control", @id= "DoctortNameEmergancy",@name= "DoctortNameEmergancy"} })
+
                     </div>
 
 

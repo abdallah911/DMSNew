@@ -1030,7 +1030,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                         db.Entry(exc).State = EntityState.Modified;
                         db.SaveChanges();
                     }
-                    return new JsonResult { Data = new { result = "تم حفظ العملية بنجاح كود الموافقة  :" + codeRequestDate, ID = hospitalClaim.IdPrimary, msg = "OK" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    return new JsonResult { Data = new { result = "تم حفظ العملية بنجاح كود الموافقة  :" + codeRequestDate, ID = hospitalClaim.IdPrimary + "\n", msg = "OK" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
                 else
                     return new JsonResult { Data = new { result = "Invalid Request", msg = "NO" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };

@@ -73,11 +73,13 @@ $(function () {
         $("#doctorNameSelect").val("0");
         $("#DoctortDegree").hide();
         $("#DoctortName").hide();
+        $("#DoctortNameEmergancydiv").hide();
 
         //$('#AddDiagnoise').attr('disabled', true);
         //$('#RemoveDiagnoise').attr('disabled', true);
         $("#Physical").html("");
         $("#div_of_serv").hide();
+        $("#div_of_servEmergancy").hide();
         $("#divNotes").hide();
 
         $("#other-data").show();
@@ -114,6 +116,7 @@ $(function () {
         $("#doctorNameSelect").val("0");
         $("#DoctortDegree").hide();
         $("#DoctortName").hide();
+        $("#DoctortNameEmergancydiv").hide();
 
         $("#other-data").show();
         $("#total_id").show();
@@ -122,6 +125,7 @@ $(function () {
         $("#Physical").html("");
         $("#main_services").html("");
         $("#div_of_serv").hide();
+        $("#div_of_servEmergancy").hide();
         $("#divNotes").hide();
         $("#serviceselect").hide();
         $("#SpecialityDiv").hide();
@@ -347,45 +351,16 @@ $(function () {
                                             $("#other-data").hide();
                                             $("#divNotes").hide();
                                             $("#total_id").hide();
-                                            $("#DoctortName").show();
+                                            $("#DoctortNameEmergancydiv").show();
                                             $("#SpecialityDiv").show();
                                             $("#serviceselect").hide();
-                                            $("#doctorNameSelect").select2({
-                                                placeholder: "Select a Doctor",
-                                                ajax: {
-                                                    url: '/Hospital/GetDoctors/',
-                                                    dataType: 'json',
-                                                    data: function (params) {
-                                                        var query = {
-                                                            sEcho: params.page || 1,
-                                                            //iColumns=10,
-                                                            //iDisplayLength=10,
-                                                            sSearch: params.term,
-                                                            Provider: $("#providerHospialCode").val(),
 
-                                                        }
+                                            $("#div_of_servEmergancy").show();
+                                            $('#ServicesEmergancy').append('<option value="0"> اختر نوع الخدمه المطلوبه </option>'
+                                                + '<option value="111041"> كشف فقط </option>'
+                                                + '<option value="111042">  الدخول الي الرعاية </option>'
+                                                + '<option value="111043"> النقل الي غرفة </option>');
 
-                                                        // Query parameters will be ?search=[term]&page=[page]
-                                                        return query;
-                                                    },
-                                                    processResults: function (data, params) {
-                                                        params.page = params.page || 1;
-                                                        var result = [];
-                                                        for (var i = 0; i < data.aaData.length; i++) {
-                                                            var current = {};
-                                                            current.id = data.aaData[i].Doctorid;
-                                                            current.text = data.aaData[i].doctorName;
-                                                            result.push(current);
-                                                        }
-                                                        return {
-                                                            results: result,
-                                                            pagination: {
-                                                                more: (params.page * 10) < data.count_filtered
-                                                            }
-                                                        };
-                                                    }
-                                                }
-                                            });
 
                                             $(".celling-pert").val("100");
                                             $("#Limit").val(0);
@@ -637,14 +612,17 @@ $(function () {
         $("#doctorNameSelect").val("0");
         $("#DoctortDegree").hide();
         $("#DoctortName").hide();
+        $("#DoctortNameEmergancydiv").hide();
 
         //$('#AddDiagnoise').attr('disabled', true);
         //$('#RemoveDiagnoise').attr('disabled', true);
         $("#Physical").html("");
         $("#div_of_serv").hide();
+        $("#div_of_servEmergancy").hide();
         $("#divNotes").hide();
         $("#serviceselect").hide();
         $("#Services").empty();
+        $("#ServicesEmergancy").empty();
 
         $("#other-data").show();
         $("#total_id").show();
@@ -779,11 +757,16 @@ $(function () {
             else if ($("#main_services").val() == 11104) {
                 //Co-Payment
                 $("#divNotes").show();
-
+                $("#div_of_servEmergancy").show();
+                $('#ServicesEmergancy').append('<option value="0"> اختر نوع الخدمه المطلوبه </option>'
+                    + '<option value="111041"> كشف فقط </option>'
+                    + '<option value="111042">  الدخول الي الرعاية </option>'
+                    + '<option value="111043"> النقل الي غرفة </option>');
+                
                 $("#other-data").hide();
                 $("#divNotes").hide();
                 $("#total_id").hide();
-                $("#DoctortName").show();
+                $("#DoctortNameEmergancydiv").show();
                 $("#SpecialityDiv").show();
                 $("#serviceselect").hide();
                 $.ajax({
@@ -908,6 +891,7 @@ $(function () {
         $("#doctorNameSelect").val("0");
         $("#DoctortDegree").hide();
         $("#DoctortName").hide();
+        $("#DoctortNameEmergancydiv").hide();
 
         $("#divNotes").hide();
         $("#SpecialityDiv").hide();
@@ -1504,6 +1488,7 @@ function ClearHospitalData() {
     $("#Physical").html("");
     $("#main_services").html("");
     $("#div_of_serv").hide();
+    $("#div_of_servEmergancy").hide();
 
     $("#other-data").show();
     $("#total_id").show();
@@ -1527,7 +1512,7 @@ function ChickSaveData() {
             C_Com_ID: $('#Company_ID').val(),
             Provider_Code: $("#providerHospialCode").val(),
             Card_ID: $('#txtSearchCard').val(),
-            Services_ID: serviceID,
+            Services_ID: $('#ServicesEmergancy').val(),
             ServType: mainSerEmer,
             Services: AllDiagnos,
             Contract_Number: $('#Con_Num').val(),
@@ -1546,7 +1531,7 @@ function ChickSaveData() {
             HospitalException: exceptionHospital,
             ExceptionLabRayDoctor: exceptionLabRay,
             SpecalistID: $("#SpecialitySelect").val(),
-            DoctorName: $("#doctorNameSelect").val()
+            DoctorName: $("#DoctortNameEmergancy").val()
         };
         $.ajax({
             type: "POST",
@@ -1560,7 +1545,7 @@ function ChickSaveData() {
 
                     bootbox.confirm({
                         title: "حالة الطلب ",
-                        message: rwt.result.toString(),
+                        message: rwt.result.toString() + "يرجي العلم ان هذه الموافقة مجرد تسجيل دخول ولابد من الحصول علي موافقة من الادارة الطبية",
                         buttons: {
                             cancel: {
                                 label: '<i class="fa fa-reply"></i> جديد'
@@ -1849,6 +1834,7 @@ function ChickSaveData() {
                                                             $("#Physical").html("");
                                                             $("#main_services").html("");
                                                             $("#div_of_serv").hide();
+                                                            $("#div_of_servEmergancy").hide();
                                                             $("#divNotes").hide();
                                                             $("#serviceselect").hide();
                                                             exceptionHospital = null;
@@ -1994,6 +1980,7 @@ function ChickSaveData() {
                                                         $("#Physical").html("");
                                                         $("#main_services").html("");
                                                         $("#div_of_serv").hide();
+                                                        $("#div_of_servEmergancy").hide();
                                                         $("#divNotes").hide();
                                                         $("#serviceselect").hide();
                                                         exceptionHospital = null;
