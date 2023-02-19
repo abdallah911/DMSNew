@@ -1198,6 +1198,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RoshitaReport2.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AcceptionViewModel.cs" />
@@ -8382,7 +8383,9 @@
     <Content Include="Reports\HR\IndemnityCheckInternalCode.rpt" />
     <Content Include="Views\CustomerService\Index.cshtml" />
     <Content Include="Views\CompEmployees\IndexSms.cshtml" />
-    <Content Include="Reports\HR\HrClaimsReport.rpt" />
+    <Content Include="Reports\HR\HrClaimsReport.rpt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Reports\HR\ApprovalHr.rpt" />
     <Content Include="Reports\ReportPrintHorizontal6.rpt" />
     <Content Include="Views\CustomerService\_MedicalNetworkCustomerService.cshtml" />
@@ -8709,10 +8712,11 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Consum918InternalCode.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\RoshitaReport2.rpt">
+    <Content Include="Reports\RoshitaReport2.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RoshitaReport2.cs</LastGenOutput>
-    </EmbeddedResource>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
