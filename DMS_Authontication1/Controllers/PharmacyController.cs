@@ -72,6 +72,67 @@ namespace DMS_TEST.Controllers
 
             }
         }
+        public JsonResult AddCardForAddDoctor(string id)
+        {
+            var company = id.Split('-')[0];
+            var userID = User.Identity.GetUserId();
+            var isPermission = db.UserCompanyPermissions.Where(u => u.UserId == userID && u.IsActive != false).Select(c => c.CompId).ToList();
+            if (isPermission == null || isPermission.Count == 0)
+            {
+                var emp = db.fn_searchCompEmployees(id).ToList();
+                if (emp.Count() > 0)
+                {
+                    var diffOfDates = emp.ElementAt(0).INS_END_DATE.Value -DateTime.Now;
+                    if (diffOfDates.Days >= 28)
+                    {
+                        return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
+                    else
+                    {
+                        var empnext = db.fn_searchCompEmployeesForNextContract(id).ToList();
+                        if (empnext.Count() > 0)
+                            return new JsonResult { Data = empnext, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        else
+                            return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
+                }
+                else
+                {
+                    var empnext = db.fn_searchCompEmployeesForNextContract(id).ToList();
+                    return new JsonResult { Data = empnext, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+            }
+            else
+            {
+                if (isPermission.Contains(company))
+                {
+                    var emp = db.fn_searchCompEmployees(id).ToList();
+                    if (emp.Count() > 0)
+                    {
+                        var diffOfDates = emp.ElementAt(0).INS_END_DATE.Value - emp.ElementAt(0).INS_START_DATE.Value;
+                        if (diffOfDates.Days >= 28)
+                        {
+                            return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        }
+                        else
+                        {
+                            var empnext = db.fn_searchCompEmployeesForNextContract(id).ToList();
+                            if (empnext.Count() > 0)
+                                return new JsonResult { Data = empnext, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                            else
+                                return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        }
+                    }
+                    else
+                    {
+                        var empnext = db.fn_searchCompEmployeesForNextContract(id).ToList();
+                        return new JsonResult { Data = empnext, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
+                }
+                return new JsonResult { Data = "null", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+        }
         public JsonResult AddCardForAddChronic(string id)
         {
             var company = id.Split('-')[0];
@@ -618,7 +679,7 @@ namespace DMS_TEST.Controllers
                             if (LimitDailyYearlyPreceptionAmount != 0 && Limit > LimitDailyYearlyPreceptionAmount)
                                 Limit = LimitDailyYearlyPreceptionAmount;
                         }
-                        if (ServiceCode == "11602"||ServiceCode == "11603")
+                        if (ServiceCode == "11602" || ServiceCode == "11603")
                         {
                             if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount)
                                 Limit = LimitMonthlyMonthlyPreceptionAmount;
