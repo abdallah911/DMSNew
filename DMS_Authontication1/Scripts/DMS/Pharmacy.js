@@ -326,6 +326,7 @@ $(function () {
                                         var Gender = false;
                                         var DisregardCeiling = false;
                                         var ExternalPrescription = false;
+                                        var PrescriptionPerDay = false;
                                         for (var i = 0; i < returndata.length; i++) {
                                             Copayment = Copayment == true ? true : returndata[i].includes("Cancel Co-Payment");
                                             Limit = Limit == true ? true : returndata[i].includes('Disregard OverInsurance');
@@ -335,11 +336,51 @@ $(function () {
                                             Gender = Gender == true ? true : returndata[i].includes("Ignore Gender");
                                             DisregardCeiling = DisregardCeiling == true ? true : returndata[i].includes("Disregard Ceiling");
                                             ExternalPrescription = ExternalPrescription == true ? true : returndata[i].includes("External Prescription");
+                                            PrescriptionPerDay = PrescriptionPerDay == true ? true : returndata[i].includes("Unlimited Examination per day");
 
                                         }
                                         if (Adult == true) {
                                             // console.log("Age is checked");
                                             GetAge(1);
+                                        }
+                                        if (PrescriptionPerDay == true) {
+                                            //Co-Payment
+                                            $.ajax({
+                                                type: "POST",
+                                                dataType: "json",
+                                                url: '/Pharmacy/CellingAmount',
+                                                data: {
+                                                    id: CardId,
+                                                    ServiceCode: $('#ddlType').val()
+                                                },
+                                                success: function (r) {
+                                                    if (r.Validation == false) {
+                                                        // toastr.info(r.Message);
+                                                        //ClearCardData();
+                                                        alert(r.Message);
+                                                        //history.go(0);
+                                                        window.location.replace("/Pharmacy/Pharmacy");
+                                                        //window.location.reload();
+
+                                                    } else {
+                                                        $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
+                                                        AnuualLimit = r.Limit;
+                                                        if ( r.CoInsurancelimit.INSURANCE_DAY >= 0) {
+                                                            $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
+                                                        } else {
+                                                            alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
+                                                            $("#insurance_LIVEL").val("0.001");
+
+                                                            $('#ddEmp_CEILING_PERT').val("0");
+                                                        }
+                                                    }
+                                                },
+                                                error: function (err) {
+                                                    alert("Failed to retrieve Company Annual Limit. please check your internet connection");
+                                                    location.reload();
+                                                }
+                                            });
+                                            Calculation();
                                         }
                                         if (Limit == true) {
                                             $("#insurance_LIVEL").val(0);

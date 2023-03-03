@@ -341,8 +341,8 @@ $(function () {
                                                     alert(' لا يمكن تقديم الخدمه لهذا الموظف لانتهاء الكارت');
                                                 }
                                             }
-                                            else {
-                                                alert(' Invalid Card Number Termintate Flag ');
+                                            else if (r.Data[0].TERMINATE_FLAG == 'H'){
+                                                alert("تم استهلاك النسبه المقررة للحد الاقصي للتغطية برجاء الرجوع الي ادارة الموارد البشريه الخاصه بسياداتكم " );
                                             }
                                         }
                                         else {

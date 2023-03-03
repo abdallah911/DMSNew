@@ -82,7 +82,7 @@ namespace DMS_TEST.Controllers
                 var emp = db.fn_searchCompEmployees(id).ToList();
                 if (emp.Count() > 0)
                 {
-                    var diffOfDates = emp.ElementAt(0).INS_END_DATE.Value -DateTime.Now;
+                    var diffOfDates = emp.ElementAt(0).INS_END_DATE.Value - DateTime.Now;
                     if (diffOfDates.Days >= 28)
                     {
                         return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -487,7 +487,39 @@ namespace DMS_TEST.Controllers
                                        Amount = details.Amount,
                                    }).ToList().Sum(r => r.Amount);
                 }
-
+                List<Roshita> copyacumlator = new List<Roshita>();
+                copyacumlator.AddRange(AcumlatorList);
+                for (int i = 0; i < copyacumlator.Count(); i++)
+                {
+                    var item = copyacumlator[i];
+                    var chickpermision = (from roshitaacception in db.RoshitaAcceptions
+                                          join cardaception in db.CardAcceptionReasons
+                                                on roshitaacception.AcceptionId equals cardaception.AcceptionId
+                                          where roshitaacception.RoshitaId == item.Id && (cardaception.AcceptionReasonsId == 1 || cardaception.AcceptionReasonsId == 2)
+                                          select new
+                                          {
+                                              id = cardaception.AcceptionReasonsId,
+                                          }).ToList();
+                    if (chickpermision.Count() > 0)
+                    {
+                        AcumlatorList.Remove(item);
+                    }
+                }
+                //foreach (var item in copyacumlator)
+                //{
+                //    var chickpermision = (from roshitaacception in db.RoshitaAcceptions
+                //                          join cardaception in db.CardAcceptionReasons
+                //                                on roshitaacception.AcceptionId equals cardaception.AcceptionId
+                //                          where roshitaacception.RoshitaId == item.Id && (cardaception.AcceptionReasonsId == 1 || cardaception.AcceptionReasonsId == 2)
+                //                          select new
+                //                          {
+                //                              id = cardaception.AcceptionReasonsId,
+                //                          }).ToList();
+                //    if (chickpermision.Count()>0)
+                //    {
+                //        AcumlatorList.Remove(item);
+                //    }
+                //}
                 //if (type == true)
                 //{
                 //    Available = CompContractClassMAX_AMOUNT;
@@ -895,6 +927,25 @@ namespace DMS_TEST.Controllers
                 double Limit = 0;
                 List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+
+                List<Roshita> copyacumlator = new List<Roshita>();
+                copyacumlator.AddRange(AcumlatorList);
+                for (int i = 0; i < copyacumlator.Count(); i++)
+                {
+                    var item = copyacumlator[i];
+                    var chickpermision = (from roshitaacception in db.RoshitaAcceptions
+                                          join cardaception in db.CardAcceptionReasons
+                                                on roshitaacception.AcceptionId equals cardaception.AcceptionId
+                                          where roshitaacception.RoshitaId == item.Id && (cardaception.AcceptionReasonsId == 1 || cardaception.AcceptionReasonsId == 2)
+                                          select new
+                                          {
+                                              id = cardaception.AcceptionReasonsId,
+                                          }).ToList();
+                    if (chickpermision.Count() > 0)
+                    {
+                        AcumlatorList.Remove(item);
+                    }
+                }
                 //if (type == true)
                 //{
                 //    Available = CompContractClassMAX_AMOUNT;
