@@ -8390,6 +8390,12 @@
     <Content Include="Views\LossRatio\Index.cshtml" />
     <Content Include="Views\DoctorMedicinesLabsRaysApproval\_ShowDetails.cshtml" />
     <Content Include="Views\Reports\ConsumptionHR2.cshtml" />
+    <Content Include="Reports\ReportsConsumption\Consum901-1Details.rpt" />
+    <Content Include="Reports\ChronicDataReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ChronicDataReport.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
