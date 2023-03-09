@@ -3765,10 +3765,6 @@ namespace DMS_TEST.Controllers
                   
                     rd.SetParameterValue("@comp", Company);
               
-
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
                 }
                 else
                 {
@@ -3782,11 +3778,13 @@ namespace DMS_TEST.Controllers
                     rd.SetParameterValue("@ApprovalNo", ApprovalNo);
                     rd.SetParameterValue("@CardId", CardId);
                     rd.SetParameterValue("@TYPE", ddlType);
-
-                    Response.Buffer = false;
-                    Response.ClearContent();
-                    Response.ClearHeaders();
+                                       
                 }
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
                 Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
                 stream.Seek(0, SeekOrigin.Begin);
                 rd.Close();
