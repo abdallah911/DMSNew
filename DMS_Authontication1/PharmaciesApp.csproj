@@ -512,6 +512,9 @@
     <Compile Include="Models\Comp_Employees.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CONSUMPTION_POOL.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ContactU.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -19,6 +19,7 @@ using Newtonsoft.Json;
 using DMS_Authontication1;
 using DMS_Authontication1.ViewModel.PharmacyAdmin;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity.SqlServer;
 
 namespace DMS_TEST.Controllers
 {
@@ -392,6 +393,8 @@ namespace DMS_TEST.Controllers
                 double CeilingPert;
                 double MaxSubServiceAmount;
                 bool type = false;
+                string isfamily = "";
+                string ispool = "";
                 //bool hasException = false;
                 var remainingconsumption = db.RemainConsumptions.Where(x => x.CARD_ID == id && x.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
                 if (remainingconsumption != null)
@@ -425,10 +428,12 @@ namespace DMS_TEST.Controllers
                 {
                     var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
                     CompContractClassMAX_AMOUNT = Convert.ToDouble(classLimit.MAX_AMOUNT * 0.85);
+                    isfamily = classLimit.FOR_FAMILY;
                 }
                 else
                 {
                     CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
+                    isfamily = CompContractClassEmp.FOR_FAMILY;
                 }
                 type = false;
 
@@ -436,17 +441,20 @@ namespace DMS_TEST.Controllers
                 var DataService = db.Comp_Customized_D_D_Emp.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.SER_SERV == ServiceCode && c.CARD_ID == id).FirstOrDefault();
                 if (DataService != null)
                 {
+                    ispool = DataService.POLL_CONSUMPTION;
                     var max_serv = db.COMP_CUSTOMIZED_D_EMP.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.D_SERV_CODE == MainService && c.CARD_ID == id).FirstOrDefault();
                     MaxServiceAmount = (max_serv == null || max_serv.CEILING_AMT == null) ? Convert.ToDouble(CompContractClassMAX_AMOUNT) : Convert.ToDouble(max_serv.CEILING_AMT);
-
+                    ispool = max_serv.POLL_CONSUMPTION;
                 }
                 else if (DataService == null)
                 {
                     DataService1 = db.Comp_Customized_D_D.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.SER_SERV == ServiceCode).FirstOrDefault();
                     if (DataService1 != null)
                     {
+                        ispool = DataService1.POLL_CONSUMPTION;
                         var max_serv = db.COMP_CUSTOMIZED_D.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.CLASS_CODE == emp.CLASS_CODE && c.D_SERV_CODE == MainService).FirstOrDefault();
                         MaxServiceAmount = (max_serv == null || max_serv.CEILING_AMT == null) ? Convert.ToDouble(CompContractClassMAX_AMOUNT) : Convert.ToDouble(max_serv.CEILING_AMT);
+                        ispool = max_serv.POLL_CONSUMPTION;
 
                     }
 
@@ -473,8 +481,24 @@ namespace DMS_TEST.Controllers
                 }
                 double Available = 0;
                 double Limit = 0;
-                List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                List<Roshita> AcumlatorList = new List<Roshita>();
+                var EmpCode = id.Split('-')[2];
+                if (isfamily == "Y")
+                {
+                    AcumlatorList = db.Roshitas.Where(r => SqlFunctions.PatIndex("%-%-" + EmpCode + "-%", r.CardId) > 0
+                    && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                }
+                //else if (ispool == "Y")
+                //{
+                //    AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                //     && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                //}
+                else
+                {
+                    AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                     && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                }
                 if (ServiceCode == "11602")
                 {
                     PersonNoPay = (from roshita in db.Roshitas
@@ -505,28 +529,7 @@ namespace DMS_TEST.Controllers
                         AcumlatorList.Remove(item);
                     }
                 }
-                //foreach (var item in copyacumlator)
-                //{
-                //    var chickpermision = (from roshitaacception in db.RoshitaAcceptions
-                //                          join cardaception in db.CardAcceptionReasons
-                //                                on roshitaacception.AcceptionId equals cardaception.AcceptionId
-                //                          where roshitaacception.RoshitaId == item.Id && (cardaception.AcceptionReasonsId == 1 || cardaception.AcceptionReasonsId == 2)
-                //                          select new
-                //                          {
-                //                              id = cardaception.AcceptionReasonsId,
-                //                          }).ToList();
-                //    if (chickpermision.Count()>0)
-                //    {
-                //        AcumlatorList.Remove(item);
-                //    }
-                //}
-                //if (type == true)
-                //{
-                //    Available = CompContractClassMAX_AMOUNT;
 
-                //}
-                //else
-                //{
                 //Main consumption
                 double AcumlatorAmount = 0;
                 foreach (var item in AcumlatorList)
@@ -535,14 +538,7 @@ namespace DMS_TEST.Controllers
                 }
                 AcumlatorAmount -= PersonNoPay;
                 Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
-                //}
-                //if (remainingconsumption != null && remainingconsumption.REMAINING != null &&
-                //    (remainingconsumption.REMAINING == Available))
-                //{
-                //    Limit = Available;
-                //}
-                //else
-                //{
+
                 //Service consumption
                 List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
                 double AcumlatorServiceAmount = 0;
@@ -569,6 +565,11 @@ namespace DMS_TEST.Controllers
                 if (remainingconsumption != null)
                 {
                     Limit = (double)(remainingconsumption.REMAINING.Value < Limit ? remainingconsumption.REMAINING : Limit);
+                }
+                if (ispool == "Y")
+                {
+                    Limit = (double)(db.CONSUMPTION_POOL.Where(r => r.COMP_ID == emp.C_COMP_ID).FirstOrDefault().REMAINING);
+
                 }
                 bool Validation = Limit > 0 ? true : false;
                 Message = Validation ? "Ok" : "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد";

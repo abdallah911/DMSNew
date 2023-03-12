@@ -70,6 +70,9 @@ namespace DMS_Synchronization.ViewModels
         public static string GetQyertREMAIN_CONSUMATION = "select * from (select m.*, rownum r from  APP.REMAIN_CONSUMATION m WHERE IS_SYNC=0 OR IS_SYNC IS NULL) WHERE r > {0} and r<= {1} ";
         public static string GetTableNameREMAIN_CONSUMATION = "APP.REMAIN_CONSUMATION";
         
+        public static string GetQyertCONSUMPTION_POOL = "select * from (select m.*, rownum r from  APP.CONSUMPTION_POOL m WHERE IS_SYNC=0 OR IS_SYNC IS NULL) WHERE r > {0} and r<= {1} ";
+        public static string GetTableNameCONSUMPTION_POOL = "APP.CONSUMPTION_POOL";
+        
         public static string GetQyertCLOSE_EMP_DATA = "select * from (select m.*, rownum r from  DMS_TEST.CLOSE_EMP_DATA m WHERE (IS_SYNC=0 OR IS_SYNC IS NULL) AND TRANS_TYP='L') WHERE r > {0} and r<= {1} ";
         public static string GetTableNameCLOSE_EMP_DATA = "DMS_TEST.CLOSE_EMP_DATA";
 

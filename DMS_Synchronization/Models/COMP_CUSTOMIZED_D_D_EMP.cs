@@ -43,5 +43,7 @@ namespace DMS_Synchronization.Models
         public string DOC_EXP_VAL_TYP { get; set; }
         public Decimal DOC_EXP_VALUE { get; set; }
         public string REFUND_FLAG { get; set; }
+        public string POLL_CONSUMPTION { get; set; }
+
     }
 }

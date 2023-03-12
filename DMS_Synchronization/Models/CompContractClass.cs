@@ -78,5 +78,7 @@ namespace DMS_Synchronization.Models
         public Decimal COVER_TYP { get; set; }
         public Decimal MONTHLY_MED_COVER { get; set; }
         public string ONLINE_NOTES { get; set; }
+        public string FOR_FAMILY { get; set; }
+
     }
 }
