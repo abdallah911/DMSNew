@@ -3868,16 +3868,30 @@ namespace DMS_TEST.Controllers
                 DateTime F = Convert.ToDateTime(From);
                 DateTime T = Convert.ToDateTime(To).AddSeconds(86399);//to get all day
                 ReportDocument rd = new ReportDocument();
-                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AllClaimsReport.rpt"));
-                rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
-                rd.SetParameterValue("@from", F);
-                rd.SetParameterValue("@to", T);
-                rd.SetParameterValue("@provider", Provider);
-                rd.SetParameterValue("@Company", Company);
-                rd.SetParameterValue("@Branch", Branch);
-                rd.SetParameterValue("@ApprovalNo", ApprovalNo);
-                rd.SetParameterValue("@CardId", CardId);
-                rd.SetParameterValue("@TYPE", ddlType);
+
+
+                if (ddlType == "Pharmacy_Data")
+                {
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ChronicDataReport.rpt"));
+                    rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+                  
+                    rd.SetParameterValue("@comp", Company);
+              
+                }
+                else
+                {
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AllClaimsReport.rpt"));
+                    rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+                    rd.SetParameterValue("@from", F);
+                    rd.SetParameterValue("@to", T);
+                    rd.SetParameterValue("@provider", Provider);
+                    rd.SetParameterValue("@Company", Company);
+                    rd.SetParameterValue("@Branch", Branch);
+                    rd.SetParameterValue("@ApprovalNo", ApprovalNo);
+                    rd.SetParameterValue("@CardId", CardId);
+                    rd.SetParameterValue("@TYPE", ddlType);
+                                       
+                }
 
                 Response.Buffer = false;
                 Response.ClearContent();
