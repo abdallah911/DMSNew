@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.SqlServer;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
@@ -246,18 +247,49 @@ namespace DMS_TEST.Controllers
                 Manager = data.Manager,
                 IsSync = null,
                 SyncDate = null,
-                SyncBy = null
+                SyncBy = null,
+                IsFamily = data.IsFamily,
+                IsPool = data.IsPool,
             };
             if (roshita.CompanyPayment > 0)
             {
-                var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshita.CardId)
-                    .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-                if (remaining != null)
+                var EmpCode = roshita.CardId.Split('-')[2];
+                var CompCodeCard = roshita.CardId.Split('-')[0];
+                if (data.IsFamily == "Y" && data.IsPool != "Y")
                 {
-                    remaining.REMAINING = remaining.REMAINING - roshita.CompanyPayment;
-                    remaining.NET = remaining.NET + roshita.CompanyPayment;
-                    db.Entry(remaining).State = EntityState.Modified;
+                    var remaining = db.RemainConsumptions.Where(r => SqlFunctions.PatIndex(CompCodeCard + "-%-" + EmpCode + "-%", r.CARD_ID) > 0)
+                    .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    if (remaining != null)
+                    {
+                        remaining.REMAINING = remaining.REMAINING - roshita.CompanyPayment;
+                        remaining.NET = remaining.NET + roshita.CompanyPayment;
+                        db.Entry(remaining).State = EntityState.Modified;
+                    }
                 }
+                if (data.IsPool == "Y")
+                {
+                    var CompCode = int.Parse(roshita.CardId.Split('-')[0]);
+                    var remaining = db.CONSUMPTION_POOL.Where(r => r.COMP_ID == CompCode)
+                        .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    if (remaining != null)
+                    {
+                        remaining.REMAINING = remaining.REMAINING - roshita.CompanyPayment;
+                        db.Entry(remaining).State = EntityState.Modified;
+                    }
+                }
+                if (data.IsFamily != "Y" && data.IsPool != "Y")
+                {
+                    var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshita.CardId)
+                     .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    if (remaining != null)
+                    {
+                        remaining.REMAINING = remaining.REMAINING - roshita.CompanyPayment;
+                        remaining.NET = remaining.NET + roshita.CompanyPayment;
+                        db.Entry(remaining).State = EntityState.Modified;
+                    }
+                }
+
+                
             }
             db.Roshitas.Add(roshita);
             //db.CardUseds.Remove(carduse);

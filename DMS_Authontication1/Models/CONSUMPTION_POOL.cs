@@ -21,9 +21,9 @@ namespace DMS_Authontication1.Models
         public Nullable<int> COST_CODE { get; set; }
         public Nullable<int> POLL_CODE { get; set; }
         public string NAME_POOL { get; set; }
-        public Nullable<int> MAX_AMOUNT { get; set; }
-        public Nullable<int> AMOUNT { get; set; }
-        public Nullable<int> REMAINING { get; set; }
+        public Nullable<double> MAX_AMOUNT { get; set; }
+        public Nullable<double> AMOUNT { get; set; }
+        public Nullable<double> REMAINING { get; set; }
         public string NOTES { get; set; }
         public string ACTIVE { get; set; }
         public string CREATED_BY { get; set; }

@@ -11,6 +11,7 @@ var firstDate;
 var NationalId;
 const secondDate = new Date();
 var diffDays;
+
 input.addEventListener("keyup", function (event) {
     event.preventDefault();
     if (event.keyCode === 13) {
@@ -365,7 +366,9 @@ $(function () {
                                                     } else {
                                                         $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
                                                         AnuualLimit = r.Limit;
-                                                        if ( r.CoInsurancelimit.INSURANCE_DAY >= 0) {
+                                                        $('#IsFamily').val(r.IsFamily);
+                                                        $('#IsPool').val(r.IsPool);
+                                                        if (r.CoInsurancelimit.INSURANCE_DAY >= 0) {
                                                             $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
                                                         } else {
                                                             alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
@@ -789,7 +792,9 @@ $(function () {
                                             ClaimNumber: $('#ClaimNumber').val(),
                                             createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val(),
                                             roshitaDetail: Mediciens,
-                                            diagnose: diagnose
+                                            diagnose: diagnose,
+                                            IsFamily : $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
+                                            IsPool : $('#IsPool').val() == '' ? null : $('#IsPool').val(),
                                         };
                                         $.ajax({
                                             type: 'POST',
@@ -1740,6 +1745,8 @@ function GetLimit() {
             } else {
                 $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
                 AnuualLimit = r.Limit;
+                $('#IsFamily').val(r.IsFamily);
+                $('#IsPool').val(r.IsPool);
                 if ($("#ddlType").val() == "11601") {
                     if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
                         $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);

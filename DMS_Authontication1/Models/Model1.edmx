@@ -773,9 +773,9 @@
           <Property Name="COST_CODE" Type="int" />
           <Property Name="POLL_CODE" Type="int" />
           <Property Name="NAME_POOL" Type="nvarchar(max)" />
-          <Property Name="MAX_AMOUNT" Type="int" />
-          <Property Name="AMOUNT" Type="int" />
-          <Property Name="REMAINING" Type="int" />
+          <Property Name="MAX_AMOUNT" Type="float" />
+          <Property Name="AMOUNT" Type="float" />
+          <Property Name="REMAINING" Type="float" />
           <Property Name="NOTES" Type="nvarchar" MaxLength="50" />
           <Property Name="ACTIVE" Type="nvarchar" MaxLength="50" />
           <Property Name="CREATED_BY" Type="nvarchar" MaxLength="50" />
@@ -2051,6 +2051,8 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsFamily" Type="nvarchar" MaxLength="10" />
+          <Property Name="IsPool" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="RoshitaAcceptions">
           <Key>
@@ -6197,6 +6199,8 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Notifications" Relationship="DB_A45413_DMSERPModel.FK_Notification_Roshita" FromRole="Roshita" ToRole="Notification" />
+          <Property Name="IsFamily" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IsPool" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Roshita_Patchs">
           <End Type="DB_A45413_DMSERPModel.Patch" Role="Patch" Multiplicity="0..1" />
@@ -7153,9 +7157,9 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="COST_CODE" Type="Int32" />
           <Property Name="POLL_CODE" Type="Int32" />
           <Property Name="NAME_POOL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MAX_AMOUNT" Type="Int32" />
-          <Property Name="AMOUNT" Type="Int32" />
-          <Property Name="REMAINING" Type="Int32" />
+          <Property Name="MAX_AMOUNT" Type="Double" />
+          <Property Name="AMOUNT" Type="Double" />
+          <Property Name="REMAINING" Type="Double" />
           <Property Name="NOTES" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ACTIVE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CREATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -9176,6 +9180,8 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySetMapping Name="Roshitas">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Roshita">
               <MappingFragment StoreEntitySet="Roshita">
+                <ScalarProperty Name="IsPool" ColumnName="IsPool" />
+                <ScalarProperty Name="IsFamily" ColumnName="IsFamily" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />

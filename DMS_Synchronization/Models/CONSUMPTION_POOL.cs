@@ -14,9 +14,9 @@ namespace DMS_Synchronization.Models
         public int COST_CODE { get; set; }
         public int POLL_CODE { get; set; }
         public string NAME_POOL { get; set; }
-        public int MAX_AMOUNT { get; set; }
-        public int AMOUNT { get; set; }
-        public int REMAINING { get; set; }
+        public double MAX_AMOUNT { get; set; }
+        public double AMOUNT { get; set; }
+        public decimal REMAINING { get; set; }
         public string NOTES { get; set; }
         public string ACTIVE { get; set; }
         public string CREATED_BY { get; set; }

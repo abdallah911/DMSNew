@@ -807,6 +807,8 @@ $(function () {
                                     $(".celling-pert").val(0);
                                     $("#Limit").val(r.Limit);
                                     $("#max_amount0").val(r.Limit);
+                                    $('#IsFamily').val(r.IsFamily);
+                                    $('#IsPool').val(r.IsPool);
 
                                 }
                                 else {
@@ -814,6 +816,8 @@ $(function () {
                                         $(".celling-pert").val(100 - r.CeilingPert);
                                         $("#Limit").val(r.Limit);
                                         $("#max_amount0").val(r.Limit);
+                                        $('#IsFamily').val(r.IsFamily);
+                                        $('#IsPool').val(r.IsPool);
                                     }
                                     else {
                                         alert(r.Message);
@@ -821,6 +825,8 @@ $(function () {
                                         $(".celling-pert").val(100 - r.CeilingPert);
                                         $("#Limit").val(r.Limit);
                                         $("#max_amount0").val(r.Limit);
+                                        $('#IsFamily').val(r.IsFamily);
+                                        $('#IsPool').val(r.IsPool);
                                     }
                                 }
                                 $.ajax({
@@ -933,6 +939,8 @@ $(function () {
                                 $(".celling-pert").val(0);
                                 $("#Limit").val(r.Limit);
                                 $("#max_amount0").val(r.Limit);
+                                $('#IsFamily').val(r.IsFamily);
+                                $('#IsPool').val(r.IsPool);
 
                             }
                             else {
@@ -949,6 +957,8 @@ $(function () {
                                     $("#max_amount0").val(r.Limit);
                                     $("#insurance_LIVEL").val(100);
                                     $("#IsCash").val(1);
+                                    $('#IsFamily').val(r.IsFamily);
+                                    $('#IsPool').val(r.IsPool);
                                 }
                             }
 
@@ -1531,7 +1541,8 @@ function ChickSaveData() {
             HospitalException: exceptionHospital,
             ExceptionLabRayDoctor: exceptionLabRay,
             SpecalistID: $("#SpecialitySelect").val(),
-            DoctorName: $("#DoctortNameEmergancy").val()
+            DoctorName: $("#DoctortNameEmergancy").val(), IsFamily: $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
+            IsPool: $('#IsPool').val() == '' ? null : $('#IsPool').val(),
         };
         $.ajax({
             type: "POST",
@@ -1613,7 +1624,9 @@ function ChickSaveData() {
                     HospitalException: exceptionHospital,
                     ExceptionLabRayDoctor: exceptionLabRay,
                     SpecalistID: null,
-                    DoctorName: null
+                    DoctorName: null,
+                    IsFamily: $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
+                    IsPool: $('#IsPool').val() == '' ? null : $('#IsPool').val(),
                 };
                 $.ajax({
                     type: "POST",
@@ -1690,7 +1703,9 @@ function ChickSaveData() {
                 ExceptionLabRayDoctor: exceptionLabRay,
                 SpecalistID: $("#SpecialitySelect").val(),
                 Specialist: $("#SpecialitySelect option:selected").text(),
-                DoctorName: $("#doctorNameSelect").val()
+                DoctorName: $("#doctorNameSelect").val(),
+                IsFamily: $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
+                IsPool: $('#IsPool').val() == '' ? null : $('#IsPool').val(),
             };
             $.ajax({
                 type: "POST",
@@ -1781,7 +1796,9 @@ function ChickSaveData() {
                                             HospitalException: exceptionHospital,
                                             ExceptionLabRayDoctor: exceptionLabRay,
                                             Specialist: $("#SpecialitySelect option:selected").text(),
-                                            SpecalistID: 0
+                                            SpecalistID: 0,
+                                            IsFamily: $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
+                                            IsPool: $('#IsPool').val() == '' ? null : $('#IsPool').val(),
                                         };
                                         $.ajax({
                                             type: "POST",
@@ -1888,7 +1905,9 @@ function ChickSaveData() {
                                     EmergancyTxt: $("#emergancyTxt").val(),
                                     Contract_Number: $('#Con_Num').val(),
                                     Class_Code: $('#Class_Code').val(),
-                                    Comp_Payment: $("#Com_Cach").val()
+                                    Comp_Payment: $("#Com_Cach").val(),
+                                    IsFamily: $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
+                                    IsPool: $('#IsPool').val() == '' ? null : $('#IsPool').val(),
                                 };
                                 $.ajax({
                                     type: "POST",
@@ -1934,6 +1953,8 @@ function ChickSaveData() {
                                         TotalValue: $("#txtTotal").val(),
                                         Total_Cash: $("#txtTotalCopayment").val(),
                                         Cash: $("#Cash").val(),
+                                        IsFamily: $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
+                                        IsPool: $('#IsPool').val() == '' ? null : $('#IsPool').val(),
                                     };
                                     $.ajax({
                                         type: "POST",

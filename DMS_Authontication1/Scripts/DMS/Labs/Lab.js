@@ -137,6 +137,8 @@ $(function () {
                                                             } else {
                                                                 $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
                                                                 AnuualLimit = r.Limit;
+                                                                $('#IsFamily').val(r.IsFamily);
+                                                                $('#IsPool').val(r.IsPool);
                                                                 //   $("#no_data_yet").val(100 - $("#ddEmp_CEILING_PERT").val());
                                                                 //limit_Daily = r.CoInsurancelimit.INSURANCE_DAY_LAB;
                                                                 $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
@@ -459,7 +461,9 @@ $(function () {
                                             PhoneNumber: $('#PhoneNumber').val(),
                                             Diagnose1: $('#Comments').val(),
                                             Diagnose2: NationalId,
-                                            createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val()
+                                            createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val(),
+                                            IsFamily: $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
+                                            IsPool: $('#IsPool').val() == '' ? null : $('#IsPool').val(),
 
 
 

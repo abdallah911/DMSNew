@@ -444,7 +444,7 @@ namespace DMS_TEST.Controllers
                     ispool = DataService.POLL_CONSUMPTION;
                     var max_serv = db.COMP_CUSTOMIZED_D_EMP.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.D_SERV_CODE == MainService && c.CARD_ID == id).FirstOrDefault();
                     MaxServiceAmount = (max_serv == null || max_serv.CEILING_AMT == null) ? Convert.ToDouble(CompContractClassMAX_AMOUNT) : Convert.ToDouble(max_serv.CEILING_AMT);
-                    ispool = max_serv.POLL_CONSUMPTION;
+                    //ispool = max_serv.POLL_CONSUMPTION;
                 }
                 else if (DataService == null)
                 {
@@ -454,7 +454,7 @@ namespace DMS_TEST.Controllers
                         ispool = DataService1.POLL_CONSUMPTION;
                         var max_serv = db.COMP_CUSTOMIZED_D.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.CLASS_CODE == emp.CLASS_CODE && c.D_SERV_CODE == MainService).FirstOrDefault();
                         MaxServiceAmount = (max_serv == null || max_serv.CEILING_AMT == null) ? Convert.ToDouble(CompContractClassMAX_AMOUNT) : Convert.ToDouble(max_serv.CEILING_AMT);
-                        ispool = max_serv.POLL_CONSUMPTION;
+                        //ispool = max_serv.POLL_CONSUMPTION;
 
                     }
 
@@ -483,9 +483,10 @@ namespace DMS_TEST.Controllers
                 double Limit = 0;
                 List<Roshita> AcumlatorList = new List<Roshita>();
                 var EmpCode = id.Split('-')[2];
+                var CompCode = id.Split('-')[0];
                 if (isfamily == "Y")
                 {
-                    AcumlatorList = db.Roshitas.Where(r => SqlFunctions.PatIndex("%-%-" + EmpCode + "-%", r.CardId) > 0
+                    AcumlatorList = db.Roshitas.Where(r => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", r.CardId) > 0
                     && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
@@ -577,9 +578,19 @@ namespace DMS_TEST.Controllers
                 //Co-insurance
                 double nopaylast21day = 0;
                 Co_Insurance_01 CoInsurancelimit2 = new Co_Insurance_01();
-                var CustemizedMedEmp = db.COMP_CUSTOMIZED_D_D_MED_EMP.Where(c => c.CARD_ID == emp.CARD_ID && c.C_COMP_ID == emp.C_COMP_ID
-                  && c.CONTRACT_NO == emp.CONTRACT_NO && c.SERV_CODE == "11" && c.D_SERV_CODE == MainService
-                  && c.SER_SERV == ServiceCode && c.CLASS_CODE == emp.CLASS_CODE).FirstOrDefault();
+                COMP_CUSTOMIZED_D_D_MED_EMP CustemizedMedEmp = new COMP_CUSTOMIZED_D_D_MED_EMP();
+                if (isfamily == "Y" || ispool == "Y")
+                {
+                    CustemizedMedEmp = db.COMP_CUSTOMIZED_D_D_MED_EMP.Where(c => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", c.CARD_ID) > 0 && c.C_COMP_ID == emp.C_COMP_ID
+                     && c.CONTRACT_NO == emp.CONTRACT_NO && c.SERV_CODE == "11" && c.D_SERV_CODE == MainService
+                     && c.SER_SERV == ServiceCode && c.CLASS_CODE == emp.CLASS_CODE).FirstOrDefault();
+                }
+                else
+                {
+                    CustemizedMedEmp = db.COMP_CUSTOMIZED_D_D_MED_EMP.Where(c => c.CARD_ID == emp.CARD_ID && c.C_COMP_ID == emp.C_COMP_ID
+                     && c.CONTRACT_NO == emp.CONTRACT_NO && c.SERV_CODE == "11" && c.D_SERV_CODE == MainService
+                     && c.SER_SERV == ServiceCode && c.CLASS_CODE == emp.CLASS_CODE).FirstOrDefault();
+                }
                 if (CustemizedMedEmp != null)
                 {
                     //var CoInsurancelimit = db.Co_Insurance_01.Where(x => x.CO_ID == emp.C_COMP_ID && x.LIVEL == emp.CLASS_CODE).FirstOrDefault();
@@ -655,12 +666,12 @@ namespace DMS_TEST.Controllers
                         var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                         if (reasons != null)
                         {
-                            return Json(new { Validation = true, Message = "Has Approval", Limit = ".001", CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, CeilingPert = CeilingPert });
+                            return Json(new { Validation = true, Message = "Has Approval", Limit = ".001", CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, CeilingPert = CeilingPert, IsFamily = isfamily, IsPool = ispool });
                         }
 
                     }
                     //return Json(new { ok = true, limit = limit, message = "ok", LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount }, JsonRequestBehavior.AllowGet);
-                    return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount });
+                    return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, IsFamily = isfamily, IsPool = ispool });
 
                 }
                 else
@@ -754,11 +765,11 @@ namespace DMS_TEST.Controllers
                             var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                             if (reasons != null)
                             {
-                                return Json(new { Validation = true, Message = "Has Approval", Limit = ".001", CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, CeilingPert = CeilingPert });
+                                return Json(new { Validation = true, Message = "Has Approval", Limit = ".001", CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, CeilingPert = CeilingPert, IsFamily = isfamily, IsPool = ispool });
                             }
 
                         }
-                        return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount });
+                        return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, IsFamily = isfamily, IsPool = ispool });
 
                     }
                 }
@@ -813,6 +824,8 @@ namespace DMS_TEST.Controllers
                 double MaxSubServiceAmount;
                 bool type = false;
                 double RoshitaNoPayEdit = 0;
+                string isfamily = "";
+                string ispool = "";
                 if (ServiceCode == "11602")
                 {
                     RoshitaNoPayEdit = (from roshita in db.Roshitas
@@ -837,6 +850,7 @@ namespace DMS_TEST.Controllers
                                    }).ToList().Sum(r => r.Amount);
                 }
                 var remainingconsumption = db.RemainConsumptions.Where(x => x.CARD_ID == id && x.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
+                var remainingPool = db.CONSUMPTION_POOL.Where(r => r.COMP_ID == emp.C_COMP_ID).FirstOrDefault();
                 if (remainingconsumption != null)
                 {
                     if (remainingconsumption.REMAINING >= 0)
@@ -844,7 +858,7 @@ namespace DMS_TEST.Controllers
                         var rosita = db.Roshitas.Where(r => r.Id == RoshitaId).FirstOrDefault();
                         CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value + rosita.CompanyPayment - RoshitaNoPayEdit;
                         type = true;
-                        remainingconsumption.REMAINING = remainingconsumption.REMAINING.Value + rosita.CompanyPayment - RoshitaNoPayEdit; ;
+                        remainingconsumption.REMAINING = remainingconsumption.REMAINING.Value + rosita.CompanyPayment - RoshitaNoPayEdit;
                     }
                     else
                     {
@@ -868,6 +882,11 @@ namespace DMS_TEST.Controllers
                         }
                     }
                 }
+                if (remainingPool != null)
+                {
+                    var rosita = db.Roshitas.Where(r => r.Id == RoshitaId).FirstOrDefault();
+                    remainingPool.REMAINING = remainingconsumption.REMAINING.Value + rosita.CompanyPayment - RoshitaNoPayEdit;
+                }
                 //else
                 //{
                 var CompContractClassEmp = db.CompContractClassEmps.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.CARD_ID == id).FirstOrDefault();
@@ -875,30 +894,33 @@ namespace DMS_TEST.Controllers
                 {
                     var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
                     CompContractClassMAX_AMOUNT = Convert.ToDouble(classLimit.MAX_AMOUNT * 0.85);
+                    isfamily = classLimit.FOR_FAMILY;
                 }
                 else
                 {
                     CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
+                    isfamily = CompContractClassEmp.FOR_FAMILY;
                 }
                 type = false;
-                //}
-                //var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
 
                 var DataService1 = new Comp_Customized_D_D();
                 var DataService = db.Comp_Customized_D_D_Emp.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.SER_SERV == ServiceCode && c.CARD_ID == id).FirstOrDefault();
                 if (DataService != null)
                 {
+                    ispool = DataService.POLL_CONSUMPTION;
                     var max_serv = db.COMP_CUSTOMIZED_D_EMP.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.D_SERV_CODE == MainService && c.CARD_ID == id).FirstOrDefault();
                     MaxServiceAmount = (max_serv == null || max_serv.CEILING_AMT == null) ? Convert.ToDouble(CompContractClassMAX_AMOUNT) : Convert.ToDouble(max_serv.CEILING_AMT);
-
+                    //ispool = max_serv.POLL_CONSUMPTION;
                 }
                 else if (DataService == null)
                 {
                     DataService1 = db.Comp_Customized_D_D.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.SER_SERV == ServiceCode).FirstOrDefault();
                     if (DataService1 != null)
                     {
+                        ispool = DataService1.POLL_CONSUMPTION;
                         var max_serv = db.COMP_CUSTOMIZED_D.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.CLASS_CODE == emp.CLASS_CODE && c.D_SERV_CODE == MainService).FirstOrDefault();
                         MaxServiceAmount = (max_serv == null || max_serv.CEILING_AMT == null) ? Convert.ToDouble(CompContractClassMAX_AMOUNT) : Convert.ToDouble(max_serv.CEILING_AMT);
+                        //ispool = max_serv.POLL_CONSUMPTION;
 
                     }
 
@@ -926,8 +948,22 @@ namespace DMS_TEST.Controllers
 
                 double Available = 0;
                 double Limit = 0;
-                List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                List<Roshita> AcumlatorList = new List<Roshita>();
+                var EmpCode = id.Split('-')[2];
+                var CompCode = id.Split('-')[0];
+                if (isfamily == "Y")
+                {
+                    AcumlatorList = db.Roshitas.Where(r => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", r.CardId) > 0 && r.Id != RoshitaId
+                    && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                }
+                else
+                {
+                    AcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                    && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                }
+                //List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && r.Id != RoshitaId && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                //     && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
 
                 List<Roshita> copyacumlator = new List<Roshita>();
                 copyacumlator.AddRange(AcumlatorList);
@@ -997,6 +1033,13 @@ namespace DMS_TEST.Controllers
                 {
                     Limit = (double)(remainingconsumption.REMAINING.Value < Limit ? remainingconsumption.REMAINING : Limit);
                 }
+
+                if (ispool == "Y")
+                {
+                    Limit = remainingPool.REMAINING.Value;
+
+                }
+
                 bool Validation = Limit > 0 ? true : false;
                 Message = Validation ? "Ok" : "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد";
 
@@ -1020,9 +1063,23 @@ namespace DMS_TEST.Controllers
                 Co_Insurance_01 CoInsurancelimit2 = new Co_Insurance_01();
                 bool LimitDailyPreceptionCount = false;
                 bool LimitMonthlyPreceptionCount = false;
-                var CustemizedMedEmp = db.COMP_CUSTOMIZED_D_D_MED_EMP.Where(c => c.CARD_ID == emp.CARD_ID && c.C_COMP_ID == emp.C_COMP_ID
+                COMP_CUSTOMIZED_D_D_MED_EMP CustemizedMedEmp = new COMP_CUSTOMIZED_D_D_MED_EMP();
+                if (isfamily == "Y" || ispool == "Y")
+                {
+                    CustemizedMedEmp = db.COMP_CUSTOMIZED_D_D_MED_EMP.Where(c => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", c.CARD_ID) > 0 && c.C_COMP_ID == emp.C_COMP_ID
+                     && c.CONTRACT_NO == emp.CONTRACT_NO && c.SERV_CODE == "11" && c.D_SERV_CODE == MainService
+                     && c.SER_SERV == ServiceCode && c.CLASS_CODE == emp.CLASS_CODE).FirstOrDefault();
+                }
+                else
+                {
+                    CustemizedMedEmp = db.COMP_CUSTOMIZED_D_D_MED_EMP.Where(c => c.CARD_ID == emp.CARD_ID && c.C_COMP_ID == emp.C_COMP_ID
                   && c.CONTRACT_NO == emp.CONTRACT_NO && c.SERV_CODE == "11" && c.D_SERV_CODE == MainService
                   && c.SER_SERV == ServiceCode && c.CLASS_CODE == emp.CLASS_CODE).FirstOrDefault();
+                }
+
+                //var CustemizedMedEmp = db.COMP_CUSTOMIZED_D_D_MED_EMP.Where(c => c.CARD_ID == emp.CARD_ID && c.C_COMP_ID == emp.C_COMP_ID
+                //  && c.CONTRACT_NO == emp.CONTRACT_NO && c.SERV_CODE == "11" && c.D_SERV_CODE == MainService
+                //  && c.SER_SERV == ServiceCode && c.CLASS_CODE == emp.CLASS_CODE).FirstOrDefault();
                 if (CustemizedMedEmp != null)
                 {
                     //var CoInsurancelimit = db.Co_Insurance_01.Where(x => x.CO_ID == emp.C_COMP_ID && x.LIVEL == emp.CLASS_CODE).FirstOrDefault();
@@ -1171,7 +1228,7 @@ namespace DMS_TEST.Controllers
                     }
                 }
 
-                return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount });
+                return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, IsFamily = isfamily, IsPool = ispool });
             }
             return Json(new { Validation = false, Message = "Employee contract issue ,you can call operation department", Limit = 0, CeilingPert = 0 });
         }
@@ -2057,7 +2114,9 @@ namespace DMS_TEST.Controllers
                 Manager = data.RoshetaType == "11601" ? "Daily" : data.RoshetaType == "11603" ? "Monthly" : data.RoshetaType,
                 IsSync = null,
                 SyncDate = null,
-                SyncBy = null
+                SyncBy = null,
+                IsFamily = data.IsFamily,
+                IsPool = data.IsPool,
             };
 
             db.Roshitas.Add(roshita);
@@ -2128,14 +2187,42 @@ namespace DMS_TEST.Controllers
             {
                 if (roshita.CompanyPayment > 0)
                 {
-                    var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshita.CardId)
-                        .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-                    if (remaining != null)
+                    var EmpCode = roshita.CardId.Split('-')[2];
+                    var CompCodeCard = roshita.CardId.Split('-')[0];
+                    if (data.IsFamily == "Y" && data.IsPool != "Y")
                     {
-                        remaining.REMAINING = remaining.REMAINING - roshita.CompanyPayment;
-                        remaining.NET = remaining.NET + roshita.CompanyPayment;
-                        db.Entry(remaining).State = EntityState.Modified;
+                        var remaining = db.RemainConsumptions.Where(r => SqlFunctions.PatIndex(CompCodeCard + "-%-" + EmpCode + "-%", r.CARD_ID) > 0)
+                        .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                        if (remaining != null)
+                        {
+                            remaining.REMAINING = remaining.REMAINING - roshita.CompanyPayment;
+                            remaining.NET = remaining.NET + roshita.CompanyPayment;
+                            db.Entry(remaining).State = EntityState.Modified;
+                        }
                     }
+                    if (data.IsPool == "Y")
+                    {
+                        var CompCode = int.Parse(roshita.CardId.Split('-')[0]);
+                        var remaining = db.CONSUMPTION_POOL.Where(r => r.COMP_ID == CompCode)
+                            .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                        if (remaining != null)
+                        {
+                            remaining.REMAINING = remaining.REMAINING - roshita.CompanyPayment;
+                            db.Entry(remaining).State = EntityState.Modified;
+                        }
+                    }
+                    if (data.IsFamily != "Y" && data.IsPool != "Y")
+                    {
+                        var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshita.CardId)
+                            .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                        if (remaining != null)
+                        {
+                            remaining.REMAINING = remaining.REMAINING - roshita.CompanyPayment;
+                            remaining.NET = remaining.NET + roshita.CompanyPayment;
+                            db.Entry(remaining).State = EntityState.Modified;
+                        }
+                    }
+
                 }
                 int result = db.SaveChanges();
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita.Id);
@@ -2941,14 +3028,44 @@ namespace DMS_TEST.Controllers
                 db.Entry(roshta).State = EntityState.Modified;
                 if (roshta.CompanyPayment > 0)
                 {
-                    var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshta.CardId)
-                        .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-                    if (remaining != null)
+
+                    var EmpCode = roshta.CardId.Split('-')[2];
+                    var CompCodeCard = roshta.CardId.Split('-')[0];
+                    if (roshta.IsFamily == "Y" && roshta.IsPool != "Y")
                     {
-                        remaining.REMAINING = remaining.REMAINING + roshta.CompanyPayment;
-                        remaining.NET = remaining.NET - roshta.CompanyPayment;
-                        db.Entry(remaining).State = EntityState.Modified;
+                        var remaining = db.RemainConsumptions.Where(r => SqlFunctions.PatIndex(CompCodeCard + "-%-" + EmpCode + "-%", r.CARD_ID) > 0)
+                        .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                        if (remaining != null)
+                        {
+                            remaining.REMAINING = remaining.REMAINING + roshta.CompanyPayment;
+                            remaining.NET = remaining.NET - roshta.CompanyPayment;
+                            db.Entry(remaining).State = EntityState.Modified;
+                        }
                     }
+                    if (roshta.IsPool == "Y")
+                    {
+                        var CompCode = int.Parse(roshta.CardId.Split('-')[0]);
+                        var remaining = db.CONSUMPTION_POOL.Where(r => r.COMP_ID == CompCode)
+                            .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                        if (remaining != null)
+                        {
+                            remaining.REMAINING = remaining.REMAINING + roshta.CompanyPayment;
+                            db.Entry(remaining).State = EntityState.Modified;
+                        }
+                    }
+                    if (roshta.IsFamily != "Y" && roshta.IsPool != "Y")
+                    {
+                        var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshta.CardId)
+                       .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                        if (remaining != null)
+                        {
+                            remaining.REMAINING = remaining.REMAINING + roshta.CompanyPayment;
+                            remaining.NET = remaining.NET - roshta.CompanyPayment;
+                            db.Entry(remaining).State = EntityState.Modified;
+                        }
+                    }
+
+
                 }
                 db.SaveChanges();
                 return Json(new { ok = true, data = db.SaveChanges(), message = "ok" }, JsonRequestBehavior.AllowGet);
@@ -3040,12 +3157,14 @@ namespace DMS_TEST.Controllers
             roshita1.TotalValue = data.TotalValue;
             roshita1.Cash = data.Cash;
             roshita1.PatchId = data.PatchId;
-
+            roshita1.IsFamily = data.IsFamily;
+            roshita1.IsPool = data.IsPool;
 
             roshita.Manager = "Stop-ED";
             roshita.SyncBy = "Update";
             roshita.UpdatedBy = User.Identity.Name;
             roshita.UpdatedDate = DateTime.Now;
+            
 
             db.Entry(roshita).State = EntityState.Modified;
             if (ModelState.IsValid)
@@ -3207,13 +3326,40 @@ namespace DMS_TEST.Controllers
                 db.Roshitas.Add(roshita1);
                 if (roshita1.CompanyPayment > 0)
                 {
-                    var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshita1.CardId)
-                        .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-                    if (remaining != null)
+                    var EmpCode = roshita1.CardId.Split('-')[2];
+                    var CompCodeCard = roshita1.CardId.Split('-')[0];
+                    if (data.IsFamily == "Y" && data.IsPool != "Y")
                     {
-                        remaining.REMAINING = (remaining.REMAINING + roshita.CompanyPayment) - roshita1.CompanyPayment;
-                        remaining.NET = (remaining.NET - roshita.CompanyPayment) + roshita1.CompanyPayment;
-                        db.Entry(remaining).State = EntityState.Modified;
+                        var remaining = db.RemainConsumptions.Where(r => SqlFunctions.PatIndex(CompCodeCard + "-%-" + EmpCode + "-%", r.CARD_ID) > 0)
+                        .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                        if (remaining != null)
+                        {
+                            remaining.REMAINING = (remaining.REMAINING + roshita.CompanyPayment) - roshita1.CompanyPayment;
+                            remaining.NET = (remaining.NET - roshita.CompanyPayment) + roshita1.CompanyPayment;
+                            db.Entry(remaining).State = EntityState.Modified;
+                        }
+                    }
+                    if (data.IsPool == "Y")
+                    {
+                        var CompCode = int.Parse(roshita.CardId.Split('-')[0]);
+                        var remaining = db.CONSUMPTION_POOL.Where(r => r.COMP_ID == CompCode)
+                            .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                        if (remaining != null)
+                        {
+                            remaining.REMAINING = remaining.REMAINING - roshita1.CompanyPayment;
+                            db.Entry(remaining).State = EntityState.Modified;
+                        }
+                    }
+                    if (data.IsFamily != "Y" && data.IsPool != "Y")
+                    {
+                        var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshita1.CardId)
+                        .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                        if (remaining != null)
+                        {
+                            remaining.REMAINING = (remaining.REMAINING + roshita.CompanyPayment) - roshita1.CompanyPayment;
+                            remaining.NET = (remaining.NET - roshita.CompanyPayment) + roshita1.CompanyPayment;
+                            db.Entry(remaining).State = EntityState.Modified;
+                        }
                     }
                 }
                 int result = db.SaveChanges();
@@ -3875,9 +4021,9 @@ namespace DMS_TEST.Controllers
                 {
                     rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ChronicDataReport.rpt"));
                     rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
-                  
+
                     rd.SetParameterValue("@comp", Company);
-              
+
                 }
                 else
                 {
@@ -3891,7 +4037,7 @@ namespace DMS_TEST.Controllers
                     rd.SetParameterValue("@ApprovalNo", ApprovalNo);
                     rd.SetParameterValue("@CardId", CardId);
                     rd.SetParameterValue("@TYPE", ddlType);
-                                       
+
                 }
 
                 Response.Buffer = false;
