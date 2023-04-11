@@ -20,6 +20,8 @@ using DMS_Authontication1;
 using DMS_Authontication1.ViewModel.PharmacyAdmin;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity.SqlServer;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace DMS_TEST.Controllers
 {
@@ -635,9 +637,20 @@ namespace DMS_TEST.Controllers
                     }
                     if (ServiceCode == "11602" || ServiceCode == "11603")
                     {
-                        if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount)
+                        int nopay = 0;
+                        int noover = 0;
+                        if (ServiceCode == "11602")
+                        {
+                            var medcard = db.Med_Card.Where(c => c.CARD_NO == id).FirstOrDefault();
+                            if (medcard != null)
+                            {
+                                noover = medcard.NO_OVER.Value;
+                                nopay = medcard.NO_PAY.Value;
+                            }
+                        }
+                        if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount && nopay != 1 && noover != 1)
                             Limit = LimitMonthlyMonthlyPreceptionAmount;
-                        if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount)
+                        if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount && nopay != 1 && noover != 1)
                             Limit = LimitMonthlyYearlyPreceptionAmount;
                     }
                     CoInsurancelimit2.INSURANCE_DAY = LimitDailyYearlyPreceptionAmount == 0 ? Convert.ToDouble(LimitDailyMonthlyPreceptionAmount) : Math.Min(Convert.ToDouble(LimitDailyMonthlyPreceptionAmount), Convert.ToDouble(LimitDailyYearlyPreceptionAmount));
@@ -725,9 +738,20 @@ namespace DMS_TEST.Controllers
                         }
                         if (ServiceCode == "11602" || ServiceCode == "11603")
                         {
-                            if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount)
+                            int nopay = 0;
+                            int noover = 0;
+                            if (ServiceCode == "11602")
+                            {
+                                var medcard = db.Med_Card.Where(c => c.CARD_NO == id).FirstOrDefault();
+                                if (medcard != null)
+                                {
+                                    noover = medcard.NO_OVER.Value;
+                                    nopay = medcard.NO_PAY.Value;
+                                }
+                            }
+                            if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount && nopay != 1 && noover != 1)
                                 Limit = LimitMonthlyMonthlyPreceptionAmount;
-                            if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount)
+                            if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount && nopay != 1 && noover != 1)
                                 Limit = LimitMonthlyYearlyPreceptionAmount;
                         }
                         CoInsurancelimit2.INSURANCE_DAY = LimitDailyYearlyPreceptionAmount == 0 ? Convert.ToDouble(LimitDailyMonthlyPreceptionAmount) : Math.Min(Convert.ToDouble(LimitDailyMonthlyPreceptionAmount), Convert.ToDouble(LimitDailyYearlyPreceptionAmount));
@@ -1122,9 +1146,20 @@ namespace DMS_TEST.Controllers
                     }
                     if (ServiceCode == "11602" || ServiceCode == "11603")
                     {
-                        if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount)
+                        int nopay = 0;
+                        int noover = 0;
+                        if (ServiceCode == "11602")
+                        {
+                            var medcard = db.Med_Card.Where(c => c.CARD_NO == id).FirstOrDefault();
+                            if (medcard != null)
+                            {
+                                noover = medcard.NO_OVER.Value;
+                                nopay = medcard.NO_PAY.Value;
+                            }
+                        }
+                        if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount && nopay != 1 && noover != 1)
                             Limit = LimitMonthlyMonthlyPreceptionAmount;
-                        if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount)
+                        if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount && nopay != 1 && noover != 1)
                             Limit = LimitMonthlyYearlyPreceptionAmount;
                     }
 
@@ -1195,9 +1230,20 @@ namespace DMS_TEST.Controllers
                         }
                         if (ServiceCode == "11602" || ServiceCode == "11603")
                         {
-                            if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount)
+                            int nopay = 0;
+                            int noover = 0;
+                            if (ServiceCode == "11602")
+                            {
+                                var medcard = db.Med_Card.Where(c => c.CARD_NO == id).FirstOrDefault();
+                                if (medcard != null)
+                                {
+                                    noover = medcard.NO_OVER.Value;
+                                    nopay = medcard.NO_PAY.Value;
+                                }
+                            }
+                            if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount && nopay != 1 && noover != 1)
                                 Limit = LimitMonthlyMonthlyPreceptionAmount;
-                            if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount)
+                            if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount && nopay != 1 && noover != 1)
                                 Limit = LimitMonthlyYearlyPreceptionAmount;
                         }
                         CoInsurancelimit2.INSURANCE_DAY = LimitDailyYearlyPreceptionAmount == 0 ? Convert.ToDouble(LimitDailyMonthlyPreceptionAmount) : Math.Min(Convert.ToDouble(LimitDailyMonthlyPreceptionAmount), Convert.ToDouble(LimitDailyYearlyPreceptionAmount));
@@ -2225,6 +2271,11 @@ namespace DMS_TEST.Controllers
 
                 }
                 int result = db.SaveChanges();
+                var model = db.CardsSms.Where(c => c.CardId == roshita.CardId).FirstOrDefault();
+                if (model != null)
+                {
+                    PostSMSData("Your medical card has been used. If it is not used, please call 0226390390 ", model.Phone);
+                }
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita.Id);
 
             }
@@ -2248,6 +2299,55 @@ namespace DMS_TEST.Controllers
 
         }
 
+        public string PostSMSData(string Message, string PhoneNumber)
+        {
+            string requestXml =
+                "<SubmitSMSRequest xmlns='http://www.edafa.com/web2sms/sms/model/'>" +
+                "<AccountId>200001555</AccountId>" +
+                "<Password>Vodafone.1</Password>" +
+                "<SecureHash>" + SecretHashMethod(Message, PhoneNumber) + "</SecureHash>" +
+                "<SMSList>" +
+                "<SenderName>DIAMOND MED</SenderName>" +
+                "<ReceiverMSISDN>" + PhoneNumber + "</ReceiverMSISDN>" +
+                "<SMSText>" + Message + "</SMSText>" +
+                "</SMSList>" +
+                "</SubmitSMSRequest>";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://e3len.vodafone.com.eg/web2sms/sms/submit/");
+            byte[] bytes;
+            bytes = System.Text.Encoding.ASCII.GetBytes(requestXml);
+            request.ContentType = "application/xml; encoding='utf-8'";
+            request.ContentLength = bytes.Length;
+            request.Method = "POST";
+            Stream requestStream = request.GetRequestStream();
+            requestStream.Write(bytes, 0, bytes.Length);
+            requestStream.Close();
+            HttpWebResponse response;
+            response = (HttpWebResponse)request.GetResponse();
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Stream responseStream = response.GetResponseStream();
+                string responseStr = new StreamReader(responseStream).ReadToEnd();
+                return responseStr;
+            }
+            return null;
+        }
+        private string SecretHashMethod(string Message, string PhoneNumber)
+        {
+            string secret = "B88551A75DC04D78BB92ABAD298BB19F";
+            StringBuilder SecretHash = new StringBuilder();
+
+            //var encoding = new System.Text.ASCIIEncoding();
+            byte[] keyByte = System.Text.Encoding.UTF8.GetBytes(secret);
+            byte[] messageBytes = System.Text.Encoding.UTF8.GetBytes("AccountId=200001555&Password=Vodafone.1&SenderName=DIAMOND MED&ReceiverMSISDN=" + PhoneNumber + "&SMSText=" + Message);
+            //byte[] messageBytes = encoding.GetBytes("AccountId=200001555&Password=Vodafone.1&SenderName=DIAMOND MED&ReceiverMSISDN=01028599477&SMSText=Hello World");
+            using (var hmacsha256 = new HMACSHA256(keyByte))
+            {
+                byte[] hashmessage = hmacsha256.ComputeHash(messageBytes);
+                foreach (Byte b in hashmessage)
+                    SecretHash.Append(b.ToString("x2"));
+                return SecretHash.ToString().ToUpper();
+            }
+        }
         public JsonResult AgeAndGender(string id)
         {
             this.Id = id;
@@ -3164,7 +3264,7 @@ namespace DMS_TEST.Controllers
             roshita.SyncBy = "Update";
             roshita.UpdatedBy = User.Identity.Name;
             roshita.UpdatedDate = DateTime.Now;
-            
+
 
             db.Entry(roshita).State = EntityState.Modified;
             if (ModelState.IsValid)
@@ -3386,6 +3486,11 @@ namespace DMS_TEST.Controllers
                 }
                 NotificationHub objNotifHub = new NotificationHub();
                 objNotifHub.SendMessages();
+                var model = db.CardsSms.Where(c => c.CardId == roshita.CardId).FirstOrDefault();
+                if (model != null)
+                {
+                    PostSMSData("Your medical card has been used. If it is not used, please call 0226390390", model.Phone);
+                }
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita1.Id);
 
             }

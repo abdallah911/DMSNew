@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "UpdateData";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+
+}
+
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Update Image
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row ">
+            <div class="col-md-12">
+                @using (Html.BeginForm("UpdateData", "Employee", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                {
+                    <div class="form-wizard">
+                        <div class="form-body">
+                            <div class="tab-content">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="row">
+                                    @if (ViewBag.Save != null)
+                                    {
+
+
+                                        <div class="col-md-12" dir="rtl" style="background: antiquewhite;text-align: center; margin-bottom: 40px;">
+                                            <h3 class="text-success">
+                                                تم حفظ الداتا
+                                            </h3>
+                                        </div>
+                                    }
+                                    <div class="col-md-12">
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-4">
+                                                    Card Number :
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownList("CardId", ViewBag.Cardslist as SelectList, "Select Card", new { @class = "form-control", @id = "CardId", @required = "True" })
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-5">
+                                                    Image :
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input name="ImageFile" id="ImageFile" type="file" class=" form-control " required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="col-md-6">
+                                                <input id="submit" type="submit" value="Save" class="btn btn-success" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" dir="rtl" style="background: antiquewhite; margin-bottom: 40px;">
+                                        <ol>
+                                            <li class="text-danger" style="font-size: large;">برجاء ارسال صورة الموظف بضيغة .JPG ولن يتم قبول اي صيغة اخري</li>
+                                            <li class="text-danger" style="font-size: large;">يتم ارسال صورة شخصية واضحه للوجه فقط للموظف</li>
+                                        </ol>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

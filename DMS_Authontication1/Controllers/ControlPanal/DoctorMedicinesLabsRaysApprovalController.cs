@@ -12,6 +12,8 @@ using DMS_TEST;
 using DMS_Authontication1.ViewModel;
 using System.IO;
 using System.Text;
+using System.Net;
+using System.Security.Cryptography;
 
 namespace DMS_Authontication1.Controllers.ControlPanal
 {
@@ -79,7 +81,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
         public JsonResult ChangeStatus(int MedicineId, int NotificationId, string status, string NoteAdmin, string NotePharmacy)
         {
 
-
+            string card = "";
 
             if (status != "N")
             {
@@ -87,6 +89,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                 emp.PaymentGroup = status;
                 db.Entry(emp).State = EntityState.Modified;
                 var Roshita = db.Roshitas.Where(x => x.Id == emp.RoshitaID).FirstOrDefault();
+                card = Roshita.CardId;
                 string CardId = Roshita.CardId;
                 Roshita.SyncBy = "Update";
                 Roshita.UpdatedBy = User.Identity.Name;
@@ -186,7 +189,61 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                 }
             }
             int result = db.SaveChanges();
+            var model = db.CardsSms.Where(c => c.CardId == card).FirstOrDefault();
+            if (model != null)
+            {
+                PostSMSData(" Your request has been answered. Please go to the service provider to find out the response ", model.Phone);
+            }
             return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public string PostSMSData(string Message, string PhoneNumber)
+        {
+            string requestXml =
+                "<SubmitSMSRequest xmlns='http://www.edafa.com/web2sms/sms/model/'>" +
+                "<AccountId>200001555</AccountId>" +
+                "<Password>Vodafone.1</Password>" +
+                "<SecureHash>" + SecretHashMethod(Message, PhoneNumber) + "</SecureHash>" +
+                "<SMSList>" +
+                "<SenderName>DIAMOND MED</SenderName>" +
+                "<ReceiverMSISDN>" + PhoneNumber + "</ReceiverMSISDN>" +
+                "<SMSText>" + Message + "</SMSText>" +
+                "</SMSList>" +
+                "</SubmitSMSRequest>";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://e3len.vodafone.com.eg/web2sms/sms/submit/");
+            byte[] bytes;
+            bytes = System.Text.Encoding.ASCII.GetBytes(requestXml);
+            request.ContentType = "application/xml; encoding='utf-8'";
+            request.ContentLength = bytes.Length;
+            request.Method = "POST";
+            Stream requestStream = request.GetRequestStream();
+            requestStream.Write(bytes, 0, bytes.Length);
+            requestStream.Close();
+            HttpWebResponse response;
+            response = (HttpWebResponse)request.GetResponse();
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Stream responseStream = response.GetResponseStream();
+                string responseStr = new StreamReader(responseStream).ReadToEnd();
+                return responseStr;
+            }
+            return null;
+        }
+        private string SecretHashMethod(string Message, string PhoneNumber)
+        {
+            string secret = "B88551A75DC04D78BB92ABAD298BB19F";
+            StringBuilder SecretHash = new StringBuilder();
+
+            //var encoding = new System.Text.ASCIIEncoding();
+            byte[] keyByte = System.Text.Encoding.UTF8.GetBytes(secret);
+            byte[] messageBytes = System.Text.Encoding.UTF8.GetBytes("AccountId=200001555&Password=Vodafone.1&SenderName=DIAMOND MED&ReceiverMSISDN=" + PhoneNumber + "&SMSText=" + Message);
+            //byte[] messageBytes = encoding.GetBytes("AccountId=200001555&Password=Vodafone.1&SenderName=DIAMOND MED&ReceiverMSISDN=01028599477&SMSText=Hello World");
+            using (var hmacsha256 = new HMACSHA256(keyByte))
+            {
+                byte[] hashmessage = hmacsha256.ComputeHash(messageBytes);
+                foreach (Byte b in hashmessage)
+                    SecretHash.Append(b.ToString("x2"));
+                return SecretHash.ToString().ToUpper();
+            }
         }
         public JsonResult ChangeStatus2(int ApprovalId, string status)
         {

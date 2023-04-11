@@ -164,6 +164,14 @@
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="CardsSms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CardId" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="CardUsed">
           <Key>
             <PropertyRef Name="Id" />
@@ -1718,6 +1726,27 @@
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="PETROTRADE_EMPLOYEES">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="CARD_ID" Type="nvarchar" MaxLength="255" />
+          <Property Name="C_COMP_ID" Type="int" />
+          <Property Name="EMP_CODE" Type="int" />
+          <Property Name="CLASS_CODE" Type="int" />
+          <Property Name="EMP_ANAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="COST_CENTER" Type="nvarchar" MaxLength="255" />
+          <Property Name="REF_ANAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="REF_TYPE" Type="nvarchar" MaxLength="255" />
+          <Property Name="TEL1" Type="nvarchar" MaxLength="255" />
+          <Property Name="BIRTH_DATE" Type="datetime" />
+          <Property Name="INS_TYP" Type="nvarchar" MaxLength="255" />
+          <Property Name="GENDER" Type="nvarchar" MaxLength="255" />
+          <Property Name="NATIONAL_ID" Type="nvarchar" MaxLength="255" />
+          <Property Name="CREATED_DATE" Type="datetime" />
+          <Property Name="CREATED_BY" Type="nvarchar" MaxLength="255" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="Pr_Bra">
           <Key>
             <PropertyRef Name="Id" />
@@ -3258,6 +3287,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="ApprovalMaster" EntityType="Self.ApprovalMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Basic_Data" EntityType="Self.Basic_Data" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardAcceptionReasons" EntityType="Self.CardAcceptionReasons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CardsSms" EntityType="Self.CardsSms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardUsed" EntityType="Self.CardUsed" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Co_Insurance_01" EntityType="Self.Co_Insurance_01" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COMP_CUSTOMIZED_D" EntityType="Self.COMP_CUSTOMIZED_D" Schema="dbo" store:Type="Tables" />
@@ -3328,6 +3358,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="Name_Ray_Cen" EntityType="Self.Name_Ray_Cen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patchs" EntityType="Self.Patchs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PETROTRADE_EMPLOYEES" EntityType="Self.PETROTRADE_EMPLOYEES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pr_Bra" EntityType="Self.Pr_Bra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrescriptionRoshitaDignosis" EntityType="Self.PrescriptionRoshitaDignosis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProposalBasicData" EntityType="Self.ProposalBasicData" Schema="dbo" store:Type="Tables" />
@@ -5170,6 +5201,8 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           </FunctionImport>
           <EntitySet Name="ApprovalBils" EntityType="DB_A45413_DMSERPModel.ApprovalBil" />
           <EntitySet Name="CONSUMPTION_POOL" EntityType="DB_A45413_DMSERPModel.CONSUMPTION_POOL" />
+          <EntitySet Name="CardsSms" EntityType="DB_A45413_DMSERPModel.CardsSm" />
+          <EntitySet Name="PETROTRADE_EMPLOYEES" EntityType="DB_A45413_DMSERPModel.PETROTRADE_EMPLOYEES" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7171,6 +7204,35 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CardsSm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CardId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PETROTRADE_EMPLOYEES">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="CARD_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="C_COMP_ID" Type="Int32" />
+          <Property Name="EMP_CODE" Type="Int32" />
+          <Property Name="CLASS_CODE" Type="Int32" />
+          <Property Name="EMP_ANAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="COST_CENTER" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="REF_ANAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="REF_TYPE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TEL1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BIRTH_DATE" Type="DateTime" Precision="3" />
+          <Property Name="INS_TYP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="GENDER" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NATIONAL_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -9934,6 +9996,37 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
                 <ScalarProperty Name="CONTRACT_NO" ColumnName="CONTRACT_NO" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CardsSms">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CardsSm">
+              <MappingFragment StoreEntitySet="CardsSms">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PETROTRADE_EMPLOYEES">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PETROTRADE_EMPLOYEES">
+              <MappingFragment StoreEntitySet="PETROTRADE_EMPLOYEES">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="NATIONAL_ID" ColumnName="NATIONAL_ID" />
+                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+                <ScalarProperty Name="INS_TYP" ColumnName="INS_TYP" />
+                <ScalarProperty Name="BIRTH_DATE" ColumnName="BIRTH_DATE" />
+                <ScalarProperty Name="TEL1" ColumnName="TEL1" />
+                <ScalarProperty Name="REF_TYPE" ColumnName="REF_TYPE" />
+                <ScalarProperty Name="REF_ANAME" ColumnName="REF_ANAME" />
+                <ScalarProperty Name="COST_CENTER" ColumnName="COST_CENTER" />
+                <ScalarProperty Name="EMP_ANAME" ColumnName="EMP_ANAME" />
+                <ScalarProperty Name="CLASS_CODE" ColumnName="CLASS_CODE" />
+                <ScalarProperty Name="EMP_CODE" ColumnName="EMP_CODE" />
+                <ScalarProperty Name="C_COMP_ID" ColumnName="C_COMP_ID" />
+                <ScalarProperty Name="CARD_ID" ColumnName="CARD_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

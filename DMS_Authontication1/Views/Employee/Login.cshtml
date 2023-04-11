@@ -1,0 +1,80 @@
+﻿@using DMS_Authontication1.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+<link rel="stylesheet" href="~/assets/global/plugins/design/login/styles/main_styles.css">
+<link rel="stylesheet" href="~/assets/global/plugins/design/login/styles/responsive.css">
+
+
+<br />
+<br />
+
+<div class="intro">
+    <div class="container">
+        <div class="row">
+            <!-- Intro Form -->
+            <div class="col-lg-6 intro_col col-lg-offset-3" id="loginForm">
+                <div class="intro_form_container">
+                    <div class="intro_form_title">Login</div>
+
+                    <section id="loginForm">
+                        @using (Html.BeginForm("Login", "Employee", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal intro_form", @id = "intro_form", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="d-flex flex-row align-items-start justify-content-between flex-wrap">
+
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control intro_input", @placeholder = "User Name" })
+                                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+
+
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control intro_input", @placeholder = "Password" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cus-ememberme">
+                                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check cus-rem-input" })
+                                    @Html.LabelFor(m => m.RememberMe, new { @class = "cus-rem-label" })
+                                </div>
+
+
+                                <input type="submit" value="Login" class="button button_1 intro_button trans_200" />
+                                <br />
+                                <br />
+                                <br />
+
+                            </div>
+
+                        }
+                    </section>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ~/assets/global/plugins/design/login/-->
+<script src="~/assets/global/plugins/design/login/js/jquery-3.2.1.min.js"></script>
+<script src="~/assets/global/plugins/design/login/styles/bootstrap-4.1.2/popper.js"></script>
+<script src="~/assets/global/plugins/design/login/plugins/greensock/TweenMax.min.js"></script>
+<script src="~/assets/global/plugins/design/login/plugins/scrollmagic/ScrollMagic.min.js"></script>
+<script src="~/assets/global/plugins/design/login/plugins/jquery-datepicker/jquery-ui.js"></script>
+<script src="~/assets/global/plugins/design/login/js/custom.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    $('#New').click(function () {
+        location.reload();
+    });
+</script>

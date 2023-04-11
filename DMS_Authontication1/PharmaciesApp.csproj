@@ -473,6 +473,9 @@
     <Compile Include="Models\CardAcceptionReason.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CardsSm.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CardUsed.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -762,6 +765,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Patch.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PETROTRADE_EMPLOYEES.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PrescriptionRoshitaDignosi.cs">
@@ -8409,6 +8415,8 @@
     <Content Include="Views\Hospital\Chat.cshtml" />
     <Content Include="Views\Hospital\Chat - Copy.cshtml" />
     <Content Include="Views\Hospital\AprovalsEdit.cshtml" />
+    <Content Include="Views\Employee\Login.cshtml" />
+    <Content Include="Views\Employee\UpdateData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
