@@ -943,6 +943,17 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\HR\LetterTransfer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LetterTransfer.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\HR\_LetterTransfer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_LetterTransfer.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\HR\Motalbaat165.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -8417,6 +8428,7 @@
     <Content Include="Views\Hospital\AprovalsEdit.cshtml" />
     <Content Include="Views\Employee\Login.cshtml" />
     <Content Include="Views\Employee\UpdateData.cshtml" />
+    <Content Include="Views\HrChronic\PrintMedicalReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
@@ -8679,6 +8691,14 @@
     <EmbeddedResource Include="Reports\AllClaimsReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>AllClaimsReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\LetterTransfer.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LetterTransfer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\_LetterTransfer.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>_LetterTransfer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\HR\Reportaub12InternalCode.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

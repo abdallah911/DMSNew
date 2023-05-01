@@ -444,7 +444,9 @@ namespace DMS_Authontication1.Controllers.ControlPanal
             MedicineData mEDICINE_DATA = db.MedicineDatas.Find(id);
             mEDICINE_DATA.ACTIVE = mEDICINE_DATA.ACTIVE == "Y" ? "N" : "Y";
             db.Entry(mEDICINE_DATA).State = EntityState.Modified;
-            db.SaveChanges(); return RedirectToAction("Index");
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

@@ -541,7 +541,7 @@ namespace DMS_TEST.Controllers
                 }
                 AcumlatorAmount -= PersonNoPay;
                 Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
-
+                double annualLimit = Available;
                 //Service consumption
                 List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
                 double AcumlatorServiceAmount = 0;
@@ -674,17 +674,17 @@ namespace DMS_TEST.Controllers
                         var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
                         if (accption == null)
                         {
-                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
+                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0, AnnualLimit = annualLimit });
                         }
                         var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                         if (reasons != null)
                         {
-                            return Json(new { Validation = true, Message = "Has Approval", Limit = ".001", CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, CeilingPert = CeilingPert, IsFamily = isfamily, IsPool = ispool });
+                            return Json(new { Validation = true, Message = "Has Approval", Limit = ".001", CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, CeilingPert = CeilingPert, IsFamily = isfamily, IsPool = ispool, AnnualLimit= annualLimit });
                         }
 
                     }
                     //return Json(new { ok = true, limit = limit, message = "ok", LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount }, JsonRequestBehavior.AllowGet);
-                    return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, IsFamily = isfamily, IsPool = ispool });
+                    return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, IsFamily = isfamily, IsPool = ispool, AnnualLimit = annualLimit });
 
                 }
                 else
@@ -693,7 +693,7 @@ namespace DMS_TEST.Controllers
                   && c.CONTRACT_NO == emp.CONTRACT_NO && c.SERV_CODE == "11" && c.D_SERV_CODE == MainService && c.SER_SERV == ServiceCode).FirstOrDefault();
                     if (CustemizedMed == null)
                     {
-                        return Json(new { Validation = false, Message = "يرجي مراجعه الادارة الطبيه", Limit = 0, CeilingPert = 0 });
+                        return Json(new { Validation = false, Message = "يرجي مراجعه الادارة الطبيه", Limit = 0, CeilingPert = 0, AnnualLimit = annualLimit });
                     }
                     else
                     {
@@ -784,16 +784,16 @@ namespace DMS_TEST.Controllers
                             var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
                             if (accption == null)
                             {
-                                return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
+                                return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0, AnnualLimit = annualLimit });
                             }
                             var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                             if (reasons != null)
                             {
-                                return Json(new { Validation = true, Message = "Has Approval", Limit = ".001", CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, CeilingPert = CeilingPert, IsFamily = isfamily, IsPool = ispool });
+                                return Json(new { Validation = true, Message = "Has Approval", Limit = ".001", CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, CeilingPert = CeilingPert, IsFamily = isfamily, IsPool = ispool, AnnualLimit = annualLimit });
                             }
 
                         }
-                        return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, IsFamily = isfamily, IsPool = ispool });
+                        return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, IsFamily = isfamily, IsPool = ispool, AnnualLimit = annualLimit });
 
                     }
                 }
@@ -2274,7 +2274,7 @@ namespace DMS_TEST.Controllers
                 var model = db.CardsSms.Where(c => c.CardId == roshita.CardId).FirstOrDefault();
                 if (model != null)
                 {
-                    PostSMSData("Your medical card has been used. If it is not used, please call 0226390390 ", model.Phone);
+                    PostSMSData("Your medication card has been dispensed . If it is not used, please call 0226390390 ", model.Phone);
                 }
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita.Id);
 
@@ -3489,7 +3489,7 @@ namespace DMS_TEST.Controllers
                 var model = db.CardsSms.Where(c => c.CardId == roshita.CardId).FirstOrDefault();
                 if (model != null)
                 {
-                    PostSMSData("Your medical card has been used. If it is not used, please call 0226390390", model.Phone);
+                    PostSMSData("Your medication card has been dispensed . If it is not used, please call 0226390390", model.Phone);
                 }
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita1.Id);
 

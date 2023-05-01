@@ -319,6 +319,12 @@
 
                                         <li><a href="/Reports/Index" class="link-cus">Reports</a></li>
                                     }
+                                    if (modellist.Where(x => x.PageId == 55 && (x.FullControl || x.EditPermission
+                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+
+                                        <li><a href="/HrChronic/PrintMedicalReport" class="link-cus">Medical Report</a></li>
+                                    }
                                     if (modellist.Where(x => x.PageId == 54 && (x.FullControl || x.EditPermission
                                                     || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                     {

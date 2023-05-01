@@ -387,6 +387,7 @@ $(function () {
                                         }
                                         if (Limit == true) {
                                             $("#insurance_LIVEL").val(0);
+                                            AnuualLimit=$('#AllLimit').val();
                                             Calculation();
                                         }
                                         if (Copayment == true) {
@@ -793,8 +794,8 @@ $(function () {
                                             createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val(),
                                             roshitaDetail: Mediciens,
                                             diagnose: diagnose,
-                                            IsFamily : $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
-                                            IsPool : $('#IsPool').val() == '' ? null : $('#IsPool').val(),
+                                            IsFamily: $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
+                                            IsPool: $('#IsPool').val() == '' ? null : $('#IsPool').val(),
                                         };
                                         $.ajax({
                                             type: 'POST',
@@ -1643,6 +1644,7 @@ function Calculation() {
                     sumCash += parseFloat(("TD", row).find(".Amount").val());
             }
         });
+        debugger;
         $("#txtTotalInvoice").val(sum.toFixed(2));
         $('#txtCash').val(sumCash.toFixed(2));
         $('#txtOverInsurance').val("0");
@@ -1747,6 +1749,7 @@ function GetLimit() {
                 AnuualLimit = r.Limit;
                 $('#IsFamily').val(r.IsFamily);
                 $('#IsPool').val(r.IsPool);
+                $('#AllLimit').val(r.AnnualLimit);
                 if ($("#ddlType").val() == "11601") {
                     if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
                         $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
