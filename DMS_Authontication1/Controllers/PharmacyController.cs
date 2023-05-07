@@ -56,6 +56,20 @@ namespace DMS_TEST.Controllers
 
         public JsonResult AddCard(string id)
         {
+            var carduse = db.CardUseds.Where(c => c.CardId == id).FirstOrDefault();
+            if (carduse != null)
+            {
+                db.CardUseds.Remove(carduse);
+                db.SaveChanges();
+            }
+            CardUsed cardUsed = new CardUsed
+            {
+                CardId = id,
+                CreatedDate = DateTime.Now,
+                CreatedBy = User.Identity.Name
+            };
+            db.CardUseds.Add(cardUsed);
+            db.SaveChanges();
             var company = id.Split('-')[0];
             var userID = User.Identity.GetUserId();
             var isPermission = db.UserCompanyPermissions.Where(u => u.UserId == userID && u.IsActive != false).Select(c => c.CompId).ToList();
@@ -679,7 +693,7 @@ namespace DMS_TEST.Controllers
                         var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
                         if (reasons != null)
                         {
-                            return Json(new { Validation = true, Message = "Has Approval", Limit = ".001", CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, CeilingPert = CeilingPert, IsFamily = isfamily, IsPool = ispool, AnnualLimit= annualLimit });
+                            return Json(new { Validation = true, Message = "Has Approval", Limit = ".001", CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, CeilingPert = CeilingPert, IsFamily = isfamily, IsPool = ispool, AnnualLimit = annualLimit });
                         }
 
                     }
@@ -2133,11 +2147,12 @@ namespace DMS_TEST.Controllers
         [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
         public JsonResult SavePrescription(PrescriptionViewModel data)
         {
-            //var carduse = db.CardUseds.Where(c => c.CardId == data.CardId).FirstOrDefault();
-            //if (carduse == null)
-            //{
-            //    return Json("Failed to Save Prescription");
-            //}
+            var username = User.Identity.Name;
+            var carduse = db.CardUseds.Where(c => c.CardId == data.CardId && c.CreatedBy == username).FirstOrDefault();
+            if (carduse == null)
+            {
+                return Json("Failed");
+            }
             //Roshita
             Roshita roshita = new Roshita()
             {
@@ -2166,7 +2181,7 @@ namespace DMS_TEST.Controllers
             };
 
             db.Roshitas.Add(roshita);
-            //db.CardUseds.Remove(carduse);
+            db.CardUseds.Remove(carduse);
             db.SaveChanges();
             // RoshitaDetails
             bool oneNotification = false;

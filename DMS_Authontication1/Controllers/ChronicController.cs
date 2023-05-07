@@ -231,6 +231,12 @@ namespace DMS_TEST.Controllers
 
         public JsonResult SavePrescription(PrescriptionViewModel data)
         {
+            var username = User.Identity.Name;
+            var carduse = db.CardUseds.Where(c => c.CardId == data.CardId && c.CreatedBy == username).FirstOrDefault();
+            if (carduse == null)
+            {
+                return Json("Failed");
+            }
             //var carduse = db.CardUseds.Where(c => c.CardId == data.CardId).FirstOrDefault();
             //if (carduse == null)
             //{

@@ -527,5 +527,22 @@ namespace DMS_Authontication1.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_searchCompEmployeesForNextContract_Result>("[DMS_TESTEntities].[fn_searchCompEmployeesForNextContract](@search)", searchParameter);
         }
+    
+        public virtual int UpdateMedMedicicen(string medicineCode, string status, string userName)
+        {
+            var medicineCodeParameter = medicineCode != null ?
+                new ObjectParameter("MedicineCode", medicineCode) :
+                new ObjectParameter("MedicineCode", typeof(string));
+    
+            var statusParameter = status != null ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(string));
+    
+            var userNameParameter = userName != null ?
+                new ObjectParameter("userName", userName) :
+                new ObjectParameter("userName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateMedMedicicen", medicineCodeParameter, statusParameter, userNameParameter);
+        }
     }
 }

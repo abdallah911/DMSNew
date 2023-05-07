@@ -387,7 +387,7 @@ $(function () {
                                         }
                                         if (Limit == true) {
                                             $("#insurance_LIVEL").val(0);
-                                            AnuualLimit=$('#AllLimit').val();
+                                            AnuualLimit = $('#AllLimit').val();
                                             Calculation();
                                         }
                                         if (Copayment == true) {
@@ -805,35 +805,40 @@ $(function () {
                                             //data: JSON.stringify(SavePrescriptipn),
                                             data: SavePrescription,
                                             success: function (OracleId) {
-                                                bootbox.dialog({
-                                                    closeButton: false,
-                                                    title: 'Added Sucessfully',
-                                                    message: "Approval Number : " + OracleId,
-                                                    buttons: {
-                                                        Print: {
-                                                            label: "Print",
-                                                            className: 'btn-info',
-                                                            callback: function () {
-                                                                // window.location.reload();
-                                                                ClearCardData();
-                                                                ClearMedicineData();
-                                                                $("#submit").attr("disabled", false);
-                                                                window.open('/Pharmacy/ControlPenelReport?id=' + OracleId);
+                                                if (OracleId == "Failed") {
+                                                    window.location.replace("/Pharmacy/Pharmacy");
+                                                }
+                                                else {
+                                                    bootbox.dialog({
+                                                        closeButton: false,
+                                                        title: 'Added Sucessfully',
+                                                        message: "Approval Number : " + OracleId,
+                                                        buttons: {
+                                                            Print: {
+                                                                label: "Print",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    // window.location.reload();
+                                                                    ClearCardData();
+                                                                    ClearMedicineData();
+                                                                    $("#submit").attr("disabled", false);
+                                                                    window.open('/Pharmacy/ControlPenelReport?id=' + OracleId);
+                                                                }
+                                                            },
+                                                            New: {
+                                                                label: "New",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    ClearCardData();
+                                                                    ClearMedicineData();
+                                                                    $("#submit").attr("disabled", false);
+                                                                    //window.location.reload();
+                                                                }
                                                             }
-                                                        },
-                                                        New: {
-                                                            label: "New",
-                                                            className: 'btn-info',
-                                                            callback: function () {
-                                                                ClearCardData();
-                                                                ClearMedicineData();
-                                                                $("#submit").attr("disabled", false);
-                                                                //window.location.reload();
-                                                            }
-                                                        }
 
-                                                    }
-                                                });
+                                                        }
+                                                    });
+                                                }
                                             },
                                             error: function (err) {
                                                 bootbox.alert("Error saving roshita,please check your internet connection");

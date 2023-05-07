@@ -289,6 +289,7 @@
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
           <Property Name="POLL_CONSUMPTION" Type="nchar" MaxLength="1" />
+          <Property Name="CEILING_PERT_ONEC" Type="int" />
         </EntityType>
         <EntityType Name="Comp_Customized_D_D_Emp">
           <Key>
@@ -333,6 +334,7 @@
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
           <Property Name="POLL_CONSUMPTION" Type="nchar" MaxLength="1" />
+          <Property Name="CEILING_PERT_ONEC" Type="int" />
         </EntityType>
         <EntityType Name="COMP_CUSTOMIZED_D_D_MED">
           <Key>
@@ -2441,7 +2443,7 @@
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Swap">
           <Key>
             <PropertyRef Name="Id" />
@@ -3277,6 +3279,11 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
             </CollectionType>
           </ReturnType>
         </Function>
+        <Function Name="UpdateMedMedicicen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MedicineCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="Status" Type="nvarchar" Mode="In" />
+          <Parameter Name="userName" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="DB_A45413_DMSERPModelStoreContainer">
           <EntitySet Name="Acception" EntityType="Self.Acception" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AcceptionReasons" EntityType="Self.AcceptionReasons" Schema="dbo" store:Type="Tables" />
@@ -3743,6 +3750,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="POLL_CONSUMPTION" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="CEILING_PERT_ONEC" Type="Int32" />
         </EntityType>
         <EntityType Name="Comp_Customized_D_D_Emp">
           <Key>
@@ -3787,6 +3795,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="POLL_CONSUMPTION" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="CEILING_PERT_ONEC" Type="Int32" />
         </EntityType>
         <EntityType Name="COMP_CUSTOMIZED_D_EMP">
           <Key>
@@ -5203,6 +5212,11 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="CONSUMPTION_POOL" EntityType="DB_A45413_DMSERPModel.CONSUMPTION_POOL" />
           <EntitySet Name="CardsSms" EntityType="DB_A45413_DMSERPModel.CardsSm" />
           <EntitySet Name="PETROTRADE_EMPLOYEES" EntityType="DB_A45413_DMSERPModel.PETROTRADE_EMPLOYEES" />
+          <FunctionImport Name="UpdateMedMedicicen">
+            <Parameter Name="MedicineCode" Mode="In" Type="String" />
+            <Parameter Name="Status" Mode="In" Type="String" />
+            <Parameter Name="userName" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7364,6 +7378,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySetMapping Name="Comp_Customized_D_D">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Comp_Customized_D_D">
               <MappingFragment StoreEntitySet="Comp_Customized_D_D">
+                <ScalarProperty Name="CEILING_PERT_ONEC" ColumnName="CEILING_PERT_ONEC" />
                 <ScalarProperty Name="POLL_CONSUMPTION" ColumnName="POLL_CONSUMPTION" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
@@ -7407,6 +7422,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySetMapping Name="Comp_Customized_D_D_Emp">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Comp_Customized_D_D_Emp">
               <MappingFragment StoreEntitySet="Comp_Customized_D_D_Emp">
+                <ScalarProperty Name="CEILING_PERT_ONEC" ColumnName="CEILING_PERT_ONEC" />
                 <ScalarProperty Name="POLL_CONSUMPTION" ColumnName="POLL_CONSUMPTION" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
@@ -10030,6 +10046,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="UpdateMedMedicicen" FunctionName="DB_A45413_DMSERPModel.Store.UpdateMedMedicicen" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

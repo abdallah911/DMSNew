@@ -1208,6 +1208,7 @@ namespace DMS_Authontication1.Controllers
         {
             try
             {
+                List<string> branches = new List<string>();
                 if (User.IsInRole("Lab"))
                 {
                     Branch = User.Identity.Name;
@@ -1216,6 +1217,7 @@ namespace DMS_Authontication1.Controllers
                 {
                     var context = new ApplicationDbContext();
                     Branch = context.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault().Provider;
+                    branches = context.Users.Where(x => x.Provider == Branch).Select(u => u.UserName).ToList();
                 }
                 DateTime F = Convert.ToDateTime(From);
                 //DateTime T = Convert.ToDateTime(To);
@@ -1223,7 +1225,7 @@ namespace DMS_Authontication1.Controllers
                 ReportDocument rd = new ReportDocument();
                 rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ClamsReportLabs.rpt"));
 
-                var y = db.Roshitas.Where(r => r.CreatedDate >= F && r.CreatedDate <= T && !r.Manager.Contains("Stop") && r.CreatedBy == User.Identity.Name)
+                var y = db.Roshitas.Where(r => r.CreatedDate >= F && r.CreatedDate <= T && !r.Manager.Contains("Stop") && (r.CreatedBy == User.Identity.Name|| branches.Contains(r.CreatedBy)))
                    .Join(db.Comp_Employees, r => r.CardId, m => m.CARD_ID, (r, m) => new { r, m })
                    .Where(x => x.m.INS_START_DATE <= DateTime.Now && x.m.INS_END_DATE >= DateTime.Now)
                    .AsEnumerable()
