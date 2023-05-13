@@ -95,12 +95,12 @@
                         <th>
                             @Html.DisplayNameFor(model => model.NationalID)
                         </th>
-                        <th>
+                        @*<th>
                             @Html.DisplayNameFor(model => model.BankName)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.BankAccount)
-                        </th>
+                        </th>*@
                         @if (User.IsInRole("Admin"))
                         {
                             <th>
@@ -133,12 +133,12 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.NationalID)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.BankName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.BankAccount)
-                        </td>
+                        </td>*@
                         @if (User.IsInRole("Admin"))
                         {
                             <td>

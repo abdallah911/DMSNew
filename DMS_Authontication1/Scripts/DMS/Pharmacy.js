@@ -74,7 +74,7 @@ $(function () {
             $("#wait").css("display", "block");
 
             $.ajax({
-                url: '/Pharmacy/AddCard',
+                url: '/Pharmacy/AddCardPharmacy',
                 data: { id: $('#txtSearchCard').val() },
                 dataType: 'Json',
                 success: function (r) {

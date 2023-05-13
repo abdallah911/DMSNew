@@ -54,7 +54,7 @@ namespace DMS_TEST.Controllers
             return View();
         }
 
-        public JsonResult AddCard(string id)
+        public JsonResult AddCardPharmacy(string id)
         {
             var carduse = db.CardUseds.Where(c => c.CardId == id).FirstOrDefault();
             if (carduse != null)
@@ -70,6 +70,41 @@ namespace DMS_TEST.Controllers
             };
             db.CardUseds.Add(cardUsed);
             db.SaveChanges();
+            var company = id.Split('-')[0];
+            var userID = User.Identity.GetUserId();
+            var isPermission = db.UserCompanyPermissions.Where(u => u.UserId == userID && u.IsActive != false).Select(c => c.CompId).ToList();
+            if (isPermission == null || isPermission.Count == 0)
+            {
+                var emp = db.fn_searchCompEmployees(id).ToList();
+                return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+            {
+                if (isPermission.Contains(company))
+                {
+                    var emp = db.fn_searchCompEmployees(id).ToList();
+                    return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                return new JsonResult { Data = "null", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+        }
+        public JsonResult AddCard(string id)
+        {
+            //var carduse = db.CardUseds.Where(c => c.CardId == id).FirstOrDefault();
+            //if (carduse != null)
+            //{
+            //    db.CardUseds.Remove(carduse);
+            //    db.SaveChanges();
+            //}
+            //CardUsed cardUsed = new CardUsed
+            //{
+            //    CardId = id,
+            //    CreatedDate = DateTime.Now,
+            //    CreatedBy = User.Identity.Name
+            //};
+            //db.CardUseds.Add(cardUsed);
+            //db.SaveChanges();
             var company = id.Split('-')[0];
             var userID = User.Identity.GetUserId();
             var isPermission = db.UserCompanyPermissions.Where(u => u.UserId == userID && u.IsActive != false).Select(c => c.CompId).ToList();
@@ -627,8 +662,8 @@ namespace DMS_TEST.Controllers
                     //List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
                     List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor").ToList();
                     List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
-                    List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic")).ToList();
-                    List<Roshita> MonthlyMonthlyAcumlatorList = db.Roshitas.Where(x => x.CreatedDate >= Last21Time).ToList();
+                    List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
+                    List<Roshita> MonthlyMonthlyAcumlatorList = db.Roshitas.Where(x => x.CardId == id && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic")).ToList();
                     //List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
                     bool LimitDailyPreceptionCount = false;
                     bool LimitMonthlyPreceptionCount = false;

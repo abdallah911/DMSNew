@@ -315,7 +315,7 @@ namespace DMS_TEST.Controllers
 
             }
             db.Roshitas.Add(roshita);
-            //db.CardUseds.Remove(carduse);
+            db.CardUseds.Remove(carduse);
             db.SaveChanges();
             DateTime datenow = DateTime.Now.Date;
             var date = new DateTime(datenow.Year, datenow.Month, datenow.Day);
