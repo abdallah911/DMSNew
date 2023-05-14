@@ -319,6 +319,12 @@
 
                                         <li><a href="/Reports/Index" class="link-cus">Reports</a></li>
                                     }
+                                    if (modellist.Where(x => x.PageId == 55 && (x.FullControl || x.EditPermission
+                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                    {
+
+                                        <li><a href="/HrChronic/PrintMedicalReport" class="link-cus">Medical Report</a></li>
+                                    }
                                     if (modellist.Where(x => x.PageId == 54 && (x.FullControl || x.EditPermission
                                                     || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                     {
@@ -358,6 +364,7 @@
                     @if (User.IsInRole("Hospital"))
                     {
                         <li>@Html.ActionLink("Add Approval", "AddApproval", "Hospital", null, new { style = "color: #6c757d" })</li>
+                        <li>@Html.ActionLink("Approvals Edit", "AprovalsEdit", "Hospital", null, new { style = "color: #6c757d" })</li>
                     }
 
                     @{

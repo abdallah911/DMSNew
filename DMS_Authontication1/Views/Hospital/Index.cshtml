@@ -80,7 +80,10 @@
 
             </div>
         </div>
-
+        <div hidden>
+                    <input id="IsFamily" name="IsFamily" value="" />
+                    <input id="IsPool" name="IsPool" value="" />
+                </div>
         <div class="panel panel-info">
             <h2 class="panel-heading" style="margin:1px;">Card ID</h2>
             <div class="panel-body">
@@ -113,6 +116,13 @@
                         <div class="col-sm-2" id="div_of_serv" data-step="4" data-intro="Select Sub Services">
                             <label class="control-label">Sub Services</label>
                             <select id="Services" class="form-control">
+                                <option value="0"> اختر نوع الخدمه المطلوبه </option>
+                            </select>
+
+                        </div>
+                        <div class="col-sm-2" id="div_of_servEmergancy" data-step="4" data-intro="Select Sub Services">
+                            <label class="control-label">Sub Services</label>
+                            <select id="ServicesEmergancy" class="form-control">
                                 <option value="0"> اختر نوع الخدمه المطلوبه </option>
                             </select>
 
@@ -186,6 +196,11 @@
                         <select id="doctorNameSelect" style="width:100%" multiple="multiple">
                             
                         </select>
+                    </div>
+                    <div id="DoctortNameEmergancydiv" class="col-sm-4" hidden="hidden" @*data-step="5" data-intro="Select Diagnoises"*@>
+                        @Html.Label("Doctor Name", new { @class = "control-label" })
+                        @Html.Editor("DoctortNameEmergancy", new { htmlAttributes = new { @class = "form-control", @id= "DoctortNameEmergancy",@name= "DoctortNameEmergancy"} })
+
                     </div>
 
 

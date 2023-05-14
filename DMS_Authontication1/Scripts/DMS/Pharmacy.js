@@ -11,6 +11,7 @@ var firstDate;
 var NationalId;
 const secondDate = new Date();
 var diffDays;
+
 input.addEventListener("keyup", function (event) {
     event.preventDefault();
     if (event.keyCode === 13) {
@@ -73,7 +74,7 @@ $(function () {
             $("#wait").css("display", "block");
 
             $.ajax({
-                url: '/Pharmacy/AddCard',
+                url: '/Pharmacy/AddCardPharmacy',
                 data: { id: $('#txtSearchCard').val() },
                 dataType: 'Json',
                 success: function (r) {
@@ -326,6 +327,7 @@ $(function () {
                                         var Gender = false;
                                         var DisregardCeiling = false;
                                         var ExternalPrescription = false;
+                                        var PrescriptionPerDay = false;
                                         for (var i = 0; i < returndata.length; i++) {
                                             Copayment = Copayment == true ? true : returndata[i].includes("Cancel Co-Payment");
                                             Limit = Limit == true ? true : returndata[i].includes('Disregard OverInsurance');
@@ -335,14 +337,57 @@ $(function () {
                                             Gender = Gender == true ? true : returndata[i].includes("Ignore Gender");
                                             DisregardCeiling = DisregardCeiling == true ? true : returndata[i].includes("Disregard Ceiling");
                                             ExternalPrescription = ExternalPrescription == true ? true : returndata[i].includes("External Prescription");
+                                            PrescriptionPerDay = PrescriptionPerDay == true ? true : returndata[i].includes("Unlimited Examination per day");
 
                                         }
                                         if (Adult == true) {
                                             // console.log("Age is checked");
                                             GetAge(1);
                                         }
+                                        if (PrescriptionPerDay == true) {
+                                            //Co-Payment
+                                            $.ajax({
+                                                type: "POST",
+                                                dataType: "json",
+                                                url: '/Pharmacy/CellingAmount',
+                                                data: {
+                                                    id: CardId,
+                                                    ServiceCode: $('#ddlType').val()
+                                                },
+                                                success: function (r) {
+                                                    if (r.Validation == false) {
+                                                        // toastr.info(r.Message);
+                                                        //ClearCardData();
+                                                        alert(r.Message);
+                                                        //history.go(0);
+                                                        window.location.replace("/Pharmacy/Pharmacy");
+                                                        //window.location.reload();
+
+                                                    } else {
+                                                        $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
+                                                        AnuualLimit = r.Limit;
+                                                        $('#IsFamily').val(r.IsFamily);
+                                                        $('#IsPool').val(r.IsPool);
+                                                        if (r.CoInsurancelimit.INSURANCE_DAY >= 0) {
+                                                            $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
+                                                        } else {
+                                                            alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
+                                                            $("#insurance_LIVEL").val("0.001");
+
+                                                            $('#ddEmp_CEILING_PERT').val("0");
+                                                        }
+                                                    }
+                                                },
+                                                error: function (err) {
+                                                    alert("Failed to retrieve Company Annual Limit. please check your internet connection");
+                                                    location.reload();
+                                                }
+                                            });
+                                            Calculation();
+                                        }
                                         if (Limit == true) {
                                             $("#insurance_LIVEL").val(0);
+                                            AnuualLimit = $('#AllLimit').val();
                                             Calculation();
                                         }
                                         if (Copayment == true) {
@@ -748,7 +793,9 @@ $(function () {
                                             ClaimNumber: $('#ClaimNumber').val(),
                                             createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val(),
                                             roshitaDetail: Mediciens,
-                                            diagnose: diagnose
+                                            diagnose: diagnose,
+                                            IsFamily: $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
+                                            IsPool: $('#IsPool').val() == '' ? null : $('#IsPool').val(),
                                         };
                                         $.ajax({
                                             type: 'POST',
@@ -758,35 +805,40 @@ $(function () {
                                             //data: JSON.stringify(SavePrescriptipn),
                                             data: SavePrescription,
                                             success: function (OracleId) {
-                                                bootbox.dialog({
-                                                    closeButton: false,
-                                                    title: 'Added Sucessfully',
-                                                    message: "Approval Number : " + OracleId,
-                                                    buttons: {
-                                                        Print: {
-                                                            label: "Print",
-                                                            className: 'btn-info',
-                                                            callback: function () {
-                                                                // window.location.reload();
-                                                                ClearCardData();
-                                                                ClearMedicineData();
-                                                                $("#submit").attr("disabled", false);
-                                                                window.open('/Pharmacy/ControlPenelReport?id=' + OracleId);
+                                                if (OracleId == "Failed") {
+                                                    window.location.replace("/Pharmacy/Pharmacy");
+                                                }
+                                                else {
+                                                    bootbox.dialog({
+                                                        closeButton: false,
+                                                        title: 'Added Sucessfully',
+                                                        message: "Approval Number : " + OracleId,
+                                                        buttons: {
+                                                            Print: {
+                                                                label: "Print",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    // window.location.reload();
+                                                                    ClearCardData();
+                                                                    ClearMedicineData();
+                                                                    $("#submit").attr("disabled", false);
+                                                                    window.open('/Pharmacy/ControlPenelReport?id=' + OracleId);
+                                                                }
+                                                            },
+                                                            New: {
+                                                                label: "New",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    ClearCardData();
+                                                                    ClearMedicineData();
+                                                                    $("#submit").attr("disabled", false);
+                                                                    //window.location.reload();
+                                                                }
                                                             }
-                                                        },
-                                                        New: {
-                                                            label: "New",
-                                                            className: 'btn-info',
-                                                            callback: function () {
-                                                                ClearCardData();
-                                                                ClearMedicineData();
-                                                                $("#submit").attr("disabled", false);
-                                                                //window.location.reload();
-                                                            }
-                                                        }
 
-                                                    }
-                                                });
+                                                        }
+                                                    });
+                                                }
                                             },
                                             error: function (err) {
                                                 bootbox.alert("Error saving roshita,please check your internet connection");
@@ -1597,6 +1649,7 @@ function Calculation() {
                     sumCash += parseFloat(("TD", row).find(".Amount").val());
             }
         });
+        debugger;
         $("#txtTotalInvoice").val(sum.toFixed(2));
         $('#txtCash').val(sumCash.toFixed(2));
         $('#txtOverInsurance').val("0");
@@ -1699,6 +1752,9 @@ function GetLimit() {
             } else {
                 $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
                 AnuualLimit = r.Limit;
+                $('#IsFamily').val(r.IsFamily);
+                $('#IsPool').val(r.IsPool);
+                $('#AllLimit').val(r.AnnualLimit);
                 if ($("#ddlType").val() == "11601") {
                     if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
                         $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);

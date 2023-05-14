@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.SqlServer;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -93,6 +94,15 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             return View(claimList);
         }
 
+        public ActionResult AprovalsEdit()
+        {
+            var HrUserName = User.Identity.GetUserName();
+            var Provider = Convert.ToInt32(myEntities.Users.Where(u => u.UserName == HrUserName).FirstOrDefault().Provider);
+            var claimList = db.ApprovalBils.Where(c => c.ProviderCode == Provider && c.IsDeleted != true)
+                .ToList().OrderByDescending(m => m.Id);
+            return View(claimList);
+        }
+
 
         public ActionResult AddApproval()
         {
@@ -159,18 +169,47 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             return View();
         }
 
-        public ActionResult Edit(long? Id)
+        public ActionResult Chat()
         {
-            if (Id == null)
+            return View();
+        }
+        public ActionResult Edit(string code)
+        {
+            var model = new ApprovalBil();
+            model.Code = code;
+            if (code == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View(model);
             }
-            var model = db.HospitalClaims.Where(c => c.ID == Id && c.IsDeleted != true).FirstOrDefault();
+
+            model = db.ApprovalBils.Where(c => c.Code == code).FirstOrDefault();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(ApprovalBil obj)
+        {
+            var model = db.ApprovalBils.Where(c => c.Code == obj.Code).FirstOrDefault();
             if (model == null)
             {
-                return HttpNotFound();
+                var HUserName = User.Identity.GetUserName();
+                obj.ProviderCode = Convert.ToInt32(myEntities.Users.Where(u => u.UserName == HUserName).FirstOrDefault().Provider);
+                obj.CreatedBy = User.Identity.GetUserName();
+                obj.CreatedDate = DateTime.Now;
+                obj.IsDeleted = false;
+                db.ApprovalBils.Add(obj);
+                db.SaveChanges();
+                return RedirectToAction("AprovalsEdit");
             }
-            return View(model);
+            model.EnterDate = obj.EnterDate;
+            model.ExitDate = obj.ExitDate;
+            model.TotalValue = obj.TotalValue;
+            model.UpdatedBy = User.Identity.GetUserName();
+            model.UpdatedDate = DateTime.Now;
+            db.Entry(model).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("AprovalsEdit");
         }
 
         // GET: Hospital/Delete/5
@@ -214,10 +253,10 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             //StringBuilder strBody = new StringBuilder();
             //strBody.Append("One Try To login To Ypur Accoun");
             //var EmailAndPassword = db.ProviderEmails.Where(p => p.PrvoderCode == applicationUser.Provider).FirstOrDefault();
-            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("mediacl.approv@gmail.com" /*EmailAndPassword.Email*/, to, subject, Message);
+            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage("hrindemnity@gmail.com" /*EmailAndPassword.Email*/, to, subject, Message);
             //pasing the Gmail credentials to send the email
             mail.AlternateViews.Add(altView);
-            System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("mediacl.approv@gmail.com", "Dms123456"/*EmailAndPassword.Email, EmailAndPassword.Password*/);
+            System.Net.NetworkCredential mailAuthenticaion = new System.Net.NetworkCredential("hrindemnity@gmail.com", "maadtyhyszskumob"/*EmailAndPassword.Email, EmailAndPassword.Password*/);
 
             System.Net.Mail.SmtpClient mailclient = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587);
             mailclient.EnableSsl = true;
@@ -898,8 +937,8 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             string Total_Cash, string Person_Payment, string Services, string Specialist, string Contract_Number, string Class_Code
             , string Comp_Payment, string TotalValue, string OverInsurance, string Cash, string ServType, string NATIONAL_ID,
             string Phone, string COMP_PERC, string Notes, int? HospitalException, int? ExceptionLabRayDoctor
-            , int? SpecalistID, string DoctorName)
-        {
+            , int? SpecalistID, string DoctorName, string IsFamily, string IsPool)
+        {                                          
             string codeRequestDate;
             long len = db.HospitalClaims.DefaultIfEmpty().Max(r => r == null ? 0 : r.ID) + 1;
             string tim = DateTime.Now.Date.ToString("ddMMyyyy");
@@ -992,7 +1031,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                         db.Entry(exc).State = EntityState.Modified;
                         db.SaveChanges();
                     }
-                    return new JsonResult { Data = new { result = "تم حفظ العملية بنجاح كود الموافقة  :" + codeRequestDate, ID = hospitalClaim.IdPrimary, msg = "OK" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    return new JsonResult { Data = new { result = "تم حفظ العملية بنجاح كود الموافقة  :" + codeRequestDate, ID = hospitalClaim.IdPrimary + "\n", msg = "OK" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
                 else
                     return new JsonResult { Data = new { result = "Invalid Request", msg = "NO" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -1344,6 +1383,8 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 double CeilingPert;
                 double MaxSubServiceAmount;
                 bool type = false;
+                string isfamily = "";
+                string ispool = "";
                 var remainingconsumption = db.RemainConsumptions.Where(x => x.CARD_ID == id && x.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
                 if (remainingconsumption != null)
                 {
@@ -1376,10 +1417,12 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 {
                     var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
                     CompContractClassMAX_AMOUNT = Convert.ToDouble(classLimit.MAX_AMOUNT * 0.85);
+                    isfamily = classLimit.FOR_FAMILY;
                 }
                 else
                 {
                     CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
+                    isfamily = CompContractClassEmp.FOR_FAMILY;
                 }
                 type = false;
 
@@ -1389,6 +1432,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 {
                     var max_serv = db.COMP_CUSTOMIZED_D_EMP.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.D_SERV_CODE == MainService && c.CARD_ID == id).FirstOrDefault();
                     MaxServiceAmount = (max_serv == null || max_serv.CEILING_AMT == null) ? Convert.ToDouble(CompContractClassMAX_AMOUNT) : Convert.ToDouble(max_serv.CEILING_AMT);
+                    ispool = DataService.POLL_CONSUMPTION;
 
                 }
                 else if (DataService == null)
@@ -1396,6 +1440,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                     DataService1 = db.Comp_Customized_D_D.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.SER_SERV == ServiceCode).FirstOrDefault();
                     if (DataService1 != null)
                     {
+                        ispool = DataService1.POLL_CONSUMPTION;
                         var max_serv = db.COMP_CUSTOMIZED_D.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.CLASS_CODE == emp.CLASS_CODE && c.D_SERV_CODE == MainService).FirstOrDefault();
                         MaxServiceAmount = (max_serv == null || max_serv.CEILING_AMT == null) ? Convert.ToDouble(CompContractClassMAX_AMOUNT) : Convert.ToDouble(max_serv.CEILING_AMT);
 
@@ -1424,15 +1469,20 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 }
                 double Available = 0;
                 double Limit = 0;
-                List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                List<Roshita> AcumlatorList = new List<Roshita>();
+                var EmpCode = id.Split('-')[2];
+                var CompCode = id.Split('-')[0];
+                if (isfamily == "Y")
+                {
+                    AcumlatorList = db.Roshitas.Where(r => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", r.CardId) > 0
+                    && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
-                //if (type == true)
-                //{
-                //    Available = CompContractClassMAX_AMOUNT;
-
-                //}
-                //else
-                //{
+                }
+                else
+                {
+                    AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                }
                 //Main consumption
                 double AcumlatorAmount = 0;
                 foreach (var item in AcumlatorList)
@@ -1440,14 +1490,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                     AcumlatorAmount += item.CompanyPayment;
                 }
                 Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
-                //}
-                //if (remainingconsumption != null && remainingconsumption.REMAINING != null &&
-                //    (remainingconsumption.REMAINING == Available))
-                //{
-                //    Limit = Available;
-                //}
-                //else
-                //{
+               
                 //Service consumption
                 List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
                 double AcumlatorServiceAmount = 0;
@@ -1473,6 +1516,11 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 {
                     Limit = (double)(remainingconsumption.REMAINING.Value < Limit ? remainingconsumption.REMAINING : Limit);
                 }
+                if (ispool == "Y")
+                {
+                    Limit = (double)(db.CONSUMPTION_POOL.Where(r => r.COMP_ID == emp.C_COMP_ID).FirstOrDefault().REMAINING);
+
+                }
                 bool Validation = Limit > 0 ? true : false;
                 Message = Validation ? "Ok" : "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد";
                 //Message = Validation ? "Ok" : "Exceeded his annual contract limit";
@@ -1482,7 +1530,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                     return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
 
                 }
-                return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert });
+                return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, IsFamily = isfamily, IsPool = ispool });
 
             }
             else

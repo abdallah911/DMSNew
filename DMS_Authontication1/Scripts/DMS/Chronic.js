@@ -345,6 +345,8 @@ $(function () {
                 //ClaimNumber: $('#ClaimNumber').val(),
                 //createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val(),
                 roshitaDetail: Mediciens,
+                IsFamily: $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
+                IsPool: $('#IsPool').val() == '' ? null : $('#IsPool').val(),
                 //diagnose: diagnose
             };
             $.ajax({
@@ -355,32 +357,37 @@ $(function () {
                 //data: JSON.stringify(SavePrescriptipn),
                 data: SavePrescription,
                 success: function (OracleId) {
-                    bootbox.dialog({
-                        closeButton: false,
-                        title: 'Added Sucessfully',
-                        message: "Approval Number : " + OracleId,
-                        buttons: {
-                            Print: {
-                                label: "Print",
-                                className: 'btn-info',
-                                callback: function () {
-                                    window.open('/Pharmacy/ControlPenelReport?id=' + OracleId);
-                                    window.location = '/Pharmacy/Pharmacy';
-                                    $("#submit").attr("disabled", false);
-                                }
-                            },
-                            New: {
-                                label: "New",
-                                className: 'btn-info',
-                                callback: function () {
-                                    window.location = '/Pharmacy/Pharmacy';
-                                    $("#submit").attr("disabled", false);
+                    if (OracleId == "Failed") {
+                        window.location.replace("/Pharmacy/Pharmacy");
+                    }
+                    else {
+                        bootbox.dialog({
+                            closeButton: false,
+                            title: 'Added Sucessfully',
+                            message: "Approval Number : " + OracleId,
+                            buttons: {
+                                Print: {
+                                    label: "Print",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        window.open('/Pharmacy/ControlPenelReport?id=' + OracleId);
+                                        window.location = '/Pharmacy/Pharmacy';
+                                        $("#submit").attr("disabled", false);
+                                    }
+                                },
+                                New: {
+                                    label: "New",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        window.location = '/Pharmacy/Pharmacy';
+                                        $("#submit").attr("disabled", false);
 
+                                    }
                                 }
+
                             }
-
-                        }
-                    });
+                        });
+                    }
                 },
                 error: function (err) {
                     bootbox.alert("Error saving roshita,please check your internet connection");
@@ -509,12 +516,14 @@ function GetLimit() {
                 window.location = '/Pharmacy/Pharmacy';
             }
             else {
+                debugger;
                 co = r.CeilingPert;
                 AnuualLimit = r.Limit;
                 //Limit = Math.round(r.CoInsurancelimit.INSURANCE_MONTH);
                 //Limit = r.CoInsurancelimit.INSURANCE_MONTH;
                 Limit = r.CoInsurancelimit == undefined ? AnuualLimit : r.CoInsurancelimit.INSURANCE_MONTH
-
+                $('#IsFamily').val(r.IsFamily);
+                $('#IsPool').val(r.IsPool);
                 GetChronicMedData();
 
             }

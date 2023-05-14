@@ -70,5 +70,7 @@ namespace DMS_Synchronization.Models
         public DateTime? STOP_DATE { get; set; }
         public string DLEV_CARD { get; set; }
         public DateTime? DELV_DATE { get; set; }
+        public string FOR_FAMILY { get; set; }
+
     }
 }

@@ -454,7 +454,7 @@
     <Compile Include="Models\AfterSale.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AnalysisLossRatio.cs">
+    <Compile Include="Models\ApprovalBil.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ApprovalDetail.cs">
@@ -466,10 +466,14 @@
     <Compile Include="Models\APPROVAL_BAD.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Basic.cs" />
     <Compile Include="Models\Basic_Data.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CardAcceptionReason.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CardsSm.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CardUsed.cs">
@@ -509,6 +513,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Comp_Employees.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CONSUMPTION_POOL.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ContactU.cs">
@@ -760,6 +767,9 @@
     <Compile Include="Models\Patch.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PETROTRADE_EMPLOYEES.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PrescriptionRoshitaDignosi.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -932,6 +942,17 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\HR\LetterTransfer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LetterTransfer.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\HR\_LetterTransfer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_LetterTransfer.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\HR\Motalbaat165.cs">
       <AutoGen>True</AutoGen>
@@ -1198,6 +1219,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RoshitaReport2.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AcceptionViewModel.cs" />
@@ -8382,8 +8404,12 @@
     <Content Include="Reports\HR\IndemnityCheckInternalCode.rpt" />
     <Content Include="Views\CustomerService\Index.cshtml" />
     <Content Include="Views\CompEmployees\IndexSms.cshtml" />
-    <Content Include="Reports\HR\HrClaimsReport.rpt" />
-    <Content Include="Reports\HR\ApprovalHr.rpt" />
+    <Content Include="Reports\HR\HrClaimsReport.rpt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\ApprovalHr.rpt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Reports\ReportPrintHorizontal6.rpt" />
     <Content Include="Views\CustomerService\_MedicalNetworkCustomerService.cshtml" />
     <Content Include="Views\LossRatio\_MedicalNetworkCustomerService.cshtml" />
@@ -8396,6 +8422,13 @@
       <LastGenOutput>ChronicDataReport.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Hospital\Edit.cshtml" />
+    <Content Include="Views\Hospital\Chat.cshtml" />
+    <Content Include="Views\Hospital\Chat - Copy.cshtml" />
+    <Content Include="Views\Hospital\AprovalsEdit.cshtml" />
+    <Content Include="Views\Employee\Login.cshtml" />
+    <Content Include="Views\Employee\UpdateData.cshtml" />
+    <Content Include="Views\HrChronic\PrintMedicalReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
@@ -8659,6 +8692,14 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>AllClaimsReport.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\LetterTransfer.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LetterTransfer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\_LetterTransfer.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>_LetterTransfer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\HR\Reportaub12InternalCode.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Reportaub12InternalCode.cs</LastGenOutput>
@@ -8711,10 +8752,11 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Consum918InternalCode.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\RoshitaReport2.rpt">
+    <Content Include="Reports\RoshitaReport2.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RoshitaReport2.cs</LastGenOutput>
-    </EmbeddedResource>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

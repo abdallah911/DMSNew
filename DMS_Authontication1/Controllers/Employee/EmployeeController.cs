@@ -92,6 +92,68 @@ namespace DMS_Authontication1.Controllers.Employee
 
 
         #region Actions
+        public ActionResult Login(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginViewModel model, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            int code = int.Parse(model.UserName);
+            var user = db.PETROTRADE_EMPLOYEES.Where(e => e.EMP_CODE == code);
+            if (user != null)
+            {
+                
+                return RedirectToAction("UpdateData", "Employee", new { Code = code });
+
+            }
+            else
+            {
+                ModelState.AddModelError("", "User incorrect");
+                return View(model);
+            }
+        }
+
+        // GET: /Account/Register
+        [AllowAnonymous]
+        public ActionResult UpdateData(int? Code,int? Save)
+        {
+            var data = db.PETROTRADE_EMPLOYEES.Where(x => x.EMP_CODE == Code).ToList();
+            var cards = data.Select(c => new
+            {
+                CardIDValue = c.CARD_ID,
+                CardIdString = c.EMP_ANAME
+            }).ToList();
+            SelectList Cardlist = new SelectList(cards, "CardIDValue", "CardIdString");
+            ViewBag.Cardslist = Cardlist;
+            ViewBag.Save = Save;
+            return View();
+        }
+
+        // GET: /Account/Register
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult UpdateData(string CardId, HttpPostedFileBase ImageFile)
+        {
+            int Code = int.Parse(CardId.Split('-')[2]);
+            int intype = int.Parse(CardId.Split('-')[3]);
+            string fileName = Path.GetFileNameWithoutExtension(ImageFile.FileName);
+            string extension = Path.GetExtension(ImageFile.FileName);
+            fileName = Code.ToString()+"-"+ intype.ToString() /*+ "_" + DateTime.Now.ToString("ss")*/ + extension;
+            // model.APPROVAL_IMAGE = "~/Content/EmployeesRequestsImage/" + fileName;
+            ImageFile.SaveAs(Server.MapPath("/Content/PETROTRADE_EMPLOYEES/" + fileName));
+
+            return RedirectToAction("UpdateData", "Employee", new { Code = Code,Save=1 });
+        }
 
 
         [Authorize(Roles = "User")]

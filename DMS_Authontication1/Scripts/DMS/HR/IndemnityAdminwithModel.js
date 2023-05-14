@@ -12,7 +12,6 @@ $(function () {
             dataType: 'Json',
             success: function (r) {
                 $('#CardId').append('<option value="0">Select Card Id </option>');
-                //$('#CardId').append('<option value="' + cardsearch + '">' + cardsearch + '</option>');
                 if (r.Success == "Yes" && r.subCards.length > 0) {
                     for (var i = 0; i < r.subCards.length; i++) {
                         $('#CardId').append('<option value="' + r.subCards[i].CardIDValue + '">' + r.subCards[i].CardIdString + '</option>');
@@ -130,7 +129,6 @@ $(function () {
         $("#CardId").val('').trigger('change');
         $("#RelatedCardId").select2("val", "");
         $("#CardId").empty();
-        //$("#CardServices  TBODY").empty();
         ClearSaveIndemnty();
         if ($(this).val() == "1") {//Indvidual
 
@@ -323,36 +321,19 @@ $(function () {
             toastr.error("Enter valid email");
             isValid = false;
         }
-        //if ($("#Type").val() == 2) {
-        //    if ($("#CompanyName").val() == "") {
-        //        toastr.error("Enter Company Name");
-        //        isValid = false;
-        //    }
-        //}
-        //else if ($("#Type").val() == 1) {
-        //    if ($("#NationalId").val() == "") {
-        //        toastr.error("Enter Employee Name and National Id");
-        //        isValid = false;
-        //    }
-        //    if ($("#NationalId").val().length != 14) {
-        //        toastr.error("Enter valid National Id");
-        //        isValid = false;
-        //    }
-        //}
-
         if (!validateEmail(emailaddress)) {
             toastr.error("Enter valid email");
             isValid = false;
         }
-        if ($("#BankName").val() == "") {
-            toastr.error("Enter Bank Name");
-            isValid = false;
-        }
+        //if ($("#BankName").val() == "") {
+        //    toastr.error("Enter Bank Name");
+        //    isValid = false;
+        //}
 
-        if ($("#BankAccount").val() == "") {
-            toastr.error("Enter Bank Account");
-            isValid = false;
-        }
+        //if ($("#BankAccount").val() == "") {
+        //    toastr.error("Enter Bank Account");
+        //    isValid = false;
+        //}
         if ($("#Phone").val() == "" && $("#Phone").val().length != 11) {
             toastr.error("Please insert Vaild Phone number");
             isValid = false;
@@ -413,21 +394,14 @@ function ValidSaveIndemnty() {
     $.validity.setup({ outputMode: 'label' });
     $.validity.start();
     $("#Type").require();//dll
-    //if ($("#Type").val() == "2") {
-    //    $("#CompanyName").require();
-
-    //}
-    //else
+    
     if ($("#Type").val() == "1") {//==1
         $("#RelatedCardId").require();
-        //$("#EmployeeName").require();
-        //$("#NationalID").require();
+        
     }
-    //$("#AttachPDF").require();
-    //$("#NationalIdPDF").require();
-    $("#BankName").require();
-    //$("#BankBranch").require();
-    $("#BankAccount").require();
+    
+    //$("#BankName").require();
+    //$("#BankAccount").require();
     $("#Phone").require();
 
     for (var i in cardnationalids) {
@@ -444,9 +418,7 @@ function ValidSaveIndemnty() {
             break;
         }
     }
-    //$("#ServiceCardID").require();
-    //if ($("#AttachPDF").val() == "") { toastr.error("Please,select service file."); return { valid: false }; }
-    //if ($("#NationalIdPDF").val() == "") { toastr.error("Please,select National Id Image."); return { valid: false }; }
+    
     if (CardServicesArray.length == 0) { toastr.error("Please,Insert cards."); return { valid: false }; }
 
     var splitCard = $("#CardId").val().split("-");
@@ -464,15 +436,13 @@ function ValidSaveIndemnty() {
     return $.validity.end();
 };
 function ClearSaveIndemnty() {
-    //$("#Type").val('1').trigger("change");
-
-    //$("#CompanyName").val("");
+   
     $("#RelatedCardId").val("").change();
     $("#EmployeeName").val("");
     $("#NationalID").val("");
-    $("#BankName").val("");
-    $("#BankBranch").val("");
-    $("#BankAccount").val("");
+    //$("#BankName").val("");
+    //$("#BankBranch").val("");
+    //$("#BankAccount").val("");
     $("#ServiceDateTest").val("");
     $("#ValueTest").val("");
     $("#Services").val("");

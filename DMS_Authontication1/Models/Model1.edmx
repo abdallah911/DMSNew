@@ -80,6 +80,24 @@
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="ApprovalBil">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProviderCode" Type="int" />
+          <Property Name="EnterDate" Type="datetime" />
+          <Property Name="ExitDate" Type="datetime" />
+          <Property Name="TotalValue" Type="float" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar(max)" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="DeletedBy" Type="nvarchar(max)" />
+          <Property Name="DeletedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar(max)" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="ApprovalDetails">
           <Key>
             <PropertyRef Name="Id" />
@@ -145,6 +163,14 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CardsSms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CardId" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CardUsed">
           <Key>
@@ -220,6 +246,7 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLL_CONSUMPTION" Type="nchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="Comp_Customized_D_D">
           <Key>
@@ -261,6 +288,8 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLL_CONSUMPTION" Type="nchar" MaxLength="1" />
+          <Property Name="CEILING_PERT_ONEC" Type="int" />
         </EntityType>
         <EntityType Name="Comp_Customized_D_D_Emp">
           <Key>
@@ -304,6 +333,8 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLL_CONSUMPTION" Type="nchar" MaxLength="1" />
+          <Property Name="CEILING_PERT_ONEC" Type="int" />
         </EntityType>
         <EntityType Name="COMP_CUSTOMIZED_D_D_MED">
           <Key>
@@ -429,6 +460,7 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLL_CONSUMPTION" Type="nchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="Comp_Employees">
           <Key>
@@ -649,6 +681,7 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="FOR_FAMILY" Type="nchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="CompContractClassEmp">
           <Key>
@@ -721,6 +754,7 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar(max)" />
+          <Property Name="FOR_FAMILY" Type="nchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="CompStatement">
           <Key>
@@ -737,6 +771,32 @@
           <Property Name="OldCompId" Type="int" />
           <Property Name="CompNameOther" Type="nvarchar(max)" />
           <Property Name="DatePrint" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CONSUMPTION_POOL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COMP_ID" Type="int" />
+          <Property Name="CONTRACT_NO" Type="int" />
+          <Property Name="CLASS_CODE" Type="nvarchar" MaxLength="50" />
+          <Property Name="COST_CODE" Type="int" />
+          <Property Name="POLL_CODE" Type="int" />
+          <Property Name="NAME_POOL" Type="nvarchar(max)" />
+          <Property Name="MAX_AMOUNT" Type="float" />
+          <Property Name="AMOUNT" Type="float" />
+          <Property Name="REMAINING" Type="float" />
+          <Property Name="NOTES" Type="nvarchar" MaxLength="50" />
+          <Property Name="ACTIVE" Type="nvarchar" MaxLength="50" />
+          <Property Name="CREATED_BY" Type="nvarchar" MaxLength="50" />
+          <Property Name="CREATED_DATE" Type="datetime" />
+          <Property Name="UPDATED_BY" Type="nvarchar" MaxLength="50" />
+          <Property Name="UPDATED_DATE" Type="datetime" />
+          <Property Name="LAST_UPDATED_BY" Type="nvarchar" MaxLength="50" />
+          <Property Name="LAST_UPDATED_DATE" Type="datetime" />
+          <Property Name="IsSync" Type="bit" />
+          <Property Name="SyncDate" Type="datetime" />
+          <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="ContactUs">
           <Key>
@@ -790,6 +850,7 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="IS_FAMILY" Type="nchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="Contract_Data">
           <Key>
@@ -1667,6 +1728,27 @@
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="PETROTRADE_EMPLOYEES">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="CARD_ID" Type="nvarchar" MaxLength="255" />
+          <Property Name="C_COMP_ID" Type="int" />
+          <Property Name="EMP_CODE" Type="int" />
+          <Property Name="CLASS_CODE" Type="int" />
+          <Property Name="EMP_ANAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="COST_CENTER" Type="nvarchar" MaxLength="255" />
+          <Property Name="REF_ANAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="REF_TYPE" Type="nvarchar" MaxLength="255" />
+          <Property Name="TEL1" Type="nvarchar" MaxLength="255" />
+          <Property Name="BIRTH_DATE" Type="datetime" />
+          <Property Name="INS_TYP" Type="nvarchar" MaxLength="255" />
+          <Property Name="GENDER" Type="nvarchar" MaxLength="255" />
+          <Property Name="NATIONAL_ID" Type="nvarchar" MaxLength="255" />
+          <Property Name="CREATED_DATE" Type="datetime" />
+          <Property Name="CREATED_BY" Type="nvarchar" MaxLength="255" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="Pr_Bra">
           <Key>
             <PropertyRef Name="Id" />
@@ -2000,6 +2082,8 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsFamily" Type="nvarchar" MaxLength="10" />
+          <Property Name="IsPool" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="RoshitaAcceptions">
           <Key>
@@ -2359,7 +2443,7 @@
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Swap">
           <Key>
             <PropertyRef Name="Id" />
@@ -3195,15 +3279,22 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
             </CollectionType>
           </ReturnType>
         </Function>
+        <Function Name="UpdateMedMedicicen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MedicineCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="Status" Type="nvarchar" Mode="In" />
+          <Parameter Name="userName" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="DB_A45413_DMSERPModelStoreContainer">
           <EntitySet Name="Acception" EntityType="Self.Acception" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AcceptionReasons" EntityType="Self.AcceptionReasons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AfterSale" EntityType="Self.AfterSale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="APPROVAL_BAD" EntityType="Self.APPROVAL_BAD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApprovalBil" EntityType="Self.ApprovalBil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApprovalDetails" EntityType="Self.ApprovalDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApprovalMaster" EntityType="Self.ApprovalMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Basic_Data" EntityType="Self.Basic_Data" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardAcceptionReasons" EntityType="Self.CardAcceptionReasons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CardsSms" EntityType="Self.CardsSms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardUsed" EntityType="Self.CardUsed" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Co_Insurance_01" EntityType="Self.Co_Insurance_01" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COMP_CUSTOMIZED_D" EntityType="Self.COMP_CUSTOMIZED_D" Schema="dbo" store:Type="Tables" />
@@ -3218,6 +3309,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="CompContractClass" EntityType="Self.CompContractClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompContractClassEmp" EntityType="Self.CompContractClassEmp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompStatement" EntityType="Self.CompStatement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONSUMPTION_POOL" EntityType="Self.CONSUMPTION_POOL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactUs" EntityType="Self.ContactUs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contract_Comp" EntityType="Self.Contract_Comp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contract_Data" EntityType="Self.Contract_Data" Schema="dbo" store:Type="Tables" />
@@ -3273,6 +3365,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySet Name="Name_Ray_Cen" EntityType="Self.Name_Ray_Cen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patchs" EntityType="Self.Patchs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PETROTRADE_EMPLOYEES" EntityType="Self.PETROTRADE_EMPLOYEES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pr_Bra" EntityType="Self.Pr_Bra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrescriptionRoshitaDignosis" EntityType="Self.PrescriptionRoshitaDignosis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProposalBasicData" EntityType="Self.ProposalBasicData" Schema="dbo" store:Type="Tables" />
@@ -3614,6 +3707,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLL_CONSUMPTION" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Comp_Customized_D_D">
           <Key>
@@ -3655,6 +3749,8 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLL_CONSUMPTION" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="CEILING_PERT_ONEC" Type="Int32" />
         </EntityType>
         <EntityType Name="Comp_Customized_D_D_Emp">
           <Key>
@@ -3698,6 +3794,8 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLL_CONSUMPTION" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="CEILING_PERT_ONEC" Type="Int32" />
         </EntityType>
         <EntityType Name="COMP_CUSTOMIZED_D_EMP">
           <Key>
@@ -3738,6 +3836,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLL_CONSUMPTION" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Comp_Employees">
           <Key>
@@ -3925,6 +4024,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FOR_FAMILY" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="ContactU">
           <Key>
@@ -3978,6 +4078,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IS_FAMILY" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Contract_Data">
           <Key>
@@ -5105,7 +5206,16 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
             <End Role="EmployeesSMSCode" EntitySet="EmployeesSMSCodes" />
           </AssociationSet>
           <FunctionImport Name="fn_searchCompEmployeesForNextContract" IsComposable="true" ReturnType="Collection(DB_A45413_DMSERPModel.fn_searchCompEmployeesForNextContract_Result)">
-            <Parameter Name="search" Mode="In" Type="String" />
+          <Parameter Name="search" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="ApprovalBils" EntityType="DB_A45413_DMSERPModel.ApprovalBil" />
+          <EntitySet Name="CONSUMPTION_POOL" EntityType="DB_A45413_DMSERPModel.CONSUMPTION_POOL" />
+          <EntitySet Name="CardsSms" EntityType="DB_A45413_DMSERPModel.CardsSm" />
+          <EntitySet Name="PETROTRADE_EMPLOYEES" EntityType="DB_A45413_DMSERPModel.PETROTRADE_EMPLOYEES" />
+          <FunctionImport Name="UpdateMedMedicicen">
+            <Parameter Name="MedicineCode" Mode="In" Type="String" />
+            <Parameter Name="Status" Mode="In" Type="String" />
+            <Parameter Name="userName" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
@@ -5961,6 +6071,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FOR_FAMILY" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="IndemnityMaster">
           <Key>
@@ -6135,6 +6246,8 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Notifications" Relationship="DB_A45413_DMSERPModel.FK_Notification_Roshita" FromRole="Roshita" ToRole="Notification" />
+          <Property Name="IsFamily" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IsPool" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Roshita_Patchs">
           <End Type="DB_A45413_DMSERPModel.Patch" Role="Patch" Multiplicity="0..1" />
@@ -7062,6 +7175,79 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <Property Type="Int32" Name="CONTRACT_NO" Nullable="true" />
           <Property Type="DateTime" Name="Now" Nullable="false" Precision="23" />
         </ComplexType>
+        <EntityType Name="ApprovalBil">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EnterDate" Type="DateTime" Precision="3" />
+          <Property Name="ExitDate" Type="DateTime" Precision="3" />
+          <Property Name="TotalValue" Type="Double" />
+          <Property Name="ProviderCode" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="DeletedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CONSUMPTION_POOL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COMP_ID" Type="Int32" />
+          <Property Name="CONTRACT_NO" Type="Int32" />
+          <Property Name="CLASS_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="COST_CODE" Type="Int32" />
+          <Property Name="POLL_CODE" Type="Int32" />
+          <Property Name="NAME_POOL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MAX_AMOUNT" Type="Double" />
+          <Property Name="AMOUNT" Type="Double" />
+          <Property Name="REMAINING" Type="Double" />
+          <Property Name="NOTES" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ACTIVE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="UPDATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="LAST_UPDATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LAST_UPDATED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="IsSync" Type="Boolean" />
+          <Property Name="SyncDate" Type="DateTime" Precision="3" />
+          <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CardsSm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CardId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PETROTRADE_EMPLOYEES">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="CARD_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="C_COMP_ID" Type="Int32" />
+          <Property Name="EMP_CODE" Type="Int32" />
+          <Property Name="CLASS_CODE" Type="Int32" />
+          <Property Name="EMP_ANAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="COST_CENTER" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="REF_ANAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="REF_TYPE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TEL1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BIRTH_DATE" Type="DateTime" Precision="3" />
+          <Property Name="INS_TYP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="GENDER" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NATIONAL_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7152,6 +7338,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySetMapping Name="COMP_CUSTOMIZED_D">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.COMP_CUSTOMIZED_D">
               <MappingFragment StoreEntitySet="COMP_CUSTOMIZED_D">
+                <ScalarProperty Name="POLL_CONSUMPTION" ColumnName="POLL_CONSUMPTION" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
                 <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
@@ -7191,6 +7378,8 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySetMapping Name="Comp_Customized_D_D">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Comp_Customized_D_D">
               <MappingFragment StoreEntitySet="Comp_Customized_D_D">
+                <ScalarProperty Name="CEILING_PERT_ONEC" ColumnName="CEILING_PERT_ONEC" />
+                <ScalarProperty Name="POLL_CONSUMPTION" ColumnName="POLL_CONSUMPTION" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
                 <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
@@ -7233,6 +7422,8 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySetMapping Name="Comp_Customized_D_D_Emp">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Comp_Customized_D_D_Emp">
               <MappingFragment StoreEntitySet="Comp_Customized_D_D_Emp">
+                <ScalarProperty Name="CEILING_PERT_ONEC" ColumnName="CEILING_PERT_ONEC" />
+                <ScalarProperty Name="POLL_CONSUMPTION" ColumnName="POLL_CONSUMPTION" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
                 <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
@@ -7277,6 +7468,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySetMapping Name="COMP_CUSTOMIZED_D_EMP">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.COMP_CUSTOMIZED_D_EMP">
               <MappingFragment StoreEntitySet="COMP_CUSTOMIZED_D_EMP">
+                <ScalarProperty Name="POLL_CONSUMPTION" ColumnName="POLL_CONSUMPTION" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
                 <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
@@ -7427,6 +7619,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySetMapping Name="CompContractClasses">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompContractClass">
               <MappingFragment StoreEntitySet="CompContractClass">
+                <ScalarProperty Name="FOR_FAMILY" ColumnName="FOR_FAMILY" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
                 <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
@@ -7521,6 +7714,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySetMapping Name="Contract_Comp">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Contract_Comp">
               <MappingFragment StoreEntitySet="Contract_Comp">
+                <ScalarProperty Name="IS_FAMILY" ColumnName="IS_FAMILY" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="C_COMP_ID" ColumnName="C_COMP_ID" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
@@ -8931,6 +9125,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySetMapping Name="CompContractClassEmps">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompContractClassEmp">
               <MappingFragment StoreEntitySet="CompContractClassEmp">
+                <ScalarProperty Name="FOR_FAMILY" ColumnName="FOR_FAMILY" />
                 <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
                 <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
@@ -9063,6 +9258,8 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
           <EntitySetMapping Name="Roshitas">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Roshita">
               <MappingFragment StoreEntitySet="Roshita">
+                <ScalarProperty Name="IsPool" ColumnName="IsPool" />
+                <ScalarProperty Name="IsFamily" ColumnName="IsFamily" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
@@ -9772,6 +9969,84 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="ApprovalBils">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ApprovalBil">
+              <MappingFragment StoreEntitySet="ApprovalBil">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ProviderCode" ColumnName="ProviderCode" />
+                <ScalarProperty Name="TotalValue" ColumnName="TotalValue" />
+                <ScalarProperty Name="ExitDate" ColumnName="ExitDate" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONSUMPTION_POOL">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CONSUMPTION_POOL">
+              <MappingFragment StoreEntitySet="CONSUMPTION_POOL">
+                <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
+                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="LAST_UPDATED_DATE" ColumnName="LAST_UPDATED_DATE" />
+                <ScalarProperty Name="LAST_UPDATED_BY" ColumnName="LAST_UPDATED_BY" />
+                <ScalarProperty Name="UPDATED_DATE" ColumnName="UPDATED_DATE" />
+                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
+                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
+                <ScalarProperty Name="REMAINING" ColumnName="REMAINING" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+                <ScalarProperty Name="MAX_AMOUNT" ColumnName="MAX_AMOUNT" />
+                <ScalarProperty Name="NAME_POOL" ColumnName="NAME_POOL" />
+                <ScalarProperty Name="POLL_CODE" ColumnName="POLL_CODE" />
+                <ScalarProperty Name="COST_CODE" ColumnName="COST_CODE" />
+                <ScalarProperty Name="CLASS_CODE" ColumnName="CLASS_CODE" />
+                <ScalarProperty Name="CONTRACT_NO" ColumnName="CONTRACT_NO" />
+                <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CardsSms">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CardsSm">
+              <MappingFragment StoreEntitySet="CardsSms">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PETROTRADE_EMPLOYEES">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PETROTRADE_EMPLOYEES">
+              <MappingFragment StoreEntitySet="PETROTRADE_EMPLOYEES">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="NATIONAL_ID" ColumnName="NATIONAL_ID" />
+                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+                <ScalarProperty Name="INS_TYP" ColumnName="INS_TYP" />
+                <ScalarProperty Name="BIRTH_DATE" ColumnName="BIRTH_DATE" />
+                <ScalarProperty Name="TEL1" ColumnName="TEL1" />
+                <ScalarProperty Name="REF_TYPE" ColumnName="REF_TYPE" />
+                <ScalarProperty Name="REF_ANAME" ColumnName="REF_ANAME" />
+                <ScalarProperty Name="COST_CENTER" ColumnName="COST_CENTER" />
+                <ScalarProperty Name="EMP_ANAME" ColumnName="EMP_ANAME" />
+                <ScalarProperty Name="CLASS_CODE" ColumnName="CLASS_CODE" />
+                <ScalarProperty Name="EMP_CODE" ColumnName="EMP_CODE" />
+                <ScalarProperty Name="C_COMP_ID" ColumnName="C_COMP_ID" />
+                <ScalarProperty Name="CARD_ID" ColumnName="CARD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="UpdateMedMedicicen" FunctionName="DB_A45413_DMSERPModel.Store.UpdateMedMedicicen" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -244,6 +244,8 @@ $(function () {
                     // ClaimNumber: $('#ClaimNumber').val(),
                     // createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val(),
                     roshitaDetail: Mediciens,
+                    IsFamily: $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
+                    IsPool: $('#IsPool').val() == '' ? null : $('#IsPool').val(),
                     // diagnose: diagnose
                 };
                 $.ajax({
@@ -884,6 +886,8 @@ function getlimit() {
             } else {
                 CeilingPert = r.CeilingPert;
                 AnuualLimit = r.Limit;
+                $('#IsFamily').val(r.IsFamily);
+                $('#IsPool').val(r.IsPool);
                 if (ServiceCode == "11601") {
                     if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
                         Limit = r.CoInsurancelimit.INSURANCE_DAY;

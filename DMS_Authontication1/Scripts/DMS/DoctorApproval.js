@@ -23,7 +23,7 @@ $(function () {
     $('#Search').click(function () {
         $("#wait").css("display", "block");
         $.ajax({
-            url: '/Pharmacy/AddCard/',
+            url: '/Pharmacy/AddCardForAddDoctor/',
             data: { id: $('#txtSearchCard').val() },
             dataType: 'Json',
             success: function (r) {

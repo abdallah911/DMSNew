@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.SqlServer;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
@@ -101,11 +102,10 @@ namespace DMS_TEST.Controllers
                     var providers = medCard.PROVIDER_CODE.Split('_');
                     if (providers.Contains("1268") || providers.Contains(Provider.PR_CODE.ToString()))
                     {
-
                         data = db.RoshitaDetails.Where(x => x.RoshitaID == Rosita.Id && x.IsDealed == false && x.TotalUnits != 0)
                         .Join(db.Med_Medicine, d => d.MedicienCode, m => m.MED_CODE, (d, m) => new { d, m })
                         //.Join(db.MedicineDatas, d => d.MedicienCode, m => m.M_CODE, (d, m) => new { d, m })
-                        .Where(l => l.m.CARD_NO == id)
+                        .Where(l => l.m.CARD_NO == id && l.m.ACTIVE != "N")
                         .Select(l => new ChronicViewModel
                         {
                             Id = l.d.Id,
@@ -122,6 +122,24 @@ namespace DMS_TEST.Controllers
                             UNIT_PRICE = l.m.UNIT_PRICE,
                             MedicineNoPay = l.m.MedicineNoPay.Trim()
                         }).Distinct().ToList();
+                        //var datacompare = new List<ChronicViewModel>();
+                        //datacompare.AddRange(data);
+                        //DateTime valuedate = new DateTime(DateTime.Now.Year, 3, 20);
+                        //var roshitaold = db.Roshitas.Where(r => r.CardId == medCard.CARD_NO && r.Manager == "Pharmacy_Chronic" && DbFunctions.TruncateTime(r.CreatedDate) > valuedate).Include(x => x.RoshitaDetails).ToList();
+                        //if (roshitaold.Count > 0)
+                        //{
+                        //    foreach (var item in roshitaold)
+                        //    {
+                        //        foreach (var item2 in item.RoshitaDetails)
+                        //        {
+                        //            foreach (var item3 in datacompare)
+                        //            {
+                        //                if (item3.MED_CODE == item2.MedicienCode)
+                        //                    data.Remove(item3);
+                        //            }
+                        //        }
+                        //    }
+                        //}
                         if (data.Count == 0)
                             ViewBag.Message = "No Mediciens";
                         return View(data);
@@ -213,6 +231,12 @@ namespace DMS_TEST.Controllers
 
         public JsonResult SavePrescription(PrescriptionViewModel data)
         {
+            var username = User.Identity.Name;
+            var carduse = db.CardUseds.Where(c => c.CardId == data.CardId && c.CreatedBy == username).FirstOrDefault();
+            if (carduse == null)
+            {
+                return Json("Failed");
+            }
             //var carduse = db.CardUseds.Where(c => c.CardId == data.CardId).FirstOrDefault();
             //if (carduse == null)
             //{
@@ -246,21 +270,52 @@ namespace DMS_TEST.Controllers
                 Manager = data.Manager,
                 IsSync = null,
                 SyncDate = null,
-                SyncBy = null
+                SyncBy = null,
+                IsFamily = data.IsFamily,
+                IsPool = data.IsPool,
             };
             if (roshita.CompanyPayment > 0)
             {
-                var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshita.CardId)
-                    .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-                if (remaining != null)
+                var EmpCode = roshita.CardId.Split('-')[2];
+                var CompCodeCard = roshita.CardId.Split('-')[0];
+                if (data.IsFamily == "Y" && data.IsPool != "Y")
                 {
-                    remaining.REMAINING = remaining.REMAINING - roshita.CompanyPayment;
-                    remaining.NET = remaining.NET + roshita.CompanyPayment;
-                    db.Entry(remaining).State = EntityState.Modified;
+                    var remaining = db.RemainConsumptions.Where(r => SqlFunctions.PatIndex(CompCodeCard + "-%-" + EmpCode + "-%", r.CARD_ID) > 0)
+                    .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    if (remaining != null)
+                    {
+                        remaining.REMAINING = remaining.REMAINING - roshita.CompanyPayment;
+                        remaining.NET = remaining.NET + roshita.CompanyPayment;
+                        db.Entry(remaining).State = EntityState.Modified;
+                    }
                 }
+                if (data.IsPool == "Y")
+                {
+                    var CompCode = int.Parse(roshita.CardId.Split('-')[0]);
+                    var remaining = db.CONSUMPTION_POOL.Where(r => r.COMP_ID == CompCode)
+                        .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    if (remaining != null)
+                    {
+                        remaining.REMAINING = remaining.REMAINING - roshita.CompanyPayment;
+                        db.Entry(remaining).State = EntityState.Modified;
+                    }
+                }
+                if (data.IsFamily != "Y" && data.IsPool != "Y")
+                {
+                    var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshita.CardId)
+                     .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    if (remaining != null)
+                    {
+                        remaining.REMAINING = remaining.REMAINING - roshita.CompanyPayment;
+                        remaining.NET = remaining.NET + roshita.CompanyPayment;
+                        db.Entry(remaining).State = EntityState.Modified;
+                    }
+                }
+
+
             }
             db.Roshitas.Add(roshita);
-            //db.CardUseds.Remove(carduse);
+            db.CardUseds.Remove(carduse);
             db.SaveChanges();
             DateTime datenow = DateTime.Now.Date;
             var date = new DateTime(datenow.Year, datenow.Month, datenow.Day);
@@ -381,6 +436,13 @@ namespace DMS_TEST.Controllers
                     db.EmployeesSMSCodes.Add(NewEmpSMSCode);
                     PostSMSData("your DMS verification code to dispense chronic medicines is " + SMSCode, model.Comp_Employees.TEL1);
                 }
+
+                var modelSms = db.CardsSms.Where(c => c.CardId == roshita.CardId).FirstOrDefault();
+                if (modelSms != null)
+                {
+                    PostSMSData("Your medication card has been dispensed . If it is not used, please call 0226390390", modelSms.Phone);
+                }
+
                 int result = db.SaveChanges();
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita.Id);
 

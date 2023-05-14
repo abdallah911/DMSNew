@@ -231,6 +231,8 @@ $(function () {
                     OverInsurance: $('#txtOverInsurance').val(),
                     Cash: $('#txtValueCash').val(),
                     roshitaDetail: Mediciens,
+                    IsFamily: $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
+                    IsPool: $('#IsPool').val() == '' ? null : $('#IsPool').val(),
                 };
                 $.ajax({
                     type: 'POST',
@@ -301,6 +303,8 @@ function getlimit() {
                 CeilingPert = r.CeilingPert;
                 AnuualLimit = r.Limit;
                 Limit = r.CoInsurancelimit.INSURANCE_DAY_LAB;
+                $('#IsFamily').val(r.IsFamily);
+                $('#IsPool').val(r.IsPool);
                 fixedLimit = Limit;
                 Calculation();
             }
