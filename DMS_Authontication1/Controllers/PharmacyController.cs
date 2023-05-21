@@ -4216,7 +4216,8 @@ namespace DMS_TEST.Controllers
                     rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
 
                     rd.SetParameterValue("@comp", Company);
-
+                    rd.SetParameterValue("@from", From);
+                    rd.SetParameterValue("@to", To);
                 }
                 else
                 {
