@@ -876,6 +876,7 @@ namespace DMS_Authontication1.Controllers
                         update.ACTIVE = item.ACTIVE;
                         update.LFT_MONTH = item.LFT_MONTH;
                         update.MONTH_DATE_STOP = item.MONTH_DATE_STOP;
+                        update.StartDate = item.StartDate;
                         update.MedicineNoPay = item.MedicineNoPay;
                         update.SyncBy = "Updated";
                         db.Entry(update).State = EntityState.Modified;
@@ -955,6 +956,8 @@ namespace DMS_Authontication1.Controllers
             if (newmedicine.MED_TYP != oldmedicine.MED_TYP)
                 return true;
             if (newmedicine.LFT_MONTH != oldmedicine.LFT_MONTH)
+                return true;
+            if (newmedicine.StartDate != oldmedicine.StartDate)
                 return true;
 
             return false;

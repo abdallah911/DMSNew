@@ -557,6 +557,7 @@ function SelectMedicien(event) {
                 });
 
                 var samegroup = false;
+                var samegroupAll = false;
                 var Duration = false;
                 //
                 if (edit == 0) {
@@ -597,7 +598,7 @@ function SelectMedicien(event) {
                                         AgeValiation = true;
                                     }
                                     else {
-                                        if (GenderValidation = true) {
+                                        if (GenderValidation == true) {
                                             RemoveSelection(Code);
                                             toastr.error("this medicine dosn't match patient's Age");
                                             $("#wait").css("display", "none");
@@ -615,7 +616,7 @@ function SelectMedicien(event) {
                                     data: JSON.stringify(medicineGroups),
                                     success: function (r) {
                                         if (r == true) {
-                                            if (AgeValiation = true) {
+                                            if (AgeValiation == true) {
                                                 RemoveSelection(Code);
                                                 toastr.error("medicines has the same medicine group");
                                                 $("#wait").css("display", "none");
@@ -630,140 +631,169 @@ function SelectMedicien(event) {
                                         samegroup = false;
                                     }
                                 }).done(function () {
+                                    //medicine group All
                                     $.ajax({
-                                        url: '/Pharmacy/MedicinesDurationValiadtion/',
+                                        url: '/Pharmacy/MedicinesGroupValiadtionAll/',
                                         dataType: 'Json',
                                         contentType: "application/json; charset=utf-8",
                                         data: {
-                                            CardId: CardId,
+                                            CardId: $('#txtSearchCard').val(),
                                             MedicineCode: MedicienCode
                                         },
                                         success: function (r) {
+                                            debugger;
                                             if (r == true) {
-                                                if (samegroup = false) {
+                                                if (samegroup == false) {
                                                     RemoveSelection(Code);
-                                                    toastr.error("this medicine still in your previous duration ");//'Duration Validation'
+                                                    //toastr.error("You can't dispense this medicine");//same Group
+                                                    toastr.error("medicines has the same medicine group");
                                                     $("#wait").css("display", "none");
-                                                    Duration = true;
                                                 }
-
+                                                samegroupAll = true;
                                             }
                                             else {
-                                                Duration = false;
+                                                samegroupAll = false;
                                             }
                                         },
                                         error: function () {
-                                            Duration = false;
+                                            samegroupAll = false;
                                         }
                                     }).done(function () {
-                                        if (GenderValidation == true && AgeValiation == true && IsCover == "true" && samegroup == false && Duration == false) {
-                                            //check Daily
-                                            $.ajax({
-                                                dataType: "json",
-                                                url: '/Pharmacy/CheckDaily',
-                                                data: {
-                                                    id: CardId,
-                                                    code: MedicienCode
-                                                },
-                                                success: function (r) {
-                                                    if (r.check == 0) {
+                                        $.ajax({
+                                            url: '/Pharmacy/MedicinesDurationValiadtion/',
+                                            dataType: 'Json',
+                                            contentType: "application/json; charset=utf-8",
+                                            data: {
+                                                CardId: CardId,
+                                                MedicineCode: MedicienCode
+                                            },
+                                            success: function (r) {
+                                                if (r == true) {
+                                                    if (samegroupAll == false) {
+                                                        RemoveSelection(Code);
+                                                        toastr.error("this medicine still in your previous duration ");//'Duration Validation'
                                                         $("#wait").css("display", "none");
-                                                        // chick if chronic or no
-                                                        if (isChronic == 0) {
-                                                            //append row
-                                                            if (Group == "NO") {
-                                                                $.ajax({
-                                                                    dataType: "json",
-                                                                    url: '/Pharmacy/CheckVip',
-                                                                    data: {
-                                                                        id: CardId
-                                                                    },
-                                                                    success: function (r) {
-                                                                        //if (CompId.includes("500")) {
-                                                                        //    Group = "Accepted";
-                                                                        //    AppendRow();
-                                                                        //}
-                                                                        //else {
-                                                                        if (r.IsVip == 1) {
-                                                                            Group = "Accepted";
-                                                                            AppendRow();
-                                                                        }
-                                                                        else {
-                                                                            var dialog = bootbox.dialog({
-                                                                                title: 'This Medicien is Not Covered!',
-                                                                                message: "<p>Pay method?</p>",
-                                                                                buttons: {
-                                                                                    Cash: {
-                                                                                        label: "Cash",
-                                                                                        className: 'btn-info',
-                                                                                        callback: function () {
-                                                                                            Group = "Cash";
-                                                                                            AppendRow();
-                                                                                        }
-                                                                                    },
-                                                                                    Tele: {
-                                                                                        label: "Pending",
-                                                                                        className: 'btn-info',
-                                                                                        callback: function () {
-                                                                                            Group = "Pending";
-                                                                                            AppendRow();
+                                                        Duration = true;
+                                                    }
+
+                                                }
+                                                else {
+                                                    Duration = false;
+                                                }
+                                            },
+                                            error: function () {
+                                                Duration = false;
+                                            }
+                                        }).done(function () {
+                                            if (GenderValidation == true && AgeValiation == true && IsCover == "true" && samegroup == false && samegroupAll == false && Duration == false) {
+                                                //check Daily
+                                                $.ajax({
+                                                    dataType: "json",
+                                                    url: '/Pharmacy/CheckDaily',
+                                                    data: {
+                                                        id: CardId,
+                                                        code: MedicienCode
+                                                    },
+                                                    success: function (r) {
+                                                        if (r.check == 0) {
+                                                            $("#wait").css("display", "none");
+                                                            // chick if chronic or no
+                                                            if (isChronic == 0) {
+                                                                //append row
+                                                                if (Group == "NO") {
+                                                                    $.ajax({
+                                                                        dataType: "json",
+                                                                        url: '/Pharmacy/CheckVip',
+                                                                        data: {
+                                                                            id: CardId
+                                                                        },
+                                                                        success: function (r) {
+                                                                            //if (CompId.includes("500")) {
+                                                                            //    Group = "Accepted";
+                                                                            //    AppendRow();
+                                                                            //}
+                                                                            //else {
+                                                                            if (r.IsVip == 1) {
+                                                                                Group = "Accepted";
+                                                                                AppendRow();
+                                                                            }
+                                                                            else {
+                                                                                var dialog = bootbox.dialog({
+                                                                                    title: 'This Medicien is Not Covered!',
+                                                                                    message: "<p>Pay method?</p>",
+                                                                                    buttons: {
+                                                                                        Cash: {
+                                                                                            label: "Cash",
+                                                                                            className: 'btn-info',
+                                                                                            callback: function () {
+                                                                                                Group = "Cash";
+                                                                                                AppendRow();
+                                                                                            }
+                                                                                        },
+                                                                                        Tele: {
+                                                                                            label: "Pending",
+                                                                                            className: 'btn-info',
+                                                                                            callback: function () {
+                                                                                                Group = "Pending";
+                                                                                                AppendRow();
+                                                                                            }
                                                                                         }
                                                                                     }
-                                                                                }
-                                                                            });
+                                                                                });
+                                                                            }
+                                                                        }
+                                                                    });
+
+                                                                }
+                                                                else {
+                                                                    AppendRow();
+                                                                }
+                                                            }
+                                                            else {
+                                                                var dialog = bootbox.dialog({
+                                                                    //title: 'This Medicien is Not Covered!',
+                                                                    title: 'This medicine requires approval',
+                                                                    message: "<p>Pay method?</p>",
+                                                                    onEscape: function () {
+                                                                        RemoveSelection(MedicienCode);
+                                                                    },
+                                                                    //backdrop: true,
+                                                                    buttons: {
+                                                                        Cash: {
+                                                                            label: "Cash",
+                                                                            className: 'btn-info',
+                                                                            callback: function () {
+                                                                                Group = "Cash";
+                                                                                AppendRow();
+                                                                            }
+                                                                        }
+                                                                        , Tele: {
+                                                                            label: "Pending",
+                                                                            className: 'btn-info',
+                                                                            callback: function () {
+                                                                                Group = "PendingChronic";
+                                                                                toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                                                                AppendRow();
+                                                                            }
                                                                         }
                                                                     }
                                                                 });
-
-                                                            }
-                                                            else {
-                                                                AppendRow();
                                                             }
                                                         }
                                                         else {
-                                                            var dialog = bootbox.dialog({
-                                                                //title: 'This Medicien is Not Covered!',
-                                                                title: 'This medicine requires approval',
-                                                                message: "<p>Pay method?</p>",
-                                                                onEscape: function () {
-                                                                    RemoveSelection(MedicienCode);
-                                                                },
-                                                                //backdrop: true,
-                                                                buttons: {
-                                                                    Cash: {
-                                                                        label: "Cash",
-                                                                        className: 'btn-info',
-                                                                        callback: function () {
-                                                                            Group = "Cash";
-                                                                            AppendRow();
-                                                                        }
-                                                                    }
-                                                                    , Tele: {
-                                                                        label: "Pending",
-                                                                        className: 'btn-info',
-                                                                        callback: function () {
-                                                                            Group = "PendingChronic";
-                                                                            toastr.info('برجاءالتواصل مع الاداره الطبيه');
-                                                                            AppendRow();
-                                                                        }
-                                                                    }
-                                                                }
-                                                            });
+                                                            RemoveSelection(Code);
+                                                            bootbox.alert(r.messa);
+                                                            $("#wait").css("display", "none");
                                                         }
-                                                    }
-                                                    else {
-                                                        RemoveSelection(Code);
-                                                        bootbox.alert(r.messa);
+                                                    },
+                                                    error: function (r) {
+                                                        bootbox.alert("failed Exchanged validation ,chacke your internet connection ");
                                                         $("#wait").css("display", "none");
                                                     }
-                                                },
-                                                error: function (r) {
-                                                    bootbox.alert("failed Exchanged validation ,chacke your internet connection ");
-                                                    $("#wait").css("display", "none");
-                                                }
 
-                                            });
-                                        }
+                                                });
+                                            }
+                                        });
                                     });
                                 });
                             })

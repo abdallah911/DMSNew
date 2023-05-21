@@ -955,11 +955,11 @@ namespace DMS_TEST.Controllers
                         }
                     }
                 }
-                if (remainingPool != null)
-                {
-                    var rosita = db.Roshitas.Where(r => r.Id == RoshitaId).FirstOrDefault();
-                    remainingPool.REMAINING = remainingconsumption.REMAINING.Value + rosita.CompanyPayment - RoshitaNoPayEdit;
-                }
+                //if (remainingPool != null)
+                //{
+                //    var rosita = db.Roshitas.Where(r => r.Id == RoshitaId).FirstOrDefault();
+                //    remainingPool.REMAINING = remainingconsumption.REMAINING.Value + rosita.CompanyPayment - RoshitaNoPayEdit;
+                //}
                 //else
                 //{
                 var CompContractClassEmp = db.CompContractClassEmps.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.CARD_ID == id).FirstOrDefault();
@@ -2178,6 +2178,44 @@ namespace DMS_TEST.Controllers
             }
             return new JsonResult { Data = Samegroup, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
+        //MedicinesGroupValiadtionAll
+        public JsonResult MedicinesGroupValiadtionAll(string CardId, string MedicineCode)
+        {
+            DateTime MonthlyDate = DateTime.UtcNow.Date.AddDays(-28);
+            var Roshitas = db.Roshitas.Where(r => r.CardId == CardId)
+             .Join(db.RoshitaDetails, x => x.Id, y => y.RoshitaID, (x, y) => new { x, y })
+             .Where(l => l.x.CreatedDate >= MonthlyDate && (l.x.Manager == "Monthly" || l.x.Manager == "Pharmacy_Chronic")).Select(x => x.y.MedicienCode).ToList();
+            //DAily
+            DateTime DailyDate = DateTime.UtcNow.Date.AddDays(-5);
+            var RoshitasDailies = db.Roshitas.Where(r => r.CardId == CardId)
+             .Join(db.RoshitaDetails, x => x.Id, y => y.RoshitaID, (x, y) => new { x, y })
+             .Where(l => l.x.CreatedDate >= DailyDate && l.x.Manager == "Daily").Select(x => x.y.MedicienCode).ToList();
+            Roshitas.AddRange(RoshitasDailies);
+
+            MedicineData currentMedicineData = db.MedicineDatas.Where(x => x.M_CODE == MedicineCode).FirstOrDefault();
+            List<MedicineData> Groups = new List<MedicineData>();
+            bool Samegroup = false;
+            foreach (var item in Roshitas)
+            {
+                MedicineData Group = new MedicineData();
+                if (item != null)//not include first medicine
+                {
+                    Group = db.MedicineDatas.Where(x => x.M_CODE == item).FirstOrDefault();
+                    Groups.Add(Group);
+                }
+            }
+            foreach (MedicineData item in Groups)
+            {
+                if (currentMedicineData.MED_GROUP == item.MED_GROUP && currentMedicineData.DOSAGE_FORM == item.DOSAGE_FORM)
+                {
+                    Samegroup = true;
+                }
+            }
+            return new JsonResult { Data = Samegroup, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+
 
         [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
         public JsonResult SavePrescription(PrescriptionViewModel data)

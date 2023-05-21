@@ -1555,6 +1555,7 @@
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
           <Property Name="MedicineNoPay" Type="nvarchar" MaxLength="10" />
+          <Property Name="StartDate" Type="date" />
         </EntityType>
         <EntityType Name="MedicineData">
           <Key>
@@ -2443,7 +2444,7 @@
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Swap">
           <Key>
             <PropertyRef Name="Id" />
@@ -3278,11 +3279,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
               </RowType>
             </CollectionType>
           </ReturnType>
-        </Function>
-        <Function Name="UpdateMedMedicicen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="MedicineCode" Type="nvarchar" Mode="In" />
-          <Parameter Name="Status" Type="nvarchar" Mode="In" />
-          <Parameter Name="userName" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="DB_A45413_DMSERPModelStoreContainer">
           <EntitySet Name="Acception" EntityType="Self.Acception" Schema="dbo" store:Type="Tables" />
@@ -4286,6 +4282,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MedicineNoPay" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="MedicineData">
           <Key>
@@ -7933,6 +7930,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="Med_Medicine">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Med_Medicine">
               <MappingFragment StoreEntitySet="Med_Medicine">
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="MedicineNoPay" ColumnName="MedicineNoPay" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="MED_CODE" ColumnName="MED_CODE" />
@@ -10046,7 +10044,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="UpdateMedMedicicen" FunctionName="DB_A45413_DMSERPModel.Store.UpdateMedMedicicen" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

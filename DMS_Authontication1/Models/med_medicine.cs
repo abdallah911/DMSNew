@@ -46,5 +46,6 @@ namespace DMS_Authontication1.Models
         public Nullable<System.DateTime> SyncDate { get; set; }
         public string SyncBy { get; set; }
         public string MedicineNoPay { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
     }
 }
