@@ -144,6 +144,9 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<Swap> Swaps { get; set; }
         public virtual DbSet<ProviderBlock> ProviderBlocks { get; set; }
         public virtual DbSet<ApprovalBil> ApprovalBils { get; set; }
+        public virtual DbSet<CONSUMPTION_POOL> CONSUMPTION_POOL { get; set; }
+        public virtual DbSet<CardsSm> CardsSms { get; set; }
+        public virtual DbSet<PETROTRADE_EMPLOYEES> PETROTRADE_EMPLOYEES { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)
@@ -523,6 +526,23 @@ namespace DMS_Authontication1.Models
                 new ObjectParameter("search", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_searchCompEmployeesForNextContract_Result>("[DMS_TESTEntities].[fn_searchCompEmployeesForNextContract](@search)", searchParameter);
+        }
+    
+        public virtual int UpdateMedMedicicen(string medicineCode, string status, string userName)
+        {
+            var medicineCodeParameter = medicineCode != null ?
+                new ObjectParameter("MedicineCode", medicineCode) :
+                new ObjectParameter("MedicineCode", typeof(string));
+    
+            var statusParameter = status != null ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(string));
+    
+            var userNameParameter = userName != null ?
+                new ObjectParameter("userName", userName) :
+                new ObjectParameter("userName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateMedMedicicen", medicineCodeParameter, statusParameter, userNameParameter);
         }
     }
 }

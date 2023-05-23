@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.SqlServer;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -936,8 +937,8 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             string Total_Cash, string Person_Payment, string Services, string Specialist, string Contract_Number, string Class_Code
             , string Comp_Payment, string TotalValue, string OverInsurance, string Cash, string ServType, string NATIONAL_ID,
             string Phone, string COMP_PERC, string Notes, int? HospitalException, int? ExceptionLabRayDoctor
-            , int? SpecalistID, string DoctorName)
-        {
+            , int? SpecalistID, string DoctorName, string IsFamily, string IsPool)
+        {                                          
             string codeRequestDate;
             long len = db.HospitalClaims.DefaultIfEmpty().Max(r => r == null ? 0 : r.ID) + 1;
             string tim = DateTime.Now.Date.ToString("ddMMyyyy");
@@ -1382,6 +1383,8 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 double CeilingPert;
                 double MaxSubServiceAmount;
                 bool type = false;
+                string isfamily = "";
+                string ispool = "";
                 var remainingconsumption = db.RemainConsumptions.Where(x => x.CARD_ID == id && x.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
                 if (remainingconsumption != null)
                 {
@@ -1414,10 +1417,12 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 {
                     var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
                     CompContractClassMAX_AMOUNT = Convert.ToDouble(classLimit.MAX_AMOUNT * 0.85);
+                    isfamily = classLimit.FOR_FAMILY;
                 }
                 else
                 {
                     CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
+                    isfamily = CompContractClassEmp.FOR_FAMILY;
                 }
                 type = false;
 
@@ -1427,6 +1432,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 {
                     var max_serv = db.COMP_CUSTOMIZED_D_EMP.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.D_SERV_CODE == MainService && c.CARD_ID == id).FirstOrDefault();
                     MaxServiceAmount = (max_serv == null || max_serv.CEILING_AMT == null) ? Convert.ToDouble(CompContractClassMAX_AMOUNT) : Convert.ToDouble(max_serv.CEILING_AMT);
+                    ispool = DataService.POLL_CONSUMPTION;
 
                 }
                 else if (DataService == null)
@@ -1434,6 +1440,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                     DataService1 = db.Comp_Customized_D_D.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.SER_SERV == ServiceCode).FirstOrDefault();
                     if (DataService1 != null)
                     {
+                        ispool = DataService1.POLL_CONSUMPTION;
                         var max_serv = db.COMP_CUSTOMIZED_D.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.CLASS_CODE == emp.CLASS_CODE && c.D_SERV_CODE == MainService).FirstOrDefault();
                         MaxServiceAmount = (max_serv == null || max_serv.CEILING_AMT == null) ? Convert.ToDouble(CompContractClassMAX_AMOUNT) : Convert.ToDouble(max_serv.CEILING_AMT);
 
@@ -1462,15 +1469,20 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 }
                 double Available = 0;
                 double Limit = 0;
-                List<Roshita> AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                List<Roshita> AcumlatorList = new List<Roshita>();
+                var EmpCode = id.Split('-')[2];
+                var CompCode = id.Split('-')[0];
+                if (isfamily == "Y")
+                {
+                    AcumlatorList = db.Roshitas.Where(r => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", r.CardId) > 0
+                    && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
-                //if (type == true)
-                //{
-                //    Available = CompContractClassMAX_AMOUNT;
-
-                //}
-                //else
-                //{
+                }
+                else
+                {
+                    AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                }
                 //Main consumption
                 double AcumlatorAmount = 0;
                 foreach (var item in AcumlatorList)
@@ -1478,14 +1490,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                     AcumlatorAmount += item.CompanyPayment;
                 }
                 Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
-                //}
-                //if (remainingconsumption != null && remainingconsumption.REMAINING != null &&
-                //    (remainingconsumption.REMAINING == Available))
-                //{
-                //    Limit = Available;
-                //}
-                //else
-                //{
+               
                 //Service consumption
                 List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
                 double AcumlatorServiceAmount = 0;
@@ -1511,6 +1516,11 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 {
                     Limit = (double)(remainingconsumption.REMAINING.Value < Limit ? remainingconsumption.REMAINING : Limit);
                 }
+                if (ispool == "Y")
+                {
+                    Limit = (double)(db.CONSUMPTION_POOL.Where(r => r.COMP_ID == emp.C_COMP_ID).FirstOrDefault().REMAINING);
+
+                }
                 bool Validation = Limit > 0 ? true : false;
                 Message = Validation ? "Ok" : "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد";
                 //Message = Validation ? "Ok" : "Exceeded his annual contract limit";
@@ -1520,7 +1530,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                     return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
 
                 }
-                return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert });
+                return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, IsFamily = isfamily, IsPool = ispool });
 
             }
             else

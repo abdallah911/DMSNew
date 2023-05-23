@@ -84,5 +84,7 @@ namespace DMS_Synchronization.Models
         public string BROK_PAY_TYP { get; set; }
 
         public string DAYS_W_M { get; set; }
+        public string IS_FAMILY { get; set; }
+
     }
 }

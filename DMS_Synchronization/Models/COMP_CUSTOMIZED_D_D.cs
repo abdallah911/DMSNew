@@ -95,6 +95,7 @@ namespace DMS_Synchronization.Models
 
         [StringLength(1)]
         public string REFUND_FLAG { get; set; }
+        public string POLL_CONSUMPTION { get; set; }
 
     }
 }

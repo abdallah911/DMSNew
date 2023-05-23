@@ -1,4 +1,5 @@
-﻿using DMS_Authontication1.Models;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using DMS_Authontication1.Models;
 using DMS_Authontication1.ViewModel;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -92,7 +93,103 @@ namespace DMS_Authontication1.Controllers.HR
 
             return View();
         }
+        public ActionResult PrintMedicalReport()
+        {
+            if (User.IsInRole("HR_Admin"))
+            {
+                ViewBag.compnum = null;
+                var userid = User.Identity.GetUserId();
+                var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+                if (compines[0] == "All")
+                {
+                    var companyname = db.Contract_Comp
+                        .Select(l => new
+                        {
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
 
+                        }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+                else
+                {
+                    var companyname = (from comp in compines
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+            }
+            else if (User.IsInRole("HR"))
+            {
+                var HrUserNamre = User.Identity.GetUserName();
+                ViewBag.compnum = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
+            }
+            //else if (User.IsInRole("User"))
+            //{
+            //    var usr = User.Identity.GetUserId();
+            //    var cardId = db.EmployeePersonalDatas.Where(e => e.UserId == usr).FirstOrDefault().CardId;
+            //    ViewBag.cardID = cardId;
+            //    ViewBag.compnum = cardId.Split('-')[0];
+
+
+            //    var subCards = CardList(cardId);
+
+            //    var cards = subCards.Select(c => new
+            //    {
+            //        CardIDValue = c.CARD_ID,
+            //        CardIdString = c.CARD_ID
+            //    }).ToList();
+            //    SelectList Cardlist = new SelectList(cards, "CardIDValue", "CardIdString");
+            //    ViewBag.Cardslist = Cardlist;
+            //}
+
+            var provider = db.ProviderTypeNews.ToList();
+            SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
+            ViewBag.provider = Providerlist;
+            ViewBag.ddlSpeciality = new SelectList(db.Specialities1, "SPEC_ID", "SPEC_ANAME");
+
+            return View();
+        }
+        public ActionResult PrintMedical(string CardId,string CompId,string ProviderName,string Specialist)
+        {
+            try
+            {
+                var patientName = db.Comp_Employees.Where(c => c.CARD_ID == CardId).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().EMP_ANAME;
+
+                ReportDocument rd = new ReportDocument();
+
+                rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "LetterTransfer.rpt"));
+
+                rd.SetParameterValue("CardNo", CardId);
+                rd.SetParameterValue("EmpName", patientName);
+                rd.SetParameterValue("ProviderName", ProviderName);
+                rd.SetParameterValue("Specialty", Specialist);
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pfd", "MedicalReport" + DateTime.Now.ToString("ddMMyyyy") + ".pdf");
+            }
+            catch (Exception ex)
+            {
+                // throw ex;
+                return View("~/Views/Shared/Error.cshtml");
+
+            }
+        }
         [HttpGet]
         public ActionResult CreateRequest(int? id)
         {

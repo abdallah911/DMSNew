@@ -39,6 +39,7 @@ namespace DMS_Synchronization.Models
         public Decimal DOC_EXP_VALUE { get; set; }
         public string REFUND_FLAG { get; set; }
         public Decimal CEILING_PERT_ONEC { get; set; }
+        public string POLL_CONSUMPTION { get; set; }
 
     }
 }

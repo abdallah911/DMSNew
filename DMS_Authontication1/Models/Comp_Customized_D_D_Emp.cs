@@ -53,5 +53,6 @@ namespace DMS_Authontication1.Models
         public Nullable<System.DateTime> SyncDate { get; set; }
         public string SyncBy { get; set; }
         public string POLL_CONSUMPTION { get; set; }
+        public Nullable<int> CEILING_PERT_ONEC { get; set; }
     }
 }

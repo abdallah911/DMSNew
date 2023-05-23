@@ -50,6 +50,8 @@ namespace DMS_Authontication1.Models
         public string SyncBy { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public string IsFamily { get; set; }
+        public string IsPool { get; set; }
     
         public virtual Patch Patch { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

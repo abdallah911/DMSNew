@@ -68,6 +68,7 @@ namespace DMS_Synchronization
             connectionSettings.OrcaleConnectionApp129 = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 196.221.203.129)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = APP; Password = 12369";
             connectionSettings.OrcaleConnectionSH = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 196.221.203.129)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = SH_01; Password = ***";
             connectionSettings.OrcaleConnectionTRN_SQL = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 196.221.203.129)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = TRN_SQL; Password = ***";
+            //connectionSettings.OrcaleConnectionTRN_SQL = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = APP; Password = 12369";
             //connectionSettings.OrcaleConnectionSH65 = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 62.210.148.165)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = SH_01; Password = ***";
             connectionSettings.OrcaleConnectionSH65 = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = SH_01; Password = ***";
 
@@ -395,6 +396,7 @@ namespace DMS_Synchronization
 
                 _currenctConnectionString = connectionSettings.SQlConnection;
 
+                SyncToSqlTable<CONSUMPTION_POOL>(StringHelper.GetQyertCONSUMPTION_POOL, StringHelper.GetTableNameCONSUMPTION_POOL);
                 SyncToSqlTable<REMAIN_CONSUMATION>(StringHelper.GetQyertREMAIN_CONSUMATION, StringHelper.GetTableNameREMAIN_CONSUMATION);
                 CLOSE_EMP_DATASyncToSqlTable();
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED);
@@ -1196,7 +1198,7 @@ namespace DMS_Synchronization
                 || tableName == "APP.POLL_PERCENT_CARD" || tableName == "APP.POLL_AMOUNT" || tableName == "APP.POLL_AMOUNT_CARD"
                 || tableName == "APP.POLL_DATA_CHRONIC" || tableName == "APP.POLL_DATA_DIAG" || tableName == "APP.POLL_DATA_EXCEPTIONS"
                 || tableName == "APP.POLL_DATA_PREX" || tableName == "APP.COMP_CUSTOMIZED_D_D_MED_EMP"
-                || tableName == "APP.COMP_CUSTOMIZED_D_D_MED" || tableName == "APP.REMAIN_CONSUMATION")
+                || tableName == "APP.COMP_CUSTOMIZED_D_D_MED" || tableName == "APP.REMAIN_CONSUMATION"|| tableName == "APP.CONSUMPTION_POOL")
             {
                 conn = _connectionSettings.OrcaleConnectionApp;
             }

@@ -32,6 +32,8 @@ namespace DMS_Authontication1.ViewModel
         public string PhoneNumber { get; set; }
         public Nullable<double> ClaimNumber { get; set; }
         public bool hasApproval { get; set; }
+        public string IsFamily { get; set; }
+        public string IsPool { get; set; }
 
         public virtual ICollection<RoshitaDetail> roshitaDetail { get; set; }
         public virtual ICollection<Diagnose> diagnose { get; set; }
