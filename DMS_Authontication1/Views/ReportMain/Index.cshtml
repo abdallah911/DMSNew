@@ -1,0 +1,242 @@
+﻿@model DMS_Authontication1.ViewModel.CustomerService.CustomerServiceViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+<br />
+<br />
+
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+
+<div class="panel panel-info">
+    
+    <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
+        <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
+    </div>
+
+    <div class="portlet box blue">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i> Consumption Reports
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row ">
+                <div class="col-md-12">
+                    <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+
+                        <div class="form-wizard">
+                            <div class="form-body">
+                                <div class="tab-content">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                                    <div class="row">
+                                        @*Date of Registration*@
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Record Date :
+
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <label class="control-label sbold col-md-3">
+                                                        From
+
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label sbold col-md-2">
+                                                TO
+
+                                            </label>
+                                            <div class="col-md-10">
+                                                <input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                                            </div>
+                                        </div>
+
+                                        @* Company Number *@
+
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Company Number :
+
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <label class="control-label sbold col-md-3">
+                                                        From
+
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumberFrom" })
+
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label sbold col-md-2">
+                                                TO
+
+                                            </label>
+                                            <div class="col-md-10">
+                                                @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumberTo" })
+
+                                            </div>
+                                        </div>
+
+                                        @* Card Number *@
+
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    User Name:
+
+                                                </label>
+                                                <div class="col-md-6">
+
+                                                    <select id="UserName" class="col-md-2 js-data-example-ajax" style="width: 100%"></select>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
+
+                                        @* Service provider number *@
+
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Med Code:
+
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <select id="MedCode" class="col-md-2 form-control js-data-example-ajax" style="width: 100%"></select>
+                                                    @*<input id="SerProvNumber" type="number" class="col-md-2 form-control " min="0" />*@
+
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Type :                                      
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <select id="Type" class="form-control">
+                                                        <option value="1">All</option>
+                                                        <option value="2">New</option>/option>
+                                                        <option value="3">Edit</option>
+                                                    </select>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
+                                        @* Repot Type *@
+
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Repot Type :
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <select id="RepotType" class="form-control">
+                                                        <option value="1">Report Edit Medicine Monthly</option>
+                                                        <option value="2">Report Medicine</option>/option>
+                                                        <option value="3">Report Audit Medicine Chronic</option>
+                                                        @*<option value="903">Top 20 employees in terms of Usage (903)</option>
+                        <option value="904">Consumption per Provider with the highest according to values(904)</option>
+                        <option value="905">Consumption per Provider with the highest according to Usage (905)</option>
+                        <option value="907">Consumption per type of service provider according to Usage (907)</option>
+                        <option value="915">Consumption per Card (915)</option>
+                        <option value="916">Consumption per Card according to service Type (916)</option>*@
+                                                    </select>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
+
+
+                                        @*Print Type*@
+
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Print Type :
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <div class="checkbox-inline">
+                                                        <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
+                                                        <label for="pdf">
+                                                            PDF
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <div class="checkbox-inline">
+                                                        <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
+                                                        <label for="excel">
+                                                            EXCEL
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
+
+                                        @* For Buttons *@
+
+                                        <div class="col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
+
+                                            <div class="col-sm-4" id="div_of_serv">
+                                                <button id="Consumption" type="button" class="btn btn-warning" onclick="ClearAll()">
+                                                    <span class="fa fa-save"></span> New
+                                                </button>
+
+                                            </div>
+
+                                            <div class="col-sm-4" id="div_of_serv">
+                                                <button id="Consumption" type="button" class="btn btn-primary" onclick="ConsumptionPrint()">
+                                                    <span class="fa fa-save"></span> Print
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/DMS/ReportMain/ReportMain.js?V=3.2"></script>
