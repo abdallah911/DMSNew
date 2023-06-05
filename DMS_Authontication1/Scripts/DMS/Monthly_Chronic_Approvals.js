@@ -566,7 +566,7 @@ $(function () {
         }
     });
     $("#SubmetChronic").click(function () {
-
+        debugger;
         if (CardId != "") {
             $("#wait").css("display", "block");
             var Mediciens = new Array();
@@ -597,6 +597,7 @@ $(function () {
                 Medicien.MONTH_DATE_STOP = row.find("TD").eq(15).html();
                 Medicien.ACTIVE = row.find("TD").eq(16).html();
                 Medicien.MedicineNoPay = row.find("TD").eq(17).html();
+                Medicien.StartDate = row.find("TD").eq(18).html();
 
                 Mediciens.push(Medicien);
             });
@@ -665,6 +666,7 @@ function ActiveOrNotActiveMedicine() {
             Medicien.MONTH_DATE_STOP = row.find("TD").eq(15).html();
             Medicien.ACTIVE = row.find("TD").eq(16).html();
             Medicien.MedicineNoPay = row.find("TD").eq(17).html();
+            Medicien.StartDateMedicine = row.find("TD").eq(18).html();
             Mediciens.push(Medicien);
         });
 
@@ -691,6 +693,7 @@ function ActiveOrNotActiveMedicine() {
                     "<td>" + Mediciens[i].MONTH_DATE_STOP + "</td>" +
                     "<td>" + Mediciens[i].ACTIVE + "</td>" +
                     "<td>" + Mediciens[i].MedicineNoPay + "</td>" +
+                    "<td>" + Mediciens[i].StartDateMedicine + "</td>" +
                     " <td>" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditMedicine(this);'>Edit</Button>" + "</td>" +
                     "</tr>"
                 setData.append(data);
@@ -723,6 +726,7 @@ function ActiveOrNotActiveMedicine() {
                         "<td>" + Mediciens[i].MONTH_DATE_STOP + "</td>" +
                         "<td>" + Mediciens[i].ACTIVE + "</td>" +
                         "<td>" + Mediciens[i].MedicineNoPay + "</td>" +
+                        "<td>" + Mediciens[i].StartDateMedicine + "</td>" +
                         " <td>" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditMedicine(this);'>Edit</Button>" + "</td>" +
                         "</tr>"
                     setData.append(data);
@@ -747,6 +751,7 @@ function ActiveOrNotActiveMedicine() {
                         "<td>" + Mediciens[i].MONTH_DATE_STOP + "</td>" +
                         "<td>" + Mediciens[i].ACTIVE + "</td>" +
                         "<td>" + Mediciens[i].MedicineNoPay + "</td>" +
+                        "<td>" + Mediciens[i].StartDateMedicine + "</td>" +
                         " <td>" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditMedicine(this);'>Edit</Button>" + "</td>" +
                         "</tr>"
                     setData.append(data);
@@ -799,6 +804,19 @@ function SelectCard(button) {
                 if (r[i].MedicineNoPay == null) {
                     r[i].MedicineNoPay = " ";
                 }
+                var datestartmedicine;
+                if (r[i].StartDate != null) {
+                    var MyDate_String_Value2 = r[i].StartDate;
+                    var value = new Date
+                        (
+                            parseFloat(MyDate_String_Value2.replace(/(^.*\()|([+-].*$)/g, ''))
+                        );
+                    datestartmedicine = (value.getMonth() + 1) + "/" +  value.getDate()+ "/" + value.getFullYear();
+                    //datestartmedicine = r[i].StartDate
+                }
+                else {
+                    datestartmedicine = "";
+                }
                 var data = "<tr >" +
                     "<td>" + r[i].MED_CODE + "</td>" +
                     "<td>" + r[i].MED_NAME + "</td>" +
@@ -818,6 +836,7 @@ function SelectCard(button) {
                     "<td>" + dat + "</td>" +
                     "<td>" + r[i].ACTIVE + "</td>" +
                     "<td>" + r[i].MedicineNoPay + "</td>" +
+                    "<td>" + datestartmedicine + "</td>" +
                     " <td >" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditMedicine(this);'>Edit</Button>" + "</td>" +
                     "</tr>"
                 setData.append(data);
@@ -902,6 +921,7 @@ function EditMedicine(button) {
     $('.modal-body #NOM').val($("TD", row).eq(14).html());
     $('.modal-body #Lock').val($("TD", row).eq(16).html()).prop('selected', true);
     $('.modal-body #MedicineNoPay').val($("TD", row).eq(17).html()).prop('selected', true);
+    $('.modal-body #StartDateMedicine').val($("TD", row).eq(18).html());
     $('.modal-footer #AddApproval').val("Edit");
     $('.modal-title').html("Edit");
     $('#ApprovalEditModal').modal();

@@ -55,7 +55,7 @@ namespace DMS_TEST.Controllers
                 return View(data);
             }
             DateTime datenow = DateTime.Now.Date;
-            var da = new DateTime(datenow.Year, datenow.Month, datenow.Day);
+            //var datenowvalue = new DateTime(datenow.Year, datenow.Month, datenow.Day);
             var empCardTerminationFlag = db.Comp_Employees.Where(x => x.CARD_ID == id && x.INS_START_DATE <= datenow
             && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
             if (empCardTerminationFlag != null)
@@ -105,7 +105,7 @@ namespace DMS_TEST.Controllers
                         data = db.RoshitaDetails.Where(x => x.RoshitaID == Rosita.Id && x.IsDealed == false && x.TotalUnits != 0)
                         .Join(db.Med_Medicine, d => d.MedicienCode, m => m.MED_CODE, (d, m) => new { d, m })
                         //.Join(db.MedicineDatas, d => d.MedicienCode, m => m.M_CODE, (d, m) => new { d, m })
-                        .Where(l => l.m.CARD_NO == id && l.m.ACTIVE != "N")
+                        .Where(l => l.m.CARD_NO == id && l.m.ACTIVE != "N"&&( l.m.StartDate <= datenow||l.m.StartDate==null))
                         .Select(l => new ChronicViewModel
                         {
                             Id = l.d.Id,
