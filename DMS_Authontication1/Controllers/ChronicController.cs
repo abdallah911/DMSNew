@@ -104,23 +104,23 @@ namespace DMS_TEST.Controllers
                     {
                         data = db.RoshitaDetails.Where(x => x.RoshitaID == Rosita.Id && x.IsDealed == false && x.TotalUnits != 0)
                         .Join(db.Med_Medicine, d => d.MedicienCode, m => m.MED_CODE, (d, m) => new { d, m })
-                        //.Join(db.MedicineDatas, d => d.MedicienCode, m => m.M_CODE, (d, m) => new { d, m })
-                        .Where(l => l.m.CARD_NO == id && l.m.ACTIVE != "N"&&( l.m.StartDate <= datenow||l.m.StartDate==null))
+                        .Join(db.MedicineDatas, med => med.m.MED_CODE, md => md.M_CODE, (med, md) => new { med, md })
+                        .Where(l => l.med.m.CARD_NO == id && l.med.m.ACTIVE != "N" && l.md.ACTIVE != "N" && (l.med.m.StartDate <= datenow || l.med.m.StartDate == null))
                         .Select(l => new ChronicViewModel
                         {
-                            Id = l.d.Id,
-                            MED_CODE = l.d.MedicienCode,
-                            MED_NAME = l.d.MedicienName,
-                            DOSE = l.d.Dose,
-                            MED_DURATION = l.d.Duration,
-                            NO_OF_UINT = l.d.TotalUnits,
-                            TOTAL_AMT = l.d.Amount,
-                            DOSAGE_FORM = l.m.DOSAGE_FORM,
-                            UNIT_NO = l.m.UNIT_NO,
-                            Des_PACK_PRICE = l.m.PACK_PRICE,
-                            PACK_SIZE = l.m.PACK_SIZE,
-                            UNIT_PRICE = l.m.UNIT_PRICE,
-                            MedicineNoPay = l.m.MedicineNoPay.Trim()
+                            Id = l.med.d.Id,
+                            MED_CODE = l.med.d.MedicienCode,
+                            MED_NAME = l.med.d.MedicienName,
+                            DOSE = l.med.d.Dose,
+                            MED_DURATION = l.med.d.Duration,
+                            NO_OF_UINT = l.med.d.TotalUnits,
+                            TOTAL_AMT = l.med.d.Amount,
+                            DOSAGE_FORM = l.med.m.DOSAGE_FORM,
+                            UNIT_NO = l.med.m.UNIT_NO,
+                            Des_PACK_PRICE = l.med.m.PACK_PRICE,
+                            PACK_SIZE = l.med.m.PACK_SIZE,
+                            UNIT_PRICE = l.med.m.UNIT_PRICE,
+                            MedicineNoPay = l.med.m.MedicineNoPay.Trim()
                         }).Distinct().ToList();
                         //var datacompare = new List<ChronicViewModel>();
                         //datacompare.AddRange(data);

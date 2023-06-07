@@ -404,7 +404,11 @@ namespace DMS_Authontication1.Controllers.HR
                 var HrUserNamre = User.Identity.GetUserName();
                 string compa = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
                 ViewBag.compnum = compa;
-                return View();
+                if (compa.Contains("500") || compa.Contains("800"))
+                {
+                    return View();
+                }
+                return View("~/Views/Reports/HrClaimsPremium.cshtml");
             }
         }
 

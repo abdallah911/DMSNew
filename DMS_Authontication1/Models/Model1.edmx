@@ -2444,7 +2444,7 @@
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Swap">
           <Key>
             <PropertyRef Name="Id" />
@@ -3279,6 +3279,11 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
               </RowType>
             </CollectionType>
           </ReturnType>
+        </Function>
+        <Function Name="UpdateMedMedicicen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MedicineCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="Status" Type="nvarchar" Mode="In" />
+          <Parameter Name="userName" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="DB_A45413_DMSERPModelStoreContainer">
           <EntitySet Name="Acception" EntityType="Self.Acception" Schema="dbo" store:Type="Tables" />
@@ -10044,6 +10049,7 @@ warning 6002: The table/view 'DMS_TestDB.dbo.Swap' does not have a primary key d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="UpdateMedMedicicen" FunctionName="DB_A45413_DMSERPModel.Store.UpdateMedMedicicen" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -447,7 +447,10 @@ namespace DMS_Authontication1.Controllers.ControlPanal
             mEDICINE_DATA.UPDATE_BY = User.Identity.Name;
             db.Entry(mEDICINE_DATA).State = EntityState.Modified;
             db.SaveChanges();
-            db.UpdateMedMedicicen(mEDICINE_DATA.M_CODE, mEDICINE_DATA.ACTIVE, mEDICINE_DATA.UPDATE_BY);
+            //if (mEDICINE_DATA.ACTIVE == "N")
+            //{
+            //    db.UpdateMedMedicicen(mEDICINE_DATA.M_CODE, mEDICINE_DATA.ACTIVE, mEDICINE_DATA.UPDATE_BY);
+            //}
             return RedirectToAction("Index");
         }
 

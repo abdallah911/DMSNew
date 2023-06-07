@@ -1763,11 +1763,11 @@ namespace DMS_Authontication1.Controllers
                         }
                     }
                 }
-                if (remainingPool != null)
-                {
-                    var rosita = db.Roshitas.Where(r => r.Id == RoshitaId).FirstOrDefault();
-                    remainingPool.REMAINING = remainingconsumption.REMAINING.Value + rosita.CompanyPayment;
-                }
+                //if (remainingPool != null)
+                //{
+                //    var rosita = db.Roshitas.Where(r => r.Id == RoshitaId).FirstOrDefault();
+                //    remainingPool.REMAINING = remainingconsumption.REMAINING.Value + rosita.CompanyPayment;
+                //}
                 var CompContractClassEmp = db.CompContractClassEmps.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.CARD_ID == id).FirstOrDefault();
                 if (CompContractClassEmp == null)
                 {

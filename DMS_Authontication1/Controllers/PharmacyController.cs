@@ -328,6 +328,87 @@ namespace DMS_TEST.Controllers
         }
 
         [HttpPost]
+        public JsonResult HaveApproval(string id)
+        {
+            try
+            {
+                //Default is pharmacy=3
+                int EmpId = db.Comp_Employees.Where(x => x.CARD_ID == id && x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
+                var accption = db.Acceptions.Where(x => x.CompEmployeesId == EmpId && x.AcceptionFlag == true && x.ProvidersId == 3).OrderByDescending(d => d.Id).FirstOrDefault();
+                if (accption == null)
+                {
+                    return Json(new { ok = false, message = "No" }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { ok = true, message = "ok" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public JsonResult HaveChronic(string id)
+        {
+            try
+            {
+                DateTime datenow = DateTime.Now.Date;
+                var Rosita = db.Roshitas.Where(r => r.CardId == id && r.Manager == "Doctor_Chronic").Where(x => x.RoshetaType == "11603" || x.RoshetaType == "11602").OrderByDescending(c => c.CreatedDate).FirstOrDefault();
+                if (Rosita != null)
+                {
+                    var data = db.RoshitaDetails.Where(x => x.RoshitaID == Rosita.Id && x.IsDealed == false && x.TotalUnits != 0)
+                       .Join(db.Med_Medicine, d => d.MedicienCode, m => m.MED_CODE, (d, m) => new { d, m })
+                       .Join(db.MedicineDatas, med => med.m.MED_CODE, md => md.M_CODE, (med, md) => new { med, md })
+                       .Where(l => l.med.m.CARD_NO == id && l.med.m.ACTIVE != "N" && l.md.ACTIVE != "N" && (l.med.m.StartDate <= datenow || l.med.m.StartDate == null))
+                       .Distinct().ToList();
+                    if (data.Count == 0)
+                        return Json(new { ok = false, message = "No" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { ok = true, message = "Ok" }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { ok = false, message = "No" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public JsonResult HaveDoctor(string id)
+        {
+            try
+            {
+
+                List<Roshita> roshitaDoctor = new List<Roshita>();
+                var date = DateTime.Now.AddDays(-14);
+                List<DoctorContainerViewModel> data = new List<DoctorContainerViewModel>();
+                roshitaDoctor = db.Roshitas.Where(r => r.CardId == id && r.Manager == "Doctor_Daily" && r.CreatedDate >= date).OrderByDescending(x => x.Id).ToList();
+
+                foreach (var item in roshitaDoctor)
+                {
+                     data.AddRange( db.RoshitaDetails
+                 .Join(db.MedicineDatas,
+                       d => d.MedicienCode, m => m.M_CODE,
+                       (d, m) => new { d, m })
+                 .Where(l => l.d.RoshitaID == item.Id&& l.d.IsDealed == false)
+                 .Select(l => new DoctorContainerViewModel
+                 {
+                     Id = l.d.Id,
+                     MedicienCode = l.d.MedicienCode,
+                     IsDealed = l.d.IsDealed
+                 })
+                 .ToList());
+                }
+                if (data.Count() > 0)
+                {
+                    return Json(new { ok = true, message = "Ok" }, JsonRequestBehavior.AllowGet);
+                }
+                return Json(new { ok = false, message = "No" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
         public JsonResult GetCompName(string id)
         {
             try
@@ -4116,10 +4197,9 @@ namespace DMS_TEST.Controllers
                 DateTime ApprovalDate = Convert.ToDateTime(data.CreatedDate);
                 return File(stream, "application/pfd", id.ToString() + ".pdf");
             }
-#pragma warning disable CS0168 // The variable 'ex' is declared but never used
             catch (Exception ex)
-#pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
+                ViewBag.ErrorM = ex;
                 // throw ex;
                 return View("~/Views/Shared/Error.cshtml");
 

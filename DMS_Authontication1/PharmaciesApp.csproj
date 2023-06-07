@@ -8429,6 +8429,7 @@
     <Content Include="Views\Employee\Login.cshtml" />
     <Content Include="Views\Employee\UpdateData.cshtml" />
     <Content Include="Views\HrChronic\PrintMedicalReport.cshtml" />
+    <Content Include="Views\Reports\HrClaimsPremium.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
