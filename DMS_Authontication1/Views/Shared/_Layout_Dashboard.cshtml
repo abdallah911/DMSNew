@@ -428,104 +428,104 @@
         {
             <div class="wrap">
                 <aside id="side-menu" class="aside" role="navigation">
-                    <ul class="nav nav-list accordion">
-                        @{
-                            if (modellist != null)
-                            {
-                                if (modellist.Where(x => x.ModuleName == "Doctors Department Management" && (x.PageId == 28 || x.PageId == 29 || x.PageId == 30 || x.PageId == 31)
-                            && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
+                        <ul class="nav nav-list accordion">
+                            @{
+                                if (modellist != null)
                                 {
+                                    if (modellist.Where(x => x.ModuleName == "Doctors Department Management" && (x.PageId == 28 || x.PageId == 29 || x.PageId == 30 || x.PageId == 31)
+                                && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
+                                    {
 
 
-                                    <li class="nav-header">
-                                        <div class="link"><i class="fa fa-lg fa-user-md"></i>Doctor<i class="fa fa-chevron-down"></i></div>
-                                        <ul class="submenu">
-                                            @*<li><a href="/DoctorMedicinesLabsRaysApproval/Create">Create Approval</a></li>*@
-                                            @if (modellist.Where(x => x.PageId == 30 && (x.FullControl || x.EditPermission
+                                        <li class="nav-header">
+                                            <div class="link"><i class="fa fa-lg fa-user-md"></i>Doctor<i class="fa fa-chevron-down"></i></div>
+                                            <ul class="submenu">
+                                                @*<li><a href="/DoctorMedicinesLabsRaysApproval/Create">Create Approval</a></li>*@
+                                                @if (modellist.Where(x => x.PageId == 30 && (x.FullControl || x.EditPermission
+                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+
+                                                    <li><a href="/DoctorMedicinesLabsRaysApproval/index2">Pending Requests</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.PageId == 28 && (x.FullControl || x.EditPermission
+                                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+
+                                                    <li><a href="/DoctorApprovals/index">Doctor Daily </a></li>
+                                                }
+                                                @if (modellist.Where(x => x.PageId == 29 && (x.FullControl || x.EditPermission
+                                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+
+                                                    <li><a href="/DoctorApprovals/Monthly">Doctor Chronic </a></li>
+
+                                                }
+                                                @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
                                                     || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
+                                                {
 
-                                                <li><a href="/DoctorMedicinesLabsRaysApproval/index2">Pending Requests</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.PageId == 28 && (x.FullControl || x.EditPermission
-                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-
-                                                <li><a href="/DoctorApprovals/index">Doctor Daily </a></li>
-                                            }
-                                            @if (modellist.Where(x => x.PageId == 29 && (x.FullControl || x.EditPermission
-                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-
-                                                <li><a href="/DoctorApprovals/Monthly">Doctor Chronic </a></li>
-
-                                            }
-                                            @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
-                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-
-                                                <li><a href="/GetApproval/Create">Permissions</a></li>
-                                            }
-                                        </ul>
-                                    </li>
+                                                    <li><a href="/GetApproval/Create">Permissions</a></li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
                                 }
+
+
                             }
-
-
-                        }
-                        @if (modellist != null)
-                        {
-                            if (modellist.Where(x => (x.PageId == 2 || x.PageId == 4 || x.PageId == 10 || x.PageId == 8 || x.PageId == 44 || x.PageId == 49)
-                            && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
+                            @if (modellist != null)
                             {
-                                <li class="nav-header">
-                                    <div class="link"><i class="fa fa-lg fa-lock"></i>Admin<i class="fa fa-chevron-down"></i></div>
-                                    <ul class="submenu">
-                                        @if (modellist.Where(x => x.ModuleName == "Account Management" && x.PageId == 2 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/User/index">Users</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 4 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/Pharmacy/index">Pharmacy Clames</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 49 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/Pharmacy/DeletedStopRoshita">Pharmacy Stop Edit Clames</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Rays Centers Management" && x.PageId == 10 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/Rays/index">Rays Clames</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Labratories Management" && x.PageId == 8 && (x.FullControl || x.EditPermission
-                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/Labs/index">Labs Clames</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 50 && (x.FullControl || x.EditPermission
-                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/ConsumptionAdmin/index">Total Consumption Admin</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 51 && (x.FullControl || x.EditPermission
-                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/ConsumptionAdmin/HighAdminConsumptionReports">Audit Consumption Report</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 53 && (x.FullControl || x.EditPermission
-                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/ConsumptionAdmin/NormalAdminConsumptionReports">Consumption Report</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 44 && (x.FullControl || x.EditPermission
-                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/ProviderServicesPermissions/index">Provider Services Permissions</a></li>
-                                        }
+                                if (modellist.Where(x => (x.PageId == 2 || x.PageId == 4 || x.PageId == 10 || x.PageId == 8 || x.PageId == 44 || x.PageId == 49)
+                                && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
+                                {
+                                    <li class="nav-header">
+                                        <div class="link"><i class="fa fa-lg fa-lock"></i>Admin<i class="fa fa-chevron-down"></i></div>
+                                        <ul class="submenu">
+                                            @if (modellist.Where(x => x.ModuleName == "Account Management" && x.PageId == 2 && (x.FullControl || x.EditPermission
+                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/User/index">Users</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 4 && (x.FullControl || x.EditPermission
+                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/Pharmacy/index">Pharmacy Clames</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 49 && (x.FullControl || x.EditPermission
+                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/Pharmacy/DeletedStopRoshita">Pharmacy Stop Edit Clames</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Rays Centers Management" && x.PageId == 10 && (x.FullControl || x.EditPermission
+                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/Rays/index">Rays Clames</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Labratories Management" && x.PageId == 8 && (x.FullControl || x.EditPermission
+                                                 || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/Labs/index">Labs Clames</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 50 && (x.FullControl || x.EditPermission
+                                                 || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/ConsumptionAdmin/index">Total Consumption Admin</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 51 && (x.FullControl || x.EditPermission
+                                                 || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/ConsumptionAdmin/HighAdminConsumptionReports">Audit Consumption Report</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 53 && (x.FullControl || x.EditPermission
+                                                 || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/ConsumptionAdmin/NormalAdminConsumptionReports">Consumption Report</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 44 && (x.FullControl || x.EditPermission
+                                                 || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/ProviderServicesPermissions/index">Provider Services Permissions</a></li>
+                                            }
 
                                             @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && /*x.PageId == 44 &&*/ (x.FullControl || x.EditPermission
                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
@@ -539,163 +539,169 @@
                                 }
                             }
 
-                        @if (modellist != null)
-                        {
-                            if (modellist.Where(x => (x.PageId == 34 || x.PageId == 35 || x.PageId == 36 || x.PageId == 37
-                            || x.PageId == 38 || x.PageId == 39 || x.PageId == 40 || x.PageId == 41 || x.PageId == 46 || x.PageId == 47)
-                            && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
+                            @if (modellist != null)
                             {
-                                <li class="nav-header">
-                                    <div class="link"><i class="fa fa-archive"></i>Management<i class="fa fa-chevron-down"></i></div>
-                                    <ul class="submenu">
-                                        @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 35 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/CompEmployees/IndexSms">Employees Management</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 34 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/CompanyGroup/index">Companies Groups Management</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 36 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/Medicines/index">Medicines Management</a></li>
-
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 37 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/MedicineGroups/index">Medicines Groups Management</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 38 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/Medicines/MedicineLicenseType">License Type Management</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 39 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/Medicines/MedicineType">Medicine Type Management</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 40 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/Medicines/MedicineDosageForm">Dosage Form Management</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 41 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/Specialities/index">Specilities and Diagnosis Management</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 46 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/LabsManagement/Index">Labs Management</a></li>
-                                        }
-                                        @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 47 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/RaysManagement/Index">Rays Management</a></li>
-                                        }
-
-                                    </ul>
-                                </li>
-                            }
-                        }
-
-                        <li class="nav-header">
-                            <div class="link"><i class="fa fa-users"></i>Human Resourses<i class="fa fa-chevron-down"></i></div>
-                            <ul class="submenu">
-                                @if (modellist.Where(x => x.ModuleName == "Company Human Resourses Management").FirstOrDefault() != null)
+                                if (modellist.Where(x => (x.PageId == 34 || x.PageId == 35 || x.PageId == 36 || x.PageId == 37
+                                || x.PageId == 38 || x.PageId == 39 || x.PageId == 40 || x.PageId == 41 || x.PageId == 46 || x.PageId == 47)
+                                && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
                                 {
-
-                                    if (modellist.Where(x => x.PageId == 12 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                    {
-                                        <li><a href="/EmployeeRequest/index" class="link-cus">Operation</a></li>
-
-
-                                        @*<li><a href="/EmployeeRequest/index" class="link-cus">Operation</a></li>*@
-                                    }
-
-                                    if (modellist.Where(x => x.PageId == 13 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                    {
-
-                                        <li><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
-                                    }
-                                    if (modellist.Where(x => x.PageId == 14 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                    {
-
-                                        <li><a href="/MedicalNetwork/RequestReplay" class="link-cus">Medical Network Request</a></li>
-                                    }
-                                }
-                                @*<li><a href="/MedicalApproval/Search" class="link-cus">Medical Approval</a></li>
-                                    <li><a href="/HrChronic/InquiryAboutCard" class="link-cus">Chronic</a></li>
-                                    <li><a href="/Reports/Index" class="link-cus">Reports</a></li>*@
-                                @*<li><a href="/Complaint/CreateDMSComplaint" class="link-cus">Complaints</a></li>*@
-
-                                @if (modellist != null)
-                                {
-                                    if (modellist.Where(x => x.ModuleName == "Customers Management").FirstOrDefault() != null)
-                                    {
-                                        if (modellist.Where(x => x.PageId == 21 && (x.FullControl || x.EditPermission
-                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                        {
-                                            <li><a href="/Employee/IndexAdmin" class="link-cus">Delievery Requests</a></li>
-                                            <li><a href="/Employee/Activation_Employee" class="link-cus">Activation Employee</a></li>
-                                        }
-                                    }
-                                }
-
-                            </ul>
-                        </li>
-                        @if (modellist != null)
-                        {
-                            if (modellist.Where(x => x.ModuleName == "Hospital Management" && x.PageId == 20 && (x.FullControl || x.EditPermission
-                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                            {
-                                <li class="nav-header">
-                                    <div class="link"><i class="fa fa-lg fa-hospital-o"></i>Hospital<i class="fa fa-chevron-down"></i></div>
-                                    <ul class="submenu">
-                                        <li><a href="/Hospital/index">Hospital</a></li>
-                                    </ul>
-                                </li>
-                            }
-                        }
-
-                        @if (modellist != null)
-                        {
-                            if (modellist.Where(x => x.ModuleName == "AfterSales Management" && x.PageId == 32 && (x.FullControl || x.EditPermission
-                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                            {
-                                <li class="nav-header">
-                                    <div class="link"><i class="fa fa-lg fa-shopping-basket"></i>After Sales<i class="fa fa-chevron-down"></i></div>
-                                    <ul class="submenu">
-                                        <li><a href="/AfterSales/Index">Visits</a></li>
-                                    </ul>
-                                </li>
-                            }
-                        }
-
-                            @*@if (modellist != null)
-                            {
-                                if (modellist.Where(x => x.ModuleName == "CustomerService Management" && x.PageId == 33 && (x.FullControl || x.EditPermission
-                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                {*@
-                                    <li class="nav-header"> 
-                                        <div class="link"><i class="fa fa-user-circle-o"></i>Customer Service<i class="fa fa-chevron-down"></i></div>
+                                    <li class="nav-header">
+                                        <div class="link"><i class="fa fa-archive"></i>Management<i class="fa fa-chevron-down"></i></div>
                                         <ul class="submenu">
-                                            <li><a href="/CustomerService/Index">Customer Service</a></li>
+                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 35 && (x.FullControl || x.EditPermission
+                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/CompEmployees/IndexSms">Employees Management</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 34 && (x.FullControl || x.EditPermission
+                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/CompanyGroup/index">Companies Groups Management</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 36 && (x.FullControl || x.EditPermission
+                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/Medicines/index">Medicines Management</a></li>
+
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 37 && (x.FullControl || x.EditPermission
+                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/MedicineGroups/index">Medicines Groups Management</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 38 && (x.FullControl || x.EditPermission
+                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/Medicines/MedicineLicenseType">License Type Management</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 39 && (x.FullControl || x.EditPermission
+                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/Medicines/MedicineType">Medicine Type Management</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 40 && (x.FullControl || x.EditPermission
+                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/Medicines/MedicineDosageForm">Dosage Form Management</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 41 && (x.FullControl || x.EditPermission
+                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/Specialities/index">Specilities and Diagnosis Management</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 46 && (x.FullControl || x.EditPermission
+                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/LabsManagement/Index">Labs Management</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 47 && (x.FullControl || x.EditPermission
+                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/RaysManagement/Index">Rays Management</a></li>
+                                            }
+
                                         </ul>
                                     </li>
-                                @*}
-                            }*@
+                                }
+                            }
 
-                    </ul>
+                            <li class="nav-header">
+                                <div class="link"><i class="fa fa-users"></i>Human Resourses<i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    @if (modellist.Where(x => x.ModuleName == "Company Human Resourses Management").FirstOrDefault() != null)
+                                    {
+
+                                        if (modellist.Where(x => x.PageId == 12 && (x.FullControl || x.EditPermission
+                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        {
+                                            <li><a href="/EmployeeRequest/index" class="link-cus">Operation</a></li>
+
+
+                                            @*<li><a href="/EmployeeRequest/index" class="link-cus">Operation</a></li>*@
+                                        }
+
+                                        if (modellist.Where(x => x.PageId == 13 && (x.FullControl || x.EditPermission
+                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        {
+
+                                            <li><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
+                                        }
+                                        if (modellist.Where(x => x.PageId == 14 && (x.FullControl || x.EditPermission
+                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        {
+
+                                            <li><a href="/MedicalNetwork/RequestReplay" class="link-cus">Medical Network Request</a></li>
+                                        }
+                                    }
+                                    @*<li><a href="/MedicalApproval/Search" class="link-cus">Medical Approval</a></li>
+                <li><a href="/HrChronic/InquiryAboutCard" class="link-cus">Chronic</a></li>
+                <li><a href="/Reports/Index" class="link-cus">Reports</a></li>*@
+                                    @*<li><a href="/Complaint/CreateDMSComplaint" class="link-cus">Complaints</a></li>*@
+
+                                    @if (modellist != null)
+                                    {
+                                        if (modellist.Where(x => x.ModuleName == "Customers Management").FirstOrDefault() != null)
+                                        {
+                                            if (modellist.Where(x => x.PageId == 21 && (x.FullControl || x.EditPermission
+                                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
+                                                <li><a href="/Employee/IndexAdmin" class="link-cus">Delievery Requests</a></li>
+                                                <li><a href="/Employee/Activation_Employee" class="link-cus">Activation Employee</a></li>
+                                            }
+                                        }
+                                    }
+
+                                </ul>
+                            </li>
+                            @if (modellist != null)
+                            {
+                                if (modellist.Where(x => x.ModuleName == "Hospital Management" && x.PageId == 20 && (x.FullControl || x.EditPermission
+                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                {
+                                    <li class="nav-header">
+                                        <div class="link"><i class="fa fa-lg fa-hospital-o"></i>Hospital<i class="fa fa-chevron-down"></i></div>
+                                        <ul class="submenu">
+                                            <li><a href="/Hospital/index">Hospital</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                            }
+
+                            @if (modellist != null)
+                            {
+                                if (modellist.Where(x => x.ModuleName == "AfterSales Management" && x.PageId == 32 && (x.FullControl || x.EditPermission
+                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                {
+                                    <li class="nav-header">
+                                        <div class="link"><i class="fa fa-lg fa-shopping-basket"></i>After Sales<i class="fa fa-chevron-down"></i></div>
+                                        <ul class="submenu">
+                                            <li><a href="/AfterSales/Index">Visits</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                            }
+
+                            @*@if (modellist != null)
+        {
+            if (modellist.Where(x => x.ModuleName == "CustomerService Management" && x.PageId == 33 && (x.FullControl || x.EditPermission
+                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+            {*@
+                            <li class="nav-header">
+                                <div class="link"><i class="fa fa-user-circle-o"></i>Customer Service<i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    <li><a href="/CustomerService/Index">Customer Service</a></li>
+                                </ul>
+                            </li>
+                            @*}
+        }*@
+
+                            <li class="nav-header">
+                                <div class="link"><i class="fa fa-paper-plane-o"></i>Report<i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    <li><a href="/ReportMain/Index">Pharmacy Report</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                 </aside>
                 <div class="content">
                     <div class="top-bar">
