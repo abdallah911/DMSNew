@@ -190,6 +190,99 @@ $(function () {
                                                     //Get ceiling and Limit
                                                     GetLimit();
 
+                                                    //Get Approvals
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        dataType: "json",
+                                                        url: '/Pharmacy/HaveApproval',
+                                                        data: { id: CardId },
+                                                        success: function (returndata) {
+                                                            if (returndata.ok) {
+                                                                bootbox.alert( "لتفعيل الموافقة" +" Has Approval "+"هذا الكارت له موافقة يرجي الضغط علي");
+                                                                //bootbox.alert(' هذا الكارت له موافقة يرجي الضغط علي  Has Approval  لتفعيل الموافقة');
+                                                            }
+                                                            else {
+                                                                //bootbox.alert(' No Company Name ');
+                                                            }
+                                                        }
+                                                    });
+                                                    //Get Doctor
+
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        dataType: "json",
+                                                        url: '/Pharmacy/HaveDoctor',
+                                                        data: { id: CardId },
+                                                        success: function (returndata) {
+                                                            if (returndata.ok) {
+                                                                bootbox.dialog({
+                                                                    closeButton: false,
+                                                                    title: 'Chronic',
+                                                                   // message: " هذا العميل لديه علاج مسجل فى شاشة Doctor   هل تود صرفه",
+                                                                    message: "هل تود صرفه" +" Doctor "+"هذا العميل لديه علاج شهري مسجل فى شاشة",
+                                                                    buttons: {
+                                                                        Print: {
+                                                                            label: "Yes",
+                                                                            className: 'btn-info',
+                                                                            callback: function () {
+                                                                                window.location.replace("/Doctor/Doctor?id=" + CardId + "&&NationalId=" + NationalId);
+                                                                            }
+                                                                        },
+                                                                        New: {
+                                                                            label: "No",
+                                                                            className: 'btn-danger',
+                                                                            callback: function () {
+
+                                                                            }
+                                                                        }
+
+                                                                    }
+                                                                });
+                                                            }
+                                                            else {
+                                                                //bootbox.alert(' No Company Name ');
+                                                            }
+                                                        }
+                                                    });
+                                                    //Get Chronic
+
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        dataType: "json",
+                                                        url: '/Pharmacy/HaveChronic',
+                                                        data: { id: CardId },
+                                                        success: function (returndata) {
+                                                            if (returndata.ok) {
+                                                                bootbox.dialog({
+                                                                    closeButton: false,
+                                                                    title: 'Chronic',
+                                                                    //message: "هذا العميل لدية علاج شهري هل تود صرفة",
+                                                                    message:  "هل تود صرفه"+" Chronic "+"هذا العميل لديه علاج شهري مسجل فى شاشة",
+                                                                    buttons: {
+                                                                        Print: {
+                                                                            label: "Yes",
+                                                                            className: 'btn-info',
+                                                                            callback: function () {
+                                                                                window.location.replace("/Chronic/Chronic?id=" + CardId + "&&NationalId=" + NationalId);
+                                                                            }
+                                                                        },
+                                                                        New: {
+                                                                            label: "No",
+                                                                            className: 'btn-danger',
+                                                                            callback: function () {
+
+                                                                            }
+                                                                        }
+
+                                                                    }
+                                                                });
+                                                            }
+                                                            else {
+                                                                //bootbox.alert(' No Company Name ');
+                                                            }
+                                                        }
+                                                    });
+
                                                 }
                                                 else {
                                                     $("#wait").css("display", "none");
