@@ -75,29 +75,13 @@
                                                     Company Number :
 
                                                 </label>
-                                                <div class="col-md-6">
-                                                    <label class="control-label sbold col-md-3">
-                                                        From
-
-                                                    </label>
-                                                    <div class="col-md-9">
-                                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumberFrom" })
-
-                                                    </div>
+                                                <div class="col-md-6">                                                   
+                                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumber" })
+                                                                                                     
                                                 </div>
                                                 <br />
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="control-label sbold col-md-2">
-                                                TO
-
-                                            </label>
-                                            <div class="col-md-10">
-                                                @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumberTo" })
-
-                                            </div>
-                                        </div>
+                                        </div>                                     
 
                                         @* Card Number *@
 
@@ -109,7 +93,7 @@
                                                 </label>
                                                 <div class="col-md-6">
 
-                                                    <select id="UserName" class="col-md-2 js-data-example-ajax" style="width: 100%"></select>
+                                                    @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = "form-control", @id = "userName" })
                                                 </div>
                                                 <br />
                                             </div>
@@ -140,9 +124,9 @@
                                                 </label>
                                                 <div class="col-md-6">
                                                     <select id="Type" class="form-control">
-                                                        <option value="1">All</option>
-                                                        <option value="2">New</option>/option>
-                                                        <option value="3">Edit</option>
+                                                        <option value="All">All</option>
+                                                        <option value="New">New</option>/option>
+                                                        <option value="Edit">Edit</option>
                                                     </select>
                                                 </div>
                                                 <br />
@@ -217,7 +201,7 @@
                                             </div>
 
                                             <div class="col-sm-4" id="div_of_serv">
-                                                <button id="Consumption" type="button" class="btn btn-primary" onclick="ConsumptionPrint()">
+                                                <button id="Consumption" type="button" class="btn btn-primary" onclick="PrintReport()">
                                                     <span class="fa fa-save"></span> Print
                                                 </button>
 

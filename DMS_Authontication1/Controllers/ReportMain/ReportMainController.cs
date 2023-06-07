@@ -38,15 +38,15 @@ namespace DMS_Authontication1.Controllers.ReportMain
             }).ToList();
             SelectList companylist = new SelectList(companyname, "Name", "Name");
             ViewBag.company = companylist;
+            
             if (User.IsInRole("Admin"))
             {
-                var usersname = db2.Users.Where(u => u.Type == "AfterSale").Select(c => new
+                var usersname = db.Roshitas.Select(c => new
                 {
-                    user = c.UserName,
-                    Name = c.FName + " " + c.LName
+                    user = c.CreatedBy
 
-                }).ToList();
-                SelectList userslist = new SelectList(usersname, "user", "Name");
+                }).Distinct().ToList();
+                SelectList userslist = new SelectList(usersname, "userName");
                 ViewBag.users = userslist;
             }
 
@@ -68,6 +68,84 @@ namespace DMS_Authontication1.Controllers.ReportMain
             SelectList companylist = new SelectList(companyname, "Name", "Name");
             ViewBag.company = companylist;
             return View();
+        }
+        /*
+         * 
+         * RegistrationFrom = $('#RegistrationFrom').val();
+    var RegistrationTo = $('#RegistrationTo').val();    
+    var CompanyFrom = $('#CopmanyNumberFrom').val();
+    var CompanyTo = $('#CopmanyNumberTo').val();
+    var usernam = $('#userName').val();
+    var medcod = $('#MedCode').val();
+    var type = $('#Type').val();
+    var RepotType = $('#RepotType').val();
+         * \
+         * 
+         * 
+         * window.open('/ReportMain/PrintReportsMed?Regfrom=' + RegistrationFrom +
+                            '&&Regto=' + RegistrationTo + '&&CompanyFrom=' + CompanyFrom +
+                            '&&CompanyTo=' + CompanyTo + '&&usernam=' + userName + '&&medcod=' +
+                            MedCode + '&&type=' + type + '&&RepotType=' + RepotType);
+         * 
+         * */
+
+
+        public ActionResult PrintReportsMed(string Regfrom, string Regto, string CopmanyNumber,
+                                            string usernam, string medcod, string type, string RepotType)
+        {
+            DateTime RegDateFrom, RegDateTo;          
+           
+            RegDateFrom = string.IsNullOrEmpty(Regfrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(Regfrom)).Date;
+            RegDateTo = string.IsNullOrEmpty(Regto) ? DateTime.Now.Date : (Convert.ToDateTime(Regto)).Date;
+            
+
+
+            ReportDocument rd = new ReportDocument();
+
+            switch (Convert.ToInt32(RepotType))
+            {
+                
+                case 1:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "EditMedicine.rpt"));
+                    break;
+                case 2:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "EditMedicine2.rpt"));
+                    break;
+                case 3:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "EditMedicine.rpt"));
+                    break;               
+                default:
+                    return View();
+            }
+
+            rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+
+            rd.SetParameterValue("@from", RegDateFrom);
+            rd.SetParameterValue("@to", RegDateTo);            
+            rd.SetParameterValue("@comp", CopmanyNumber);
+            //rd.SetParameterValue("@medcod", medcod);
+            //rd.SetParameterValue("@usernam", usernam);
+            rd.SetParameterValue("@medcod", "");
+            rd.SetParameterValue("@usernam", "");
+            rd.SetParameterValue("@typ", type);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pdf", RegDateFrom.ToString("ddMMyyyy") + "ReportMed.pdf");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
 
