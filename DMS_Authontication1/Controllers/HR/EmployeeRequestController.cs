@@ -403,6 +403,8 @@ namespace DMS_Authontication1.Controllers.HR
                                      id = c.id,
                                      text = c.text
                                  }).ToList();
+
+
                 return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
             }

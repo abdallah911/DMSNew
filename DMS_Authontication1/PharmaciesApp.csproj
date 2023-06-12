@@ -948,6 +948,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LetterTransfer.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\HR\_LetterTransfer.cs">
       <AutoGen>True</AutoGen>
@@ -8435,6 +8436,10 @@
     <Content Include="Views\HrChronic\PrintMedicalReport.cshtml" />
     <Content Include="Views\Reports\HrClaimsPremium.cshtml" />
     <Content Include="Views\ReportMain\Index.cshtml" />
+    <Content Include="Reports\EditMedicine.rpt" />
+    <Content Include="Reports\EditMedicine2.rpt" />
+    <Content Include="Reports\AuditMedicineSummary.rpt" />
+    <Content Include="Reports\RepeatDispensingMedicine.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
