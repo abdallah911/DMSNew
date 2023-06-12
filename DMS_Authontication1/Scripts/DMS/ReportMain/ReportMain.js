@@ -7,7 +7,6 @@
     $('#RegistrationFrom').datepicker({});
     $('#RegistrationTo').datepicker({});
 
-
     $('#CardNo').select2({
         placeholder: 'Search for a card',
         minimumInputLength: 5,
@@ -37,106 +36,56 @@
 
         }
     });
+    
+    $("#AddMedicine").select2({
+        placeholder: "Select a medicine",
+        ajax: {
+            url: '/Pharmacy/GetList',
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    sEcho: params.page || 1,
+                    //iColumns=10,
+                    //iDisplayLength=10,
+                    sSearch: params.term,
 
-});
-var MedicineArray = [];
-$("#AddMedicine").select2({
-    placeholder: "Select a medicine",
-    ajax: {
-        url: '/Pharmacy/GetList',
-        dataType: 'json',
-        data: function (params) {
-            var query = {
-                sEcho: params.page || 1,
-                //iColumns=10,
-                //iDisplayLength=10,
-                sSearch: params.term,
-
-            }
-
-            // Query parameters will be ?search=[term]&page=[page]
-            return query;
-        },
-        processResults: function (data, params) {
-            params.page = params.page || 1;
-            var result = [];
-            for (var i = 0; i < data.aaData.length; i++) {
-                var current = {};
-                current.id = data.aaData[i].M_CODE;
-                current.text = data.aaData[i].TRADE_NAME;
-                result.push(current);
-            }
-            return {
-                results: result,
-                pagination: {
-                    more: (params.page * 10) < data.count_filtered
                 }
-            };
+
+                // Query parameters will be ?search=[term]&page=[page]
+                return query;
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                var result = [];
+                for (var i = 0; i < data.aaData.length; i++) {
+                    var current = {};
+                    current.id = data.aaData[i].M_CODE;
+                    current.text = data.aaData[i].TRADE_NAME;
+                    result.push(current);
+                }
+                return {
+                    results: result,
+                    pagination: {
+                        more: (params.page * 10) < data.count_filtered
+                    }
+                };
+            }
         }
-    }
+    });
 });
+
 function ClearAll() {
 
-    StopTime();
-
-    $("#txtSearch").val('');
-    $("#txtPhone").empty();
-    $("#txtCardRelation").empty();
     
-    $("#provider_Type").empty();
-    $("#Country_select").empty();
-    $("#Region_select").empty();    
-
-    $('#CardInformationDetails').hide();
-    //$("#ClaimsDataDetails").dataTable().fnDestroy();
-    //$("#IndemnityDetailsData").dataTable().fnDestroy();
-    //$("#MonthlyDetails").dataTable().fnDestroy();
-    //$("#MonthlyDataDetails").dataTable().fnDestroy();
-    //$("#LiveDetails").dataTable().fnDestroy();
-    //$("#ProviderList").dataTable().fnDestroy();
-    //$("#ApprovalsDetails").dataTable().fnDestroy();
-
-    $('#hours').html('');
-    $('#minutes').html('');
-    $('#seconds').html('');
-
-    $('#CardIdM').val('');
-    $('#ClaimNo').val('');
-    $('#CardID').val('');
-    $('#EmployeeName').val('');
-    $('#BirthDate').val('');
-    $('#Age').val('');
-    $('#StartDate').val('');
-
-    $('#EndDate').val('');
-    $('#MaxAmount').val('');
-    $('#ClassName').val('');
-    $('#HospitalDegree').val('');
-    $('#MedicalNetwork').val('');
-
-    $('#ExceptionPayment').val('');
-    $('#ExceptionOver').val('');
-    $('#NationalId').val('');
-    $('#Mobile1').val('');
-    $('#Mobile2').val('');
-
-    $('#CardColor').val('');
-    $('#OldCard').val('');
-
-    $('#MedicationClaims').val('');
-    $('#MedicationClaimsUnderReview').val('');
-    $('#OtherConsumption').val('');
-    $('#AllConsumption').val('');
-    $('#Remaining').val('');
-    $('#Percent').val('');
-    $('#ApprovalConsumption').val('');
-
-    $("#CountApprovals").val('');
-    $("#TotalAmountApprovals").val('');
-
-    $("#CountClaims").val('');
-    $("#TotalGrossClaims").val('');
-    $("#TotalNetClaims").val('');
+    $('#RegistrationFrom').val('');
+    $('#RegistrationTo').val('');
+    $('#CompNo').val(0);
+    $('#userName').val(0);
+    $('#AddMedicine').val(0);
+    $('#CardNo').val(0);
+    $('#TypeManager').val('All');
+    $('#Type').val('All');
+    $('#RepotType').val(1);    
 }
 
 function PrintReport() {
