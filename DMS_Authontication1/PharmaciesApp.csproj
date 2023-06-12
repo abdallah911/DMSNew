@@ -8437,6 +8437,8 @@
     <Content Include="Views\ReportMain\Index.cshtml" />
     <Content Include="Reports\EditMedicine.rpt" />
     <Content Include="Reports\EditMedicine2.rpt" />
+    <Content Include="Reports\AuditMedicineSummary.rpt" />
+    <Content Include="Reports\RepeatDispensingMedicine.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

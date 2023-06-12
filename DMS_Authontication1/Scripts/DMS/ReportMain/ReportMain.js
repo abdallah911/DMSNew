@@ -1,13 +1,16 @@
 ﻿$(function () {
-    $('#CopmanyNumberTo').select2();
-    $('#CopmanyNumberFrom').select2();
-    $('#username').select2();
+    $('#CompNo').select2();
+    $('#userName').select2();
+    $('#AddMedicine').select2();
+    $('#CardNo').select2();
+
     $('#RegistrationFrom').datepicker({});
     $('#RegistrationTo').datepicker({});
 
-    $('#MedCode').select2({
-        placeholder: 'Search for a med',
-        //minimumInputLength: 5,
+
+    $('#CardNo').select2({
+        placeholder: 'Search for a card',
+        minimumInputLength: 5,
         ajax: {
             url: '/EmployeeRequest/GetActiveEmployess/',
             delay: 250,
@@ -34,8 +37,44 @@
 
         }
     });
-});
 
+});
+var MedicineArray = [];
+$("#AddMedicine").select2({
+    placeholder: "Select a medicine",
+    ajax: {
+        url: '/Pharmacy/GetList',
+        dataType: 'json',
+        data: function (params) {
+            var query = {
+                sEcho: params.page || 1,
+                //iColumns=10,
+                //iDisplayLength=10,
+                sSearch: params.term,
+
+            }
+
+            // Query parameters will be ?search=[term]&page=[page]
+            return query;
+        },
+        processResults: function (data, params) {
+            params.page = params.page || 1;
+            var result = [];
+            for (var i = 0; i < data.aaData.length; i++) {
+                var current = {};
+                current.id = data.aaData[i].M_CODE;
+                current.text = data.aaData[i].TRADE_NAME;
+                result.push(current);
+            }
+            return {
+                results: result,
+                pagination: {
+                    more: (params.page * 10) < data.count_filtered
+                }
+            };
+        }
+    }
+});
 function ClearAll() {
 
     StopTime();
@@ -103,11 +142,14 @@ function ClearAll() {
 function PrintReport() {
     var RegistrationFrom = $('#RegistrationFrom').val();
     var RegistrationTo = $('#RegistrationTo').val();    
-    var CopmanyNumber = $('#CopmanyNumber').val();    
+    var CopmanyNumber = $('#CompNo').val();
     var usernam = $('#userName').val();
-    var medcod = $('#MedCode').val();
+    var medcod = $('#AddMedicine').val();
+    var crd = $('#CardNo').val();
+    var typmngr = $('#TypeManager').val();
     var type = $('#Type').val();
     var RepotType = $('#RepotType').val();
+    
 
     if (RegistrationFrom != "" && RegistrationTo != "")  {
 
@@ -119,31 +161,35 @@ function PrintReport() {
                     if ($("#pdf").is(":checked")) {
                         // do something if the pdf is  checked
                         // Print PDF and EXCEL
-                        window.open('/ReportMain/PrintReportsMed?Regfrom=' + RegistrationFrom +
+                        window.open('/ReportMain/PrintReportsMedPdf?Regfrom=' + RegistrationFrom +
                             '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
-                            '&&usernam=' + userName + '&&medcod=' + MedCode +
-                            '&&type=' + type + '&&RepotType=' + RepotType);
+                            '&&usernam=' + usernam + '&&medcod=' + medcod +
+                            '&&type=' + type + '&&RepotType=' + RepotType + 
+                            '&&crd=' + crd + '&&typmngr=' + typmngr);
 
-                        window.open('/ReportMain/PrintReportsMed?Regfrom=' + RegistrationFrom +
+                        window.open('/ReportMain/PrintReportsMedExcel?Regfrom=' + RegistrationFrom +
                             '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
-                            '&&usernam=' + userName + '&&medcod=' + MedCode +
-                            '&&type=' + type + '&&RepotType=' + RepotType);
+                            '&&usernam=' + usernam + '&&medcod=' + medcod +
+                            '&&type=' + type + '&&RepotType=' + RepotType +
+                            '&&crd=' + crd + '&&typmngr=' + typmngr);
                     }
                     else {
                         // Print EXCEL Only
-                        window.open('/ReportMain/PrintReportsMed?Regfrom=' + RegistrationFrom +
+                        window.open('/ReportMain/PrintReportsMedExcel?Regfrom=' + RegistrationFrom +
                             '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
-                            '&&usernam=' + userName + '&&medcod=' + MedCode +
-                            '&&type=' + type + '&&RepotType=' + RepotType);
+                            '&&usernam=' + usernam + '&&medcod=' + medcod +
+                            '&&type=' + type + '&&RepotType=' + RepotType +
+                            '&&crd=' + crd + '&&typmngr=' + typmngr);
                     }
 
                 }
                 else {
                     // Print PDF as Default
-                    window.open('/ReportMain/PrintReportsMed?Regfrom=' + RegistrationFrom +
+                    window.open('/ReportMain/PrintReportsMedPdf?Regfrom=' + RegistrationFrom +
                         '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
-                        '&&usernam=' + userName + '&&medcod=' + MedCode +
-                        '&&type=' + type + '&&RepotType=' + RepotType);
+                        '&&usernam=' + usernam + '&&medcod=' + medcod +
+                        '&&type=' + type + '&&RepotType=' + RepotType +
+                        '&&crd=' + crd + '&&typmngr=' + typmngr);
                 }                        
         
     }

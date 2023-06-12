@@ -43,7 +43,7 @@
                                             <div class="form-group">
                                                 <label class="control-label sbold col-md-3">
                                                     Record Date :
-
+                                                    <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
                                                     <label class="control-label sbold col-md-3">
@@ -75,15 +75,29 @@
                                                     Company Number :
 
                                                 </label>
-                                                <div class="col-md-6">                                                   
-                                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumber" })
-                                                                                                     
+                                                <div class="col-md-6">
+                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CompNo" })
+
                                                 </div>
                                                 <br />
                                             </div>
-                                        </div>                                     
+                                        </div>
+                                        <br />
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Card Number :
+                                                 
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <select id="CardNo" class="col-md-2 js-data-example-ajax" style="width: 100%"></select>
 
-                                        @* Card Number *@
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
+                                        @* User Name *@
 
                                         <div class="col-md-8">
                                             <div class="form-group">
@@ -101,7 +115,26 @@
                                         <br />
 
                                         @* Service provider number *@
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Manager :
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <select id="TypeManager" class="form-control">
+                                                        <option value="All">All</option>
+                                                        <option value="Daily">Daily</option>
+                                                        <option value="Monthly">Monthly</option>
+                                                        <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>
+                                                        <option value="Pharmacy_Doctor">Pharmacy_Doctor</option>
 
+                                                        
+                                                    </select>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label class="control-label sbold col-md-3">
@@ -109,7 +142,11 @@
 
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <select id="MedCode" class="col-md-2 form-control js-data-example-ajax" style="width: 100%"></select>
+                                                    @*@Html.DropDownList("MedicationAll", ViewBag.medall as SelectList, "Select Medication", new { @class = "form-control", @id = "MedicienCode" })*@
+                                                    <select id="AddMedicine" style="width:100%">
+                                                        <option value="">select medicine</option>
+                                                    </select>
+                                                    @*   <select id="MedCode" class="col-md-2 form-control js-data-example-ajax" style="width: 100%"></select>*@
                                                     @*<input id="SerProvNumber" type="number" class="col-md-2 form-control " min="0" />*@
 
                                                 </div>
@@ -120,7 +157,7 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label class="control-label sbold col-md-3">
-                                                    Type :                                      
+                                                    Type State:
                                                 </label>
                                                 <div class="col-md-6">
                                                     <select id="Type" class="form-control">
@@ -145,13 +182,16 @@
                                                     <select id="RepotType" class="form-control">
                                                         <option value="1">Report Edit Medicine Monthly</option>
                                                         <option value="2">Report Medicine</option>/option>
-                                                        <option value="3">Report Audit Medicine Chronic</option>
+                                                        <option value="3">Report Audit Medicine Summary</option>
+                                                        <option value="4">Report Audit Medicine Chronic</option>
+                                                        <option value="5">Repeat Dispensing Medicine</option>
+                                                        
                                                         @*<option value="903">Top 20 employees in terms of Usage (903)</option>
-                        <option value="904">Consumption per Provider with the highest according to values(904)</option>
-                        <option value="905">Consumption per Provider with the highest according to Usage (905)</option>
-                        <option value="907">Consumption per type of service provider according to Usage (907)</option>
-                        <option value="915">Consumption per Card (915)</option>
-                        <option value="916">Consumption per Card according to service Type (916)</option>*@
+        <option value="904">Consumption per Provider with the highest according to values(904)</option>
+        <option value="905">Consumption per Provider with the highest according to Usage (905)</option>
+        <option value="907">Consumption per type of service provider according to Usage (907)</option>
+        <option value="915">Consumption per Card (915)</option>
+        <option value="916">Consumption per Card according to service Type (916)</option>*@
                                                     </select>
                                                 </div>
                                                 <br />
