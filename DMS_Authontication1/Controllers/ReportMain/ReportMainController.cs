@@ -76,7 +76,7 @@ namespace DMS_Authontication1.Controllers.ReportMain
             RegDateFrom = string.IsNullOrEmpty(Regfrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(Regfrom)).Date;
             RegDateTo = string.IsNullOrEmpty(Regto) ? DateTime.Now.Date : (Convert.ToDateTime(Regto)).Date;
 
-
+            
 
             ReportDocument rd = new ReportDocument();
             int flg = 0;
