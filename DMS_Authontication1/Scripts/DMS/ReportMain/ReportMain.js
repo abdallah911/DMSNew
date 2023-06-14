@@ -76,16 +76,19 @@
 
 function ClearAll() {
 
-    
     $('#RegistrationFrom').val('');
     $('#RegistrationTo').val('');
-    $('#CompNo').val(0);
-    $('#userName').val(0);
-    $('#AddMedicine').val(0);
-    $('#CardNo').val(0);
+    $('#CompNo').val('').trigger("change");
+    $('#userName').val('').trigger("change");
+    $('#AddMedicine').val('').trigger("change");
+    $('#CardNo').val('').trigger("change");
     $('#TypeManager').val('All');
     $('#Type').val('All');
-    $('#RepotType').val(1);    
+    $('#RepotType').val(1);
+
+    $("#pdf").prop("checked", false);
+    $("#excel").prop("checked", false);
+
 }
 
 function PrintReport() {
@@ -147,4 +150,56 @@ function PrintReport() {
     }
 
 
+}
+
+
+function ClearAll2() {
+
+
+    $('#RegistrationFrom').val('');
+    $('#RegistrationTo').val('');
+    $('#CompNo').val('').trigger("change");
+    $('#CardNo').val('').trigger("change");
+    $('#RepotType').val(1);
+        
+    $("#pdf").prop("checked", false);
+    $("#excel").prop("checked", false);
+
+}
+
+function PrintReport2() {
+    var RegistrationFrom = $('#RegistrationFrom').val();
+    var RegistrationTo = $('#RegistrationTo').val();
+    var CopmanyNumber = $('#CompNo').val();
+    var crd = $('#CardNo').val();
+    var RepotType = $('#RepotType').val();
+
+        //chick if not search with card number
+        if ($("#excel").is(":checked")) {
+            // do something if the excel is  checked
+            if ($("#pdf").is(":checked")) {
+                // do something if the pdf is  checked
+                // Print PDF and EXCEL
+                window.open('/ReportMain/PrintReports2MedPdf?Regfrom=' + RegistrationFrom +
+                    '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
+                    '&&crd=' + crd + '&&RepotType=' + RepotType);
+
+                window.open('/ReportMain/PrintReports2MedExcel?Regfrom=' + RegistrationFrom +
+                    '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
+                    '&&crd=' + crd + '&&RepotType=' + RepotType);
+            }
+            else {
+                // Print EXCEL Only
+                window.open('/ReportMain/PrintReports2MedExcel?Regfrom=' + RegistrationFrom +
+                    '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
+                    '&&crd=' + crd + '&&RepotType=' + RepotType);
+            }
+
+        }
+        else {
+            // Print PDF as Default
+            window.open('/ReportMain/PrintReports2MedPdf?Regfrom=' + RegistrationFrom +
+                '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
+                '&&crd=' + crd + '&&RepotType=' + RepotType);
+        }
 }
