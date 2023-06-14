@@ -77,7 +77,7 @@ namespace DMS_Authontication1.Controllers.ReportMain
             {
 
                 case 1:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "EditMedicine.rpt"));
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ChronicDataDetails.rpt"));
                     break;
                 case 2:
                     rd.Load(Path.Combine(Server.MapPath("~/Reports"), "EditMedicine2.rpt"));
@@ -99,9 +99,11 @@ namespace DMS_Authontication1.Controllers.ReportMain
             rd.SetParameterValue("@comp", CopmanyNumber);
             rd.SetParameterValue("@medcod", medcod);
             rd.SetParameterValue("@usernam", usernam);
-            rd.SetParameterValue("@typmngr", typmngr);
             rd.SetParameterValue("@crd", crd);
             rd.SetParameterValue("@typ", type);
+
+            if (RepotType != "1")
+                rd.SetParameterValue("@typmngr", typmngr);
 
 
             Response.Buffer = false;
@@ -140,7 +142,7 @@ namespace DMS_Authontication1.Controllers.ReportMain
             {
 
                 case 1:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "EditMedicine.rpt"));
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ChronicDataDetails.rpt"));
                     break;
                 case 2:
                     rd.Load(Path.Combine(Server.MapPath("~/Reports"), "EditMedicine2.rpt"));
@@ -164,9 +166,11 @@ namespace DMS_Authontication1.Controllers.ReportMain
             rd.SetParameterValue("@comp", CopmanyNumber);
             rd.SetParameterValue("@medcod", medcod);
             rd.SetParameterValue("@usernam", usernam);
-            rd.SetParameterValue("@typmngr", typmngr);
             rd.SetParameterValue("@crd", crd);
             rd.SetParameterValue("@typ", type);
+
+            if (RepotType != "1")
+                rd.SetParameterValue("@typmngr", typmngr);
 
 
             Response.Buffer = false;
@@ -186,6 +190,7 @@ namespace DMS_Authontication1.Controllers.ReportMain
             {
                 throw ex;
             }
+
         }
 
         public JsonResult GetEmployessReport(string search, int page, Int32 cmp)
