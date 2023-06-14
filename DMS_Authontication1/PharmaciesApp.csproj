@@ -8439,6 +8439,9 @@
     <Content Include="Reports\EditMedicine2.rpt" />
     <Content Include="Reports\AuditMedicineSummary.rpt" />
     <Content Include="Reports\RepeatDispensingMedicine.rpt" />
+    <Content Include="Views\ReportMain\ReportMed2.cshtml" />
+    <Content Include="Reports\AuditMedicineChronicDetails.rpt" />
+    <Content Include="Reports\AuditMedicineChronicSummary.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

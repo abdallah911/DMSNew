@@ -26,9 +26,7 @@ namespace DMS_Authontication1.Controllers.ReportMain
         private ApplicationDbContext db2 = new ApplicationDbContext();
         #endregion
 
-        #region Actions
-
-        // GET: CustomerService
+        #region Reports1               
         public ActionResult Index()
         {
             var companyname = db.Contract_Comp.Select(c => new
@@ -60,13 +58,8 @@ namespace DMS_Authontication1.Controllers.ReportMain
             SelectList medcodlist = new SelectList(medcodall, "Code", "Name");
             ViewBag.medall = medcodlist;
 
-
-
-
             return View();
         }
-
-
         public ActionResult PrintReportsMedPdf(string Regfrom, string Regto, string CopmanyNumber,
                                             string usernam, string medcod, string type, string RepotType,
                                             string crd, string typmngr)
@@ -76,10 +69,10 @@ namespace DMS_Authontication1.Controllers.ReportMain
             RegDateFrom = string.IsNullOrEmpty(Regfrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(Regfrom)).Date;
             RegDateTo = string.IsNullOrEmpty(Regto) ? DateTime.Now.Date : (Convert.ToDateTime(Regto)).Date;
 
-            
+
 
             ReportDocument rd = new ReportDocument();
-            int flg = 0;
+
             switch (Convert.ToInt32(RepotType))
             {
 
@@ -93,36 +86,23 @@ namespace DMS_Authontication1.Controllers.ReportMain
                     rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AuditMedicineSummary.rpt"));
                     break;
                 case 4:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ChronicDataReport.rpt"));
-                    flg = 1;
-                    break;
-                case 5:
                     rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RepeatDispensingMedicine.rpt"));
                     break;
                 default:
                     return View();
             }
 
-
             rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
 
-            if (flg == 1)
-            {
-                rd.SetParameterValue("@comp", CopmanyNumber);
-                rd.SetParameterValue("@from", RegDateFrom);
-                rd.SetParameterValue("@to", RegDateTo);
-            }
-            else
-            {
-                rd.SetParameterValue("@from", RegDateFrom);
-                rd.SetParameterValue("@to", RegDateTo);
-                rd.SetParameterValue("@comp", CopmanyNumber);
-                rd.SetParameterValue("@medcod", medcod);
-                rd.SetParameterValue("@usernam", usernam);
-                rd.SetParameterValue("@typmngr", typmngr);
-                rd.SetParameterValue("@crd", crd);
-                rd.SetParameterValue("@typ", type);
-            }
+            rd.SetParameterValue("@from", RegDateFrom);
+            rd.SetParameterValue("@to", RegDateTo);
+            rd.SetParameterValue("@comp", CopmanyNumber);
+            rd.SetParameterValue("@medcod", medcod);
+            rd.SetParameterValue("@usernam", usernam);
+            rd.SetParameterValue("@typmngr", typmngr);
+            rd.SetParameterValue("@crd", crd);
+            rd.SetParameterValue("@typ", type);
+
 
             Response.Buffer = false;
             Response.ClearContent();
@@ -155,7 +135,7 @@ namespace DMS_Authontication1.Controllers.ReportMain
 
 
             ReportDocument rd = new ReportDocument();
-            int flg = 0;
+
             switch (Convert.ToInt32(RepotType))
             {
 
@@ -169,10 +149,6 @@ namespace DMS_Authontication1.Controllers.ReportMain
                     rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AuditMedicineSummary.rpt"));
                     break;
                 case 4:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ChronicDataReport.rpt"));
-                    flg = 1;
-                    break;
-                case 5:
                     rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RepeatDispensingMedicine.rpt"));
                     break;
                 default:
@@ -182,23 +158,16 @@ namespace DMS_Authontication1.Controllers.ReportMain
 
             rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
 
-            if (flg == 1)
-            {
-                rd.SetParameterValue("@comp", CopmanyNumber);
-                rd.SetParameterValue("@from", RegDateFrom);
-                rd.SetParameterValue("@to", RegDateTo);
-            }
-            else
-            {
-                rd.SetParameterValue("@from", RegDateFrom);
-                rd.SetParameterValue("@to", RegDateTo);
-                rd.SetParameterValue("@comp", CopmanyNumber);
-                rd.SetParameterValue("@medcod", medcod);
-                rd.SetParameterValue("@usernam", usernam);
-                rd.SetParameterValue("@typmngr", typmngr);
-                rd.SetParameterValue("@crd", crd);
-                rd.SetParameterValue("@typ", type);
-            }
+
+            rd.SetParameterValue("@from", RegDateFrom);
+            rd.SetParameterValue("@to", RegDateTo);
+            rd.SetParameterValue("@comp", CopmanyNumber);
+            rd.SetParameterValue("@medcod", medcod);
+            rd.SetParameterValue("@usernam", usernam);
+            rd.SetParameterValue("@typmngr", typmngr);
+            rd.SetParameterValue("@crd", crd);
+            rd.SetParameterValue("@typ", type);
+
 
             Response.Buffer = false;
             Response.ClearContent();
@@ -235,6 +204,129 @@ namespace DMS_Authontication1.Controllers.ReportMain
             return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+
+        #endregion
+
+        #region Reports2
+        public ActionResult ReportMed2()
+        {
+            var companyname = db.Contract_Comp.Select(c => new
+            {
+                COMP_ID = c.C_COMP_ID,
+                Name = c.C_ANAME + " || " + c.C_COMP_ID
+
+            }).ToList();
+            SelectList companylist = new SelectList(companyname, "COMP_ID", "Name");
+            ViewBag.company = companylist;
+            
+            return View();
+        }
+
+        public ActionResult PrintReports2MedPdf(string Regfrom, string Regto, string CopmanyNumber,
+                                                string crd, string RepotType)
+        {
+            DateTime RegDateFrom, RegDateTo;
+
+            RegDateFrom = string.IsNullOrEmpty(Regfrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(Regfrom)).Date;
+            RegDateTo = string.IsNullOrEmpty(Regto) ? DateTime.Now.Date : (Convert.ToDateTime(Regto)).Date;
+
+
+
+            ReportDocument rd = new ReportDocument();
+
+            switch (Convert.ToInt32(RepotType))
+            {
+
+                case 1:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AuditMedicineChronicDetails.rpt"));
+                    break;
+                case 2:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AuditMedicineChronicSummary.rpt"));
+                    break;
+                    
+                default:
+                    return View();
+            }
+
+            rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+
+            rd.SetParameterValue("@from", RegDateFrom);
+            rd.SetParameterValue("@to", RegDateTo);
+            rd.SetParameterValue("@comp", CopmanyNumber);          
+            rd.SetParameterValue("@crd", crd);            
+
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pdf", RegDateFrom.ToString("ddMMyyyy") + "ReportMed.pdf");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ActionResult PrintReports2MedExcel(string Regfrom, string Regto, string CopmanyNumber,
+                                                  string crd, string RepotType)
+        {
+            DateTime RegDateFrom, RegDateTo;
+
+            RegDateFrom = string.IsNullOrEmpty(Regfrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(Regfrom)).Date;
+            RegDateTo = string.IsNullOrEmpty(Regto) ? DateTime.Now.Date : (Convert.ToDateTime(Regto)).Date;
+
+
+
+            ReportDocument rd = new ReportDocument();
+
+            switch (Convert.ToInt32(RepotType))
+            {
+
+                case 1:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AuditMedicineChronicDetails.rpt"));
+                    break;
+                case 2:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AuditMedicineChronicSummary.rpt"));
+                    break;
+
+                default:
+                    return View();
+            }
+
+            rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+
+            rd.SetParameterValue("@from", RegDateFrom);
+            rd.SetParameterValue("@to", RegDateTo);
+            rd.SetParameterValue("@comp", CopmanyNumber);
+            rd.SetParameterValue("@crd", crd);
+
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/xls", RegDateFrom.ToString("ddMMyyyy") + "ReportMed.xls");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         #endregion
     }
