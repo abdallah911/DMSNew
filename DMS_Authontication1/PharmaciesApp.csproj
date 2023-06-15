@@ -8443,6 +8443,7 @@
     <Content Include="Views\ReportMain\ReportMed2.cshtml" />
     <Content Include="Reports\AuditMedicineChronicDetails.rpt" />
     <Content Include="Reports\AuditMedicineChronicSummary.rpt" />
+    <Content Include="Reports\ChronicDataDetails.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
