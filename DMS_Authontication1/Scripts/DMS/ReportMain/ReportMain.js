@@ -72,6 +72,82 @@
             }
         }
     });
+
+
+
+    $('#CopmanyNumber2').select2();
+    $('#ddlGroups').select2({
+        placeholder: "Select Group"
+    });
+    $('#Date').datepicker({
+        minDate: 0,
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'MM-yy',
+        onClose: function (dateText, inst) {
+            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1))
+        }
+    });
+    $("#CopmanyNumber2").change(function () {
+
+        $("#ddlGroups").empty();
+        if ($("#CopmanyNumber2").val() != "") {
+            //provider
+            $.ajax({
+                type: 'POST',
+                url: '/Pharmacy/CompanyGroupsList/',
+                dataType: 'json',
+                data: { CompId: $(this).val() },
+                success: function (Groups) {
+                    $("#ddlGroups").append('<option value="0">All</option>');
+                    $.each(Groups, function (i, ddlGroups) {
+                        $("#ddlGroups").append('<option value="' + ddlGroups.Value + '">' + ddlGroups.Text + '</option>');
+
+                    });
+                    $('#ddlGroups  option:eq(0)').attr('selected', 'selected');
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Groups.');
+                }
+
+            });
+        }
+
+
+
+    });
+
+    $('#CardNo2').select2({
+        placeholder: 'Search for a card',
+        minimumInputLength: 5,
+        ajax: {
+            url: '/EmployeeRequest/GetActiveEmployess/',
+            delay: 250,
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page || 1
+                }
+                return query;
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                var obj = {};
+                data.push(obj)
+                return {
+                    results: data,//.results,
+                    pagination: {
+                        more: (params.page * 10) < data.count_filtered
+                    }
+                };
+            }
+            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+        }
+    });
+
 });
 
 function ClearAll() {
@@ -202,4 +278,25 @@ function PrintReport2() {
                 '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
                 '&&crd=' + crd + '&&RepotType=' + RepotType);
         }
+}
+
+function ClearAll3() {
+    $('#Date').val('');    
+    $('#CopmanyNumber2').val('').trigger("change");
+    $('#CardNo2').val('').trigger("change");
+    $('#ddlGroups').val('').trigger("change");
+}
+
+function PrintReport3() {
+    var dat = $('#Date').val();
+    var CopmanyNumber = $('#CopmanyNumber2').val();
+    var crd = $('#CardNo2').val();
+    var grup = $('#ddlGroups').val();
+    if (CopmanyNumber != "") {
+        window.open('/ReportMain/CompanyChronicReport?Date=' + dat +
+            '&&CompId=' + CopmanyNumber + '&&GroupId=' + grup + '&&CardId=' + crd);
+    }
+    else {
+        toastr.info('Please Select Company First');
+    }
 }
