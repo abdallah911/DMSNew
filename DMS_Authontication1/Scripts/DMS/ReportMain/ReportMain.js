@@ -293,7 +293,7 @@ function PrintReport3() {
     var crd = $('#CardNo2').val();
     var grup = $('#ddlGroups').val();
     if (CopmanyNumber != "") {
-        window.open('/ReportMain/CompanyChronicReport?Date=' + dat +
+        window.open('/ReportMain/CompanyChronicReport?Date=' + $('#Date').val() +
             '&&CompId=' + CopmanyNumber + '&&GroupId=' + grup + '&&CardId=' + crd);
     }
     else {

@@ -339,24 +339,22 @@ namespace DMS_Authontication1.Controllers.ReportMain
         #region Report3
         public ActionResult CompanyChronicReport(string Date = "", int CompId = 0, int GroupId = 0, string CardId = "")
         {
-           
-            //rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ChronicDataReport.rpt"));
             
             DateTime DispenseDate = Convert.ToDateTime(Date);
 
             ReportDocument rd = new ReportDocument();
 
             rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CompanyChronicReport.rpt"));
-            
+
             //ApplicationDbContext users = new ApplicationDbContext();
             //var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
             //int ProviderId = Convert.ToInt32(CurrentUser.Provider);
-            
+
             rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
 
             rd.SetParameterValue("@CompId", CompId);
             rd.SetParameterValue("@CardId", CardId);
-            rd.SetParameterValue("@DispenseDate", DispenseDate);
+            rd.SetParameterValue("@DispenseDate", DispenseDate.ToShortDateString());
             rd.SetParameterValue("@GroupId", GroupId);
 
             Response.Buffer = false;
@@ -368,6 +366,32 @@ namespace DMS_Authontication1.Controllers.ReportMain
             rd.Dispose();
             GC.Collect();
             return File(stream, "application/pdf", Date + "CompanyChronicReport.pdf");
+
+
+
+            //DateTime DispenseDate = Convert.ToDateTime(Date).Date;
+
+            //ReportDocument rd = new ReportDocument();
+            //rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CompanyChronicReport.rpt"));
+
+            //rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+
+            //rd.SetParameterValue("@CompId", CompId);
+            //rd.SetParameterValue("@CardId", CardId);
+            //rd.SetParameterValue("@DispenseDate", DispenseDate);
+            //rd.SetParameterValue("@GroupId", GroupId);
+
+            //Response.Buffer = false;
+            //Response.ClearContent();
+            //Response.ClearHeaders();
+            //Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            //stream.Seek(0, SeekOrigin.Begin);
+            //rd.Close();
+            //rd.Dispose();
+            //GC.Collect();
+            //return File(stream, "application/pdf", Date + "CompanyChronicDelivery.pdf");
+
+
         }
 
 
