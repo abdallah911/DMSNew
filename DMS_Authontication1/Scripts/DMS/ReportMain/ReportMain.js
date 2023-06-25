@@ -148,6 +148,29 @@
         }
     });
 
+
+    $('#CompNoPrint').select2();
+
+/*    $('#ContractNo').select2();*/
+
+    $("#CompNoPrint").change(function () {//address
+        if ($("#CompNoPrint").val() != "" && $("#CompNoPrint").val() != "0") {
+            $.get("/ReportMain/GetContractNo",
+                { CompId: $("#CompNoPrint").val() }, function (data) {
+                    $("#ContractNo").empty();
+                    $('#ContractNo').append('<option value="">Select Contract</option>');
+                    $.each(data, function (index, row) {
+                        $("#ContractNo").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                    });
+                });
+        }
+        else {
+            $("#ContractNo").empty();
+            $('#ContractNo').append('<option value="">Select Region</option>');
+        }
+    });
+
+
 });
 
 function ClearAll() {
@@ -287,6 +310,13 @@ function ClearAll3() {
     $('#ddlGroups').val('').trigger("change");
 }
 
+function ClearAllPrint() {
+
+    $('#CompNoPrint').val('').trigger("change");
+    $('#ContractNo').empty();
+    $("#Large").prop("checked", true);
+}
+
 function PrintReport3() {
     var dat = $('#Date').val();
     var CopmanyNumber = $('#CopmanyNumber2').val();
@@ -298,5 +328,20 @@ function PrintReport3() {
     }
     else {
         toastr.info('Please Select Company First');
+    }
+}
+
+function PrintReportPrint() {
+    debugger;
+    var CopmanyNumber = $('#CompNoPrint').val();
+    var cont = $('#ContractNo').val();   
+    var typ = (document.querySelector("input[name=TypePrint]:checked").value);
+   
+    if (CopmanyNumber != "" && cont != "") {
+        window.open('/ReportMain/PrintReport?CompId=' + CopmanyNumber +
+            '&&contract=' + cont + '&&typ=' + typ);
+    }
+    else {
+        toastr.info('Please Select Company and Contract First');
     }
 }

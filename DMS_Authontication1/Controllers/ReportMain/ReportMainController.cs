@@ -397,5 +397,69 @@ namespace DMS_Authontication1.Controllers.ReportMain
 
 
         #endregion
+
+        #region Report Print
+        public ActionResult ReportPrint()
+        {
+            var companyname = db.Contract_Comp.Select(c => new
+            {
+                COMP_ID = c.C_COMP_ID,
+                Name = c.C_ANAME + " || " + c.C_COMP_ID
+
+            }).ToList();
+            SelectList companylist = new SelectList(companyname, "COMP_ID", "Name");
+            ViewBag.company = companylist;
+
+            return View();
+        }
+
+        public JsonResult GetContractNo(string CompId)
+        {
+            int comp = int.Parse(CompId);
+           
+            var contractNo = db.Contract_Data.Where(u => u.C_COMP_ID == comp).Select(c => new
+            {
+                ContractNo = c.CONTRACT_NO,               
+
+            }).OrderBy(u => u.ContractNo).ToList();
+            SelectList contractNumberList = new SelectList(contractNo, "ContractNo", "ContractNo");
+
+
+            return Json(contractNumberList, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PrintReport(Int32 CompId, int contract, string typ)
+        {            
+            ReportDocument rd = new ReportDocument();
+
+
+            if(typ == "Large")
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReportPrintHorizontal4.rpt"));
+            else if (typ == "Medium")
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReportPrintHorizontal5.rpt"));
+            else if (typ == "Small")
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReportPrintHorizontal6.rpt"));
+            else if (typ == "Mini")
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReportPrintHorizontal88.rpt"));
+
+
+            rd.SetDatabaseLogon("APP", "12369");
+            
+            rd.SetParameterValue("cmp", CompId);
+            rd.SetParameterValue("contr", contract);
+          
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+            rd.Close();
+            rd.Dispose();
+            GC.Collect();
+            return File(stream, "application/pdf", "PrintPreview-" + CompId.ToString() + ".pdf");
+        }
+
+        #endregion
     }
 }
