@@ -28,9 +28,15 @@
             </div>
         </div>
         <div class="portlet-body">
-            <div class="row ">
-                <div class="col-md-12">
-                    <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#ReportTab" data-toggle="tab">Reports</a></li>
+                <li><a href="#ChronicParmacyTab" data-toggle="tab">Chronic Parmacy</a></li>
+            </ul>
+
+            <div class="tab-content" style="padding-left:15px">
+                <div id="ReportTab" class="tab-pane fade  in active">
+
+                    <div class="form-horizontal">
 
                         <div class="form-wizard">
                             <div class="form-body">
@@ -76,7 +82,7 @@
 
                                                 </label>
                                                 <div class="col-md-6">
-                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CompNo" })
+                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 js-data-example-ajax", style = "width: 100%", id = "CompNo" })
 
                                                 </div>
                                                 <br />
@@ -87,13 +93,13 @@
                                             <div class="form-group">
                                                 <label class="control-label sbold col-md-3">
                                                     Card Number :
-                                                 
+
                                                 </label>
                                                 <div class="col-md-6">
                                                     <select id="CardNo" class="col-md-2 js-data-example-ajax" style="width: 100%">
                                                         <option value="">select Card</option>
                                                     </select>
-                                                    
+
                                                 </div>
                                                 <br />
                                             </div>
@@ -108,7 +114,7 @@
 
                                                 </label>
                                                 <div class="col-md-6">
-                                                    @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = "form-control", @id = "userName" })
+                                                    @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = "col-md-2 js-data-example-ajax", style = "width: 100%", @id = "userName" })
                                                 </div>
                                                 <br />
                                             </div>
@@ -129,7 +135,7 @@
                                                         <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>
                                                         <option value="Pharmacy_Doctor">Pharmacy_Doctor</option>
 
-                                                        
+
                                                     </select>
                                                 </div>
                                                 <br />
@@ -185,13 +191,13 @@
                                                         <option value="2">Medication dispensing details</option>/option>
                                                         <option value="3">Online medication dispensing per card</option>
                                                         <option value="4">Repeat Dispensing Medicine</option>
-                                                        
+
                                                         @*<option value="903">Top 20 employees in terms of Usage (903)</option>
-        <option value="904">Consumption per Provider with the highest according to values(904)</option>
-        <option value="905">Consumption per Provider with the highest according to Usage (905)</option>
-        <option value="907">Consumption per type of service provider according to Usage (907)</option>
-        <option value="915">Consumption per Card (915)</option>
-        <option value="916">Consumption per Card according to service Type (916)</option>*@
+                                                <option value="904">Consumption per Provider with the highest according to values(904)</option>
+                                                <option value="905">Consumption per Provider with the highest according to Usage (905)</option>
+                                                <option value="907">Consumption per type of service provider according to Usage (907)</option>
+                                                <option value="915">Consumption per Card (915)</option>
+                                                <option value="916">Consumption per Card according to service Type (916)</option>*@
                                                     </select>
                                                 </div>
                                                 <br />
@@ -252,14 +258,105 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
+
+
+                <div id="ChronicParmacyTab" class="tab-pane fade ">
+
+                    <div class="form-horizontal">
+
+                        <div class="form-wizard">
+                            <div class="form-body">
+                                <div class="tab-content">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                                    <div class="row">
+
+                                        @* Company Number *@
+
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Company Number:
+
+                                                </label>
+                                                <div class="col-md-6">
+                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 js-data-example-ajax", style = "width: 100%", id = "CopmanyNumber2" })
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
+
+                                        @* Month *@
+
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Month:
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <input id="Date" type="text" class="col-md-2 js-data-example-ajax" style="width: 100%" placeholder="Select Month" />
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
+
+                                        @* Group *@
+
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Group:
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <select id="ddlGroups" style="width:100%">
+                                                        <option value="">Select Group</option>
+                                                    </select>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
+
+                                        @* Card Id *@
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label sbold col-md-3">
+                                                    Card Number:
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <select id="CardNo2" class="col-md-2 js-data-example-ajax" style="width: 100%">
+                                                        <option value="">select Card</option>
+                                                    </select>
+
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <br />
+
+                                        <div class="row" style=" text-align:center">
+                                            <div class="col-md-12">
+                                                <input id="New" type="button" value="New" onclick="ClearAll3();" class="btn btn-warning" />
+                                                <input id="Print" type="button" value="Print" onclick="PrintReport3();" class="btn btn-primary fa fa-file-pdf-o" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
             </div>
 
+            </div>
         </div>
-
-    </div>
-</div>
 
 
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>

@@ -8444,6 +8444,8 @@
     <Content Include="Reports\AuditMedicineChronicDetails.rpt" />
     <Content Include="Reports\AuditMedicineChronicSummary.rpt" />
     <Content Include="Reports\ChronicDataDetails.rpt" />
+    <Content Include="Reports\CompanyChronicReport.rpt" />
+    <Content Include="Views\ReportMain\ReportPrint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

@@ -334,5 +334,132 @@ namespace DMS_Authontication1.Controllers.ReportMain
         }
 
         #endregion
+
+
+        #region Report3
+        public ActionResult CompanyChronicReport(string Date = "", int CompId = 0, int GroupId = 0, string CardId = "")
+        {
+            
+            DateTime DispenseDate = Convert.ToDateTime(Date);
+
+            ReportDocument rd = new ReportDocument();
+
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CompanyChronicReport.rpt"));
+
+            //ApplicationDbContext users = new ApplicationDbContext();
+            //var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+            //int ProviderId = Convert.ToInt32(CurrentUser.Provider);
+
+            rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+
+            rd.SetParameterValue("@CompId", CompId);
+            rd.SetParameterValue("@CardId", CardId);
+            rd.SetParameterValue("@DispenseDate", DispenseDate.ToShortDateString());
+            rd.SetParameterValue("@GroupId", GroupId);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+            rd.Close();
+            rd.Dispose();
+            GC.Collect();
+            return File(stream, "application/pdf", Date + "CompanyChronicReport.pdf");
+
+
+
+            //DateTime DispenseDate = Convert.ToDateTime(Date).Date;
+
+            //ReportDocument rd = new ReportDocument();
+            //rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CompanyChronicReport.rpt"));
+
+            //rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+
+            //rd.SetParameterValue("@CompId", CompId);
+            //rd.SetParameterValue("@CardId", CardId);
+            //rd.SetParameterValue("@DispenseDate", DispenseDate);
+            //rd.SetParameterValue("@GroupId", GroupId);
+
+            //Response.Buffer = false;
+            //Response.ClearContent();
+            //Response.ClearHeaders();
+            //Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            //stream.Seek(0, SeekOrigin.Begin);
+            //rd.Close();
+            //rd.Dispose();
+            //GC.Collect();
+            //return File(stream, "application/pdf", Date + "CompanyChronicDelivery.pdf");
+
+
+        }
+
+
+
+        #endregion
+
+        #region Report Print
+        public ActionResult ReportPrint()
+        {
+            var companyname = db.Contract_Comp.Select(c => new
+            {
+                COMP_ID = c.C_COMP_ID,
+                Name = c.C_ANAME + " || " + c.C_COMP_ID
+
+            }).ToList();
+            SelectList companylist = new SelectList(companyname, "COMP_ID", "Name");
+            ViewBag.company = companylist;
+
+            return View();
+        }
+
+        public JsonResult GetContractNo(string CompId)
+        {
+            int comp = int.Parse(CompId);
+           
+            var contractNo = db.Contract_Data.Where(u => u.C_COMP_ID == comp).Select(c => new
+            {
+                ContractNo = c.CONTRACT_NO,               
+
+            }).OrderBy(u => u.ContractNo).ToList();
+            SelectList contractNumberList = new SelectList(contractNo, "ContractNo", "ContractNo");
+
+
+            return Json(contractNumberList, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PrintReport(Int32 CompId, int contract, string typ)
+        {            
+            ReportDocument rd = new ReportDocument();
+
+
+            if(typ == "Large")
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReportPrintHorizontal4.rpt"));
+            else if (typ == "Medium")
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReportPrintHorizontal5.rpt"));
+            else if (typ == "Small")
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReportPrintHorizontal6.rpt"));
+            else if (typ == "Mini")
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReportPrintHorizontal88.rpt"));
+
+
+            rd.SetDatabaseLogon("APP", "12369");
+            
+            rd.SetParameterValue("cmp", CompId);
+            rd.SetParameterValue("contr", contract);
+          
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+            rd.Close();
+            rd.Dispose();
+            GC.Collect();
+            return File(stream, "application/pdf", "PrintPreview-" + CompId.ToString() + ".pdf");
+        }
+
+        #endregion
     }
 }
