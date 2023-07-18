@@ -1206,7 +1206,7 @@ namespace DMS_Authontication1.Controllers
 
                 var y = db.Roshitas.Where(r => r.CreatedDate >= F && r.CreatedDate <= T && !r.Manager.Contains("Stop") &&( r.CreatedBy == User.Identity.Name||branches.Contains(r.CreatedBy)))
                    .Join(db.Comp_Employees, r => r.CardId, m => m.CARD_ID, (r, m) => new { r, m })
-                   .Where(x => x.m.INS_START_DATE <= DateTime.Now && x.m.INS_END_DATE >= DateTime.Now)
+                   .Where(x => x.m.INS_START_DATE <= x.r.CreatedDate &&x.m.INS_END_DATE>=x.r.CreatedDate )
                    .AsEnumerable()
                 .Select(d => new RoshitaCompEmolyessReportViewModel
                 {

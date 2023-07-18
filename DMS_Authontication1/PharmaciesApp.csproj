@@ -298,6 +298,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\MobileApi\AccountMobileController.cs" />
     <Compile Include="Controllers\ReportMain\ReportMainController.cs" />
     <Compile Include="Controllers\LossRatio\LossRatioController.cs" />
     <Compile Include="Controllers\CustomerService\CustomerServiceController.cs" />
