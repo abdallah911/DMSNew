@@ -166,8 +166,10 @@ namespace DMS_TEST.Controllers
                 case 901:
                     if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901InternalCode.rpt"));
-                    else
+                    else if(CompanyStart.ToString().StartsWith("500") || CompanyEnd.ToString().StartsWith("500"))
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901.rpt"));
+                    else 
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901Prem.rpt"));
                     break;
                 case 9011:
                     if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
@@ -306,21 +308,105 @@ namespace DMS_TEST.Controllers
 
             ReportDocument rd = new ReportDocument();
 
+            //switch (Convert.ToInt32(RepotType))
+            //{
+            //    case 901:
+
+            //        if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+            //            rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901InternalCode.rpt"));
+            //        else if (CompanyStart.ToString().StartsWith("500") || CompanyEnd.ToString().StartsWith("500"))
+            //            rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901Prem.rpt"));
+            //        else
+            //            rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901.rpt"));
+            //        break;
+            //    case 9011:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901-1.rpt"));
+            //        break;
+
+            //    case 902:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum902.rpt"));
+            //        break;
+
+            //    case 903:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum903.rpt"));
+            //        break;
+            //    case 904:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum904.rpt"));
+            //        break;
+            //    case 905:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum905.rpt"));
+            //        break;
+            //    case 906:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum906.rpt"));
+            //        break;
+            //    case 907:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum907.rpt"));
+            //        break;
+            //    case 908:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum908.rpt"));
+            //        break;
+            //    case 909:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum909.rpt"));
+            //        break;
+            //    case 910:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum910.rpt"));
+            //        break;
+            //    case 911:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum911.rpt"));
+            //        break;
+            //    case 912:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum912.rpt"));
+            //        break;
+            //    case 913:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum913.rpt"));
+            //        break;
+            //    case 914:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum914.rpt"));
+            //        break;
+            //    case 915:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum915.rpt"));
+            //        break;
+            //    case 916:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum916.rpt"));
+            //        break;
+            //    case 917:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum917.rpt"));
+            //        break;
+            //    case 918:
+            //        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum918.rpt"));
+            //        break;
+            //    default:
+            //        return View();
+            //}
             switch (Convert.ToInt32(RepotType))
             {
                 case 901:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901InternalCode.rpt"));
+                    else if (CompanyStart.ToString().StartsWith("500") || CompanyEnd.ToString().StartsWith("500"))
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901Prem.rpt"));
                     break;
                 case 9011:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901-1.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901-1InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901-1.rpt"));
                     break;
 
                 case 902:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum902.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum902InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum902.rpt"));
                     break;
 
                 case 903:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum903.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum903InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum903.rpt"));
                     break;
                 case 904:
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum904.rpt"));
@@ -356,16 +442,28 @@ namespace DMS_TEST.Controllers
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum914.rpt"));
                     break;
                 case 915:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum915.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum915InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum915.rpt"));
                     break;
                 case 916:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum916.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum916InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum916.rpt"));
                     break;
                 case 917:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum917.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum917InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum917.rpt"));
                     break;
                 case 918:
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum918.rpt"));
+                    if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum918InternalCode.rpt"));
+                    else
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum918.rpt"));
                     break;
                 default:
                     return View();
