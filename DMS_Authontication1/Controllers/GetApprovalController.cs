@@ -34,6 +34,23 @@ namespace DMS_Authontication1.Controllers
         }
         // GET: GetApproval
         [HttpGet]
+        public ActionResult Index()
+        {
+            try
+            {
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return Redirect("/Shared/Error");
+            }
+
+
+
+        }
+        // GET: GetApproval
+        [HttpGet]
         public ActionResult Create()
         {
             try
@@ -106,6 +123,68 @@ namespace DMS_Authontication1.Controllers
                 }
                 return Json(Object.Id);
 
+            }
+        }
+        public JsonResult ApprovalList(int sEcho, int iDisplayStart, int iDisplayLength, string sSearch = "")
+        {
+            int lgSearch;
+            int.TryParse(sSearch, out lgSearch);
+
+            var result = new
+            {
+                sEcho = sEcho,
+                aaData = db.Acceptions.Where(x => x.AcceptionFlag == true).AsEnumerable()
+                .Where(r => sSearch != "" ? r.CreatedBy.Contains(sSearch) || r.Id == lgSearch : true).OrderByDescending(m => m.Id)
+                .Select(l => new
+                {
+                    Id = l.Id,
+                    CardId = db.Comp_Employees.Where(c => c.Id == l.CompEmployeesId).FirstOrDefault().CARD_ID,
+                    CreatedDate = l.CreatedDate,
+                    CreatedBy = l.CreatedBy
+                }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
+
+                iTotalRecords = db.Acceptions.Where(x => x.AcceptionFlag == true).AsEnumerable()
+               .Where(r => sSearch != "" ? r.CreatedBy.Contains(sSearch) || r.Id == lgSearch : true).Count(),
+                iTotalDisplayRecords = db.Acceptions.Where(x => x.AcceptionFlag == true).AsEnumerable()
+               .Where(r => sSearch != "" ? r.CreatedBy.Contains(sSearch) || r.Id == lgSearch : true).Count()
+            };
+            return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        [HttpPost]
+        public JsonResult ApprovalDelete(int id)
+        {
+            try
+            {
+                var model = db.Acceptions.Where(i => i.Id == id).FirstOrDefault();
+                if (model != null)
+                {
+                    if (model.ApprovalType == "Normal")
+                    {
+                        var CardAcceptions = db.CardAcceptionReasons.Where(c => c.AcceptionId == id).ToList();
+                        db.CardAcceptionReasons.RemoveRange(CardAcceptions);
+                        db.SaveChanges();
+                    }
+                    db.Acceptions.Remove(model);
+                    db.SaveChanges();
+                    return Json(new { ok = true, message = "ok" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        ok = false,
+                        message = "No Data"
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    ok = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
             }
         }
     }

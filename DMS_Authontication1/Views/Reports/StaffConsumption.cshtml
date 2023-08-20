@@ -34,9 +34,12 @@
 <br />
 <div style="margin-top:40px">
     <p>
-        @if (fullcontroll || view)
+       @if (User.Identity.Name != "sofico-hr")
         {
-            @Html.ActionLink(" Inquiries About An Invoice", "Inquiries", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+            if (fullcontroll || view)
+            {
+                @Html.ActionLink(" Inquiries About An Invoice", "Inquiries", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+            }
         }
         @if (fullcontroll || Create)
         {

@@ -194,6 +194,7 @@ $(function () {
                                 if (i == r.length - 1) {
                                     $('#To').val(dat);
                                 }
+                                debugger;
                                 var data = "<tr >" +
                                     //"<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectHistory(this);'></Button>" + "</td>" +
                                     "<td>" + r[i].MedicienCode + "</td>" +
@@ -206,8 +207,14 @@ $(function () {
                                     "<td>" + r[i].Amount + "</td>" +
                                     "<td>" + r[i].M_TYPE + "</td>" +
                                     "<td>" + dat + "</td>" +
-                                    "<td>" + r[i].CreatedBy + "</td>" +
-                                    "</tr>"
+                                    "<td>" + r[i].CreatedBy + "</td>";
+                                if (r[i].IsDealed == false) {
+                                    data += "<td><button type='button' class='btn btn - danger' data-id=" + r[i].Id + " data-roshitaid=" + r[i].RoshitaID + " onclick='Delete(this);' style='color: white;'> Delete</button></td>" +
+                                        "</tr>";
+                                }
+                                else
+                                    data += "</tr>";
+
                                 setData.append(data);
 
                             }
@@ -256,6 +263,7 @@ $(function () {
 
         });
     });
+    
     $('#From').datepicker({
         onSelect: function (dateStr) {
             datestr = dateStr.toString();
@@ -306,8 +314,13 @@ $(function () {
                             "<td>" + r[i].Amount + "</td>" +
                             "<td>" + r[i].M_TYPE + "</td>" +
                             "<td>" + dat + "</td>" +
-                            "<td>" + r[i].CreatedBy + "</td>" +
-                            "</tr>";
+                            "<td>" + r[i].CreatedBy + "</td>";
+                        if (r[i].IsDealed == "false") {
+                            data += "<td><button type='button' class='btn btn - danger' data-id=" + r[i].Id + " data-roshitaid=" + r[i].RoshitaID + " onclick='Delete(this);' style='color: white;'> Delete</button></td>" +
+                                "</tr>";
+                        }
+                        else
+                            data += "</tr>";
                         setData.append(data);
                     }
                     $('#History').DataTable();
@@ -825,6 +838,30 @@ $(function () {
     });
 
 });
+function Delete(button) {
+
+    var id = $(button).data('id');
+    var roshitaid = $(button).data('roshitaid');
+
+    bootbox.confirm("Are you sure to delete This Prescription Form ?", function (result) {
+        if (result) {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '/DoctorApprovals/DoctorDelete',
+                data: { id: id, roshitaid: roshitaid },
+                success: function (returndata) {
+                    if (returndata.ok) {
+                        toastr.success("Deleted");
+                        var row = $(button).closest("TR");
+                        var table = $("#History")[0];
+                        table.deleteRow(row[0].rowIndex);
+                    }
+                }
+            });
+        }
+    });
+}
 function SelectMedicien(event) {
     var Code = event.params.args.data.id
     $("#wait").css("display", "block");

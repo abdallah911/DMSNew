@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Approval
+        </div>
+
+    </div>
+    <br />
+    <div class="portlet-body">
+
+        <table class="ui celled table" id="Index" width="100%">
+            <thead>
+                <tr>
+
+                    <th>
+                        Approval No
+                    </th>
+                    <th>
+                        Card Id
+                    </th>
+
+                    <th>
+                        CreatedBy
+                    </th>
+
+                    <th>
+                        CreatedDate
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+
+        </table>
+    </div>
+</div>
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+    $(function () {
+        $("#Index").DataTable({
+            "sAjaxSource": '/GetApproval/ApprovalList',
+            "bServerSide": true,
+            "processing": true,
+            "bFilter": true,
+            "bSort": false,
+            "pageLength": 10,
+            "bInfo": true,
+            "columns": [
+                { "data": "Id", "name": "Approval No" },
+                { "data": "CardId", "name": "Card Id" },
+                { "data": "CreatedBy", "name": "CreatedBy" },
+                {
+                    "data": "CreatedDate",
+                    "name": "Created Date",
+                    "mRender": function (data) {
+                        var value = new Date(parseFloat(data.replace(/(^.*\()|([+-].*$)/g, '')));
+                        var date = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                        return date;
+                    }
+                },
+                {
+                    "data": "Id",
+                    "mRender": function (data) {
+                        return '<button type="button" class="btn btn-danger" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+
+                    }
+                },
+
+
+            ]
+        });
+    })
+
+    function Delete(button) {
+
+        var id = $(button).data('id');
+
+        bootbox.confirm("Are you sure to delete This Approval  ?", function (result) {
+            if (result) {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: '/GetApproval/ApprovalDelete',
+                    data: { id: id },
+                    success: function (returndata) {
+                        if (returndata.ok) {
+                            toastr.success("Deleted");
+                            //if (role == "1") {
+                            //    location.reload();
+                            //}
+                            //else {
+                            //    IndexDatatableAdmin();
+                            //}
+                            location.reload();
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>

@@ -35,6 +35,18 @@ namespace DMS_TEST.Controllers
             //}
             int CompId = Convert.ToInt32(id.Split('-')[0].ToString());
 
+            //chick if company is hold or not 
+
+            var model = db.APPROVAL_BAD.Where(x => x.COMP_ID == CompId).FirstOrDefault();
+            if (model != null)
+            {
+                if (model.FLAG == "Y")
+                {
+                    ViewBag.Message = "Hold Company";
+                    return View(data);
+                }
+            }
+
             var HrUserNamre = User.Identity.GetUserName();
             var userid = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Id;
             var found = db.ProviderBlocks.Where(x => x.UserId == userid && x.CompId == CompId && x.ServiceCode == "11602" && x.IsActive == true).Any();

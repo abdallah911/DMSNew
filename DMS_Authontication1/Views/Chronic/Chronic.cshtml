@@ -166,6 +166,13 @@
         window.location.replace("/Pharmacy/Pharmacy");
     </script>
 }
+@if (ViewBag.Message == "Hold Company")
+{
+    <script>
+        alert("برجاء الرجوع الى ادارة الشركة التابعة لسيادتكم");
+        window.location.replace("/Pharmacy/Pharmacy");
+    </script>
+}
 <div hidden>
     <input id="IsFamily" name="IsFamily" value="" />
     <input id="IsPool" name="IsPool" value="" />

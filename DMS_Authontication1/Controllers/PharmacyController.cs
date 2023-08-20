@@ -2063,7 +2063,23 @@ namespace DMS_TEST.Controllers
                 }
 
             }
-
+            var date = DateTime.Now.AddDays(-14);
+            var createdDate2 = db.Roshitas.Where(r => r.CardId == id && r.Manager.Contains("Doctor_Daily") &&r.CreatedDate>=date&& !r.Manager.Contains("Stop"))
+                .Join(db.RoshitaDetails, x => x.Id, d => d.RoshitaID, (x, d) => new { x, d })
+              .Where(z => z.d.MedicienCode == code && z.d.PaymentGroup != "Cash" && z.d.IsDealed == false)
+              .OrderByDescending(v => v.x.CreatedDate)
+              .Select(l => new
+              {
+                  id = l.x.Id,
+                  Createdate = l.x.CreatedDate,
+                  TotalDuration = l.d.TotalDuration
+              }).FirstOrDefault();
+            if (createdDate2 != null)
+            {
+                check = 1;
+                message = "هذا الدواء مسجل فالادوية اليوميه";
+                return new JsonResult { Data = new { check = check, messa = message }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
             //string CurentGroup = db.MedicineDatas.Where(x => x.M_CODE == code).FirstOrDefault().MED_GROUP;
             //MedicineData CurentMedicine = db.MedicineDatas.Where(x => x.M_CODE == code).FirstOrDefault();
             var ChronicMedicine = db.Med_Medicine.Where(z => z.CARD_NO == id && z.ACTIVE == "Y" && (z.MONTH_DATE_STOP == null || z.MONTH_DATE_STOP > DateTime.Now))
