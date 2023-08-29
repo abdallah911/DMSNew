@@ -863,8 +863,12 @@ namespace DMS_TEST.Controllers
                         {
                             if (LimitDailyMonthlyPreceptionAmount != 0 && Limit > LimitDailyMonthlyPreceptionAmount)
                                 Limit = LimitDailyMonthlyPreceptionAmount;
+                            if (LimitDailyMonthlyPreceptionAmount < 0)
+                                Limit = .001;
                             if (LimitDailyYearlyPreceptionAmount != 0 && Limit > LimitDailyYearlyPreceptionAmount)
                                 Limit = LimitDailyYearlyPreceptionAmount;
+                            if(LimitDailyYearlyPreceptionAmount < 0)
+                                Limit = .001;
                         }
                         if (ServiceCode == "11602" || ServiceCode == "11603")
                         {
