@@ -430,7 +430,7 @@ $(function () {
     $("#EmployeeData").click(function () {
         if ($('#AddCardTxt').val() != "") {
             $("#wait").css("display", "block");
-            debugger;
+            
             var id = $('#AddCardTxt').val();
             $.ajax({
                 type: "POST",
@@ -566,7 +566,7 @@ $(function () {
         }
     });
     $("#SubmetChronic").click(function () {
-        debugger;
+        
         if (CardId != "") {
             $("#wait").css("display", "block");
             var Mediciens = new Array();
@@ -643,7 +643,7 @@ $(function () {
 var CardId = "";
 function ActiveOrNotActiveMedicine() {
     if (CardId != "") {
-        debugger;
+        
         var buttontype = $("#ActiveMedicine").html();
         var Mediciens = new Array();
         $("#CardMedicines TBODY TR").each(function () {

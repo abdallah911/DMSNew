@@ -760,10 +760,19 @@ namespace DMS_TEST.Controllers
                     Double LimitMonthlyYearlyPreceptionAmount = CustemizedMedEmp.MON_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Monthly Amount
                     if (ServiceCode == "11601" || ServiceCode == "11604")
                     {
+                        //if (LimitDailyMonthlyPreceptionAmount != 0 && Limit > LimitDailyMonthlyPreceptionAmount)
+                        //    Limit = LimitDailyMonthlyPreceptionAmount;
+                        //if (LimitDailyYearlyPreceptionAmount != 0 && Limit > LimitDailyYearlyPreceptionAmount)
+                        //    Limit = LimitDailyYearlyPreceptionAmount;
+
                         if (LimitDailyMonthlyPreceptionAmount != 0 && Limit > LimitDailyMonthlyPreceptionAmount)
                             Limit = LimitDailyMonthlyPreceptionAmount;
+                        if (LimitDailyMonthlyPreceptionAmount < 0)
+                            Limit = .001;
                         if (LimitDailyYearlyPreceptionAmount != 0 && Limit > LimitDailyYearlyPreceptionAmount)
                             Limit = LimitDailyYearlyPreceptionAmount;
+                        if (LimitDailyYearlyPreceptionAmount < 0)
+                            Limit = .001;
                     }
                     if (ServiceCode == "11602" || ServiceCode == "11603")
                     {

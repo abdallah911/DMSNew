@@ -178,7 +178,7 @@ $(function () {
                                         success: function (returndata) {
                                             if (returndata.ok) {
                                                 if (returndata.data == "Yes") {
-                                                    debugger;
+                                                    
                                                     $("#wait").css("display", "none");
                                                     $('#txtSearchCard').val(CardId);
                                                     $('#compEmp_EMP_ANAME').val(ArName);
@@ -1251,7 +1251,7 @@ function SelectMedicien(event) {
                                         MedicineCode: MedicienCode
                                     },
                                     success: function (r) {
-                                        debugger;
+                                        
                                         if (r == true) {
                                             if (samegroup == false) {
                                                 RemoveSelection(Code);
@@ -1773,12 +1773,12 @@ function Calculation() {
                     sumCash += parseFloat(("TD", row).find(".Amount").val());
             }
         });
-        debugger;
+        
         $("#txtTotalInvoice").val(sum.toFixed(2));
         $('#txtCash').val(sumCash.toFixed(2));
         $('#txtOverInsurance').val("0");
         if ($('#ddlType').val() == "11601") {
-            debugger;
+            
             var Limit = parseFloat($("#insurance_LIVEL").val());
             var co = $("#ddEmp_CEILING_PERT").val();
             var person = parseFloat(100 - co);//percentage

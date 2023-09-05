@@ -420,7 +420,7 @@ function Calculation() {
     }
     else if (ServiceCode == "11602") {
         var Limit = fixedLimit;
-        debugger;
+        
         co = CeilingPert;
         person = parseFloat(100 - co);
         //total-cash
@@ -641,7 +641,7 @@ function SelectMedicien(event) {
                                             MedicineCode: MedicienCode
                                         },
                                         success: function (r) {
-                                            debugger;
+                                            
                                             if (r == true) {
                                                 if (samegroup == false) {
                                                     RemoveSelection(Code);
