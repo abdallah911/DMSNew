@@ -8453,6 +8453,8 @@
     <Content Include="Reports\SoficoReports\CloseEmpReport.rpt" />
     <Content Include="Reports\SoficoReports\SartEmpReport.rpt" />
     <Content Include="Reports\SoficoReports\AllClaimsReport.rpt" />
+    <Content Include="Views\ReportMain\ReportProviderCheck.cshtml" />
+    <Content Include="Reports\ProviderCheckTop.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

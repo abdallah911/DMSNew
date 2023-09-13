@@ -7,6 +7,9 @@
     $('#RegistrationFrom').datepicker({});
     $('#RegistrationTo').datepicker({});
 
+    $('#RegistrationFromReportProviderCheck').datepicker({});
+    $('#RegistrationToReportProviderCheck').datepicker({});
+
     $('#CardNo').select2({
         placeholder: 'Search for a card',
         minimumInputLength: 5,
@@ -451,3 +454,41 @@ function PrintReports() {
 
 }
 
+function ClearAllReportProviderCheck() {
+    debugger;
+    $('#RegistrationFromReportProviderCheck').val('');
+    $('#RegistrationToReportProviderCheck').val('');
+    $("#pdf").prop("checked", false);
+    $("#excel").prop("checked", false);
+}
+
+function PrintReportProviderCheck() {
+    debugger;
+    var ServiceFrom = $('#RegistrationFromReportProviderCheck').val();
+    var ServiceTo = $('#RegistrationToReportProviderCheck').val();
+     
+        //chick if not search with card number
+        if ($("#excel").is(":checked")) {
+            // do something if the excel is  checked
+            if ($("#pdf").is(":checked")) {
+                // do something if the pdf is  checked
+                // Print PDF and EXCEL
+                window.open('/ReportMain/PrintReportProviderCheckPdf?ServiceFrom=' + ServiceFrom +
+                    '&&ServiceTo=' + ServiceTo);
+
+                window.open('/ReportMain/PrintReportProviderCheckExcel?ServiceFrom=' + ServiceFrom +
+                    '&&ServiceTo=' + ServiceTo);
+            }
+            else {
+                // Print EXCEL Only
+                window.open('/ReportMain/PrintReportProviderCheckExcel?ServiceFrom=' + ServiceFrom +
+                    '&&ServiceTo=' + ServiceTo);
+            }
+
+        }
+        else {
+            // Print PDF as Default
+            window.open('/ReportMain/PrintReportProviderCheckPdf?ServiceFrom=' + ServiceFrom +
+                '&&ServiceTo=' + ServiceTo);
+        }
+}

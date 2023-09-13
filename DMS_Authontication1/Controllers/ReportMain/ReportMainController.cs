@@ -636,5 +636,95 @@ namespace DMS_Authontication1.Controllers.ReportMain
 
         #endregion
 
+
+        #region Reports
+        public ActionResult ReportProviderCheck()
+        {
+            var companyname = db.Contract_Comp.Select(c => new
+            {
+                COMP_ID = c.C_COMP_ID,
+                Name = c.C_ANAME + " || " + c.C_COMP_ID
+
+            }).ToList();
+            SelectList companylist = new SelectList(companyname, "COMP_ID", "Name");
+            ViewBag.company = companylist;
+
+            return View();
+        }
+        public ActionResult PrintReportProviderCheckPdf(string ServiceFrom, string ServiceTo)
+        {
+            DateTime ServiceDateFrom, ServiceDateTo;
+
+            ServiceDateFrom = string.IsNullOrEmpty(ServiceFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(ServiceFrom)).Date;
+            ServiceDateTo = string.IsNullOrEmpty(ServiceTo) ? DateTime.Now.Date : (Convert.ToDateTime(ServiceTo)).Date;
+
+
+
+            ReportDocument rd = new ReportDocument();
+
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ProviderCheckTop.rpt"));
+            
+            rd.SetDatabaseLogon("APP", "12369");
+            
+            rd.SetParameterValue("dat1", ServiceDateFrom);
+            rd.SetParameterValue("dat2", ServiceDateTo);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pdf", DateTime.Now.ToString("ddMMyyyy") + "ProviderCheckTop.pdf");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ActionResult PrintReportProviderCheckExcel(string ServiceFrom, string ServiceTo)
+        {
+            DateTime ServiceDateFrom, ServiceDateTo;
+
+            ServiceDateFrom = string.IsNullOrEmpty(ServiceFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(ServiceFrom)).Date;
+            ServiceDateTo = string.IsNullOrEmpty(ServiceTo) ? DateTime.Now.Date : (Convert.ToDateTime(ServiceTo)).Date;
+
+
+            ReportDocument rd = new ReportDocument();
+            
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ProviderCheckTop.rpt"));
+
+            rd.SetDatabaseLogon("APP", "12369");
+
+            rd.SetParameterValue("dat1", ServiceDateFrom);
+            rd.SetParameterValue("dat2", ServiceDateTo);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/xls", DateTime.Now.ToString("ddMMyyyy") + "ProviderCheckTop.xls");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
     }
 }
