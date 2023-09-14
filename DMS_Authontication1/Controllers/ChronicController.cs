@@ -446,13 +446,31 @@ namespace DMS_TEST.Controllers
                     NewEmpSMSCode.CreatedDate = DateTime.Now;
                     NewEmpSMSCode.LastSentDate = DateTime.Now;
                     db.EmployeesSMSCodes.Add(NewEmpSMSCode);
-                    PostSMSData("your DMS verification code to dispense chronic medicines is " + SMSCode, model.Comp_Employees.TEL1);
+                    try
+                    {
+                        PostSMSData("your DMS verification code to dispense chronic medicines is " + SMSCode, model.Comp_Employees.TEL1);
+
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
                 }
 
                 var modelSms = db.CardsSms.Where(c => c.CardId == roshita.CardId).FirstOrDefault();
                 if (modelSms != null)
                 {
-                    PostSMSData("Your medication card has been dispensed . If it is not used, please call 0226390390", modelSms.Phone);
+                    try
+                    {
+                        PostSMSData("Your medication card has been dispensed . If it is not used, please call 0226390390", modelSms.Phone);
+
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
                 }
 
                 int result = db.SaveChanges();

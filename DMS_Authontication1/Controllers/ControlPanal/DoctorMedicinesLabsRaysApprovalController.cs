@@ -192,7 +192,16 @@ namespace DMS_Authontication1.Controllers.ControlPanal
             var model = db.CardsSms.Where(c => c.CardId == card).FirstOrDefault();
             if (model != null)
             {
-                PostSMSData(" Your request has been answered. Please go to the service provider to find out the response ", model.Phone);
+                try
+                {
+                    PostSMSData(" Your request has been answered. Please go to the service provider to find out the response ", model.Phone);
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
             }
             return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }

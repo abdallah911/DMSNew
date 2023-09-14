@@ -384,18 +384,18 @@ namespace DMS_TEST.Controllers
 
                 foreach (var item in roshitaDoctor)
                 {
-                     data.AddRange( db.RoshitaDetails
-                 .Join(db.MedicineDatas,
-                       d => d.MedicienCode, m => m.M_CODE,
-                       (d, m) => new { d, m })
-                 .Where(l => l.d.RoshitaID == item.Id&& l.d.IsDealed == false)
-                 .Select(l => new DoctorContainerViewModel
-                 {
-                     Id = l.d.Id,
-                     MedicienCode = l.d.MedicienCode,
-                     IsDealed = l.d.IsDealed
-                 })
-                 .ToList());
+                    data.AddRange(db.RoshitaDetails
+                .Join(db.MedicineDatas,
+                      d => d.MedicienCode, m => m.M_CODE,
+                      (d, m) => new { d, m })
+                .Where(l => l.d.RoshitaID == item.Id && l.d.IsDealed == false)
+                .Select(l => new DoctorContainerViewModel
+                {
+                    Id = l.d.Id,
+                    MedicienCode = l.d.MedicienCode,
+                    IsDealed = l.d.IsDealed
+                })
+                .ToList());
                 }
                 if (data.Count() > 0)
                 {
@@ -876,7 +876,7 @@ namespace DMS_TEST.Controllers
                                 Limit = .001;
                             if (LimitDailyYearlyPreceptionAmount != 0 && Limit > LimitDailyYearlyPreceptionAmount)
                                 Limit = LimitDailyYearlyPreceptionAmount;
-                            if(LimitDailyYearlyPreceptionAmount < 0)
+                            if (LimitDailyYearlyPreceptionAmount < 0)
                                 Limit = .001;
                         }
                         if (ServiceCode == "11602" || ServiceCode == "11603")
@@ -2077,7 +2077,7 @@ namespace DMS_TEST.Controllers
 
             }
             var date = DateTime.Now.AddDays(-14);
-            var createdDate2 = db.Roshitas.Where(r => r.CardId == id && r.Manager.Contains("Doctor_Daily") &&r.CreatedDate>=date&& !r.Manager.Contains("Stop"))
+            var createdDate2 = db.Roshitas.Where(r => r.CardId == id && r.Manager.Contains("Doctor_Daily") && r.CreatedDate >= date && !r.Manager.Contains("Stop"))
                 .Join(db.RoshitaDetails, x => x.Id, d => d.RoshitaID, (x, d) => new { x, d })
               .Where(z => z.d.MedicienCode == code && z.d.PaymentGroup != "Cash" && z.d.IsDealed == false)
               .OrderByDescending(v => v.x.CreatedDate)
@@ -2472,7 +2472,15 @@ namespace DMS_TEST.Controllers
                 var model = db.CardsSms.Where(c => c.CardId == roshita.CardId).FirstOrDefault();
                 if (model != null)
                 {
-                    PostSMSData("Your medication card has been dispensed . If it is not used, please call 0226390390 ", model.Phone);
+                    try
+                    {
+                        PostSMSData("Your medication card has been dispensed . If it is not used, please call 0226390390 ", model.Phone);
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
                 }
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita.Id);
 
@@ -3687,7 +3695,16 @@ namespace DMS_TEST.Controllers
                 var model = db.CardsSms.Where(c => c.CardId == roshita.CardId).FirstOrDefault();
                 if (model != null)
                 {
-                    PostSMSData("Your medication card has been dispensed . If it is not used, please call 0226390390", model.Phone);
+                    try
+                    {
+                        PostSMSData("Your medication card has been dispensed . If it is not used, please call 0226390390", model.Phone);
+
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
                 }
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita1.Id);
 

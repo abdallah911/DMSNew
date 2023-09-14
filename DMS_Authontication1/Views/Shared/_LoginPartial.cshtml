@@ -5,15 +5,42 @@
     {
         @Html.AntiForgeryToken()
     }
+    <style>
+        .test1 {
+            color: black;
+/*            background-color: rgb(245, 7, 7);
+*/            border-radius: 50%;
+            padding: 15px 7px ;
+/*            animation: flash 1s linear infinite;
+*/        }
+
+        @@keyframes flash {
+            from {
+                opacity: 0.15;
+                box-shadow: Inset 0 0 0.5em 0 red, 0 0 0.5em 0 red;
+            }
+
+            to {
+                opacity: 1;
+                box-shadow: Inset 0 0 0.5em 0 red, 0 0 0.5em 0 red;
+            }
+        }
+    </style>
 <ul class="nav navbar-nav navbar-right">
     <li>
         <div class="dropdown-cus" style="float:left;">
             <button class="dropbtn-cus">
                 <span class="m-nav__link-icon">
-                    <span class="m-nav__link-icon-wrapper">
-                        <i class="fa fa-bell-o"style="color: red;"></i>
-                    </span>
-                    <span id="notification" class="m-nav__link-badge m-badge m-badge--danger">0</span>
+                    <div class="m-nav__link-icon-wrapper NotificationDiv d-flex justify-content-center">
+                        <span class="test1 d-flex justify-content-center align-content-center">
+                            <i class="fa fa-bell-o   fa-2x"></i>
+                            <span id="notification" class="m-nav__link-badge m-badge m-badge--danger" style="font-size: 20px;">0</span>
+
+                        </span>
+                       
+
+                        
+                    </div>
                 </span>
                @* <i class="fa fa-chevron-down down-icon"></i>*@
                 @*  <i class="fa fa-chevron-up up-icon"></i>*@

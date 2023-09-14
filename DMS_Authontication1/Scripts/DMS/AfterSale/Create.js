@@ -84,7 +84,6 @@ function ShowCompanyDiv() {
 
 /// Save Request
 function Submit_Save() {
-    debugger;
     if ($('#CompanyNameList').val() == "" && $('#CompanyName').val() == "") {
         bootbox.alert("You shoud enter valid company name ..");
     }
@@ -113,7 +112,6 @@ function Submit_Save() {
         bootbox.alert("You shoud click ' End Meeting ' before save meeting data ");
     }
     else {
-        debugger;
         var isNew = false;
         $("#submit").attr("disabled", "disabled");
         var compname = "";

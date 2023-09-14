@@ -161,8 +161,16 @@ namespace DMS_Authontication1.Controllers.ControlPanal
 
                 }
                 db.SaveChanges();
+                try
+                {
+                    PostSMSData("your DMS verification code to dispense chronic medicines is " + SMSCode, employee.TEL1);
 
-                PostSMSData("your DMS verification code to dispense chronic medicines is " + SMSCode, employee.TEL1);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
                 return Json(new { ok = true, returndata = SMSCode, message = "ok" }, JsonRequestBehavior.AllowGet);
 
             }
@@ -205,8 +213,16 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                             db.EmployeesSMSCodes.Add(NewEmpSMSCode);
 
                             db.SaveChanges();
+                            try
+                            {
+                                PostSMSData("your DMS verification code to dispense chronic medicines is " + SMSCode, employee.TEL1);
 
-                            PostSMSData("your DMS verification code to dispense chronic medicines is " + SMSCode, employee.TEL1);
+                            }
+                            catch (Exception)
+                            {
+
+                                throw;
+                            }
 
                         }
                     }

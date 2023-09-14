@@ -668,6 +668,7 @@ function ActiveOrNotActiveMedicine() {
             Medicien.ACTIVE = row.find("TD").eq(16).html();
             Medicien.MedicineNoPay = row.find("TD").eq(17).html();
             Medicien.StartDateMedicine = row.find("TD").eq(18).html();
+            Medicien.PoolType = row.find("TD").eq(19).html();
             Mediciens.push(Medicien);
         });
 
@@ -695,6 +696,7 @@ function ActiveOrNotActiveMedicine() {
                     "<td>" + Mediciens[i].ACTIVE + "</td>" +
                     "<td>" + Mediciens[i].MedicineNoPay + "</td>" +
                     "<td>" + Mediciens[i].StartDateMedicine + "</td>" +
+                    "<td>" + Mediciens[i].PoolType + "</td>" +
                     " <td>" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditMedicine(this);'>Edit</Button>" + "</td>" +
                     "</tr>"
                 setData.append(data);
@@ -728,6 +730,7 @@ function ActiveOrNotActiveMedicine() {
                         "<td>" + Mediciens[i].ACTIVE + "</td>" +
                         "<td>" + Mediciens[i].MedicineNoPay + "</td>" +
                         "<td>" + Mediciens[i].StartDateMedicine + "</td>" +
+                        "<td>" + Mediciens[i].PoolType + "</td>" +
                         " <td>" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditMedicine(this);'>Edit</Button>" + "</td>" +
                         "</tr>"
                     setData.append(data);
@@ -753,6 +756,7 @@ function ActiveOrNotActiveMedicine() {
                         "<td>" + Mediciens[i].ACTIVE + "</td>" +
                         "<td>" + Mediciens[i].MedicineNoPay + "</td>" +
                         "<td>" + Mediciens[i].StartDateMedicine + "</td>" +
+                        "<td>" + Mediciens[i].PoolType + "</td>" +
                         " <td>" + "<Button class='btn btn-warning glyphicon glyphicon-pencil' onclick='EditMedicine(this);'>Edit</Button>" + "</td>" +
                         "</tr>"
                     setData.append(data);

@@ -14,7 +14,6 @@ $(document).ready(function () {
 
 });
 $(function () {
-    debugger;
     $('.CreatDate').datetimepicker({
         minDate: new Date()
     });

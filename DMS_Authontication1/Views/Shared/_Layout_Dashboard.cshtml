@@ -893,6 +893,17 @@
                 success: function (result) {
                     //debugger;
                     $('#notification').text(result.length);
+                    if (result.length > 0) {
+                        $(".test1").css("background-color", " rgb(245, 7, 7)");
+                        $(".test1").css("animation", " flash 1s linear infinite");
+                        $(".test1 i").css("color", "");
+                    }
+                    else {
+                        $(".test1").css("background-color", "");
+                        $(".test1").css("animation", "");
+                        $(".test1 i").css("color", "red");
+
+                    }
                     $('#divNotificationValues').empty();
                     $.each(result, function (key, value) {
                         $('#divNotificationValues').append('<a href="' + value.DetailsURL + '?NotificationId=' + value.Id + '">' + value.TypeNmae + '-' + value.Details + '</a>');
