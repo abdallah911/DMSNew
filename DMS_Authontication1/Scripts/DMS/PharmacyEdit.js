@@ -918,6 +918,7 @@ function getlimit() {
                 AnuualLimit = r.Limit;
                 $('#IsFamily').val(r.IsFamily);
                 $('#IsPool').val(r.IsPool);
+                $('#AllLimit').val(r.AnnualLimit);
                 if (ServiceCode == "11601") {
                     if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
                         Limit = r.CoInsurancelimit.INSURANCE_DAY;
@@ -955,6 +956,101 @@ function getlimit() {
             alert("Failed to retrieve Company Annual Limit. please check your internet connection");
             location.reload();
         }
+    }).done(function () {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/Pharmacy/CheckType",
+            data: { CardId: CardId },
+            success: function (returndata) {
+                if (returndata == false) {
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: '/Pharmacy/GetRoshitaApproval',
+                        data: { RoshitaId: id, Type: 3 },
+                        success: function (returndata) {
+                            if (returndata == false) {
+                                
+                            }
+                            else {
+                                var Copayment = false;
+                                var Limit = false;
+                                var DisregardCeiling = false;
+                                var ExternalPrescription = false;
+                                var PrescriptionPerDay = false;
+                                for (var i = 0; i < returndata.length; i++) {
+                                    Copayment = Copayment == true ? true : returndata[i].includes("Cancel Co-Payment");
+                                    Limit = Limit == true ? true : returndata[i].includes('Disregard OverInsurance');
+                                    DisregardCeiling = DisregardCeiling == true ? true : returndata[i].includes("Disregard Ceiling");
+                                    ExternalPrescription = ExternalPrescription == true ? true : returndata[i].includes("External Prescription");
+                                    PrescriptionPerDay = PrescriptionPerDay == true ? true : returndata[i].includes("Unlimited Examination per day");
+
+                                }
+                                
+                                if (Limit == true) {
+                                    fixedLimit = 0;
+                                    //$("#insurance_LIVEL").val(0);
+                                    AnuualLimit = $('#AllLimit').val();
+                                    Calculation();
+                                }
+                                if (Copayment == true) {
+                                    CeilingPert = 100;
+                                    //$("#ddEmp_CEILING_PERT").val(100);
+                                    Calculation();
+                                }
+                                if (DisregardCeiling == true) {
+                                    AnuualLimit = 30000;
+                                    Calculation();
+                                }
+                                if (ExternalPrescription == true) {
+                                    $('#ClaimNumber').val(' ');
+                                }
+                                bootbox.dialog({
+                                    title: 'Reasons',
+                                    message: returndata + " ",
+                                    buttons: {
+                                        Ok: {
+                                            label: "Ok",
+                                            className: 'btn-info',
+                                            callback: function () {
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        },
+                        error: function () {
+
+                        }
+                    });
+                } else {
+                    bootbox.dialog({
+                        title: 'Alert!',
+                        message: ' you are Vip',
+                        buttons: {
+                            Ok: {
+                                label: "Ok",
+                                className: 'btn-info',
+                                callback: function () {
+                                    fixedLimit = 0;
+                                    //$("#insurance_LIVEL").val(0);
+                                    CeilingPert = 100;
+                                    $("#ddEmp_CEILING_PERT").val(100);
+                                    $('#ClaimNumber').val(' ');
+                                    AnuualLimit = 30000;
+                                    Calculation();
+
+                                }
+                            }
+                        }
+                    });
+                }
+            },
+            error: function (err) {
+            }
+
+        });
     });
 }
 function GetChronicMedData() {

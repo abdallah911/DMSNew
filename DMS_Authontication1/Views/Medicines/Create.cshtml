@@ -56,7 +56,7 @@
             <div class="form-group">
                 @Html.Label("Package Size", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.PACK_SIZE, new { htmlAttributes = new { @class = "form-control", id = "PACK_SIZE" } })
+                    @Html.EditorFor(model => model.PACK_SIZE, new { htmlAttributes = new { @class = "form-control", id = "PACK_SIZE",@onkeypress = "return /[0-9]/i.test(event.key)" } })
                     @Html.ValidationMessageFor(model => model.PACK_SIZE, "", new { @class = "text-danger" })
                 </div>
             </div>

@@ -178,7 +178,7 @@ $(function () {
                                         success: function (returndata) {
                                             if (returndata.ok) {
                                                 if (returndata.data == "Yes") {
-                                                    
+
                                                     $("#wait").css("display", "none");
                                                     $('#txtSearchCard').val(CardId);
                                                     $('#compEmp_EMP_ANAME').val(ArName);
@@ -198,7 +198,7 @@ $(function () {
                                                         data: { id: CardId },
                                                         success: function (returndata) {
                                                             if (returndata.ok) {
-                                                                bootbox.alert( "لتفعيل الموافقة" +" Has Approval "+"هذا الكارت له موافقة يرجي الضغط علي");
+                                                                bootbox.alert("لتفعيل الموافقة" + " Has Approval " + "هذا الكارت له موافقة يرجي الضغط علي");
                                                                 //bootbox.alert(' هذا الكارت له موافقة يرجي الضغط علي  Has Approval  لتفعيل الموافقة');
                                                             }
                                                             else {
@@ -218,8 +218,8 @@ $(function () {
                                                                 bootbox.dialog({
                                                                     closeButton: false,
                                                                     title: 'Chronic',
-                                                                   // message: " هذا العميل لديه علاج مسجل فى شاشة Doctor   هل تود صرفه",
-                                                                    message: "هل تود صرفه" +" Doctor "+"هذا العميل لديه علاج شهري مسجل فى شاشة",
+                                                                    // message: " هذا العميل لديه علاج مسجل فى شاشة Doctor   هل تود صرفه",
+                                                                    message: "هل تود صرفه" + " Doctor " + "هذا العميل لديه علاج شهري مسجل فى شاشة",
                                                                     buttons: {
                                                                         Print: {
                                                                             label: "Yes",
@@ -257,7 +257,7 @@ $(function () {
                                                                     closeButton: false,
                                                                     title: 'Chronic',
                                                                     //message: "هذا العميل لدية علاج شهري هل تود صرفة",
-                                                                    message:  "هل تود صرفه"+" Chronic "+"هذا العميل لديه علاج شهري مسجل فى شاشة",
+                                                                    message: "هل تود صرفه" + " Chronic " + "هذا العميل لديه علاج شهري مسجل فى شاشة",
                                                                     buttons: {
                                                                         Print: {
                                                                             label: "Yes",
@@ -601,7 +601,8 @@ $(function () {
                 //$('#HasApproval').attr("checked", false);
 
             }
-        } else {
+        }
+        else {
             bootbox.alert("Please Insert Card Number");
             ClearCardData();
             ClearMedicineData();
@@ -1251,7 +1252,7 @@ function SelectMedicien(event) {
                                         MedicineCode: MedicienCode
                                     },
                                     success: function (r) {
-                                        
+
                                         if (r == true) {
                                             if (samegroup == false) {
                                                 RemoveSelection(Code);
@@ -1773,12 +1774,12 @@ function Calculation() {
                     sumCash += parseFloat(("TD", row).find(".Amount").val());
             }
         });
-        
+
         $("#txtTotalInvoice").val(sum.toFixed(2));
         $('#txtCash').val(sumCash.toFixed(2));
         $('#txtOverInsurance').val("0");
         if ($('#ddlType').val() == "11601") {
-            
+
             var Limit = parseFloat($("#insurance_LIVEL").val());
             var co = $("#ddEmp_CEILING_PERT").val();
             var person = parseFloat(100 - co);//percentage

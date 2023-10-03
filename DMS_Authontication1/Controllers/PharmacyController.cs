@@ -2690,6 +2690,25 @@ namespace DMS_TEST.Controllers
                 .ToList();
             return new JsonResult { Data = reasons, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        //GetRoshitaApproval
+        public JsonResult GetRoshitaApproval(int RoshitaId, int Type = 3)
+        {
+            //Default is pharmacy=3
+            var RoshitaAcception = db.RoshitaAcceptions.Where(x => x.RoshitaId == RoshitaId).FirstOrDefault();
+            if (RoshitaAcception == null)
+            {
+                return new JsonResult { Data = false, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            var accption = db.Acceptions.Where(x => x.Id == RoshitaAcception.AcceptionId && x.ProvidersId == Type).OrderByDescending(d => d.Id).FirstOrDefault();
+            if (accption == null)
+            {
+                return new JsonResult { Data = false, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id)
+                .Select(x => x.AcceptionReason.Name)
+                .ToList();
+            return new JsonResult { Data = reasons, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         public JsonResult CheckType(string CardId)
         {
             int EmpId = db.Comp_Employees.Where(c => c.CARD_ID == CardId && c.INS_START_DATE <= DateTime.Now && c.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
@@ -3473,18 +3492,18 @@ namespace DMS_TEST.Controllers
 
 
             db.Entry(roshita).State = EntityState.Modified;
-            if (ModelState.IsValid)
-            {
-                //db.Entry(roshita).State = EntityState.Modified;
-                //db.Roshitas.Add(roshita1);
-                RoshitaAcception roshitaAcception = db.RoshitaAcceptions.Where(x => x.RoshitaId == data.Id).FirstOrDefault();
-                if (roshitaAcception != null)
-                {
-                    db.RoshitaAcceptions.Remove(roshitaAcception);
+            //if (ModelState.IsValid)
+            //{
+            //    //db.Entry(roshita).State = EntityState.Modified;
+            //    //db.Roshitas.Add(roshita1);
+            //    RoshitaAcception roshitaAcception = db.RoshitaAcceptions.Where(x => x.RoshitaId == data.Id).FirstOrDefault();
+            //    if (roshitaAcception != null)
+            //    {
+            //        db.RoshitaAcceptions.Remove(roshitaAcception);
 
-                }
-                // db.SaveChanges();
-            }
+            //    }
+            //    // db.SaveChanges();
+            //}
             // RoshitaDetails
             List<RoshitaDetail> List_R_Details = db.RoshitaDetails.Where(x => x.RoshitaID == data.Id).ToList();
             bool oneNotification = (List_R_Details.Where(x => x.RoshitaID == data.Id && (x.PaymentGroup == "Pending" || x.PaymentGroup == "PendingChronic")).ToList().Count == 0) ? false : true;
@@ -3689,6 +3708,17 @@ namespace DMS_TEST.Controllers
                         db.Entry(noteficationdelete).State = EntityState.Modified;
                         int result3 = db.SaveChanges();
                     }
+                }
+                RoshitaAcception roshitaAcception = db.RoshitaAcceptions.Where(x => x.RoshitaId == data.Id).FirstOrDefault();
+                if (roshitaAcception != null)
+                {
+                    
+                    db.RoshitaAcceptions.Add(new RoshitaAcception
+                    {
+                        RoshitaId=roshita1.Id,
+                        AcceptionId= roshitaAcception.AcceptionId,
+                    });
+                    db.SaveChanges();
                 }
                 NotificationHub objNotifHub = new NotificationHub();
                 objNotifHub.SendMessages();
