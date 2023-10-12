@@ -3712,11 +3712,11 @@ namespace DMS_TEST.Controllers
                 RoshitaAcception roshitaAcception = db.RoshitaAcceptions.Where(x => x.RoshitaId == data.Id).FirstOrDefault();
                 if (roshitaAcception != null)
                 {
-                    
+
                     db.RoshitaAcceptions.Add(new RoshitaAcception
                     {
-                        RoshitaId=roshita1.Id,
-                        AcceptionId= roshitaAcception.AcceptionId,
+                        RoshitaId = roshita1.Id,
+                        AcceptionId = roshitaAcception.AcceptionId,
                     });
                     db.SaveChanges();
                 }
@@ -4467,6 +4467,41 @@ namespace DMS_TEST.Controllers
                 return View("~/Views/Shared/Error.cshtml");
 
                 throw ex;
+            }
+        }
+        public ActionResult GetFile(string fileName)
+        {
+            try
+            {
+                string path="";
+                string Name="";
+                if (fileName == "Pharmacy")
+                {
+                    path = Path.Combine(Server.MapPath("~/assets/ManualFiles/PharmacyManual.pdf"));
+                    Name = "PharmacyManual.pdf";
+                }
+                else if (fileName == "Lab")
+                {
+                    path = Path.Combine(Server.MapPath("~/assets/ManualFiles/LabManual.pdf"));
+                    Name = "LabManual.pdf";
+                }
+                else if (fileName == "Ray")
+                {
+                    path = Path.Combine(Server.MapPath("~/assets/ManualFiles/RayManual.pdf"));
+                    Name = "RayManual.pdf";
+                }
+                var htmlCode = System.IO.File.ReadAllBytes(path);
+                FileResult fileResult = new FileContentResult(htmlCode, "application/pdf")
+                {
+                    FileDownloadName = Name
+                };
+                return fileResult;
+            }
+
+            catch (Exception ex)
+            {
+                return null;
+                //return Json("EROOOOOOOOOR");
             }
         }
 

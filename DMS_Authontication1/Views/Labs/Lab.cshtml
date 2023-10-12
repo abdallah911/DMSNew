@@ -214,6 +214,7 @@
             </div>
             <div class="panel-footer" style="text-align:right;">
                 <input style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />
+                <a data-step="11" style="float: left; margin-left:40px;" class="btn btn-primary" href="@Url.Action("GetFile","Pharmacy",new { fileName = "Lab" })" download="PharmacyManual.pdf"><i class="fa fa-download"></i> Manual</a>
                 <input data-step="8" data-intro="Reset Labs" id="reset" type="button" value="Reset" onclick="ClearLabData();" class="btn btn-warning" />
                 <input data-step="9" data-intro="Save Labs" id="submit" type="button" value="Save" class="btn btn-success" />
             </div>

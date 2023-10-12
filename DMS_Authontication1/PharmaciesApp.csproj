@@ -8069,6 +8069,9 @@
     <Content Include="Content\EmployeesRequestsImage\Level.xlsx" />
     <Content Include="Content\EmployeesRequestsImage\Re Open.xlsx" />
     <Content Include="Content\EmployeesRequestsImage\Termination Request.xlsx" />
+    <Content Include="assets\ManualFiles\PharmacyManual.pdf" />
+    <Content Include="assets\ManualFiles\LabManual.pdf" />
+    <Content Include="assets\ManualFiles\RayManual.pdf" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\DeployProfile.pubxml" />
     <None Include="Properties\PublishProfiles\DevelopingProfile.pubxml" />
