@@ -69,6 +69,12 @@ $(function () {
             alert("هذا العميل لايحتاج موافقة علي الروشتات الخارجية علي ان يتم ادخال كافة البيانات والادوية علي السيستم");
 
         }
+        if (companid == "8887700") {
+            $('#phone').hide();
+        }
+        else {
+            $('#phone').show();
+        }
         if ($('#txtSearchCard').val() != "") {
             $('#txtSearchCard').val($('#txtSearchCard').val().trim())
             $("#wait").css("display", "block");
@@ -764,21 +770,58 @@ $(function () {
         }
     });
     $('#AddMedicine').on('select2:selecting', function (event) {
+        var companid = $('#txtSearchCard').val().split('-')[0];
         if ($('#txtSearchCard').val() != '') {
             if ($('#PrescriptionDate').val() != '') {
-                if ($('#PhoneNumber').val() != '' && $("#PhoneNumber").val().length == 11) {
+                if (companid == "8887700") {
                     if ($('#ddlDiagnoises').val().length != 0) {
-                        //setTimeout(function () {}, 3000);
-                        SelectMedicien(event);
-
+                        if ($('#ClaimNumber').val() != "") {
+                            var ze = document.getElementById('ClaimNumber').value;
+                            $.ajax({
+                                url: '/Pharmacy/GetCardCode',
+                                data: { id: $('#txtSearchCard').val(), calimNumber: ze },
+                                dataType: 'Json',
+                                success: function (Code) {
+                                    if (Code == "0") {
+                                        SelectMedicienCompany(event);
+                                    }
+                                    else {
+                                        bootbox.alert("غير مسموح بصرف ادوية لهذا الكارت من خلالكم");
+                                        event.preventDefault();
+                                    }
+                                },
+                                error: function () {
+                                    bootbox.alert("Too many data  Retrieve more specific characters solve the problem and check your internet connection");
+                                    $("#wait").css("display", "none");
+                                }
+                            });
+                        }
+                        else {
+                            bootbox.alert("Please Insert Valid ClaimNumber");
+                            event.preventDefault();
+                        }
                     }
                     else {
                         toastr.info("برجاء ادخال التشخيص الصحيح الموجود بالنموذج وفي حاله عدم مطابقه التشخيص الموجود بالنموذج للادويه او عدم وجود تشخيص يتم الرجوع الي الاداره الطبيه");
                         event.preventDefault();
                     }
-                } else {
-                    toastr.info("برجاء ادخال رقم الموبايل صحيح المتكون من 11 رقم");
-                    event.preventDefault();
+                }
+                else {
+                    if ($('#PhoneNumber').val() != '' && $("#PhoneNumber").val().length == 11) {
+                        if ($('#ddlDiagnoises').val().length != 0) {
+                            //setTimeout(function () {}, 3000);
+                            SelectMedicien(event);
+
+                        }
+                        else {
+                            toastr.info("برجاء ادخال التشخيص الصحيح الموجود بالنموذج وفي حاله عدم مطابقه التشخيص الموجود بالنموذج للادويه او عدم وجود تشخيص يتم الرجوع الي الاداره الطبيه");
+                            event.preventDefault();
+                        }
+                    }
+                    else {
+                        toastr.info("برجاء ادخال رقم الموبايل صحيح المتكون من 11 رقم");
+                        event.preventDefault();
+                    }
                 }
             } else {
                 toastr.info("Please insert Prescription Date");
@@ -843,8 +886,14 @@ $(function () {
             Mediciens.push(Medicien);
         });
         if ($('#txtSearchCard').val() != "") {
-            if ($('#PhoneNumber').val() != "") {
-                var te = document.getElementById('PhoneNumber').value;
+            var companid = $('#txtSearchCard').val().split('-')[0];
+            var te = "";
+            if (companid == "8887700") {
+                te = "01000000001";
+                $('#PhoneNumber').val("01000000001");
+            }
+            if ($('#PhoneNumber').val() != "" || companid == "8887700") {
+                 te = document.getElementById('PhoneNumber').value;
                 phonenumber(te)
                 if (phonenumber(te) == true && number(te) == true && $("#PhoneNumber").val().length == 11) {
                     // if (Dosse >= 1 && Durationn >= 1) { } else { bootbox.alert("Please Insert Valid Dose or Duration Numbers"); }
@@ -1106,6 +1155,148 @@ $(function () {
     });
 
 })
+function SelectMedicienCompany(event) {
+    var Code = event.params.args.data.id
+    $("#wait").css("display", "block");
+    var MedicienCode;
+    var MedicienName;
+    var DosageForm;
+    var PackPrice;
+    var PackSize;
+    var UnitNumber;
+    var UnitPrice;
+    var Group;
+    var IsCover;
+    var edit = 0;
+    $.ajax({
+        type: 'POST',
+        url: '/Pharmacy/GetMedicineByCode/',
+        dataType: 'json',
+        data: { code: Code },
+        success: function (r) {
+            MedicienCode = r.M_CODE;
+            MedicienName = r.TRADE_NAME;
+            DosageForm = r.DOSAGE_FORM;
+            PackPrice = r.PACK_PRICE;
+            PackSize = r.PACK_SIZE;
+            UnitNumber = r.UNIT_NO;
+            UnitPrice = r.UNIT_PRICE;
+            Group = r.Group_Type;
+            IsCover = r.IsCovered.toString();
+            var medicineGroups = new Array();
+            var medicineGroup = {};
+            medicineGroup.TRADE_NAME = MedicienCode; //current medicine code
+            medicineGroups.push(medicineGroup);
+
+            $('#Pharmacy tbody tr').each(function () {
+                var row = $(this);
+                var medicineGroup = {};
+                medicineGroup.M_CODE = row.find("TD").eq(0).html();
+                medicineGroups.push(medicineGroup);
+                if (parseInt(row.find("TD").eq(0).html()) == parseInt(MedicienCode)) {
+                    edit = 1;
+                    event.preventDefault();
+                    toastr.error('Added before');
+                    $("#wait").css("display", "none");
+
+                }
+            });
+            if (edit == 0) {
+                Group = "Accepted";
+                AppendRow();
+            }
+
+            $("#wait").css("display", "none");
+
+        },
+        error: function (ex) {
+            bootbox.alert('Failed to retrieve Medicine Data.');
+        }
+
+    });
+    function AppendRow() {
+        var tBody = $("#Pharmacy > TBODY")[0];
+        var row = tBody.insertRow(-1);
+        var cell = $(row.insertCell(-1));
+        cell.html(MedicienCode);
+        cell = $(row.insertCell(-1));
+        cell.html(MedicienName);
+        cell = $(row.insertCell(-1));
+        cell.html(DosageForm);
+        cell = $(row.insertCell(-1));
+        cell.html(PackSize);
+        cell = $(row.insertCell(-1));
+        var PackagePrice = $("<input  />");
+        PackagePrice.attr("type", "text");
+        PackagePrice.addClass("form-control");
+        PackagePrice.addClass("PackagePrice");
+        PackagePrice.attr("onkeyup", "changeTotalUnits(this);");
+        PackagePrice.val(PackPrice);
+        cell.append(PackagePrice);
+        cell = $(row.insertCell(-1));
+        cell.html(UnitNumber);
+        cell = $(row.insertCell(-1));
+        var unitprice = $("<input  />");
+        unitprice.attr("type", "text");
+        unitprice.attr('readonly', 'readonly');
+        unitprice.addClass("form-control");
+        unitprice.addClass('UnitPrice');
+        cell.append(unitprice);
+        cell = $(row.insertCell(-1));
+        var Dose = $("<input  />");
+        Dose.attr("type", "text");
+        Dose.addClass("form-control");
+        Dose.addClass("Dose");
+        Dose.attr("onkeyup", "changeTable(this);");
+        if (DosageForm == "GEL" || DosageForm == "CREAM" || DosageForm == "SUPP" || DosageForm == "SPRAY" || DosageForm == "DROPS" /*|| DosageForm == "SACHET"*/) {
+            cell.append(1);
+        } else {
+            cell.append(Dose);
+        }
+        cell = $(row.insertCell(-1));
+        var Duration = $("<input  />");
+        Duration.attr("type", "text");
+        Duration.addClass("form-control");
+        Duration.addClass("Duration");
+        Duration.attr("onkeyup", "changeTotalDuration(this);changeTable(this);");
+        cell.append(Duration);
+        cell = $(row.insertCell(-1));
+        var TotalDuration = $("<input  />");
+        TotalDuration.attr("type", "text");
+        TotalDuration.addClass("form-control");
+        TotalDuration.addClass("TotalDuration");
+        TotalDuration.attr("onfocusout", "changeTotalDuration(this);");
+        cell.append(TotalDuration);
+        cell = $(row.insertCell(-1));
+        if (DosageForm == "ELIXIR" || DosageForm == "SYRUP" || DosageForm == "SUSPENTION" || DosageForm == "EMULSION" || DosageForm == "SOUTION") {
+            var TotalUnits = $("<input  />");
+            TotalUnits.attr("type", "text");
+            TotalUnits.addClass('TotalUnits');
+            TotalUnits.addClass("form-control");
+            TotalUnits.attr("onkeyup", "changeTotalUnits(this);");
+            cell.append(TotalUnits);
+        }
+        else {
+            var TotalUnits = $("<input  />");
+            TotalUnits.attr("type", "text");
+            TotalUnits.attr('readonly', 'readonly');
+            TotalUnits.addClass('TotalUnits');
+            TotalUnits.addClass("form-control");
+            cell.append(TotalUnits);
+        }
+        cell = $(row.insertCell(-1));
+        var AppendAmount = $("<input  />");
+        AppendAmount.attr("type", "text");
+        AppendAmount.attr('readonly', 'readonly');
+        AppendAmount.addClass("form-control");
+        AppendAmount.addClass('Amount');
+        cell.append(AppendAmount);
+        cell = $(row.insertCell(-1));
+        cell.html(Group);
+        toastr.success('Added successfully ');
+        $("#wait").css("display", "none");
+    }
+}
 function SelectMedicien(event) {
     var Code = event.params.args.data.id
     $("#wait").css("display", "block");

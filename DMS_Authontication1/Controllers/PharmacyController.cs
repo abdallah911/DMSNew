@@ -53,7 +53,63 @@ namespace DMS_TEST.Controllers
             }
             return View();
         }
+        [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
+        public ActionResult CardCode()
+        {
+            return View();
+        }
 
+        public JsonResult GetCardCode(string id, string calimNumber)
+        {
+
+            var model = db.CardCodes.Where(x => x.Code == calimNumber && x.CardId == id && x.IsActive && !x.IsUsed).FirstOrDefault();
+            if (model != null)
+            {
+                return new JsonResult { Data = "0", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            else
+            {
+                return new JsonResult { Data = "1", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+        }
+        public JsonResult AddCardCode(string id)
+        {
+            DateTime datenow = DateTime.Now.Date;
+            var IsActive = db.Comp_Employees.Where(x => x.CARD_ID == id && x.INS_START_DATE <= datenow
+            && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+            if (IsActive == null)
+            {
+                return new JsonResult { Data = "لا يمكن اضافة كود لهذا الكارت", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            Random generator = new Random();
+            string cardCode = generator.Next(0, 1000000).ToString("D6");
+            var model = db.CardCodes.Where(x => x.Code == cardCode && x.CardId == id).FirstOrDefault();
+            if (model != null)
+            {
+                model.IsActive = true;
+                model.IsUsed = false;
+                db.Entry(model).State = EntityState.Modified;
+            }
+            else
+            {
+                var Employeecode = new CardCode
+                {
+                    Code = cardCode,
+                    CardId = id,
+                    CreatedDate = DateTime.Now,
+                    CreatedBy = User.Identity.Name,
+                    IsActive = true,
+                    IsUsed = false,
+                };
+                db.CardCodes.Add(Employeecode);
+            }
+            db.SaveChanges();
+            return new JsonResult { Data = cardCode, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            //return Json(cardCode);
+        }
         public JsonResult AddCardPharmacy(string id)
         {
             var carduse = db.CardUseds.Where(c => c.CardId == id).FirstOrDefault();
@@ -2336,6 +2392,20 @@ namespace DMS_TEST.Controllers
             {
                 return Json("Failed");
             }
+            var companyId = data.CardId.Split('-')[0];
+            CardCode modelcode = new CardCode();
+            if (companyId == "8887700")
+            {
+                var claimchick = data.ClaimNumber.ToString();
+                modelcode = db.CardCodes.Where(x => x.Code == claimchick && x.CardId == data.CardId && x.IsActive && !x.IsUsed).FirstOrDefault();
+                if (modelcode == null)
+                {
+                    return Json("Failed");
+                }
+                modelcode.IsActive = false;
+                modelcode.IsUsed = true;
+                db.Entry(modelcode).State = EntityState.Modified;
+            }
             //Roshita
             Roshita roshita = new Roshita()
             {
@@ -2482,6 +2552,7 @@ namespace DMS_TEST.Controllers
                         throw;
                     }
                 }
+
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita.Id);
 
             }
@@ -4473,8 +4544,8 @@ namespace DMS_TEST.Controllers
         {
             try
             {
-                string path="";
-                string Name="";
+                string path = "";
+                string Name = "";
                 if (fileName == "Pharmacy")
                 {
                     path = Path.Combine(Server.MapPath("~/assets/ManualFiles/PharmacyManual.pdf"));

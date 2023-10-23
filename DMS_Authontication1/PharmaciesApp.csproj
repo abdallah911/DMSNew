@@ -475,6 +475,9 @@
     <Compile Include="Models\CardAcceptionReason.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CardCode.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CardsSm.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -8463,6 +8466,7 @@
     <Content Include="Reports\CompanyChronicReport.rpt" />
     <Content Include="Views\ReportMain\ReportPrint.cshtml" />
     <Content Include="Views\GetApproval\Index.cshtml" />
+    <Content Include="Views\Pharmacy\CardCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

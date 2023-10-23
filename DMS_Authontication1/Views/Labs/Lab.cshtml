@@ -131,7 +131,7 @@
                         @Html.Editor("PrescriptionDate", new { htmlAttributes = new { @class = "form-control", @title = "لابد ان يكون ف اخر 14 ايام " } })
                     </div>
 
-                    <div class="col-sm-2" data-step="3" data-intro="Enter Phone with 11 Number ">
+                    <div class="col-sm-2" data-step="3" data-intro="Enter Phone with 11 Number " id="phone">
                         @Html.Label("Phone Number", htmlAttributes: new { @class = "control-label" })
                         @Html.Editor("PhoneNumber", new { htmlAttributes = new { @class = "form-control", @id = "PhoneNumber", required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
                     </div>

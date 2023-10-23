@@ -1,0 +1,101 @@
+﻿@model DMS_TEST.ViewModel.Container1
+@{
+    ViewBag.Title = "Code";
+}
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<style>
+    .btn span.glyphicon {
+        opacity: 0;
+    }
+
+    .btn.active span.glyphicon {
+        opacity: 1;
+    }
+</style>
+<!--Card Id Row-->
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Pharmacies
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="form-group">
+            <div class="row">
+
+                <div data-step="1" data-hint='Step one!' data-intro="Enter Card ID" class="col-md-3">
+                    <input id="txtSearchCard" type="text" placeholder="add card..." class="form-control" />
+                </div>
+                <div class="col-md-2" data-step="2" data-intro="click Search">
+                    <button id="Search" type="button" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-search"></i> Get Code
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+    var input = document.getElementById("txtSearchCard");
+    var CardId;
+    input.addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            $('#Search').click();
+        }
+    });
+    $(function () {
+        $('#Search').click(function () {
+            var companid = $('#txtSearchCard').val().split('-')[0];
+            if (companid != "8887700") {
+                alert("غير مسموح بإضافة كود لهذه الشركة");
+
+            }
+            else {
+                if ($('#txtSearchCard').val() != "") {
+                    $('#txtSearchCard').val($('#txtSearchCard').val().trim())
+                    $("#wait").css("display", "block");
+
+                    $.ajax({
+                        url: '/Pharmacy/AddCardCode',
+                        data: { id: $('#txtSearchCard').val() },
+                        dataType: 'Json',
+                        success: function (Code) {
+                            bootbox.dialog({
+                                closeButton: false,
+                                title: 'Added Sucessfully',
+                                message: "Card Code : " + Code,
+                                buttons: {
+                                    Print: {
+                                        label: "Ok",
+                                        className: 'btn-info',
+                                        callback: function () {
+                                            window.location.replace("/Pharmacy/CardCode");
+                                            //window.open('/Pharmacy/CardCose');
+                                        }
+                                    },
+                                    New: {
+                                        label: "New",
+                                        className: 'btn-info',
+                                        callback: function () {
+                                            window.location.replace("/Pharmacy/CardCode");
+                                        }
+                                    }
+
+                                }
+                            });
+                        },
+                        error: function () {
+                            bootbox.alert("Too many data  Retrieve more specific characters solve the problem and check your internet connection");
+                            $("#wait").css("display", "none");
+                        }
+                    });
+                }
+                else {
+                    bootbox.alert("Please Insert Card Id");
+                }
+            }
+        });
+    });
+</script>
