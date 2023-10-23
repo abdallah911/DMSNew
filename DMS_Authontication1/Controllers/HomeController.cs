@@ -66,6 +66,38 @@ namespace DMS_Authontication1.Controllers
 
             return View();
         }
+        
+        public ActionResult HR()
+        {
+
+            return View();
+        }
+        
+        public ActionResult Commerce()
+        {
+
+            return View();
+        }
+        public ActionResult EnterPrise()
+        {
+
+            return View();
+        }
+        public ActionResult Clinic()
+        {
+
+            return View();
+        }
+        public ActionResult Health()
+        {
+
+            return View();
+        }
+        public ActionResult Admin()
+        {
+
+            return View();
+        }
 
         public ActionResult Search()
         {

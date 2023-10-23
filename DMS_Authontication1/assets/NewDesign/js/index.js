@@ -10,24 +10,24 @@ let scrollservice = $("#service").offset().top;
 $(window).on("scroll", function () {
   let wScroll = $(window).scrollTop();
   if (wScroll > scrollservice - 230) {
-    $(".service-header").addClass("headermove");
-    $('#btnUp').show(100)
+    // $(".service-header").addClass("headermove");
+    $("#btnUp").show(100);
 
-    $(".service-header").css("transform", "translateY(0%)");
+    // $(".service-header").css("transform", "translateY(0%)");
     $(".navbar").css("background-color", "rgb(62, 115, 151)");
     $(".navbar").css("height", "55px");
-    $(".card").css("transform", "translateX(0%)");
+    // $(".card").css("transform", "translateX(0%)");
 
-    $(".card").addClass("cardmove");
+    // $(".card").addClass("cardmove");
   } else {
     $(".navbar").css("background-color", "");
-    $(".service-header").removeClass("headermove");
-    $(".service-header").css("transform", "translateY(-170%)");
+    // $(".service-header").removeClass("headermove");
+    // $(".service-header").css("transform", "translateY(-170%)");
     $(".navbar").css("height", "");
-    $('#btnUp').hide(100)
-    $(".card").css("transform", "translateX(-380%)");
+    $("#btnUp").hide(100);
+    // $(".card").css("transform", "translateX(-380%)");
 
-    $(".card").removeClass("cardmove");
+    // $(".card").removeClass("cardmove");
   }
 });
 
@@ -37,7 +37,7 @@ $("#login").on("click", function () {
 
 // =============owl carousel==========
 
-$('.owl-carousel').owlCarousel({
+$(".owl-carousel").owlCarousel({
   loop: true,
   margin: 10,
   nav: false,
@@ -59,27 +59,37 @@ $('.owl-carousel').owlCarousel({
       items: 5,
     },
   },
-})
+});
 
+$("#btnUp").on("click", function () {
+  $("html,body").animate({ scrollTop: "0px" }, 1000);
+});
 
-// =========location==============
-// let locationScroll =  $('#location').offset().top;
-// $(window).on('scroll',function(){
-//   let wScroll = $(window).scrollTop();
-// if(wScroll > locationScroll - 250){
-//   $(".send-message").addClass("contactMove");
-//   $(".send-message").css("transform", "translateY(0%)");
+document.addEventListener("DOMContentLoaded", function () {
+  new WOW().init();
+});
 
-// }
-// else{
-//   $(".send-message").removeClass("contactMove");
-//   $(".send-message").css("transform", "translateY(100%)");
-// }
-// })
+$("#hr").on("click", function () {
+  location.href = "/Home/HR";
 
+});
+$("#commerce").on("click", function () {
+    location.href = "/Home/Commerce";
 
-$('#btnUp').on('click', function () {
-  $('html,body').animate({ scrollTop: '0px' }, 1000)
-})
+});
+$("#enterprise").on("click", function () {
+    location.href = "/Home/EnterPrise";
 
+});
+$("#clinic").on("click", function () {
+    location.href = "/Home/Clinic";
 
+});
+$("#healthCare").on("click", function () {
+    location.href = "/Home/Health";
+
+});
+$("#self-admin").on("click", function () {
+    location.href = "/Home/Admin";
+
+});

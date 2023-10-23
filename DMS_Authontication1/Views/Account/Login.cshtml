@@ -1,206 +1,77 @@
 ﻿@using DMS_Authontication1.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Login";
+    Layout = null;
 }
 
-<!--
-<h2>@ViewBag.Title</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DMS - @ViewBag.Title</title>
+    <link rel="stylesheet" href="~/assets/NewDesign/css/all.min.css" />
+    <link rel="stylesheet" href="~/assets/NewDesign/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/NewDesign/css/style2.css" />
+</head>
+<body>
+    <div class="layer">
+        <div id="signIn"
+             class="vh-100 d-flex justify-content-center align-items-center">
+            <div class="container rounded-4 py-5 d-flex flex-column justify-content-center align-items-center">
+                <h2 class="text-white fw-bold m-auto py-3">LOGIN</h2>
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "w-75 h-75 py-4 text-center", @id = "intro_form", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="inputBtn my-4">
+                        @Html.EditorFor(m => m.UserName)
 
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                        @*<input type="text" required="required" />*@
+                        <span>User Name</span>
+                        <i></i>
                         @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                     </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    <div class="inputBtn mt-4">
+                        @Html.PasswordFor(m => m.Password)
+                        <span>Password</span>
+                        <i></i>
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        @*<input type="password" required="required" />*@
+
+
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10 ">
-                        <div class="checkbox" style="margin-left:25px">
-                            @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check" })
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
+                    @*<input type="submit" value="Login" class="button button_1 intro_button trans_200" />*@
+                    <input type="submit"
+                           class="btn btn-outline-primary shadow w-50 rounded-4 mt-3 text-white fw-bold fs-4"
+                           value="Login" />
+                }
+                <div class="d-flex w-75 m-auto py-3 justify-content-between align-items-center">
+                    <div class="form-check">
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input", id = "flexCheckIndeterminate" })
+                        @Html.LabelFor(m => m.RememberMe, new { @class = "form-check-label text-white fw-bold", @for = "flexCheckIndeterminate" })
+                        @*<input class="form-check-input"
+                                   type="checkbox"
+                                   value=""
+                                   id="flexCheckIndeterminate" />
+                            <label class="form-check-label text-white fw-bold"
+                                   for="flexCheckIndeterminate">
+                                Remember Me
+                            </label>*@
                     </div>
-                </div>
+                    <p>
+                        @Html.ActionLink("Forget Password", "ForgotPassword", null, new { @class = "text-white fw-bolder cursor-pointer" })
 
-                <div class="row">
-                    <div class="col-sm-2">
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-1">
-                            <input type="submit" value="Log in" class="btn btn-default" />
-
-
-
-                        </div>
-
-
-                        <div class="col-sm-1">
-                            <button type="reset" id="New" class="btn btn-default">Reset</button>
-
-
-                        </div>
-                    </div>
-
-                </div>
-
-                @*<p>
-                        @Html.ActionLink("Register as a new user", "Register")
-                    </p>*@
-                //Enable this once you have account confirmation enabled for password reset functionality
-                <p>
-                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                </p>
-            }
-        </section>
-    </div>
-
-    @*<div class="col-md-4">
-            <section id="socialLoginForm">
-                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-            </section>
-        </div>*@
-</div>
-
--->
-<link rel="stylesheet" href="~/assets/global/plugins/design/login/styles/main_styles.css">
-<link rel="stylesheet" href="~/assets/global/plugins/design/login/styles/responsive.css">
-
-
-<br />
-<br />
-
-<div class="intro">
-    <div class="container">
-        <div class="row">
-
-            <!-- Intro Content -->
-            <!--<div class="col-lg-6 intro_col">
-                <div class="intro_content">
-                    <div class="section_title_container">
-                        <div class="section_subtitle">This is DMS</div>
-                        <div class="section_title"><h2>Welcome to our System</h2></div>
-                    </div>
-                    <div class="intro_text">
-                        <p>DMS Online System In the framework of the development of services provided by the company, the company's eagerness to keep up with every new scientist in information technology.
-                        The company in collaboration with one of the major software companies in the world to design and develop the latest technology to the field of services the medical insurance system online.
-                        This system depends mainly on the service provider and the customer service at the same time with a reliance on providing the easiest and quickest and most reliable considerate service to the time of
-                        the service provider and also for the benefit of the customer.</p>
-                    </div>-->
-            <!--<div class="milestones">
-                <div class="row milestones_row">-->
-            <!-- Milestone -->
-            <!--<div class="col-md-4 milestone_col">
-                <div class="milestone text-center">
-                    <div class="milestone_counter" data-end-value="5000" data-sign-before="+">0</div>
-                    <div class="milestone_text">Satisfied Patients</div>
-                </div>
-            </div>-->
-            <!-- Milestone -->
-            <!--<div class="col-md-4 milestone_col">
-                <div class="milestone text-center">
-                    <div class="milestone_counter" data-end-value="352">0</div>
-                    <div class="milestone_text">Face Liftings</div>
-                </div>
-            </div>-->
-            <!-- Milestone -->
-            <!--<div class="col-md-4 milestone_col">
-                        <div class="milestone text-center">
-                            <div class="milestone_counter" data-end-value="718">0</div>
-                            <div class="milestone_text">Injectibles</div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>-->
-            <!--</div>
-            </div>-->
-            <!-- Intro Form -->
-            <div class="col-lg-6 intro_col col-lg-offset-3" id="loginForm">
-                <div class="intro_form_container">
-                    <div class="intro_form_title">Login</div>
-
-                    <section id="loginForm">
-                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal intro_form", @id = "intro_form", role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            <div class="d-flex flex-row align-items-start justify-content-between flex-wrap">
-
-                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control intro_input", @placeholder = "User Name" })
-                                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-
-
-                                @Html.PasswordFor(m => m.Password, new { @class = "form-control intro_input", @placeholder = "Password" })
-                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-12">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="cus-ememberme">
-                                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check cus-rem-input" })
-                                    @Html.LabelFor(m => m.RememberMe, new { @class = "cus-rem-label" })
-                                </div>
-
-
-                                <input type="submit" value="Login" class="button button_1 intro_button trans_200" />
-                                <br />
-                                <br />
-                                <br />
-
-                                @*<input type="reset" id="New" value="Reset" class="button cus-reset" />*@
-
-
-                                @Html.ActionLink("Forgot your password?", "ForgotPassword", null, new{ @class = "cus-forg-pass", @style = "margin-top:10px" } )
-
-                                <a href="~/Employee/Register" class="btn  btn-circle" style="background: #57ccc3; color:white;margin-top:20px;">
-                                    Create User Account
-
-                                </a>
-                            </div>
-
-                        }
-                    </section>
+                        @*<a class="text-white fw-bolder cursor-pointer">Forget Password</a>*@
+                    </p>
                 </div>
             </div>
-
         </div>
     </div>
-</div>
 
-
-
-<!-- ~/assets/global/plugins/design/login/-->
-<script src="~/assets/global/plugins/design/login/js/jquery-3.2.1.min.js"></script>
-<script src="~/assets/global/plugins/design/login/styles/bootstrap-4.1.2/popper.js"></script>
-<script src="~/assets/global/plugins/design/login/plugins/greensock/TweenMax.min.js"></script>
-<script src="~/assets/global/plugins/design/login/plugins/scrollmagic/ScrollMagic.min.js"></script>
-<script src="~/assets/global/plugins/design/login/plugins/jquery-datepicker/jquery-ui.js"></script>
-<script src="~/assets/global/plugins/design/login/js/custom.js"></script>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
-<script>
-    $('#New').click(function () {
-        location.reload();
-    });
-</script>
+    <script src="~/assets/NewDesign/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/NewDesign/js/bootstrap.min.js"></script>
+    <script src="~/assets/NewDesign/js/jquery-3.6.3.min.js"></script>
+</body>
+</html>
