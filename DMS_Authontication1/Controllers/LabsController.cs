@@ -140,10 +140,37 @@ namespace DMS_Authontication1.Controllers
                 return Json(new { ok = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        [Authorize(Roles = "Admin,Lab,Lab_Admin")]
+        [Authorize(Roles = "Admin,Lab,Lab_Admin,Rays,Rays_Admin")]
+        public JsonResult GetCardCode(string id, string calimNumber)
+        {
 
+            var model = db.ApprovalCodes.Where(x => x.Code == calimNumber && x.Card_ID == id && x.IsActive).FirstOrDefault();
+            if (model != null)
+            {
+                return new JsonResult { Data = "0", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            else
+            {
+                return new JsonResult { Data = "1", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+        }
         public JsonResult Save(Roshita data)
         {
+            var companyId = data.CardId.Split('-')[0];
+            ApprovalCode modelcode = new ApprovalCode();
+            if (companyId == "8887700")
+            {
+                var claimchick = data.ClaimNumber.ToString();
+                modelcode = db.ApprovalCodes.Where(x => x.Code == claimchick && x.Card_ID == data.CardId && x.IsActive).FirstOrDefault();
+                if (modelcode == null)
+                {
+                    return Json("Failed");
+                }
+                modelcode.IsActive = false;
+                db.Entry(modelcode).State = EntityState.Modified;
+            }
             if (data.CreatedBy == null)
             {
                 data.CreatedBy = User.Identity.Name;
@@ -654,6 +681,21 @@ namespace DMS_Authontication1.Controllers
                 roshta.UpdatedBy = User.Identity.Name;
                 roshta.UpdatedDate = DateTime.Now;
                 db.Entry(roshta).State = EntityState.Modified;
+                var companyId = roshta.CardId.Split('-')[0];
+                ApprovalCode modelcode = new ApprovalCode();
+                if (companyId == "8887700")
+                {
+                    var claimchick = roshta.ClaimNumber.ToString();
+                    modelcode = db.ApprovalCodes.Where(x => x.Code == claimchick && x.Card_ID == roshta.CardId).FirstOrDefault();
+                    if (modelcode != null)
+                    {
+                        modelcode.IsActive = true;
+                        modelcode.UpdatedBy = User.Identity.Name;
+                        modelcode.UpdatedDate = DateTime.Now;
+                        db.Entry(modelcode).State = EntityState.Modified;
+                    }
+
+                }
                 if (roshta.CompanyPayment > 0)
                 {
                     var EmpCode = roshta.CardId.Split('-')[2];
@@ -1225,7 +1267,7 @@ namespace DMS_Authontication1.Controllers
                 ReportDocument rd = new ReportDocument();
                 rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ClamsReportLabs.rpt"));
 
-                var y = db.Roshitas.Where(r => r.CreatedDate >= F && r.CreatedDate <= T && !r.Manager.Contains("Stop") && (r.CreatedBy == User.Identity.Name|| branches.Contains(r.CreatedBy)))
+                var y = db.Roshitas.Where(r => r.CreatedDate >= F && r.CreatedDate <= T && !r.Manager.Contains("Stop") && (r.CreatedBy == User.Identity.Name || branches.Contains(r.CreatedBy)))
                    .Join(db.Comp_Employees, r => r.CardId, m => m.CARD_ID, (r, m) => new { r, m })
                    .Where(x => x.m.INS_START_DATE <= x.r.CreatedDate && x.m.INS_END_DATE >= x.r.CreatedDate)
 
