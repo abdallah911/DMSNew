@@ -89,9 +89,9 @@
                         @Html.EditorFor(model => model.Co_insurance.INSURANCE_DAY_LAB, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                     </div>
                     @*<div class="col-sm-2">
-                            @Html.LabelFor(model => model.Co_insurance.INSURANCE_MONTH_LAB, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.Co_insurance.INSURANCE_MONTH_LAB, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                        </div>*@
+            @Html.LabelFor(model => model.Co_insurance.INSURANCE_MONTH_LAB, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Co_insurance.INSURANCE_MONTH_LAB, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+        </div>*@
 
                     <div class="col-sm-2">
                         @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
@@ -101,11 +101,14 @@
                         @Html.Label("Prescription Date", htmlAttributes: new { @class = "control-label", @title = "لابد ان يكون ف اخر 14 ايام " })
                         @Html.Editor("PrescriptionDate", new { htmlAttributes = new { @class = "form-control", @title = "لابد ان يكون ف اخر 14 ايام " } })
                     </div>
-                    <div class="col-sm-2" data-step="3" data-intro="Enter Phone with 11 Number ">
+                    <div class="col-sm-2" data-step="3" data-intro="Enter Phone with 11 Number " id="phone">
                         @Html.Label("Phone Number", htmlAttributes: new { @class = "control-label" })
                         @Html.Editor("PhoneNumber", new { htmlAttributes = new { @class = "form-control", @id = "PhoneNumber", required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
                     </div>
-
+                    <div class="col-sm-2" data-step="4" data-intro="Enter Clame Number">
+                        @Html.Label("Claim Number", htmlAttributes: new { @class = "control-label" })
+                        @Html.Editor("ClaimNumber", new { htmlAttributes = new { @class = "form-control", @id = "ClaimNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                    </div>
 
 
                 </div>

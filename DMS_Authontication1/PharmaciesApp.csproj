@@ -459,6 +459,9 @@
     <Compile Include="Models\ApprovalBil.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ApprovalCode.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ApprovalDetail.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

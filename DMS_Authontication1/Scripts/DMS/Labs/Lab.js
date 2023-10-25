@@ -10,6 +10,7 @@ var CompanyPayment;
 //var limit_Daily;
 var AnuualLimit;
 var NationalId;
+var companid;
 
 $(function () {
     //$("#btnClaim").click(function () {
@@ -25,6 +26,13 @@ $(function () {
     });
     $('#Search').click(function () {
         if ($('#txtSearchCard').val() != "") {
+            companid = $('#txtSearchCard').val().split('-')[0];
+            if (companid == "8887700") {
+                $('#phone').hide();
+            }
+            else {
+                $('#phone').show();
+            }
             $("#wait").css("display", "block");
             $.ajax({
                 url: '/Pharmacy/AddCard',
@@ -367,17 +375,53 @@ $(function () {
     });
     $('#AddLab').on('select2:selecting', function (event) {
         if ($('#txtSearchCard').val() != '') {
-            if ($('#PhoneNumber').val() != '' && $("#PhoneNumber").val().length == 11) {
+            if (companid == "8887700") {
                 if ($('#ddlDiagnoises').val().length != 0) {
-                    SelectLab(event);
+                    if ($('#ClaimNumber').val() != "") {
+                        var ze = document.getElementById('ClaimNumber').value;
+                        $.ajax({
+                            url: '/Labs/GetCardCode',
+                            data: { id: $('#txtSearchCard').val(), calimNumber: ze },
+                            dataType: 'Json',
+                            success: function (Code) {
+                                if (Code == "0") {
+                                    SelectLabCompany(event);
+                                }
+                                else {
+                                    bootbox.alert("غير مسموح اجراء تحاليل لهذا الكارت من خلالكم");
+                                    event.preventDefault();
+                                }
+                            },
+                            error: function () {
+                                bootbox.alert("Too many data  Retrieve more specific characters solve the problem and check your internet connection");
+                                $("#wait").css("display", "none");
+                            }
+                        });
+                    }
+                    else {
+                        toastr.info("Please enter Claim Number");
+                        event.preventDefault();
+                    }
                 }
                 else {
                     toastr.info("Please insert Diagnoise Data");
                     event.preventDefault();
                 }
-            } else {
-                toastr.info("Please insert Phone number");
-                event.preventDefault();
+            }
+            else {
+                if ($('#PhoneNumber').val() != '' && $("#PhoneNumber").val().length == 11) {
+                    if ($('#ddlDiagnoises').val().length != 0) {
+                        SelectLab(event);
+                    }
+                    else {
+                        toastr.info("Please insert Diagnoise Data");
+                        event.preventDefault();
+                    }
+                }
+                else {
+                    toastr.info("Please insert Phone number");
+                    event.preventDefault();
+                }
             }
         }
         else {
@@ -428,6 +472,9 @@ $(function () {
             Mediciens.push(Medicien);
         });
         if ($('#txtSearchCard').val() != "") {
+            if (companid == "8887700") {
+                $('#PhoneNumber').val("01000000001");
+            }
             if ($('#PhoneNumber').val() != "" && $("#PhoneNumber").val().length == 11) {
                 var te = document.getElementById('PhoneNumber').value;
                 //phonenumber(te)
@@ -459,6 +506,7 @@ $(function () {
                                             OverInsurance: $('#txtOverInsurance').val(),
                                             Cash: $('#txtValueCash').val(),
                                             PhoneNumber: $('#PhoneNumber').val(),
+                                            ClaimNumber: $('#ClaimNumber').val(),
                                             Diagnose1: $('#Comments').val(),
                                             Diagnose2: NationalId,
                                             createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val(),
@@ -576,6 +624,74 @@ $(function () {
             bootbox.alert("Please Insert Card ID");
     });
 });
+function SelectLabCompany(event) {
+    var Code = event.params.args.data.id
+    $("#wait").css("display", "block");
+    var Name;
+    var Amount;
+    var Group;
+
+    //var edit = 0;
+    $.ajax({
+        type: 'Get',
+        url: 'GetLabByCode/',
+        dataType: 'json',
+        data: { code: Code },
+        success: function (r) {
+            LabCode = r.SERV_CODE;
+            Name = r.SERV_ANAME;
+            Group = r.GRUOP_TYPE;
+            Amount = r.SERV_AMOUNT;
+            $("#wait").css("display", "none");
+
+        },
+        error: function (ex) {
+            bootbox.alert('Failed to retrieve Lab Data.');
+        }
+
+    }).done(function () {
+
+        // Not exchanged today
+        $('#Lab TBODY TR').each(function () {
+
+            var row = $(this);
+            var table = $("#Lab")[0];
+            if (parseInt(row.find("TD").eq(0).html()) == parseInt(Code)) {
+                table.deleteRow(row[0].rowIndex);
+            }
+        });
+
+        Group = "Accepted";
+        AppendRow();
+        Calculation();
+
+        $('#LabsModal').modal('hide');
+
+    });
+
+    function AppendRow() {
+        var tBody = $("#Lab > TBODY")[0];
+        var row = tBody.insertRow(-1);
+        var cell = $(row.insertCell(-1));
+        cell.html(Code);
+        cell = $(row.insertCell(-1));
+        cell.html(Name);
+        cell = $(row.insertCell(-1));
+        //cell.html(Amount);
+        var AmountText = $("<input  />");
+        AmountText.attr("type", "number");
+        AmountText.attr("min", "1");
+        AmountText.addClass("form-control");
+        AmountText.addClass("Amount");
+        AmountText.attr("onkeyup", "Calculation();");
+        AmountText.val(Amount);
+        cell.append(AmountText);
+        cell = $(row.insertCell(-1));
+        cell.html(Group);
+        toastr.success('Added successfully ');
+        $("#wait").css("display", "none");
+    }
+}
 function SelectLab(event) {
     var Code = event.params.args.data.id
     $("#wait").css("display", "block");
