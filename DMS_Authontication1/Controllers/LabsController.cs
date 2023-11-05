@@ -156,11 +156,27 @@ namespace DMS_Authontication1.Controllers
 
             }
         }
+        [Authorize(Roles = "Admin,Lab,Lab_Admin,Rays,Rays_Admin")]
+        public JsonResult HaveClaim(string id)
+        {
+
+            var model = db.ApprovalCodes.Where(x => x.Card_ID == id && x.IsActive).FirstOrDefault();
+            if (model != null)
+            {
+                return new JsonResult { Data = "0", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            else
+            {
+                return new JsonResult { Data = "1", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+        }
         public JsonResult Save(Roshita data)
         {
             var companyId = data.CardId.Split('-')[0];
             ApprovalCode modelcode = new ApprovalCode();
-            if (companyId == "8887700")
+            if (companyId == "8887700"&&data.ClaimNumber!=null)
             {
                 var claimchick = data.ClaimNumber.ToString();
                 modelcode = db.ApprovalCodes.Where(x => x.Code == claimchick && x.Card_ID == data.CardId && x.IsActive).FirstOrDefault();
@@ -252,7 +268,7 @@ namespace DMS_Authontication1.Controllers
                         string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
                         NotificationHub objNotifHub = new NotificationHub();
                         Notification notification = new Notification();
-                        notification.SentTo = "Admin";
+                        notification.SentTo = CardId.Split('-')[0] == "8887700" ? "AdminHelth": "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -863,7 +879,7 @@ namespace DMS_Authontication1.Controllers
                         {
                             NotificationHub objNotifHub = new NotificationHub();
                             Notification notification = new Notification();
-                            notification.SentTo = "Admin";
+                            notification.SentTo = CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
                             notification.CreatedBy = User.Identity.Name;
                             notification.CreatedDate = DateTime.Now;
                             notification.Type = 1;//pending
@@ -1000,7 +1016,7 @@ namespace DMS_Authontication1.Controllers
                     if (oneNotification == false)
                     {
                         Notification notification = new Notification();
-                        notification.SentTo = "Admin";
+                        notification.SentTo = roshita1.CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -1032,7 +1048,7 @@ namespace DMS_Authontication1.Controllers
                         //NotificationHub objNotifHub = new NotificationHub();
 
                         Notification notification = new Notification();
-                        notification.SentTo = "Admin";
+                        notification.SentTo = roshita1.CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -1761,7 +1777,8 @@ namespace DMS_Authontication1.Controllers
             string Message = "";
             ServiceCode = ServiceCode == "11604" ? "11601" : ServiceCode;
             string MainService = ServiceCode.Substring(0, 3);
-            var emp = db.Comp_Employees.Where(c => c.CARD_ID == id && c.INS_START_DATE <= DateTime.Now && c.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+            var CurrentDate = DateTime.Now.Date;
+            var emp = db.Comp_Employees.Where(c => c.CARD_ID == id && c.INS_START_DATE <= CurrentDate && c.INS_END_DATE >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
             //
             if (emp != null)
             {

@@ -309,6 +309,8 @@ namespace DMS_Authontication1.Controllers
                                     return RedirectToLocal("/DoctorApprovals");
                                 case "Admin":
                                     return RedirectToLocal("/ControlPanel/Main");
+                                case "AdminHelth":
+                                    return RedirectToLocal("/ControlPanel/Main");
                                 case "HR":
                                     return RedirectToLocal("/EmployeeRequest/Index");
                                 case "HR_Admin":

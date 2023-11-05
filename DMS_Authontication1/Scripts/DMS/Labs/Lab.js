@@ -11,6 +11,7 @@ var CompanyPayment;
 var AnuualLimit;
 var NationalId;
 var companid;
+var haveClaim = 0;
 
 $(function () {
     //$("#btnClaim").click(function () {
@@ -151,7 +152,20 @@ $(function () {
                                                                 //limit_Daily = r.CoInsurancelimit.INSURANCE_DAY_LAB;
                                                                 $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
                                                                 Calculation();
+                                                                //Get ClaimNumber
 
+                                                                $.ajax({
+                                                                    type: "POST",
+                                                                    dataType: "json",
+                                                                    url: '/Labs/HaveClaim',
+                                                                    data: { id: CardId },
+                                                                    success: function (Code) {
+                                                                        if (Code == "0") {
+                                                                            haveClaim = 1;
+                                                                            alert("هذا العميل لديه موافقة يرجي ادخال رقم الموافقة داخل " + "Calim Number");
+                                                                        }
+                                                                    }
+                                                                });
                                                             }
                                                         },
                                                         error: function (err) {
@@ -377,30 +391,35 @@ $(function () {
         if ($('#txtSearchCard').val() != '') {
             if (companid == "8887700") {
                 if ($('#ddlDiagnoises').val().length != 0) {
-                    if ($('#ClaimNumber').val() != "") {
-                        var ze = document.getElementById('ClaimNumber').value;
-                        $.ajax({
-                            url: '/Labs/GetCardCode',
-                            data: { id: $('#txtSearchCard').val(), calimNumber: ze },
-                            dataType: 'Json',
-                            success: function (Code) {
-                                if (Code == "0") {
-                                    SelectLabCompany(event);
+                    if (haveClaim == 1) {
+                        if ($('#ClaimNumber').val() != "") {
+                            var ze = document.getElementById('ClaimNumber').value;
+                            $.ajax({
+                                url: '/Labs/GetCardCode',
+                                data: { id: $('#txtSearchCard').val(), calimNumber: ze },
+                                dataType: 'Json',
+                                success: function (Code) {
+                                    if (Code == "0") {
+                                        SelectLabCompany(event);
+                                    }
+                                    else {
+                                        bootbox.alert("غير مسموح اجراء تحاليل لهذا الكارت من خلالكم");
+                                        event.preventDefault();
+                                    }
+                                },
+                                error: function () {
+                                    bootbox.alert("Too many data  Retrieve more specific characters solve the problem and check your internet connection");
+                                    $("#wait").css("display", "none");
                                 }
-                                else {
-                                    bootbox.alert("غير مسموح اجراء تحاليل لهذا الكارت من خلالكم");
-                                    event.preventDefault();
-                                }
-                            },
-                            error: function () {
-                                bootbox.alert("Too many data  Retrieve more specific characters solve the problem and check your internet connection");
-                                $("#wait").css("display", "none");
-                            }
-                        });
+                            });
+                        }
+                        else {
+                            toastr.info("Please enter Claim Number");
+                            event.preventDefault();
+                        }
                     }
                     else {
-                        toastr.info("Please enter Claim Number");
-                        event.preventDefault();
+                        SelectLabCompanyPending(event);
                     }
                 }
                 else {
@@ -816,6 +835,73 @@ function SelectLab(event) {
 
     });
 
+    function AppendRow() {
+        var tBody = $("#Lab > TBODY")[0];
+        var row = tBody.insertRow(-1);
+        var cell = $(row.insertCell(-1));
+        cell.html(Code);
+        cell = $(row.insertCell(-1));
+        cell.html(Name);
+        cell = $(row.insertCell(-1));
+        //cell.html(Amount);
+        var AmountText = $("<input  />");
+        AmountText.attr("type", "number");
+        AmountText.attr("min", "1");
+        AmountText.addClass("form-control");
+        AmountText.addClass("Amount");
+        AmountText.attr("onkeyup", "Calculation();");
+        AmountText.val(Amount);
+        cell.append(AmountText);
+        cell = $(row.insertCell(-1));
+        cell.html(Group);
+        toastr.success('Added successfully ');
+        $("#wait").css("display", "none");
+    }
+}
+function SelectLabCompanyPending(event) {
+    var Code = event.params.args.data.id
+    $("#wait").css("display", "block");
+    var Name;
+    var Amount;
+    var Group;
+
+    //var edit = 0;
+    $.ajax({
+        type: 'Get',
+        url: 'GetLabByCode/',
+        dataType: 'json',
+        data: { code: Code },
+        success: function (r) {
+            LabCode = r.SERV_CODE;
+            Name = r.SERV_ANAME;
+            Group = r.GRUOP_TYPE;
+            Amount = r.SERV_AMOUNT;
+            $("#wait").css("display", "none");
+
+        },
+        error: function (ex) {
+            bootbox.alert('Failed to retrieve Lab Data.');
+        }
+
+    }).done(function () {
+
+        // Not exchanged today
+        $('#Lab TBODY TR').each(function () {
+
+            var row = $(this);
+            var table = $("#Lab")[0];
+            if (parseInt(row.find("TD").eq(0).html()) == parseInt(Code)) {
+                table.deleteRow(row[0].rowIndex);
+            }
+        });
+
+        Group = "Pending";
+        AppendRow();
+        Calculation();
+
+        $('#LabsModal').modal('hide');
+
+    });
     function AppendRow() {
         var tBody = $("#Lab > TBODY")[0];
         var row = tBody.insertRow(-1);

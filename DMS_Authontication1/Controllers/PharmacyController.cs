@@ -74,6 +74,21 @@ namespace DMS_TEST.Controllers
 
             }
         }
+        public JsonResult HaveClaim(string id)
+        {
+
+            var model = db.CardCodes.Where(x => x.CardId == id && x.IsActive && !x.IsUsed).FirstOrDefault();
+            if (model != null)
+            {
+                return new JsonResult { Data = "0", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            else
+            {
+                return new JsonResult { Data = "1", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+        }
         public JsonResult AddCardCode(string id)
         {
             DateTime datenow = DateTime.Now.Date;
@@ -2394,7 +2409,7 @@ namespace DMS_TEST.Controllers
             }
             var companyId = data.CardId.Split('-')[0];
             CardCode modelcode = new CardCode();
-            if (companyId == "8887700")
+            if (companyId == "8887700" && data.ClaimNumber != 10)
             {
                 var claimchick = data.ClaimNumber.ToString();
                 modelcode = db.CardCodes.Where(x => x.Code == claimchick && x.CardId == data.CardId && x.IsActive && !x.IsUsed).FirstOrDefault();
@@ -2448,7 +2463,7 @@ namespace DMS_TEST.Controllers
                         string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
                         NotificationHub objNotifHub = new NotificationHub();
                         Notification notification = new Notification();
-                        notification.SentTo = "Admin";
+                        notification.SentTo = CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -3655,7 +3670,7 @@ namespace DMS_TEST.Controllers
                         //NotificationHub objNotifHub = new NotificationHub();
 
                         Notification notification = new Notification();
-                        notification.SentTo = "Admin";
+                        notification.SentTo = roshita1.CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -3695,7 +3710,7 @@ namespace DMS_TEST.Controllers
                         //NotificationHub objNotifHub = new NotificationHub();
 
                         Notification notification = new Notification();
-                        notification.SentTo = "Admin";
+                        notification.SentTo = roshita1.CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
