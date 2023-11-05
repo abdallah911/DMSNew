@@ -538,7 +538,7 @@ function SelectMedicienCompany(event) {
             });
 
             if (edit == 0) {
-                Group = "Accepted";
+                Group = "Pending";
                 AppendRow();
             }
 

@@ -28,7 +28,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
         }
         // GET: DoctorMedicinesLabsRaysApproval
 
-        [Authorize(Roles = "Admin,Doctor")]
+        [Authorize(Roles = "Admin,Doctor,AdminHelth")]
 
         public ActionResult Index(int NotificationId)
         {
@@ -40,7 +40,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
         }
         // GET: DoctorMedicinesLabsRaysApproval
 
-        [Authorize(Roles = "Admin,Doctor")]
+        [Authorize(Roles = "Admin,DoctorAdminHelth")]
 
         public ActionResult Index2(string Id)
         {

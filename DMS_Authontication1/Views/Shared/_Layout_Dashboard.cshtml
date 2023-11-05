@@ -165,7 +165,7 @@
 
                 <ul class="nav navbar-nav nav-admin-cus" style="color: #000">
                     @{
-                        if ((User.IsInRole("Admin")) && User.Identity.IsAuthenticated)
+                        if ((User.IsInRole("Admin")||User.IsInRole("AdminHelth")) && User.Identity.IsAuthenticated)
                         {
                             <li>
                                 <a><span class="collaps"><i class="fa fa-lg fa-times" aria-hidden="true"></i></span></a>
@@ -173,9 +173,9 @@
                         }
                     }
                     @{
-                        if ((User.IsInRole("Admin") || User.IsInRole("Pharmacy") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
+                        if ((User.IsInRole("Admin") || User.IsInRole("Pharmacy")|| User.IsInRole("AdminHelth") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
                         {
-                            if (User.IsInRole("Admin"))
+                            if (User.IsInRole("Admin")||User.IsInRole("AdminHelth"))
                             {
                                 if (modellist != null)
                                 {
@@ -204,9 +204,9 @@
                         }
                     }
                     @{
-                        if (User.IsInRole("Admin") || User.IsInRole("Rays") || User.IsInRole("Rays_Admin"))
+                        if (User.IsInRole("Admin") ||User.IsInRole("AdminHelth") || User.IsInRole("Rays") || User.IsInRole("Rays_Admin"))
                         {
-                            if (User.IsInRole("Admin"))
+                            if (User.IsInRole("Admin")||User.IsInRole("AdminHelth"))
                             {
                                 if (modellist != null)
                                 {
@@ -236,9 +236,9 @@
                         }
                     }
                     @{
-                        if (User.IsInRole("Admin") || User.IsInRole("Lab") || User.IsInRole("Lab_Admin"))
+                        if (User.IsInRole("Admin") ||User.IsInRole("AdminHelth") || User.IsInRole("Lab") || User.IsInRole("Lab_Admin"))
                         {
-                            if (User.IsInRole("Admin"))
+                            if (User.IsInRole("Admin")||User.IsInRole("AdminHelth"))
                             {
                                 if (modellist != null)
                                 {
@@ -424,7 +424,7 @@
     </div>
     @* container *@
     @{
-        if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
+        if (User.IsInRole("Admin") ||User.IsInRole("AdminHelth") || User.IsInRole("Doctor"))
         {
             <div class="wrap">
                 <aside id="side-menu" class="aside" role="navigation">
