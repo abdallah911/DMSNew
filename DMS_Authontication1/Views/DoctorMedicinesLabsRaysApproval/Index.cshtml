@@ -66,8 +66,14 @@
 
         <br />
         <br />
-        <input id="ShowDetailsCard" type="button" value="Show more details" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowDetailsCard($('#AddCardTxt').val())" />
-
+        @if (Model.Roshita.CardId.Split('-')[0] != "8887700")
+        {
+            <input id="ShowDetailsCard" type="button" value="Show more details" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowDetailsCard($('#AddCardTxt').val())" />
+        }
+        @if (Model.Roshita.CardId.Split('-')[0] == "8887700")
+        {
+            <input id="ShowDetailsCard" type="button" value="Print details" class="btn btn-success fa fa-file-pdf-o" onclick="PrintDetails(@Model.Roshita.Id)" />
+        }
         <input id="NotificationId" name="NotificationId" type="text" value="@Model.Id" hidden />
         <div class="table-responsive" style="HEIGHT: 300px;position:relative">
             <table class="table table-fixed" id="Approvals">
@@ -201,5 +207,9 @@
         });
 
 
+    }
+
+    function PrintDetails(ID) {
+        window.open('/Pharmacy/PrintPendingDetails?Id=' + ID);
     }
 </script>
