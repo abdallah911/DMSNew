@@ -4591,6 +4591,36 @@ namespace DMS_TEST.Controllers
             }
         }
 
+        public ActionResult PrintPendingDetails(int Id)
+        {
+            try
+            {
+                ReportDocument rd = new ReportDocument();
+
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaDetails.rpt"));
+                rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+
+                rd.SetParameterValue("@idd", Id);
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pdf", DateTime.Now.ToString("ddMMyyyy") + "pendingDetails.pdf");
+            }
+            catch (Exception ex)
+            {
+                return View("~/Views/Shared/Error.cshtml");
+
+                throw ex;
+            }
+        }
+
         public JsonResult SaveDiagnoisesAdmin(string[] DiagnosisList, string Speciality, int Roshitaid)
         {
             var model = db.RoshitaDiagnosisAdmins.Where(r => r.RoshitaId == Roshitaid).ToList();
