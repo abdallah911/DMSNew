@@ -27,6 +27,26 @@
   z-index: 33;
 }
 
+
+#loading {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left:0 ;
+  background-color: #999b9ec5;
+  z-index: 999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* display: none;  */
+}
+
+#loading i {
+  font-size: 50px;
+  color: white;
+}
+
 .home {
   background-attachment: fixed;
 
@@ -131,11 +151,11 @@ a {
 .home-text h1 {
   font-size: 3.2rem;
   color: white !important;
-  animation: textdown 2s linear;
+  /* animation: textdown 2s linear; */
   transform: translateY(-150);
 }
 
-@keyframes textdown {
+/* @keyframes textdown {
   0% {
     transform: translateY(-150%);
     opacity: 0;
@@ -148,7 +168,7 @@ a {
     transform: translateY(0%);
     opacity: 1;
   }
-}
+} */
 
 #btnUp {
   color: white;

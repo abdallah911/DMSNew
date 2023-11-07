@@ -1238,6 +1238,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RoshitaReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\RoshitaReport3.cs">
       <AutoGen>True</AutoGen>
@@ -7024,16 +7025,16 @@
     <Content Include="assets\NewDesign\css\owl.theme.default.min.css" />
     <Content Include="assets\NewDesign\css\owl.theme.green.min.css" />
     <Content Include="assets\NewDesign\css\style2.css" />
-    <Content Include="assets\NewDesign\img\1.jpg" />
-    <Content Include="assets\NewDesign\img\4.jpg" />
     <Content Include="assets\NewDesign\img\about.jpeg" />
     <Content Include="assets\NewDesign\img\adminProfil\1.png" />
     <Content Include="assets\NewDesign\img\adminProfil\2.png" />
     <Content Include="assets\NewDesign\img\adminProfil\3.png" />
     <Content Include="assets\NewDesign\img\ai3-removebg-preview.png" />
+    <Content Include="assets\NewDesign\img\application\1.png" />
+    <Content Include="assets\NewDesign\img\application\2.png" />
+    <Content Include="assets\NewDesign\img\application\3.png" />
     <Content Include="assets\NewDesign\img\background  22-01.jpg" />
     <Content Include="assets\NewDesign\img\BG WHITE.jpg" />
-    <Content Include="assets\NewDesign\img\claim-management.jpg" />
     <Content Include="assets\NewDesign\img\Clients\air.jpg" />
     <Content Include="assets\NewDesign\img\Clients\air2.jpg" />
     <Content Include="assets\NewDesign\img\Clients\alfa.jpg" />
@@ -7047,33 +7048,30 @@
     <Content Include="assets\NewDesign\img\commerce\1.png" />
     <Content Include="assets\NewDesign\img\commerce\2.png" />
     <Content Include="assets\NewDesign\img\commerce\3.png" />
-    <Content Include="assets\NewDesign\img\computer-tablet-hands-doctor.jpg" />
-    <Content Include="assets\NewDesign\img\d410800f7d7d328ffaf95e5b49fada7d.jpg" />
-    <Content Include="assets\NewDesign\img\dots.png" />
+    <Content Include="assets\NewDesign\img\commerce\website S  5555 8-18 %281%29.png" />
+    <Content Include="assets\NewDesign\img\enterPrice\main.png" />
     <Content Include="assets\NewDesign\img\enterPrice\website S  7-17.png" />
     <Content Include="assets\NewDesign\img\enterPrice\website S  70-17.png" />
     <Content Include="assets\NewDesign\img\enterPrice\website S  80-17.png" />
     <Content Include="assets\NewDesign\img\EPSRC-261120-ArtificialIntelligence-GettyImages-1206796363.jpg" />
-    <Content Include="assets\NewDesign\img\Experienced Software.jpg" />
-    <Content Include="assets\NewDesign\img\front end.jpg" />
-    <Content Include="assets\NewDesign\img\happy-doctor-holding-clipboard-with-patients.jpg" />
-    <Content Include="assets\NewDesign\img\Hr\productImg.png" />
-    <Content Include="assets\NewDesign\img\laboratory-tech-2.jpg" />
-    <Content Include="assets\NewDesign\img\pha.jpg" />
+    <Content Include="assets\NewDesign\img\healthCare\1.png" />
+    <Content Include="assets\NewDesign\img\healthCare\2.png" />
+    <Content Include="assets\NewDesign\img\healthCare\3.png" />
+    <Content Include="assets\NewDesign\img\healthCare\Health care-16.png" />
+    <Content Include="assets\NewDesign\img\Hr\1.png" />
+    <Content Include="assets\NewDesign\img\Hr\2.png" />
+    <Content Include="assets\NewDesign\img\Hr\3.png" />
+    <Content Include="assets\NewDesign\img\Hr\website S  HR-16.png" />
     <Content Include="assets\NewDesign\img\Product1.png" />
-    <Content Include="assets\NewDesign\img\q.jpg" />
-    <Content Include="assets\NewDesign\img\rovot1.jpg" />
-    <Content Include="assets\NewDesign\img\rovot2.jpg" />
-    <Content Include="assets\NewDesign\img\rovot3.jpg" />
-    <Content Include="assets\NewDesign\img\rovot4.jpg" />
-    <Content Include="assets\NewDesign\img\rovot5.jpg" />
-    <Content Include="assets\NewDesign\img\rovot6.jpg" />
-    <Content Include="assets\NewDesign\img\rovot8.jpg" />
+    <Content Include="assets\NewDesign\img\services\business.jpg" />
+    <Content Include="assets\NewDesign\img\services\cloud.jpg" />
+    <Content Include="assets\NewDesign\img\services\design-graphics-.jpg" />
+    <Content Include="assets\NewDesign\img\services\design.jpg" />
+    <Content Include="assets\NewDesign\img\services\mobile dev.jpg" />
+    <Content Include="assets\NewDesign\img\services\web.jpg" />
     <Content Include="assets\NewDesign\img\th.jpg" />
-    <Content Include="assets\NewDesign\img\ui-ux-representations-with-laptop.jpg" />
     <Content Include="assets\NewDesign\img\Untitled-222222-01-removebg-preview.png" />
     <Content Include="assets\NewDesign\img\website 8-06.jpg" />
-    <Content Include="assets\NewDesign\img\website SIOS 6.jpg" />
     <Content Include="assets\NewDesign\js\app.js" />
     <Content Include="assets\NewDesign\js\bootstrap.bundle.min.js" />
     <Content Include="assets\NewDesign\js\bootstrap.min.js" />
@@ -8164,7 +8162,6 @@
     <Content Include="assets\ManualFiles\LabManual.pdf" />
     <Content Include="assets\ManualFiles\RayManual.pdf" />
     <Content Include="assets\NewDesign\img\charts.webp" />
-    <Content Include="assets\NewDesign\img\message.webp" />
     <Content Include="assets\NewDesign\webfonts\fa-brands-400.eot" />
     <Content Include="assets\NewDesign\webfonts\fa-brands-400.ttf" />
     <Content Include="assets\NewDesign\webfonts\fa-brands-400.woff" />
@@ -8579,10 +8576,11 @@
     <Content Include="Views\Home\Clinic.cshtml" />
     <Content Include="Views\Home\Health.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
+    <Content Include="Views\Home\Index - Copy.cshtml" />
+    <Content Include="Views\Home\Application.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
-    <Folder Include="assets\NewDesign\img\application\" />
     <Folder Include="Content\AddApprovalFiles\" />
     <Folder Include="Content\DoctorImages\" />
     <Folder Include="Content\DoctorStampImages\" />

@@ -1,3 +1,13 @@
+// ===========Loading Screen==================
+$(document).ready(function(){
+  $('#loading').fadeOut(500)
+ 
+
+})
+
+
+
+
 // ======Change background link==========
 $(".nav-item").on("click", function () {
   $(".nav-item").css("background-color", "");
@@ -70,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 $("#hr").on("click", function () {
-  location.href = "/Home/HR";
+    location.href = "/Home/HR";
 
 });
 $("#commerce").on("click", function () {
@@ -91,5 +101,9 @@ $("#healthCare").on("click", function () {
 });
 $("#self-admin").on("click", function () {
     location.href = "/Home/Admin";
+
+});
+$("#app").on("click", function () {
+    location.href = "/Home/Application";
 
 });

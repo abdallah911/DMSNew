@@ -111,6 +111,11 @@ namespace DMS_Authontication1.Controllers
 
             return View();
         }
+        public ActionResult Application()
+        {
+
+            return View();
+        }
 
         public ActionResult Search()
         {
