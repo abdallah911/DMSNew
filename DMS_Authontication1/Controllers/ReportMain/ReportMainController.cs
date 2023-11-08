@@ -461,5 +461,270 @@ namespace DMS_Authontication1.Controllers.ReportMain
         }
 
         #endregion
+
+        #region Reports
+        public ActionResult Reports()
+        {
+            var companyname = db.Contract_Comp.Select(c => new
+            {
+                COMP_ID = c.C_COMP_ID,
+                Name = c.C_ANAME + " || " + c.C_COMP_ID
+
+            }).ToList();
+            SelectList companylist = new SelectList(companyname, "COMP_ID", "Name");
+            ViewBag.company = companylist;
+
+            return View();
+        }
+     
+        public ActionResult PrintReportsPdf(string ServiceFrom, string ServiceTo, string CopmanyNumber, string RepotType)
+        {
+            DateTime ServiceDateFrom, ServiceDateTo;
+
+            ServiceDateFrom = string.IsNullOrEmpty(ServiceFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(ServiceFrom)).Date;
+            ServiceDateTo = string.IsNullOrEmpty(ServiceTo) ? DateTime.Now.Date : (Convert.ToDateTime(ServiceTo)).Date;
+
+
+
+            ReportDocument rd = new ReportDocument();
+
+            switch (Convert.ToInt32(RepotType))
+            {
+
+                case 1:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/SoficoReports"), "ActivationReport.rpt"));
+                    break;
+                case 2:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/SoficoReports"), "SartEmpReport.rpt"));
+                    break;
+                case 3:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/SoficoReports"), "CloseEmpReport.rpt"));
+                    break;
+                case 4:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/SoficoReports"), "ActiveMedicineChronicReport.rpt"));
+                    break;
+                case 5:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/SoficoReports"), "AllClaimsReport.rpt"));
+                    break;
+                //case 2:
+                //    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AuditMedicineChronicSummary.rpt"));
+                //    break;
+
+                default:
+                    return View();
+            }
+
+            //rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+
+
+
+            if (Convert.ToInt32(RepotType) > 4)
+            {
+                rd.SetDatabaseLogon("APP", "12369");
+
+                rd.SetParameterValue("comp", CopmanyNumber);
+                rd.SetParameterValue("dat1", ServiceDateFrom);
+                rd.SetParameterValue("dat2", ServiceDateTo);
+            }
+            else if (Convert.ToInt32(RepotType) == 4)
+            {
+                rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+
+                rd.SetParameterValue("@comp", CopmanyNumber);
+            }
+            else
+            {
+                rd.SetDatabaseLogon("APP", "12369");
+
+                rd.SetParameterValue("comp", CopmanyNumber);
+            }
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pdf", DateTime.Now.ToString("ddMMyyyy") + "Reports.pdf");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ActionResult PrintReportsExcel(string ServiceFrom, string ServiceTo, string CopmanyNumber, string RepotType)
+        {
+            DateTime ServiceDateFrom, ServiceDateTo;
+
+            ServiceDateFrom = string.IsNullOrEmpty(ServiceFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(ServiceFrom)).Date;
+            ServiceDateTo = string.IsNullOrEmpty(ServiceTo) ? DateTime.Now.Date : (Convert.ToDateTime(ServiceTo)).Date;
+
+
+            ReportDocument rd = new ReportDocument();
+
+            switch (Convert.ToInt32(RepotType))
+            {
+
+                case 1:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/SoficoReports"), "ActivationReport.rpt"));
+                    break;
+                case 2:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/SoficoReports"), "SartEmpReport.rpt"));
+                    break;
+                case 3:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/SoficoReports"), "CloseEmpReport.rpt"));
+                    break;
+                case 4:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/SoficoReports"), "ActiveMedicineChronicReport.rpt"));
+                    break;
+                case 5:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/SoficoReports"), "AllClaimsReport.rpt"));
+                    break;
+                //case 2:
+                //    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AuditMedicineChronicSummary.rpt"));
+                //    break;
+
+                default:
+                    return View();
+            }
+
+            if (Convert.ToInt32(RepotType) > 4)
+            {
+                rd.SetDatabaseLogon("APP", "12369");
+
+                rd.SetParameterValue("comp", CopmanyNumber);
+                rd.SetParameterValue("dat1", ServiceDateFrom);
+                rd.SetParameterValue("dat2", ServiceDateTo);
+            }
+            else if (Convert.ToInt32(RepotType) == 4)
+            {
+                rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+
+                rd.SetParameterValue("@comp", CopmanyNumber);
+            }
+            else
+            {
+                rd.SetDatabaseLogon("APP", "12369");
+
+                rd.SetParameterValue("comp", CopmanyNumber);
+            }
+
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/xls", DateTime.Now.ToString("ddMMyyyy") + "Reports.xls");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion
+
+
+        #region Reports
+        public ActionResult ReportProviderCheck()
+        {
+            var companyname = db.Contract_Comp.Select(c => new
+            {
+                COMP_ID = c.C_COMP_ID,
+                Name = c.C_ANAME + " || " + c.C_COMP_ID
+
+            }).ToList();
+            SelectList companylist = new SelectList(companyname, "COMP_ID", "Name");
+            ViewBag.company = companylist;
+
+            return View();
+        }
+        public ActionResult PrintReportProviderCheckPdf(string ServiceFrom, string ServiceTo)
+        {
+            DateTime ServiceDateFrom, ServiceDateTo;
+
+            ServiceDateFrom = string.IsNullOrEmpty(ServiceFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(ServiceFrom)).Date;
+            ServiceDateTo = string.IsNullOrEmpty(ServiceTo) ? DateTime.Now.Date : (Convert.ToDateTime(ServiceTo)).Date;
+
+
+
+            ReportDocument rd = new ReportDocument();
+
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ProviderCheckTop.rpt"));
+            
+            rd.SetDatabaseLogon("APP", "12369");
+            
+            rd.SetParameterValue("dat1", ServiceDateFrom);
+            rd.SetParameterValue("dat2", ServiceDateTo);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pdf", DateTime.Now.ToString("ddMMyyyy") + "ProviderCheckTop.pdf");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ActionResult PrintReportProviderCheckExcel(string ServiceFrom, string ServiceTo)
+        {
+            DateTime ServiceDateFrom, ServiceDateTo;
+
+            ServiceDateFrom = string.IsNullOrEmpty(ServiceFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(ServiceFrom)).Date;
+            ServiceDateTo = string.IsNullOrEmpty(ServiceTo) ? DateTime.Now.Date : (Convert.ToDateTime(ServiceTo)).Date;
+
+
+            ReportDocument rd = new ReportDocument();
+            
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ProviderCheckTop.rpt"));
+
+            rd.SetDatabaseLogon("APP", "12369");
+
+            rd.SetParameterValue("dat1", ServiceDateFrom);
+            rd.SetParameterValue("dat2", ServiceDateTo);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/xls", DateTime.Now.ToString("ddMMyyyy") + "ProviderCheckTop.xls");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        #endregion
     }
 }

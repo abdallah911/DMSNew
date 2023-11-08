@@ -8566,6 +8566,16 @@
     <Content Include="Reports\ChronicDataDetails.rpt" />
     <Content Include="Reports\CompanyChronicReport.rpt" />
     <Content Include="Views\ReportMain\ReportPrint.cshtml" />
+    <Content Include="Reports\ReportsConsumption\Consum901-1Prem.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum901Prem.rpt" />
+    <Content Include="Views\ReportMain\Reports.cshtml" />
+    <Content Include="Reports\SoficoReports\ActivationReport.rpt" />
+    <Content Include="Reports\SoficoReports\ActiveMedicineChronicReport.rpt" />
+    <Content Include="Reports\SoficoReports\CloseEmpReport.rpt" />
+    <Content Include="Reports\SoficoReports\SartEmpReport.rpt" />
+    <Content Include="Reports\SoficoReports\AllClaimsReport.rpt" />
+    <Content Include="Views\ReportMain\ReportProviderCheck.cshtml" />
+    <Content Include="Reports\ProviderCheckTop.rpt" />
     <Content Include="Views\GetApproval\Index.cshtml" />
     <Content Include="Views\Pharmacy\CardCode.cshtml" />
     <Content Include="Views\Home\OldIndex.cshtml" />

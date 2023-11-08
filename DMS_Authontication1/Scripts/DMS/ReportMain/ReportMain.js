@@ -7,6 +7,9 @@
     $('#RegistrationFrom').datepicker({});
     $('#RegistrationTo').datepicker({});
 
+    $('#RegistrationFromReportProviderCheck').datepicker({});
+    $('#RegistrationToReportProviderCheck').datepicker({});
+
     $('#CardNo').select2({
         placeholder: 'Search for a card',
         minimumInputLength: 5,
@@ -169,6 +172,53 @@
             $('#ContractNo').append('<option value="">Select Region</option>');
         }
     });
+
+    $('#CopmanyNumberReports').select2();
+    $('#RegistrationFromReports').datepicker({});
+    $('#RegistrationToReports').datepicker({});
+
+    
+    $("#RepotTypeReports").change(function () {//address
+        var div = document.getElementById("RecordDateScreen");
+        if ($("#RepotTypeReports").val() > 4) {
+            div.style.display = "block";
+        }
+        else {
+            div.style.display = "none";
+        }
+    });
+
+    //$('#CardNoReports').select2({
+    //    placeholder: 'Search for a card',
+    //    minimumInputLength: 5,
+    //    ajax: {
+    //        url: '/EmployeeRequest/GetActiveEmployess/',
+    //        delay: 250,
+    //        dataType: 'json',
+    //        data:
+    //            function (params) {
+    //            var query = {
+    //                search: params.term,
+    //                page: params.page || 1
+    //            }
+    //            return query;
+    //        },
+    //        processResults: function (data, params) {
+    //            params.page = params.page || 1;
+    //            var obj = {};
+    //            data.push(obj)
+    //            return {
+    //                results: data,//.results,
+    //                pagination: {
+    //                    more: (params.page * 10) < data.count_filtered
+    //                }
+    //            };
+    //        }
+    //        // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+    //    }
+    //});
+
 
 
 });
@@ -344,4 +394,101 @@ function PrintReportPrint() {
     else {
         toastr.info('Please Select Company and Contract First');
     }
+}
+
+function ClearAllReports() {
+
+    $('#CopmanyNumberReports').val('');
+    $('#RegistrationFromReports').val('');
+    $('#RegistrationToReports').val('');
+    $('#CopmanyNumberReports').val('').trigger("change");    
+    //$('#CardNoReports').val('').trigger("change");
+    $('#RepotTypeReports').val(1);
+    $("#pdf").prop("checked", false);
+    $("#excel").prop("checked", false);
+}
+
+
+function PrintReports() {
+    debugger;
+    var ServiceFrom = $('#RegistrationFromReports').val();
+    var ServiceTo = $('#RegistrationToReports').val();
+    var CopmanyNumber = $('#CopmanyNumberReports').val();    
+    var RepotType = $('#RepotTypeReports').val();
+
+
+    if (CopmanyNumber != "") {
+
+
+
+        //chick if not search with card number
+        if ($("#excel").is(":checked")) {
+            // do something if the excel is  checked
+            if ($("#pdf").is(":checked")) {
+                // do something if the pdf is  checked
+                // Print PDF and EXCEL
+                window.open('/ReportMain/PrintReportsPdf?ServiceFrom=' + ServiceFrom +
+                    '&&ServiceTo=' + ServiceTo + '&&CopmanyNumber=' + CopmanyNumber + '&&RepotType=' + RepotType);
+
+                window.open('/ReportMain/PrintReportsExcel?ServiceFrom=' + ServiceFrom +
+                    '&&ServiceTo=' + ServiceTo + '&&CopmanyNumber=' + CopmanyNumber + '&&RepotType=' + RepotType);
+            }
+            else {
+                // Print EXCEL Only
+                window.open('/ReportMain/PrintReportsExcel?ServiceFrom=' + ServiceFrom +
+                    '&&ServiceTo=' + ServiceTo + '&&CopmanyNumber=' + CopmanyNumber + '&&RepotType=' + RepotType);
+            }
+
+        }
+        else {
+            // Print PDF as Default
+            window.open('/ReportMain/PrintReportsPdf?ServiceFrom=' + ServiceFrom +
+                '&&ServiceTo=' + ServiceTo + '&&CopmanyNumber=' + CopmanyNumber + '&&RepotType=' + RepotType);
+        }
+
+    }
+    else {
+        toastr.info('select company number first please');
+    }
+
+
+}
+
+function ClearAllReportProviderCheck() {
+    debugger;
+    $('#RegistrationFromReportProviderCheck').val('');
+    $('#RegistrationToReportProviderCheck').val('');
+    $("#pdf").prop("checked", false);
+    $("#excel").prop("checked", false);
+}
+
+function PrintReportProviderCheck() {
+    debugger;
+    var ServiceFrom = $('#RegistrationFromReportProviderCheck').val();
+    var ServiceTo = $('#RegistrationToReportProviderCheck').val();
+     
+        //chick if not search with card number
+        if ($("#excel").is(":checked")) {
+            // do something if the excel is  checked
+            if ($("#pdf").is(":checked")) {
+                // do something if the pdf is  checked
+                // Print PDF and EXCEL
+                window.open('/ReportMain/PrintReportProviderCheckPdf?ServiceFrom=' + ServiceFrom +
+                    '&&ServiceTo=' + ServiceTo);
+
+                window.open('/ReportMain/PrintReportProviderCheckExcel?ServiceFrom=' + ServiceFrom +
+                    '&&ServiceTo=' + ServiceTo);
+            }
+            else {
+                // Print EXCEL Only
+                window.open('/ReportMain/PrintReportProviderCheckExcel?ServiceFrom=' + ServiceFrom +
+                    '&&ServiceTo=' + ServiceTo);
+            }
+
+        }
+        else {
+            // Print PDF as Default
+            window.open('/ReportMain/PrintReportProviderCheckPdf?ServiceFrom=' + ServiceFrom +
+                '&&ServiceTo=' + ServiceTo);
+        }
 }
