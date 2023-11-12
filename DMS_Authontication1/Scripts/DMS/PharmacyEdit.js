@@ -1286,6 +1286,10 @@ function changeTable(button) {
 function changeTotalDuration(button) {
     var MinDay = (ServiceCode == "11601") ? 5 : 1;
     var MaxDay = (ServiceCode == "11601") ? 14 : 28;
+    if (CompId == "8887700") {
+        MinDay = 1;
+        MaxDay = 28;
+    }
     var row = $(button).closest("TR");
     var TotalDuration = parseFloat($("TD", row).find(".TotalDuration").val());
     var Duration = parseFloat($("TD", row).find(".Duration").val());
