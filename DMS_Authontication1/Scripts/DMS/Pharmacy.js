@@ -2019,6 +2019,11 @@ function changeTable(button) {
 function changeTotalDuration(button) {
     var MinDay = ($('#ddlType').val() == "11601") ? 5 : 1;
     var MaxDay = ($('#ddlType').val() == "11601") ? 14 : 28;
+    var companid = $('#txtSearchCard').val().split('-')[0];
+    if (companid == "8887700") {
+        MinDay = 1;
+        MaxDay = 28;
+    }
     var row = $(button).closest("TR");
     var TotalDuration = parseFloat($("TD", row).find(".TotalDuration").val());
     var Duration = parseFloat($("TD", row).find(".Duration").val());
