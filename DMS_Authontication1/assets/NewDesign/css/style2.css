@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Tajawal&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Tajawal&display=swap");
+@import url("http://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url(../img/EPSRC-261120-ArtificialIntelligence-GettyImages-1206796363.jpg);
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 100%;
+}
+
+.layer {
+  width: 100% !important;
+  min-height: 100% !important;
+  background: rgba(243, 240, 238, 0.527);
+}
+.container {
+  position: relative;
+  background-color: rgb(29, 58, 100);
+  width: 450px;
+  height: 440px;
+  overflow: hidden;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important; */
+  box-shadow: 0 0 5px #45f3ff3d, 0 0 25px #45f3ff3d, 0 0 50px #45f3ff3d,
+    0 0 200px #45f3ff3d !important;
+}
+
+.container form {
+  z-index: 2;
+}
+
+.container::before {
+  position: absolute;
+  width: 550px;
+  height: 540px;
+  content: "";
+  top: 0%;
+  left: -50%;
+  background: linear-gradient(
+    0deg,
+    transparent,
+    transparent,
+    #45f3ff3d,
+    #45f3ff3d,
+    #45f3ff
+  );
+  z-index: 1;
+  animation: animate 5s linear infinite;
+  transform-origin: bottom right;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.inputBtn {
+  position: relative;
+  margin: 15px 0px;
+  width: 100%;
+}
+
+.inputBtn input {
+  border: none !important;
+  padding: 15px 10px 10px;
+  width: 100%;
+  outline: none;
+  background-color: transparent;
+  transition: all 0.4s;
+  font-size: 1rem;
+  color: #fff;
+  z-index: 10;
+}
+
+.inputBtn span {
+  position: absolute;
+  color: #fff !important;
+  left: 0;
+  pointer-events: none;
+  padding: 15px 5px 5px !important;
+  font-size: 1rem;
+  transition: all 0.4s;
+}
+
+.inputBtn input:focus ~ span,
+.inputBtn input:valid ~ span {
+  font-size: small;
+  transform: translateY(-60%);
+}
+
+.inputBtn i {
+  background: #fff !important;
+  height: 2px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* ================home============== */
+.slider {
+  background-image: url(../img/how-to-develop-an-engaging-learning-experience.jpg);
+  background-repeat: none;
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+}
+
+.layer {
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+}
+
+.categories {
+  width: 85%;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+.category {
+  background-color: rgba(15, 14, 14, 0.89);
+  box-shadow: 0px 20px 35px rgba(0, 0, 0, 0.1);
+  color: white;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.category:hover {
+  transform: scale(1.1);
+}

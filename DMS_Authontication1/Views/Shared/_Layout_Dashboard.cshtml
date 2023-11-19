@@ -116,25 +116,25 @@
     </style>
 
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-227248876-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-227248876-1');
-</script>
-
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    @*<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125728980-2"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-227248876-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
-        gtag('config', 'UA-125728980-2');
-    </script>*@
+        gtag('config', 'UA-227248876-1');
+    </script>
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    @*<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125728980-2"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-125728980-2');
+        </script>*@
 
 </head>
 <body>
@@ -165,7 +165,7 @@
 
                 <ul class="nav navbar-nav nav-admin-cus" style="color: #000">
                     @{
-                        if ((User.IsInRole("Admin")) && User.Identity.IsAuthenticated)
+                        if ((User.IsInRole("Admin")||User.IsInRole("AdminHelth")) && User.Identity.IsAuthenticated)
                         {
                             <li>
                                 <a><span class="collaps"><i class="fa fa-lg fa-times" aria-hidden="true"></i></span></a>
@@ -173,9 +173,9 @@
                         }
                     }
                     @{
-                        if ((User.IsInRole("Admin") || User.IsInRole("Pharmacy") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
+                        if ((User.IsInRole("Admin") || User.IsInRole("Pharmacy")|| User.IsInRole("AdminHelth") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
                         {
-                            if (User.IsInRole("Admin"))
+                            if (User.IsInRole("Admin")||User.IsInRole("AdminHelth"))
                             {
                                 if (modellist != null)
                                 {
@@ -204,9 +204,9 @@
                         }
                     }
                     @{
-                        if (User.IsInRole("Admin") || User.IsInRole("Rays") || User.IsInRole("Rays_Admin"))
+                        if (User.IsInRole("Admin") ||User.IsInRole("AdminHelth") || User.IsInRole("Rays") || User.IsInRole("Rays_Admin"))
                         {
-                            if (User.IsInRole("Admin"))
+                            if (User.IsInRole("Admin")||User.IsInRole("AdminHelth"))
                             {
                                 if (modellist != null)
                                 {
@@ -236,9 +236,9 @@
                         }
                     }
                     @{
-                        if (User.IsInRole("Admin") || User.IsInRole("Lab") || User.IsInRole("Lab_Admin"))
+                        if (User.IsInRole("Admin") ||User.IsInRole("AdminHelth") || User.IsInRole("Lab") || User.IsInRole("Lab_Admin"))
                         {
-                            if (User.IsInRole("Admin"))
+                            if (User.IsInRole("Admin")||User.IsInRole("AdminHelth"))
                             {
                                 if (modellist != null)
                                 {
@@ -424,7 +424,7 @@
     </div>
     @* container *@
     @{
-        if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
+        if (User.IsInRole("Admin") ||User.IsInRole("AdminHelth") || User.IsInRole("Doctor"))
         {
             <div class="wrap">
                 <aside id="side-menu" class="aside" role="navigation">
@@ -457,8 +457,22 @@
                                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                                 {
 
+                                                    <li><a href="/Pharmacy/CardCode"> Card Code </a></li>
+
+                                                }
+                                                @if (modellist.Where(x => x.PageId == 29 && (x.FullControl || x.EditPermission
+                                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+
                                                     <li><a href="/DoctorApprovals/Monthly">Doctor Chronic </a></li>
 
+                                                }
+
+                                                @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+
+                                                    <li><a href="/GetApproval/Index">Permissions List</a></li>
                                                 }
                                                 @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
                                                     || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
@@ -695,21 +709,28 @@
                             @*}
         }*@
 
-                        <li class="nav-header">
-                            <div class="link"><i class="fa fa-paper-plane-o"></i>Report<i class="fa fa-chevron-down"></i></div>
-                            <ul class="submenu">
-                                <li><a href="/ReportMain/Index" class="link-cus">Pharmacy Report</a></li>
+                            <li class="nav-header">
+                                <div class="link"><i class="fa fa-paper-plane-o"></i>Report<i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    <li><a href="/ReportMain/Index" class="link-cus">Pharmacy Report</a></li>
 
-                                <li><a href="/ReportMain/ReportMed2" class="link-cus">Medicine Audit</a></li>
+                                    <li><a href="/ReportMain/ReportMed2" class="link-cus">Medicine Audit</a></li>
 
-                                <li><a href="/ReportMain/ReportPrint" class="link-cus">Print Report</a></li>
+                                    <li><a href="/ReportMain/ReportPrint" class="link-cus">Print Report</a></li>
 
-                                <li><a href="/ReportMain/Reports" class="link-cus">Reports</a></li>
+                                    <li><a href="/ReportMain/Reports" class="link-cus">Reports</a></li>
 
-                                <li><a href="/ReportMain/ReportProviderCheck" class="link-cus">Provider Check</a></li>
-                            </ul>
+                                    <li><a href="/ReportMain/ReportProviderCheck" class="link-cus">Provider Check</a></li>
+                                </ul>
 
-                        </li>
+                            </li>
+                            <li class="nav-header">
+                                <div class="link"><i class="fa fa-paper-plane-o"></i>New Report<i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    <li><a href="/NewReports/Index" class="link-cus">Reports</a></li>
+                                </ul>
+
+                            </li>
                         </ul>
                 </aside>
                 <div class="content">
@@ -890,6 +911,17 @@
                 success: function (result) {
                     //debugger;
                     $('#notification').text(result.length);
+                    if (result.length > 0) {
+                        $(".test1").css("background-color", " rgb(245, 7, 7)");
+                        $(".test1").css("animation", " flash 1s linear infinite");
+                        $(".test1 i").css("color", "");
+                    }
+                    else {
+                        $(".test1").css("background-color", "");
+                        $(".test1").css("animation", "");
+                        $(".test1 i").css("color", "red");
+
+                    }
                     $('#divNotificationValues').empty();
                     $.each(result, function (key, value) {
                         $('#divNotificationValues').append('<a href="' + value.DetailsURL + '?NotificationId=' + value.Id + '">' + value.TypeNmae + '-' + value.Details + '</a>');

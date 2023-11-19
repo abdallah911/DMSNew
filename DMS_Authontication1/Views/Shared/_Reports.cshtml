@@ -1,0 +1,266 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Report</title>
+
+    <!-- Bootstrap CSS -->
+    <!-- main css -->
+    <link rel="stylesheet" href="~/assets/HomeTemplete/css/style.css">
+    <link rel="stylesheet" href="~/assets/HomeTemplete/css/responsive.css">
+    <link href="~/assets/HomeTemplete/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/Site.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Scripts/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/DataTables/css/responsive.dataTables.min.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/css/select2.min.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/font-awesome.min.css" rel="stylesheet" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <!-- Add By Mohamed Yasser //START-->
+    <!---->
+    <link href="~/assets/global/plugins/jquery-validity/css/jquery.validity.css" rel="stylesheet" />
+    <!-- Add By Mohamed Yasser //END-->
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+    <link href="~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="~/assets/global/css/components-md.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="~/assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME LAYOUT STYLES -->
+
+    @Styles.Render("~/assets/HomeTemplete/Content/kendo/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/assets/admindashdoardmenu/sidebarmenu.css" rel="stylesheet" type="text/css" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-227248876-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-227248876-1');
+    </script>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/NewDesign/newcss/all.min.css" />
+    <link rel="stylesheet" href="~/assets/NewDesign/newcss/bootstrap.min.css" />
+    <link href="~/assets/NewDesign/css/jquery-ui.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/NewDesign/newcss/main.css" />
+</head>
+<body>
+    <!-- Main Menu -->
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="~/assets/NewDesign/img/reports/logo D M S 4-04.png" alt="sios-logo" />
+            </a>
+            <button class="menu-icon navbar-toggler "
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup"
+                    sios-aria-controls="navbarNavAltMarkup"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="fa-solid fa-bars fa-2xl"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="nav-links navbar-nav ">
+                    <a class="sios-nav-link nav-link active"
+                       aria-current="page"
+                       href="Home.html">Home</a>
+                </div>
+                <div class="sios-hr-parent d-flex align-items-center">
+                    <div class="sios-hr-btn dropdown">
+
+                        <button class="btn  dropdown-toggle"
+                                data-bs-toggle="dropdown">
+                            @*@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", style = "color: #000; text-decoration: none;" })*@
+                            Hello  @User.Identity.GetUserName() !
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Manager Account</a></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </div>
+                    <div class="icon-parent text-center ">
+                        <i class="fa-regular fa-bell fa-xl ms-4"><a href="#"></a></i>
+                        <div class="rounded-circle  bell-num"><p>0</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- end menu -->
+    <div>
+        @RenderBody()
+    </div>
+    <!-- Start Footer -->
+    <footer>
+        <div class="footer py-0">
+            <div class="container-fluid pt-5">
+                <div class="row m-auto">
+                    <div class="col-md-5 ms-4 mb-4">
+                        <div class="footerP1 me-4 ">
+                            <img src="~/assets/NewDesign/img/reports/logo-dms-white2.png" alt="" />
+                            <div class="line"></div>
+                            <p class="h6">
+                                sios is a software development company. We develop end-to-end
+                                software for midsize companies and enterprises, mainly from
+                                EGYPT. We help business to upscale creating valuable and
+                                best-fit custom so.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3  ms-4 mb-4">
+                        <div class="footerP2">
+                            <h1>Head-Office</h1>
+                            <div class="line ms-0"></div>
+                            <h6>12 Abdelazim Awadallah St., Heliopolis, Cairo</h6>
+                            <h5 class="mt-3">Contact</h5>
+                            <p><i class="fa-regular fa-envelope"></i> SIOS@gmail.com</p>
+                            <p>
+                                <i class="fa-solid fa-phone"></i> 01032274222 – 01026006177
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 ms-4">
+                        <div class="footerP3">
+                            <h1>Servives</h1>
+                            <div class="line ms-0"></div>
+
+                            <p>
+                                <i class="fa-solid fa-caret-right me-2"></i>
+                                Business Analysis Services
+                            </p>
+                            <p>
+                                <i class="fa-solid fa-caret-right me-2"></i>
+                                Web Development Services
+                            </p>
+                            <p>
+                                <i class="fa-solid fa-caret-right me-2"></i>
+                                Mobile Development
+                            </p>
+                            <p>
+                                <i class="fa-solid text-capitalize fa-caret-right me-2"></i>
+                                Graphic Design Software
+                            </p>
+                            <p>
+                                <i class="fa-solid text-capitalize fa-caret-right me-2"></i>
+                                Software Product Design
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+    <script src="~/assets/NewDesign/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/DMS/NewReport.js"></script>
+    <script src="~/assets/NewDesign/js/jquery.min.js"></script>
+    <script src="~/assets/NewDesign/js/jquery-3.6.0.js"></script>
+    <script src="~/assets/NewDesign/js/jquery-ui.js"></script>
+    <script src="~/assets/NewDesign/js/main.js"></script>
+
+    <script>
+        var notification = 0;
+        $(document).ready(function () {
+            // Declare a proxy to reference the hub.
+            var notifications = $.connection.notificationHub;
+            // Create a function that the hub can call to broadcast messages.
+            notifications.client.updateMessages = function () {
+                getAllMessages()
+            };
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                console.log("connection started")
+                //notifications.onconn();
+                getAllMessages();
+            }).fail(function (e) {
+                console.log("Could not Connect!");
+                alert(e);
+            });
+
+            $("#btnClaim").click(function () {
+                window.location.replace('/Pharmacy/index?id=undefined');
+            });
+            $(".collaps").click(function () {
+                //alert("The paragraph was clicked.");
+                if ($("#side-menu").hasClass("activeblock")) {
+                    console.log("Inside Ifff");
+                    $("#side-menu").removeClass("activeblock");
+                    $(".content").removeClass("fullWidth");
+                    $(".collaps i").addClass('fa-times');
+                    $(".collaps i").removeClass("fa-bars");
+                }
+                else {
+                    console.log("Inside ELSE Ifff");
+                    $("#side-menu").addClass("activeblock");
+                    $(".content").addClass("fullWidth");
+                    $(".collaps i").removeClass('fa-times');
+                    $(".collaps i").addClass("fa-bars");
+                }
+            });
+            $(".burger").click(function () {
+                if ($(window).width() <= 768) {
+                    console.log("Inside  Ifff WIDTH");
+                    $("#side-menu").removeClass("activeblock");
+                    $(".content").removeClass("fullWidth");
+                }
+            });
+        });
+
+        function getAllMessages() {
+            $.ajax({
+                url: '/Home/GetNotifications',
+                //contentType: 'application/html ; charset:utf-8',
+                //type: 'GET',
+                //dataType: 'html',
+                success: function (result) {
+                    //debugger;
+                    $('#notification').text(result.length);
+                    if (result.length > 0) {
+                        $(".test1").css("background-color", " rgb(245, 7, 7)");
+                        $(".test1").css("animation", " flash 1s linear infinite");
+                        $(".test1 i").css("color", "");
+                    }
+                    else {
+                        $(".test1").css("background-color", "");
+                        $(".test1").css("animation", "");
+                        $(".test1 i").css("color", "red");
+
+                    }
+                    $('#divNotificationValues').empty();
+                    $.each(result, function (key, value) {
+                        $('#divNotificationValues').append('<a href="' + value.DetailsURL + '?NotificationId=' + value.Id + '">' + value.TypeNmae + '-' + value.Details + '</a>');
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
