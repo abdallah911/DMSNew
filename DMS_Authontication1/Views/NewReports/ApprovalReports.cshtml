@@ -1,0 +1,157 @@
+﻿@model List<DMS_Authontication1.Models.NewReport>
+
+@{
+    Layout = "~/Views/Shared/_Reports.cshtml";
+}
+
+
+
+<div class="page-icon">
+    <div class="left-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="middle-icon active mx-2">
+        <div>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div class="right-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+
+<!-- Start Section -->
+<form class="reports-form overflow-hidden" action="Reports.html">
+    <div class="container">
+        <div class="row">
+            <div class="sec-1 col-lg-7 m-auto">
+                <div class="reports-box   bg-secondary pt-3 ps-5 py-2 rounded-4">
+                    <h6 class=" fs-6 mb-4">ملخص استهلاك الموظفين موافقات</h6>
+                    <div class="   m-auto rounded-1">
+                        <select class="reports-box-field" name="" id="">
+                            <option value="">نوع التقارير</option>
+                        </select>
+                    </div>
+
+                    <div class="reports-box-field reports-field  m-auto rounded-0 ">
+                        <h6>القيمة</h6>
+                        <div class="reports-input-parent ">
+                            <input type="text" />
+                            <div class="radio">
+                                <div>
+                                    <input name="value" type="radio" id="value1" />
+                                    <label for="value1">اصغر من</label>
+                                </div>
+                                <div>
+                                    <input name="value" type="radio" id="value2" />
+                                    <label for="value2">اكبر من</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reports-field">
+                    <h6>الشركة</h6>
+                    <div class="reports-input-parent">
+                        <input type="text" class=" reports-inp" placeholder="من" />
+                        <input type="text" class=" reports-inp" placeholder="الى" />
+                    </div>
+                </div>
+                <div class="reports-field">
+                    <h6>من كود الفئة</h6>
+                    <div class="reports-input-parent">
+                        <select class="reports-select w-100 " name="" id="">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="reports-field">
+                    <h6>من رقم الكارت</h6>
+                    <div class="reports-input-parent">
+                        <input type="text" class=" reports-inp" placeholder="من" />
+                        <input type="text" class=" reports-inp" placeholder="الى" />
+                    </div>
+                </div>
+                <div class="reports-field">
+                    <h6>رقم مقدم الخدمة</h6>
+                    <div class="reports-input-parent">
+                        <select class="reports-select w-100 " name="" id="">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="sec-2-parent container-fluid col-12 col-lg-5">
+                <div class="sec-2 ">
+                    <div class=" m-auto">
+                        <div class="reports-box  bg-secondary pb-1 pt-4 rounded-4">
+                            <div class="   m-auto rounded-1">
+                                <select class="reports-box-field" name="" id="">
+                                    <option value="">نوع التقارير</option>
+                                </select>
+                            </div>
+                            <div class="reports-field">
+                                <h6>تاريخ التسجيل</h6>
+                                <div class="reports-input-parent">
+                                    <input type="text"
+                                           class="date-input reports-inp"
+                                           placeholder="من" />
+                                    <input type="text"
+                                           class="date-input reports-inp"
+                                           placeholder="الى" />
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>الشركة</h6>
+                                <div class="reports-input-parent">
+                                    <input type="text"
+                                           class=" reports-inp"
+                                           placeholder="من" />
+                                    <input type="text"
+                                           class=" reports-inp"
+                                           placeholder="الى" />
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>قيمة الموافقة</h6>
+                                <div class="reports-input-parent">
+                                    <input type="text"
+                                           class=" reports-inp"
+                                           placeholder="من" />
+                                    <input type="text"
+                                           class=" reports-inp"
+                                           placeholder="الى" />
+                                </div>
+                            </div>
+                            <div class="action-btns-sec col-3">
+                                <div class="action-btns  ">
+                                    <button type="button" class="action-btn fw-bold">
+                                        مفضل
+                                    </button>
+                                    <button type="button" class="action-btn fw-bold">
+                                        ملخص
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- End Section -->
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/DMS/NewReport.js?V=3.2"></script>

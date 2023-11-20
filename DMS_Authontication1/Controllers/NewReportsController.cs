@@ -16,7 +16,9 @@ namespace DMS_Authontication1.Controllers
         {
             db = new DMS_TESTEntities();
         }
-        public ActionResult Index()
+
+        #region Operation 
+        public ActionResult OperationReport()
         {
             var companyname = db.Contract_Comp.Select(c => new
             {
@@ -402,5 +404,46 @@ namespace DMS_Authontication1.Controllers
                 throw ex;
             }
         }
+        #endregion
+
+        #region Approval 
+        public ActionResult ApprovalReports()
+        {
+            var companyname = db.Contract_Comp.Select(c => new
+            {
+                COMP_ID = c.C_COMP_ID,
+                Name = c.C_ANAME + " || " + c.C_COMP_ID
+
+            }).ToList();
+            SelectList companylist = new SelectList(companyname, "COMP_ID", "Name");
+            ViewBag.company = companylist;
+
+            return View();
+        }
+
+
+
+
+        #endregion
+
+        #region Consumption
+        public ActionResult ConsumptionReport()
+        {
+            var companyname = db.Contract_Comp.Select(c => new
+            {
+                COMP_ID = c.C_COMP_ID,
+                Name = c.C_ANAME + " || " + c.C_COMP_ID
+
+            }).ToList();
+            SelectList companylist = new SelectList(companyname, "COMP_ID", "Name");
+            ViewBag.company = companylist;
+
+            return View();
+        }
+
+
+
+
+        #endregion
     }
 }

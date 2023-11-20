@@ -1,0 +1,101 @@
+﻿@model List<DMS_Authontication1.Models.NewReport>
+
+@{
+    Layout = "~/Views/Shared/_Reports.cshtml";
+}
+
+
+
+<!-- Start Section -->
+<form class="reports-form" action="Reports.html">
+    <div class="row">
+        <div style="justify-content: end; display: flex; margin: 0 0 20px auto; "
+             class="sec-2-parent container-fluid ">
+            <div class="Consumption-sec justify-content-end col-8">
+                <div class=" m-auto">
+                    <div class="reports-box  bg-secondary pb-1 pt-4 rounded-2">
+                        <div class="   m-auto rounded-1">
+                            <select class="reports-box-field  home-2-field w-50 ms-auto "
+                                    name=""
+                                    id="">
+                                <option value="">نوع التقارير</option>
+                            </select>
+                        </div>
+                        <div class="reports-field home-2-field">
+                            <h6>تاريخ التسجيل</h6>
+                            <div class="reports-input-parent">
+                                <input type="text"
+                                       class="date-input reports-inp"
+                                       placeholder="من" />
+                                <input type="text"
+                                       class="date-input reports-inp"
+                                       placeholder="الى" />
+                            </div>
+                        </div>
+                        <div class="reports-field home-2-field">
+                            <h6>الشركة</h6>
+                            <div class="reports-input-parent">
+                                <input type="text" class=" reports-inp" placeholder="من" />
+                                <input type="text" class=" reports-inp" placeholder="الى" />
+                            </div>
+                        </div>
+                        <div class="reports-field home-2-field">
+                            <h6>قيمة الموافقة</h6>
+                            <div class="reports-input-parent">
+                                <input type="text" class=" reports-inp" placeholder="من" />
+                                <input type="text" class=" reports-inp" placeholder="الى" />
+                            </div>
+                        </div>
+                        <div class="reports-field home-2-field">
+                            <h6>قيمة الموافقة</h6>
+                            <div class="reports-input-parent">
+                                <select class="reports-inp w-100" name="" id="">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="reports-field home-2-field">
+                            <h6>تاريخ التسجيل</h6>
+                            <div class="reports-input-parent">
+                                <input type="text"
+                                       class="date-input reports-inp"
+                                       placeholder="من" />
+                                <input type="text"
+                                       class="date-input reports-inp"
+                                       placeholder="الى" />
+                            </div>
+                        </div>
+                        <div class="reports-field home-2-field">
+                            <h6>الشركة</h6>
+                            <div class="reports-input-parent">
+                                <input type="text" class=" reports-inp" placeholder="من" />
+                                <input type="text" class=" reports-inp" placeholder="الى" />
+                            </div>
+                        </div>
+                        <div class="reports-field home-2-field">
+                            <h6>قيمة الموافقة</h6>
+                            <div class="reports-input-parent">
+                                <input type="text" class=" reports-inp" placeholder="من" />
+                                <input type="text" class=" reports-inp" placeholder="الى" />
+                            </div>
+                        </div>
+                        <div class="action-btns-sec col-3">
+                            <div class="action-btns  ">
+                                <button type="button" class="action-btn fw-bold">
+                                    جديد
+                                </button>
+                                <button type="button" class="action-btn fw-bold">
+                                    طباعة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- End Section -->
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/DMS/NewReport.js?V=3.2"></script>
