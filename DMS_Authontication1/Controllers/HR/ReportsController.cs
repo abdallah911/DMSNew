@@ -75,6 +75,10 @@ namespace DMS_Authontication1.Controllers.HR
                     SelectList companylist = new SelectList(companyname, "Code", "Name");
                     ViewBag.company = companylist;
                 }
+                 if (User.Identity.Name == "sofico-hr")
+                {
+                    return View("~/Views/Reports/ConsumptionHR.cshtml");
+                }
 
                 return View();
             }
@@ -83,6 +87,7 @@ namespace DMS_Authontication1.Controllers.HR
                 var HrUserNamre = User.Identity.GetUserName();
                 string compa = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
                 ViewBag.compnum = compa;
+                
                 if (compa.Contains("500") || compa.Contains("800"))
                 {
                     return View();
@@ -404,7 +409,11 @@ namespace DMS_Authontication1.Controllers.HR
                 var HrUserNamre = User.Identity.GetUserName();
                 string compa = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
                 ViewBag.compnum = compa;
-                return View();
+                if (compa.Contains("500") || compa.Contains("800"))
+                {
+                    return View();
+                }
+                return View("~/Views/Reports/HrClaimsPremium.cshtml");
             }
         }
 
@@ -1029,7 +1038,7 @@ namespace DMS_Authontication1.Controllers.HR
         }
         #endregion
 
-        
+
         #region Print Reports
         /// <summary>
         /// For print MedicalServices report as PDF

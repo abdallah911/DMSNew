@@ -1,0 +1,281 @@
+﻿@*@model List<DMS_Authontication1.Models.NewReport>*@
+
+@{
+    Layout = "~/Views/Shared/_Reports.cshtml";
+}
+
+
+
+<!-- Start Section -->
+<form style="direction: rtl;"
+      class="reports-form overflow-hidden "
+      action="Reports.html">
+    <div class="container">
+        <div class="row col-sm-10 col-sm-11 ms-sm-auto">
+            <div class="Pharmacy-form-parent  col-10 m-auto ms-sm-auto me-sm-0 col-sm-10  col-lg-6">
+                <div class="Pharmacy-form">
+                    <div class=" m-auto">
+                        <div style="background-color: #d8d8d859 !important"
+                             class="reports-box  bg-secondary pb-1 pt-4 rounded-4">
+                            <h3 class="me-3 fw-bold">أدوية مزمنة</h3>
+                            <div class="reports-field">
+                                <h6>الشهر</h6>
+                                <div class="reports-input-parent ">
+                                    <input type="text"
+                                           class="date-input reports-inp w-100"
+                                           placeholder="من" />
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>تاريخ التسجيل</h6>
+                                <div class="reports-input-parent">
+                                    <select class="reports-select w-100 " name="" id="">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>رقم الشركة</h6>
+                                <div class="reports-input-parent">
+                                    <select class="reports-select w-100 " name="" id="">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>رقم الكارت</h6>
+                                <div class="reports-input-parent">
+                                    <select class="reports-select w-100 " name="" id="">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>اسم المستخدم</h6>
+                                <div class="reports-input-parent">
+                                    <select class="reports-select w-100 " name="" id="">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>المدير</h6>
+                                <div class="reports-input-parent">
+                                    <select class="reports-select w-100 " name="" id="">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>كود الدواء</h6>
+                                <div class="reports-input-parent">
+                                    <select class="reports-select w-100 " name="" id="">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>نوع الحالة</h6>
+                                <div class="reports-input-parent">
+                                    <select class="reports-select w-100 " name="" id="">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>نوع الطباعة</h6>
+                                <div class="reports-input-parent  ">
+                                    <div style="    width: 100%; margin-left: 10px !important;"
+                                         class="reports-select  d-flex align-items-center justify-content-center ">
+                                        <div class="d-flex ms-4">
+                                            <input class="ms-2"
+                                                   id="radio1"
+                                                   name="radio1"
+                                                   type="radio"
+                                                   name="" />
+                                            <label for="radio1">اكسل</label>
+                                        </div>
+                                        <div class="d-flex ">
+                                            <input class="ms-2"
+                                                   id="radio2"
+                                                   name="radio1"
+                                                   type="radio"
+                                                   name="" />
+                                            <label for="radio2">pdf</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="action-btns-sec m-auto ms-0 col-6">
+                                <div style="grid-template-columns: repeat(3, auto);"
+                                     class="action-btns  ">
+                                    <button type="button" class="action-btn fw-bold">
+                                        جديد
+                                    </button>
+                                    <button type="button"
+                                            class=" d-flex align-items-center action-btn fw-bold">
+                                        طباعة
+                                        <i class="fa-solid fa-print me-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Pharmacy-form-parent  col-10 m-auto ms-sm-auto me-sm-0 col-sm-10  col-lg-6">
+                <div class="Pharmacy-form ">
+                    <div class=" m-auto">
+                        <div class="reports-box  bg-secondary pb-1 pt-4 rounded-4">
+                            <h3 class="me-3 fw-bold">مراجعة الأدوية</h3>
+                            <div class="reports-field">
+                                <h6>تاريخ التسجيل</h6>
+                                <div class="reports-input-parent">
+                                    <input type="text"
+                                           class="date-input reports-inp"
+                                           placeholder="من" />
+                                    <input type="text"
+                                           class="date-input reports-inp"
+                                           placeholder="الى" />
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>رقم الشركة</h6>
+                                <div class="reports-input-parent">
+                                    <select class="reports-select w-100 " name="" id="">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>نوع التقرير</h6>
+                                <div class="reports-input-parent">
+                                    <select class="reports-select w-100 " name="" id="">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>نوع الطباعة</h6>
+                                <div class="reports-input-parent  ">
+                                    <div style="    width: 100%; margin-left: 10px !important;"
+                                         class="reports-select  d-flex align-items-center justify-content-center ">
+                                        <div class="d-flex ms-4">
+                                            <input class="ms-2"
+                                                   id="radio2-1"
+                                                   name="radio2"
+                                                   type="radio"
+                                                   name="" />
+                                            <label for="radio2-1">اكسل</label>
+                                        </div>
+                                        <div class="d-flex ">
+                                            <input class="ms-2"
+                                                   id="radio2-2"
+                                                   name="radio2"
+                                                   type="radio"
+                                                   name="" />
+                                            <label for="radio2-2">pdf</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="action-btns-sec m-auto ms-0 col-6">
+                                <div style="grid-template-columns: repeat(3, auto);"
+                                     class="action-btns  ">
+                                    <button type="button" class="action-btn fw-bold">
+                                        جديد
+                                    </button>
+                                    <button type="button"
+                                            class=" d-flex align-items-center action-btn fw-bold">
+                                        طباعة
+                                        <i class="fa-solid fa-print me-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Pharmacy-form ">
+                    <div class=" m-auto">
+                        <div class="reports-box  bg-secondary pb-1 pt-4 rounded-4">
+                            <h3 class="me-3 fw-bold">تقرير الأدوية</h3>
+
+                            <div class="reports-field">
+                                <h6>رقم الشركة</h6>
+                                <div class="reports-input-parent ">
+                                    <input type="text"
+                                           class="reports-inp w-100"
+                                           placeholder="من" />
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>الشهر</h6>
+                                <div class="reports-input-parent ">
+                                    <input type="text"
+                                           class="reports-inp w-100"
+                                           placeholder="من" />
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>المجموعة</h6>
+                                <div class="reports-input-parent">
+                                    <select class="reports-select w-100 " name="" id="">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>رقم الكارت</h6>
+                                <div class="reports-input-parent">
+                                    <select class="reports-select w-100 " name="" id="">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>نوع الطباعة</h6>
+                                <div class="reports-input-parent  ">
+                                    <div style="    width: 100%; margin-left: 10px !important;"
+                                         class="reports-select  d-flex align-items-center justify-content-center ">
+                                        <div class="d-flex ms-4">
+                                            <input class="ms-2"
+                                                   id="radio3-1"
+                                                   name="radio3"
+                                                   type="radio"
+                                                   name="" />
+                                            <label for="radio3-1">اكسل</label>
+                                        </div>
+                                        <div class="d-flex ">
+                                            <input class="ms-2"
+                                                   id="radio3-2"
+                                                   name="radio3"
+                                                   type="radio"
+                                                   name="" />
+                                            <label for="radio3-2">pdf</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="action-btns-sec m-auto ms-0 col-6">
+                                <div style="grid-template-columns: repeat(3, auto);"
+                                     class="action-btns  ">
+                                    <button type="button" class="action-btn fw-bold">
+                                        جديد
+                                    </button>
+                                    <button type="button"
+                                            class=" d-flex align-items-center action-btn fw-bold">
+                                        طباعة
+                                        <i class="fa-solid fa-print me-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- End Section -->
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/DMS/NewReport.js?V=3.2"></script>

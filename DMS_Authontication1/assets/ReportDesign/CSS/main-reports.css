@@ -42,16 +42,23 @@
   --padding-half: var(--size-half);
   --height-primary: 120px;
 }
-
-body {
-  font-family: "Almarai", sans-serif;
-  background-image: url(../Images/backgroun-22-01.jpg);
+.page-container {
+  background-image: url(../Images/background-22-01.jpg);
   background-color: #07061b;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
   height: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+body {
+  font-family: "Almarai", sans-serif;
+
   scroll-behavior: smooth;
 }
 p {
@@ -145,7 +152,76 @@ p {
 }
 
 /* end nav */
+/* start sidebar */
+.sidebar-parent {
+  top: 15%;
+}
+@media (min-width: 767px) {
+  .sidebar-parent {
+    top: 20%;
+  }
+}
+.sideBar {
+  left: 0;
+  top: 35%;
+  position: absolute;
+  background-color: #dddddd;
+  border-radius: 7px;
+  min-width: 180px;
+  width: 200px;
+  padding: 20px 15px;
+  box-shadow: 0 0 2px #14061b33;
+  height: min-content;
+  width: 200px;
+  z-index: 2 !;
+}
+@media (max-width: 576px) {
+  .sideBar {
+    transform: translateX(-90%);
+    padding-right: 40px;
+  }
+}
+@media (max-width: 576px) {
+  .sideBar:hover {
+    padding: 20px 15px;
+    animation: slidein 0.2s;
+    animation-fill-mode: forwards;
+  }
+}
+@keyframes slidein {
+  to {
+    transform: translateX(0);
+  }
+}
 
+.sideBar button {
+  background-color: rgba(67, 68, 68, 0.267);
+  color: var(--color-secondary);
+  border: none;
+  width: -webkit-fill-available;
+  padding: 5%;
+  font-weight: var(--font-bold);
+  margin-bottom: 17px;
+  box-shadow: 0 0 1px #14061b4d;
+}
+.sideBar a:last-of-type button {
+  margin-bottom: 0;
+}
+.sideBar button:hover {
+  background: var(--color-gradient);
+  color: white;
+}
+.sideBar button.active {
+  background: var(--color-gradient);
+  color: white;
+}
+
+.sideBar button a {
+  color: #fff;
+  text-decoration: none;
+}
+/* end sidebar */
+/* start section */
 .page-icon {
   display: flex;
   justify-content: center;
@@ -172,7 +248,7 @@ p {
   background-color: #9ea0a1;
 }
 .reports-form {
-  margin: 30px 0;
+  padding: 30px 0;
 }
 .reports-field,
 .first-reports-field {
@@ -192,17 +268,19 @@ p {
 
 @media (max-width: 991px) {
   .sec-2 {
-    padding: 60px 90px;
     position: relative;
     z-index: 1;
+    margin-top: 40px;
   }
+
   .sec-2::before {
+    position: relative;
     content: "";
     position: absolute;
-    top: 20px;
-    left: -40%;
-    width: 200%;
-    height: 90%;
+    top: -20px;
+    left: -200%;
+    width: 500%;
+    height: 120%;
     background-color: #07061b49;
     padding: 20px 0px;
     z-index: -1;
@@ -234,14 +312,56 @@ div.hide-pseudo::before {
   }
 }
 
+@media (max-width: 992px) {
+  .consumption-reports-box {
+    padding: 20px !important;
+  }
+  .reports-select-parent,
+  .reports-input-parent {
+    width: 60% !important;
+  }
+}
+@media (max-width: 576px) {
+  .reports-form div.Consumption-sec-parent,
+  .reports-form div.contract-sec-parent {
+    justify-content: center !important;
+  }
+
+  .reports-form {
+    justify-content: center;
+    display: flex;
+  }
+  .reports-form .contract-sec {
+    width: 100% !important;
+  }
+  .consumption-reports-box {
+    margin-right: 0 !important;
+  }
+  .contract-reports-box {
+    margin-right: 0 !important;
+  }
+  div.reports-input-parent {
+    width: 60% !important;
+  }
+  .reports-input-parent div.radio {
+    margin-left: 0 !important;
+  }
+  .reports-input-parent label {
+    font-size: 10px;
+  }
+  .reports-box h6 {
+    font-size: 14px !important;
+  }
+}
 .sec-2 .reports-field,
-.consumption-sec {
+.consumption-sec,
+.contract-sec {
   width: 90%;
   margin: 15px auto;
   box-shadow: 1px 1px 3px 1px #0000000f;
   border-radius: 4px;
 }
-.reports-box {
+.consumption-reports-box {
   padding: 80px 0 80px 80px;
 }
 .reports-box > h6 {
@@ -267,7 +387,8 @@ div.hide-pseudo::before {
   box-shadow: 1px 1px 3px 1px #0000000f;
 }
 .sec-2 > div > select,
-.consumption-sec {
+.consumption-sec,
+.contract-sec {
   width: 60% !important;
   margin: 0 35% !important;
 }
@@ -346,7 +467,8 @@ div.hide-pseudo::before {
   justify-content: space-between;
 }
 .sec-2 .reports-input-parent,
-.consumption-sec {
+.consumption-sec,
+.contract-sec {
   width: 70%;
 }
 @media (max-width: 767px) {
@@ -401,7 +523,6 @@ div.hide-pseudo::before {
 .action-btns {
   margin: 10px 0 20px 20%;
 }
-
 .action-btns .action-btn {
   background: var(--color-btn);
   color: white;
@@ -412,6 +533,11 @@ div.hide-pseudo::before {
   border: none;
   font-weight: 400;
   color: white;
+}
+@media (max-width: 576px) {
+  .action-btns .action-btn {
+    padding: 10px;
+  }
 }
 
 .action-btns .action-btn:hover {

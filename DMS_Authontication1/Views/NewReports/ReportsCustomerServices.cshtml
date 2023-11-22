@@ -1,0 +1,78 @@
+﻿@*@model List<DMS_Authontication1.Models.NewReport>*@
+
+@{
+    Layout = "~/Views/Shared/_Reports.cshtml";
+}
+
+
+
+<!-- Start Section -->
+<form class="reports-form overflow-x-hidden" action="Reports.html">
+    <div class="row ">
+        <div class="Consumption-sec-parent  d-flex justify-content-end container-fluid ">
+            <div class="Consumption-sec col-10 col-sm-8 col-lg-10">
+                <div class=" m-auto">
+                    <div style="margin-right:70px ;padding-bottom: 250px ;"
+                         class="consumption-reports-box  bg-secondary pt-4 pe-3  rounded-2">
+                        <div class="   m-auto rounded-1">
+                            <select style="border: none;"
+                                    class="reports-box-field reports-field home-2-field w-50 ms-auto "
+                                    name=""
+                                    id="TypeRepotCustomer">
+                                <option value="">نوع التقارير</option>
+                                <option value="0">Monitor</option>
+                                @*<option value="1">الشكاوى</option>*@
+                            </select>
+                        </div>
+                        <div class="reports-field home-2-field">
+                            <h6>تاريخ التسجيل</h6>
+                            <div class="reports-input-parent">
+                                <input type="text"
+                                       class="date-input reports-inp"
+                                       placeholder="من"  id="DateFromCustomer"/>
+                                <input type="text"
+                                       class="date-input reports-inp"
+                                       placeholder="الى"  id="DateToCustomer"/>
+                            </div>
+                        </div>
+                        <div class="reports-field w-100 m-auto  home-2-field mt-3">
+                            <h6>نوع الطباعة</h6>
+                            <div class="reports-input-parent  ">
+                                <div style="    width: 100%; margin-left: 10px !important;"
+                                     class="reports-select  d-flex align-items-center justify-content-center ">
+                                    <div class="d-flex ms-4">
+                                        <input class="ms-2"
+                                               id="excelCustomer"
+                                               name="radio1"
+                                               type="radio" />
+                                        <label for="radio1">اكسل</label>
+                                    </div>
+                                    <div class="d-flex ">
+                                        <input class="ms-2"
+                                               id="PdfCustomer"
+                                               name="radio1"
+                                               type="radio" />
+                                        <label for="radio2">pdf</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action-btns-sec mt-auto col-4 ">
+                            <div class="action-btns mt-5 ">
+                                <button type="button" class="action-btn fw-bold" onclick="NewCustomer()">
+                                    جديد
+                                </button>
+                                <button type="button" class="action-btn fw-bold" onclick="CustomerPrint()">
+                                    طباعة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- End Section -->
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/DMS/NewReport.js?V=3.2"></script>

@@ -1,4 +1,4 @@
-﻿@model List<DMS_Authontication1.Models.NewReport>
+﻿@*@model List<DMS_Authontication1.Models.NewReport>*@
 
 @{
     Layout = "~/Views/Shared/_Reports.cshtml";
@@ -8,12 +8,13 @@
 
 <!-- Start Section -->
 <form class="reports-form" action="Home.html">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 m-auto">
+    <div class="container d-flex justify-content-end">
+        <div class="row col-sm-10 ">
+            <div class="col-lg-10 m-md-auto ">
                 <div>
                     <div class="reports-select-parent w-100 ">
-                        <select class="first-reports-field " name="" id="TypeReport">
+                        <select style="height: 65px;border: none;"
+                                class=" first-reports-field operation-reports-field " id="TypeReport">
                             <option value="">انواع التقارير</option>
                             <option value="1-1">401 - 1 - إضافات</option>
                             <option value="1-2">401 - 2 - إلغاءات</option>
@@ -34,9 +35,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="reports-field">
+                <div class="operation-reports-field reports-field">
                     <h6>الشركة</h6>
-                    <div class="reports-select-parent d-flex" align-items-center>
+                    <div class="reports-select-parent">
 
                         @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select", id = "CopmanyNameReportsFrom" })
 
@@ -44,7 +45,7 @@
 
                     </div>
                 </div>
-                <div class="reports-field">
+                <div class="operation-reports-field reports-field">
                     <h6>تاريخ التسجيل</h6>
                     <div class="reports-input-parent">
                         <input id="RegistrationFrom" type="text"
@@ -55,7 +56,7 @@
                                placeholder="الى" />
                     </div>
                 </div>
-                <div class="reports-field">
+                <div class="operation-reports-field reports-field">
                     <h6>تاريخ التفعيل</h6>
                     <div class="reports-input-parent">
                         <input id="ActivationFrom" type="text"
@@ -66,41 +67,77 @@
                                placeholder="الى" />
                     </div>
                 </div>
-            </div>
-            <div class="action-btns-sec col-3">
-                <div class="action-btns  ">
-                    <button type="button" class="action-btn">transaction</button>
-                    <button id="PrintReportsNew" type="button" class="action-btn" onclick="PrintReport()">طباعة</button>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <label class="control-label sbold col-md-3">
-                        Print Type :
-                    </label>
-                    <div class="col-md-2">
-                        <div class="checkbox-inline">
-                            <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
-                            <label for="pdf">
-                                PDF
-                            </label>
+                <div class="reports-field">
+                    <h6>نوع الطباعة</h6>
+                    <div class="reports-input-parent  ">
+                        <div style="    width: 100%; margin-left: 10px !important;"
+                             class="reports-select  d-flex align-items-center justify-content-center ">
+                            <div class="d-flex ms-4">
+                                <input class="ms-2"
+                                       id="excel"
+                                       name="radio1"
+                                       type="radio" />
+                                <label for="radio1">اكسل</label>
+                            </div>
+                            <div class="d-flex ">
+                                <input class="ms-2"
+                                       id="pdff"
+                                       name="radio1"
+                                       type="radio" />
+                                <label for="radio2">pdf</label>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-md-2">
-                        <div class="checkbox-inline">
-                            <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
-                            <label for="excel">
-                                EXCEL
-                            </label>
-                        </div>
+                <div class="action-btns-sec text-center mt-3 mt-lg-auto  mb-lg-0 ms-2 col-6  col-lg-3">
+                    <div style="justify-content: center ;" class="action-btns  ">
+                        <button type="button" class="action-btn" onclick="PrintReportTransaction()">
+                            transaction
+                        </button>
+                        <button type="button" id="PrintReportsOperation" onclick="PrintReportOperation()"
+                                class="d-flex align-items-center action-btn">
+                            <i class="fa-solid fa-print me-2"></i>طباعة
+                        </button>
                     </div>
                 </div>
-                <br />
+
             </div>
+        
+            @*<div class="action-btns-sec text-center mt-3 mt-lg-auto  mb-lg-0 ms-2 col-6  col-lg-3">
+                    <div style="justify-content: center ;" class="action-btns  ">
+                        <button type="button" class="action-btn" onclick="PrintReportTransaction()">transaction</button>
+                        <button id="PrintReportsOperation" type="button" class="action-btn" onclick="PrintReportOperation()">طباعة</button>
+                    </div>
+                </div>*@
+            @*<div class="col-md-8">
+                    <div class="form-group">
+                        <label class="control-label sbold col-md-3">
+                            Print Type :
+                        </label>
+                        <div class="col-md-2">
+                            <div class="checkbox-inline">
+                                <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
+                                <label for="pdf">
+                                    PDF
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="checkbox-inline">
+                                <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
+                                <label for="excel">
+                                    EXCEL
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                </div>*@
         </div>
-    </div>    
+    </div>
 </form>
 <!-- End Section -->
-<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+@*<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>*@
 <script src="~/Scripts/DMS/NewReport.js?V=3.2"></script>

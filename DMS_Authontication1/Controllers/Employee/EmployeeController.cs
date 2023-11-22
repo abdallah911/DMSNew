@@ -109,7 +109,7 @@ namespace DMS_Authontication1.Controllers.Employee
                 return View(model);
             }
             int code = int.Parse(model.UserName);
-            var user = db.PETROTRADE_EMPLOYEES.Where(e => e.EMP_CODE == code);
+            var user = db.PETROTRADE_EMPLOYEES.Where(e => e.EMP_CODE == code).FirstOrDefault();
             if (user != null)
             {
                 

@@ -1,1 +1,0 @@
-Place the "images" folder in the same folder where your "jquery-ui.css" file is located.

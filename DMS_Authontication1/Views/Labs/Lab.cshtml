@@ -118,9 +118,9 @@
                         @Html.EditorFor(model => model.Co_insurance.INSURANCE_DAY_LAB, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                     </div>
                     @*<div class="col-sm-2">
-                            @Html.LabelFor(model => model.Co_insurance.INSURANCE_MONTH_LAB, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.Co_insurance.INSURANCE_MONTH_LAB, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                        </div>*@
+            @Html.LabelFor(model => model.Co_insurance.INSURANCE_MONTH_LAB, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Co_insurance.INSURANCE_MONTH_LAB, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+        </div>*@
 
                     <div class="col-sm-2">
                         @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
@@ -131,11 +131,14 @@
                         @Html.Editor("PrescriptionDate", new { htmlAttributes = new { @class = "form-control", @title = "لابد ان يكون ف اخر 14 ايام " } })
                     </div>
 
-                    <div class="col-sm-2" data-step="3" data-intro="Enter Phone with 11 Number ">
+                    <div class="col-sm-2" data-step="3" data-intro="Enter Phone with 11 Number " id="phone">
                         @Html.Label("Phone Number", htmlAttributes: new { @class = "control-label" })
                         @Html.Editor("PhoneNumber", new { htmlAttributes = new { @class = "form-control", @id = "PhoneNumber", required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
                     </div>
-
+                    <div class="col-sm-2" data-step="4" data-intro="Enter Clame Number">
+                        @Html.Label("Claim Number", htmlAttributes: new { @class = "control-label" })
+                        @Html.Editor("ClaimNumber", new { htmlAttributes = new { @class = "form-control", @id = "ClaimNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                    </div>
                 </div>
             </div>
         </div>
@@ -214,6 +217,7 @@
             </div>
             <div class="panel-footer" style="text-align:right;">
                 <input style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />
+                <a data-step="11" style="float: left; margin-left:40px;" class="btn btn-primary" href="@Url.Action("GetFile","Pharmacy",new { fileName = "Lab" })" download="PharmacyManual.pdf"><i class="fa fa-download"></i> Manual</a>
                 <input data-step="8" data-intro="Reset Labs" id="reset" type="button" value="Reset" onclick="ClearLabData();" class="btn btn-warning" />
                 <input data-step="9" data-intro="Save Labs" id="submit" type="button" value="Save" class="btn btn-success" />
             </div>
@@ -226,4 +230,4 @@
 @*scripts*@
 <script src="~/assets/HomeTemplete/js/intro.js"></script>
 
-<script src="~/Scripts/DMS/Labs/Lab.js?V=3.4"></script>
+<script src="~/Scripts/DMS/Labs/Lab.js?V=3.5"></script>

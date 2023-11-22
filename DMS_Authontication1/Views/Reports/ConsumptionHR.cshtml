@@ -31,11 +31,16 @@
     }
 }
 <br />
+
 <div style="margin-top:40px">
+
     <p>
-        @if (fullcontroll || view)
+        @if (User.Identity.Name != "sofico-hr")
         {
-            @Html.ActionLink(" Inquiries About An Invoice", "Inquiries", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+            if (fullcontroll || view)
+            {
+                @Html.ActionLink(" Inquiries About An Invoice", "Inquiries", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+            }
         }
         @if (fullcontroll || Create)
         {
@@ -51,6 +56,7 @@
         }
     </p>
 </div>
+
 @if (fullcontroll || edit)
 {
     <div class="portlet box  green">
@@ -73,10 +79,20 @@
                                         @*Date of Registration*@
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Record Date :
+                                                @if (User.Identity.Name != "sofico-hr")
+                                                {
+                                                    <label class="control-label sbold col-md-3">
+                                                        Record Date :
 
-                                                </label>
+                                                    </label>
+                                                }
+                                                else
+                                                {
+                                                    <label class="control-label sbold col-md-3">
+                                                        Date of Service :
+
+                                                    </label>
+                                                }
                                                 <div class="col-md-6">
                                                     <label class="control-label sbold col-md-3">
                                                         From
@@ -100,35 +116,66 @@
                                         </div>
 
                                         @*Date of Service*@
-
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Date of Service :
-
-                                                </label>
-                                                <div class="col-md-6">
+                                        @if (User.Identity.Name != "sofico-hr")
+                                        {
+                                            <div class="col-md-8">
+                                                <div class="form-group">
                                                     <label class="control-label sbold col-md-3">
-                                                        From
+                                                        Date of Service :
 
                                                     </label>
-                                                    <div class="col-md-9">
-                                                        <input id="ServiceFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                    <div class="col-md-6">
+                                                        <label class="control-label sbold col-md-3">
+                                                            From
+
+                                                        </label>
+                                                        <div class="col-md-9">
+                                                            <input id="ServiceFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                        </div>
                                                     </div>
+                                                    <br />
                                                 </div>
-                                                <br />
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="control-label sbold col-md-2">
-                                                TO
+                                            <div class="col-md-4">
+                                                <label class="control-label sbold col-md-2">
+                                                    TO
 
-                                            </label>
-                                            <div class="col-md-10">
-                                                <input id="ServiceTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                                                </label>
+                                                <div class="col-md-10">
+                                                    <input id="ServiceTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-md-8" hidden>
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-3">
+                                                        Date of Service :
 
+                                                    </label>
+                                                    <div class="col-md-6">
+                                                        <label class="control-label sbold col-md-3">
+                                                            From
+
+                                                        </label>
+                                                        <div class="col-md-9">
+                                                            <input id="ServiceFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4" hidden>
+                                                <label class="control-label sbold col-md-2">
+                                                    TO
+
+                                                </label>
+                                                <div class="col-md-10">
+                                                    <input id="ServiceTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                                                </div>
+                                            </div>
+                                        }
                                         @* Company Number *@
 
                                         <div class="col-md-8">
@@ -250,21 +297,31 @@
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <select id="RepotType" class="form-control">
-                                                        @*<option value="901">Report Details 901</option>*@
-                                                        @*<option value="9011">Report Details 901-1</option>*@
-                                                        <option value="902">Top 20 employees in terms of Values (902)  </option>
-                                                        <option value="903">Top 20 employees in terms of Usage (903)</option>
-                                                        <option value="904">consumption per Provider with the highest according to values (904)</option>
-                                                        <option value="905">consumption per Provider with the highest according to Usage (905)</option>
-                                                        <option value="906">consumption per type of service according to values (906)</option>
-                                                        <option value="906">Distribution of consumption according to the type of service provider according to Usage (907)</option>
-                                                        <option value="908">Distribution of consumption according to the type of service and according to the values (908)</option>
-                                                        <option value="909">Distribution of consumption according to the type of service and according to values  (909)</option>
-                                                        <option value="912">Distribution of consumption according to the type of medical card (employee / family) (912)</option>
-                                                        <option value="915">Consumption per Card (915)</option>
-                                                        <option value="917">consumption for the type of service provider (917)</option>
-                                                    </select>
+                                                    @if (User.Identity.Name == "sofico-hr")
+                                                    {
+                                                        <select id="RepotType" class="form-control">
+                                                            <option value="920">Claims</option>
+                                                            <option value="921">Details</option>
+                                                        </select>
+                                                    }
+                                                    else
+                                                    {
+                                                        <select id="RepotType" class="form-control">
+                                                            @*<option value="901">Report Details 901</option>*@
+                                                            @*<option value="9011">Report Details 901-1</option>*@
+                                                            <option value="902">Top 20 employees in terms of Values (902)  </option>
+                                                            <option value="903">Top 20 employees in terms of Usage (903)</option>
+                                                            <option value="904">consumption per Provider with the highest according to values (904)</option>
+                                                            <option value="905">consumption per Provider with the highest according to Usage (905)</option>
+                                                            <option value="906">consumption per type of service according to values (906)</option>
+                                                            <option value="906">Distribution of consumption according to the type of service provider according to Usage (907)</option>
+                                                            <option value="908">Distribution of consumption according to the type of service and according to the values (908)</option>
+                                                            <option value="909">Distribution of consumption according to the type of service and according to values  (909)</option>
+                                                            <option value="912">Distribution of consumption according to the type of medical card (employee / family) (912)</option>
+                                                            <option value="915">Consumption per Card (915)</option>
+                                                            <option value="917">consumption for the type of service provider (917)</option>
+                                                        </select>
+                                                    }
                                                 </div>
                                                 <br />
                                             </div>

@@ -146,6 +146,19 @@ namespace DMS_Authontication1.Controllers
 
         public JsonResult Save(Roshita data)
         {
+            var companyId = data.CardId.Split('-')[0];
+            ApprovalCode modelcode = new ApprovalCode();
+            if (companyId == "8887700" && data.ClaimNumber != null)
+            {
+                var claimchick = data.ClaimNumber.ToString();
+                modelcode = db.ApprovalCodes.Where(x => x.Code == claimchick && x.Card_ID == data.CardId && x.IsActive).FirstOrDefault();
+                if (modelcode == null)
+                {
+                    return Json("Failed");
+                }
+                modelcode.IsActive = false;
+                db.Entry(modelcode).State = EntityState.Modified;
+            }
             if (data.CreatedBy == null)
             {
                 data.CreatedBy = User.Identity.Name;
@@ -216,7 +229,7 @@ namespace DMS_Authontication1.Controllers
                         string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
                         NotificationHub objNotifHub = new NotificationHub();
                         Notification notification = new Notification();
-                        notification.SentTo = "Admin";
+                        notification.SentTo = CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -634,6 +647,21 @@ namespace DMS_Authontication1.Controllers
                 roshta.UpdatedBy = User.Identity.Name;
                 roshta.UpdatedDate = DateTime.Now;
                 db.Entry(roshta).State = EntityState.Modified;
+                var companyId = roshta.CardId.Split('-')[0];
+                ApprovalCode modelcode = new ApprovalCode();
+                if (companyId == "8887700")
+                {
+                    var claimchick = roshta.ClaimNumber.ToString();
+                    modelcode = db.ApprovalCodes.Where(x => x.Code == claimchick && x.Card_ID == roshta.CardId).FirstOrDefault();
+                    if (modelcode != null)
+                    {
+                        modelcode.IsActive = true;
+                        modelcode.UpdatedBy = User.Identity.Name;
+                        modelcode.UpdatedDate = DateTime.Now;
+                        db.Entry(modelcode).State = EntityState.Modified;
+                    }
+
+                }
                 if (roshta.CompanyPayment > 0)
                 {
                     var EmpCode = roshta.CardId.Split('-')[2];
@@ -936,7 +964,7 @@ namespace DMS_Authontication1.Controllers
                     if (oneNotification == false)
                     {
                         Notification notification = new Notification();
-                        notification.SentTo = "Admin";
+                        notification.SentTo = roshita1.CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -969,7 +997,7 @@ namespace DMS_Authontication1.Controllers
                         //NotificationHub objNotifHub = new NotificationHub();
 
                         Notification notification = new Notification();
-                        notification.SentTo = "Admin";
+                        notification.SentTo = roshita1.CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -1204,9 +1232,9 @@ namespace DMS_Authontication1.Controllers
                 ReportDocument rd = new ReportDocument();
                 rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ClamsReportLabs.rpt"));
 
-                var y = db.Roshitas.Where(r => r.CreatedDate >= F && r.CreatedDate <= T && !r.Manager.Contains("Stop") &&( r.CreatedBy == User.Identity.Name||branches.Contains(r.CreatedBy)))
+                var y = db.Roshitas.Where(r => r.CreatedDate >= F && r.CreatedDate <= T && !r.Manager.Contains("Stop") && (r.CreatedBy == User.Identity.Name || branches.Contains(r.CreatedBy)))
                    .Join(db.Comp_Employees, r => r.CardId, m => m.CARD_ID, (r, m) => new { r, m })
-                   .Where(x => x.m.INS_START_DATE <= DateTime.Now && x.m.INS_END_DATE >= DateTime.Now)
+                   .Where(x => x.m.INS_START_DATE <= x.r.CreatedDate && x.m.INS_END_DATE >= x.r.CreatedDate)
                    .AsEnumerable()
                 .Select(d => new RoshitaCompEmolyessReportViewModel
                 {

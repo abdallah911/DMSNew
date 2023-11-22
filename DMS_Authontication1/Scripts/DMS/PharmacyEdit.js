@@ -174,8 +174,14 @@ $(function () {
     });
     $('#AddMedicine').on('select2:selecting', function (event) {
         if (ServiceCode != "11602") {
-            SelectMedicien(event);
-        } else {
+            if (CompId == "8887700") {
+                SelectMedicienCompany(event);
+            }
+            else {
+                SelectMedicien(event);
+            }
+        }
+        else {
             toastr.warning('Can not add chronic medicine');
             event.preventDefault();
 
@@ -420,7 +426,7 @@ function Calculation() {
     }
     else if (ServiceCode == "11602") {
         var Limit = fixedLimit;
-        debugger;
+
         co = CeilingPert;
         person = parseFloat(100 - co);
         //total-cash
@@ -482,6 +488,150 @@ function Calculation() {
     }
 
 
+}
+function SelectMedicienCompany(event) {
+    var Code = event.params.args.data.id
+
+    $("#wait").css("display", "block");
+    var MedicienCode;
+    var MedicienName;
+    var DosageForm;
+    var PackPrice;
+    var PackSize;
+    var UnitNumber;
+    var UnitPrice;
+    var Group;
+    var edit = 0;
+    var isChronic = 0;
+    $.ajax({
+        type: 'POST',
+        url: '/Pharmacy/GetMedicineByCode/',
+        dataType: 'json',
+        data: { code: Code },
+        success: function (r) {
+          
+            MedicienCode = r.M_CODE;
+            MedicienName = r.TRADE_NAME;
+            DosageForm = r.DOSAGE_FORM;
+            PackPrice = r.PACK_PRICE;
+            PackSize = r.PACK_SIZE;
+            UnitNumber = r.UNIT_NO;
+            UnitPrice = r.UNIT_PRICE;
+            Group = r.Group_Type;
+            IsCover = r.IsCovered.toString();
+            var medicineGroups = new Array();
+            var medicineGroup = {};
+            medicineGroup.TRADE_NAME = MedicienCode; //current medicine code
+            medicineGroups.push(medicineGroup);
+            $('#Pharmacy tbody tr').each(function () {
+                var row = $(this);
+                var medicineGroup = {};
+                medicineGroup.M_CODE = parseInt(row.find("TD").eq(0).html());
+                medicineGroups.push(medicineGroup);
+                if (parseInt(row.find("TD").eq(0).html()) == parseInt(MedicienCode)) {
+                    edit = 1;
+                    event.preventDefault();
+                    toastr.error('Added before');
+                    $("#wait").css("display", "none");
+
+                }
+            });
+
+            if (edit == 0) {
+                Group = "Pending";
+                AppendRow();
+            }
+
+            $("#wait").css("display", "none");
+
+        },
+        error: function (ex) {
+            bootbox.alert('Failed to retrieve Medicine Data,please chack your internet connection');
+        }
+
+    });
+    function AppendRow() {
+        var tBody = $("#Pharmacy > TBODY")[0];
+        var row = tBody.insertRow(-1);
+        var cell = $(row.insertCell(-1));
+        cell.html(MedicienCode);
+        cell = $(row.insertCell(-1));
+        cell.html(MedicienName);
+        cell = $(row.insertCell(-1));
+        cell.html(DosageForm);
+        cell = $(row.insertCell(-1));
+        cell.html(PackSize);
+        cell = $(row.insertCell(-1));
+        var PackagePrice = $("<input />");
+        PackagePrice.attr("type", "text");
+        PackagePrice.addClass("form-control");
+        PackagePrice.addClass("PackagePrice");
+        PackagePrice.attr("onkeyup", "changeTotalUnits(this);");
+        PackagePrice.val(PackPrice);
+        cell.append(PackagePrice);
+        cell = $(row.insertCell(-1));
+        cell.html(UnitNumber);
+        cell = $(row.insertCell(-1));
+        var unitprice = $("<input />");
+        unitprice.attr("type", "text");
+        unitprice.attr('readonly', 'readonly');
+        unitprice.addClass("form-control");
+        unitprice.addClass('UnitPrice');
+        cell.append(unitprice);
+        cell = $(row.insertCell(-1));
+        var Dose = $("<input />");
+        Dose.attr("type", "text");
+        Dose.addClass("form-control");
+        Dose.addClass("Dose");
+        Dose.attr("onkeyup", "changeTable(this);");
+        if (DosageForm == "GEL" || DosageForm == "CREAM" || DosageForm == "SUPP" || DosageForm == "SPRAY" || DosageForm == "DROPS" /*|| DosageForm == "SACHET"*/) {
+            cell.append(1);
+        } else {
+            cell.append(Dose);
+        }
+        cell = $(row.insertCell(-1));
+        var Duration = $("<input />");
+        Duration.attr("type", "text");
+        Duration.addClass("form-control");
+        Duration.addClass("Duration");
+        Duration.attr("onkeyup", "changeTotalDuration(this);changeTable(this);");
+        cell.append(Duration);
+        cell = $(row.insertCell(-1));
+        var TotalDuration = $("<input />");
+        TotalDuration.attr("type", "text");
+        TotalDuration.addClass("form-control");
+        TotalDuration.addClass("TotalDuration");
+        TotalDuration.attr("onfocusout", "changeTotalDuration(this);");
+        cell.append(TotalDuration);
+        cell = $(row.insertCell(-1));
+        if (DosageForm == "ELIXIR" || DosageForm == "SYRUP" || DosageForm == "SUSPENTION" || DosageForm == "EMULSION" || DosageForm == "SOUTION") {
+            var TotalUnits = $("<input />");
+            TotalUnits.attr("type", "text");
+            TotalUnits.addClass('TotalUnits');
+            TotalUnits.addClass("form-control");
+            TotalUnits.attr("onkeyup", "changeTotalUnits(this);");
+            cell.append(TotalUnits);
+        }
+        else {
+            var TotalUnits = $("<input />");
+            TotalUnits.attr("type", "text");
+            TotalUnits.attr('readonly', 'readonly');
+            TotalUnits.addClass('TotalUnits');
+            TotalUnits.addClass("form-control");
+            cell.append(TotalUnits);
+        }
+        cell = $(row.insertCell(-1));
+        var AppendAmount = $("<input />");
+        AppendAmount.attr("type", "text");
+        AppendAmount.attr('readonly', 'readonly');
+        AppendAmount.addClass("form-control");
+        AppendAmount.addClass('Amount');
+        cell.append(AppendAmount);
+        cell = $(row.insertCell(-1));
+        cell.html(Group);
+        toastr.success('Added successfully ');
+        $("#wait").css("display", "none");
+    }
 }
 function SelectMedicien(event) {
     var Code = event.params.args.data.id
@@ -641,7 +791,7 @@ function SelectMedicien(event) {
                                             MedicineCode: MedicienCode
                                         },
                                         success: function (r) {
-                                            debugger;
+
                                             if (r == true) {
                                                 if (samegroup == false) {
                                                     RemoveSelection(Code);
@@ -918,6 +1068,7 @@ function getlimit() {
                 AnuualLimit = r.Limit;
                 $('#IsFamily').val(r.IsFamily);
                 $('#IsPool').val(r.IsPool);
+                $('#AllLimit').val(r.AnnualLimit);
                 if (ServiceCode == "11601") {
                     if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
                         Limit = r.CoInsurancelimit.INSURANCE_DAY;
@@ -955,6 +1106,101 @@ function getlimit() {
             alert("Failed to retrieve Company Annual Limit. please check your internet connection");
             location.reload();
         }
+    }).done(function () {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/Pharmacy/CheckType",
+            data: { CardId: CardId },
+            success: function (returndata) {
+                if (returndata == false) {
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: '/Pharmacy/GetRoshitaApproval',
+                        data: { RoshitaId: id, Type: 3 },
+                        success: function (returndata) {
+                            if (returndata == false) {
+
+                            }
+                            else {
+                                var Copayment = false;
+                                var Limit = false;
+                                var DisregardCeiling = false;
+                                var ExternalPrescription = false;
+                                var PrescriptionPerDay = false;
+                                for (var i = 0; i < returndata.length; i++) {
+                                    Copayment = Copayment == true ? true : returndata[i].includes("Cancel Co-Payment");
+                                    Limit = Limit == true ? true : returndata[i].includes('Disregard OverInsurance');
+                                    DisregardCeiling = DisregardCeiling == true ? true : returndata[i].includes("Disregard Ceiling");
+                                    ExternalPrescription = ExternalPrescription == true ? true : returndata[i].includes("External Prescription");
+                                    PrescriptionPerDay = PrescriptionPerDay == true ? true : returndata[i].includes("Unlimited Examination per day");
+
+                                }
+
+                                if (Limit == true) {
+                                    fixedLimit = 0;
+                                    //$("#insurance_LIVEL").val(0);
+                                    AnuualLimit = $('#AllLimit').val();
+                                    Calculation();
+                                }
+                                if (Copayment == true) {
+                                    CeilingPert = 100;
+                                    //$("#ddEmp_CEILING_PERT").val(100);
+                                    Calculation();
+                                }
+                                if (DisregardCeiling == true) {
+                                    AnuualLimit = 30000;
+                                    Calculation();
+                                }
+                                if (ExternalPrescription == true) {
+                                    $('#ClaimNumber').val(' ');
+                                }
+                                bootbox.dialog({
+                                    title: 'Reasons',
+                                    message: returndata + " ",
+                                    buttons: {
+                                        Ok: {
+                                            label: "Ok",
+                                            className: 'btn-info',
+                                            callback: function () {
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        },
+                        error: function () {
+
+                        }
+                    });
+                } else {
+                    bootbox.dialog({
+                        title: 'Alert!',
+                        message: ' you are Vip',
+                        buttons: {
+                            Ok: {
+                                label: "Ok",
+                                className: 'btn-info',
+                                callback: function () {
+                                    fixedLimit = 0;
+                                    //$("#insurance_LIVEL").val(0);
+                                    CeilingPert = 100;
+                                    $("#ddEmp_CEILING_PERT").val(100);
+                                    $('#ClaimNumber').val(' ');
+                                    AnuualLimit = 30000;
+                                    Calculation();
+
+                                }
+                            }
+                        }
+                    });
+                }
+            },
+            error: function (err) {
+            }
+
+        });
     });
 }
 function GetChronicMedData() {
@@ -1040,6 +1286,10 @@ function changeTable(button) {
 function changeTotalDuration(button) {
     var MinDay = (ServiceCode == "11601") ? 5 : 1;
     var MaxDay = (ServiceCode == "11601") ? 14 : 28;
+    if (CompId == "8887700") {
+        MinDay = 1;
+        MaxDay = 28;
+    }
     var row = $(button).closest("TR");
     var TotalDuration = parseFloat($("TD", row).find(".TotalDuration").val());
     var Duration = parseFloat($("TD", row).find(".Duration").val());

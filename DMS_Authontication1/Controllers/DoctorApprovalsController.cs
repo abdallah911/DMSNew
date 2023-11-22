@@ -109,7 +109,7 @@ namespace DMS_Authontication1.Controllers
         public JsonResult History(string id)
         {
             var emp = db.Comp_Employees.Where(c => c.CARD_ID == id).FirstOrDefault();
-            List<Roshita> Rosita = db.Roshitas.Where(r => r.CardId == id).ToList();
+            List<Roshita> Rosita = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop")).OrderByDescending(x => x.CreatedDate).ToList();
 
             List<DoctorContainerViewModel> newlist = new List<DoctorContainerViewModel>();
             foreach (var item in Rosita)
@@ -134,7 +134,9 @@ namespace DMS_Authontication1.Controllers
                      PACK_PRICE = l.m.PACK_PRICE,
                      PACK_SIZE = l.m.PACK_SIZE,
                      UNIT_PRICE = l.m.UNIT_PRICE,
-                     M_TYPE = l.m.M_TYPE
+                     M_TYPE = l.m.M_TYPE,
+                     IsDealed = l.d.IsDealed,
+                     RoshitaID = l.d.RoshitaID,
 
                  })
                  .ToList();
@@ -146,7 +148,7 @@ namespace DMS_Authontication1.Controllers
 
             var result = new ContentResult
             {
-                Content = serializer.Serialize(newlist),
+                Content = serializer.Serialize(newlist.OrderByDescending(x => x.CreatedDate)),
                 ContentType = "application/json"
             };
             return new JsonResult { Data = newlist, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -155,7 +157,7 @@ namespace DMS_Authontication1.Controllers
         {
             DateTime F = Convert.ToDateTime(From);
             DateTime T = Convert.ToDateTime(To);
-            List<Roshita> Rosita = db.Roshitas.Where(r => r.CardId == id).ToList();
+            List<Roshita> Rosita = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop")).OrderByDescending(x => x.CreatedDate).ToList();
 
             List<DoctorContainerViewModel> newlist = new List<DoctorContainerViewModel>();
             foreach (var item in Rosita)
@@ -182,7 +184,9 @@ namespace DMS_Authontication1.Controllers
                          PACK_PRICE = l.m.PACK_PRICE,
                          PACK_SIZE = l.m.PACK_SIZE,
                          UNIT_PRICE = l.m.UNIT_PRICE,
-                         M_TYPE = l.m.M_TYPE
+                         M_TYPE = l.m.M_TYPE,
+                         IsDealed = l.d.IsDealed,
+                         RoshitaID = l.d.RoshitaID,
 
                      })
                      .ToList();
@@ -195,7 +199,7 @@ namespace DMS_Authontication1.Controllers
 
             var result = new ContentResult
             {
-                Content = serializer.Serialize(newlist),
+                Content = serializer.Serialize(newlist.OrderByDescending(x => x.CreatedDate)),
                 ContentType = "application/json"
             };
             return new JsonResult { Data = newlist, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -286,6 +290,43 @@ namespace DMS_Authontication1.Controllers
                 return Json("Failed to Save Prescription");
             }
 
+        }
+
+        [HttpPost]
+        public JsonResult DoctorDelete(long id, long roshitaid)
+        {
+            try
+            {
+                Roshita roshita = db.Roshitas.Include(x => x.RoshitaDetails).Where(c => c.Id == roshitaid).FirstOrDefault();
+                //foreach (var item in roshita.RoshitaDetails)
+                //{
+                //    if (item.Id == id)
+                //        db.RoshitaDetails.Remove(item);
+                //}
+                var roshitadetail = roshita.RoshitaDetails.Where(x => x.Id == id).First();
+                // roshita.RoshitaDetails.Remove(roshitadetail);
+                db.RoshitaDetails.Remove(roshitadetail);
+                if (roshita.RoshitaDetails.Count > 0)
+                {
+                    roshita.UpdatedBy = User.Identity.Name;
+                    roshita.UpdatedDate = DateTime.Now;
+                    roshita.CompanyPayment -= roshitadetail.Amount * (roshita.CompanyPercent / 100);
+                    roshita.PersonPayment -= roshitadetail.Amount * ((100 - roshita.CompanyPercent) / 100);
+                    roshita.TotalValue = roshita.CompanyPayment + roshita.PersonPayment;
+
+                }
+                else
+                {
+                    roshita.Manager = "Doctor_Daily_Stop";
+                }
+                db.Entry(roshita).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { ok = true, data = db.SaveChanges(), message = "ok" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         //[Authorize(Roles = "Admin,Doctor")]
@@ -617,7 +658,7 @@ namespace DMS_Authontication1.Controllers
             mED_CARD.NOTES = data.NOTES;
             mED_CARD.CREATED_BY = User.Identity.Name;
             mED_CARD.CREATED_DATE = DateTime.Now;
-            var emp = db.Comp_Employees.Where(x => x.CARD_ID == data.CARD_NO && x.INS_START_DATE <= datenow && x.INS_END_DATE>= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+            var emp = db.Comp_Employees.Where(x => x.CARD_ID == data.CARD_NO && x.INS_START_DATE <= datenow && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
             mED_CARD.C_COMP_ID = emp.C_COMP_ID;
             mED_CARD.GROUP_ID = data.GROUP_ID;
             var Group = db.S_Ent_7.Where(x => x.C_COMP_ID == emp.C_COMP_ID && x.S_ID == data.GROUP_ID).FirstOrDefault();
@@ -878,6 +919,7 @@ namespace DMS_Authontication1.Controllers
                         update.MONTH_DATE_STOP = item.MONTH_DATE_STOP;
                         update.StartDate = item.StartDate;
                         update.MedicineNoPay = item.MedicineNoPay;
+                        update.PoolType = item.PoolType;
                         update.SyncBy = "Updated";
                         db.Entry(update).State = EntityState.Modified;
 
@@ -958,6 +1000,8 @@ namespace DMS_Authontication1.Controllers
             if (newmedicine.LFT_MONTH != oldmedicine.LFT_MONTH)
                 return true;
             if (newmedicine.StartDate != oldmedicine.StartDate)
+                return true;
+            if (newmedicine.PoolType != oldmedicine.PoolType)
                 return true;
 
             return false;

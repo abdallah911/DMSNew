@@ -166,9 +166,9 @@ namespace DMS_TEST.Controllers
                 case 901:
                     if (CompanyStart == 10362 || CompanyStart == 500144 || CompanyEnd == 500144 || CompanyEnd == 500144)
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901InternalCode.rpt"));
-                    else if(CompanyStart.ToString().StartsWith("500") || CompanyEnd.ToString().StartsWith("500"))
+                    else if (CompanyStart.ToString().StartsWith("500") || CompanyEnd.ToString().StartsWith("500"))
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901.rpt"));
-                    else 
+                    else
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum901Prem.rpt"));
                     break;
                 case 9011:
@@ -248,24 +248,42 @@ namespace DMS_TEST.Controllers
                     else
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum918.rpt"));
                     break;
+
+                case 920:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "SoficoClaims.rpt"));
+                    break;
+
+                case 921:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "SoficoDetails.rpt"));
+                    break;
                 default:
                     return View();
             }
+            if (Convert.ToInt32(RepotType) == 920 || Convert.ToInt32(RepotType) == 921)
+            {
+                rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
 
-            rd.SetDatabaseLogon("APP", "12369");
+                rd.SetParameterValue("@from", RegDateFrom);
+                rd.SetParameterValue("@to", RegDateTo);
+                rd.SetParameterValue("@comp", CompanyStart);
+            }
+            else
+            {
+                rd.SetDatabaseLogon("APP", "12369");
 
-            rd.SetParameterValue("crda1", RegDateFrom);
-            rd.SetParameterValue("crda2", RegDateTo);
-            rd.SetParameterValue("srda1", SerDateFrom);
-            rd.SetParameterValue("srda2", SerDateTo);
-            rd.SetParameterValue("comp1", CompanyStart);
-            rd.SetParameterValue("comp2", CompanyEnd);
-            rd.SetParameterValue("crd1", CardStart);
-            rd.SetParameterValue("crd2", CardEnd);
-            rd.SetParameterValue("cls1", "0");
-            rd.SetParameterValue("cls2", "zzzzzzzzz");
-            rd.SetParameterValue("PRV1", ProviderNumber1);
-            rd.SetParameterValue("PRV2", ProviderNumber2);
+                rd.SetParameterValue("crda1", RegDateFrom);
+                rd.SetParameterValue("crda2", RegDateTo);
+                rd.SetParameterValue("srda1", SerDateFrom);
+                rd.SetParameterValue("srda2", SerDateTo);
+                rd.SetParameterValue("comp1", CompanyStart);
+                rd.SetParameterValue("comp2", CompanyEnd);
+                rd.SetParameterValue("crd1", CardStart);
+                rd.SetParameterValue("crd2", CardEnd);
+                rd.SetParameterValue("cls1", "0");
+                rd.SetParameterValue("cls2", "zzzzzzzzz");
+                rd.SetParameterValue("PRV1", ProviderNumber1);
+                rd.SetParameterValue("PRV2", ProviderNumber2);
+            }
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
@@ -465,24 +483,41 @@ namespace DMS_TEST.Controllers
                     else
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/ReportsConsumption"), "Consum918.rpt"));
                     break;
+                case 920:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "SoficoClaims.rpt"));
+                    break;
+
+                case 921:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "SoficoDetails.rpt"));
+                    break;
                 default:
                     return View();
             }
+            if (Convert.ToInt32(RepotType) == 920 || Convert.ToInt32(RepotType) == 921)
+            {
+                rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
 
-            rd.SetDatabaseLogon("APP", "12369");
+                rd.SetParameterValue("@from", RegDateFrom);
+                rd.SetParameterValue("@to", RegDateTo);
+                rd.SetParameterValue("@comp", CompanyStart);
+            }
+            else
+            {
+                rd.SetDatabaseLogon("APP", "12369");
 
-            rd.SetParameterValue("crda1", RegDateFrom);
-            rd.SetParameterValue("crda2", RegDateTo);
-            rd.SetParameterValue("srda1", SerDateFrom);
-            rd.SetParameterValue("srda2", SerDateTo);
-            rd.SetParameterValue("comp1", CompanyStart);
-            rd.SetParameterValue("comp2", CompanyEnd);
-            rd.SetParameterValue("crd1", CardStart);
-            rd.SetParameterValue("crd2", CardEnd);
-            rd.SetParameterValue("cls1", "0");
-            rd.SetParameterValue("cls2", "zzzzzzzzz");
-            rd.SetParameterValue("PRV1", ProviderNumber1);
-            rd.SetParameterValue("PRV2", ProviderNumber2);
+                rd.SetParameterValue("crda1", RegDateFrom);
+                rd.SetParameterValue("crda2", RegDateTo);
+                rd.SetParameterValue("srda1", SerDateFrom);
+                rd.SetParameterValue("srda2", SerDateTo);
+                rd.SetParameterValue("comp1", CompanyStart);
+                rd.SetParameterValue("comp2", CompanyEnd);
+                rd.SetParameterValue("crd1", CardStart);
+                rd.SetParameterValue("crd2", CardEnd);
+                rd.SetParameterValue("cls1", "0");
+                rd.SetParameterValue("cls2", "zzzzzzzzz");
+                rd.SetParameterValue("PRV1", ProviderNumber1);
+                rd.SetParameterValue("PRV2", ProviderNumber2);
+            }
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();

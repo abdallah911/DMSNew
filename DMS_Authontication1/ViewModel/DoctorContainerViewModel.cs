@@ -23,7 +23,7 @@ namespace DMS_TEST.ViewModel
         [DisplayName("Group")]
         public string PaymentGroup { get; set; }
 
-        public int RoshitaID { get; set; }
+        public long RoshitaID { get; set; }
 
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }

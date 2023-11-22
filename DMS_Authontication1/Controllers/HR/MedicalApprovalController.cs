@@ -553,6 +553,99 @@ namespace DMS_Authontication1.Controllers.HR
             }
             return RedirectToAction("Search");
         }
+        [Authorize(Roles = "HR,User,HR_Admin")]
+        [HttpPost]
+
+        public JsonResult CreateMobileRequest(Enum_RequestsViewModel addApproval)
+        {
+            var userid = User.Identity.GetUserId();
+            var CompProvider = UserManager.FindById(userid);
+            if (!ModelState.IsValid)
+            {
+                var result = new { Message = "Model Not Valid", Code = 0 };
+                return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            var model = new Enum_Requests();
+            List<string> paths = new List<string>();
+            List<string> exten = new List<string>();
+
+            model.NOTES = addApproval.NOTES;
+            model.REQ_DATE = DateTime.Now;
+            model.EMP_ENAME = db.Comp_Employees.Where(e => e.CARD_ID == addApproval.CARD_ID).FirstOrDefault().EMP_ENAME;
+            model.REQ_TYPE = "M";
+
+            model.REQUEST_TYP = "Web";
+            model.CREATED_BY = User.Identity.GetUserName();
+            model.CREATED_DATE = DateTime.Now;
+            model.STATE = 2;
+            model.TYPE = addApproval.TYPE;
+            model.PR_ENAME = addApproval.PR_ENAME;
+            model.TYP_ANAME = addApproval.TYP_ANAME;
+            model.NOTES = addApproval.NOTES;
+            model.CARD_ID = addApproval.CARD_ID;
+            model.MAIL_SEND = addApproval.MAIL_SEND;
+            for (int i = 0; i < addApproval.ImageFile.Length; i++)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(addApproval.ImageFile[i].FileName);
+                string extension = Path.GetExtension(addApproval.ImageFile[i].FileName);
+                exten.Add(extension);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                model.APPROVAL_IMAGE = "~/Content/EmployeesRequestsImage/" + fileName;
+                paths.Add("~/Content/EmployeesRequestsImage/" + fileName);
+
+                addApproval.ImageFile[i].SaveAs(Server.MapPath("/Content/EmployeesRequestsImage/" + fileName /*ImageFile.FileName*/));
+            }
+            db.Enum_Requests.Add(model);
+            db.SaveChanges();
+            var compID = Convert.ToInt32(addApproval.CARD_ID.Split('-')[0]);
+            var companyName = db.Contract_Comp.Where(c => c.C_COMP_ID == compID).FirstOrDefault().C_ANAME;
+
+            string sub = "Request Approval From " + companyName;
+
+            string msg = @"<h3> Send By: </h3>" + CompProvider.FName +
+                          "<h3> Replay To Email :  </h3>" + addApproval.MAIL_SEND + "<br/>" +
+
+                          "<h4> Card Id: </h4>" + addApproval.CARD_ID + "<br/>" +
+                          "<h4> Approval Type  :  </h4>" + addApproval.TYPE + "<br/>" +
+                          "<h4> Provider Type  : </h4>" + addApproval.TYP_ANAME + "<br/>" +
+                          "<h4> Provider Id  : </h4>" + addApproval.PR_ENAME + "<br/>" +
+                          "<h4> Approval Notes : </h4>" + addApproval.NOTES + "<br/>";
+
+
+
+            AlternateView altView = AlternateView.CreateAlternateViewFromString(msg, null, MediaTypeNames.Text.Html);
+
+            for (int i = 0; i < paths.Count; i++)
+            {
+                var extenti = MediaTypeNames.Application.Pdf;
+                //string path= Server.MapPath()
+                if (exten[i].ToLower() == ".jpg" || exten[i].ToLower() == ".jpeg" || exten[i].ToLower() == ".png")
+                {
+                    extenti = MediaTypeNames.Image.Jpeg;
+                }
+                LinkedResource Img = new LinkedResource(Server.MapPath(paths[i]), extenti);
+                Img.ContentId = "MyImage" + i;
+                altView.LinkedResources.Add(Img);
+                msg = msg + addApproval.ImageFile[i] + "<br/>";
+            }
+
+            if (model.TYPE == "Medications outpatient")
+            {
+                SendMail("dms.pharmacy@gmail.com", sub, msg, altView, CompProvider);
+
+            }
+            else if (model.TYPE == "Dental services outpatient")
+            {
+                SendMail("dms.dental1@gmail.com", sub, msg, altView, CompProvider);
+            }
+            else
+            {
+                SendMail("dms.medical1@gmail.com", sub, msg, altView, CompProvider);
+                SendMail("dms.medical2@gmail.com", sub, msg, altView, CompProvider);
+            }
+            var resultSuccess = new { Message = "Ok", Code = 1 };
+            return new JsonResult { Data = resultSuccess, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
 
         public ActionResult Download(long id)
         {

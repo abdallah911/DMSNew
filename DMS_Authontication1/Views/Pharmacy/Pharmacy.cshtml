@@ -125,7 +125,7 @@
                         @Html.Label("Prescription Date", htmlAttributes: new { @class = "control-label", @title = "لابد ان يكون ف اخر 7 ايام " })
                         @Html.Editor("PrescriptionDate", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true", @title = "لابد ان يكون ف اخر 7 ايام " } })
                     </div>
-                    <div class="col-sm-2" data-step="5" data-intro="Enter Phone with 11 Number ">
+                    <div class="col-sm-2" data-step="5" data-intro="Enter Phone with 11 Number " id="phone">
                         @Html.Label("Phone Number", htmlAttributes: new { @class = "control-label" })
                         @Html.Editor("PhoneNumber", new { htmlAttributes = new { @class = "form-control", @id = "PhoneNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
                     </div>
@@ -227,6 +227,8 @@
             <!--Save-->
             <div class="panel-footer" style="text-align:right;">
                 <input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />
+                <a data-step="11" style="float: left; margin-left:40px;" class="btn btn-primary" href="@Url.Action("GetFile","Pharmacy",new { fileName = "Pharmacy" })" download="PharmacyManual.pdf"><i class="fa fa-download"></i> Manual</a>
+                @*<input data-step="11" data-intro="Help" style="float: left;" id="Manual" type="button" value="Manual" class="btn btn-info" />*@
                 <input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn btn-warning" />
                 <input data-step="12" data-intro="Save Preception" id="submit" type="button" value="Dispense" class="btn btn-success" />
             </div>
@@ -235,5 +237,5 @@
 </div>
 <script src="~/assets/HomeTemplete/js/intro.js"></script>
 
-<script src="~/Scripts/DMS/Pharmacy.js?V=3.8"></script>
+<script src="~/Scripts/DMS/Pharmacy.js?V=3.9"></script>
 
