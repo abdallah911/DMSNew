@@ -39,9 +39,9 @@
                     <h6>الشركة</h6>
                     <div class="reports-select-parent">
 
-                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select", id = "CopmanyNameReportsFrom" })
+                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select select2", id = "CopmanyNameReportsFrom" })
 
-                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "reports-select", id = "CopmanyNameReportsTo" })
+                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "reports-select select2", id = "CopmanyNameReportsTo" })
 
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="reports-field">
                     <h6>نوع الطباعة</h6>
-                    <div class="reports-input-parent  ">
+                    <div class="reports-input-parent select2">
                         <div style="    width: 100%; margin-left: 10px !important;"
                              class="reports-select  d-flex align-items-center justify-content-center ">
                             <div class="d-flex ms-4">

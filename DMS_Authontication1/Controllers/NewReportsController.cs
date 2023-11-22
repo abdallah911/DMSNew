@@ -1210,7 +1210,26 @@ namespace DMS_Authontication1.Controllers
         #region Pharmacy
         public ActionResult ReportsPharmacy()
         {
-            //getAllCompany();
+            getAllCompany();
+
+            var usersname = db2.Users.Where(u => u.UserName != "").Select(c => new
+            {
+                user = c.UserName,
+                Name = c.FName + " " + c.LName
+
+            }).Distinct().ToList();
+            SelectList userslist = new SelectList(usersname, "user", "Name");
+            ViewBag.users = userslist;
+
+
+            var medcodall = db.RoshitaDetails.Select(c => new
+            {
+                Code = c.MedicienCode,
+                Name = c.MedicienCode + " || " + c.MedicienName
+
+            }).Distinct().ToList();
+            SelectList medcodlist = new SelectList(medcodall, "Code", "Name");
+            ViewBag.medall = medcodlist;
 
             return View();
         }

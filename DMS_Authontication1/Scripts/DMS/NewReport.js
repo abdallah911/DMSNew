@@ -2,20 +2,19 @@
 
     $('#TypeReport').val();
     $('#CopmanyNameReportsFrom').select2();
-    $('#CopmanyNameReportsTo').select2();
+    //$('#CopmanyNameReportsTo').select2();
     $('#RegistrationFrom').datepicker({});
     $('#RegistrationTo').datepicker({});
     $('#ActivationFrom').datepicker({});
     $('#ActivationTo').datepicker({});
 
-    $('#CompFromApproval1').select2();
-    $('#CompToApproval1').select2();
+    //$('#CompFromApproval1').select2();
+    //$('#CompToApproval1').select2();
 
-    $('#CompFromApproval1').select2();
-    $('#CompToApproval1').select2();
+    //$('#CompFromApproval1').select2();
+    //$('#CompToApproval1').select2();
 
 });
-
 
 function PrintReportOperation() {
     var CopmanyNameReportsFrom = $('#CopmanyNameReportsFrom').val();
