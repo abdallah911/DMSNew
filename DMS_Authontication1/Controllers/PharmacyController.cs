@@ -53,6 +53,20 @@ namespace DMS_TEST.Controllers
             }
             return View();
         }
+        [Authorize(Roles = "Pharmacy")]
+        public ActionResult PharmacyPage()
+        {
+            NotificationHub objNotifHub = new NotificationHub();
+            objNotifHub.SendMessages();
+            Session.Clear();
+            ViewBag.ddlSpeciality = new SelectList(db.Specialities1, "SPEC_ID", "SPEC_ANAME");
+            if (User.IsInRole("Admin"))
+            {
+                var context = new ApplicationDbContext();
+                ViewBag.ddlUsers = new SelectList(context.Users.Where(x => x.Type == "1" || x.Type == "2" || x.Type == "Admin").ToList(), "UserName", "UserName", User.Identity.Name);
+            }
+            return View();
+        }
         [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
         public ActionResult CardCode()
         {

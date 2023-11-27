@@ -1,0 +1,269 @@
+﻿@model DMS_TEST.ViewModel.Container1
+@{
+    ViewBag.Title = "Pharmacy";
+    Layout = "~/Views/Shared/_Layout_DashboardNew.cshtml";
+}
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+<link rel="stylesheet" href="~/assets/HomeTemplete/css/responsive.css">
+@Html.Partial("_Cards")
+
+<!-- start section -->
+<div class="sios-overlay container-fluid">
+    <div class="container justify-content-between">
+        <div class="d-flex align-items-center">
+            <i class="fa-solid fa-house"></i>
+            <h3>Pharmacies</h3>
+        </div>
+        <div>
+            <button id="Pending" type="button" class="mb-0" disabled>
+                <span><i class="fa-solid fa-pen"></i></span>Pending
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="sios-overlay container-fluid">
+    <div class="container">
+        <h3 class="">Card ID</h3>
+    </div>
+</div>
+<div style="display: flex; flex-direction: column">
+    <section style="min-height: 100vh; display: flex;flex-direction: column;flex-grow: 1;">
+        <div class="sios-search container">
+            <div class="row">
+                <div class="flex-wrap gap-4 d-flex align-items-center">
+                    <div class="ms-3 m-sm-0 search-field">
+                        <input type="text"
+                               id="txtSearchCard"
+                               name="search-input"
+                               class="search-inp"
+                               placeholder="search" />
+                        <button type="button " id="Search" class="search-btn">
+                            Search
+                        </button>
+                    </div>
+                    <div class="approval-btn d-flex align-items-center">
+                        <input style="block-size: fit-content"
+                               class="bg-light me-2 w-25"
+                               type="checkbox"
+                               id="HasApproval"
+                               name="Approval"
+                               value="Bike" />
+                        <label class="" for="HasApproval"> Approval</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div hidden>
+            <input id="IsFamily" name="IsFamily" value="" />
+            <input id="IsPool" name="IsPool" value="" />
+            <input id="AllLimit" name="AllLimit" value="" />
+        </div>
+        <form style="margin-bottom: 50px"
+              name="formValidation"
+              id="formValidation"
+              action="index.html">
+            <div class="container">
+                <div class="row row-cols-md-3 row-cols-sm-2 m-auto m-sm-0">
+                    <div class="forLabel">
+
+                        @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "chronic-form-control mb-3 ps-3", @ReadOnly = "true" } })
+                        <span for="name">Name</span>
+
+                    </div>
+
+                    <div class="forLabel">
+                        @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "chronic-form-control mb-3 ps-3", @ReadOnly = "true" } })
+                        <span for="start-date">Start Date</span>
+                    </div>
+                    <div class="forLabel">
+                        @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "chronic-form-control mb-3 ps-3", @ReadOnly = "true" } })
+
+                        <span for="end-date">End Date</span>
+                    </div>
+
+                    <div class="forLabel">
+                        @Html.Editor("ClaimNumber", new { htmlAttributes = new { @class = "chronic-form-control mb-3 ps-3", @id = "ClaimNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+
+                        <span for="claim-number">Claim Number</span>
+                    </div>
+
+                    <div class="forLabel">
+                        @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "chronic-form-control mb-3 ps-3", @id = "ddlSpeciality" })
+
+                        @*<select class="chronic-form-control mb-3 ps-3"
+                                    name="speciality"
+                                    id=""
+                                    required>
+                                <option value="" style="font-weight: 800"></option>
+                                <option value="1">قلب وأوعية دموية</option>
+                                <option value="2">صدر</option>
+                                <option value="3">جلدية</option>
+                                <option value="4">جراحة عامة</option>
+                                <option value="5">غدد صماء</option>
+                                <option value="6">باطنة عامة</option>
+                            </select>*@
+                        <span for="speciality">Speciality</span>
+                    </div>
+                    <div class="forLabel">
+                        @*<select id="ddlDiagnoises" style="width:100%" multiple></select>*@
+                        <select id="ddlDiagnoises" class="chronic-form-control mb-3 ps-3" name="diagnose" required>
+                            @*<option value="" style="font-weight: 800"></option>
+                                <option value="1">قلب وأوعية دموية</option>*@
+                        </select>
+                        <span for="diagnose">Diagnose</span>
+                    </div>
+
+                    <div class="forLabel">
+                        @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "chronic-form-control mb-3 ps-3", @ReadOnly = "true" } })
+                        @*<input class="chronic-form-control mb-3 ps-3"
+                            type="date"
+                            name="birth-date"
+                            required="required" />*@
+                        <span for="birth-date">Birth Date</span>
+                    </div>
+                    <div class="col-sm-2" hidden>
+                        @Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="forLabel">
+                        @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "chronic-form-control mb-3 ps-3", @ReadOnly = "true" } })
+
+                        <span for="company-percent">Company Percent</span>
+                    </div>
+                    <div class="forLabel">
+                        @Html.Editor("PrescriptionDate", new { htmlAttributes = new { @class = "chronic-form-control mb-3 ps-3", @ReadOnly = "true", @title = "لابد ان يكون ف اخر 7 ايام " } })
+                        @*<input class="chronic-form-control mb-3 ps-3"
+                            type="date"
+                            name="prescription-date"
+                            required="required" />*@
+                        <span for="prescription-date">Prescription Date</span>
+                    </div>
+                    <div class="forLabel">
+                        @Html.Editor("PhoneNumber", new { htmlAttributes = new { @class = "chronic-form-control mb-3 ps-3", @id = "PhoneNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+
+                        <span for="phone-number">Phone Number</span>
+                    </div>
+                    <div class="forLabel">
+                        <select id="ddlType" class="chronic-form-control mb-3 ps-3">
+                            <option value="11601">Daily</option>
+                            <option value="11603">Monthly</option>
+                            <option value="11602">Chronic</option>
+                            <option value="11604">Doctor</option>
+                        </select>
+                        @*<select class="chronic-form-control mb-3 ps-3"
+                                             name="type"
+                                             id=""
+                                             required>
+                                <option value="" style="font-weight: 800"></option>
+                                <option value="Daily">Daily</option>
+                                <option value="Monthly">Monthly</option>
+                                <option value="Chronic">Chronic</option>
+                                <option value="Doctor">Doctor</option>
+                            </select>*@
+                        <span for="type">Type</span>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <section>
+                <div class="sios-overlay container-fluid">
+                    <div class="container">
+                        <h3 class="">Medicines</h3>
+                    </div>
+                </div>
+                <div class="medicine-heading-select">
+                    <select id="AddMedicine" multiple="multiple" style="width:100%">
+                        <option value="0">select medicine</option>
+                    </select>
+                </div>
+                <!--Search Medicine-->
+                @*<div class="row">
+                        <div class="col-sm-12" data-step="9" data-intro="Select Medicines to Despense">
+                            <select id="AddMedicine" multiple="multiple" style="width:100%">
+                                <option value="0">select medicine</option>
+                            </select>
+                        </div>
+                    </div>*@
+                <!--Dynamic table-->
+                <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
+                    <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
+                </div>
+                <div class="row medicine-section-select">
+                    <table class="container" id="Pharmacy">
+                        <thead class="flex-nowrap">
+                            <tr>
+                                <th scope="col">Medicien Code</th>
+                                <th scope="col" align="center">Name</th>
+                                <th scope="col">Dosage</th>
+                                <th scope="col">Package Size</th>
+                                <th scope="col">Package Price</th>
+                                <th scope="col">Unit Number</th>
+                                <th scope="col">Unit Price</th>
+                                <th scope="col">Dose</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Total Duration</th>
+                                <th scope="col">Approved Quantity</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Group</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="row flex-wrap select-medicine-form container align-items-center m-auto mt-3">
+                    <div class=" row col-sm-8 col-md-6 row-col-2   pe-0">
+                        <div class="forLabel w-50">
+                            <input id="txtTotalInvoice" type="text" class="chronic-form-control mb-3 ps-3" ReadOnly="readonly" />
+                            <span for="total">Total</span>
+                        </div>
+                        <div class="forLabel w-50">
+                            <input id="txtTotalCopayment" type="text" class="chronic-form-control mb-3 ps-3" ReadOnly="readonly" />
+                            <span for="coPayment">Co-Payment</span>
+                        </div>
+                        <div class="forLabel w-50">
+                            <input id="txtValueCredit" type="text" class="chronic-form-control mb-3 ps-3" ReadOnly="readonly" />
+                            <span for="valueCredit">Value Credit</span>
+                        </div>
+                        <div class="forLabel w-50">
+                            <input id="txtOverInsurance" type="text" class="chronic-form-control mb-3 ps-3" ReadOnly="readonly" />
+                            <span for="overInsurance">Over Insurance</span>
+                        </div>
+                        <div class="forLabel w-50">
+                            <input id="txtCash" type="text" class="chronic-form-control mb-3 ps-3" ReadOnly="readonly" />
+                            <span for="cash">Cash</span>
+                        </div>
+                        <div class="forLabel w-50">
+                            <input id="txtValueCash" type="text" class="chronic-form-control mb-3 ps-3" ReadOnly="readonly" />
+                            <span for="totalCash">Total Cash</span>
+                        </div>
+                    </div>
+                    <div class="select-medicine-action m-auto d-flex justify-content-center col-3 col-sm-4 col-md-6 col-lg-4 ">
+                        <input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="phar-btn help-btn col" />
+                        <input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="phar-btn reset-btn col ms-2" />
+                        <input data-step="12" data-intro="Save Preception" id="submit" type="button" value="Dispense" class="phar-btn reset-btn col ms-2" />
+                        @*<button type="button" class=" phar-btn help-btn col">Help</button>*@
+
+                    </div>
+                    @*<a data-step="11" style="float: left; margin-left:40px;" class="btn btn-primary" href="@Url.Action("GetFile","Pharmacy",new { fileName = "Pharmacy" })" download="PharmacyManual.pdf"><i class="fa fa-download"></i> Manual</a>*@
+
+                </div>
+            </section>
+        </form>
+
+    </section>
+</div>
+<script src="~/assets/NewDesignBack/JS/bootstrap.bundle.min.js"></script>
+<script src="~/assets/NewDesignBack/JS/jquery-ui.js"></script>
+<script src="~/assets/NewDesignBack/JS/main.js"></script>
+<script src="~/assets/HomeTemplete/js/intro.js"></script>
+
+<script src="~/Scripts/DMS/Pharmacy.js?V=3.9"></script>

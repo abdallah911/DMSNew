@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DMS - @ViewBag.Title</title>
+    <title>SIOS - @ViewBag.Title</title>
     <!-- Bootstrap CSS -->
     <!-- main css -->
     <link rel="stylesheet" href="~/assets/HomeTemplete/css/style.css">
@@ -457,14 +457,14 @@
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                             {
 
-                                                    <li><a href="/Pharmacy/CardCode"> Card Code </a></li>
+                                                <li><a href="/Pharmacy/CardCode"> Card Code </a></li>
 
-                                                }
-                                                @if (modellist.Where(x => x.PageId == 29 && (x.FullControl || x.EditPermission
-                                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                                {
+                                            }
+                                            @if (modellist.Where(x => x.PageId == 29 && (x.FullControl || x.EditPermission
+                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
 
-                                                    <li><a href="/DoctorApprovals/Monthly">Doctor Chronic </a></li>
+                                                <li><a href="/DoctorApprovals/Monthly">Doctor Chronic </a></li>
 
                                                 }
 
