@@ -466,24 +466,24 @@
 
                                                 <li><a href="/DoctorApprovals/Monthly">Doctor Chronic </a></li>
 
-                                            }
+                                                }
 
-                                            @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
-                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
+                                                @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
 
-                                                <li><a href="/GetApproval/Index">Permissions List</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
-                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
+                                                    <li><a href="/GetApproval/Index">Permissions List</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
 
-                                                <li><a href="/GetApproval/Create">Permissions</a></li>
-                                            }
-                                        </ul>
-                                    </li>
+                                                    <li><a href="/GetApproval/Create">Permissions</a></li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
                                 }
-                            }
 
 
                         }
@@ -709,22 +709,32 @@
                         @*}
                             }*@
 
-                        <li class="nav-header">
-                            <div class="link"><i class="fa fa-paper-plane-o"></i>Report<i class="fa fa-chevron-down"></i></div>
-                            <ul class="submenu">
-                                <li><a href="/ReportMain/Index" class="link-cus">Pharmacy Report</a></li>
+                            <li class="nav-header">
+                                <div class="link"><i class="fa fa-paper-plane-o"></i>Report<i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    <li><a href="/ReportMain/Index" class="link-cus">Pharmacy Report</a></li>
 
-                                <li><a href="/ReportMain/ReportMed2" class="link-cus">Medicine Audit</a></li>
+                                    <li><a href="/ReportMain/ReportMed2" class="link-cus">Medicine Audit</a></li>
 
-                                <li><a href="/ReportMain/ReportPrint" class="link-cus">Print Report</a></li>
+                                    <li><a href="/ReportMain/ReportPrint" class="link-cus">Print Report</a></li>
 
-                                <li><a href="/ReportMain/Reports" class="link-cus">Reports</a></li>
+                                    <li><a href="/ReportMain/Reports" class="link-cus">Reports</a></li>
 
-                                <li><a href="/ReportMain/ReportProviderCheck" class="link-cus">Provider Check</a></li>
-                            </ul>
+                                    <li><a href="/ReportMain/ReportProviderCheck" class="link-cus">Provider Check</a></li>
+                                </ul>
 
-                        </li>
-                    </ul>
+                            </li>
+                            <li class="nav-header">
+                                <div class="link"><i class="fa fa-paper-plane-o"></i>New Report<i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    <li><a href="/NewReports/OperationReport" class="link-cus">Operation Reports</a></li>
+                                    <li><a href="/NewReports/ApprovalReports" class="link-cus">Approval Reports</a></li>
+                                    <li><a href="/NewReports/ConsumptionReport" class="link-cus">Consumption Reports</a></li>
+                                                                       
+                                </ul>
+
+                            </li>
+                        </ul>
                 </aside>
                 <div class="content">
                     <div class="top-bar">

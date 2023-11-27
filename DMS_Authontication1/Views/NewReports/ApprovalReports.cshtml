@@ -1,0 +1,281 @@
+﻿@*@model List<DMS_Authontication1.Models.NewReport>*@
+
+@{
+    Layout = "~/Views/Shared/_Reports.cshtml";
+}
+
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/assets/ReportDesign/CSS/main-reports.css" />
+
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/ReportDesign/JS/main-reports.js"></script>
+
+
+<div class="page-icon">
+    <div class="left-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="middle-icon active mx-2">
+        <div>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div class="right-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+<!-- start sidebar -->
+<!-- end sidebar -->
+<form class="reports-form overflow-hidden" action="Reports.html">
+    <div class="container">
+        <div class="row col-sm-10 ms-sm-auto">
+            <div class="sec-1 ms-sm-auto col-sm-10 col-lg-7 ">
+                <div class="reports-box   bg-secondary pt-3 ps-5 py-2 rounded-4">
+                    <h6 class=" fs-6 mb-4">ملخص استهلاك الموظفين موافقات</h6>
+                    <div class="   m-auto rounded-1">
+                        <select class="reports-box-field" id="TypeRepotApproval1">
+                            <option value="">نوع التقارير</option>
+                            <option value="0" dir="ltr">601-1- Consumption Per Employee VS. Service</option>
+                            <option value="1" dir="ltr">601-2- Consumption Per Super Group Service</option>
+                            <option value="2" dir="ltr">601-3- Consumption Per Gender</option>
+                            <option value="3" dir="ltr">601-4- Consumption Per Employee</option>
+                            <option value="4" dir="ltr">601-5- Consumption Summary</option>
+                            <option value="5" dir="ltr">601-6- Consumption Per Relation</option>
+                            <option value="6" dir="ltr">601-7- Consumption Details</option>
+                            <option value="7" dir="ltr">601-8- Consumption Per Provider</option>
+                            <option value="8" dir="ltr">601-9- Consumption Per Services</option>
+                        </select>
+                    </div>
+
+                    @*<div class="reports-box-field reports-field  m-auto rounded-0 ">
+                            <h6>القيمة</h6>
+                            <div class="reports-input-parent ">
+                                <input type="text" />
+                                <div class="radio">
+                                    <div>
+                                        <input name="value" type="radio" id="LessThanApproval" />
+                                        <label for="value1">اصغر من</label>
+                                    </div>
+                                    <div>
+                                        <input name="value" type="radio" id="LargeThanApproval" />
+                                        <label for="value2">اكبر من</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+                <div class="reports-field">
+                    <h6>الشركة</h6>
+                    <div class="reports-input-parent">
+                        @*<select style="border: none;"
+                                    class="reports-select home-2-field    "
+                                    name=""
+                                    id="">
+                                <option value="">من</option>
+                            </select>
+                            <select style="border: none;"
+                                    class="reports-select home-2-field    "
+                                    name=""
+                                    id="">
+                                <option value="">الى</option>
+                            </select>*@
+
+                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select home-2-field ", id = "CompFromApproval1" })
+
+                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "reports-select home-2-field ", id = "CompToApproval1" })
+
+
+                    </div>
+                </div>
+                <div class="reports-field">
+                    <h6>كود الفئة</h6>
+                    <div class="reports-input-parent">
+                        <select class="reports-select w-100 " id="ClassApproval">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="reports-field">
+                    <h6>رقم الكارت</h6>
+                    <div class="reports-input-parent">
+                        <select style="border: none;"
+                                class="reports-select home-2-field    "
+                                id="CardFromApproval">
+                            <option value="">من</option>
+                        </select>
+                        <select style="border: none;"
+                                class="reports-select home-2-field    "
+                                id="CardToApproval">
+                            <option value="">الى</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="reports-field">
+                    <h6>رقم مقدم الخدمة</h6>
+                    <div class="reports-input-parent">
+                        <select class="reports-select w-100 " id="ProviderApproval">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="reports-field mb-3">
+                    <h6>نوع الطباعة</h6>
+                    <div class="reports-input-parent  ">
+                        <div style="    width: 100%; margin-left: 10px !important;"
+                             class="reports-select  d-flex align-items-center justify-content-center ">
+                            <div class="d-flex ms-4">
+                                <input class="ms-2"
+                                       id="excelApproval1"
+                                       name="radio1"
+                                       type="radio" />
+                                <label for="radio1">Excel</label>
+                            </div>
+                            <div class="d-flex ">
+                                <input class="ms-2"
+                                       id="PdfApproval1"
+                                       name="radio1"
+                                       type="radio" />
+                                <label for="radio2">pdf</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-btns-sec   col-6">
+                    <div style="grid-template-columns: repeat(3, auto);"
+                         class="action-btns  ">
+                        <button type="button" class="action-btn fw-bold" onclick="PrintReportConsumApproval()">
+                            طباعة
+                        </button><button type="button" class="action-btn fw-bold" onclick="NewApproval1()">
+                            جديد
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="sec-2-parent  col-10 m-auto ms-sm-auto me-sm-0 col-sm-10  col-lg-5">
+                <div class="sec-2 ">
+                    <div class=" m-auto">
+                        <div class="reports-box  bg-secondary pb-1 pt-4 rounded-4">
+                            <div class="   m-auto rounded-1">
+                                <select class="reports-box-field" id="TypeRepotApproval2">
+                                    <option value="">نوع التقارير</option>
+                                    <option value="0" dir="ltr">602-1- منشء الموافقة</option>
+                                    <option value="1" dir="ltr">602-2- الكارت</option>
+                                    <option value="2" dir="ltr">602-3- التاريخ</option>
+                                    <option value="3" dir="ltr">602-4- التاريخ والخدمة</option>
+                                    <option value="4" dir="ltr">602-5- الشركة</option>
+                                    <option value="5" dir="ltr">602-6- قيمة الموافقة</option>
+                                    <option value="6" dir="ltr">602-7- مقدم الخدمة</option>
+                                    <option value="7" dir="ltr">602-8- الرد</option>
+                                    <option value="8" dir="ltr">602-9- الموافقات المحذوفة والمعدلة</option>
+                                    <option value="9" dir="ltr">602-10- موافقات Recollection</option>
+                                    <option value="10" dir="ltr">602-11- الخدمة</option>
+                                    <option value="11" dir="ltr">602-12- عدد أيام الإقامة</option>
+                                    <option value="12" dir="ltr">602-13- Exceptions</option>
+                                    <option value="13" dir="ltr">602-14- الخدمة / نوع الشركة</option>
+                                </select>
+                            </div>
+                            <div class="reports-field">
+                                <h6>تاريخ التسجيل</h6>
+                                <div class="reports-input-parent">
+                                    <input type="text"
+                                           class="date-input reports-inp"
+                                           placeholder="من" id="RepordFromDateApproval" />
+                                    <input type="text"
+                                           class="date-input reports-inp"
+                                           placeholder="الى" id="RepordToDateApproval" />
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>الشركة</h6>
+                                <div class="reports-input-parent">
+                                    @*<select style="border: none;"
+                                                class="reports-select     "
+                                                name=""
+                                                id="">
+                                            <option value="">من</option>
+                                        </select>
+                                        <select style="border: none;"
+                                                class="reports-select     "
+                                                name=""
+                                                id="">
+                                            <option value="">الى</option>
+                                        </select>*@
+
+                                    @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select", id = "CompFromApproval2" })
+
+                                    @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "reports-select", id = "CompToApproval2" })
+
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>قيمة الموافقة</h6>
+                                <div class="reports-input-parent">
+                                    <input type="text"
+                                           class=" reports-inp"
+                                           placeholder="من" id="ValueApprovalFrom" />
+                                    <input type="text"
+                                           class=" reports-inp"
+                                           placeholder="الى" id="ValueApprovalTo" />
+                                </div>
+                            </div>
+
+                            <div class="reports-field">
+                                <h6>نوع الطباعة</h6>
+                                <div class="reports-input-parent  ">
+                                    <div style="width: 100%;margin-left: 10px !important;"
+                                         class="reports-select  d-flex align-items-center justify-content-center ">
+                                        <div class="d-flex ms-4">
+                                            <input class="ms-2"
+                                                   id="excelApproval2"
+                                                   name="radio1"
+                                                   type="radio" />
+                                            <label for="radio1">Excel</label>
+                                        </div>
+                                        <div class="d-flex ">
+                                            <input class="ms-2"
+                                                   id="PdfApproval2"
+                                                   name="radio1"
+                                                   type="radio" />
+                                            <label for="radio2">pdf</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="action-btns-sec  justify-content-center col-9">
+                                <div style="grid-template-columns: repeat(3, auto);"
+                                     class="action-btns  ">
+                                    <button type="button" class="action-btn fw-bold" onclick="PrintDetailsApproval()">
+                                        مفصل
+                                    </button>
+                                    <button type="button" class="action-btn fw-bold" onclick="PrintSummaryApproval()">
+                                        ملخص
+                                    </button><button type="button" class="action-btn fw-bold" onclick="NewApproval2()">
+                                        جديد
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- End Section -->
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script src="~/Scripts/DMS/NewReport.js?V=3.2"></script>

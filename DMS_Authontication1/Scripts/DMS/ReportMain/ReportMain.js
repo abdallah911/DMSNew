@@ -76,7 +76,35 @@
         }
     });
 
+    $('#CardNoMed').select2({
+        placeholder: 'Search for a card',
+        minimumInputLength: 5,
+        ajax: {
+            url: '/EmployeeRequest/GetActiveEmployess/',
+            delay: 250,
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page || 1
+                }
+                return query;
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                var obj = {};
+                data.push(obj)
+                return {
+                    results: data,//.results,
+                    pagination: {
+                        more: (params.page * 10) < data.count_filtered
+                    }
+                };
+            }
+            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
 
+        }
+    });
 
     $('#CopmanyNumber2').select2();
     $('#ddlGroups').select2({
@@ -187,6 +215,13 @@
             div.style.display = "none";
         }
     });
+
+
+
+    //New Screen
+    $('#CompNoMed').select2();
+    /*$('#CardNoMed').select2();*/
+ 
 
     //$('#CardNoReports').select2({
     //    placeholder: 'Search for a card',
@@ -316,6 +351,20 @@ function ClearAll2() {
 
 }
 
+function ClearAllMed() {
+
+
+    $('#RegistrationFromMed').val('');
+    $('#RegistrationToMed').val('');
+    $('#CompNoMed').val('').trigger("change");
+    $('#CardNoMed').val('').trigger("change");
+    $('#RepotTypeMed').val(1);
+
+    $("#pdfMed").prop("checked", false);
+    $("#excelMed").prop("checked", false);
+
+}
+
 function PrintReport2() {
     var RegistrationFrom = $('#RegistrationFrom').val();
     var RegistrationTo = $('#RegistrationTo').val();
@@ -351,6 +400,44 @@ function PrintReport2() {
                 '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
                 '&&crd=' + crd + '&&RepotType=' + RepotType);
         }
+}
+
+function PrintReportMed() {
+    debugger;
+    var RegistrationFrom = $('#RegistrationFromMed').val();
+    var RegistrationTo = $('#RegistrationToMed').val();
+    var CopmanyNumber = $('#CompNoMed').val();
+    var crd = $('#CardNoMed').val();
+    var RepotType = $('#RepotTypeMed').val();
+
+    //chick if not search with card number
+    if ($("#excelMed").is(":checked")) {
+        // do something if the excel is  checked
+        if ($("#pdfMed").is(":checked")) {
+            // do something if the pdf is  checked
+            // Print PDF and EXCEL
+            window.open('/ReportMain/PrintReports2MedPdf?Regfrom=' + RegistrationFrom +
+                '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
+                '&&crd=' + crd + '&&RepotType=' + RepotType);
+
+            window.open('/ReportMain/PrintReports2MedExcel?Regfrom=' + RegistrationFrom +
+                '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
+                '&&crd=' + crd + '&&RepotType=' + RepotType);
+        }
+        else {
+            // Print EXCEL Only
+            window.open('/ReportMain/PrintReports2MedExcel?Regfrom=' + RegistrationFrom +
+                '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
+                '&&crd=' + crd + '&&RepotType=' + RepotType);
+        }
+
+    }
+    else {
+        // Print PDF as Default
+        window.open('/ReportMain/PrintReports2MedPdf?Regfrom=' + RegistrationFrom +
+            '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
+            '&&crd=' + crd + '&&RepotType=' + RepotType);
+    }
 }
 
 function ClearAll3() {
