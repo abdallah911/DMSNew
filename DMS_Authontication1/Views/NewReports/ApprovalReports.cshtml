@@ -3,6 +3,16 @@
 @{
     Layout = "~/Views/Shared/_Reports.cshtml";
 }
+
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/assets/ReportDesign/CSS/main-reports.css" />
+
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/ReportDesign/JS/main-reports.js"></script>
+
+
 <div class="page-icon">
     <div class="left-icon">
         <span></span>
@@ -28,7 +38,6 @@
     </div>
 </div>
 <!-- start sidebar -->
-
 <!-- end sidebar -->
 <form class="reports-form overflow-hidden" action="Reports.html">
     <div class="container">
@@ -52,37 +61,37 @@
                     </div>
 
                     @*<div class="reports-box-field reports-field  m-auto rounded-0 ">
-                <h6>القيمة</h6>
-                <div class="reports-input-parent ">
-                    <input type="text" />
-                    <div class="radio">
-                        <div>
-                            <input name="value" type="radio" id="LessThanApproval" />
-                            <label for="value1">اصغر من</label>
-                        </div>
-                        <div>
-                            <input name="value" type="radio" id="LargeThanApproval" />
-                            <label for="value2">اكبر من</label>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
+                            <h6>القيمة</h6>
+                            <div class="reports-input-parent ">
+                                <input type="text" />
+                                <div class="radio">
+                                    <div>
+                                        <input name="value" type="radio" id="LessThanApproval" />
+                                        <label for="value1">اصغر من</label>
+                                    </div>
+                                    <div>
+                                        <input name="value" type="radio" id="LargeThanApproval" />
+                                        <label for="value2">اكبر من</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
                 </div>
                 <div class="reports-field">
                     <h6>الشركة</h6>
                     <div class="reports-input-parent">
                         @*<select style="border: none;"
-                        class="reports-select home-2-field    "
-                        name=""
-                        id="">
-                    <option value="">من</option>
-                </select>
-                <select style="border: none;"
-                        class="reports-select home-2-field    "
-                        name=""
-                        id="">
-                    <option value="">الى</option>
-                </select>*@
+                                    class="reports-select home-2-field    "
+                                    name=""
+                                    id="">
+                                <option value="">من</option>
+                            </select>
+                            <select style="border: none;"
+                                    class="reports-select home-2-field    "
+                                    name=""
+                                    id="">
+                                <option value="">الى</option>
+                            </select>*@
 
                         @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select home-2-field ", id = "CompFromApproval1" })
 
@@ -100,7 +109,7 @@
                     </div>
                 </div>
                 <div class="reports-field">
-                    <h6>من رقم الكارت</h6>
+                    <h6>رقم الكارت</h6>
                     <div class="reports-input-parent">
                         <select style="border: none;"
                                 class="reports-select home-2-field    "
@@ -131,16 +140,14 @@
                                 <input class="ms-2"
                                        id="excelApproval1"
                                        name="radio1"
-                                       type="radio"
-                                        />
-                                <label for="radio1">اكسل</label>
+                                       type="radio" />
+                                <label for="radio1">Excel</label>
                             </div>
                             <div class="d-flex ">
                                 <input class="ms-2"
                                        id="PdfApproval1"
                                        name="radio1"
-                                       type="radio"
-                                        />
+                                       type="radio" />
                                 <label for="radio2">pdf</label>
                             </div>
                         </div>
@@ -195,21 +202,21 @@
                                 <h6>الشركة</h6>
                                 <div class="reports-input-parent">
                                     @*<select style="border: none;"
-                        class="reports-select     "
-                        name=""
-                        id="">
-                    <option value="">من</option>
-                </select>
-                <select style="border: none;"
-                        class="reports-select     "
-                        name=""
-                        id="">
-                    <option value="">الى</option>
-                </select>*@
+                                                class="reports-select     "
+                                                name=""
+                                                id="">
+                                            <option value="">من</option>
+                                        </select>
+                                        <select style="border: none;"
+                                                class="reports-select     "
+                                                name=""
+                                                id="">
+                                            <option value="">الى</option>
+                                        </select>*@
 
-                                    @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select home-2-field ", id = "CompFromApproval2" })
+                                    @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select", id = "CompFromApproval2" })
 
-                                    @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "reports-select home-2-field ", id = "CompToApproval2" })
+                                    @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "reports-select", id = "CompToApproval2" })
 
                                 </div>
                             </div>
@@ -234,16 +241,14 @@
                                             <input class="ms-2"
                                                    id="excelApproval2"
                                                    name="radio1"
-                                                   type="radio"
-                                                    />
-                                            <label for="radio1">اكسل</label>
+                                                   type="radio" />
+                                            <label for="radio1">Excel</label>
                                         </div>
                                         <div class="d-flex ">
                                             <input class="ms-2"
                                                    id="PdfApproval2"
                                                    name="radio1"
-                                                   type="radio"
-                                                    />
+                                                   type="radio" />
                                             <label for="radio2">pdf</label>
                                         </div>
                                     </div>
@@ -272,4 +277,5 @@
 </form>
 <!-- End Section -->
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
 <script src="~/Scripts/DMS/NewReport.js?V=3.2"></script>

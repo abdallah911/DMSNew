@@ -11,11 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap"
           rel="stylesheet" />
     <link rel="stylesheet" href="~/assets/ReportDesign/CSS/all.min.css" />
-    @*<link rel="stylesheet" href="~/assets/ReportDesign/CSS/select2.min.css" />*@
-    <link href="~/assets/HomeTemplete/Content/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/assets/ReportDesign/CSS/bootstrap.min.css" />
     <link rel="stylesheet" href="~/assets/ReportDesign/CSS/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/assets/ReportDesign/CSS/select2.min.css" />
     <link rel="stylesheet" href="~/assets/ReportDesign/CSS/main-reports.css" />
+
 </head>
 <body>
     <!-- Main Menu -->
@@ -60,33 +60,51 @@
             </nav>
 
             <!-- end menu -->
-            <!-- start sidebar -->
-
+         <!-- start sidebar -->
             <div class="sidebar-parent col-4 position-fixed z-2">
                 <div class="sideBar   col-8">
                     <div class="operation-btns">
                         <a href="/NewReports/OperationReport">
-                            <button>Operation</button>
+                            <button class="sidebar-item" id="reportsOperation">
+                                Operation
+                            </button>
                         </a>
                         <br />
                         <a href="/NewReports/ApprovalReports">
-                            <button class="active">Approval</button>
+                            <button class="sidebar-item" id="reportsApproval">
+                                Medical Approval
+                            </button>
                         </a>
                         <a href="/NewReports/ReportsPrinting">
-                            <button>Printing</button>
+                            <button class="sidebar-item" id="reportsPrinting">
+                                Printing
+                            </button>
                         </a>
                         <br />
                         <a href="/NewReports/ConsumptionReport">
-                            <button>Consumption</button>
+                            <button class="sidebar-item" id="reportsConsumption">
+                                Consumption
+                            </button>
                         </a>
                         <a href="/NewReports/ReportsLoseRatio">
-                            <button>Loss Ratio</button>
+                            <button class="sidebar-item" id="reportsLoseRatio">
+                                Lose Ratio
+                            </button>
                         </a>
                         <a href="/NewReports/ReportsCustomerServices">
-                            <button>Customer Services</button>
+                            <button class="sidebar-item" id="reportsCustomerServices">
+                                Customer Services
+                            </button>
+                        </a>
+                        <a href="/NewReports/ReportsContract">
+                            <button class="sidebar-item" id="reportsContract">
+                                Contract
+                            </button>
                         </a>
                         <a href="/NewReports/ReportsPharmacy">
-                            <button>Pharmacy</button>
+                            <button class="sidebar-item" id="reportsPharmacy">
+                                Pharmacy
+                            </button>
                         </a>
                     </div>
                 </div>
@@ -137,20 +155,16 @@
         </footer>
         <!-- End Footer -->
     </div>
-    @*<script src="~/assets/ReportDesign/JS/bootstrap.bundle.min.js"></script>
-    <script src="~/assets/ReportDesign/JS/jquery.min.js"></script>
-    <script src="~/assets/ReportDesign/JS/jquery-3.6.0.js"></script>
-    <script src="~/assets/ReportDesign/JS/jquery-ui.js"></script>
-    <script src="~/assets/ReportDesign/JS/main-reports_operation.js"></script>*@
+
 
     <script src="~/assets/ReportDesign/JS/bootstrap.bundle.min.js"></script>
-    @*<script src="~/assets/ReportDesign/JS/select2.min.js"></script>*@
     <script src="~/assets/ReportDesign/JS/jquery.min.js"></script>
     <script src="~/assets/ReportDesign/JS/jquery-3.6.0.js"></script>
     <script src="~/assets/ReportDesign/JS/jquery-ui.js"></script>
+    <script src="~/assets/ReportDesign/JS/select2.min.js"></script>
     <script src="~/assets/ReportDesign/JS/main-reports.js"></script>
 
-    @*<script>
+    <script>
         var notification = 0;
         $(document).ready(function () {
             // Declare a proxy to reference the hub.
@@ -225,6 +239,6 @@
                 }
             });
         }
-    </script>*@
+    </script>
 </body>
 </html>

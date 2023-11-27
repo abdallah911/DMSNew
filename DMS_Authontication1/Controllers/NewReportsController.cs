@@ -385,6 +385,8 @@ namespace DMS_Authontication1.Controllers
                 rd.SetParameterValue("comp", comp1);
                 rd.SetParameterValue("rel1", rel1);
                 rd.SetParameterValue("rel2", rel2);
+                rd.SetDatabaseLogon("APP", "12369");
+
             }
 
             Response.Buffer = false;
@@ -1200,9 +1202,84 @@ namespace DMS_Authontication1.Controllers
         #region LoseRatio
         public ActionResult ReportsLoseRatio()
         {
-            //getAllCompany();
+            getAllCompany();
 
             return View();
+        }
+
+        public ActionResult PrintLossRatioReports(string CompanyFrom, string CompanyTo,
+                                              string RepotType, string PrintAS)
+        {
+            Int64 cmp1, cmp2;
+            string nam = "";
+
+            cmp1 = string.IsNullOrEmpty(CompanyFrom) ? 0 : Convert.ToInt64(CompanyFrom);
+            cmp2 = string.IsNullOrEmpty(CompanyTo) ? 999999999 : Convert.ToInt64(CompanyTo);
+
+            ReportDocument rd = new ReportDocument();
+
+            switch (Convert.ToInt32(RepotType))
+            {
+                case 0:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LossRatioReport.rpt"));
+                    nam = "Loss Ratio Report";
+                    break;
+                //case 1:
+                //    rd.Load(Path.Combine(Server.MapPath("~/Reports/PrintingReports"), "OrderWithoutPrint.rpt"));
+                //    nam = "Order Without Print";
+                //    break;
+                //case 2:
+                //    rd.Load(Path.Combine(Server.MapPath("~/Reports/PrintingReports"), "PrintWithoutReview.rpt"));
+                //    nam = "Print Without Review";
+                //    break;
+                //case 3:
+                //    rd.Load(Path.Combine(Server.MapPath("~/Reports/PrintingReports"), "PrintWithReview.rpt"));
+                //    nam = "Print With Review";
+                //    break;
+                //case 4:
+                //    rd.Load(Path.Combine(Server.MapPath("~/Reports/PrintingReports"), "PrintWithDelivery.rpt"));
+                //    nam = "Print With Delivery";
+                //    break;
+
+                default:
+                    return View();
+            }
+
+            rd.SetDatabaseLogon("APP", "12369");
+                       
+            rd.SetParameterValue("COMP1", cmp1);
+            rd.SetParameterValue("COMP2", cmp2);
+            //rd.SetParameterValue("UserName", User.Identity.GetUserName());
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                if (PrintAS == "1")
+                {
+                    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    rd.Close();
+                    rd.Dispose();
+                    GC.Collect();
+                    return File(stream, "application/xls", nam + ".xls");
+                }
+                else
+                {
+                    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    rd.Close();
+                    rd.Dispose();
+                    GC.Collect();
+                    return File(stream, "application/pdf", nam + ".pdf");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         #endregion

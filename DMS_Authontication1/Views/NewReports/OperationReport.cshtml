@@ -3,6 +3,9 @@
 @{
     Layout = "~/Views/Shared/_Reports.cshtml";
 }
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 
 
 
@@ -14,7 +17,7 @@
                 <div>
                     <div class="reports-select-parent w-100 ">
                         <select style="height: 65px;border: none;"
-                                class=" first-reports-field operation-reports-field " id="TypeReport">
+                                class="first-reports-field operation-reports-field " id="TypeReport">
                             <option value="">انواع التقارير</option>
                             <option value="1-1">401 - 1 - إضافات</option>
                             <option value="1-2">401 - 2 - إلغاءات</option>
@@ -39,9 +42,9 @@
                     <h6>الشركة</h6>
                     <div class="reports-select-parent">
 
-                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select select2", id = "CopmanyNameReportsFrom" })
+                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "select2 reports-select", id = "CopmanyNameReportsFrom" })
 
-                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "reports-select select2", id = "CopmanyNameReportsTo" })
+                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "select2 reports-select", id = "CopmanyNameReportsTo" })
 
                     </div>
                 </div>
@@ -69,7 +72,7 @@
                 </div>
                 <div class="reports-field">
                     <h6>نوع الطباعة</h6>
-                    <div class="reports-input-parent select2">
+                    <div class="reports-input-parent">
                         <div style="    width: 100%; margin-left: 10px !important;"
                              class="reports-select  d-flex align-items-center justify-content-center ">
                             <div class="d-flex ms-4">
@@ -103,7 +106,7 @@
                 </div>
 
             </div>
-        
+
             @*<div class="action-btns-sec text-center mt-3 mt-lg-auto  mb-lg-0 ms-2 col-6  col-lg-3">
                     <div style="justify-content: center ;" class="action-btns  ">
                         <button type="button" class="action-btn" onclick="PrintReportTransaction()">transaction</button>
@@ -140,4 +143,6 @@
 </form>
 <!-- End Section -->
 @*<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>*@
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 <script src="~/Scripts/DMS/NewReport.js?V=3.2"></script>

@@ -1,4 +1,56 @@
 $(document).ready(function () {
+  $(document).ready(function () {
+      $("#").select2()(["multiple: true"]);
+  });
+    $(document).on('select2:open', () => {
+        document.querySelector('.select2-search__field').focus();
+    });
+
+    
+    //$('#CardFromApproval').select2({       
+    //    placeholder: 'Search for a card',
+    //    minimumInputLength: 5,
+    //    ajax: {
+    //        url: '/EmployeeRequest/GetActiveEmployess/',
+    //        delay: 250,
+    //        dataType: 'json',
+    //        data: function (params) {
+    //            var query = {
+    //                search: params.term,
+    //                page: params.page || 1
+    //            }
+    //            return query;
+    //        },
+    //        processResults: function (data, params) {
+    //            params.page = params.page || 1;
+    //            var obj = {};
+    //            data.push(obj)
+    //            return {
+    //                results: data,//.results,
+    //                pagination: {
+    //                    more: (params.page * 10) < data.count_filtered
+    //                }
+    //            };
+    //        }
+    //        // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+    //    }
+    //});
+
+
+    //$('#CompFromApproval1').select2();
+
+
+  $(".sidebar-item").click(function () {
+    $(".sidebar-item").removeClass("active");
+    $(this).addClass("active");
+    localStorage.setItem("activeLink", $(this).attr("id"));
+  });
+
+  var activeLink = localStorage.getItem("activeLink");
+  if (activeLink) {
+    $("#" + activeLink).addClass("active");
+  }
   $(function () {
     $(".date-input").datepicker();
   });

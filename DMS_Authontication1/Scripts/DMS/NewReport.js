@@ -1,18 +1,266 @@
 ﻿$(function () {
 
-    $('#TypeReport').val();
-    $('#CopmanyNameReportsFrom').select2();
+    //$('#TypeReport').val();
+    //$('#CopmanyNameReportsFrom').select2();
     //$('#CopmanyNameReportsTo').select2();
-    $('#RegistrationFrom').datepicker({});
-    $('#RegistrationTo').datepicker({});
-    $('#ActivationFrom').datepicker({});
-    $('#ActivationTo').datepicker({});
+    //$('#RegistrationFrom').datepicker({});
+    //$('#RegistrationTo').datepicker({});
+    //$('#ActivationFrom').datepicker({});
+    //$('#ActivationTo').datepicker({});
 
-    //$('#CompFromApproval1').select2();
-    //$('#CompToApproval1').select2();
+    //Operation
+    $('#CopmanyNameReportsFrom').select2();
+    $('#CopmanyNameReportsTo').select2();
 
-    //$('#CompFromApproval1').select2();
-    //$('#CompToApproval1').select2();
+    //Approval
+    $('#CompFromApproval1').select2();
+    $('#CompToApproval1').select2();
+    $('#CardFromApproval').select2();
+    $('#CardToApproval').select2();
+    
+    $('#CardFromApproval').select2({
+        placeholder: 'من',
+        minimumInputLength: 5,
+        ajax: {
+            url: '/EmployeeRequest/GetActiveEmployess/',
+            delay: 250,
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page || 1
+                }
+                return query;
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                var obj = {};
+                data.push(obj)
+                return {
+                    results: data,//.results,
+                    pagination: {
+                        more: (params.page * 10) < data.count_filtered
+                    }
+                };
+            }
+            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+        }
+    });
+    $('#CardToApproval').select2({
+        placeholder: 'إلى',
+        minimumInputLength: 5,
+        ajax: {
+            url: '/EmployeeRequest/GetActiveEmployess/',
+            delay: 250,
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page || 1
+                }
+                return query;
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                var obj = {};
+                data.push(obj)
+                return {
+                    results: data,//.results,
+                    pagination: {
+                        more: (params.page * 10) < data.count_filtered
+                    }
+                };
+            }
+            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+        }
+    });
+
+    $("#CompFromApproval1").change(function () {// class levels
+        var compNu = $("#CompFromApproval1").val();
+        $.get("/MedicalNetwork/GetClassList",
+            { compId: compNu }, function (data) {
+                $("#ClassApproval").empty();
+                $.each(data, function (index, row) {
+                    $("#ClassApproval").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                });
+            });
+    });
+
+    $('#ProviderApproval').select2({
+        placeholder: 'Search for a Provider ',
+        minimumInputLength: 2,
+        ajax: {
+            url: '/ConsumptionAdmin/GetProviderUsers/',
+            delay: 250,
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page || 1
+                }
+                return query;
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                var obj = {};
+                data.push(obj)
+                return {
+                    results: data,//.results,
+                    pagination: {
+                        more: (params.page * 10) < data.count_filtered
+                    }
+                };
+            }
+            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+        }
+    });
+
+    $('#CompFromApproval2').select2();
+    $('#CompToApproval2').select2();
+
+    //Printing
+    $('#CompFromPrint').select2();
+    $('#CompToPrint').select2();
+
+    //Consumption
+    $('#CopmanyNumberFrom').select2();
+    $('#CopmanyNumberTo').select2();
+
+    $("#CopmanyNumberFrom").change(function () {// class levels
+        var compNu = $("#CopmanyNumberFrom").val();
+        $.get("/MedicalNetwork/GetClassList",
+            { compId: compNu }, function (data) {
+                $("#ClassCodeConsum").empty();
+                $.each(data, function (index, row) {
+                    $("#ClassCodeConsum").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                });
+            });
+    });
+    
+    $('#CardIdFrom').select2({
+        placeholder: 'من',
+        minimumInputLength: 5,
+        ajax: {
+            url: '/EmployeeRequest/GetActiveEmployess/',
+            delay: 250,
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page || 1
+                }
+                return query;
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                var obj = {};
+                data.push(obj)
+                return {
+                    results: data,//.results,
+                    pagination: {
+                        more: (params.page * 10) < data.count_filtered
+                    }
+                };
+            }
+            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+        }
+    });
+    $('#CardIdTo').select2({
+        placeholder: 'إلى',
+        minimumInputLength: 5,
+        ajax: {
+            url: '/EmployeeRequest/GetActiveEmployess/',
+            delay: 250,
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page || 1
+                }
+                return query;
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                var obj = {};
+                data.push(obj)
+                return {
+                    results: data,//.results,
+                    pagination: {
+                        more: (params.page * 10) < data.count_filtered
+                    }
+                };
+            }
+            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+        }
+    });
+    
+    $('#ProviderNameFrom').select2({
+        placeholder: 'من ',
+        minimumInputLength: 2,
+        ajax: {
+            url: '/ConsumptionAdmin/GetProviderUsers/',
+            delay: 250,
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page || 1
+                }
+                return query;
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                var obj = {};
+                data.push(obj)
+                return {
+                    results: data,//.results,
+                    pagination: {
+                        more: (params.page * 10) < data.count_filtered
+                    }
+                };
+            }
+            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+        }
+    });
+    $('#ProviderNameTo').select2({
+        placeholder: 'إلى ',
+        minimumInputLength: 2,
+        ajax: {
+            url: '/ConsumptionAdmin/GetProviderUsers/',
+            delay: 250,
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page || 1
+                }
+                return query;
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                var obj = {};
+                data.push(obj)
+                return {
+                    results: data,//.results,
+                    pagination: {
+                        more: (params.page * 10) < data.count_filtered
+                    }
+                };
+            }
+            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+        }
+    });
+
+    //Loss Ratio
+    $('#CompFromLossRatio').select2();
+    $('#CompToLossRatio').select2();
 
 });
 
@@ -29,14 +277,16 @@ function PrintReportOperation() {
         //chick if not search with card number
         if ($("#excel").is(":checked")) {      
                 // Print EXCEL Only
-            window.open('/NewReports/PrintReportsPdf?RegistrationFrom=' + RegistrationFrom +
-                    '&&RegistrationTo=' + RegistrationTo + '&&ActivationFrom=' + ActivationFrom + '&&ActivationTo=' + ActivationTo +
-                    '&&CopmanyNameReportsFrom=' + CopmanyNameReportsFrom + '&&CopmanyNameReportsTo=' + CopmanyNameReportsTo +
-                    '&&TypeReport=' + TypeReport);
+            window.open('/NewReports/PrintReportsExcel?RegistrationFrom=' + RegistrationFrom +
+                '&&RegistrationTo=' + RegistrationTo + '&&ActivationFrom=' + ActivationFrom + '&&ActivationTo=' + ActivationTo +
+                '&&CopmanyNameReportsFrom=' + CopmanyNameReportsFrom + '&&CopmanyNameReportsTo=' + CopmanyNameReportsTo +
+                '&&TypeReport=' + TypeReport);
             }        
         else {
             // Print PDF as Default
-            window.open('/NewReports/PrintReportsExcel?RegistrationFrom=' + RegistrationFrom +
+        
+
+            window.open('/NewReports/PrintReportsPdf?RegistrationFrom=' + RegistrationFrom +
                 '&&RegistrationTo=' + RegistrationTo + '&&ActivationFrom=' + ActivationFrom + '&&ActivationTo=' + ActivationTo +
                 '&&CopmanyNameReportsFrom=' + CopmanyNameReportsFrom + '&&CopmanyNameReportsTo=' + CopmanyNameReportsTo +
                 '&&TypeReport=' + TypeReport);
@@ -125,7 +375,8 @@ function PrintReportConsumApproval() {
         
     }
     else {
-        toastr.info('Select Type Report Please');
+        //toastr.info('Select Type Report Please');
+        alert('Select Type Report Please');
     }
 
 
@@ -268,6 +519,29 @@ function PrintingPrint() {
 
         window.open('/NewReports/PrintPrintingReports?datfrom=' + RegistrationFrom +
             '&&datto=' + RegistrationTo + '&&CompanyFrom=' + CompanyFrom + '&&CompanyTo=' + CompanyTo +
+            '&&RepotType=' + RepotType + '&&PrintAS=' + PrintAS);
+
+    }
+    else {
+        toastr.info('select Type Report To print first');
+    }
+
+}
+function PrintingLossRatio() {
+    debugger;
+      
+    var CompanyFrom = $('#CompFromLossRatio').val();
+    var CompanyTo = $('#CompToLossRatio').val();
+    var RepotType = $('#TypeRepotLossRatio').val();
+    var PrintAS = 2;
+
+    if (RepotType != "") {
+        if ($("#excelLossRatio").is(":checked"))
+            PrintAS = 1;
+        else
+            PrintAS = 2;
+
+        window.open('/NewReports/PrintLossRatioReports?CompanyFrom=' + CompanyFrom + '&&CompanyTo=' + CompanyTo +
             '&&RepotType=' + RepotType + '&&PrintAS=' + PrintAS);
 
     }
