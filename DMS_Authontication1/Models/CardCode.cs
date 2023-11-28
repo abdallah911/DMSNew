@@ -18,7 +18,7 @@ namespace DMS_Authontication1.Models
         public string CardId { get; set; }
         public string Code { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; } 
         public bool IsActive { get; set; }
         public bool IsUsed { get; set; }
     }
