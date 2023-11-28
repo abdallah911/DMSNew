@@ -459,6 +459,9 @@
     <Compile Include="Models\ApprovalBil.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ApprovalCode.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ApprovalDetail.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -473,6 +476,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CardAcceptionReason.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CardCode.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CardsSm.cs">
@@ -7650,10 +7656,6 @@
     <Content Include="assets\ReportDesign\CSS\images\ui-icons_ffffff_256x240.png" />
     <Content Include="assets\ReportDesign\CSS\jquery-ui.css" />
     <Content Include="assets\ReportDesign\CSS\jquery-ui.min.css" />
-    <Content Include="assets\ReportDesign\CSS\jquery-ui.theme.min.css" />
-    <Content Include="assets\ReportDesign\CSS\main.css" />
-    <Content Include="assets\ReportDesign\CSS\readme.txt" />
-    <Content Include="assets\ReportDesign\Images\backgroun-22-01.jpg" />
     <Content Include="assets\ReportDesign\Images\logo D M S 4-04.png" />
     <Content Include="assets\ReportDesign\Images\logo-dms-white2.png" />
     <Content Include="assets\ReportDesign\Images\Untitled-1  2-01.jpg" />
@@ -7680,9 +7682,7 @@
     <Content Include="assets\ReportDesign\JS\bootstrap.bundle.min.js" />
     <Content Include="assets\ReportDesign\JS\jquery-3.6.0.js" />
     <Content Include="assets\ReportDesign\JS\jquery-ui.js" />
-    <Content Include="assets\ReportDesign\JS\jquery-ui.min.js" />
     <Content Include="assets\ReportDesign\JS\jquery.min.js" />
-    <Content Include="assets\ReportDesign\JS\main.js" />
     <Content Include="Content\ApprovalImages\logo773242063151466883675182756090.jpeg" />
     <Content Include="Content\ApprovalImages\medical data183136055.png" />
     <Content Include="Content\ApprovalImages\te0st.jpg" />
@@ -8277,7 +8277,6 @@
     <Content Include="assets\NewDesignBack\webfonts\fa-solid-900.woff2" />
     <Content Include="assets\NewDesignBack\webfonts\fa-v4compatibility.ttf" />
     <Content Include="assets\NewDesignBack\webfonts\fa-v4compatibility.woff2" />
-    <Content Include="assets\ReportDesign\CSS\jquery-ui.css.images.zip" />
     <Content Include="assets\ReportDesign\webfonts\fa-brands-400.ttf" />
     <Content Include="assets\ReportDesign\webfonts\fa-brands-400.woff2" />
     <Content Include="assets\ReportDesign\webfonts\fa-regular-400.ttf" />
