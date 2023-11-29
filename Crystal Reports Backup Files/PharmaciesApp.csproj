@@ -28,7 +28,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -40,50 +40,56 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.Engine.13.0.3501\lib\net20\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.ClientDoc, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.ClientDoc.13.0.3501\lib\net20\CrystalDecisions.ReportAppServer.ClientDoc.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="CrystalDecisions.ReportAppServer.ClientDoc">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportAppServer.ClientDoc.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.CommLayer.13.0.3501\lib\net20\CrystalDecisions.ReportAppServer.CommLayer.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommLayer">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportAppServer.CommLayer.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.CommonControls, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonControls.13.0.3501\lib\net20\CrystalDecisions.ReportAppServer.CommonControls.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommonControls">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportAppServer.CommonControls.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.CommonObjectModel, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonObjectModel.13.0.3501\lib\net20\CrystalDecisions.ReportAppServer.CommonObjectModel.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommonObjectModel">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportAppServer.CommonObjectModel.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.Controllers, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.Controllers.13.0.3501\lib\net20\CrystalDecisions.ReportAppServer.Controllers.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="CrystalDecisions.ReportAppServer.Controllers">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportAppServer.Controllers.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.CubeDefModel, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.CubeDefModel.13.0.3501\lib\net20\CrystalDecisions.ReportAppServer.CubeDefModel.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="CrystalDecisions.ReportAppServer.CubeDefModel">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportAppServer.CubeDefModel.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.DataDefModel, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.DataDefModel.13.0.3501\lib\net20\CrystalDecisions.ReportAppServer.DataDefModel.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataDefModel">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportAppServer.DataDefModel.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.DataSetConversion, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.DataSetConversion.13.0.3501\lib\net20\CrystalDecisions.ReportAppServer.DataSetConversion.dll</HintPath>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataSetConversion">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportAppServer.DataSetConversion.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.ReportAppServer.ObjectFactory, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <HintPath>..\packages\CrystalReports.ReportAppServer.ObjectFactory.13.0.3501\lib\net20\CrystalDecisions.ReportAppServer.ObjectFactory.dll</HintPath>
@@ -93,22 +99,26 @@
       <HintPath>..\packages\CrystalReports.ReportAppServer.Prompting.13.0.3501\lib\net20\CrystalDecisions.ReportAppServer.Prompting.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.ReportDefModel, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.ReportDefModel.13.0.3501\lib\net20\CrystalDecisions.ReportAppServer.ReportDefModel.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="CrystalDecisions.ReportAppServer.ReportDefModel">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportAppServer.ReportDefModel.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.XmlSerialize, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.XmlSerialize.13.0.3501\lib\net20\CrystalDecisions.ReportAppServer.XmlSerialize.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="CrystalDecisions.ReportAppServer.XmlSerialize">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportAppServer.XmlSerialize.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportSource.13.0.3501\lib\net20\CrystalDecisions.ReportSource.dll</HintPath>
+    <Reference Include="CrystalDecisions.ReportSource">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportSource.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.Shared.13.0.3501\lib\net20\CrystalDecisions.Shared.dll</HintPath>
+    <Reference Include="CrystalDecisions.Shared">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.Shared.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\Crystal.Reports.13.0.15.1840\lib\CrystalDecisions.Web.dll</HintPath>
+    <Reference Include="CrystalDecisions.Web">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
@@ -241,12 +251,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -294,32 +298,62 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\MobileApi\AccountMobileController.cs" />
+    <Compile Include="Controllers\ReportMain\ReportMainController.cs" />
+    <Compile Include="Controllers\LossRatio\LossRatioController.cs" />
+    <Compile Include="Controllers\CustomerService\CustomerServiceController.cs" />
+    <Compile Include="Controllers\AfterSales\AfterSalesController.cs" />
     <Compile Include="Controllers\ChronicController.cs" />
     <Compile Include="Controllers\ControlPanal\CompanyGroupController.cs" />
+    <Compile Include="Controllers\ControlPanal\CompEmployeesController.cs" />
     <Compile Include="Controllers\ControlPanal\ControlPanelController.cs" />
     <Compile Include="Controllers\ControlPanal\DoctorMedicinesLabsRaysApprovalController.cs" />
+    <Compile Include="Controllers\ControlPanal\LabsManagementController.cs" />
     <Compile Include="Controllers\ControlPanal\MedicineGroupsController.cs" />
     <Compile Include="Controllers\ControlPanal\MedicinesController.cs" />
+    <Compile Include="Controllers\ControlPanal\ProviderServicesPermissionsController.cs" />
+    <Compile Include="Controllers\ControlPanal\RaysManagementController.cs" />
     <Compile Include="Controllers\DMSMembers\PatchsController.cs" />
+    <Compile Include="Controllers\DMSMembers\ConsumptionAdminController.cs" />
     <Compile Include="Controllers\DoctorApprovalsController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\DoctorPersonalDatasController.cs" />
     <Compile Include="Controllers\Doctors_PermissionsController.cs" />
     <Compile Include="Controllers\DoctorWorkPlacesController.cs" />
+    <Compile Include="Controllers\Employee\EmployeeController.cs" />
     <Compile Include="Controllers\GetApprovalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HospitalSystem\HospitalController.cs" />
+    <Compile Include="Controllers\HR\ComplaintController.cs" />
+    <Compile Include="Controllers\HR\ContractorsController.cs" />
     <Compile Include="Controllers\HR\EmployeeRequestController.cs" />
     <Compile Include="Controllers\HR\HrChronicController.cs" />
+    <Compile Include="Controllers\HR\IndemnitiesPoliceController.cs" />
+    <Compile Include="Controllers\HR\IndemnitiesAdminController.cs" />
     <Compile Include="Controllers\HR\IndemnitiesController.cs" />
+    <Compile Include="Controllers\HR\MedicalApprovalController.cs" />
     <Compile Include="Controllers\HR\MedicalNetworkController.cs" />
     <Compile Include="Controllers\HR\ReportsController.cs" />
     <Compile Include="Controllers\LabsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PharmacyAdmin\PharmacyAdminController.cs" />
     <Compile Include="Controllers\PharmacyController.cs" />
+    <Compile Include="Controllers\PhysicalTherapy\PhysicalTherapyController.cs" />
+    <Compile Include="Controllers\Proposal\ProposalBasicDatasController.cs" />
+    <Compile Include="Controllers\Proposal\ProposalBenefitsController.cs" />
+    <Compile Include="Controllers\Proposal\ProposalClassesController.cs" />
+    <Compile Include="Controllers\Proposal\ProposalClassRelationsController.cs" />
+    <Compile Include="Controllers\Proposal\ProposalRenewalSummariesController.cs" />
     <Compile Include="Controllers\RaysController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\ControlPanal\SpecialitiesController.cs" />
+    <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\SyncController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Data Function\DBApproval106.cs" />
+    <Compile Include="Data Function\DBData106.cs" />
+    <Compile Include="Data Function\DBData.cs" />
+    <Compile Include="Data Function\DBApproval.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -419,16 +453,53 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AfterSale.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApprovalBil.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApprovalCode.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApprovalDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApprovalMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\APPROVAL_BAD.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Basic.cs" />
     <Compile Include="Models\Basic_Data.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CardAcceptionReason.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CardCode.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CardsSm.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CardUsed.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CompanyContractPhoto.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Company_Cost_Center.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CompContractClass.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CompContractClassEmp.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CompStatement.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\COMP_CUSTOMIZED_D.cs">
@@ -440,16 +511,19 @@
     <Compile Include="Models\Comp_Customized_D_D_Emp.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Comp_Customized_D_D_Emp_1.cs">
+    <Compile Include="Models\COMP_CUSTOMIZED_D_D_MED.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\COMP_CUSTOMIZED_D_D_MED_EMP.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\COMP_CUSTOMIZED_D_EMP.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\COMP_CUSTOMIZED_D_EMP_1.cs">
+    <Compile Include="Models\Comp_Employees.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Comp_Employees.cs">
+    <Compile Include="Models\CONSUMPTION_POOL.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ContactU.cs">
@@ -461,13 +535,34 @@
     <Compile Include="Models\Contract_Data.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Country.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Co_Insurance_01.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CronaEmergancy.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DailyPermission.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DeliveryRequest.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeliveryRequestDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Department.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Diagnosi.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DMSComplaint.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DoctorSpecialist.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Doctors_Permissions.cs" />
@@ -480,7 +575,13 @@
     <Compile Include="Models\EmployeeData.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeePersonalData.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EmployeeRelation.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeesSMSCode.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee_Request.cs">
@@ -489,16 +590,106 @@
     <Compile Include="Models\Employee_Request_Type.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Enum_Requests.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ERPModule.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ERPModulesPage.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ERPRolesModulesPage.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ERPUsersModulesPage.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_AdminClamsCounts_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\fn_AdminClamsList_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_AdminClamsList_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_AdminClamsList_Result2.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_AdminClamsList_Result3.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_AdminLabClamsCounts_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_AdminLabClamsList_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_AdminRayClamsCounts_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_AdminRayClamsList_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_ClaimsReport_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_ClaimsReport_Result1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_ClaimsReport_Result2.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_ClaimsReport_Result3.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_consumption_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_consumption_update_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\fn_GetEmployessForCompany_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\fn_MedicalApprovalSearsh_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_searchCompEmployeesForNextContract_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_searchCompEmployees_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fn_StopEditAdminClamsList_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Gender.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Gender1.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Governate.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Group_Lab.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Group_Ray.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HospitalClaim.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HospitalDoctor.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HospitalService.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HrAdminCompany.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -508,7 +699,19 @@
     <Compile Include="Models\IndemnityCardsService.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\IndemnityMaster.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IndemnityNationalFile.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IndemnityService.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IndemnityServiceFile.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IndemnityServiceMaster.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Insurance_Class.cs">
@@ -572,16 +775,52 @@
     <Compile Include="Models\Patch.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PollDataService.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PollInformation.cs">
+    <Compile Include="Models\PETROTRADE_EMPLOYEES.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PrescriptionRoshitaDignosi.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProposalBasicData.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProposalBenefit.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProposalBenefitsType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProposalClass.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProposalClassRelation.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProposalComment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProposalRenewalSummary.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Provider.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProviderBlock.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProviderComplaint.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProviderContract.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProviderContractPhoto.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProviderEmail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProviderServicesPermission.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProviderTypeNew.cs">
@@ -590,7 +829,13 @@
     <Compile Include="Models\Pr_Bra.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Region.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RelationShip.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RemainConsumption.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RequestAddProvider.cs">
@@ -601,7 +846,16 @@
     <Compile Include="Models\Roshita.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RoshitaAcception.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RoshitaDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RoshitaDiagnosisAdmin.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RoshitaNoOverNoPay.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RoshitaPharmcyApproved.cs">
@@ -610,10 +864,10 @@
     <Compile Include="Models\Service.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Serv_Lab.cs">
+    <Compile Include="Models\SERVICE1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Serv_Providers.cs">
+    <Compile Include="Models\Serv_Lab.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Serv_Providers1.cs">
@@ -631,54 +885,135 @@
     <Compile Include="Models\Specialities1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Speciality.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Swap.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\S_Ent_7.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserCompanyPermission.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UsersInternalCode.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\AfterSale\AfterSales.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AfterSales.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Reports\AllClaimsReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AllClaimsReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\ClamsReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ClamsReport.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Reports\DSRoshita.Designer.cs">
+    <Compile Include="Reports\ClamsReportLabs.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DSRoshita.xsd</DependentUpon>
+      <DependentUpon>ClamsReportLabs.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Reports\CompanyChronicDelivery.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CompanyChronicDelivery.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Reports\Hospital\HospitalClaimReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HospitalClaimReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Hospital\PatientRequest.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PatientRequest.rpt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Hospital\ReportApproval.cs">
+      <DependentUpon>ReportApproval.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\HR\LetterTransfer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LetterTransfer.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\HR\SoficoClaims.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SoficoClaims.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\HR\SoficoDetails.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SoficoDetails.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\HR\_LetterTransfer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_LetterTransfer.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\HR\Motalbaat165.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Motalbaat165.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Reports\HR\Reportaub1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reportaub1.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Reports\HR\Reportaub10.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reportaub10.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Reports\HR\Reportaub11.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reportaub11.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Reports\HR\Reportaub12.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reportaub12.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Reports\HR\Reportaub12InternalCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reportaub12InternalCode.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\HR\Reportaub13.cs">
@@ -686,11 +1021,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reportaub13.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Reports\HR\Reportaub14New.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reportaub14New.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Reports\HR\Reportaub1InternalCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reportaub1InternalCode.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\HR\Reportaub2 .cs">
@@ -698,23 +1041,33 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reportaub2 .rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Reports\HR\Reportaub2New.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reportaub2New.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Reports\HR\Reportaub4.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reportaub4.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Reports\HR\Reportaub7.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reportaub7.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Reports\HR\Reportaub7InternalCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reportaub7InternalCode.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\HR\ReportEmp.cs">
@@ -722,11 +1075,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportEmp.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Reports\HR\ReportEmpInternalCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportEmpInternalCode.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\HR\ReportEmpY.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportEmpY.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Reports\HR\ReportEmpYInternalCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportEmpYInternalCode.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\HR\ReportEobServiceOut.cs">
@@ -734,24 +1101,28 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportEobServiceOut.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Reports\HR\ReportHr.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportHr.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Reports\HR\ReportHrIRS.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportHrIRS.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Reports\HR\ReportHrPrvIRS.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportHrPrvIRS.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Reports\PendingList.cs">
       <DependentUpon>PendingList.rpt</DependentUpon>
@@ -809,14 +1180,95 @@
       <DesignTime>True</DesignTime>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Reports\ReportsConsumption\Consum901-1InternalCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Consum901-1InternalCode.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ReportsConsumption\Consum901InternalCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Consum901InternalCode.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ReportsConsumption\Consum902InternalCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Consum902InternalCode.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ReportsConsumption\Consum903InternalCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Consum903InternalCode.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ReportsConsumption\Consum915InternalCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Consum915InternalCode.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ReportsConsumption\Consum916InternalCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Consum916InternalCode.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ReportsConsumption\Consum917InternalCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Consum917InternalCode.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ReportsConsumption\Consum918InternalCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Consum918InternalCode.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RoshitaDetails.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RoshitaDetails.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\RoshitaReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RoshitaReport.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RoshitaReport3.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RoshitaReport3.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Reports\RoshitaReport2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RoshitaReport2.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AcceptionViewModel.cs" />
+    <Compile Include="ViewModel\AdminChangeUserPasswordNM.cs" />
+    <Compile Include="ViewModel\CustomerService\DetailsCustomerServiceViewModel.cs" />
+    <Compile Include="ViewModel\CustomerService\CustomerServicePhoneViewModel.cs" />
+    <Compile Include="ViewModel\CustomerService\ApprovalCustomerServiceViewModel.cs" />
+    <Compile Include="ViewModel\CustomerService\ClaimCustomerServiceViewModel.cs" />
+    <Compile Include="ViewModel\CustomerService\IndemnityCustomerServiceViewModel.cs" />
+    <Compile Include="ViewModel\CustomerService\LiveCustomerServiceViewModel.cs" />
+    <Compile Include="ViewModel\CustomerService\MonthlyCustomerServiceViewModel.cs" />
+    <Compile Include="ViewModel\CustomerService\CustomerServiceViewModel.cs" />
+    <Compile Include="ViewModel\AfterSale\AfterSaleViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeVM\DeliveryRequestVm.cs" />
+    <Compile Include="ViewModel\EmployeeVM\ConfirmRegisterEmployeeVM.cs" />
+    <Compile Include="ViewModel\HospitalVM\ApprovalComp.cs" />
+    <Compile Include="ViewModel\ModulesPagesViewModel.cs" />
     <Compile Include="ViewModel\ChronicViewModel.cs" />
     <Compile Include="ViewModel\CompEmployees.cs" />
     <Compile Include="ViewModel\CompEmployeeViewModel.cs" />
@@ -824,12 +1276,35 @@
     <Compile Include="ViewModel\CreateApprovalPersonalDataViewModel.cs" />
     <Compile Include="ViewModel\CreateApprovalViewModel.cs" />
     <Compile Include="ViewModel\ApprovalServices.cs" />
+    <Compile Include="ViewModel\CreateDMSComplaintVM.cs" />
     <Compile Include="ViewModel\DoasgeViewModel.cs" />
     <Compile Include="ViewModel\DoctorPermissionViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeVM\RegisterEmployeeVM.cs" />
+    <Compile Include="ViewModel\Enum_RequestsViewModel.cs" />
+    <Compile Include="ViewModel\HospitalVM\AddApproval.cs" />
+    <Compile Include="ViewModel\HospitalVM\Approval.cs" />
+    <Compile Include="ViewModel\HospitalVM\EmployeeHospitalVM.cs" />
+    <Compile Include="ViewModel\HospitalVM\HospitalDovtors.cs" />
+    <Compile Include="ViewModel\HospitalVM\HospitalServices.cs" />
+    <Compile Include="ViewModel\HospitalVM\SERV_PROVIDERS.cs" />
     <Compile Include="ViewModel\HrChronicEmployee.cs" />
+    <Compile Include="ViewModel\HR\IndemnityServiceVm.cs" />
+    <Compile Include="ViewModel\HR\IndemnityVM.cs" />
+    <Compile Include="ViewModel\HR\IndemnityMasterVm.cs" />
     <Compile Include="ViewModel\LicTypeViewModel.cs" />
+    <Compile Include="ViewModel\PrescriptionViewModel.cs" />
+    <Compile Include="ViewModel\PharmacyAdmin\PharmacyAdminVm.cs" />
+    <Compile Include="ViewModel\Proposal\ProposalClassVM.cs" />
+    <Compile Include="ViewModel\Proposal\ProposalBasicDataDetalisVM.cs" />
+    <Compile Include="ViewModel\Proposal\ProposalBenefitsVM.cs" />
+    <Compile Include="ViewModel\Proposal\ProposalBasicDataVM.cs" />
+    <Compile Include="ViewModel\Proposal\ProposalBenefitVM.cs" />
+    <Compile Include="ViewModel\ProviderServicesPermissionsViewModal.cs" />
+    <Compile Include="ViewModel\SpecilityDiagnoseViewmodel.cs" />
     <Compile Include="ViewModel\MedicineTypeViewmodel.cs" />
     <Compile Include="ViewModel\PentingPrintViewModel.cs" />
+    <Compile Include="ViewModel\ProviderComplaintEditVM.cs" />
+    <Compile Include="ViewModel\ProviderComplaintVM.cs" />
     <Compile Include="ViewModel\RequestAddProvidersVM.cs" />
     <Compile Include="ViewModel\RoshitaCompEmolyessReportViewModel.cs" />
     <Compile Include="ViewModel\Roshita_RoshitaDetails.cs" />
@@ -5964,6 +6439,25 @@
     <Content Include="assets\HomeTemplete\img\team\2.jpg" />
     <Content Include="assets\HomeTemplete\img\team\3.jpg" />
     <Content Include="assets\HomeTemplete\img\video-1.jpg" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-de.js" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-es.js" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-fr.js" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-he.js" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-ja.js" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-ka.js" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-pl.js" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-pt-br.js" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-pt.js" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-ru.js" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-tr.js" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-zh-cn.js" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-zh-tw.js" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\jsgrid-theme.css" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\jsgrid-theme.min.css" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\jsgrid.css" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\jsgrid.js" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\jsgrid.min.css" />
+    <Content Include="assets\HomeTemplete\jsgrid-1.5.3\jsgrid.min.js" />
     <Content Include="assets\HomeTemplete\js\bootstrap.min.js" />
     <Content Include="assets\HomeTemplete\js\contact.js" />
     <Content Include="assets\HomeTemplete\js\custom.js" />
@@ -6148,6 +6642,7 @@
     <Content Include="assets\global\plugins\design\webfonts\fa-solid-900.woff" />
     <Content Include="assets\global\plugins\design\webfonts\fa-solid-900.woff2" />
     <None Include="assets\HomeTemplete\Scripts\jquery-3.0.0-vsdoc.js" />
+    <Content Include="assets\HomeTemplete\Scripts\jquery-1.11.1.min.js" />
     <Content Include="assets\HomeTemplete\Scripts\jquery-3.0.0.js" />
     <Content Include="assets\HomeTemplete\Scripts\jquery-3.0.0.min.js" />
     <Content Include="assets\HomeTemplete\Scripts\jquery-3.0.0.slim.js" />
@@ -7027,18 +7522,13 @@
     <Content Include="Content\ApprovalImages\logo773242063151466883675182756090.jpeg" />
     <Content Include="Content\ApprovalImages\medical data183136055.png" />
     <Content Include="Content\ApprovalImages\te0st.jpg" />
-    <Content Include="Content\DoctorImages\201410030118102397181438795.jpg" />
-    <Content Include="Content\DoctorImages\34064695_1937098273015466_6388216708326227968_n181229621.jpg" />
-    <Content Include="Content\DoctorImages\li_evergreen_jobs_ad_300x250_v1180916109.jpg" />
-    <Content Include="Content\DoctorStampImages\201410030118102397181232232.jpg" />
-    <Content Include="Content\DoctorStampImages\34064695_1937098273015466_6388216708326227968_n180931978.jpg" />
-    <Content Include="Content\DoctorStampImages\logo773242063151466883675181438804.jpeg" />
-    <Content Include="Content\EmployeesRequestsImage\120062214.jpg" />
-    <Content Include="Content\EmployeesRequestsImage\220062211.jpg" />
-    <Content Include="Content\EmployeesRequestsImage\301960_461815087231569_1188051221_n20062318.jpg" />
-    <Content Include="Content\EmployeesRequestsImage\420062318.jpg" />
-    <Content Include="Content\EmployeesRequestsImage\Capture120062115.PNG" />
-    <Content Include="Content\EmployeesRequestsImage\Capture20062318.PNG" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\images\Blacklogo.png" />
     <Content Include="Content\images\demo_wait.gif" />
     <Content Include="Content\images\DMS.JPG" />
@@ -7047,25 +7537,8 @@
     <Content Include="Content\images\marker.svg" />
     <Content Include="Content\images\OrginalLogo.png" />
     <Content Include="Content\images\tooth.png" />
-    <Content Include="Content\IndemnitiesAttachments\120062521.jpg" />
-    <Content Include="Content\IndemnitiesAttachments\220062521.jpg" />
-    <Content Include="Content\IndemnitiesAttachments\525347_126218770894409_85881012_n20062523.jpg" />
-    <Content Include="Content\IndemnitiesAttachments\580699_502392566491785_1813839683_n20062523.jpg" />
-    <Content Include="Content\IndemnitiesAttachments\Capture120061617.PNG" />
-    <Content Include="Content\IndemnitiesAttachments\Capture120061618.PNG" />
-    <Content Include="Content\IndemnitiesAttachments\Capture20061617.PNG" />
-    <Content Include="Content\IndemnitiesAttachments\Capture20081612.PNG" />
-    <Content Include="Content\IndemnitiesAttachments\Capture20081613.PNG" />
-    <Content Include="Content\IndemnitiesAttachments\Capture20081710.PNG" />
-    <Content Include="Content\IndemnitiesAttachments\Capture20081713.PNG" />
-    <Content Include="Content\IndemnitiesAttachments\Capture20081714.PNG" />
-    <Content Include="Content\IndemnitiesAttachments\Capture20081913.PNG" />
-    <Content Include="Content\IndemnitiesAttachments\Company20061617.PNG" />
-    <Content Include="Content\IndemnitiesAttachments\download20081713.jpg" />
-    <Content Include="Content\IndemnitiesAttachments\download20081714.jpg" />
-    <Content Include="Content\IndemnitiesAttachments\Indvidual20061617.PNG" />
-    <Content Include="Content\IndemnitiesAttachments\temp\Capture20081714.PNG" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="lib\Oracle.DataAccess.dll" />
     <Content Include="lib\Oracle.DataAccess.EntityFramework.dll" />
@@ -7084,18 +7557,60 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap-datetimepicker.js" />
+    <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap-datetimepicker.min.js" />
+    <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap.js" />
+    <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap.min.js" />
+    <Content Include="Scripts\DMS\ReportMain\ReportMain.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\DMS\SharedShowDetails.js" />
+    <Content Include="Scripts\DMS\LossRatio.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\DMS\CustomerService\CustomerService.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\DMS\AfterSale\AfterSale.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\DMS\AfterSale\Create.js" />
+    <Content Include="Scripts\DMS\AfterSale\Edit.js" />
     <Content Include="Scripts\DMS\CompanyGroup.js" />
     <Content Include="Scripts\DMS\DoctorApproval.js" />
+    <Content Include="Scripts\DMS\Employee\IndemnityAdminwithModel.js" />
+    <Content Include="Scripts\DMS\HospitalSystem\Hospital.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\DMS\HR\EditRequest.js" />
+    <Content Include="Scripts\DMS\HR\IndemnityAdminwithModel.js" />
+    <Content Include="Scripts\DMS\HR\IndemnityAdmin.js" />
+    <Content Include="Scripts\DMS\HR\MedicalApprovalCreate.js" />
+    <Content Include="Scripts\DMS\HR\MedicalApprovalSearch.js" />
+    <Content Include="Scripts\DMS\HR\UpdateRequestStatus.js" />
+    <Content Include="Scripts\DMS\HR\UpdateStatus.js" />
     <Content Include="Scripts\DMS\HR\Termination.js" />
     <Content Include="Scripts\DMS\HR\Requests.js" />
     <Content Include="Scripts\DMS\HR\Indemnity.js" />
-    <Content Include="Scripts\DMS\Lab.js" />
+    <Content Include="Scripts\DMS\Labs\LabEdit.js" />
+    <Content Include="Scripts\DMS\Labs\Lab.js" />
     <Content Include="Scripts\DMS\DoctorRaysLabsMedicinesApproval.js" />
     <Content Include="Scripts\DMS\CreateApproval.js" />
     <Content Include="Scripts\DMS\Monthly_Chronic_Approvals.js" />
+    <Content Include="Scripts\DMS\PharmacyAdmin\PharmacyAdmin.js" />
+    <Content Include="Scripts\DMS\PharmacyEdit.js" />
+    <Content Include="Scripts\DMS\CompaniesChronicDelivery.js" />
+    <Content Include="Scripts\DMS\DeleteStopRoshita.js" />
+    <Content Include="Scripts\DMS\PhysicalTherapy\PhysicalTherapy.js" />
+    <Content Include="Scripts\DMS\Proposal\Create.js" />
+    <Content Include="Scripts\DMS\Proposal\ProposalBasicDataCreate.js" />
+    <Content Include="Scripts\DMS\Proposal\ProposalBasicDataIndex.js" />
+    <Content Include="Scripts\DMS\Ray\RayEdit.js" />
+    <Content Include="Scripts\DMS\Ray\RayIndex.js" />
+    <Content Include="Scripts\DMS\Labs\LabIndex.js" />
+    <Content Include="Scripts\DMS\PharmacyIndex.js" />
     <Content Include="Scripts\DMS\Pharmacy.js" />
-    <Content Include="Scripts\DMS\Ray.js" />
+    <Content Include="Scripts\DMS\Ray\Ray.js" />
     <Content Include="Scripts\DMS\Chronic.js" />
     <Content Include="Scripts\DMS\Doctor.js" />
     <Content Include="assets\global\img\social\Thumbs.db" />
@@ -7448,9 +7963,6 @@
     <Content Include="assets\layouts\layout7\img\Thumbs.db" />
     <Content Include="assets\pages\media\blog\Thumbs.db" />
     <Content Include="assets\pages\media\pages\Thumbs.db" />
-    <Content Include="Reports\DSRoshita.xsc">
-      <DependentUpon>DSRoshita.xsd</DependentUpon>
-    </Content>
     <Content Include="assets\HomeTemplete\Content\bootstrap-theme.css.map" />
     <Content Include="assets\HomeTemplete\Content\bootstrap.css.map" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\common.scss" />
@@ -7511,8 +8023,6 @@
     <Content Include="assets\HomeTemplete\vendors\fontawesome\webfonts\fa-solid-900.ttf" />
     <Content Include="assets\HomeTemplete\vendors\fontawesome\webfonts\fa-solid-900.woff" />
     <Content Include="assets\HomeTemplete\vendors\fontawesome\webfonts\fa-solid-900.woff2" />
-    <Content Include="Content\IndemnitiesAttachments\services20061617.xls" />
-    <Content Include="Content\IndemnitiesAttachments\services20061618.xls" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -7520,27 +8030,82 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\IndemnitiesAttachments\11082020162453320081612.pdf" />
-    <Content Include="Content\IndemnitiesAttachments\11082020162453320081713.pdf" />
-    <Content Include="Content\IndemnitiesAttachments\16082020163021820081616.pdf" />
-    <Content Include="Content\IndemnitiesAttachments\16082020163021820081709.pdf" />
-    <Content Include="Content\IndemnitiesAttachments\16082020163021820081710.pdf" />
-    <Content Include="Content\IndemnitiesAttachments\16082020163021820081713.pdf" />
-    <Content Include="Content\IndemnitiesAttachments\16082020163021820081714.pdf" />
-    <Content Include="Content\IndemnitiesAttachments\archive.zip" />
-    <Content Include="Content\IndemnitiesAttachments\Goda20081713.xlsx" />
-    <Content Include="Content\IndemnitiesAttachments\Goda20081714.xlsx" />
-    <Content Include="Content\IndemnitiesAttachments\temp\16082020163021820081714.pdf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\wells.less" />
+    <Content Include="Content\bootstrap\variables.less" />
+    <Content Include="Content\bootstrap\utilities.less" />
+    <Content Include="Content\bootstrap\type.less" />
+    <Content Include="Content\bootstrap\tooltip.less" />
+    <Content Include="Content\bootstrap\thumbnails.less" />
+    <Content Include="Content\bootstrap\theme.less" />
+    <Content Include="Content\bootstrap\tables.less" />
+    <Content Include="Content\bootstrap\scaffolding.less" />
+    <Content Include="Content\bootstrap\responsive-utilities.less" />
+    <Content Include="Content\bootstrap\progress-bars.less" />
+    <Content Include="Content\bootstrap\print.less" />
+    <Content Include="Content\bootstrap\popovers.less" />
+    <Content Include="Content\bootstrap\panels.less" />
+    <Content Include="Content\bootstrap\pagination.less" />
+    <Content Include="Content\bootstrap\pager.less" />
+    <Content Include="Content\bootstrap\normalize.less" />
+    <Content Include="Content\bootstrap\navs.less" />
+    <Content Include="Content\bootstrap\navbar.less" />
+    <Content Include="Content\bootstrap\modals.less" />
+    <Content Include="Content\bootstrap\mixins.less" />
+    <Content Include="Content\bootstrap\media.less" />
+    <Content Include="Content\bootstrap\list-group.less" />
+    <Content Include="Content\bootstrap\labels.less" />
+    <Content Include="Content\bootstrap\jumbotron.less" />
+    <Content Include="Content\bootstrap\input-groups.less" />
+    <Content Include="Content\bootstrap\grid.less" />
+    <Content Include="Content\bootstrap\glyphicons.less" />
+    <Content Include="Content\bootstrap\forms.less" />
+    <Content Include="Content\bootstrap\dropdowns.less" />
+    <Content Include="Content\bootstrap\component-animations.less" />
+    <Content Include="Content\bootstrap\code.less" />
+    <Content Include="Content\bootstrap\close.less" />
+    <Content Include="Content\bootstrap\carousel.less" />
+    <Content Include="Content\bootstrap\buttons.less" />
+    <Content Include="Content\bootstrap\button-groups.less" />
+    <Content Include="Content\bootstrap\breadcrumbs.less" />
+    <Content Include="Content\bootstrap\bootstrap.less" />
+    <Content Include="Content\bootstrap\badges.less" />
+    <Content Include="Content\bootstrap\alerts.less" />
+    <Content Include="Content\EmployeesRequestsImage\Add Employess.xlsx" />
+    <Content Include="Content\EmployeesRequestsImage\Add Employee.xlsx" />
+    <Content Include="Content\EmployeesRequestsImage\Level.xlsx" />
+    <Content Include="Content\EmployeesRequestsImage\Re Open.xlsx" />
+    <Content Include="Content\EmployeesRequestsImage\Termination Request.xlsx" />
+    <Content Include="assets\ManualFiles\PharmacyManual.pdf" />
+    <Content Include="assets\ManualFiles\LabManual.pdf" />
+    <Content Include="assets\ManualFiles\RayManual.pdf" />
+    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\DeployProfile.pubxml" />
     <None Include="Properties\PublishProfiles\DevelopingProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\LocalPC.pubxml" />
     <None Include="Properties\PublishProfiles\LocalProfile.pubxml" />
-    <None Include="Reports\DSRoshita.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DSRoshita.Designer.cs</LastGenOutput>
-    </None>
-    <Content Include="Reports\DSRoshita.xss">
-      <DependentUpon>DSRoshita.xsd</DependentUpon>
-    </Content>
+    <None Include="Properties\PublishProfiles\ServerDeployProfile.pubxml" />
+    <Content Include="assets\admindashdoardmenu\CustomAfterSales\less-1.4.1.min.js" />
+    <Content Include="assets\admindashdoardmenu\CustomAfterSales\moment-with-locales.js" />
+    <Content Include="assets\admindashdoardmenu\CustomAfterSales\moment-with-locales.min.js" />
+    <Content Include="assets\admindashdoardmenu\CustomAfterSales\moment.js" />
+    <Content Include="assets\admindashdoardmenu\CustomAfterSales\moment.min.js" />
+    <Content Include="Scripts\DMS\PharmacyAdmin\PharmacyAdminIndex.js" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout_Dashboard.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -7551,8 +8116,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -7573,8 +8136,6 @@
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
@@ -7606,11 +8167,6 @@
     <Content Include="Views\Doctor\_Calc.cshtml" />
     <Content Include="Views\Doctor\_Calc2.cshtml" />
     <Content Include="Views\Doctor\_Edit.cshtml" />
-    <Content Include="Views\Roshitas\Create.cshtml" />
-    <Content Include="Views\Roshitas\Delete.cshtml" />
-    <Content Include="Views\Roshitas\Details.cshtml" />
-    <Content Include="Views\Roshitas\Edit.cshtml" />
-    <Content Include="Views\Roshitas\Index.cshtml" />
     <Content Include="Views\Pharmacy\Pharmacy.cshtml" />
     <Content Include="Views\Pharmacy\_Cards.cshtml" />
     <Content Include="Views\Rays\Ray.cshtml" />
@@ -7639,30 +8195,27 @@
     <Content Include="Views\DoctorApprovals\_SearchCards.cshtml" />
     <Content Include="Views\DoctorApprovals\_LastApproval.cshtml" />
     <Content Include="Views\ControlPanel\Main.cshtml" />
-    <Content Include="Views\DoctorMedicinesLabsRaysApproval\Index.cshtml" />
+    <Content Include="Views\DoctorMedicinesLabsRaysApproval\Index2.cshtml" />
     <Content Include="Views\DoctorMedicinesLabsRaysApproval\_SearchCards.cshtml" />
-    <Content Include="Views\Labs\Pending.cshtml" />
+    <Content Include="Views\Labs\Pending2.cshtml" />
     <Content Include="Views\Doctor\_Approvals.cshtml" />
     <Content Include="Views\Labs\Index.cshtml" />
     <Content Include="Views\Labs\Edit.cshtml" />
     <Content Include="Views\Labs\Details.cshtml" />
     <Content Include="Views\Labs\_ControlLabs.cshtml" />
-    <Content Include="Views\Rays\Pending.cshtml" />
+    <Content Include="Views\Rays\Pending2.cshtml" />
     <Content Include="Views\Rays\Index.cshtml" />
     <Content Include="Views\Rays\Edit.cshtml" />
     <Content Include="Views\Rays\Details.cshtml" />
     <Content Include="Views\Rays\_ControlRays.cshtml" />
     <Content Include="Views\Rays\_Approvals.cshtml" />
-    <Content Include="Views\Pharmacy\Pending.cshtml" />
+    <Content Include="Views\Pharmacy\Pending2.cshtml" />
     <Content Include="Views\Pharmacy\_Approvals.cshtml" />
     <Content Include="Views\MedicineGroups\Create.cshtml" />
-    <Content Include="Views\MedicineGroups\Delete.cshtml" />
-    <Content Include="Views\MedicineGroups\Details.cshtml" />
     <Content Include="Views\MedicineGroups\Edit.cshtml" />
     <Content Include="Views\MedicineGroups\Index.cshtml" />
     <Content Include="Views\Medicines\Create.cshtml" />
-    <Content Include="Views\Medicines\Delete.cshtml" />
-    <Content Include="Views\Medicines\Details.cshtml" />
+    <Content Include="Views\Medicines\MedicineActivation.cshtml" />
     <Content Include="Views\Medicines\Edit.cshtml" />
     <Content Include="Views\Medicines\Index.cshtml" />
     <Content Include="Views\DoctorMedicinesLabsRaysApproval\Create3.cshtml" />
@@ -7693,16 +8246,15 @@
     <Content Include="Views\GetApproval\Create.cshtml" />
     <Content Include="Views\DoctorApprovals\_Diagnoise.cshtml" />
     <Content Include="Views\DoctorApprovals\_Medicines2.cshtml" />
-    <Content Include="Views\Medicines\AddLicType.cshtml" />
-    <Content Include="Views\Medicines\AddMedType.cshtml" />
-    <Content Include="Views\Medicines\AddDosageForm.cshtml" />
+    <Content Include="Views\Medicines\MedicineLicenseType.cshtml" />
+    <Content Include="Views\Medicines\MedicineType.cshtml" />
+    <Content Include="Views\Medicines\MedicineDosageForm.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Medicines\DosageFormList.cshtml" />
-    <Content Include="Views\Medicines\LicList.cshtml" />
-    <Content Include="Views\Medicines\MedTypeList.cshtml" />
-    <Content Include="Views\Shared\_Layout_Dashboard.cshtml" />
+    <Content Include="Views\Medicines\_MedicineDosageFormList.cshtml" />
+    <Content Include="Views\Medicines\_MedicineLicenseList.cshtml" />
+    <Content Include="Views\Medicines\_MedicineTypeList.cshtml" />
     <Content Include="Views\Home\Clients.cshtml" />
     <Content Include="Views\Home\ContactUs.cshtml" />
     <Content Include="Views\Home\CompanyProfile.cshtml" />
@@ -7731,17 +8283,387 @@
     <Content Include="Views\Reports\Consumption.cshtml" />
     <Content Include="Views\Reports\Inquiries.cshtml" />
     <Content Include="Views\Reports\StaffConsumption.cshtml" />
-    <Content Include="Reports\HR\PReportEob.rpt" />
-    <Content Include="Reports\HR\PReportEobService.rpt" />
+    <Content Include="Reports\HR\PReportEob.rpt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\PReportEobService.rpt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\HrChronic\InquiryAboutCard.cshtml" />
+    <Content Include="Views\Reports\Premium.cshtml" />
+    <Content Include="Views\Complaint\CreateDMSComplaint.cshtml" />
+    <Content Include="Views\Complaint\CreateProviderComplaint.cshtml" />
+    <Content Include="Views\Hospital\Index.cshtml" />
+    <Content Include="Views\Hospital\_Cards.cshtml" />
+    <Content Include="Views\Hospital\_Approvel.cshtml" />
+    <Content Include="Views\CompEmployees\Create.cshtml" />
+    <Content Include="Views\CompEmployees\Delete.cshtml" />
+    <Content Include="Views\CompEmployees\Details.cshtml" />
+    <Content Include="Views\CompEmployees\Edit.cshtml" />
+    <Content Include="Views\CompEmployees\Index.cshtml" />
+    <Content Include="Views\MedicalApproval\CreateRequest.cshtml" />
+    <Content Include="Views\MedicalApproval\Search.cshtml" />
+    <Content Include="Views\Hospital\Claims.cshtml" />
+    <Content Include="Views\User\AdminResetPassword.cshtml" />
+    <Content Include="Views\User\ChangeSuccess.cshtml" />
+    <Content Include="Views\Reports\ConsumptionPremium.cshtml" />
+    <Content Include="Views\AfterSales\Create.cshtml" />
+    <Content Include="Views\AfterSales\Details.cshtml" />
+    <Content Include="Views\AfterSales\Edit.cshtml" />
+    <Content Include="Views\AfterSales\Delete.cshtml" />
+    <Content Include="Views\AfterSales\Map.cshtml" />
+    <Content Include="Views\Employee\Register.cshtml" />
+    <Content Include="Views\AfterSales\Index.cshtml" />
+    <Content Include="Views\Pharmacy\CompaniesChronicDelivery.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Employee\AddEmployee.cshtml" />
+    <Content Include="Views\Employee\Success.cshtml" />
+    <Content Include="Views\Employee\MedicalNetwork.cshtml" />
+    <Content Include="Views\Employee\DeliveryService.cshtml" />
+    <Content Include="Views\Employee\Approvales.cshtml" />
+    <Content Include="Views\Hospital\AddApproval.cshtml" />
+    <Content Include="Views\LabsManagement\Create.cshtml" />
+    <Content Include="Views\LabsManagement\Delete.cshtml" />
+    <Content Include="Views\LabsManagement\Details.cshtml" />
+    <Content Include="Views\LabsManagement\Edit.cshtml" />
+    <Content Include="Views\LabsManagement\Index.cshtml" />
+    <Content Include="Views\RaysManagement\Create.cshtml" />
+    <Content Include="Views\RaysManagement\Delete.cshtml" />
+    <Content Include="Views\RaysManagement\Details.cshtml" />
+    <Content Include="Views\RaysManagement\Edit.cshtml" />
+    <Content Include="Views\RaysManagement\Index.cshtml" />
+    <Content Include="Views\Specialities\Create.cshtml" />
+    <Content Include="Views\Specialities\Index.cshtml" />
+    <Content Include="Views\Specialities\Diagnoisis.cshtml" />
+    <Content Include="Views\HospitalClaims\Create.cshtml" />
+    <Content Include="Views\HospitalClaims\Delete.cshtml" />
+    <Content Include="Views\HospitalClaims\Details.cshtml" />
+    <Content Include="Views\HospitalClaims\Edit.cshtml" />
+    <Content Include="Views\HospitalClaims\Index.cshtml" />
+    <Content Include="Views\Hospital\Delete.cshtml" />
+    <Content Include="Views\ProviderServicesPermissions\Create.cshtml" />
+    <Content Include="Views\ProviderServicesPermissions\Edit.cshtml" />
+    <Content Include="Views\ProviderServicesPermissions\Index.cshtml" />
+    <Content Include="Views\EmployeeRequest\DashBoard.cshtml" />
+    <Content Include="Views\IndemnitiesAdmin\Create.cshtml" />
+    <Content Include="Views\IndemnitiesAdmin\Delete.cshtml" />
+    <Content Include="Views\IndemnitiesAdmin\Details.cshtml" />
+    <Content Include="Views\IndemnitiesAdmin\Index.cshtml" />
+    <Content Include="Views\IndemnitiesAdmin\CreateAdmin.cshtml" />
+    <Content Include="Views\Employee\CreateAdmin.cshtml" />
+    <Content Include="Views\Employee\IndexIndemnity.cshtml" />
+    <Content Include="Views\Employee\Delete.cshtml" />
+    <Content Include="Views\Employee\Details.cshtml" />
+    <Content Include="Views\PharmacyAdmin\Details.cshtml" />
+    <Content Include="Views\PharmacyAdmin\Index.cshtml" />
+    <Content Include="Views\PharmacyAdmin\Pharmacy.cshtml" />
+    <Content Include="Views\IndemnitiesAdmin\Edit.cshtml" />
+    <Content Include="Views\User\UserPermision.cshtml" />
+    <Content Include="Views\Role\RolePermision.cshtml" />
+    <Content Include="Views\ProposalBasicDatas\Create.cshtml" />
+    <Content Include="Views\ProposalBasicDatas\Delete.cshtml" />
+    <Content Include="Views\ProposalBasicDatas\Details.cshtml" />
+    <Content Include="Views\ProposalBasicDatas\Edit.cshtml" />
+    <Content Include="Views\ProposalBasicDatas\Index.cshtml" />
+    <Content Include="Views\ProposalClasses\Create.cshtml" />
+    <Content Include="Views\ProposalClasses\Delete.cshtml" />
+    <Content Include="Views\ProposalClasses\Details.cshtml" />
+    <Content Include="Views\ProposalClasses\Edit.cshtml" />
+    <Content Include="Views\ProposalClasses\Index.cshtml" />
+    <Content Include="Views\ProposalBenefits\Create.cshtml" />
+    <Content Include="Views\ProposalBenefits\Delete.cshtml" />
+    <Content Include="Views\ProposalBenefits\Details.cshtml" />
+    <Content Include="Views\ProposalBenefits\Edit.cshtml" />
+    <Content Include="Views\ProposalBenefits\Index.cshtml" />
+    <Content Include="Views\ProposalRenewalSummaries\Create.cshtml" />
+    <Content Include="Views\ProposalRenewalSummaries\Details.cshtml" />
+    <Content Include="Views\ProposalRenewalSummaries\Edit.cshtml" />
+    <Content Include="Views\ProposalClassRelations\Create.cshtml" />
+    <Content Include="Views\ProposalClassRelations\Delete.cshtml" />
+    <Content Include="Views\ProposalClassRelations\Details.cshtml" />
+    <Content Include="Views\ProposalClassRelations\Edit.cshtml" />
+    <Content Include="Views\ProposalClassRelations\Index.cshtml" />
+    <Content Include="Views\IndemnitiesPolice\Index.cshtml" />
+    <Content Include="Views\MedicalApproval\Search2.cshtml" />
+    <Content Include="Views\HrChronic\CreateRequest.cshtml" />
+    <Content Include="Views\Employee\DeliveryService2.cshtml" />
+    <Content Include="Views\Employee\IndexAdmin.cshtml" />
+    <Content Include="Views\Employee\DelieveryDetails.cshtml" />
+    <Content Include="Views\Employee\OldRequest.cshtml" />
+    <Content Include="Views\Employee\Activation_Employee.cshtml" />
+    <Content Include="Views\Shared\_AddEmployee.cshtml" />
+    <Content Include="Views\MedicalNetwork\RequestReplay.cshtml" />
+    <Content Include="Views\MedicalNetwork\Details.cshtml" />
+    <Content Include="Views\DoctorApprovals\_EmployeeData.cshtml" />
+    <Content Include="Views\Employee\ConfirmRegister.cshtml" />
+    <Content Include="Views\Employee\ConfirmRegisterPost.cshtml" />
+    <Content Include="Views\Contractors\Index.cshtml" />
+    <Content Include="Views\Contractors\ProvidersIndex.cshtml" />
+    <Content Include="Views\Pharmacy\DeletedStopRoshita.cshtml" />
+    <Content Include="Views\PhysicalTherapy\Index2.cshtml" />
+    <Content Include="Views\PhysicalTherapy\_Cards.cshtml" />
+    <Content Include="Views\PhysicalTherapy\Index.cshtml" />
+    <Content Include="Views\PhysicalTherapy\_Diagnoise.cshtml" />
+    <Content Include="Views\PhysicalTherapy\_ExtendSeession.cshtml" />
+    <Content Include="Views\PhysicalTherapy\_NEWSeesion.cshtml" />
+    <Content Include="Views\PhysicalTherapy\_OLDSeession.cshtml" />
+    <Content Include="Views\PhysicalTherapy\_PhysicalTherapy.cshtml" />
+    <Content Include="Views\ConsumptionAdmin\Index.cshtml" />
+    <Content Include="Reports\Consumption\ConsumptionofCard.rpt" />
+    <Content Include="Views\ConsumptionAdmin\HrConsumptionReports.cshtml" />
+    <Content Include="Views\ConsumptionAdmin\HighAdminConsumptionReports.cshtml" />
+    <Content Include="Reports\ReportsConsumption\Consum901-1.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum901.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum902.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum903.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum904.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum905.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum906.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum908.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum909.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum910.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum911.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum912.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum913.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum914.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum915.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum916.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum917.rpt" />
+    <Content Include="Reports\ReportsConsumption\Consum918.rpt" />
+    <Content Include="Views\ConsumptionAdmin\NormalAdminConsumptionReports.cshtml" />
+    <Content Include="Views\Reports\ConsumptionHR.cshtml" />
+    <Content Include="Views\DoctorMedicinesLabsRaysApproval\Index.cshtml" />
+    <Content Include="Views\Pharmacy\Pending.cshtml" />
+    <Content Include="Views\Labs\Pending.cshtml" />
+    <Content Include="Views\Rays\Pending.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Reports\HrClaims.cshtml" />
+    <Content Include="Reports\HR\IndemnityCheck.rpt" />
+    <Content Include="Reports\HR\IndemnityCheckInternalCode.rpt" />
+    <Content Include="Views\CustomerService\Index.cshtml" />
+    <Content Include="Views\CompEmployees\IndexSms.cshtml" />
+    <Content Include="Reports\HR\HrClaimsReport.rpt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\ApprovalHr.rpt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\ReportPrintHorizontal6.rpt" />
+    <Content Include="Views\CustomerService\_MedicalNetworkCustomerService.cshtml" />
+    <Content Include="Views\LossRatio\_MedicalNetworkCustomerService.cshtml" />
+    <Content Include="Views\LossRatio\Index.cshtml" />
+    <Content Include="Views\DoctorMedicinesLabsRaysApproval\_ShowDetails.cshtml" />
+    <Content Include="Views\Reports\ConsumptionHR2.cshtml" />
+    <Content Include="Reports\ReportsConsumption\Consum901-1Details.rpt" />
+    <Content Include="Reports\ChronicDataReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ChronicDataReport.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Hospital\Edit.cshtml" />
+    <Content Include="Views\Hospital\Chat.cshtml" />
+    <Content Include="Views\Hospital\Chat - Copy.cshtml" />
+    <Content Include="Views\Hospital\AprovalsEdit.cshtml" />
+    <Content Include="Views\Employee\Login.cshtml" />
+    <Content Include="Views\Employee\UpdateData.cshtml" />
+    <Content Include="Views\HrChronic\PrintMedicalReport.cshtml" />
+    <Content Include="Views\Reports\HrClaimsPremium.cshtml" />
+    <Content Include="Views\ReportMain\Index.cshtml" />
+    <Content Include="Reports\EditMedicine.rpt" />
+    <Content Include="Reports\EditMedicine2.rpt" />
+    <Content Include="Reports\AuditMedicineSummary.rpt" />
+    <Content Include="Reports\RepeatDispensingMedicine.rpt" />
+    <Content Include="Views\ReportMain\ReportMed2.cshtml" />
+    <Content Include="Reports\AuditMedicineChronicDetails.rpt" />
+    <Content Include="Reports\AuditMedicineChronicSummary.rpt" />
+    <Content Include="Reports\ChronicDataDetails.rpt" />
+    <Content Include="Reports\CompanyChronicReport.rpt" />
+    <Content Include="Views\ReportMain\ReportPrint.cshtml" />
+    <Content Include="Views\GetApproval\Index.cshtml" />
+    <Content Include="Views\Pharmacy\CardCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
+    <Folder Include="Content\AddApprovalFiles\" />
+    <Folder Include="Content\DoctorImages\" />
+    <Folder Include="Content\DoctorStampImages\" />
+    <Folder Include="Content\EmployeeRegister\" />
+    <Folder Include="Content\EmployeesRoshita\" />
+    <Folder Include="Content\IndemnitiesAttachments\temp\" />
+    <Folder Include="ProviderContractsPDF\DentalClinic\Contracts\" />
+    <Folder Include="ProviderContractsPDF\DentalClinic\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\Doctor\Contracts\" />
+    <Folder Include="ProviderContractsPDF\Doctor\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\EyeClinic\Contracts\" />
+    <Folder Include="ProviderContractsPDF\EyeClinic\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\Hospital\Contracts\" />
+    <Folder Include="ProviderContractsPDF\Hospital\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\Lab\Contracts\" />
+    <Folder Include="ProviderContractsPDF\Lab\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\Pharmacy\Contracts\" />
+    <Folder Include="ProviderContractsPDF\Pharmacy\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\PhysicalTherapy\Contracts\" />
+    <Folder Include="ProviderContractsPDF\PhysicalTherapy\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\PolyClinic\Contracts\" />
+    <Folder Include="ProviderContractsPDF\PolyClinic\Endorsement\" />
+    <Folder Include="ProviderContractsPDF\Ray\Contracts\" />
+    <Folder Include="ProviderContractsPDF\Ray\Endorsement\" />
+    <Folder Include="Views\ProposalBasicData\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Reports\PendingList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PendingList.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\LabList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LabList1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Pending.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Pending.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Labs.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Labs1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Mediciens.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Mediciens.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\RayList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RayList1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Rays.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rays1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\DoctorApprovalReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DoctorApprovalReport.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\Motalbaat165.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Motalbaat165.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\Reportaub1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reportaub1.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\Reportaub10.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reportaub10.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\Reportaub11.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reportaub11.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\Reportaub12.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reportaub12.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\Reportaub13.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reportaub13.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\Reportaub14New.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reportaub14New.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\Reportaub2 .rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reportaub2 .cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\Reportaub2New.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reportaub2New.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\Reportaub4.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reportaub4.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\Reportaub7.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reportaub7.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\ReportEmp.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReportEmp.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\ReportEmpY.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReportEmpY.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\ReportEobServiceOut.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReportEobServiceOut.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\ReportHr.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReportHr.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\ReportHrIRS.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReportHrIRS.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\HR\ReportHrPrvIRS.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReportHrPrvIRS.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\ClamsReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ClamsReport.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\ClamsReportLabs.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ClamsReportLabs.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Hospital\PatientRequest.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PatientRequest.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Hospital\ReportApproval.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReportApproval.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\RoshitaReport3.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RoshitaReport3.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Migrations\201802280728382_editUser.resx">
       <DependentUpon>201802280728382_editUser.cs</DependentUpon>
     </EmbeddedResource>
@@ -7808,117 +8730,96 @@
     <EmbeddedResource Include="Migrations\201811271146400_Modification2.resx">
       <DependentUpon>201811271146400_Modification2.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="Reports\PendingList.rpt">
+    <EmbeddedResource Include="Reports\AfterSale\AfterSales.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>PendingList.cs</LastGenOutput>
+      <LastGenOutput>AfterSales.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="Reports\CompanyChronicDelivery.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CompanyChronicDelivery.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Reports\LabList.rpt">
+    <EmbeddedResource Include="Reports\AllClaimsReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>LabList1.cs</LastGenOutput>
+      <LastGenOutput>AllClaimsReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\LetterTransfer.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LetterTransfer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\SoficoClaims.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SoficoClaims.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\SoficoDetails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SoficoDetails.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\_LetterTransfer.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>_LetterTransfer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\Reportaub12InternalCode.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reportaub12InternalCode.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\Reportaub1InternalCode.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reportaub1InternalCode.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\Reportaub7InternalCode.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Reportaub7InternalCode.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\ReportEmpInternalCode.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReportEmpInternalCode.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\ReportEmpYInternalCode.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReportEmpYInternalCode.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ReportsConsumption\Consum901-1InternalCode.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Consum901-1InternalCode.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ReportsConsumption\Consum901InternalCode.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Consum901InternalCode.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ReportsConsumption\Consum902InternalCode.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Consum902InternalCode.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ReportsConsumption\Consum903InternalCode.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Consum903InternalCode.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ReportsConsumption\Consum915InternalCode.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Consum915InternalCode.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ReportsConsumption\Consum916InternalCode.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Consum916InternalCode.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ReportsConsumption\Consum917InternalCode.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Consum917InternalCode.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ReportsConsumption\Consum918InternalCode.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Consum918InternalCode.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Content Include="Reports\RoshitaReport2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RoshitaReport2.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Reports\Pending.rpt">
+    <EmbeddedResource Include="Reports\RoshitaDetails.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Pending.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Reports\Labs.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Labs1.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Reports\Mediciens.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Mediciens.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Reports\RayList.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RayList1.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Reports\Rays.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Rays1.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Reports\DoctorApprovalReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>DoctorApprovalReport.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <EmbeddedResource Include="Reports\ClamsReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ClamsReport.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\Motalbaat165.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Motalbaat165.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\Reportaub1.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Reportaub1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\Reportaub10.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Reportaub10.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\Reportaub11.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Reportaub11.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\Reportaub12.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Reportaub12.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\Reportaub13.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Reportaub13.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\Reportaub14New.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Reportaub14New.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\Reportaub2 .rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Reportaub2 .cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\Reportaub2New.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Reportaub2New.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\Reportaub4.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Reportaub4.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\Reportaub7.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Reportaub7.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\ReportEmp.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ReportEmp.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\ReportEmpY.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ReportEmpY.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\ReportEobServiceOut.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ReportEobServiceOut.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\ReportHr.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ReportHr.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\ReportHrIRS.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ReportHrIRS.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\HR\ReportHrPrvIRS.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ReportHrPrvIRS.cs</LastGenOutput>
+      <LastGenOutput>RoshitaDetails.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\RoshitaReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -7935,6 +8836,9 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="assets\HomeTemplete\Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
