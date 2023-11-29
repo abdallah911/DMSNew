@@ -44,12 +44,12 @@
                                name="search-input"
                                class="search-inp"
                                placeholder="search" />
-                        <button type="button " id="Search" class="search-btn">
+                        <button type="button" id="Search" class="search-btn">
                             Search
                         </button>
                     </div>
                     <div class="approval-btn d-flex align-items-center">
-                        <input style="block-size: fit-content"
+                        <input style="block-size:fit-content"
                                class="bg-light me-2 w-25"
                                type="checkbox"
                                id="HasApproval"
@@ -267,3 +267,11 @@
 <script src="~/assets/HomeTemplete/js/intro.js"></script>
 
 <script src="~/Scripts/DMS/Pharmacy.js?V=3.9"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#IndexClaim").removeClass("claims-active");
+        $("#CompaniesChronicDeliveryNew").removeClass("chronicdelivery-active");
+        $("#PharmacyPage").addClass("pharmacy-active");
+    });
+</script>

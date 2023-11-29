@@ -8728,6 +8728,8 @@
     <Content Include="Views\Home\Application.cshtml" />
     <Content Include="Views\Pharmacy\Pharmacy.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardNew.cshtml" />
+    <Content Include="Views\Pharmacy\IndexClaim.cshtml" />
+    <Content Include="Views\Pharmacy\CompaniesChronicDeliveryNew.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

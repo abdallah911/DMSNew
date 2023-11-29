@@ -4,10 +4,10 @@ $(function () {
     var id;
     var role = $("#role").val();
     $('#ddlUsers').select2();
-    $('#From').datepicker({
-        maxDate: 0
-    });
-    $('#To').datepicker({ maxDate: 0 });
+    //$('#From').datepicker({
+    //    maxDate: 0
+    //});
+    //$('#To').datepicker({ maxDate: 0 });
     $('#AdminFrom').datepicker({ maxDate: 0 });
     $('#AdminTo').datepicker({ maxDate: 0 });
     $('#Print').click(function () {
@@ -185,27 +185,27 @@ $(function () {
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            return '<a class="btn btn-warning" disabled href="/Pharmacy/Edit/' + data + '">Edit</a>';
+                            return '<a class="edit-btn btn" disabled href="/Pharmacy/Edit/' + data + '">Edit</a>';
                         }
                     },
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            return '<a class="btn btn-info"  href="/Pharmacy/Details/' + data + '">Details</a>';
+                            return '<a class="details-btn btn"  href="/Pharmacy/Details/' + data + '">Details</a>';
                         }
                     }
                     ,
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            return '<button type="button" disabled class="btn btn-danger" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+                            return '<button type="button" disabled class="delete-btn btn" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
 
                         }
                     },
                     {
                         "data": "Oracle_Id",
                         "mRender": function (data) {
-                            return '<button type="button" class="btn btn-default" data-id=' + data + ' onclick="Print(this);"> Print</button>';
+                            return '<button type="button" class="print-claims-btn btn" data-id=' + data + ' onclick="Print(this);"> Print</button>';
                         }
                     }
 

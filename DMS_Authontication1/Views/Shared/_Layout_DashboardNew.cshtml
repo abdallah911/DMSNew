@@ -87,7 +87,7 @@
                                     if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 6 && (x.FullControl || x.EditPermission
                                      || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                     {
-                                        @Html.ActionLink("Pharmacy", "Pharmacy", "Pharmacy", null, new { @class = "sios-nav-link nav-link active pharmacy-active" })
+                                        @Html.ActionLink("Pharmacy", "PharmacyPage", "Pharmacy", null, new { @class = "sios-nav-link nav-link active ", @id = "PharmacyPage" })
 
                                     }
                                 }
@@ -95,15 +95,15 @@
                             else if (User.IsInRole("Pharmacy") || User.IsInRole("Pharmacy_Admin"))
                             {
 
-                                @Html.ActionLink("Pharmacy", "Pharmacy", "Pharmacy", null, new { @class = "sios-nav-link nav-link active pharmacy-active" })
+                                @Html.ActionLink("Pharmacy", "PharmacyPage", "Pharmacy", null, new { @class = "sios-nav-link nav-link active ",@id= "PharmacyPage" })
                             }
                         }
                     }
                     @{
                         if ((User.IsInRole("Pharmacy") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
                         {
-                            @Html.ActionLink("Claims", "index", "Pharmacy", null, new { @class = "sios-nav-link nav-link" })
-                            @Html.ActionLink("Chronic Delivery", "CompaniesChronicDelivery", "Pharmacy", null, new { @class = "sios-nav-link nav-link" })
+                            @Html.ActionLink("Claims", "IndexClaim", "Pharmacy", null, new { @class = "sios-nav-link nav-link", @id = "IndexClaim" })
+                            @Html.ActionLink("Chronic Delivery", "CompaniesChronicDeliveryNew", "Pharmacy", null, new { @class = "sios-nav-link nav-link", @id = "CompaniesChronicDeliveryNew" })
 
 
                         }
