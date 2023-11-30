@@ -8778,6 +8778,23 @@
     <Content Include="Views\Home\Application.cshtml" />
     <Content Include="Views\Pharmacy\Pharmacy.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardNew.cshtml" />
+    <Content Include="Reports\LoseRatioReports\LosingCompaniesReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\LosingCompaniesReportTop10.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportComplete.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportCompleteDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportCurrent.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportCurrentDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioLastReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportComplete.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCompleteCompare.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCompleteDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCurrent.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCurrentCompare.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCurrentDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioReportCompareContract.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioStateReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\TopCompaniesReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\TopCompaniesReportTop10.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
