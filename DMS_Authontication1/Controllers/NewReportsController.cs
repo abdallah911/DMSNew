@@ -146,10 +146,10 @@ namespace DMS_Authontication1.Controllers
                             rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCostCsentr2.rpt"));
                             break;
                         case "1-10":
-                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCode2.rpt"));
+                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCode.rpt"));
                             break;
                         case "1-11":
-                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCodeandleva2.rpt"));
+                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCodeandleval.rpt"));
                             break;
                         default:
                             return View();
@@ -179,13 +179,13 @@ namespace DMS_Authontication1.Controllers
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmp.rpt"));
                         break;
                     case "2-2":
-                        rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpOldCmp.rpt"));
-                        break;
-                    case "2-3":
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpY.rpt"));
                         break;
-                    case "2-4":
+                    case "2-3":
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpYLimit.rpt"));
+                        break;
+                    case "2-4":
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpOldCmp.rpt"));
                         break;
                     case "2-5":
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpYOldCmp.rpt"));
@@ -335,10 +335,10 @@ namespace DMS_Authontication1.Controllers
                             rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCostCsentr2.rpt"));
                             break;
                         case "1-10":
-                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCode2.rpt"));
+                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCode.rpt"));
                             break;
                         case "1-11":
-                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCodeandleva2.rpt"));
+                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCodeandleval.rpt"));
                             break;
                         default:
                             return View();
@@ -368,13 +368,13 @@ namespace DMS_Authontication1.Controllers
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmp.rpt"));
                         break;
                     case "2-2":
-                        rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpOldCmp.rpt"));
-                        break;
-                    case "2-3":
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpY.rpt"));
                         break;
-                    case "2-4":
+                    case "2-3":
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpYLimit.rpt"));
+                        break;
+                    case "2-4":
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpOldCmp.rpt"));
                         break;
                     case "2-5":
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpYOldCmp.rpt"));
