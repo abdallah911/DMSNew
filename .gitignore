@@ -54,6 +54,9 @@ nunit-*.xml
 [Dd]ebugPS/
 [Rr]eleasePS/
 dlldata.c
+*.[Dd]ll
+# To ignore DLL files in all directories
+**/*.dll
 
 # Benchmark Results
 BenchmarkDotNet.Artifacts/
