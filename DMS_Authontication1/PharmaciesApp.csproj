@@ -299,6 +299,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\NewReportsController.cs" />
+    <Compile Include="Controllers\MobileApi\AccountMobileController.cs" />
     <Compile Include="Controllers\ReportMain\ReportMainController.cs" />
     <Compile Include="Controllers\LossRatio\LossRatioController.cs" />
     <Compile Include="Controllers\CustomerService\CustomerServiceController.cs" />
@@ -958,6 +959,18 @@
       <DependentUpon>LetterTransfer.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\HR\SoficoClaims.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SoficoClaims.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\HR\SoficoDetails.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SoficoDetails.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\HR\_LetterTransfer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1215,6 +1228,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Consum918InternalCode.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RoshitaDetails.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RoshitaDetails.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\RoshitaReport.cs">
@@ -7057,6 +7076,7 @@
     <Content Include="assets\NewDesign\img\Clients\care.png" />
     <Content Include="assets\NewDesign\img\Clients\cleopatra.jpg" />
     <Content Include="assets\NewDesign\img\Clients\مختبر.jpg" />
+    <Content Include="assets\NewDesign\img\clinic\clinceProfile.jpg" />
     <Content Include="assets\NewDesign\img\clinic\website S  5555 4-16.png" />
     <Content Include="assets\NewDesign\img\clinic\website S  5555-17.png" />
     <Content Include="assets\NewDesign\img\clinic\website S  60000-17.png" />
@@ -7066,6 +7086,8 @@
     <Content Include="assets\NewDesign\img\commerce\3.png" />
     <Content Include="assets\NewDesign\img\commerce\website S  5555 8-18 %281%29.png" />
     <Content Include="assets\NewDesign\img\enterPrice\main.png" />
+    <Content Include="assets\NewDesign\img\commerce\ecommerceProfile.jpg" />
+    <Content Include="assets\NewDesign\img\enterPrice\enterPriceProfile.jpg" />
     <Content Include="assets\NewDesign\img\enterPrice\website S  7-17.png" />
     <Content Include="assets\NewDesign\img\enterPrice\website S  70-17.png" />
     <Content Include="assets\NewDesign\img\enterPrice\website S  80-17.png" />
@@ -7109,6 +7131,19 @@
     <Content Include="assets\NewDesign\img\services\design.jpg" />
     <Content Include="assets\NewDesign\img\services\mobile dev.jpg" />
     <Content Include="assets\NewDesign\img\services\web.jpg" />
+    <Content Include="assets\NewDesign\img\healthCare\healthcareProfile.jpg" />
+    <Content Include="assets\NewDesign\img\home bg.jpg" />
+    <Content Include="assets\NewDesign\img\Hr\h3.jpg" />
+    <Content Include="assets\NewDesign\img\Hr\hr1.jpg" />
+    <Content Include="assets\NewDesign\img\Hr\hr2.jpg" />
+    <Content Include="assets\NewDesign\img\Hr\hrProduct.jpg" />
+    <Content Include="assets\NewDesign\img\Product1.png" />
+    <Content Include="assets\NewDesign\img\services\Business analysis services 2-01.jpg" />
+    <Content Include="assets\NewDesign\img\services\Cloud app development 7-01.jpg" />
+    <Content Include="assets\NewDesign\img\services\design-graphics-.jpg" />
+    <Content Include="assets\NewDesign\img\services\Mobile development 3-01.jpg" />
+    <Content Include="assets\NewDesign\img\services\Software product design 2-01.jpg" />
+    <Content Include="assets\NewDesign\img\services\Web development services 4-01.jpg" />
     <Content Include="assets\NewDesign\img\th.jpg" />
     <Content Include="assets\NewDesign\img\Untitled-222222-01-removebg-preview.png" />
     <Content Include="assets\NewDesign\img\website 8-06.jpg" />
@@ -7120,8 +7155,6 @@
     <Content Include="assets\NewDesign\js\index.js" />
     <Content Include="assets\NewDesign\js\jquery-3.6.0.js" />
     <Content Include="assets\NewDesign\js\jquery-3.6.3.min.js" />
-    <Content Include="assets\NewDesign\js\jquery-ui.js" />
-    <Content Include="assets\NewDesign\js\jquery.min.js" />
     <Content Include="assets\NewDesign\js\login.js" />
     <Content Include="assets\NewDesign\js\main.js" />
     <Content Include="assets\NewDesign\js\owl.carousel.js" />
@@ -7656,6 +7689,9 @@
     <Content Include="assets\ReportDesign\CSS\images\ui-icons_ffffff_256x240.png" />
     <Content Include="assets\ReportDesign\CSS\jquery-ui.css" />
     <Content Include="assets\ReportDesign\CSS\jquery-ui.min.css" />
+    <Content Include="assets\ReportDesign\CSS\main-reports.css" />
+    <Content Include="assets\ReportDesign\CSS\select2.min.css" />
+    <Content Include="assets\ReportDesign\Images\background-22-01.jpg" />
     <Content Include="assets\ReportDesign\Images\logo D M S 4-04.png" />
     <Content Include="assets\ReportDesign\Images\logo-dms-white2.png" />
     <Content Include="assets\ReportDesign\Images\Untitled-1  2-01.jpg" />
@@ -7683,6 +7719,8 @@
     <Content Include="assets\ReportDesign\JS\jquery-3.6.0.js" />
     <Content Include="assets\ReportDesign\JS\jquery-ui.js" />
     <Content Include="assets\ReportDesign\JS\jquery.min.js" />
+    <Content Include="assets\ReportDesign\JS\main-reports.js" />
+    <Content Include="assets\ReportDesign\JS\select2.min.js" />
     <Content Include="Content\ApprovalImages\logo773242063151466883675182756090.jpeg" />
     <Content Include="Content\ApprovalImages\medical data183136055.png" />
     <Content Include="Content\ApprovalImages\te0st.jpg" />
@@ -8663,6 +8701,7 @@
     <Content Include="Views\Employee\Login.cshtml" />
     <Content Include="Views\Employee\UpdateData.cshtml" />
     <Content Include="Views\HrChronic\PrintMedicalReport.cshtml" />
+    <Content Include="Views\Reports\HrClaimsPremium.cshtml" />
     <Content Include="Views\ReportMain\Index.cshtml" />
     <Content Include="Reports\EditMedicine.rpt" />
     <Content Include="Reports\EditMedicine2.rpt" />
@@ -8716,6 +8755,62 @@
     <Content Include="Views\NewReports\ConsumptionReport.cshtml" />
     <Content Include="Views\GetApproval\Index.cshtml" />
     <Content Include="Views\Pharmacy\CardCode.cshtml" />
+    <Content Include="Reports\ApprovalReports\ReportAprov1.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov10.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov11.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov12.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov13.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov14.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov2.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov6.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov7.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalAmt.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalAmtDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalByCard.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalCardDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalCompany.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalCompanyDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalDate.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalDateDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalDateServ.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalDateServDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalddd2.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalEditDelete.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalEditDeleteDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalEditDeleteDetails2.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalException.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalExceptionDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalold.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalPrv.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalPrvDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalRecollection.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalRecollectionDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalReply.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalReplyDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalResdnt.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalResdntDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalServBy.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalServByDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalService.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalServiceComp.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalServiceCompDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalServiceDetails.rpt" />
+    <Content Include="Views\NewReports\ReportsContract.cshtml" />
+    <Content Include="Views\NewReports\ReportsPrinting.cshtml" />
+    <Content Include="Views\NewReports\ReportsCustomerServices.cshtml" />
+    <Content Include="Views\NewReports\ReportsPharmacy.cshtml" />
+    <Content Include="Views\NewReports\ReportsLoseRatio.cshtml" />
+    <Content Include="Reports\ContractReports\ReportEndComp11.rpt" />
+    <Content Include="Reports\ContractReports\ReportEndCompBefore1.rpt" />
+    <Content Include="Reports\PrintingReports\OrderPrint.rpt" />
+    <Content Include="Reports\PrintingReports\OrderPrintPrint.rpt" />
+    <Content Include="Reports\PrintingReports\OrderWithoutPrint.rpt" />
+    <Content Include="Reports\PrintingReports\PrintWithDelivery.rpt" />
+    <Content Include="Reports\PrintingReports\PrintWithoutReview.rpt" />
+    <Content Include="Reports\PrintingReports\PrintWithReview.rpt" />
+    <Content Include="Reports\PrintingReports\TransactionWithoutPrint.rpt" />
+    <Content Include="Reports\CustomerServicesReports\ReportMonitor.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioReport.rpt" />
     <Content Include="Views\Home\OldIndex.cshtml" />
     <Content Include="Views\Account\OldLogin.cshtml" />
     <Content Include="Views\Home\HR.cshtml" />
@@ -8728,6 +8823,23 @@
     <Content Include="Views\Home\Application.cshtml" />
     <Content Include="Views\Pharmacy\Pharmacy.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardNew.cshtml" />
+    <Content Include="Reports\LoseRatioReports\LosingCompaniesReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\LosingCompaniesReportTop10.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportComplete.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportCompleteDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportCurrent.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportCurrentDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioLastReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportComplete.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCompleteCompare.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCompleteDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCurrent.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCurrentCompare.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCurrentDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioReportCompareContract.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioStateReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\TopCompaniesReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\TopCompaniesReportTop10.rpt" />
     <Content Include="Views\Pharmacy\IndexClaim.cshtml" />
     <Content Include="Views\Pharmacy\CompaniesChronicDeliveryNew.cshtml" />
   </ItemGroup>
@@ -8908,9 +9020,9 @@
       <LastGenOutput>ReportApproval.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Reports\RoshitaReport.rpt">
+    <Content Include="Reports\RoshitaReport3.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RoshitaReport.cs</LastGenOutput>
+      <LastGenOutput>RoshitaReport3.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Migrations\201802280728382_editUser.resx">
@@ -8997,6 +9109,14 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>LetterTransfer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\SoficoClaims.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SoficoClaims.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\SoficoDetails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SoficoDetails.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\HR\_LetterTransfer.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>_LetterTransfer.cs</LastGenOutput>
@@ -9058,6 +9178,14 @@
       <LastGenOutput>RoshitaReport2.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Reports\RoshitaDetails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RoshitaDetails.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RoshitaReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RoshitaReport.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
