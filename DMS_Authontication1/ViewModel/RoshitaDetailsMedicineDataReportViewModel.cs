@@ -20,6 +20,7 @@ namespace DMS_TEST.ViewModel
         public int TotalDuration { get; set; }
         public int TotalUnits { get; set; }
         public double Amount { get; set; }
+        public double RealAmount { get; set; }
         public int RoshitaID { get; set; }
         public string PaymentGroup { get; set; }
         public string MedicineNoPay { get; set; }

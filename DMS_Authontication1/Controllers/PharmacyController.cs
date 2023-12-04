@@ -2812,8 +2812,12 @@ namespace DMS_TEST.Controllers
         public JsonResult CheckType(string CardId)
         {
             int EmpId = db.Comp_Employees.Where(c => c.CARD_ID == CardId && c.INS_START_DATE <= DateTime.Now && c.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
-            var accptionType = db.Acceptions.Where(x => x.CompEmployeesId == EmpId).OrderByDescending(d => d.Id).FirstOrDefault().ApprovalType;
-            if (accptionType == "Vip")
+            var accptionType = db.Acceptions.Where(x => x.CompEmployeesId == EmpId).OrderByDescending(d => d.Id).FirstOrDefault();
+            if (accptionType == null)
+            {
+                return new JsonResult { Data = false, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            if (accptionType.ApprovalType == "Vip")
             {
                 return new JsonResult { Data = true, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
@@ -4284,7 +4288,8 @@ namespace DMS_TEST.Controllers
                     TotalUnits = Convert.ToInt32(d.r.TotalUnits),//count
                     Amount = d.r.Amount,//
                     PaymentGroup = d.r.PaymentGroup,//type
-                    MedicineNoPay = d.r.MedicineNoPay
+                    MedicineNoPay = d.r.MedicineNoPay,
+                    RealAmount = Convert.ToDouble(d.m.UNIT_PRICE) * Convert.ToDouble(d.r.TotalUnits),
                 }).ToList();
                 rd.SetDataSource(y);
                 if (string.IsNullOrEmpty(patient.EMP_ENAME) || patient.EMP_ENAME == "NULL")
@@ -4699,7 +4704,7 @@ namespace DMS_TEST.Controllers
 
             return View();
         }
-        
+
         [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
         public ActionResult CompaniesChronicDeliveryNew()
         {
