@@ -4253,7 +4253,8 @@ namespace DMS_TEST.Controllers
                     TotalUnits = Convert.ToInt32(d.r.TotalUnits),//count
                     Amount = d.r.Amount,//
                     PaymentGroup = d.r.PaymentGroup,//type
-                    MedicineNoPay = d.r.MedicineNoPay
+                    MedicineNoPay = d.r.MedicineNoPay,
+                    RealAmount = Convert.ToDouble(d.m.UNIT_PRICE) * Convert.ToDouble(d.r.TotalUnits),
                 }).ToList();
                 rd.SetDataSource(y);
                 if (string.IsNullOrEmpty(patient.EMP_ENAME) || patient.EMP_ENAME == "NULL")
