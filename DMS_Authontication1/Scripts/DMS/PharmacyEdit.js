@@ -922,7 +922,7 @@ function SelectMedicien(event) {
                                                                             className: 'btn-info',
                                                                             callback: function () {
                                                                                 Group = "PendingChronic";
-                                                                                toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                                                                //toastr.info('برجاءالتواصل مع الاداره الطبيه');
                                                                                 AppendRow();
                                                                             }
                                                                         }

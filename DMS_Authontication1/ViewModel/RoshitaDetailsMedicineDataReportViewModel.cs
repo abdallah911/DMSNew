@@ -10,7 +10,7 @@ namespace DMS_TEST.ViewModel
 {
     public class RoshitaDetailsMedicineDataReportViewModel
     {
-   
+
         //Roshita Details
         public long DId { get; set; }
         public string MedicienCode { get; set; }
@@ -31,7 +31,7 @@ namespace DMS_TEST.ViewModel
         public string TRADE_NAME { get; set; }
         public string DOSAGE_FORM { get; set; }
         public string LIC_TYPE { get; set; }
-        
+
         //public int NoPay { get; set; }
         //public int NoOver { get; set; }
         //public double CellingPert { get; set; }
