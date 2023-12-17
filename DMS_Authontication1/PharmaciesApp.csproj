@@ -8878,7 +8878,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50600</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50600/</IISUrl>
+          <IISUrl>http://localhost:50700/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -10,6 +10,9 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -281,6 +284,19 @@ namespace DMS_Authontication1.Controllers
             try
             {
                 int result = db.SaveChanges();
+                var model = db.CardsSms.Where(c => c.CardId == roshita.CardId).FirstOrDefault();
+                if (model != null)
+                {
+                    try
+                    {
+                        PostSMSData("New medicine has been added . If it is not used, please call 0226390390 ", model.Phone);
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                }
                 return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita.Id);
 
             }
@@ -953,6 +969,19 @@ namespace DMS_Authontication1.Controllers
             }
 
             db.SaveChanges();
+            var model = db.CardsSms.Where(c => c.CardId == Rosita.CardId).FirstOrDefault();
+            if (model != null)
+            {
+                try
+                {
+                    PostSMSData("New medicine has been added . If it is not used, please call 0226390390 ", model.Phone);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
             return Json("Done");
         }
 
@@ -1039,6 +1068,56 @@ namespace DMS_Authontication1.Controllers
             if (mED_CARD.PROVIDER_CODE != data.PR_ANAME)
                 return true;
             return false;
+        }
+
+        public string PostSMSData(string Message, string PhoneNumber)
+        {
+            string requestXml =
+                "<SubmitSMSRequest xmlns='http://www.edafa.com/web2sms/sms/model/'>" +
+                "<AccountId>200001555</AccountId>" +
+                "<Password>Vodafone.1</Password>" +
+                "<SecureHash>" + SecretHashMethod(Message, PhoneNumber) + "</SecureHash>" +
+                "<SMSList>" +
+                "<SenderName>DIAMOND MED</SenderName>" +
+                "<ReceiverMSISDN>" + PhoneNumber + "</ReceiverMSISDN>" +
+                "<SMSText>" + Message + "</SMSText>" +
+                "</SMSList>" +
+                "</SubmitSMSRequest>";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://e3len.vodafone.com.eg/web2sms/sms/submit/");
+            byte[] bytes;
+            bytes = System.Text.Encoding.ASCII.GetBytes(requestXml);
+            request.ContentType = "application/xml; encoding='utf-8'";
+            request.ContentLength = bytes.Length;
+            request.Method = "POST";
+            Stream requestStream = request.GetRequestStream();
+            requestStream.Write(bytes, 0, bytes.Length);
+            requestStream.Close();
+            HttpWebResponse response;
+            response = (HttpWebResponse)request.GetResponse();
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Stream responseStream = response.GetResponseStream();
+                string responseStr = new StreamReader(responseStream).ReadToEnd();
+                return responseStr;
+            }
+            return null;
+        }
+        private string SecretHashMethod(string Message, string PhoneNumber)
+        {
+            string secret = "B88551A75DC04D78BB92ABAD298BB19F";
+            StringBuilder SecretHash = new StringBuilder();
+
+            //var encoding = new System.Text.ASCIIEncoding();
+            byte[] keyByte = System.Text.Encoding.UTF8.GetBytes(secret);
+            byte[] messageBytes = System.Text.Encoding.UTF8.GetBytes("AccountId=200001555&Password=Vodafone.1&SenderName=DIAMOND MED&ReceiverMSISDN=" + PhoneNumber + "&SMSText=" + Message);
+            //byte[] messageBytes = encoding.GetBytes("AccountId=200001555&Password=Vodafone.1&SenderName=DIAMOND MED&ReceiverMSISDN=01028599477&SMSText=Hello World");
+            using (var hmacsha256 = new HMACSHA256(keyByte))
+            {
+                byte[] hashmessage = hmacsha256.ComputeHash(messageBytes);
+                foreach (Byte b in hashmessage)
+                    SecretHash.Append(b.ToString("x2"));
+                return SecretHash.ToString().ToUpper();
+            }
         }
 
         #endregion

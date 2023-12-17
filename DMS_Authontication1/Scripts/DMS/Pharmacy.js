@@ -787,51 +787,41 @@ $(function () {
     $('#AddMedicine').on('select2:selecting', function (event) {
         var companid = $('#txtSearchCard').val().split('-')[0];
         if ($('#txtSearchCard').val() != '') {
-            if ($('#PrescriptionDate').val() != '') {
-                if (companid == "8887700") {
-                    if ($('#ddlDiagnoises').val().length != 0) {
-                        if (haveClaim == 1) {
-                            if ($('#ClaimNumber').val() != "") {
-                                var ze = document.getElementById('ClaimNumber').value;
-                                $.ajax({
-                                    url: '/Pharmacy/GetCardCode',
-                                    data: { id: $('#txtSearchCard').val(), calimNumber: ze },
-                                    dataType: 'Json',
-                                    success: function (Code) {
-                                        if (Code == "0") {
-                                            SelectMedicienCompany(event);
+            if ($('#ddlType').val() != 0) {
+
+                if ($('#PrescriptionDate').val() != '') {
+                    if (companid == "8887700") {
+                        if ($('#ddlDiagnoises').val().length != 0) {
+                            if (haveClaim == 1) {
+                                if ($('#ClaimNumber').val() != "") {
+                                    var ze = document.getElementById('ClaimNumber').value;
+                                    $.ajax({
+                                        url: '/Pharmacy/GetCardCode',
+                                        data: { id: $('#txtSearchCard').val(), calimNumber: ze },
+                                        dataType: 'Json',
+                                        success: function (Code) {
+                                            if (Code == "0") {
+                                                SelectMedicienCompany(event);
+                                            }
+                                            else {
+                                                bootbox.alert("غير مسموح بصرف ادوية لهذا الكارت من خلالكم");
+                                                event.preventDefault();
+                                            }
+                                        },
+                                        error: function () {
+                                            bootbox.alert("Too many data  Retrieve more specific characters solve the problem and check your internet connection");
+                                            $("#wait").css("display", "none");
                                         }
-                                        else {
-                                            bootbox.alert("غير مسموح بصرف ادوية لهذا الكارت من خلالكم");
-                                            event.preventDefault();
-                                        }
-                                    },
-                                    error: function () {
-                                        bootbox.alert("Too many data  Retrieve more specific characters solve the problem and check your internet connection");
-                                        $("#wait").css("display", "none");
-                                    }
-                                });
+                                    });
+                                }
+                                else {
+                                    bootbox.alert("Please Insert Valid ClaimNumber");
+                                    event.preventDefault();
+                                }
                             }
                             else {
-                                bootbox.alert("Please Insert Valid ClaimNumber");
-                                event.preventDefault();
+                                SelectMedicienCompanyPending(event);
                             }
-                        }
-                        else {
-                            SelectMedicienCompanyPending(event);
-                        }
-                    }
-                    else {
-                        toastr.info("برجاء ادخال التشخيص الصحيح الموجود بالنموذج وفي حاله عدم مطابقه التشخيص الموجود بالنموذج للادويه او عدم وجود تشخيص يتم الرجوع الي الاداره الطبيه");
-                        event.preventDefault();
-                    }
-                }
-                else {
-                    if ($('#PhoneNumber').val() != '' && $("#PhoneNumber").val().length == 11) {
-                        if ($('#ddlDiagnoises').val().length != 0) {
-                            //setTimeout(function () {}, 3000);
-                            SelectMedicien(event);
-
                         }
                         else {
                             toastr.info("برجاء ادخال التشخيص الصحيح الموجود بالنموذج وفي حاله عدم مطابقه التشخيص الموجود بالنموذج للادويه او عدم وجود تشخيص يتم الرجوع الي الاداره الطبيه");
@@ -839,13 +829,32 @@ $(function () {
                         }
                     }
                     else {
-                        toastr.info("برجاء ادخال رقم الموبايل صحيح المتكون من 11 رقم");
-                        event.preventDefault();
+                        if ($('#PhoneNumber').val() != '' && $("#PhoneNumber").val().length == 11) {
+                            if ($('#ddlDiagnoises').val().length != 0) {
+                                //setTimeout(function () {}, 3000);
+                                SelectMedicien(event);
+
+                            }
+                            else {
+                                toastr.info("برجاء ادخال التشخيص الصحيح الموجود بالنموذج وفي حاله عدم مطابقه التشخيص الموجود بالنموذج للادويه او عدم وجود تشخيص يتم الرجوع الي الاداره الطبيه");
+                                event.preventDefault();
+                            }
+                        }
+                        else {
+                            toastr.info("برجاء ادخال رقم الموبايل صحيح المتكون من 11 رقم");
+                            event.preventDefault();
+                        }
                     }
                 }
-            } else {
-                toastr.info("Please insert Prescription Date");
+                else {
+                    toastr.info("Please insert Prescription Date");
+                    event.preventDefault();
+                }
+            }
+            else {
+                toastr.info("Please select Type");
                 event.preventDefault();
+                // $('#AddMedicine').val(null).trigger("change");
             }
         }
         else {
@@ -1366,7 +1375,7 @@ function SelectMedicienCompanyPending(event) {
             });
             if (edit == 0) {
                 Group = "Pending";
-                toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                //toastr.info('برجاءالتواصل مع الاداره الطبيه');
                 AppendRow();
             }
 
@@ -1703,7 +1712,7 @@ function SelectMedicien(event) {
                                                                                         className: 'btn-info',
                                                                                         callback: function () {
                                                                                             Group = "Pending";
-                                                                                            toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                                                                            //toastr.info('برجاءالتواصل مع الاداره الطبيه');
                                                                                             AppendRow();
                                                                                         }
                                                                                     }
@@ -1784,7 +1793,7 @@ function SelectMedicien(event) {
                                                                         className: 'btn-info',
                                                                         callback: function () {
                                                                             Group = "PendingChronic";
-                                                                            toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                                                            //toastr.info('برجاءالتواصل مع الاداره الطبيه');
                                                                             AppendRow();
                                                                         }
                                                                     }
@@ -2215,73 +2224,79 @@ function Calculation() {
 
 }
 function GetLimit() {
+    if ($('#ddlType').val() != 0) {
+        //Co-Payment
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '/Pharmacy/CellingAmount',
+            data: {
+                id: CardId,
+                ServiceCode: $('#ddlType').val()
+            },
+            success: function (r) {
+                if (r.Validation == false) {
+                    // toastr.info(r.Message);
+                    //ClearCardData();
+                    alert(r.Message);
+                    //history.go(0);
+                    window.location.replace("/Pharmacy/Pharmacy");
+                    //window.location.reload();
 
-    //Co-Payment
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: '/Pharmacy/CellingAmount',
-        data: {
-            id: CardId,
-            ServiceCode: $('#ddlType').val()
-        },
-        success: function (r) {
-            if (r.Validation == false) {
-                // toastr.info(r.Message);
-                //ClearCardData();
-                alert(r.Message);
-                //history.go(0);
-                window.location.replace("/Pharmacy/Pharmacy");
-                //window.location.reload();
+                } else {
+                    $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
+                    AnuualLimit = r.Limit;
+                    $('#IsFamily').val(r.IsFamily);
+                    $('#IsPool').val(r.IsPool);
+                    $('#AllLimit').val(r.AnnualLimit);
+                    if ($("#ddlType").val() == "11601") {
+                        if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
+                            $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
+                        } else {
+                            alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
+                            $("#insurance_LIVEL").val("0.001");
 
-            } else {
-                $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
-                AnuualLimit = r.Limit;
-                $('#IsFamily').val(r.IsFamily);
-                $('#IsPool').val(r.IsPool);
-                $('#AllLimit').val(r.AnnualLimit);
-                if ($("#ddlType").val() == "11601") {
-                    if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
-                        $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
-                    } else {
-                        alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
-                        $("#insurance_LIVEL").val("0.001");
+                            $('#ddEmp_CEILING_PERT').val("0");
+                        }
+                    }
+                    else if ($("#ddlType").val() == "11603") {
 
-                        $('#ddEmp_CEILING_PERT').val("0");
+                        //if (CompId.startsWith("10") || CompId.startsWith("70") || CompId == "500135" || CompId == "500136" || CompId == "500137" || CompId == "500138" || CompId == "500139" || CompId == "500140" || CompId == "500145") {
+                        //    alert("برجاء الرجوع للإداره الطبيه");
+                        //    window.location.reload();
+                        //} else {}
+                        if (r.LimitMonthlyPreceptionCount && r.CoInsurancelimit.INSURANCE_MONTH >= 0) {
+                            $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_MONTH);
+
+                        } else {
+                            alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
+                            $("#insurance_LIVEL").val("0.001");
+                            $('#ddEmp_CEILING_PERT').val("0");
+                        }
+
+                    }
+                    else if ($("#ddlType").val() == "11602") {
+                        window.location.replace("/Chronic/Chronic?id=" + CardId + "&&NationalId=" + NationalId);
+                    }
+                    else if ($("#ddlType").val() == "11604") {
+                        window.location.replace("/Doctor/Doctor?id=" + CardId + "&&NationalId=" + NationalId);
+                        //window.location.replace("/Doctor/Doctor/" + CardId);
                     }
                 }
-                else if ($("#ddlType").val() == "11603") {
-
-                    //if (CompId.startsWith("10") || CompId.startsWith("70") || CompId == "500135" || CompId == "500136" || CompId == "500137" || CompId == "500138" || CompId == "500139" || CompId == "500140" || CompId == "500145") {
-                    //    alert("برجاء الرجوع للإداره الطبيه");
-                    //    window.location.reload();
-                    //} else {}
-                    if (r.LimitMonthlyPreceptionCount && r.CoInsurancelimit.INSURANCE_MONTH >= 0) {
-                        $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_MONTH);
-
-                    } else {
-                        alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
-                        $("#insurance_LIVEL").val("0.001");
-                        $('#ddEmp_CEILING_PERT').val("0");
-                    }
-
-                }
-                else if ($("#ddlType").val() == "11602") {
-                    window.location.replace("/Chronic/Chronic?id=" + CardId + "&&NationalId=" + NationalId);
-                }
-                else if ($("#ddlType").val() == "11604") {
-                    window.location.replace("/Doctor/Doctor?id=" + CardId + "&&NationalId=" + NationalId);
-                    //window.location.replace("/Doctor/Doctor/" + CardId);
-                }
+            },
+            error: function (err) {
+                alert("Failed to retrieve Company Annual Limit. please check your internet connection");
+                location.reload();
             }
-        },
-        error: function (err) {
-            alert("Failed to retrieve Company Annual Limit. please check your internet connection");
-            location.reload();
-        }
-    })
-    Calculation();
+        })
+        Calculation();
 
+    }
+    else {
+        $("#insurance_LIVEL").val("");
+
+        $('#ddEmp_CEILING_PERT').val("");
+    }
 }
 
 function GetCompName() {

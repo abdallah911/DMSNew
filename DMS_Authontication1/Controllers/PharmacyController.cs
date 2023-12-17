@@ -2364,20 +2364,33 @@ namespace DMS_TEST.Controllers
         public JsonResult MedicinesGroupValiadtionAll(string CardId, string MedicineCode)
         {
             DateTime MonthlyDate = DateTime.UtcNow.Date.AddDays(-28);
+            DateTime CurrentDate = DateTime.UtcNow.Date;
             var Roshitas = db.Roshitas.Where(r => r.CardId == CardId)
              .Join(db.RoshitaDetails, x => x.Id, y => y.RoshitaID, (x, y) => new { x, y })
-             .Where(l => l.x.CreatedDate >= MonthlyDate && (l.x.Manager == "Monthly" || l.x.Manager == "Pharmacy_Chronic")).Select(x => x.y.MedicienCode).ToList();
+             .Where(l => l.y.MedicienCode == MedicineCode && l.x.CreatedDate >= MonthlyDate && (l.x.Manager == "Monthly" || l.x.Manager == "Pharmacy_Chronic")).ToList();
+            List<string> RoshitaCompare = new List<string>();
+            foreach (var item in Roshitas.Where(w => w.x.Manager == "Monthly"))
+            {
+                DateTime DateCompare = item.x.CreatedDate.Value.AddDays(item.y.TotalDuration).Date;
+                if (CurrentDate <= DateCompare)
+                {
+                    RoshitaCompare.Add(item.y.MedicienCode);
+                }
+            }
+            RoshitaCompare.AddRange(Roshitas.Where(w => w.x.Manager == "Pharmacy_Chronic").Select(x => x.y.MedicienCode).ToList());
+
             //DAily
             DateTime DailyDate = DateTime.UtcNow.Date.AddDays(-5);
             var RoshitasDailies = db.Roshitas.Where(r => r.CardId == CardId)
              .Join(db.RoshitaDetails, x => x.Id, y => y.RoshitaID, (x, y) => new { x, y })
              .Where(l => l.x.CreatedDate >= DailyDate && l.x.Manager == "Daily").Select(x => x.y.MedicienCode).ToList();
-            Roshitas.AddRange(RoshitasDailies);
+            RoshitaCompare.AddRange(RoshitasDailies);
+
 
             MedicineData currentMedicineData = db.MedicineDatas.Where(x => x.M_CODE == MedicineCode).FirstOrDefault();
             List<MedicineData> Groups = new List<MedicineData>();
             bool Samegroup = false;
-            foreach (var item in Roshitas)
+            foreach (var item in RoshitaCompare)
             {
                 MedicineData Group = new MedicineData();
                 if (item != null)//not include first medicine
@@ -2743,15 +2756,25 @@ namespace DMS_TEST.Controllers
         public JsonResult MedicinesDurationValiadtion(string CardId, string MedicineCode)
         {
             DateTime MonthlyDate = DateTime.UtcNow.Date.AddDays(-28);
+            DateTime CurrentDate = DateTime.UtcNow.Date;
             var Roshitas = db.Roshitas.Where(r => r.CardId == CardId)
              .Join(db.RoshitaDetails, x => x.Id, y => y.RoshitaID, (x, y) => new { x, y })
              .Where(l => l.y.MedicienCode == MedicineCode && l.x.CreatedDate >= MonthlyDate && (l.x.Manager == "Monthly" || l.x.Manager == "Pharmacy_Chronic")).ToList();
+            List<Roshita> RoshitaCompare = new List<Roshita>();
+            foreach (var item in Roshitas.Where(w => w.x.Manager == "Monthly"))
+            {
+                DateTime DateCompare = item.x.CreatedDate.Value.AddDays(item.y.TotalDuration).Date;
+                if (CurrentDate <= DateCompare)
+                {
+                    RoshitaCompare.Add(item.x);
+                }
+            }
             //DAily
             DateTime DailyDate = DateTime.UtcNow.Date.AddDays(-5);
             var RoshitasDailies = db.Roshitas.Where(r => r.CardId == CardId)
              .Join(db.RoshitaDetails, x => x.Id, y => y.RoshitaID, (x, y) => new { x, y })
              .Where(l => l.y.MedicienCode == MedicineCode && l.x.CreatedDate >= DailyDate && l.x.Manager == "Daily").ToList();
-            if (Roshitas.Count == 0 && RoshitasDailies.Count == 0)
+            if (Roshitas.Where(w => w.x.Manager == "Pharmacy_Chronic").Count() == 0 && RoshitaCompare.Count == 0 && RoshitasDailies.Count == 0)
             {
                 //add medicine
                 return new JsonResult { Data = false, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -4240,7 +4263,14 @@ namespace DMS_TEST.Controllers
                 }
                 else
                 {
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReport.rpt"));
+                    if (data.Manager == "Daily")
+                    {
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReportAfterBefore.rpt"));
+                    }
+                    else
+                    {
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReport.rpt"));
+                    }
                 }
                 var y = db.RoshitaDetails.Where(r => r.RoshitaID == data.Id && r.IsDealed == true)
                    .Join(db.MedicineDatas, r => r.MedicienCode, m => m.M_CODE, (r, m) => new { r, m })
