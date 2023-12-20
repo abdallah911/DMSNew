@@ -1256,6 +1256,12 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Reports\RoshitaReportAfterBefore.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RoshitaReportAfterBefore.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AcceptionViewModel.cs" />
     <Compile Include="ViewModel\AdminChangeUserPasswordNM.cs" />
@@ -7018,6 +7024,86 @@
     <Content Include="assets\layouts\layout\scripts\demo.min.js" />
     <Content Include="assets\layouts\layout\scripts\layout.js" />
     <Content Include="assets\layouts\layout\scripts\layout.min.js" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\admin.css" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\all.min.css" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\bootstrap.min.css" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\dataTables.bootstrap5.min.css" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\HR-Style.css" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_flat_0_888888_40x100.png" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_glass_25_e1f0f5_1x400.png" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_glass_55_444444_1x400.png" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_inset-soft_95_fef1ec_1x100.png" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-icons_222222_256x240.png" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-icons_309bbf_256x240.png" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-icons_444444_256x240.png" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-icons_bf3030_256x240.png" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\jquery-ui.css" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\jquery-ui.min.css" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\main-reports.css" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\main.css" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\Medical-Approval.css" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\menu-shared.css" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\ray-lab.css" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\select2.min.css" />
+    <Content Include="assets\NewDesignBackAdmin\CSS\toastr.min.css" />
+    <Content Include="assets\NewDesignBackAdmin\Images\All\background.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Images\All\Bg.jpeg" />
+    <Content Include="assets\NewDesignBackAdmin\Images\All\greater-than.svg" />
+    <Content Include="assets\NewDesignBackAdmin\Images\All\home-icon.svg" />
+    <Content Include="assets\NewDesignBackAdmin\Images\background-22-01.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Images\logo D M S 4-04.png" />
+    <Content Include="assets\NewDesignBackAdmin\Images\logo-dms-white2.png" />
+    <Content Include="assets\NewDesignBackAdmin\Images\logo-dms.png" />
+    <Content Include="assets\NewDesignBackAdmin\Images\up.png" />
+    <Content Include="assets\NewDesignBackAdmin\Images\Welcome.png" />
+    <Content Include="assets\NewDesignBackAdmin\Img\logo D M S 4-04.png" />
+    <Content Include="assets\NewDesignBackAdmin\Img\logo-dms-white2.png" />
+    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1  2-01.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1  2-02.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1 22-01.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1-01.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1-02.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-2-01.png" />
+    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-2-02.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S  77-01.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S gg-01.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S gg-02.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S gg-03.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S gg-04.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S gg-05.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S gg-06.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S gg-07.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-02.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-03.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-04.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-05.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-06.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-07.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\JS\bootstrap.bundle.min.js" />
+    <Content Include="assets\NewDesignBackAdmin\JS\dataTables.bootstrap5.min.js" />
+    <Content Include="assets\NewDesignBackAdmin\JS\HR-Script.js" />
+    <Content Include="assets\NewDesignBackAdmin\JS\Installation _ Select2 - The jQuery replacement for select boxes.html" />
+    <Content Include="assets\NewDesignBackAdmin\JS\Installation _ Select2 - The jQuery replacement for select boxes_files\5ad898c30986b0985fd29e4a8ca9d1cb.css" />
+    <Content Include="assets\NewDesignBackAdmin\JS\Installation _ Select2 - The jQuery replacement for select boxes_files\prettify.css" />
+    <Content Include="assets\NewDesignBackAdmin\JS\jquery-3.6.0.js" />
+    <Content Include="assets\NewDesignBackAdmin\JS\jquery-ui.js" />
+    <Content Include="assets\NewDesignBackAdmin\JS\jquery.dataTables.min.js" />
+    <Content Include="assets\NewDesignBackAdmin\JS\jquery.min.js" />
+    <Content Include="assets\NewDesignBackAdmin\JS\main-reports copy.js" />
+    <Content Include="assets\NewDesignBackAdmin\JS\main-reports.js" />
+    <Content Include="assets\NewDesignBackAdmin\JS\main.js" />
+    <Content Include="assets\NewDesignBackAdmin\JS\select2.min.js" />
+    <Content Include="assets\NewDesignBackAdmin\JS\toastr.min.js" />
+    <Content Include="assets\NewDesignBackAdmin\select2.min.css" />
+    <Content Include="assets\NewDesignBackAdmin\select2.min.js" />
+    <Content Include="assets\NewDesignBackAdmin\toastr.min.css" />
+    <Content Include="assets\NewDesignBackAdmin\toastr.min.js" />
     <Content Include="assets\NewDesignBack\CSS\all.min.css" />
     <Content Include="assets\NewDesignBack\CSS\bootstrap.min.css" />
     <Content Include="assets\NewDesignBack\CSS\jquery-ui.css" />
@@ -8323,6 +8409,17 @@
     <Content Include="assets\ReportDesign\webfonts\fa-solid-900.woff2" />
     <Content Include="assets\ReportDesign\webfonts\fa-v4compatibility.ttf" />
     <Content Include="assets\ReportDesign\webfonts\fa-v4compatibility.woff2" />
+    <Content Include="assets\NewDesignBackAdmin\JS\Installation _ Select2 - The jQuery replacement for select boxes_files\3463b090afc66f573d74febe0935c1f6.js.download" />
+    <Content Include="assets\NewDesignBackAdmin\JS\Installation _ Select2 - The jQuery replacement for select boxes_files\analytics.js.download" />
+    <Content Include="assets\NewDesignBackAdmin\JS\Installation _ Select2 - The jQuery replacement for select boxes_files\js" />
+    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-brands-400.ttf" />
+    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-brands-400.woff2" />
+    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-regular-400.ttf" />
+    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-regular-400.woff2" />
+    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-solid-900.ttf" />
+    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-solid-900.woff2" />
+    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-v4compatibility.ttf" />
+    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-v4compatibility.woff2" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\DeployProfile.pubxml" />
     <None Include="Properties\PublishProfiles\DevelopingProfile.pubxml" />
@@ -8822,7 +8919,7 @@
     <Content Include="Views\Home\Index - Copy.cshtml" />
     <Content Include="Views\Home\Application.cshtml" />
     <Content Include="Views\Pharmacy\Pharmacy.cshtml" />
-    <Content Include="Views\Shared\_Layout_DashboardNew.cshtml" />
+    <Content Include="Views\Shared\_Layout_DashboardAdminNew.cshtml" />
     <Content Include="Reports\LoseRatioReports\LosingCompaniesReport.rpt" />
     <Content Include="Reports\LoseRatioReports\LosingCompaniesReportTop10.rpt" />
     <Content Include="Reports\LoseRatioReports\LossRatioCRMReportComplete.rpt" />
@@ -8842,6 +8939,8 @@
     <Content Include="Reports\LoseRatioReports\TopCompaniesReportTop10.rpt" />
     <Content Include="Views\Pharmacy\IndexClaim.cshtml" />
     <Content Include="Views\Pharmacy\CompaniesChronicDeliveryNew.cshtml" />
+    <Content Include="Views\ControlPanel\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout_DashboardNew.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
@@ -9186,6 +9285,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RoshitaReport.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RoshitaReportAfterBefore.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RoshitaReportAfterBefore.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -9239,7 +9342,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50600</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50700/</IISUrl>
+          <IISUrl>http://localhost:50600/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

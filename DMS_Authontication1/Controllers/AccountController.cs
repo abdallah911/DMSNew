@@ -214,15 +214,15 @@ namespace DMS_Authontication1.Controllers
             var user = UserManager.FindById(User.Identity.GetUserId());
             var userResult = new
             {
-                UserName=user.UserName,
-                FirstName=user.FName,
-                LastName=user.LName,
-                Address=user.Address,
-                Phone=user.PhoneNumber,
-                Email=user.Email,
-                Role="User",
+                UserName = user.UserName,
+                FirstName = user.FName,
+                LastName = user.LName,
+                Address = user.Address,
+                Phone = user.PhoneNumber,
+                Email = user.Email,
+                Role = "User",
             };
-            var result = new { Message = "Ok", Code = 1 ,Data= userResult };
+            var result = new { Message = "Ok", Code = 1, Data = userResult };
             return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
@@ -308,7 +308,7 @@ namespace DMS_Authontication1.Controllers
                                 case "Doctor":
                                     return RedirectToLocal("/DoctorApprovals");
                                 case "Admin":
-                                    return RedirectToLocal("/ControlPanel/Main");
+                                    return RedirectToLocal("/ControlPanel");
                                 case "AdminHelth":
                                     return RedirectToLocal("/ControlPanel/Main");
                                 case "HR":

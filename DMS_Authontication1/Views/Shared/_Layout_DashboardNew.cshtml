@@ -78,34 +78,13 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="nav-links navbar-nav">
                     @{
-                        if ((User.IsInRole("Admin") || User.IsInRole("Pharmacy") || User.IsInRole("AdminHelth") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
-                        {
-                            if (User.IsInRole("Admin") || User.IsInRole("AdminHelth"))
-                            {
-                                if (modellist != null)
-                                {
-                                    if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 6 && (x.FullControl || x.EditPermission
-                                     || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                    {
-                                        @Html.ActionLink("Pharmacy", "PharmacyPage", "Pharmacy", null, new { @class = "sios-nav-link nav-link active ", @id = "PharmacyPage" })
-
-                                    }
-                                }
-                            }
-                            else if (User.IsInRole("Pharmacy") || User.IsInRole("Pharmacy_Admin"))
-                            {
-
-                                @Html.ActionLink("Pharmacy", "PharmacyPage", "Pharmacy", null, new { @class = "sios-nav-link nav-link active ",@id= "PharmacyPage" })
-                            }
-                        }
-                    }
-                    @{
                         if ((User.IsInRole("Pharmacy") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
                         {
+
+                            @Html.ActionLink("Pharmacy", "PharmacyPage", "Pharmacy", null, new { @class = "sios-nav-link nav-link active ", @id = "PharmacyPage" })
+
                             @Html.ActionLink("Claims", "IndexClaim", "Pharmacy", null, new { @class = "sios-nav-link nav-link", @id = "IndexClaim" })
                             @Html.ActionLink("Chronic Delivery", "CompaniesChronicDeliveryNew", "Pharmacy", null, new { @class = "sios-nav-link nav-link", @id = "CompaniesChronicDeliveryNew" })
-
-
                         }
                     }
                 </div>
