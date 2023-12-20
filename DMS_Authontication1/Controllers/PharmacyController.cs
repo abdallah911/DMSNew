@@ -4300,7 +4300,7 @@ namespace DMS_TEST.Controllers
                 {
                     if (data.Manager == "Daily")
                     {
-                        rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReportAfterBefore.rpt"));
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReportAfterBefore.rpt"));                        
                     }
                     else
                     {
