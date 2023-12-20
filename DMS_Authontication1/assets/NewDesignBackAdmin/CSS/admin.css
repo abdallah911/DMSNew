@@ -55,7 +55,21 @@ body {
 }
 
 /* //////////// Navbar //////////// */
-
+.notific {
+    position: absolute;
+    top: 15%;
+    left: 70%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    background: #fff;
+    height: 20px;
+    width: 20px;
+    border: 2px solid #fb3f47;
+    border-radius: 50%;
+}
 .Admin-navbar {
   background: var(--color-gradient);
   border-bottom-left-radius: 10px;

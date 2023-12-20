@@ -505,6 +505,9 @@
                                    aria-expanded="false">
                                     <i class="fas fa-bell fs-4"></i>
                                 </a>
+                                <div class="notific">
+                                    1
+                                </div>
                                 <div class="dropdown-menu dropdown-menu-end"
                                      aria-labelledby="bell-dropdown" id="divNotificationValues">
                                     @*<a class="dropdown-item" href="#">{{CardIDDDD CardIDDDD - 1000-1-175-1}}</a>
@@ -634,7 +637,7 @@
                 url: '/Home/GetNotifications',
                 success: function (result) {
                     //debugger;
-                    //$('#notification').text(result.length);
+                    $('.notific').text(result.length);
 
                     $('#divNotificationValues').empty();
                     $.each(result, function (key, value) {
