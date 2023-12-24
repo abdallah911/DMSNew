@@ -189,13 +189,14 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
     <script src="~/assets/admindashdoardmenu/sidebarmenu.js"></script>
     <script src="~/assets/admindashdoardmenu/CustomAfterSales/moment.min.js"></script>
     <script src="~/assets/admindashdoardmenu/CustomAfterSales/bootstrap-datetimepicker.min.js"></script>
     @*<script src="~/Scripts/moment.min.js"></script>*@
     @*<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>*@
     @*<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>*@
-
+    <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
     <script src="~/assets/HomeTemplete/Scripts/jquery.signalR-2.4.1.js"></script>
     <script src="~/signalr/hubs"></script>
 
@@ -261,6 +262,39 @@
                 }
             });
         }
+
+        const gotChecked = () => {
+            const checked = document.querySelector(".got-checked");
+            const checkBox = document.getElementById("approval");
+
+            // Check if the checkbox is checked
+            if (checkBox.checked) {
+                // If checked, add the check icon
+                checked.innerHTML = "<i class='fas fa-check me-2'></i>";
+            } else {
+                // If not checked, remove the check icon
+                checked.innerHTML = "";
+            }
+        };
+
+        var inputsTranslate = document.querySelectorAll(".chronic-form-control");
+        var spansTranslate = document.querySelectorAll(".if-has-value");
+
+        // Convert NodeList to an array for iteration
+        inputsTranslate = Array.from(inputsTranslate);
+        spansTranslate = Array.from(spansTranslate);
+
+        inputsTranslate.forEach((input) => {
+            // Check if the input is disabled
+            if (input.disabled || input.readonly || input.value=="" ) {
+                spansTranslate.forEach((span) => {
+                    // Add the "has-value" class to the span
+                    span.classList.add("has-value");
+                });
+            }
+        });
+
+
     </script>
 
 </body>
