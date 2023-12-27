@@ -47,7 +47,7 @@
 body {
   font-family: "Open Sans", sans-serif;
   background-image: url(../Images/All/background.jpg);
-  background-color: #07061b;
+/*  background-color: #07061b;*/
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -58,9 +58,9 @@ p {
   padding-bottom: 0%;
 }
 @media (min-width: 768px) {
-  .navbar {
+/*  .navbar {
     height: var(--height-primary);
-  }
+  }*/
   .navbar::after {
     content: "";
     position: absolute;

@@ -9,20 +9,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIOS - @ViewBag.Title</title>
 
-    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/all.min.css" />
+    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/select2.min.css" />
+    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/HR-Style.css" />
     <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/admin.css" />
+    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/main.css" />
 
-    <link href="~/assets/HomeTemplete/Scripts/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
 
-    <link href="~/assets/HomeTemplete/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="~/assets/HomeTemplete/Content/DataTables/css/responsive.dataTables.min.css" rel="stylesheet" />
+
+
     <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
-    <link href="~/assets/HomeTemplete/Content/css/select2.min.css" rel="stylesheet" />
     <link href="~/assets/global/plugins/jquery-validity/css/jquery.validity.css" rel="stylesheet" />
     <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
 
     @Styles.Render("~/assets/HomeTemplete/Content/kendo/css")
@@ -40,7 +43,7 @@
     </script>
 
 </head>
-<body>
+<body style="overflow-y: auto">
 
     @{
         var modellist = new List<ModulesPagesViewModel>();
@@ -55,360 +58,327 @@
     {
         @Html.AntiForgeryToken()
     }
-    <!-- Main Menu -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary Admin-navbar">
-        <div class="container-fluid" style="justify-content: space-between">
-            <div class="d-flex align-items-center">
-                <a class="nav-link mb-2 mt-1"
-                   style="font-size: 16px; color: #fafcff"
-                   href="#"
-                   role="button"
-                   aria-expanded="false">
-                    <i class="fas fa-home"></i>
-                    Home
-                </a>
-            </div>
-            <button class="navbar-toggler me-4"
-                    style="box-shadow: none"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <i class="fa-solid fa-bars" style="color: white"></i>
-            </button>
-            @if ((User.IsInRole("Admin") || User.IsInRole("AdminHelth") || User.IsInRole("Doctor")) && User.Identity.IsAuthenticated)
-            {
-                <div class="collapse navbar-collapse justify-content-between align-items-center"
-                     id="navbarSupportedContent">
-                    <div class="d-flex flex-column flex-lg-row mb-3 mb-lg-0 ps-4 mt-2">
-                        @if (modellist != null)
-                        {
-                            if (modellist.Where(x => x.ModuleName == "Doctors Department Management" && (x.PageId == 28 || x.PageId == 29 || x.PageId == 30 || x.PageId == 31)
-                            && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
+    <div>
+
+        <!-- Main Menu -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary Admin-navbar">
+            <div class="container-fluid" style="justify-content: space-between">
+                <div class="d-flex align-items-center">
+                    <a class="nav-link mb-2 mt-1"
+                       style="font-size: 16px; color: #fafcff"
+                       href="#"
+                       role="button"
+                       aria-expanded="false">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                </div>
+                <button class="navbar-toggler me-4"
+                        style="box-shadow: none"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars" style="color: white"></i>
+                </button>
+                @if ((User.IsInRole("Admin") || User.IsInRole("AdminHelth") || User.IsInRole("Doctor")) && User.Identity.IsAuthenticated)
+                {
+                    <div class="collapse navbar-collapse justify-content-between align-items-center"
+                         id="navbarSupportedContent">
+                        <div class="d-flex flex-column flex-lg-row mb-3 mb-lg-0 ps-4 mt-2">
+                            @if (modellist != null)
                             {
-                                <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
-                                    <li class="nav-item dropdown" style="list-style-type: none">
-                                        <a class="nav-link"
-                                           href="#"
-                                           role="button"
-                                           data-bs-toggle="dropdown"
-                                           aria-expanded="false">
-                                            <i class="fas fa-user-md"></i>
-                                            Doctor
-                                            <i class="fas fa-chevron-down"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            @if (modellist.Where(x => x.PageId == 30 && (x.FullControl || x.EditPermission
-                                                       || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
+                                if (modellist.Where(x => x.ModuleName == "Doctors Department Management" && (x.PageId == 28 || x.PageId == 29 || x.PageId == 30 || x.PageId == 31)
+                                && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
+                                {
+                                    <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                                        <li class="nav-item dropdown" style="list-style-type: none">
+                                            <a class="nav-link"
+                                               href="#"
+                                               role="button"
+                                               data-bs-toggle="dropdown"
+                                               aria-expanded="false">
+                                                <i class="fas fa-user-md"></i>
+                                                Doctor
+                                                <i class="fas fa-chevron-down"></i>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                @if (modellist.Where(x => x.PageId == 30 && (x.FullControl || x.EditPermission
+                                                           || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
 
-                                                <li><a class="dropdown-item" href="/DoctorMedicinesLabsRaysApproval/index2">Pending Requests</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.PageId == 28 && (x.FullControl || x.EditPermission
-                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
+                                                    <li><a class="dropdown-item" href="/DoctorMedicinesLabsRaysApproval/index2">Pending Requests</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.PageId == 28 && (x.FullControl || x.EditPermission
+                                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
 
-                                                <li><a class="dropdown-item" href="/DoctorApprovals/index">Doctor Daily </a></li>
-                                            }
-                                            @if (modellist.Where(x => x.PageId == 29 && (x.FullControl || x.EditPermission
-                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
+                                                    <li><a class="dropdown-item" href="/DoctorApprovals/index">Doctor Daily </a></li>
+                                                }
+                                                @if (modellist.Where(x => x.PageId == 29 && (x.FullControl || x.EditPermission
+                                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
 
-                                                <li><a class="dropdown-item" href="/Pharmacy/CardCode"> Card Code </a></li>
+                                                    <li><a class="dropdown-item" href="/Pharmacy/CardCode"> Card Code </a></li>
 
-                                            }
-                                            @if (modellist.Where(x => x.PageId == 29 && (x.FullControl || x.EditPermission
-                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
+                                                }
+                                                @if (modellist.Where(x => x.PageId == 29 && (x.FullControl || x.EditPermission
+                                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
 
-                                                <li><a class="dropdown-item" href="/DoctorApprovals/Monthly">Doctor Chronic </a></li>
+                                                    <li><a class="dropdown-item" href="/DoctorApprovals/Monthly">Doctor Chronic </a></li>
 
-                                            }
+                                                }
 
-                                            @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
-                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
+                                                @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
 
-                                                <li><a class="dropdown-item" href="/GetApproval/Index">Permissions List</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
-                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
+                                                    <li><a class="dropdown-item" href="/GetApproval/Index">Permissions List</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
 
-                                                <li><a class="dropdown-item" href="/GetApproval/Create">Permissions</a></li>
-                                            }
-                                        </ul>
-                                    </li>
-                                </ul>
-                            }
-                            if (modellist.Where(x => (x.PageId == 2 || x.PageId == 4 || x.PageId == 10 || x.PageId == 8 || x.PageId == 44 || x.PageId == 49)
-                            && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
-                            {
-                                <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
-                                    <li class="nav-item dropdown" style="list-style-type: none">
-                                        <a class="nav-link"
-                                           href="#"
-                                           role="button"
-                                           data-bs-toggle="dropdown"
-                                           aria-expanded="false">
-                                            <i class="fas fa-lock"></i>
-                                            Admin
-                                            <i class="fas fa-chevron-down"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            @if (modellist.Where(x => x.ModuleName == "Account Management" && x.PageId == 2 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/User/index">Users</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 4 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a href="/Pharmacy/index">Pharmacy Clames</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 49 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/Pharmacy/DeletedStopRoshita">Pharmacy Stop Edit Clames</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Rays Centers Management" && x.PageId == 10 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/Rays/index">Rays Clames</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Labratories Management" && x.PageId == 8 && (x.FullControl || x.EditPermission
-                                                 || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/Labs/index">Labs Clames</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 50 && (x.FullControl || x.EditPermission
-                                                 || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/ConsumptionAdmin/index">Total Consumption Admin</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 51 && (x.FullControl || x.EditPermission
-                                                 || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/ConsumptionAdmin/HighAdminConsumptionReports">Audit Consumption Report</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 53 && (x.FullControl || x.EditPermission
-                                                 || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/ConsumptionAdmin/NormalAdminConsumptionReports">Consumption Report</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 44 && (x.FullControl || x.EditPermission
-                                                 || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/ProviderServicesPermissions/index">Provider Services Permissions</a></li>
-                                            }
-
-                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && /*x.PageId == 44 &&*/ (x.FullControl || x.EditPermission
-                                               || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/LossRatio/index">Analysis Loss Ratio</a></li>
-                                            }
-                                        </ul>
-                                    </li>
-                                </ul>
-                            }
-                            if (modellist.Where(x => (x.PageId == 34 || x.PageId == 35 || x.PageId == 36 || x.PageId == 37
-                           || x.PageId == 38 || x.PageId == 39 || x.PageId == 40 || x.PageId == 41 || x.PageId == 46 || x.PageId == 47)
-                           && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
-                            {
-                                <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
-                                    <li class="nav-item dropdown" style="list-style-type: none">
-                                        <a class="nav-link"
-                                           href="#"
-                                           role="button"
-                                           data-bs-toggle="dropdown"
-                                           aria-expanded="false">
-                                            <i class="fas fa-user-tie"></i>
-                                            Management
-                                            <i class="fas fa-chevron-down"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 35 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/CompEmployees/IndexSms">Employees Management</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 34 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/CompanyGroup/index">Companies Groups Management</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 36 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/Medicines/index">Medicines Management</a></li>
-
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 37 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/MedicineGroups/index">Medicines Groups Management</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 38 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a href="/Medicines/MedicineLicenseType">License Type Management</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 39 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/Medicines/MedicineType">Medicine Type Management</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 40 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/Medicines/MedicineDosageForm">Dosage Form Management</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 41 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/Specialities/index">Specilities and Diagnosis Management</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 46 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/LabsManagement/Index">Labs Management</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 47 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/RaysManagement/Index">Rays Management</a></li>
-                                            }
-
-                                        </ul>
-                                    </li>
-                                </ul>
-                            }
-                            if (modellist.Where(x => (x.PageId == 12 || x.PageId == 13 || x.PageId == 14 || x.PageId == 21)
-                           && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
-                            {
-                                <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
-                                    <li class="nav-item dropdown" style="list-style-type: none">
-                                        <a class="nav-link"
-                                           href="#"
-                                           role="button"
-                                           data-bs-toggle="dropdown"
-                                           aria-expanded="false">
-                                            <i class="fas fa-user-tie"></i>
-                                            HR Requests
-                                            <i class="fas fa-chevron-down"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            @if (modellist.Where(x => x.PageId == 12 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a class="dropdown-item" href="/EmployeeRequest/index">Operation</a></li>
-
-                                            }
-
-                                            @if (modellist.Where(x => x.PageId == 13 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-
-                                                <li><a class="dropdown-item" href="/IndemnitiesAdmin/index">Indemnity</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.PageId == 14 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-
-                                                <li><a class="dropdown-item" href="/MedicalNetwork/RequestReplay">Medical Network Request</a></li>
-                                            }
-                                            @if (modellist.Where(x => x.PageId == 21 && (x.FullControl || x.EditPermission
-                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li><a href="/Employee/IndexAdmin" class="dropdown-item">Delievery Requests</a></li>
-                                                <li><a href="/Employee/Activation_Employee" class="dropdown-item">Activation Employee</a></li>
-                                            }
-
-                                        </ul>
-                                    </li>
-                                </ul>
-                            }
-                            if (modellist.Where(x => x.ModuleName == "AfterSales Management" && x.PageId == 32 && (x.FullControl || x.EditPermission
-                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                            {
-                                <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
-                                    <li class="nav-item dropdown" style="list-style-type: none">
-                                        <a class="nav-link"
-                                           href="#"
-                                           role="button"
-                                           data-bs-toggle="dropdown"
-                                           aria-expanded="false">
-                                            <i class="fa-solid fa-headset"></i>
-                                            After Sales
-                                            <i class="fas fa-chevron-down"></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="/AfterSales/Index">Visits</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            }
-                            <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
-                                <li class="nav-item dropdown" style="list-style-type: none">
-                                    <a class="nav-link"
-                                       href="#"
-                                       role="button"
-                                       data-bs-toggle="dropdown"
-                                       aria-expanded="false">
-                                        <i class="fa-solid fa-file-waveform"></i>
-                                        Reports
-                                        <i class="fas fa-chevron-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="/ReportMain/Index" class="dropdown-item">Pharmacy Report</a></li>
-
-                                        <li><a href="/ReportMain/ReportMed2" class="dropdown-item">Medicine Audit</a></li>
-
-                                        <li><a href="/ReportMain/ReportPrint" class="dropdown-item">Print Report</a></li>
-
-                                        <li><a href="/ReportMain/Reports" class="dropdown-item">Reports</a></li>
-
-                                        <li><a href="/ReportMain/ReportProviderCheck" class="dropdown-item">Provider Check</a></li>
+                                                    <li><a class="dropdown-item" href="/GetApproval/Create">Permissions</a></li>
+                                                }
+                                            </ul>
+                                        </li>
                                     </ul>
-                                </li>
-                            </ul>
-                            <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
-                                <li class="nav-item dropdown" style="list-style-type: none">
-                                    <a class="nav-link"
-                                       href="#"
-                                       role="button"
-                                       data-bs-toggle="dropdown"
-                                       aria-expanded="false">
-                                        <i class="fa-solid fa-file-waveform"></i>
-                                        New Reports
-                                        <i class="fas fa-chevron-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="/NewReports/OperationReport" class="dropdown-item">Operation Reports</a></li>
-                                        <li><a href="/NewReports/ApprovalReports" class="dropdown-item">Approval Reports</a></li>
-                                        <li><a href="/NewReports/ConsumptionReport" class="dropdown-item">Consumption Reports</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                                }
+                                if (modellist.Where(x => (x.PageId == 2 || x.PageId == 4 || x.PageId == 10 || x.PageId == 8 || x.PageId == 44 || x.PageId == 49)
+                                && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
+                                {
+                                    <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                                        <li class="nav-item dropdown" style="list-style-type: none">
+                                            <a class="nav-link"
+                                               href="#"
+                                               role="button"
+                                               data-bs-toggle="dropdown"
+                                               aria-expanded="false">
+                                                <i class="fas fa-lock"></i>
+                                                Admin
+                                                <i class="fas fa-chevron-down"></i>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                @if (modellist.Where(x => x.ModuleName == "Account Management" && x.PageId == 2 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/User/index">Users</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 4 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/Pharmacy/index">Pharmacy Clames</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 49 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/Pharmacy/DeletedStopRoshita">Pharmacy Stop Edit Clames</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Rays Centers Management" && x.PageId == 10 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/Rays/index">Rays Clames</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Labratories Management" && x.PageId == 8 && (x.FullControl || x.EditPermission
+                                                     || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/Labs/index">Labs Clames</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 50 && (x.FullControl || x.EditPermission
+                                                     || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/ConsumptionAdmin/index">Total Consumption Admin</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 51 && (x.FullControl || x.EditPermission
+                                                     || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/ConsumptionAdmin/HighAdminConsumptionReports">Audit Consumption Report</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 53 && (x.FullControl || x.EditPermission
+                                                     || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/ConsumptionAdmin/NormalAdminConsumptionReports">Consumption Report</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 44 && (x.FullControl || x.EditPermission
+                                                     || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/ProviderServicesPermissions/index">Provider Services Permissions</a></li>
+                                                }
 
-                            @*<ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                                                @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && /*x.PageId == 44 &&*/ (x.FullControl || x.EditPermission
+                                                   || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/LossRatio/index">Analysis Loss Ratio</a></li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                }
+                                if (modellist.Where(x => (x.PageId == 34 || x.PageId == 35 || x.PageId == 36 || x.PageId == 37
+                               || x.PageId == 38 || x.PageId == 39 || x.PageId == 40 || x.PageId == 41 || x.PageId == 46 || x.PageId == 47)
+                               && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
+                                {
+                                    <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                                        <li class="nav-item dropdown" style="list-style-type: none">
+                                            <a class="nav-link"
+                                               href="#"
+                                               role="button"
+                                               data-bs-toggle="dropdown"
+                                               aria-expanded="false">
+                                                <i class="fas fa-user-tie"></i>
+                                                Management
+                                                <i class="fas fa-chevron-down"></i>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 35 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/CompEmployees/IndexSms">Employees Management</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 34 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/CompanyGroup/index">Companies Groups Management</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 36 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/Medicines/index">Medicines Management</a></li>
+
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 37 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/MedicineGroups/index">Medicines Groups Management</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 38 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/Medicines/MedicineLicenseType">License Type Management</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 39 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/Medicines/MedicineType">Medicine Type Management</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 40 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/Medicines/MedicineDosageForm">Dosage Form Management</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 41 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/Specialities/index">Specilities and Diagnosis Management</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 46 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/LabsManagement/Index">Labs Management</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 47 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/RaysManagement/Index">Rays Management</a></li>
+                                                }
+
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                }
+                                if (modellist.Where(x => (x.PageId == 12 || x.PageId == 13 || x.PageId == 14 || x.PageId == 21)
+                               && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
+                                {
+                                    <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                                        <li class="nav-item dropdown" style="list-style-type: none">
+                                            <a class="nav-link"
+                                               href="#"
+                                               role="button"
+                                               data-bs-toggle="dropdown"
+                                               aria-expanded="false">
+                                                <i class="fas fa-user-tie"></i>
+                                                HR Requests
+                                                <i class="fas fa-chevron-down"></i>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                @if (modellist.Where(x => x.PageId == 12 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a class="dropdown-item" href="/EmployeeRequest/index">Operation</a></li>
+
+                                                }
+
+                                                @if (modellist.Where(x => x.PageId == 13 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+
+                                                    <li><a class="dropdown-item" href="/IndemnitiesAdmin/index">Indemnity</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.PageId == 14 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+
+                                                    <li><a class="dropdown-item" href="/MedicalNetwork/RequestReplay">Medical Network Request</a></li>
+                                                }
+                                                @if (modellist.Where(x => x.PageId == 21 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li><a href="/Employee/IndexAdmin" class="dropdown-item">Delievery Requests</a></li>
+                                                    <li><a href="/Employee/Activation_Employee" class="dropdown-item">Activation Employee</a></li>
+                                                }
+
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                }
+                                if (modellist.Where(x => x.ModuleName == "AfterSales Management" && x.PageId == 32 && (x.FullControl || x.EditPermission
+                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                {
+                                    <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                                        <li class="nav-item dropdown" style="list-style-type: none">
+                                            <a class="nav-link"
+                                               href="#"
+                                               role="button"
+                                               data-bs-toggle="dropdown"
+                                               aria-expanded="false">
+                                                <i class="fa-solid fa-headset"></i>
+                                                After Sales
+                                                <i class="fas fa-chevron-down"></i>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="/AfterSales/Index">Visits</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                }
+                                <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
                                     <li class="nav-item dropdown" style="list-style-type: none">
                                         <a class="nav-link"
-                                            href="/ReportMain/Reports"
+                                           href="#"
                                            role="button"
+                                           data-bs-toggle="dropdown"
                                            aria-expanded="false">
                                             <i class="fa-solid fa-file-waveform"></i>
                                             Reports
+                                            <i class="fas fa-chevron-down"></i>
                                         </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/ReportMain/Index" class="dropdown-item">Pharmacy Report</a></li>
+
+                                            <li><a href="/ReportMain/ReportMed2" class="dropdown-item">Medicine Audit</a></li>
+
+                                            <li><a href="/ReportMain/ReportPrint" class="dropdown-item">Print Report</a></li>
+
+                                            <li><a href="/ReportMain/Reports" class="dropdown-item">Reports</a></li>
+
+                                            <li><a href="/ReportMain/ReportProviderCheck" class="dropdown-item">Provider Check</a></li>
+                                        </ul>
                                     </li>
-                                </ul>*@
-
-
-                            if (modellist.Where(x => (x.ModuleName == "Pharmacies Management" || x.ModuleName == "Labratories Management" || x.ModuleName == "Rays Centers Management") && (x.PageId == 6 || x.PageId == 9 || x.PageId == 11)
-                                                   && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
-                            {
+                                </ul>
                                 <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
                                     <li class="nav-item dropdown" style="list-style-type: none">
                                         <a class="nav-link"
@@ -416,112 +386,149 @@
                                            role="button"
                                            data-bs-toggle="dropdown"
                                            aria-expanded="false">
-                                            <i class="fa-solid fa-desktop"></i>
-                                            Systems
+                                            <i class="fa-solid fa-file-waveform"></i>
+                                            New Reports
                                             <i class="fas fa-chevron-down"></i>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            @if (modellist.Where(x => x.PageId == 6 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li>
-                                                    @Html.ActionLink("Pharmacy", "Pharmacy", "Pharmacy", null, new { @class = "dropdown-item" })
-                                                </li>
-                                            }
-                                            @if (modellist.Where(x => x.PageId == 11 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li>
-                                                    @Html.ActionLink("Radio Centers", "Ray", "Rays", null, new { @class = "dropdown-item" })
-                                                </li>
-                                            }
-                                            @if (modellist.Where(x => x.PageId == 9 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                            {
-                                                <li>@Html.ActionLink("Labs", "Lab", "Labs", null, new { @class = "dropdown-item" })</li>
-                                            }
+                                            <li><a href="/NewReports/OperationReport" class="dropdown-item">Operation Reports</a></li>
+                                            <li><a href="/NewReports/ApprovalReports" class="dropdown-item">Approval Reports</a></li>
+                                            <li><a href="/NewReports/ConsumptionReport" class="dropdown-item">Consumption Reports</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                                @*<ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                                        <li class="nav-item dropdown" style="list-style-type: none">
+                                            <a class="nav-link"
+                                                href="/ReportMain/Reports"
+                                               role="button"
+                                               aria-expanded="false">
+                                                <i class="fa-solid fa-file-waveform"></i>
+                                                Reports
+                                            </a>
+                                        </li>
+                                    </ul>*@
+
+
+                                if (modellist.Where(x => (x.ModuleName == "Pharmacies Management" || x.ModuleName == "Labratories Management" || x.ModuleName == "Rays Centers Management") && (x.PageId == 6 || x.PageId == 9 || x.PageId == 11)
+                                                       && (x.FullControl || x.ActivationControl || x.AddPermission || x.EditPermission || x.Preview)).FirstOrDefault() != null)
+                                {
+                                    <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                                        <li class="nav-item dropdown" style="list-style-type: none">
+                                            <a class="nav-link"
+                                               href="#"
+                                               role="button"
+                                               data-bs-toggle="dropdown"
+                                               aria-expanded="false">
+                                                <i class="fa-solid fa-desktop"></i>
+                                                Systems
+                                                <i class="fas fa-chevron-down"></i>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                @if (modellist.Where(x => x.PageId == 6 && (x.FullControl || x.EditPermission
+                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li>
+                                                        @Html.ActionLink("Pharmacy", "Pharmacy", "Pharmacy", null, new { @class = "dropdown-item" })
+                                                    </li>
+                                                }
+                                                @if (modellist.Where(x => x.PageId == 11 && (x.FullControl || x.EditPermission
+                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li>
+                                                        @Html.ActionLink("Radio Centers", "Ray", "Rays", null, new { @class = "dropdown-item" })
+                                                    </li>
+                                                }
+                                                @if (modellist.Where(x => x.PageId == 9 && (x.FullControl || x.EditPermission
+                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                {
+                                                    <li>@Html.ActionLink("Labs", "Lab", "Labs", null, new { @class = "dropdown-item" })</li>
+                                                }
+                                                <!-- <li><a class="dropdown-item" href="#">Hospital</a></li> -->
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                }
+                                <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                                    <li class="nav-item dropdown" style="list-style-type: none">
+                                        <a class="nav-link"
+                                           href="#"
+                                           role="button"
+                                           data-bs-toggle="dropdown"
+                                           aria-expanded="false">
+                                            <i class="fa-solid fa-cog"></i>
+                                            SIOS
+                                            <i class="fas fa-chevron-down"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="dropdown-item" href="./Medical-Approval.html">Medical Approval</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Offers</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="./Radio-Centers.html">Policy</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Network</a>
+                                            </li>
                                             <!-- <li><a class="dropdown-item" href="#">Hospital</a></li> -->
                                         </ul>
                                     </li>
                                 </ul>
                             }
-                            <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                        </div>
+                        <div class="d-flex">
+                            <ul class="ps-0 Admin-main-ul mb-0">
                                 <li class="nav-item dropdown" style="list-style-type: none">
                                     <a class="nav-link"
                                        href="#"
                                        role="button"
                                        data-bs-toggle="dropdown"
                                        aria-expanded="false">
-                                        <i class="fa-solid fa-cog"></i>
-                                        SIOS
+                                        Hello, @User.Identity.GetUserName()
                                         <i class="fas fa-chevron-down"></i>
                                     </a>
                                     <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink("Profile", "Main", "ControlPanel", null, new { @class = "dropdown-item" })</li>
+                                        <li>@Html.ActionLink("Manage Account", "Index", "Manage", null, new { @class = "dropdown-item" })</li>
+                                        <li><hr class="dropdown-divider" /></li>
                                         <li>
-                                            <a class="dropdown-item" href="./Medical-Approval.html">Medical Approval</a>
+                                            <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">LogOut</a>
                                         </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">Offers</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="./Radio-Centers.html">Policy</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">Network</a>
-                                        </li>
-                                        <!-- <li><a class="dropdown-item" href="#">Hospital</a></li> -->
                                     </ul>
                                 </li>
                             </ul>
-                        }
+                            <ul class="ps-0 Admin-main-ul mb-0">
+                                <li class="nav-item dropdown" style="list-style-type: none">
+                                    <a class="nav-link"
+                                       href="#"
+                                       role="button"
+                                       data-bs-toggle="dropdown"
+                                       aria-expanded="false">
+                                        <i class="fas fa-bell fs-4"></i>
+                                    </a>
+                                    <div class="notific">
+                                        1
+                                    </div>
+                                    <div class="dropdown-menu dropdown-menu-end"
+                                         aria-labelledby="bell-dropdown" id="divNotificationValues">
+                                        @*<a class="dropdown-item" href="#">{{CardIDDDD CardIDDDD - 1000-1-175-1}}</a>
+                                            <hr class="dropdown-divider" />
+                                            <a class="dropdown-item" href="#">{{CardID}}</a>*@
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="d-flex">
-                        <ul class="ps-0 Admin-main-ul mb-0">
-                            <li class="nav-item dropdown" style="list-style-type: none">
-                                <a class="nav-link"
-                                   href="#"
-                                   role="button"
-                                   data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    Hello, @User.Identity.GetUserName()
-                                    <i class="fas fa-chevron-down"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Profile", "Main", "ControlPanel", null, new { @class = "dropdown-item" })</li>
-                                    <li>@Html.ActionLink("Manage Account", "Index", "Manage", null, new { @class = "dropdown-item" })</li>
-                                    <li><hr class="dropdown-divider" /></li>
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">LogOut</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <ul class="ps-0 Admin-main-ul mb-0">
-                            <li class="nav-item dropdown" style="list-style-type: none">
-                                <a class="nav-link"
-                                   href="#"
-                                   role="button"
-                                   data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <i class="fas fa-bell fs-4"></i>
-                                </a>
-                                <div class="notific">
-                                    1
-                                </div>
-                                <div class="dropdown-menu dropdown-menu-end"
-                                     aria-labelledby="bell-dropdown" id="divNotificationValues">
-                                    @*<a class="dropdown-item" href="#">{{CardIDDDD CardIDDDD - 1000-1-175-1}}</a>
-                                        <hr class="dropdown-divider" />
-                                        <a class="dropdown-item" href="#">{{CardID}}</a>*@
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            }
-        </div>
-    </nav>
-    <!-- end menu -->
+                }
+            </div>
+        </nav>
+        <!-- end menu -->
+    </div>
+
     @* container *@
     @{
 
@@ -573,14 +580,32 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <!-- Include jQuery first -->
     <script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
+
+    <!-- Followed by Bootstrap -->
     <script src="~/assets/NewDesignBackAdmin/JS/bootstrap.bundle.min.js"></script>
-    <script src="~/assets/admindashdoardmenu/CustomAfterSales/moment.min.js"></script>
-    <script src="~/assets/admindashdoardmenu/CustomAfterSales/bootstrap-datetimepicker.min.js"></script>
+
+    <!-- Followed by STYLE scripts -->
+
+    <script src="~/assets/NewDesignBackAdmin/JS/jquery-3.6.0.js"></script>
+    <script src="~/assets/NewDesignBackAdmin/JS/jquery-ui.js"></script>
+
+    <!-- Followed by DataTables scripts -->
+    <script src="~/assets/NewDesignBackAdmin/JS/jquery.dataTables.min.js"></script>
+    <script src="~/assets/NewDesignBackAdmin/JS/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Followed by SELECT2 scripts -->
+    <script src="~/assets/NewDesignBackAdmin/JS/select2.min.js"></script>
+    <!-- Finally, include your main.js -->
+    <script src="~/assets/NewDesignBackAdmin/JS/HR-Script.js"></script>
+    <script src="~/assets/NewDesignBackAdmin/JS/main.js"></script>
     @*<script src="~/Scripts/moment.min.js"></script>*@
     @*<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>*@
     @*<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>*@
 
+    <script src="~/assets/HomeTemplete/scripts/bootbox.js"></script>
     <script src="~/assets/HomeTemplete/Scripts/jquery.signalR-2.4.1.js"></script>
     <script src="~/signalr/hubs"></script>
 

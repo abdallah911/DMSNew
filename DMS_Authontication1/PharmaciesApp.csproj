@@ -8583,9 +8583,6 @@
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Medicines\_MedicineDosageFormList.cshtml" />
-    <Content Include="Views\Medicines\_MedicineLicenseList.cshtml" />
-    <Content Include="Views\Medicines\_MedicineTypeList.cshtml" />
     <Content Include="Views\Home\Clients.cshtml" />
     <Content Include="Views\Home\ContactUs.cshtml" />
     <Content Include="Views\Home\CompanyProfile.cshtml" />
@@ -8941,6 +8938,14 @@
     <Content Include="Views\Pharmacy\CompaniesChronicDeliveryNew.cshtml" />
     <Content Include="Views\ControlPanel\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardNew.cshtml" />
+    <Content Include="Views\User\Index - Copy.cshtml" />
+    <Content Include="Views\Account\Register - Copy.cshtml" />
+    <Content Include="Views\Pharmacy\Index - Copy.cshtml" />
+    <Content Include="Views\Pharmacy\DeletedStopRoshita - Copy.cshtml" />
+    <Content Include="Views\Rays\Index - Copy.cshtml" />
+    <Content Include="Views\Labs\Index - Copy.cshtml" />
+    <Content Include="Views\CompEmployees\IndexSms - Copy.cshtml" />
+    <Content Include="Views\CompanyGroup\Index - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

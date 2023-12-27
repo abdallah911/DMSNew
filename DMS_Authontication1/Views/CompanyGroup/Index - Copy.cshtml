@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+<br />
+
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Companies
+        </div>
+
+    </div>
+    <br />
+    <div class="portlet-body">
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <input id="txtSearchCompany" type="text" placeholder="search for company..." class="form-control" />
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <button id="plus" class=" btn btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#exampleModal" disabled> Add</button>
+                </div>
+            </div>
+        </div>
+    
+
+        @Html.Partial("_Companies")
+        <div class="table-responsive">
+            <table class="table" id="Sites">
+                <thead>
+                    <tr>
+                        <th scope="col">Site Code</th>
+                        <th scope="col" align="center">Site Name</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+
+            </table>
+        </div>
+        <div style="padding:10px 0;">
+
+            <input id="submit" type="button" value="Save" class="btn btn-success" style="padding:10px 20px" />
+        </div>
+    </div>
+    @*modal*@
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Site</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="Add" type="button" class="btn btn-primary">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/DMS/CompanyGroup.js?V=1"></script>

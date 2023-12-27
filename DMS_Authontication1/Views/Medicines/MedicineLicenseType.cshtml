@@ -1,51 +1,85 @@
 ﻿@model DMS_Authontication1.ViewModel.LicTypeViewModel
 @{
     ViewBag.Title = "MedicineLicenseType";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
-
-@using (Html.BeginForm("MedicineLicenseType", "Medicines", FormMethod.Post))
-{
-    <div class="panel panel-primary">
-        <h2 class="panel-heading" style="margin:1px;">New License Type</h2>
-        <div class="panel-body">
-            <div class="form-horizontal">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.licType, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.licType, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.licType, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                @*@if (ViewBag.Error == "done")
-                {
-                    <div class="error">This Value is Duplicated</div>
-                }*@
-                @*<div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
-                </div>*@
-            </div>
-        </div>
-        <div class="panel-footer" style="text-align:right;">
-            <input id="submit" type="submit" value="Create" class="btn btn-success" />
-        </div>
-    </div>
-}
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Medicine License List
-        </div>
-    </div>
-    <br />
-    <div class="portlet-body">
-
-        @Html.Partial("_MedicineLicenseList")
-
+<!-- start section -->
+<div class="sios-overlay container-fluid mt-4">
+    <div class="container">
+        <i class="fa-solid fa-house"></i>
+        <h3>New License Type</h3>
     </div>
 </div>
+
+<section class="print-claim-section mt-5">
+    @using (Html.BeginForm("MedicineLicenseType", "Medicines", FormMethod.Post))
+    {
+        <div class="container">
+            <div class="row mt-3">
+                <div class="row row-cols-sm-3 m-auto m-sm-0">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 w-100">
+                        <div class="row col-12 col-md-2 my-auto">
+                            @Html.LabelFor(model => model.licType, htmlAttributes: new { @class = "fw-bold" })
+                        </div>
+                        <div class="row col-12 col-md-6">
+                            @Html.EditorFor(model => model.licType, new { htmlAttributes = new { @class = "chronic-form-control" } })
+                            @Html.ValidationMessageFor(model => model.licType, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="print-claims-btns d-flex mt-5 justify-content-end">
+                <input id="submit" type="submit" value="Create" class="btn claims-search-btn ms-2 rounded-3; fs-5"
+                       style="background-color: #717382" />
+            </div>
+        </div>
+    }
+</section>
+<div style="display: flex; flex-direction: column">
+    <section style="
+          min-height: 80vh;
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+        ">
+        <div class="sios-overlay container-fluid mt-4">
+            <div class="container">
+                <i class="fa-solid fa-house"></i>
+                <h3 class="">Medicine License List</h3>
+            </div>
+        </div>
+        <div class="claims-section container-fluid">
+            <div class="table-responsive">
+                <table id="example" class="table table-striped mt-3 text-center">
+                    <thead>
+                        <tr>
+                            <th>License Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Licenses)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LicenseName)
+                                </td>
+                                <td>
+                                    <button type="button" class="py-1 px-3 rounded-1 text-light border-0" style="background: #717382" data-id=@item.Id onclick="Delete(this);"> Delete</button>
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="my-4 m-auto border-bottom border-2"></div>
+        </div>
+    </section>
+</div>
+
 
 
 @section Scripts {
