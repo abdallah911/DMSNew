@@ -4321,6 +4321,11 @@ namespace DMS_TEST.Controllers
                     MedicineNoPay = d.r.MedicineNoPay,
                     RealAmount = Convert.ToDouble(d.m.UNIT_PRICE) * Convert.ToDouble(d.r.TotalUnits),
                 }).ToList();
+                if (y.Count() == 0)
+                {
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReport.rpt"));
+
+                }
                 rd.SetDataSource(y);
                 if (string.IsNullOrEmpty(patient.EMP_ENAME) || patient.EMP_ENAME == "NULL")
                 {
