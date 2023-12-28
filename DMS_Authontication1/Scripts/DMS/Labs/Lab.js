@@ -991,7 +991,7 @@ function Calculation() {
         if (limit_Daily > AnuualLimit || limit_Daily == 0) {
             limit_Daily = AnuualLimit;
         }
-        if (limit_Daily != 0 && co != 0) {
+        if (limit_Daily != 0 ) {
             ValueCredit = (total * (CompanyPayment / 100)).toFixed(2);
             if ((limit_Daily * (CompanyPayment / 100)) <= (ValueCredit)) {
                 $('#txtTotalCopayment').val((limit_Daily * (person / 100)).toFixed(2));
