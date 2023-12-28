@@ -1243,7 +1243,9 @@ namespace DMS_Authontication1.Controllers
             rd.SetParameterValue("OverInsurance", data.OverInsurance);
             rd.SetParameterValue("PersonPayment", data.PersonPayment);
             rd.SetParameterValue("CompanyPayment", data.CompanyPayment);
-            rd.SetParameterValue("Cash", data.Cash);
+            if (data.Cash != null)
+                rd.SetParameterValue("Cash", data.Cash);
+            else rd.SetParameterValue("Cash", 0);
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
