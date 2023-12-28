@@ -2,26 +2,41 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Provider Services Permissions
-        </div>
-        <div class="actions">
-            <a id="Create" href="/ProviderServicesPermissions/Create" class="btn btn-success   btn-sm">
-                <i class="fa fa-plus"></i> Create New
-            </a>
+
+<section class="container-fluid mt-4">
+    <!--  New request -->
+    <div class="row bg-overlay">
+        <div style="position: relative"
+             class="editeRquest fw-bold text-light">
+            <div class="m-3 fs-3">
+                <i class="fa fa-home me-3"></i>
+                User List
+            </div>
+            <div style=" position: absolute;right: 1%;top: 50%;transform: translateY(-50%);">
+                <a href="/ProviderServicesPermissions/Create"
+                   class="px-2 text-light border-0 mx-2 rounded-2"
+                   style="
+                  background: #83439b;
+                  text-decoration: none;
+                  cursor: pointer;
+                  padding: 7.2px;">
+                    <i class="fas fa-plus"></i>
+                    Create New
+                </a>
+            </div>
         </div>
     </div>
-    <br />
-    <div class="portlet-body">
-        <table id="Index" class="table">
+</section>
+
+<div class="w-100 m-auto px-4 mt-4 pb-5">
+    <div class="table-responsive">
+        <table id="Index" class="table table-striped mt-3 text-center">
             <thead>
                 <tr>
                     <th>
-                       ProviderName
+                        ProviderName
                     </th>
                     <th>
                         Service Name
@@ -33,26 +48,25 @@
                         CompId
                     </th>
                     <th>
-                       ClassCode
+                        ClassCode
                     </th>
                     <th>
                         CardId
                     </th>
-                   
+
                     <th>
                         CreatedBy
                     </th>
-                  
+
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
-               
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
 </div>
-<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+
+<script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
 <script>
     $(function () {
         var id;
@@ -69,39 +83,37 @@
                 {
                     "data": "ServiceCode",
                     "mRender": function (data) {
-                        if (data == 11601)
-                        { return  "Daily"; }
+                        if (data == 11601) { return "Daily"; }
                         else if (data == 11602) {
-                            return  "Chronic";
+                            return "Chronic";
                         }
                         else if (data == 11603) {
-                            return  "Monthly";
+                            return "Monthly";
                         }
                         else if (data == 11604) {
-                            return  "Doctor";
+                            return "Doctor";
                         }
                         else if (data == 11206) {
-                            return  "Lab";
+                            return "Lab";
                         }
-                        else if (data == 11201)
-                        { return  "Ray"; }
-                        else{
+                        else if (data == 11201) { return "Ray"; }
+                        else {
                             return data;
                         }
                     }
                 },
-                { "data": "IsActive"},
+                { "data": "IsActive" },
                 { "data": "CompId" },
-                { "data": "ClassCode"},
+                { "data": "ClassCode" },
                 { "data": "CardId" },
                 { "data": "CreatedBy" },
                 {
                     "data": "Id",
                     "mRender": function (data) {
-                        return '<a class="btn btn-warning" href="/ProviderServicesPermissions/Edit/' + data + '">Edit</a>';
+                        return '<a class="btn py-1 px-3 rounded-1 text-light border-0"style = "background: #717382;text-decoration: none;" href="/ProviderServicesPermissions/Edit/' + data + '">Edit</a>';
                     }
                 }
-               
+
 
             ]
         });

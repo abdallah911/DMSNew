@@ -2,97 +2,112 @@
 
 @{
     ViewBag.Title = "Edit";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <div class="panel panel-info">
-        <h2 class="panel-heading" style="margin:1px;">Edit Ray</h2>
-        <div class="panel-body">
-
-            <div class="form-horizontal" style="padding-left: 93px;">
-
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.Id)
-                @if (User.IsInRole("Admin"))
-                {
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.DMS_CODE, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-6">
-                            @Html.EditorFor(model => model.DMS_CODE, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.DMS_CODE, "", new { @class = "text-danger" })
-                        </div>
-                    </div>}
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SERV_ANAME, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.SERV_ANAME, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.SERV_ANAME, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SERV_AMOUNT, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.SERV_AMOUNT, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.SERV_AMOUNT, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-
-                @* <div class="form-group">
-                    @Html.LabelFor(model => model.GRUOP_TYPE, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.GRUOP_TYPE, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.GRUOP_TYPE, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LOOK, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LOOK, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LOOK, "", new { @class = "text-danger" })
+<section class="container-fluid mt-4">
+    <!--  New request -->
+    <div class="row bg-overlay">
+        <div style="position: relative"
+             class="editeRquest fw-bold text-light">
+            <div class="m-3 fs-3">
+                <i class="fa fa-home me-3"></i>
+                Edit Ray
             </div>
-        </div>*@
-
-                <div class="form-group">
-                    @Html.LabelFor(m => m.GRUOP_ID, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-6">
-                        @Html.DropDownList("GRUOP_ID", ViewBag.Groups as SelectList, "--Select--", new
-                        {
-                            @class = "form-control"@*, id = "Provider"*@})
-
-                    </div>
-                </div>
-                @if (User.IsInRole("Admin"))
-                {
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.GRUOP_TYPE, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-6">
-                            @Html.DropDownList("GRUOP_TYPE", ViewBag.GroupType as SelectList, "--Select--", new
-                       {
-                           @class = "form-control"@*, id = "Provider"*@})
-
-                        </div>
-                    </div>
-
-                }
-                @*<div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div style=" position: absolute;right: 1%;top: 50%;transform: translateY(-50%);">
+                <a href="/RaysManagement"
+                   class="px-2 text-light border-0 mx-2 rounded-2"
+                   style="
+                  background: #83439b;
+                  text-decoration: none;
+                  cursor: pointer;
+                  padding: 7.2px;">
+                    <i class="fas fa-list"></i>
+                    Rays List
+                </a>
             </div>
-        </div>*@
-            </div>
-        </div>
-        <div class="panel-footer" style="text-align:right;">
-            <input id="Back" type="button" value="Back" onclick="window.location.replace('/RaysManagement/index');" class="btn btn-warning" />
-            @*<input id="New" type="reset" value="Reset" class="btn btn-primary" />*@
-            <input id="submit1" type="submit" value="Update" class="btn btn-success" />
         </div>
     </div>
-}
+</section>
+<section class="print-claim-section mt-5">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="container">
+            <div class="row mt-3">
+                <div class="row row-cols-sm-3 m-auto m-sm-0">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 w-100 mt-4">
+                            <div class="row col-12 col-md-2 my-auto">
+                                @Html.LabelFor(m => m.DMS_CODE, new { @class = "fw-bold" })
+                            </div>
+                            <div class="row col-12 col-md-6">
+                                @Html.EditorFor(model => model.DMS_CODE, new { htmlAttributes = new { @class = "chronic-form-control", @style = "font-size: 16px", @onfocusout = "OnChangeEvent();", @Value = "0" } })
+                                @Html.ValidationMessageFor(model => model.DMS_CODE, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    }
+                    <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 w-100 mt-4">
+                        <div class="row col-12 col-md-2 my-auto">
+                            @Html.LabelFor(m => m.SERV_CODE, new { @class = "fw-bold" })
+                        </div>
+                        <div class="row col-12 col-md-6">
+                            @Html.EditorFor(model => model.SERV_CODE, new { htmlAttributes = new { @class = "chronic-form-control", @style = "font-size: 16px" } })
+                            @Html.ValidationMessageFor(model => model.SERV_CODE, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 w-100 mt-4">
+                        <div class="row col-12 col-md-2 my-auto">
+                            @Html.LabelFor(m => m.SERV_ANAME, new { @class = "fw-bold" })
+                        </div>
+                        <div class="row col-12 col-md-6">
+                            @Html.EditorFor(model => model.SERV_ANAME, new { htmlAttributes = new { @class = "chronic-form-control", @style = "font-size: 16px" } })
+                            @Html.ValidationMessageFor(model => model.SERV_ANAME, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 w-100 mt-4">
+                        <div class="row col-12 col-md-2 my-auto">
+                            @Html.LabelFor(m => m.SERV_AMOUNT, new { @class = "fw-bold" })
+                        </div>
+                        <div class="row col-12 col-md-6">
+                            @Html.EditorFor(model => model.SERV_AMOUNT, new { htmlAttributes = new { @class = "chronic-form-control", @style = "font-size: 16px" } })
+                            @Html.ValidationMessageFor(model => model.SERV_AMOUNT, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 mt-4 w-100">
+                        <div class="row col-12 col-md-2 my-auto">
+                            @Html.LabelFor(m => m.GRUOP_ID, new { @class = "fw-bold" })
+                        </div>
+                        <div class="row col-12 col-md-6">
+                            @Html.DropDownList("GRUOP_ID", ViewBag.Groups as SelectList, "--Select--", new
+                       {
+                           @class = "chronic-form-control",
+                           @style = "color: #000; font-size: 16px"
+                       })
+                        </div>
+                    </div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 mt-4 w-100">
+                            <div class="row col-12 col-md-2 my-auto">
+                                @Html.LabelFor(m => m.GRUOP_TYPE, new { @class = "fw-bold" })
+                            </div>
+                            <div class="row col-12 col-md-6">
+                                @Html.DropDownList("GRUOP_TYPE", ViewBag.GroupType as SelectList, "--Select--", new { @class = "chronic-form-control", @style = "color: #000; font-size: 16px" })
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="print-claims-btns d-flex mt-5 justify-content-end">
+                <input id="Back" type="button" value="Back" onclick="window.location.replace('/RaysManagement/index');" class="btn claims-search-btn ms-2 rounded-3; fs-5" style="text-decoration: none; background-color: #717382" />
+                @*<input id="New" type="reset" value="Reset" class="btn claims-search-btn ms-2 rounded-3; fs-5" style="background-color: #717382" />*@
+                <input id="submit1" type="submit" value="Update" class="btn claims-search-btn ms-2 rounded-3; fs-5" style="background-color: #717382" />
+
+            </div>
+        </div>
+    }
+</section>
