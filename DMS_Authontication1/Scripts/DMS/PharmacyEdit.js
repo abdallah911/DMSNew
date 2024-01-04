@@ -174,7 +174,7 @@ $(function () {
     });
     $('#AddMedicine').on('select2:selecting', function (event) {
         if (ServiceCode != "11602") {
-            if (CompId == "8887700") {
+            if (CompId == "888") {
                 SelectMedicienCompany(event);
             }
             else {
@@ -369,7 +369,7 @@ function Calculation() {
         if (Limit > AnuualLimit || Limit == 0) {
             Limit = AnuualLimit;
         }
-        if (Limit != 0) {
+        if (Limit != 0 && co != 0) {
             ValueCredit = (total * (co / 100)).toFixed(2);
             if ((Limit * (co / 100)) <= (ValueCredit)) {
                 $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
@@ -404,7 +404,7 @@ function Calculation() {
         if (Limit > AnuualLimit || Limit == 0) {
             Limit = AnuualLimit;
         }
-        if (Limit != 0) {
+        if (Limit != 0 && co != 0) {
             ValueCredit = (total * (co / 100)).toFixed(2);
             if ((Limit * (co / 100)) <= (ValueCredit)) {
                 $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
@@ -1287,7 +1287,7 @@ function changeTable(button) {
 function changeTotalDuration(button) {
     var MinDay = (ServiceCode == "11601") ? 5 : 1;
     var MaxDay = (ServiceCode == "11601") ? 14 : 28;
-    if (CompId == "8887700") {
+    if (CompId == "888") {
         MinDay = 1;
         MaxDay = 28;
     }
