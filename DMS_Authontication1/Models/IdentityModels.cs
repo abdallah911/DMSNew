@@ -22,7 +22,8 @@ namespace DMS_Authontication1.Models
         public string Address { get; set; }
 
         public string TypeId { get; set; }
-
+        public ICollection<ProposalMain> Proposals { get; set; }
+        public ICollection<ProposalNotification> ProposalNotifications { get; set; } = new List<ProposalNotification>();
 
         // public string CardID { get; set; }
         //   public virtual DoctorPersonalData doctorPersonalData { get; set; }
@@ -73,7 +74,22 @@ namespace DMS_Authontication1.Models
         public DbSet<MonthlyPermission> MonthlyPermission { get; set; }
         public DbSet<Doctors_Permissions> Doctors_Permissions { get; set; }
         public DbSet<Basic_Data> BASIC_DATA { get; set; }
+        public DbSet<Company> Comapnies { get; set; }
+        public DbSet<Broker> Brokers { get; set; }
+        public DbSet<ProposalMain> ProposalMains { get; set; }
+        public DbSet<ProposalStepTwo> ProposalStepTwos { get; set; }
+        public DbSet<ProposalInsideMedicalAuthority> ProposalInsideMedicalAuthorities { get; set; }
+        public DbSet<ProposalOutsideMedicalAuthority> ProposalOutsideMedicalAuthorities { get; set; }
+        public DbSet<CompanyActivity> CompanyActivities { get; set; }
+        public DbSet<Area> Areas { get; set; }
+        public DbSet<CardColor> CardColors { get; set; }
+        public DbSet<MedicalNetwork> MedicalNetworks { get; set; }
+        public DbSet<ResidenceDegree> ResidenceDegrees { get; set; }
+        public DbSet<Pricing> Pricings { get; set; }
+        public DbSet<ProposalNotification> ProposalNotifications { get; set; }
+        public DbSet<ProposalNotificationApplicationUser> ProposalNotificationApplicationUsers { get; set; }
 
+        public DbSet<PricesOutsideMedicalAuthority> PricesOutsideMedicalAuthorities { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

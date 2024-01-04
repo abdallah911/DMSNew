@@ -391,9 +391,9 @@
                                             <i class="fas fa-chevron-down"></i>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="/NewReports/OperationReport" class="dropdown-item">Operation Reports</a></li>
-                                            <li><a href="/NewReports/ApprovalReports" class="dropdown-item">Approval Reports</a></li>
-                                            <li><a href="/NewReports/ConsumptionReport" class="dropdown-item">Consumption Reports</a></li>
+                                            <li><a href="/NewReports/OperationReport" class="dropdown-item">All Report</a></li>
+                                            @*<li><a href="/NewReports/ApprovalReports" class="dropdown-item">Approval Reports</a></li>
+                                            <li><a href="/NewReports/ConsumptionReport" class="dropdown-item">Consumption Reports</a></li>*@
                                         </ul>
                                     </li>
                                 </ul>
@@ -465,8 +465,9 @@
                                             <li>
                                                 <a class="dropdown-item" href="./Medical-Approval.html">Medical Approval</a>
                                             </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Offers</a>
+                                            <li>                                                
+                                                @Html.ActionLink("Offer", "Index", "ProposalMain", null, new { @class = "dropdown-item" })
+                                               @* <a href="~/ProposalMain.html class="dropdown-item">Offers</a>*@
                                             </li>
                                             <li>
                                                 <a class="dropdown-item" href="./Radio-Centers.html">Policy</a>

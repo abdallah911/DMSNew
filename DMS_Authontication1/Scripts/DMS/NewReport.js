@@ -82,6 +82,7 @@
         $.get("/MedicalNetwork/GetClassList",
             { compId: compNu }, function (data) {
                 $("#ClassApproval").empty();
+                $('#ClassApproval').append('<option value="">Select Class</option>');
                 $.each(data, function (index, row) {
                     $("#ClassApproval").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
                 });
@@ -134,6 +135,7 @@
         $.get("/MedicalNetwork/GetClassList",
             { compId: compNu }, function (data) {
                 $("#ClassCodeConsum").empty();
+                $('#ClassCodeConsum').append('<option value="">Select Class</option>');
                 $.each(data, function (index, row) {
                     $("#ClassCodeConsum").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
                 });

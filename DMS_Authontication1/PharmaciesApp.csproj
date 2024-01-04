@@ -153,10 +153,37 @@
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http, Version=2.2.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.2.2.2\lib\netstandard2.0\Microsoft.AspNetCore.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.WebUtilities.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.ObjectPool, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.ObjectPool.2.2.0\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -173,6 +200,12 @@
       <HintPath>..\packages\RestSharp.106.10.1\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -183,11 +216,24 @@
     <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
     </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -297,9 +343,13 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Attribute\ConditionalRequiredAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BrokerController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\NewReportsController.cs" />
     <Compile Include="Controllers\MobileApi\AccountMobileController.cs" />
+    <Compile Include="Controllers\ProposalMainController.cs" />
     <Compile Include="Controllers\ReportMain\ReportMainController.cs" />
     <Compile Include="Controllers\LossRatio\LossRatioController.cs" />
     <Compile Include="Controllers\CustomerService\CustomerServiceController.cs" />
@@ -358,6 +408,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\DocumentSetting.cs" />
+    <Compile Include="Helper\FileUploadWrapper.cs" />
+    <Compile Include="Hub\ProposalNotificationHub.cs" />
     <Compile Include="Migrations\201802280728382_editUser.cs" />
     <Compile Include="Migrations\201802280728382_editUser.Designer.cs">
       <DependentUpon>201802280728382_editUser.cs</DependentUpon>
@@ -446,6 +499,14 @@
     <Compile Include="Migrations\201811271146400_Modification2.Designer.cs">
       <DependentUpon>201811271146400_Modification2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202312191252311_applicationUserNotification.cs" />
+    <Compile Include="Migrations\202312191252311_applicationUserNotification.Designer.cs">
+      <DependentUpon>202312191252311_applicationUserNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312191335499_applicationUserNotificationChange.cs" />
+    <Compile Include="Migrations\202312191335499_applicationUserNotificationChange.Designer.cs">
+      <DependentUpon>202312191335499_applicationUserNotificationChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Acception.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -472,22 +533,28 @@
     <Compile Include="Models\APPROVAL_BAD.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Area.cs" />
     <Compile Include="Models\Basic.cs" />
     <Compile Include="Models\Basic_Data.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Broker.cs" />
     <Compile Include="Models\CardAcceptionReason.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CardCode.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CardColor.cs" />
     <Compile Include="Models\CardsSm.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CardUsed.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CategoriesPricing.cs" />
+    <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\CompanyActivity.cs" />
     <Compile Include="Models\CompanyContractPhoto.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -722,6 +789,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MedicalNetwork.cs" />
     <Compile Include="Models\MedicineData.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -783,6 +851,8 @@
     <Compile Include="Models\PrescriptionRoshitaDignosi.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PricesOutsideMedicalAuthority.cs" />
+    <Compile Include="Models\Pricing.cs" />
     <Compile Include="Models\ProposalBasicData.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -801,9 +871,15 @@
     <Compile Include="Models\ProposalComment.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProposalInsideMedicalAuthority.cs" />
+    <Compile Include="Models\ProposalMain.cs" />
+    <Compile Include="Models\ProposalNotification.cs" />
+    <Compile Include="Models\ProposalNotificationApplicationUsers.cs" />
+    <Compile Include="Models\ProposalOutsideMedicalAuthority.cs" />
     <Compile Include="Models\ProposalRenewalSummary.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProposalStepTwo.cs" />
     <Compile Include="Models\Provider.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -843,6 +919,7 @@
     <Compile Include="Models\RequestAddProvider.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ResidenceDegree.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Hub\NotificationHub.cs" />
     <Compile Include="Models\Roshita.cs">
@@ -1265,6 +1342,9 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AcceptionViewModel.cs" />
     <Compile Include="ViewModel\AdminChangeUserPasswordNM.cs" />
+    <Compile Include="ViewModel\BrokerViewModel.cs" />
+    <Compile Include="ViewModel\CategoriesPricingViewModel.cs" />
+    <Compile Include="ViewModel\CompanyViewModel.cs" />
     <Compile Include="ViewModel\CustomerService\DetailsCustomerServiceViewModel.cs" />
     <Compile Include="ViewModel\CustomerService\CustomerServicePhoneViewModel.cs" />
     <Compile Include="ViewModel\CustomerService\ApprovalCustomerServiceViewModel.cs" />
@@ -1303,6 +1383,12 @@
     <Compile Include="ViewModel\LicTypeViewModel.cs" />
     <Compile Include="ViewModel\PrescriptionViewModel.cs" />
     <Compile Include="ViewModel\PharmacyAdmin\PharmacyAdminVm.cs" />
+    <Compile Include="ViewModel\PricingAggregateViewModel.cs" />
+    <Compile Include="ViewModel\PricingAggregateViewModelPage2.cs" />
+    <Compile Include="ViewModel\ProposalInsideMedicalAuthorityViewModel.cs" />
+    <Compile Include="ViewModel\ProposalMainViewModel.cs" />
+    <Compile Include="ViewModel\ProposalOutsideMedicalAuthorityViewModel.cs" />
+    <Compile Include="ViewModel\ProposalStepTwoViewModel.cs" />
     <Compile Include="ViewModel\Proposal\ProposalClassVM.cs" />
     <Compile Include="ViewModel\Proposal\ProposalBasicDataDetalisVM.cs" />
     <Compile Include="ViewModel\Proposal\ProposalBenefitsVM.cs" />
@@ -1335,6 +1421,108 @@
     <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdminAssets\CSS\admin.css" />
+    <Content Include="AdminAssets\CSS\all.min.css" />
+    <Content Include="AdminAssets\CSS\bootstrap.min.css" />
+    <Content Include="AdminAssets\CSS\dataTables.bootstrap5.min.css" />
+    <Content Include="AdminAssets\CSS\HR-Style.css" />
+    <Content Include="AdminAssets\CSS\images\check.svg" />
+    <Content Include="AdminAssets\CSS\images\ui-bg_flat_0_888888_40x100.png" />
+    <Content Include="AdminAssets\CSS\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="AdminAssets\CSS\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="AdminAssets\CSS\images\ui-bg_glass_25_e1f0f5_1x400.png" />
+    <Content Include="AdminAssets\CSS\images\ui-bg_glass_55_444444_1x400.png" />
+    <Content Include="AdminAssets\CSS\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="AdminAssets\CSS\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="AdminAssets\CSS\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="AdminAssets\CSS\images\ui-bg_inset-soft_95_fef1ec_1x100.png" />
+    <Content Include="AdminAssets\CSS\images\ui-icons_222222_256x240.png" />
+    <Content Include="AdminAssets\CSS\images\ui-icons_309bbf_256x240.png" />
+    <Content Include="AdminAssets\CSS\images\ui-icons_444444_256x240.png" />
+    <Content Include="AdminAssets\CSS\images\ui-icons_bf3030_256x240.png" />
+    <Content Include="AdminAssets\CSS\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="AdminAssets\CSS\jquery-ui.css" />
+    <Content Include="AdminAssets\CSS\jquery-ui.min.css" />
+    <Content Include="AdminAssets\CSS\Letters-Style.css" />
+    <Content Include="AdminAssets\CSS\main-reports.css" />
+    <Content Include="AdminAssets\CSS\main.css" />
+    <Content Include="AdminAssets\CSS\Medical-Approval.css" />
+    <Content Include="AdminAssets\CSS\menu-shared.css" />
+    <Content Include="AdminAssets\CSS\operation.css" />
+    <Content Include="AdminAssets\CSS\ray-lab.css" />
+    <Content Include="AdminAssets\CSS\select2.min.css" />
+    <Content Include="AdminAssets\CSS\toastr.min.css" />
+    <Content Include="AdminAssets\Images\All\background.jpg" />
+    <Content Include="AdminAssets\Images\All\Bg.jpeg" />
+    <Content Include="AdminAssets\Images\All\greater-than.svg" />
+    <Content Include="AdminAssets\Images\All\home-icon.svg" />
+    <Content Include="AdminAssets\Images\background-22-01.jpg" />
+    <Content Include="AdminAssets\Images\logo D M S 4-04.png" />
+    <Content Include="AdminAssets\Images\logo-dms-white2.png" />
+    <Content Include="AdminAssets\Images\logo-dms.png" />
+    <Content Include="AdminAssets\Images\Untitled-1  2-01.jpg" />
+    <Content Include="AdminAssets\Images\Untitled-1  2-02.jpg" />
+    <Content Include="AdminAssets\Images\Untitled-1 22-01.jpg" />
+    <Content Include="AdminAssets\Images\Untitled-1-01.jpg" />
+    <Content Include="AdminAssets\Images\Untitled-1-02.jpg" />
+    <Content Include="AdminAssets\Images\Untitled-2-01.png" />
+    <Content Include="AdminAssets\Images\Untitled-2-02.jpg" />
+    <Content Include="AdminAssets\Images\up.png" />
+    <Content Include="AdminAssets\Images\website  S I O S  77-01.jpg" />
+    <Content Include="AdminAssets\Images\website  S I O S gg-01.jpg" />
+    <Content Include="AdminAssets\Images\website  S I O S gg-02.jpg" />
+    <Content Include="AdminAssets\Images\website  S I O S gg-03.jpg" />
+    <Content Include="AdminAssets\Images\website  S I O S gg-04.jpg" />
+    <Content Include="AdminAssets\Images\website  S I O S gg-05.jpg" />
+    <Content Include="AdminAssets\Images\website  S I O S gg-06.jpg" />
+    <Content Include="AdminAssets\Images\website  S I O S gg-07.jpg" />
+    <Content Include="AdminAssets\Images\website  S I O S-02.jpg" />
+    <Content Include="AdminAssets\Images\website  S I O S-03.jpg" />
+    <Content Include="AdminAssets\Images\website  S I O S-04.jpg" />
+    <Content Include="AdminAssets\Images\website  S I O S-05.jpg" />
+    <Content Include="AdminAssets\Images\website  S I O S-06.jpg" />
+    <Content Include="AdminAssets\Images\website  S I O S-07.jpg" />
+    <Content Include="AdminAssets\Images\Welcome.png" />
+    <Content Include="AdminAssets\Img\logo D M S 4-04.png" />
+    <Content Include="AdminAssets\Img\logo-dms-white2.png" />
+    <Content Include="AdminAssets\Img\Untitled-1  2-01.jpg" />
+    <Content Include="AdminAssets\Img\Untitled-1  2-02.jpg" />
+    <Content Include="AdminAssets\Img\Untitled-1 22-01.jpg" />
+    <Content Include="AdminAssets\Img\Untitled-1-01.jpg" />
+    <Content Include="AdminAssets\Img\Untitled-1-02.jpg" />
+    <Content Include="AdminAssets\Img\Untitled-2-01.png" />
+    <Content Include="AdminAssets\Img\Untitled-2-02.jpg" />
+    <Content Include="AdminAssets\Img\website  S I O S  77-01.jpg" />
+    <Content Include="AdminAssets\Img\website  S I O S gg-01.jpg" />
+    <Content Include="AdminAssets\Img\website  S I O S gg-02.jpg" />
+    <Content Include="AdminAssets\Img\website  S I O S gg-03.jpg" />
+    <Content Include="AdminAssets\Img\website  S I O S gg-04.jpg" />
+    <Content Include="AdminAssets\Img\website  S I O S gg-05.jpg" />
+    <Content Include="AdminAssets\Img\website  S I O S gg-06.jpg" />
+    <Content Include="AdminAssets\Img\website  S I O S gg-07.jpg" />
+    <Content Include="AdminAssets\Img\website  S I O S-02.jpg" />
+    <Content Include="AdminAssets\Img\website  S I O S-03.jpg" />
+    <Content Include="AdminAssets\Img\website  S I O S-04.jpg" />
+    <Content Include="AdminAssets\Img\website  S I O S-05.jpg" />
+    <Content Include="AdminAssets\Img\website  S I O S-06.jpg" />
+    <Content Include="AdminAssets\Img\website  S I O S-07.jpg" />
+    <Content Include="AdminAssets\JS\Admin-Script.js" />
+    <Content Include="AdminAssets\JS\bootstrap.bundle.min.js" />
+    <Content Include="AdminAssets\JS\dataTables.bootstrap5.min.js" />
+    <Content Include="AdminAssets\JS\HR-Script.js" />
+    <Content Include="AdminAssets\JS\jquery-3.6.0.js" />
+    <Content Include="AdminAssets\JS\jquery-ui.js" />
+    <Content Include="AdminAssets\JS\jquery.dataTables.min.js" />
+    <Content Include="AdminAssets\JS\jquery.min.js" />
+    <Content Include="AdminAssets\JS\main-reports copy.js" />
+    <Content Include="AdminAssets\JS\main-reports.js" />
+    <Content Include="AdminAssets\JS\main.js" />
+    <Content Include="AdminAssets\JS\select2.min.js" />
+    <Content Include="AdminAssets\JS\toastr.min.js" />
+    <Content Include="AdminAssets\select2.min.css" />
+    <Content Include="AdminAssets\select2.min.js" />
+    <Content Include="AdminAssets\toastr.min.css" />
+    <Content Include="AdminAssets\toastr.min.js" />
     <Content Include="assets\admindashdoardmenu\sidebarmenu.css" />
     <Content Include="assets\admindashdoardmenu\sidebarmenu.js" />
     <Content Include="assets\apps\css\inbox.css" />
@@ -6650,6 +6838,14 @@
     <Content Include="assets\global\plugins\design\webfonts\fa-solid-900.ttf" />
     <Content Include="assets\global\plugins\design\webfonts\fa-solid-900.woff" />
     <Content Include="assets\global\plugins\design\webfonts\fa-solid-900.woff2" />
+    <Content Include="AdminAssets\webfonts\fa-brands-400.ttf" />
+    <Content Include="AdminAssets\webfonts\fa-brands-400.woff2" />
+    <Content Include="AdminAssets\webfonts\fa-regular-400.ttf" />
+    <Content Include="AdminAssets\webfonts\fa-regular-400.woff2" />
+    <Content Include="AdminAssets\webfonts\fa-solid-900.ttf" />
+    <Content Include="AdminAssets\webfonts\fa-solid-900.woff2" />
+    <Content Include="AdminAssets\webfonts\fa-v4compatibility.ttf" />
+    <Content Include="AdminAssets\webfonts\fa-v4compatibility.woff2" />
     <None Include="assets\HomeTemplete\Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="assets\HomeTemplete\Scripts\jquery-1.11.1.min.js" />
     <Content Include="assets\HomeTemplete\Scripts\jquery-3.0.0.js" />
@@ -7851,6 +8047,263 @@
     <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap-datetimepicker.min.js" />
     <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap.js" />
     <Content Include="assets\admindashdoardmenu\CustomAfterSales\bootstrap.min.js" />
+    <Content Include="ProposalAssets\assets\background-22-01.jpg" />
+    <Content Include="ProposalAssets\CSS\all.min.css" />
+    <Content Include="ProposalAssets\CSS\bootstrap.min.css" />
+    <Content Include="ProposalAssets\CSS\broker.css" />
+    <Content Include="ProposalAssets\CSS\images\ui-bg_flat_0_888888_40x100.png" />
+    <Content Include="ProposalAssets\CSS\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="ProposalAssets\CSS\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="ProposalAssets\CSS\images\ui-bg_glass_25_e1f0f5_1x400.png" />
+    <Content Include="ProposalAssets\CSS\images\ui-bg_glass_55_444444_1x400.png" />
+    <Content Include="ProposalAssets\CSS\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="ProposalAssets\CSS\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="ProposalAssets\CSS\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="ProposalAssets\CSS\images\ui-bg_inset-soft_95_fef1ec_1x100.png" />
+    <Content Include="ProposalAssets\CSS\images\ui-icons_222222_256x240.png" />
+    <Content Include="ProposalAssets\CSS\images\ui-icons_309bbf_256x240.png" />
+    <Content Include="ProposalAssets\CSS\images\ui-icons_444444_256x240.png" />
+    <Content Include="ProposalAssets\CSS\images\ui-icons_bf3030_256x240.png" />
+    <Content Include="ProposalAssets\CSS\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="ProposalAssets\CSS\IN&amp;OUT.css" />
+    <Content Include="ProposalAssets\CSS\jquery-ui.css" />
+    <Content Include="ProposalAssets\CSS\main.css" />
+    <Content Include="ProposalAssets\CSS\Porposal2.css" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\00230ed1-8cbb-45c9-abf1-2aeb4f5eec04test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\00301a63-ba31-4b9b-93ca-df1bb40d6f10New Text Document.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\02fbb319-9454-439d-935e-296794c311c7testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\0973cddd-eaec-4778-b777-2c56198f111atest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\0b092cd9-a8df-4438-8c47-d959bec14b64testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\0b447c2d-5437-4af6-ae8a-515a79d8940ftest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\0d8aaaf8-df7c-4b4a-910e-d20b5fed6ed3test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\0dc57b0d-98e5-4107-a47d-6e7c7ba1d841chrome.VisualElementsManifest.xml" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\1028d828-8a8d-4df5-82ec-714d8e19ae3bNew Text Document.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\10b54ce4-3df1-4a9d-aaf8-28b762c45261test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\11cef162-2488-478a-be29-50510c1551cdtest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\11e7f513-9dac-4152-a1a1-596fca753213testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\11fe8a42-8651-46a1-8707-39c43b7c6111testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\12dfe83b-8502-4e65-8292-57e011fe48b5testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\143eea73-3a10-4b54-a44e-09513bd2d3adtest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\17124b16-049c-4364-aa2f-ff08410b0e87test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\182c1a1c-4a79-49ce-b452-085b92c0aae1test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\18d1d1b9-9e67-4797-ae57-4c7f8730174dNew Text Document.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\1ad99c8a-0cd8-4d90-9421-ba87437e9852testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\1db9a4e8-d2a8-4724-bb13-9219df6d8e50testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\1f8888c1-0051-4585-a6a1-ab85b6cd67c3test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\1ffccdcf-1f2e-4a9f-bf05-479159267f1echrome.VisualElementsManifest.xml" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\203b0625-39f2-45cc-8935-7137dee2a4fcNew Text Document.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\23a86e43-bea4-4fb9-bcdb-c892de37c888testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\25051b1b-535a-4041-861e-663095d60af8test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\26cb9a5a-0c49-48c8-ae41-5dd82e39639ctestFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\29a24e9b-9776-423d-a598-235f9dcd0e1etest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\2a35224c-19fd-465f-b06c-0873821d5260testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\322e2d62-76da-47ff-ab7b-56796c1d95d1test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\3454fd1c-4dfe-46a8-ada9-5ea8040d9415testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\3545f684-92c3-4fb0-9028-e2be374eda4etestFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\35cb6b4e-bcdb-48c0-afb0-3fd61223a190test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\38247851-c712-47c5-b6bf-494d9d17cd9ftest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\385e1fef-a385-4dce-9596-0b6eba4ec602test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\3a80a566-2449-4668-9954-c689108f1698testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\3aaf122b-a684-4d10-9b46-391395665f36test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\3b15a3a8-0f81-4459-bb01-8fd4fed14dfatest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\3c3d1b06-858f-46bd-8962-54abc8a8993etestFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\3f09b899-f3be-4dc9-8b5f-582ea7713322testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\3fbc89fa-4e25-4e41-af69-61903272d014testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\459d6db6-01ae-495d-b4ff-133132e72baftestFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\48f006a0-0c3b-47fc-bf5f-730c58399186test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\498b8266-2f42-4275-8e09-b75672a464e1testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\4a1515f1-a6d5-46cb-9aee-d3b36469d942test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\4a18ff61-289c-4c20-bb93-5795d6c1f9b6test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\4f3c5557-af2d-45fe-b853-1986e0635406testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\507c152a-dca3-42ef-9849-e1f6cfad2052testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\51b2c43c-8306-40da-a17c-2296d2c23601testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\51fd270e-c1b6-4605-9fda-3c4387518e94testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\54072230-8919-415c-8178-c04bc908157dtestFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\555d400a-691b-43a8-8474-d2d12280e9f9testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\57e6bcc3-490b-43e6-a5eb-31abbdaf00c1test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\5d1563ed-267e-49b2-96f6-7ad46441797atestFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\5d7e7f72-95c2-43cc-88b9-8b3ec703f656New Text Document.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\5e11a94d-c527-4304-9045-ee93407233adtestFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\5e230875-b539-4784-a1b2-741e8c147c49test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\5e9e97ec-9c48-4b15-a197-4e3f6eeaf371test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\6328d898-6c52-45c4-8a62-9818c0bda9f8test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\63e9ba6d-57c3-4064-9c99-76358bb675eetest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\65b8d052-76df-4787-8dc0-2203688bfdb1testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\66c52804-a522-4fd2-8a33-eea5e1bb2a09admin.css" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\66cbb170-5c3e-47f5-b646-346c7c1782a7test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\696024ac-80fa-47fe-bca5-34eb64127f5btest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\6a8df37d-ecb7-419c-bca6-9974c6776320chrome.VisualElementsManifest.xml" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\6c65a408-f01a-45a1-bed5-4d30f3206202New Text Document.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\6cff474c-8185-4a51-868b-84f54617f6c1test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\736269b3-47f9-4b7e-8cbb-dedd1f6b615dtest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\75e42058-0f17-4261-82db-669233d306fatest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\78a99c4f-7fb7-4b69-9135-e8aa0b521f02testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\79b5ebf4-9c78-4bec-9c0d-83df694dd9cbtestFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\82ea17d5-a8d8-4895-be7d-458ae48831d3test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\836cf618-757a-4266-9af9-eb8fa598d3e3test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\85a8f187-739f-4841-8a4d-9179459b2159test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\86a48b94-4cbb-441a-b612-8b6ed6ac5196testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\87173f8b-da81-40e9-964d-ae1042b7fad4testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\899f2b30-0d49-4bee-8046-0e3277021554test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\8ae9dabc-620d-44c2-ac26-7f397f5ea97btest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\8afb27ce-20a9-415e-b109-c2ae524282f3testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\8cf96eaf-5785-4dfa-8b99-6bc311e9c9abtestFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\8efb5ae0-0f98-409a-a8e4-7888619a72d2test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\94f31fd1-dcd5-48ff-9866-4fbc8047988atest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\9584f7ed-e08f-417e-8b3e-f52639d8accctestFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\9834e0de-a49a-43a0-b75c-a5e53a46d33ctestFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\98eb08f5-d55a-4d30-acea-11deb9861fd0test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\9d12eddb-a6ff-46a0-8084-1df4320d7113testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\9f7bd228-44ad-49a0-a3d2-84ef47bd3350testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\a0851a7a-3151-4f40-a1bb-788399dc2d9ftestFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\a1960f49-228a-4e2b-ad6e-ed227b910ab7test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\a392e195-88ce-4826-af69-014f11cc67aaNew Text Document %287%29.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\a472e1f0-0b18-489d-8943-33bebaf44867test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\a5982737-ac7c-4841-8c66-b1dd578ef80fchrome_proxy.exe" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\a8025565-977f-4cd9-8314-48a3ea53e858test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\aefd84bb-ae52-4a72-ab1d-a308eaf6e304testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\b5ba22fd-b5ca-470f-9a08-c516998cae61New Text Document.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\b644c941-cc95-456a-8dbc-86a2f3ccbc44test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\ba31aec0-10dc-41a4-b5aa-6001998ad685test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\bb25fc65-f543-4565-98ae-708b41099b22testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\bf1002a9-7125-4c4e-b7ac-a129e85e0a22test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\c1388039-21c4-48cc-bbfc-41cd8a7001adtest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\c2abd062-6595-4118-8a42-5c3bc1a5d2e2test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\c35ae5ff-4cb6-4458-aef0-4f5a42538ee4test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\c41c16ea-3b95-40e9-a9a0-231dc9b0d477testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\c4e5e62f-1f35-47bb-ac46-9610b8d8dd84testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\c6b26636-f08e-4213-aebb-b9180a8cdbf9testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\c6b4e109-7cb2-4d24-9a37-3ac4510b0f91testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\c75a1cf7-1397-4180-afc8-8698db9aa850test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\c808efa3-7b1d-44b7-8eb0-0dcdc83819d5test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\d160f67e-07bc-48a7-934a-cd2d1abc0e8atest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\d4e7d032-be6e-4474-8787-e149af9b4323testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\d8ba5efa-7274-4e83-a1a1-d68e693d1d57testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\d9b730ec-0610-4b3e-a0ce-8d11f61dab8ftest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\dae67f73-8e8c-420e-bad3-ea22087d880ctest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\db302cee-c663-4156-8659-4e5ae08d2dbfNew Text Document.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\dc155e7a-7ed9-4b53-8c9e-4d59d7c57f65testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\dcb6cdbc-d479-4117-847c-117a3d61d1dbtest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\deb0ebd0-6299-4aca-94c8-78a8a7a95712test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\e10c5fbf-3b24-4561-8731-87e97b26cfd6testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\e3ec7169-4570-44a4-8233-3d2c806d678btestFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\e5839190-35ec-40f3-bb08-6f6ccc436ca4test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\e8033e2b-e447-463c-8248-c77bf6f5a671test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\eb6d6ad4-a3d2-47e0-a7a9-06eea49aeeactestFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\eb748938-f8ed-4afa-b908-590b6c61a979test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\ec0cdd8d-5ba6-44ed-843b-a66d50024c96test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\ecfc1c91-88e9-42e4-94cc-6366975ad658testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\f003b97b-a907-4865-ab81-d5b51a622691testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\f21fd138-65ff-4079-b1c5-e1e99b7b7c64testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\f6ec6bef-b09d-4750-a4b9-8b408bc0a6fbtest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\f7649b53-3796-48d5-a144-b94a3de2806ftest.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\f88e0837-b981-4b52-ba98-387eccdded60test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\f942065f-774e-43d1-b4a5-e8370009cea9chrome_proxy.exe" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\f9573f6b-2f0f-43bb-ad5b-cb3eb83c4a21New Text Document.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\f995c3db-71f4-490a-a0f3-fd4b8c9c5311test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\f99da7fc-f950-4f8c-b6fd-62bac294657dtestFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\fdbe48cc-8d40-4338-9870-05cb42659f25test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\fde25b86-6a2e-434f-bdb5-99c650dcb6a1testFiles.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\fe02a04e-baaf-4407-a1d9-b85610c9f7e7test.txt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\ff54ee5c-251a-4fb4-8a28-0b32a6ffdc73test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\006bfced-70ce-4f89-a602-55494df6692atestFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\00a032ee-25d1-4463-ac17-0f317dc2ef80testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\060c6b12-7bb1-4db0-9d21-2b9b8ce5ad80testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\0639b283-3cee-41b2-89fd-4fa6033123d0testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\09f15269-223d-4c08-873e-fac01ea791d1test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\10b8b307-49a4-48c7-a492-371fc92d72e5testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\11a64efc-b0a0-4bba-8993-ff92cfd11011testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\18933821-c8e5-44b9-8999-d1c61dbf7c74test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\18fb3699-07f3-43d7-9c33-914353d82a0etest.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\1b07032d-aa6e-4cbc-8952-eb85e6b4486btest.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\21f089a7-abc9-4352-bc9b-a59906cfcf56testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\26f7f3ca-b163-4db5-9cbf-24733b2f3eaatestFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\2f991234-0bce-407b-b458-cf12d21d301btest.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\35a4426e-9687-482a-8d37-01dd39dd9dbatestFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\4426c603-8132-4cb9-ae0d-44cadb875bdftest.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\4554b360-4173-4b59-9973-4f4741ca3e64test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\4976f824-fc5f-40a5-a906-09afe3f26fa9testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\49cbfc3f-1268-4be5-91dc-d5710c575dd3testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\4ba09d53-6201-403f-847a-5f95ab99d1bctest.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\4d33ca31-6065-43b5-b947-1af8472f7dc1test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\4f726d3e-8715-4507-89ab-0a63c5b5e7d8testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\50e1265a-7946-46f1-975e-adec9684d53btestFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\53ad5500-763b-4172-a6f1-7daf118aa261test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\5e253111-5b4a-4cec-907e-18f675cb3f0btestFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\65d4e839-a15e-4a70-88f2-3c25e24a9d74testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\7102bdaf-1631-4777-b28a-e3dd4bf716a8test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\7188da3a-f2ef-4a06-a1c0-de637a3799fdtest.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\72caa4f7-88a2-4aa3-b6ef-aab9a73924d4test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\7c559f57-6796-4948-befb-4223a37f6a5dtest.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\7ebd60af-ae48-4c52-b620-0782137c9787testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\80d8f2a0-9d19-4e10-a845-f4b5dd49a1batestFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\819ad005-c700-4be2-8442-d936234c6005testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\843c8309-9482-4f5e-b03c-b179447e1c52test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\86ef9a7b-7ac4-477b-8770-eb64f5ad4d18testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\8bd02105-1937-455a-8b0e-153f35f8a236test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\965e3e8f-6bef-4108-928d-9531ea049ea7testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\9e88ed01-ceb3-4623-b3d1-fe43e7d38bb7testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\a4913c4f-5886-4fcb-86f6-23dfd31deab8testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\a4cec758-689d-40e3-afec-b7ed3f3291eftest.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\a5bb26ec-6f67-42cf-b131-d8e9610967a2testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\aa4d84cf-ff75-4a8c-a04a-20cfbe224237testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\aa50aa99-1ad9-4526-82b4-bb6782ac3960testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\adfc14fa-b2e3-486a-974c-13032dac59a9testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\b48639c6-5c19-417b-a566-80af5ea7e0cetestFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\bd130c08-ccfe-45a6-a2eb-bc2ddfa96a02test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\be75da3d-9f42-4d65-affe-905f56499027testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\c02a938f-246f-4041-b7ad-45c27fec3d6ftest.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\c4a3be18-9a0f-44b7-a946-0bdcc978f293testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\ca1809a2-50fc-4ddf-b266-c9e4d09aaa59testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\cd0abc55-8667-4fde-9486-1076b9fef30ftestFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\ce9a8296-f748-4de5-9389-9f52dfcf8527testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\d33425ec-6e64-4ea4-93b4-8cd009b79370testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\dbca33ce-9603-4873-a576-229dc7036229testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\de39d5bb-a032-4ba6-9e63-88087b3223d0test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\de4c3d35-540e-45e2-91d7-5f76359aebc5testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\deeaa757-2581-4f99-b14e-7370cc24aae6test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\e13d8f57-57e6-48c7-9e02-37f5a41dcadatestFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\e596edfa-099c-42ca-96aa-7507d96dba85testFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\f18d372e-8524-4699-aaa7-4618609f66a0test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\f9a6e14c-8025-47b4-afc0-6d938c0fb495test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\f9ae9bac-000d-4ac9-bfa6-230107192ffctestFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\f9b73a9f-1417-4237-90ad-d3e7f41bfdf3test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\fa0e7b02-a1dd-4d42-b0b0-8ff83074c8cdtestFiles.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\fc034a80-d820-4548-ab53-ed91da8d0972test.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\fcb7cfdc-1eec-4f45-880b-339d10ae3afctest.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\ff6dbc6c-b355-4577-9fef-e20d27d438batest.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\ffbd4ad0-fdc0-455c-8e96-e4471070cdaftest.txt" />
+    <Content Include="ProposalAssets\Files\EmpolyeeFiles\ffd3dafa-90af-4f3b-93b4-e3d296e83348test.txt" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\03626810-6a94-425a-813d-3b3b8512f5a2chrome.VisualElementsManifest.xml" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\1d807919-7842-4617-841a-c02841227e83testFiles.txt" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\53d4582c-d591-4a9e-9ee2-3ae12f085666New Text Document.txt" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\6c9b2e38-f5d1-4288-b363-0441bf90b841chrome.VisualElementsManifest.xml" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\9ee427b9-7813-436d-8eba-731e261934e3New Text Document.txt" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\a9d4cb6d-bf38-4a27-ac5d-096daebe32d2New Text Document %287%29.txt" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\b27c4cd2-5c46-4078-b221-dc8d6aaf335echrome.exe" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\de04e6a1-2501-4568-9a03-ca7a0d2ef0f2New Text Document %287%29.txt" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\e9509ad7-dca0-4830-916d-1aa85516f67dtestFiles.txt" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\f3074a2c-f88b-4a2d-8e9e-0056eca5b659New Text Document %287%29.txt" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\f41913d9-2bab-4932-af47-2533e4593b90testFiles.txt" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\357f3262-9ae7-472e-b2e5-09f55fa57dd2New Text Document %287%29.txt" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\6404d3f9-c9ee-435f-960f-8ba421721177New Text Document %287%29.txt" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\6e3333ec-965a-4eb5-b29e-3f9996a67057New Text Document.txt" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\71b3bac4-f6a4-48ec-ae4a-043ec8e7ebd4testFiles.txt" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\82a5a835-9938-447e-a60d-11c443e0fcf1New Text Document %287%29.txt" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\903b3766-7dcb-4dfd-8334-e0f5209fb50atestFiles.txt" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\affde02c-453c-44dc-874d-3557facc0d3ctestFiles.txt" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\be364c40-e5cf-4a94-bbf8-2385256de81bNew Text Document.txt" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\be8a5850-ee00-4fcd-a20e-81b6c4a5aec7chrome.VisualElementsManifest.xml" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\c1e9e658-5fe3-44e0-aba0-0e2cb18b0854New Text Document.txt" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\da5074d6-09a7-4c15-a467-e6905b2a0d42chrome_proxy.exe" />
+    <Content Include="ProposalAssets\Images\background-22-01.jpg" />
+    <Content Include="ProposalAssets\Images\logo D M S 4-04.png" />
+    <Content Include="ProposalAssets\Images\logo-dms-white2.png" />
+    <Content Include="ProposalAssets\JS\bootstrap.bundle.min.js" />
+    <Content Include="ProposalAssets\JS\jquery-3.6.0.js" />
+    <Content Include="ProposalAssets\JS\jquery-ui.js" />
+    <Content Include="ProposalAssets\JS\jquery.min.js" />
+    <Content Include="ProposalAssets\JS\main.js" />
     <Content Include="Scripts\DMS\NewReport.js" />
     <Content Include="Scripts\DMS\ReportMain\ReportMain.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -8527,7 +8980,6 @@
     <Content Include="Views\DoctorApprovals\_Providers.cshtml" />
     <Content Include="Views\DoctorApprovals\_SearchCards.cshtml" />
     <Content Include="Views\DoctorApprovals\_LastApproval.cshtml" />
-    <Content Include="Views\ControlPanel\Main.cshtml" />
     <Content Include="Views\DoctorMedicinesLabsRaysApproval\Index2.cshtml" />
     <Content Include="Views\DoctorMedicinesLabsRaysApproval\_SearchCards.cshtml" />
     <Content Include="Views\Labs\Pending2.cshtml" />
@@ -8938,7 +9390,6 @@
     <Content Include="Reports\LoseRatioReports\TopCompaniesReportTop10.rpt" />
     <Content Include="Views\Pharmacy\IndexClaim.cshtml" />
     <Content Include="Views\Pharmacy\CompaniesChronicDeliveryNew.cshtml" />
-    <Content Include="Views\ControlPanel\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardNew.cshtml" />
     <Content Include="Views\User\Index - Copy.cshtml" />
     <Content Include="Views\Account\Register - Copy.cshtml" />
@@ -8948,6 +9399,83 @@
     <Content Include="Views\Labs\Index - Copy.cshtml" />
     <Content Include="Views\CompEmployees\IndexSms - Copy.cshtml" />
     <Content Include="Views\CompanyGroup\Index - Copy.cshtml" />
+    <Content Include="Views\NewReports\Index.cshtml" />
+    <Content Include="Views\Broker\Create.cshtml" />
+    <Content Include="Views\Broker\Edit.cshtml" />
+    <Content Include="Views\Broker\Index.cshtml" />
+    <Content Include="Views\ProposalMain\Create.cshtml" />
+    <Content Include="Views\ProposalMain\Edit.cshtml" />
+    <Content Include="Views\ProposalMain\Index.cshtml" />
+    <Content Include="Views\ProposalMain\PricingIndex.cshtml" />
+    <Content Include="Views\ProposalMain\PricingPage1.cshtml" />
+    <Content Include="Views\ProposalMain\PricingPage2.cshtml" />
+    <Content Include="Views\ProposalMain\PricingPage3.cshtml" />
+    <Content Include="Views\ProposalMain\PricingPage4.cshtml" />
+    <Content Include="Views\ProposalMain\ProposalStepFourCreate.cshtml" />
+    <Content Include="Views\ProposalMain\ProposalStepFourCreateAndStay.cshtml" />
+    <Content Include="Views\ProposalMain\ProposalStepFourEdit.cshtml" />
+    <Content Include="Views\ProposalMain\ProposalStepThreeCreate.cshtml" />
+    <Content Include="Views\ProposalMain\ProposalStepThreeEdit.cshtml" />
+    <Content Include="Views\ProposalMain\ProposalStepTwoCreate.cshtml" />
+    <Content Include="Views\ProposalMain\ProposalStepTwoEdit.cshtml" />
+    <Content Include="Views\ControlPanel\Index.cshtml" />
+    <Content Include="Views\ControlPanel\Main.cshtml" />
+    <Content Include="Views\Shared\_Layout_Proposal.cshtml" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\07aee2e9-3bc9-4a59-8deb-00ab64f9b519debug.log" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\10e9748f-905d-4d0e-8054-2d3bcbadfcb9.gitconfig" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\19ce77d1-c7b0-4449-997b-1fc1bffec596debug.log" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\1a932d47-305e-48ae-9ee7-b3612921d2d4debug.log" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\3b57afa3-833d-449a-bcda-36c5e43bf3e4debug.log" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\3debb6cd-cf59-47b9-9048-54b0af6e1882debug.log" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\3dfc044a-d7e8-468d-b68d-5355438af926.gitconfig" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\4c207129-489b-41e1-a772-dc0094e38df8.gitconfig" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\59d14dee-3637-4b82-a738-1203fcb9e5d3initial_preferences" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\711e7d24-faab-475d-a876-25569bd81da8.gitconfig" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\7d766188-9b82-4e04-8de6-d438267934e3debug.log" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\7e2e6ab2-fccb-4e68-ba80-2e81fd5b46b4debug.log" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\85999a57-ea5e-4956-a098-c3060eb7af60.gitconfig" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\892aefc7-e71f-4907-8b26-df97dfb1f2b6debug.log" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\92f1aa83-1b6f-4fd7-8054-25feb7d17736debug.log" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\9754898c-c893-4cdb-8442-66d2dc31b681.gitconfig" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\a95db1f2-dcff-4a89-b6c1-952ffebb94bc.gitconfig" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\b10fa945-8323-465f-b6ac-81acf2f35ad9debug.log" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\b6a7f963-351c-43ce-a87e-798edb30b8d3debug.log" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\b708cebd-a68c-4812-a0dc-eef22d600b2adebug.log" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\b7c639f4-faf7-47f0-9961-a68934165571debug.log" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\c6ec4b68-44af-4181-ac0c-89d8c2d0dd65debug.log" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\e61bcffa-c730-4038-bb39-70dc36f81f9d.gitconfig" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\e6a82c48-e757-4bb7-b3f9-ffe6636739e0debug.log" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\ed7a9c01-a0b6-4606-b771-63a853ba8eb2debug.log" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\1cb247e3-e5cf-4779-bca8-20c357d8f6c4debug.log" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\2a9c4dc6-c3d7-4f87-84f9-9150ebc36f02debug.log" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\48f1ec84-599f-46cd-9e1f-558c7e030356initial_preferences" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\50eb0fcd-eb79-4b0e-9c7d-413a83bec251debug.log" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\64841e6d-49b6-4b1f-8bc2-1c31ab76f07adebug.log" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\90e89e49-8079-451c-8adc-3f5da6f2f57cdebug.log" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\931d4918-adf9-47e5-b61c-f2c8bc192816initial_preferences" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\b640db19-f8b0-4b49-88f5-e27ffac10515initial_preferences" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\e0e32484-d4db-4c52-afcc-be975e504fe4initial_preferences" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\f95769d2-e6f8-4488-af77-ab912e002dccinitial_preferences" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\11168379-a36c-4f27-9bf2-e78d7cd781d4debug.log" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\4a72b464-a430-40a4-b0cc-5fb0c8e9f94fdebug.log" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\5b6e7d99-197a-4f42-b5e2-026c521c258adebug.log" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\69367ef5-8339-4b41-9857-39803039b421debug.log" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\94a42246-a06e-46b6-a741-76ef257fa9ffdebug.log" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\a1076a78-413a-4ad3-9038-d4796ce77987debug.log" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\d7393f72-0672-4632-9f4e-0e1986145fd7debug.log" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\dd1edf4b-ea05-4f98-a85d-51bc06a7b2c2debug.log" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\e101c2ce-7e1e-4c56-b405-d7ba836f4180debug.log" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\e4241c74-21d3-4478-ad78-48c684b9ca80debug.log" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\ede2a709-2825-4122-a7d8-5f0ed1086189debug.log" />
+    <Content Include="ProposalAssets\Files\TaxCardFiles\fbab1991-ea25-4d98-8abe-0c677d7635bcdebug.log" />
+    <Content Include="ProposalAssets\webfonts\fa-brands-400.ttf" />
+    <Content Include="ProposalAssets\webfonts\fa-brands-400.woff2" />
+    <Content Include="ProposalAssets\webfonts\fa-regular-400.ttf" />
+    <Content Include="ProposalAssets\webfonts\fa-regular-400.woff2" />
+    <Content Include="ProposalAssets\webfonts\fa-solid-900.ttf" />
+    <Content Include="ProposalAssets\webfonts\fa-solid-900.woff2" />
+    <Content Include="ProposalAssets\webfonts\fa-v4compatibility.ttf" />
+    <Content Include="ProposalAssets\webfonts\fa-v4compatibility.woff2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
@@ -9196,6 +9724,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811271146400_Modification2.resx">
       <DependentUpon>201811271146400_Modification2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312191252311_applicationUserNotification.resx">
+      <DependentUpon>202312191252311_applicationUserNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312191335499_applicationUserNotificationChange.resx">
+      <DependentUpon>202312191335499_applicationUserNotificationChange.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\AfterSale\AfterSales.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
