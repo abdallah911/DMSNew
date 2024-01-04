@@ -13,22 +13,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Jomhuria&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="~/assets/NewDesignBack/CSS/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/assets/NewDesignBack/CSS/jquery-ui.css" />
+    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/jquery-ui.min.css" />
     <link rel="stylesheet" href="~/assets/NewDesignBack/CSS/main.css" />
+    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/select2.min.css" />
+
+    <link rel="stylesheet" href="~/assets/NewDesignBack/CSS/HR-Style.css" />
 
 
-    <link href="~/assets/HomeTemplete/Scripts/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
-
-    <link href="~/assets/HomeTemplete/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="~/assets/HomeTemplete/Content/DataTables/css/responsive.dataTables.min.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
-    <link href="~/assets/HomeTemplete/Content/css/select2.min.css" rel="stylesheet" />
     <link href="~/assets/global/plugins/jquery-validity/css/jquery.validity.css" rel="stylesheet" />
     <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-
 
     @Styles.Render("~/assets/HomeTemplete/Content/kendo/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -110,7 +105,7 @@
                         <ul class="dropdown-menu" id="divNotificationValues">
                         </ul>
 
-                        <div class="rounded-circle bell-num"><p id="notification">2</p></div>
+                        <div class="rounded-circle bell-num"><p id="notification">0</p></div>
                     </div>
                 </div>
             </div>
@@ -168,13 +163,28 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script src="~/assets/admindashdoardmenu/sidebarmenu.js"></script>
-    <script src="~/assets/admindashdoardmenu/CustomAfterSales/moment.min.js"></script>
-    <script src="~/assets/admindashdoardmenu/CustomAfterSales/bootstrap-datetimepicker.min.js"></script>
-    @*<script src="~/Scripts/moment.min.js"></script>*@
-    @*<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>*@
-    @*<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>*@
+    <!-- Include jQuery first -->
+    <script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
 
+    <!-- Followed by Bootstrap -->
+    <script src="~/assets/NewDesignBackAdmin/JS/bootstrap.bundle.min.js"></script>
+
+    <!-- Followed by STYLE scripts -->
+
+    <script src="~/assets/NewDesignBackAdmin/JS/jquery-3.6.0.js"></script>
+    <script src="~/assets/NewDesignBackAdmin/JS/jquery-ui.js"></script>
+
+    <!-- Followed by DataTables scripts -->
+    <script src="~/assets/NewDesignBackAdmin/JS/jquery.dataTables.min.js"></script>
+    <script src="~/assets/NewDesignBackAdmin/JS/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Followed by SELECT2 scripts -->
+    <script src="~/assets/NewDesignBackAdmin/JS/select2.min.js"></script>
+    <!-- Finally, include your main.js -->
+    <script src="~/assets/NewDesignBackAdmin/JS/HR-Script.js"></script>
+    <script src="~/assets/NewDesignBackAdmin/JS/main.js"></script>
+
+    <script src="~/assets/HomeTemplete/scripts/bootbox.js"></script>
     <script src="~/assets/HomeTemplete/Scripts/jquery.signalR-2.4.1.js"></script>
     <script src="~/signalr/hubs"></script>
 

@@ -7107,6 +7107,7 @@
     <Content Include="assets\NewDesignBackAdmin\toastr.min.js" />
     <Content Include="assets\NewDesignBack\CSS\all.min.css" />
     <Content Include="assets\NewDesignBack\CSS\bootstrap.min.css" />
+    <Content Include="assets\NewDesignBack\CSS\HR-Style.css" />
     <Content Include="assets\NewDesignBack\CSS\jquery-ui.css" />
     <Content Include="assets\NewDesignBack\CSS\main.css" />
     <Content Include="assets\NewDesignBack\CSS\menu-shared.css" />
