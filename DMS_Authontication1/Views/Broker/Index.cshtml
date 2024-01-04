@@ -1,0 +1,129 @@
+﻿@using DMS_Authontication1.ViewModel;
+@model List<BrokerViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Proposal.cshtml";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/ProposalAssets/CSS/broker.css" />
+}
+
+
+<!-- ////////////// Main Content ////////////// -->
+<div style="display: flex; flex-direction: column; min-height: 90vh">
+    <div class="bg-grid-container">
+        <div class="flex-container" dir="rtl">
+            <div class="part1">
+                <div class="part1-1">
+                    @using (Html.BeginForm("Index", "Broker", FormMethod.Post, new { style = "display: flex; justify-content: center;" }))
+                    {
+                    <div class="search-cont">
+                        <div style="width: 250px; position: relative; display: flex; justify-content: center; height: 90px; align-items: center; ">
+                            <input type="text" placeholder="الكود أو الإسم" name="SearchValue" id="searchInput" value="@ViewBag.SearchValue" />
+                            <div class="position-absolute d-flex gap-2" style=" left: 22%; top: 40%;">
+                                <label for="search-submit">
+                                    <i style=" " class="fas fa-search"></i>
+                                </label>
+                                <label for="clearSearch">
+                                    <i style=" " class="fas fa-remove"></i>
+                                </label>
+                            </div>
+                          
+
+                            <button type="button" hidden id="clearSearch">Clear</button>
+                            <input id="search-submit" hidden type="Submit" value="بحث برقم الكود الإسم" />
+
+                        </div>
+
+                    </div>
+                    }
+                    <div class="newDataDiv">
+                        @Html.ActionLink("جديد +", "Create", "Broker", new { }, new { @class = "newDataBtn", style = "text-decoration:none;" })
+
+                        @*<span class="newDataBtn" onclick="openForm()">جديد +</span>*@
+                    </div>
+                </div>
+               
+
+                    <div class="part1-2">
+                        <div class="grey-background">
+                            @if (Model?.Count() > 0)
+                            {
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">كود السمسار</th>
+                                            <th scope="col">الاسم</th>
+                                            <th scope="col">رقم العضوية</th>
+                                            <th scope="col">الرقم القومي</th>
+                                            <th scope="col">اسم الشركة</th>
+
+                                            <th scope="col">كود البطاقة ضريبية</th>
+                                            <th scope="col">كارت مزاولة</th>
+                                            <th scope="col">بطاقة ضريبية</th>
+                                            <th scope="col">تعديل</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item.Id</td>
+                                                <td>@item.Name</td>
+                                                <td>@item.MembershipNo</td>
+                                                <td>@item.NationalId</td>
+
+                                                <td>@item.CompanyName</td>
+
+
+                                                <td>@item.TaxCardId</td>
+                                                <td>
+                                                    <a href="~/ProposalAssets/Files/PracticeCardFiles/@item.PracticeCardName" class="btn" style="text-decoration:none;color: #fff; background: #6e7085;padding: 10px 30px;border-radius: 10px;font-weight: var(--font - bold);font-size: 18px;box-shadow: 0 0 2px #14061b4d;cursor: pointer; " target="_blank">كارت مزاولة</a>
+
+                                                </td>
+                                                <td>
+                                                    <a href="~/ProposalAssets/Files/TaxCardFiles/@item.TaxCardName" class="btn" style="text-decoration:none;color: #fff; background: #6e7085;padding: 10px 30px;border-radius: 10px;font-weight: var(--font - bold);font-size: 18px;box-shadow: 0 0 2px #14061b4d;cursor: pointer; " target="_blank">بطاقة ضريبية</a>
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink("تعديل", "Edit", "Broker", new { id = @item.Id }, new { style = "text-decoration:none;color: #fff; background: #6e7085;padding: 10px 30px;border-radius: 10px;font-weight: var(--font - bold);font-size: 18px;box-shadow: 0 0 2px #14061b4d;cursor: pointer; " })
+                                                    @* <span onclick="openForm()">تعديل</span>*@
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <div class="alert alert-warning">
+                                    <h3>No Brokers Found!</h3>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                
+                
+            </div>
+            <div class="part2"></div>
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+    <script>
+    $(document).ready(function () {
+
+        // Set the value of the search input on document ready
+        $("#searchInput").val("@ViewBag.SearchValue");
+
+        // Handle click event for clear button
+        $("#clearSearch").click(function () {
+            // Clear the search input
+            $("#searchInput").val("");
+
+            // Submit the form to show all data
+            $("#search-submit").click();
+        });
+    });
+    </script>
+}

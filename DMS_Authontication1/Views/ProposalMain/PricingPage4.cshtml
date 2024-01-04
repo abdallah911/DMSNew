@@ -1,0 +1,969 @@
+﻿@model  DMS_Authontication1.ViewModel.PricingAggregateViewModel
+@{ if (ViewBag != null)
+    {
+        ViewBag.Title = "Pricing page 3"; Layout =
+"~/Views/Shared/_Layout_Proposal.cshtml"; var Errors = ViewBag.Errors;
+    }
+    var
+CateCount = ViewBag.CatCount; } @*@if (ViewBag.Errors != null) {
+    <div class="alert alert-danger">
+      <ul>
+        @foreach (var error in ViewBag.Errors) {
+        <li>@error</li>
+        }
+      </ul>
+    </div>
+    }*@ @section Styles{
+    <link rel="stylesheet" href="~/ProposalAssets/CSS/IN&OUT.css" />
+    }
+    <!-- ////////////// Main Content ////////////// -->
+    <div class="bg-grid-container">
+        @using (Html.BeginForm("ProposalSteFourCreate", "ProposalMain",
+        FormMethod.Post, new
+        {
+            enctype = "multipart/form-data",
+            id =
+        "ProposalThirdForm"
+        }))
+        {
+            <input hidden value="@ViewBag.MainId" type="number" name="MainProposalId" />
+            @Html.AntiForgeryToken()
+            <div class="grid-container" dir="rtl">
+                <div class="part1">
+                    <div>
+                        <h1 class="my-3" style="color:#83439b">
+                            خارج الهئة الطبية
+                        </h1>
+                    </div>
+                    <div style="width: 95%; margin: 0 auto;" class="prev-container">
+                        <div>
+                            <div style="width: 100%" class="prev-container gap-4" dir="ltr">
+                                @Html.ActionLink("السابق", "PricingPage3", new { proposalMainId = Model.ProposalOutsideMedicalAuthorities.FirstOrDefault().ProposalMainId }, new { @class = "prev-butn", style = "margin-top: 20px" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div style="height: 74px; margin: 10px">
+                            <input style="pointer-events: none; margin-top: 0px"
+                                   type="text"
+                                   placeholder="خدمة الاقامة بالمستشفيات" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input style="pointer-events: none"
+                                   type="text"
+                                   placeholder="الكشف بالعيادات الخارجية" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input style="pointer-events: none"
+                                   type="text"
+                                   placeholder="فحوصات الاشعة والتحاليل" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input style="pointer-events: none"
+                                   type="text"
+                                   placeholder="العلاج الطبيعي" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input style="pointer-events: none"
+                                   type="text"
+                                   placeholder="العلاج اليومي" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input style="pointer-events: none"
+                                   type="text"
+                                   placeholder="العلاج المزمن" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input style="pointer-events: none"
+                                   type="text"
+                                   placeholder="الولادة الطبيعية" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input style="pointer-events: none"
+                                   type="text"
+                                   placeholder="الولادة القيصرية" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input style="pointer-events: none"
+                                   type="text"
+                                   placeholder="الاجهاض القانوني" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input style="pointer-events: none"
+                                   type="text"
+                                   placeholder="متابعة الحمل " />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input class="myInput"
+                                   style="pointer-events: none"
+                                   type="text"
+                                   placeholder="الخدمات الاساسية للاسنان المتقدمة" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input class="myInput"
+                                   style="pointer-events: none"
+                                   type="text"
+                                   placeholder="الخدمات الاساسية للاسنان" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input style="pointer-events: none"
+                                   type="text"
+                                   placeholder="البصريات" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input class="myInput"
+                                   style="pointer-events: none"
+                                   type="text"
+                                   placeholder="عدد أيام الاقامة في الرعاية المركزة" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input class="myInput"
+                                   style="pointer-events: none"
+                                   type="text"
+                                   placeholder="عدد الروشتات اليومية في الشهر" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input class="myInput"
+                                   style="pointer-events: none"
+                                   type="text"
+                                   placeholder="تغطية فحوصات كورونا" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input class="myInput"
+                                   style="pointer-events: none"
+                                   type="text"
+                                   placeholder="قيمة كشف الطباء" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
+                            <input class="myInput"
+                                   style="pointer-events: none"
+                                   type="text"
+                                   placeholder="لائحة الاسعار" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="part2">
+                    <div class="cate-container">
+                        @{ var catIndex = 1; } @for (var index = 0; index < Model.ProposalOutsideMedicalAuthorities.Count();
+index++)
+                        {
+                            if (index % 4 == 0) { catIndex = 1; }
+                            else
+                            {
+                                catIndex =
+                                catIndex + 1;
+                            }
+                            <input hidden name="Model.ProposalOutsideMedicalAuthorities[@index].Id" value="@Model.ProposalOutsideMedicalAuthorities[index].Id" />
+                            var model1 = Model.ProposalOutsideMedicalAuthorities[index];
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].HospitalsResidenceServiceLimitOption" id="HospitalsResidenceServiceLimitOption-hidden-@index" value="@model1.HospitalsResidenceServiceLimitOption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].OutsideClinicsLimitOption" id="OutsideClinicsLimitOption-hidden-@index" value="@model1.OutsideClinicsLimitOption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].ExaminationAndAnalysisLimitOption" id="ExaminationAndAnalysisLimitOption-hidden-@index" value="@model1.ExaminationAndAnalysisLimitOption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].PhysicalTherapyLimitOption" id="PhysicalTherapyLimitOption-hidden-@index" value="@model1.PhysicalTherapyLimitOption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].DailyTherapyLimitOption" id="DailyTherapyLimitOption-hidden-@index" value="@model1.DailyTherapyLimitOption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].ChronicTherapyLimitOption" id="ChronicTherapyLimitOption-hidden-@index" value="@model1.ChronicTherapyLimitOption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].NatChildBirthLimitOption" id="NatChildBirthLimitOption-hidden-@index" value="@model1.NatChildBirthLimitOption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].CaesChildBirthLimitOption" id="CaesChildBirthLimitOption-hidden-@index" value="@model1.CaesChildBirthLimitOption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].LegalAbortionLimitOption" id="LegalAbortionLimitOption-hidden-@index" value="@model1.LegalAbortionLimitOption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].PregFollowUpLimitOption" id="PregFollowUpLimitOption-hidden-@index" value="@model1.PregFollowUpLimitOption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].AdvancedDentalServiceLimitOption" id="AdvancedDentalServiceLimitOption-hidden-@index" value="@model1.AdvancedDentalServiceLimitOption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].BasicDentalServiceLimitOption" id="BasicDentalServiceLimitOption-hidden-@index" value="@model1.BasicDentalServiceLimitOption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].OpticsLimitOption" id="OpticsLimitOption-hidden-@index" value="@model1.OpticsLimitOption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].HospitalsResidenceServicePercentageoption" id="HospitalsResidenceServicePercentageoption-hidden-@index" value="@model1.HospitalsResidenceServicePercentageoption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].OutsideClinicsPercentageoption" id="OutsideClinicsPercentageoption-hidden-@index" value="@model1.OutsideClinicsPercentageoption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].ExaminationAndAnalysisPercentageoption" id="ExaminationAndAnalysisPercentageoption-hidden-@index" value="@model1.ExaminationAndAnalysisPercentageoption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].PhysicalTherapyPercentageoption" id="PhysicalTherapyPercentageoption-hidden-@index" value="@model1.PhysicalTherapyPercentageoption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].DailyTherapyPercentageoption" id="DailyTherapyPercentageoption-hidden-@index" value="@model1.DailyTherapyPercentageoption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].ChronicTherapyPercentageoption" id="ChronicTherapyPercentageoption-hidden-@index" value="@model1.ChronicTherapyPercentageoption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].NatChildBirthPercentageoption" id="NatChildBirthPercentageoption-hidden-@index" value="@model1.NatChildBirthPercentageoption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].CaesChildBirthPercentageoption" id="CaesChildBirthPercentageoption-hidden-@index" value="@model1.CaesChildBirthPercentageoption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].LegalAbortionPercentageoption" id="LegalAbortionPercentageoption-hidden-@index" value="@model1.LegalAbortionPercentageoption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].PregFollowUpPercentageoption" id="PregFollowUpPercentageoption-hidden-@index" value="@model1.PregFollowUpPercentageoption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].AdvancedDentalServicePercentageoption" id="AdvancedDentalServicePercentageoption-hidden-@index" value="@model1.AdvancedDentalServicePercentageoption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].BasicDentalServicePercentageoption" id="BasicDentalServicePercentageoption-hidden-@index" value="@model1.BasicDentalServicePercentageoption.ToString().ToLower()" />
+                            <input type="hidden" name="Model.ProposalOutsideMedicalAuthorities[@index].OpticsPercentageoption" id="OpticsPercentageoption-hidden-@index" value="@model1.OpticsPercentageoption.ToString().ToLower()" />
+                            <div class="cate@(catIndex)">
+                                <button class="cate-title">الفئة @(index+1)</button>
+
+                                <div class="cate-parent">
+                                    <div>
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-0-1"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].HospitalsResidenceServiceLimit"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].HospitalsResidenceServiceLimit"
+                                                   style="width: 50%; margin: 5px" />
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-0-2"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].HospitalsResidenceServicePercentage"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].HospitalsResidenceServicePercentage"
+                                                   style="width: 50%; margin: 5px" />
+                                        </div>
+                                        <section class="form-check-container">
+                                            <div class="form-check">
+                                                <!-- Hidden input to store the actual boolean value -->
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].HospitalsResidenceServiceLimitOption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].HospitalsResidenceServiceLimitOption == true ? "checked" : "")
+                                                       id="@(index+1)-0-1"
+                                                       data-target="data-@(index+1)-0-1"
+                                                       onclick="updateHiddenInput('HospitalsResidenceServiceLimitOption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-0-1">
+                                                    حد التغطية
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].HospitalsResidenceServicePercentageoption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].HospitalsResidenceServicePercentageoption == true ? "checked" : "")
+                                                       id="@(index+1)-0-2"
+                                                       data-target="data-@(index+1)-0-2"
+                                                       onclick="updateHiddenInput('HospitalsResidenceServicePercentageoption-hidden-@index', this)" />
+
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-0-2">
+                                                    نسبه التغطية
+                                                </label>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-1-1"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].OutsideClinicsLimit"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].OutsideClinicsLimit"
+                                                   style="width: 50%; margin: 5px" />
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-1-2"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].OutsideClinicsPercentage"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].OutsideClinicsPercentage"
+                                                   style="width: 50%; margin: 5px" />
+                                        </div>
+                                        <section class="form-check-container">
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].OutsideClinicsLimitOption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].OutsideClinicsLimitOption == true ? "checked" : "")
+                                                       id="@(index+1)-1-1"
+                                                       data-target="data-@(index+1)-1-1"
+                                                       onclick="updateHiddenInput('OutsideClinicsLimitOption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-1-1">
+                                                    حد التغطية
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].OutsideClinicsPercentageoption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].OutsideClinicsPercentageoption == true ? "checked" : "")
+                                                       id="@(index+1)-1-2"
+                                                       data-target="data-@(index+1)-1-2"
+                                                       onclick="updateHiddenInput('OutsideClinicsPercentageoption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-1-2">
+                                                    نسبه التغطية
+                                                </label>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-2-1"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].ExaminationAndAnalysisLimit"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].ExaminationAndAnalysisLimit"
+                                                   style="width: 50%; margin: 5px" />
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-2-2"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].ExaminationAndAnalysisPercentage"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].ExaminationAndAnalysisPercentage"
+                                                   style="width: 50%; margin: 5px" />
+                                        </div>
+                                        <section class="form-check-container">
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].ExaminationAndAnalysisLimitOption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].ExaminationAndAnalysisLimitOption == true ? "checked" : "")
+                                                       id="@(index+1)-2-1"
+                                                       data-target="data-@(index+1)-2-1"
+                                                       onclick="updateHiddenInput('ExaminationAndAnalysisLimitOption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-2-1">
+                                                    حد التغطية
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].ExaminationAndAnalysisPercentageoption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].ExaminationAndAnalysisPercentageoption == true ? "checked" : "")
+                                                       id="@(index+1)-2-2"
+                                                       data-target="data-@(index+1)-2-2"
+                                                       onclick="updateHiddenInput('ExaminationAndAnalysisPercentageoption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-2-2">
+                                                    نسبه التغطية
+                                                </label>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-3-1"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].PhysicalTherapyLimit"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].PhysicalTherapyLimit"
+                                                   style="width: 50%; margin: 5px" />
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-3-2"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].PhysicalTherapyPercentage"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].PhysicalTherapyPercentage"
+                                                   style="width: 50%; margin: 5px" />
+                                        </div>
+                                        <section class="form-check-container">
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].PhysicalTherapyLimitOption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].PhysicalTherapyLimitOption == true ? "checked" : "")
+                                                       id="@(index+1)-3-1"
+                                                       data-target="data-@(index+1)-3-1"
+                                                       onclick="updateHiddenInput('PhysicalTherapyLimitOption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-3-1">
+                                                    حد التغطية
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].PhysicalTherapyPercentageoption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].PhysicalTherapyPercentageoption == true ? "checked" : "")
+                                                       id="@(index+1)-3-2"
+                                                       data-target="data-@(index+1)-3-2"
+                                                       onclick="updateHiddenInput('PhysicalTherapyPercentageoption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-3-2">
+                                                    نسبه التغطية
+                                                </label>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-4-1"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].DailyTherapyLimit"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].DailyTherapyLimit"
+                                                   style="width: 50%; margin: 5px" />
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-4-2"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].DailyTherapyPercentage"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].DailyTherapyPercentage"
+                                                   style="width: 50%; margin: 5px" />
+                                        </div>
+                                        <section class="form-check-container">
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].DailyTherapyLimitOption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].DailyTherapyLimitOption == true ? "checked" : "")
+                                                       id="@(index+1)-4-1"
+                                                       data-target="data-@(index+1)-4-1"
+                                                       onclick="updateHiddenInput('DailyTherapyLimitOption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-4-1">
+                                                    حد التغطية
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].DailyTherapyPercentageoption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].DailyTherapyPercentageoption == true ? "checked" : "")
+                                                       id="@(index+1)-4-2"
+                                                       data-target="data-@(index+1)-4-2"
+                                                       onclick="updateHiddenInput('DailyTherapyPercentageoption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-4-2">
+                                                    نسبه التغطية
+                                                </label>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-5-1"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].ChronicTherapyLimit"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].ChronicTherapyLimit"
+                                                   style="width: 50%; margin: 5px" />
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-5-2"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].ChronicTherapyPercentage"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].ChronicTherapyPercentage"
+                                                   style="width: 50%; margin: 5px" />
+                                        </div>
+                                        <section class="form-check-container">
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].ChronicTherapyLimitOption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].ChronicTherapyLimitOption == true ? "checked" : "")
+                                                       id="@(index+1)-5-1"
+                                                       data-target="data-@(index+1)-5-1"
+                                                       onclick="updateHiddenInput('ChronicTherapyLimitOption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-5-1">
+                                                    حد التغطية
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].ChronicTherapyPercentageoption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].ChronicTherapyPercentageoption == true ? "checked" : "")
+                                                       id="@(index+1)-5-2"
+                                                       data-target="data-@(index+1)-5-2"
+                                                       onclick="updateHiddenInput('ChronicTherapyPercentageoption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-5-2">
+                                                    نسبه التغطية
+                                                </label>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-6-1"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].NatChildBirthLimit"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].NatChildBirthLimit"
+                                                   style="width: 50%; margin: 5px" />
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-6-2"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].NatChildBirthPercentage"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].NatChildBirthPercentage"
+                                                   style="width: 50%; margin: 5px" />
+                                        </div>
+                                        <section class="form-check-container">
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].NatChildBirthLimitOption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].NatChildBirthLimitOption == true ? "checked" : "")
+                                                       id="@(index+1)-6-1"
+                                                       data-target="data-@(index+1)-6-1"
+                                                       onclick="updateHiddenInput('NatChildBirthLimitOption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-6-1">
+                                                    حد التغطية
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].NatChildBirthPercentageoption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].NatChildBirthPercentageoption == true ? "checked" : "")
+                                                       id="@(index+1)-6-2"
+                                                       data-target="data-@(index+1)-6-2"
+                                                       onclick="updateHiddenInput('NatChildBirthPercentageoption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-6-2">
+                                                    نسبه التغطية
+                                                </label>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-7-1"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].CaesChildBirthLimit"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].CaesChildBirthLimit"
+                                                   style="width: 50%; margin: 5px" />
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-7-2"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].CaesChildBirthPercentage"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].CaesChildBirthPercentage"
+                                                   style="width: 50%; margin: 5px" />
+                                        </div>
+                                        <section class="form-check-container">
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].CaesChildBirthLimitOption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].CaesChildBirthLimitOption == true ? "checked" : "")
+                                                       id="@(index+1)-7-1"
+                                                       data-target="data-@(index+1)-7-1"
+                                                       onclick="updateHiddenInput('CaesChildBirthLimitOption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-7-1">
+                                                    حد التغطية
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].CaesChildBirthPercentageoption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].CaesChildBirthPercentageoption == true ? "checked" : "")
+                                                       id="@(index+1)-7-2"
+                                                       data-target="data-@(index+1)-7-2"
+                                                       onclick="updateHiddenInput('CaesChildBirthPercentageoption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-7-2">
+                                                    نسبه التغطية
+                                                </label>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-8-1"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].LegalAbortionLimit"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].LegalAbortionLimit"
+                                                   style="width: 50%; margin: 5px" />
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-8-2"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].LegalAbortionPercentage"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].LegalAbortionPercentage"
+                                                   style="width: 50%; margin: 5px" />
+                                        </div>
+                                        <section class="form-check-container">
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].LegalAbortionLimitOption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].LegalAbortionLimitOption == true ? "checked" : "")
+                                                       id="@(index+1)-8-1"
+                                                       data-target="data-@(index+1)-8-1"
+                                                       onclick="updateHiddenInput('LegalAbortionLimitOption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-8-1">
+                                                    حد التغطية
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].LegalAbortionPercentageoption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].LegalAbortionPercentageoption == true ? "checked" : "")
+                                                       id="@(index+1)-8-2"
+                                                       data-target="data-@(index+1)-8-2"
+                                                       onclick="updateHiddenInput('LegalAbortionPercentageoption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-8-2">
+                                                    نسبه التغطية
+                                                </label>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-9-1"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].PregFollowUpLimit"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].PregFollowUpLimit"
+                                                   style="width: 50%; margin: 5px" />
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-9-2"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].PregFollowUpPercentage"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].PregFollowUpPercentage"
+                                                   style="width: 50%; margin: 5px" />
+                                        </div>
+                                        <section class="form-check-container">
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].PregFollowUpLimitOption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].PregFollowUpLimitOption == true ? "checked" : "")
+                                                       id="@(index+1)-9-1"
+                                                       data-target="data-@(index+1)-9-1"
+                                                       onclick="updateHiddenInput('PregFollowUpLimitOption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-9-1">
+                                                    حد التغطية
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].PregFollowUpPercentageoption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].PregFollowUpPercentageoption == true ? "checked" : "")
+                                                       id="@(index+1)-9-2"
+                                                       data-target="data-@(index+1)-9-2"
+                                                       onclick="updateHiddenInput('PregFollowUpPercentageoption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-9-2">
+                                                    نسبه التغطية
+                                                </label>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-10-1"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].AdvancedDentalServiceLimit"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].AdvancedDentalServiceLimit"
+                                                   style="width: 50%; margin: 5px" />
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-10-2"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].AdvancedDentalServicePercentage"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].AdvancedDentalServicePercentage"
+                                                   style="width: 50%; margin: 5px" />
+                                        </div>
+                                        <section class="form-check-container">
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].AdvancedDentalServiceLimitOption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].AdvancedDentalServiceLimitOption == true ? "checked" : "")
+                                                       id="@(index+1)-10-1"
+                                                       data-target="data-@(index+1)-10-1"
+                                                       onclick="updateHiddenInput('AdvancedDentalServiceLimitOption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-10-1">
+                                                    حد التغطية
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].AdvancedDentalServicePercentageoption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].AdvancedDentalServicePercentageoption == true ? "checked" : "")
+                                                       id="@(index+1)-10-2"
+                                                       data-target="data-@(index+1)-10-2"
+                                                       onclick="updateHiddenInput('AdvancedDentalServicePercentageoption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-10-2">
+                                                    نسبه التغطية
+                                                </label>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-11-1"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].BasicDentalServiceLimit"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].BasicDentalServiceLimit"
+                                                   style="width: 50%; margin: 5px" />
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-11-2"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].BasicDentalServicePercentage"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].BasicDentalServicePercentage"
+                                                   style="width: 50%; margin: 5px" />
+                                        </div>
+                                        <section class="form-check-container">
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].BasicDentalServiceLimitOption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].BasicDentalServiceLimitOption == true ? "checked" : "")
+                                                       id="@(index+1)-11-1"
+                                                       data-target="data-@(index+1)-11-1"
+                                                       onclick="updateHiddenInput('BasicDentalServiceLimitOption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-11-1">
+                                                    حد التغطية
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].BasicDentalServicePercentageoption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].BasicDentalServicePercentageoption == true ? "checked" : "")
+                                                       id="@(index+1)-11-2"
+                                                       data-target="data-@(index+1)-11-2"
+                                                       onclick="updateHiddenInput('BasicDentalServicePercentageoption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-11-2">
+                                                    نسبه التغطية
+                                                </label>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div>
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-12-1"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].OpticsLimit"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].OpticsLimit"
+                                                   style="width: 50%; margin: 5px" />
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-12-2"
+                                                   name="Model.ProposalOutsideMedicalAuthorities[@index].OpticsPercentage"
+                                                   value="@Model.ProposalOutsideMedicalAuthorities[index].OpticsPercentage"
+                                                   style="width: 50%; margin: 5px" />
+                                        </div>
+                                        <section class="form-check-container">
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].OpticsLimitOption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].OpticsLimitOption == true ? "checked" : "")
+                                                       id="@(index+1)-12-1"
+                                                       data-target="data-@(index+1)-12-1"
+                                                       onclick="updateHiddenInput('OpticsLimitOption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-12-1">
+                                                    حد التغطية
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].OpticsPercentageoption"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].OpticsPercentageoption == true ? "checked" : "")
+                                                       id="@(index+1)-12-2"
+                                                       data-target="data-@(index+1)-12-2"
+                                                       onclick="updateHiddenInput('OpticsPercentageoption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-12-2">
+                                                    نسبه التغطية
+                                                </label>
+                                            </div>
+                                        </section>
+                                    </div>
+
+
+                                    <div>
+                                        <input disabled type="number" name="Model.ProposalOutsideMedicalAuthorities[@index].IntensiveCareDaysCount" value="@Model.ProposalOutsideMedicalAuthorities[index].IntensiveCareDaysCount" />
+                                    </div>
+                                    <div>
+                                        <input disabled type="number" name="Model.ProposalOutsideMedicalAuthorities[@index].DailyRoshitasCountPerMonth" value="@Model.ProposalOutsideMedicalAuthorities[index].DailyRoshitasCountPerMonth" />
+                                    </div>
+                                    <div>
+                                        <section class="form-check-container position-relative">
+                                            <div class="propo-radio-parent z-1 d-flex justify-content-between gap-2 fs-6 mt-5">
+                                                <input class="dynamic-radio form-check-input"
+                                                       type="radio"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].CoronaVaccineCoverage"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].CoronaVaccineCoverage == true ? "checked" : "")
+                                                       id="CoronaVaccineCoverage@(index)_true"
+                                                       value="true" />
+                                                <label style="font-size:16px;" class="form-check-label ms-3"
+                                                       for="CoronaVaccineCoverage@(index)_true">
+                                                    نعم
+                                                </label>
+                                                @*<input style="
+                                                            position: absolute;
+                                                            height: 40px;
+                                                            top: 7px;
+                                                            left: 50%;
+                                                            z-index: 0;
+                                                            transform: translate(-50%);
+                                                          "
+                                                       type="text"
+                                                       disabled
+                                                       class="dynamic-input" name="Model.ProposalOutsideMedicalAuthorities[@index].CoronaVaccine" value="@Model.ProposalOutsideMedicalAuthorities[index].CoronaVaccine" />*@
+                                                <input class="dynamic-radio form-check-input radio-no me-5"
+                                                       type="radio"
+                                                       name="Model.ProposalOutsideMedicalAuthorities[@index].CoronaVaccineCoverage"
+                                                       @(Model.ProposalOutsideMedicalAuthorities[index].CoronaVaccineCoverage == false ? "checked" : "")
+                                                       id="CoronaVaccineCoverage@(index)_false"
+                                                       value="false" />
+                                                <label style="font-size:16px;" class="form-check-label" for="CoronaVaccineCoverage@(index)_false">
+                                                    لا
+                                                </label>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div>
+                                        <section class="form-check-container position-relative">
+                                            <div class="propo-radio-parent z-1 d-flex justify-content-between gap-2 fs-6 mt-5">
+                                                <input style="
+                                                            position: absolute;
+                                                            height: 40px;
+                                                            top: 7px;
+                                                            left: 50%;
+                                                            z-index: 0;
+                                                            transform: translate(-50%);
+                                                          "
+                                                       type="text"
+                                                       class="dynamic-input" name="Model[@index].DoctorsExaminationValue" value="@Model.ProposalOutsideMedicalAuthorities[index].DoctorsExaminationValue" />
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div>
+                                        <section class="form-check-container position-relative">
+                                            <div class="propo-radio-parent z-1 d-flex justify-content-between gap-2 fs-6 mt-5">
+                                                <input disabled type="text" class="dynamic-input" style="
+                                                            position: absolute;
+                                                            height: 40px;
+                                                            top: 7px;
+                                                            left: 50%;
+                                                            z-index: 0;
+                                                            transform: translate(-50%);
+                                                          " value="@Model.ProposalOutsideMedicalAuthorities[index].PricesOutsideMedicalAuthority.Price"/>
+                                                @*<select disabled class="dynamic-input" style="
+                                                            position: absolute;
+                                                            height: 40px;
+                                                            top: 7px;
+                                                            left: 50%;
+                                                            z-index: 0;
+                                                            transform: translate(-50%);
+                                                          " name="Model[@index].PricesOutsideMedicalAuthorityId">
+                                                    <option  disabled >@Model.ProposalOutsideMedicalAuthorities[index].PricesOutsideMedicalAuthority.Price</option>
+
+                                                    
+                                                </select>*@
+
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>}
+                    </div>
+                </div>
+            </div>
+            <div class="empl-attach" dir="rtl">
+                @Html.ActionLink("الرئيسية", "PricingIndex", null, new { @class = "prev-butn", style = "text-align:center; margin-top: 20px" })
+
+                @*<a href="" nclick="submitForm()"
+           style="text-decoration: none"
+           class="prev-butn-1 fs-4 mt-0 me-0 ms-0 mb-5">
+            <i class="fas fa-save"></i>
+            Save
+        </a>*@
+
+                @*<button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="submitForm()">التالي</button>*@
+            </div>}
+    </div>
+
+    @section Scripts{
+        <script>
+            function updateCoronaVaccineCoverage(index, value) {
+                // Update the corresponding property based on the radio button changes
+                formData.Model.ProposalOutsideMedicalAuthorities[index].CoronaVaccineCoverage = value;
+
+                // You can do additional logic here if needed
+            }
+    // Select the element with the 'spacing' class
+    var spacingElement = document.querySelector(".spacing");
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get all checkboxes with the class 'disable-checkbox'
+        var checkboxes = document.querySelectorAll(".form-check-input");
+
+        checkboxes.forEach(function (checkbox) {
+            // Add an event listener to each checkbox
+            checkbox.addEventListener("change", function () {
+                // Get the target input ID from the 'data-target' attribute
+                var targetInputId = checkbox.getAttribute("data-target");
+
+                // Get the target input element
+                var targetInput = document.getElementById(targetInputId);
+
+                // Disable or enable the input based on the checkbox state
+                targetInput.disabled = !checkbox.checked;
+            });
+        });
+    });
+            $(document).ready(function () {
+                $('.form-check-input').prop('disabled', true);
+                // Add event listener to all radio buttons
+                //$(".radio-no").change(function () {
+                //    // Find the sibling input and disable/enable based on the radio button state
+                //    $(this).siblings(".dynamic-input").prop("disabled", this.checked);
+                //});
+            });
+    function toggleContent() {
+        // Get the window width
+        var windowWidth =
+            window.innerWidth ||
+            document.documentElement.clientWidth ||
+            document.body.clientWidth;
+
+        // Check if the window width is less than 600
+        if (windowWidth < 600) {
+            // If true, delete the content inside the 'spacing' div
+            if (spacingElement) {
+                spacingElement.innerHTML = "";
+            }
+        } else {
+            // If false, restore the original content
+            if (spacingElement) {
+                spacingElement.innerHTML =
+                    "                                                                                                              ";
+            }
+        }
+    }
+
+    // Call the function on page load and resize
+    window.onload = toggleContent;
+    window.onresize = toggleContent;
+    function clearForm() {
+        // Replace 'yourFormId' with the actual ID of your form
+        var form = document.getElementById('ProposalThirdForm');
+
+        // Reset the form
+        form.reset();
+    }
+    function submitForm() {
+        // Replace 'yourFormId' with the actual ID of your form
+        var form = document.getElementById('ProposalThirdForm');
+
+        // Submit the form
+        form.submit();
+    }
+    function goToIndex() {
+        window.location.href = '/ProposalMain/Index';
+    }
+    function updateFileNameLabel(input, labelId) {
+        if (input.files.length > 0) {
+            var fileName = input.files[0].name;
+            $("#" + labelId).text(fileName);
+        }
+    }
+    function goBack() {
+            window.history.back();
+        @*var previousUrl = '@ViewBag.PreviousUrl';
+        if (previousUrl) {
+            window.location.href = previousUrl;
+        } else {
+            // If the referrer is not available, you can use a default URL or handle it as needed
+            window.history.back();
+        }*@
+            }
+            function updateHiddenInput(hiddenInputId, checkbox) {
+                var hiddenInput = document.getElementById(hiddenInputId);
+                if (hiddenInput) {
+                    hiddenInput.value = checkbox.checked.toString();
+                }
+            }
+        </script>
+    }

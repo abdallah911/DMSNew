@@ -67,7 +67,60 @@ namespace DMS_Authontication1.Controllers
 
             return new JsonResult { Data = notifications, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        public JsonResult GetProposalNotifications()
+        {
+            //search 
+            //  MED_CARD mED_CARD=db.MED_CARD.Where()
+            //add
+            List<ProposalNotification> notifications = new List<ProposalNotification>();
+            string UserName = User.Identity.Name;
+            if (User.IsInRole("Proposal_Admin") || User.IsInRole("Admin"))
+            {
+                var query = UserDB.ProposalNotifications
+                             .Where(x => x.IsRead == false && x.SentTo == "Proposal_Admin" && x.CreatedBy != UserName)
+                             .Join(
+                                 UserDB.ProposalNotificationApplicationUsers,
+                                 notification => notification.Id,
+                                 applicationUser => applicationUser.ProposalNotificationId,
+                                 (notification, applicationUser) => new
+                                 {
+                                     NotificationId = notification.Id,
+                                     Title = notification.Title,
+                                     DetailsUrl = notification.DetailsUrl,
+                                     ProposalMainId = notification.ProposalMainId,
+                                     UserId = applicationUser.ApplicationUserId
+                                 })
+                             .OrderByDescending(x => x.NotificationId)
+                             .ToList();
 
+                notifications = query.Select(x => new ProposalNotification
+                {
+                    Id = x.NotificationId,
+                    Title = x.Title,
+                    DetailsUrl = x.DetailsUrl,
+                    ProposalMainId = x.ProposalMainId
+                    // You can include other properties from ProposalNotificationApplicationUsers here if needed
+                }).ToList();
+            }
+
+            else
+            {
+                notifications = UserDB.ProposalNotifications.Where(x => x.IsRead == false && x.SentTo == UserName)
+                    .AsEnumerable()
+               .OrderByDescending(x => x.Id).Select(x => new ProposalNotification
+               {
+                   Id = x.Id,
+                   Title = x.Title,
+                   DetailsUrl = x.DetailsUrl,
+
+                   ProposalMainId = x.ProposalMainId
+               })
+               .ToList();
+            }
+
+
+            return new JsonResult { Data = notifications, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         public HomeController()
         {
             db = new DMS_TESTEntities();

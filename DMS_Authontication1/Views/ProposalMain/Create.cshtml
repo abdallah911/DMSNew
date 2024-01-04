@@ -1,0 +1,603 @@
+﻿@model DMS_Authontication1.ViewModel.ProposalMainViewModel
+
+
+@{
+    if (ViewBag != null)
+    {
+        ViewBag.Title = "Create";
+        Layout = "~/Views/Shared/_Layout_Proposal.cshtml";
+        var Errors = ViewBag.Errors;
+    }
+}
+
+@*@if (ViewBag.Errors != null)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewBag.Errors)
+                {
+                    <li>@error</li>
+                }
+            </ul>
+        </div>
+    }*@
+
+
+
+
+<!-- start section -->
+<section class="mb-5">
+    <div class="container-fluid mt-4">
+        @using (Html.BeginForm("Create", "ProposalMain", FormMethod.Post, new { enctype = "multipart/form-data", id = "ProposalMainForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="row">
+
+                <input hidden name="Id" value="@ViewBag.MainId" />
+                <div class="col-lg-10 m-auto w-100">
+                    <div class="sec-3 row mt-3">
+                        <div class="col-8">
+                            <div class="main-form col-12">
+                                <div style="position: relative">
+                                    <input disabled
+                                           id="disabled"
+                                           style="height: 45px; color:#000;"
+                                           class="sios-form-control home-input col pb-2"
+                                           type="text"
+                                           placeholder="سمسار" />
+                                    <div class="d-flex gap-2"
+                                         style="
+                                                  position: absolute;
+                                                  top: 50%;
+                                                  left: 50%;
+                                                  transform: translate(-50%, -50%);
+                                                  width: 60%;
+                                                ">
+                                        <div class="brokeDisabled"
+                                             style="
+                                                    display: block;
+                                                    color: #778183;
+                                                    width: 100%;
+                                                    text-align: center;
+                                                  ">
+                                        </div>
+                                        @Html.DropDownList("brokerId", (SelectList)ViewBag.BrokerList, "الاسم", new
+                                        {
+                                       @class = "brokeEnabled sios-form-control col",
+                                       style = "display: none;background - color: #e3e3e3; font - size: 12px;border: none;border - radius: 2px;",
+                                       id = "districtBroker"
+                                        })
+                                        @Html.TextBoxFor(model => model.BrokerPercentage, new { @class = "brokeEnabled sios-form-control home-input col", style = "display: none; background-color: #e3e3e3; font-size: 12px; border: none; border-radius: 2px;", placeholder = "النسبة %" })
+                                        @Html.CheckBoxFor(model => model.IsBroker, new { style = "height: fit-content; margin-top: 4px;", id = "toggleEnable" })
+                                        <label class="brokeDisabled fw-bold" for="" style="color: #000;">يوجد</label>
+
+                                        @*<input style="height: fit-content; margin-top: 4px;"
+        type="checkbox"
+        id="toggleEnable"
+        name="IsBroker" />*@
+                                        <label for="myCheckbox"></label>
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.BrokerId, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.BrokerPercentage, "", new { @class = "text-danger" })
+
+                                @*<input name="Id" class="sios-form-control col"
+        type="password"
+        placeholder="رقم العملية" />*@
+                                <div class="d-flex" style="align-items:center;">
+                                    <span class="fw-bold" style="width:100px">
+                                        الإسم بالعربي
+                                    </span>
+                                    @Html.TextBoxFor(model => model.CompanyArabicName, new { @class = "sios-form-control home-input col", placeholder = "الإسم بالعربي" })
+                                </div>
+
+                                @Html.ValidationMessageFor(model => model.CompanyArabicName, "", new { @class = "text-danger" })
+                                <div class="d-flex" style="align-items:center;">
+                                    <span class="fw-bold" style="width:100px">
+                                        الإسم بالإنجليزي
+                                    </span>
+                                    @Html.TextBoxFor(model => model.CompanyEnglishName, new { @class = "sios-form-control home-input left-dire col", placeholder = "الإسم بالإنجليزي" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.CompanyEnglishName, "", new { @class = "text-danger" })
+                            <div class="d-flex" style="align-items:center;">
+                                <span class="fw-bold" style="width:100px">
+                                    رقم التليفون
+                                </span>
+                                @Html.TextBoxFor(model => model.CompanyTelePhone, new { @class = "sios-form-control home-input col", type = "number", placeholder = "رقم التليفون" })
+                            </div>
+                                    @Html.ValidationMessageFor(model => model.CompanyTelePhone, "", new { @class = "text-danger" })
+                            <div class="d-flex" style="align-items:center;">
+                                <span class="fw-bold" style="width:117px">
+                                    المنطقة
+                                </span>
+                                @*@Html.LabelFor(model => model.AreaId)*@
+                                @Html.DropDownList("AreaId", (SelectList)ViewBag.AreaList, "المنطقة", new { @class = "sios-form-control", style = "color:#000;", id = "districtArea" })
+                            </div>
+                                    @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
+                                    @*<select class="sios-form-control"
+                name="district"
+                id="district">
+            <option value="district">المنطقة</option>
+        </select>*@<div class="d-flex" style="align-items:center;">
+                       <span class="fw-bold" style="width:100px">
+                           الإسم المسؤول
+                       </span>
+    @Html.TextBoxFor(model => model.AdministratorName, new { @class = "sios-form-control home-input col", type = "text", placeholder = "الإسم المسؤول" })
+</div>
+    @Html.ValidationMessageFor(model => model.AdministratorName, "", new { @class = "text-danger" })
+                            <div class="d-flex" style="align-items:center;">
+                                <span class="fw-bold" style="width:100px">
+                                    رقم الموبايل
+                                </span>
+                                @Html.TextBoxFor(model => model.AdministratorPhone, new { @class = "sios-form-control home-input col", type = "number", placeholder = "رقم الموبايل" })
+                            </div>
+                       @Html.ValidationMessageFor(model => model.AdministratorPhone, "", new { @class = "text-danger" })
+                            <div class="d-flex" style="align-items:center;">
+                                <span class="fw-bold" style="width:100px">
+                                    تاريخ العقد
+                                </span>
+                                @Html.TextBoxFor(model => model.ContractDate, new { @class = "date-input sios-form-control home-input col", type = "text", id = "inputContractDate", placeholder = "تاريخ العقد" })
+                            </div>
+                       @Html.ValidationMessageFor(model => model.ContractDate, "", new { @class = "text-danger" })
+
+                       <div style="position: relative">
+                           <input style="height: 45px"
+                                  class="sios-form-control home-input col pb-2"
+                                  type="text"
+                                  disabled
+                                  placeholder="زيارة الطبيب" />
+                           <div class="d-flex gap-2"
+                                style="
+                          position: absolute;
+                          top: 50%;
+                          left: 40%;
+                          transform: translate(-50%, -50%);
+                          width: 60%;
+                        ">
+                               
+                               @Html.TextBoxFor(model => model.DoctorVisitsCount, new { @class = "sios-form-control home-input col", style = "background-color: #e3e3e3; font-size: 12px; border: none; border-radius: 2px;", type = "text", placeholder = "عدد زيارات" })
+
+
+                               @Html.TextBoxFor(model => model.DoctorVisitsDuration, new { @class = "sios-form-control home-input col", style = "background-color: #e3e3e3; font-size: 12px; border: none; border-radius: 2px;", type = "text", placeholder = "مدة زيارات" })
+
+
+                           </div>
+                       </div>
+                       <div class="d-flex flex-column">
+                           @Html.ValidationMessageFor(model => model.DoctorVisitsCount, "", new { @class = "text-danger" })
+                           @Html.ValidationMessageFor(model => model.DoctorVisitsDuration, "", new { @class = "text-danger" })
+                       </div>
+                       <div class="d-flex" style="align-items:center;">
+                           <span class="fw-bold" style="width:100px">
+                               البريد الالكتروني
+                           </span>
+                           @Html.TextBoxFor(model => model.Email, new { @class = "sios-form-control home-input col", type = "text", placeholder = "البريد الالكتروني" })
+                       </div>
+                           @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            <div class="d-flex" style="align-items:center;">
+                                <span class="fw-bold" style="width:117px">
+                                    نشاط الشركة
+                                </span>
+                                @*@Html.LabelFor(model => model.AreaId)*@
+                                @Html.DropDownList("CompanyActivityId", (SelectList)ViewBag.CompanyActivityList, "نشاط الشركة", new { @class = "sios-form-control", style = "color:#000;", id = "districtCompany" })
+                            </div>
+                               @Html.ValidationMessageFor(model => model.CompanyActivityId, "", new { @class = "text-danger" })
+                               <div style="position: relative">
+                                   <input class="sios-form-control home-input col"
+                                          type="text"
+                                          disabled
+                                          placeholder="يوجد تأمين للشركة" />
+
+
+
+                                   <div style="
+                                              position: absolute;
+                                              left: 30%;
+                                              top: 50%;
+                                              transform: translate(-50%, -50%);
+                                            ">
+                                       <div class="coverage-radio-box d-flex gap-5">
+                                           <div class="coverage-radio-field">
+                                               @Html.RadioButtonFor(model => model.InsuranceExists, true, new { id = "radio1" })
+                                               <label for="radio1">نعم</label>
+                                           </div>
+                                           <div class="coverage-radio-field">
+                                               @Html.RadioButtonFor(model => model.InsuranceExists, false, new { id = "radio2" })
+                                               <label for="radio2">لا</label>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               @Html.ValidationMessageFor(model => model.InsuranceExists, "", new { @class = "text-danger" })
+                            <div class="d-flex" style="align-items:center;">
+                                <span class="fw-bold" style="width:100px">
+                                    عدد فئات
+                                </span>
+                                @Html.TextBoxFor(model => model.CategoriesCount, new { @class = "sios-form-control home-input col", type = "text", placeholder = "عدد فئات" })
+                            </div>
+                               @Html.ValidationMessageFor(model => model.CategoriesCount, "", new { @class = "text-danger" })
+                           </div>
+                       </div>
+                        <div class="form-bg-sec col-4">
+                            <div class="form-bg col-12">
+                                <div class="pool-box">
+                                    <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
+                                        <div class="pool-field">
+                                            <div class="inputs">
+                                                @Html.TextBoxFor(model => model.MedicationPoolVal, new { @class = "sios-form-control home-input", type = "text", placeholder = "قيمة", value = "0" })
+
+                                                @Html.TextBoxFor(model => model.MedicationPoolPercentage, new { @class = "sios-form-control home-input", type = "text", placeholder = "نسبة", value = "0" })
+
+                                            </div>
+                                            <h6 style="color: #000;">Medication Pool</h6>
+                                        </div>
+                                        <div class="d-flex flex-column ps-2 pt-2">
+                                            @Html.ValidationMessageFor(model => model.MedicationPoolVal, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.MedicationPoolPercentage, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <!-- PreX Pool -->
+                                    <div class="pool-field-box mb-2">
+                                        <div class="pool-field">
+                                            <div class="inputs">
+                                                @Html.TextBoxFor(model => model.PrexPoolVal, new { @class = "sios-form-control home-input", type = "text", placeholder = "قيمة", value = "0" })
+                                                @Html.TextBoxFor(model => model.PrexPoolPercentage, new { @class = "sios-form-control home-input", type = "text", placeholder = "نسبة", value = "0" })
+
+                                            </div>
+                                            <h6 style="color:#000;">PreX Pool</h6>
+                                        </div>
+                                        <div class="coverage-box d-flex">
+                                            <div class="coverage-radio-box d-flex">
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="PrexPoolCoverage_PreviousAndLater">سابق ولاحق</label>
+                                                    @Html.RadioButtonFor(model => model.PrexPoolCoverage, "PreviousAndLater", new { @class="form-check-input", id = "PrexPoolCoverage_PreviousAndLater" })
+
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="PrexPoolCoverage_Later">لاحق</label>
+                                                    @Html.RadioButtonFor(model => model.PrexPoolCoverage, "Later", new { @class = "form-check-input", id = "PrexPoolCoverage_Later" })
+
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="PrexPoolCoverage_Previous">سابق</label>
+                                                    @Html.RadioButtonFor(model => model.PrexPoolCoverage, "Previous", new { @class = "form-check-input", id = "PrexPoolCoverage_Previous" })
+
+                                                </div>
+                                            </div>
+                                            <p style="color:#000;">نوع التغطية</p>
+                                        </div>
+                                        <div class="d-flex flex-column ps-2">
+                                            @Html.ValidationMessageFor(model => model.PrexPoolVal, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.PrexPoolPercentage, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.PrexPoolCoverage, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <!-- Repeat the structure for Exception Pool, Chronic Pool, and Critical Pool -->
+                                    <!-- Exception Pool -->
+                                    <div class="pool-field-box mb-2">
+                                        <div class="pool-field">
+                                            <div class="inputs">
+                                                @Html.TextBoxFor(m => m.ExceptionPoolVal, new { @class = "sios-form-control home-input", placeholder = "قيمة", value = "0" })
+                                                @Html.TextBoxFor(m => m.ExceptionPoolPercentage, new { @class = "sios-form-control home-input", placeholder = "نسبة", value = "0" })
+
+
+                                            </div>
+                                            <h6 style="color:#000;">Exception Pool</h6>
+                                        </div>
+                                        <div class="coverage-box d-flex">
+                                            <div class="coverage-radio-box d-flex">
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="ExceptionPoolCoverage_PreviousAndLater">سابق ولاحق</label>
+                                                    @Html.RadioButtonFor(m => m.ExceptionPoolCoverage, "PreviousAndLater", new { @class = "form-check-input", id = "ExceptionPoolCoverage_PreviousAndLater" })
+
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="ExceptionPoolCoverage_Later">لاحق</label>
+                                                    @Html.RadioButtonFor(m => m.ExceptionPoolCoverage, "Later", new { @class = "form-check-input", id = "ExceptionPoolCoverage_Later" })
+
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="ExceptionPoolCoverage_Previous">سابق</label>
+                                                    @Html.RadioButtonFor(m => m.ExceptionPoolCoverage, "Previous", new { @class = "form-check-input", id = "ExceptionPoolCoverage_Previous" })
+
+                                                </div>
+                                            </div>
+                                            <p style="color:#000;">نوع التغطية</p>
+                                        </div>
+                                        <div class="d-flex flex-column ps-2">
+                                            @Html.ValidationMessageFor(model => model.ExceptionPoolVal, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.ExceptionPoolPercentage, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.ExceptionPoolCoverage, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+                                    <!-- Chronic Pool -->
+                                    <div class="pool-field-box mb-2">
+                                        <div class="pool-field">
+                                            <div class="inputs">
+                                                @Html.TextBoxFor(m => m.ChronicPoolVal, new { @class = "sios-form-control home-input", placeholder = "قيمة", value = "0" })
+                                                @Html.TextBoxFor(m => m.ChronicPoolPercentage, new { @class = "sios-form-control home-input", placeholder = "نسبة", value = "0" })
+
+
+                                            </div>
+                                            <h6 style="color:#000;">Chronic Pool</h6>
+                                        </div>
+                                        <div class="coverage-box d-flex">
+                                            <div class="coverage-radio-box d-flex">
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="ChronicPoolCoverage_PreviousAndLater">سابق ولاحق</label>
+                                                    @Html.RadioButtonFor(m => m.ChronicPoolCoverage, "PreviousAndLater", new { @class = "form-check-input", id = "ChronicPoolCoverage_PreviousAndLater" })
+
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="ChronicPoolCoverage_Later">لاحق</label>
+                                                    @Html.RadioButtonFor(m => m.ChronicPoolCoverage, "Later", new { @class = "form-check-input", id = "ChronicPoolCoverage_Later" })
+
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="ChronicPoolCoverage_Previous">سابق</label>
+                                                    @Html.RadioButtonFor(m => m.ChronicPoolCoverage, "Previous", new { @class = "form-check-input", id = "ChronicPoolCoverage_Previous" })
+
+                                                </div>
+                                            </div>
+                                            <p style="color:#000;">نوع التغطية</p>
+                                        </div>
+                                        <div class="d-flex flex-column ps-2">
+                                            @Html.ValidationMessageFor(model => model.ChronicPoolVal, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.ChronicPoolPercentage, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.ChronicPoolCoverage, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <!-- Critical Pool -->
+                                    <div class="pool-field-box mb-2">
+                                        <div class="pool-field">
+                                            <div class="inputs">
+                                                @Html.TextBoxFor(m => m.CriticalPoolVal, new { @class = "sios-form-control home-input", placeholder = "قيمة", value = "0" })
+                                                @Html.TextBoxFor(m => m.CriticalPoolPercentage, new { @class = "sios-form-control home-input", placeholder = "نسبة", value = "0" })
+
+
+                                            </div>
+                                            <h6 style="color:#000;">Critical Pool</h6>
+                                        </div>
+                                        <div class="coverage-box d-flex">
+                                            <div class="coverage-radio-box d-flex">
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="CriticalPoolCoverage_PreviousAndLater">سابق ولاحق</label>
+                                                    @Html.RadioButtonFor(m => m.CriticalPoolCoverage, "PreviousAndLater", new { @class = "form-check-input", id = "CriticalPoolCoverage_PreviousAndLater" })
+
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="CriticalPoolCoverage_Later">لاحق</label>
+                                                    @Html.RadioButtonFor(m => m.CriticalPoolCoverage, "Later", new { @class = "form-check-input", id = "CriticalPoolCoverage_Later" })
+
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="CriticalPoolCoverage_Previous">سابق</label>
+                                                    @Html.RadioButtonFor(m => m.CriticalPoolCoverage, "Previous", new { @class = "form-check-input", id = "CriticalPoolCoverage_Previous" })
+
+                                                </div>
+                                            </div>
+                                            <p style="color:#000;">نوع التغطية</p>
+                                        </div>
+                                        <div class="d-flex flex-column ps-2">
+                                            @Html.ValidationMessageFor(model => model.CriticalPoolVal, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.CriticalPoolPercentage, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.CriticalPoolCoverage, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="btns-box">
+                            <div class="d-flex action-btns w-75 m-auto">
+                                <div>
+                                    <button type="button" class="btn action-btn fs-5 fw-bold py-2 px-4" onclick="clearForm()" id="NewForm">جديد</button>
+
+                                </div>  
+                                
+                                @*<button type="button" class="btn action-btn p-2"onclick="submitForm()">حفظ</button>*@
+                            <div>
+                                <a style="width: fit-content;">
+                                    <button type="button" class="text-align-center btn next-btn fs-5 fw-bold py-2 px-5" onclick="submitForm()">التالي</button>
+                                </a>
+                            </div>
+                                
+                            </div>
+                            <br />
+                            <div class="d-flex action-btns w-75 m-auto">
+                                <div>
+                                    <button type="button" class="btn action-btn fs-5 fw-bold py-2 px-4" onclick="goToIndex()">
+                                        الغاء
+                                    </button>
+                                </div>
+                                @Html.HiddenFor(m => m.ConsumptionFileName, new { id = "consumptionFileName" })
+
+                                @Html.TextBoxFor(m => m.ConsumptionFile, new
+                                {
+                                    name="ConsumptionFile",
+                                    type = "file",
+                                    id = "edit-2",
+                                    style = "display: none;",
+                                    @class = "prev-butn-1 mt-0 me-0 ms-0 ms-md-4 mb-5",
+                                    onchange = "handleFileInputChange(this, 'file-label1')"@*"updateFileNameLabel(this, 'file-label1')"*@})
+                            <div>
+                                <label for="edit-2" class="btn action-btn fs-5 fw-bold py-2 px-4" id="file-label1">
+                                    <span id="fileNamePlaceholder">
+                                        الاستهلاكات
+                                    </span>
+
+
+                                    <i class="fas fa-paperclip"></i>
+                                </label>
+                            </div>
+                                
+                                @Html.ValidationMessageFor(model => model.ConsumptionFile, "", new { @class = "text-danger" })
+                            </div>
+                            <br />
+                            <div class="w-25 action-btns"
+                                 style="
+                    margin-right: 35%;
+                    grid-template-columns: repeat(1, auto);
+                  ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+
+
+</section>
+@section Scripts{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.js"></script>
+    <script>
+
+
+        $(document).ready(function () {
+            $("#datetimepicker").datetimepicker({
+                dateFormat: "dd/mm/yy",
+                timeFormat: "HH:mm", // 24-hour format
+                controlType: "select",
+                oneLine: true,
+                showTimezone: false
+            });
+            var consumptionFileName = '@(Model?.ConsumptionFileName ?? "")';
+
+            if (consumptionFileName) {
+                $('#edit-2').val(consumptionFileName);
+                $('#fileNamePlaceholder').text(consumptionFileName);
+            }
+
+            $('#edit-2').on('change', function () {
+                var fileName = $(this).val().split('\\').pop(); // Get only the file name
+                $('#fileNamePlaceholder').text(fileName || 'إستهلاكات');
+            });
+
+            // Execute the function on page load to handle any previously selected file
+            var consumptionFileName = '@(Model?.ConsumptionFileName ?? "")';
+            if (!consumptionFileName) {
+                $('#fileNamePlaceholder').text('إستهلاكات');
+            }
+            //$("#inputContractDate").change(function () {
+            //    // Get the selected date value
+            //    var selectedDate = $(this).val();
+
+            //    // Parse the selected date to a JavaScript Date object
+            //    var dateObject = new Date(selectedDate);
+
+            //    // Check if the date is valid
+            //    if (!isNaN(dateObject.getTime())) {
+            //        // Convert the date to the desired format (dd/mm/yyyy)
+            //        var day = dateObject.getDate();
+            //        var month = dateObject.getMonth() + 1; // Months are zero-based
+            //        var year = dateObject.getFullYear();
+
+            //        // Format day and month with leading zeros if necessary
+            //        day = day < 10 ? '0' + day : day;
+            //        month = month < 10 ? '0' + month : month;
+
+            //        var formattedDate = day + '/' + month + '/' + year;
+
+            //        // Update the input value with the formatted date
+            //        $(this).val(formattedDate);
+            //    } else {
+            //        // Handle invalid date input
+            //        alert("Invalid date format");
+            //    }
+            //});
+
+
+
+            const $toggleEnable = $("#toggleEnable");
+            const $disabled = $("#disabled");
+            const $brokeDisabled = $(".brokeDisabled");
+            const $brokeEnabled = $(".brokeEnabled");
+
+            function handleToggleEnableChange() {
+                if ($toggleEnable.prop("checked")) {
+                    $toggleEnable.css("marginTop", "10px");
+                    $disabled.prop("disabled", false);
+                    $brokeDisabled.hide();
+                    $brokeEnabled.show();
+                } else {
+                    $toggleEnable.css("marginTop", "3px");
+                    $disabled.prop("disabled", true);
+                    $brokeDisabled.show();
+                    $brokeEnabled.hide();
+                }
+            }
+
+            $toggleEnable.change(handleToggleEnableChange);
+
+            // Check the state of toggleEnable on page load
+            if ($toggleEnable.prop("checked")) {
+                handleToggleEnableChange(); // Call the function directly
+            }
+
+            // Assuming you have a function clearForm that resets your form
+            $("#NewForm").click(function () {
+                clearForm();
+                handleToggleEnableChange(); // Call the function after clearing the form
+            });
+        });
+        function clearForm() {
+            // Replace 'yourFormId' with the actual ID of your form
+            var form = document.getElementById('ProposalMainForm');
+
+            // Reset the form
+            form.reset();
+            document.getElementById('districtBroker').value = '';
+            document.getElementById('toggleEnable').checked = false;
+            document.getElementById('BrokerPercentage').value = '';
+            // Clear input values
+            var inputElements = form.getElementsByTagName('input');
+            for (var i = 0; i < inputElements.length; i++) {
+                // Check if the input type is not 'submit', 'reset', 'button', or 'hidden'
+                if (inputElements[i].type !== 'submit' && inputElements[i].type !== 'reset' &&
+                    inputElements[i].type !== 'button' && inputElements[i].type !== 'hidden') {
+                    inputElements[i].value = '';  // Clear the value of the input element
+                }
+            }
+            // Clear radio button selections
+            var radioElements = form.querySelectorAll('input[type="radio"]');
+            for (var i = 0; i < radioElements.length; i++) {
+                radioElements[i].checked = false;  // Uncheck the radio button
+            }
+            // Clear dropdown list selections
+            var selectElements = form.getElementsByTagName('select');
+            for (var i = 0; i < selectElements.length; i++) {
+                selectElements[i].selectedIndex = -1;  // Clear the selected index of the dropdown list
+            }
+            // Clear validation messages
+            var validationMessages = form.getElementsByClassName('text-danger');
+            for (var i = 0; i < validationMessages.length; i++) {
+                validationMessages[i].textContent = '';  // Clear the content of the validation message element
+            }
+        }
+        function submitForm() {
+            // Replace 'yourFormId' with the actual ID of your form
+            var form = document.getElementById('ProposalMainForm');
+            sessionStorage.setItem('formStepOneSubmitted', 'true');
+            // Submit the form
+            form.submit();
+        }
+        function goToIndex() {
+            window.location.href = '/ProposalMain/Index';
+        }
+        function updateFileNameLabel(input, labelId) {
+
+            if (input.files.length > 0) {
+                var fileName = input.files[0].name;
+                $("#" + labelId).text(fileName);
+            }
+        }
+    </script>
+}
+
+<!-- end section -->

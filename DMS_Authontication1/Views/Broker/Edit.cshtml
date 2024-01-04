@@ -1,0 +1,147 @@
+﻿@model DMS_Authontication1.ViewModel.BrokerViewModel
+
+
+@{
+    if (ViewBag != null)
+    {
+        ViewBag.Title = "Edit";
+        Layout = "~/Views/Shared/_Layout_Proposal.cshtml";
+        var Errors = ViewBag.Errors;
+    }
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/ProposalAssets/CSS/broker.css" />
+}
+@*@if (ViewBag.Errors != null)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewBag.Errors)
+                {
+                    <li>@error</li>
+                }
+            </ul>
+        </div>
+    }*@
+
+<style>
+    input#file-upload-button {
+    }
+</style>
+
+@using (Html.BeginForm("Edit", "Broker", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <h1 style="text-align: center; color: #83439b;">تعديل</h1>
+
+    <div class="after-grey-inputs" dir="rtl">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <div class="after-grey-input">
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control fs-5 fw-bold", placeholder = "الاسم" })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="after-grey-input">
+            @Html.TextBoxFor(model => model.MembershipNo, new { @class = "form-control fs-5 fw-bold", placeholder = "رقم العضوية" })
+            @Html.ValidationMessageFor(model => model.MembershipNo, "", new { @class = "text-danger" })
+        </div>
+        <div class="after-grey-input">
+            @Html.TextBoxFor(model => model.NationalId, new { @class = "form-control fs-5 fw-bold", placeholder = "الرقم القومي" })
+            @Html.ValidationMessageFor(model => model.NationalId, "", new { @class = "text-danger" })
+        </div>
+        <div class="after-grey-input">
+            @Html.TextBoxFor(model => model.TaxCardId, new { @class = "form-control fs-5 fw-bold", placeholder = "بطاقة ضريبة" })
+            @Html.ValidationMessageFor(model => model.TaxCardId, "", new { @class = "text-danger" })
+        </div>
+        <div class="search-options">
+            <div class="options fs-5 fw-bold">
+                @Html.RadioButtonFor(model => model.IsCompany, true,
+                    new { @class = "toggle-company option-company", id = "option1" }) @Html.Label("companyTrue", "شركة")
+                </div>
+                <div class="options fs-5 fw-bold">
+                    @Html.RadioButtonFor(model => model.IsCompany, false,
+                    new { @class = "toggle-company option-company", id = "option2" }) @Html.Label("companyFalse", "فردي")
+                </div>
+                <div id="companyNameGroup" class="form-group" style="display:none;">
+                    @*@Html.LabelFor(model => model.CompanyName, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control", placeholder = "اسم الشركة" })
+                        @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="edit-form d-flex justify-content-end gap-5 mt-5 mb-4">
+                <div style="margin: auto; border: 2px #623488 solid; padding: 6px; max-width: 320px; border-radius: 10px; text-align-last: center;">
+                    <h4 style="text-align: center;">بطاقة ضريبية</h4>
+                    <hr />
+                    <input hidden id="edit-1" dir="ltr"
+                           type="file" name="TaxCard"
+                           class="prev-butn-1 me-0 ms-0 ms-md-4 mb-1"
+                           placeholder="بطاقة ضريبية"
+                           onchange="updateFileNameLabel(this, 'file-label')" />
+                    @{
+                        var taxCardName = Model.PracticeCardName;
+                        var taxCardExtension = taxCardName.Split('.')[1];
+                        var taxCardText = taxCardName.Split('.')[0];
+
+                        var taxCardNameLastTenChars = taxCardText.Substring(taxCardName.Length - 20);
+                    }
+                    <label for="edit-1"
+                       style="text-decoration: none; color: #fff; background: #6e7085; padding: 10px 20px; border-radius: 10px; font-weight: var(--font - bold); font-size: 18px; box-shadow: 0 0 2px #14061b4d; cursor: pointer; width: 300px; overflow: hidden; text-overflow: ellipsis; "
+                       id="file-label">@($"{taxCardNameLastTenChars}.{taxCardExtension}")...</label>
+                </div>
+                <div style="margin: auto; border: 2px #623488 solid; padding: 6px; max-width: 320px; border-radius: 10px; text-align-last: center;">
+                    <h4 style="text-align: center;">كارت مزاولة</h4>
+                    <hr />
+                    <input hidden id="edit-2" dir="ltr"
+                           type="file" name="PracticeCard"
+                           class="prev-butn-1 me-0 ms-0 ms-md-4 mb-1"
+                           placeholder="كارت مزاولة"
+                           onchange="updateFileNameLabel(this, 'file-label1')" />
+                    @{ 
+                        var practiceardName = Model.PracticeCardName;
+                        var practiceCardExtension = practiceardName.Split('.')[1];
+                        var practiceCardText = practiceardName.Split('.')[0];
+
+                        var practiceCardNameLastTenChars = practiceCardText.Substring(practiceardName.Length - 20);
+                    }
+                <label for="edit-2"
+                       style="text-decoration: none; color: #fff; background: #6e7085; padding: 10px 20px; border-radius: 10px; font-weight: var(--font - bold); font-size: 18px; box-shadow: 0 0 2px #14061b4d; cursor: pointer; width: 300px; overflow: hidden; text-overflow: ellipsis; "
+                       id="file-label1">@($"{practiceCardNameLastTenChars}.{practiceCardExtension}")...</label>
+                    </div>
+
+            </div>
+            <hr>
+            <div class="form-buttons">
+                @Html.ActionLink("الغاء", "Index", new { @class = "cancelBtn" }
+           , new { style = "text-decoration:none;color: #fff; background: #6e7085;padding: 10px 30px;border-radius: 10px;font-weight:700 ; font-size: 1.25rem ; box-shadow: 0 0 2px #14061b4d;cursor: pointer; " })
+                <input type="submit" value="حفظ" class="btn fas fa-download saveBtn fs-5 fw-bold" style="text-decoration:none;color: #fff; background: #6e7085;padding: 10px 30px;border-radius: 10px;font-weight: var(--font - bold);font-size: 18px;box-shadow: 0 0 2px #14061b4d;cursor: pointer;  " />
+            </div>
+        </div>
+        <br />
+    }
+
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".toggle-company").change(function () {
+                if ($("#option1").is(":checked")) {
+                    $("#companyNameGroup").show();
+                } else {
+                    $("#companyNameGroup").hide();
+                }
+            });
+            // Check the state of toggleEnable on page load
+            $(".toggle-company").trigger("change");
+        });
+        function updateFileNameLabel(input, labelId) {
+            if (input.files.length > 0) {
+                var fileName = input.files[0].name;
+                $("#" + labelId).text(fileName);
+            }
+        }
+
+    </script>
+}

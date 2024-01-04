@@ -1,0 +1,339 @@
+ <nav class="navbar navbar-expand-lg bg-body-tertiary Admin-navbar">
+        <div class="container-fluid" style="justify-content: space-between">
+            <div class="d-flex align-items-center">
+                @Html.ActionLink("Home", "Index", "MedicalAdmin", null, new { @class = "nav-link mb-2 mt-1", style = "font-size: 16px; color: #fafcff", role = "button", aria_expanded = "false" })
+
+            </div>
+            <button class="navbar-toggler me-4"
+                    style="box-shadow: none"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars" style="color: white"></i>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-between align-items-center"
+                 id="navbarSupportedContent">
+                <div class="d-flex flex-column flex-lg-row mb-3 mb-lg-0 ps-4 mt-2">
+                    <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                        <li class="nav-item dropdown" style="list-style-type: none">
+                            <a class="nav-link"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="fas fa-user-md"></i>
+                                Doctor
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    @Html.ActionLink("Pending Requests", "DoctorPendingRequest", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Doctor Daily", "DoctorDaily", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Doctor Chronic", "DoctorChronic", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Permission List", "DoctorPermissionList", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Permissions", "DoctorPermissions", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                        <li class="nav-item dropdown" style="list-style-type: none">
+                            <a class="nav-link"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="fas fa-lock"></i>
+                                Admin
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    @Html.ActionLink("Users", "AdminUsers", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Pharmacy Claims", "AdminPharmacyClaims", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Pharmacy Stop Edit Claims", "AdminStopPharmacyClaims", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Rays Claims", "AdminRayClaims", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Labs Claims", "AdminLabClaims", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                        <li class="nav-item dropdown" style="list-style-type: none">
+                            <a class="nav-link"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="fa-solid fa-list-check"></i>
+                                Management
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    @Html.ActionLink("Employees Management", "ManagementEmployeeManagement", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Companies Groups Management", "ManagementCompaniesGroupsManagement", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Medicines Management", "ManagementMedicines", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Medicines Groups Management", "ManagementMedicinesGroupsManagement", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("License Type Management", "ManagementLicenseTypeManagement", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Medicine Type Management", "ManagementMedicinesTypeManagements", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Dosage Form Management", "ManagementDosageFormManagement", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Specialties and Diagnosis Management", "ManagementSpecialitiesAndDiagnoses", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                        <li class="nav-item dropdown" style="list-style-type: none">
+                            <a class="nav-link"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="fas fa-user-tie"></i>
+                                HR Requests
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    @Html.ActionLink("Operation", "HrOperation", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Indemnity", "HrIndemnity", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Medical Network Request", "HrMedicalNetworkRequest", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Delivery Requests", "HrDelieveryRequest", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Activation Employee", "HrActivationEmployee", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                        <li class="nav-item dropdown" style="list-style-type: none">
+                            @Html.Raw(Html.ActionLink("After Sales", "AfterSales", "MedicalAdmin", null, new { @class = "nav-link", role = "button", aria_expanded = "false" }).ToHtmlString())
+
+                        </li>
+                    </ul>
+
+                    <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                        <li class="nav-item dropdown" style="list-style-type: none">
+                            @Html.Raw(Html.ActionLink(" Customer Service", "Cs", "MedicalAdmin", null, new { @class = "nav-link", role = "button", aria_expanded = "false" }).ToHtmlString())
+
+                        </li>
+                    </ul>
+
+                    <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                        <li class="nav-item dropdown" style="list-style-type: none">
+                            @Html.Raw(Html.ActionLink(" Reports", "ReportsOperation", "MedicalAdmin", null, new { @class = "nav-link", role = "button", aria_expanded = "false" }).ToHtmlString())
+
+                        </li>
+                    </ul>
+                    <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                        <li class="nav-item dropdown" style="list-style-type: none">
+                            <a class="nav-link"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="fa-solid fa-desktop"></i>
+                                Systems
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    @Html.ActionLink("Pharmacy", "PharmacyPharmacy", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Radio Centers", "RadioCenters", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                @Html.ActionLink("Labs", "Labs", "MedicalAdmin", null, new { @class = "" })
+
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                        <li class="nav-item dropdown" style="list-style-type: none">
+                            <a class="nav-link"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               data-bs-auto-close="outside"
+                               aria-expanded="false">
+                                <i class="fa-solid fa-cog"></i>
+                                SIOS
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu"
+                                aria-labelledby="dropdownMenuClickableInside">
+                                <li>
+                                    @Html.ActionLink("Medical Approval", "MedicalApproval", "MedicalAdmin", null, new { @class = "dropdown-item" })
+
+                                </li>
+                                <li class="submenu">
+                                    <a href="#" class="dropdown-item" onclick="operationsShow()">
+                                        Operations
+                                        <i class="fas fa-chevron-down"></i>
+                                    </a>
+                                    <div class="operations-div">
+                                        @Html.ActionLink("Add insurance coverage", "Operation1", "MedicalAdmin", null, new { @class = "dropdown-item", style = "background: #ccc" })
+                                        @Html.ActionLink("Processes", "Operation2", "MedicalAdmin", null, new { @class = "dropdown-item", style = "background: #ccc" })
+                                        @Html.ActionLink("Renewal", "Operation3", "MedicalAdmin", null, new { @class = "dropdown-item", style = "background: #ccc" })
+                                        @Html.ActionLink("Updating data", "Operation4", "MedicalAdmin", null, new { @class = "dropdown-item", style = "background: #ccc" })
+                                        @Html.ActionLink("Review Confirm", "Operation5", "MedicalAdmin", null, new { @class = "dropdown-item", style = "background: #ccc" })
+
+                                    </div>
+                                </li>
+                                <li class="submenu">
+                                    <a href="#" class="dropdown-item" onclick="offersShow()">
+                                        Offers
+                                        <i class="fas fa-chevron-down"></i>
+                                    </a>
+                                    <div class="offers-div">
+                                        @Html.ActionLink("Proposal", "Index", "ProposalMain", null, new { @class = "dropdown-item", style = "background: #ccc" })
+                                        @Html.ActionLink("Pricing", "PricingIndex", "ProposalMain", null, new { @class = "dropdown-item", style = "background: #ccc" })
+
+                                        @Html.ActionLink("Broker", "Index", "Broker", null, new { @class = "dropdown-item", style = "background: #ccc" })
+                                    </div>
+                                </li>
+                                <li class="submenu">
+                                    <a href="#" class="dropdown-item" onclick="policyShow()">
+                                        Policy
+                                        <i class="fas fa-chevron-down"></i>
+                                    </a>
+                                    <div class="policy-div">
+                                        @Html.ActionLink("Contract basic data", "PolicyContractBasicData", "MedicalAdmin", null, new { @class = "dropdown-item", style = "background: #ccc" })
+
+                                        @Html.ActionLink("Add benefits", "PolicyAddBenefits", "MedicalAdmin", null, new { @class = "dropdown-item", style = "background: #ccc" })
+
+                                        @Html.ActionLink("Add class", "PolicyAddClass", "MedicalAdmin", null, new { @class = "dropdown-item", style = "background: #ccc" })
+
+                                        @Html.ActionLink("Annual change", "PolicyAnnualChange", "MedicalAdmin", null, new { @class = "dropdown-item", style = "background: #ccc" })
+
+                                        @Html.ActionLink("Add special benefits", "PolicyAddSpecialBenefits", "MedicalAdmin", null, new { @class = "dropdown-item", style = "background: #ccc" })
+
+                                        @Html.ActionLink("Providers", "PolicyProviders", "MedicalAdmin", null, new { @class = "dropdown-item", style = "background: #ccc" })
+
+                                        @Html.ActionLink("Add pool", "PolicyAddPool", "MedicalAdmin", null, new { @class = "dropdown-item", style = "background: #ccc" })
+
+                                        @Html.ActionLink("Copy categories", "PolicyCopyCategories", "MedicalAdmin", null, new { @class = "dropdown-item", style = "background: #ccc" })
+
+                                        @Html.ActionLink("Company extension letter", "PolicyCompanyExtend", "MedicalAdmin", null, new { @class = "dropdown-item", style = "background: #ccc" })
+
+                                    </div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">Network</a>
+                                </li>
+                                <!-- <li><a class="dropdown-item" href="#">Hospital</a></li> -->
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="d-flex">
+                    <ul class="ps-0 Admin-main-ul mb-0">
+                        <li class="nav-item dropdown" style="list-style-type: none">
+                            <a class="nav-link"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Hello, @User.Identity.GetUserName()!
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Profile", "Main", "ControlPanel", null, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Manage Account", "Index", "Manage", null, new { @class = "dropdown-item" })</li>
+
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="ps-0 Admin-main-ul mb-0">
+                        <li class="nav-item dropdown" style="list-style-type: none">
+                            <a class="nav-link"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="fas fa-bell fs-4"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end"
+                                 aria-labelledby="bell-dropdown">
+                                <a class="dropdown-item" href="#">{{CardIDDDD CardIDDDD - 1000-1-175-1}}</a>
+                                <hr class="dropdown-divider" />
+                                <a class="dropdown-item" href="#">{{CardID}}</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
