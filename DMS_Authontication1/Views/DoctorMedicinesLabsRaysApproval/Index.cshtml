@@ -66,11 +66,11 @@
 
         <br />
         <br />
-        @if (Model.Roshita.CardId.Split('-')[0] != "8887700")
+        @if (Model.Roshita.CardId.Split('-')[0] != "888")
         {
             <input id="ShowDetailsCard" type="button" value="Show more details" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowDetailsCard($('#AddCardTxt').val())" />
         }
-        @if (Model.Roshita.CardId.Split('-')[0] == "8887700")
+        @if (Model.Roshita.CardId.Split('-')[0] == "888")
         {
             <input id="ShowDetailsCard" type="button" value="Print details" class="btn btn-success fa fa-file-pdf-o" onclick="PrintDetails(@Model.Roshita.Id)" />
         }

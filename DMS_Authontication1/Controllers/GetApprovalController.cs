@@ -73,8 +73,8 @@ namespace DMS_Authontication1.Controllers
         }
         public JsonResult Save(AcceptionViewModel data)
         {
-
-            int CompEmpId = db.Comp_Employees.Where(x => x.CARD_ID == data.CardId && x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).Select(x => x.Id).FirstOrDefault();
+            DateTime datenow = DateTime.Now.Date;
+            int CompEmpId = db.Comp_Employees.Where(x => x.CARD_ID == data.CardId && x.INS_START_DATE <= datenow && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).Select(x => x.Id).FirstOrDefault();
             var ob = db.Acceptions.Where(x => x.CompEmployeesId == CompEmpId && x.ApprovalType == "Vip").FirstOrDefault();
             if (ob != null)
             {

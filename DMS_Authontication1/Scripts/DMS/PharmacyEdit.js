@@ -174,7 +174,7 @@ $(function () {
     });
     $('#AddMedicine').on('select2:selecting', function (event) {
         if (ServiceCode != "11602") {
-            if (CompId == "8887700") {
+            if (CompId == "888") {
                 SelectMedicienCompany(event);
             }
             else {
@@ -1286,7 +1286,7 @@ function changeTable(button) {
 function changeTotalDuration(button) {
     var MinDay = (ServiceCode == "11601") ? 5 : 1;
     var MaxDay = (ServiceCode == "11601") ? 14 : 28;
-    if (CompId == "8887700") {
+    if (CompId == "888") {
         MinDay = 1;
         MaxDay = 28;
     }

@@ -70,7 +70,7 @@ $(function () {
             alert("هذا العميل لايحتاج موافقة علي الروشتات الخارجية علي ان يتم ادخال كافة البيانات والادوية علي السيستم");
 
         }
-        if (companid == "8887700") {
+        if (companid == "888") {
             $('#phone').hide();
         }
         else {
@@ -790,7 +790,7 @@ $(function () {
             if ($('#ddlType').val() != 0) {
 
                 if ($('#PrescriptionDate').val() != '') {
-                    if (companid == "8887700") {
+                    if (companid == "888") {
                         if ($('#ddlDiagnoises').val().length != 0) {
                             if (haveClaim == 1) {
                                 if ($('#ClaimNumber').val() != "") {
@@ -917,12 +917,12 @@ $(function () {
         if ($('#txtSearchCard').val() != "") {
             var companid = $('#txtSearchCard').val().split('-')[0];
             var te = "";
-            if (companid == "8887700") {
+            if (companid == "888") {
                 te = "01000000001";
                 $('#PhoneNumber').val("01000000001");
                 $('#ClaimNumber').val("10");
             }
-            if ($('#PhoneNumber').val() != "" || companid == "8887700") {
+            if ($('#PhoneNumber').val() != "" || companid == "888") {
                 te = document.getElementById('PhoneNumber').value;
                 phonenumber(te)
                 if (phonenumber(te) == true && number(te) == true && $("#PhoneNumber").val().length == 11) {
@@ -2029,7 +2029,7 @@ function changeTotalDuration(button) {
     var MinDay = ($('#ddlType').val() == "11601") ? 5 : 1;
     var MaxDay = ($('#ddlType').val() == "11601") ? 14 : 28;
     var companid = $('#txtSearchCard').val().split('-')[0];
-    if (companid == "8887700") {
+    if (companid == "888") {
         MinDay = 1;
         MaxDay = 28;
     }

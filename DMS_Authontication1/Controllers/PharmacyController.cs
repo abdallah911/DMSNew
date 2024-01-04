@@ -403,8 +403,9 @@ namespace DMS_TEST.Controllers
         {
             try
             {
+                DateTime datenow = DateTime.Now.Date;
                 //Default is pharmacy=3
-                int EmpId = db.Comp_Employees.Where(x => x.CARD_ID == id && x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
+                int EmpId = db.Comp_Employees.Where(x => x.CARD_ID == id && x.INS_START_DATE <= datenow && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
                 var accption = db.Acceptions.Where(x => x.CompEmployeesId == EmpId && x.AcceptionFlag == true && x.ProvidersId == 3).OrderByDescending(d => d.Id).FirstOrDefault();
                 if (accption == null)
                 {
@@ -554,6 +555,13 @@ namespace DMS_TEST.Controllers
                     {
                         return Json(new { Validation = false, Message = "تم انتهاء مدةالتعاقد لهذه الشركة ", Limit = 0, CeilingPert = 0 });
 
+                    }
+                    if (nextEmployeecontract.TERMINATE_DATE != null)
+                    {
+                        if (nextEmployeecontract.TERMINATE_DATE.Value.Month <= (DateTime.Now.Month + 1))
+                            return Json(new { Validation = false, Message = "تم انتهاء مدةالتعاقد لهذه الشركة ", Limit = 0, CeilingPert = 0 });
+                        else
+                            emp = nextEmployeecontract;
                     }
                     emp = nextEmployeecontract;
                 }
@@ -2422,7 +2430,7 @@ namespace DMS_TEST.Controllers
             }
             var companyId = data.CardId.Split('-')[0];
             CardCode modelcode = new CardCode();
-            if (companyId == "8887700" && data.ClaimNumber != 10)
+            if (companyId == "888" && data.ClaimNumber != 10)
             {
                 var claimchick = data.ClaimNumber.ToString();
                 modelcode = db.CardCodes.Where(x => x.Code == claimchick && x.CardId == data.CardId && x.IsActive && !x.IsUsed).FirstOrDefault();
@@ -2476,7 +2484,7 @@ namespace DMS_TEST.Controllers
                         string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
                         NotificationHub objNotifHub = new NotificationHub();
                         Notification notification = new Notification();
-                        notification.SentTo = CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
+                        notification.SentTo = CardId.Split('-')[0] == "888" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -2787,8 +2795,9 @@ namespace DMS_TEST.Controllers
         //GetLastApproval
         public JsonResult GetLastApproval(string CardId, int Type = 3)
         {
+            DateTime datenow = DateTime.Now.Date;
             //Default is pharmacy=3
-            int EmpId = db.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
+            int EmpId = db.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= datenow && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
             var accption = db.Acceptions.Where(x => x.CompEmployeesId == EmpId && x.AcceptionFlag == true && x.ProvidersId == Type).OrderByDescending(d => d.Id).FirstOrDefault();
             if (accption == null)
             {
@@ -2820,7 +2829,8 @@ namespace DMS_TEST.Controllers
         }
         public JsonResult CheckType(string CardId)
         {
-            int EmpId = db.Comp_Employees.Where(c => c.CARD_ID == CardId && c.INS_START_DATE <= DateTime.Now && c.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
+            DateTime datenow = DateTime.Now.Date;
+            int EmpId = db.Comp_Employees.Where(c => c.CARD_ID == CardId && c.INS_START_DATE <= datenow && c.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
             var accptionType = db.Acceptions.Where(x => x.CompEmployeesId == EmpId).OrderByDescending(d => d.Id).FirstOrDefault().ApprovalType;
             if (accptionType == "Vip")
             {
@@ -3693,7 +3703,7 @@ namespace DMS_TEST.Controllers
                         //NotificationHub objNotifHub = new NotificationHub();
 
                         Notification notification = new Notification();
-                        notification.SentTo = roshita1.CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
+                        notification.SentTo = roshita1.CardId.Split('-')[0] == "888" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -3733,7 +3743,7 @@ namespace DMS_TEST.Controllers
                         //NotificationHub objNotifHub = new NotificationHub();
 
                         Notification notification = new Notification();
-                        notification.SentTo = roshita1.CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
+                        notification.SentTo = roshita1.CardId.Split('-')[0] == "888" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -4265,7 +4275,7 @@ namespace DMS_TEST.Controllers
                 {
                     if (data.Manager == "Daily")
                     {
-                        rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReportAfterBefore.rpt"));                        
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReportAfterBefore.rpt"));
                     }
                     else
                     {

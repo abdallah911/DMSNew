@@ -132,7 +132,7 @@ $(function () {
         }
     });
     $('#AddRays').on('select2:selecting', function (event) {
-        if (CompId == "8887700") {
+        if (CompId == "888") {
             SelectRayCompanyPending(event);
         }
         else {

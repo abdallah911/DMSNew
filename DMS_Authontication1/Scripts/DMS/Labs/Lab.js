@@ -28,7 +28,7 @@ $(function () {
     $('#Search').click(function () {
         if ($('#txtSearchCard').val() != "") {
             companid = $('#txtSearchCard').val().split('-')[0];
-            if (companid == "8887700") {
+            if (companid == "888") {
                 $('#phone').hide();
             }
             else {
@@ -389,7 +389,7 @@ $(function () {
     });
     $('#AddLab').on('select2:selecting', function (event) {
         if ($('#txtSearchCard').val() != '') {
-            if (companid == "8887700") {
+            if (companid == "888") {
                 if ($('#ddlDiagnoises').val().length != 0) {
                     if (haveClaim == 1) {
                         if ($('#ClaimNumber').val() != "") {
@@ -491,7 +491,7 @@ $(function () {
             Mediciens.push(Medicien);
         });
         if ($('#txtSearchCard').val() != "") {
-            if (companid == "8887700") {
+            if (companid == "888") {
                 $('#PhoneNumber').val("01000000001");
             }
             if ($('#PhoneNumber').val() != "" && $("#PhoneNumber").val().length == 11) {

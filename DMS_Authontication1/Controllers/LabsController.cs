@@ -176,7 +176,7 @@ namespace DMS_Authontication1.Controllers
         {
             var companyId = data.CardId.Split('-')[0];
             ApprovalCode modelcode = new ApprovalCode();
-            if (companyId == "8887700"&&data.ClaimNumber!=null)
+            if (companyId == "888"&&data.ClaimNumber!=null)
             {
                 var claimchick = data.ClaimNumber.ToString();
                 modelcode = db.ApprovalCodes.Where(x => x.Code == claimchick && x.Card_ID == data.CardId && x.IsActive).FirstOrDefault();
@@ -268,7 +268,7 @@ namespace DMS_Authontication1.Controllers
                         string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
                         NotificationHub objNotifHub = new NotificationHub();
                         Notification notification = new Notification();
-                        notification.SentTo = CardId.Split('-')[0] == "8887700" ? "AdminHelth": "Admin";
+                        notification.SentTo = CardId.Split('-')[0] == "888" ? "AdminHelth": "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -699,7 +699,7 @@ namespace DMS_Authontication1.Controllers
                 db.Entry(roshta).State = EntityState.Modified;
                 var companyId = roshta.CardId.Split('-')[0];
                 ApprovalCode modelcode = new ApprovalCode();
-                if (companyId == "8887700")
+                if (companyId == "888")
                 {
                     var claimchick = roshta.ClaimNumber.ToString();
                     modelcode = db.ApprovalCodes.Where(x => x.Code == claimchick && x.Card_ID == roshta.CardId).FirstOrDefault();
@@ -879,7 +879,7 @@ namespace DMS_Authontication1.Controllers
                         {
                             NotificationHub objNotifHub = new NotificationHub();
                             Notification notification = new Notification();
-                            notification.SentTo = CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
+                            notification.SentTo = CardId.Split('-')[0] == "888" ? "AdminHelth" : "Admin";
                             notification.CreatedBy = User.Identity.Name;
                             notification.CreatedDate = DateTime.Now;
                             notification.Type = 1;//pending
@@ -1016,7 +1016,7 @@ namespace DMS_Authontication1.Controllers
                     if (oneNotification == false)
                     {
                         Notification notification = new Notification();
-                        notification.SentTo = roshita1.CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
+                        notification.SentTo = roshita1.CardId.Split('-')[0] == "888" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -1048,7 +1048,7 @@ namespace DMS_Authontication1.Controllers
                         //NotificationHub objNotifHub = new NotificationHub();
 
                         Notification notification = new Notification();
-                        notification.SentTo = roshita1.CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
+                        notification.SentTo = roshita1.CardId.Split('-')[0] == "888" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending

@@ -8486,6 +8486,7 @@
     <Content Include="Views\ReportMain\ReportPrint.cshtml" />
     <Content Include="Views\GetApproval\Index.cshtml" />
     <Content Include="Views\Pharmacy\CardCode.cshtml" />
+    <Content Include="Views\Pharmacy\Wellcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
@@ -8887,7 +8888,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50600</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50700/</IISUrl>
+          <IISUrl>http://localhost:50600/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
