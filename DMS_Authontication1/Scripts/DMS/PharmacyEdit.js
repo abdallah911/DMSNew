@@ -34,7 +34,7 @@ $(function () {
         ServiceCode = data.RoshetaType;
         CardId = data.CardId;
         CompId = CardId.split('-')[0];
-        if (ServiceCode == "11602") {//Chronic
+        if (ServiceCode == "11602" || Manager == "Pharmacy_Doctor") {//Chronic
             $('.PackagePrice').attr('disabled', true);
             $('.Dose').attr('disabled', true);
             $('.Duration').attr('disabled', true);
@@ -173,13 +173,19 @@ $(function () {
         }
     });
     $('#AddMedicine').on('select2:selecting', function (event) {
-        if (ServiceCode != "11602") {
+        if (ServiceCode != "11602" && Manager != "Pharmacy_Doctor") {
             if (CompId == "888") {
                 SelectMedicienCompany(event);
             }
             else {
                 SelectMedicien(event);
             }
+        }
+
+        else if (ServiceCode == "11601" && Manager == "Pharmacy_Doctor") {
+            toastr.warning('Can not add medicine');
+            event.preventDefault();
+
         }
         else {
             toastr.warning('Can not add chronic medicine');
@@ -509,7 +515,7 @@ function SelectMedicienCompany(event) {
         dataType: 'json',
         data: { code: Code },
         success: function (r) {
-          
+
             MedicienCode = r.M_CODE;
             MedicienName = r.TRADE_NAME;
             DosageForm = r.DOSAGE_FORM;
@@ -1312,7 +1318,7 @@ function changeTotalDuration(button) {
 }
 function changeTotalUnits(button) {
     var row = $(button).closest("TR");
-    if (ServiceCode == "11602") {
+    if (ServiceCode == "11602" || Manager == "Pharmacy_Doctor") {
         var minimum = FixedTotalUnits[row[0].sectionRowIndex];
         if (parseInt(minimum) < parseInt($("TD", row).find(".TotalUnits").val())) {
             $("TD", row).find(".TotalUnits").val(parseInt(minimum))
