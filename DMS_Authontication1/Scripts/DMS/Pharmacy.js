@@ -1,5 +1,7 @@
 ﻿var input = document.getElementById("txtSearchCard");
 var CardId;
+var companid;
+var link;
 var dat1;
 var StartDate;
 var birthdate;
@@ -65,7 +67,7 @@ $(function () {
         $('#compEmp_BIRTH_DATE').val('');
         $('#insurance_LIVEL').val('');
         $('#ddEmp_CEILING_PERT').val('');
-        var companid = $('#txtSearchCard').val().split('-')[0];
+        companid = $('#txtSearchCard').val().split('-')[0];
         if (companid == "500142" || companid == "500103" || companid == "500125" || companid == "10560") {
             alert("هذا العميل لايحتاج موافقة علي الروشتات الخارجية علي ان يتم ادخال كافة البيانات والادوية علي السيستم");
 
@@ -195,8 +197,12 @@ $(function () {
                                                     //AddNationalId();
                                                     $('#CardsModal').modal('hide');
                                                     //Get ceiling and Limit
-                                                    GetLimit();
-
+                                                    if (companid == "888") {
+                                                        $("#ddlType").val(11601).change();
+                                                    }
+                                                    else {
+                                                        GetLimit();
+                                                    }
                                                     //Get Approvals
                                                     $.ajax({
                                                         type: "POST",
@@ -785,7 +791,7 @@ $(function () {
         }
     });
     $('#AddMedicine').on('select2:selecting', function (event) {
-        var companid = $('#txtSearchCard').val().split('-')[0];
+        //var companid = $('#txtSearchCard').val().split('-')[0];
         if ($('#txtSearchCard').val() != '') {
             if ($('#ddlType').val() != 0) {
 
@@ -915,7 +921,7 @@ $(function () {
             Mediciens.push(Medicien);
         });
         if ($('#txtSearchCard').val() != "") {
-            var companid = $('#txtSearchCard').val().split('-')[0];
+            //var companid = $('#txtSearchCard').val().split('-')[0];
             var te = "";
             if (companid == "888") {
                 te = "01000000001";
@@ -2028,7 +2034,7 @@ function changeTable(button) {
 function changeTotalDuration(button) {
     var MinDay = ($('#ddlType').val() == "11601") ? 5 : 1;
     var MaxDay = ($('#ddlType').val() == "11601") ? 14 : 28;
-    var companid = $('#txtSearchCard').val().split('-')[0];
+    //var companid = $('#txtSearchCard').val().split('-')[0];
     if (companid == "888") {
         MinDay = 1;
         MaxDay = 28;
@@ -2224,12 +2230,18 @@ function Calculation() {
 
 }
 function GetLimit() {
+    if (companid == "500120") {
+    link = '/Pharmacy/CellingAmountAirPort';
+    }
+    else {
+    link = '/Pharmacy/CellingAmount';
+    }
     if ($('#ddlType').val() != 0) {
         //Co-Payment
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: '/Pharmacy/CellingAmount',
+            url: link,
             data: {
                 id: CardId,
                 ServiceCode: $('#ddlType').val()
