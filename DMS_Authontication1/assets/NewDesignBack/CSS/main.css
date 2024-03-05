@@ -104,8 +104,9 @@ p {
   margin-right: 10px;
 }
 .navbar .nav-links.navbar-nav {
-  flex: inherit;
-  margin: 0 0 0 40px;
+    flex: inherit;
+    margin: 0 0 0 40px;
+    white-space: nowrap;
 }
 .navbar .sios-nav-link.nav-link {
   color: var(--color-text-sec);
@@ -241,6 +242,14 @@ p {
   color: var(--color-secondary);
   border: none;
 }
+.bell-dropdown + .dropdown-menu[data-bs-popper] {
+  top: 113%;
+  left: -100%;
+        
+    }
+    .bell-dropdown + .dropdown-menu[data-bs-popper] .dropdown-item {
+        font-size: 14px;
+    }
 .sios-overlay {
   background: var(--color-gradient);
   margin-bottom: var(--font-size-title);
@@ -369,6 +378,13 @@ form .sios-form-control,
   border: 2px solid #566084;
   border-radius: 20px;
   transition: all 0.2s ease-in-out; */
+}
+
+.has-value {
+    pointer-events: none;
+    font-size: 10px;
+    transform: translateY(-10px);
+    color: #828282;
 }
 
 .forLabel{
@@ -657,7 +673,7 @@ form .sios-form-control-2 {
   color: white;
   box-shadow: 0 0 5px#07061b4b;
 }
-.print-btn:focus,
+/*.print-btn:focus,
 .reset-btn:focus,
 .help-btn:focus,
 .previous-btn:focus,
@@ -667,7 +683,7 @@ form .sios-form-control-2 {
 .claims-search-btn:focus {
   background-color: #fff;
   color: var(--color-btn);
-}
+}*/
 @media (max-width: 767px) {
   .select-medicine-action {
     padding-left: 0px;

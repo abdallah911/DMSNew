@@ -3,13 +3,12 @@
     ViewBag.Title = "Pharmacy";
     Layout = "~/Views/Shared/_Layout_DashboardNew.cshtml";
 }
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+
 <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
-
-<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
-<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
-<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 <link rel="stylesheet" href="~/assets/HomeTemplete/css/responsive.css">
 @Html.Partial("_Cards")
 
@@ -52,10 +51,10 @@
                         <input style="block-size:fit-content"
                                class="bg-light me-2 w-25"
                                type="checkbox"
-                               id="HasApproval"
+                               id="approval"
                                name="Approval"
                                value="Bike" />
-                        <label class="" for="HasApproval"> Approval</label>
+                        <label class="" for="approval">Has Approval</label>
                     </div>
                 </div>
             </div>
@@ -74,24 +73,24 @@
                     <div class="forLabel">
 
                         @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "chronic-form-control mb-3 ps-3", @ReadOnly = "true" } })
-                        <span for="name">Name</span>
+                        <span class="if-has-value" for="compEmp.EMP_ANAME">Name</span>
 
                     </div>
 
                     <div class="forLabel">
                         @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "chronic-form-control mb-3 ps-3", @ReadOnly = "true" } })
-                        <span for="start-date">Start Date</span>
+                        <span class="if-has-value" for="start-date">Start Date</span>
                     </div>
                     <div class="forLabel">
                         @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "chronic-form-control mb-3 ps-3", @ReadOnly = "true" } })
 
-                        <span for="end-date">End Date</span>
+                        <span class="if-has-value" for="end-date">End Date</span>
                     </div>
 
                     <div class="forLabel">
                         @Html.Editor("ClaimNumber", new { htmlAttributes = new { @class = "chronic-form-control mb-3 ps-3", @id = "ClaimNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
 
-                        <span for="claim-number">Claim Number</span>
+                        <span class="if-has-value" for="claim-number">Claim Number</span>
                     </div>
 
                     <div class="forLabel">
@@ -117,7 +116,7 @@
                             @*<option value="" style="font-weight: 800"></option>
                                 <option value="1">قلب وأوعية دموية</option>*@
                         </select>
-                        <span for="diagnose">Diagnose</span>
+                        <span class="if-has-value" for="diagnose">Diagnose</span>
                     </div>
 
                     <div class="forLabel">
@@ -126,7 +125,7 @@
                             type="date"
                             name="birth-date"
                             required="required" />*@
-                        <span for="birth-date">Birth Date</span>
+                        <span class="if-has-value" for="birth-date">Birth Date</span>
                     </div>
                     <div class="col-sm-2" hidden>
                         @Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })
@@ -135,7 +134,7 @@
                     <div class="forLabel">
                         @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "chronic-form-control mb-3 ps-3", @ReadOnly = "true" } })
 
-                        <span for="company-percent">Company Percent</span>
+                        <span class="if-has-value" for="company-percent">Company Percent</span>
                     </div>
                     <div class="forLabel">
                         @Html.Editor("PrescriptionDate", new { htmlAttributes = new { @class = "chronic-form-control mb-3 ps-3", @ReadOnly = "true", @title = "لابد ان يكون ف اخر 7 ايام " } })
@@ -143,12 +142,12 @@
                             type="date"
                             name="prescription-date"
                             required="required" />*@
-                        <span for="prescription-date">Prescription Date</span>
+                        <span class="if-has-value" for="prescription-date">Prescription Date</span>
                     </div>
                     <div class="forLabel">
                         @Html.Editor("PhoneNumber", new { htmlAttributes = new { @class = "chronic-form-control mb-3 ps-3", @id = "PhoneNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
 
-                        <span for="phone-number">Phone Number</span>
+                        <span class="if-has-value" for="phone-number">Phone Number</span>
                     </div>
                     <div class="forLabel">
                         <select id="ddlType" class="chronic-form-control mb-3 ps-3">
@@ -167,7 +166,7 @@
                                 <option value="Chronic">Chronic</option>
                                 <option value="Doctor">Doctor</option>
                             </select>*@
-                        <span for="type">Type</span>
+                        <span class="if-has-value" for="type">Type</span>
                     </div>
                 </div>
 
@@ -199,7 +198,7 @@
                 </div>
                 <div class="row medicine-section-select">
                     <table class="container" id="Pharmacy">
-                        <thead class="flex-nowrap">
+                        <thead style=" white-space: nowrap; " class="flex-nowrap ">
                             <tr>
                                 <th scope="col">Medicien Code</th>
                                 <th scope="col" align="center">Name</th>
@@ -247,12 +246,17 @@
                         </div>
                     </div>
                     <div class="select-medicine-action m-auto d-flex justify-content-center col-3 col-sm-4 col-md-6 col-lg-4 ">
-                        <input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="phar-btn help-btn col" />
+
                         <input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="phar-btn reset-btn col ms-2" />
                         <input data-step="12" data-intro="Save Preception" id="submit" type="button" value="Dispense" class="phar-btn reset-btn col ms-2" />
                         @*<button type="button" class=" phar-btn help-btn col">Help</button>*@
 
                     </div>
+                    <div class=" d-flex justify-content-center  " style="width:fit-content">
+                        <input data-step="9" data-intro="Manual" style="float: left;" id="Manual" type="button" value="Manual" class="phar-btn help-btn col me-2" />
+                        <input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="phar-btn help-btn col" />
+                    </div>
+
                     @*<a data-step="11" style="float: left; margin-left:40px;" class="btn btn-primary" href="@Url.Action("GetFile","Pharmacy",new { fileName = "Pharmacy" })" download="PharmacyManual.pdf"><i class="fa fa-download"></i> Manual</a>*@
 
                 </div>

@@ -250,6 +250,39 @@
                 }
             });
         }
+
+        const gotChecked = () => {
+            const checked = document.querySelector(".got-checked");
+            const checkBox = document.getElementById("approval");
+
+            // Check if the checkbox is checked
+            if (checkBox.checked) {
+                // If checked, add the check icon
+                checked.innerHTML = "<i class='fas fa-check me-2'></i>";
+            } else {
+                // If not checked, remove the check icon
+                checked.innerHTML = "";
+            }
+        };
+
+        var inputsTranslate = document.querySelectorAll(".chronic-form-control");
+        var spansTranslate = document.querySelectorAll(".if-has-value");
+
+        // Convert NodeList to an array for iteration
+        inputsTranslate = Array.from(inputsTranslate);
+        spansTranslate = Array.from(spansTranslate);
+
+        inputsTranslate.forEach((input) => {
+            // Check if the input is disabled
+            if (input.disabled || input.readonly || input.value=="" ) {
+                spansTranslate.forEach((span) => {
+                    // Add the "has-value" class to the span
+                    span.classList.add("has-value");
+                });
+            }
+        });
+
+
     </script>
 
 </body>
