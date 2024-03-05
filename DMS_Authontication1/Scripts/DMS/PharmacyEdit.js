@@ -1055,10 +1055,16 @@ function SelectMedicien(event) {
     }
 }
 function getlimit() {
+    if (CompId == "500118" || CompId == "500119" || CompId == "500120"|| CompId == "500121"|| CompId == "500122") {
+        link = '/Pharmacy/CellingAmountEditAirPort';
+    }
+    else {
+        link = '/Pharmacy/CellingAmountEditPage';
+    }
     $.ajax({
         type: "POST",
         dataType: "json",
-        url: '/Pharmacy/CellingAmountEditPage',
+        url: link,
         data: {
             id: CardId,
             ServiceCode: ServiceCode,

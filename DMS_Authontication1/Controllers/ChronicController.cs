@@ -34,7 +34,14 @@ namespace DMS_TEST.Controllers
             //    return View(data);
             //}
             int CompId = Convert.ToInt32(id.Split('-')[0].ToString());
-
+            if (CompId.ToString().StartsWith("70") || CompId.ToString().StartsWith("10"))
+            {
+                if (DateTime.Now.Day > 5 && DateTime.Now.Day <= 20)
+                {
+                    ViewBag.Message = "Finish Dispence Date";
+                    return View(data);
+                }
+            }
             //chick if company is hold or not 
 
             var model = db.APPROVAL_BAD.Where(x => x.COMP_ID == CompId).FirstOrDefault();
