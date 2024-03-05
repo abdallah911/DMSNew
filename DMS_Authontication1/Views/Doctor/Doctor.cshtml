@@ -17,6 +17,10 @@
         opacity: 1;
     }
 </style>
+
+<div hidden>
+    <input id="AllLimit" name="AllLimit" value="" />
+</div>
 <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:10000;">
     <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
 </div>
@@ -31,8 +35,8 @@
     <div class="portlet-body">
 
         @*Roshta*@
-         @*@using (Html.BeginForm("Doctor", "Doctor", FormMethod.Post))
-        { }*@
+        @*@using (Html.BeginForm("Doctor", "Doctor", FormMethod.Post))
+            { }*@
         <div id="Roshta" class="row">
             <div class="form-group col-md-3">
                 <input type="text" class="form-control" id="TxtSearch" name="TxtSearch" placeholder="Click to select Approval" onkeyup='saveValue(this);' />
@@ -45,7 +49,7 @@
                 </label>
             </div>
         </div>
-        
+
 
         <div class="table-responsive">
             <table class="table" id="First">
@@ -54,7 +58,7 @@
                         @*<th><button id="AddDoctorAll" name="AddDoctorAll" class="btn btn-primary">All</button></th>*@
                         <th>
                         </th>
-                         <th>
+                        <th>
                             @Html.DisplayNameFor(model => model.Id)
                         </th>
                         <th>
@@ -187,16 +191,16 @@
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
 
 @*<link href="~/scripts/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
-<script type="text/javascript" src="~/scripts/jquery-ui-1.12.1.js"></script>
+    <script type="text/javascript" src="~/scripts/jquery-ui-1.12.1.js"></script>
 
-<script src="~/scripts/bootstrap.js"></script>
-<link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
-<script src="~/scripts/DataTables/jquery.dataTables.js"></script>
-<script src="~/scripts/DataTables/dataTables.bootstrap.js"></script>
+    <script src="~/scripts/bootstrap.js"></script>
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <script src="~/scripts/DataTables/jquery.dataTables.js"></script>
+    <script src="~/scripts/DataTables/dataTables.bootstrap.js"></script>
 
-<script src="~/scripts/bootbox.js"></script>*@
+    <script src="~/scripts/bootbox.js"></script>*@
 <script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
 
 
 
-<script src="~/scripts/DMS/Doctor.js?V=3.0"></script>
+<script src="~/scripts/DMS/Doctor.js?V=3.2"></script>

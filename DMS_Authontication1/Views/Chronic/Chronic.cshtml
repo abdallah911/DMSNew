@@ -49,23 +49,16 @@
 {
     <script>
         alert("No chronic data");
-        //var url = new URL(window.location.href);
-        //var id = url.searchParams.get("id");
-        //// disable card
-        //$.ajax({
-        //    dataType: "json",
-        //    url: '/Pharmacy/DeleteDisableCard',
-        //    data: {
-        //        CardId: id,
-        //    },
-        //    success: function (r) {
-        //    },
-        //    error: function (r) { }
-        //});
         window.location.replace("/Pharmacy/Pharmacy");
     </script>
 }
-
+@if (ViewBag.Message == "Finish Dispence Date")
+{
+    <script>
+        alert("تم انتهاء المده المقررة لصرف العلاج المزمن وهى حتى يوم 5 من كل شهر");
+        window.location.replace("/Pharmacy/Pharmacy");
+    </script>
+}
 @if (ViewBag.Message == "This Card doesn't have chronic medicines")
 {
     <script>
@@ -462,4 +455,4 @@
 @*AJAX*@
 <script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
 
-<script src="~/scripts/DMS/Chronic.js?V=3.5"></script>
+<script src="~/scripts/DMS/Chronic.js?V=3.6"></script>

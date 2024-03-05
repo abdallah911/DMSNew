@@ -1246,6 +1246,7 @@ function changeTable(button) {
 }
 function changeTotalDuration(button) {
 
+
     var MinDay = ($('#ddlType').val() == "11601") ? 5 : 1;
     var MaxDay = ($('#ddlType').val() == "11601") ? 14 : 28;
     var row = $(button).closest("TR");

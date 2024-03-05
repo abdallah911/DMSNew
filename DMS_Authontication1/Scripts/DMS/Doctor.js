@@ -15,6 +15,7 @@ var BasicDose;
 var BasicDuration;
 var BasicTotalUnits;
 var AnuualLimit;
+var companid = url.searchParams.get("id").split('-')[0];
 
 $(function () {
     ////add National Id
@@ -138,18 +139,58 @@ $(function () {
                                         }
 
                                         if (LimitBool == true) {
+                                            $("#insurance_LIVEL").val(0);
+                                            AnuualLimit = $('#AllLimit').val();
                                             Limit = 0;
-                                            //SecandCalculation();
+                                            SecandCalculation();
                                         }
                                         if (Copayment == true) {
                                             co = 100;
-                                            //SecandCalculation();
+                                            SecandCalculation();
                                         }
                                         if (DisregardCeiling == true) {
-                                            AnuualLimit = 30000;
+                                            //Co-Payment
+                                            $.ajax({
+                                                type: "POST",
+                                                dataType: "json",
+                                                url: '/Pharmacy/CellingAmount',
+                                                data: {
+                                                    id: id,
+                                                    ServiceCode: '11601'
+                                                },
+                                                success: function (r) {
+                                                    if (r.Validation == false) {
+                                                        // toastr.info(r.Message);
+                                                        //ClearCardData();
+                                                        alert(r.Message);
+                                                        //history.go(0);
+                                                        window.location.replace("/Pharmacy/Pharmacy");
+                                                        //window.location.reload();
+
+                                                    } else {
+                                                        $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
+                                                        AnuualLimit = r.Limit;
+                                                        $('#IsFamily').val(r.IsFamily);
+                                                        $('#IsPool').val(r.IsPool);
+                                                        if (r.CoInsurancelimit.INSURANCE_DAY >= 0) {
+                                                            $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
+                                                        } else {
+                                                            alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
+                                                            $("#insurance_LIVEL").val("0.001");
+
+                                                            $('#ddEmp_CEILING_PERT').val("0");
+                                                        }
+                                                        SecandCalculation();
+
+                                                    }
+                                                },
+                                                error: function (err) {
+                                                    alert("Failed to retrieve Company Annual Limit. please check your internet connection");
+                                                    location.reload();
+                                                }
+                                            });
 
                                         }
-                                        SecandCalculation();
                                         bootbox.dialog({
                                             title: 'Reasons',
                                             message: returndata + " ",
@@ -416,12 +457,17 @@ $(function () {
 
 //functions
 function GetLimit() {
-
+    if (companid == "500118" || companid == "500119" || companid == "500120" || companid == "500121" || companid == "500122") {
+        link = '/Pharmacy/CellingAmountAirPort';
+    }
+    else {
+        link = '/Pharmacy/CellingAmount';
+    }
     //Co-Payment
     $.ajax({
         type: "POST",
         dataType: "json",
-        url: '/Pharmacy/CellingAmount',
+        url: link,
         data: {
             id: id,
             ServiceCode: '11601'
@@ -436,6 +482,7 @@ function GetLimit() {
             } else {
                 co = r.CeilingPert;
                 AnuualLimit = r.Limit;
+                $('#AllLimit').val(r.AnnualLimit);
                 if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
                     Limit = r.CoInsurancelimit.INSURANCE_DAY;
                 } else {

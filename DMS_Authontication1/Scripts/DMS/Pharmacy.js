@@ -534,8 +534,46 @@ $(function () {
                                             });
                                         }
                                         if (DisregardCeiling == true) {
-                                            AnuualLimit = 30000;
+                                            $.ajax({
+                                                type: "POST",
+                                                dataType: "json",
+                                                url: '/Pharmacy/CellingAmount',
+                                                data: {
+                                                    id: CardId,
+                                                    ServiceCode: $('#ddlType').val()
+                                                },
+                                                success: function (r) {
+                                                    if (r.Validation == false) {
+                                                        // toastr.info(r.Message);
+                                                        //ClearCardData();
+                                                        alert(r.Message);
+                                                        //history.go(0);
+                                                        window.location.replace("/Pharmacy/Pharmacy");
+                                                        //window.location.reload();
+
+                                                    } else {
+                                                        $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
+                                                        AnuualLimit = r.Limit;
+                                                        $('#IsFamily').val(r.IsFamily);
+                                                        $('#IsPool').val(r.IsPool);
+                                                        if (r.CoInsurancelimit.INSURANCE_DAY >= 0) {
+                                                            $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
+                                                        } else {
+                                                            alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
+                                                            $("#insurance_LIVEL").val("0.001");
+
+                                                            $('#ddEmp_CEILING_PERT').val("0");
+                                                        }
+                                                    }
+                                                },
+                                                error: function (err) {
+                                                    alert("Failed to retrieve Company Annual Limit. please check your internet connection");
+                                                    location.reload();
+                                                }
+                                            });
                                             Calculation();
+                                            //AnuualLimit = 30000;
+                                            //Calculation();
                                         }
                                         if (ExternalPrescription == true) {
                                             $('#ClaimNumber').val(' ');
@@ -2230,11 +2268,11 @@ function Calculation() {
 
 }
 function GetLimit() {
-    if (companid == "500120") {
-    link = '/Pharmacy/CellingAmountAirPort';
+    if (companid == "500118" || companid == "500119" || companid == "500120" || companid == "500121" || companid == "500122") {
+        link = '/Pharmacy/CellingAmountAirPort';
     }
     else {
-    link = '/Pharmacy/CellingAmount';
+        link = '/Pharmacy/CellingAmount';
     }
     if ($('#ddlType').val() != 0) {
         //Co-Payment

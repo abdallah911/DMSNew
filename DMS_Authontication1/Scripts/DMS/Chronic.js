@@ -15,6 +15,7 @@ var BasicDuration;
 var BasicTotalUnits;
 var BasicPackagePrice;
 var AnuualLimit;
+var companid = url.searchParams.get("id").split('-')[0];
 var sumNoPay = 0;
 $(function () {
     ////bootbox.alert("السادة العملاء جاري تحديث بيانات العلاج الشهرى برجاء إعادة المحاولة بعد الساعة ١٢ و شكرا");
@@ -501,10 +502,16 @@ $(function () {
 
 //functions
 function GetLimit() {
+    if (companid == "500118" || companid == "500119" || companid == "500120" || companid == "500121" || companid == "500122") {
+        link = '/Pharmacy/CellingAmountAirPort';
+    }
+    else {
+        link = '/Pharmacy/CellingAmount';
+    }
     $.ajax({
         type: "POST",
         dataType: "json",
-        url: '/Pharmacy/CellingAmount',
+        url: link,
         data: {
             id: id,
             ServiceCode: '11602'
@@ -516,7 +523,6 @@ function GetLimit() {
                 window.location = '/Pharmacy/Pharmacy';
             }
             else {
-                debugger;
                 co = r.CeilingPert;
                 AnuualLimit = r.Limit;
                 //Limit = Math.round(r.CoInsurancelimit.INSURANCE_MONTH);
