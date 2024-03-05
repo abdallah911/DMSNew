@@ -1,0 +1,503 @@
+﻿@model DMS_Authontication1.ViewModel.PricingAggregateViewModelPage2
+
+
+@{
+    if (ViewBag != null)
+    {
+        ViewBag.Title = "Pricing Page 2";
+        Layout = "~/Views/Shared/_Layout_Proposal.cshtml";
+        var Errors = ViewBag.Errors;
+    }
+}
+
+@*@if (ViewBag.Errors != null)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewBag.Errors)
+                {
+                    <li>@error</li>
+                }
+            </ul>
+        </div>
+    }*@
+
+
+
+
+<!-- start section -->
+@section Styles{
+    <link rel="stylesheet" href="~/ProposalAssets/CSS/Porposal2.css" />
+}
+<!-- ////////////// Main Content ////////////// -->
+<div class="bg-grid-container">
+
+
+    @*<input hidden value="@ViewBag.MainId" type="number" name="MainProposalId">*@
+    <div class="grid-container" dir="rtl">
+        <div class="part1">
+            <div style="width: 95%; justify-content:center; gap:20px" class="prev-container" dir="ltr">
+                @Html.ActionLink("السابق", "PricingPage1", new { proposalMainId = Model.ProposalStepTwoes.FirstOrDefault().ProposalMainId }, new { @class = "prev-butn", style = "margin-top: 20px" })
+            </div>
+            <div>
+                <div style="height: 57px; margin:10px">
+                    <input class="home-input2" style="pointer-events: none; height: 45px"
+                           type="text"
+                           placeholder="سقف التغطية السنوي" />
+                </div>
+                <!-- <br /> -->
+                <div style="height: 57px; margin:10px">
+                    <input class="myInput home-input2"
+                           style="pointer-events: none; height: 45px;"
+                           type="text"
+                           placeholder="عدد المشتركين" />
+                </div>
+                <div style="height: 57px; margin:10px">
+                    <input class="myInput home-input2"
+                           style="pointer-events: none; height: 45px;"
+                           type="text"
+                           placeholder="الشبكة الطبية" />
+                </div>
+                <div style="height: 57px; margin:10px">
+                    <input class="myInput home-input2"
+                           style="pointer-events: none; height: 45px;"
+                           type="text"
+                           placeholder="درجة الاقامة" />
+                </div>
+                @*<div style="height: 57px; margin:10px">
+            <input class="myInput"
+                   style="pointer-events: none; height: 45px; margin-top:29x;"
+                   type="text"
+                   placeholder="السعر" />
+        </div>*@
+                <div style="height: 57px; margin:10px">
+                    <input class="myInput home-input2"
+                           style="pointer-events: none; height: 45px;"
+                           type="text"
+                           placeholder="العمر" />
+                </div>
+                <div style="height: 57px; margin:10px">
+                    <input class="myInput home-input2"
+                           style="pointer-events: none; height: 45px;"
+                           type="text"
+                           placeholder="متوسط الاعمار" />
+                </div>
+                <div style="height: 57px; margin:10px">
+                    <input class="myInput home-input2"
+                           style="pointer-events: none; height: 45px;"
+                           type="text"
+                           placeholder="لون الكارت" />
+                </div>
+                <div style="height: 57px; margin:10px">
+                    <input class="myInput home-input2"
+                           style="pointer-events: none; height: 45px;"
+                           type="text"
+                           placeholder="السماح بعمل فحوصات داخل المستشفيات" />
+                </div>
+                <div style="height: 57px; margin:10px">
+                    <input class="myInput home-input2"
+                           style="pointer-events: none; height: 45px;"
+                           type="text"
+                           placeholder="السماح بعمل علاج طبيعي داخل المستشفيات" />
+                </div>
+                <div style="height: 57px; margin:10px">
+                    <input class="myInput myInput-3 home-input2"
+                           style="pointer-events: none; height: 45px;"
+                           type="text"
+                           placeholder="السماح بعمل العيادة الخارجية داخل المستشفيات" />
+                </div>
+                <div style="height: 57px; margin:10px">
+                    <input class="myInput home-input2"
+                           style="pointer-events: none; height: 45px;"
+                           type="text"
+                           placeholder="السماح بخدمات الاسنان داخل المستشفيات" />
+                </div>
+                <div style="height: 57px; margin:10px">
+                    <input class="myInput home-input2"
+                           style="pointer-events: none; height: 45px;"
+                           type="text"
+                          placeholder="الحد الأقصى للحوادث" />
+                </div>
+                <div style="height: 57px; margin:10px">
+                    <input class="myInput home-input2"
+                           style="pointer-events: none; height: 45px;"
+                           type="text"
+                            placeholder="الحد الأقصى في حالات الوفاة" />
+                </div>
+            </div>
+        </div>
+
+        <div class="part2">
+            <div class="cate-container">
+                @{
+                    var catIndex = 1;
+                }
+                @for (var index = 0; index < Model.Catcount; index++)
+                {
+                    if (index % 4 == 0)
+                    {
+                        catIndex = 1;
+                    }
+                    else
+                    {
+                        catIndex = catIndex + 1;
+                    }
+                    <div class="cate@(catIndex) ">
+                        <button class="cate-title">الفئة @(index+1)</button>
+
+                        <div class="cate-parent">
+                            <div>
+                                <input type="text" disabled value="@Model.ProposalStepTwoes[index].AnnualCoverageCeiling" />
+                            </div>
+                            <div>
+                                <input type="text" disabled value="@Model.ProposalStepTwoes[index].ParticipantsCount" />
+                            </div>
+                            <div style="
+                      display: flex;
+                      flex-direction: column;
+
+                      align-items: center;
+                    ">
+                                <div style="width: 100%">
+                                    <div class="seleect-container">
+                                        <input type="text" disabled value="@Model.ProposalStepTwoes[index].MedicalNetwork.Name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="
+                    display: flex;
+                    flex-direction: column;
+
+                    align-items: center;
+                  ">
+                                <div style="width: 100%">
+                                    <div class="seleect-container">
+                                        <input type="text" disabled value="@Model.ProposalStepTwoes[index].ResidenceDegree.Name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="position: relative">
+                                <div style="
+                        position: absolute;
+                        display: flex;
+                        gap: 7%;
+                        left: 50%;
+                        top: 42.5%;
+                        width:90%;
+                        transform: translate(-50%, -50%);
+                      ">
+                                    <input disabled value="@Model.ProposalStepTwoes[index].MinAge" style="
+                          text-align: center;
+                          padding-right: 0;
+                          width: 100%;
+                          height: 34px;
+                        "
+                                           type="text"
+                                           placeholder="من" />
+                                    <input disabled value="@Model.ProposalStepTwoes[index].MaxAge" style="
+                          text-align: center;
+                          padding-right: 0;
+                          width: 100%;
+                          height: 34px;
+                        "
+                                           type="text"
+                                           placeholder="الى" />
+                                </div>
+                            </div>
+                            <div>
+                                <input type="text" disabled value="@Model.ProposalStepTwoes[index].AvgAge" />
+                            </div>
+                            <div style="
+                      display: flex;
+                      flex-direction: column;
+
+                      align-items: center;
+                    ">
+                                <div style="width: 100%">
+                                    <div class="seleect-container">
+                                        <input type="text" disabled value="@Model.ProposalStepTwoes[index].CardColor.Name" />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="position: relative;">
+
+                                <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
+                                    <div class="form-check">
+
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               disabled
+                                               id="ChecksInsideHospital@(index)_PriorApproval"
+                                               value="PriorApproval"
+                                               @(Model.ProposalStepTwoes[index].ChecksInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "") />
+                                        <label class="form-check-label" for="ChecksInsideHospital@(index)_PriorApproval">
+                                            موافقة مسبقة
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               disabled
+                                               id="ChecksInsideHospital@(index)_Yes"
+                                               value="Yes"
+                                               @(Model.ProposalStepTwoes[index].ChecksInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "") />
+                                        <label class="form-check-label" for="ChecksInsideHospital@(index)_Yes">
+                                            نعم
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               disabled
+                                               id="ChecksInsideHospital@(index)_No"
+                                               value="No"
+                                               @(Model.ProposalStepTwoes[index].ChecksInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "") />
+                                        <label class="form-check-label" for="ChecksInsideHospital@(index)_No">
+                                            لا
+                                        </label>
+                                    </div>
+                                </section>
+                            </div>
+                            <div style="position: relative;">
+                                <!-- <section
+          class="d-flex mt-2 justify-content-center align-items-center"
+        > -->
+                                <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
+                                    <div class="form-check">
+
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               disabled
+                                               @(Model.ProposalStepTwoes[index].PhysicalTherapyInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "")
+                                               id="PhysicalTherapyInsideHospital@(index)_PriorApproval"
+                                               value="PriorApproval" />
+                                        <label class="form-check-label" for="PhysicalTherapyInsideHospital@(index)_PriorApproval">
+                                            موافقة مسبقة
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               disabled
+                                               @(Model.ProposalStepTwoes[index].PhysicalTherapyInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "")
+                                               id="PhysicalTherapyInsideHospital@(index)_Yes"
+                                               value="Yes" />
+                                        <label class="form-check-label" for="PhysicalTherapyInsideHospital@(index)_Yes">
+                                            نعم
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               disabled
+                                               @(Model.ProposalStepTwoes[index].PhysicalTherapyInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "")
+                                               id="PhysicalTherapyInsideHospital@(index)_No"
+                                               value="No" />
+                                        <label class="form-check-label" for="PhysicalTherapyInsideHospital@(index)_No">
+                                            لا
+                                        </label>
+                                    </div>
+                                </section>
+                            </div>
+
+                            <div style="position: relative;">
+                                <!-- <section
+          class="d-flex mt-2 justify-content-center align-items-center"
+        > -->
+                                <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
+                                    <div class="form-check">
+
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               disabled
+                                               @(Model.ProposalStepTwoes[index].OutsideClincInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "")
+                                               id="OutsideClincInsideHospital@(index)_PriorApproval"
+                                               value="PriorApproval" />
+                                        <label class="form-check-label" for="OutsideClincInsideHospital@(index)_PriorApproval">
+                                            موافقة مسبقة
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               disabled
+                                               @(Model.ProposalStepTwoes[index].OutsideClincInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "")
+                                               id="OutsideClincInsideHospital@(index)_Yes"
+                                               value="Yes" />
+                                        <label class="form-check-label" for="OutsideClincInsideHospital@(index)_Yes">
+                                            نعم
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               disabled
+                                               @(Model.ProposalStepTwoes[index].OutsideClincInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "")
+                                               id="OutsideClincInsideHospital@(index)_No"
+                                               value="No" />
+                                        <label class="form-check-label" for="OutsideClincInsideHospital@(index)_No">
+                                            لا
+                                        </label>
+                                    </div>
+                                </section>
+                            </div>
+                            <div style="position: relative;">
+                                <!-- <section
+          class="d-flex mt-2 justify-content-center align-items-center"
+        > -->
+                                <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
+                                    <div class="form-check">
+
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               disabled
+                                               @(Model.ProposalStepTwoes[index].DentalServicesInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "")
+                                               id="DentalServicesInsideHospital@(index)_PriorApproval"
+                                               value="PriorApproval" />
+                                        <label class="form-check-label" for="DentalServicesInsideHospital@(index)_PriorApproval">
+                                            موافقة مسبقة
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               disabled
+                                               @(Model.ProposalStepTwoes[index].DentalServicesInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "")
+                                               id="DentalServicesInsideHospital@(index)_Yes"
+                                               value="Yes" />
+                                        <label class="form-check-label" for="DentalServicesInsideHospital@(index)_Yes">
+                                            نعم
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               disabled
+                                               @(Model.ProposalStepTwoes[index].DentalServicesInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "")
+                                               id="DentalServicesInsideHospital@(index)_No"
+                                               value="No" />
+                                        <label class="form-check-label" for="DentalServicesInsideHospital@(index)_No">
+                                            لا
+                                        </label>
+                                    </div>
+                                </section>
+                            </div>
+                            <div>
+                                <input disabled type="text"  value="@Model.ProposalStepTwoes[index].Accidents" />
+                            </div>
+                            <div>
+                                <input disabled type="text"  value="@Model.ProposalStepTwoes[index].Death" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+
+    </div>
+
+    <div dir="rtl">
+        <div class="d-flex justify-content-center text-center my-5 rounded" style="background: #c8ced2">
+            <h1 class="py-3 px-5 mb-4" style="color: #808487; width: fit-content; Background: #fff; border-radius: 0 0 20px 20px">التسعير</h1>
+        </div>
+
+        @using (Html.BeginForm("SaveNewPrices", "ProposalMain", FormMethod.Post))
+        {
+            <input hidden name="Catcount" value="@Model.Catcount" />
+            <input hidden name="ProposalMainId" value="@Model.ProposalStepTwoes.FirstOrDefault().ProposalMainId" />
+            for (int i = 0; i < Model.Catcount; i++)
+            {
+                <div class="m-4">
+
+                    <div>
+                        <p class="fw-bold" style="font-size:25px">رقم الفئة: @(i+1)</p>
+                    </div>
+                    <div class="d-flex gap-5">
+                        <p class="fw-bold" style="font-size:20px;">السعر: </p>
+                        <p class="w-75">
+                            @Html.TextBoxFor(m => m.NewPrices[i])
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+            }
+
+            <div class="d-flex justify-content-center mt-3">
+                <input class="btn" style="text-decoration:none;color: #fff; background: #6e7085;padding: 10px 30px;border-radius: 10px;font-weight: 700;font-size: 20px;box-shadow: 0 0 2px #14061b4d;cursor: pointer; " type="submit" value="حفظ الأسعار الجديدة" />
+            </div>
+            <div style="display: flex; flex-direction:column; align-items:center; gap: 0.8rem; margin-top: 10px; ">
+                <div>
+                    <a href="~/ProposalAssets/Files/EmpolyeeFiles/@Model.ProposalStepTwoes.FirstOrDefault().EmployeesDataFileName" class="btn" style="text-decoration:none;color: #fff; background: #6e7085;padding: 10px 43px;border-radius: 10px;font-weight: 700;font-size: 20px;box-shadow: 0 0 2px #14061b4d;cursor: pointer;" target="_blank">بيانات الموظفين</a>
+                </div>
+                <div>
+                    @Html.ActionLink("التالي", "PricingPage3", new { proposalMainId = Model.ProposalStepTwoes.FirstOrDefault().ProposalMainId }, new { @class = "btn", style = "text-decoration:none;color: #fff; background: #6e7085;padding: 10px 77px;border-radius: 10px;font-weight: 700;font-size: 20px;box-shadow: 0 0 2px #14061b4d;cursor: pointer;" })
+                </div>
+            </div>
+
+        }
+    </div>
+
+
+    
+</div>
+
+@section Scripts{
+    <script>
+
+        window.onbeforeunload = function () {
+            var formData = [];
+            console.log("hellooooooooooooooooooooooooooooo");
+            // Loop through each form item
+            for (var index = 0; index < @Model.Catcount; index++) {
+                var formItem = {
+                    NewPrice: document.getElementsByName("Model.NewPrices[" + index + "]")[0].value,
+                    // Add other fields as needed
+                };
+
+                // Add the formItem to the formData array
+                formData.push(formItem);
+                console.log(formItem);
+            }
+
+            // Store the formData in sessionStorage
+            sessionStorage.setItem('formDataPricing', JSON.stringify(formData));
+
+        };
+       
+        // Function to restore the form data from sessionStorage
+        function restoreFormData() {
+                // The form has been submitted, load and restore the formData
+                var storedData = sessionStorage.getItem('formDataPricing');
+                if (storedData) {
+                    var formData = JSON.parse(storedData);
+
+                    // Loop through each form item and populate the corresponding fields
+                    for (var index = 0; index < formData.length; index++) {
+                        document.getElementsByName("Model.NewPrices[" + index + "]")[0].value = formData[index].NewPrice;
+                    }
+                }
+        }
+        window.onload = restoreFormData;
+        function goToIndex() {
+            window.location.href = '/ProposalMain/Index';
+        }
+        function updateFileNameLabel(input, labelId) {
+            if (input.files.length > 0) {
+                var fileName = input.files[0].name;
+                $("#" + labelId).text(fileName);
+            }
+        }
+        function goBack() {
+                window.history.back();
+        }
+    </script>
+    }
+    <!-- end section -->

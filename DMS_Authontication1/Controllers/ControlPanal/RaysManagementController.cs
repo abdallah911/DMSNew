@@ -24,13 +24,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
         // GET: RaysManagement
         public ActionResult Index()
         {
-            if (User.IsInRole("Rays_Admin"))
-            {
-                var user = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
-                long userProvider = Convert.ToInt64(user.Provider);
-                return View(db.Serv_Ray.Where(x => x.LAB_CODE == userProvider).ToList());
-            }
-            return View(db.Serv_Ray.ToList());
+            return View();
         }
 
         // GET: RaysManagement/Details/5
@@ -200,6 +194,94 @@ namespace DMS_Authontication1.Controllers.ControlPanal
             db.Serv_Ray.Remove(serv_Ray);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public JsonResult RayList(int sEcho, int iDisplayStart, int iDisplayLength, string sSearch)
+        {
+            if (User.IsInRole("Rays_Admin"))
+            {
+                var user = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                long userProvider = Convert.ToInt64(user.Provider);
+                // return View(db.Serv_Ray.Where(x => x.LAB_CODE == userProvider).ToList());
+            }
+            //return View(db.Serv_Ray.ToList());
+            if (sSearch != null)
+            {
+                if (User.IsInRole("Rays_Admin"))
+                {
+                    var user = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                    long userProvider = Convert.ToInt64(user.Provider);
+                    var result = new
+                    {
+                        sEcho = sEcho,
+                        aaData = db.Serv_Ray.OrderBy(m => m.Id)
+                    .Where(r => (r.SERV_ANAME.Contains(sSearch) || r.GRUOP_NAME.Contains(sSearch) || r.GRUOP_TYPE.Contains(sSearch)) && r.LAB_CODE == userProvider)
+                    .Skip(iDisplayStart).Take(iDisplayLength).ToList(),
+
+                        iTotalRecords = db.Serv_Ray.Count(),
+                        iTotalDisplayRecords = db.Serv_Ray.Count()
+                    };
+                    //return Ok(result);
+                    return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                else
+                {
+                    var result = new
+                    {
+                        sEcho = sEcho,
+                        aaData = db.Serv_Ray.OrderBy(m => m.Id)
+                        .Where(r => r.SERV_ANAME.Contains(sSearch) || r.GRUOP_NAME.Contains(sSearch) || r.GRUOP_TYPE.Contains(sSearch))
+                        .Skip(iDisplayStart).Take(iDisplayLength).ToList(),
+
+                        iTotalRecords = db.Serv_Ray.Count(),
+                        iTotalDisplayRecords = db.Serv_Ray.Count()
+                    };
+                    //return Ok(result);
+                    return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+            }
+            else
+            {
+                if (User.IsInRole("Rays_Admin"))
+                {
+                    var user = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                    long userProvider = Convert.ToInt64(user.Provider);
+                    var result = new
+                    {
+                        sEcho = sEcho,
+                        aaData = db.Serv_Ray.OrderBy(m => m.Id).Where(r => r.LAB_CODE == userProvider)
+                   .Select(l => new Serv_Ray
+                   {
+                       LAB_CODE = l.LAB_CODE,
+                       SERV_CODE = l.SERV_CODE,
+                       SERV_ANAME = l.SERV_ANAME,
+                       SERV_AMOUNT = l.SERV_AMOUNT,
+                       GRUOP_NAME = l.GRUOP_NAME,
+                       GRUOP_TYPE = l.GRUOP_TYPE,
+                       Id = l.Id
+
+                   }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
+
+                        iTotalRecords = db.Serv_Ray.Count(),
+                        iTotalDisplayRecords = db.Serv_Ray.Count()
+                    };
+                    return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                else
+                {
+                    var result = new
+                    {
+                        sEcho = sEcho,
+                        aaData = db.Serv_Ray.OrderBy(m => m.Id)
+                   .Skip(iDisplayStart).Take(iDisplayLength).ToList(),
+
+                        iTotalRecords = db.Serv_Ray.Count(),
+                        iTotalDisplayRecords = db.Serv_Ray.Count()
+                    };
+                    return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+            }
+
+
         }
 
         protected override void Dispose(bool disposing)

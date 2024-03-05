@@ -1,0 +1,242 @@
+﻿
+@{
+    ViewBag.Title = "CompaniesChronicDelivery";
+    Layout = "~/Views/Shared/_Layout_DashboardNew.cshtml";
+}
+<style>
+    tr {
+        text-align: center;
+    }
+</style>
+
+<!-- start section -->
+<div style="display: flex; flex-direction: column">
+    <section style="min-height: 100vh;display: flex;flex-direction: column;flex-grow: 1;">
+        <div class="sios-overlay container-fluid">
+            <div class="container">
+                <i class="fa-solid fa-house"></i>
+                <h3>Companies Chronic Search</h3>
+            </div>
+        </div>
+
+        <section>
+            <form name="formValidation"
+                  id="formValidation"
+                  action="Pharmacy_Chronicdelivery.html">
+                <div class="container chronic-search-section">
+                    <div class="chronic-search-input row row-cols-sm-3 col-lg-8 m-auto m-sm-0">
+                        <div class="forLabel">
+                            @Html.DropDownList("ddlCompanies", null, null, htmlAttributes: new { @class = "chronic-form-control mb-3 ps-3", @id = "ddlCompanies" })
+                            <span for="company-percent">Company</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3"
+                                   type="date" id="Date"
+                                   name="prescription-date"
+                                   required="required" />
+                            <span for="prescription-date">End Date</span>
+                        </div>
+                        <div class="forLabel">
+                            <select class="chronic-form-control mb-3 ps-3"
+                                    name="Select Group" id="ddlGroups"
+                                    required>
+                                <option value="" style="font-weight: 800"></option>
+                                <option value="" style="font-weight: 800"></option>
+                            </select>
+                            <span for="Select Group">Select Group</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3"
+                                   type="text" id="CardId"
+                                   name="CardID"
+                                   required="required" />
+                            <span for="CardID">Card ID</span>
+                        </div>
+                    </div>
+                    <div class="d-flex chronic-search-action mb-2">
+                        <input id="ResetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="reset-btn" />
+                        <input id="Print" type="button" value="Print" class="print-btn ms-2" />
+                        <input id="Search" type="button" value="Search" class="chronic-search-btn ms-2" />
+                    </div>
+                </div>
+            </form>
+        </section>
+        <section id="chronicMedicinesSection">
+            <div class="sios-overlay container-fluid">
+                <div class="container">
+                    <i class="fa-solid fa-house"></i>
+                    <h3 class="">Companies Chronic Medicines</h3>
+                </div>
+            </div>
+
+            <div class="chronic-section-select">
+                @*<div id="searchAction"
+                         class="search-data-head justify-content-between align-items-center mx-3 mb-4">
+                        <div class="d-flex align-items-center">
+                            <p class="me-2 mb-0">show</p>
+                            <select class="claims-form-control p-1 me-2"
+                                    style="width: 60px"
+                                    name=""
+                                    id="">
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="75">75</option>
+                                <option value="100">100</option>
+                            </select>
+                            <p class="mb-0">entries</p>
+                        </div>
+
+                        <div class="sios-search d-flex mb-0 ms-sm-auto">
+                            <div class="search-field ms-auto">
+                                <input type="text"
+                                       id="claimsSearchInput"
+                                       class="search-inp" />
+                                <button type="button" class="search-btn">Search</button>
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="data-content container-fluid overflow-x-scroll">
+                    <table class="container-fluid" id="Index">
+                        <thead class="flex-nowrap text-center">
+                            <tr>
+                                <th scope="col">CardId</th>
+                                <th scope="col">Company Group</th>
+                                <th scope="col" align="center">Medicien Code</th>
+                                <th scope="col" align="center">Name</th>
+                                <th scope="col">Dosage</th>
+                                <th scope="col">Package Size</th>
+                                <th scope="col">Package Price</th>
+                                <th scope="col">Unit Number</th>
+                                <th scope="col">Unit Price</th>
+                                <th scope="col">Dose</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Total Duration</th>
+                                <th scope="col">Total Units</th>
+                                <th scope="col">Amount</th>
+                                @*<th scope="col">Medicine Type</th>*@
+                                <th scope="col">Month</th>
+                                <th scope="col">Act</th>
+                            </tr>
+                        </thead>
+                        <tbody id="searchData" class="search-data flex-nowrap text-center">
+                        </tbody>
+                    </table>
+                </div>
+                @*<div id="searchDataCount"
+                         class="search-data-count align-items-center mx-3 mb-4 mt-5">
+                        <div class="d-flex align-items-center">
+                            <p class="mb-0">
+                                Showing <span>x</span> to <span>x</span> of
+                                <span>x</span> entries
+                            </p>
+                        </div>
+
+                        <div class="sios-search d-flex mb-0 ms-sm-auto">
+                            <a class="previous-btn btn" href="/Pharmacy/Edit/10772385">Previous</a><a class="next-btn btn ms-2" href="/Pharmacy/Details/10772385">Next</a>
+                        </div>
+                    </div>*@
+            </div>
+        </section>
+
+        <section id="chronicMedicinesSection">
+            <div class="sios-overlay container-fluid">
+                <div class="container">
+                    <i class="fa-solid fa-house"></i>
+                    <h3 class="">Companies Chronic Medicines</h3>
+                </div>
+            </div>
+
+            <div class="chronic-section-select">
+                @*<div id="searchAction"
+                         class="search-data-head justify-content-between align-items-center mx-3 mb-4">
+                        <div class="d-flex align-items-center">
+                            <p class="me-2 mb-0">show</p>
+                            <select class="claims-form-control p-1 me-2"
+                                    style="width: 60px"
+                                    name=""
+                                    id="">
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="75">75</option>
+                                <option value="100">100</option>
+                            </select>
+                            <p class="mb-0">entries</p>
+                        </div>
+
+                        <div class="sios-search d-flex mb-0 ms-sm-auto">
+                            <div class="search-field ms-auto">
+                                <input type="text"
+                                       id="claimsSearchInput"
+                                       class="search-inp" />
+                                <button type="button" class="search-btn">Search</button>
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="data-content container-fluid overflow-x-scroll">
+                    <table class="container-fluid" id="Counts">
+                        <thead class="flex-nowrap text-center">
+                            <tr>
+                                <th>
+                                    Total Counts
+                                </th>
+                                <th>
+                                    Total Cards
+                                </th>
+                                <th>
+                                    Total Value
+                                </th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody id="searchData" class="search-data flex-nowrap text-center">
+                            <tr>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    0
+                                </td>
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        @*<section>
+                <div class="sios-overlay container-fluid mt-3">
+                    <div class="container">
+                        <i class="fa-solid fa-house"></i>
+                        <h3>Count</h3>
+                    </div>
+                </div>
+                <div class="count-section container">
+                    <div class="row text-center">
+                        <h5 class="col-4">Total Counts</h5>
+                        <h5 class="col-4">Total Cards</h5>
+                        <h5 class="col-4">Total Value</h5>
+                        <h5 class="col-4">0</h5>
+                        <h5 class="col-4">0</h5>
+                        <h5 class="col-4">0</h5>
+                    </div>
+                    <div class="my-4 m-auto border-bottom border-2"></div>
+                </div>
+            </section>*@
+    </section>
+</div>
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/DMS/CompaniesChronicDelivery.js?V=1"></script>
+<script>
+    $(document).ready(function () {
+        $("#PharmacyPage").removeClass("pharmacy-active");
+        $("#IndexClaim").removeClass("claims-active");
+        $("#CompaniesChronicDeliveryNew").addClass("chronicdelivery-active");
+    });
+</script>

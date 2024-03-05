@@ -187,7 +187,7 @@ $(function () {
         }
     });
     $('#AddLabs').on('select2:selecting', function (event) {
-        if (CompId == "8887700") {
+        if (CompId == "888") {
             SelectRayCompanyPending(event);
         }
         else {
@@ -370,7 +370,7 @@ function Calculation() {
     if (Limit > AnuualLimit || Limit == 0) {
         Limit = AnuualLimit;
     }
-    if (Limit != 0) {
+    if (Limit != 0 ) {
         ValueCredit = (total * (co / 100)).toFixed(2);
         if ((Limit * (co / 100)) <= (ValueCredit)) {
             $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));

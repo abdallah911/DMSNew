@@ -1,6 +1,7 @@
 ﻿var input = document.getElementById("txtSearchCard");
 var CardId;
 var dat1;
+var dat2;
 var Genderr;
 var Age;
 var dosse;
@@ -50,9 +51,20 @@ $(function () {
                                 parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
                             );
                         var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
+                         dat2 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
                     }
                     else {
                         dat1 = null;
+                        dat2 = null;
+                    }
+                    if (r[i].TERMINATE_DATE != null) {
+                        //end date
+                        var MyDate_String_Value1 = r[i].TERMINATE_DATE;
+                        var value1 = new Date
+                            (
+                                parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
+                            );
+                        var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
                     }
                     var data = "<tr >" +
                         "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Select(this);'></Button>" + "</td>" +
@@ -75,21 +87,23 @@ $(function () {
                     firstDate = new Date(parseFloat(r[0].INS_END_DATE.replace(/(^.*\()|([+-].*$)/g, '')));
                     diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
                     var EndDate = dat1;
-                    //var today = new Date();
-                    //var dd = today.getDate();
-                    //var mm = today.getMonth(); //January is 0!
-                    //var yyyy = today.getFullYear();
-                    //var CurrentDate = new Date(yyyy, mm, dd);
-                    //if (EndDate != "") {
-                    //    newDate = EndDate.split('/').reverse().join('.');
-                    //} else {
-                    //    newDate = "";
-                    //}
 
-                    //var date = new Date(newDate);
-                    // today = mm + '/' + dd + '/' + yyyy;
 
-                    //if (date > CurrentDate || newDate == "null") {
+                    var today = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth(); //January is 0!
+                    var yyyy = today.getFullYear();
+                    var CurrentDate = new Date(yyyy, mm, dd);
+                    if (EndDate != "") {
+                        newDate = EndDate.split('/').reverse().join('.');
+                    } else {
+                        newDate = "";
+                    }
+
+                    var date = new Date(newDate);
+                     today = mm + '/' + dd + '/' + yyyy;
+
+                    if (date > CurrentDate || newDate == "null") {
                     $('#txtSearchCard').val(CardId);
                     $('#compEmp_EMP_ANAME').val(ArName);
                     $('#compEmp_INS_END_DATE').val(EndDate);
@@ -225,27 +239,27 @@ $(function () {
 
                         }
                     });
-                    //}
-                    //else {
-                    //    bootbox.dialog({
-                    //        title: 'Alert!',
-                    //        message: ' Expired Card',// "Roshita ID : " + r,
-                    //        buttons: {
-                    //            Ok: {
-                    //                label: "Ok",
-                    //                className: 'btn-info',
-                    //                callback: function () {
-                    //                    location.reload();
-                    //                }
-                    //            }
-                    //        }
-                    //    });
-                    //    //bootbox.alert("Expired Card");
+                    }
+                    else {
+                        bootbox.dialog({
+                            title: 'Alert!',
+                            message: ' Expired Card',// "Roshita ID : " + r,
+                            buttons: {
+                                Ok: {
+                                    label: "Ok",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        location.reload();
+                                    }
+                                }
+                            }
+                        });
+                        //bootbox.alert("Expired Card");
 
 
 
 
-                    //}
+                    }
                 } else if (r.length == 0) {
                     alert(' Invalid Card Number ');
                     $('#CardsModal').modal('hide');
@@ -263,7 +277,7 @@ $(function () {
 
         });
     });
-    
+
     $('#From').datepicker({
         onSelect: function (dateStr) {
             datestr = dateStr.toString();

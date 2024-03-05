@@ -146,10 +146,10 @@ namespace DMS_Authontication1.Controllers
                             rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCostCsentr2.rpt"));
                             break;
                         case "1-10":
-                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCode2.rpt"));
+                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCode.rpt"));
                             break;
                         case "1-11":
-                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCodeandleva2.rpt"));
+                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCodeandleval.rpt"));
                             break;
                         default:
                             return View();
@@ -179,13 +179,13 @@ namespace DMS_Authontication1.Controllers
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmp.rpt"));
                         break;
                     case "2-2":
-                        rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpOldCmp.rpt"));
-                        break;
-                    case "2-3":
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpY.rpt"));
                         break;
-                    case "2-4":
+                    case "2-3":
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpYLimit.rpt"));
+                        break;
+                    case "2-4":
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpOldCmp.rpt"));
                         break;
                     case "2-5":
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpYOldCmp.rpt"));
@@ -335,10 +335,10 @@ namespace DMS_Authontication1.Controllers
                             rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCostCsentr2.rpt"));
                             break;
                         case "1-10":
-                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCode2.rpt"));
+                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCode.rpt"));
                             break;
                         case "1-11":
-                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCodeandleva2.rpt"));
+                            rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportOperationChangeCodeandleval.rpt"));
                             break;
                         default:
                             return View();
@@ -368,13 +368,13 @@ namespace DMS_Authontication1.Controllers
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmp.rpt"));
                         break;
                     case "2-2":
-                        rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpOldCmp.rpt"));
-                        break;
-                    case "2-3":
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpY.rpt"));
                         break;
-                    case "2-4":
+                    case "2-3":
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpYLimit.rpt"));
+                        break;
+                    case "2-4":
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpOldCmp.rpt"));
                         break;
                     case "2-5":
                         rd.Load(Path.Combine(Server.MapPath("~/Reports/OperationReport"), "ReportEmpYOldCmp.rpt"));
@@ -1224,23 +1224,80 @@ namespace DMS_Authontication1.Controllers
                     rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LossRatioReport.rpt"));
                     nam = "Loss Ratio Report";
                     break;
-                //case 1:
-                //    rd.Load(Path.Combine(Server.MapPath("~/Reports/PrintingReports"), "OrderWithoutPrint.rpt"));
-                //    nam = "Order Without Print";
-                //    break;
-                //case 2:
-                //    rd.Load(Path.Combine(Server.MapPath("~/Reports/PrintingReports"), "PrintWithoutReview.rpt"));
-                //    nam = "Print Without Review";
-                //    break;
-                //case 3:
-                //    rd.Load(Path.Combine(Server.MapPath("~/Reports/PrintingReports"), "PrintWithReview.rpt"));
-                //    nam = "Print With Review";
-                //    break;
-                //case 4:
-                //    rd.Load(Path.Combine(Server.MapPath("~/Reports/PrintingReports"), "PrintWithDelivery.rpt"));
-                //    nam = "Print With Delivery";
-                //    break;
+                case 1:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LossRatioManagerReportComplete.rpt"));
+                    nam = "Loss Ratio Manager Report Complete Summary";
+                    break;
+                case 2:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LossRatioManagerReportCompleteDetails.rpt"));
+                    nam = "Loss Ratio Manager Report Complete Details";
+                    break;
+                case 3:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LossRatioManagerReportCurrent.rpt"));
+                    nam = "Loss Ratio Manager Report Current Summary";
+                    break;
+                case 4:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LossRatioManagerReportCurrentDetails.rpt"));
+                    nam = "Loss Ratio Manager Report Current Details";
+                    break;
+                case 5:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LossRatioCRMReportComplete.rpt"));
+                    nam = "Loss Ratio CRM Report Complete Summaty";
+                    break;
+                case 6:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LossRatioCRMReportCompleteDetails.rpt"));
+                    nam = "Loss Ratio CRM Report Complete Deatils";
+                    break;
+                case 7:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LossRatioCRMReportCurrent.rpt"));
+                    nam = "Loss Ratio CRM Report Current Summary";
+                    break;
+                case 8:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LossRatioCRMReportCurrentDetails.rpt"));
+                    nam = "Loss Ratio CRM Report Current Details";
+                    break;
+                case 9:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LosingCompaniesReport.rpt"));
+                    nam = "Losing Companies Report";
+                    break;
+                case 10:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "TopCompaniesReport.rpt"));
+                    nam = "Top Companies Report";
+                    break;
+                case 11:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LosingCompaniesReportTop10.rpt"));
+                    nam = "Losing Companies Report Top 10";
+                    break;
+                case 12:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "TopCompaniesReportTop10.rpt"));
+                    nam = "Top Companies Report Top 10";
+                    break;
 
+                case 13:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LossRatioStateReport.rpt"));
+                    nam = "Loss Ratio State Report";
+                    break;
+
+                case 14:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LossRatioLastReport.rpt"));
+                    nam = "Loss Ratio Renewal Report";
+                    break;
+
+                case 15:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LossRatioReportCompareContract.rpt"));
+                    nam = "Loss Ratio Report Compare Contract";
+                    break;
+
+                case 16:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LossRatioManagerReportCompleteCompare.rpt"));
+                    nam = "Loss Ratio Manager Report Complete Compare";
+                    break;
+
+                case 17:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports/LoseRatioReports"), "LossRatioManagerReportCurrentCompare.rpt"));
+                    nam = "Loss Ratio Manager Report Current Compare";
+                    break;
+               
                 default:
                     return View();
             }

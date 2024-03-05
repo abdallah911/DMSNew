@@ -1,0 +1,178 @@
+int comp1, comp2, rel1 = 0, rel2 = 0;
+            string cc1, cc2;
+            string crd1, crd2, cls1, cls2;
+            DateTime card1, card2, dat1, dat2;
+            View_Report showreport = new View_Report();
+
+            
+            comp1 = FromCompOperationReport.Text == string.Empty ? 0 : Convert.ToInt32(FromCompOperationReport.Text);
+            comp2 = ToCompOperationReport.Text == string.Empty ? 99999999 : Convert.ToInt32(ToCompOperationReport.Text);
+            cc1 = " ";
+            cc2 = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
+            rel1 = 2;
+            rel2 = 99999999;
+
+            crd1 = FromCardOperationReport.Text == string.Empty ? "0" : FromCardOperationReport.Text;
+            crd2 = ToCardOperationReport.Text == string.Empty ? "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" : ToCardOperationReport.Text;
+            cls1 = " ";
+            cls2 = "zzzzzzz";
+
+
+            card1 = (DateTime)FromDateOperationReport.SelectedDate;
+            card2 = (DateTime)ToDateOperationReport.SelectedDate;
+
+            dat1 = (DateTime)FromDateActiveOperationReport.SelectedDate;
+            dat2 = (DateTime)ToDateActiveOperationReport.SelectedDate;
+
+            ReportDocument repo = new ReportDocument();
+
+            repo.SetDatabaseLogon("APP", "12369");
+            repo.SetParameterValue("comp1", comp1);
+            repo.SetParameterValue("comp2", comp2);
+            repo.SetParameterValue("crda1", card1);
+            repo.SetParameterValue("crda2", card2);
+            repo.SetParameterValue("dat1", dat1);
+            repo.SetParameterValue("dat2", dat2);
+            repo.SetParameterValue("crd1", crd1);
+            repo.SetParameterValue("crd2", crd2);
+            repo.SetParameterValue("cls1", cls1);
+            repo.SetParameterValue("cls2", cls2);
+            repo.SetParameterValue("rel1", rel1);
+            repo.SetParameterValue("rel2", rel2);
+            repo.SetParameterValue("cc1", cc1);
+            repo.SetParameterValue("cc2", cc2);
+
+            if (comp1 != comp2)
+            {
+
+                switch (TypeReportOperation.SelectedIndex)
+                {
+                    case 0:
+
+
+                        repo = new ReportOperationAdd();                                                                                               
+                      
+                        break;
+                    case 1:
+                        repo = new ReportOperationClose();
+                      
+                        break;
+
+                    case 2:
+
+                        repo = new ReportOperationChangeClass();
+
+                        
+                        break;
+                    case 3:
+
+                       repo = new ReportOperationReActive();
+                                                
+                        break;
+
+                    case 4:
+                       repo = new ReportOperationChangeName();
+                                              
+                        break;
+
+                    case 5:
+                        repo = new ReportOperationMissingCard();
+                        
+                        break;
+
+                    case 6:
+                        repo = new ReportOperationReplecmentCard();
+                        
+                        break;
+                    case 7:
+                        repo = new ReportOperationChangePhoto();
+                                                
+                        break;
+                    case 8:
+                        repo = new ReportOperationChangeCostCsentr();
+                                                
+                        break;
+                    default:
+                        break;
+                    case 9:
+
+                        repo = new ReportOperationChangeCode();
+
+                        
+                        break;
+                    case 10:
+
+                        repo1 = new ReportOperationChangeCodeandleval();
+                                                
+                        break;
+                }
+            }
+            else if (comp1 == comp2)
+            {
+                switch (TypeReportOperation.SelectedIndex)
+                {
+                    case 0:
+                        
+                            repo = new ReportOperationAdd2();
+
+                        break;
+                    case 1:
+
+                        repo = new ReportOperationClose2();
+
+                        
+                        break;
+
+                    case 2:
+
+                        repo = new ReportOperationChangeClass2();
+
+                       
+                        break;
+                    case 3:
+
+                        repo = new ReportOperationReActive2();
+                                              
+                        break;
+
+                    case 4:
+                       repo = new ReportOperationChangeName2();
+                                               
+                        break;
+
+                    case 5:
+                       repo = new ReportOperationMissingCard2();
+                                                
+                        break;
+
+                    case 6:
+                        repo = new ReportOperationReplecmentCard2();
+
+                        break;
+                    case 7:
+                        repo = new ReportOperationChangePhoto2();
+
+                    
+                        break;
+                    case 8:
+                       repo = new ReportOperationChangeCostCsentr2();
+
+                      
+                        break;
+
+                    default:
+                        break;
+                    case 9:
+
+                       repo = new ReportOperationChangeCode();
+
+                      
+                        break;
+                    case 10:
+
+                       repo = new ReportOperationChangeCodeandleval();
+
+                        break;
+
+                }
+            }

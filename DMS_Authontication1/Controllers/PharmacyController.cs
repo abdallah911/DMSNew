@@ -417,8 +417,9 @@ namespace DMS_TEST.Controllers
         {
             try
             {
+                DateTime datenow = DateTime.Now.Date;
                 //Default is pharmacy=3
-                int EmpId = db.Comp_Employees.Where(x => x.CARD_ID == id && x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
+                int EmpId = db.Comp_Employees.Where(x => x.CARD_ID == id && x.INS_START_DATE <= datenow && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
                 var accption = db.Acceptions.Where(x => x.CompEmployeesId == EmpId && x.AcceptionFlag == true && x.ProvidersId == 3).OrderByDescending(d => d.Id).FirstOrDefault();
                 if (accption == null)
                 {
@@ -568,6 +569,13 @@ namespace DMS_TEST.Controllers
                     {
                         return Json(new { Validation = false, Message = "تم انتهاء مدةالتعاقد لهذه الشركة ", Limit = 0, CeilingPert = 0 });
 
+                    }
+                    if (nextEmployeecontract.TERMINATE_DATE != null)
+                    {
+                        if (nextEmployeecontract.TERMINATE_DATE.Value.Month <= (DateTime.Now.Month + 1))
+                            return Json(new { Validation = false, Message = "تم انتهاء مدةالتعاقد لهذه الشركة ", Limit = 0, CeilingPert = 0 });
+                        else
+                            emp = nextEmployeecontract;
                     }
                     emp = nextEmployeecontract;
                 }
@@ -2378,20 +2386,33 @@ namespace DMS_TEST.Controllers
         public JsonResult MedicinesGroupValiadtionAll(string CardId, string MedicineCode)
         {
             DateTime MonthlyDate = DateTime.UtcNow.Date.AddDays(-28);
+            DateTime CurrentDate = DateTime.UtcNow.Date;
             var Roshitas = db.Roshitas.Where(r => r.CardId == CardId)
              .Join(db.RoshitaDetails, x => x.Id, y => y.RoshitaID, (x, y) => new { x, y })
-             .Where(l => l.x.CreatedDate >= MonthlyDate && (l.x.Manager == "Monthly" || l.x.Manager == "Pharmacy_Chronic")).Select(x => x.y.MedicienCode).ToList();
+             .Where(l => l.y.MedicienCode == MedicineCode && l.x.CreatedDate >= MonthlyDate && (l.x.Manager == "Monthly" || l.x.Manager == "Pharmacy_Chronic")).ToList();
+            List<string> RoshitaCompare = new List<string>();
+            foreach (var item in Roshitas.Where(w => w.x.Manager == "Monthly"))
+            {
+                DateTime DateCompare = item.x.CreatedDate.Value.AddDays(item.y.TotalDuration).Date;
+                if (CurrentDate <= DateCompare)
+                {
+                    RoshitaCompare.Add(item.y.MedicienCode);
+                }
+            }
+            RoshitaCompare.AddRange(Roshitas.Where(w => w.x.Manager == "Pharmacy_Chronic").Select(x => x.y.MedicienCode).ToList());
+
             //DAily
             DateTime DailyDate = DateTime.UtcNow.Date.AddDays(-5);
             var RoshitasDailies = db.Roshitas.Where(r => r.CardId == CardId)
              .Join(db.RoshitaDetails, x => x.Id, y => y.RoshitaID, (x, y) => new { x, y })
              .Where(l => l.x.CreatedDate >= DailyDate && l.x.Manager == "Daily").Select(x => x.y.MedicienCode).ToList();
-            Roshitas.AddRange(RoshitasDailies);
+            RoshitaCompare.AddRange(RoshitasDailies);
+
 
             MedicineData currentMedicineData = db.MedicineDatas.Where(x => x.M_CODE == MedicineCode).FirstOrDefault();
             List<MedicineData> Groups = new List<MedicineData>();
             bool Samegroup = false;
-            foreach (var item in Roshitas)
+            foreach (var item in RoshitaCompare)
             {
                 MedicineData Group = new MedicineData();
                 if (item != null)//not include first medicine
@@ -2423,7 +2444,7 @@ namespace DMS_TEST.Controllers
             }
             var companyId = data.CardId.Split('-')[0];
             CardCode modelcode = new CardCode();
-            if (companyId == "8887700" && data.ClaimNumber != 10)
+            if (companyId == "888" && data.ClaimNumber != 10)
             {
                 var claimchick = data.ClaimNumber.ToString();
                 modelcode = db.CardCodes.Where(x => x.Code == claimchick && x.CardId == data.CardId && x.IsActive && !x.IsUsed).FirstOrDefault();
@@ -2477,7 +2498,7 @@ namespace DMS_TEST.Controllers
                         string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
                         NotificationHub objNotifHub = new NotificationHub();
                         Notification notification = new Notification();
-                        notification.SentTo = CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
+                        notification.SentTo = CardId.Split('-')[0] == "888" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -2757,15 +2778,25 @@ namespace DMS_TEST.Controllers
         public JsonResult MedicinesDurationValiadtion(string CardId, string MedicineCode)
         {
             DateTime MonthlyDate = DateTime.UtcNow.Date.AddDays(-28);
+            DateTime CurrentDate = DateTime.UtcNow.Date;
             var Roshitas = db.Roshitas.Where(r => r.CardId == CardId)
              .Join(db.RoshitaDetails, x => x.Id, y => y.RoshitaID, (x, y) => new { x, y })
              .Where(l => l.y.MedicienCode == MedicineCode && l.x.CreatedDate >= MonthlyDate && (l.x.Manager == "Monthly" || l.x.Manager == "Pharmacy_Chronic")).ToList();
+            List<Roshita> RoshitaCompare = new List<Roshita>();
+            foreach (var item in Roshitas.Where(w => w.x.Manager == "Monthly"))
+            {
+                DateTime DateCompare = item.x.CreatedDate.Value.AddDays(item.y.TotalDuration).Date;
+                if (CurrentDate <= DateCompare)
+                {
+                    RoshitaCompare.Add(item.x);
+                }
+            }
             //DAily
             DateTime DailyDate = DateTime.UtcNow.Date.AddDays(-5);
             var RoshitasDailies = db.Roshitas.Where(r => r.CardId == CardId)
              .Join(db.RoshitaDetails, x => x.Id, y => y.RoshitaID, (x, y) => new { x, y })
              .Where(l => l.y.MedicienCode == MedicineCode && l.x.CreatedDate >= DailyDate && l.x.Manager == "Daily").ToList();
-            if (Roshitas.Count == 0 && RoshitasDailies.Count == 0)
+            if (Roshitas.Where(w => w.x.Manager == "Pharmacy_Chronic").Count() == 0 && RoshitaCompare.Count == 0 && RoshitasDailies.Count == 0)
             {
                 //add medicine
                 return new JsonResult { Data = false, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -2778,8 +2809,9 @@ namespace DMS_TEST.Controllers
         //GetLastApproval
         public JsonResult GetLastApproval(string CardId, int Type = 3)
         {
+            DateTime datenow = DateTime.Now.Date;
             //Default is pharmacy=3
-            int EmpId = db.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= DateTime.Now && x.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
+            int EmpId = db.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= datenow && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
             var accption = db.Acceptions.Where(x => x.CompEmployeesId == EmpId && x.AcceptionFlag == true && x.ProvidersId == Type).OrderByDescending(d => d.Id).FirstOrDefault();
             if (accption == null)
             {
@@ -2811,8 +2843,13 @@ namespace DMS_TEST.Controllers
         }
         public JsonResult CheckType(string CardId)
         {
-            int EmpId = db.Comp_Employees.Where(c => c.CARD_ID == CardId && c.INS_START_DATE <= DateTime.Now && c.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
+            DateTime datenow = DateTime.Now.Date;
+            int EmpId = db.Comp_Employees.Where(c => c.CARD_ID == CardId && c.INS_START_DATE <= datenow && c.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
             var accptionType = db.Acceptions.Where(x => x.CompEmployeesId == EmpId).OrderByDescending(d => d.Id).FirstOrDefault().ApprovalType;
+            if (accptionType == null)
+            {
+                return new JsonResult { Data = false, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
             if (accptionType == "Vip")
             {
                 return new JsonResult { Data = true, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -3109,6 +3146,23 @@ namespace DMS_TEST.Controllers
         //Main Roshta
         [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
         public ActionResult Index()
+        {
+            var context = new ApplicationDbContext();
+
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.ddlUsers = new SelectList(context.Users.ToList(), "UserName", "UserName", User.Identity.Name);
+            }
+            else if (User.IsInRole("Pharmacy_Admin"))
+            {
+                var CurrentUser = context.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                ViewBag.ddlUsers = new SelectList(context.Users.Where(x => x.Provider == CurrentUser.Provider).ToList(), "UserName", "UserName", User.Identity.Name);
+            }
+            return View();
+        }
+        //Main Roshta
+        [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
+        public ActionResult IndexClaim()
         {
             var context = new ApplicationDbContext();
 
@@ -3684,7 +3738,7 @@ namespace DMS_TEST.Controllers
                         //NotificationHub objNotifHub = new NotificationHub();
 
                         Notification notification = new Notification();
-                        notification.SentTo = roshita1.CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
+                        notification.SentTo = roshita1.CardId.Split('-')[0] == "888" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -3724,7 +3778,7 @@ namespace DMS_TEST.Controllers
                         //NotificationHub objNotifHub = new NotificationHub();
 
                         Notification notification = new Notification();
-                        notification.SentTo = roshita1.CardId.Split('-')[0] == "8887700" ? "AdminHelth" : "Admin";
+                        notification.SentTo = roshita1.CardId.Split('-')[0] == "888" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
@@ -4254,7 +4308,14 @@ namespace DMS_TEST.Controllers
                 }
                 else
                 {
-                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReport.rpt"));
+                    if (data.Manager == "Daily")
+                    {
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReportAfterBefore.rpt"));
+                    }
+                    else
+                    {
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReport.rpt"));
+                    }
                 }
                 var y = db.RoshitaDetails.Where(r => r.RoshitaID == data.Id && r.IsDealed == true)
                    .Join(db.MedicineDatas, r => r.MedicienCode, m => m.M_CODE, (r, m) => new { r, m })
@@ -4267,8 +4328,14 @@ namespace DMS_TEST.Controllers
                     TotalUnits = Convert.ToInt32(d.r.TotalUnits),//count
                     Amount = d.r.Amount,//
                     PaymentGroup = d.r.PaymentGroup,//type
-                    MedicineNoPay = d.r.MedicineNoPay
+                    MedicineNoPay = d.r.MedicineNoPay,
+                    RealAmount = Convert.ToDouble(d.m.UNIT_PRICE) * Convert.ToDouble(d.r.TotalUnits),
                 }).ToList();
+                if (y.Count() == 0)
+                {
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReport.rpt"));
+
+                }
                 rd.SetDataSource(y);
                 if (string.IsNullOrEmpty(patient.EMP_ENAME) || patient.EMP_ENAME == "NULL")
                 {
@@ -4683,6 +4750,24 @@ namespace DMS_TEST.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
+        public ActionResult CompaniesChronicDeliveryNew()
+        {
+
+            var CurrentUser = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+            //int userProvider = Convert.ToInt32(CurrentUser.Provider);
+            var medCards = db.Med_Card.Where(m => (m.PROVIDER_CODE.Contains(CurrentUser.Provider) || m.PROVIDER_CODE.Contains("1268")) && m.LOOK_01 == 0)
+                .Join(db.Contract_Comp, m => m.C_COMP_ID, c => c.C_COMP_ID, (m, c) => new { m, c }).Select(
+                l => new
+                {
+                    value = l.m.C_COMP_ID,
+                    text = l.m.C_COMP_ID + "||" + l.c.C_ENAME,
+                }).Distinct().ToList();
+            ViewBag.ddlcompanies = new SelectList(medCards, "value", "text");
+
+            return View();
+        }
+
         public JsonResult CompanyGroupsList(int CompId)
         {
             var CurrentUser = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
@@ -4854,6 +4939,515 @@ namespace DMS_TEST.Controllers
             public double Amount { get; set; }
             public bool IsDealed { get; set; }
             public string PaymentGroup { get; set; }
+        }
+        #endregion
+
+        #region AirPort
+        public JsonResult CellingAmountAirPort(string id, string ServiceCode)
+        {
+            double PersonNoPay = 0;
+            string Message = "";
+            string StaticServiceCode = ServiceCode;
+            ServiceCode = ServiceCode == "11604"||ServiceCode== "11601" ? "11603" : ServiceCode;
+            int _IntServiceCode = Convert.ToInt32(ServiceCode);
+            string _CompId = id.Split('-')[0];
+            string MainService = ServiceCode.Substring(0, 3);
+            var CurrentDate = DateTime.Now.Date;
+            Comp_Employees emp = new Comp_Employees();
+            emp = db.Comp_Employees.Where(c => c.CARD_ID == id && c.INS_START_DATE <= CurrentDate && c.INS_END_DATE >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+
+            if (ServiceCode == "11602")
+            {
+
+                //string compardatestr = "20/" + ((DateTime.Now.Day <= 20) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString(); 
+                string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
+                //string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
+                DateTime compardate = DateTime.ParseExact(compardatestr, "dd/MM/yyyy", null);
+
+                if ((emp.INS_END_DATE < compardate) && !(emp.CARD_ID.Split('-')[0].Contains("500")))
+                {
+                    var nextEmployeecontract = db.Comp_Employees.Where(c => c.CARD_ID == id).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    if (nextEmployeecontract == null)
+                    {
+                        return Json(new { Validation = false, Message = "تم انتهاء مدةالتعاقد لهذه الشركة ", Limit = 0, CeilingPert = 0 });
+
+                    }
+                    if (nextEmployeecontract.CONTRACT_NO <= emp.CONTRACT_NO)
+                    {
+                        return Json(new { Validation = false, Message = "تم انتهاء مدةالتعاقد لهذه الشركة ", Limit = 0, CeilingPert = 0 });
+
+                    }
+                    if (nextEmployeecontract.TERMINATE_DATE != null)
+                    {
+                        if (nextEmployeecontract.TERMINATE_DATE.Value.Month <= (DateTime.Now.Month + 1))
+                            return Json(new { Validation = false, Message = "تم انتهاء مدةالتعاقد لهذه الشركة ", Limit = 0, CeilingPert = 0 });
+                        else
+                            emp = nextEmployeecontract;
+                    }
+                    emp = nextEmployeecontract;
+                }
+            }
+
+            //provider service permision 
+            var provider = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+            if (provider != null)
+            {
+                var permission = db.ProviderServicesPermissions.Where(x => x.IsDeleted == false && x.ServiceCode == _IntServiceCode
+                && (x.ProviderName == provider.Provider || x.ProviderName == "ALL")
+                && (x.CompId == _CompId || x.CompId == "ALL" || x.CardId == id)).ToList().OrderByDescending(x => x.Id);
+                var _permision = permission.Where(x => x.CardId == id || x.ClassCode == emp.CLASS_CODE).FirstOrDefault();
+                if (_permision == null)
+                {
+                    _permision = permission.Where(x => x.CompId == "ALL" || x.CompId == _CompId).FirstOrDefault();
+                }
+                //ProviderServicesPermission _permision2 = db.ProviderServicesPermissions.Where(x => x.IsDeleted == false && x.ServiceCode == _IntServiceCode && 
+                //(x.ProviderName == provider.Provider || x.ProviderName == "ALL") && (x.CardId == id || x.CompId == "ALL" || ((x.ClassCode == "" || x.ClassCode == null) ? x.CompId == _CompId : (x.CompId == _CompId && x.ClassCode == emp.CLASS_CODE)))).OrderByDescending(x => x.Id).FirstOrDefault();
+                if (_permision != null && _permision.IsActive == false)
+                {
+                    if (_permision.CardId == "All" || _permision.CompId == "All" || _permision.CardId == id)
+                    {
+                        return Json(new { Validation = false, Message = "هذا الكارت او مقدم الخدمه ليس له صلاحيه للصرف لهذه الخدمه... برجاء الرجوع للإداره الطبيه ", Limit = 0, CeilingPert = 0 });
+                    }
+                    else if (_permision.ClassCode == emp.CLASS_CODE)
+                    {
+                        return Json(new { Validation = false, Message = "هذا الكارت او مقدم الخدمه ليس له صلاحيه للصرف لهذه الخدمه... برجاء الرجوع للإداره الطبيه ", Limit = 0, CeilingPert = 0 });
+                    }
+                    else if ((_permision.CardId == "" || _permision.CardId == null) && (_permision.ClassCode == null || _permision.ClassCode == "") && (_permision.CompId == _CompId || _permision.CompId == "ALL"))
+                    {
+                        return Json(new { Validation = false, Message = "هذا الكارت او مقدم الخدمه ليس له صلاحيه للصرف لهذه الخدمه... برجاء الرجوع للإداره الطبيه ", Limit = 0, CeilingPert = 0 });
+                    }
+                }
+            }
+            if (emp != null)
+            {
+                double CompContractClassMAX_AMOUNT = 0;
+                double MaxServiceAmount = 0;
+                double CeilingPert;
+                double MaxSubServiceAmount;
+                bool type = false;
+                string isfamily = "";
+                string ispool = "";
+                //bool hasException = false;
+                var remainingconsumption = db.RemainConsumptions.Where(x => x.CARD_ID == id && x.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
+                if (remainingconsumption != null)
+                {
+                    if (remainingconsumption.REMAINING >= 0)
+                    {
+                        CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value;
+                        type = true;
+                    }
+                    else
+                    {
+                        var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
+                        if (accption == null)
+                        {
+                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
+                        }
+                        var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
+                        if (reasons != null)
+                        {
+                            CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value;
+                            type = true;
+                        }
+                        else
+                        {
+                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0 });
+                        }
+                    }
+                }
+                var CompContractClassEmp = db.CompContractClassEmps.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.CARD_ID == id).FirstOrDefault();
+                if (CompContractClassEmp == null)
+                {
+                    var classLimit = db.CompContractClasses.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
+                    CompContractClassMAX_AMOUNT = Convert.ToDouble(classLimit.MAX_AMOUNT * 0.85);
+                    isfamily = classLimit.FOR_FAMILY;
+                }
+                else
+                {
+                    CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
+                    isfamily = CompContractClassEmp.FOR_FAMILY;
+                }
+                type = false;
+
+                var DataService1 = new Comp_Customized_D_D();
+                var DataService = db.Comp_Customized_D_D_Emp.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.SER_SERV == ServiceCode && c.CARD_ID == id).FirstOrDefault();
+                if (DataService != null)
+                {
+                    ispool = DataService.POLL_CONSUMPTION;
+                    var max_serv = db.COMP_CUSTOMIZED_D_EMP.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.D_SERV_CODE == MainService && c.CARD_ID == id).FirstOrDefault();
+                    MaxServiceAmount = (max_serv == null || max_serv.CEILING_AMT == null) ? Convert.ToDouble(CompContractClassMAX_AMOUNT) : Convert.ToDouble(max_serv.CEILING_AMT);
+                    //ispool = max_serv.POLL_CONSUMPTION;
+                }
+                else if (DataService == null)
+                {
+                    DataService1 = db.Comp_Customized_D_D.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE && c.CONTRACT_NO == emp.CONTRACT_NO && c.SER_SERV == ServiceCode).FirstOrDefault();
+                    if (DataService1 != null)
+                    {
+                        ispool = DataService1.POLL_CONSUMPTION;
+                        var max_serv = db.COMP_CUSTOMIZED_D.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.CLASS_CODE == emp.CLASS_CODE && c.D_SERV_CODE == MainService).FirstOrDefault();
+                        MaxServiceAmount = (max_serv == null || max_serv.CEILING_AMT == null) ? Convert.ToDouble(CompContractClassMAX_AMOUNT) : Convert.ToDouble(max_serv.CEILING_AMT);
+                        //ispool = max_serv.POLL_CONSUMPTION;
+
+                    }
+
+                }
+                //Ceiling pert
+                if (DataService != null)
+                {
+                    CeilingPert = DataService.CEILING_PERT != null ? Convert.ToDouble(DataService.CEILING_PERT) : 100;
+                    MaxSubServiceAmount = (DataService.CEILING_AMT == null) ? MaxServiceAmount : Convert.ToDouble(DataService.CEILING_AMT);
+
+                }
+                else if (DataService1 != null)
+                {
+                    CeilingPert = DataService1.CEILING_PERT != null ? Convert.ToDouble(DataService1.CEILING_PERT) : 100;
+                    MaxSubServiceAmount = (DataService1.CEILING_AMT == null) ? MaxServiceAmount : Convert.ToDouble(DataService1.CEILING_AMT);
+                }
+                else
+                {
+                    Message = "هذه الخدمه غير مغطاه برجاء الرجوع للاداره الطبيه";
+                    CeilingPert = 100;
+                    MaxSubServiceAmount = 0;
+                    return Json(new { Validation = false, Message = Message, Limit = 0, CeilingPert = 0 });
+
+                }
+                double Available = 0;
+                double Limit = 0;
+                List<Roshita> AcumlatorList = new List<Roshita>();
+                var EmpCode = id.Split('-')[2];
+                var CompCode = id.Split('-')[0];
+                if (isfamily == "Y")
+                {
+                    AcumlatorList = db.Roshitas.Where(r => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", r.CardId) > 0
+                    && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                     && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                }
+                //else if (ispool == "Y")
+                //{
+                //    AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                //     && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                //}
+                else
+                {
+                    AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
+                     && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
+                }
+                if (ServiceCode == "11602")
+                {
+                    PersonNoPay = (from roshita in db.Roshitas
+                                   join details in db.RoshitaDetails
+                                         on roshita.Id equals details.RoshitaID
+                                   where roshita.CardId == id && roshita.Manager == "Pharmacy_Chronic"
+                                   && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= emp.INS_START_DATE && roshita.CreatedDate < emp.INS_END_DATE
+                                   select new
+                                   {
+                                       Amount = details.Amount,
+                                   }).ToList().Sum(r => r.Amount);
+                }
+                List<Roshita> copyacumlator = new List<Roshita>();
+                copyacumlator.AddRange(AcumlatorList);
+                for (int i = 0; i < copyacumlator.Count(); i++)
+                {
+                    var item = copyacumlator[i];
+                    var chickpermision = (from roshitaacception in db.RoshitaAcceptions
+                                          join cardaception in db.CardAcceptionReasons
+                                                on roshitaacception.AcceptionId equals cardaception.AcceptionId
+                                          where roshitaacception.RoshitaId == item.Id && (cardaception.AcceptionReasonsId == 1 || cardaception.AcceptionReasonsId == 2)
+                                          select new
+                                          {
+                                              id = cardaception.AcceptionReasonsId,
+                                          }).ToList();
+                    if (chickpermision.Count() > 0)
+                    {
+                        AcumlatorList.Remove(item);
+                    }
+                }
+
+                //Main consumption
+                double AcumlatorAmount = 0;
+                foreach (var item in AcumlatorList)
+                {
+                    AcumlatorAmount += item.CompanyPayment;
+                }
+                AcumlatorAmount -= PersonNoPay;
+                Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
+                double annualLimit = Available;
+                //Service consumption
+                List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
+                double AcumlatorServiceAmount = 0;
+                foreach (var item in AcumlatorServiceList)
+                {
+                    AcumlatorServiceAmount += item.CompanyPayment;
+                }
+                AcumlatorServiceAmount -= PersonNoPay;
+                double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
+                //SubService consumption
+                //List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
+                //double AcumlatorSubServiceAmount = 0;
+                //foreach (var item in AcumlatorSubServiceList)
+                //{
+                //    AcumlatorSubServiceAmount += item.CompanyPayment;
+                //}
+                //AcumlatorSubServiceAmount -= PersonNoPay;
+                //double SubServiceAvailable = (MaxSubServiceAmount - AcumlatorSubServiceAmount) < 0 ? 0 : MaxSubServiceAmount - AcumlatorSubServiceAmount;
+                //limit
+                Limit = (Available >= ServiceAvailable) ? ServiceAvailable : Available;
+                //Limit = (Limit >= SubServiceAvailable) ? SubServiceAvailable : Limit;
+                //}
+                //polling
+                if (remainingconsumption != null)
+                {
+                    Limit = (double)(remainingconsumption.REMAINING.Value < Limit ? remainingconsumption.REMAINING : Limit);
+                }
+                if (ispool == "Y")
+                {
+                    Limit = (double)(db.CONSUMPTION_POOL.Where(r => r.COMP_ID == emp.C_COMP_ID).FirstOrDefault().REMAINING);
+
+                }
+                bool Validation = Limit > 0 ? true : false;
+                Message = Validation ? "Ok" : "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد";
+                //Message = Validation ? "Ok" : "Exceeded his annual contract limit";
+                //Co-insurance
+                double nopaylast21day = 0;
+                Co_Insurance_01 CoInsurancelimit2 = new Co_Insurance_01();
+                COMP_CUSTOMIZED_D_D_MED_EMP CustemizedMedEmp = new COMP_CUSTOMIZED_D_D_MED_EMP();
+                if (isfamily == "Y" || ispool == "Y")
+                {
+                    CustemizedMedEmp = db.COMP_CUSTOMIZED_D_D_MED_EMP.Where(c => SqlFunctions.PatIndex(CompCode + "-%-" + EmpCode + "-%", c.CARD_ID) > 0 && c.C_COMP_ID == emp.C_COMP_ID
+                     && c.CONTRACT_NO == emp.CONTRACT_NO && c.SERV_CODE == "11" && c.D_SERV_CODE == MainService
+                     && c.SER_SERV == ServiceCode && c.CLASS_CODE == emp.CLASS_CODE).FirstOrDefault();
+                }
+                else
+                {
+                    CustemizedMedEmp = db.COMP_CUSTOMIZED_D_D_MED_EMP.Where(c => c.CARD_ID == emp.CARD_ID && c.C_COMP_ID == emp.C_COMP_ID
+                     && c.CONTRACT_NO == emp.CONTRACT_NO && c.SERV_CODE == "11" && c.D_SERV_CODE == MainService
+                     && c.SER_SERV == ServiceCode && c.CLASS_CODE == emp.CLASS_CODE).FirstOrDefault();
+                }
+                if (CustemizedMedEmp != null)
+                {
+                    //var CoInsurancelimit = db.Co_Insurance_01.Where(x => x.CO_ID == emp.C_COMP_ID && x.LIVEL == emp.CLASS_CODE).FirstOrDefault();
+                    string Last21 = "21/" + ((DateTime.Now.Day >= 21) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(-1).ToString("MM/yyyy")).ToString();
+                    //string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
+                    DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
+                    //DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
+
+                    nopaylast21day = (from roshita in db.Roshitas
+                                      join details in db.RoshitaDetails
+                                            on roshita.Id equals details.RoshitaID
+                                      where roshita.CardId == id && roshita.Manager == "Pharmacy_Chronic"
+                                      && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= Last21Time
+                                      select new
+                                      {
+                                          Amount = details.Amount,
+                                      }).ToList().Sum(r => r.Amount);
+                    //List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
+                    //List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor" || x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
+                    List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor" ).ToList();
+                    List<Roshita> MonthlyMonthlyAcumlatorList = db.Roshitas.Where(x => x.CardId == id && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor")).ToList();
+                    //List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
+                    //List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
+                    //bool LimitDailyPreceptionCount = false;
+                    bool LimitMonthlyPreceptionCount = false;
+                    //LimitDailyPreceptionCount = (CustemizedMedEmp.DAY_NO_ROSHTA_MON == null || (CustemizedMedEmp.DAY_NO_ROSHTA_MON - MonthlyMonthlyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Daily count
+                    LimitMonthlyPreceptionCount = (CustemizedMedEmp.MON_NO_ROSHTA_YEAR == null || (CustemizedMedEmp.MON_NO_ROSHTA_YEAR - MonthlyMonthlyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Monthly count
+                    //LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CustemizedMedEmp.DAY_NO_ROSHTA_YEAR == null || (CustemizedMedEmp.DAY_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
+                    LimitMonthlyPreceptionCount = (LimitMonthlyPreceptionCount && (CustemizedMedEmp.MON_NO_ROSHTA_YEAR == null || (CustemizedMedEmp.MON_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Monthly count
+
+                    //Double LimitDailyMonthlyPreceptionAmount = CustemizedMedEmp.DAY_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON) : (Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Daily Amount
+                    Double LimitMonthlyMonthlyPreceptionAmount = CustemizedMedEmp.MON_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_MON) : (Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Monthly Amount
+
+                    //Double LimitDailyYearlyPreceptionAmount = CustemizedMedEmp.DAY_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Daily Amount
+                    Double LimitMonthlyYearlyPreceptionAmount = CustemizedMedEmp.MON_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Monthly Amount
+                    if (StaticServiceCode == "11601" || StaticServiceCode == "11604")
+                    {
+                        //if (LimitDailyMonthlyPreceptionAmount != 0 && Limit > LimitDailyMonthlyPreceptionAmount)
+                        //    Limit = LimitDailyMonthlyPreceptionAmount;
+                        //if (LimitDailyYearlyPreceptionAmount != 0 && Limit > LimitDailyYearlyPreceptionAmount)
+                        //    Limit = LimitDailyYearlyPreceptionAmount;
+
+                        if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount)
+                            Limit = LimitMonthlyMonthlyPreceptionAmount;
+                        if (LimitMonthlyMonthlyPreceptionAmount < 0)
+                            Limit = .001;
+                        if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount)
+                            Limit = LimitMonthlyYearlyPreceptionAmount;
+                        if (LimitMonthlyYearlyPreceptionAmount < 0)
+                            Limit = .001;
+                    }
+                    if (StaticServiceCode == "11602" || StaticServiceCode == "11603")
+                    {
+                        int nopay = 0;
+                        int noover = 0;
+                        if (StaticServiceCode == "11602")
+                        {
+                            var medcard = db.Med_Card.Where(c => c.CARD_NO == id).FirstOrDefault();
+                            if (medcard != null)
+                            {
+                                noover = medcard.NO_OVER.Value;
+                                nopay = medcard.NO_PAY.Value;
+                            }
+                        }
+                        if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount && nopay != 1 && noover != 1)
+                            Limit = LimitMonthlyMonthlyPreceptionAmount;
+                        if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount && nopay != 1 && noover != 1)
+                            Limit = LimitMonthlyYearlyPreceptionAmount;
+                    }
+                    CoInsurancelimit2.INSURANCE_DAY = LimitMonthlyYearlyPreceptionAmount == 0 ? Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount) : Math.Min(Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount), Convert.ToDouble(LimitMonthlyYearlyPreceptionAmount));
+                    CoInsurancelimit2.INSURANCE_DAY = LimitMonthlyMonthlyPreceptionAmount == 0 ? Convert.ToDouble(CustemizedMedEmp.DAY_AMT) : Math.Min(Convert.ToDouble(CustemizedMedEmp.DAY_AMT), Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount));
+                    CoInsurancelimit2.INSURANCE_MONTH = LimitMonthlyYearlyPreceptionAmount == 0 ? Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount) : Math.Min(Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount), Convert.ToDouble(LimitMonthlyYearlyPreceptionAmount));
+                    CoInsurancelimit2.INSURANCE_MONTH = LimitMonthlyMonthlyPreceptionAmount == 0 ? Convert.ToDouble(CustemizedMedEmp.MON_AMT) : Math.Min(Convert.ToDouble(CustemizedMedEmp.MON_AMT), Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount));
+
+                    if (CoInsurancelimit2.INSURANCE_DAY < 0)
+                    {
+                        CoInsurancelimit2.INSURANCE_DAY = .001;
+                    }
+                    if (CoInsurancelimit2.INSURANCE_MONTH < 0)
+                    {
+                        CoInsurancelimit2.INSURANCE_MONTH = .001;
+                    }
+                    if (LimitMonthlyYearlyPreceptionAmount < 0 && CoInsurancelimit2.INSURANCE_MONTH == 0)
+                        CoInsurancelimit2.INSURANCE_MONTH = .001;
+                    //approval ceiling
+                    if (Validation == false)
+                    {
+                        var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
+                        if (accption == null)
+                        {
+                            return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0, AnnualLimit = annualLimit });
+                        }
+                        var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
+                        if (reasons != null)
+                        {
+                            return Json(new { Validation = true, Message = "Has Approval", Limit = ".001", CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitMonthlyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, CeilingPert = CeilingPert, IsFamily = isfamily, IsPool = ispool, AnnualLimit = annualLimit });
+                        }
+
+                    }
+                    //return Json(new { ok = true, limit = limit, message = "ok", LimitDailyPreceptionCount = LimitDailyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitMonthlyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, IsFamily = isfamily, IsPool = ispool, AnnualLimit = annualLimit });
+
+                }
+                else
+                {
+                    var CustemizedMed = db.COMP_CUSTOMIZED_D_D_MED.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CLASS_CODE == emp.CLASS_CODE
+                  && c.CONTRACT_NO == emp.CONTRACT_NO && c.SERV_CODE == "11" && c.D_SERV_CODE == MainService && c.SER_SERV == ServiceCode).FirstOrDefault();
+                    if (CustemizedMed == null)
+                    {
+                        return Json(new { Validation = false, Message = "يرجي مراجعه الادارة الطبيه", Limit = 0, CeilingPert = 0, AnnualLimit = annualLimit });
+                    }
+                    else
+                    {
+
+                        string Last21 = "21/" + ((DateTime.Now.Day >= 21) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(-1).ToString("MM/yyyy")).ToString();
+                        //string firstDayOfMonth = ("01/" + DateTime.Now.ToString("MM/yyyy")).ToString();
+                        DateTime Last21Time = DateTime.ParseExact(Last21, "dd/MM/yyyy", null);
+                        //DateTime firstDayOfMonthTime = DateTime.ParseExact(firstDayOfMonth, "dd/MM/yyyy", null);
+                        nopaylast21day = (from roshita in db.Roshitas
+                                          join details in db.RoshitaDetails
+                                                on roshita.Id equals details.RoshitaID
+                                          where roshita.CardId == id && roshita.Manager == "Pharmacy_Chronic"
+                                          && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= Last21Time
+                                          select new
+                                          {
+                                              Amount = details.Amount,
+                                          }).ToList().Sum(r => r.Amount);
+                        //List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
+                        //List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor").ToList();
+                        List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor").ToList();
+                        //List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
+                        List<Roshita> MonthlyMonthlyAcumlatorList = db.Roshitas.Where(x => x.CardId == id && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor")).ToList();
+                        //List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
+                        //bool LimitDailyPreceptionCount = false;
+                        bool LimitMonthlyPreceptionCount = false;
+                        //LimitDailyPreceptionCount = (CustemizedMed.DAY_NO_ROSHTA_MON == null || (CustemizedMed.DAY_NO_ROSHTA_MON - MonthlyMonthlyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Daily count
+                        LimitMonthlyPreceptionCount = (CustemizedMed.MON_NO_ROSHTA_YEAR == null || (CustemizedMed.MON_NO_ROSHTA_YEAR - MonthlyMonthlyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Monthly count
+                        //LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CustemizedMed.DAY_NO_ROSHTA_YEAR == null || (CustemizedMed.DAY_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
+                        LimitMonthlyPreceptionCount = (LimitMonthlyPreceptionCount && (CustemizedMed.MON_NO_ROSHTA_YEAR == null || (CustemizedMed.MON_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Monthly count
+
+                        //Double LimitDailyMonthlyPreceptionAmount = CustemizedMed.DAY_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON) : (Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Daily Amount
+                        Double LimitMonthlyMonthlyPreceptionAmount = CustemizedMed.MON_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMed.MON_MED_AMT_MON) : (Convert.ToDouble(CustemizedMed.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.MON_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Monthly Amount
+
+                        //Double LimitDailyYearlyPreceptionAmount = CustemizedMed.DAY_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMed.DAY_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMed.DAY_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.DAY_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Daily Amount
+                        Double LimitMonthlyYearlyPreceptionAmount = CustemizedMed.MON_MED_AMT_YEAR == null ? Convert.ToDouble(CustemizedMed.MON_MED_AMT_YEAR) : (Convert.ToDouble(CustemizedMed.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.MON_MED_AMT_YEAR - (YearlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (YearlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - PersonNoPay)));//Yearly&Monthly Amount
+                        if (StaticServiceCode == "11601" || StaticServiceCode == "11604")
+                        {
+                            if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount)
+                                Limit = LimitMonthlyMonthlyPreceptionAmount;
+                            if (LimitMonthlyMonthlyPreceptionAmount < 0)
+                                Limit = .001;
+                            if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount)
+                                Limit = LimitMonthlyYearlyPreceptionAmount;
+                            if (LimitMonthlyYearlyPreceptionAmount < 0)
+                                Limit = .001;
+                        }
+                        if (StaticServiceCode == "11602" || StaticServiceCode == "11603")
+                        {
+                            int nopay = 0;
+                            int noover = 0;
+                            if (StaticServiceCode == "11602")
+                            {
+                                var medcard = db.Med_Card.Where(c => c.CARD_NO == id).FirstOrDefault();
+                                if (medcard != null)
+                                {
+                                    noover = medcard.NO_OVER.Value;
+                                    nopay = medcard.NO_PAY.Value;
+                                }
+                            }
+                            if (LimitMonthlyMonthlyPreceptionAmount != 0 && Limit > LimitMonthlyMonthlyPreceptionAmount && nopay != 1 && noover != 1)
+                                Limit = LimitMonthlyMonthlyPreceptionAmount;
+                            if (LimitMonthlyYearlyPreceptionAmount != 0 && Limit > LimitMonthlyYearlyPreceptionAmount && nopay != 1 && noover != 1)
+                                Limit = LimitMonthlyYearlyPreceptionAmount;
+                        }
+                        CoInsurancelimit2.INSURANCE_DAY = LimitMonthlyYearlyPreceptionAmount == 0 ? Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount) : Math.Min(Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount), Convert.ToDouble(LimitMonthlyYearlyPreceptionAmount));
+                        CoInsurancelimit2.INSURANCE_DAY = LimitMonthlyMonthlyPreceptionAmount == 0 ? Convert.ToDouble(CustemizedMed.DAY_AMT) : Math.Min(Convert.ToDouble(CustemizedMed.DAY_AMT), Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount));
+                        CoInsurancelimit2.INSURANCE_MONTH = LimitMonthlyYearlyPreceptionAmount == 0 ? Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount) : Math.Min(Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount), Convert.ToDouble(LimitMonthlyYearlyPreceptionAmount));
+                        CoInsurancelimit2.INSURANCE_MONTH = LimitMonthlyMonthlyPreceptionAmount == 0 ? Convert.ToDouble(CustemizedMed.MON_AMT) : Math.Min(Convert.ToDouble(CustemizedMed.MON_AMT), Convert.ToDouble(LimitMonthlyMonthlyPreceptionAmount));
+
+                        if (CoInsurancelimit2.INSURANCE_DAY < 0)
+                        {
+                            CoInsurancelimit2.INSURANCE_DAY = .001;
+                        }
+                        if (CoInsurancelimit2.INSURANCE_MONTH < 0)
+                        {
+                            CoInsurancelimit2.INSURANCE_MONTH = .001;
+                        }
+
+                        if (CoInsurancelimit2.INSURANCE_DAY == null)
+                        {
+                            CoInsurancelimit2.INSURANCE_DAY = 0;
+                        }
+                        if (CoInsurancelimit2.INSURANCE_MONTH == null)
+                        {
+                            CoInsurancelimit2.INSURANCE_MONTH = 0;
+                        }
+                        if (LimitMonthlyYearlyPreceptionAmount < 0 && CoInsurancelimit2.INSURANCE_MONTH == 0)
+                            CoInsurancelimit2.INSURANCE_MONTH = .001;
+                        //approval ceiling
+                        if (Validation == false)
+                        {
+                            var accption = db.Acceptions.Where(x => x.CompEmployeesId == emp.Id && x.AcceptionFlag == true).OrderByDescending(d => d.Id).FirstOrDefault();
+                            if (accption == null)
+                            {
+                                return Json(new { Validation = false, Message = "لقد استهلك العميل الحد الاقصي للتغطيه خلال العقد", Limit = 0, CeilingPert = 0, AnnualLimit = annualLimit });
+                            }
+                            var reasons = db.CardAcceptionReasons.Where(x => x.AcceptionId == accption.Id && x.AcceptionReason.Name == "Disregard Ceiling").FirstOrDefault();
+                            if (reasons != null)
+                            {
+                                return Json(new { Validation = true, Message = "Has Approval", Limit = ".001", CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitMonthlyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, CeilingPert = CeilingPert, IsFamily = isfamily, IsPool = ispool, AnnualLimit = annualLimit });
+                            }
+
+                        }
+                        return Json(new { Validation = Validation, Message = Message, Limit = Limit, CeilingPert = CeilingPert, CoInsurancelimit = CoInsurancelimit2, LimitDailyPreceptionCount = LimitMonthlyPreceptionCount, LimitMonthlyPreceptionCount = LimitMonthlyPreceptionCount, IsFamily = isfamily, IsPool = ispool, AnnualLimit = annualLimit });
+
+                    }
+                }
+
+            }
+            else
+            {
+                return Json(new { Validation = false, Message = "Employee contract issue ,you can call operation department", Limit = 0, CeilingPert = 0 });
+
+            }
+
         }
         #endregion
     }

@@ -34,7 +34,7 @@ $(function () {
         ServiceCode = data.RoshetaType;
         CardId = data.CardId;
         CompId = CardId.split('-')[0];
-        if (ServiceCode == "11602") {//Chronic
+        if (ServiceCode == "11602" || Manager == "Pharmacy_Doctor") {//Chronic
             $('.PackagePrice').attr('disabled', true);
             $('.Dose').attr('disabled', true);
             $('.Duration').attr('disabled', true);
@@ -173,13 +173,19 @@ $(function () {
         }
     });
     $('#AddMedicine').on('select2:selecting', function (event) {
-        if (ServiceCode != "11602") {
-            if (CompId == "8887700") {
+        if (ServiceCode != "11602" && Manager != "Pharmacy_Doctor") {
+            if (CompId == "888") {
                 SelectMedicienCompany(event);
             }
             else {
                 SelectMedicien(event);
             }
+        }
+
+        else if (ServiceCode == "11601" && Manager == "Pharmacy_Doctor") {
+            toastr.warning('Can not add medicine');
+            event.preventDefault();
+
         }
         else {
             toastr.warning('Can not add chronic medicine');
@@ -369,7 +375,7 @@ function Calculation() {
         if (Limit > AnuualLimit || Limit == 0) {
             Limit = AnuualLimit;
         }
-        if (Limit != 0) {
+        if (Limit != 0 && co != 0) {
             ValueCredit = (total * (co / 100)).toFixed(2);
             if ((Limit * (co / 100)) <= (ValueCredit)) {
                 $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
@@ -404,7 +410,7 @@ function Calculation() {
         if (Limit > AnuualLimit || Limit == 0) {
             Limit = AnuualLimit;
         }
-        if (Limit != 0) {
+        if (Limit != 0 && co != 0) {
             ValueCredit = (total * (co / 100)).toFixed(2);
             if ((Limit * (co / 100)) <= (ValueCredit)) {
                 $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
@@ -509,7 +515,7 @@ function SelectMedicienCompany(event) {
         dataType: 'json',
         data: { code: Code },
         success: function (r) {
-          
+
             MedicienCode = r.M_CODE;
             MedicienName = r.TRADE_NAME;
             DosageForm = r.DOSAGE_FORM;
@@ -922,7 +928,7 @@ function SelectMedicien(event) {
                                                                             className: 'btn-info',
                                                                             callback: function () {
                                                                                 Group = "PendingChronic";
-                                                                                toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                                                                //toastr.info('برجاءالتواصل مع الاداره الطبيه');
                                                                                 AppendRow();
                                                                             }
                                                                         }
@@ -1174,7 +1180,8 @@ function getlimit() {
 
                         }
                     });
-                } else {
+                }
+                else {
                     bootbox.dialog({
                         title: 'Alert!',
                         message: ' you are Vip',
@@ -1286,7 +1293,7 @@ function changeTable(button) {
 function changeTotalDuration(button) {
     var MinDay = (ServiceCode == "11601") ? 5 : 1;
     var MaxDay = (ServiceCode == "11601") ? 14 : 28;
-    if (CompId == "8887700") {
+    if (CompId == "888") {
         MinDay = 1;
         MaxDay = 28;
     }
@@ -1312,7 +1319,7 @@ function changeTotalDuration(button) {
 }
 function changeTotalUnits(button) {
     var row = $(button).closest("TR");
-    if (ServiceCode == "11602") {
+    if (ServiceCode == "11602" || Manager == "Pharmacy_Doctor") {
         var minimum = FixedTotalUnits[row[0].sectionRowIndex];
         if (parseInt(minimum) < parseInt($("TD", row).find(".TotalUnits").val())) {
             $("TD", row).find(".TotalUnits").val(parseInt(minimum))

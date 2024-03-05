@@ -2,53 +2,69 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
 
-
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
-
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Roles
-        </div>
-        <div class="actions">
-                <a id="Create" href="/Role/Create" class="btn btn-success   btn-sm" >
-                    <i class="fa fa-plus"></i> Create
+<section class="container-fluid mt-4">
+    <!--  New request -->
+    <div class="row bg-overlay">
+        <div style="position: relative"
+             class="editeRquest fw-bold text-light">
+            <div class="m-3 fs-3">
+                <i class="fa fa-home me-3"></i>
+                Roles
+            </div>
+            <div style=" position: absolute;right: 1%;top: 50%;transform: translateY(-50%);">
+                <a href="/Role/Create"
+                   class="px-2 text-light border-0 mx-2 rounded-2"
+                   style="
+                  background: #83439b;
+                  text-decoration: none;
+                  cursor: pointer;
+                  padding: 7.2px;">
+                    <i class="fas fa-plus"></i>
+                    Create
                 </a>
             </div>
-
+        </div>
     </div>
-    <br />
-    <div class="portlet-body">
-        <table class="table" style="width:100%">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>Actions</th>
-    </tr>
+</section>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a class="btn btn-default fa fa-list" style=" text-transform: none" href="/Role/RolePermision/?RoleId=@item.Id"> Permisions</a>
+<div class="w-100 m-auto px-4 mt-4 pb-5">
+    <div class="table-responsive">
+        <table id="Roles" class="table table-striped mt-3 text-center">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            <a class="btn py-1 px-3 rounded-1 text-light border-0"style = "background: #717382;text-decoration: none;" href="/Role/RolePermision/?RoleId=@item.Id"> Permisions</a>
 
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-warning" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })*@
-            </td>
+                        </td>
 
-        </tr>
-    }
-
-</table>
-
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
+
+<script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
+
+<script>
+
+    $(function () {
+        $("#Roles").DataTable();
+    })
+</script>
