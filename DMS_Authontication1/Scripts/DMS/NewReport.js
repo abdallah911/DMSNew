@@ -135,7 +135,7 @@
         $.get("/MedicalNetwork/GetClassList",
             { compId: compNu }, function (data) {
                 $("#ClassCodeConsum").empty();
-                $('#ClassCodeConsum').append('<option value="">Select Class</option>');
+                $('#ClassCodeConsum').append('<option value="0">Select Class</option>');
                 $.each(data, function (index, row) {
                     $("#ClassCodeConsum").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
                 });
