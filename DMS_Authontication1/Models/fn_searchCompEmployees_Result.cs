@@ -23,5 +23,6 @@ namespace DMS_Authontication1.Models
         public Nullable<System.DateTime> TERMINATE_DATE { get; set; }
         public Nullable<int> CONTRACT_NO { get; set; }
         public System.DateTime Now { get; set; }
+        public string CompHolderName { get; set; }
     }
 }

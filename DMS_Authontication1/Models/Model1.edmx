@@ -3259,6 +3259,7 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
                 <Property Name="TERMINATE_DATE" Type="date" />
                 <Property Name="CONTRACT_NO" Type="int" />
                 <Property Name="Now" Type="datetime" Nullable="false" />
+                <Property Name="CompHolderName" Type="nvarchar" MaxLength="150" Nullable="false" />
               </RowType>
             </CollectionType>
           </ReturnType>
@@ -3278,6 +3279,7 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
                 <Property Name="TERMINATE_DATE" Type="date" />
                 <Property Name="CONTRACT_NO" Type="int" />
                 <Property Name="Now" Type="datetime" Nullable="false" />
+                <Property Name="CompHolderName" Type="nvarchar" MaxLength="150" Nullable="false" />
               </RowType>
             </CollectionType>
           </ReturnType>
@@ -5956,6 +5958,7 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
           <Property Type="DateTime" Name="TERMINATE_DATE" Nullable="true" Precision="10" />
           <Property Type="Int32" Name="CONTRACT_NO" Nullable="true" />
           <Property Type="DateTime" Name="Now" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CompHolderName" Nullable="false" MaxLength="150" />
         </ComplexType>
         <ComplexType Name="fn_consumption_Result">
           <Property Type="Int32" Name="Validation" Nullable="true" />
@@ -7207,6 +7210,7 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
           <Property Type="DateTime" Name="TERMINATE_DATE" Nullable="true" Precision="10" />
           <Property Type="Int32" Name="CONTRACT_NO" Nullable="true" />
           <Property Type="DateTime" Name="Now" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CompHolderName" Nullable="false" MaxLength="150" />
         </ComplexType>
         <EntityType Name="ApprovalBil">
           <Key>
@@ -9093,6 +9097,7 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
                 <ScalarProperty Name="TERMINATE_DATE" ColumnName="TERMINATE_DATE" />
                 <ScalarProperty Name="CONTRACT_NO" ColumnName="CONTRACT_NO" />
                 <ScalarProperty Name="Now" ColumnName="Now" />
+                <ScalarProperty Name="CompHolderName" ColumnName="CompHolderName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -10026,6 +10031,7 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
                 <ScalarProperty Name="TERMINATE_DATE" ColumnName="TERMINATE_DATE" />
                 <ScalarProperty Name="CONTRACT_NO" ColumnName="CONTRACT_NO" />
                 <ScalarProperty Name="Now" ColumnName="Now" />
+                <ScalarProperty Name="CompHolderName" ColumnName="CompHolderName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
