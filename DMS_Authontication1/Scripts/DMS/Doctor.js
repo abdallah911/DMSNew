@@ -150,10 +150,16 @@ $(function () {
                                         }
                                         if (DisregardCeiling == true) {
                                             //Co-Payment
+                                            if (companid == "500118" || companid == "500119" || companid == "500120" || companid == "500121" || companid == "500122") {
+                                                link = '/Pharmacy/CellingAmountAirPort';
+                                            }
+                                            else {
+                                                link = '/Pharmacy/CellingAmount';
+                                            }
                                             $.ajax({
                                                 type: "POST",
                                                 dataType: "json",
-                                                url: '/Pharmacy/CellingAmount',
+                                                url: link,
                                                 data: {
                                                     id: id,
                                                     ServiceCode: '11601'
@@ -169,9 +175,7 @@ $(function () {
 
                                                     } else {
                                                         $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
-                                                        AnuualLimit = r.Limit;
-                                                        $('#IsFamily').val(r.IsFamily);
-                                                        $('#IsPool').val(r.IsPool);
+                                                        AnuualLimit = r.AnnualLimit;
                                                         if (r.CoInsurancelimit.INSURANCE_DAY >= 0) {
                                                             $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
                                                         } else {
