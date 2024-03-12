@@ -37,19 +37,14 @@
     }
 </section>
 <div style="display: flex; flex-direction: column">
-    <section style="
-          min-height: 80vh;
-          display: flex;
-          flex-direction: column;
-          flex-grow: 1;
-        ">
+    <section  >
         <div class="sios-overlay container-fluid mt-4">
             <div class="container">
                 <i class="fa-solid fa-house"></i>
                 <h3 class="">Medicine Type List</h3>
             </div>
         </div>
-        <div class="claims-section container-fluid">
+        <div class="sios-bg claims-section container-fluid">
             <div class="table-responsive">
                 <table id="example" class="table table-striped mt-3 text-center">
                     <thead>
@@ -66,7 +61,7 @@
                                     @Html.DisplayFor(modelItem => item.MedicineTypeName)
                                 </td>
                                 <td>
-                                    <button type="button" class="py-1 px-3 rounded-1 text-light border-0" style="background: #717382" data-id=@item.Id onclick="Delete(this);"> Delete</button>
+                                    <button type="button" class="btn fw-bold text-white rounded-3" data-id=@item.Id onclick="Delete(this);"> Delete</button>
                                 </td>
                             </tr>
                         }
