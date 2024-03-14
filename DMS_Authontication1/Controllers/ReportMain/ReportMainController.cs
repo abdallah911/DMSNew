@@ -248,18 +248,24 @@ namespace DMS_Authontication1.Controllers.ReportMain
                 case 2:
                     rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AuditMedicineChronicSummary.rpt"));
                     break;
-                    
+                case 3:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "MedicineChronicReport.rpt"));
+                    rd.SetParameterValue("@comp", CopmanyNumber);
+                    rd.SetParameterValue("@crd", crd);
+                    break;
                 default:
                     return View();
             }
 
             rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
-
-            rd.SetParameterValue("@from", RegDateFrom);
-            rd.SetParameterValue("@to", RegDateTo);
-            rd.SetParameterValue("@comp", CopmanyNumber);          
-            rd.SetParameterValue("@crd", crd);            
-
+            
+            if (Convert.ToInt32(RepotType) != 3)
+            {
+                rd.SetParameterValue("@from", RegDateFrom);
+                rd.SetParameterValue("@to", RegDateTo);
+                rd.SetParameterValue("@comp", CopmanyNumber);
+                rd.SetParameterValue("@crd", crd);
+            }
 
             Response.Buffer = false;
             Response.ClearContent();
@@ -301,18 +307,25 @@ namespace DMS_Authontication1.Controllers.ReportMain
                 case 2:
                     rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AuditMedicineChronicSummary.rpt"));
                     break;
+                case 3:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "MedicineChronicReport.rpt"));
+                    rd.SetParameterValue("@comp", CopmanyNumber);
+                    rd.SetParameterValue("@crd", crd);
+                    break;
 
                 default:
                     return View();
             }
 
             rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
-
-            rd.SetParameterValue("@from", RegDateFrom);
-            rd.SetParameterValue("@to", RegDateTo);
-            rd.SetParameterValue("@comp", CopmanyNumber);
-            rd.SetParameterValue("@crd", crd);
-
+            
+            if (Convert.ToInt32(RepotType) != 3)
+            {
+                rd.SetParameterValue("@from", RegDateFrom);
+                rd.SetParameterValue("@to", RegDateTo);
+                rd.SetParameterValue("@comp", CopmanyNumber);
+                rd.SetParameterValue("@crd", crd);
+            }
 
             Response.Buffer = false;
             Response.ClearContent();
