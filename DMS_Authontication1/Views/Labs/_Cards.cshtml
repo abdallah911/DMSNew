@@ -32,6 +32,9 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.compEmp.INS_END_DATE)
                             </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.CompHolderName)
+                            </th>
 
                         </tr>
                     </thead>
@@ -55,6 +58,7 @@
         CardId = $("TD", row).eq(1).html();
         var ArName = $("TD", row).eq(2).html();
         var EndDate = $("TD", row).eq(5).html();
+        var CompHolderName = $("TD", row).eq(6).html();
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth() + 1; //January is 0!
@@ -91,6 +95,7 @@
                                 if (returndata.data == "Yes") {
                                     $('#txtSearchCard').val(CardId);
                                     $('#compEmp_EMP_ANAME').val(ArName);
+                                    $('#compEmp_CompHolderName').val(CompHolderName);
                                     $('#compEmp_INS_END_DATE').val(EndDate);
                                     //AddNationalId();
                                     $('#CardsModal').modal('hide');

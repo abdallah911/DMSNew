@@ -31,6 +31,9 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.compEmp.BIRTH_DATE)
                             </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.compEmp.CompHolderName)
+                            </th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -49,6 +52,7 @@
         var StartDate = $("TD", row).eq(4).html();
         var EndDate = $("TD", row).eq(5).html();
         var BirthDate = $("TD", row).eq(6).html();
+        var CompHolderName = $("TD", row).eq(7).html();
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth(); //January is 0!
@@ -83,6 +87,7 @@
                                 if (returndata.data == "Yes") {
                                     $('#txtSearchCard').val(CardId);
                                     $('#compEmp_EMP_ANAME').val(EName);
+                                    $('#compEmp_CompHolderName').val(CompHolderName);
                                     $('#compEmp_INS_START_DATE').val(StartDate);
                                     $('#compEmp_INS_END_DATE').val(EndDate);
                                     $('#compEmp_BIRTH_DATE').val(BirthDate);

@@ -65,6 +65,7 @@ $(function () {
         $('#compEmp_INS_START_DATE').val('');
         $('#compEmp_INS_END_DATE').val('');
         $('#compEmp_BIRTH_DATE').val('');
+        $('#compEmp_CompHolderName').val('');
         $('#insurance_LIVEL').val('');
         $('#ddEmp_CEILING_PERT').val('');
         companid = $('#txtSearchCard').val().split('-')[0];
@@ -132,6 +133,7 @@ $(function () {
                             "<td>" + StartDate + "</td>" +
                             "<td>" + dat1 + "</td>" +
                             "<td>" + birthdate + "</td>" +
+                            "<td>" + r[i].CompHolderName + "</td>" +
                             "</tr>"
                         var array_name = [];
                         array_name.push(data)
@@ -140,12 +142,14 @@ $(function () {
                     }
 
                     if (r.length == 1) {
+                        debugger;
                         $('#txtSearchCard').attr('disabled', true);
                         $('#Pending').attr('disabled', false);
                         $('#Approval').attr('disabled', false);
                         CardId = r[0].CARD_ID;
                         $('#txtSearchCard').val(CardId);
                         var ArName = r[0].EMP_ENAME;
+                        var CompHolderName = r[0].CompHolderName;
                         firstDate = new Date(parseFloat(r[0].INS_END_DATE.replace(/(^.*\()|([+-].*$)/g, '')));
                         diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
                         var EndDate = dat1;
@@ -187,10 +191,11 @@ $(function () {
                                         success: function (returndata) {
                                             if (returndata.ok) {
                                                 if (returndata.data == "Yes") {
-
+                                                    debugger;
                                                     $("#wait").css("display", "none");
                                                     $('#txtSearchCard').val(CardId);
                                                     $('#compEmp_EMP_ANAME').val(ArName);
+                                                    $('#compEmp_CompHolderName').val(CompHolderName);
                                                     $('#compEmp_INS_START_DATE').val(StartDate);
                                                     $('#compEmp_INS_END_DATE').val(EndDate);
                                                     $('#compEmp_BIRTH_DATE').val(birthdate);
@@ -2395,6 +2400,7 @@ function ClearCardData() {
     $('#compEmp_INS_START_DATE').val('');
     $('#compEmp_INS_END_DATE').val('');
     $('#compEmp_BIRTH_DATE').val('');
+    $('#compEmp_CompHolderName').val('');
     $('#insurance_LIVEL').val('');
     $('#ddEmp_CEILING_PERT').val('');
 }

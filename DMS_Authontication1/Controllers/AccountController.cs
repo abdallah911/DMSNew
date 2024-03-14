@@ -167,7 +167,8 @@ namespace DMS_Authontication1.Controllers
                             switch (role)
                             {
                                 case "Pharmacy":
-                                    return Redirect("/Pharmacy/PharmacyPage");
+                                    return Redirect("/Pharmacy/Pharmacy");
+                                    //return Redirect("/Pharmacy/PharmacyPage");
                                 case "Lab":
                                     return RedirectToLocal("/Labs/Lab");
                                 case "Rays":

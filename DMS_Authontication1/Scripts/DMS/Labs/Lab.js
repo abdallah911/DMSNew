@@ -73,6 +73,7 @@ $(function () {
                             "<td>" + r[i].EMP_ENAME + "</td>" +
                             "<td>" + dat + "</td>" +
                             "<td>" + dat1 + "</td>" +
+                            "<td>" + r[i].CompHolderName + "</td>" +
                             "</tr>"
                         var array_name = [];
                         array_name.push(data)
@@ -85,8 +86,10 @@ $(function () {
                         $('#Pending').attr('disabled', false);
                         CardId = $('#txtSearchCard').val();
                         var ArName;
+                        var CompHolderName;
                         for (var i = 0; i < r.length; i++) {
                             ArName = r[i].EMP_ANAME;
+                            CompHolderName = r[i].CompHolderName;
                         }
                         var EndDate = dat1;
                         var today = new Date();
@@ -126,6 +129,7 @@ $(function () {
                                                     $("#wait").css("display", "none");
                                                     $('#txtSearchCard').val(CardId);
                                                     $('#compEmp_EMP_ANAME').val(ArName);
+                                                    $('#compEmp_CompHolderName').val(CompHolderName);
                                                     $('#compEmp_INS_END_DATE').val(EndDate);
                                                     //AddNationalId();
                                                     $('#CardsModal').modal('hide');

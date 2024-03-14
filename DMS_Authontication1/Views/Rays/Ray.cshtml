@@ -110,6 +110,10 @@
                         @Html.Editor("ClaimNumber", new { htmlAttributes = new { @class = "form-control", @id = "ClaimNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
                     </div>
 
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.compEmp.CompHolderName, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
 
                 </div>
             </div>
