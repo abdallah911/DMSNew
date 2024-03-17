@@ -5,9 +5,16 @@
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 <div class="container">
     <div class="panel panel-info">
+        <div hidden>
+            <input id="IsFamily" name="IsFamily" value="" />
+            <input id="IsPool" name="IsPool" value="" />
+            <input id="AllLimit" name="AllLimit" value="" />
+        </div>
         <h2 class="panel-heading" style="margin:1px;">Pending</h2>
         <div class="panel-body">
             <input type="text" id="CardId" name="CardId" hidden value="@Model.Details" />
+            <input type="text" id="RoshitaId" name="RoshitaId" hidden value="@Model.RoshitaId" />
+            <input type="text" id="ServiceType" name="ServiceType" hidden value="@Model.Roshita.RoshetaType" />
             @*<div class="input-group col-md-3">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                     <input id="txtSearchApproval" class="form-control" placeholder="Click To Search">
@@ -28,59 +35,96 @@
                 <tbody>
                     @for (int i = 0; i < Model.Roshita.RoshitaDetails.Count; i++)
                     {
-                    <tr>
-                        <td hidden>
-                            @Model.Roshita.RoshitaDetails.ElementAt(i).Id
-                        </td>
-                        <td>
-                            @Model.Roshita.RoshitaDetails.ElementAt(i).MedicienName
-                        </td>
-                        <td>
-                            @Model.Roshita.RoshitaDetails.ElementAt(i).Amount
-                        </td>
-                        <td>
-                            @Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup
-                        </td>
-                        <td>
-                            @Model.Roshita.RoshitaDetails.ElementAt(i).IsDealed
-                        </td>
-                        <td>
-                            @Model.NotePharmacy
-                        </td>
-                        @if ((Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Accepted" || Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Rejected")
-                             && Model.Roshita.RoshitaDetails.ElementAt(i).IsDealed == false)
-                        {
-                            <td>
-                                <select id='ChangeStatus' class='form-control' onchange='SelectDealed(this);'>
-                                    <option value='N'> Change IsDealed</option>
-                                    <option value='true'>Yes</option>
-                                    <option value='false'>No</option>
-                                </select>
+                        <tr>
+                            <td hidden>
+                                @Model.Roshita.RoshitaDetails.ElementAt(i).Id
                             </td>
-                        }
-                        else
-                        {
                             <td>
-                                <select disabled id='ChangeStatus' class='form-control' onchange='SelectDealed(this);'>
-                                    <option value='N'> Change IsDealed</option>
-                                    <option value='true'>Yes</option>
-                                    <option value='false'>No</option>
-                                </select>
+                                @Model.Roshita.RoshitaDetails.ElementAt(i).MedicienName
                             </td>
-                        }
+                            @*<td>
+                                    @Model.Roshita.RoshitaDetails.ElementAt(i).Amount
+                                </td>*@
+                            <td>
+                                @Html.EditorFor(model => model.Roshita.RoshitaDetails.ElementAt(i).Amount, new { htmlAttributes = new { @class = "form-control Amount ", @readonly = "readonly" } })
+                            </td>
+                            <td>
+                                @Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup
+                            </td>
+                            <td>
+                                @Model.Roshita.RoshitaDetails.ElementAt(i).IsDealed
+                            </td>
+                            <td>
+                                @Model.NotePharmacy
+                            </td>
+                            @if ((Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Accepted" || Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Rejected")
+                                 && Model.Roshita.RoshitaDetails.ElementAt(i).IsDealed == false)
+                            {
+                                <td>
+                                    <select id='ChangeStatus' class='form-control ChangeStatus' onchange='SelectDealed(this);'>
+                                        <option value='N'> Change IsDealed</option>
+                                        <option value='true'>Yes</option>
+                                        <option value='false'>No</option>
+                                    </select>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <select disabled id='ChangeStatus' class='form-control ChangeStatus' onchange='SelectDealed(this);'>
+                                        <option value='N'> Change IsDealed</option>
+                                        <option value='true'>Yes</option>
+                                        <option value='false'>No</option>
+                                    </select>
+                                </td>
+                            }
 
-                    </tr>
+                        </tr>
                     }
                 </tbody>
             </table>
-            <div class="row">
 
-                <div class="col-md-3">
-                    <label class="control-label">Total Amount</label>
-                    <input id="TotalAmount" disabled class="form-control col-md-3" />
+            <!--Caculation-->
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <label class="control-label">Total</label>
+                        <input id="txtTotalInvoice" type="text" class="form-control" ReadOnly="readonly" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="control-label">Person Payments</label>
+                        <input id="txtTotalCopayment" type="text" class="form-control" ReadOnly="readonly" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="control-label">Value Credit</label>
+                        <input id="txtValueCredit" type="text" class="form-control" ReadOnly="readonly" />
+                    </div>
                 </div>
             </div>
-            <br />
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <label class="control-label">Over Insurance</label>
+                        <input id="txtOverInsurance" type="text" class="form-control" ReadOnly="readonly" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="control-label">Cash</label>
+                        <input id="txtCash" type="text" class="form-control" ReadOnly="readonly" />
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="control-label">Total cash</label>
+                        <input id="txtValueCash" type="text" class="form-control" ReadOnly="readonly" />
+                    </div>
+                </div>
+            </div>
+
+            <!--Save-->
+            <br /><br />
+            <div class="row panel-footer" style="text-align:right; height:62px;">
+                <input id="Update" type="button" value="Save" class="btn btn-success glyphicon glyphicon-save" style="float:right;padding:10px 20px " />
+
+            </div>
         </div>
     </div>
 </div>
@@ -88,6 +132,22 @@
     var CardId = $('#CardId').val();
     var CompanyPayment;
     var AnuualLimit;
+    var CompId = $('#CardId').val().split('-')[0];
+    var Manager;
+    var ServiceCode = $('#ServiceType').val();
+    var url = window.location.href;
+    var id = $('#RoshitaId').val();
+    var fixedLimit = 0;
+    var Limit = 0;
+    var AnuualLimit = 0;
+    var CeilingPert = 0;
+    var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    var firstDate;
+    var NationalId;
+    const secondDate = new Date();
+    var diffDays = 0;
+    var sumNoPay = 0;
+    var FixedTotalUnits = [];
     $(function () {
 
         $("#Index").DataTable({
@@ -97,41 +157,8 @@
             "bInfo": false,
             "bAutoWidth": false
         });
-
-        $('#TotalAmount').val('0');
-        $('#Cash').val('0')
-        var companid = $('#CardId').val().split('-')[0];
-        if (companid == "500118" || companid == "500119" || companid == "500120" || companid == "500121" || companid == "500122") {
-            link = '/Pharmacy/CellingAmountAirPort';
-        }
-        else {
-            link = '/Pharmacy/CellingAmount';
-        }
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: link,
-            data: {
-                id: CardId,
-                ServiceCode: '11601'
-            },
-            success: function (r) {
-                if (r.Validation == false) {
-                    // toastr.info("Exceeded his annual contract limit");
-                    toastr.info(r.Message);
-                    window.location.replace("/Pharmacy/Pharmacy");
-                } else {
-                    CompanyPayment = r.CeilingPert;
-                    AnuualLimit = r.Limit;
-                    //   $("#no_data_yet").val(100 - $("#ddEmp_CEILING_PERT").val());
-
-                }
-            },
-            error: function (err) {
-                alert("No Company Annual Amount");
-                location.reload();
-            }
-        });
+        //Get Ceiling and Limit
+        getlimit();
         $('#Print').click(function () {
 
             var PentingPrintViewModels = new Array();
@@ -149,64 +176,407 @@
             var params = JSON.stringify(PentingPrintViewModels);
             window.open('/Pharmacy/PendingReport?id=' + params);
         });
+        $('#Update').click(function () {
+            var Mediciens = new Array();
+            $("#Index TBODY TR").each(function () {
+
+                var row = $(this);
+                var Medicien = {};
+                Medicien.RoshitaID = id;
+                Medicien.Id = row.find("TD").eq(0).html().trim();
+                Medicien.MedicienName = row.find("TD").eq(1).html().trim();
+                Medicien.Amount = $("TD", row).find(".Amount").val();
+                Medicien.PaymentGroup = row.find("TD").eq(3).html().trim();
+                Medicien.IsDealed = row.find("TD").eq(4).html().trim();
+                Medicien.MedicineNoPay = $("TD", row).find(".ChangeStatus").val();
+                Mediciens.push(Medicien);
+            });
+            if (Mediciens.length != 0) {
+                $("#Update").attr("disabled", "disabled");
+                if ($('#txtTotalInvoice').val() != 0 && $('#txtTotalInvoice').val() != undefined && $('#txtTotalInvoice').val() != "") {
+                    var UpdatePrescription = {
+                        Id: id,
+                        TotalValue: $('#txtTotalInvoice').val(),
+                        PersonPayment: $('#txtTotalCopayment').val(),
+                        CompanyPayment: $('#txtValueCredit').val(),
+                        OverInsurance: $('#txtOverInsurance').val(),
+                        Cash: $('#txtValueCash').val(),
+                        roshitaDetail: Mediciens,
+                    };
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Pharmacy/UpdatePrescriptionPending/',
+                        dataType: 'Json',
+                        //contentType: "application/json; charset=utf-8",
+                        //data: JSON.stringify(SavePrescriptipn),
+                        data: UpdatePrescription,
+                        success: function (OracleId) {
+                            bootbox.dialog({
+                                closeButton: false,
+                                title: 'Added Sucessfully',
+                                message: " يرجي اعادة الطباعه حيث ان الكليم القديم يعتبر لاغي وعدم الطباعه سيؤدي الي خصم الكيم بالكامل علي مقدم الخدمه " + "Approval Number : " + OracleId,
+                                buttons: {
+                                    Print: {
+                                        label: "Print",
+                                        className: 'btn-info',
+                                        callback: function () {
+                                            //window.location.reload();
+                                            $("#Update").attr("disabled", "disabled");
+                                            //ClearCardData();
+                                            //ClearMedicineData();
+                                            window.open('/Pharmacy/ControlPenelReport?id=' + OracleId);
+                                            //window.location = "/Pharmacy/index";
+                                        }
+                                    },
+                                    New: {
+                                        label: "New",
+                                        className: 'btn-info',
+                                        callback: function () {
+                                            window.location = "/Pharmacy/index";
+                                            $("#Update").attr("disabled", "disabled");
+                                            //window.location.reload();
+                                        }
+                                    }
+
+                                }
+                            });
+
+                        },
+                        error: function (err) {
+                            bootbox.alert("Error saving roshita,please check your internet connection");
+                            $("#Update").attr("disabled", false);
+                        }
+                    });
+
+                }
+                else {
+                    bootbox.alert("Please wait untaill data load correctly");
+                    $("#Update").attr("disabled", false);
+                }
+            }
+            else {
+                bootbox.alert("Please Update medicines");
+                $("#Update").attr("disabled", false);
+            }
+
+        })
     });
     function SelectDealed(button) {
         var row = $(button).closest("TR");
-        var MedicineId = $("TD", row).eq(0).html();
-        MedicineId = parseInt(MedicineId);
-        //debugger;
+        //var paymenttype = $("TD", row).eq(3).html();
+        var buttonValue = $(button).val();
+        if (buttonValue == "true") {
+            $("TD", row).eq(4).html("True");
+            Calculation();
+        }
+        $(button).prop('disabled', 'disabled');
+    }
+    function getlimit() {
+        if (CompId == "500118" || CompId == "500119" || CompId == "500120" || CompId == "500121" || CompId == "500122") {
+            link = '/Pharmacy/CellingAmountEditAirPort';
+        }
+        else {
+            link = '/Pharmacy/CellingAmountEditPage';
+        }
         $.ajax({
-            type: 'POST',
-            url: '/Pharmacy/ChangeStatus',
-            dataType: 'Json',
+            type: "POST",
+            dataType: "json",
+            url: link,
             data: {
-                MedicineId: MedicineId,
-                status: $(button).val()
+                id: CardId,
+                ServiceCode: ServiceCode,
+                RoshitaId: id
             },
-            dataType: 'Json',
             success: function (r) {
-                if ($(button).val() != "N" && r != -2) {
-                    $("TD", row).eq(4).html($(button).val());
-                    $("#ChangeStatus").prop('disabled', 'disabled');
-                    //if ($(button).val() == "false") {
-                    //    $("TD", row).eq(4).html('Accepted');
-                    //}
-                    toastr.success("Saved");
+                if (r.Validation == false) {
+                    //toastr.info(r.Message);
+                    alert(r.Message);
+                    window.location = '/Pharmacy/index';
+                } else {
+                    CeilingPert = r.CeilingPert;
+                    AnuualLimit = r.Limit;
+                    $('#IsFamily').val(r.IsFamily);
+                    $('#IsPool').val(r.IsPool);
+                    $('#AllLimit').val(r.AnnualLimit);
+                    if (ServiceCode == "11601") {
+                        if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
+                            Limit = r.CoInsurancelimit.INSURANCE_DAY;
+                            fixedLimit = Limit;
+                        } else {
+                            alert(" لقد تم استهلاك العدد المحدد للروشتات وسوف تكون خارج التغطه ");
+                            Limit = 0.001;
+                            fixedLimit = Limit;
+                            CeilingPert = 0;
+                        }
+                    }
+                    else if (ServiceCode == "11603" || ServiceCode == "11602") {
+                        //if (ServiceCode == "11603" && (CompId.startsWith("10") || CompId.startsWith("70") || CompId == "500135" || CompId == "500136" || CompId == "500137" || CompId == "500138" || CompId == "500139" || CompId == "500140" || CompId == "500145")) {
+                        //    alert("برجاء الرجوع للإداره الطبيه");
+                        //    window.location = "/Pharmacy/index";
+                        //}
+
+                        if (r.LimitMonthlyPreceptionCount && r.CoInsurancelimit.INSURANCE_MONTH >= 0) {
+                            Limit = r.CoInsurancelimit.INSURANCE_MONTH;
+                            fixedLimit = Limit;
+
+                        } else {
+                            alert(" لقد تم استهلاك العدد المحدد للروشتات وسوف تكون خارج التغطه ");
+                            Limit = 0.001;
+                            fixedLimit = Limit;
+                            CeilingPert = 0;
+                        }
+
+                        GetChronicMedData()
+                    }
                     Calculation();
-
-                } else if (r == -2) { toastr.info("Dispensed before"); }
-
+                }
             },
-            error: function () {
-                alert("Error Retrieve");
+            error: function (err) {
+                alert("Failed to retrieve Company Annual Limit. please check your internet connection");
+                location.reload();
             }
+        }).done(function () {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "/Pharmacy/CheckType",
+                data: { CardId: CardId },
+                success: function (returndata) {
+                    if (returndata == false) {
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: '/Pharmacy/GetRoshitaApproval',
+                            data: { RoshitaId: id, Type: 3 },
+                            success: function (returndata) {
+                                if (returndata == false) {
+
+                                }
+                                else {
+                                    var Copayment = false;
+                                    var Limit = false;
+                                    var DisregardCeiling = false;
+                                    var ExternalPrescription = false;
+                                    var PrescriptionPerDay = false;
+                                    for (var i = 0; i < returndata.length; i++) {
+                                        Copayment = Copayment == true ? true : returndata[i].includes("Cancel Co-Payment");
+                                        Limit = Limit == true ? true : returndata[i].includes('Disregard OverInsurance');
+                                        DisregardCeiling = DisregardCeiling == true ? true : returndata[i].includes("Disregard Ceiling");
+                                        ExternalPrescription = ExternalPrescription == true ? true : returndata[i].includes("External Prescription");
+                                        PrescriptionPerDay = PrescriptionPerDay == true ? true : returndata[i].includes("Unlimited Examination per day");
+
+                                    }
+
+                                    if (Limit == true) {
+                                        fixedLimit = 0;
+                                        //$("#insurance_LIVEL").val(0);
+                                        AnuualLimit = $('#AllLimit').val();
+                                        Calculation();
+                                    }
+                                    if (Copayment == true) {
+                                        CeilingPert = 100;
+                                        //$("#ddEmp_CEILING_PERT").val(100);
+                                        Calculation();
+                                    }
+                                    if (DisregardCeiling == true) {
+                                        AnuualLimit = 30000;
+                                        Calculation();
+                                    }
+                                    if (ExternalPrescription == true) {
+                                        $('#ClaimNumber').val(' ');
+                                    }
+                                    bootbox.dialog({
+                                        title: 'Reasons',
+                                        message: returndata + " ",
+                                        buttons: {
+                                            Ok: {
+                                                label: "Ok",
+                                                className: 'btn-info',
+                                                callback: function () {
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    } else {
+                        bootbox.dialog({
+                            title: 'Alert!',
+                            message: ' you are Vip',
+                            buttons: {
+                                Ok: {
+                                    label: "Ok",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        fixedLimit = 0;
+                                        //$("#insurance_LIVEL").val(0);
+                                        CeilingPert = 100;
+                                        $("#ddEmp_CEILING_PERT").val(100);
+                                        $('#ClaimNumber').val(' ');
+                                        AnuualLimit = 30000;
+                                        Calculation();
+
+                                    }
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (err) {
+                }
+
+            });
         });
-
-
     }
     function Calculation() {
         var sum = 0;
-        var Cash = 0;
-        // debugger;
+        var sumCash = 0;
+        sumNoPay = 0;
         $('#Index TBODY TR').each(function () {
             var row = $(this);
-            if (row.find("TD").eq(4).html() == "true" && row.find("TD").eq(5).html().search("disabled") == -1) {
-                if (row.find("TD").eq(3).html() == "Accepted") {
-                    sum += parseFloat(row.find("TD").eq(2).html());
-                }
-                else if (row.find("TD").eq(3).html() == "Rejected") {
-                    Cash += parseFloat(row.find("TD").eq(2).html());
-                }
+            if (row.find("TD").eq(4).html().trim() != "False") {
+                sum += parseFloat(("TD", row).find(".Amount").val());
+                if (row.find("TD").eq(3).html().trim() == "Cash" || row.find("TD").eq(3).html().trim() == "Rejected" || row.find("TD").eq(3).html().trim() == "Pending")
+                    sumCash += parseFloat(("TD", row).find(".Amount").val());
             }
         });
-        var person = parseFloat(100 - CompanyPayment);//percentage
-        Cash += parseFloat(sum * (person / 100));
-        if (Cash > 0 || sum > 0)
-            $('#Print').attr("disabled", false);
-        else {
-            $('#Print').attr("disabled", true);
+        $("#txtTotalInvoice").val(sum.toFixed(2));
+        $('#txtCash').val(sumCash);
+        $('#txtOverInsurance').val("0");
+        if (ServiceCode == "11601") {
+            var Limit = fixedLimit;
+            var co = CeilingPert;//precentage
+            var person = parseFloat(100 - co);//percentage
+            //total-cash
+            var total = parseFloat($('#txtTotalInvoice').val()) - sumCash;
+            var cash = parseFloat($('#txtCash').val());
+            var ValueCredit = 0;
+            if (Limit > AnuualLimit || Limit == 0) {
+                Limit = AnuualLimit;
+            }
+            if (Limit != 0 && co != 0) {
+                ValueCredit = (total * (co / 100)).toFixed(2);
+                if ((Limit * (co / 100)) <= (ValueCredit)) {
+                    $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
+                    Limit = (Limit * (co / 100)).toFixed(2);
+                    $('#txtValueCredit').val(Limit);
+                    $('#txtOverInsurance').val((total - Limit - parseFloat($('#txtTotalCopayment').val())).toFixed(2));
+                }
+                else if ((Limit * (co / 100)) > (ValueCredit)) {
+                    $('#txtValueCredit').val((total * (co / 100)).toFixed(2));
+                    $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
+                }
+            }
+            else {
+                $('#txtValueCredit').val(((total) * (co / 100)).toFixed(2));
+                $('#txtTotalCopayment').val(((total) * (person / 100)).toFixed(2));
+            }
+            $('#txtValueCash').val((sumCash + parseFloat($('#txtTotalCopayment').val()) + parseFloat($('#txtOverInsurance').val())).toFixed(2));
         }
-        $('#TotalAmount').val(sum);
-        $('#Cash').val(Cash);
+        else if (ServiceCode == "11603") {
+            //monthly
+            var Limit = fixedLimit;
+            var co = CeilingPert;
+            var person = parseFloat(100 - co);
+            //total-cash
+            var total = parseFloat($('#txtTotalInvoice').val()) - sumCash;
+            var cash = parseFloat($('#txtCash').val());
+            var ValueCredit = 0;
+            //if (Limit != 0) {
+            //    Limit += total * (co / 100);
+            //}
+            // AnuualLimit += total * (co / 100);
+            if (Limit > AnuualLimit || Limit == 0) {
+                Limit = AnuualLimit;
+            }
+            if (Limit != 0 && co != 0) {
+                ValueCredit = (total * (co / 100)).toFixed(2);
+                if ((Limit * (co / 100)) <= (ValueCredit)) {
+                    $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
+                    Limit = (Limit * (co / 100)).toFixed(2);
+                    $('#txtValueCredit').val(Limit);//(Limit * (co / 100)).toFixed(2)
+                    $('#txtOverInsurance').val((total - Limit - parseFloat($('#txtTotalCopayment').val())).toFixed(2));
+                }
+                else if ((Limit * (co / 100)) > (ValueCredit)) {
+                    $('#txtValueCredit').val((total * (co / 100)).toFixed(2));
+                    $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
+                }
+            }
+            else {
+                $('#txtValueCredit').val(((total) * (co / 100)).toFixed(2));
+                $('#txtTotalCopayment').val(((total) * (person / 100)).toFixed(2));
+
+            }
+            $('#txtValueCash').val((sumCash + parseFloat($('#txtTotalCopayment').val()) + parseFloat($('#txtOverInsurance').val())).toFixed(2));
+        }
+        else if (ServiceCode == "11602") {
+            var Limit = fixedLimit;
+
+            co = CeilingPert;
+            person = parseFloat(100 - co);
+            //total-cash
+            var total = sum - sumNoPay;
+            //if (Limit != 0) {
+            //    Limit += total * (co / 100);
+            //}
+            //AnuualLimit += total * (co / 100);
+            if (Limit > AnuualLimit || Limit == 0) {
+                Limit = AnuualLimit;
+            }
+            if (Limit < (total) && Limit != 0) {
+                $('#txtValueCredit').val((Limit * (co / 100) + parseFloat(sumNoPay)).toFixed(2));
+                $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
+                $('#txtOverInsurance').val((total - Limit).toFixed(2));
+            }
+            else if (Limit > (total) && Limit != 0) {
+                $('#txtValueCredit').val(((total * (co / 100)) + parseFloat(sumNoPay)).toFixed(2));
+                $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
+
+            }
+            else {
+                $('#txtValueCredit').val(((total * (co / 100)) + parseFloat(sumNoPay)).toFixed(2));
+                $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
+
+            }
+            //var totalcash = (sumCash + parseInt($('#txtTotalCopayment').val())).toFixed(2);
+            // $('#txtCash').val((parseFloat($('#txtTotalCopayment').val()) + parseFloat($('#txtOverInsurance').val())).toFixed(2));
+            $('#txtValueCash').val((sumCash + parseFloat($('#txtTotalCopayment').val()) + parseFloat($('#txtOverInsurance').val())).toFixed(2));
+
+        }
+        else {
+
+            var co = CeilingPert;
+            var person = parseFloat(100 - co);
+            //total-cash
+            var total = parseFloat($('#txtTotalInvoice').val()) - sumCash;
+            var cash = parseFloat($('#txtCash').val());
+            var ValueCredit = 0;
+            if (Limit != 0) {
+                ValueCredit = (total * (co / 100)).toFixed(2);
+                if (Limit < (ValueCredit)) {
+                    $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
+                    Limit = (Limit * (co / 100)).toFixed(2);
+                    $('#txtValueCredit').val(Limit);//(Limit * (co / 100)).toFixed(2)
+                    $('#txtOverInsurance').val(total - Limit - parseFloat($('#txtTotalCopayment').val()).toFixed(2));
+                }
+                else if (Limit > (ValueCredit)) {
+                    $('#txtValueCredit').val((total * (co / 100)).toFixed(2));
+                    $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
+                }
+            }
+            else {
+                $('#txtValueCredit').val(((total) * (co / 100)).toFixed(2));
+                $('#txtTotalCopayment').val(((total) * (person / 100)).toFixed(2));
+
+            }
+            $('#txtValueCash').val((sumCash + parseFloat($('#txtTotalCopayment').val()) + parseFloat($('#txtOverInsurance').val())).toFixed(2));
+        }
+
+
     }
+
 </script>
