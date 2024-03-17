@@ -9443,6 +9443,7 @@
     <Content Include="ProposalAssets\webfonts\fa-v4compatibility.ttf" />
     <Content Include="ProposalAssets\webfonts\fa-v4compatibility.woff2" />
     <Content Include="Reports\MedicineChronicReport.rpt" />
+    <Content Include="Views\Renewals\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
