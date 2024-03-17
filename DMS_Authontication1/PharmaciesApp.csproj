@@ -6561,6 +6561,7 @@
     <Content Include="assets\HomeTemplete\img\brand\4.png" />
     <Content Include="assets\HomeTemplete\img\brand\5.png" />
     <Content Include="assets\HomeTemplete\img\DMS_Logo.png" />
+    <Content Include="assets\HomeTemplete\img\_DMS_Logo.png" />
     <Content Include="assets\HomeTemplete\img\elements\a.jpg" />
     <Content Include="assets\HomeTemplete\img\elements\a2.jpg" />
     <Content Include="assets\HomeTemplete\img\elements\appstore.png" />
