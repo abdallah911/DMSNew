@@ -2856,8 +2856,8 @@ namespace DMS_TEST.Controllers
             var model = db.Notifications.Where(n => n.Id == NotificationId && n.IsDeleted == false && n.IsRead == false)
                 .Include(x => x.Roshita).Include(r => r.Roshita.RoshitaDetails).Include(rd => rd.Roshita.PrescriptionRoshitaDignosis)
                 .FirstOrDefault();
-            model.Roshita.RoshitaDetails = model.Roshita.RoshitaDetails.Where(x => x.PaymentGroup == "Pending" || x.PaymentGroup == "PendingChronic" || x.PaymentGroup == "Accepted"
-            || x.PaymentGroup == "Rejected").ToList();
+            //model.Roshita.RoshitaDetails = model.Roshita.RoshitaDetails.Where(x => x.PaymentGroup == "Pending" || x.PaymentGroup == "PendingChronic" || x.PaymentGroup == "Accepted"
+            //|| x.PaymentGroup == "Rejected").ToList();
             return View(model);
         }
         public ActionResult Pending2(string Id)
@@ -2976,6 +2976,71 @@ namespace DMS_TEST.Controllers
                 result = db.SaveChanges();
             }
             return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        public JsonResult UpdatePrescriptionPending(PrescriptionViewModel data)
+        {
+            try
+            {
+                //Roshita
+                var roshita = db.Roshitas.Where(x => x.Id == data.Id).Include(d => d.RoshitaDetails)
+                    .Include(r => r.PrescriptionRoshitaDignosis).FirstOrDefault();
+                double OldCompanyPayment = roshita.CompanyPayment;
+                roshita.TotalValue = data.TotalValue;
+                roshita.OverInsurance = data.OverInsurance;
+                roshita.PersonPayment = data.PersonPayment;
+                roshita.CompanyPayment = data.CompanyPayment;
+                roshita.Cash = data.Cash;
+
+                foreach (var item in data.roshitaDetail)
+                {
+                    if (item.MedicineNoPay == "true"&&(item.PaymentGroup== "Rejected" || item.PaymentGroup== "Accepted"))
+                    {
+                        roshita.RoshitaDetails.Where(x => x.Id == item.Id).FirstOrDefault().IsDealed = true;
+                    }
+                }
+                db.Entry(roshita).State = EntityState.Modified;
+                NotificationHub objNotifHub = new NotificationHub();
+                Notification notification = db.Notifications.Where(x => x.RoshitaId == data.Id).OrderByDescending(x => x.Id).FirstOrDefault();
+                notification.IsRead = true;
+                db.Entry(notification).State = EntityState.Modified;
+
+                objNotifHub.SendMessages();
+
+                if ((roshita.CompanyPayment - OldCompanyPayment) > 0)
+                {
+                    var remaining = db.RemainConsumptions.Where(r => r.CARD_ID == roshita.CardId)
+                        .OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                    if (remaining != null)
+                    {
+                        remaining.REMAINING = remaining.REMAINING - (roshita.CompanyPayment - OldCompanyPayment);
+                        remaining.NET = remaining.NET + (roshita.CompanyPayment - OldCompanyPayment);
+                        db.Entry(remaining).State = EntityState.Modified;
+                    }
+                }
+                int result = db.SaveChanges();
+                var model = db.CardsSms.Where(c => c.CardId == roshita.CardId).FirstOrDefault();
+                if (model != null)
+                {
+                    try
+                    {
+                        PostSMSData("Your medication card has been dispensed . If it is not used, please call 0226390390", model.Phone);
+
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                }
+                return Json("2" + roshita.CreatedDate.Value.ToString("ddMMyy") + roshita.Id);
+
+            }
+            catch (DbEntityValidationException e)
+            {
+                return Json("Failed to Save Prescription");
+            }
+
         }
 
         public JsonResult ChangeStatus2(int ApprovalId, string status)
@@ -5204,7 +5269,7 @@ namespace DMS_TEST.Controllers
                     bool LimitMonthlyPreceptionCount = false;
                     //LimitDailyPreceptionCount = (CustemizedMedEmp.DAY_NO_ROSHTA_MON == null || (CustemizedMedEmp.DAY_NO_ROSHTA_MON - MonthlyMonthlyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Daily count
                     LimitMonthlyPreceptionCount = (CustemizedMedEmp.MON_NO_ROSHTA_YEAR == null || (CustemizedMedEmp.MON_NO_ROSHTA_YEAR - MonthlyMonthlyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Monthly count
-                    //LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CustemizedMedEmp.DAY_NO_ROSHTA_YEAR == null || (CustemizedMedEmp.DAY_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
+                                                                                                                                                                                                  //LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CustemizedMedEmp.DAY_NO_ROSHTA_YEAR == null || (CustemizedMedEmp.DAY_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
                     LimitMonthlyPreceptionCount = (LimitMonthlyPreceptionCount && (CustemizedMedEmp.MON_NO_ROSHTA_YEAR == null || (CustemizedMedEmp.MON_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Monthly count
 
                     //Double LimitDailyMonthlyPreceptionAmount = CustemizedMedEmp.DAY_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON) : (Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Daily Amount
@@ -5314,7 +5379,7 @@ namespace DMS_TEST.Controllers
                         bool LimitMonthlyPreceptionCount = false;
                         //LimitDailyPreceptionCount = (CustemizedMed.DAY_NO_ROSHTA_MON == null || (CustemizedMed.DAY_NO_ROSHTA_MON - MonthlyMonthlyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Daily count
                         LimitMonthlyPreceptionCount = (CustemizedMed.MON_NO_ROSHTA_YEAR == null || (CustemizedMed.MON_NO_ROSHTA_YEAR - MonthlyMonthlyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Monthly count
-                        //LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CustemizedMed.DAY_NO_ROSHTA_YEAR == null || (CustemizedMed.DAY_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
+                                                                                                                                                                                                //LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CustemizedMed.DAY_NO_ROSHTA_YEAR == null || (CustemizedMed.DAY_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
                         LimitMonthlyPreceptionCount = (LimitMonthlyPreceptionCount && (CustemizedMed.MON_NO_ROSHTA_YEAR == null || (CustemizedMed.MON_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Monthly count
 
                         //Double LimitDailyMonthlyPreceptionAmount = CustemizedMed.DAY_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON) : (Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON - (MonthlyMonthlyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyMonthlyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Daily Amount
@@ -5692,7 +5757,7 @@ namespace DMS_TEST.Controllers
 
                     //LimitDailyPreceptionCount = (CustemizedMedEmp.DAY_NO_ROSHTA_MON == null || (CustemizedMedEmp.DAY_NO_ROSHTA_MON - MonthlyDailyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Daily count
                     LimitMonthlyPreceptionCount = (CustemizedMedEmp.MON_NO_ROSHTA_YEAR == null || (CustemizedMedEmp.MON_NO_ROSHTA_YEAR - MonthlyMonthlyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Monthly count
-                    //LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CustemizedMedEmp.DAY_NO_ROSHTA_YEAR == null || (CustemizedMedEmp.DAY_NO_ROSHTA_YEAR - YearlyDailyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
+                                                                                                                                                                                                  //LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CustemizedMedEmp.DAY_NO_ROSHTA_YEAR == null || (CustemizedMedEmp.DAY_NO_ROSHTA_YEAR - YearlyDailyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
                     LimitMonthlyPreceptionCount = (LimitMonthlyPreceptionCount && (CustemizedMedEmp.MON_NO_ROSHTA_YEAR == null || (CustemizedMedEmp.MON_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Monthly count
 
                     //Double LimitDailyMonthlyPreceptionAmount = CustemizedMedEmp.DAY_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON) : (Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMedEmp.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Daily Amount
@@ -5776,7 +5841,7 @@ namespace DMS_TEST.Controllers
 
                         //LimitDailyPreceptionCount = (CustemizedMed.DAY_NO_ROSHTA_MON == null || (CustemizedMed.DAY_NO_ROSHTA_MON - MonthlyDailyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Daily count
                         LimitMonthlyPreceptionCount = (CustemizedMed.MON_NO_ROSHTA_YEAR == null || (CustemizedMed.MON_NO_ROSHTA_YEAR - MonthlyMonthlyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Monthly count
-                        //LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CustemizedMed.DAY_NO_ROSHTA_YEAR == null || (CustemizedMed.DAY_NO_ROSHTA_YEAR - YearlyDailyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
+                                                                                                                                                                                                //LimitDailyPreceptionCount = (LimitDailyPreceptionCount && (CustemizedMed.DAY_NO_ROSHTA_YEAR == null || (CustemizedMed.DAY_NO_ROSHTA_YEAR - YearlyDailyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Daily count
                         LimitMonthlyPreceptionCount = (LimitMonthlyPreceptionCount && (CustemizedMed.MON_NO_ROSHTA_YEAR == null || (CustemizedMed.MON_NO_ROSHTA_YEAR - YearlyMonthlyAcumlatorList.Count() > 0))) ? true : false;//Yearly&Monthly count
 
                         //Double LimitDailyMonthlyPreceptionAmount = CustemizedMed.DAY_MED_AMT_MON == null ? Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON) : (Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)))) == 0 ? .001 : Convert.ToDouble(CustemizedMed.DAY_MED_AMT_MON - (MonthlyDailyAcumlatorList.Sum(x => x.PersonPayment) + (MonthlyDailyAcumlatorList.Sum(x => x.CompanyPayment) - nopaylast21day)));//Monthly&Daily Amount
