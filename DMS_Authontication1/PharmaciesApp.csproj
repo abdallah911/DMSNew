@@ -9445,6 +9445,9 @@
     <Content Include="ProposalAssets\webfonts\fa-v4compatibility.woff2" />
     <Content Include="Reports\MedicineChronicReport.rpt" />
     <Content Include="Views\Renewals\Index.cshtml" />
+    <Content Include="Views\ReportMain\ReviewBatch.cshtml" />
+    <Content Include="Reports\ReviewDetails.rpt" />
+    <Content Include="Reports\ReviewSummary.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
