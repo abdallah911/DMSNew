@@ -8305,6 +8305,7 @@
     <Content Include="ProposalAssets\JS\jquery.min.js" />
     <Content Include="ProposalAssets\JS\main.js" />
     <Content Include="Scripts\DMS\NewReport.js" />
+    <Content Include="Scripts\DMS\PharmacyIndexNewDesign.js" />
     <Content Include="Scripts\DMS\ReportMain\ReportMain.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -8976,7 +8977,7 @@
     <Content Include="Views\Labs\_Approvals.cshtml" />
     <Content Include="Views\Pharmacy\Details.cshtml" />
     <Content Include="Views\Pharmacy\Edit.cshtml" />
-    <Content Include="Views\Pharmacy\Index.cshtml" />
+    <Content Include="Views\Pharmacy\IndexNewDesign.cshtml" />
     <Content Include="Views\DoctorApprovals\_Providers.cshtml" />
     <Content Include="Views\DoctorApprovals\_SearchCards.cshtml" />
     <Content Include="Views\DoctorApprovals\_LastApproval.cshtml" />
@@ -9393,7 +9394,7 @@
     <Content Include="Views\Shared\_Layout_DashboardNew.cshtml" />
     <Content Include="Views\User\Index - Copy.cshtml" />
     <Content Include="Views\Account\Register - Copy.cshtml" />
-    <Content Include="Views\Pharmacy\Index - Copy.cshtml" />
+    <Content Include="Views\Pharmacy\Index.cshtml" />
     <Content Include="Views\Pharmacy\DeletedStopRoshita - Copy.cshtml" />
     <Content Include="Views\Rays\Index - Copy.cshtml" />
     <Content Include="Views\Labs\Index - Copy.cshtml" />

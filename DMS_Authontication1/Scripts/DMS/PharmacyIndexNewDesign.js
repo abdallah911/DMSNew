@@ -4,10 +4,10 @@ $(function () {
     var id;
     var role = $("#role").val();
     $('#ddlUsers').select2();
-    $('#From').datepicker({
-        maxDate: 0
-    });
-    $('#To').datepicker({ maxDate: 0 });
+    //$('#From').datepicker({
+    //    maxDate: 0
+    //});
+    //$('#To').datepicker({ maxDate: 0 });
     $('#AdminFrom').datepicker({ maxDate: 0 });
     $('#AdminTo').datepicker({ maxDate: 0 });
     $('#Print').click(function () {
@@ -77,7 +77,7 @@ $(function () {
                         "data": "Id",
                         "mRender": function (data) {
                             if (edit == "True" || fullcontroll == "True") {
-                                return '<a class="btn btn-warning" href="/Pharmacy/Edit/' + data + '">Edit</a>';
+                                return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Edit/' + data + '">Edit</a>';
                             }
                             else
                                 return '<input  data-id=' + data + '  hidden  /> ';
@@ -87,7 +87,7 @@ $(function () {
                         "data": "Id",
                         "mRender": function (data) {
                             if (view == "True" || fullcontroll == "True") {
-                                return '<a class="btn btn-info" href="/Pharmacy/Details/' + data + '">Details</a>';
+                                return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Details/' + data + '">Details</a>';
                             }
                             else
                                 return '<input  data-id=' + data + '  hidden  /> ';
@@ -98,7 +98,7 @@ $(function () {
                         "data": "Id",
                         "mRender": function (data) {
                             if (deleterosita == "True" || fullcontroll == "True") {
-                                return '<button type="button" class="btn btn-danger" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+                                return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
 
                             }
                             else
@@ -108,7 +108,7 @@ $(function () {
                     {
                         "data": "Oracle_Id",
                         "mRender": function (data) {
-                            return '<button type="button" class="btn btn-default" data-id=' + data + ' onclick="Print(this);"> Print</button>';
+                            return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Print(this);"> Print</button>';
                         }
                     }
 
@@ -185,27 +185,27 @@ $(function () {
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            return '<a class="btn btn-warning" disabled href="/Pharmacy/Edit/' + data + '">Edit</a>';
+                            return '<a class="text-light btn" style="background-color: #717382" disabled href="/Pharmacy/Edit/' + data + '">Edit</a>';
                         }
                     },
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            return '<a class="btn btn-info"  href="/Pharmacy/Details/' + data + '">Details</a>';
+                            return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Details/' + data + '">Details</a>';
                         }
                     }
                     ,
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            return '<button type="button" disabled class="btn btn-danger" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+                            return '<button type="button" disabled class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
 
                         }
                     },
                     {
                         "data": "Oracle_Id",
                         "mRender": function (data) {
-                            return '<button type="button" class="btn btn-default" data-id=' + data + ' onclick="Print(this);"> Print</button>';
+                            return '<button type="button" class="text-light btn" style="background-color: #717382"data-id=' + data + ' onclick="Print(this);"> Print</button>';
                         }
                     }
 
@@ -252,12 +252,11 @@ function Print(button) {
 }
 
 function ValidSearchRequest() {
-    $.validity.setup({ outputMode: 'label' });
-    $.validity.start();
+ 
 
     if ($("#AdminFrom").val() == "") { toastr.error("Please,select From Date."); return { valid: false }; }
     if ($("#AdminTo").val() == "") { toastr.error("Please,select To date."); return { valid: false }; }
-    return $.validity.end();
+    return { valid: true };
 }
 function ClearSearchData() {
     $("#AdminFrom").val("");
@@ -270,11 +269,10 @@ function ClearSearchData() {
     $("#ddlType").val('').trigger("change");
 }
 function ValidPharmacySearchRequest() {
-    $.validity.setup({ outputMode: 'label' });
-    $.validity.start();
+    
     if ($("#From").val() == "") { toastr.error("Please,select From Date."); return { valid: false }; }
     if ($("#To").val() == "") { toastr.error("Please,select To date."); return { valid: false }; }
-    return $.validity.end();
+    return { valid: true };
 }
 function ClearPharmacySearchData() {
     $("#From").val("");
@@ -313,27 +311,27 @@ function IndexDatatable() {
             {
                 "data": "Id",
                 "mRender": function (data) {
-                    return '<a class="btn btn-warning" href="/Pharmacy/Edit/' + data + '">Edit</a>';
+                    return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Edit/' + data + '">Edit</a>';
                 }
             },
             {
                 "data": "Id",
                 "mRender": function (data) {
-                    return '<a class="btn btn-info" href="/Pharmacy/Details/' + data + '">Details</a>';
+                    return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Details/' + data + '">Details</a>';
                 }
             }
             ,
             {
                 "data": "Id",
                 "mRender": function (data) {
-                    return '<button type="button" class="btn btn-danger" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+                    return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
 
                 }
             },
             {
                 "data": "Oracle_Id",
                 "mRender": function (data) {
-                    return '<button type="button" class="btn btn-default" data-id=' + data + ' onclick="Print(this);"> Print</button>';
+                    return '<button type="button" class="text-light btn" style="background-color: #717382"data-id=' + data + ' onclick="Print(this);"> Print</button>';
                 }
             }
 
@@ -378,7 +376,7 @@ function IndexDatatableAdmin() {
                     "data": "Id",
                     "mRender": function (data) {
                         if (edit == "True" || fullcontroll == "True") {
-                            return '<a class="btn btn-warning" href="/Pharmacy/Edit/' + data + '">Edit</a>';
+                            return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Edit/' + data + '">Edit</a>';
                         }
                         else
                             return '<input  data-id=' + data + '  hidden  /> ';
@@ -388,7 +386,7 @@ function IndexDatatableAdmin() {
                     "data": "Id",
                     "mRender": function (data) {
                         if (view == "True" || fullcontroll == "True") {
-                            return '<a class="btn btn-info" href="/Pharmacy/Details/' + data + '">Details</a>';
+                            return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Details/' + data + '">Details</a>';
                         }
                         else
                             return '<input  data-id=' + data + '  hidden  /> ';
@@ -399,7 +397,7 @@ function IndexDatatableAdmin() {
                     "data": "Id",
                     "mRender": function (data) {
                         if (deleterosita == "True" || fullcontroll == "True") {
-                            return '<button type="button" class="btn btn-danger" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+                            return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
 
                         }
                         else
@@ -409,7 +407,7 @@ function IndexDatatableAdmin() {
                 {
                     "data": "Oracle_Id",
                     "mRender": function (data) {
-                        return '<button type="button" class="btn btn-default" data-id=' + data + ' onclick="Print(this);"> Print</button>';
+                        return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Print(this);"> Print</button>';
                     }
                 }
 
@@ -482,27 +480,27 @@ function IndexDatatableAdmin() {
                 {
                     "data": "Id",
                     "mRender": function (data) {
-                        return '<a class="btn btn-warning" href="/Pharmacy/Edit/' + data + '">Edit</a>';
+                        return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Edit/' + data + '">Edit</a>';
                     }
                 },
                 {
                     "data": "Id",
                     "mRender": function (data) {
-                        return '<a class="btn btn-info" href="/Pharmacy/Details/' + data + '">Details</a>';
+                        return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Details/' + data + '">Details</a>';
                     }
                 }
                 ,
                 {
                     "data": "Id",
                     "mRender": function (data) {
-                        return '<button type="button" class="btn btn-danger" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+                        return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
 
                     }
                 },
                 {
                     "data": "Oracle_Id",
                     "mRender": function (data) {
-                        return '<button type="button" class="btn btn-default" data-id=' + data + ' onclick="Print(this);"> Print</button>';
+                        return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Print(this);"> Print</button>';
                     }
                 }
 
