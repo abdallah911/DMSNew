@@ -69,12 +69,7 @@
                                type="text"
                                placeholder="درجة الاقامة" />
                     </div>
-                    <div style="height: 57px; margin:10px">
-                        <input class="myInput"
-                               style="pointer-events: none; height: 45px; margin-top:29x;"
-                               type="text"
-                               placeholder="السعر" />
-                    </div>
+
                     <div style="height: 57px; margin:10px">
                         <input class="myInput"
                                style="pointer-events: none; height: 45px;"
@@ -128,6 +123,12 @@
                                style="pointer-events: none; height: 45px;"
                                type="text"
                                placeholder="الحد الأقصى في حالات الوفاة" />
+                    </div>
+                    <div style="height: 57px; margin:10px">
+                        <input class="myInput"
+                               style="pointer-events: none; height: 45px; margin-top:29x;"
+                               type="text"
+                               placeholder="السعر" />
                     </div>
                 </div>
             </div>
@@ -204,11 +205,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <input type="text" name="Model[@index].Price" value="@Model[index].Price" />
-                                    @*@Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })*@
 
-                                </div>
                                 <div style="position: relative">
                                     @*<input type="text" style="pointer-events: none" name="Model[@index].Price"/>*@
                                     <div style="
@@ -439,10 +436,15 @@
                                     </section>
                                 </div>
                                 <div>
-                                    <input type="text" name="Model[@index].Accidents" value="@Model[index].Accidents"/>
+                                    <input type="text" name="Model[@index].Accidents" value="@Model[index].Accidents" />
                                 </div>
                                 <div>
                                     <input type="text" name="Model[@index].Death" value="@Model[index].Death" />
+                                </div>
+                                <div>
+                                    <input type="text" name="Model[@index].Price" value="@Model[index].Price" />
+                                    @*@Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })*@
+
                                 </div>
                             </div>
                         </div>
