@@ -165,9 +165,9 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ApprovalBil" Width="1.5" PointX="39.375" PointY="20.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CONSUMPTION_POOL" Width="1.5" PointX="40.375" PointY="25.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CardsSm" Width="1.5" PointX="34.375" PointY="5.75" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PETROTRADE_EMPLOYEES" Width="1.5" PointX="37.375" PointY="40.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CardCode" Width="1.5" PointX="40.375" PointY="16.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ApprovalCode" Width="1.5" PointX="39.375" PointY="40.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PETROTRADE_EMPLOYEES" Width="1.5" PointX="41.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

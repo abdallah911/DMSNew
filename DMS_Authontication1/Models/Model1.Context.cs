@@ -146,9 +146,9 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<ApprovalBil> ApprovalBils { get; set; }
         public virtual DbSet<CONSUMPTION_POOL> CONSUMPTION_POOL { get; set; }
         public virtual DbSet<CardsSm> CardsSms { get; set; }
-        public virtual DbSet<PETROTRADE_EMPLOYEES> PETROTRADE_EMPLOYEES { get; set; }
         public virtual DbSet<CardCode> CardCodes { get; set; }
         public virtual DbSet<ApprovalCode> ApprovalCodes { get; set; }
+        public virtual DbSet<PETROTRADE_EMPLOYEES> PETROTRADE_EMPLOYEES { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)
