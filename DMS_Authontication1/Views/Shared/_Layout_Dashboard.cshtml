@@ -165,7 +165,7 @@
 
                 <ul class="nav navbar-nav nav-admin-cus" style="color: #000">
                     @{
-                        if ((User.IsInRole("Admin")||User.IsInRole("AdminHelth")) && User.Identity.IsAuthenticated)
+                        if ((User.IsInRole("Admin") || User.IsInRole("AdminHelth")) && User.Identity.IsAuthenticated)
                         {
                             <li>
                                 <a><span class="collaps"><i class="fa fa-lg fa-times" aria-hidden="true"></i></span></a>
@@ -173,9 +173,9 @@
                         }
                     }
                     @{
-                        if ((User.IsInRole("Admin") || User.IsInRole("Pharmacy")|| User.IsInRole("AdminHelth") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
+                        if ((User.IsInRole("Admin") || User.IsInRole("Pharmacy") || User.IsInRole("AdminHelth") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
                         {
-                            if (User.IsInRole("Admin")||User.IsInRole("AdminHelth"))
+                            if (User.IsInRole("Admin") || User.IsInRole("AdminHelth"))
                             {
                                 if (modellist != null)
                                 {
@@ -204,9 +204,9 @@
                         }
                     }
                     @{
-                        if (User.IsInRole("Admin") ||User.IsInRole("AdminHelth") || User.IsInRole("Rays") || User.IsInRole("Rays_Admin"))
+                        if (User.IsInRole("Admin") || User.IsInRole("AdminHelth") || User.IsInRole("Rays") || User.IsInRole("Rays_Admin"))
                         {
-                            if (User.IsInRole("Admin")||User.IsInRole("AdminHelth"))
+                            if (User.IsInRole("Admin") || User.IsInRole("AdminHelth"))
                             {
                                 if (modellist != null)
                                 {
@@ -236,9 +236,9 @@
                         }
                     }
                     @{
-                        if (User.IsInRole("Admin") ||User.IsInRole("AdminHelth") || User.IsInRole("Lab") || User.IsInRole("Lab_Admin"))
+                        if (User.IsInRole("Admin") || User.IsInRole("AdminHelth") || User.IsInRole("Lab") || User.IsInRole("Lab_Admin"))
                         {
-                            if (User.IsInRole("Admin")||User.IsInRole("AdminHelth"))
+                            if (User.IsInRole("Admin") || User.IsInRole("AdminHelth"))
                             {
                                 if (modellist != null)
                                 {
@@ -424,7 +424,7 @@
     </div>
     @* container *@
     @{
-        if (User.IsInRole("Admin") ||User.IsInRole("AdminHelth") || User.IsInRole("Doctor"))
+        if (User.IsInRole("Admin") || User.IsInRole("AdminHelth") || User.IsInRole("Doctor"))
         {
             <div class="wrap">
                 <aside id="side-menu" class="aside" role="navigation">
@@ -466,24 +466,24 @@
 
                                                 <li><a href="/DoctorApprovals/Monthly">Doctor Chronic </a></li>
 
-                                                }
+                                            }
 
-                                                @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                                {
+                                            @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
 
-                                                    <li><a href="/GetApproval/Index">Permissions List</a></li>
-                                                }
-                                                @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-                                                {
+                                                <li><a href="/GetApproval/Index">Permissions List</a></li>
+                                            }
+                                            @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                            {
 
-                                                    <li><a href="/GetApproval/Create">Permissions</a></li>
-                                                }
-                                            </ul>
-                                        </li>
-                                    }
+                                                <li><a href="/GetApproval/Create">Permissions</a></li>
+                                            }
+                                        </ul>
+                                    </li>
                                 }
+                            }
 
 
                         }
@@ -709,35 +709,35 @@
                         @*}
                             }*@
 
-                            <li class="nav-header">
-                                <div class="link"><i class="fa fa-paper-plane-o"></i>Report<i class="fa fa-chevron-down"></i></div>
-                                <ul class="submenu">
-                                    <li><a href="/ReportMain/Index" class="link-cus">Pharmacy Report</a></li>
+                        <li class="nav-header">
+                            <div class="link"><i class="fa fa-paper-plane-o"></i>Report<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                <li><a href="/ReportMain/Index" class="link-cus">Pharmacy Report</a></li>
 
-                                    <li><a href="/ReportMain/ReportMed2" class="link-cus">Medicine Audit</a></li>
+                                <li><a href="/ReportMain/ReportMed2" class="link-cus">Medicine Audit</a></li>
 
-                                    <li><a href="/ReportMain/ReportPrint" class="link-cus">Print Report</a></li>
+                                <li><a href="/ReportMain/ReportPrint" class="link-cus">Print Report</a></li>
 
-                                    <li><a href="/ReportMain/Reports" class="link-cus">Reports</a></li>
+                                <li><a href="/ReportMain/Reports" class="link-cus">Reports</a></li>
 
-                                    <li><a href="/ReportMain/ReportProviderCheck" class="link-cus">Provider Check</a></li>
+                                <li><a href="/ReportMain/ReportProviderCheck" class="link-cus">Provider Check</a></li>
 
-                                    <li><a href="/ReportMain/ReviewBatch" class="link-cus">Review Batch</a></li>
+                                <li><a href="/ReportMain/ReviewBatch" class="link-cus">Review Batch</a></li>
 
-                                </ul>
+                            </ul>
 
-                            </li>
-                            <li class="nav-header">
-                                <div class="link"><i class="fa fa-paper-plane-o"></i>New Report<i class="fa fa-chevron-down"></i></div>
-                                <ul class="submenu">
-                                    <li><a href="/NewReports/OperationReport" class="link-cus">Operation Reports</a></li>
-                                    <li><a href="/NewReports/ApprovalReports" class="link-cus">Approval Reports</a></li>
-                                    <li><a href="/NewReports/ConsumptionReport" class="link-cus">Consumption Reports</a></li>
-                                                                       
-                                </ul>
+                        </li>
+                        <li class="nav-header">
+                            <div class="link"><i class="fa fa-paper-plane-o"></i>New Report<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                <li><a href="/NewReports/OperationReport" class="link-cus">Operation Reports</a></li>
+                                <li><a href="/NewReports/ApprovalReports" class="link-cus">Approval Reports</a></li>
+                                <li><a href="/NewReports/ConsumptionReport" class="link-cus">Consumption Reports</a></li>
 
-                            </li>
-                        </ul>
+                            </ul>
+
+                        </li>
+                    </ul>
                 </aside>
                 <div class="content">
                     <div class="top-bar">
@@ -756,24 +756,23 @@
                                         <div class="row">
                                             <div class="col-12 col-md-6 col-lg-4">
                                                 <div class="foot-about">
-                                                    <div class="img d-flex align-self-stretch" style="width: 75px;height:50px;">
+                                                    <div class="img d-flex align-self-stretch" style="width: 75px;height:50px;background-image: url(/assets/HomeTemplete/img/DMS_Logo.png);">
                                                         <a href="#"></a>
                                                         <img src="~/assets/HomeTemplete/img/DMS_Logo.png" />
                                                     </div>
-                                                    <p>Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.</p>
+                                                    <p>SIOS is a software development company. We develop end-to-end software for midsize companies and enterprises, mainly from EGYPT. We help business to upscale creating valuable and best-fit custom so.</p>
                                                     <p class="copyright">
-                                                    <p>&copy; @DateTime.Now.Year - DMS Application</p>
-                                                    </p>
+                                                    <p>&copy; @DateTime.Now.Year - SIOS Application</p>
                                                 </div><!-- .foot-about -->
                                             </div>
                                             <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
                                                 <div class="foot-contact">
                                                     <h2>Contact</h2>
                                                     <ul class="p-0 m-0">
-                                                        <li><span>Address:</span>12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>
+                                                        <li><span>Address:</span> 12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>
                                                         @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
-                                                        <li><span>Phone:</span>+ 0226390390</li>
-                                                        <li><span>Email:</span>Contact@dms-eg.com</li>
+                                                        <li><span>Phone:</span>01032274222 – 01026006177</li>
+                                                        <li><span>Email:</span>SIOS@gmail.com</li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -814,10 +813,9 @@
                                         <a href="#"></a>
                                         <img src="~/assets/HomeTemplete/img/DMS_Logo.png" />
                                     </div>
-                                    <p>Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.</p>
+                                    <p>SIOS is a software development company. We develop end-to-end software for midsize companies and enterprises, mainly from EGYPT. We help business to upscale creating valuable and best-fit custom so.</p>
                                     <p class="copyright">
-                                    <p>&copy; @DateTime.Now.Year - DMS Application</p>
-                                    </p>
+                                    <p>&copy; @DateTime.Now.Year - SIOS Application</p>
                                 </div><!-- .foot-about -->
                             </div>
                             <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
@@ -826,8 +824,8 @@
                                     <ul class="p-0 m-0">
                                         <li><span>Address:</span> 12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>
                                         @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
-                                        <li><span>Phone:</span>+ 0226390390</li>
-                                        <li><span>Email:</span>Contact@dms-eg.com</li>
+                                        <li><span>Phone:</span>01032274222 – 01026006177</li>
+                                        <li><span>Email:</span>SIOS@gmail.com</li>
                                     </ul>
                                 </div>
                             </div>

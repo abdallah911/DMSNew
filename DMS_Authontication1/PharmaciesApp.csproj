@@ -8986,12 +8986,12 @@
     <Content Include="Views\DoctorMedicinesLabsRaysApproval\_SearchCards.cshtml" />
     <Content Include="Views\Labs\Pending2.cshtml" />
     <Content Include="Views\Doctor\_Approvals.cshtml" />
-    <Content Include="Views\Labs\Index.cshtml" />
+    <Content Include="Views\Labs\IndexNewdesign.cshtml" />
     <Content Include="Views\Labs\Edit.cshtml" />
     <Content Include="Views\Labs\Details.cshtml" />
     <Content Include="Views\Labs\_ControlLabs.cshtml" />
     <Content Include="Views\Rays\Pending2.cshtml" />
-    <Content Include="Views\Rays\Index.cshtml" />
+    <Content Include="Views\Rays\IndexNewDesign.cshtml" />
     <Content Include="Views\Rays\Edit.cshtml" />
     <Content Include="Views\Rays\Details.cshtml" />
     <Content Include="Views\Rays\_ControlRays.cshtml" />
@@ -9397,8 +9397,8 @@
     <Content Include="Views\Account\Register - Copy.cshtml" />
     <Content Include="Views\Pharmacy\Index.cshtml" />
     <Content Include="Views\Pharmacy\DeletedStopRoshita - Copy.cshtml" />
-    <Content Include="Views\Rays\Index - Copy.cshtml" />
-    <Content Include="Views\Labs\Index - Copy.cshtml" />
+    <Content Include="Views\Rays\Index.cshtml" />
+    <Content Include="Views\Labs\Index.cshtml" />
     <Content Include="Views\CompEmployees\IndexSms - Copy.cshtml" />
     <Content Include="Views\CompanyGroup\Index - Copy.cshtml" />
     <Content Include="Views\NewReports\Index.cshtml" />
