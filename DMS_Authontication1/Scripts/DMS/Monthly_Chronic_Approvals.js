@@ -62,9 +62,9 @@ $(function () {
 
             //-------------------
             $.ajax({
-                dataType: "json",
                 url: '/Pharmacy/AddCardForAddChronic',
                 data: { id: AddCardTxt },
+                dataType: "json",
                 success: function (r) {
                     if (r != "null") {
                         $('#SearchCards').dataTable().fnDestroy();
@@ -117,6 +117,7 @@ $(function () {
                 },
                 error: function (r) {
                     $("#wait").css("display", "none");
+                    console.log(r);
                     window.alert('Error retrive  Data ');
                 }
 
