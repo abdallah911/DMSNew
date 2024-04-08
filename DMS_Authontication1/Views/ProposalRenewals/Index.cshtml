@@ -1,0 +1,110 @@
+﻿@*@model DMS_Authontication1.ViewModel.ProposalMainViewModel*@
+
+
+@{
+    if (ViewBag != null)
+    {
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout_Proposal.cshtml";
+        //var Errors = ViewBag.Errors;
+    }
+}
+
+<div class="container-fluid mt-4">
+    @using (Html.BeginForm("Index", "ProposalRenewal", FormMethod.Post, new { enctype = "multipart/form-data", id = "RenewalMainForm" }))
+        {
+            @Html.AntiForgeryToken()
+    <div class="row">
+
+        @*<input hidden name="Id" value="@ViewBag.MainId" />*@
+        <div class="col-lg-10 m-auto w-100">
+            <div class="sec-3 row mt-3">
+                <div class="col-8">
+                    <div class="main-form col-12">
+
+
+                        <div class="d-flex" style="align-items:center;">
+                            <span class="fw-bold" style="width:100px">
+                                أسم الشركة
+                            </span>
+                            @*@Html.TextBoxFor(model => model.CompanyArabicName, new { @class = "sios-form-control home-input col", placeholder = "الإسم بالعربي" })*@
+
+
+                            @*<input id="CompanyName" class="sios-form-control home-input col" style="width: 100%" />*@
+
+                            @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "sios-form-control home-input col", style = "width: 100%", id = "CompNo" })
+
+                            @*<div class="col-md-6">
+                <input id="CompanyName" class="sios-form-control home-input col" placeholder="Enter Batch Number" style="width: 100%" />
+            </div>*@
+                            <button id="Search" type="button" class="btn btn-primary" onclick="SearchRenewal()">
+                                <span class="fa fa-save"></span> Search
+                            </button>
+                        </div>
+
+                        <div class="d-flex" style="align-items:center;">
+                            <span class="fw-bold" style="width:100px">
+                                رقم العقد
+                            </span>
+                            <input id="ContractNo" class="sios-form-control home-input col" style="width: 100%" disabled />
+                        </div>
+
+                        <div class="d-flex" style="align-items:center;">
+                            <span class="fw-bold" style="width:100px">
+                                عدد الفئات
+                            </span>
+                            <input id="ClassCount" class="sios-form-control home-input col" style="width: 100%" disabled />
+                        </div>
+
+                        <div class="d-flex" style="align-items:center;">
+                            <span class="fw-bold" style="width:117px">
+                                عدد الموظفين
+                            </span>
+                            <input id="EmployeeCount" class="sios-form-control home-input col" style="width: 100%" disabled />
+                        </div>
+
+                        <div class="btns-box">
+                            <div class="d-flex action-btns w-75 m-auto">
+                                <div>
+                                    <button type="button" class="btn action-btn fs-5 fw-bold py-2 px-4" onclick="clearForm()" id="NewForm">جديد</button>
+
+                                </div>
+
+                                @*<button type="button" class="btn action-btn p-2"onclick="submitForm()">حفظ</button>*@
+                                <div>
+                                    <a style="width: fit-content;">
+                                        <button type="button" class="text-align-center btn next-btn fs-5 fw-bold py-2 px-5" onclick="NextScreen()">التالي</button>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <br />
+                            <div class="d-flex action-btns w-75 m-auto">
+                                <div>
+                                    <button type="button" class="btn action-btn fs-5 fw-bold py-2 px-4" onclick="goToIndex()">
+                                        الغاء
+                                    </button>
+                                </div>
+                               
+                            </div>
+                            <br />
+                            <div class="w-25 action-btns"
+                                 style="
+                    margin-right: 35%;
+                    grid-template-columns: repeat(1, auto);
+                  ">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    }
+</div>
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/DMS/ProposalRenewals/ProposalRenewals.js?V=3.2"></script>
