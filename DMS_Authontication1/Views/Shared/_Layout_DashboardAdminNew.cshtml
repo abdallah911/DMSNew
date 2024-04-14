@@ -42,7 +42,7 @@
     </script>
 
 </head>
-<body >
+<body>
 
     @{
         var modellist = new List<ModulesPagesViewModel>();
@@ -60,7 +60,7 @@
     <div class="page---container">
 
         <!-- Main Menu -->
-        <nav style="white-space:nowrap;" class="navbar navbar-expand-lg bg-body-tertiary Admin-navbar" >
+        <nav style="white-space:nowrap;" class="navbar navbar-expand-lg bg-body-tertiary Admin-navbar">
             <div class="container-fluid" style="justify-content: space-between">
                 <div class="d-flex align-items-center">
                     <a class="nav-link mb-2 mt-1"
@@ -384,13 +384,12 @@
                                     <li class="nav-item dropdown" style="list-style-type: none">
                                         <a class="nav-link"
                                            href="/NewReports/OperationReport"
-                                           role="button"
-                                        >
-                                           
+                                           role="button">
+
                                             New Reports
-                                            
+
                                         </a>
-                                       
+
                                     </li>
                                 </ul>
 
@@ -461,9 +460,9 @@
                                             <li>
                                                 <a class="dropdown-item" href="./Medical-Approval.html">Medical Approval</a>
                                             </li>
-                                            <li>                                                
+                                            <li>
                                                 @Html.ActionLink("Offer", "Index", "ProposalMain", null, new { @class = "dropdown-item" })
-                                               @* <a href="~/ProposalMain.html class="dropdown-item">Offers</a>*@
+                                                @* <a href="~/ProposalMain.html class="dropdown-item">Offers</a>*@
                                             </li>
                                             <li>
                                                 <a class="dropdown-item" href="./Radio-Centers.html">Policy</a>
@@ -598,6 +597,7 @@
     <!-- Finally, include your main.js -->
     <script src="~/assets/NewDesignBackAdmin/JS/HR-Script.js"></script>
     <script src="~/assets/NewDesignBackAdmin/JS/main.js"></script>
+    <script src="~/assets/NewDesignBackAdmin/JS/Admin-Script.js"></script>
     @*<script src="~/Scripts/moment.min.js"></script>*@
     @*<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>*@
     @*<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>*@

@@ -7285,6 +7285,7 @@
     <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-05.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-06.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-07.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\JS\Admin-Script.js" />
     <Content Include="assets\NewDesignBackAdmin\JS\bootstrap.bundle.min.js" />
     <Content Include="assets\NewDesignBackAdmin\JS\dataTables.bootstrap5.min.js" />
     <Content Include="assets\NewDesignBackAdmin\JS\HR-Script.js" />
