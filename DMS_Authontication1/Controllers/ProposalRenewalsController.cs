@@ -98,26 +98,26 @@ namespace DMS_Authontication1.Controllers
             ViewBag.CatCount = countCat;
             ViewBag.previousUrl = System.Web.HttpContext.Current.Request.UrlReferrer?.ToString();
             var model = new List<ProposalStepTwoViewModel>(categoriesCount);
-            if (mainProposal.ProposalStepTwos.Count() > 0)
-            {
+            //if (mainProposal.ProposalStepTwos.Count() > 0)
+            //{
 
-                foreach (var stepTwo in mainProposal.ProposalStepTwos)
-                {
-                    var item = MapEntityToViewModelStepTwo(stepTwo);
-                    item.Id = stepTwo.Id;
-                    model.Add(item);
+            //    foreach (var stepTwo in mainProposal.ProposalStepTwos)
+            //    {
+            //        var item = MapEntityToViewModelStepTwo(stepTwo);
+            //        item.Id = stepTwo.Id;
+            //        model.Add(item);
 
-                }
-            }
-            else
-            {
+            //    }
+            //}
+            //else
+            //{
 
                 for (int i = 0; i < categoriesCount; i++)
                 {
                     // Create an instance of ProposalStepTwoViewModel and add it to the list
                     model.Add(new ProposalStepTwoViewModel());
                 }
-            }
+            //}
             // Render the view for the second step
             return View(model);
         }
