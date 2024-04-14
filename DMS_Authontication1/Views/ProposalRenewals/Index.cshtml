@@ -23,25 +23,26 @@
                     <div style="direction: rtl; background: linear-gradient(45deg, #cad4e6, #e9eef8);" class="main-form d-grid gap-1 p-4 mx-auto rounded col-12">
 
 
-                        <div class="row row-cols-2  mx-auto justify-content-between" style="align-items:center;">
+                        <div class="d-flex  justify-content-between" style="align-items:center;">
+
                             <span class="fw-bold" style="width:100px">
                                 أسم الشركة
                             </span>
                             @*@Html.TextBoxFor(model => model.CompanyArabicName, new { @class = "sios-form-control home-input w-75", placeholder = "الإسم بالعربي" })*@
 
+                            <div class="d-flex w-75 gap-3">
+                                @*<input id="CompanyName" class="sios-form-control home-input w-75" style="width: 100%" />*@
 
-                            @*<input id="CompanyName" class="sios-form-control home-input w-75" style="width: 100%" />*@
+                                @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "sios-form-control home-input w-75", style = "width: 100%", id = "CompNo" })
 
-                            @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "sios-form-control home-input w-75", style = "width: 100%", id = "CompNo" })
-
-                            @*<div class="col-md-6">
+                                @*<div class="col-md-6">
                 <input id="CompanyName" class="sios-form-control home-input w-75" placeholder="Enter Batch Number" style="width: 100%" />
             </div>*@
-                            <button style=" white-space: nowrap; width:fit-content; margin-bottom: 5px; padding: 4px 12px; background: var(--color-secondary); border-color: var(--color-secondary);" id="Search" type="button" class="btn me-auto btn-primary" onclick="SearchRenewal()">
-                                <span class="fa fa-magnifying-glass"></span> Search
-                            </button>
+                                <button style=" white-space: nowrap; width:fit-content; margin-bottom: 5px; padding: 4px 12px; background: var(--color-secondary); border-color: var(--color-secondary);" id="Search" type="button" class="btn me-auto btn-primary" onclick="SearchRenewal()">
+                                    <span class="fa fa-magnifying-glass"></span> Search
+                                </button>
+                            </div>
                         </div>
-
                         <div class="d-flex  justify-content-between" style="align-items:center;">
                             <span class="fw-bold" style="width:100px">
                                 رقم العقد
@@ -65,27 +66,28 @@
                     </div>
 
                         <div class="btns-box">
-                            <div class="d-flex action-btns w-75 m-auto">
+                            <div class="d-flex action-btns gap-2 fs-6 w-75 mx-auto ms-sm-0 justify-content-center justify-content-sm-start">
                                 <div>
-                                    <button type="button" class="btn action-btn fs-5 fw-bold py-2 px-4" onclick="clearForm()" id="NewForm">جديد</button>
+                                    <a style="width: fit-content;">
+                                        <button style=" height: 48px;" type="button" class="text-align-center btn next-btn fs-5 fw-bold py-2 px-5" onclick="NextScreen()">التالي</button>
+                                    </a>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn action-btn fs-5 fw-bold rounded py-2 px-4" onclick="clearForm()" id="NewForm">جديد</button>
 
                                 </div>
 
                                 @*<button type="button" class="btn action-btn p-2"onclick="submitForm()">حفظ</button>*@
-                                <div>
-                                    <a style="width: fit-content;">
-                                        <button type="button" class="text-align-center btn next-btn fs-5 fw-bold py-2 px-5" onclick="NextScreen()">التالي</button>
-                                    </a>
-                                </div>
 
-                            </div>
-                            <br />
-                            <div class="d-flex action-btns w-75 m-auto">
                                 <div>
-                                    <button type="button" class="btn action-btn fs-5 fw-bold py-2 px-4" onclick="goToIndex()">
+                                    <button type="button" class="btn action-btn rounded fs-5 fw-bold py-2 px-4" onclick="goToIndex()">
                                         الغاء
                                     </button>
                                 </div>
+                            </div>
+                            <br />
+                            <div class="d-flex action-btns w-75 m-auto">
+                               
                                
                             </div>
                             <br />
