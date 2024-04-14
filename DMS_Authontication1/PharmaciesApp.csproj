@@ -349,6 +349,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\NewReportsController.cs" />
     <Compile Include="Controllers\MobileApi\AccountMobileController.cs" />
+    <Compile Include="Controllers\ProposalRenewalsController.cs" />
     <Compile Include="Controllers\ProposalMainController.cs" />
     <Compile Include="Controllers\ReportMain\ReportMainController.cs" />
     <Compile Include="Controllers\LossRatio\LossRatioController.cs" />
@@ -8307,6 +8308,9 @@
     <Content Include="ProposalAssets\JS\main.js" />
     <Content Include="Scripts\DMS\NewReport.js" />
     <Content Include="Scripts\DMS\PharmacyIndexNewDesign.js" />
+    <Content Include="Scripts\DMS\ProposalRenewals\ProposalRenewals.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\DMS\ReportMain\ReportMain.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -9446,10 +9450,14 @@
     <Content Include="ProposalAssets\webfonts\fa-v4compatibility.ttf" />
     <Content Include="ProposalAssets\webfonts\fa-v4compatibility.woff2" />
     <Content Include="Reports\MedicineChronicReport.rpt" />
-    <Content Include="Views\Renewals\Index.cshtml" />
     <Content Include="Views\ReportMain\ReviewBatch.cshtml" />
     <Content Include="Reports\ReviewDetails.rpt" />
     <Content Include="Reports\ReviewSummary.rpt" />
+    <Content Include="Views\ProposalRenewals\StepTwo.cshtml" />
+    <Content Include="Views\ProposalRenewals\Index.cshtml" />
+    <Content Include="Views\ProposalRenewals\ProposalStepTwoCreate.cshtml" />
+    <Content Include="Views\ProposalRenewals\ProposalStepFourCreateAndStay.cshtml" />
+    <Content Include="Views\ProposalRenewals\ProposalStepThreeCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
