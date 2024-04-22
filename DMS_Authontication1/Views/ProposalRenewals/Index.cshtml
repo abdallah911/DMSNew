@@ -1,4 +1,4 @@
-﻿@*@model DMS_Authontication1.ViewModel.ProposalMainViewModel*@
+﻿@model DMS_Authontication1.Models.ren
 
 
 @{
@@ -11,7 +11,7 @@
 }
 
 <div class="container-fluid mt-4">
-    @using (Html.BeginForm("Index", "ProposalRenewal", FormMethod.Post, new { enctype = "multipart/form-data", id = "RenewalMainForm" }))
+    @using (Html.BeginForm("SaveData", "ProposalRenewals", FormMethod.Post, new { enctype = "multipart/form-data", id = "RenewalMainForm" }))
         {
             @Html.AntiForgeryToken()
     <div class="row">
@@ -69,7 +69,7 @@
                             <div class="d-flex action-btns gap-2 fs-6 w-75 mx-auto ms-sm-0 justify-content-center justify-content-sm-start">
                                 <div>
                                     <a style="width: fit-content;">
-                                        <button style=" height: 48px;" type="button" class="text-align-center btn next-btn fs-5 fw-bold py-2 px-5" onclick="NextScreen()">التالي</button>
+                                        <button type="submit" style=" height: 48px;" class="text-align-center btn next-btn fs-5 fw-bold py-2 px-5">التالي</button>@*onclick="NextScreen()*@
                                     </a>
                                 </div>
                                 <div>

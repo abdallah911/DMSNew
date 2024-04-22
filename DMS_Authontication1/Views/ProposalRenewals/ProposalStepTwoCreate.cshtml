@@ -75,18 +75,18 @@
                                type="text"
                                placeholder="السعر" />
                     </div>
-                    <div style="height: 57px; margin:10px">
-                        <input class="myInput"
-                               style="pointer-events: none; height: 45px;"
-                               type="text"
-                               placeholder="العمر" />
-                    </div>
-                    <div style="height: 57px; margin:10px">
-                        <input class="myInput"
-                               style="pointer-events: none; height: 45px;"
-                               type="text"
-                               placeholder="متوسط الاعمار" />
-                    </div>
+                    @* <div style="height: 57px; margin:10px">
+            <input class="myInput"
+                   style="pointer-events: none; height: 45px;"
+                   type="text"
+                   placeholder="العمر" />
+        </div>
+        <div style="height: 57px; margin:10px">
+            <input class="myInput"
+                   style="pointer-events: none; height: 45px;"
+                   type="text"
+                   placeholder="متوسط الاعمار" />
+        </div>*@
                     <div style="height: 57px; margin:10px">
                         <input class="myInput"
                                style="pointer-events: none; height: 45px;"
@@ -204,49 +204,53 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div>
-                                        <input type="text" name="Model[@index].Price" value="@Model[index].Price" />
-                                        @*@Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })*@
+                                    <input type="text" name="Model[@index].Price" value="@Model[index].Price" />
+                                    @Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })
 
                                     </div>
-                                    <div style="position: relative">
-                                        @*<input type="text" style="pointer-events: none" name="Model[@index].Price"/>*@
-                                        <div style="
-                        position: absolute;
-                        display: flex;
-                        gap: 7%;
-                        left: 49%;
-                        top: 42.5%;
-                        transform: translate(-50%, -50%);
-                      ">
-                                            <input name="Model[@index].MinAge" style="
-                          text-align: center;
-                          padding-right: 0;
-                          width: 45%;
-                          height: 34px;
-                        "
-                                                   type="text"
-                                                   placeholder="من" value="@Model[index].MinAge" />
-                                            @*@Html.ValidationMessage($"Model[{index}].MinAge", "", new { @class = "text-danger" })*@
+                  @*<div style="position: relative">-->
+                      <input type="text" style="pointer-events: none" name="Model[@index].Price"/>*@
+                      <!--<div style="
+      position: absolute;
+      display: flex;
+      gap: 7%;
+      left: 49%;
+      top: 42.5%;
+      transform: translate(-50%, -50%);
+    ">
+                          <input name="Model[@index].MinAge" style="
+        text-align: center;
+        padding-right: 0;
+        width: 45%;
+        height: 34px;
+      "
+                                 type="text"
+                                 placeholder="من" value="@Model[index].MinAge" />
+                                    @*@Html.ValidationMessage($"Model[{index}].MinAge", "", new { @class = "text-danger" })*@
 
-                                            <input name="Model[@index].MaxAge" value="@Model[index].MaxAge" style="
-                          text-align: center;
-                          padding-right: 0;
-                          width: 45%;
-                          height: 34px;
-                        "
-                                                   type="text"
-                                                   placeholder="الى" />
-                                            @*@Html.ValidationMessage($"Model[{index}].MaxAge", "", new { @class = "text-danger" })*@
+                                    <!--<input name="Model[@index].MaxAge" value="@Model[index].MaxAge" style="
+      text-align: center;
+      padding-right: 0;
+      width: 45%;
+      height: 34px;
+    "
+                               type="text"
+                               placeholder="الى" />-->
+                                    @*@Html.ValidationMessage($"Model[{index}].MaxAge", "", new { @class = "text-danger" })*@
 
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <input type="text" name="Model[@index].AvgAge" value="@Model[index].AvgAge" />
-                                        @*@Html.ValidationMessage($"Model[{index}].AvgAge", "", new { @class = "text-danger" })*@
+                                    <!--</div>
+    </div>
+    <div>
+        <input type="text" name="Model[@index].AvgAge" value="@Model[index].AvgAge" />-->
+                                    @*@Html.ValidationMessage($"Model[{index}].AvgAge", "", new { @class = "text-danger" })*@
 
 
-                                    </div>
+                                    <!--</div>-->
+
+
+
                                     <div style="
                       display: flex;
                       flex-direction: column;
@@ -310,8 +314,8 @@
                                     </div>
                                     <div style="position: relative;">
                                         <!-- <section
-              class="d-flex mt-2 justify-content-center align-items-center"
-            > -->
+          class="d-flex mt-2 justify-content-center align-items-center"
+        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -354,8 +358,8 @@
 
                                     <div style="position: relative;">
                                         <!-- <section
-              class="d-flex mt-2 justify-content-center align-items-center"
-            > -->
+          class="d-flex mt-2 justify-content-center align-items-center"
+        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -397,8 +401,8 @@
                                     </div>
                                     <div style="position: relative;">
                                         <!-- <section
-              class="d-flex mt-2 justify-content-center align-items-center"
-            > -->
+          class="d-flex mt-2 justify-content-center align-items-center"
+        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -447,12 +451,12 @@
                                 </div>
                                 <div class="cate-parent">
                                     <div>
-                                        <input type="text" name="Model[@index].AnnualCoverageCeiling" value="@Model[index].AnnualCoverageCeiling" disabled/>
+                                        <input type="text" name="Model[@index].AnnualCoverageCeiling" value="@Model[index].AnnualCoverageCeiling" disabled />
                                         @*@Html.ValidationMessage($"Model[{index}].AnnualCoverageCeiling", "", new { @class = "text-danger" , style="font-size:10px" })*@
 
                                     </div>
                                     <div>
-                                        <input type="text" name="Model[@index].ParticipantsCount" value="@Model[index].ParticipantsCount" disabled/>
+                                        <input type="text" name="Model[@index].ParticipantsCount" value="@Model[index].ParticipantsCount" disabled />
                                         @*@Html.ValidationMessage($"Model[{index}].ParticipantsCount", "", new { @class = "text-danger" })*@
 
                                     </div>
@@ -498,48 +502,48 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <input type="text" name="Model[@index].Price" value="@Model[index].Price" disabled/>
-                                        @*@Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })*@
+                                     <input type="text" name="Model[@index].Price" value="@Model[index].Price" disabled/>
+                                    @Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })
 
                                     </div>
-                                    <div style="position: relative">
-                                        @*<input type="text" style="pointer-events: none" name="Model[@index].Price"/>*@
-                                        <div style="
-                        position: absolute;
-                        display: flex;
-                        gap: 7%;
-                        left: 49%;
-                        top: 42.5%;
-                        transform: translate(-50%, -50%);
-                      ">
-                                            <input name="Model[@index].MinAge" style="
-                          text-align: center;
-                          padding-right: 0;
-                          width: 45%;
-                          height: 34px;
-                        "
-                                                   type="text"
-                                                   placeholder="من" value="@Model[index].MinAge" disabled/>
-                                            @*@Html.ValidationMessage($"Model[{index}].MinAge", "", new { @class = "text-danger" })*@
+                   @*<div style="position: relative">-->
+                     <input type="text" style="pointer-events: none" name="Model[@index].Price"/>*@
+                      <!--<div style="
+      position: absolute;
+      display: flex;
+      gap: 7%;
+      left: 49%;
+      top: 42.5%;
+      transform: translate(-50%, -50%);
+    ">
+                          <input name="Model[@index].MinAge" style="
+        text-align: center;
+        padding-right: 0;
+        width: 45%;
+        height: 34px;
+      "
+                                 type="text"
+                                 placeholder="من" value="@Model[index].MinAge" disabled/>
+                                    @*@Html.ValidationMessage($"Model[{index}].MinAge", "", new { @class = "text-danger" })*@
 
-                                            <input name="Model[@index].MaxAge" value="@Model[index].MaxAge" style="
-                          text-align: center;
-                          padding-right: 0;
-                          width: 45%;
-                          height: 34px;
-                        "
-                                                   type="text"
-                                                   placeholder="الى" disabled/>
-                                            @*@Html.ValidationMessage($"Model[{index}].MaxAge", "", new { @class = "text-danger" })*@
+                                    <!--<input name="Model[@index].MaxAge" value="@Model[index].MaxAge" style="
+      text-align: center;
+      padding-right: 0;
+      width: 45%;
+      height: 34px;
+    "
+                               type="text"
+                               placeholder="الى" disabled/>-->
+                                    @*@Html.ValidationMessage($"Model[{index}].MaxAge", "", new { @class = "text-danger" })*@
 
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <input type="text" name="Model[@index].AvgAge" value="@Model[index].AvgAge" disabled/>
-                                        @*@Html.ValidationMessage($"Model[{index}].AvgAge", "", new { @class = "text-danger" })*@
+                                    <!--</div>
+    </div>
+    <div>
+        <input type="text" name="Model[@index].AvgAge" value="@Model[index].AvgAge" disabled/>-->
+                                    @*@Html.ValidationMessage($"Model[{index}].AvgAge", "", new { @class = "text-danger" })*@
 
 
-                                    </div>
+                                    <!--</div>-->
                                     <div style="
                       display: flex;
                       flex-direction: column;
@@ -548,7 +552,7 @@
                     ">
                                         <div style="width: 90%">
                                             <div class="seleect-container">
-                                                <select name="Model[@index].CardColorId" class="seleect" id="cars"disabled>
+                                                <select name="Model[@index].CardColorId" class="seleect" id="cars" disabled>
                                                     <option value="">اختر  لون الكارت</option> <!-- Default option -->
                                                     @foreach (var color in ViewBag.ColorList)
                                                     {
@@ -570,7 +574,7 @@
                                                        name="Model[@index].ChecksInsideHospital"
                                                        id="ChecksInsideHospital2@(index)_PriorApproval"
                                                        @(Model[index].ChecksInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "")
-                                                       value="PriorApproval"disabled />
+                                                       value="PriorApproval" disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="ChecksInsideHospital2@(index)_PriorApproval">
                                                     موافقة مسبقة
                                                 </label>
@@ -581,7 +585,7 @@
                                                        name="Model[@index].ChecksInsideHospital"
                                                        id="ChecksInsideHospital2@(index)_Yes"
                                                        @(Model[index].ChecksInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "")
-                                                       value="Yes" disabled/>
+                                                       value="Yes" disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="ChecksInsideHospital2@(index)_Yes">
                                                     نعم
                                                 </label>
@@ -592,7 +596,7 @@
                                                        name="Model[@index].ChecksInsideHospital"
                                                        id="ChecksInsideHospital2@(index)_No"
                                                        @(Model[index].ChecksInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "")
-                                                       value="No" disabled/>
+                                                       value="No" disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="ChecksInsideHospital2@(index)_No">
                                                     لا
                                                 </label>
@@ -603,8 +607,8 @@
                                     </div>
                                     <div style="position: relative;">
                                         <!-- <section
-              class="d-flex mt-2 justify-content-center align-items-center"
-            > -->
+          class="d-flex mt-2 justify-content-center align-items-center"
+        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -613,7 +617,7 @@
                                                        name="Model[@index].PhysicalTherapyInsideHospital"
                                                        id="PhysicalTherapyInsideHospital2@(index)_PriorApproval"
                                                        @(Model[index].PhysicalTherapyInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "")
-                                                       value="PriorApproval"disabled />
+                                                       value="PriorApproval" disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="PhysicalTherapyInsideHospital2@(index)_PriorApproval">
                                                     موافقة مسبقة
                                                 </label>
@@ -624,8 +628,8 @@
                                                        name="Model[@index].PhysicalTherapyInsideHospital"
                                                        id="PhysicalTherapyInsideHospital2@(index)_Yes"
                                                        @(Model[index].PhysicalTherapyInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "")
-                                                       value="Yes" 
-                                                       disabled/>
+                                                       value="Yes"
+                                                       disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="PhysicalTherapyInsideHospital2@(index)_Yes">
                                                     نعم
                                                 </label>
@@ -636,7 +640,7 @@
                                                        name="Model[@index].PhysicalTherapyInsideHospital"
                                                        id="PhysicalTherapyInsideHospital2@(index)_No"
                                                        @(Model[index].PhysicalTherapyInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "")
-                                                       value="No" 
+                                                       value="No"
                                                        disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="PhysicalTherapyInsideHospital2@(index)_No">
                                                     لا
@@ -649,8 +653,8 @@
 
                                     <div style="position: relative;">
                                         <!-- <section
-              class="d-flex mt-2 justify-content-center align-items-center"
-            > -->
+          class="d-flex mt-2 justify-content-center align-items-center"
+        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -659,8 +663,8 @@
                                                        name="Model[@index].OutsideClincInsideHospital"
                                                        id="OutsideClincInsideHospital2@(index)_PriorApproval"
                                                        @(Model[index].OutsideClinicInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "")
-                                                       value="PriorApproval"  
-                                                       disabled/>
+                                                       value="PriorApproval"
+                                                       disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="OutsideClincInsideHospital2@(index)_PriorApproval">
                                                     موافقة مسبقة
                                                 </label>
@@ -671,8 +675,8 @@
                                                        name="Model[@index].OutsideClincInsideHospital"
                                                        id="OutsideClincInsideHospital2@(index)_Yes"
                                                        @(Model[index].OutsideClinicInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "")
-                                                       value="Yes"  
-                                                       disabled/>
+                                                       value="Yes"
+                                                       disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="OutsideClincInsideHospital2@(index)_Yes">
                                                     نعم
                                                 </label>
@@ -683,8 +687,8 @@
                                                        name="Model[@index].OutsideClincInsideHospital"
                                                        id="OutsideClincInsideHospital2@(index)_No"
                                                        @(Model[index].OutsideClinicInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "")
-                                                       value="No"  
-                                                       disabled/>
+                                                       value="No"
+                                                       disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="OutsideClincInsideHospital2@(index)_No">
                                                     لا
                                                 </label>
@@ -695,8 +699,8 @@
                                     </div>
                                     <div style="position: relative;">
                                         <!-- <section
-              class="d-flex mt-2 justify-content-center align-items-center"
-            > -->
+          class="d-flex mt-2 justify-content-center align-items-center"
+        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -705,7 +709,7 @@
                                                        name="Model[@index].DentalServicesInsideHospital"
                                                        id="DentalServicesInsideHospital2@(index)_PriorApproval"
                                                        @(Model[index].DentalServicesInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "")
-                                                       value="PriorApproval" 
+                                                       value="PriorApproval"
                                                        disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="DentalServicesInsideHospital2@(index)_PriorApproval">
                                                     موافقة مسبقة
@@ -717,8 +721,8 @@
                                                        name="Model[@index].DentalServicesInsideHospital"
                                                        id="DentalServicesInsideHospital2@(index)_Yes"
                                                        @(Model[index].DentalServicesInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "")
-                                                       value="Yes"  
-                                                       disabled/>
+                                                       value="Yes"
+                                                       disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="DentalServicesInsideHospital2@(index)_Yes">
                                                     نعم
                                                 </label>
@@ -729,8 +733,8 @@
                                                        name="Model[@index].DentalServicesInsideHospital"
                                                        id="DentalServicesInsideHospital2@(index)_No"
                                                        @(Model[index].DentalServicesInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "")
-                                                       value="No"  
-                                                       disabled/>
+                                                       value="No"
+                                                       disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="DentalServicesInsideHospital2@(index)_No">
                                                     لا
                                                 </label>
@@ -740,12 +744,12 @@
                                         </section>
                                     </div>
                                     <div>
-                                        <input type="text" name="Model[@index].Accidents" value="@Model[index].Accidents"  
-                                                       disabled/>
+                                        <input type="text" name="Model[@index].Accidents" value="@Model[index].Accidents"
+                                               disabled />
                                     </div>
                                     <div>
-                                        <input type="text" name="Model[@index].Death" value="@Model[index].Death"  
-                                                       disabled/>
+                                        <input type="text" name="Model[@index].Death" value="@Model[index].Death"
+                                               disabled />
                                     </div>
                                 </div>
 
@@ -756,15 +760,15 @@
             </div>
         </div>
         <div style="display: flex; gap:2rem; margin-top:10px;" dir="rtl">
-            <div style="margin-right:25px;">
+            <!--<div style="margin-right:25px;">
                 <input type="file" id="emp-data" name="EmployeesDataFileBase" onchange="updateFileNameLabel(this, 'file-label1')" hidden>
                 <label for="emp-data" id="file-label1" style="cursor:pointer; text-decoration: none; white-space:nowrap;" class="prev-butn d-flex justify-content-center align-items-center mt-0 me-0 ms-0 mb-5">
                     بيانات الموظفين&nbsp;
                     <i class="fas fa-paperclip"></i>
-                </label>
+                </label>-->
                 @*@Html.ValidationMessage($"Model.EmployeesDataFileBase", "", new { @class = "text-danger" })*@
 
-            </div>
+            <!--</div>-->
             <div style="display: flex; justify-content:end; width:100%; gap:2rem; margin-left:10px;">
 
                 @*<a href="#" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5">

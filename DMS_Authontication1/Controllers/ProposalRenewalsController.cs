@@ -66,9 +66,25 @@ namespace DMS_Authontication1.Controllers
             return new JsonResult { Data = new { maxContract, countClass, countEmp }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SaveData()
+        {
+            try
+            {
+                return View("Index");
+                //return RedirectToAction(nameof(ProposalStepFourCreate));
+            }
+            catch (Exception e)
+            {
+                return View("Index");
+                //return RedirectToAction("Index");
+            }
+
+        }
+
         #endregion
-
-
 
 
         #region ProposalStepTwo
@@ -90,6 +106,11 @@ namespace DMS_Authontication1.Controllers
 
             ////////////////Test
 
+
+
+
+
+
             int id = 10;
             ViewBag.MainId = id;
             var mainProposal = _dbContext.ProposalMains.Include("ProposalStepTwos").FirstOrDefault(p => p.Id == id);
@@ -97,7 +118,12 @@ namespace DMS_Authontication1.Controllers
             var categoriesCount = 4;
             ViewBag.CatCount = countCat;
             ViewBag.previousUrl = System.Web.HttpContext.Current.Request.UrlReferrer?.ToString();
+            
+            
+            
             var model = new List<ProposalStepTwoViewModel>(categoriesCount);
+
+
             //if (mainProposal.ProposalStepTwos.Count() > 0)
             //{
 
@@ -461,11 +487,6 @@ namespace DMS_Authontication1.Controllers
           
         }
         #endregion
-
-
-
-
-
 
 
         #region ProposalStepThree
