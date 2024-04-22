@@ -149,8 +149,6 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<PETROTRADE_EMPLOYEES> PETROTRADE_EMPLOYEES { get; set; }
         public virtual DbSet<ApprovalCode> ApprovalCodes { get; set; }
         public virtual DbSet<CardCode> CardCodes { get; set; }
-        public virtual DbSet<ApprovalCode> ApprovalCodes { get; set; }
-        public virtual DbSet<PETROTRADE_EMPLOYEES> PETROTRADE_EMPLOYEES { get; set; }
         public virtual DbSet<PrintMedicalReport> PrintMedicalReports { get; set; }
         public virtual DbSet<RenewalMain> RenewalMains { get; set; }
     
