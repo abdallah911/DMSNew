@@ -272,25 +272,69 @@ namespace DMS_TEST.Controllers
         }
         public JsonResult AddCardForAddChronic(string id)
         {
-            var company = id.Split('-')[0];
-            var userID = User.Identity.GetUserId();
-            var isPermission = db.UserCompanyPermissions.Where(u => u.UserId == userID && u.IsActive != false).Select(c => c.CompId).ToList();
-            if (isPermission == null || isPermission.Count == 0)
+            try
             {
-                var emp = db.fn_searchCompEmployees(id).ToList();
-                if (emp.Count() > 0)
+                var company = id.Split('-')[0];
+                var userID = User.Identity.GetUserId();
+                var isPermission = db.UserCompanyPermissions.Where(u => u.UserId == userID && u.IsActive != false).Select(c => c.CompId).ToList();
+                if (isPermission == null || isPermission.Count == 0)
                 {
-                    return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    var emp = db.fn_searchCompEmployees(id).ToList();
+                    if (emp.Count() > 0)
+                    {
+                        System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
+                        System.Environment.NewLine + emp.FirstOrDefault() + System.Environment.NewLine);
+                        return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
+                    else
+                    {
+                        var empnext = db.fn_searchCompEmployeesForNextContract(id).ToList();
+                        System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
+                        System.Environment.NewLine + empnext.FirstOrDefault() + System.Environment.NewLine);
+                        return new JsonResult { Data = empnext, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
                 }
                 else
                 {
-                    var empnext = db.fn_searchCompEmployeesForNextContract(id).ToList();
-                    return new JsonResult { Data = empnext, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    if (isPermission.Contains(company))
+                    {
+                        var emp = db.fn_searchCompEmployees(id).ToList();
+                        if (emp.Count() > 0)
+                        {
+                            System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
+                        System.Environment.NewLine + emp.FirstOrDefault() + System.Environment.NewLine);
+                            return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        }
+                        else
+                        {
+                            var empnext = db.fn_searchCompEmployeesForNextContract(id).ToList();
+                            System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
+                        System.Environment.NewLine + empnext.FirstOrDefault() + System.Environment.NewLine);
+                            return new JsonResult { Data = empnext, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        }
+                    }
+                    return new JsonResult { Data = "null", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
                 }
             }
-            else
+            catch (Exception ex)
             {
-                if (isPermission.Contains(company))
+                System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
+                        System.Environment.NewLine + ex + System.Environment.NewLine);
+                return new JsonResult { Data = ex.InnerException, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+        }
+        public JsonResult AddCardForTest(string id)
+        {
+            try
+            {
+
+
+                var company = id.Split('-')[0];
+                var userID = User.Identity.GetUserId();
+                var isPermission = db.UserCompanyPermissions.Where(u => u.UserId == userID && u.IsActive != false).Select(c => c.CompId).ToList();
+                if (isPermission == null || isPermission.Count == 0)
                 {
                     var emp = db.fn_searchCompEmployees(id).ToList();
                     if (emp.Count() > 0)
@@ -303,7 +347,28 @@ namespace DMS_TEST.Controllers
                         return new JsonResult { Data = empnext, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                     }
                 }
-                return new JsonResult { Data = "null", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                else
+                {
+                    if (isPermission.Contains(company))
+                    {
+                        var emp = db.fn_searchCompEmployees(id).ToList();
+                        if (emp.Count() > 0)
+                        {
+                            return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        }
+                        else
+                        {
+                            var empnext = db.fn_searchCompEmployeesForNextContract(id).ToList();
+                            return new JsonResult { Data = empnext, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        }
+                    }
+                    return new JsonResult { Data = "null", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult { Data = ex.InnerException, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
             }
         }
@@ -837,7 +902,7 @@ namespace DMS_TEST.Controllers
                     List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor").ToList();
                     List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
                     List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
-                    List<Roshita> MonthlyMonthlyAcumlatorList = db.Roshitas.Where(x => x.CardId == id && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic")).ToList();
+                    List<Roshita> MonthlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.CardId == id && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic")).ToList();
                     //List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
                     bool LimitDailyPreceptionCount = false;
                     bool LimitMonthlyPreceptionCount = false;
@@ -947,7 +1012,7 @@ namespace DMS_TEST.Controllers
                         List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor").ToList();
                         List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
                         List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
-                        List<Roshita> MonthlyMonthlyAcumlatorList = db.Roshitas.Where(x => x.CardId == id && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic")).ToList();
+                        List<Roshita> MonthlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.CardId == id && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic")).ToList();
                         //List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
                         bool LimitDailyPreceptionCount = false;
                         bool LimitMonthlyPreceptionCount = false;
@@ -1360,7 +1425,7 @@ namespace DMS_TEST.Controllers
                     List<Roshita> YearlyDailyAcumlatorList = MainAcumlatorList.Where(x => (x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor") && x.CompanyPayment > 0).ToList();
                     List<Roshita> YearlyMonthlyAcumlatorList = MainAcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
                     List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
-                    List<Roshita> MonthlyMonthlyAcumlatorList = db.Roshitas.Where(x => x.CardId == id && x.Id != RoshitaId && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic")).ToList();
+                    List<Roshita> MonthlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.CardId == id && x.Id != RoshitaId && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic")).ToList();
                     //List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
 
                     LimitDailyPreceptionCount = (CustemizedMedEmp.DAY_NO_ROSHTA_MON == null || (CustemizedMedEmp.DAY_NO_ROSHTA_MON - MonthlyDailyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Daily count
@@ -1444,7 +1509,7 @@ namespace DMS_TEST.Controllers
                         List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => (x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor") && x.CompanyPayment > 0).ToList();
                         List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
                         List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
-                        List<Roshita> MonthlyMonthlyAcumlatorList = db.Roshitas.Where(x => x.CardId == id && x.Id != RoshitaId && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic")).ToList();
+                        List<Roshita> MonthlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.CardId == id && x.Id != RoshitaId && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic")).ToList();
                         //List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
 
                         LimitDailyPreceptionCount = (CustemizedMed.DAY_NO_ROSHTA_MON == null || (CustemizedMed.DAY_NO_ROSHTA_MON - MonthlyDailyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Daily count
@@ -3008,7 +3073,7 @@ namespace DMS_TEST.Controllers
 
                 foreach (var item in data.roshitaDetail)
                 {
-                    if (item.MedicineNoPay == "true"&&(item.PaymentGroup== "Rejected" || item.PaymentGroup== "Accepted"))
+                    if (item.MedicineNoPay == "true" && (item.PaymentGroup == "Rejected" || item.PaymentGroup == "Accepted"))
                     {
                         roshita.RoshitaDetails.Where(x => x.Id == item.Id).FirstOrDefault().IsDealed = true;
                     }
@@ -5311,7 +5376,7 @@ namespace DMS_TEST.Controllers
                     //List<Roshita> MainAcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE && r.Manager != "Doctor_Chronic").ToList();
                     //List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor" || x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic").ToList();
                     List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor").ToList();
-                    List<Roshita> MonthlyMonthlyAcumlatorList = db.Roshitas.Where(x => x.CardId == id && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor")).ToList();
+                    List<Roshita> MonthlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.CardId == id && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor")).ToList();
                     //List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
                     //List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
                     //bool LimitDailyPreceptionCount = false;
@@ -5422,7 +5487,7 @@ namespace DMS_TEST.Controllers
                         //List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor").ToList();
                         List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor").ToList();
                         //List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
-                        List<Roshita> MonthlyMonthlyAcumlatorList = db.Roshitas.Where(x => x.CardId == id && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor")).ToList();
+                        List<Roshita> MonthlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.CardId == id && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor")).ToList();
                         //List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
                         //bool LimitDailyPreceptionCount = false;
                         bool LimitMonthlyPreceptionCount = false;
@@ -5801,7 +5866,7 @@ namespace DMS_TEST.Controllers
                     //List<Roshita> YearlyDailyAcumlatorList = MainAcumlatorList.Where(x => (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor") && x.CompanyPayment > 0).ToList();
                     List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor").ToList();
                     //List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
-                    List<Roshita> MonthlyMonthlyAcumlatorList = db.Roshitas.Where(x => x.CardId == id && x.Id != RoshitaId && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor")).ToList();
+                    List<Roshita> MonthlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.CardId == id && x.Id != RoshitaId && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor")).ToList();
                     //List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
 
                     //LimitDailyPreceptionCount = (CustemizedMedEmp.DAY_NO_ROSHTA_MON == null || (CustemizedMedEmp.DAY_NO_ROSHTA_MON - MonthlyDailyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Daily count
@@ -5885,7 +5950,7 @@ namespace DMS_TEST.Controllers
                         //List<Roshita> YearlyDailyAcumlatorList = AcumlatorList.Where(x => (x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor") && x.CompanyPayment > 0).ToList();
                         List<Roshita> YearlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor").ToList();
                         //List<Roshita> MonthlyDailyAcumlatorList = YearlyDailyAcumlatorList.Where(x => x.CreatedDate >= firstDayOfMonthTime).ToList();
-                        List<Roshita> MonthlyMonthlyAcumlatorList = db.Roshitas.Where(x => x.CardId == id && x.Id != RoshitaId && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor")).ToList();
+                        List<Roshita> MonthlyMonthlyAcumlatorList = AcumlatorList.Where(x => x.CardId == id && x.Id != RoshitaId && x.CreatedDate >= Last21Time && (x.Manager == "Monthly" || x.Manager == "Pharmacy_Chronic" || x.Manager == "Daily" || x.Manager == "Pharmacy_Doctor")).ToList();
                         //List<Roshita> MonthlyMonthlyAcumlatorList = YearlyMonthlyAcumlatorList.Where(x => x.CreatedDate >= Last21Time).ToList();
 
                         //LimitDailyPreceptionCount = (CustemizedMed.DAY_NO_ROSHTA_MON == null || (CustemizedMed.DAY_NO_ROSHTA_MON - MonthlyDailyAcumlatorList.Count() > 0)) ? true : false;//Monthly&Daily count

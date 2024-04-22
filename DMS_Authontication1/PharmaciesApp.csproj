@@ -852,6 +852,9 @@
     <Compile Include="Models\PrescriptionRoshitaDignosi.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PrintMedicalReport.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PricesOutsideMedicalAuthority.cs" />
     <Compile Include="Models\Pricing.cs" />
     <Compile Include="Models\ProposalBasicData.cs">
@@ -915,6 +918,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RemainConsumption.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RenewalMain.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RequestAddProvider.cs">

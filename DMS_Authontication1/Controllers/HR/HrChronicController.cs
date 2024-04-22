@@ -157,12 +157,23 @@ namespace DMS_Authontication1.Controllers.HR
 
             return View();
         }
-        public ActionResult PrintMedical(string CardId,string CompId,string ProviderName,string Specialist)
+        public ActionResult PrintMedical(string CardId, int CompId, string ProviderName, string Specialist, string ProviderTypeName, int ProviderTypeId)
         {
             try
             {
                 var patientName = db.Comp_Employees.Where(c => c.CARD_ID == CardId).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().EMP_ANAME;
-
+                PrintMedicalReport model = new PrintMedicalReport
+                {
+                    CardId = CardId,
+                    CompNumber = CompId,
+                    CreatedBy = User.Identity.Name,
+                    CreatedDate = DateTime.Now,
+                    ProviderName = ProviderName,
+                    Speciality = Specialist,
+                    ProviderType = ProviderTypeName,
+                };
+                db.PrintMedicalReports.Add(model);
+                db.SaveChanges();
                 ReportDocument rd = new ReportDocument();
 
                 rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "LetterTransfer.rpt"));
@@ -467,7 +478,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             return RedirectToAction("InquiryAboutCard");
         }
-        
+
         [HttpPost]
         public JsonResult CreateMobileRequest(Enum_RequestsViewModel addApproval)
         {
