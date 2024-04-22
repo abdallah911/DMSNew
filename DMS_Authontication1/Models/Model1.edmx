@@ -2066,6 +2066,20 @@
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
           <Property Name="SyncDate" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A45413_DMSERP.dbo.RenewalMains' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RenewalMains">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompId" Type="bigint" />
+          <Property Name="ContractNo" Type="int" />
+          <Property Name="ClassCount" Type="int" />
+          <Property Name="EmpCount" Type="int" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+          <Property Name="Code" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="RequestAddProvider">
           <Key>
             <PropertyRef Name="ID" />
@@ -3449,6 +3463,17 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="Specialities1" EntityType="Self.Specialities1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCompanyPermission" EntityType="Self.UserCompanyPermission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersInternalCode" EntityType="Self.UsersInternalCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RenewalMains" EntityType="Self.RenewalMains" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RenewalMains].[Id] AS [Id], 
+    [RenewalMains].[CompId] AS [CompId], 
+    [RenewalMains].[ContractNo] AS [ContractNo], 
+    [RenewalMains].[ClassCount] AS [ClassCount], 
+    [RenewalMains].[EmpCount] AS [EmpCount], 
+    [RenewalMains].[UserId] AS [UserId], 
+    [RenewalMains].[Code] AS [Code]
+    FROM [dbo].[RenewalMains] AS [RenewalMains]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Swap" EntityType="Self.Swap" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Swap].[Id] AS [Id]
@@ -5267,6 +5292,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="ApprovalCodes" EntityType="DB_A45413_DMSERPModel.ApprovalCode" />
           <EntitySet Name="PETROTRADE_EMPLOYEES" EntityType="DB_A45413_DMSERPModel.PETROTRADE_EMPLOYEES" />
           <EntitySet Name="PrintMedicalReports" EntityType="DB_A45413_DMSERPModel.PrintMedicalReport" />
+          <EntitySet Name="RenewalMains" EntityType="DB_A45413_DMSERPModel.RenewalMain" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7337,6 +7363,18 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="ProviderName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="RenewalMain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompId" Type="Int64" />
+          <Property Name="ContractNo" Type="Int32" />
+          <Property Name="ClassCount" Type="Int32" />
+          <Property Name="EmpCount" Type="Int32" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -10178,6 +10216,19 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="Speciality" ColumnName="Speciality" />
                 <ScalarProperty Name="ProviderType" ColumnName="ProviderType" />
                 <ScalarProperty Name="CompNumber" ColumnName="CompNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RenewalMains">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalMain">
+              <MappingFragment StoreEntitySet="RenewalMains">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="EmpCount" ColumnName="EmpCount" />
+                <ScalarProperty Name="ClassCount" ColumnName="ClassCount" />
+                <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
+                <ScalarProperty Name="CompId" ColumnName="CompId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

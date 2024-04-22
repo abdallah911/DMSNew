@@ -841,6 +841,9 @@
     <Compile Include="Models\RemainConsumption.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RenewalMain.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RequestAddProvider.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
