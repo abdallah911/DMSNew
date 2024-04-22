@@ -781,6 +781,9 @@
     <Compile Include="Models\PrescriptionRoshitaDignosi.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PrintMedicalReport.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ProposalBasicData.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
