@@ -1,4 +1,4 @@
-﻿@model List<DMS_Authontication1.ViewModel.ProposalStepTwoViewModel>
+﻿@model List<DMS_Authontication1.ViewModel.RenwalStepTwoViewModel>
 
 
 @{
@@ -451,12 +451,12 @@
                                 </div>
                                 <div class="cate-parent">
                                     <div>
-                                        <input type="text" name="Model[@index].AnnualCoverageCeiling" value="@Model[index].AnnualCoverageCeiling" disabled />
+                                        <input type="text" name="Model[@index].AnnualCoverageCeilingOld" value="@Model[index].AnnualCoverageCeilingOld" disabled />
                                         @*@Html.ValidationMessage($"Model[{index}].AnnualCoverageCeiling", "", new { @class = "text-danger" , style="font-size:10px" })*@
 
                                     </div>
                                     <div>
-                                        <input type="text" name="Model[@index].ParticipantsCount" value="@Model[index].ParticipantsCount" disabled />
+                                        <input type="text" name="Model[@index].ParticipantsCountOld" value="@Model[index].ParticipantsCountOld" disabled />
                                         @*@Html.ValidationMessage($"Model[{index}].ParticipantsCount", "", new { @class = "text-danger" })*@
 
                                     </div>
@@ -468,7 +468,7 @@
                     ">
                                         <div style="width: 90%">
                                             <div class="seleect-container">
-                                                <select name="Model[@index].MedicalNetworkId" class="seleect" id="cars" disabled>
+                                                <select name="Model[@index].MedicalNetworkIdOld" class="seleect" id="cars" disabled>
                                                     <option value="">اختر الشبكة الطبية</option> <!-- Default option -->
                                                     @foreach (var color in ViewBag.MedicalNetworkList)
                                                     {
@@ -489,7 +489,7 @@
                   ">
                                         <div style="width: 90%">
                                             <div class="seleect-container">
-                                                <select name="Model[@index].ResidenceDegreeId" class="seleect" id="cars" disabled>
+                                                <select name="Model[@index].ResidenceDegreeIdOld" class="seleect" id="cars" disabled>
                                                     <option value="">اختر درجة الإقامة</option> <!-- Default option -->
                                                     @foreach (var color in ViewBag.ResidenceList)
                                                     {
@@ -502,7 +502,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                     <input type="text" name="Model[@index].Price" value="@Model[index].Price" disabled/>
+                                     <input type="text" name="Model[@index].PriceOld" value="@Model[index].Price" disabled/>
                                     @Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })
 
                                     </div>
@@ -552,7 +552,7 @@
                     ">
                                         <div style="width: 90%">
                                             <div class="seleect-container">
-                                                <select name="Model[@index].CardColorId" class="seleect" id="cars" disabled>
+                                                <select name="Model[@index].CardColorIdOld" class="seleect" id="cars" disabled>
                                                     <option value="">اختر  لون الكارت</option> <!-- Default option -->
                                                     @foreach (var color in ViewBag.ColorList)
                                                     {
@@ -572,8 +572,8 @@
                                                 <input class="form-check-input"
                                                        type="radio"
                                                        name="Model[@index].ChecksInsideHospital"
-                                                       id="ChecksInsideHospital2@(index)_PriorApproval"
-                                                       @(Model[index].ChecksInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "")
+                                                       id="ChecksInsideHospitalOld@(index)_PriorApproval"
+                                                       @(Model[index].ChecksInsideHospitalOld == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "")
                                                        value="PriorApproval" disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="ChecksInsideHospital2@(index)_PriorApproval">
                                                     موافقة مسبقة
@@ -583,8 +583,8 @@
                                                 <input class="form-check-input"
                                                        type="radio"
                                                        name="Model[@index].ChecksInsideHospital"
-                                                       id="ChecksInsideHospital2@(index)_Yes"
-                                                       @(Model[index].ChecksInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "")
+                                                       id="ChecksInsideHospitalOld@(index)_Yes"
+                                                       @(Model[index].ChecksInsideHospitalOld == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "")
                                                        value="Yes" disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="ChecksInsideHospital2@(index)_Yes">
                                                     نعم
@@ -594,8 +594,8 @@
                                                 <input class="form-check-input"
                                                        type="radio"
                                                        name="Model[@index].ChecksInsideHospital"
-                                                       id="ChecksInsideHospital2@(index)_No"
-                                                       @(Model[index].ChecksInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "")
+                                                       id="ChecksInsideHospitalOld@(index)_No"
+                                                       @(Model[index].ChecksInsideHospitalOld == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "")
                                                        value="No" disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="ChecksInsideHospital2@(index)_No">
                                                     لا
@@ -614,9 +614,9 @@
 
                                                 <input class="form-check-input"
                                                        type="radio"
-                                                       name="Model[@index].PhysicalTherapyInsideHospital"
-                                                       id="PhysicalTherapyInsideHospital2@(index)_PriorApproval"
-                                                       @(Model[index].PhysicalTherapyInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "")
+                                                       name="Model[@index].PhysicalTherapyInsideHospitalOld"
+                                                       id="PhysicalTherapyInsideHospitalOld@(index)_PriorApproval"
+                                                       @(Model[index].PhysicalTherapyInsideHospitalOld == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "")
                                                        value="PriorApproval" disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="PhysicalTherapyInsideHospital2@(index)_PriorApproval">
                                                     موافقة مسبقة
@@ -626,8 +626,8 @@
                                                 <input class="form-check-input"
                                                        type="radio"
                                                        name="Model[@index].PhysicalTherapyInsideHospital"
-                                                       id="PhysicalTherapyInsideHospital2@(index)_Yes"
-                                                       @(Model[index].PhysicalTherapyInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "")
+                                                       id="PhysicalTherapyInsideHospitalOld@(index)_Yes"
+                                                       @(Model[index].PhysicalTherapyInsideHospitalOld == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "")
                                                        value="Yes"
                                                        disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="PhysicalTherapyInsideHospital2@(index)_Yes">
@@ -638,8 +638,8 @@
                                                 <input class="form-check-input"
                                                        type="radio"
                                                        name="Model[@index].PhysicalTherapyInsideHospital"
-                                                       id="PhysicalTherapyInsideHospital2@(index)_No"
-                                                       @(Model[index].PhysicalTherapyInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "")
+                                                       id="PhysicalTherapyInsideHospitalOld@(index)_No"
+                                                       @(Model[index].PhysicalTherapyInsideHospitalOld == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "")
                                                        value="No"
                                                        disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="PhysicalTherapyInsideHospital2@(index)_No">
@@ -661,8 +661,8 @@
                                                 <input class="form-check-input"
                                                        type="radio"
                                                        name="Model[@index].OutsideClincInsideHospital"
-                                                       id="OutsideClincInsideHospital2@(index)_PriorApproval"
-                                                       @(Model[index].OutsideClinicInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "")
+                                                       id="OutsideClincInsideHospitalOld@(index)_PriorApproval"
+                                                       @(Model[index].OutsideClinicInsideHospitalOld == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "")
                                                        value="PriorApproval"
                                                        disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="OutsideClincInsideHospital2@(index)_PriorApproval">
@@ -673,8 +673,8 @@
                                                 <input class="form-check-input"
                                                        type="radio"
                                                        name="Model[@index].OutsideClincInsideHospital"
-                                                       id="OutsideClincInsideHospital2@(index)_Yes"
-                                                       @(Model[index].OutsideClinicInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "")
+                                                       id="OutsideClincInsideHospitalOld@(index)_Yes"
+                                                       @(Model[index].OutsideClinicInsideHospitalOld == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "")
                                                        value="Yes"
                                                        disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="OutsideClincInsideHospital2@(index)_Yes">
@@ -685,8 +685,8 @@
                                                 <input class="form-check-input"
                                                        type="radio"
                                                        name="Model[@index].OutsideClincInsideHospital"
-                                                       id="OutsideClincInsideHospital2@(index)_No"
-                                                       @(Model[index].OutsideClinicInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "")
+                                                       id="OutsideClincInsideHospitalOld@(index)_No"
+                                                       @(Model[index].OutsideClinicInsideHospitalOld == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "")
                                                        value="No"
                                                        disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="OutsideClincInsideHospital2@(index)_No">
@@ -707,8 +707,8 @@
                                                 <input class="form-check-input"
                                                        type="radio"
                                                        name="Model[@index].DentalServicesInsideHospital"
-                                                       id="DentalServicesInsideHospital2@(index)_PriorApproval"
-                                                       @(Model[index].DentalServicesInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "")
+                                                       id="DentalServicesInsideHospitalOld@(index)_PriorApproval"
+                                                       @(Model[index].DentalServicesInsideHospitalOld == DMS_Authontication1.Models.ApprovalStepTwo.PriorApproval ? "checked" : "")
                                                        value="PriorApproval"
                                                        disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="DentalServicesInsideHospital2@(index)_PriorApproval">
@@ -719,8 +719,8 @@
                                                 <input class="form-check-input"
                                                        type="radio"
                                                        name="Model[@index].DentalServicesInsideHospital"
-                                                       id="DentalServicesInsideHospital2@(index)_Yes"
-                                                       @(Model[index].DentalServicesInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "")
+                                                       id="DentalServicesInsideHospitalOld@(index)_Yes"
+                                                       @(Model[index].DentalServicesInsideHospitalOld == DMS_Authontication1.Models.ApprovalStepTwo.Yes ? "checked" : "")
                                                        value="Yes"
                                                        disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="DentalServicesInsideHospital2@(index)_Yes">
@@ -731,8 +731,8 @@
                                                 <input class="form-check-input"
                                                        type="radio"
                                                        name="Model[@index].DentalServicesInsideHospital"
-                                                       id="DentalServicesInsideHospital2@(index)_No"
-                                                       @(Model[index].DentalServicesInsideHospital == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "")
+                                                       id="DentalServicesInsideHospitalOld@(index)_No"
+                                                       @(Model[index].DentalServicesInsideHospitalOld == DMS_Authontication1.Models.ApprovalStepTwo.No ? "checked" : "")
                                                        value="No"
                                                        disabled />
                                                 <label style="font-size:16px;" class="form-check-label" for="DentalServicesInsideHospital2@(index)_No">
@@ -744,11 +744,11 @@
                                         </section>
                                     </div>
                                     <div>
-                                        <input type="text" name="Model[@index].Accidents" value="@Model[index].Accidents"
+                                        <input type="text" name="Model[@index].AccidentsOld" value="@Model[index].AccidentsOld"
                                                disabled />
                                     </div>
                                     <div>
-                                        <input type="text" name="Model[@index].Death" value="@Model[index].Death"
+                                        <input type="text" name="Model[@index].DeathOld" value="@Model[index].DeathOld"
                                                disabled />
                                     </div>
                                 </div>

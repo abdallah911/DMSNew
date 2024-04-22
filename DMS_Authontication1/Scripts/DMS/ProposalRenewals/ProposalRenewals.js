@@ -276,20 +276,25 @@ function ClearAll() {
 
 function SearchRenewal() {
     debugger;
-    if ($('#CompNo').val() != "") {
+    if ($('#CompId').val() != "") {
         $("#wait").css("display", "block");
         $.ajax({
             type: "POST",
             dataType: "json",
             url: '/ProposalRenewals/getInformation',
-            data: { CompId: $('#CompNo').val() },
+            data: { CompId: $('#CompId').val() },
             success: function (data) {
                 $("#wait").css("display", "none");
 
                 //debugger;
                 $('#ContractNo').val(data.maxContract);
                 $('#ClassCount').val(data.countClass);
-                $('#EmployeeCount').val(data.countEmp);
+                $('#EmpCount').val(data.countEmp);
+
+
+                //$('#ContractNoDisply').val(data.maxContract);
+                //$('#EmployeeCount').val(data.countClass);
+                //$('#CountClass').val(data.countEmp);
 
             }
         });

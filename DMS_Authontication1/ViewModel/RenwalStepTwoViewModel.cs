@@ -18,9 +18,9 @@ namespace DMS_Authontication1.ViewModel
         [Range(0, int.MaxValue, ErrorMessage = "Participants Count must be greater than or equal to zero.")]
         public int ParticipantsCount { get; set; }
 
-        //[Required(ErrorMessage = "Price is required.")]
-        //[Range(0, double.MaxValue, ErrorMessage = "Price must be greater than or equal to zero.")]
-        //public decimal Price { get; set; }
+        [Required(ErrorMessage = "Price is required.")]
+        [Range(0, double.MaxValue, ErrorMessage = "Price must be greater than or equal to zero.")]
+        public decimal Price { get; set; }
 
         //[Required(ErrorMessage = "Min Age is required.")]
         //[Range(0, 200, ErrorMessage = "Min Age must be between 0 and 200.")]
@@ -33,7 +33,7 @@ namespace DMS_Authontication1.ViewModel
         //[Required(ErrorMessage = "Avg Age is required.")]
         //[Range(0, 200, ErrorMessage = "Avg Age must be between 0 and 200.")]
         //public int AvgAge { get; set; }
-       
+
         [Required(ErrorMessage = "Please provide the approval status for Checks Inside Hospital.")]
         public ApprovalStepTwo ChecksInsideHospital { get; set; }
 
@@ -63,8 +63,40 @@ namespace DMS_Authontication1.ViewModel
 
         [Required(ErrorMessage = "Please provide the Medical Network.")]
         public int MedicalNetworkId { get; set; }
-        //[Required]
+        [Required]
+        public int MainId { get; set; }
 
-        //public int ProposalMainId { get; set; }
+        public decimal AnnualCoverageCeilingOld { get; set; }
+        public int ParticipantsCountOld { get; set; }
+
+        [Required(ErrorMessage = "Price is required.")]
+        [Range(0, double.MaxValue, ErrorMessage = "Price must be greater than or equal to zero.")]
+        public decimal PriceOld { get; set; }
+
+        //[Required(ErrorMessage = "Min Age is required.")]
+        //[Range(0, 200, ErrorMessage = "Min Age must be between 0 and 200.")]
+        //public int MinAge { get; set; }
+
+        //[Required(ErrorMessage = "Max Age is required.")]
+        //[Range(0, 200, ErrorMessage = "Max Age must be between 0 and 200.")]
+        //public int MaxAge { get; set; }
+
+        //[Required(ErrorMessage = "Avg Age is required.")]
+        //[Range(0, 200, ErrorMessage = "Avg Age must be between 0 and 200.")]
+        //public int AvgAge { get; set; }
+        public ApprovalStepTwo ChecksInsideHospitalOld { get; set; }
+        public ApprovalStepTwo PhysicalTherapyInsideHospitalOld { get; set; }
+        public ApprovalStepTwo OutsideClinicInsideHospitalOld { get; set; }
+        public ApprovalStepTwo DentalServicesInsideHospitalOld { get; set; }
+
+        public int ClassCodeOld { get; set; }
+        public int AccidentsOld { get; set; }
+        public int DeathOld { get; set; }
+        //----------relations--------------//
+        public int CardColorIdOld { get; set; }
+        public int ResidenceDegreeIdOld { get; set; }
+        public int MedicalNetworkIdOld { get; set; }
+
+
     }
 }

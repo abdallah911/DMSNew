@@ -1,4 +1,4 @@
-﻿@model DMS_Authontication1.Models.ren
+﻿@model DMS_Authontication1.Models.RenewalMain
 
 
 @{
@@ -33,8 +33,8 @@
                             <div class="d-flex w-75 gap-3">
                                 @*<input id="CompanyName" class="sios-form-control home-input w-75" style="width: 100%" />*@
 
-                                @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "sios-form-control home-input w-75", style = "width: 100%", id = "CompNo" })
-
+                                @Html.DropDownListFor(model => model.CompId, ViewBag.company as SelectList, "Select Company", new { @class = "sios-form-control home-input w-75", style = "width: 100%", id = "CompId" })
+                                
                                 @*<div class="col-md-6">
                 <input id="CompanyName" class="sios-form-control home-input w-75" placeholder="Enter Batch Number" style="width: 100%" />
             </div>*@
@@ -47,21 +47,28 @@
                             <span class="fw-bold" style="width:100px">
                                 رقم العقد
                             </span>
-                            <input id="ContractNo" class="sios-form-control home-input w-75" style="width: 100%" disabled />
+
+                            @Html.TextBoxFor(model => model.ContractNo, new { @class = "sios-form-control home-input w-75", @readonly = "readonly", style = "width: 100%" })
+
+                            @*<input id="ContractNo" class="sios-form-control home-input w-75" style="width: 100%" disabled />*@
                         </div>
 
                         <div class="d-flex justify-content-between" style="align-items:center;">
                             <span class="fw-bold" style="width:100px">
                                 عدد الفئات
                             </span>
-                            <input id="ClassCount" class="sios-form-control home-input w-75" style="width: 100%" disabled />
+                            @*<input id="ClassCount" class="sios-form-control home-input w-75" style="width: 100%" disabled />*@
+                            @Html.TextBoxFor(model => model.ClassCount, new { @class = "sios-form-control home-input w-75", @readonly = "readonly", style = "width: 100%" })
+
                         </div>
 
                         <div class="d-flex justify-content-between" style="align-items:center;">
                             <span class="fw-bold" style="width:117px">
                                 عدد الموظفين
                             </span>
-                            <input id="EmployeeCount" class="sios-form-control home-input w-75" style="width: 100%" disabled />
+                            @Html.TextBoxFor(model => model.EmpCount, new { @class = "sios-form-control home-input w-75", style = "width: 100%", @readonly = "readonly" })
+
+                            @*<input id="EmployeeCount" class="sios-form-control home-input w-75" style="width: 100%" disabled />*@
                         </div>
                     </div>
 

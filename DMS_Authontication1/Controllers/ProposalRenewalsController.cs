@@ -1,4 +1,5 @@
-﻿using DMS_Authontication1.Helper;
+﻿using DMS_Authontication1.Data_Function;
+using DMS_Authontication1.Helper;
 using DMS_Authontication1.Models;
 using DMS_Authontication1.ViewModel;
 using Microsoft.AspNet.Identity;
@@ -22,7 +23,7 @@ namespace DMS_Authontication1.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private DMS_TESTEntities db = new DMS_TESTEntities();
-
+        DBApproval dbOra = new DBApproval();
 
 
         public ProposalRenewalsController()
@@ -69,16 +70,45 @@ namespace DMS_Authontication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SaveData()
+        public async Task<ActionResult> SaveData(RenewalMain model)
         {
             try
             {
-                return View("Index");
-                //return RedirectToAction(nameof(ProposalStepFourCreate));
+                if (ModelState.IsValid)
+                {
+                    var currentUserId = User.Identity.GetUserId();
+
+                    var renewalMain = new RenewalMain
+                    {
+                        CompId = model.CompId,
+                        ContractNo = model.ContractNo,
+                        ClassCount = model.ClassCount,
+                        EmpCount = model.EmpCount, 
+                        UserId = currentUserId
+                    };
+
+                    _dbContext.RenewalMains.Add(renewalMain);
+                    //db.RenewalMains.Add(renewalMain);
+                    _dbContext.SaveChanges();
+
+                    int id = renewalMain.Id;
+
+                    renewalMain.Code = id.ToString();
+
+                    _dbContext.SaveChanges();
+
+                    return RedirectToAction("ProposalStepTwoCreate", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 1});
+
+                    //return View("Index");
+                    //return RedirectToAction(nameof(ProposalStepFourCreate));
+                }
+                else
+                    return RedirectToAction("Index");
             }
             catch (Exception e)
             {
-                return View("Index");
+                return RedirectToAction("Index");
+                //return View("Index");
                 //return RedirectToAction("Index");
             }
 
@@ -88,7 +118,7 @@ namespace DMS_Authontication1.Controllers
 
 
         #region ProposalStepTwo
-        public ActionResult ProposalStepTwoCreate(int countCat)
+        public ActionResult ProposalStepTwoCreate(int mainId, int CompId, int ContractNo, int countCat, int typeAction)
         {
             // Retrieve data from temporary storage or session
             // ...
@@ -103,25 +133,20 @@ namespace DMS_Authontication1.Controllers
             ViewBag.ResidenceList = new SelectList(residenceDegree, "Id", "Name");
             ViewBag.MedicalNetworkList = new SelectList(medicalNetworks, "Id", "Name");
 
-
             ////////////////Test
 
-
-
-
-
-
-            int id = 10;
-            ViewBag.MainId = id;
-            var mainProposal = _dbContext.ProposalMains.Include("ProposalStepTwos").FirstOrDefault(p => p.Id == id);
-            //var categoriesCount = mainProposal.CategoriesCount;
-            var categoriesCount = 4;
+            ViewBag.MainId = mainId;
             ViewBag.CatCount = countCat;
-            ViewBag.previousUrl = System.Web.HttpContext.Current.Request.UrlReferrer?.ToString();
+
+
+            //var mainProposal = _dbContext.ProposalMains.Include("ProposalStepTwos").FirstOrDefault(p => p.Id == id);
+           
+
+            //ViewBag.previousUrl = System.Web.HttpContext.Current.Request.UrlReferrer?.ToString();
             
             
             
-            var model = new List<ProposalStepTwoViewModel>(categoriesCount);
+            var model = new List<ProposalStepTwoViewModel>(countCat);
 
 
             //if (mainProposal.ProposalStepTwos.Count() > 0)
@@ -138,7 +163,7 @@ namespace DMS_Authontication1.Controllers
             //else
             //{
 
-                for (int i = 0; i < categoriesCount; i++)
+                for (int i = 0; i < countCat; i++)
                 {
                     // Create an instance of ProposalStepTwoViewModel and add it to the list
                     model.Add(new ProposalStepTwoViewModel());
