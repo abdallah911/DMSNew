@@ -245,6 +245,11 @@
         //var ProviderName = $('#PR_ENAME').select2("data").text();
         var data2 = $('#Speciality').select2('data')
         var special = data2[0].text;
+
+
+        var data3 = $('#TYP_ANAME').select2('data')
+        var ProviderTypeName = data3[0].text;
+        var ProviderTypeId = $('#TYP_ANAME').val();
         //var special = $('#Speciality').select2("data").text();
         //var ProviderName = $("#PR_ENAME").text();
         //var special = $("#Speciality").text();
@@ -267,10 +272,10 @@
 
             // chick card id is correct or not
             if (arra.length == 4 && arra[3] != "") {
-                debugger;
                 // final chick if card id start with company id or not
                 if (arra[0] == compname ||("@User.IsInRole("User")"=="True")) {
-                    window.open('/HrChronic/PrintMedical?CardId=' + cardNum + '&&CompId=' + compname + '&&ProviderName=' + ProviderName + '&&Specialist=' + special);
+                    window.open('/HrChronic/PrintMedical?CardId=' + cardNum + '&&CompId=' + compname + '&&ProviderName=' + ProviderName + '&&Specialist='
+                        + special + '&&ProviderTypeName=' + ProviderTypeName + '&&ProviderTypeId=' + ProviderTypeId);
                     //$.ajax({
                     //    url: '/HrChronic/PrintMedical/',
                     //    data: {
