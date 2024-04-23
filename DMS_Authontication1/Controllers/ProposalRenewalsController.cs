@@ -209,8 +209,6 @@ namespace DMS_Authontication1.Controllers
                     CompId = CompId,
                     ContractNo = ContractNo,
                     CountClass = countCat
-
-
                 };
 
                 model.Add(renwalTwoMain);
