@@ -156,6 +156,11 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<RenewalStepTwo> RenewalStepTwoes { get; set; }
         public virtual DbSet<Employee_Request_Type> Employee_Request_Type { get; set; }
         public virtual DbSet<ProposalNotification> ProposalNotifications { get; set; }
+        public virtual DbSet<ProposalInsideMedicalAuthority> ProposalInsideMedicalAuthorities { get; set; }
+        public virtual DbSet<ProposalMain> ProposalMains { get; set; }
+        public virtual DbSet<ProposalNotificationApplicationUser> ProposalNotificationApplicationUsers { get; set; }
+        public virtual DbSet<ProposalOutsideMedicalAuthority> ProposalOutsideMedicalAuthorities { get; set; }
+        public virtual DbSet<ProposalStepTwo> ProposalStepTwoes { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)

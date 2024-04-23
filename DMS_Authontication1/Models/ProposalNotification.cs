@@ -14,6 +14,12 @@ namespace DMS_Authontication1.Models
     
     public partial class ProposalNotification
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ProposalNotification()
+        {
+            this.ProposalNotificationApplicationUsers = new HashSet<ProposalNotificationApplicationUser>();
+        }
+    
         public int Id { get; set; }
         public string Title { get; set; }
         public System.DateTime CreatedDate { get; set; }
@@ -24,5 +30,9 @@ namespace DMS_Authontication1.Models
         public string SentTo { get; set; }
         public int ProposalMainId { get; set; }
         public string DetailsUrl { get; set; }
+    
+        public virtual ProposalMain ProposalMain { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProposalNotificationApplicationUser> ProposalNotificationApplicationUsers { get; set; }
     }
 }

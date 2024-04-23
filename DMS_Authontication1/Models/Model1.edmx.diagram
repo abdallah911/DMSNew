@@ -178,6 +178,16 @@
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalStepTwo_RenewalMains" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Employee_Request_Type" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProposalNotification" Width="1.5" PointX="28.375" PointY="41.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProposalInsideMedicalAuthority" Width="1.5" PointX="25.375" PointY="49.125" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProposalMain" Width="1.5" PointX="23.125" PointY="42.25" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProposalNotificationApplicationUser" Width="1.5" PointX="30.625" PointY="42.625" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProposalOutsideMedicalAuthority" Width="1.5" PointX="25.375" PointY="62.25" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ProposalStepTwo" Width="1.5" PointX="25.375" PointY="43.5" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_dbo_ProposalInsideMedicalAuthorities_dbo_ProposalMains_ProposalMainId" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_dbo_ProposalNotifications_dbo_ProposalMains_ProposalMainId" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_dbo_ProposalOutsideMedicalAuthorities_dbo_ProposalMains_ProposalMainId" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_dbo_ProposalStepTwoes_dbo_ProposalMains_ProposalMainId" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_dbo_ProposalNotificationApplicationUsers_dbo_ProposalNotifications_ProposalNotificationId" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
