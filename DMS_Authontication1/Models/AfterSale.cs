@@ -37,5 +37,5 @@ namespace DMS_Authontication1.Models
         public string MeetingTime { get; set; }
         public string StartMeeting { get; set; }
         public string EndMeeting { get; set; }
-    }
+    } 
 }
