@@ -21,6 +21,7 @@ namespace DMS_Authontication1.Models
             this.ProposalNotifications = new HashSet<ProposalNotification>();
             this.ProposalOutsideMedicalAuthorities = new HashSet<ProposalOutsideMedicalAuthority>();
             this.ProposalStepTwoes = new HashSet<ProposalStepTwo>();
+            this.Pricings = new HashSet<Pricing>();
         }
     
         public int Id { get; set; }
@@ -66,5 +67,9 @@ namespace DMS_Authontication1.Models
         public virtual ICollection<ProposalOutsideMedicalAuthority> ProposalOutsideMedicalAuthorities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProposalStepTwo> ProposalStepTwoes { get; set; }
+        public virtual Area Area { get; set; }
+        public virtual Broker Broker { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pricing> Pricings { get; set; }
     }
 }

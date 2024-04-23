@@ -67,6 +67,16 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Age" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AlphabetLetters">
+          <Key>
+            <PropertyRef Name="Active" />
+          </Key>
+          <Property Name="Id" Type="int" />
+          <Property Name="Letter" Type="char" MaxLength="1" />
+          <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
         <EntityType Name="APPROVAL_BAD">
           <Key>
             <PropertyRef Name="Id" />
@@ -134,6 +144,13 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Note" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Areas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Basic_Data">
           <Key>
             <PropertyRef Name="Id" />
@@ -173,6 +190,21 @@
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="Brokers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="NationalId" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MembershipNo" Type="bigint" Nullable="false" />
+          <Property Name="TaxCardId" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="IsCompany" Type="bit" Nullable="false" />
+          <Property Name="TaxCardName" Type="nvarchar(max)" />
+          <Property Name="PracticeCardName" Type="nvarchar(max)" />
+          <Property Name="CompanyName" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="CardAcceptionReasons">
           <Key>
             <PropertyRef Name="id" />
@@ -196,6 +228,18 @@
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsUsed" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="CardColors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'DB_A45413_DMSERP.dbo.CardsArabic' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="CardsArabic">
+          <Property Name="CARD_ID" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
         <EntityType Name="CardsSms">
           <Key>
             <PropertyRef Name="Id" />
@@ -212,6 +256,49 @@
           <Property Name="CardId" Type="nvarchar(max)" />
           <Property Name="CreatedBy" Type="nvarchar(max)" />
           <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Claims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Policy_No" Type="float" />
+          <Property Name="Group_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Effective_Date" Type="datetime" />
+          <Property Name="Expiry_Date" Type="datetime" />
+          <Property Name="Unique_Member_ID" Type="nvarchar(max)" />
+          <Property Name="ClassCode" Type="int" />
+          <Property Name="Member_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Member_Country" Type="nvarchar" MaxLength="255" />
+          <Property Name="Member_Gender" Type="nvarchar" MaxLength="255" />
+          <Property Name="Relation" Type="nvarchar" MaxLength="255" />
+          <Property Name="DOB" Type="int" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Coverage" Type="nvarchar" MaxLength="255" />
+          <Property Name="Sub_Coverage" Type="nvarchar" MaxLength="255" />
+          <Property Name="Med_Cond_Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="Claim_ID" Type="bigint" />
+          <Property Name="Claim_Source" Type="nvarchar" MaxLength="255" />
+          <Property Name="Claim_Country_Of_Treatment" Type="nvarchar" MaxLength="255" />
+          <Property Name="Claim_Date" Type="datetime" />
+          <Property Name="Created_Date" Type="datetime" />
+          <Property Name="Claim_Amount" Type="float" />
+          <Property Name="Claim_Approved_Amount" Type="float" />
+          <Property Name="Claim_Net_Amount" Type="float" />
+          <Property Name="Claim_Currency" Type="nvarchar" MaxLength="255" />
+          <Property Name="Provider_Code" Type="int" />
+          <Property Name="Provider_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="ProviderType" Type="nvarchar" MaxLength="255" />
+          <Property Name="TreatmentType" Type="nvarchar" MaxLength="255" />
+          <Property Name="Transaction_Type" Type="nvarchar" MaxLength="255" />
+          <Property Name="CC" Type="nvarchar" MaxLength="255" />
+          <Property Name="Department" Type="nvarchar" MaxLength="255" />
+          <Property Name="Network" Type="nvarchar" MaxLength="225" />
+          <Property Name="Month" Type="date" />
+          <Property Name="Coverage2" Type="nvarchar" MaxLength="225" />
+          <Property Name="InOut_P" Type="nvarchar" MaxLength="225" />
+          <Property Name="Sub_Coverage_Type" Type="nvarchar" MaxLength="225" />
+          <Property Name="Expected _NET" Type="nvarchar" MaxLength="225" />
         </EntityType>
         <EntityType Name="Co_Insurance_01">
           <Key>
@@ -601,6 +688,14 @@
           <Property Name="DEPUTY_ADDRESS" Type="nvarchar" MaxLength="100" />
           <Property Name="DEPUTY_JOB" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="CompanyActivities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="CompanyContractPhoto">
           <Key>
             <PropertyRef Name="Id" />
@@ -787,6 +882,17 @@
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar(max)" />
           <Property Name="FOR_FAMILY" Type="nchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="CompHolder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CompHolderCode" Type="int" Nullable="false" />
+          <Property Name="CompHolderName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="CompStatement">
           <Key>
@@ -1393,6 +1499,29 @@
           <Property Name="CompId" Type="nvarchar(max)" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="HrUserPages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PageName" Type="nvarchar(max)" />
+          <Property Name="Type" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'DB_A45413_DMSERP.dbo.HrUserPermission' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="HrUserPermission">
+          <Property Name="Id" Type="int" />
+          <Property Name="CompId" Type="int" />
+          <Property Name="PageName" Type="nvarchar(max)" />
+          <Property Name="Type" Type="int" />
+          <Property Name="CreatedBy" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdateBy" Type="nvarchar(max)" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="DeletedBy" Type="nvarchar(max)" />
+          <Property Name="DeletedDate" Type="datetime" />
+        </EntityType>-->
         <EntityType Name="Indemnity">
           <Key>
             <PropertyRef Name="BatchID" />
@@ -1590,6 +1719,13 @@
           <Property Name="StartDate" Type="date" />
           <Property Name="PoolType" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="MedicalNetworks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="MedicineData">
           <Key>
             <PropertyRef Name="Id" />
@@ -1762,6 +1898,33 @@
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="PendingCount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuthorizationType" Type="nvarchar(max)" />
+          <Property Name="Count" Type="int" />
+          <Property Name="Perc" Type="float" />
+        </EntityType>
+        <EntityType Name="PendingInPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InpatientOfflineSLA" Type="nvarchar(max)" />
+          <Property Name="Count" Type="int" />
+          <Property Name="Perc" Type="float" />
+        </EntityType>
+        <EntityType Name="PendingOutPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OutpatientOfflineSLA" Type="nvarchar(max)" />
+          <Property Name="Count" Type="int" />
+          <Property Name="Perc" Type="float" />
+        </EntityType>
         <EntityType Name="PETROTRADE_EMPLOYEES">
           <Key>
             <PropertyRef Name="Id" />
@@ -1820,6 +1983,23 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PricesOutsideMedicalAuthorities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Price" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Pricings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Prices" Type="nvarchar(max)" />
+          <Property Name="CategoriesCount" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+          <Property Name="ProposalMainId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PrintMedicalReport">
           <Key>
@@ -2248,6 +2428,12 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'DB_A45413_DMSERP.dbo.ProviderTypeManager' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ProviderTypeManager">
+          <Property Name="ProviderType" Type="int" />
+          <Property Name="Manager" Type="nvarchar" MaxLength="250" />
+        </EntityType>-->
         <EntityType Name="ProviderTypeNew">
           <Key>
             <PropertyRef Name="ID" />
@@ -2266,6 +2452,12 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="GovernmentId" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'DB_A45413_DMSERP.dbo.RELATION_TYPE' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="RELATION_TYPE">
+          <Property Name="CODE" Type="bigint" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" />
+        </EntityType>-->
         <EntityType Name="RelationShip">
           <Key>
             <PropertyRef Name="ID" />
@@ -2475,6 +2667,13 @@
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
           <Property Name="Status" Type="nvarchar" MaxLength="10" />
           <Property Name="ReasonRefuse" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ResidenceDegrees">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Roshita">
           <Key>
@@ -2931,6 +3130,20 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_Pricings_dbo_ProposalMains_ProposalMainId">
+          <End Role="ProposalMains" Type="Self.ProposalMains" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Pricings" Type="Self.Pricings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProposalMains">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pricings">
+              <PropertyRef Name="ProposalMainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_ProposalInsideMedicalAuthorities_dbo_ProposalMains_ProposalMainId">
           <End Role="ProposalMains" Type="Self.ProposalMains" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -2942,6 +3155,32 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Principal>
             <Dependent Role="ProposalInsideMedicalAuthorities">
               <PropertyRef Name="ProposalMainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProposalMains_dbo_Areas_AreaId">
+          <End Role="Areas" Type="Self.Areas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProposalMains" Type="Self.ProposalMains" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Areas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProposalMains">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProposalMains_dbo_Brokers_BrokerId">
+          <End Role="Brokers" Type="Self.Brokers" Multiplicity="0..1" />
+          <End Role="ProposalMains" Type="Self.ProposalMains" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brokers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProposalMains">
+              <PropertyRef Name="BrokerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3826,11 +4065,15 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="ApprovalCode" EntityType="Self.ApprovalCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApprovalDetails" EntityType="Self.ApprovalDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApprovalMaster" EntityType="Self.ApprovalMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Areas" EntityType="Self.Areas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Basic_Data" EntityType="Self.Basic_Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Brokers" EntityType="Self.Brokers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardAcceptionReasons" EntityType="Self.CardAcceptionReasons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardCode" EntityType="Self.CardCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CardColors" EntityType="Self.CardColors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardsSms" EntityType="Self.CardsSms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardUsed" EntityType="Self.CardUsed" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Claims" EntityType="Self.Claims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Co_Insurance_01" EntityType="Self.Co_Insurance_01" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COMP_CUSTOMIZED_D" EntityType="Self.COMP_CUSTOMIZED_D" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comp_Customized_D_D" EntityType="Self.Comp_Customized_D_D" Schema="dbo" store:Type="Tables" />
@@ -3840,9 +4083,11 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="COMP_CUSTOMIZED_D_EMP" EntityType="Self.COMP_CUSTOMIZED_D_EMP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comp_Employees" EntityType="Self.Comp_Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company_Cost_Center" EntityType="Self.Company_Cost_Center" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanyActivities" EntityType="Self.CompanyActivities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompanyContractPhoto" EntityType="Self.CompanyContractPhoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompContractClass" EntityType="Self.CompContractClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompContractClassEmp" EntityType="Self.CompContractClassEmp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompHolder" EntityType="Self.CompHolder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompStatement" EntityType="Self.CompStatement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONSUMPTION_POOL" EntityType="Self.CONSUMPTION_POOL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactUs" EntityType="Self.ContactUs" Schema="dbo" store:Type="Tables" />
@@ -3878,6 +4123,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="HospitalDoctors" EntityType="Self.HospitalDoctors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HospitalServices" EntityType="Self.HospitalServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HrAdminCompanies" EntityType="Self.HrAdminCompanies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HrUserPages" EntityType="Self.HrUserPages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Indemnity" EntityType="Self.Indemnity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IndemnityCardsServices" EntityType="Self.IndemnityCardsServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IndemnityMaster" EntityType="Self.IndemnityMaster" Schema="dbo" store:Type="Tables" />
@@ -3889,6 +4135,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="LicenseType" EntityType="Self.LicenseType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Med_Card" EntityType="Self.Med_Card" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Med_Medicine" EntityType="Self.Med_Medicine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicalNetworks" EntityType="Self.MedicalNetworks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MedicineData" EntityType="Self.MedicineData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MedicineGroup" EntityType="Self.MedicineGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MedicinesDiagnosis" EntityType="Self.MedicinesDiagnosis" Schema="dbo" store:Type="Tables" />
@@ -3900,9 +4147,14 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="Name_Ray_Cen" EntityType="Self.Name_Ray_Cen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patchs" EntityType="Self.Patchs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PendingCount" EntityType="Self.PendingCount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PendingInPatient" EntityType="Self.PendingInPatient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PendingOutPatient" EntityType="Self.PendingOutPatient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PETROTRADE_EMPLOYEES" EntityType="Self.PETROTRADE_EMPLOYEES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pr_Bra" EntityType="Self.Pr_Bra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrescriptionRoshitaDignosis" EntityType="Self.PrescriptionRoshitaDignosis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PricesOutsideMedicalAuthorities" EntityType="Self.PricesOutsideMedicalAuthorities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pricings" EntityType="Self.Pricings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrintMedicalReport" EntityType="Self.PrintMedicalReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProposalBasicData" EntityType="Self.ProposalBasicData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProposalBenefits" EntityType="Self.ProposalBenefits" Schema="dbo" store:Type="Tables" />
@@ -3933,6 +4185,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="RenewalOutsideMedicalAuthorities" EntityType="Self.RenewalOutsideMedicalAuthorities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RenewalStepTwo" EntityType="Self.RenewalStepTwo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestAddProvider" EntityType="Self.RequestAddProvider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResidenceDegrees" EntityType="Self.ResidenceDegrees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roshita" EntityType="Self.Roshita" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoshitaAcceptions" EntityType="Self.RoshitaAcceptions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoshitaDetails" EntityType="Self.RoshitaDetails" Schema="dbo" store:Type="Tables" />
@@ -3950,6 +4203,13 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="Specialities1" EntityType="Self.Specialities1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCompanyPermission" EntityType="Self.UserCompanyPermission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersInternalCode" EntityType="Self.UsersInternalCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AlphabetLetters" EntityType="Self.AlphabetLetters" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AlphabetLetters].[Id] AS [Id], 
+    [AlphabetLetters].[Letter] AS [Letter], 
+    [AlphabetLetters].[Active] AS [Active]
+    FROM [dbo].[AlphabetLetters] AS [AlphabetLetters]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Swap" EntityType="Self.Swap" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Swap].[Id] AS [Id]
@@ -3967,9 +4227,21 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <End Role="AcceptionReasons" EntitySet="AcceptionReasons" />
             <End Role="CardAcceptionReasons" EntitySet="CardAcceptionReasons" />
           </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pricings_dbo_ProposalMains_ProposalMainId" Association="Self.FK_dbo_Pricings_dbo_ProposalMains_ProposalMainId">
+            <End Role="ProposalMains" EntitySet="ProposalMains" />
+            <End Role="Pricings" EntitySet="Pricings" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_ProposalInsideMedicalAuthorities_dbo_ProposalMains_ProposalMainId" Association="Self.FK_dbo_ProposalInsideMedicalAuthorities_dbo_ProposalMains_ProposalMainId">
             <End Role="ProposalMains" EntitySet="ProposalMains" />
             <End Role="ProposalInsideMedicalAuthorities" EntitySet="ProposalInsideMedicalAuthorities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProposalMains_dbo_Areas_AreaId" Association="Self.FK_dbo_ProposalMains_dbo_Areas_AreaId">
+            <End Role="Areas" EntitySet="Areas" />
+            <End Role="ProposalMains" EntitySet="ProposalMains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProposalMains_dbo_Brokers_BrokerId" Association="Self.FK_dbo_ProposalMains_dbo_Brokers_BrokerId">
+            <End Role="Brokers" EntitySet="Brokers" />
+            <End Role="ProposalMains" EntitySet="ProposalMains" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_ProposalNotificationApplicationUsers_dbo_ProposalNotifications_ProposalNotificationId" Association="Self.FK_dbo_ProposalNotificationApplicationUsers_dbo_ProposalNotifications_ProposalNotificationId">
             <End Role="ProposalNotifications" EntitySet="ProposalNotifications" />
@@ -5834,6 +6106,33 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <AssociationSet Name="FK_dbo_ProposalNotificationApplicationUsers_dbo_ProposalNotifications_ProposalNotificationId" Association="DB_A45413_DMSERPModel.FK_dbo_ProposalNotificationApplicationUsers_dbo_ProposalNotifications_ProposalNotificationId">
             <End Role="ProposalNotification" EntitySet="ProposalNotifications" />
             <End Role="ProposalNotificationApplicationUser" EntitySet="ProposalNotificationApplicationUsers" />
+          </AssociationSet>
+          <EntitySet Name="Areas" EntityType="DB_A45413_DMSERPModel.Area" />
+          <EntitySet Name="Brokers" EntityType="DB_A45413_DMSERPModel.Broker" />
+          <EntitySet Name="CardColors" EntityType="DB_A45413_DMSERPModel.CardColor" />
+          <EntitySet Name="Claims" EntityType="DB_A45413_DMSERPModel.Claim" />
+          <EntitySet Name="CompanyActivities" EntityType="DB_A45413_DMSERPModel.CompanyActivity" />
+          <EntitySet Name="CompHolders" EntityType="DB_A45413_DMSERPModel.CompHolder" />
+          <EntitySet Name="HrUserPages" EntityType="DB_A45413_DMSERPModel.HrUserPage" />
+          <EntitySet Name="MedicalNetworks" EntityType="DB_A45413_DMSERPModel.MedicalNetwork" />
+          <EntitySet Name="PendingCounts" EntityType="DB_A45413_DMSERPModel.PendingCount" />
+          <EntitySet Name="PendingInPatients" EntityType="DB_A45413_DMSERPModel.PendingInPatient" />
+          <EntitySet Name="PendingOutPatients" EntityType="DB_A45413_DMSERPModel.PendingOutPatient" />
+          <EntitySet Name="PricesOutsideMedicalAuthorities" EntityType="DB_A45413_DMSERPModel.PricesOutsideMedicalAuthority" />
+          <EntitySet Name="Pricings" EntityType="DB_A45413_DMSERPModel.Pricing" />
+          <EntitySet Name="ResidenceDegrees" EntityType="DB_A45413_DMSERPModel.ResidenceDegree" />
+          <EntitySet Name="AlphabetLetters" EntityType="DB_A45413_DMSERPModel.AlphabetLetter" />
+          <AssociationSet Name="FK_dbo_ProposalMains_dbo_Areas_AreaId" Association="DB_A45413_DMSERPModel.FK_dbo_ProposalMains_dbo_Areas_AreaId">
+            <End Role="Area" EntitySet="Areas" />
+            <End Role="ProposalMain" EntitySet="ProposalMains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProposalMains_dbo_Brokers_BrokerId" Association="DB_A45413_DMSERPModel.FK_dbo_ProposalMains_dbo_Brokers_BrokerId">
+            <End Role="Broker" EntitySet="Brokers" />
+            <End Role="ProposalMain" EntitySet="ProposalMains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Pricings_dbo_ProposalMains_ProposalMainId" Association="DB_A45413_DMSERPModel.FK_dbo_Pricings_dbo_ProposalMains_ProposalMainId">
+            <End Role="ProposalMain" EntitySet="ProposalMains" />
+            <End Role="Pricing" EntitySet="Pricings" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
@@ -8249,6 +8548,9 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <NavigationProperty Name="ProposalNotifications" Relationship="DB_A45413_DMSERPModel.FK_dbo_ProposalNotifications_dbo_ProposalMains_ProposalMainId" FromRole="ProposalMain" ToRole="ProposalNotification" />
           <NavigationProperty Name="ProposalOutsideMedicalAuthorities" Relationship="DB_A45413_DMSERPModel.FK_dbo_ProposalOutsideMedicalAuthorities_dbo_ProposalMains_ProposalMainId" FromRole="ProposalMain" ToRole="ProposalOutsideMedicalAuthority" />
           <NavigationProperty Name="ProposalStepTwoes" Relationship="DB_A45413_DMSERPModel.FK_dbo_ProposalStepTwoes_dbo_ProposalMains_ProposalMainId" FromRole="ProposalMain" ToRole="ProposalStepTwo" />
+          <NavigationProperty Name="Area" Relationship="DB_A45413_DMSERPModel.FK_dbo_ProposalMains_dbo_Areas_AreaId" FromRole="ProposalMain" ToRole="Area" />
+          <NavigationProperty Name="Broker" Relationship="DB_A45413_DMSERPModel.FK_dbo_ProposalMains_dbo_Brokers_BrokerId" FromRole="ProposalMain" ToRole="Broker" />
+          <NavigationProperty Name="Pricings" Relationship="DB_A45413_DMSERPModel.FK_dbo_Pricings_dbo_ProposalMains_ProposalMainId" FromRole="ProposalMain" ToRole="Pricing" />
         </EntityType>
         <EntityType Name="ProposalNotificationApplicationUser">
           <Key>
@@ -8417,6 +8719,214 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Principal>
             <Dependent Role="ProposalNotificationApplicationUser">
               <PropertyRef Name="ProposalNotificationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProposalMains" Relationship="DB_A45413_DMSERPModel.FK_dbo_ProposalMains_dbo_Areas_AreaId" FromRole="Area" ToRole="ProposalMain" />
+        </EntityType>
+        <EntityType Name="Broker">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NationalId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MembershipNo" Type="Int64" Nullable="false" />
+          <Property Name="TaxCardId" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsCompany" Type="Boolean" Nullable="false" />
+          <Property Name="TaxCardName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PracticeCardName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProposalMains" Relationship="DB_A45413_DMSERPModel.FK_dbo_ProposalMains_dbo_Brokers_BrokerId" FromRole="Broker" ToRole="ProposalMain" />
+        </EntityType>
+        <EntityType Name="CardColor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Claim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Policy_No" Type="Double" />
+          <Property Name="Group_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Effective_Date" Type="DateTime" Precision="3" />
+          <Property Name="Expiry_Date" Type="DateTime" Precision="3" />
+          <Property Name="Unique_Member_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClassCode" Type="Int32" />
+          <Property Name="Member_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Member_Country" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Member_Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Relation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="Int32" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Coverage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Sub_Coverage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Med_Cond_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Claim_ID" Type="Int64" />
+          <Property Name="Claim_Source" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Claim_Country_Of_Treatment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Claim_Date" Type="DateTime" Precision="3" />
+          <Property Name="Created_Date" Type="DateTime" Precision="3" />
+          <Property Name="Claim_Amount" Type="Double" />
+          <Property Name="Claim_Approved_Amount" Type="Double" />
+          <Property Name="Claim_Net_Amount" Type="Double" />
+          <Property Name="Claim_Currency" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Provider_Code" Type="Int32" />
+          <Property Name="Provider_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TreatmentType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Transaction_Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Network" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
+          <Property Name="Month" Type="DateTime" Precision="0" />
+          <Property Name="Coverage2" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
+          <Property Name="InOut_P" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
+          <Property Name="Sub_Coverage_Type" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
+          <Property Name="Expected__NET" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CompanyActivity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompHolder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CompHolderCode" Type="Int32" Nullable="false" />
+          <Property Name="CompHolderName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="HrUserPage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PageName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MedicalNetwork">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PendingCount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuthorizationType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Perc" Type="Double" />
+        </EntityType>
+        <EntityType Name="PendingInPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InpatientOfflineSLA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Perc" Type="Double" />
+        </EntityType>
+        <EntityType Name="PendingOutPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OutpatientOfflineSLA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Perc" Type="Double" />
+        </EntityType>
+        <EntityType Name="PricesOutsideMedicalAuthority">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Price" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Pricing">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Prices" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CategoriesCount" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProposalMainId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProposalMain" Relationship="DB_A45413_DMSERPModel.FK_dbo_Pricings_dbo_ProposalMains_ProposalMainId" FromRole="Pricing" ToRole="ProposalMain" />
+        </EntityType>
+        <EntityType Name="ResidenceDegree">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AlphabetLetter">
+          <Key>
+            <PropertyRef Name="Active" />
+          </Key>
+          <Property Name="Id" Type="Int32" />
+          <Property Name="Letter" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Active" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_dbo_ProposalMains_dbo_Areas_AreaId">
+          <End Type="DB_A45413_DMSERPModel.Area" Role="Area" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DB_A45413_DMSERPModel.ProposalMain" Role="ProposalMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProposalMain">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProposalMains_dbo_Brokers_BrokerId">
+          <End Type="DB_A45413_DMSERPModel.Broker" Role="Broker" Multiplicity="0..1" />
+          <End Type="DB_A45413_DMSERPModel.ProposalMain" Role="ProposalMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Broker">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProposalMain">
+              <PropertyRef Name="BrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Pricings_dbo_ProposalMains_ProposalMainId">
+          <End Type="DB_A45413_DMSERPModel.ProposalMain" Role="ProposalMain" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DB_A45413_DMSERPModel.Pricing" Role="Pricing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProposalMain">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pricing">
+              <PropertyRef Name="ProposalMainId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -11654,6 +12164,186 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ParticipantsCount" ColumnName="ParticipantsCount" />
                 <ScalarProperty Name="AnnualCoverageCeiling" ColumnName="AnnualCoverageCeiling" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Areas">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Area">
+              <MappingFragment StoreEntitySet="Areas">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Brokers">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Broker">
+              <MappingFragment StoreEntitySet="Brokers">
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="PracticeCardName" ColumnName="PracticeCardName" />
+                <ScalarProperty Name="TaxCardName" ColumnName="TaxCardName" />
+                <ScalarProperty Name="IsCompany" ColumnName="IsCompany" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="TaxCardId" ColumnName="TaxCardId" />
+                <ScalarProperty Name="MembershipNo" ColumnName="MembershipNo" />
+                <ScalarProperty Name="NationalId" ColumnName="NationalId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CardColors">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CardColor">
+              <MappingFragment StoreEntitySet="CardColors">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Claims">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Claim">
+              <MappingFragment StoreEntitySet="Claims">
+                <ScalarProperty Name="Expected__NET" ColumnName="Expected _NET" />
+                <ScalarProperty Name="Sub_Coverage_Type" ColumnName="Sub_Coverage_Type" />
+                <ScalarProperty Name="InOut_P" ColumnName="InOut_P" />
+                <ScalarProperty Name="Coverage2" ColumnName="Coverage2" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Network" ColumnName="Network" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="CC" ColumnName="CC" />
+                <ScalarProperty Name="Transaction_Type" ColumnName="Transaction_Type" />
+                <ScalarProperty Name="TreatmentType" ColumnName="TreatmentType" />
+                <ScalarProperty Name="ProviderType" ColumnName="ProviderType" />
+                <ScalarProperty Name="Provider_Name" ColumnName="Provider_Name" />
+                <ScalarProperty Name="Provider_Code" ColumnName="Provider_Code" />
+                <ScalarProperty Name="Claim_Currency" ColumnName="Claim_Currency" />
+                <ScalarProperty Name="Claim_Net_Amount" ColumnName="Claim_Net_Amount" />
+                <ScalarProperty Name="Claim_Approved_Amount" ColumnName="Claim_Approved_Amount" />
+                <ScalarProperty Name="Claim_Amount" ColumnName="Claim_Amount" />
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Claim_Date" ColumnName="Claim_Date" />
+                <ScalarProperty Name="Claim_Country_Of_Treatment" ColumnName="Claim_Country_Of_Treatment" />
+                <ScalarProperty Name="Claim_Source" ColumnName="Claim_Source" />
+                <ScalarProperty Name="Claim_ID" ColumnName="Claim_ID" />
+                <ScalarProperty Name="Med_Cond_Description" ColumnName="Med_Cond_Description" />
+                <ScalarProperty Name="Sub_Coverage" ColumnName="Sub_Coverage" />
+                <ScalarProperty Name="Coverage" ColumnName="Coverage" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Relation" ColumnName="Relation" />
+                <ScalarProperty Name="Member_Gender" ColumnName="Member_Gender" />
+                <ScalarProperty Name="Member_Country" ColumnName="Member_Country" />
+                <ScalarProperty Name="Member_Name" ColumnName="Member_Name" />
+                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+                <ScalarProperty Name="Unique_Member_ID" ColumnName="Unique_Member_ID" />
+                <ScalarProperty Name="Expiry_Date" ColumnName="Expiry_Date" />
+                <ScalarProperty Name="Effective_Date" ColumnName="Effective_Date" />
+                <ScalarProperty Name="Group_Name" ColumnName="Group_Name" />
+                <ScalarProperty Name="Policy_No" ColumnName="Policy_No" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyActivities">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompanyActivity">
+              <MappingFragment StoreEntitySet="CompanyActivities">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompHolders">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompHolder">
+              <MappingFragment StoreEntitySet="CompHolder">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CompHolderName" ColumnName="CompHolderName" />
+                <ScalarProperty Name="CompHolderCode" ColumnName="CompHolderCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HrUserPages">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.HrUserPage">
+              <MappingFragment StoreEntitySet="HrUserPages">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalNetworks">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.MedicalNetwork">
+              <MappingFragment StoreEntitySet="MedicalNetworks">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PendingCounts">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PendingCount">
+              <MappingFragment StoreEntitySet="PendingCount">
+                <ScalarProperty Name="Perc" ColumnName="Perc" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="AuthorizationType" ColumnName="AuthorizationType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PendingInPatients">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PendingInPatient">
+              <MappingFragment StoreEntitySet="PendingInPatient">
+                <ScalarProperty Name="Perc" ColumnName="Perc" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="InpatientOfflineSLA" ColumnName="InpatientOfflineSLA" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PendingOutPatients">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PendingOutPatient">
+              <MappingFragment StoreEntitySet="PendingOutPatient">
+                <ScalarProperty Name="Perc" ColumnName="Perc" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="OutpatientOfflineSLA" ColumnName="OutpatientOfflineSLA" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PricesOutsideMedicalAuthorities">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PricesOutsideMedicalAuthority">
+              <MappingFragment StoreEntitySet="PricesOutsideMedicalAuthorities">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pricings">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Pricing">
+              <MappingFragment StoreEntitySet="Pricings">
+                <ScalarProperty Name="ProposalMainId" ColumnName="ProposalMainId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CategoriesCount" ColumnName="CategoriesCount" />
+                <ScalarProperty Name="Prices" ColumnName="Prices" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResidenceDegrees">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ResidenceDegree">
+              <MappingFragment StoreEntitySet="ResidenceDegrees">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlphabetLetters">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.AlphabetLetter">
+              <MappingFragment StoreEntitySet="AlphabetLetters">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Letter" ColumnName="Letter" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

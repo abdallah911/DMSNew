@@ -161,6 +161,21 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<ProposalNotificationApplicationUser> ProposalNotificationApplicationUsers { get; set; }
         public virtual DbSet<ProposalOutsideMedicalAuthority> ProposalOutsideMedicalAuthorities { get; set; }
         public virtual DbSet<ProposalStepTwo> ProposalStepTwoes { get; set; }
+        public virtual DbSet<Area> Areas { get; set; }
+        public virtual DbSet<Broker> Brokers { get; set; }
+        public virtual DbSet<CardColor> CardColors { get; set; }
+        public virtual DbSet<Claim> Claims { get; set; }
+        public virtual DbSet<CompanyActivity> CompanyActivities { get; set; }
+        public virtual DbSet<CompHolder> CompHolders { get; set; }
+        public virtual DbSet<HrUserPage> HrUserPages { get; set; }
+        public virtual DbSet<MedicalNetwork> MedicalNetworks { get; set; }
+        public virtual DbSet<PendingCount> PendingCounts { get; set; }
+        public virtual DbSet<PendingInPatient> PendingInPatients { get; set; }
+        public virtual DbSet<PendingOutPatient> PendingOutPatients { get; set; }
+        public virtual DbSet<PricesOutsideMedicalAuthority> PricesOutsideMedicalAuthorities { get; set; }
+        public virtual DbSet<Pricing> Pricings { get; set; }
+        public virtual DbSet<ResidenceDegree> ResidenceDegrees { get; set; }
+        public virtual DbSet<AlphabetLetter> AlphabetLetters { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)
