@@ -4409,14 +4409,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Employee_Request_Type">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ArName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EnName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="EmployeeRelation">
           <Key>
             <PropertyRef Name="Id" />
@@ -5112,7 +5104,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="Contract_Data" EntityType="Self.Contract_Data" />
           <EntitySet Name="DailyPermissions" EntityType="Self.DailyPermission" />
           <EntitySet Name="Diagnosis" EntityType="Self.Diagnosi" />
-          <EntitySet Name="Employee_Request_Type" EntityType="Self.Employee_Request_Type" />
           <EntitySet Name="EmployeeRelations" EntityType="Self.EmployeeRelation" />
           <EntitySet Name="Genders" EntityType="Self.Gender" />
           <EntitySet Name="Governates" EntityType="Self.Governate" />
@@ -5507,6 +5498,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <End Role="RenewalMain" EntitySet="RenewalMains" />
             <End Role="RenewalStepTwo" EntitySet="RenewalStepTwoes" />
           </AssociationSet>
+          <EntitySet Name="Employee_Request_Type" EntityType="DB_A45413_DMSERPModel.Employee_Request_Type" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7790,6 +7782,14 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Employee_Request_Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EnName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8356,15 +8356,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
                 <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
                 <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employee_Request_Type">
-            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Employee_Request_Type">
-              <MappingFragment StoreEntitySet="Employee_Request_Type">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ArName" ColumnName="ArName" />
-                <ScalarProperty Name="EnName" ColumnName="EnName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -10805,6 +10796,15 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ParticipantsCount" ColumnName="ParticipantsCount" />
                 <ScalarProperty Name="AnnualCoverageCeiling" ColumnName="AnnualCoverageCeiling" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee_Request_Type">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Employee_Request_Type">
+              <MappingFragment StoreEntitySet="Employee_Request_Type">
+                <ScalarProperty Name="EnName" ColumnName="EnName" />
+                <ScalarProperty Name="ArName" ColumnName="ArName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -21,7 +21,6 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Contract_Data" Width="1.5" PointX="21.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.DailyPermission" Width="1.5" PointX="21.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Diagnosi" Width="1.5" PointX="21.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Employee_Request_Type" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.EmployeeRelation" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Gender" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Governate" Width="1.5" PointX="9.375" PointY="25.125" IsExpanded="true" />
@@ -177,6 +176,7 @@
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_RenewalMains" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalStepTwo_RenewalMains" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Employee_Request_Type" Width="1.5" PointX="0.75" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
