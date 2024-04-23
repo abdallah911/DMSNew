@@ -14,6 +14,14 @@ namespace DMS_Authontication1.Models
     
     public partial class RenewalMain
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public RenewalMain()
+        {
+            this.RenewalInsideMedicalAuthorities = new HashSet<RenewalInsideMedicalAuthority>();
+            this.RenewalOutsideMedicalAuthorities = new HashSet<RenewalOutsideMedicalAuthority>();
+            this.RenewalStepTwoes = new HashSet<RenewalStepTwo>();
+        }
+    
         public int Id { get; set; }
         public Nullable<long> CompId { get; set; }
         public Nullable<int> ContractNo { get; set; }
@@ -21,5 +29,12 @@ namespace DMS_Authontication1.Models
         public Nullable<int> EmpCount { get; set; }
         public string UserId { get; set; }
         public string Code { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RenewalInsideMedicalAuthority> RenewalInsideMedicalAuthorities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RenewalOutsideMedicalAuthority> RenewalOutsideMedicalAuthorities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RenewalStepTwo> RenewalStepTwoes { get; set; }
     }
 }

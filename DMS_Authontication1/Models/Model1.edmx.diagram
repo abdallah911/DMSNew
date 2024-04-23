@@ -170,6 +170,13 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PETROTRADE_EMPLOYEES" Width="1.5" PointX="41.375" PointY="0.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PrintMedicalReport" Width="1.5" PointX="41.375" PointY="5.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalMain" Width="1.5" PointX="41.375" PointY="20.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.AgeAvg" Width="1.5" PointX="20.375" PointY="29.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority" Width="1.5" PointX="43.625" PointY="25.5" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalOutsideMedicalAuthority" Width="1.5" PointX="43.625" PointY="12" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalStepTwo" Width="1.5" PointX="43.625" PointY="6.625" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_RenewalMains" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalStepTwo_RenewalMains" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
