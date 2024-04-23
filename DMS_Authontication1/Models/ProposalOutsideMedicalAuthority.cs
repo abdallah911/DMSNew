@@ -66,6 +66,7 @@ namespace DMS_Authontication1.Models
         public decimal? AdvancedDentalServiceLimit { get; set; }
         public decimal? AdvancedDentalServicePercentage { get; set; }
 
+
         public bool BasicDentalServiceLimitOption { get; set; }
         public bool BasicDentalServicePercentageoption { get; set; }
         public decimal? BasicDentalServiceLimit { get; set; }
@@ -82,7 +83,10 @@ namespace DMS_Authontication1.Models
         public int ClassCode { get; set; }
         public decimal DoctorsExaminationValue { get; set; }
 
-        //----------relations------------//
+        //----------relations------------//.
+
+        public DentalService DentalService { get; set; }
+        public int DentalServiceId { get; set; }
         public int ProposalMainId { get; set; }
         public ProposalMain ProposalMain { get; set; }
         public PricesOutsideMedicalAuthority PricesOutsideMedicalAuthority { get; set; }

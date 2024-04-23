@@ -222,8 +222,12 @@ namespace DMS_Authontication1.ViewModel
         public bool CoronaVaccineCoverage { get; set; }
         public int ClassCode { get; set; }
 
-
+        public int PregCount { get; set; }
+        public bool OpticalDetection { get; set; }
+        public int OpticalCount { get; set; }
+        public string DentalProsthetics { get; set; }
         //----------relations------------//
+        public int BasicDentalServiceId { get; set; }
         [Required(ErrorMessage = "Please provide a value for Proposal Main Id.")]
         public int ProposalMainId { get; set; }
     }

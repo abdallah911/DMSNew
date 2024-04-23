@@ -60,6 +60,7 @@ namespace DMS_Authontication1.Models
         public bool PregFollowUpPercentageoption { get; set; }
         public decimal? PregFollowUpLimit { get; set; }
         public decimal? PregFollowUpPercentage { get; set; }
+        public int PregCount { get; set; }
 
         public bool AdvancedDentalServiceLimitOption { get; set; }
         public bool AdvancedDentalServicePercentageoption { get; set; }
@@ -75,13 +76,17 @@ namespace DMS_Authontication1.Models
         public bool OpticsPercentageoption { get; set; }
         public decimal? OpticsLimit { get; set; }
         public decimal? OpticsPercentage { get; set; }
-
+        public bool OpticalDetection { get; set; }
+        public int OpticalCount { get; set; }
         public int IntensiveCareDaysCount { get; set; }
         public int DailyRoshitasCountPerMonth { get; set; }
         public bool CoronaVaccineCoverage { get; set; }
         public int ClassCode { get; set; }
+        public string DentalProsthetics { get; set; }
 
         //----------relations------------//
+        public BasicDentalService BasicDentalService { get; set; }
+        public int BasicDentalServiceId { get; set; }
         public int ProposalMainId { get; set; }
         public ProposalMain ProposalMain { get; set; }
     }

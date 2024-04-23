@@ -35,7 +35,7 @@ namespace DMS_Authontication1.ViewModel
         [Range(0, int.MaxValue, ErrorMessage = "Doctor visits count cannot be less than zero.")]
         public int DoctorVisitsCount { get; set; }
         [Required]
-        [Range(0, decimal.MaxValue, ErrorMessage = $"Doctor visits duration must be in range 0 - {decimal.MaxValue}.")]
+        [Range(0, 24, ErrorMessage = "Doctor visits duration must be in range 0 - 24.")]
         public decimal DoctorVisitsDuration { get; set; }
         [EmailAddress(ErrorMessage = "Invalid email address")]
         [Required]

@@ -238,11 +238,27 @@
 
                                     </div>
                                 </div>
-                                <div>
-                                    <input type="text" name="Model[@index].AvgAge" value="@Model[index].AvgAge" />
-                                    @*@Html.ValidationMessage($"Model[{index}].AvgAge", "", new { @class = "text-danger" })*@
 
+                                <div style="
+                      display: flex;
+                      flex-direction: column;
 
+                      align-items: center;
+                    ">
+                                    <div style="width: 90%">
+                                        <div class="seleect-container">
+                                            <select name="Model[@index].AgeAvgId" class="seleect" id="cars">
+                                                <option value="">اختر متوسط الأعمار</option> <!-- Default option -->
+                                                @foreach (var age in ViewBag.AgeList)
+                                                {
+                                                    <option value="@age.Value" @(age.Value == Model[index].AgeAvgId.ToString() ? "selected" : "")>@age.Text</option>
+                                                }
+                                            </select>
+                                            @*@Html.ValidationMessage($"Model[{index}].MedicalNetworkId", "", new { @class = "text-danger" })*@
+
+                                        </div>
+
+                                    </div>
                                 </div>
                                 <div style="
                       display: flex;

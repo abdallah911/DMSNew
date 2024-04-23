@@ -603,12 +603,15 @@ namespace DMS_Authontication1.Controllers
             // Retrieve data from temporary storage or session
             // ...
             // Retrieve the list of Areas and CompanyActivities from the database
+            var ageAvgs = _dbContext.AgeAvgs.ToList();
             var colors = _dbContext.CardColors.ToList();
             var residenceDegree = _dbContext.ResidenceDegrees.ToList();
             var medicalNetworks = _dbContext.MedicalNetworks.ToList();
 
 
             // Convert the lists to SelectList items for use in dropdown lists
+            ViewBag.AgeList = new SelectList(ageAvgs, "Id", "Age");
+
             ViewBag.ColorList = new SelectList(colors, "Id", "Name");
             ViewBag.ResidenceList = new SelectList(residenceDegree, "Id", "Name");
             ViewBag.MedicalNetworkList = new SelectList(medicalNetworks, "Id", "Name");
@@ -735,9 +738,11 @@ namespace DMS_Authontication1.Controllers
                         var colors = _dbContext.CardColors.ToList();
                         var residenceDegree = _dbContext.ResidenceDegrees.ToList();
                         var medicalNetworks = _dbContext.MedicalNetworks.ToList();
+                        var ageAvgs = _dbContext.AgeAvgs.ToList();
 
 
                         // Convert the lists to SelectList items for use in dropdown lists
+                        ViewBag.AgeList = new SelectList(ageAvgs, "Id", "Age");
                         ViewBag.ColorList = new SelectList(colors, "Id", "Name");
                         ViewBag.ResidenceList = new SelectList(residenceDegree, "Id", "Name");
                         ViewBag.MedicalNetworkList = new SelectList(medicalNetworks, "Id", "Name");
@@ -785,6 +790,8 @@ namespace DMS_Authontication1.Controllers
             var colors = _dbContext.CardColors.ToList();
             var residenceDegree = _dbContext.ResidenceDegrees.ToList();
             var medicalNetworks = _dbContext.MedicalNetworks.ToList();
+            var ageAvgs = _dbContext.AgeAvgs.ToList();
+            ViewBag.AgeList = new SelectList(ageAvgs, "Id", "Age");
 
 
             ViewBag.MainId = newId;
@@ -873,7 +880,8 @@ namespace DMS_Authontication1.Controllers
                         var colors = _dbContext.CardColors.ToList();
                         var residenceDegree = _dbContext.ResidenceDegrees.ToList();
                         var medicalNetworks = _dbContext.MedicalNetworks.ToList();
-
+                        var ageAvgs = _dbContext.AgeAvgs.ToList();
+                        ViewBag.AgeList = new SelectList(ageAvgs, "Id", "Age");
 
                         // Convert the lists to SelectList items for use in dropdown lists
                         ViewBag.ColorList = new SelectList(colors, "Id", "Name");
@@ -910,7 +918,6 @@ namespace DMS_Authontication1.Controllers
                 Price = vM.Price,
                 MinAge= vM.MinAge,
                 MaxAge = vM.MaxAge,
-                AvgAge = vM.AvgAge,
                 ChecksInsideHospital = vM.ChecksInsideHospital,
                 PhysicalTherapyInsideHospital = vM.PhysicalTherapyInsideHospital,
                 OutsideClincInsideHospital = vM.OutsideClinicInsideHospital,
@@ -919,6 +926,7 @@ namespace DMS_Authontication1.Controllers
                 Accidents = vM.Accidents,
                 Death = vM.Death,
                 //relations
+                AgeAvgId = vM.AgeAvgId,
                 CardColorId = vM.CardColorId,
                 ResidenceDegreeId = vM.ResidenceDegreeId,
                 MedicalNetworkId = vM.MedicalNetworkId,
@@ -939,7 +947,6 @@ namespace DMS_Authontication1.Controllers
                 Price = proposalEntity.Price,
                 MinAge = proposalEntity.MinAge,
                 MaxAge = proposalEntity.MaxAge,
-                AvgAge = proposalEntity.AvgAge,
                 ChecksInsideHospital = proposalEntity.ChecksInsideHospital,
                 PhysicalTherapyInsideHospital = proposalEntity.PhysicalTherapyInsideHospital,
                 OutsideClinicInsideHospital = proposalEntity.OutsideClincInsideHospital,
@@ -948,6 +955,7 @@ namespace DMS_Authontication1.Controllers
                 Death = proposalEntity.Death,
                 Accidents = proposalEntity.Accidents,
                 //relations
+                AgeAvgId = proposalEntity.AgeAvgId,
                 CardColorId = proposalEntity.CardColorId,
                 ResidenceDegreeId = proposalEntity.ResidenceDegreeId,
                 MedicalNetworkId = proposalEntity.MedicalNetworkId,
@@ -966,7 +974,6 @@ namespace DMS_Authontication1.Controllers
             existingProposal.Price = proposalViewModel.Price;
             existingProposal.MinAge = proposalViewModel.MinAge;
             existingProposal.MaxAge = proposalViewModel.MaxAge;
-            existingProposal.AvgAge = proposalViewModel.AvgAge;
             existingProposal.ChecksInsideHospital = proposalViewModel.ChecksInsideHospital;
             existingProposal.PhysicalTherapyInsideHospital = proposalViewModel.PhysicalTherapyInsideHospital;
             existingProposal.OutsideClincInsideHospital = proposalViewModel.OutsideClinicInsideHospital;
@@ -974,6 +981,7 @@ namespace DMS_Authontication1.Controllers
             existingProposal.EmployeesDataFileName = proposalViewModel.EmployeesDataFileName;
             existingProposal.Accidents = proposalViewModel.Accidents;
             existingProposal.Death = proposalViewModel.Death;
+            existingProposal.AgeAvgId = proposalViewModel.AgeAvgId;
             existingProposal.CardColorId = proposalViewModel.CardColorId;
             existingProposal.ResidenceDegreeId = proposalViewModel.ResidenceDegreeId;
             existingProposal.MedicalNetworkId = proposalViewModel.MedicalNetworkId;
