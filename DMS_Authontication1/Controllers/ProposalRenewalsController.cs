@@ -144,32 +144,77 @@ namespace DMS_Authontication1.Controllers
 
             //ViewBag.previousUrl = System.Web.HttpContext.Current.Request.UrlReferrer?.ToString();
             
+            var model = new List<RenwalStepTwoViewModel>(countCat);
+
+            var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION
+                                                 FROM DMS_TEST.COMP_CONTRACT_CLASS
+                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY CLASS_CODE");
             
-            
-            var model = new List<ProposalStepTwoViewModel>(countCat);
+            foreach (System.Data.DataRow row in compclassold.Rows)
+            {
+                var classCode = row["CLASS_CODE"].ToString();
 
+                int countEmpClass = db.Comp_Employees
+                    .Where(c => c.C_COMP_ID == CompId && c.CONTRACT_NO == ContractNo && c.CLASS_CODE == classCode && (c.TERMINATE_FLAG ?? "N") != "Y")
+                     .Select(c => c.CARD_ID).Distinct().Count();
+               
+                
+                var colrCardTable = dbOra.RunReader(@"SELECT DECODE(CARD_COLOR, 7402, 1, 7403, 2, 7405, 3, 7407, 4) CARD_COLOR
+                                                 FROM APP.PRINT_CARD
+                                                 WHERE COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' AND CLASS_CODE = '" + classCode + "' ORDER BY CLASS_CODE");
+                int colrCrd = 1;
+                if (colrCardTable.Rows.Count > 0)
+                    colrCrd = int.Parse(colrCardTable.Rows[0][0].ToString());
+                
 
-            //if (mainProposal.ProposalStepTwos.Count() > 0)
-            //{
+                decimal mxAmount = Convert.ToDecimal(row["MAX_AMOUNT"].ToString());
+                decimal pric = Convert.ToDecimal(row["ANNUAL_PREM"].ToString());
+                int resDegree = int.Parse(row["HOSPITAL_DEGREE"].ToString());
+                int medl = int.Parse(row["COVER_RELATION"].ToString());
 
-            //    foreach (var stepTwo in mainProposal.ProposalStepTwos)
-            //    {
-            //        var item = MapEntityToViewModelStepTwo(stepTwo);
-            //        item.Id = stepTwo.Id;
-            //        model.Add(item);
-
-            //    }
-            //}
-            //else
-            //{
-
-                for (int i = 0; i < countCat; i++)
+                var renwalTwoMain = new RenwalStepTwoViewModel
                 {
-                    // Create an instance of ProposalStepTwoViewModel and add it to the list
-                    model.Add(new ProposalStepTwoViewModel());
-                }
-            //}
-            // Render the view for the second step
+                    AnnualCoverageCeiling = mxAmount,
+                    ParticipantsCount = countEmpClass,
+                    Price = pric,
+                    
+                    ChecksInsideHospital = ApprovalStepTwo.Yes,
+                    PhysicalTherapyInsideHospital = ApprovalStepTwo.Yes,
+                    OutsideClinicInsideHospital = ApprovalStepTwo.Yes,
+                    DentalServicesInsideHospital = ApprovalStepTwo.Yes,
+                    
+                    Death = mxAmount,
+                    Accidents = mxAmount,
+                    //relations
+                    CardColorId = colrCrd,
+                    ResidenceDegreeId = resDegree,
+                    MedicalNetworkId = medl,
+                    
+                    MainId = mainId,
+
+                    AnnualCoverageCeilingOld  = mxAmount,
+                    ParticipantsCountOld = countEmpClass,
+                    PriceOld = pric,
+                    DeathOld = mxAmount,
+                    AccidentsOld = mxAmount,
+                    ChecksInsideHospitalOld = ApprovalStepTwo.Yes,
+                    PhysicalTherapyInsideHospitalOld = ApprovalStepTwo.Yes,
+                    OutsideClinicInsideHospitalOld = ApprovalStepTwo.Yes,
+                    DentalServicesInsideHospitalOld = ApprovalStepTwo.Yes,
+                    CardColorIdOld = colrCrd,
+                    ResidenceDegreeIdOld = resDegree,
+                    MedicalNetworkIdOld = medl,
+
+                    ClassCode = classCode,
+                    CompId = CompId,
+                    ContractNo = ContractNo,
+                    CountClass = countCat
+
+
+                };
+
+                model.Add(renwalTwoMain);
+            }               
             return View(model);
         }
 

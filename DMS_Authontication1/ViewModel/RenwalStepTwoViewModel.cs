@@ -21,19 +21,7 @@ namespace DMS_Authontication1.ViewModel
         [Required(ErrorMessage = "Price is required.")]
         [Range(0, double.MaxValue, ErrorMessage = "Price must be greater than or equal to zero.")]
         public decimal Price { get; set; }
-
-        //[Required(ErrorMessage = "Min Age is required.")]
-        //[Range(0, 200, ErrorMessage = "Min Age must be between 0 and 200.")]
-        //public int MinAge { get; set; }
-
-        //[Required(ErrorMessage = "Max Age is required.")]
-        //[Range(0, 200, ErrorMessage = "Max Age must be between 0 and 200.")]
-        //public int MaxAge { get; set; }
-
-        //[Required(ErrorMessage = "Avg Age is required.")]
-        //[Range(0, 200, ErrorMessage = "Avg Age must be between 0 and 200.")]
-        //public int AvgAge { get; set; }
-
+        
         [Required(ErrorMessage = "Please provide the approval status for Checks Inside Hospital.")]
         public ApprovalStepTwo ChecksInsideHospital { get; set; }
 
@@ -46,14 +34,14 @@ namespace DMS_Authontication1.ViewModel
         [Required(ErrorMessage = "Please provide the approval status for Dental Services Inside Hospital.")]
         public ApprovalStepTwo DentalServicesInsideHospital { get; set; }
         
-        public int ClassCode { get; set; }
+        public string ClassCode { get; set; }
         [Required(ErrorMessage = "Accidents is required.")]
         [Range(0, int.MaxValue, ErrorMessage = "Accidents must be greater than or equal to 0.")]
-        public int Accidents { get; set; }
+        public decimal Accidents { get; set; }
         [Required(ErrorMessage = "Death is required.")]
         [Range(0, int.MaxValue, ErrorMessage = "Death must be greater than or equal to 0.")]
 
-        public int Death { get; set; }
+        public decimal Death { get; set; }
         //----------relations--------------//
         [Required(ErrorMessage = "Please provide the Card Color.")]
         public int CardColorId { get; set; }
@@ -71,32 +59,22 @@ namespace DMS_Authontication1.ViewModel
 
         [Required(ErrorMessage = "Price is required.")]
         [Range(0, double.MaxValue, ErrorMessage = "Price must be greater than or equal to zero.")]
-        public decimal PriceOld { get; set; }
-
-        //[Required(ErrorMessage = "Min Age is required.")]
-        //[Range(0, 200, ErrorMessage = "Min Age must be between 0 and 200.")]
-        //public int MinAge { get; set; }
-
-        //[Required(ErrorMessage = "Max Age is required.")]
-        //[Range(0, 200, ErrorMessage = "Max Age must be between 0 and 200.")]
-        //public int MaxAge { get; set; }
-
-        //[Required(ErrorMessage = "Avg Age is required.")]
-        //[Range(0, 200, ErrorMessage = "Avg Age must be between 0 and 200.")]
-        //public int AvgAge { get; set; }
+        public decimal PriceOld { get; set; }        
         public ApprovalStepTwo ChecksInsideHospitalOld { get; set; }
         public ApprovalStepTwo PhysicalTherapyInsideHospitalOld { get; set; }
         public ApprovalStepTwo OutsideClinicInsideHospitalOld { get; set; }
         public ApprovalStepTwo DentalServicesInsideHospitalOld { get; set; }
 
-        public int ClassCodeOld { get; set; }
-        public int AccidentsOld { get; set; }
-        public int DeathOld { get; set; }
+        //public int ClassCodeOld { get; set; }
+        public decimal AccidentsOld { get; set; }
+        public decimal DeathOld { get; set; }
         //----------relations--------------//
         public int CardColorIdOld { get; set; }
         public int ResidenceDegreeIdOld { get; set; }
         public int MedicalNetworkIdOld { get; set; }
 
-
+        public int CompId { get; set; }
+        public int ContractNo { get; set; }
+        public int CountClass { get; set; }
     }
 }

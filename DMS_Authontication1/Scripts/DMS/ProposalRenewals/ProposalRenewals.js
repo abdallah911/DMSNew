@@ -275,7 +275,6 @@ function ClearAll() {
 }
 
 function SearchRenewal() {
-    debugger;
     if ($('#CompId').val() != "") {
         $("#wait").css("display", "block");
         $.ajax({
