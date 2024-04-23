@@ -1914,6 +1914,21 @@
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="ProposalNotifications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar(max)" />
+          <Property Name="IsRead" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="IsReminder" Type="bit" Nullable="false" />
+          <Property Name="SentTo" Type="nvarchar(max)" />
+          <Property Name="ProposalMainId" Type="int" Nullable="false" />
+          <Property Name="DetailsUrl" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="ProposalRenewalSummary">
           <Key>
             <PropertyRef Name="Id" />
@@ -3626,6 +3641,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="ProposalClass" EntityType="Self.ProposalClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProposalClassRelation" EntityType="Self.ProposalClassRelation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProposalComment" EntityType="Self.ProposalComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProposalNotifications" EntityType="Self.ProposalNotifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProposalRenewalSummary" EntityType="Self.ProposalRenewalSummary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProviderBlock" EntityType="Self.ProviderBlock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProviderComplaint" EntityType="Self.ProviderComplaint" Schema="dbo" store:Type="Tables" />
@@ -5499,6 +5515,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <End Role="RenewalStepTwo" EntitySet="RenewalStepTwoes" />
           </AssociationSet>
           <EntitySet Name="Employee_Request_Type" EntityType="DB_A45413_DMSERPModel.Employee_Request_Type" />
+          <EntitySet Name="ProposalNotifications" EntityType="DB_A45413_DMSERPModel.ProposalNotification" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7789,6 +7806,21 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ArName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EnName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProposalNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsRead" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="IsReminder" Type="Boolean" Nullable="false" />
+          <Property Name="SentTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProposalMainId" Type="Int32" Nullable="false" />
+          <Property Name="DetailsUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -10805,6 +10837,22 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
               <MappingFragment StoreEntitySet="Employee_Request_Type">
                 <ScalarProperty Name="EnName" ColumnName="EnName" />
                 <ScalarProperty Name="ArName" ColumnName="ArName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProposalNotifications">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ProposalNotification">
+              <MappingFragment StoreEntitySet="ProposalNotifications">
+                <ScalarProperty Name="DetailsUrl" ColumnName="DetailsUrl" />
+                <ScalarProperty Name="ProposalMainId" ColumnName="ProposalMainId" />
+                <ScalarProperty Name="SentTo" ColumnName="SentTo" />
+                <ScalarProperty Name="IsReminder" ColumnName="IsReminder" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
