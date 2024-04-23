@@ -257,49 +257,6 @@ warning 6013: The table/view 'DB_A45413_DMSERP.dbo.CardsArabic' does not have a 
           <Property Name="CreatedBy" Type="nvarchar(max)" />
           <Property Name="CreatedDate" Type="datetime" />
         </EntityType>
-        <EntityType Name="Claims">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Policy_No" Type="float" />
-          <Property Name="Group_Name" Type="nvarchar" MaxLength="255" />
-          <Property Name="Effective_Date" Type="datetime" />
-          <Property Name="Expiry_Date" Type="datetime" />
-          <Property Name="Unique_Member_ID" Type="nvarchar(max)" />
-          <Property Name="ClassCode" Type="int" />
-          <Property Name="Member_Name" Type="nvarchar" MaxLength="255" />
-          <Property Name="Member_Country" Type="nvarchar" MaxLength="255" />
-          <Property Name="Member_Gender" Type="nvarchar" MaxLength="255" />
-          <Property Name="Relation" Type="nvarchar" MaxLength="255" />
-          <Property Name="DOB" Type="int" />
-          <Property Name="Age" Type="int" />
-          <Property Name="Coverage" Type="nvarchar" MaxLength="255" />
-          <Property Name="Sub_Coverage" Type="nvarchar" MaxLength="255" />
-          <Property Name="Med_Cond_Description" Type="nvarchar" MaxLength="255" />
-          <Property Name="Claim_ID" Type="bigint" />
-          <Property Name="Claim_Source" Type="nvarchar" MaxLength="255" />
-          <Property Name="Claim_Country_Of_Treatment" Type="nvarchar" MaxLength="255" />
-          <Property Name="Claim_Date" Type="datetime" />
-          <Property Name="Created_Date" Type="datetime" />
-          <Property Name="Claim_Amount" Type="float" />
-          <Property Name="Claim_Approved_Amount" Type="float" />
-          <Property Name="Claim_Net_Amount" Type="float" />
-          <Property Name="Claim_Currency" Type="nvarchar" MaxLength="255" />
-          <Property Name="Provider_Code" Type="int" />
-          <Property Name="Provider_Name" Type="nvarchar" MaxLength="255" />
-          <Property Name="ProviderType" Type="nvarchar" MaxLength="255" />
-          <Property Name="TreatmentType" Type="nvarchar" MaxLength="255" />
-          <Property Name="Transaction_Type" Type="nvarchar" MaxLength="255" />
-          <Property Name="CC" Type="nvarchar" MaxLength="255" />
-          <Property Name="Department" Type="nvarchar" MaxLength="255" />
-          <Property Name="Network" Type="nvarchar" MaxLength="225" />
-          <Property Name="Month" Type="date" />
-          <Property Name="Coverage2" Type="nvarchar" MaxLength="225" />
-          <Property Name="InOut_P" Type="nvarchar" MaxLength="225" />
-          <Property Name="Sub_Coverage_Type" Type="nvarchar" MaxLength="225" />
-          <Property Name="Expected _NET" Type="nvarchar" MaxLength="225" />
-        </EntityType>
         <EntityType Name="Co_Insurance_01">
           <Key>
             <PropertyRef Name="id" />
@@ -4073,7 +4030,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="CardColors" EntityType="Self.CardColors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardsSms" EntityType="Self.CardsSms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardUsed" EntityType="Self.CardUsed" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Claims" EntityType="Self.Claims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Co_Insurance_01" EntityType="Self.Co_Insurance_01" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COMP_CUSTOMIZED_D" EntityType="Self.COMP_CUSTOMIZED_D" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comp_Customized_D_D" EntityType="Self.Comp_Customized_D_D" Schema="dbo" store:Type="Tables" />
@@ -6110,7 +6066,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="Areas" EntityType="DB_A45413_DMSERPModel.Area" />
           <EntitySet Name="Brokers" EntityType="DB_A45413_DMSERPModel.Broker" />
           <EntitySet Name="CardColors" EntityType="DB_A45413_DMSERPModel.CardColor" />
-          <EntitySet Name="Claims" EntityType="DB_A45413_DMSERPModel.Claim" />
           <EntitySet Name="CompanyActivities" EntityType="DB_A45413_DMSERPModel.CompanyActivity" />
           <EntitySet Name="CompHolders" EntityType="DB_A45413_DMSERPModel.CompHolder" />
           <EntitySet Name="HrUserPages" EntityType="DB_A45413_DMSERPModel.HrUserPage" />
@@ -8752,49 +8707,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Claim">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Policy_No" Type="Double" />
-          <Property Name="Group_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Effective_Date" Type="DateTime" Precision="3" />
-          <Property Name="Expiry_Date" Type="DateTime" Precision="3" />
-          <Property Name="Unique_Member_ID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ClassCode" Type="Int32" />
-          <Property Name="Member_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Member_Country" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Member_Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Relation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DOB" Type="Int32" />
-          <Property Name="Age" Type="Int32" />
-          <Property Name="Coverage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Sub_Coverage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Med_Cond_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Claim_ID" Type="Int64" />
-          <Property Name="Claim_Source" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Claim_Country_Of_Treatment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Claim_Date" Type="DateTime" Precision="3" />
-          <Property Name="Created_Date" Type="DateTime" Precision="3" />
-          <Property Name="Claim_Amount" Type="Double" />
-          <Property Name="Claim_Approved_Amount" Type="Double" />
-          <Property Name="Claim_Net_Amount" Type="Double" />
-          <Property Name="Claim_Currency" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Provider_Code" Type="Int32" />
-          <Property Name="Provider_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="ProviderType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="TreatmentType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Transaction_Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Department" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Network" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
-          <Property Name="Month" Type="DateTime" Precision="0" />
-          <Property Name="Coverage2" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
-          <Property Name="InOut_P" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
-          <Property Name="Sub_Coverage_Type" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
-          <Property Name="Expected__NET" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="CompanyActivity">
           <Key>
@@ -12196,50 +12108,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CardColor">
               <MappingFragment StoreEntitySet="CardColors">
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Claims">
-            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Claim">
-              <MappingFragment StoreEntitySet="Claims">
-                <ScalarProperty Name="Expected__NET" ColumnName="Expected _NET" />
-                <ScalarProperty Name="Sub_Coverage_Type" ColumnName="Sub_Coverage_Type" />
-                <ScalarProperty Name="InOut_P" ColumnName="InOut_P" />
-                <ScalarProperty Name="Coverage2" ColumnName="Coverage2" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="Network" ColumnName="Network" />
-                <ScalarProperty Name="Department" ColumnName="Department" />
-                <ScalarProperty Name="CC" ColumnName="CC" />
-                <ScalarProperty Name="Transaction_Type" ColumnName="Transaction_Type" />
-                <ScalarProperty Name="TreatmentType" ColumnName="TreatmentType" />
-                <ScalarProperty Name="ProviderType" ColumnName="ProviderType" />
-                <ScalarProperty Name="Provider_Name" ColumnName="Provider_Name" />
-                <ScalarProperty Name="Provider_Code" ColumnName="Provider_Code" />
-                <ScalarProperty Name="Claim_Currency" ColumnName="Claim_Currency" />
-                <ScalarProperty Name="Claim_Net_Amount" ColumnName="Claim_Net_Amount" />
-                <ScalarProperty Name="Claim_Approved_Amount" ColumnName="Claim_Approved_Amount" />
-                <ScalarProperty Name="Claim_Amount" ColumnName="Claim_Amount" />
-                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
-                <ScalarProperty Name="Claim_Date" ColumnName="Claim_Date" />
-                <ScalarProperty Name="Claim_Country_Of_Treatment" ColumnName="Claim_Country_Of_Treatment" />
-                <ScalarProperty Name="Claim_Source" ColumnName="Claim_Source" />
-                <ScalarProperty Name="Claim_ID" ColumnName="Claim_ID" />
-                <ScalarProperty Name="Med_Cond_Description" ColumnName="Med_Cond_Description" />
-                <ScalarProperty Name="Sub_Coverage" ColumnName="Sub_Coverage" />
-                <ScalarProperty Name="Coverage" ColumnName="Coverage" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="Relation" ColumnName="Relation" />
-                <ScalarProperty Name="Member_Gender" ColumnName="Member_Gender" />
-                <ScalarProperty Name="Member_Country" ColumnName="Member_Country" />
-                <ScalarProperty Name="Member_Name" ColumnName="Member_Name" />
-                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
-                <ScalarProperty Name="Unique_Member_ID" ColumnName="Unique_Member_ID" />
-                <ScalarProperty Name="Expiry_Date" ColumnName="Expiry_Date" />
-                <ScalarProperty Name="Effective_Date" ColumnName="Effective_Date" />
-                <ScalarProperty Name="Group_Name" ColumnName="Group_Name" />
-                <ScalarProperty Name="Policy_No" ColumnName="Policy_No" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

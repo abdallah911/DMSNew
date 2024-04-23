@@ -164,7 +164,6 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<Area> Areas { get; set; }
         public virtual DbSet<Broker> Brokers { get; set; }
         public virtual DbSet<CardColor> CardColors { get; set; }
-        public virtual DbSet<Claim> Claims { get; set; }
         public virtual DbSet<CompanyActivity> CompanyActivities { get; set; }
         public virtual DbSet<CompHolder> CompHolders { get; set; }
         public virtual DbSet<HrUserPage> HrUserPages { get; set; }

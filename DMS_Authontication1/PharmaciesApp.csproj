@@ -502,9 +502,6 @@
     <Compile Include="Models\CardUsed.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Claim.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CompanyActivity.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1319,6 +1316,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RoshitaReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\RoshitaReport3.cs">
       <AutoGen>True</AutoGen>
@@ -1338,6 +1336,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RoshitaReportAfterBefore.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AcceptionViewModel.cs" />

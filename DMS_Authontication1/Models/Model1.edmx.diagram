@@ -191,7 +191,6 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Area" Width="1.5" PointX="20.875" PointY="51" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Broker" Width="1.5" PointX="20.875" PointY="53.25" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CardColor" Width="1.5" PointX="37.375" PointY="31.75" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Claim" Width="1.5" PointX="41.375" PointY="39.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompanyActivity" Width="1.5" PointX="39.375" PointY="31.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompHolder" Width="1.5" PointX="3.375" PointY="42.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.HrUserPage" Width="1.5" PointX="10.375" PointY="42.75" />
