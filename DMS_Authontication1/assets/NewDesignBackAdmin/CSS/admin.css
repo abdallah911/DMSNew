@@ -731,6 +731,10 @@ textarea {
     color: var(--color-primary);
 }
 
+.sios-container{
+    min-height:calc(100vh - 259.5px )
+}
+
 .after-sales-page-container,
 .cs-page-container,
 .sec-cs-page-container,

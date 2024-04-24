@@ -1,19 +1,20 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
-<br />
-<br />
+
+
 @Html.Partial("_ApprovalsSearchCards")
-<div class="editeRquest fw-bold portlet box green">
-    <div class=" portlet-title">
-        <div class="caption">
+<div class="sios-container fw-bold portlet box green">
+    <div class="row bg-overlay  editeRquest fw-bold  portlet-title">
+        <div class="m-3 fs-3 text-white  caption">
             <i class="fa fa-home me-3"></i>Approvals
         </div>
 
     </div>
     <div class="portlet-body">
-        <br />
+        
         <div class="row">
             <div class="d-flex gap-3 mt-4 ms-3 form-group">
                 <div class="col-sm-3">
@@ -25,8 +26,8 @@
 
             </div>
         </div>
-        <br />
-        <br />
+        
+        
         <div style="white-space:nowrap" class="cs-bg w-100 m-auto px-4 my-4 pb-5">
             <div class="table-responsive">
                 <table id="example" class="table table-striped mt-3 text-center">

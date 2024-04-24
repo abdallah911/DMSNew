@@ -1,6 +1,8 @@
 ﻿@model DMS_TEST.ViewModel.Container1
 @{
-    ViewBag.Title = "Doctor Daily";
+    ViewBag.Title = "Doctor Daily"; 
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
+
 }
 
 
@@ -12,18 +14,18 @@
 <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
     <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
 </div>
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
+<div class="sios-container portlet box  green">
+    <div class="row bg-overlay mt-4 portlet-title">
+        <div class="m-3 fs-3 text-white caption">
             <i class="fa fa-gift"></i>Doctor Daily
         </div>
 
     </div>
     <div class="portlet-body">
         <div class="row">
-            <div class="form-group">
+            <div class="d-flex form-group">
                 <div class="col-sm-3">
-                    <input id="txtSearchCard" type="text" placeholder="search for card..." class="form-control" />
+                    <input id="txtSearchCard" type="text" placeholder="search for card..." class="w-100 chronic-chronic-form-control  ps-3 rounded-3  ps-3 rounded-3" />
                 </div>
                 <div class="col-sm-3">
                     <button id="Search" type="button" class="btn btn-primary">
@@ -32,30 +34,34 @@
                 </div>
             </div>
         </div>
-        <br />
-        <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;">Card ID</h2> </div>
-        <div class="row">
-            <div class="form-group">
+        
+        <div class="row bg-overlay my-4 editeRquest fw-bold  panel panel-info">
+            <div class="m-3 fs-3 text-white  ">
+                <h2 class="panel-heading"  >Card ID</h2>
+            </div>
+        </div>
+        <div class="row container mx-auto">
+            <div class="row row-cols-sm-2 row-cols-lg-3 row-gap-3  m-auto m-sm-0 text-center  form-group">
 
-                <div class="col-sm-2">
+                <div class="forLabel px-2">
                     @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "chronic-form-control  ps-3 rounded-3", @ReadOnly = "true" } })
                 </div>
-                <div class="col-sm-2">
+                <div class="forLabel px-2">
                     @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "chronic-form-control  ps-3 rounded-3", @ReadOnly = "true" } })
                 </div>
-                <div class="col-sm-2">
+                <div class="forLabel px-2">
                     @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "chronic-form-control  ps-3 rounded-3", @ReadOnly = "true" } })
                 </div>
 
 
-                <div class="col-sm-2">
+                <div class="forLabel px-2">
                     @Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })
-                    @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "form-control", @id = "ddlSpeciality" })
+                    @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "chronic-form-control  ps-3 rounded-3", @id = "ddlSpeciality" })
                 </div>
-                <div class="col-sm-2">
+                <div class="forLabel px-2">
                     @Html.Label("Diagnoise", new { @class = "control-label" })
                     <select id="ddlDiagnoises" style="width:100%" multiple></select>
                 </div>
@@ -63,20 +69,22 @@
 
             </div>
         </div>
+        <div class="row container mx-auto">
+            <div class="  row row-cols-sm-2 row-cols-lg-3 row-gap-3  m-auto m-sm-0 text-center  form-group">
+                <div class="forLabel px-2">
+                    @Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "chronic-form-control  ps-3 rounded-3", @ReadOnly = "true" } })
+                </div>
 
-        <div class="row">
-            <div class="col-sm-2">
-                @Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-            </div>
 
-            <div class="col-sm-2">
-                @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                <div class="forLabel px-2">
+                    @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "chronic-form-control  ps-3 rounded-3", @ReadOnly = "true" } })
+                </div>
             </div>
-            @*<div class="col-sm-2">
+            @*<div class="forLabel px-2">
                     @Html.Label("Type", htmlAttributes: new { @class = "control-label" })
-                    <select id="ddlType" class="form-control">
+                    <select id="ddlType" class="chronic-form-control  ps-3 rounded-3">
                         <option value="11601">Daily</option>
                         <option value="11603">Monthly</option>
                     </select>
@@ -84,12 +92,13 @@
 
 
         </div>
-        <br />
+        
         @*//History*@
-        <div class="panel panel-info">
-            <h2 class="panel-heading" style="margin:1px;">History</h2>
+    <div class="row bg-overlay my-4 editeRquest fw-bold ">
+        <div class="m-3 fs-3 text-white panel panel-info">
+            <h2 class="panel-heading"  >History</h2>
         </div>
-
+    </div>
         <div class="table-responsive col-md-10" style="HEIGHT: 250px;position:relative">
             <table class="table" id="History">
                 <thead>
@@ -113,26 +122,26 @@
 
             </table>
         </div>
-        <br />
+        
         <div class="col-md-2">
             <label class="control-label" for="From">From</label>
-            <input id="From" type="text" class="form-control" placeholder="From" disabled />
+            <input id="From" type="text" class="chronic-form-control  ps-3 rounded-3" placeholder="From" disabled />
             <label class="control-label" for="To">To</label>
-            <input id="To" type="text" class="form-control" placeholder="To" disabled />
+            <input id="To" type="text" class="chronic-form-control  ps-3 rounded-3" placeholder="To" disabled />
         </div>
         <div class="row">
             <div class="col-md-2">
 
             </div>
             <div class="col-md-3">
-                <input id="PharmacyTxt" type="text" class="form-control col-md-2" placeholder="Pharmacy" />
+                <input id="PharmacyTxt" type="text" class="chronic-form-control  ps-3 rounded-3 col-md-2" placeholder="Pharmacy" />
             </div>
             <div class="col-md-3">
-                <input id="BranchTxt" type="text" class="form-control col-md-2" placeholder="Branch" />
+                <input id="BranchTxt" type="text" class="chronic-form-control  ps-3 rounded-3 col-md-2" placeholder="Branch" />
             </div>
         </div>
-        <br />
-        <br />
+        
+        
         <div class="panel panel-info">
             <h2 class="panel-heading" style="margin:1px;">Medicines</h2>
         </div>
@@ -177,34 +186,34 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <div class="col-sm-2">
+                        <div class="forLabel px-2">
                             <label class="control-label">Total</label>
-                            <input id="txtTotalInvoice" type="text" class="form-control" ReadOnly="readonly" />
+                            <input id="txtTotalInvoice" type="text" class="chronic-form-control  ps-3 rounded-3" ReadOnly="readonly" />
                         </div>
-                        <div class="col-sm-2">
+                        <div class="forLabel px-2">
                             <label class="control-label">Person Payments</label>
-                            <input id="txtTotalCopayment" type="text" class="form-control" ReadOnly="readonly" />
+                            <input id="txtTotalCopayment" type="text" class="chronic-form-control  ps-3 rounded-3" ReadOnly="readonly" />
                         </div>
-                        <div class="col-sm-2">
+                        <div class="forLabel px-2">
                             <label class="control-label">Value Credit</label>
-                            <input id="txtValueCredit" type="text" class="form-control" ReadOnly="readonly" />
+                            <input id="txtValueCredit" type="text" class="chronic-form-control  ps-3 rounded-3" ReadOnly="readonly" />
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group">
-                        <div class="col-sm-2">
+                        <div class="forLabel px-2">
                             <label class="control-label">Over Insurance</label>
-                            <input id="txtOverInsurance" type="text" class="form-control" ReadOnly="readonly" />
+                            <input id="txtOverInsurance" type="text" class="chronic-form-control  ps-3 rounded-3" ReadOnly="readonly" />
                         </div>
-                        <div class="col-sm-2">
+                        <div class="forLabel px-2">
                             <label class="control-label">Cash</label>
-                            <input id="txtCash" type="text" class="form-control" ReadOnly="readonly" />
+                            <input id="txtCash" type="text" class="chronic-form-control  ps-3 rounded-3" ReadOnly="readonly" />
                         </div>
-                        <div class="col-sm-2">
+                        <div class="forLabel px-2">
                             <label class="control-label">Total cash</label>
-                            <input id="txtValueCash" type="text" class="form-control" ReadOnly="readonly" />
+                            <input id="txtValueCash" type="text" class="chronic-form-control  ps-3 rounded-3" ReadOnly="readonly" />
                         </div>
 
                     </div>
