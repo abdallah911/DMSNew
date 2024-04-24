@@ -4,7 +4,7 @@
 @{
     if (ViewBag != null)
     {
-        ViewBag.Title = "ProposalStepTwoCreate";
+        ViewBag.Title = "RenewalStepTwo";
         Layout = "~/Views/Shared/_Layout_Proposal.cshtml";
         var Errors = ViewBag.Errors;
     }
@@ -29,16 +29,24 @@
 }
 <!-- ////////////// Main Content ////////////// -->
 <div class="bg-grid-container">
-    @using (Html.BeginForm("ProposalStepTwoCreate", "ProposalMain", FormMethod.Post, new { enctype = "multipart/form-data", id = "ProposalSecondForm" }))
+    @using (Html.BeginForm("SaveDataStepTwo", "ProposalRenewals", FormMethod.Post, new { enctype = "multipart/form-data", id = "ProposalSecondForm" }))
     {
-        <input hidden value="@ViewBag.MainId" type="number" name="MainProposalId">
+
+        
+
+        @*<input hidden value="@ViewBag.MainId" type="number" name="MainProposalId">
+            <input hidden value="@ViewBag.MainId" type="number" name="MainProposalId">
+            <input hidden value="@ViewBag.MainId" type="number" name="MainProposalId">
+            <input hidden value="@ViewBag.MainId" type="number" name="MainProposalId">
+            <input hidden value="@ViewBag.MainId" type="number" name="MainProposalId">*@
+
         @Html.AntiForgeryToken()
         <div class="grid-container" dir="rtl">
             <div class="part1">
                 <div style="width: 95%" class="prev-container" dir="ltr">
                     @*<a class="prev-butn" href="@ViewBag.previousUrl" onclick="storeFormData();" style="color:transparent; margin-top: 20px;
-        margin-left: 10px;
-        margin-right: 20px">السابق</a>*@
+                        margin-left: 10px;
+                        margin-right: 20px">السابق</a>*@
                     @*<button type="button" sclass="prev-butn" , style="text-decoration: none; color: transparent; margin-top: 20px; margin-left: 10px; margin-right: 20px" onclick="submitForm('back')">السابق</button>*@
                     <button type="button" style="text-decoration: none; margin-top: 20px; margin-left: 10px; margin-right: 20px" class="prev-butn" onclick="submitForm('back')">السابق</button>
 
@@ -76,17 +84,17 @@
                                placeholder="السعر" />
                     </div>
                     @* <div style="height: 57px; margin:10px">
-            <input class="myInput"
-                   style="pointer-events: none; height: 45px;"
-                   type="text"
-                   placeholder="العمر" />
-        </div>
-        <div style="height: 57px; margin:10px">
-            <input class="myInput"
-                   style="pointer-events: none; height: 45px;"
-                   type="text"
-                   placeholder="متوسط الاعمار" />
-        </div>*@
+                            <input class="myInput"
+                                   style="pointer-events: none; height: 45px;"
+                                   type="text"
+                                   placeholder="العمر" />
+                        </div>
+                        <div style="height: 57px; margin:10px">
+                            <input class="myInput"
+                                   style="pointer-events: none; height: 45px;"
+                                   type="text"
+                                   placeholder="متوسط الاعمار" />
+                        </div>*@
                     <div style="height: 57px; margin:10px">
                         <input class="myInput"
                                style="pointer-events: none; height: 45px;"
@@ -148,6 +156,15 @@
                             catIndex = catIndex + 1;
                         }
                         <input hidden name="Model[@index].Id" value="@Model[index].Id" />
+                        <input hidden name="Model[@index].MainId" value="@Model[index].MainId" />
+
+                        <input hidden name="Model[@index].CompId" value="@Model[index].CompId" />
+                        <input hidden name="Model[@index].ContractNo" value="@Model[index].ContractNo" />
+
+                        <input hidden name="Model[@index].ClassCode" value="@Model[index].ClassCode" />
+                        <input hidden name="Model[@index].CountClass" value="@Model[index].CountClass" />
+
+                 
 
                         <div class="cate@(catIndex) ">
                             <button class="cate-title">الفئة @(index+1)</button>
@@ -206,8 +223,8 @@
                                     </div>
 
                                     <div>
-                                    <input type="text" name="Model[@index].Price" value="@Model[index].Price" />
-                                    @Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })
+                                        <input type="text" name="Model[@index].Price" value="@Model[index].Price" />
+                                        @Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })
 
                                     </div>
 
@@ -274,8 +291,8 @@
                                     </div>
                                     <div style="position: relative;">
                                         <!-- <section
-          class="d-flex mt-2 justify-content-center align-items-center"
-        > -->
+                          class="d-flex mt-2 justify-content-center align-items-center"
+                        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -318,8 +335,8 @@
 
                                     <div style="position: relative;">
                                         <!-- <section
-          class="d-flex mt-2 justify-content-center align-items-center"
-        > -->
+                          class="d-flex mt-2 justify-content-center align-items-center"
+                        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -361,8 +378,8 @@
                                     </div>
                                     <div style="position: relative;">
                                         <!-- <section
-          class="d-flex mt-2 justify-content-center align-items-center"
-        > -->
+                          class="d-flex mt-2 justify-content-center align-items-center"
+                        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -462,11 +479,11 @@
                                         </div>
                                     </div>
                                     <div>
-                                     <input type="text" name="Model[@index].PriceOld" value="@Model[index].Price" disabled/>
-                                    @Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })
+                                        <input type="text" name="Model[@index].PriceOld" value="@Model[index].Price" disabled />
+                                        @Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })
 
                                     </div>
-         
+
                                     <div style="
                       display: flex;
                       flex-direction: column;
@@ -530,8 +547,8 @@
                                     </div>
                                     <div style="position: relative;">
                                         <!-- <section
-          class="d-flex mt-2 justify-content-center align-items-center"
-        > -->
+                          class="d-flex mt-2 justify-content-center align-items-center"
+                        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -576,8 +593,8 @@
 
                                     <div style="position: relative;">
                                         <!-- <section
-          class="d-flex mt-2 justify-content-center align-items-center"
-        > -->
+                          class="d-flex mt-2 justify-content-center align-items-center"
+                        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -622,8 +639,8 @@
                                     </div>
                                     <div style="position: relative;">
                                         <!-- <section
-          class="d-flex mt-2 justify-content-center align-items-center"
-        > -->
+                          class="d-flex mt-2 justify-content-center align-items-center"
+                        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -689,20 +706,20 @@
                     بيانات الموظفين&nbsp;
                     <i class="fas fa-paperclip"></i>
                 </label>-->
-                @*@Html.ValidationMessage($"Model.EmployeesDataFileBase", "", new { @class = "text-danger" })*@
+            @*@Html.ValidationMessage($"Model.EmployeesDataFileBase", "", new { @class = "text-danger" })*@
 
             <!--</div>-->
             <div style="display: flex; justify-content:end; width:100%; gap:2rem; margin-left:10px;">
 
                 @*<a href="#" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5">
-            <i class="fas fa-save"></i>
-            &nbsp;
-            Save
-        </a>*@
+                        <i class="fas fa-save"></i>
+                        &nbsp;
+                        Save
+                    </a>*@
                 <button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="goToIndex()">الغاء</button>
                 <button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="clearForm()" id="NewForm">جديد</button>
 
-                <button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="submitForm('forward')">التالي</button>
+                <button type="submit" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5">التالي</button>
             </div>
         </div>
     }
@@ -728,7 +745,7 @@
 
         function submitForm(paramValue) {
             var form = document.getElementById('ProposalSecondForm');
-            form.action = '/ProposalMain/ProposalStepTwoCreate?BackOrForward=' + encodeURIComponent(paramValue);
+            form.action = '/ProposalMain/RenewalStepTwo?BackOrForward=' + encodeURIComponent(paramValue);
             form.submit();
         }
         function goToIndex() {

@@ -9475,9 +9475,9 @@
     <Content Include="Reports\ReviewSummary.rpt" />
     <Content Include="Views\ProposalRenewals\StepTwo.cshtml" />
     <Content Include="Views\ProposalRenewals\Index.cshtml" />
-    <Content Include="Views\ProposalRenewals\ProposalStepTwoCreate.cshtml" />
-    <Content Include="Views\ProposalRenewals\ProposalStepFourCreateAndStay.cshtml" />
-    <Content Include="Views\ProposalRenewals\ProposalStepThreeCreate.cshtml" />
+    <Content Include="Views\ProposalRenewals\RenewalStepTwo.cshtml" />
+    <Content Include="Views\ProposalRenewals\RenewalStepFour.cshtml" />
+    <Content Include="Views\ProposalRenewals\RenewalStepThree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

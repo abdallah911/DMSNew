@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -97,7 +98,7 @@ namespace DMS_Authontication1.Controllers
 
                     _dbContext.SaveChanges();
 
-                    return RedirectToAction("ProposalStepTwoCreate", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 1});
+                    return RedirectToAction("RenewalStepTwo", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 1});
 
                     //return View("Index");
                     //return RedirectToAction(nameof(ProposalStepFourCreate));
@@ -118,32 +119,19 @@ namespace DMS_Authontication1.Controllers
 
 
         #region ProposalStepTwo
-        public ActionResult ProposalStepTwoCreate(int mainId, int CompId, int ContractNo, int countCat, int typeAction)
-        {
-            // Retrieve data from temporary storage or session
-            // ...
-            // Retrieve the list of Areas and CompanyActivities from the database
+        public ActionResult RenewalStepTwo(int mainId, int CompId, int ContractNo, int countCat, int typeAction)
+        {           
             var colors = _dbContext.CardColors.ToList();
             var residenceDegree = _dbContext.ResidenceDegrees.ToList();
             var medicalNetworks = _dbContext.MedicalNetworks.ToList();
-
-
-            // Convert the lists to SelectList items for use in dropdown lists
+    
             ViewBag.ColorList = new SelectList(colors, "Id", "Name");
             ViewBag.ResidenceList = new SelectList(residenceDegree, "Id", "Name");
             ViewBag.MedicalNetworkList = new SelectList(medicalNetworks, "Id", "Name");
-
-            ////////////////Test
-
+                        
             ViewBag.MainId = mainId;
             ViewBag.CatCount = countCat;
 
-
-            //var mainProposal = _dbContext.ProposalMains.Include("ProposalStepTwos").FirstOrDefault(p => p.Id == id);
-           
-
-            //ViewBag.previousUrl = System.Web.HttpContext.Current.Request.UrlReferrer?.ToString();
-            
             var model = new List<RenwalStepTwoViewModel>(countCat);
 
             var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION
@@ -208,17 +196,267 @@ namespace DMS_Authontication1.Controllers
                     ClassCode = classCode,
                     CompId = CompId,
                     ContractNo = ContractNo,
-                    CountClass = countCat
+                    CountClass = countCat,
+                    typAction = typeAction
                 };
 
                 model.Add(renwalTwoMain);
             }               
             return View(model);
         }
+        private int MapApprovalStepTwo(ApprovalStepTwo stat)
+        {
+            switch (stat)
+            {
+                case ApprovalStepTwo.PriorApproval:
+                    return 0;
+                case ApprovalStepTwo.Yes:
+                    return 1;
+                case ApprovalStepTwo.No:
+                    return 2;
+                default:
+                    return 0;
+            }
+        }
+        private RenewalStepTwo MapViewModelToEntityStepTwo(RenwalStepTwoViewModel vM)
+        {
+            // Use a mapping library or manually map properties as needed
+            // This is a simplified example, adjust as needed
+            var renewaltwo = new RenewalStepTwo
+            {
+                AnnualCoverageCeiling = vM.AnnualCoverageCeiling,
+                ParticipantsCount = vM.ParticipantsCount,
+                Price = vM.Price,
+                MinAge = 0,
+                MaxAge = 0,
+                AvgAge = 0,
+                ChecksInsideHospital = MapApprovalStepTwo(vM.ChecksInsideHospital),
+                PhysicalTherapyInsideHospital = MapApprovalStepTwo(vM.PhysicalTherapyInsideHospital),
+                OutsideClincInsideHospital = MapApprovalStepTwo(vM.OutsideClinicInsideHospital),
+                DentalServicesInsideHospital = MapApprovalStepTwo(vM.DentalServicesInsideHospital),
+                //EmployeesDataFileName = vM.EmployeesDataFileName,
+                Accidents = vM.Accidents,
+                Death = vM.Death,
+                //relations
+                CardColorId = vM.CardColorId,
+                ResidenceDegreeId = vM.ResidenceDegreeId,
+                MedicalNetworkId = vM.MedicalNetworkId,
+                MainId = vM.MainId,
+                ClassCode = vM.ClassCode               
+                // Map other properties as needed
+            };
+
+            return renewaltwo;
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ProposalStepTwoCreate(List<ProposalStepTwoViewModel> Model, int? MainProposalId
+        public async Task<ActionResult> SaveDataStepTwo(List<RenwalStepTwoViewModel> model)
+        {
+            try
+            {
+                foreach (var mod in model)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        var renewalSecond = MapViewModelToEntityStepTwo(mod);
+
+                        _dbContext.RenewalStepTwos.Add(renewalSecond);
+                        _dbContext.SaveChanges();                     
+                    }
+                }
+                
+                return RedirectToAction("RenewalStepThree", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction });
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("RenewalStepThree", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction });
+            }
+        }
+        public ActionResult RenewalStepThree(int mainId, int CompId, int ContractNo, int countCat, int typeAction)
+        {
+            ViewBag.MainId = mainId;
+            ViewBag.CatCount = countCat;
+
+            var model = new List<ProposalInsideMedicalAuthorityViewModel>(countCat);
+
+            var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION
+                                                 FROM DMS_TEST.COMP_CONTRACT_CLASS
+                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY CLASS_CODE");
+
+            foreach (System.Data.DataRow row in compclassold.Rows)
+            {
+                var classCode = row["CLASS_CODE"].ToString();
+                decimal maxAmount = decimal.Parse(row["MAX_AMOUNT"].ToString());
+
+                var servCode = dbOra.RunReader(@"SELECT DISTINCT D_SERV_CODE, D_SERV_CODE SER_SERV, CEILING_AMT, CEILING_PERT
+                                                 FROM DMS_TEST.COMP_CUSTOMIZED_D                                                                  
+                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' AND CLASS_CODE = '" + classCode + "'  "
+                                     + "           UNION ALL "
+                                     + "             SELECT DISTINCT D_SERV_CODE, SER_SERV, CEILING_AMT, CEILING_PERT "
+                                     + "             FROM DMS_TEST.COMP_CUSTOMIZED_D_D "
+                                     + "           WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' AND CLASS_CODE = '" + classCode + "' "
+                                     + "         ORDER BY D_SERV_CODE");
+
+                //decimal inpAm = servCode.AsEnumerable()
+                //              .Any(r => r.Field<int>("SER_SERV") == 111)
+                //              ? (servCode.AsEnumerable()
+                //                         .First(r => r.Field<int>("SER_SERV") == 111)
+                //                         .Field<decimal?>("CEILING_AMT") ?? 100000)
+                //              : 0;
+
+                decimal inpAm = servCode.AsEnumerable()
+                              .Any(r => r.Field<string>("SER_SERV") == "111")
+                              ? servCode.AsEnumerable()
+                                       .First(r => r.Field<string>("SER_SERV") == "111")
+                                       .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                              : 0;
+                decimal inpPer = servCode.AsEnumerable()
+                              .Any(r => r.Field<string>("SER_SERV") == "111")
+                              ? servCode.AsEnumerable()
+                                       .First(r => r.Field<string>("SER_SERV") == "111")
+                                       .Field<decimal?>("CEILING_PERT") ?? 100
+                              : 0;
+                bool Isinp = inpPer == 0 ? false : true;
+
+                decimal oputAm = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "112")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "112")
+                                      .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                             : 0;
+                decimal oputPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "112")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "112")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool IsOut = oputPer == 0 ? false : true;
+
+                decimal denAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "732541")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "732541")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal denPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "732541")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "732541")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool IsDen = denPer == 0 ? false : true;
+
+
+                //var rows = servCode.AsEnumerable().Where(r => r.Field<int>("SER_SERV") == 111);
+
+                //DataRow rowss = servCode.AsEnumerable().SingleOrDefault(r => r.Field<int>("SER_SERV") == 111);
+
+                //DataRow[] rows = servCode.Select("SER_SERV = 111");
+
+                //decimal inp, outp;
+                //bool isInp;
+
+                //if (rows.Length > 0)
+                //{
+                //    inp = rows[0].Field<decimal?>("CEILING_AMT") ?? maxAmount;
+                //    outp = rows[0].Field<decimal?>("CEILING_PERT") ?? 100;
+                //    isInp = true;
+                //}
+                //else
+                //{
+                //    inp = maxAmount;
+                //    outp = 100;
+                //    isInp = false;
+                //}
+
+
+
+
+
+            }
+
+
+            for (int i = 0; i < countCat; i++)
+            {
+                // Create an instance of ProposalStepTwoViewModel and add it to the list
+                model.Add(new ProposalInsideMedicalAuthorityViewModel());
+            }
+            //var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION
+            //                                     FROM DMS_TEST.COMP_CONTRACT_CLASS
+            //                                     WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY CLASS_CODE");
+
+            //foreach (System.Data.DataRow row in compclassold.Rows)
+            //{
+            //    var classCode = row["CLASS_CODE"].ToString();
+
+            //    int countEmpClass = db.Comp_Employees
+            //        .Where(c => c.C_COMP_ID == CompId && c.CONTRACT_NO == ContractNo && c.CLASS_CODE == classCode && (c.TERMINATE_FLAG ?? "N") != "Y")
+            //         .Select(c => c.CARD_ID).Distinct().Count();
+
+
+            //    var colrCardTable = dbOra.RunReader(@"SELECT DECODE(CARD_COLOR, 7402, 1, 7403, 2, 7405, 3, 7407, 4) CARD_COLOR
+            //                                     FROM APP.PRINT_CARD
+            //                                     WHERE COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' AND CLASS_CODE = '" + classCode + "' ORDER BY CLASS_CODE");
+            //    int colrCrd = 1;
+            //    if (colrCardTable.Rows.Count > 0)
+            //        colrCrd = int.Parse(colrCardTable.Rows[0][0].ToString());
+
+
+            //    decimal mxAmount = Convert.ToDecimal(row["MAX_AMOUNT"].ToString());
+            //    decimal pric = Convert.ToDecimal(row["ANNUAL_PREM"].ToString());
+            //    int resDegree = int.Parse(row["HOSPITAL_DEGREE"].ToString());
+            //    int medl = int.Parse(row["COVER_RELATION"].ToString());
+
+            //    var renwalTwoMain = new RenwalStepTwoViewModel
+            //    {
+            //        AnnualCoverageCeiling = mxAmount,
+            //        ParticipantsCount = countEmpClass,
+            //        Price = pric,
+
+            //        ChecksInsideHospital = ApprovalStepTwo.Yes,
+            //        PhysicalTherapyInsideHospital = ApprovalStepTwo.Yes,
+            //        OutsideClinicInsideHospital = ApprovalStepTwo.Yes,
+            //        DentalServicesInsideHospital = ApprovalStepTwo.Yes,
+
+            //        Death = mxAmount,
+            //        Accidents = mxAmount,
+            //        //relations
+            //        CardColorId = colrCrd,
+            //        ResidenceDegreeId = resDegree,
+            //        MedicalNetworkId = medl,
+
+            //        MainId = mainId,
+
+            //        AnnualCoverageCeilingOld = mxAmount,
+            //        ParticipantsCountOld = countEmpClass,
+            //        PriceOld = pric,
+            //        DeathOld = mxAmount,
+            //        AccidentsOld = mxAmount,
+            //        ChecksInsideHospitalOld = ApprovalStepTwo.Yes,
+            //        PhysicalTherapyInsideHospitalOld = ApprovalStepTwo.Yes,
+            //        OutsideClinicInsideHospitalOld = ApprovalStepTwo.Yes,
+            //        DentalServicesInsideHospitalOld = ApprovalStepTwo.Yes,
+            //        CardColorIdOld = colrCrd,
+            //        ResidenceDegreeIdOld = resDegree,
+            //        MedicalNetworkIdOld = medl,
+
+            //        ClassCode = classCode,
+            //        CompId = CompId,
+            //        ContractNo = ContractNo,
+            //        CountClass = countCat
+            //    };
+
+            //    model.Add(renwalTwoMain);
+            //}
+            return View(model);
+            //return View(model);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RenewalStepTwo(List<ProposalStepTwoViewModel> Model, int? MainProposalId
             ,HttpPostedFileBase EmployeesDataFileBase, string BackOrForward = "")
         {
             try
@@ -886,7 +1124,7 @@ namespace DMS_Authontication1.Controllers
                 switch (BackOrForwardOrMain)
                 {
                     case "back":
-                        return RedirectToAction(nameof(ProposalStepTwoCreate), new { id = MainProposalId });
+                        return RedirectToAction(nameof(RenewalStepTwo), new { id = MainProposalId });
 
                     case "forward":
                         return RedirectToAction(nameof(ProposalStepFourCreate), new { id = MainProposalId });

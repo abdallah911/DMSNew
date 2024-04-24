@@ -90,6 +90,9 @@ namespace DMS_Authontication1.Models
         public DbSet<ProposalNotificationApplicationUser> ProposalNotificationApplicationUsers { get; set; }
         public DbSet<RenewalMain> RenewalMains { get; set; }
         public DbSet<PricesOutsideMedicalAuthority> PricesOutsideMedicalAuthorities { get; set; }
+        public DbSet<RenewalStepTwo> RenewalStepTwos { get; set; }
+        public DbSet<RenewalInsideMedicalAuthority> RenewalInsideMedicalAuthoritys { get; set; }
+        public DbSet<RenewalOutsideMedicalAuthority> RenewalOutsideMedicalAuthoritys { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

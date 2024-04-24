@@ -76,5 +76,6 @@ namespace DMS_Authontication1.ViewModel
         public int CompId { get; set; }
         public int ContractNo { get; set; }
         public int CountClass { get; set; }
+        public int typAction { get; set; }
     }
 }
