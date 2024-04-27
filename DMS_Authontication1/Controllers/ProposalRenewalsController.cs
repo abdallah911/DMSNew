@@ -489,7 +489,7 @@ namespace DMS_Authontication1.Controllers
                              .Any(r => r.Field<string>("SER_SERV") == "112")
                              ? servCode.AsEnumerable()
                                       .First(r => r.Field<string>("SER_SERV") == "112")
-                                      .Field<string?>("CORONA") ?? "N"
+                                      .Field<string>("CORONA") ?? "N"
                              : "N";
 
                 bool coronaa = tstcoronaa == "Y" ? true : false;
