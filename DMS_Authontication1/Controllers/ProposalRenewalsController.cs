@@ -33,11 +33,11 @@ namespace DMS_Authontication1.Controllers
             _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_dbContext));
             _roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_dbContext));
 
-        
-    }
-    #region MainPage
-    // GET: ProposalMain
-    public ActionResult Index()
+
+        }
+        #region MainPage
+        // GET: ProposalMain
+        public ActionResult Index()
         {
             var companyname = db.Contract_Comp.Select(c => new
             {
@@ -54,7 +54,7 @@ namespace DMS_Authontication1.Controllers
         public JsonResult getInformation(Int32 CompId)
         {
             int maxContract = db.Contract_Data
-                    .Where(c => c.C_COMP_ID == CompId) 
+                    .Where(c => c.C_COMP_ID == CompId)
                     .Max(c => c.CONTRACT_NO);
 
             int countClass = db.CompContractClasses
@@ -84,7 +84,7 @@ namespace DMS_Authontication1.Controllers
                         CompId = model.CompId,
                         ContractNo = model.ContractNo,
                         ClassCount = model.ClassCount,
-                        EmpCount = model.EmpCount, 
+                        EmpCount = model.EmpCount,
                         UserId = currentUserId
                     };
 
@@ -98,7 +98,7 @@ namespace DMS_Authontication1.Controllers
 
                     _dbContext.SaveChanges();
 
-                    return RedirectToAction("RenewalStepTwo", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 1});
+                    return RedirectToAction("RenewalStepTwo", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 1 });
 
                     //return View("Index");
                     //return RedirectToAction(nameof(ProposalStepFourCreate));
@@ -120,15 +120,15 @@ namespace DMS_Authontication1.Controllers
 
         #region ProposalStepTwo
         public ActionResult RenewalStepTwo(int mainId, int CompId, int ContractNo, int countCat, int typeAction)
-        {           
+        {
             var colors = _dbContext.CardColors.ToList();
             var residenceDegree = _dbContext.ResidenceDegrees.ToList();
             var medicalNetworks = _dbContext.MedicalNetworks.ToList();
-    
+
             ViewBag.ColorList = new SelectList(colors, "Id", "Name");
             ViewBag.ResidenceList = new SelectList(residenceDegree, "Id", "Name");
             ViewBag.MedicalNetworkList = new SelectList(medicalNetworks, "Id", "Name");
-                        
+
             ViewBag.MainId = mainId;
             ViewBag.CatCount = countCat;
 
@@ -137,7 +137,7 @@ namespace DMS_Authontication1.Controllers
             var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION
                                                  FROM DMS_TEST.COMP_CONTRACT_CLASS
                                                  WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY CLASS_CODE");
-            
+
             foreach (System.Data.DataRow row in compclassold.Rows)
             {
                 var classCode = row["CLASS_CODE"].ToString();
@@ -145,15 +145,15 @@ namespace DMS_Authontication1.Controllers
                 int countEmpClass = db.Comp_Employees
                     .Where(c => c.C_COMP_ID == CompId && c.CONTRACT_NO == ContractNo && c.CLASS_CODE == classCode && (c.TERMINATE_FLAG ?? "N") != "Y")
                      .Select(c => c.CARD_ID).Distinct().Count();
-               
-                
+
+
                 var colrCardTable = dbOra.RunReader(@"SELECT DECODE(CARD_COLOR, 7402, 1, 7403, 2, 7405, 3, 7407, 4) CARD_COLOR
                                                  FROM APP.PRINT_CARD
                                                  WHERE COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' AND CLASS_CODE = '" + classCode + "' ORDER BY CLASS_CODE");
                 int colrCrd = 1;
                 if (colrCardTable.Rows.Count > 0)
                     colrCrd = int.Parse(colrCardTable.Rows[0][0].ToString());
-                
+
 
                 decimal mxAmount = Convert.ToDecimal(row["MAX_AMOUNT"].ToString());
                 decimal pric = Convert.ToDecimal(row["ANNUAL_PREM"].ToString());
@@ -165,22 +165,22 @@ namespace DMS_Authontication1.Controllers
                     AnnualCoverageCeiling = mxAmount,
                     ParticipantsCount = countEmpClass,
                     Price = pric,
-                    
+
                     ChecksInsideHospital = ApprovalStepTwo.Yes,
                     PhysicalTherapyInsideHospital = ApprovalStepTwo.Yes,
                     OutsideClinicInsideHospital = ApprovalStepTwo.Yes,
                     DentalServicesInsideHospital = ApprovalStepTwo.Yes,
-                    
+
                     Death = mxAmount,
                     Accidents = mxAmount,
                     //relations
                     CardColorId = colrCrd,
                     ResidenceDegreeId = resDegree,
                     MedicalNetworkId = medl,
-                    
+
                     MainId = mainId,
 
-                    AnnualCoverageCeilingOld  = mxAmount,
+                    AnnualCoverageCeilingOld = mxAmount,
                     ParticipantsCountOld = countEmpClass,
                     PriceOld = pric,
                     DeathOld = mxAmount,
@@ -201,7 +201,7 @@ namespace DMS_Authontication1.Controllers
                 };
 
                 model.Add(renwalTwoMain);
-            }               
+            }
             return View(model);
         }
         private int MapApprovalStepTwo(ApprovalStepTwo stat)
@@ -242,7 +242,7 @@ namespace DMS_Authontication1.Controllers
                 ResidenceDegreeId = vM.ResidenceDegreeId,
                 MedicalNetworkId = vM.MedicalNetworkId,
                 MainId = vM.MainId,
-                ClassCode = vM.ClassCode               
+                ClassCode = vM.ClassCode
                 // Map other properties as needed
             };
 
@@ -262,10 +262,10 @@ namespace DMS_Authontication1.Controllers
                         var renewalSecond = MapViewModelToEntityStepTwo(mod);
 
                         _dbContext.RenewalStepTwos.Add(renewalSecond);
-                        _dbContext.SaveChanges();                     
+                        _dbContext.SaveChanges();
                     }
                 }
-                
+
                 return RedirectToAction("RenewalStepThree", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction });
             }
             catch (Exception e)
@@ -278,7 +278,7 @@ namespace DMS_Authontication1.Controllers
             ViewBag.MainId = mainId;
             ViewBag.CatCount = countCat;
 
-            var model = new List<ProposalInsideMedicalAuthorityViewModel>(countCat);
+            var model = new List<RenewalInsideMedicalAuthorityViewModel>(countCat);
 
             var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION
                                                  FROM DMS_TEST.COMP_CONTRACT_CLASS
@@ -289,21 +289,15 @@ namespace DMS_Authontication1.Controllers
                 var classCode = row["CLASS_CODE"].ToString();
                 decimal maxAmount = decimal.Parse(row["MAX_AMOUNT"].ToString());
 
-                var servCode = dbOra.RunReader(@"SELECT DISTINCT D_SERV_CODE, D_SERV_CODE SER_SERV, CEILING_AMT, CEILING_PERT
+                var servCode = dbOra.RunReader(@"SELECT DISTINCT D_SERV_CODE, D_SERV_CODE SER_SERV, CEILING_AMT, CEILING_PERT, NVL(CORONA, 'N') CORONA
                                                  FROM DMS_TEST.COMP_CUSTOMIZED_D                                                                  
                                                  WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' AND CLASS_CODE = '" + classCode + "'  "
                                      + "           UNION ALL "
-                                     + "             SELECT DISTINCT D_SERV_CODE, SER_SERV, CEILING_AMT, CEILING_PERT "
+                                     + "             SELECT DISTINCT D_SERV_CODE, SER_SERV, CEILING_AMT, CEILING_PERT, NVL(CORONA, 'N') CORONA "
                                      + "             FROM DMS_TEST.COMP_CUSTOMIZED_D_D "
                                      + "           WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' AND CLASS_CODE = '" + classCode + "' "
                                      + "         ORDER BY D_SERV_CODE");
 
-                //decimal inpAm = servCode.AsEnumerable()
-                //              .Any(r => r.Field<int>("SER_SERV") == 111)
-                //              ? (servCode.AsEnumerable()
-                //                         .First(r => r.Field<int>("SER_SERV") == 111)
-                //                         .Field<decimal?>("CEILING_AMT") ?? 100000)
-                //              : 0;
 
                 decimal inpAm = servCode.AsEnumerable()
                               .Any(r => r.Field<string>("SER_SERV") == "111")
@@ -318,7 +312,7 @@ namespace DMS_Authontication1.Controllers
                                        .Field<decimal?>("CEILING_PERT") ?? 100
                               : 0;
                 bool Isinp = inpPer == 0 ? false : true;
-
+                ///outp
                 decimal oputAm = servCode.AsEnumerable()
                              .Any(r => r.Field<string>("SER_SERV") == "112")
                              ? servCode.AsEnumerable()
@@ -332,20 +326,181 @@ namespace DMS_Authontication1.Controllers
                                       .Field<decimal?>("CEILING_PERT") ?? 100
                              : 0;
                 bool IsOut = oputPer == 0 ? false : true;
-
-                decimal denAm = servCode.AsEnumerable()
-                            .Any(r => r.Field<string>("SER_SERV") == "732541")
+                ///lab ray
+                decimal labRayAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "11206")
                             ? servCode.AsEnumerable()
-                                     .First(r => r.Field<string>("SER_SERV") == "732541")
+                                     .First(r => r.Field<string>("SER_SERV") == "11206")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal labRayPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "11206")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "11206")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool IslabRay = labRayPer == 0 ? false : true;
+                ///Phys
+                decimal phyAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "11204")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "11204")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal phyPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "11204")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "11204")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Isphy = phyPer == 0 ? false : true;
+                ///daily
+                decimal dailyAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "11601")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "11601")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal dailyPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "11601")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "11601")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Isdaily = dailyPer == 0 ? false : true;
+
+                ///chron
+                decimal chronAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "11602")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "11602")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal chronPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "11602")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "11602")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Ischron = chronPer == 0 ? false : true;
+                ///norma
+                decimal normaAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "11502")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "11502")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal normaPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "11502")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "11502")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Isnorma = normaPer == 0 ? false : true;
+                ///caesar
+                decimal caesarAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "11503")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "11503")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal caesarPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "11503")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "11503")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Iscaesar = caesarPer == 0 ? false : true;
+                ///misca
+                decimal miscaAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "11504")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "11504")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal miscaPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "11504")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "11504")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Ismisca = miscaPer == 0 ? false : true;
+
+                ///follo
+                decimal folloAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "11501")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "11501")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal folloPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "11501")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "11501")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Isfollo = folloPer == 0 ? false : true;
+                ///dental
+                decimal denAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "114")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "114")
                                      .Field<decimal?>("CEILING_AMT") ?? maxAmount
                             : 0;
                 decimal denPer = servCode.AsEnumerable()
-                             .Any(r => r.Field<string>("SER_SERV") == "732541")
+                             .Any(r => r.Field<string>("SER_SERV") == "114")
                              ? servCode.AsEnumerable()
-                                      .First(r => r.Field<string>("SER_SERV") == "732541")
+                                      .First(r => r.Field<string>("SER_SERV") == "114")
                                       .Field<decimal?>("CEILING_PERT") ?? 100
                              : 0;
-                bool IsDen = denPer == 0 ? false : true;
+                bool Isden = denPer == 0 ? false : true;
+                ///optical
+                decimal optAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "113")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "113")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal optPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "113")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "113")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Isopt = optPer == 0 ? false : true;
+                ///icu
+                decimal icuAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "11106")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "11106")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+
+                //decimal icuPer = servCode.AsEnumerable()
+                //             .Any(r => r.Field<string>("SER_SERV") == "11106")
+                //             ? servCode.AsEnumerable()
+                //                      .First(r => r.Field<string>("SER_SERV") == "11106")
+                //                      .Field<decimal?>("CEILING_PERT") ?? 100
+                //             : 0;
+                //bool Isicu = icuPer == 0 ? false : true;
+
+
+                string tstcoronaa = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "112")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "112")
+                                      .Field<string?>("CORONA") ?? "N"
+                             : "N";
+
+                bool coronaa = tstcoronaa == "Y" ? true : false;
+                ///no roshita                
+                var dtNoRoshita = dbOra.RunReader(@"SELECT NVL(DAY_NO_ROSHTA_MON, 0) DAY_NO_ROSHTA_MON
+                                                 FROM APP.COMP_CUSTOMIZED_D_D_MED                                                                  
+                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' AND CLASS_CODE = '" + classCode + "' AND SER_SERV = '11601'");
+                int noRoshita = 0;
+                if (dtNoRoshita.Rows.Count > 0)
+                    noRoshita = int.Parse(dtNoRoshita.Rows[0][0].ToString());
+
 
 
                 //var rows = servCode.AsEnumerable().Where(r => r.Field<int>("SER_SERV") == 111);
@@ -354,116 +509,128 @@ namespace DMS_Authontication1.Controllers
 
                 //DataRow[] rows = servCode.Select("SER_SERV = 111");
 
-                //decimal inp, outp;
-                //bool isInp;
+                var renwalThreeMain = new RenewalInsideMedicalAuthorityViewModel
+                {
+                    HospitalsResidenceServiceLimit = inpAm,
+                    HospitalsResidenceServiceLimitOld = inpAm,
+                    HospitalsResidenceServicePercentage = inpPer,
+                    HospitalsResidenceServicePercentageOld = inpPer,
+                    HospitalsResidenceServicePercentageoption = Isinp,
+                    HospitalsResidenceServiceLimitOption = Isinp,
+                    OutsideClinicsLimit = oputAm,
+                    OutsideClinicsLimitOld = oputAm,
+                    OutsideClinicsPercentage = oputPer,
+                    OutsideClinicsPercentageOld = oputPer,
+                    OutsideClinicsLimitOption = IsOut,
+                    OutsideClinicsPercentageoption = IsOut,
+                    ExaminationAndAnalysisLimit = labRayAm,
+                    ExaminationAndAnalysisLimitOld = labRayAm,
+                    ExaminationAndAnalysisPercentage = labRayPer,
+                    ExaminationAndAnalysisPercentageOld = labRayPer,
+                    ExaminationAndAnalysisLimitOption = IslabRay,
+                    ExaminationAndAnalysisPercentageoption = IslabRay,
+                    PhysicalTherapyLimit = phyAm,
+                    PhysicalTherapyLimitOld = phyAm,
+                    PhysicalTherapyPercentage = phyPer,
+                    PhysicalTherapyPercentageOld = phyPer,
+                    PhysicalTherapyLimitOption = Isphy,
+                    PhysicalTherapyPercentageoption = Isphy,
+                    DailyTherapyLimit = dailyAm,
+                    DailyTherapyLimitOld = dailyAm,
+                    DailyTherapyPercentage = dailyPer,
+                    DailyTherapyPercentageOld = dailyPer,
+                    DailyTherapyLimitOption = Isdaily,
+                    DailyTherapyPercentageoption = Isdaily,
+                    ChronicTherapyLimit = chronAm,
+                    ChronicTherapyLimitOld = chronAm,
+                    ChronicTherapyPercentage = chronPer,
+                    ChronicTherapyPercentageOld = chronPer,
+                    ChronicTherapyLimitOption = Ischron,
+                    ChronicTherapyPercentageoption = Ischron,
+                    NatChildBirthLimit = normaAm,
+                    NatChildBirthLimitOld = normaAm,
+                    NatChildBirthPercentage = normaPer,
+                    NatChildBirthPercentageOld = normaPer,
+                    NatChildBirthLimitOption = Isnorma,
+                    NatChildBirthPercentageoption = Isnorma,
+                    CaesChildBirthLimit = caesarAm,
+                    CaesChildBirthLimitOld = caesarAm,
+                    CaesChildBirthPercentage = caesarPer,
+                    CaesChildBirthPercentageOld = caesarPer,
+                    CaesChildBirthLimitOption = Iscaesar,
+                    CaesChildBirthPercentageoption = Iscaesar,
+                    LegalAbortionLimit = miscaAm,
+                    LegalAbortionLimitOld = miscaAm,
+                    LegalAbortionPercentage = miscaPer,
+                    LegalAbortionPercentageOld = miscaPer,
+                    LegalAbortionLimitOption = Ismisca,
+                    LegalAbortionPercentageoption = Ismisca,
+                    PregFollowUpLimit = folloAm,
+                    PregFollowUpLimitOld = folloAm,
+                    PregFollowUpPercentage = folloPer,
+                    PregFollowUpPercentageOld = folloPer,
+                    PregFollowUpLimitOption = Isfollo,
+                    PregFollowUpPercentageoption = Isfollo,
 
-                //if (rows.Length > 0)
-                //{
-                //    inp = rows[0].Field<decimal?>("CEILING_AMT") ?? maxAmount;
-                //    outp = rows[0].Field<decimal?>("CEILING_PERT") ?? 100;
-                //    isInp = true;
-                //}
-                //else
-                //{
-                //    inp = maxAmount;
-                //    outp = 100;
-                //    isInp = false;
-                //}
+                    AdvancedDentalServiceLimit = denAm,
+                    AdvancedDentalServiceLimitOld = denAm,
+                    BasicDentalServiceLimit = denAm,
+                    BasicDentalServiceLimitOld = denAm,
+                    AdvancedDentalServicePercentage = denPer,
+                    AdvancedDentalServicePercentageOld = denPer,
+                    BasicDentalServicePercentage = denPer,
+                    BasicDentalServicePercentageOld = denPer,
+                    AdvancedDentalServicePercentageoption = Isden,
+                    AdvancedDentalServiceLimitOption = Isden,
+                    BasicDentalServiceLimitOption = Isden,
+                    BasicDentalServicePercentageoption = Isden,
+                    OpticsLimit = optAm,
+                    OpticsLimitOld = optAm,
+                    OpticsPercentage = optPer,
+                    OpticsPercentageOld = optPer,
+                    OpticsLimitOption = Isopt,
+                    OpticsPercentageoption = Isopt,
+                    IntensiveCareDaysCount = int.Parse(icuAm.ToString()),
+                    IntensiveCareDaysCountOld = int.Parse(icuAm.ToString()),
+                    DailyRoshitasCountPerMonth = noRoshita,
+                    DailyRoshitasCountPerMonthOld = noRoshita,
+                    CoronaVaccineCoverage = coronaa,
+                    CoronaVaccineCoverageOld = coronaa,
+
+                    MainId = mainId,
+                    ClassCode = classCode,
+                    CompId = CompId,
+                    ContractNo = ContractNo,
+                    CountClass = countCat,
+                    typAction = typeAction
 
 
+                };
 
-
+                model.Add(renwalThreeMain);
 
             }
 
 
-            for (int i = 0; i < countCat; i++)
-            {
-                // Create an instance of ProposalStepTwoViewModel and add it to the list
-                model.Add(new ProposalInsideMedicalAuthorityViewModel());
-            }
-            //var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION
-            //                                     FROM DMS_TEST.COMP_CONTRACT_CLASS
-            //                                     WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY CLASS_CODE");
-
-            //foreach (System.Data.DataRow row in compclassold.Rows)
+            //for (int i = 0; i < countCat; i++)
             //{
-            //    var classCode = row["CLASS_CODE"].ToString();
-
-            //    int countEmpClass = db.Comp_Employees
-            //        .Where(c => c.C_COMP_ID == CompId && c.CONTRACT_NO == ContractNo && c.CLASS_CODE == classCode && (c.TERMINATE_FLAG ?? "N") != "Y")
-            //         .Select(c => c.CARD_ID).Distinct().Count();
-
-
-            //    var colrCardTable = dbOra.RunReader(@"SELECT DECODE(CARD_COLOR, 7402, 1, 7403, 2, 7405, 3, 7407, 4) CARD_COLOR
-            //                                     FROM APP.PRINT_CARD
-            //                                     WHERE COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' AND CLASS_CODE = '" + classCode + "' ORDER BY CLASS_CODE");
-            //    int colrCrd = 1;
-            //    if (colrCardTable.Rows.Count > 0)
-            //        colrCrd = int.Parse(colrCardTable.Rows[0][0].ToString());
-
-
-            //    decimal mxAmount = Convert.ToDecimal(row["MAX_AMOUNT"].ToString());
-            //    decimal pric = Convert.ToDecimal(row["ANNUAL_PREM"].ToString());
-            //    int resDegree = int.Parse(row["HOSPITAL_DEGREE"].ToString());
-            //    int medl = int.Parse(row["COVER_RELATION"].ToString());
-
-            //    var renwalTwoMain = new RenwalStepTwoViewModel
-            //    {
-            //        AnnualCoverageCeiling = mxAmount,
-            //        ParticipantsCount = countEmpClass,
-            //        Price = pric,
-
-            //        ChecksInsideHospital = ApprovalStepTwo.Yes,
-            //        PhysicalTherapyInsideHospital = ApprovalStepTwo.Yes,
-            //        OutsideClinicInsideHospital = ApprovalStepTwo.Yes,
-            //        DentalServicesInsideHospital = ApprovalStepTwo.Yes,
-
-            //        Death = mxAmount,
-            //        Accidents = mxAmount,
-            //        //relations
-            //        CardColorId = colrCrd,
-            //        ResidenceDegreeId = resDegree,
-            //        MedicalNetworkId = medl,
-
-            //        MainId = mainId,
-
-            //        AnnualCoverageCeilingOld = mxAmount,
-            //        ParticipantsCountOld = countEmpClass,
-            //        PriceOld = pric,
-            //        DeathOld = mxAmount,
-            //        AccidentsOld = mxAmount,
-            //        ChecksInsideHospitalOld = ApprovalStepTwo.Yes,
-            //        PhysicalTherapyInsideHospitalOld = ApprovalStepTwo.Yes,
-            //        OutsideClinicInsideHospitalOld = ApprovalStepTwo.Yes,
-            //        DentalServicesInsideHospitalOld = ApprovalStepTwo.Yes,
-            //        CardColorIdOld = colrCrd,
-            //        ResidenceDegreeIdOld = resDegree,
-            //        MedicalNetworkIdOld = medl,
-
-            //        ClassCode = classCode,
-            //        CompId = CompId,
-            //        ContractNo = ContractNo,
-            //        CountClass = countCat
-            //    };
-
-            //    model.Add(renwalTwoMain);
+            //    // Create an instance of ProposalStepTwoViewModel and add it to the list
+            //    model.Add(new ProposalInsideMedicalAuthorityViewModel());
             //}
-            return View(model);
-            //return View(model);
-        }
 
+            return View(model);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RenewalStepTwo(List<ProposalStepTwoViewModel> Model, int? MainProposalId
-            ,HttpPostedFileBase EmployeesDataFileBase, string BackOrForward = "")
+            , HttpPostedFileBase EmployeesDataFileBase, string BackOrForward = "")
         {
             try
             {
                 if (Model.Any())
                 {
-                    if(Model.First().Id != 0)
+                    if (Model.First().Id != 0)
                     {
                         // Check if ConsumptionFile is not passed in the Model, but ModelState has an error for it
                         if (Model.First().EmployeesDataFile == null && ModelState.ContainsKey("EmployeesDataFile"))
@@ -472,7 +639,7 @@ namespace DMS_Authontication1.Controllers
                             ModelState["EmployeesDataFile"].Errors.Clear();
                         }
                     }
-                    
+
                 }
                 var fileName = "";
                 if (EmployeesDataFileBase != null)
@@ -483,7 +650,7 @@ namespace DMS_Authontication1.Controllers
                     fileName = DocumentSetting.UploadFile(EmployeesDataFileBase, FolderPath);
                 }
                 var index = 0;
-                foreach(var model in Model)
+                foreach (var model in Model)
                 {
                     if (MainProposalId != null)
                     {
@@ -525,11 +692,11 @@ namespace DMS_Authontication1.Controllers
                             _dbContext.ProposalStepTwos.Add(proposalSecond);
                             await _dbContext.SaveChangesAsync();
                         }
-                       
+
                     }
-                    
-                       
-                    
+
+
+
                     else
                     {
 
@@ -575,12 +742,12 @@ namespace DMS_Authontication1.Controllers
                     // Redirect to a third page of the form
                     return RedirectToAction(nameof(ProposalStepThreeCreate), new { id = MainProposalId });
                 }
-          
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 var firstEntity = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == MainProposalId);
-                if(firstEntity != null)
+                if (firstEntity != null)
                     _dbContext.ProposalMains.Remove(firstEntity);
                 return RedirectToAction(nameof(Index));
             }
@@ -609,7 +776,7 @@ namespace DMS_Authontication1.Controllers
             ViewBag.ColorList = new SelectList(colors, "Id", "Name");
             ViewBag.ResidenceList = new SelectList(residenceDegree, "Id", "Name");
             ViewBag.MedicalNetworkList = new SelectList(medicalNetworks, "Id", "Name");
-            if(models == null || models.Count == 0)
+            if (models == null || models.Count == 0)
             {
                 var emptyModels = new List<ProposalStepTwoViewModel>(proposalMain.CategoriesCount);
                 for (int i = 0; i < proposalMain.CategoriesCount; i++)
@@ -621,7 +788,7 @@ namespace DMS_Authontication1.Controllers
             }
             //call the function to map model to viewModel
             var mappedModels = new List<ProposalStepTwoViewModel>();
-            foreach(var entity in models)
+            foreach (var entity in models)
             {
                 mappedModels.Add(MapEntityToViewModelStepTwo(entity));
             }
@@ -701,7 +868,7 @@ namespace DMS_Authontication1.Controllers
                     }
                 }
                 // Redirect to a third page of the form
-                return RedirectToAction(nameof(ProposalStepThreeEdit), new { newId = id , prevId = PrevId });
+                return RedirectToAction(nameof(ProposalStepThreeEdit), new { newId = id, prevId = PrevId });
             }
             catch (Exception e)
             {
@@ -720,7 +887,7 @@ namespace DMS_Authontication1.Controllers
                 AnnualCoverageCeiling = vM.AnnualCoverageCeiling,
                 ParticipantsCount = vM.ParticipantsCount,
                 Price = vM.Price,
-                MinAge= vM.MinAge,
+                MinAge = vM.MinAge,
                 MaxAge = vM.MaxAge,
                 AvgAge = vM.AvgAge,
                 ChecksInsideHospital = vM.ChecksInsideHospital,
@@ -735,7 +902,7 @@ namespace DMS_Authontication1.Controllers
                 ResidenceDegreeId = vM.ResidenceDegreeId,
                 MedicalNetworkId = vM.MedicalNetworkId,
                 ProposalMainId = vM.ProposalMainId
-                
+
 
                 // Map other properties as needed
             };
@@ -790,7 +957,7 @@ namespace DMS_Authontication1.Controllers
             existingProposal.ResidenceDegreeId = proposalViewModel.ResidenceDegreeId;
             existingProposal.MedicalNetworkId = proposalViewModel.MedicalNetworkId;
             existingProposal.ProposalMainId = proposalViewModel.ProposalMainId;
-          
+
         }
         #endregion
 
@@ -801,11 +968,11 @@ namespace DMS_Authontication1.Controllers
             // Retrieve data from temporary storage or session
             // ...
             // Retrieve the list of Areas and CompanyActivities from the database
-          
+
 
 
             // Convert the lists to SelectList items for use in dropdown lists
-          
+
             ViewBag.MainId = id;
             var mainProposal = _dbContext.ProposalMains.Include("ProposalInsiceMedicalAuthorities").FirstOrDefault(p => p.Id == id);
 
@@ -833,7 +1000,7 @@ namespace DMS_Authontication1.Controllers
                     model.Add(new ProposalInsideMedicalAuthorityViewModel());
                 }
             }
-           
+
             // Render the view for the second step
             return View(model);
         }
@@ -841,7 +1008,7 @@ namespace DMS_Authontication1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ProposalStepThreeCreate(List<ProposalInsideMedicalAuthorityViewModel> Model, int? MainProposalId
-            ,string BackOrForwardOrMain="")
+            , string BackOrForwardOrMain = "")
         {
             try
             {
@@ -852,45 +1019,45 @@ namespace DMS_Authontication1.Controllers
                     int index = Model.IndexOf(model1);
                     #region binding checkBoxes
                     #region bind on to true
-                        //model1.HospitalsResidenceServiceLimitOption = Request.Form["Model["+index+"].HospitalsResidenceServiceLimitOption"] == "on";
-                        //model1.HospitalsResidenceServicePercentageoption = Request.Form["Model["+index+"].HospitalsResidenceServicePercentageoption"] == "on";
+                    //model1.HospitalsResidenceServiceLimitOption = Request.Form["Model["+index+"].HospitalsResidenceServiceLimitOption"] == "on";
+                    //model1.HospitalsResidenceServicePercentageoption = Request.Form["Model["+index+"].HospitalsResidenceServicePercentageoption"] == "on";
 
-                        //model1.OutsideClinicsLimitOption = Request.Form["Model["+index+"].OutsideClinicsLimitOption"] == "on";
-                        //model1.OutsideClinicsPercentageoption = Request.Form["Model["+index+"].OutsideClinicsPercentageoption"] == "on";
+                    //model1.OutsideClinicsLimitOption = Request.Form["Model["+index+"].OutsideClinicsLimitOption"] == "on";
+                    //model1.OutsideClinicsPercentageoption = Request.Form["Model["+index+"].OutsideClinicsPercentageoption"] == "on";
 
-                        //model1.ExaminationAndAnalysisLimitOption = Request.Form["Model["+index+"].ExaminationAndAnalysisLimitOption"] == "on";
-                        //model1.ExaminationAndAnalysisPercentageoption = Request.Form["Model["+index+"].ExaminationAndAnalysisPercentageoption"] == "on";
+                    //model1.ExaminationAndAnalysisLimitOption = Request.Form["Model["+index+"].ExaminationAndAnalysisLimitOption"] == "on";
+                    //model1.ExaminationAndAnalysisPercentageoption = Request.Form["Model["+index+"].ExaminationAndAnalysisPercentageoption"] == "on";
 
-                        //model1.PhysicalTherapyLimitOption = Request.Form["Model["+index+"].PhysicalTherapyLimitOption"] == "on";
-                        //model1.PhysicalTherapyPercentageoption = Request.Form["Model["+index+"].PhysicalTherapyPercentageoption"] == "on";
+                    //model1.PhysicalTherapyLimitOption = Request.Form["Model["+index+"].PhysicalTherapyLimitOption"] == "on";
+                    //model1.PhysicalTherapyPercentageoption = Request.Form["Model["+index+"].PhysicalTherapyPercentageoption"] == "on";
 
-                        //model1.DailyTherapyLimitOption = Request.Form["Model["+index+"].DailyTherapyLimitOption"] == "on";
-                        //model1.DailyTherapyPercentageoption = Request.Form["Model["+index+"].DailyTherapyPercentageoption"] == "on";
+                    //model1.DailyTherapyLimitOption = Request.Form["Model["+index+"].DailyTherapyLimitOption"] == "on";
+                    //model1.DailyTherapyPercentageoption = Request.Form["Model["+index+"].DailyTherapyPercentageoption"] == "on";
 
-                        //model1.ChronicTherapyLimitOption = Request.Form["Model["+index+"].ChronicTherapyLimitOption"] == "on";
-                        //model1.ChronicTherapyPercentageoption = Request.Form["Model["+index+"].ChronicTherapyPercentageoption"] == "on";
+                    //model1.ChronicTherapyLimitOption = Request.Form["Model["+index+"].ChronicTherapyLimitOption"] == "on";
+                    //model1.ChronicTherapyPercentageoption = Request.Form["Model["+index+"].ChronicTherapyPercentageoption"] == "on";
 
-                        //model1.NatChildBirthLimitOption = Request.Form["Model["+index+"].NatChildBirthLimitOption"] == "on";
-                        //model1.NatChildBirthPercentageoption = Request.Form["Model["+index+"].NatChildBirthPercentageoption"] == "on";
+                    //model1.NatChildBirthLimitOption = Request.Form["Model["+index+"].NatChildBirthLimitOption"] == "on";
+                    //model1.NatChildBirthPercentageoption = Request.Form["Model["+index+"].NatChildBirthPercentageoption"] == "on";
 
-                        //model1.CaesChildBirthLimitOption = Request.Form["Model["+index+"].CaesChildBirthLimitOption"] == "on";
-                        //model1.CaesChildBirthPercentageoption = Request.Form["Model["+index+"].CaesChildBirthPercentageoption"] == "on";
+                    //model1.CaesChildBirthLimitOption = Request.Form["Model["+index+"].CaesChildBirthLimitOption"] == "on";
+                    //model1.CaesChildBirthPercentageoption = Request.Form["Model["+index+"].CaesChildBirthPercentageoption"] == "on";
 
-                        //model1.LegalAbortionLimitOption = Request.Form["Model["+index+"].LegalAbortionLimitOption"] == "on";
-                        //model1.LegalAbortionPercentageoption = Request.Form["Model["+index+"].LegalAbortionPercentageoption"] == "on";
+                    //model1.LegalAbortionLimitOption = Request.Form["Model["+index+"].LegalAbortionLimitOption"] == "on";
+                    //model1.LegalAbortionPercentageoption = Request.Form["Model["+index+"].LegalAbortionPercentageoption"] == "on";
 
-                        //model1.PregFollowUpLimitOption = Request.Form["Model["+index+"].PregFollowUpLimitOption"] == "on";
-                        //model1.PregFollowUpPercentageoption = Request.Form["Model["+index+"].PregFollowUpPercentageoption"] == "on";
+                    //model1.PregFollowUpLimitOption = Request.Form["Model["+index+"].PregFollowUpLimitOption"] == "on";
+                    //model1.PregFollowUpPercentageoption = Request.Form["Model["+index+"].PregFollowUpPercentageoption"] == "on";
 
-                        //model1.AdvancedDentalServiceLimitOption = Request.Form["Model["+index+"].AdvancedDentalServiceLimitOption"] == "on";
-                        //model1.AdvancedDentalServicePercentageoption = Request.Form["Model["+index+"].AdvancedDentalServicePercentageoption"] == "on";
+                    //model1.AdvancedDentalServiceLimitOption = Request.Form["Model["+index+"].AdvancedDentalServiceLimitOption"] == "on";
+                    //model1.AdvancedDentalServicePercentageoption = Request.Form["Model["+index+"].AdvancedDentalServicePercentageoption"] == "on";
 
-                        //model1.BasicDentalServiceLimitOption = Request.Form["Model["+index+"].BasicDentalServiceLimitOption"] == "on";
-                        //model1.BasicDentalServicePercentageoption = Request.Form["Model["+index+"].BasicDentalServicePercentageoption"] == "on";
+                    //model1.BasicDentalServiceLimitOption = Request.Form["Model["+index+"].BasicDentalServiceLimitOption"] == "on";
+                    //model1.BasicDentalServicePercentageoption = Request.Form["Model["+index+"].BasicDentalServicePercentageoption"] == "on";
 
-                        //model1.OpticsLimitOption = Request.Form["Model["+index+"].OpticsLimitOption"] == "on";
-                        //model1.OpticsPercentageoption = Request.Form["Model["+index+"].OpticsPercentageoption"] == "on";
-                        #endregion
+                    //model1.OpticsLimitOption = Request.Form["Model["+index+"].OpticsLimitOption"] == "on";
+                    //model1.OpticsPercentageoption = Request.Form["Model["+index+"].OpticsPercentageoption"] == "on";
+                    #endregion
 
                     var maxVal = secondproposal[secodProposalIndex].AnnualCoverageCeiling;
                     secodProposalIndex++;
@@ -971,7 +1138,7 @@ namespace DMS_Authontication1.Controllers
                         }
                     }
                     #endregion
-                 
+
                     var maxPer = 100;
                     ///////percentage max //
                     ///
@@ -1040,7 +1207,7 @@ namespace DMS_Authontication1.Controllers
                 var index1 = 0;
                 foreach (var model in Model)
                 {
-      
+
 
                     try
                     {
@@ -1071,7 +1238,7 @@ namespace DMS_Authontication1.Controllers
                                 _dbContext.ProposalInsideMedicalAuthorities.Add(proposalThird);
                                 await _dbContext.SaveChangesAsync();
 
-                                
+
 
                             }
                         }
@@ -1097,7 +1264,7 @@ namespace DMS_Authontication1.Controllers
 
 
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
 
                         //List<string> errors = new List<string>();
@@ -1110,7 +1277,7 @@ namespace DMS_Authontication1.Controllers
                         //    }
                         //}
                         ViewBag.Errors = ex.Message;
-                 
+
                         ViewBag.MainId = MainProposalId;
 
                         ViewBag.CatCount = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == MainProposalId).CategoriesCount;
@@ -1170,7 +1337,7 @@ namespace DMS_Authontication1.Controllers
                 }
                 return View(emptyModels);
             }
-         
+
             //call the function to map model to viewModel
             var mappedModels = new List<ProposalInsideMedicalAuthorityViewModel>();
             foreach (var entity in models)
@@ -1379,12 +1546,12 @@ namespace DMS_Authontication1.Controllers
                 var index1 = 0;
                 foreach (var model in Model)
                 {
-                  
+
                     model.ProposalMainId = (int)id;
                     if (ModelState.IsValid)
-                    { 
+                    {
 
-                
+
                         //var CatCount = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == MainProposalId).CategoriesCount;
                         // Map view model to entity and save to database
                         var proposalThird = MapViewModelToEntityStepThree(model);
@@ -1409,8 +1576,8 @@ namespace DMS_Authontication1.Controllers
                             }
                         }
                         ViewBag.Errors = errors;
-                   
-                        ViewBag.MainId = id; 
+
+                        ViewBag.MainId = id;
 
                         ViewBag.CatCount = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == id).CategoriesCount;
                         ViewBag.previousUrl = System.Web.HttpContext.Current.Request.UrlReferrer?.ToString();
@@ -1491,7 +1658,7 @@ namespace DMS_Authontication1.Controllers
                 IntensiveCareDaysCount = vM.IntensiveCareDaysCount,
                 DailyRoshitasCountPerMonth = vM.DailyRoshitasCountPerMonth,
                 CoronaVaccineCoverage = vM.CoronaVaccineCoverage,
-           
+
                 //relations
 
                 ProposalMainId = vM.ProposalMainId
@@ -1562,7 +1729,7 @@ namespace DMS_Authontication1.Controllers
                 IntensiveCareDaysCount = vM.IntensiveCareDaysCount,
                 DailyRoshitasCountPerMonth = vM.DailyRoshitasCountPerMonth,
                 CoronaVaccineCoverage = vM.CoronaVaccineCoverage,
-              
+
                 //relations
 
                 ProposalMainId = vM.ProposalMainId
@@ -1686,7 +1853,7 @@ namespace DMS_Authontication1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ProposalStepFourCreate(List<ProposalOutsideMedicalAuthorityViewModel> Model, int? MainProposalId,
-            string BackOrForwardOrMain="")
+            string BackOrForwardOrMain = "")
         {
             var mainId = 0;
             try
@@ -1987,13 +2154,13 @@ namespace DMS_Authontication1.Controllers
                 notification.SentTo = "Proposal_Admin";
                 notification.CreatedBy = User.Identity.Name;
                 notification.CreatedDate = DateTime.Now;
-                
+
                 //notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
                 notification.Title = "An offer has been created";
                 _dbContext.ProposalNotifications.Add(notification);
                 await _dbContext.SaveChangesAsync();
                 var notificationId = notification.Id;
-    
+
                 List<string> userIds = new List<string>();
                 //var usersInProposalAdminRole = await _userManager.GetUsersInRoleAsync("Proposal_Admin");
 
@@ -2002,12 +2169,12 @@ namespace DMS_Authontication1.Controllers
                 //    // Process each user as needed
                 //}
                 var role = await _roleManager.FindByNameAsync("Proposal_Admin");
-               
+
                 var usersInProposalAdminRole = new List<ApplicationUser>();
                 if (role != null)
                 {
                     var userIdsInRole = _dbContext.Set<IdentityUserRole>()
-                           .Where(ur => ur.RoleId == role.Id )
+                           .Where(ur => ur.RoleId == role.Id)
                            .Select(ur => ur.UserId)
                            .ToList();
 
@@ -2022,7 +2189,7 @@ namespace DMS_Authontication1.Controllers
                     if (user.Id == User.Identity.GetUserId())
                         continue;
                     userIds.Add(user.Id);
-                    
+
                 }
                 var proposalNotificationApplicationUserList = new List<ProposalNotificationApplicationUser>();
                 foreach (var userId in userIds)
@@ -2310,12 +2477,12 @@ namespace DMS_Authontication1.Controllers
                 var index1 = 0;
                 foreach (var model in Model)
                 {
-                 
+
                     model.ProposalMainId = (int)id;
                     if (ModelState.IsValid)
                     {
 
-                    
+
                         //var CatCount = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == MainProposalId).CategoriesCount;
                         // Map view model to entity and save to database
                         var proposalThird = MapViewModelToEntityStepFour(model);
@@ -2329,7 +2496,7 @@ namespace DMS_Authontication1.Controllers
                     else
                     {
 
-                    
+
 
                         List<string> errors = new List<string>();
 
@@ -2700,7 +2867,7 @@ namespace DMS_Authontication1.Controllers
         //    if (pricingRecord != null)
         //    {
         //        pricingRecord.Prices = string.Join(",", prices.Select(d => d.ToString()));
-                
+
         //        _dbContext.SaveChanges();
         //        var userName = User.Identity.Name;
         //        var currentUserId = User.Identity.GetUserId();
