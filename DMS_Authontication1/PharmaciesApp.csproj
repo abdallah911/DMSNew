@@ -1415,6 +1415,7 @@
     <Compile Include="ViewModel\Proposal\ProposalBenefitVM.cs" />
     <Compile Include="ViewModel\ProviderServicesPermissionsViewModal.cs" />
     <Compile Include="ViewModel\RenewalInsideMedicalAuthorityViewModel.cs" />
+    <Compile Include="ViewModel\RenewalOutsideMedicalAuthorityViewModel.cs" />
     <Compile Include="ViewModel\RenwalStepTwoViewModel.cs" />
     <Compile Include="ViewModel\SpecilityDiagnoseViewmodel.cs" />
     <Compile Include="ViewModel\MedicineTypeViewmodel.cs" />
@@ -9479,6 +9480,7 @@
     <Content Include="Views\ProposalRenewals\RenewalStepTwo.cshtml" />
     <Content Include="Views\ProposalRenewals\RenewalStepFour.cshtml" />
     <Content Include="Views\ProposalRenewals\RenewalStepThree.cshtml" />
+    <Content Include="Views\ProposalRenewals\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

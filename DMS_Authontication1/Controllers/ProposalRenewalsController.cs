@@ -37,6 +37,70 @@ namespace DMS_Authontication1.Controllers
         }
         #region MainPage
         // GET: ProposalMain
+
+
+        //public async Task<ActionResult> Show(string searchValue = "", DateTime? startDate = null, DateTime? endDate = null)
+        //{
+        //    // Retrieve the message from TempData
+        //    string successMessage = TempData["SuccessMessage"] as string;
+
+        //    // Pass the message to the view
+        //    ViewBag.SuccessMessage = successMessage;
+
+        //    if (!startDate.HasValue)          
+        //        startDate = new DateTime(2020, 1, 1);            
+        //    if (!endDate.HasValue)            
+        //        endDate = new DateTime(2040, 12, 31);
+        //    var renewals = _dbContext.RenewalMains.AsQueryable(); 
+
+
+        //    //if (string.IsNullOrEmpty(searchValue))
+        //    //{
+        //    //    renewals = renewals
+        //    //        .Where(b =>
+        //    //        (!startDate.HasValue || b.CreatedDate >= startDate) &&
+        //    //        (!endDate.HasValue || b.CreatedDate <= endDate)
+        //    //    )
+        //    //    .ToList();
+        //    //}
+        //    //else
+        //    //{
+        //    //    renewals = renewals
+        //    //       .Where(b =>
+        //    //           (!startDate.HasValue || b.CreatedDate >= startDate) &&
+        //    //           (!endDate.HasValue || b.CreatedDate <= endDate) &&
+        //    //           (b.CompId.ToString().ToLower().Contains(searchValue) ||
+        //    //             b.Code.Contains(searchValue))
+        //    //       )
+        //    //       .ToList();
+        //    //}
+
+        //    //var proposals = string.IsNullOrEmpty(searchValue)
+        //    //    ? GetProposals(startDate.Value, endDate.Value)
+        //    //    : PerformSearch(startDate.Value, endDate.Value, searchValue);
+
+        //    ViewBag.SearchValue = searchValue;
+        //    return View(renewals);
+        //}
+
+        public async Task<ActionResult> Show()
+        {
+            // Retrieve the message from TempData
+            //string successMessage = TempData["SuccessMessage"] as string;
+
+            //// Pass the message to the view
+            //ViewBag.SuccessMessage = successMessage;
+
+            //if (!startDate.HasValue)
+            //    startDate = new DateTime(2020, 1, 1);
+            //if (!endDate.HasValue)
+            //    endDate = new DateTime(2040, 12, 31);
+            var renewals = _dbContext.RenewalMains.ToList();
+
+
+            return View(renewals);
+        }
+
         public ActionResult Index()
         {
             var companyname = db.Contract_Comp.Select(c => new
@@ -621,138 +685,377 @@ namespace DMS_Authontication1.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RenewalStepTwo(List<ProposalStepTwoViewModel> Model, int? MainProposalId
-            , HttpPostedFileBase EmployeesDataFileBase, string BackOrForward = "")
+        public async Task<ActionResult> SaveDataStepThree(List<RenewalInsideMedicalAuthorityViewModel> model)
         {
             try
             {
-                if (Model.Any())
-                {
-                    if (Model.First().Id != 0)
-                    {
-                        // Check if ConsumptionFile is not passed in the Model, but ModelState has an error for it
-                        if (Model.First().EmployeesDataFile == null && ModelState.ContainsKey("EmployeesDataFile"))
-                        {
-                            // Remove the model error for the File property if it exists
-                            ModelState["EmployeesDataFile"].Errors.Clear();
-                        }
-                    }
+                //foreach (var mod in model)
+                //{
+                //    if (ModelState.IsValid)
+                //    {
+                //        var renewalSecond = MapViewModelToEntityStepTwo(mod);
 
-                }
-                var fileName = "";
-                if (EmployeesDataFileBase != null)
-                {
+                //        _dbContext.RenewalStepTwos.Add(renewalSecond);
+                //        _dbContext.SaveChanges();
+                //    }
+                //}
 
-                    string FolderPath = Path.Combine(Server.MapPath("~/ProposalAssets/Files/"), "EmpolyeeFiles");
-
-                    fileName = DocumentSetting.UploadFile(EmployeesDataFileBase, FolderPath);
-                }
-                var index = 0;
-                foreach (var model in Model)
-                {
-                    if (MainProposalId != null)
-                    {
-                        model.ProposalMainId = (int)MainProposalId;
-
-                    }
-                    if (EmployeesDataFileBase != null)
-                    {
-                        model.EmployeesDataFileName = fileName;
-                        model.EmployeesDataFile = EmployeesDataFileBase;
-
-                    }
-                    if (ModelState["Id"] != null)
-                        ModelState["Id"].Errors.Clear();
-                    if (ModelState.IsValid)
-                    {
-                        var existingProposal = _dbContext.ProposalStepTwos.Find(model.Id);
-
-                        if (existingProposal != null)
-                        {
-                            // Update the properties of the existing entity
-                            MapViewModelToEntityModifyStepTwo(model, existingProposal);
-
-                            // Mark the entity as modified
-                            _dbContext.Entry(existingProposal).State = System.Data.Entity.EntityState.Modified;
-                            // Save changes
-                            await _dbContext.SaveChangesAsync();
-
-
-                        }
-                        else
-                        {
-                            //var CatCount = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == MainProposalId).CategoriesCount;
-                            // Map view model to entity and save to database
-                            var proposalSecond = MapViewModelToEntityStepTwo(model);
-                            proposalSecond.ClassCode = index + 1;
-                            index = index + 1;
-                            // Save the entity to the database
-                            _dbContext.ProposalStepTwos.Add(proposalSecond);
-                            await _dbContext.SaveChangesAsync();
-                        }
-
-                    }
-
-
-
-                    else
-                    {
-
-                        List<string> errors = new List<string>();
-
-                        foreach (var value in ModelState.Values)
-                        {
-                            foreach (var error in value.Errors)
-                            {
-                                errors.Add(error.ErrorMessage);
-                            }
-                        }
-                        ViewBag.Errors = errors;
-                        // Retrieve the list of Areas and CompanyActivities from the database
-                        var colors = _dbContext.CardColors.ToList();
-                        var residenceDegree = _dbContext.ResidenceDegrees.ToList();
-                        var medicalNetworks = _dbContext.MedicalNetworks.ToList();
-
-
-                        // Convert the lists to SelectList items for use in dropdown lists
-                        ViewBag.ColorList = new SelectList(colors, "Id", "Name");
-                        ViewBag.ResidenceList = new SelectList(residenceDegree, "Id", "Name");
-                        ViewBag.MedicalNetworkList = new SelectList(medicalNetworks, "Id", "Name");
-                        ViewBag.MainId = MainProposalId;
-
-                        ViewBag.CatCount = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == MainProposalId).CategoriesCount;
-                        ViewBag.previousUrl = System.Web.HttpContext.Current.Request.UrlReferrer?.ToString();
-                        // If the model state is not valid, redisplay the form with errors
-                        // Populate dropdowns or other data needed for the view
-                        return View(Model);
-                    }
-                }
-                if (!string.IsNullOrEmpty(BackOrForward))
-                {
-                    if (BackOrForward == "back")
-                        return RedirectToAction(nameof(Index), new { id = MainProposalId });
-                    else
-                        return RedirectToAction(nameof(ProposalStepThreeCreate), new { id = MainProposalId });
-
-                }
-                else
-                {
-                    // Redirect to a third page of the form
-                    return RedirectToAction(nameof(ProposalStepThreeCreate), new { id = MainProposalId });
-                }
-
+                return RedirectToAction("RenewalStepFour", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction });
             }
             catch (Exception e)
             {
-                var firstEntity = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == MainProposalId);
-                if (firstEntity != null)
-                    _dbContext.ProposalMains.Remove(firstEntity);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("RenewalStepFour", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction });
+            }
+        }
+
+        public ActionResult RenewalStepFour(int mainId, int CompId, int ContractNo, int countCat, int typeAction)
+        {
+            ViewBag.MainId = mainId;
+            ViewBag.CatCount = countCat;
+
+            var model = new List<RenewalOutsideMedicalAuthorityViewModel>(countCat);
+
+            var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION
+                                                 FROM DMS_TEST.COMP_CONTRACT_CLASS
+                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY CLASS_CODE");
+
+            foreach (System.Data.DataRow row in compclassold.Rows)
+            {
+                var classCode = row["CLASS_CODE"].ToString();
+                decimal maxAmount = decimal.Parse(row["MAX_AMOUNT"].ToString());
+
+                var servCode = dbOra.RunReader(@"SELECT DISTINCT D_SERV_CODE, D_SERV_CODE SER_SERV, CEILING_AMT, CEILING_PERT, NVL(CORONA, 'N') CORONA
+                                                 FROM DMS_TEST.COMP_CUSTOMIZED_D                                                                  
+                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' AND CLASS_CODE = '" + classCode + "'  "
+                                     + "           UNION ALL "
+                                     + "             SELECT DISTINCT D_SERV_CODE, SER_SERV, CEILING_AMT, CEILING_PERT, NVL(CORONA, 'N') CORONA "
+                                     + "             FROM DMS_TEST.COMP_CUSTOMIZED_D_D "
+                                     + "           WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' AND CLASS_CODE = '" + classCode + "' "
+                                     + "         ORDER BY D_SERV_CODE");
+
+
+                decimal inpAm = servCode.AsEnumerable()
+                              .Any(r => r.Field<string>("SER_SERV") == "121")
+                              ? servCode.AsEnumerable()
+                                       .First(r => r.Field<string>("SER_SERV") == "121")
+                                       .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                              : 0;
+                decimal inpPer = servCode.AsEnumerable()
+                              .Any(r => r.Field<string>("SER_SERV") == "121")
+                              ? servCode.AsEnumerable()
+                                       .First(r => r.Field<string>("SER_SERV") == "121")
+                                       .Field<decimal?>("CEILING_PERT") ?? 100
+                              : 0;
+                bool Isinp = inpPer == 0 ? false : true;
+                ///outp
+                decimal oputAm = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "122")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "122")
+                                      .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                             : 0;
+                decimal oputPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "122")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "122")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool IsOut = oputPer == 0 ? false : true;
+                ///lab ray
+                decimal labRayAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "12206")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "12206")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal labRayPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "12206")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "12206")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool IslabRay = labRayPer == 0 ? false : true;
+                ///Phys
+                decimal phyAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "12204")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "12204")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal phyPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "12204")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "12204")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Isphy = phyPer == 0 ? false : true;
+                ///daily
+                decimal dailyAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "12601")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "12601")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal dailyPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "12601")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "12601")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Isdaily = dailyPer == 0 ? false : true;
+
+                ///chron
+                decimal chronAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "12602")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "12602")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal chronPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "12602")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "12602")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Ischron = chronPer == 0 ? false : true;
+                ///norma
+                decimal normaAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "12502")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "12502")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal normaPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "12502")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "12502")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Isnorma = normaPer == 0 ? false : true;
+                ///caesar
+                decimal caesarAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "12503")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "12503")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal caesarPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "12503")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "12503")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Iscaesar = caesarPer == 0 ? false : true;
+                ///misca
+                decimal miscaAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "12504")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "12504")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal miscaPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "12504")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "12504")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Ismisca = miscaPer == 0 ? false : true;
+
+                ///follo
+                decimal folloAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "12501")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "12501")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal folloPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "12501")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "12501")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Isfollo = folloPer == 0 ? false : true;
+                ///dental
+                decimal denAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "124")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "124")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal denPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "124")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "124")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Isden = denPer == 0 ? false : true;
+                ///optical
+                decimal optAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "123")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "123")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+                decimal optPer = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "123")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "123")
+                                      .Field<decimal?>("CEILING_PERT") ?? 100
+                             : 0;
+                bool Isopt = optPer == 0 ? false : true;
+                ///icu
+                decimal icuAm = servCode.AsEnumerable()
+                            .Any(r => r.Field<string>("SER_SERV") == "12106")
+                            ? servCode.AsEnumerable()
+                                     .First(r => r.Field<string>("SER_SERV") == "12106")
+                                     .Field<decimal?>("CEILING_AMT") ?? maxAmount
+                            : 0;
+
+                //decimal icuPer = servCode.AsEnumerable()
+                //             .Any(r => r.Field<string>("SER_SERV") == "11106")
+                //             ? servCode.AsEnumerable()
+                //                      .First(r => r.Field<string>("SER_SERV") == "11106")
+                //                      .Field<decimal?>("CEILING_PERT") ?? 100
+                //             : 0;
+                //bool Isicu = icuPer == 0 ? false : true;
+
+
+                string tstcoronaa = servCode.AsEnumerable()
+                             .Any(r => r.Field<string>("SER_SERV") == "122")
+                             ? servCode.AsEnumerable()
+                                      .First(r => r.Field<string>("SER_SERV") == "122")
+                                      .Field<string>("CORONA") ?? "N"
+                             : "N";
+
+                bool coronaa = tstcoronaa == "Y" ? true : false;
+                ///no roshita                
+                var dtNoRoshita = dbOra.RunReader(@"SELECT NVL(DAY_NO_ROSHTA_MON, 0) DAY_NO_ROSHTA_MON
+                                                 FROM APP.COMP_CUSTOMIZED_D_D_MED                                                                  
+                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' AND CLASS_CODE = '" + classCode + "' AND SER_SERV = '12601'");
+                int noRoshita = 0;
+                if (dtNoRoshita.Rows.Count > 0)
+                    noRoshita = int.Parse(dtNoRoshita.Rows[0][0].ToString());
+
+
+
+                //var rows = servCode.AsEnumerable().Where(r => r.Field<int>("SER_SERV") == 111);
+
+                //DataRow rowss = servCode.AsEnumerable().SingleOrDefault(r => r.Field<int>("SER_SERV") == 111);
+
+                //DataRow[] rows = servCode.Select("SER_SERV = 111");
+
+                var renwalFourMain = new RenewalOutsideMedicalAuthorityViewModel
+                {
+                    HospitalsResidenceServiceLimit = inpAm,
+                    HospitalsResidenceServiceLimitOld = inpAm,
+                    HospitalsResidenceServicePercentage = inpPer,
+                    HospitalsResidenceServicePercentageOld = inpPer,
+                    HospitalsResidenceServicePercentageoption = Isinp,
+                    HospitalsResidenceServiceLimitOption = Isinp,
+                    OutsideClinicsLimit = oputAm,
+                    OutsideClinicsLimitOld = oputAm,
+                    OutsideClinicsPercentage = oputPer,
+                    OutsideClinicsPercentageOld = oputPer,
+                    OutsideClinicsLimitOption = IsOut,
+                    OutsideClinicsPercentageoption = IsOut,
+                    ExaminationAndAnalysisLimit = labRayAm,
+                    ExaminationAndAnalysisLimitOld = labRayAm,
+                    ExaminationAndAnalysisPercentage = labRayPer,
+                    ExaminationAndAnalysisPercentageOld = labRayPer,
+                    ExaminationAndAnalysisLimitOption = IslabRay,
+                    ExaminationAndAnalysisPercentageoption = IslabRay,
+                    PhysicalTherapyLimit = phyAm,
+                    PhysicalTherapyLimitOld = phyAm,
+                    PhysicalTherapyPercentage = phyPer,
+                    PhysicalTherapyPercentageOld = phyPer,
+                    PhysicalTherapyLimitOption = Isphy,
+                    PhysicalTherapyPercentageoption = Isphy,
+                    DailyTherapyLimit = dailyAm,
+                    DailyTherapyLimitOld = dailyAm,
+                    DailyTherapyPercentage = dailyPer,
+                    DailyTherapyPercentageOld = dailyPer,
+                    DailyTherapyLimitOption = Isdaily,
+                    DailyTherapyPercentageoption = Isdaily,
+                    ChronicTherapyLimit = chronAm,
+                    ChronicTherapyLimitOld = chronAm,
+                    ChronicTherapyPercentage = chronPer,
+                    ChronicTherapyPercentageOld = chronPer,
+                    ChronicTherapyLimitOption = Ischron,
+                    ChronicTherapyPercentageoption = Ischron,
+                    NatChildBirthLimit = normaAm,
+                    NatChildBirthLimitOld = normaAm,
+                    NatChildBirthPercentage = normaPer,
+                    NatChildBirthPercentageOld = normaPer,
+                    NatChildBirthLimitOption = Isnorma,
+                    NatChildBirthPercentageoption = Isnorma,
+                    CaesChildBirthLimit = caesarAm,
+                    CaesChildBirthLimitOld = caesarAm,
+                    CaesChildBirthPercentage = caesarPer,
+                    CaesChildBirthPercentageOld = caesarPer,
+                    CaesChildBirthLimitOption = Iscaesar,
+                    CaesChildBirthPercentageoption = Iscaesar,
+                    LegalAbortionLimit = miscaAm,
+                    LegalAbortionLimitOld = miscaAm,
+                    LegalAbortionPercentage = miscaPer,
+                    LegalAbortionPercentageOld = miscaPer,
+                    LegalAbortionLimitOption = Ismisca,
+                    LegalAbortionPercentageoption = Ismisca,
+                    PregFollowUpLimit = folloAm,
+                    PregFollowUpLimitOld = folloAm,
+                    PregFollowUpPercentage = folloPer,
+                    PregFollowUpPercentageOld = folloPer,
+                    PregFollowUpLimitOption = Isfollo,
+                    PregFollowUpPercentageoption = Isfollo,
+
+                    AdvancedDentalServiceLimit = denAm,
+                    AdvancedDentalServiceLimitOld = denAm,
+                    BasicDentalServiceLimit = denAm,
+                    BasicDentalServiceLimitOld = denAm,
+                    AdvancedDentalServicePercentage = denPer,
+                    AdvancedDentalServicePercentageOld = denPer,
+                    BasicDentalServicePercentage = denPer,
+                    BasicDentalServicePercentageOld = denPer,
+                    AdvancedDentalServicePercentageoption = Isden,
+                    AdvancedDentalServiceLimitOption = Isden,
+                    BasicDentalServiceLimitOption = Isden,
+                    BasicDentalServicePercentageoption = Isden,
+                    OpticsLimit = optAm,
+                    OpticsLimitOld = optAm,
+                    OpticsPercentage = optPer,
+                    OpticsPercentageOld = optPer,
+                    OpticsLimitOption = Isopt,
+                    OpticsPercentageoption = Isopt,
+                    IntensiveCareDaysCount = int.Parse(icuAm.ToString()),
+                    IntensiveCareDaysCountOld = int.Parse(icuAm.ToString()),
+                    DailyRoshitasCountPerMonth = noRoshita,
+                    DailyRoshitasCountPerMonthOld = noRoshita,
+                    CoronaVaccineCoverage = coronaa,
+                    CoronaVaccineCoverageOld = coronaa,
+
+                    MainId = mainId,
+                    ClassCode = classCode,
+                    CompId = CompId,
+                    ContractNo = ContractNo,
+                    CountClass = countCat,
+                    typAction = typeAction
+
+
+                };
+
+                model.Add(renwalFourMain);
+
             }
 
+
+            //for (int i = 0; i < countCat; i++)
+            //{
+            //    // Create an instance of ProposalStepTwoViewModel and add it to the list
+            //    model.Add(new ProposalInsideMedicalAuthorityViewModel());
+            //}
+
+            return View(model);
         }
+
         // GET: ProposalMain/ProposalStepTwoEdit/1
         public ActionResult ProposalStepTwoEdit()
         {

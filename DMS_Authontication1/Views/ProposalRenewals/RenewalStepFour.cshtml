@@ -1,7 +1,7 @@
-﻿@model List<DMS_Authontication1.ViewModel.ProposalOutsideMedicalAuthorityViewModel>
+﻿@model List<DMS_Authontication1.ViewModel.RenewalOutsideMedicalAuthorityViewModel>
 @{ if (ViewBag != null)
     {
-        ViewBag.Title = "ProposalStepFourCreateAndStay"; Layout =
+        ViewBag.Title = "RenewalStepFourCreateAndStay"; Layout =
 "~/Views/Shared/_Layout_Proposal.cshtml"; var Errors = ViewBag.Errors;
     }
     var
@@ -163,6 +163,16 @@ index++)
                         }
                         <input hidden name="Model[@index].Id" value="@Model[index].Id" />
                         var model1 = Model[index];
+                        
+                        <input hidden name="Model[@index].Id" value="@Model[index].Id" />
+                        <input hidden name="Model[@index].MainId" value="@Model[index].MainId" />
+
+                        <input hidden name="Model[@index].CompId" value="@Model[index].CompId" />
+                        <input hidden name="Model[@index].ContractNo" value="@Model[index].ContractNo" />
+
+                        <input hidden name="Model[@index].ClassCode" value="@Model[index].ClassCode" />
+                        <input hidden name="Model[@index].CountClass" value="@Model[index].CountClass" />
+
                         <input type="hidden" name="Model[@index].HospitalsResidenceServiceLimitOption" id="HospitalsResidenceServiceLimitOption-hidden-@index" value="@model1.HospitalsResidenceServiceLimitOption.ToString().ToLower()" />
                         <input type="hidden" name="Model[@index].OutsideClinicsLimitOption" id="OutsideClinicsLimitOption-hidden-@index" value="@model1.OutsideClinicsLimitOption.ToString().ToLower()" />
                         <input type="hidden" name="Model[@index].ExaminationAndAnalysisLimitOption" id="ExaminationAndAnalysisLimitOption-hidden-@index" value="@model1.ExaminationAndAnalysisLimitOption.ToString().ToLower()" />
@@ -795,7 +805,7 @@ index++)
                                                             transform: translate(-50%);
                                                           "
                                                        type="text"
-                                                       class="dynamic-input" name="Model[@index].CoronaVaccine" value="@Model[index].CoronaVaccine" />
+                                                       class="dynamic-input" name="Model[@index].CoronaVacCoronaVaccineCoveragecine" value="@Model[index].CoronaVaccineCoverage" />
                                                 <input class="dynamic-radio form-check-input radio-no me-5"
                                                        type="radio"
                                                        name="Model[@index].CoronaVaccineCoverage"
@@ -815,14 +825,14 @@ index++)
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-0-1"
-                                                   name="Model[@index].HospitalsResidenceServiceLimit"
-                                                   value="@Model[index].HospitalsResidenceServiceLimit"
+                                                   name="Model[@index].HospitalsResidenceServiceLimitOld"
+                                                   value="@Model[index].HospitalsResidenceServiceLimitOld"
                                                    style="width: 50%; margin: 5px" />
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-0-2"
-                                                   name="Model[@index].HospitalsResidenceServicePercentage"
-                                                   value="@Model[index].HospitalsResidenceServicePercentage"
+                                                   name="Model[@index].HospitalsResidenceServicePercentageOld"
+                                                   value="@Model[index].HospitalsResidenceServicePercentageOld"
                                                    style="width: 50%; margin: 5px" />
                                         </div>
                                         <section class="form-check-container">
@@ -834,8 +844,8 @@ index++)
                                                        @(Model[index].HospitalsResidenceServiceLimitOption == true ? "checked" : "")
                                                        id="@(index+1)-0-1-2"
                                                        data-target="data-@(index+1)-0-1"
-                                                       onclick="updateHiddenInput('HospitalsResidenceServiceLimitOption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('HospitalsResidenceServiceLimitOption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-0-1-2">
                                                     حد التغطية
                                                 </label>
@@ -847,8 +857,8 @@ index++)
                                                        @(Model[index].HospitalsResidenceServicePercentageoption == true ? "checked" : "")
                                                        id="@(index+1)-0-2-2"
                                                        data-target="data-@(index+1)-0-2"
-                                                       onclick="updateHiddenInput('HospitalsResidenceServicePercentageoption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('HospitalsResidenceServicePercentageoption-hidden-@index', this)"
+                                                       disabled />
 
                                                 <label class="form-check-label" for="@(index+1)-0-2-2">
                                                     نسبه التغطية
@@ -861,14 +871,14 @@ index++)
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-1-1"
-                                                   name="Model[@index].OutsideClinicsLimit"
-                                                   value="@Model[index].OutsideClinicsLimit"
+                                                   name="Model[@index].OutsideClinicsLimitOld"
+                                                   value="@Model[index].OutsideClinicsLimitOld"
                                                    style="width: 50%; margin: 5px" />
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-1-2"
-                                                   name="Model[@index].OutsideClinicsPercentage"
-                                                   value="@Model[index].OutsideClinicsPercentage"
+                                                   name="Model[@index].OutsideClinicsPercentageOld"
+                                                   value="@Model[index].OutsideClinicsPercentageOld"
                                                    style="width: 50%; margin: 5px" />
                                         </div>
                                         <section class="form-check-container">
@@ -880,7 +890,7 @@ index++)
                                                        @(Model[index].OutsideClinicsLimitOption == true ? "checked" : "")
                                                        id="@(index+1)-1-1-2"
                                                        data-target="data-@(index+1)-1-1"
-                                                       onclick="updateHiddenInput('OutsideClinicsLimitOption-hidden-@index', this)" 
+                                                       onclick="updateHiddenInput('OutsideClinicsLimitOption-hidden-@index', this)"
                                                        disabled />
                                                 <label class="form-check-label" for="@(index+1)-1-1-2">
                                                     حد التغطية
@@ -894,8 +904,8 @@ index++)
                                                        @(Model[index].OutsideClinicsPercentageoption == true ? "checked" : "")
                                                        id="@(index+1)-1-2-2"
                                                        data-target="data-@(index+1)-1-2"
-                                                       onclick="updateHiddenInput('OutsideClinicsPercentageoption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('OutsideClinicsPercentageoption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-1-2-2">
                                                     نسبه التغطية
                                                 </label>
@@ -907,14 +917,14 @@ index++)
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-2-1"
-                                                   name="Model[@index].ExaminationAndAnalysisLimit"
-                                                   value="@Model[index].ExaminationAndAnalysisLimit"
+                                                   name="Model[@index].ExaminationAndAnalysisLimitOld"
+                                                   value="@Model[index].ExaminationAndAnalysisLimitOld"
                                                    style="width: 50%; margin: 5px" />
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-2-2"
-                                                   name="Model[@index].ExaminationAndAnalysisPercentage"
-                                                   value="@Model[index].ExaminationAndAnalysisPercentage"
+                                                   name="Model[@index].ExaminationAndAnalysisPercentageOld"
+                                                   value="@Model[index].ExaminationAndAnalysisPercentageOld"
                                                    style="width: 50%; margin: 5px" />
                                         </div>
                                         <section class="form-check-container">
@@ -926,7 +936,7 @@ index++)
                                                        @(Model[index].ExaminationAndAnalysisLimitOption == true ? "checked" : "")
                                                        id="@(index+1)-2-1-2"
                                                        data-target="data-@(index+1)-2-1"
-                                                       onclick="updateHiddenInput('ExaminationAndAnalysisLimitOption-hidden-@index', this)" 
+                                                       onclick="updateHiddenInput('ExaminationAndAnalysisLimitOption-hidden-@index', this)"
                                                        disabled />
                                                 <label class="form-check-label" for="@(index+1)-2-1-2">
                                                     حد التغطية
@@ -940,7 +950,7 @@ index++)
                                                        @(Model[index].ExaminationAndAnalysisPercentageoption == true ? "checked" : "")
                                                        id="@(index+1)-2-2-2"
                                                        data-target="data-@(index+1)-2-2"
-                                                       onclick="updateHiddenInput('ExaminationAndAnalysisPercentageoption-hidden-@index', this)" 
+                                                       onclick="updateHiddenInput('ExaminationAndAnalysisPercentageoption-hidden-@index', this)"
                                                        disabled />
                                                 <label class="form-check-label" for="@(index+1)-2-2-2">
                                                     نسبه التغطية
@@ -953,14 +963,14 @@ index++)
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-3-1"
-                                                   name="Model[@index].PhysicalTherapyLimit"
-                                                   value="@Model[index].PhysicalTherapyLimit"
+                                                   name="Model[@index].PhysicalTherapyLimitOld"
+                                                   value="@Model[index].PhysicalTherapyLimitOld"
                                                    style="width: 50%; margin: 5px" />
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-3-2"
-                                                   name="Model[@index].PhysicalTherapyPercentage"
-                                                   value="@Model[index].PhysicalTherapyPercentage"
+                                                   name="Model[@index].PhysicalTherapyPercentageOld"
+                                                   value="@Model[index].PhysicalTherapyPercentageOld"
                                                    style="width: 50%; margin: 5px" />
                                         </div>
                                         <section class="form-check-container">
@@ -972,8 +982,8 @@ index++)
                                                        @(Model[index].PhysicalTherapyLimitOption == true ? "checked" : "")
                                                        id="@(index+1)-3-1-2"
                                                        data-target="data-@(index+1)-3-1"
-                                                       onclick="updateHiddenInput('PhysicalTherapyLimitOption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('PhysicalTherapyLimitOption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-3-1-2">
                                                     حد التغطية
                                                 </label>
@@ -986,8 +996,8 @@ index++)
                                                        @(Model[index].PhysicalTherapyPercentageoption == true ? "checked" : "")
                                                        id="@(index+1)-3-2-2"
                                                        data-target="data-@(index+1)-3-2"
-                                                       onclick="updateHiddenInput('PhysicalTherapyPercentageoption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('PhysicalTherapyPercentageoption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-3-2-2">
                                                     نسبه التغطية
                                                 </label>
@@ -999,14 +1009,14 @@ index++)
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-4-1"
-                                                   name="Model[@index].DailyTherapyLimit"
-                                                   value="@Model[index].DailyTherapyLimit"
+                                                   name="Model[@index].DailyTherapyLimitOld"
+                                                   value="@Model[index].DailyTherapyLimitOld"
                                                    style="width: 50%; margin: 5px" />
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-4-2"
-                                                   name="Model[@index].DailyTherapyPercentage"
-                                                   value="@Model[index].DailyTherapyPercentage"
+                                                   name="Model[@index].DailyTherapyPercentageOld"
+                                                   value="@Model[index].DailyTherapyPercentageOld"
                                                    style="width: 50%; margin: 5px" />
                                         </div>
                                         <section class="form-check-container">
@@ -1018,8 +1028,8 @@ index++)
                                                        @(Model[index].DailyTherapyLimitOption == true ? "checked" : "")
                                                        id="@(index+1)-4-1-2"
                                                        data-target="data-@(index+1)-4-1"
-                                                       onclick="updateHiddenInput('DailyTherapyLimitOption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('DailyTherapyLimitOption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-4-1-2">
                                                     حد التغطية
                                                 </label>
@@ -1032,8 +1042,8 @@ index++)
                                                        @(Model[index].DailyTherapyPercentageoption == true ? "checked" : "")
                                                        id="@(index+1)-4-2-2"
                                                        data-target="data-@(index+1)-4-2"
-                                                       onclick="updateHiddenInput('DailyTherapyPercentageoption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('DailyTherapyPercentageoption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-4-2-2">
                                                     نسبه التغطية
                                                 </label>
@@ -1045,14 +1055,14 @@ index++)
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-5-1"
-                                                   name="Model[@index].ChronicTherapyLimit"
-                                                   value="@Model[index].ChronicTherapyLimit"
+                                                   name="Model[@index].ChronicTherapyLimitOld"
+                                                   value="@Model[index].ChronicTherapyLimitOld"
                                                    style="width: 50%; margin: 5px" />
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-5-2"
-                                                   name="Model[@index].ChronicTherapyPercentage"
-                                                   value="@Model[index].ChronicTherapyPercentage"
+                                                   name="Model[@index].ChronicTherapyPercentageOld"
+                                                   value="@Model[index].ChronicTherapyPercentageOld"
                                                    style="width: 50%; margin: 5px" />
                                         </div>
                                         <section class="form-check-container">
@@ -1064,7 +1074,7 @@ index++)
                                                        @(Model[index].ChronicTherapyLimitOption == true ? "checked" : "")
                                                        id="@(index+1)-5-1-2"
                                                        data-target="data-@(index+1)-5-1"
-                                                       onclick="updateHiddenInput('ChronicTherapyLimitOption-hidden-@index', this)" 
+                                                       onclick="updateHiddenInput('ChronicTherapyLimitOption-hidden-@index', this)"
                                                        disabled />
                                                 <label class="form-check-label" for="@(index+1)-5-1-2">
                                                     حد التغطية
@@ -1078,8 +1088,8 @@ index++)
                                                        @(Model[index].ChronicTherapyPercentageoption == true ? "checked" : "")
                                                        id="@(index+1)-5-2-2"
                                                        data-target="data-@(index+1)-5-2"
-                                                       onclick="updateHiddenInput('ChronicTherapyPercentageoption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('ChronicTherapyPercentageoption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-5-2-2">
                                                     نسبه التغطية
                                                 </label>
@@ -1091,14 +1101,14 @@ index++)
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-6-1"
-                                                   name="Model[@index].NatChildBirthLimit"
-                                                   value="@Model[index].NatChildBirthLimit"
+                                                   name="Model[@index].NatChildBirthLimitOld"
+                                                   value="@Model[index].NatChildBirthLimitOld"
                                                    style="width: 50%; margin: 5px" />
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-6-2"
-                                                   name="Model[@index].NatChildBirthPercentage"
-                                                   value="@Model[index].NatChildBirthPercentage"
+                                                   name="Model[@index].NatChildBirthPercentageOld"
+                                                   value="@Model[index].NatChildBirthPercentageOld"
                                                    style="width: 50%; margin: 5px" />
                                         </div>
                                         <section class="form-check-container">
@@ -1110,8 +1120,8 @@ index++)
                                                        @(Model[index].NatChildBirthLimitOption == true ? "checked" : "")
                                                        id="@(index+1)-6-1-2"
                                                        data-target="data-@(index+1)-6-1"
-                                                       onclick="updateHiddenInput('NatChildBirthLimitOption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('NatChildBirthLimitOption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-6-1-2">
                                                     حد التغطية
                                                 </label>
@@ -1124,8 +1134,8 @@ index++)
                                                        @(Model[index].NatChildBirthPercentageoption == true ? "checked" : "")
                                                        id="@(index+1)-6-2-2"
                                                        data-target="data-@(index+1)-6-2"
-                                                       onclick="updateHiddenInput('NatChildBirthPercentageoption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('NatChildBirthPercentageoption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-6-2-2">
                                                     نسبه التغطية
                                                 </label>
@@ -1137,14 +1147,14 @@ index++)
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-7-1"
-                                                   name="Model[@index].CaesChildBirthLimit"
-                                                   value="@Model[index].CaesChildBirthLimit"
+                                                   name="Model[@index].CaesChildBirthLimitOld"
+                                                   value="@Model[index].CaesChildBirthLimitOld"
                                                    style="width: 50%; margin: 5px" />
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-7-2"
-                                                   name="Model[@index].CaesChildBirthPercentage"
-                                                   value="@Model[index].CaesChildBirthPercentage"
+                                                   name="Model[@index].CaesChildBirthPercentageOld"
+                                                   value="@Model[index].CaesChildBirthPercentageOld"
                                                    style="width: 50%; margin: 5px" />
                                         </div>
                                         <section class="form-check-container">
@@ -1156,7 +1166,7 @@ index++)
                                                        @(Model[index].CaesChildBirthLimitOption == true ? "checked" : "")
                                                        id="@(index+1)-7-1-2"
                                                        data-target="data-@(index+1)-7-1"
-                                                       onclick="updateHiddenInput('CaesChildBirthLimitOption-hidden-@index', this)" 
+                                                       onclick="updateHiddenInput('CaesChildBirthLimitOption-hidden-@index', this)"
                                                        disabled />
                                                 <label class="form-check-label" for="@(index+1)-7-1-2">
                                                     حد التغطية
@@ -1170,7 +1180,7 @@ index++)
                                                        @(Model[index].CaesChildBirthPercentageoption == true ? "checked" : "")
                                                        id="@(index+1)-7-2-2"
                                                        data-target="data-@(index+1)-7-2"
-                                                       onclick="updateHiddenInput('CaesChildBirthPercentageoption-hidden-@index', this)" 
+                                                       onclick="updateHiddenInput('CaesChildBirthPercentageoption-hidden-@index', this)"
                                                        disabled />
                                                 <label class="form-check-label" for="@(index+1)-7-2-2">
                                                     نسبه التغطية
@@ -1183,14 +1193,14 @@ index++)
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-8-1"
-                                                   name="Model[@index].LegalAbortionLimit"
-                                                   value="@Model[index].LegalAbortionLimit"
+                                                   name="Model[@index].LegalAbortionLimitOld"
+                                                   value="@Model[index].LegalAbortionLimitOld"
                                                    style="width: 50%; margin: 5px" />
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-8-2"
-                                                   name="Model[@index].LegalAbortionPercentage"
-                                                   value="@Model[index].LegalAbortionPercentage"
+                                                   name="Model[@index].LegalAbortionPercentageOld"
+                                                   value="@Model[index].LegalAbortionPercentageOld"
                                                    style="width: 50%; margin: 5px" />
                                         </div>
                                         <section class="form-check-container">
@@ -1202,7 +1212,7 @@ index++)
                                                        @(Model[index].LegalAbortionLimitOption == true ? "checked" : "")
                                                        id="@(index+1)-8-1-2"
                                                        data-target="data-@(index+1)-8-1"
-                                                       onclick="updateHiddenInput('LegalAbortionLimitOption-hidden-@index', this)" 
+                                                       onclick="updateHiddenInput('LegalAbortionLimitOption-hidden-@index', this)"
                                                        disabled />
                                                 <label class="form-check-label" for="@(index+1)-8-1-2">
                                                     حد التغطية
@@ -1216,8 +1226,8 @@ index++)
                                                        @(Model[index].LegalAbortionPercentageoption == true ? "checked" : "")
                                                        id="@(index+1)-8-2-2"
                                                        data-target="data-@(index+1)-8-2"
-                                                       onclick="updateHiddenInput('LegalAbortionPercentageoption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('LegalAbortionPercentageoption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-8-2-2">
                                                     نسبه التغطية
                                                 </label>
@@ -1229,14 +1239,14 @@ index++)
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-9-1"
-                                                   name="Model[@index].PregFollowUpLimit"
-                                                   value="@Model[index].PregFollowUpLimit"
+                                                   name="Model[@index].PregFollowUpLimitOld"
+                                                   value="@Model[index].PregFollowUpLimitOld"
                                                    style="width: 50%; margin: 5px" />
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-9-2"
-                                                   name="Model[@index].PregFollowUpPercentage"
-                                                   value="@Model[index].PregFollowUpPercentage"
+                                                   name="Model[@index].PregFollowUpPercentageOld"
+                                                   value="@Model[index].PregFollowUpPercentageOld"
                                                    style="width: 50%; margin: 5px" />
                                         </div>
                                         <section class="form-check-container">
@@ -1248,8 +1258,8 @@ index++)
                                                        @(Model[index].PregFollowUpLimitOption == true ? "checked" : "")
                                                        id="@(index+1)-9-1-2"
                                                        data-target="data-@(index+1)-9-1"
-                                                       onclick="updateHiddenInput('PregFollowUpLimitOption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('PregFollowUpLimitOption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-9-1-2">
                                                     حد التغطية
                                                 </label>
@@ -1262,7 +1272,7 @@ index++)
                                                        @(Model[index].PregFollowUpPercentageoption == true ? "checked" : "")
                                                        id="@(index+1)-9-2-2"
                                                        data-target="data-@(index+1)-9-2"
-                                                       onclick="updateHiddenInput('PregFollowUpPercentageoption-hidden-@index', this)" 
+                                                       onclick="updateHiddenInput('PregFollowUpPercentageoption-hidden-@index', this)"
                                                        disabled />
                                                 <label class="form-check-label" for="@(index+1)-9-2-2">
                                                     نسبه التغطية
@@ -1275,14 +1285,14 @@ index++)
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-10-1"
-                                                   name="Model[@index].AdvancedDentalServiceLimit"
-                                                   value="@Model[index].AdvancedDentalServiceLimit"
+                                                   name="Model[@index].AdvancedDentalServiceLimitOld"
+                                                   value="@Model[index].AdvancedDentalServiceLimitOld"
                                                    style="width: 50%; margin: 5px" />
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-10-2"
-                                                   name="Model[@index].AdvancedDentalServicePercentage"
-                                                   value="@Model[index].AdvancedDentalServicePercentage"
+                                                   name="Model[@index].AdvancedDentalServicePercentageOld"
+                                                   value="@Model[index].AdvancedDentalServicePercentageOld"
                                                    style="width: 50%; margin: 5px" />
                                         </div>
                                         <section class="form-check-container">
@@ -1294,8 +1304,8 @@ index++)
                                                        @(Model[index].AdvancedDentalServiceLimitOption == true ? "checked" : "")
                                                        id="@(index+1)-10-1-2"
                                                        data-target="data-@(index+1)-10-1"
-                                                       onclick="updateHiddenInput('AdvancedDentalServiceLimitOption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('AdvancedDentalServiceLimitOption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-10-1-2">
                                                     حد التغطية
                                                 </label>
@@ -1308,8 +1318,8 @@ index++)
                                                        @(Model[index].AdvancedDentalServicePercentageoption == true ? "checked" : "")
                                                        id="@(index+1)-10-2-2"
                                                        data-target="data-@(index+1)-10-2"
-                                                       onclick="updateHiddenInput('AdvancedDentalServicePercentageoption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('AdvancedDentalServicePercentageoption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-10-2-2">
                                                     نسبه التغطية
                                                 </label>
@@ -1321,14 +1331,14 @@ index++)
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-11-1"
-                                                   name="Model[@index].BasicDentalServiceLimit"
-                                                   value="@Model[index].BasicDentalServiceLimit"
+                                                   name="Model[@index].BasicDentalServiceLimitOld"
+                                                   value="@Model[index].BasicDentalServiceLimitOld"
                                                    style="width: 50%; margin: 5px" />
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-11-2"
-                                                   name="Model[@index].BasicDentalServicePercentage"
-                                                   value="@Model[index].BasicDentalServicePercentage"
+                                                   name="Model[@index].BasicDentalServicePercentageOld"
+                                                   value="@Model[index].BasicDentalServicePercentageOld"
                                                    style="width: 50%; margin: 5px" />
                                         </div>
                                         <section class="form-check-container">
@@ -1340,8 +1350,8 @@ index++)
                                                        @(Model[index].BasicDentalServiceLimitOption == true ? "checked" : "")
                                                        id="@(index+1)-11-1-2"
                                                        data-target="data-@(index+1)-11-1"
-                                                       onclick="updateHiddenInput('BasicDentalServiceLimitOption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('BasicDentalServiceLimitOption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-11-1-2">
                                                     حد التغطية
                                                 </label>
@@ -1354,8 +1364,8 @@ index++)
                                                        @(Model[index].BasicDentalServicePercentageoption == true ? "checked" : "")
                                                        id="@(index+1)-11-2-2"
                                                        data-target="data-@(index+1)-11-2"
-                                                       onclick="updateHiddenInput('BasicDentalServicePercentageoption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('BasicDentalServicePercentageoption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-11-2-2">
                                                     نسبه التغطية
                                                 </label>
@@ -1367,17 +1377,17 @@ index++)
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-12-1"
-                                                   name="Model[@index].OpticsLimit"
-                                                   value="@Model[index].OpticsLimit"
-                                                   style="width: 50%; margin: 5px"  
-                                                       disabled/>
+                                                   name="Model[@index].OpticsLimitOld"
+                                                   value="@Model[index].OpticsLimitOld"
+                                                   style="width: 50%; margin: 5px"
+                                                   disabled />
                                             <input type="text"
                                                    disabled
                                                    id="data-@(index+1)-12-2"
-                                                   name="Model[@index].OpticsPercentage"
-                                                   value="@Model[index].OpticsPercentage"
-                                                   style="width: 50%; margin: 5px"  
-                                                       disabled/>
+                                                   name="Model[@index].OpticsPercentageOld"
+                                                   value="@Model[index].OpticsPercentageOld"
+                                                   style="width: 50%; margin: 5px"
+                                                   disabled />
                                         </div>
                                         <section class="form-check-container">
                                             <div class="form-check">
@@ -1388,8 +1398,8 @@ index++)
                                                        @(Model[index].OpticsLimitOption == true ? "checked" : "")
                                                        id="@(index+1)-12-1-2"
                                                        data-target="data-@(index+1)-12-1"
-                                                       onclick="updateHiddenInput('OpticsLimitOption-hidden-@index', this)"  
-                                                       disabled/>
+                                                       onclick="updateHiddenInput('OpticsLimitOption-hidden-@index', this)"
+                                                       disabled />
                                                 <label class="form-check-label" for="@(index+1)-12-1-2">
                                                     حد التغطية
                                                 </label>
@@ -1402,7 +1412,7 @@ index++)
                                                        @(Model[index].OpticsPercentageoption == true ? "checked" : "")
                                                        id="@(index+1)-12-2-2"
                                                        data-target="data-@(index+1)-12-2"
-                                                       onclick="updateHiddenInput('OpticsPercentageoption-hidden-@index', this)" 
+                                                       onclick="updateHiddenInput('OpticsPercentageoption-hidden-@index', this)"
                                                        disabled />
                                                 <label class="form-check-label" for="@(index+1)-12-2-2">
                                                     نسبه التغطية
@@ -1413,23 +1423,23 @@ index++)
 
 
                                     <div>
-                                        <input type="number" name="Model[@index].IntensiveCareDaysCount" value="@Model[index].IntensiveCareDaysCount" 
-                                                       disabled />
+                                        <input type="number" name="Model[@index].IntensiveCareDaysCountOld" value="@Model[index].IntensiveCareDaysCount"
+                                               disabled />
                                     </div>
                                     <div>
-                                        <input type="number" name="Model[@index].DailyRoshitasCountPerMonth" value="@Model[index].DailyRoshitasCountPerMonth"  
-                                                       disabled/>
+                                        <input type="number" name="Model[@index].DailyRoshitasCountPerMonthOld" value="@Model[index].DailyRoshitasCountPerMonth"
+                                               disabled />
                                     </div>
                                     <div>
                                         <section class="form-check-container position-relative">
                                             <div class="propo-radio-parent z-1 d-flex justify-content-between gap-2 fs-6 mt-5">
                                                 <input class="dynamic-radio form-check-input"
                                                        type="radio"
-                                                       name="Model[@index].CoronaVaccineCoverage"
-                                                       @(Model[index].CoronaVaccineCoverage == true ? "checked" : "")
+                                                       name="Model[@index].CoronaVaccineCoverageOld"
+                                                       @(Model[index].CoronaVaccineCoverageOld == true ? "checked" : "")
                                                        id="CoronaVaccineCoverage2@(index)_true"
-                                                       value="true"  
-                                                       disabled/>
+                                                       value="true"
+                                                       disabled />
                                                 <label class="form-check-label ms-3"
                                                        for="CoronaVaccineCoverage2@(index)_true">
                                                     نعم
@@ -1443,15 +1453,15 @@ index++)
                                                             transform: translate(-50%);
                                                           "
                                                        type="text"
-                                                       class="dynamic-input" name="Model[@index].CoronaVaccine" value="@Model[index].CoronaVaccine"  
-                                                       disabled/>
+                                                       class="dynamic-input" name="Model[@index].CoronaVaccineCoverageOld" value="@Model[index].CoronaVaccineCoverageOld"
+                                                       disabled />
                                                 <input class="dynamic-radio form-check-input radio-no me-5"
                                                        type="radio"
-                                                       name="Model[@index].CoronaVaccineCoverage"
-                                                       @(Model[index].CoronaVaccineCoverage == false ? "checked" : "")
+                                                       name="Model[@index].CoronaVaccineCoverageOld"
+                                                       @(Model[index].CoronaVaccineCoverageOld == false ? "checked" : "")
                                                        id="CoronaVaccineCoverage2@(index)_false"
-                                                       value="false"  
-                                                       disabled/>
+                                                       value="false"
+                                                       disabled />
                                                 <label class="form-check-label" for="CoronaVaccineCoverage2@(index)_false">
                                                     لا
                                                 </label>

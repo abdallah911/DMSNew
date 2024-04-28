@@ -21,5 +21,6 @@ namespace DMS_Authontication1.Models
         public Nullable<int> EmpCount { get; set; }
         public string UserId { get; set; }
         public string Code { get; set; }
+        public DateTime? CreatedDate { get; set; }
     }
 }
