@@ -6,9 +6,15 @@
 
 
 @Html.Partial("_ApprovalsSearchCards")
+<<<<<<< Updated upstream
 <div class="sios-container fw-bold portlet box green">
     <div class="row bg-overlay  editeRquest fw-bold  portlet-title">
         <div class="m-3 fs-3 text-white  caption">
+=======
+<div  class="sios-container editeRquest fw-bold pt-4 portlet box green">
+    <div class="row bg-overlay portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+>>>>>>> Stashed changes
             <i class="fa fa-home me-3"></i>Approvals
         </div>
 
@@ -17,10 +23,10 @@
         
         <div class="row">
             <div class="d-flex gap-3 mt-4 ms-3 form-group">
-                <div class="col-sm-3">
-                    <input id="AddCardTxt" type="text" placeholder="Add Card" class="admin-form-control ps-2" value="@ViewBag.cardId" />
+                <div class="d-flex gap-3 col-sm-3">
+                <div class=" ">
+                    <input style="width:200px;"  id="AddCardTxt" type="text" placeholder="Add Card" class="admin-form-control ps-2" value="@ViewBag.cardId" />
                 </div>
-                <div class="col-sm-3">
                     <button id="AddCard" class="btn rounded-3 text-white" data-toggle="modal" data-target="#exampleModal"> search</button>
                 </div>
 
