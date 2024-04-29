@@ -48,7 +48,7 @@
                         margin-left: 10px;
                         margin-right: 20px">السابق</a>*@
                     @*<button type="button" sclass="prev-butn" , style="text-decoration: none; color: transparent; margin-top: 20px; margin-left: 10px; margin-right: 20px" onclick="submitForm('back')">السابق</button>*@
-                    <button type="button" style="text-decoration: none; margin-top: 20px; margin-left: 10px; margin-right: 20px" class="prev-butn" onclick="submitForm('back')">السابق</button>
+                    @*<button type="button" style="text-decoration: none; margin-top: 20px; margin-left: 10px; margin-right: 20px" class="prev-butn" onclick="submitForm('back')">السابق</button>*@
 
                 </div>
                 <div>
@@ -717,8 +717,8 @@
             Save
         </a>*@
 
-                @Html.ActionLink("الغاء +", "Show", "ProposalRenewals", new { }, new { @class = "newDataBtn", style = "text-decoration:none;" })
-                @Html.ActionLink("جديد +", "Index", "ProposalRenewals", new { }, new { @class = "newDataBtn", style = "text-decoration:none;" })
+                @Html.ActionLink("الغاء +", "Show", "ProposalRenewals", new { }, new { @class = "prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5", style = "text-decoration:none;" })
+                @Html.ActionLink("جديد +", "Index", "ProposalRenewals", new { }, new { @class = "prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5", style = "text-decoration:none;" })
 
                 @*<button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="goToIndex()">الغاء</button>
                 <button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="clearForm()" id="NewForm">جديد</button>*@
