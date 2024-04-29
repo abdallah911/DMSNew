@@ -29,7 +29,6 @@ namespace DMS_Authontication1.Models
     
         public virtual DbSet<Acception> Acceptions { get; set; }
         public virtual DbSet<AcceptionReason> AcceptionReasons { get; set; }
-        public virtual DbSet<Basic_Data> Basic_Data { get; set; }
         public virtual DbSet<CardAcceptionReason> CardAcceptionReasons { get; set; }
         public virtual DbSet<COMP_CUSTOMIZED_D> COMP_CUSTOMIZED_D { get; set; }
         public virtual DbSet<Comp_Customized_D_D> Comp_Customized_D_D { get; set; }
@@ -43,7 +42,6 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<Contract_Data> Contract_Data { get; set; }
         public virtual DbSet<DailyPermission> DailyPermissions { get; set; }
         public virtual DbSet<Diagnosi> Diagnosis { get; set; }
-        public virtual DbSet<Employee_Request_Type> Employee_Request_Type { get; set; }
         public virtual DbSet<EmployeeRelation> EmployeeRelations { get; set; }
         public virtual DbSet<Gender> Genders { get; set; }
         public virtual DbSet<Governate> Governates { get; set; }
@@ -146,15 +144,24 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<ApprovalBil> ApprovalBils { get; set; }
         public virtual DbSet<CONSUMPTION_POOL> CONSUMPTION_POOL { get; set; }
         public virtual DbSet<CardsSm> CardsSms { get; set; }
-        public virtual DbSet<PETROTRADE_EMPLOYEES> PETROTRADE_EMPLOYEES { get; set; }
-        public virtual DbSet<ApprovalCode> ApprovalCodes { get; set; }
         public virtual DbSet<CardCode> CardCodes { get; set; }
+        public virtual DbSet<ApprovalCode> ApprovalCodes { get; set; }
+        public virtual DbSet<PETROTRADE_EMPLOYEES> PETROTRADE_EMPLOYEES { get; set; }
         public virtual DbSet<PrintMedicalReport> PrintMedicalReports { get; set; }
         public virtual DbSet<RenewalMain> RenewalMains { get; set; }
-        public DbSet<RenewalStepTwo> RenewalStepTwos { get; set; }
-        public DbSet<RenewalInsideMedicalAuthority> RenewalInsideMedicalAuthoritys { get; set; }
-        public DbSet<RenewalOutsideMedicalAuthority> RenewalOutsideMedicalAuthoritys { get; set; }
-
+        public virtual DbSet<AgeAvg> AgeAvgs { get; set; }
+        public virtual DbSet<RenewalInsideMedicalAuthority> RenewalInsideMedicalAuthorities { get; set; }
+        public virtual DbSet<RenewalOutsideMedicalAuthority> RenewalOutsideMedicalAuthorities { get; set; }
+        public virtual DbSet<RenewalStepTwo> RenewalStepTwoes { get; set; }
+        public virtual DbSet<Employee_Request_Type> Employee_Request_Type { get; set; }
+        public virtual DbSet<CompHolder> CompHolders { get; set; }
+        public virtual DbSet<HrUserPage> HrUserPages { get; set; }
+        public virtual DbSet<PendingCount> PendingCounts { get; set; }
+        public virtual DbSet<PendingInPatient> PendingInPatients { get; set; }
+        public virtual DbSet<PendingOutPatient> PendingOutPatients { get; set; }
+        public virtual DbSet<AlphabetLetter> AlphabetLetters { get; set; }
+        public virtual DbSet<Basic_Data> Basic_Data { get; set; }
+    
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)
         {

@@ -60,6 +60,23 @@
           <Property Name="StartMeeting" Type="nvarchar" MaxLength="50" />
           <Property Name="EndMeeting" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="AgeAvgs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AlphabetLetters">
+          <Key>
+            <PropertyRef Name="Active" />
+          </Key>
+          <Property Name="Id" Type="int" />
+          <Property Name="Letter" Type="char" MaxLength="1" />
+          <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
         <EntityType Name="APPROVAL_BAD">
           <Key>
             <PropertyRef Name="Id" />
@@ -781,6 +798,17 @@
           <Property Name="SyncBy" Type="nvarchar(max)" />
           <Property Name="FOR_FAMILY" Type="nchar" MaxLength="1" />
         </EntityType>
+        <EntityType Name="CompHolder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CompHolderCode" Type="int" Nullable="false" />
+          <Property Name="CompHolderName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="CompStatement">
           <Key>
             <PropertyRef Name="Id" />
@@ -1386,6 +1414,14 @@
           <Property Name="CompId" Type="nvarchar(max)" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="HrUserPages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PageName" Type="nvarchar(max)" />
+          <Property Name="Type" Type="int" />
+        </EntityType>
         <EntityType Name="Indemnity">
           <Key>
             <PropertyRef Name="BatchID" />
@@ -1755,6 +1791,33 @@
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="PendingCount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuthorizationType" Type="nvarchar(max)" />
+          <Property Name="Count" Type="int" />
+          <Property Name="Perc" Type="float" />
+        </EntityType>
+        <EntityType Name="PendingInPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InpatientOfflineSLA" Type="nvarchar(max)" />
+          <Property Name="Count" Type="int" />
+          <Property Name="Perc" Type="float" />
+        </EntityType>
+        <EntityType Name="PendingOutPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OutpatientOfflineSLA" Type="nvarchar(max)" />
+          <Property Name="Count" Type="int" />
+          <Property Name="Perc" Type="float" />
+        </EntityType>
         <EntityType Name="PETROTRADE_EMPLOYEES">
           <Key>
             <PropertyRef Name="Id" />
@@ -2066,8 +2129,69 @@
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
           <Property Name="SyncDate" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB_A45413_DMSERP.dbo.RenewalMains' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RenewalInsideMedicalAuthorities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HospitalsResidenceServiceLimitOption" Type="bit" Nullable="false" />
+          <Property Name="HospitalsResidenceServicePercentageoption" Type="bit" Nullable="false" />
+          <Property Name="HospitalsResidenceServiceLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="HospitalsResidenceServicePercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OutsideClinicsLimitOption" Type="bit" Nullable="false" />
+          <Property Name="OutsideClinicsPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="OutsideClinicsLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OutsideClinicsPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ExaminationAndAnalysisLimitOption" Type="bit" Nullable="false" />
+          <Property Name="ExaminationAndAnalysisPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="ExaminationAndAnalysisLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ExaminationAndAnalysisPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PhysicalTherapyLimitOption" Type="bit" Nullable="false" />
+          <Property Name="PhysicalTherapyPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="PhysicalTherapyLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PhysicalTherapyPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DailyTherapyLimitOption" Type="bit" Nullable="false" />
+          <Property Name="DailyTherapyPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="DailyTherapyLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DailyTherapyPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ChronicTherapyLimitOption" Type="bit" Nullable="false" />
+          <Property Name="ChronicTherapyPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="ChronicTherapyLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ChronicTherapyPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NatChildBirthLimitOption" Type="bit" Nullable="false" />
+          <Property Name="NatChildBirthPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="NatChildBirthLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NatChildBirthPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CaesChildBirthLimitOption" Type="bit" Nullable="false" />
+          <Property Name="CaesChildBirthPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="CaesChildBirthLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CaesChildBirthPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="LegalAbortionLimitOption" Type="bit" Nullable="false" />
+          <Property Name="LegalAbortionPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="LegalAbortionLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="LegalAbortionPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PregFollowUpLimitOption" Type="bit" Nullable="false" />
+          <Property Name="PregFollowUpPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="PregFollowUpLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PregFollowUpPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="AdvancedDentalServiceLimitOption" Type="bit" Nullable="false" />
+          <Property Name="AdvancedDentalServicePercentageoption" Type="bit" Nullable="false" />
+          <Property Name="AdvancedDentalServiceLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="AdvancedDentalServicePercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="BasicDentalServiceLimitOption" Type="bit" Nullable="false" />
+          <Property Name="BasicDentalServicePercentageoption" Type="bit" Nullable="false" />
+          <Property Name="BasicDentalServiceLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="BasicDentalServicePercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OpticsLimitOption" Type="bit" Nullable="false" />
+          <Property Name="OpticsPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="OpticsLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OpticsPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IntensiveCareDaysCount" Type="int" Nullable="false" />
+          <Property Name="DailyRoshitasCountPerMonth" Type="int" Nullable="false" />
+          <Property Name="CoronaVaccineCoverage" Type="bit" Nullable="false" />
+          <Property Name="MainId" Type="int" Nullable="false" />
+          <Property Name="ClassCode" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="RenewalMains">
           <Key>
             <PropertyRef Name="Id" />
@@ -2079,6 +2203,95 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.RenewalMains' does not have a
           <Property Name="EmpCount" Type="int" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" />
           <Property Name="Code" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="date" />
+        </EntityType>
+        <EntityType Name="RenewalOutsideMedicalAuthorities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HospitalsResidenceServiceLimitOption" Type="bit" Nullable="false" />
+          <Property Name="HospitalsResidenceServicePercentageoption" Type="bit" Nullable="false" />
+          <Property Name="HospitalsResidenceServiceLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="HospitalsResidenceServicePercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OutsideClinicsLimitOption" Type="bit" Nullable="false" />
+          <Property Name="OutsideClinicsPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="OutsideClinicsLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OutsideClinicsPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ExaminationAndAnalysisLimitOption" Type="bit" Nullable="false" />
+          <Property Name="ExaminationAndAnalysisPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="ExaminationAndAnalysisLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ExaminationAndAnalysisPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PhysicalTherapyLimitOption" Type="bit" Nullable="false" />
+          <Property Name="PhysicalTherapyPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="PhysicalTherapyLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PhysicalTherapyPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DailyTherapyLimitOption" Type="bit" Nullable="false" />
+          <Property Name="DailyTherapyPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="DailyTherapyLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DailyTherapyPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ChronicTherapyLimitOption" Type="bit" Nullable="false" />
+          <Property Name="ChronicTherapyPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="ChronicTherapyLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ChronicTherapyPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NatChildBirthLimitOption" Type="bit" Nullable="false" />
+          <Property Name="NatChildBirthPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="NatChildBirthLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NatChildBirthPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CaesChildBirthLimitOption" Type="bit" Nullable="false" />
+          <Property Name="CaesChildBirthPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="CaesChildBirthLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CaesChildBirthPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="LegalAbortionLimitOption" Type="bit" Nullable="false" />
+          <Property Name="LegalAbortionPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="LegalAbortionLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="LegalAbortionPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PregFollowUpLimitOption" Type="bit" Nullable="false" />
+          <Property Name="PregFollowUpPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="PregFollowUpLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PregFollowUpPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="AdvancedDentalServiceLimitOption" Type="bit" Nullable="false" />
+          <Property Name="AdvancedDentalServicePercentageoption" Type="bit" Nullable="false" />
+          <Property Name="AdvancedDentalServiceLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="AdvancedDentalServicePercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="BasicDentalServiceLimitOption" Type="bit" Nullable="false" />
+          <Property Name="BasicDentalServicePercentageoption" Type="bit" Nullable="false" />
+          <Property Name="BasicDentalServiceLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="BasicDentalServicePercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OpticsLimitOption" Type="bit" Nullable="false" />
+          <Property Name="OpticsPercentageoption" Type="bit" Nullable="false" />
+          <Property Name="OpticsLimit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OpticsPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IntensiveCareDaysCount" Type="int" Nullable="false" />
+          <Property Name="DailyRoshitasCountPerMonth" Type="int" Nullable="false" />
+          <Property Name="CoronaVaccineCoverage" Type="bit" Nullable="false" />
+          <Property Name="MainId" Type="int" Nullable="false" />
+          <Property Name="ClassCode" Type="int" Nullable="false" />
+          <Property Name="DoctorsExaminationValue" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PricesOutsideMedicalAuthorityId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RenewalStepTwo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnnualCoverageCeiling" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ParticipantsCount" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="MinAge" Type="int" />
+          <Property Name="MaxAge" Type="int" />
+          <Property Name="AvgAge" Type="int" />
+          <Property Name="ChecksInsideHospital" Type="int" Nullable="false" />
+          <Property Name="PhysicalTherapyInsideHospital" Type="int" Nullable="false" />
+          <Property Name="OutsideClincInsideHospital" Type="int" Nullable="false" />
+          <Property Name="DentalServicesInsideHospital" Type="int" Nullable="false" />
+          <Property Name="CardColorId" Type="int" Nullable="false" />
+          <Property Name="ResidenceDegreeId" Type="int" Nullable="false" />
+          <Property Name="MedicalNetworkId" Type="int" Nullable="false" />
+          <Property Name="MainId" Type="int" Nullable="false" />
+          <Property Name="ClassCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Accidents" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Death" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="RequestAddProvider">
           <Key>
@@ -2497,7 +2710,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.RenewalMains' does not have a
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Swap">
           <Key>
             <PropertyRef Name="Id" />
@@ -2945,6 +3158,42 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RenewalInsideMedicalAuthorities_RenewalMains">
+          <End Role="RenewalMains" Type="Self.RenewalMains" Multiplicity="1" />
+          <End Role="RenewalInsideMedicalAuthorities" Type="Self.RenewalInsideMedicalAuthorities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RenewalMains">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalInsideMedicalAuthorities">
+              <PropertyRef Name="MainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RenewalOutsideMedicalAuthorities_RenewalMains">
+          <End Role="RenewalMains" Type="Self.RenewalMains" Multiplicity="1" />
+          <End Role="RenewalOutsideMedicalAuthorities" Type="Self.RenewalOutsideMedicalAuthorities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RenewalMains">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalOutsideMedicalAuthorities">
+              <PropertyRef Name="MainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RenewalStepTwo_RenewalMains">
+          <End Role="RenewalMains" Type="Self.RenewalMains" Multiplicity="1" />
+          <End Role="RenewalStepTwo" Type="Self.RenewalStepTwo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RenewalMains">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalStepTwo">
+              <PropertyRef Name="MainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RequestAddProvider_ProviderTypeNew">
           <End Role="ProviderTypeNew" Type="Self.ProviderTypeNew" Multiplicity="0..1" />
           <End Role="RequestAddProvider" Type="Self.RequestAddProvider" Multiplicity="*" />
@@ -3344,6 +3593,7 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
           <EntitySet Name="Acception" EntityType="Self.Acception" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AcceptionReasons" EntityType="Self.AcceptionReasons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AfterSale" EntityType="Self.AfterSale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgeAvgs" EntityType="Self.AgeAvgs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="APPROVAL_BAD" EntityType="Self.APPROVAL_BAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApprovalBil" EntityType="Self.ApprovalBil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApprovalCode" EntityType="Self.ApprovalCode" Schema="dbo" store:Type="Tables" />
@@ -3366,6 +3616,7 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
           <EntitySet Name="CompanyContractPhoto" EntityType="Self.CompanyContractPhoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompContractClass" EntityType="Self.CompContractClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompContractClassEmp" EntityType="Self.CompContractClassEmp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompHolder" EntityType="Self.CompHolder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompStatement" EntityType="Self.CompStatement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONSUMPTION_POOL" EntityType="Self.CONSUMPTION_POOL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactUs" EntityType="Self.ContactUs" Schema="dbo" store:Type="Tables" />
@@ -3401,6 +3652,7 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
           <EntitySet Name="HospitalDoctors" EntityType="Self.HospitalDoctors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HospitalServices" EntityType="Self.HospitalServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HrAdminCompanies" EntityType="Self.HrAdminCompanies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HrUserPages" EntityType="Self.HrUserPages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Indemnity" EntityType="Self.Indemnity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IndemnityCardsServices" EntityType="Self.IndemnityCardsServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IndemnityMaster" EntityType="Self.IndemnityMaster" Schema="dbo" store:Type="Tables" />
@@ -3423,6 +3675,9 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
           <EntitySet Name="Name_Ray_Cen" EntityType="Self.Name_Ray_Cen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patchs" EntityType="Self.Patchs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PendingCount" EntityType="Self.PendingCount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PendingInPatient" EntityType="Self.PendingInPatient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PendingOutPatient" EntityType="Self.PendingOutPatient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PETROTRADE_EMPLOYEES" EntityType="Self.PETROTRADE_EMPLOYEES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pr_Bra" EntityType="Self.Pr_Bra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrescriptionRoshitaDignosis" EntityType="Self.PrescriptionRoshitaDignosis" Schema="dbo" store:Type="Tables" />
@@ -3445,6 +3700,10 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
           <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelationShip" EntityType="Self.RelationShip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RemainConsumption" EntityType="Self.RemainConsumption" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RenewalInsideMedicalAuthorities" EntityType="Self.RenewalInsideMedicalAuthorities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RenewalMains" EntityType="Self.RenewalMains" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RenewalOutsideMedicalAuthorities" EntityType="Self.RenewalOutsideMedicalAuthorities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RenewalStepTwo" EntityType="Self.RenewalStepTwo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestAddProvider" EntityType="Self.RequestAddProvider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roshita" EntityType="Self.Roshita" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoshitaAcceptions" EntityType="Self.RoshitaAcceptions" Schema="dbo" store:Type="Tables" />
@@ -3463,16 +3722,12 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
           <EntitySet Name="Specialities1" EntityType="Self.Specialities1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCompanyPermission" EntityType="Self.UserCompanyPermission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersInternalCode" EntityType="Self.UsersInternalCode" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RenewalMains" EntityType="Self.RenewalMains" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="AlphabetLetters" EntityType="Self.AlphabetLetters" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [RenewalMains].[Id] AS [Id], 
-    [RenewalMains].[CompId] AS [CompId], 
-    [RenewalMains].[ContractNo] AS [ContractNo], 
-    [RenewalMains].[ClassCount] AS [ClassCount], 
-    [RenewalMains].[EmpCount] AS [EmpCount], 
-    [RenewalMains].[UserId] AS [UserId], 
-    [RenewalMains].[Code] AS [Code]
-    FROM [dbo].[RenewalMains] AS [RenewalMains]</DefiningQuery>
+    [AlphabetLetters].[Id] AS [Id], 
+    [AlphabetLetters].[Letter] AS [Letter], 
+    [AlphabetLetters].[Active] AS [Active]
+    FROM [dbo].[AlphabetLetters] AS [AlphabetLetters]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Swap" EntityType="Self.Swap" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -3619,6 +3874,18 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
             <End Role="Country" EntitySet="Country" />
             <End Role="Region" EntitySet="Region" />
           </AssociationSet>
+          <AssociationSet Name="FK_RenewalInsideMedicalAuthorities_RenewalMains" Association="Self.FK_RenewalInsideMedicalAuthorities_RenewalMains">
+            <End Role="RenewalMains" EntitySet="RenewalMains" />
+            <End Role="RenewalInsideMedicalAuthorities" EntitySet="RenewalInsideMedicalAuthorities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RenewalOutsideMedicalAuthorities_RenewalMains" Association="Self.FK_RenewalOutsideMedicalAuthorities_RenewalMains">
+            <End Role="RenewalMains" EntitySet="RenewalMains" />
+            <End Role="RenewalOutsideMedicalAuthorities" EntitySet="RenewalOutsideMedicalAuthorities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RenewalStepTwo_RenewalMains" Association="Self.FK_RenewalStepTwo_RenewalMains">
+            <End Role="RenewalMains" EntitySet="RenewalMains" />
+            <End Role="RenewalStepTwo" EntitySet="RenewalStepTwo" />
+          </AssociationSet>
           <AssociationSet Name="FK_RequestAddProvider_ProviderTypeNew" Association="Self.FK_RequestAddProvider_ProviderTypeNew">
             <End Role="ProviderTypeNew" EntitySet="ProviderTypeNew" />
             <End Role="RequestAddProvider" EntitySet="RequestAddProvider" />
@@ -3688,45 +3955,6 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CardAcceptionReasons" Relationship="Self.FK_CardAcceptionReasons_AcceptionReasons" FromRole="AcceptionReasons" ToRole="CardAcceptionReasons" />
-        </EntityType>
-        <EntityType Name="Basic_Data">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BS_CODE" Type="Int32" Nullable="false" />
-          <Property Name="SOURCE_MOD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="COMP_ID" Type="Int32" Nullable="false" />
-          <Property Name="BRANCH_CODE" Type="Int32" Nullable="false" />
-          <Property Name="BS_CODE_UP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="BS_ANAME" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="BS_ENAME" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="BS_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="NOTES" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ACTIVE" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="SERV_CODE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AMT" Type="Int32" />
-          <Property Name="START_DATE" Type="DateTime" Precision="3" />
-          <Property Name="END_DATE" Type="DateTime" Precision="3" />
-          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
-          <Property Name="CREATED_BY" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UPDATE_BY" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UPDATE_DATE" Type="DateTime" Precision="3" />
-          <Property Name="ISSUE_QTY" Type="Int32" />
-          <Property Name="DELV_QTY" Type="Int32" />
-          <Property Name="ADJUST_TYP" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="ADJUST_PERIOD" Type="Int32" />
-          <Property Name="MAX_COLLECT_TIME" Type="Int32" />
-          <Property Name="USED_TYP" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="USED_VAL" Type="Int32" />
-          <Property Name="USED_PERIOD" Type="Int32" />
-          <Property Name="NO_RETURN_MONTH" Type="Int32" />
-          <Property Name="USED_TYP_ADD" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="IsSync" Type="Boolean" />
-          <Property Name="SyncDate" Type="DateTime" Precision="3" />
-          <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="CardAcceptionReason">
           <Key>
@@ -4210,14 +4438,6 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Employee_Request_Type">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ArName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EnName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeRelation">
           <Key>
@@ -4900,7 +5120,6 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
         <EntityContainer Name="DMS_TESTEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Acceptions" EntityType="Self.Acception" />
           <EntitySet Name="AcceptionReasons" EntityType="Self.AcceptionReason" />
-          <EntitySet Name="Basic_Data" EntityType="Self.Basic_Data" />
           <EntitySet Name="CardAcceptionReasons" EntityType="Self.CardAcceptionReason" />
           <EntitySet Name="COMP_CUSTOMIZED_D" EntityType="Self.COMP_CUSTOMIZED_D" />
           <EntitySet Name="Comp_Customized_D_D" EntityType="Self.Comp_Customized_D_D" />
@@ -4914,7 +5133,6 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
           <EntitySet Name="Contract_Data" EntityType="Self.Contract_Data" />
           <EntitySet Name="DailyPermissions" EntityType="Self.DailyPermission" />
           <EntitySet Name="Diagnosis" EntityType="Self.Diagnosi" />
-          <EntitySet Name="Employee_Request_Type" EntityType="Self.Employee_Request_Type" />
           <EntitySet Name="EmployeeRelations" EntityType="Self.EmployeeRelation" />
           <EntitySet Name="Genders" EntityType="Self.Gender" />
           <EntitySet Name="Governates" EntityType="Self.Governate" />
@@ -5288,6 +5506,35 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
             <Parameter Name="Status" Mode="In" Type="String" />
             <Parameter Name="userName" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="CardCodes" EntityType="DB_A45413_DMSERPModel.CardCode" />
+          <EntitySet Name="ApprovalCodes" EntityType="DB_A45413_DMSERPModel.ApprovalCode" />
+          <EntitySet Name="PETROTRADE_EMPLOYEES" EntityType="DB_A45413_DMSERPModel.PETROTRADE_EMPLOYEES" />
+          <EntitySet Name="PrintMedicalReports" EntityType="DB_A45413_DMSERPModel.PrintMedicalReport" />
+          <EntitySet Name="RenewalMains" EntityType="DB_A45413_DMSERPModel.RenewalMain" />
+          <EntitySet Name="AgeAvgs" EntityType="DB_A45413_DMSERPModel.AgeAvg" />
+          <EntitySet Name="RenewalInsideMedicalAuthorities" EntityType="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority" />
+          <EntitySet Name="RenewalOutsideMedicalAuthorities" EntityType="DB_A45413_DMSERPModel.RenewalOutsideMedicalAuthority" />
+          <EntitySet Name="RenewalStepTwoes" EntityType="DB_A45413_DMSERPModel.RenewalStepTwo" />
+          <AssociationSet Name="FK_RenewalInsideMedicalAuthorities_RenewalMains" Association="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains">
+            <End Role="RenewalMain" EntitySet="RenewalMains" />
+            <End Role="RenewalInsideMedicalAuthority" EntitySet="RenewalInsideMedicalAuthorities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RenewalOutsideMedicalAuthorities_RenewalMains" Association="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_RenewalMains">
+            <End Role="RenewalMain" EntitySet="RenewalMains" />
+            <End Role="RenewalOutsideMedicalAuthority" EntitySet="RenewalOutsideMedicalAuthorities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RenewalStepTwo_RenewalMains" Association="DB_A45413_DMSERPModel.FK_RenewalStepTwo_RenewalMains">
+            <End Role="RenewalMain" EntitySet="RenewalMains" />
+            <End Role="RenewalStepTwo" EntitySet="RenewalStepTwoes" />
+          </AssociationSet>
+          <EntitySet Name="Employee_Request_Type" EntityType="DB_A45413_DMSERPModel.Employee_Request_Type" />
+          <EntitySet Name="CompHolders" EntityType="DB_A45413_DMSERPModel.CompHolder" />
+          <EntitySet Name="HrUserPages" EntityType="DB_A45413_DMSERPModel.HrUserPage" />
+          <EntitySet Name="PendingCounts" EntityType="DB_A45413_DMSERPModel.PendingCount" />
+          <EntitySet Name="PendingInPatients" EntityType="DB_A45413_DMSERPModel.PendingInPatient" />
+          <EntitySet Name="PendingOutPatients" EntityType="DB_A45413_DMSERPModel.PendingOutPatient" />
+          <EntitySet Name="AlphabetLetters" EntityType="DB_A45413_DMSERPModel.AlphabetLetter" />
+          <EntitySet Name="Basic_Data" EntityType="DB_A45413_DMSERPModel.Basic_Data" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7300,7 +7547,31 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
           <Property Name="CardId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-    
+        <EntityType Name="CardCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CardId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsUsed" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ApprovalCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Card_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="PETROTRADE_EMPLOYEES">
           <Key>
             <PropertyRef Name="Id" />
@@ -7322,7 +7593,333 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
           <Property Name="CREATED_BY" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-      
+        <EntityType Name="PrintMedicalReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompNumber" Type="Int32" />
+          <Property Name="ProviderType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Speciality" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CardId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="RenewalMain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompId" Type="Int64" />
+          <Property Name="ContractNo" Type="Int32" />
+          <Property Name="ClassCount" Type="Int32" />
+          <Property Name="EmpCount" Type="Int32" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RenewalInsideMedicalAuthorities" Relationship="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains" FromRole="RenewalMain" ToRole="RenewalInsideMedicalAuthority" />
+          <NavigationProperty Name="RenewalOutsideMedicalAuthorities" Relationship="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_RenewalMains" FromRole="RenewalMain" ToRole="RenewalOutsideMedicalAuthority" />
+          <NavigationProperty Name="RenewalStepTwoes" Relationship="DB_A45413_DMSERPModel.FK_RenewalStepTwo_RenewalMains" FromRole="RenewalMain" ToRole="RenewalStepTwo" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="AgeAvg">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RenewalInsideMedicalAuthority">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HospitalsResidenceServiceLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="HospitalsResidenceServicePercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="HospitalsResidenceServiceLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="HospitalsResidenceServicePercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OutsideClinicsLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="OutsideClinicsPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="OutsideClinicsLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OutsideClinicsPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExaminationAndAnalysisLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="ExaminationAndAnalysisPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="ExaminationAndAnalysisLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExaminationAndAnalysisPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PhysicalTherapyLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="PhysicalTherapyPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="PhysicalTherapyLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PhysicalTherapyPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DailyTherapyLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="DailyTherapyPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="DailyTherapyLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DailyTherapyPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ChronicTherapyLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="ChronicTherapyPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="ChronicTherapyLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ChronicTherapyPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NatChildBirthLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="NatChildBirthPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="NatChildBirthLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NatChildBirthPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CaesChildBirthLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="CaesChildBirthPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="CaesChildBirthLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CaesChildBirthPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LegalAbortionLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="LegalAbortionPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="LegalAbortionLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LegalAbortionPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PregFollowUpLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="PregFollowUpPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="PregFollowUpLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PregFollowUpPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AdvancedDentalServiceLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="AdvancedDentalServicePercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="AdvancedDentalServiceLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AdvancedDentalServicePercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BasicDentalServiceLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="BasicDentalServicePercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="BasicDentalServiceLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BasicDentalServicePercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OpticsLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="OpticsPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="OpticsLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OpticsPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IntensiveCareDaysCount" Type="Int32" Nullable="false" />
+          <Property Name="DailyRoshitasCountPerMonth" Type="Int32" Nullable="false" />
+          <Property Name="CoronaVaccineCoverage" Type="Boolean" Nullable="false" />
+          <Property Name="MainId" Type="Int32" Nullable="false" />
+          <Property Name="ClassCode" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RenewalMain" Relationship="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains" FromRole="RenewalInsideMedicalAuthority" ToRole="RenewalMain" />
+        </EntityType>
+        <EntityType Name="RenewalOutsideMedicalAuthority">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HospitalsResidenceServiceLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="HospitalsResidenceServicePercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="HospitalsResidenceServiceLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="HospitalsResidenceServicePercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OutsideClinicsLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="OutsideClinicsPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="OutsideClinicsLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OutsideClinicsPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExaminationAndAnalysisLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="ExaminationAndAnalysisPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="ExaminationAndAnalysisLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExaminationAndAnalysisPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PhysicalTherapyLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="PhysicalTherapyPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="PhysicalTherapyLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PhysicalTherapyPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DailyTherapyLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="DailyTherapyPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="DailyTherapyLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DailyTherapyPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ChronicTherapyLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="ChronicTherapyPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="ChronicTherapyLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ChronicTherapyPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NatChildBirthLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="NatChildBirthPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="NatChildBirthLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NatChildBirthPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CaesChildBirthLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="CaesChildBirthPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="CaesChildBirthLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CaesChildBirthPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LegalAbortionLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="LegalAbortionPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="LegalAbortionLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LegalAbortionPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PregFollowUpLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="PregFollowUpPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="PregFollowUpLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PregFollowUpPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AdvancedDentalServiceLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="AdvancedDentalServicePercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="AdvancedDentalServiceLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AdvancedDentalServicePercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BasicDentalServiceLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="BasicDentalServicePercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="BasicDentalServiceLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BasicDentalServicePercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OpticsLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="OpticsPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="OpticsLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OpticsPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IntensiveCareDaysCount" Type="Int32" Nullable="false" />
+          <Property Name="DailyRoshitasCountPerMonth" Type="Int32" Nullable="false" />
+          <Property Name="CoronaVaccineCoverage" Type="Boolean" Nullable="false" />
+          <Property Name="MainId" Type="Int32" Nullable="false" />
+          <Property Name="ClassCode" Type="Int32" Nullable="false" />
+          <Property Name="DoctorsExaminationValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PricesOutsideMedicalAuthorityId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RenewalMain" Relationship="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_RenewalMains" FromRole="RenewalOutsideMedicalAuthority" ToRole="RenewalMain" />
+        </EntityType>
+        <EntityType Name="RenewalStepTwo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnnualCoverageCeiling" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ParticipantsCount" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="MinAge" Type="Int32" />
+          <Property Name="MaxAge" Type="Int32" />
+          <Property Name="AvgAge" Type="Int32" />
+          <Property Name="ChecksInsideHospital" Type="Int32" Nullable="false" />
+          <Property Name="PhysicalTherapyInsideHospital" Type="Int32" Nullable="false" />
+          <Property Name="OutsideClincInsideHospital" Type="Int32" Nullable="false" />
+          <Property Name="DentalServicesInsideHospital" Type="Int32" Nullable="false" />
+          <Property Name="CardColorId" Type="Int32" Nullable="false" />
+          <Property Name="ResidenceDegreeId" Type="Int32" Nullable="false" />
+          <Property Name="MedicalNetworkId" Type="Int32" Nullable="false" />
+          <Property Name="MainId" Type="Int32" Nullable="false" />
+          <Property Name="ClassCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Accidents" Type="Decimal" Nullable="false" />
+          <Property Name="Death" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="RenewalMain" Relationship="DB_A45413_DMSERPModel.FK_RenewalStepTwo_RenewalMains" FromRole="RenewalStepTwo" ToRole="RenewalMain" />
+        </EntityType>
+        <Association Name="FK_RenewalInsideMedicalAuthorities_RenewalMains">
+          <End Type="DB_A45413_DMSERPModel.RenewalMain" Role="RenewalMain" Multiplicity="1" />
+          <End Type="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority" Role="RenewalInsideMedicalAuthority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RenewalMain">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalInsideMedicalAuthority">
+              <PropertyRef Name="MainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RenewalOutsideMedicalAuthorities_RenewalMains">
+          <End Type="DB_A45413_DMSERPModel.RenewalMain" Role="RenewalMain" Multiplicity="1" />
+          <End Type="DB_A45413_DMSERPModel.RenewalOutsideMedicalAuthority" Role="RenewalOutsideMedicalAuthority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RenewalMain">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalOutsideMedicalAuthority">
+              <PropertyRef Name="MainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RenewalStepTwo_RenewalMains">
+          <End Type="DB_A45413_DMSERPModel.RenewalMain" Role="RenewalMain" Multiplicity="1" />
+          <End Type="DB_A45413_DMSERPModel.RenewalStepTwo" Role="RenewalStepTwo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RenewalMain">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalStepTwo">
+              <PropertyRef Name="MainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Employee_Request_Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EnName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CompHolder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CompHolderCode" Type="Int32" Nullable="false" />
+          <Property Name="CompHolderName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="HrUserPage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PageName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PendingCount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuthorizationType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Perc" Type="Double" />
+        </EntityType>
+        <EntityType Name="PendingInPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InpatientOfflineSLA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Perc" Type="Double" />
+        </EntityType>
+        <EntityType Name="PendingOutPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OutpatientOfflineSLA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Perc" Type="Double" />
+        </EntityType>
+        <EntityType Name="AlphabetLetter">
+          <Key>
+            <PropertyRef Name="Active" />
+          </Key>
+          <Property Name="Id" Type="Int32" />
+          <Property Name="Letter" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Active" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Basic_Data">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BS_CODE" Type="Int32" Nullable="false" />
+          <Property Name="SOURCE_MOD" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="COMP_ID" Type="Int32" Nullable="false" />
+          <Property Name="BRANCH_CODE" Type="Int32" Nullable="false" />
+          <Property Name="BS_CODE_UP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BS_ANAME" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="BS_ENAME" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="BS_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="NOTES" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ACTIVE" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="SERV_CODE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AMT" Type="Int32" />
+          <Property Name="START_DATE" Type="DateTime" Precision="3" />
+          <Property Name="END_DATE" Type="DateTime" Precision="3" />
+          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATE_BY" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATE_DATE" Type="DateTime" Precision="3" />
+          <Property Name="ISSUE_QTY" Type="Int32" />
+          <Property Name="DELV_QTY" Type="Int32" />
+          <Property Name="ADJUST_TYP" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="ADJUST_PERIOD" Type="Int32" />
+          <Property Name="MAX_COLLECT_TIME" Type="Int32" />
+          <Property Name="USED_TYP" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="USED_VAL" Type="Int32" />
+          <Property Name="USED_PERIOD" Type="Int32" />
+          <Property Name="NO_RETURN_MONTH" Type="Int32" />
+          <Property Name="USED_TYP_ADD" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="IsSync" Type="Boolean" />
+          <Property Name="SyncDate" Type="DateTime" Precision="3" />
+          <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7352,46 +7949,6 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
               <MappingFragment StoreEntitySet="AcceptionReasons">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
-                <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Basic_Data">
-            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Basic_Data">
-              <MappingFragment StoreEntitySet="Basic_Data">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="BS_CODE" ColumnName="BS_CODE" />
-                <ScalarProperty Name="SOURCE_MOD" ColumnName="SOURCE_MOD" />
-                <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
-                <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
-                <ScalarProperty Name="BS_CODE_UP" ColumnName="BS_CODE_UP" />
-                <ScalarProperty Name="BS_ANAME" ColumnName="BS_ANAME" />
-                <ScalarProperty Name="BS_ENAME" ColumnName="BS_ENAME" />
-                <ScalarProperty Name="BS_TYPE" ColumnName="BS_TYPE" />
-                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
-                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
-                <ScalarProperty Name="SERV_CODE" ColumnName="SERV_CODE" />
-                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="AMT" ColumnName="AMT" />
-                <ScalarProperty Name="START_DATE" ColumnName="START_DATE" />
-                <ScalarProperty Name="END_DATE" ColumnName="END_DATE" />
-                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
-                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
-                <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
-                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
-                <ScalarProperty Name="ISSUE_QTY" ColumnName="ISSUE_QTY" />
-                <ScalarProperty Name="DELV_QTY" ColumnName="DELV_QTY" />
-                <ScalarProperty Name="ADJUST_TYP" ColumnName="ADJUST_TYP" />
-                <ScalarProperty Name="ADJUST_PERIOD" ColumnName="ADJUST_PERIOD" />
-                <ScalarProperty Name="MAX_COLLECT_TIME" ColumnName="MAX_COLLECT_TIME" />
-                <ScalarProperty Name="USED_TYP" ColumnName="USED_TYP" />
-                <ScalarProperty Name="USED_VAL" ColumnName="USED_VAL" />
-                <ScalarProperty Name="USED_PERIOD" ColumnName="USED_PERIOD" />
-                <ScalarProperty Name="NO_RETURN_MONTH" ColumnName="NO_RETURN_MONTH" />
-                <ScalarProperty Name="USED_TYP_ADD" ColumnName="USED_TYP_ADD" />
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
                 <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
                 <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
@@ -7889,15 +8446,6 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
                 <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
                 <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employee_Request_Type">
-            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Employee_Request_Type">
-              <MappingFragment StoreEntitySet="Employee_Request_Type">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ArName" ColumnName="ArName" />
-                <ScalarProperty Name="EnName" ColumnName="EnName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -10104,7 +10652,354 @@ warning 6002: The table/view 'DMS_TestDB2.dbo.Swap' does not have a primary key 
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="UpdateMedMedicicen" FunctionName="DB_A45413_DMSERPModel.Store.UpdateMedMedicicen" />
-          
+          <EntitySetMapping Name="CardCodes">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CardCode">
+              <MappingFragment StoreEntitySet="CardCode">
+                <ScalarProperty Name="IsUsed" ColumnName="IsUsed" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApprovalCodes">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ApprovalCode">
+              <MappingFragment StoreEntitySet="ApprovalCode">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Card_ID" ColumnName="Card_ID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PETROTRADE_EMPLOYEES">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PETROTRADE_EMPLOYEES">
+              <MappingFragment StoreEntitySet="PETROTRADE_EMPLOYEES">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="NATIONAL_ID" ColumnName="NATIONAL_ID" />
+                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+                <ScalarProperty Name="INS_TYP" ColumnName="INS_TYP" />
+                <ScalarProperty Name="BIRTH_DATE" ColumnName="BIRTH_DATE" />
+                <ScalarProperty Name="TEL1" ColumnName="TEL1" />
+                <ScalarProperty Name="REF_TYPE" ColumnName="REF_TYPE" />
+                <ScalarProperty Name="REF_ANAME" ColumnName="REF_ANAME" />
+                <ScalarProperty Name="COST_CENTER" ColumnName="COST_CENTER" />
+                <ScalarProperty Name="EMP_ANAME" ColumnName="EMP_ANAME" />
+                <ScalarProperty Name="CLASS_CODE" ColumnName="CLASS_CODE" />
+                <ScalarProperty Name="EMP_CODE" ColumnName="EMP_CODE" />
+                <ScalarProperty Name="C_COMP_ID" ColumnName="C_COMP_ID" />
+                <ScalarProperty Name="CARD_ID" ColumnName="CARD_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrintMedicalReports">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PrintMedicalReport">
+              <MappingFragment StoreEntitySet="PrintMedicalReport">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="Speciality" ColumnName="Speciality" />
+                <ScalarProperty Name="ProviderType" ColumnName="ProviderType" />
+                <ScalarProperty Name="CompNumber" ColumnName="CompNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RenewalMains">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalMain">
+              <MappingFragment StoreEntitySet="RenewalMains">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="EmpCount" ColumnName="EmpCount" />
+                <ScalarProperty Name="ClassCount" ColumnName="ClassCount" />
+                <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
+                <ScalarProperty Name="CompId" ColumnName="CompId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgeAvgs">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.AgeAvg">
+              <MappingFragment StoreEntitySet="AgeAvgs">
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RenewalInsideMedicalAuthorities">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority">
+              <MappingFragment StoreEntitySet="RenewalInsideMedicalAuthorities">
+                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+                <ScalarProperty Name="MainId" ColumnName="MainId" />
+                <ScalarProperty Name="CoronaVaccineCoverage" ColumnName="CoronaVaccineCoverage" />
+                <ScalarProperty Name="DailyRoshitasCountPerMonth" ColumnName="DailyRoshitasCountPerMonth" />
+                <ScalarProperty Name="IntensiveCareDaysCount" ColumnName="IntensiveCareDaysCount" />
+                <ScalarProperty Name="OpticsPercentage" ColumnName="OpticsPercentage" />
+                <ScalarProperty Name="OpticsLimit" ColumnName="OpticsLimit" />
+                <ScalarProperty Name="OpticsPercentageoption" ColumnName="OpticsPercentageoption" />
+                <ScalarProperty Name="OpticsLimitOption" ColumnName="OpticsLimitOption" />
+                <ScalarProperty Name="BasicDentalServicePercentage" ColumnName="BasicDentalServicePercentage" />
+                <ScalarProperty Name="BasicDentalServiceLimit" ColumnName="BasicDentalServiceLimit" />
+                <ScalarProperty Name="BasicDentalServicePercentageoption" ColumnName="BasicDentalServicePercentageoption" />
+                <ScalarProperty Name="BasicDentalServiceLimitOption" ColumnName="BasicDentalServiceLimitOption" />
+                <ScalarProperty Name="AdvancedDentalServicePercentage" ColumnName="AdvancedDentalServicePercentage" />
+                <ScalarProperty Name="AdvancedDentalServiceLimit" ColumnName="AdvancedDentalServiceLimit" />
+                <ScalarProperty Name="AdvancedDentalServicePercentageoption" ColumnName="AdvancedDentalServicePercentageoption" />
+                <ScalarProperty Name="AdvancedDentalServiceLimitOption" ColumnName="AdvancedDentalServiceLimitOption" />
+                <ScalarProperty Name="PregFollowUpPercentage" ColumnName="PregFollowUpPercentage" />
+                <ScalarProperty Name="PregFollowUpLimit" ColumnName="PregFollowUpLimit" />
+                <ScalarProperty Name="PregFollowUpPercentageoption" ColumnName="PregFollowUpPercentageoption" />
+                <ScalarProperty Name="PregFollowUpLimitOption" ColumnName="PregFollowUpLimitOption" />
+                <ScalarProperty Name="LegalAbortionPercentage" ColumnName="LegalAbortionPercentage" />
+                <ScalarProperty Name="LegalAbortionLimit" ColumnName="LegalAbortionLimit" />
+                <ScalarProperty Name="LegalAbortionPercentageoption" ColumnName="LegalAbortionPercentageoption" />
+                <ScalarProperty Name="LegalAbortionLimitOption" ColumnName="LegalAbortionLimitOption" />
+                <ScalarProperty Name="CaesChildBirthPercentage" ColumnName="CaesChildBirthPercentage" />
+                <ScalarProperty Name="CaesChildBirthLimit" ColumnName="CaesChildBirthLimit" />
+                <ScalarProperty Name="CaesChildBirthPercentageoption" ColumnName="CaesChildBirthPercentageoption" />
+                <ScalarProperty Name="CaesChildBirthLimitOption" ColumnName="CaesChildBirthLimitOption" />
+                <ScalarProperty Name="NatChildBirthPercentage" ColumnName="NatChildBirthPercentage" />
+                <ScalarProperty Name="NatChildBirthLimit" ColumnName="NatChildBirthLimit" />
+                <ScalarProperty Name="NatChildBirthPercentageoption" ColumnName="NatChildBirthPercentageoption" />
+                <ScalarProperty Name="NatChildBirthLimitOption" ColumnName="NatChildBirthLimitOption" />
+                <ScalarProperty Name="ChronicTherapyPercentage" ColumnName="ChronicTherapyPercentage" />
+                <ScalarProperty Name="ChronicTherapyLimit" ColumnName="ChronicTherapyLimit" />
+                <ScalarProperty Name="ChronicTherapyPercentageoption" ColumnName="ChronicTherapyPercentageoption" />
+                <ScalarProperty Name="ChronicTherapyLimitOption" ColumnName="ChronicTherapyLimitOption" />
+                <ScalarProperty Name="DailyTherapyPercentage" ColumnName="DailyTherapyPercentage" />
+                <ScalarProperty Name="DailyTherapyLimit" ColumnName="DailyTherapyLimit" />
+                <ScalarProperty Name="DailyTherapyPercentageoption" ColumnName="DailyTherapyPercentageoption" />
+                <ScalarProperty Name="DailyTherapyLimitOption" ColumnName="DailyTherapyLimitOption" />
+                <ScalarProperty Name="PhysicalTherapyPercentage" ColumnName="PhysicalTherapyPercentage" />
+                <ScalarProperty Name="PhysicalTherapyLimit" ColumnName="PhysicalTherapyLimit" />
+                <ScalarProperty Name="PhysicalTherapyPercentageoption" ColumnName="PhysicalTherapyPercentageoption" />
+                <ScalarProperty Name="PhysicalTherapyLimitOption" ColumnName="PhysicalTherapyLimitOption" />
+                <ScalarProperty Name="ExaminationAndAnalysisPercentage" ColumnName="ExaminationAndAnalysisPercentage" />
+                <ScalarProperty Name="ExaminationAndAnalysisLimit" ColumnName="ExaminationAndAnalysisLimit" />
+                <ScalarProperty Name="ExaminationAndAnalysisPercentageoption" ColumnName="ExaminationAndAnalysisPercentageoption" />
+                <ScalarProperty Name="ExaminationAndAnalysisLimitOption" ColumnName="ExaminationAndAnalysisLimitOption" />
+                <ScalarProperty Name="OutsideClinicsPercentage" ColumnName="OutsideClinicsPercentage" />
+                <ScalarProperty Name="OutsideClinicsLimit" ColumnName="OutsideClinicsLimit" />
+                <ScalarProperty Name="OutsideClinicsPercentageoption" ColumnName="OutsideClinicsPercentageoption" />
+                <ScalarProperty Name="OutsideClinicsLimitOption" ColumnName="OutsideClinicsLimitOption" />
+                <ScalarProperty Name="HospitalsResidenceServicePercentage" ColumnName="HospitalsResidenceServicePercentage" />
+                <ScalarProperty Name="HospitalsResidenceServiceLimit" ColumnName="HospitalsResidenceServiceLimit" />
+                <ScalarProperty Name="HospitalsResidenceServicePercentageoption" ColumnName="HospitalsResidenceServicePercentageoption" />
+                <ScalarProperty Name="HospitalsResidenceServiceLimitOption" ColumnName="HospitalsResidenceServiceLimitOption" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RenewalOutsideMedicalAuthorities">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalOutsideMedicalAuthority">
+              <MappingFragment StoreEntitySet="RenewalOutsideMedicalAuthorities">
+                <ScalarProperty Name="PricesOutsideMedicalAuthorityId" ColumnName="PricesOutsideMedicalAuthorityId" />
+                <ScalarProperty Name="DoctorsExaminationValue" ColumnName="DoctorsExaminationValue" />
+                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+                <ScalarProperty Name="MainId" ColumnName="MainId" />
+                <ScalarProperty Name="CoronaVaccineCoverage" ColumnName="CoronaVaccineCoverage" />
+                <ScalarProperty Name="DailyRoshitasCountPerMonth" ColumnName="DailyRoshitasCountPerMonth" />
+                <ScalarProperty Name="IntensiveCareDaysCount" ColumnName="IntensiveCareDaysCount" />
+                <ScalarProperty Name="OpticsPercentage" ColumnName="OpticsPercentage" />
+                <ScalarProperty Name="OpticsLimit" ColumnName="OpticsLimit" />
+                <ScalarProperty Name="OpticsPercentageoption" ColumnName="OpticsPercentageoption" />
+                <ScalarProperty Name="OpticsLimitOption" ColumnName="OpticsLimitOption" />
+                <ScalarProperty Name="BasicDentalServicePercentage" ColumnName="BasicDentalServicePercentage" />
+                <ScalarProperty Name="BasicDentalServiceLimit" ColumnName="BasicDentalServiceLimit" />
+                <ScalarProperty Name="BasicDentalServicePercentageoption" ColumnName="BasicDentalServicePercentageoption" />
+                <ScalarProperty Name="BasicDentalServiceLimitOption" ColumnName="BasicDentalServiceLimitOption" />
+                <ScalarProperty Name="AdvancedDentalServicePercentage" ColumnName="AdvancedDentalServicePercentage" />
+                <ScalarProperty Name="AdvancedDentalServiceLimit" ColumnName="AdvancedDentalServiceLimit" />
+                <ScalarProperty Name="AdvancedDentalServicePercentageoption" ColumnName="AdvancedDentalServicePercentageoption" />
+                <ScalarProperty Name="AdvancedDentalServiceLimitOption" ColumnName="AdvancedDentalServiceLimitOption" />
+                <ScalarProperty Name="PregFollowUpPercentage" ColumnName="PregFollowUpPercentage" />
+                <ScalarProperty Name="PregFollowUpLimit" ColumnName="PregFollowUpLimit" />
+                <ScalarProperty Name="PregFollowUpPercentageoption" ColumnName="PregFollowUpPercentageoption" />
+                <ScalarProperty Name="PregFollowUpLimitOption" ColumnName="PregFollowUpLimitOption" />
+                <ScalarProperty Name="LegalAbortionPercentage" ColumnName="LegalAbortionPercentage" />
+                <ScalarProperty Name="LegalAbortionLimit" ColumnName="LegalAbortionLimit" />
+                <ScalarProperty Name="LegalAbortionPercentageoption" ColumnName="LegalAbortionPercentageoption" />
+                <ScalarProperty Name="LegalAbortionLimitOption" ColumnName="LegalAbortionLimitOption" />
+                <ScalarProperty Name="CaesChildBirthPercentage" ColumnName="CaesChildBirthPercentage" />
+                <ScalarProperty Name="CaesChildBirthLimit" ColumnName="CaesChildBirthLimit" />
+                <ScalarProperty Name="CaesChildBirthPercentageoption" ColumnName="CaesChildBirthPercentageoption" />
+                <ScalarProperty Name="CaesChildBirthLimitOption" ColumnName="CaesChildBirthLimitOption" />
+                <ScalarProperty Name="NatChildBirthPercentage" ColumnName="NatChildBirthPercentage" />
+                <ScalarProperty Name="NatChildBirthLimit" ColumnName="NatChildBirthLimit" />
+                <ScalarProperty Name="NatChildBirthPercentageoption" ColumnName="NatChildBirthPercentageoption" />
+                <ScalarProperty Name="NatChildBirthLimitOption" ColumnName="NatChildBirthLimitOption" />
+                <ScalarProperty Name="ChronicTherapyPercentage" ColumnName="ChronicTherapyPercentage" />
+                <ScalarProperty Name="ChronicTherapyLimit" ColumnName="ChronicTherapyLimit" />
+                <ScalarProperty Name="ChronicTherapyPercentageoption" ColumnName="ChronicTherapyPercentageoption" />
+                <ScalarProperty Name="ChronicTherapyLimitOption" ColumnName="ChronicTherapyLimitOption" />
+                <ScalarProperty Name="DailyTherapyPercentage" ColumnName="DailyTherapyPercentage" />
+                <ScalarProperty Name="DailyTherapyLimit" ColumnName="DailyTherapyLimit" />
+                <ScalarProperty Name="DailyTherapyPercentageoption" ColumnName="DailyTherapyPercentageoption" />
+                <ScalarProperty Name="DailyTherapyLimitOption" ColumnName="DailyTherapyLimitOption" />
+                <ScalarProperty Name="PhysicalTherapyPercentage" ColumnName="PhysicalTherapyPercentage" />
+                <ScalarProperty Name="PhysicalTherapyLimit" ColumnName="PhysicalTherapyLimit" />
+                <ScalarProperty Name="PhysicalTherapyPercentageoption" ColumnName="PhysicalTherapyPercentageoption" />
+                <ScalarProperty Name="PhysicalTherapyLimitOption" ColumnName="PhysicalTherapyLimitOption" />
+                <ScalarProperty Name="ExaminationAndAnalysisPercentage" ColumnName="ExaminationAndAnalysisPercentage" />
+                <ScalarProperty Name="ExaminationAndAnalysisLimit" ColumnName="ExaminationAndAnalysisLimit" />
+                <ScalarProperty Name="ExaminationAndAnalysisPercentageoption" ColumnName="ExaminationAndAnalysisPercentageoption" />
+                <ScalarProperty Name="ExaminationAndAnalysisLimitOption" ColumnName="ExaminationAndAnalysisLimitOption" />
+                <ScalarProperty Name="OutsideClinicsPercentage" ColumnName="OutsideClinicsPercentage" />
+                <ScalarProperty Name="OutsideClinicsLimit" ColumnName="OutsideClinicsLimit" />
+                <ScalarProperty Name="OutsideClinicsPercentageoption" ColumnName="OutsideClinicsPercentageoption" />
+                <ScalarProperty Name="OutsideClinicsLimitOption" ColumnName="OutsideClinicsLimitOption" />
+                <ScalarProperty Name="HospitalsResidenceServicePercentage" ColumnName="HospitalsResidenceServicePercentage" />
+                <ScalarProperty Name="HospitalsResidenceServiceLimit" ColumnName="HospitalsResidenceServiceLimit" />
+                <ScalarProperty Name="HospitalsResidenceServicePercentageoption" ColumnName="HospitalsResidenceServicePercentageoption" />
+                <ScalarProperty Name="HospitalsResidenceServiceLimitOption" ColumnName="HospitalsResidenceServiceLimitOption" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RenewalStepTwoes">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalStepTwo">
+              <MappingFragment StoreEntitySet="RenewalStepTwo">
+                <ScalarProperty Name="Death" ColumnName="Death" />
+                <ScalarProperty Name="Accidents" ColumnName="Accidents" />
+                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+                <ScalarProperty Name="MainId" ColumnName="MainId" />
+                <ScalarProperty Name="MedicalNetworkId" ColumnName="MedicalNetworkId" />
+                <ScalarProperty Name="ResidenceDegreeId" ColumnName="ResidenceDegreeId" />
+                <ScalarProperty Name="CardColorId" ColumnName="CardColorId" />
+                <ScalarProperty Name="DentalServicesInsideHospital" ColumnName="DentalServicesInsideHospital" />
+                <ScalarProperty Name="OutsideClincInsideHospital" ColumnName="OutsideClincInsideHospital" />
+                <ScalarProperty Name="PhysicalTherapyInsideHospital" ColumnName="PhysicalTherapyInsideHospital" />
+                <ScalarProperty Name="ChecksInsideHospital" ColumnName="ChecksInsideHospital" />
+                <ScalarProperty Name="AvgAge" ColumnName="AvgAge" />
+                <ScalarProperty Name="MaxAge" ColumnName="MaxAge" />
+                <ScalarProperty Name="MinAge" ColumnName="MinAge" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ParticipantsCount" ColumnName="ParticipantsCount" />
+                <ScalarProperty Name="AnnualCoverageCeiling" ColumnName="AnnualCoverageCeiling" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee_Request_Type">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Employee_Request_Type">
+              <MappingFragment StoreEntitySet="Employee_Request_Type">
+                <ScalarProperty Name="EnName" ColumnName="EnName" />
+                <ScalarProperty Name="ArName" ColumnName="ArName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompHolders">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompHolder">
+              <MappingFragment StoreEntitySet="CompHolder">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CompHolderName" ColumnName="CompHolderName" />
+                <ScalarProperty Name="CompHolderCode" ColumnName="CompHolderCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HrUserPages">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.HrUserPage">
+              <MappingFragment StoreEntitySet="HrUserPages">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PendingCounts">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PendingCount">
+              <MappingFragment StoreEntitySet="PendingCount">
+                <ScalarProperty Name="Perc" ColumnName="Perc" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="AuthorizationType" ColumnName="AuthorizationType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PendingInPatients">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PendingInPatient">
+              <MappingFragment StoreEntitySet="PendingInPatient">
+                <ScalarProperty Name="Perc" ColumnName="Perc" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="InpatientOfflineSLA" ColumnName="InpatientOfflineSLA" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PendingOutPatients">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PendingOutPatient">
+              <MappingFragment StoreEntitySet="PendingOutPatient">
+                <ScalarProperty Name="Perc" ColumnName="Perc" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="OutpatientOfflineSLA" ColumnName="OutpatientOfflineSLA" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlphabetLetters">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.AlphabetLetter">
+              <MappingFragment StoreEntitySet="AlphabetLetters">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Letter" ColumnName="Letter" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Basic_Data">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Basic_Data">
+              <MappingFragment StoreEntitySet="Basic_Data">
+                <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
+                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="USED_TYP_ADD" ColumnName="USED_TYP_ADD" />
+                <ScalarProperty Name="NO_RETURN_MONTH" ColumnName="NO_RETURN_MONTH" />
+                <ScalarProperty Name="USED_PERIOD" ColumnName="USED_PERIOD" />
+                <ScalarProperty Name="USED_VAL" ColumnName="USED_VAL" />
+                <ScalarProperty Name="USED_TYP" ColumnName="USED_TYP" />
+                <ScalarProperty Name="MAX_COLLECT_TIME" ColumnName="MAX_COLLECT_TIME" />
+                <ScalarProperty Name="ADJUST_PERIOD" ColumnName="ADJUST_PERIOD" />
+                <ScalarProperty Name="ADJUST_TYP" ColumnName="ADJUST_TYP" />
+                <ScalarProperty Name="DELV_QTY" ColumnName="DELV_QTY" />
+                <ScalarProperty Name="ISSUE_QTY" ColumnName="ISSUE_QTY" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+                <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="END_DATE" ColumnName="END_DATE" />
+                <ScalarProperty Name="START_DATE" ColumnName="START_DATE" />
+                <ScalarProperty Name="AMT" ColumnName="AMT" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="SERV_CODE" ColumnName="SERV_CODE" />
+                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
+                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
+                <ScalarProperty Name="BS_TYPE" ColumnName="BS_TYPE" />
+                <ScalarProperty Name="BS_ENAME" ColumnName="BS_ENAME" />
+                <ScalarProperty Name="BS_ANAME" ColumnName="BS_ANAME" />
+                <ScalarProperty Name="BS_CODE_UP" ColumnName="BS_CODE_UP" />
+                <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
+                <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
+                <ScalarProperty Name="SOURCE_MOD" ColumnName="SOURCE_MOD" />
+                <ScalarProperty Name="BS_CODE" ColumnName="BS_CODE" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

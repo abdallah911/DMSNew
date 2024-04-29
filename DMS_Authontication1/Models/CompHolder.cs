@@ -12,11 +12,13 @@ namespace DMS_Authontication1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProposalNotificationApplicationUser
+    public partial class CompHolder
     {
-        public string ApplicationUserId { get; set; }
-        public int ProposalNotificationId { get; set; }
-    
-        public virtual ProposalNotification ProposalNotification { get; set; }
+        public int ID { get; set; }
+        public int CompHolderCode { get; set; }
+        public string CompHolderName { get; set; }
+        public bool Active { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public string CreatedBy { get; set; }
     }
 }

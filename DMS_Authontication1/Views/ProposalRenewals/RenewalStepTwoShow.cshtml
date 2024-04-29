@@ -712,12 +712,16 @@
             <div style="display: flex; justify-content:end; width:100%; gap:2rem; margin-left:10px;">
 
                 @*<a href="#" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5">
-                        <i class="fas fa-save"></i>
-                        &nbsp;
-                        Save
-                    </a>*@
-                <button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="goToIndex()">الغاء</button>
-                <button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="clearForm()" id="NewForm">جديد</button>
+            <i class="fas fa-save"></i>
+            &nbsp;
+            Save
+        </a>*@
+
+                @Html.ActionLink("الغاء +", "Show", "ProposalRenewals", new { }, new { @class = "newDataBtn", style = "text-decoration:none;" })
+                @Html.ActionLink("جديد +", "Index", "ProposalRenewals", new { }, new { @class = "newDataBtn", style = "text-decoration:none;" })
+
+                @*<button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="goToIndex()">الغاء</button>
+                <button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="clearForm()" id="NewForm">جديد</button>*@
 
                 <button type="submit" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5">التالي</button>
             </div>

@@ -22,7 +22,7 @@ CateCount = ViewBag.CatCount; }
 }
 <!-- ////////////// Main Content ////////////// -->
 <div class="bg-grid-container">
-    @using (Html.BeginForm("ProposalStepFourCreate", "ProposalMain",
+    @using (Html.BeginForm("RenewalStepFour", "ProposalRenewals",
        FormMethod.Post, new
        {
            enctype = "multipart/form-data",
@@ -1487,7 +1487,7 @@ index++)
                     <i class="fas fa-save"></i>
                     Save
                 </a>*@
-            <button type="button" style="text-decoration:none; margin-top: 20px;margin-left: 10px;margin-right: 20px" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="submitForm()">حفظ</button>
+            <button type="submit" style="text-decoration:none; margin-top: 20px;margin-left: 10px;margin-right: 20px" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" >حفظ</button>
 
             @*<button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="submitForm()">التالي</button>*@
         </div>}

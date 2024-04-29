@@ -31,6 +31,9 @@ namespace DMS_Authontication1.Models
         public int MainId { get; set; }
         public string ClassCode { get; set; }
         public decimal Accidents { get; set; }
-        public decimal Death { get; set; }   
+        public decimal Death { get; set; }
+
+        public virtual RenewalMain RenewalMain { get; set; }
+
     }
 }
