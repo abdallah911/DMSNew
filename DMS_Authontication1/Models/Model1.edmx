@@ -67,6 +67,16 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Age" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AlphabetLetters">
+          <Key>
+            <PropertyRef Name="Active" />
+          </Key>
+          <Property Name="Id" Type="int" />
+          <Property Name="Letter" Type="char" MaxLength="1" />
+          <Property Name="Active" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
         <EntityType Name="APPROVAL_BAD">
           <Key>
             <PropertyRef Name="Id" />
@@ -788,6 +798,17 @@
           <Property Name="SyncBy" Type="nvarchar(max)" />
           <Property Name="FOR_FAMILY" Type="nchar" MaxLength="1" />
         </EntityType>
+        <EntityType Name="CompHolder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CompHolderCode" Type="int" Nullable="false" />
+          <Property Name="CompHolderName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="CompStatement">
           <Key>
             <PropertyRef Name="Id" />
@@ -1393,6 +1414,14 @@
           <Property Name="CompId" Type="nvarchar(max)" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="HrUserPages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PageName" Type="nvarchar(max)" />
+          <Property Name="Type" Type="int" />
+        </EntityType>
         <EntityType Name="Indemnity">
           <Key>
             <PropertyRef Name="BatchID" />
@@ -1761,6 +1790,33 @@
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PendingCount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuthorizationType" Type="nvarchar(max)" />
+          <Property Name="Count" Type="int" />
+          <Property Name="Perc" Type="float" />
+        </EntityType>
+        <EntityType Name="PendingInPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InpatientOfflineSLA" Type="nvarchar(max)" />
+          <Property Name="Count" Type="int" />
+          <Property Name="Perc" Type="float" />
+        </EntityType>
+        <EntityType Name="PendingOutPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OutpatientOfflineSLA" Type="nvarchar(max)" />
+          <Property Name="Count" Type="int" />
+          <Property Name="Perc" Type="float" />
         </EntityType>
         <EntityType Name="PETROTRADE_EMPLOYEES">
           <Key>
@@ -2147,6 +2203,7 @@
           <Property Name="EmpCount" Type="int" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" />
           <Property Name="Code" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="date" />
         </EntityType>
         <EntityType Name="RenewalOutsideMedicalAuthorities">
           <Key>
@@ -2233,8 +2290,8 @@
           <Property Name="MedicalNetworkId" Type="int" Nullable="false" />
           <Property Name="MainId" Type="int" Nullable="false" />
           <Property Name="ClassCode" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Accidents" Type="int" Nullable="false" />
-          <Property Name="Death" Type="int" Nullable="false" />
+          <Property Name="Accidents" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Death" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="RequestAddProvider">
           <Key>
@@ -3559,6 +3616,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="CompanyContractPhoto" EntityType="Self.CompanyContractPhoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompContractClass" EntityType="Self.CompContractClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompContractClassEmp" EntityType="Self.CompContractClassEmp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompHolder" EntityType="Self.CompHolder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompStatement" EntityType="Self.CompStatement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONSUMPTION_POOL" EntityType="Self.CONSUMPTION_POOL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactUs" EntityType="Self.ContactUs" Schema="dbo" store:Type="Tables" />
@@ -3594,6 +3652,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="HospitalDoctors" EntityType="Self.HospitalDoctors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HospitalServices" EntityType="Self.HospitalServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HrAdminCompanies" EntityType="Self.HrAdminCompanies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HrUserPages" EntityType="Self.HrUserPages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Indemnity" EntityType="Self.Indemnity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IndemnityCardsServices" EntityType="Self.IndemnityCardsServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IndemnityMaster" EntityType="Self.IndemnityMaster" Schema="dbo" store:Type="Tables" />
@@ -3616,6 +3675,9 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="Name_Ray_Cen" EntityType="Self.Name_Ray_Cen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patchs" EntityType="Self.Patchs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PendingCount" EntityType="Self.PendingCount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PendingInPatient" EntityType="Self.PendingInPatient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PendingOutPatient" EntityType="Self.PendingOutPatient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PETROTRADE_EMPLOYEES" EntityType="Self.PETROTRADE_EMPLOYEES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pr_Bra" EntityType="Self.Pr_Bra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrescriptionRoshitaDignosis" EntityType="Self.PrescriptionRoshitaDignosis" Schema="dbo" store:Type="Tables" />
@@ -3660,6 +3722,13 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="Specialities1" EntityType="Self.Specialities1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCompanyPermission" EntityType="Self.UserCompanyPermission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersInternalCode" EntityType="Self.UsersInternalCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AlphabetLetters" EntityType="Self.AlphabetLetters" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AlphabetLetters].[Id] AS [Id], 
+    [AlphabetLetters].[Letter] AS [Letter], 
+    [AlphabetLetters].[Active] AS [Active]
+    FROM [dbo].[AlphabetLetters] AS [AlphabetLetters]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Swap" EntityType="Self.Swap" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Swap].[Id] AS [Id]
@@ -3886,45 +3955,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CardAcceptionReasons" Relationship="Self.FK_CardAcceptionReasons_AcceptionReasons" FromRole="AcceptionReasons" ToRole="CardAcceptionReasons" />
-        </EntityType>
-        <EntityType Name="Basic_Data">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BS_CODE" Type="Int32" Nullable="false" />
-          <Property Name="SOURCE_MOD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="COMP_ID" Type="Int32" Nullable="false" />
-          <Property Name="BRANCH_CODE" Type="Int32" Nullable="false" />
-          <Property Name="BS_CODE_UP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="BS_ANAME" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="BS_ENAME" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="BS_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="NOTES" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ACTIVE" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="SERV_CODE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AMT" Type="Int32" />
-          <Property Name="START_DATE" Type="DateTime" Precision="3" />
-          <Property Name="END_DATE" Type="DateTime" Precision="3" />
-          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
-          <Property Name="CREATED_BY" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UPDATE_BY" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UPDATE_DATE" Type="DateTime" Precision="3" />
-          <Property Name="ISSUE_QTY" Type="Int32" />
-          <Property Name="DELV_QTY" Type="Int32" />
-          <Property Name="ADJUST_TYP" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="ADJUST_PERIOD" Type="Int32" />
-          <Property Name="MAX_COLLECT_TIME" Type="Int32" />
-          <Property Name="USED_TYP" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="USED_VAL" Type="Int32" />
-          <Property Name="USED_PERIOD" Type="Int32" />
-          <Property Name="NO_RETURN_MONTH" Type="Int32" />
-          <Property Name="USED_TYP_ADD" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="IsSync" Type="Boolean" />
-          <Property Name="SyncDate" Type="DateTime" Precision="3" />
-          <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="CardAcceptionReason">
           <Key>
@@ -5090,7 +5120,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
         <EntityContainer Name="DMS_TESTEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Acceptions" EntityType="Self.Acception" />
           <EntitySet Name="AcceptionReasons" EntityType="Self.AcceptionReason" />
-          <EntitySet Name="Basic_Data" EntityType="Self.Basic_Data" />
           <EntitySet Name="CardAcceptionReasons" EntityType="Self.CardAcceptionReason" />
           <EntitySet Name="COMP_CUSTOMIZED_D" EntityType="Self.COMP_CUSTOMIZED_D" />
           <EntitySet Name="Comp_Customized_D_D" EntityType="Self.Comp_Customized_D_D" />
@@ -5499,6 +5528,13 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <End Role="RenewalStepTwo" EntitySet="RenewalStepTwoes" />
           </AssociationSet>
           <EntitySet Name="Employee_Request_Type" EntityType="DB_A45413_DMSERPModel.Employee_Request_Type" />
+          <EntitySet Name="CompHolders" EntityType="DB_A45413_DMSERPModel.CompHolder" />
+          <EntitySet Name="HrUserPages" EntityType="DB_A45413_DMSERPModel.HrUserPage" />
+          <EntitySet Name="PendingCounts" EntityType="DB_A45413_DMSERPModel.PendingCount" />
+          <EntitySet Name="PendingInPatients" EntityType="DB_A45413_DMSERPModel.PendingInPatient" />
+          <EntitySet Name="PendingOutPatients" EntityType="DB_A45413_DMSERPModel.PendingOutPatient" />
+          <EntitySet Name="AlphabetLetters" EntityType="DB_A45413_DMSERPModel.AlphabetLetter" />
+          <EntitySet Name="Basic_Data" EntityType="DB_A45413_DMSERPModel.Basic_Data" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7584,6 +7620,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <NavigationProperty Name="RenewalInsideMedicalAuthorities" Relationship="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains" FromRole="RenewalMain" ToRole="RenewalInsideMedicalAuthority" />
           <NavigationProperty Name="RenewalOutsideMedicalAuthorities" Relationship="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_RenewalMains" FromRole="RenewalMain" ToRole="RenewalOutsideMedicalAuthority" />
           <NavigationProperty Name="RenewalStepTwoes" Relationship="DB_A45413_DMSERPModel.FK_RenewalStepTwo_RenewalMains" FromRole="RenewalMain" ToRole="RenewalStepTwo" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="AgeAvg">
           <Key>
@@ -7790,6 +7827,99 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="ArName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EnName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="CompHolder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CompHolderCode" Type="Int32" Nullable="false" />
+          <Property Name="CompHolderName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="HrUserPage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PageName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PendingCount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuthorizationType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Perc" Type="Double" />
+        </EntityType>
+        <EntityType Name="PendingInPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InpatientOfflineSLA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Perc" Type="Double" />
+        </EntityType>
+        <EntityType Name="PendingOutPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OutpatientOfflineSLA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="Perc" Type="Double" />
+        </EntityType>
+        <EntityType Name="AlphabetLetter">
+          <Key>
+            <PropertyRef Name="Active" />
+          </Key>
+          <Property Name="Id" Type="Int32" />
+          <Property Name="Letter" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Active" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Basic_Data">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BS_CODE" Type="Int32" Nullable="false" />
+          <Property Name="SOURCE_MOD" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="COMP_ID" Type="Int32" Nullable="false" />
+          <Property Name="BRANCH_CODE" Type="Int32" Nullable="false" />
+          <Property Name="BS_CODE_UP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BS_ANAME" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="BS_ENAME" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="BS_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="NOTES" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ACTIVE" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="SERV_CODE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AMT" Type="Int32" />
+          <Property Name="START_DATE" Type="DateTime" Precision="3" />
+          <Property Name="END_DATE" Type="DateTime" Precision="3" />
+          <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATE_BY" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATE_DATE" Type="DateTime" Precision="3" />
+          <Property Name="ISSUE_QTY" Type="Int32" />
+          <Property Name="DELV_QTY" Type="Int32" />
+          <Property Name="ADJUST_TYP" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="ADJUST_PERIOD" Type="Int32" />
+          <Property Name="MAX_COLLECT_TIME" Type="Int32" />
+          <Property Name="USED_TYP" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="USED_VAL" Type="Int32" />
+          <Property Name="USED_PERIOD" Type="Int32" />
+          <Property Name="NO_RETURN_MONTH" Type="Int32" />
+          <Property Name="USED_TYP_ADD" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="IsSync" Type="Boolean" />
+          <Property Name="SyncDate" Type="DateTime" Precision="3" />
+          <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7819,46 +7949,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
               <MappingFragment StoreEntitySet="AcceptionReasons">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
-                <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Basic_Data">
-            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Basic_Data">
-              <MappingFragment StoreEntitySet="Basic_Data">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="BS_CODE" ColumnName="BS_CODE" />
-                <ScalarProperty Name="SOURCE_MOD" ColumnName="SOURCE_MOD" />
-                <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
-                <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
-                <ScalarProperty Name="BS_CODE_UP" ColumnName="BS_CODE_UP" />
-                <ScalarProperty Name="BS_ANAME" ColumnName="BS_ANAME" />
-                <ScalarProperty Name="BS_ENAME" ColumnName="BS_ENAME" />
-                <ScalarProperty Name="BS_TYPE" ColumnName="BS_TYPE" />
-                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
-                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
-                <ScalarProperty Name="SERV_CODE" ColumnName="SERV_CODE" />
-                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="AMT" ColumnName="AMT" />
-                <ScalarProperty Name="START_DATE" ColumnName="START_DATE" />
-                <ScalarProperty Name="END_DATE" ColumnName="END_DATE" />
-                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
-                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
-                <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
-                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
-                <ScalarProperty Name="ISSUE_QTY" ColumnName="ISSUE_QTY" />
-                <ScalarProperty Name="DELV_QTY" ColumnName="DELV_QTY" />
-                <ScalarProperty Name="ADJUST_TYP" ColumnName="ADJUST_TYP" />
-                <ScalarProperty Name="ADJUST_PERIOD" ColumnName="ADJUST_PERIOD" />
-                <ScalarProperty Name="MAX_COLLECT_TIME" ColumnName="MAX_COLLECT_TIME" />
-                <ScalarProperty Name="USED_TYP" ColumnName="USED_TYP" />
-                <ScalarProperty Name="USED_VAL" ColumnName="USED_VAL" />
-                <ScalarProperty Name="USED_PERIOD" ColumnName="USED_PERIOD" />
-                <ScalarProperty Name="NO_RETURN_MONTH" ColumnName="NO_RETURN_MONTH" />
-                <ScalarProperty Name="USED_TYP_ADD" ColumnName="USED_TYP_ADD" />
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
                 <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
                 <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
@@ -10628,6 +10718,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="RenewalMains">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalMain">
               <MappingFragment StoreEntitySet="RenewalMains">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="EmpCount" ColumnName="EmpCount" />
@@ -10805,6 +10896,106 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
               <MappingFragment StoreEntitySet="Employee_Request_Type">
                 <ScalarProperty Name="EnName" ColumnName="EnName" />
                 <ScalarProperty Name="ArName" ColumnName="ArName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompHolders">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompHolder">
+              <MappingFragment StoreEntitySet="CompHolder">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CompHolderName" ColumnName="CompHolderName" />
+                <ScalarProperty Name="CompHolderCode" ColumnName="CompHolderCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HrUserPages">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.HrUserPage">
+              <MappingFragment StoreEntitySet="HrUserPages">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PendingCounts">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PendingCount">
+              <MappingFragment StoreEntitySet="PendingCount">
+                <ScalarProperty Name="Perc" ColumnName="Perc" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="AuthorizationType" ColumnName="AuthorizationType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PendingInPatients">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PendingInPatient">
+              <MappingFragment StoreEntitySet="PendingInPatient">
+                <ScalarProperty Name="Perc" ColumnName="Perc" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="InpatientOfflineSLA" ColumnName="InpatientOfflineSLA" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PendingOutPatients">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PendingOutPatient">
+              <MappingFragment StoreEntitySet="PendingOutPatient">
+                <ScalarProperty Name="Perc" ColumnName="Perc" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="OutpatientOfflineSLA" ColumnName="OutpatientOfflineSLA" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlphabetLetters">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.AlphabetLetter">
+              <MappingFragment StoreEntitySet="AlphabetLetters">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Letter" ColumnName="Letter" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Basic_Data">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Basic_Data">
+              <MappingFragment StoreEntitySet="Basic_Data">
+                <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
+                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="USED_TYP_ADD" ColumnName="USED_TYP_ADD" />
+                <ScalarProperty Name="NO_RETURN_MONTH" ColumnName="NO_RETURN_MONTH" />
+                <ScalarProperty Name="USED_PERIOD" ColumnName="USED_PERIOD" />
+                <ScalarProperty Name="USED_VAL" ColumnName="USED_VAL" />
+                <ScalarProperty Name="USED_TYP" ColumnName="USED_TYP" />
+                <ScalarProperty Name="MAX_COLLECT_TIME" ColumnName="MAX_COLLECT_TIME" />
+                <ScalarProperty Name="ADJUST_PERIOD" ColumnName="ADJUST_PERIOD" />
+                <ScalarProperty Name="ADJUST_TYP" ColumnName="ADJUST_TYP" />
+                <ScalarProperty Name="DELV_QTY" ColumnName="DELV_QTY" />
+                <ScalarProperty Name="ISSUE_QTY" ColumnName="ISSUE_QTY" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+                <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="END_DATE" ColumnName="END_DATE" />
+                <ScalarProperty Name="START_DATE" ColumnName="START_DATE" />
+                <ScalarProperty Name="AMT" ColumnName="AMT" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="SERV_CODE" ColumnName="SERV_CODE" />
+                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
+                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
+                <ScalarProperty Name="BS_TYPE" ColumnName="BS_TYPE" />
+                <ScalarProperty Name="BS_ENAME" ColumnName="BS_ENAME" />
+                <ScalarProperty Name="BS_ANAME" ColumnName="BS_ANAME" />
+                <ScalarProperty Name="BS_CODE_UP" ColumnName="BS_CODE_UP" />
+                <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
+                <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
+                <ScalarProperty Name="SOURCE_MOD" ColumnName="SOURCE_MOD" />
+                <ScalarProperty Name="BS_CODE" ColumnName="BS_CODE" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

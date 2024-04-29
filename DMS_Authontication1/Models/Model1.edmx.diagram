@@ -7,7 +7,6 @@
       <Diagram DiagramId="0e09e86cc06b4364aa9c6bf3a398f095" Name="Diagram1" ZoomLevel="100">
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Acception" Width="1.5" PointX="9.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.AcceptionReason" Width="1.5" PointX="0.5" PointY="14.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Basic_Data" Width="1.5" PointX="11.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CardAcceptionReason" Width="1.5" PointX="4" PointY="14.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.COMP_CUSTOMIZED_D" Width="2.25" PointX="7" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Comp_Customized_D_D" Width="1.5" PointX="15.75" PointY="7.75" IsExpanded="true" />
@@ -177,6 +176,13 @@
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_RenewalMains" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalStepTwo_RenewalMains" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Employee_Request_Type" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompHolder" Width="1.5" PointX="3.375" PointY="42.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.HrUserPage" Width="1.5" PointX="10.375" PointY="42.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PendingCount" Width="1.5" PointX="43.375" PointY="3.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PendingInPatient" Width="1.5" PointX="43.375" PointY="38.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PendingOutPatient" Width="1.5" PointX="43.375" PointY="41.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.AlphabetLetter" Width="1.5" PointX="43.375" PointY="44.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Basic_Data" Width="1.5" PointX="12.375" PointY="13.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
