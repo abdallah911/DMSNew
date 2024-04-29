@@ -9018,6 +9018,14 @@
     <Content Include="Views\Roshitas\Details.cshtml" />
     <Content Include="Views\Roshitas\Edit.cshtml" />
     <Content Include="Views\Roshitas\Index.cshtml" />
+    <Content Include="Views\Medicines\AddDosageForm.cshtml" />
+    <Content Include="Views\Medicines\AddLicType.cshtml" />
+    <Content Include="Views\Medicines\AddMedType.cshtml" />
+    <Content Include="Views\Medicines\Delete.cshtml" />
+    <Content Include="Views\Medicines\Details.cshtml" />
+    <Content Include="Views\Medicines\DosageFormList.cshtml" />
+    <Content Include="Views\Medicines\LicList.cshtml" />
+    <Content Include="Views\Medicines\MedTypeList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
