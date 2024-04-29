@@ -29,6 +29,7 @@ namespace DMS_Authontication1.Models
         public Nullable<int> EmpCount { get; set; }
         public string UserId { get; set; }
         public string Code { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RenewalInsideMedicalAuthority> RenewalInsideMedicalAuthorities { get; set; }
