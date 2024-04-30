@@ -1,0 +1,22 @@
+﻿@model DMS_Authontication1.ViewModel.MedicineTypeViewmodel
+
+<table class="table" @*style="margin-left: 78px;"*@>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicineTypeName)
+        </th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var item in Model.medtypelist)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MedicineTypeName)
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger" data-id=@item.Id onclick="Delete(this);"> Delete</button>
+            </td>
+        </tr>
+    }
+
+</table>
