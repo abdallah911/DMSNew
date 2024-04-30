@@ -11,10 +11,10 @@
     </div>
 </div>
 
-<section class="print-claim-section mt-5">
+<section class="print-claim-section">
     @using (Html.BeginForm("MedicineLicenseType", "Medicines", FormMethod.Post))
     {
-        <div class="container">
+        <div class="container mb-0">
             <div class="row mt-3">
                 <div class="row row-cols-sm-3 m-auto m-sm-0">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="print-claims-btns d-flex mt-5 justify-content-end">
+            <div class="print-claims-btns d-flex   justify-content-end">
                 <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3"
                     />
             </div>
@@ -38,15 +38,15 @@
 </section>
 <div style="display: flex; flex-direction: column">
     <section>
-        <div class="sios-overlay container-fluid mt-4">
+        <div class="sios-overlay container-fluid ">
             <div class="container">
                 <i class="fa-solid fa-house"></i>
                 <h3 class="">Medicine License List</h3>
             </div>
         </div>
-        <div class="sios-bg claims-section container-fluid">
+        <div class="sios-bg claims-section mb-4 container-fluid">
             <div class="table-responsive">
-                <table id="example" class="table table-striped mt-3 text-center">
+                <table id="example" class="table table-striped mt-4 text-center">
                     <thead>
                         <tr>
                             <th>License Name</th>

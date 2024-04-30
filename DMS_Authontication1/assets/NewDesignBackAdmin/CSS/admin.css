@@ -713,6 +713,7 @@ button.delete-button {
     justify-content: center;
     align-items: center;
     border: none;
+    border: none;
     position: absolute;
     right: 5px;
     top: -5px;
@@ -729,6 +730,9 @@ button.delete-button {
 select,
 textarea {
     color: var(--color-primary);
+}
+.sios-container {
+    min-height: calc(100vh - 259.5px);
 }
 
 .sios-container{
@@ -759,13 +763,7 @@ textarea {
 .color-sec {
     color: var(--color-secondary);
 }
-.sios-bg {
-    color: var(--color-table-text);
-    box-shadow: rgba(112, 97, 106, 0.3) 0px 0px 4px 1px;
-    background: var(--color-table);
-    border-bottom: 4px solid var(--color-table-sec);
-    padding: 15px;
-}
+
 
 .sec-inp-bg {
     background: linear-gradient(45deg, #cacfd8, #f1f4f7, #cacfd8);
@@ -873,8 +871,8 @@ textarea {
 
 .admin-form-control {
     background-color: transparent;
-    border: var(--color-secondary) solid 3px;
-    border-radius: 15px;
+    border: var(--color-secondary) solid 2px;
+    border-radius: 8px;
     height: 40px;
     font-size: 12px;
     color: var(--color-text);
@@ -894,12 +892,12 @@ textarea {
 .cs-page input::placeholder {
     color: var(--color-secondary);
 }
-
+.sios-bg,
 .cs-bg {
     color: var(--color-table-text);
-    box-shadow: rgba(112, 97, 106, 0.3) 0px 0px 4px 1px;
-    background: var(--color-table);
-    border-bottom: 4px solid var(--color-table-sec);
+    border-bottom: var(--color-table-sec) 8px solid;
+    background-color: #e9eef8;
+    box-shadow: -1px -1px 3px 1px rgba(255, 255, 255, 0.514);
     padding: 15px;
 }
 
@@ -2653,13 +2651,7 @@ td button:hover {
     }
 /* =======================table============================================= */
 
-.table-responsive .paginate_button a:hover {
-    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.281);
-}
-
-.table-responsive .paginate_button a:focus {
-    box-shadow: none;
-}
+  
 
 .table-responsive .paginate_button.next a,
 .table-responsive .paginate_button.previous a {
@@ -2674,10 +2666,7 @@ td button:hover {
         background-color: var(--color-btn-sec) !important;
     }
 
-.table-responsive .paginate_button.active a {
-    background-color: #a168b6;
-    width: 35px;
-}
+
 
     .table-responsive .paginate_button.active a:hover {
         background-color: #905ba3;
@@ -3044,13 +3033,7 @@ div.cosum-form-parent {
 @media screen and (max-width: 767px) {
 }
 
-.page-link {
-    position: relative;
-    display: block;
-    color: #83439b;
-    text-decoration: none;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
+
 
     .active > .page-link,
     .page-link.active {
@@ -3709,8 +3692,31 @@ div.hide-pseudo::before {
     height: 45px;
 }
 
-/* ====================footer========================================== */
 
+
+/* ====================edit========================================== */
+dr.sios-table-dr {
+    margin: 0 auto !important;
+    min-height: 50px;
+    align-items: center;
+    padding: 16px;
+    font-weight: 700;
+    justify-content: center;
+    border-bottom: 1px solid #c1d6e7;
+    background-color: var(--color-table);
+}
+dh.sios-table-dh,
+dt.sios-table-dt {
+    color: var(--color-secondary);
+}
+dd.sios-table-dd {
+    color: #606270;
+    font-weight: 500;
+}
+.sios-color{
+    color:var(--color-secondary);
+}
+/* ====================footer========================================== */
 .footer {
     background: var(--color-gradient);
     color: white;

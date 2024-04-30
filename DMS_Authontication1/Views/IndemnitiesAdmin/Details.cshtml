@@ -2,257 +2,285 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
+<div class="sios-overlay container-fluid mt-4 mb-0">
+    <div class="container text-white">
+        <h2>Details Indemnity</h2>
+    </div>
+</div>
 
-<h2>Details Indemnity</h2>
-
-<div>
     <hr />
-    <dl class="dl-horizontal">
+    <div class="dl-horizontal">
+        <div class="activation-page-table container-fluid mt-3 pb-4">
+            <div style="white-space: nowrap" class="row mx-sm-3">
+                <table id=""
+                       class="table-striped col-12 mt-3 rounded-2 text-center">
+                    <tbody class="text-start">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CardId)
+                            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CardId)
-        </dt>
+                            <td>
+                                @Html.DisplayFor(model => model.CardId)
+                            </td>
+                        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.CardId)
-        </dd>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NationalID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NationalID)
-        </dd>
+                            <td>
+                                @Html.DisplayFor(model => model.Name)
+                            </td>
 
 
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NationalID)
+                            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CompanyName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CompanyName)
-        </dd>
-        @*<dt>
-            @Html.DisplayNameFor(model => model.BankName)
-        </dt>
+                            <td>
+                                @Html.DisplayFor(model => model.NationalID)
+                            </td>
+                        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.BankName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BankBranch)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BankBranch)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BankAccount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BankAccount)
-        </dd>*@
-
-        @*<dt>
-                @Html.DisplayNameFor(model => model.Type)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Type)
-            </dd>*@
-
-
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        @*<dt>
-                @Html.DisplayNameFor(model => model.UpdateDate)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.UpdateDate)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.UpdateBy)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.UpdateBy)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DeletedBy)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DeletedBy)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DeletedDate)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DeletedDate)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.IsDeleted)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Status)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Status)
-            </dd>*@
-
-
-
-        <dd>
-            <table id="Index" class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            CardId
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CompanyName)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(model => model.CompanyName)
+                            </td>
+                        </tr>
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.BankName)
                         </th>
-                        <th>
-                            Specialist Name
-                        </th>
-                        <th>
-                            Service Name
-                        </th>
-                        <th>
-                            Value
-                        </th>
-                        <th>
-                            ServiceDate
-                        </th>
-                        <th>
-                            Attachments
-                        </th>
-                </thead>
 
-                @foreach (var item in Model.IndemnityServiceMasters)
-                {
-                    <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ServiceCard)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Specialities1.SPEC_ANAME)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Service.NameAr)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Value)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ServiceDate)
-                        </td>
-                        <td>
-                            @Html.ActionLink(" Download", "Download", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info fa fa-download", @style = " text-transform: none" })
-
+                            @Html.DisplayFor(model => model.BankName)
                         </td>
 
+                        <th>
+                            @Html.DisplayNameFor(model => model.BankBranch)
+                        </th>
 
-                    </tr>
-                }
-            </table>
-        </dd>
-        @*<dt>
+                        <td>
+                            @Html.DisplayFor(model => model.BankBranch)
+                        </td>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.BankAccount)
+                        </th>
+
+                        <td>
+                            @Html.DisplayFor(model => model.BankAccount)
+                        </td>*@
+
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.Type)
+                        </th>
+
+                        <td>
+                            @Html.DisplayFor(model => model.Type)
+                        </td>*@
+
+
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedDate)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.CreatedDate)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedBy)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.CreatedBy)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+
+                            <td>
+                                @Html.DisplayFor(model => model.Status)
+                            </td>
+                        </tr>
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.UpdateDate)
+                        </th>
+
+                        <td>
+                            @Html.DisplayFor(model => model.UpdateDate)
+                        </td>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.UpdateBy)
+                        </th>
+
+                        <td>
+                            @Html.DisplayFor(model => model.UpdateBy)
+                        </td>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.DeletedBy)
+                        </th>
+
+                        <td>
+                            @Html.DisplayFor(model => model.DeletedBy)
+                        </td>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.DeletedDate)
+                        </th>
+
+                        <td>
+                            @Html.DisplayFor(model => model.DeletedDate)
+                        </td>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsDeleted)
+                        </th>
+
+                        <td>
+                            @Html.DisplayFor(model => model.IsDeleted)
+                        </td>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+
+                        <td>
+                            @Html.DisplayFor(model => model.Status)
+                        </td>*@
+
+
+
+
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+
+<div class="admin-table table-responsive px-0">
+    <div class="">
+        <table id="Index" class="table-striped mt-3 text-center table">
+            <thead>
+                <tr>
+                    <th>
+                        CardId
+                    </th>
+                    <th>
+                        Specialist Name
+                    </th>
+                    <th>
+                        Service Name
+                    </th>
+                    <th>
+                        Value
+                    </th>
+                    <th>
+                        ServiceDate
+                    </th>
+                    <th>
+                        Attachments
+                    </th>
+            </thead>
+
+            @foreach (var item in Model.IndemnityServiceMasters)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServiceCard)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Specialities1.SPEC_ANAME)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Service.NameAr)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServiceDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink(" Download", "Download", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info text-white fa fa-download", @style = " text-transform: none" })
+
+                    </td>
+
+
+                </tr>
+            }
+        </table>
+        </td>
+        @*<th>
                 @Html.DisplayNameFor(model => model.AttachPDF)
-            </dt>
+            </th>
 
-            <dd>
+            <td>
 
                 @Html.ActionLink(" Download", "Download", new { id = Model.BatchID }, htmlAttributes: new { @class = "btn btn-info fa fa-download", @style = " text-transform: none" })
-            </dd>*@
-    </dl>
+            </td>*@
+         
+    </div>
+
 </div>
 
 
-<br />
+
 <p>
     @if (!User.IsInRole("Admin"))
     {
         @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary fa fa-backward", @style = " text-transform: none" })
     }
     else
+
     {
-        <div class="portlet-body">
+        <div class="sios-overlay text-white container-fluid mt-4 mb-0 container-fluid">
+            <h2 class=" panel-heading">Update Status</h2>
+        </div>
+        <div class="status-box d-flex align-items-center justify-content-between container mx-auto panel panel-info">
 
-            <div class="panel panel-info">
-                <h2 class="panel-heading" style="margin:1px;">Update Status</h2>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="form-group">
-                            <input type="text" id="id" value="@Model.Id" hidden />
-                            <div class="col-lg-3">
-                                <h4>@Html.Label("Update Status :", htmlAttributes: new { @class = "control-label" })</h4>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="d-flex align-items-center mt-4 gap-3 form-group">
+                        <input class="chronic-form-control ps-3 pt-2" type="text" id="id" value="@Model.Id" hidden />
+                        <div class="">
+                            <h4>@Html.Label("Update Status :", htmlAttributes: new { @class = "me-2 fs-4 fw-medium control-label", @style = "white-space: nowrap; color: var(--color-table-text)" })</h4>
 
-                            </div>
-                            <div class="col-lg-3" data-step="7" data-intro="Select speciality">
-                                @Html.TextAreaFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                            </div>
+                        </div>
+                        <div style="width:250px;" class="col-lg-3" data-step="7" data-intro="Select speciality">
+                            @Html.TextAreaFor(model => model.Status, new { htmlAttributes = new { @class = "chronic-form-control ps-3 pt-2 form-control", @style = "height: 40px !important; border-radius: 10px" } })
                         </div>
                     </div>
                 </div>
-
-                <!--Save-->
-                <div class="panel-footer" style="text-align:right;">
-                    @*<input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
-                    @*<input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn btn-warning" />*@
-                    @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary fa fa-backward", @style = " text-transform: none" })
-                    <input data-step="12" data-intro="Update Status" id="submit" type="button" value="Update" class="btn btn-success fa fa-check" />
-                </div>
-
             </div>
+
+            <!--Save-->
+            <div class="panel-footer" style="text-align:right;">
+                @*<input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
+                @*<input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn btn-warning" />*@
+                @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3", @style = "width: fit-content; height: fit-content" })
+                <input data-step="12" data-intro="Update Status" id="submit" type="button" value="Update" class="btn fw-bold text-white rounded-3" />
+            </div>
+
         </div>
+
+
     }
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.BatchID }) |*@
     @*@Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary fa fa-backward", @style = " text-transform: none" })*@
@@ -268,6 +296,7 @@
     @*</div>*@
 
 </p>
+
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
 <script src="~/assets/HomeTemplete/js/intro.js"></script>
 <script src="~/Scripts/DMS/HR/UpdateStatus.js?V=1.1"></script>

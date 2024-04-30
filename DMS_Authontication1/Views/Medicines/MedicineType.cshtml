@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<section class="print-claim-section mt-5">
+<section class="print-claim-section  ">
     @using (Html.BeginForm("MedicineType", "Medicines", FormMethod.Post))
     {
         <div class="container">
@@ -29,8 +29,8 @@
                     </div>
                 </div>
             </div>
-            <div class="print-claims-btns d-flex mt-5 justify-content-end">
-                <input id="submit" type="submit" value="Create" class="btn claims-search-btn ms-2 rounded-3; fs-5"
+            <div class="print-claims-btns d-flex  justify-content-end">
+                <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3"
                        style="background-color: #717382" />
             </div>
         </div>
@@ -44,7 +44,7 @@
                 <h3 class="">Medicine Type List</h3>
             </div>
         </div>
-        <div class="sios-bg claims-section container-fluid">
+        <div class="sios-bg claims-section container-fluid mb-4">
             <div class="table-responsive">
                 <table id="example" class="table table-striped mt-3 text-center">
                     <thead>

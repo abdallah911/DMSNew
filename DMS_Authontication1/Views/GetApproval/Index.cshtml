@@ -1,44 +1,46 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
 
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Approval
+<div class="sios-container editeRquest fw-bold pt-4 portlet box  green">
+    <div class="row bg-overlay portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <i class="fa fa-gift me-3"></i>Approval
         </div>
 
     </div>
-    <br />
-    <div class="portlet-body">
+    
+    <div class="cs-bg w-100 m-auto my-4  portlet-body">
+        <div class="table-responsive">
+            <table class="table table-striped mt-3 text-center ui celled table" id="Index" width="100%">
+                <thead>
+                    <tr>
 
-        <table class="ui celled table" id="Index" width="100%">
-            <thead>
-                <tr>
+                        <th>
+                            Approval No
+                        </th>
+                        <th>
+                            Card Id
+                        </th>
 
-                    <th>
-                        Approval No
-                    </th>
-                    <th>
-                        Card Id
-                    </th>
+                        <th>
+                            CreatedBy
+                        </th>
 
-                    <th>
-                        CreatedBy
-                    </th>
+                        <th>
+                            CreatedDate
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
 
-                    <th>
-                        CreatedDate
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-
-        </table>
+            </table>
+        </div>
     </div>
-</div>
+    </div>
 
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 <script>

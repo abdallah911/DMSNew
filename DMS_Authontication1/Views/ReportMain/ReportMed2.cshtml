@@ -1,10 +1,9 @@
 ﻿@{
     ViewBag.Title = "ReportMed2";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 
 }
-<br />
-<br />
+ 
 
 <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
@@ -14,19 +13,19 @@
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 
-<div class="panel panel-info">
+<div class="sios-container panel panel-info">
 
     <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
         <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
     </div>
 
     <div class="portlet box blue">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i> Medicine Audit
+        <div class="row bg-overlay editeRquest fw-bold my-4 portlet-title">
+            <div class="m-3 fs-3 text-white  caption">
+                <i class="fa fa-gift me-3"></i> Medicine Audit
             </div>
         </div>
-        <div class="portlet-body">
+        <div class="container portlet-body">
             <div class="row ">
                 <div class="col-md-12">
                     <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
@@ -50,7 +49,7 @@
 
                                                     </label>
                                                     <div class="col-md-9">
-                                                        <input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                        <input id="RegistrationFrom" type="text" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  col-md-2 form-control " placeholder="From" />
                                                     </div>
                                                 </div>
                                                 <br />
@@ -62,7 +61,7 @@
 
                                             </label>
                                             <div class="col-md-10">
-                                                <input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                                                <input id="RegistrationTo" type="text" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  col-md-2 form-control " placeholder="To" />
                                             </div>
                                         </div>
 
@@ -75,7 +74,7 @@
 
                                                 </label>
                                                 <div class="col-md-6">
-                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CompNo" })
+                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = " hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded form-control", id = "CompNo" })
 
                                                 </div>
                                                 <br />
@@ -89,7 +88,7 @@
 
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <select id="CardNo" class="col-md-2 js-data-example-ajax" style="width: 100%">
+                                                    <select id="CardNo" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  col-md-2 js-data-example-ajax" style="width: 100%">
                                                         <option value="">select Card</option>
                                                     </select>
 
@@ -103,12 +102,12 @@
 
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
+                                                <label class="control-label fs-4 sbold col-md-3">
                                                     Repot Type :
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <select id="RepotType" class="form-control">                                                       
+                                                    <select id="RepotType" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded form-control">                                                       
                                                         <option value="1">Report Audit Medicine Chronic Details</option>
                                                         <option value="2">Report Audit Medicine Chronic Summary</option>
                                                                 
@@ -123,8 +122,8 @@
 
                                         @*Print Type*@
 
-                                        <div class="col-md-8">
-                                            <div class="form-group">
+                                        <div class="  col-md-8">
+                                            <div class=" d-flex gap-2 form-group">
                                                 <label class="control-label sbold col-md-3">
                                                     Print Type :
                                                 </label>
@@ -152,17 +151,17 @@
 
                                         @* For Buttons *@
 
-                                        <div class="col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
+                                        <div class="d-flex gap-2 " style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
 
-                                            <div class="col-sm-4" id="div_of_serv">
-                                                <button id="Consumption" type="button" class="btn btn-warning" onclick="ClearAll2()">
+                                            <div class=" " id="div_of_serv">
+                                                <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3 btn-warning" onclick="ClearAll2()">
                                                     <span class="fa fa-save"></span> New
                                                 </button>
 
                                             </div>
 
-                                            <div class="col-sm-4" id="div_of_serv">
-                                                <button id="Consumption" type="button" class="btn btn-primary" onclick="PrintReport2()">
+                                            <div class=" " id="div_of_serv">
+                                                <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3 btn-primary" onclick="PrintReport2()">
                                                     <span class="fa fa-save"></span> Print
                                                 </button>
 

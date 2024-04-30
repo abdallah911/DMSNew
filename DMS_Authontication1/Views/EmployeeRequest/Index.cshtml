@@ -3,7 +3,8 @@
 @using Newtonsoft.Json;
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 
     var edit = false;
     var delete = false;
@@ -32,9 +33,9 @@
     }
 }
 
-<br />
 
-<div style="margin-top:40px">
+
+<div  >
     @if (!User.IsInRole("Admin"))
     {
         <p>
@@ -51,17 +52,17 @@
 </div>
 @if (fullcontroll || view)
 {
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Operation
-            </div>
-
+<div class=" sios-container editeRquest fw-bold pt-4 portlet box  green">
+    <div class="row bg-overlay portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <i class="fa fa-gift me-3"></i>Operation
         </div>
-        <br />
-        <div class="portlet-body">
 
-            <table class="ui celled table" id="Index" width="100%">
+    </div>
+    <div class="cs-bg w-100 m-auto px-4 mt-4 pb-4">
+        <div class="table-responsive portlet-body">
+
+            <table class="table table-striped mt-3 text-center ui celled table" id="Index" width="100%">
                 <thead>
                     <tr>
 
@@ -94,6 +95,7 @@
             </table>
         </div>
     </div>
+</div>
 }
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 

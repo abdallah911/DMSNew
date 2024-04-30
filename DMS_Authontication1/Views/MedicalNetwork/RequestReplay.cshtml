@@ -1,155 +1,156 @@
 ﻿@{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
 
-<br />
+
 
 <div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Request List
+    <div class="row bg-overlay mt-4 portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <i class="fa fa-gift me-3"></i>Request List
         </div>
 
     </div>
-    <br />
-    <div class="portlet-body">
+    
+    <div style="white-space:nowrap" class="sios-bg w-100 m-auto px-4 my-4 pb-5">
+        <div class="table-responsive portlet-body">
+            <table  class="table table-striped mt-3 text-center ui celled table" id="Index" width="100%">
+                <thead>
+                    <tr>
 
-        <table class="ui celled table" id="Index" width="100%">
-            <thead>
-                <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Company Id
+                        </th>
+                        <th>
+                            Provider Type
+                        </th>
+                        <th>
+                            Provider Name
+                        </th>
+                        <th>
+                            Phone Number
+                        </th>
+                        <th>
+                            Number Of People
+                        </th>
+                        <th>
+                            Created Date
+                        </th>
+                        <th>
+                            Created By
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
 
-                    <th>
-                        Id
-                    </th>
-                    <th>
-                        Company Id
-                    </th>
-                    <th>
-                        Provider Type
-                    </th>
-                    <th>
-                        Provider Name
-                    </th>
-                    <th>
-                        Phone Number
-                    </th>
-                    <th>
-                        Number Of People
-                    </th>
-                    <th>
-                        Created Date
-                    </th>
-                    <th>
-                        Created By
-                    </th>
-                    <th>
-                        Action
-                    </th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-
-        </table>
+                </table >
+        </div>
     </div>
 </div>
-<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
-<script>
-    $(function () {
-        $("#Index").DataTable({
-            "sAjaxSource": '/MedicalNetwork/NonReplayRequestList',
-            "bServerSide": true,
-            "processing": true,
-            "bFilter": true,
-            "bSort": false,
-            "pageLength": 10,
-            "bInfo": true,
-            "lengthChange": false,
+        <script>
+            $(function () {
+                $("#Index").DataTable({
+                    "sAjaxSource": '/MedicalNetwork/NonReplayRequestList',
+                    "bServerSide": true,
+                    "processing": true,
+                    "bFilter": true,
+                    "bSort": false,
+                    "pageLength": 10,
+                    "bInfo": true,
+                    "lengthChange": false,
 
-            "columns": [
-                { "data": "ID", "name": "Id" },
-                { "data": "CompName", "name": "Company Id" },
-                {
-                    "data": "ProviderType",
-                    "name": "Provider Type",
-                    "mRender": function (data) {
-                        if (data == 1)
-                            return "مستشفى";
-                        if (data == 2)
-                            return "صيدليه";
-                        if (data == 3)
-                            return "معمل";
-                        if (data == 4)
-                            return "أشعه";
-                        if (data == 5)
-                            return "Doctor";
-                        if (data == 6)
-                            return "مراكز علاج طبيعي";
-                        if (data == 7)
-                            return "مراكز اسنان";
-                        if (data == 8)
-                            return "مراكز بصريات";
-                        if (data == 9)
-                            return "polyclinic";
-                    }
-                },
-                { "data": "PhoneNumber", "name": "Phone Number" },
-                { "data": "NumberOfPeople", "name": "Number Of People" },
+                    "columns": [
+                        { "data": "ID", "name": "Id" },
+                        { "data": "CompName", "name": "Company Id" },
+                        {
+                            "data": "ProviderType",
+                            "name": "Provider Type",
+                            "mRender": function (data) {
+                                if (data == 1)
+                                    return "مستشفى";
+                                if (data == 2)
+                                    return "صيدليه";
+                                if (data == 3)
+                                    return "معمل";
+                                if (data == 4)
+                                    return "أشعه";
+                                if (data == 5)
+                                    return "Doctor";
+                                if (data == 6)
+                                    return "مراكز علاج طبيعي";
+                                if (data == 7)
+                                    return "مراكز اسنان";
+                                if (data == 8)
+                                    return "مراكز بصريات";
+                                if (data == 9)
+                                    return "polyclinic";
+                            }
+                        },
+                        { "data": "PhoneNumber", "name": "Phone Number" },
+                        { "data": "NumberOfPeople", "name": "Number Of People" },
 
-                { "data": "ServName", "name": "Provider Name" },
+                        { "data": "ServName", "name": "Provider Name" },
 
-                {
-                    "data": "CreatedDate",
-                    "name": "Created Date",
-                    "mRender": function (data) {
-                        var value = new Date(parseFloat(data.replace(/(^.*\()|([+-].*$)/g, '')));
-                        var date = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                        return date;
-                    }
-                },
-                { "data": "CreatedBy", "name": "Created By" },
-                {
-                    "data": "ID",
-                    "mRender": function (data) {
-                        return '<a class="btn btn-info fa fa-info-square" style = " text-transform: none"  href="/MedicalNetwork/Details/' + data + '"> Details </a>';
-                    }
-                },
+                        {
+                            "data": "CreatedDate",
+                            "name": "Created Date",
+                            "mRender": function (data) {
+                                var value = new Date(parseFloat(data.replace(/(^.*\()|([+-].*$)/g, '')));
+                                var date = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                                return date;
+                            }
+                        },
+                        { "data": "CreatedBy", "name": "Created By" },
+                        {
+                            "data": "ID",
+                            "mRender": function (data) {
+                                return '<a class="btn btn-info fa fa-info-square" style = " text-transform: none"  href="/MedicalNetwork/Details/' + data + '"> Details </a>';
+                            }
+                        },
 
 
-            ]
-        });
-    });
-    function UpdateStuts(button) {
-        var row = $(button).closest("TR");
-        var id = $("TD", row).eq(0).html();
-        id = parseInt(id);
-        //debugger;
-        if ($(button).val() != "N") {
-            $.ajax({
-                type: 'POST',
-                url: '/Employee/ChangeStatus',
-                dataType: 'Json',
-                data: {
-                    Id: id,
-                    status: $(button).val()
-                },
-                dataType: 'Json',
-                success: function (r) {
-                    //if ($(button).val() != "N" && r != -2) {
-                    $("TD", row).eq(5).html($(button).find("option:selected").text());
-                    //$("#ChangeStatus").prop('disabled', 'disabled');
-                    //if ($(button).val() == "false") {
-                    //    $("TD", row).eq(4).html('Accepted');
-                    //}
-                    toastr.success("Save Success");
-
-                },
-                error: function () {
-                    toastr.error("Error Save Data");
-                }
+                    ]
+                });
             });
-        }
+            function UpdateStuts(button) {
+                var row = $(button).closest("TR");
+                var id = $("TD", row).eq(0).html();
+                id = parseInt(id);
+                //debugger;
+                if ($(button).val() != "N") {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Employee/ChangeStatus',
+                        dataType: 'Json',
+                        data: {
+                            Id: id,
+                            status: $(button).val()
+                        },
+                        dataType: 'Json',
+                        success: function (r) {
+                            //if ($(button).val() != "N" && r != -2) {
+                            $("TD", row).eq(5).html($(button).find("option:selected").text());
+                            //$("#ChangeStatus").prop('disabled', 'disabled');
+                            //if ($(button).val() == "false") {
+                            //    $("TD", row).eq(4).html('Accepted');
+                            //}
+                            toastr.success("Save Success");
 
-    }
-</script>
+                        },
+                        error: function () {
+                            toastr.error("Error Save Data");
+                        }
+                    });
+                }
+
+            }
+        </script>
