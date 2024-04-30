@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0e09e86cc06b4364aa9c6bf3a398f095" Name="Diagram1" ZoomLevel="100">
+      <Diagram DiagramId="0e09e86cc06b4364aa9c6bf3a398f095" Name="Diagram1" ZoomLevel="21">
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Acception" Width="1.5" PointX="9.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.AcceptionReason" Width="1.5" PointX="0.5" PointY="14.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CardAcceptionReason" Width="1.5" PointX="4" PointY="14.375" IsExpanded="true" />
@@ -169,7 +169,7 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PrintMedicalReport" Width="1.5" PointX="41.375" PointY="5.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalMain" Width="1.5" PointX="41.375" PointY="20.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.AgeAvg" Width="1.5" PointX="20.375" PointY="29.75" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority" Width="1.5" PointX="43.625" PointY="25.5" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority" Width="1.5" PointX="43.625" PointY="25.5" IsExpanded="false" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalOutsideMedicalAuthority" Width="1.5" PointX="43.625" PointY="12" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalStepTwo" Width="1.5" PointX="43.625" PointY="6.625" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains" />

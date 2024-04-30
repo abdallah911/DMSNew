@@ -71,7 +71,7 @@ namespace DMS_Authontication1.Models
         public int DailyRoshitasCountPerMonth { get; set; }
         public bool CoronaVaccineCoverage { get; set; }
         public int MainId { get; set; }
-        public int ClassCode { get; set; }
+        public string ClassCode { get; set; }
         public decimal DoctorsExaminationValue { get; set; }
         public int PricesOutsideMedicalAuthorityId { get; set; }
     

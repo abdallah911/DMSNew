@@ -18,9 +18,9 @@ namespace DMS_Authontication1.Models
         public decimal AnnualCoverageCeiling { get; set; }
         public int ParticipantsCount { get; set; }
         public decimal Price { get; set; }
-        public int MinAge { get; set; }
-        public int MaxAge { get; set; }
-        public int AvgAge { get; set; }
+        public Nullable<int> MinAge { get; set; }
+        public Nullable<int> MaxAge { get; set; }
+        public Nullable<int> AvgAge { get; set; }
         public int ChecksInsideHospital { get; set; }
         public int PhysicalTherapyInsideHospital { get; set; }
         public int OutsideClincInsideHospital { get; set; }
@@ -32,8 +32,7 @@ namespace DMS_Authontication1.Models
         public string ClassCode { get; set; }
         public decimal Accidents { get; set; }
         public decimal Death { get; set; }
-
+    
         public virtual RenewalMain RenewalMain { get; set; }
-
     }
 }

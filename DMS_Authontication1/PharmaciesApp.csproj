@@ -8038,6 +8038,9 @@
     <Content Include="ProposalAssets\JS\jquery-ui.js" />
     <Content Include="ProposalAssets\JS\jquery.min.js" />
     <Content Include="ProposalAssets\JS\main.js" />
+    <Content Include="Scripts\DMS\NewReport.js" />
+    <Content Include="Scripts\DMS\PharmacyIndexNewDesign.js" />
+    <Content Include="Scripts\DMS\ProposalRenewals\ProposalRenewals.js" />
     <Content Include="Scripts\DMS\ReportMain\ReportMain.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -9018,6 +9021,10 @@
     <Content Include="Views\Roshitas\Details.cshtml" />
     <Content Include="Views\Roshitas\Edit.cshtml" />
     <Content Include="Views\Roshitas\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout_DashboardAdminNew.cshtml" />
+    <Content Include="Views\Shared\_Layout_DashboardNew.cshtml" />
+    <Content Include="Views\Shared\_Layout_Proposal.cshtml" />
+    <Content Include="Views\Shared\_Reports.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
