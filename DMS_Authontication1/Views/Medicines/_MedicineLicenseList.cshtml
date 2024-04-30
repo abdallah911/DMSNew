@@ -1,0 +1,28 @@
+﻿@model DMS_Authontication1.ViewModel.LicTypeViewModel
+
+<table class="table"@*style="margin-left: 78px;"*@>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.licType)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Licenses)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LicenseName)
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" data-id=@item.Id onclick="Delete(this);"> Delete</button>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
