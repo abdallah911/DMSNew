@@ -7,7 +7,6 @@
       <Diagram DiagramId="0e09e86cc06b4364aa9c6bf3a398f095" Name="Diagram1" ZoomLevel="100">
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Acception" Width="1.5" PointX="9.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.AcceptionReason" Width="1.5" PointX="0.5" PointY="14.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Basic_Data" Width="1.5" PointX="11.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CardAcceptionReason" Width="1.5" PointX="4" PointY="14.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.COMP_CUSTOMIZED_D" Width="2.25" PointX="7" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Comp_Customized_D_D" Width="1.5" PointX="15.75" PointY="7.75" IsExpanded="true" />
@@ -21,7 +20,6 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Contract_Data" Width="1.5" PointX="21.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.DailyPermission" Width="1.5" PointX="21.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Diagnosi" Width="1.5" PointX="21.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Employee_Request_Type" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.EmployeeRelation" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Gender" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Governate" Width="1.5" PointX="9.375" PointY="25.125" IsExpanded="true" />
@@ -165,9 +163,26 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ApprovalBil" Width="1.5" PointX="39.375" PointY="20.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CONSUMPTION_POOL" Width="1.5" PointX="40.375" PointY="25.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CardsSm" Width="1.5" PointX="34.375" PointY="5.75" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PETROTRADE_EMPLOYEES" Width="1.5" PointX="37.375" PointY="40.75" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ApprovalCode" Width="1.5" PointX="40.375" PointY="16.75" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CardCode" Width="1.5" PointX="39.375" PointY="40.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CardCode" Width="1.5" PointX="40.375" PointY="16.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ApprovalCode" Width="1.5" PointX="39.375" PointY="40.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PETROTRADE_EMPLOYEES" Width="1.5" PointX="41.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PrintMedicalReport" Width="1.5" PointX="41.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalMain" Width="1.5" PointX="41.375" PointY="20.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.AgeAvg" Width="1.5" PointX="20.375" PointY="29.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority" Width="1.5" PointX="43.625" PointY="25.5" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalOutsideMedicalAuthority" Width="1.5" PointX="43.625" PointY="12" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalStepTwo" Width="1.5" PointX="43.625" PointY="6.625" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_RenewalMains" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalStepTwo_RenewalMains" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Employee_Request_Type" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompHolder" Width="1.5" PointX="3.375" PointY="42.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.HrUserPage" Width="1.5" PointX="10.375" PointY="42.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PendingCount" Width="1.5" PointX="43.375" PointY="3.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PendingInPatient" Width="1.5" PointX="43.375" PointY="38.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PendingOutPatient" Width="1.5" PointX="43.375" PointY="41.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.AlphabetLetter" Width="1.5" PointX="43.375" PointY="44.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Basic_Data" Width="1.5" PointX="12.375" PointY="13.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

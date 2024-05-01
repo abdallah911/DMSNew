@@ -16,7 +16,7 @@ namespace DMS_Authontication1.Models
     {
         public string CARD_ID { get; set; }
         public Nullable<int> C_COMP_ID { get; set; }
-        public Nullable<int> EMP_CODE { get; set; }
+        public string EMP_CODE { get; set; }
         public Nullable<int> CLASS_CODE { get; set; }
         public string EMP_ANAME { get; set; }
         public string COST_CENTER { get; set; }

@@ -1,0 +1,241 @@
+﻿@model IEnumerable<DMS_Authontication1.Models.Roshita>
+@using Microsoft.AspNet.Identity;
+@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    if (User.IsInRole("Admin"))
+    {
+
+        var modellist = new List<ModulesPagesViewModel>();
+        var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+        if (claim != null)
+        {
+            modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+            if (modellist != null)
+            {
+                var obj = modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 4 && (x.FullControl || x.EditPermission
+                                              || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+                if (obj != null)
+                {
+                    edit = obj.EditPermission;
+                    delete = obj.ActivationControl;
+                    view = obj.Preview;
+                    fullcontroll = obj.FullControl;
+
+                }
+            }
+        }
+
+    }
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
+
+}
+<style>
+    tr {
+        text-align: center;
+    }
+</style>
+@if (!User.IsInRole("Admin"))
+{
+    <div class="sios-overlay container-fluid mt-4">
+        <div class="container">
+            <i class="fa-solid fa-house"></i>
+            <h3>Print Claims</h3>
+        </div>
+    </div>
+
+    <section class="print-claim-section">
+        <form name="formValidation"
+              id="formValidation"
+              action="Pharmacy_claims.html">
+            <div class="container">
+                <div class="row">
+                    <div class="row row-cols-sm-3 m-auto m-sm-0">
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="date" name="From" id="From" required="required" />
+                            <span for="From">From</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="date" name="To" id="To" required="required" />
+                            <span for="To">To</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="Number" name="LabsApprovalNo" id="LabsApprovalNo" required="required" />
+                            <span for="LabsApprovalNo">ApprovalNo.</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="text" id="LabsCardId" name="LabsCardId" required="required" />
+                            <span for="LabsCardId">Card ID</span>
+                        </div>
+                        @if (User.IsInRole("Lab_Admin"))
+                        {
+                            <div class="forLabel">
+                                @Html.DropDownList("ddlUsers", null, "All", htmlAttributes: new { @class = "chronic-form-control mb-3 ps-3", @id = "ddlUsers" })
+
+                                <span for="Select Group">Select User</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="print-claims-btns d-flex mt-5">
+                    <input id="LabsResetSearch" type="button" value="Reset" onclick="ClearLabsSearchData();" class="btn reset-btn me-2" />
+                    <input id="Print" type="button" value="Print" class="btn print-btn " />
+                    <input id="LabsAdminSearch" type="button" value="Search" class="btn claims-search-btn ms-2" />
+                </div>
+            </div>
+        </form>
+    </section>
+}
+@if (User.IsInRole("Admin") && (edit || delete || view || fullcontroll))
+{
+    <input id="edit" value="@edit.ToString()" hidden />
+    <input id="delete" value="@delete.ToString()" hidden />
+    <input id="view" value="@view.ToString()" hidden />
+    <input id="fullcontroll" value="@fullcontroll.ToString()" hidden />
+    <div class="sios-overlay container-fluid mt-4">
+        <div class="container">
+            <i class="fa-solid fa-house"></i>
+            <h3>Admin Search</h3>
+        </div>
+    </div>
+
+    <section class="print-claim-section">
+        <form name="formValidation"
+              id="formValidation"
+              action="Pharmacy_claims.html">
+            <div class="container">
+                <div class="row">
+                    <div class="row row-cols-sm-3 m-auto m-sm-0">
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="text" name="AdminFrom" id="AdminFrom" required="required" />
+                            <span for="From">From</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="text" name="AdminTo" id="AdminTo" required="required" />
+                            <span for="To">To</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="text" name="Provider" id="Provider" required="required" />
+                            <span for="provider">Provider</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="text" name="Company" id="Company" required="required" />
+                            <span for="company">Company</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="Number" name="ApprovalNo" id="ApprovalNo" required="required" />
+                            <span for="ApprovalNo">ApprovalNo.</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="text" name="Branch" id="Branch" required="required" />
+                            <span for="branch">Branch</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="text" name="CardId" id="CardId" required="required" />
+                            <span for="CardID">Card ID</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="print-claims-btns d-flex gap-2 mt-5">
+                    <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3" />
+                    <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3 " />
+
+                </div>
+            </div>
+        </form>
+    </section>
+}
+<div style="display: flex; flex-direction: column">
+    <section style="min-height: 80vh;display: flex;flex-direction: column;flex-grow: 1; ">
+        <div class="sios-overlay container-fluid mt-4">
+            <div class="container">
+                <i class="fa-solid fa-house"></i>
+                <h3 class="">Claims</h3>
+            </div>
+        </div>
+        <div class="sios-bg w-100 m-auto px-4 mt-4 pb-5">
+            <div class="table-responsive">
+                <table id="Index" class="table table-striped mt-3 text-center">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                Approval No
+                            </th>
+                            <th>
+                                Card Id
+                            </th>
+                            <th>
+                                Company Percent
+                            </th>
+                            <th>
+                                Total Value
+                            </th>
+                            <th>
+                                Manager
+                            </th>
+
+                            <th>
+                                CreatedBy
+                            </th>
+
+                            <th>
+                                CreatedDate
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        @if (User.IsInRole("Admin") && fullcontroll)
+        {
+            <div class="sios-overlay container-fluid mt-4">
+                <div class="container">
+                    <i class="fa-solid fa-house"></i>
+                    <h3 class="">Admin Count</h3>
+                </div>
+            </div>
+
+            <div class="sios-bg w-100 m-auto px-4 my-4 pb-5">
+                <div class="table-responsive">
+                    <table id="Counts" class="table table-striped mt-3 text-center">
+                        <thead class="mt-3">
+                            <tr class="text-center">
+                                <th>Count</th>
+                                <th>Total Value</th>
+                                <th>CompanyPercent</th>
+                                <th>Person Payment</th>
+                                <th>Cash</th>
+                                <th>Over Insurance</th>
+                            </tr>
+                        </thead>
+                        <tbody class=" ">
+                            <tr class="text-center">
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class=btn fw-bold text-white rounded-3"></div>
+            </div>
+        }
+    </section>
+</div>
+<script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
+<script src="~/Scripts/DMS/Labs/LabIndex.js?V=1.4"></script>

@@ -12,15 +12,15 @@ namespace DMS_Authontication1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ApprovalCode
+    public partial class PrintMedicalReport
     {
         public int Id { get; set; }
-        public string Card_ID { get; set; }
-        public string Code { get; set; }
-        public string CreatedBy { get; set; }
+        public Nullable<int> CompNumber { get; set; }
+        public string ProviderType { get; set; }
+        public string Speciality { get; set; }
+        public string CardId { get; set; }
+        public string ProviderName { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-        public string UpdatedBy { get; set; }
-        public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public bool IsActive { get; set; }
+        public string CreatedBy { get; set; }
     }
 }
