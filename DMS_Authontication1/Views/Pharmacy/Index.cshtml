@@ -45,31 +45,31 @@
             </div>
         </div>
         <div class="portlet-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <input id="From" type="text" class="chronic-form-control  ps-3 " placeholder="From" />
+            <div class="row row-col-xl-4 row-cols-lg-3 row-cols-sm-2 row-gap-2">
+                <div class="">
+                    <input id="From" type="text" class="admin-form-control w-100  ps-3 " placeholder="From" />
                 </div>
-                <div class="col-md-2">
-                    <input id="To" type="text" class="chronic-form-control  ps-3 " placeholder="To" />
+                <div class="">
+                    <input id="To" type="text" class="admin-form-control w-100  ps-3 " placeholder="To" />
                 </div>
-                <div class="col-md-2">
-                    <input id="PharmacyApprovalNo" type="text" class="chronic-form-control  ps-3 " placeholder="ApprovalNo" />
+                <div class="">
+                    <input id="PharmacyApprovalNo" type="text" class="admin-form-control w-100  ps-3 " placeholder="ApprovalNo" />
                 </div>
-                <div class="col-md-2">
-                    <input id="PharmacyCardId" type="text" class="chronic-form-control  ps-3 " placeholder="Card ID" />
+                <div class="">
+                    <input id="PharmacyCardId" type="text" class="admin-form-control w-100  ps-3 " placeholder="Card ID" />
                 </div>
                 <div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
                     <select id="PharmacyddlType" class="form-control">
                         <option value="">Select Type</option>
                         <option value="Daily">Daily</option>
                         <option value="Monthly">Monthly</option>
-                        <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>
+                        <option value="Pharmacy_admin">Pharmacy_admin</option>
                         @*<option value="11604">Doctor</option>*@
                     </select>
                 </div>
                 @if (User.IsInRole("Pharmacy_Admin"))
                 {
-                    <div class="col-md-2">
+                    <div class="">
                         @Html.DropDownList("ddlUsers", null, "All", htmlAttributes: new { @class = "form-control", @id = "ddlUsers" })
                     </div>
                 }
@@ -102,42 +102,40 @@
             <input id="view" value="@view.ToString()" hidden />
             <input id="fullcontroll" value="@fullcontroll.ToString()" hidden />
 
-            <div class="row" style="padding-bottom: 15px;">
-                <div class="col-md-2">
-                    <input id="AdminFrom" type="text" class="chronic-form-control  ps-3 " placeholder="From" />
+            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-gap-2" style="padding-bottom: 15px;">
+                <div class="">
+                    <input id="AdminFrom" type="text" class="admin-form-control w-100  ps-3 " placeholder="From" />
                 </div>
-                <div class="col-md-2">
-                    <input id="Provider" type="text" class="chronic-form-control  ps-3 " placeholder="Provider" />
+                <div class="">
+                    <input id="Provider" type="text" class="admin-form-control w-100  ps-3 " placeholder="Provider" />
                 </div>
-                <div class="col-md-2">
-                    <input id="Company" type="text" class="chronic-form-control  ps-3 " placeholder="Company" />
+                <div class="">
+                    <input id="Company" type="text" class="admin-form-control w-100  ps-3 " placeholder="Company" />
                 </div>
-                <div class="col-md-2">
-                    <input id="ApprovalNo" type="text" class="chronic-form-control  ps-3 " placeholder="ApprovalNo" />
+                <div class="">
+                    <input id="ApprovalNo" type="text" class="admin-form-control w-100  ps-3 " placeholder="ApprovalNo" />
                 </div>
-
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <input id="AdminTo" type="text" class="chronic-form-control  ps-3 " placeholder="To" />
+                <div class="">
+                    <input id="AdminTo" type="text" class="admin-form-control w-100  ps-3 " placeholder="To" />
                 </div>
-                <div class="col-md-2">
-                    <input id="Branch" type="text" class="chronic-form-control  ps-3 " placeholder="Branch" />
+                <div class="">
+                    <input id="Branch" type="text" class="admin-form-control w-100  ps-3 " placeholder="Branch" />
                 </div>
-                <div class="col-md-2">
-                    <input id="CardId" type="text" class="chronic-form-control  ps-3 " placeholder="Card ID" />
+                <div class="">
+                    <input id="CardId" type="text" class="admin-form-control w-100  ps-3 " placeholder="Card ID" />
                 </div>
                 <div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
-                    <select style="height:40px;" id="ddlType" class="chronic-form-control  ps-3 form-control">
+                    <select style="height:40px;" id="ddlType" class="admin-form-control w-100  ps-3 form-control">
                         <option value="">Select Type</option>
                         <option value="Daily">Daily</option>
                         <option value="Monthly">Monthly</option>
-                        <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>
+                        <option value="Pharmacy_admin">Pharmacy_admin</option>
                         <option value="Pharmacy_Data">Pharmacy_Data</option>
                         @*<option value="11604">Doctor</option>*@
                     </select>
                 </div>
             </div>
+           
             <div style=" text-align:right">
                 <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3" />
                 <input id="PrintExcel" type="button" value="Excel" class="btn fw-bold text-white rounded-3 fa-file-excel-o " />

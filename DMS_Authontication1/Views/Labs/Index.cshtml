@@ -58,25 +58,25 @@
                 <div class="row">
                     <div class="row row-cols-sm-3 m-auto m-sm-0">
                         <div class="forLabel">
-                            <input class="chronic-form-control mb-3 ps-3" type="date" name="From" id="From" required="required" />
+                            <input class="admin-form-control mb-3 ps-3" type="date" name="From" id="From" required="required" />
                             <span for="From">From</span>
                         </div>
                         <div class="forLabel">
-                            <input class="chronic-form-control mb-3 ps-3" type="date" name="To" id="To" required="required" />
+                            <input class="admin-form-control mb-3 ps-3" type="date" name="To" id="To" required="required" />
                             <span for="To">To</span>
                         </div>
                         <div class="forLabel">
-                            <input class="chronic-form-control mb-3 ps-3" type="Number" name="LabsApprovalNo" id="LabsApprovalNo" required="required" />
+                            <input class="admin-form-control mb-3 ps-3" type="Number" name="LabsApprovalNo" id="LabsApprovalNo" required="required" />
                             <span for="LabsApprovalNo">ApprovalNo.</span>
                         </div>
                         <div class="forLabel">
-                            <input class="chronic-form-control mb-3 ps-3" type="text" id="LabsCardId" name="LabsCardId" required="required" />
+                            <input class="admin-form-control mb-3 ps-3" type="text" id="LabsCardId" name="LabsCardId" required="required" />
                             <span for="LabsCardId">Card ID</span>
                         </div>
                         @if (User.IsInRole("Lab_Admin"))
                         {
                             <div class="forLabel">
-                                @Html.DropDownList("ddlUsers", null, "All", htmlAttributes: new { @class = "chronic-form-control mb-3 ps-3", @id = "ddlUsers" })
+                                @Html.DropDownList("ddlUsers", null, "All", htmlAttributes: new { @class = "admin-form-control mb-3 ps-3", @id = "ddlUsers" })
 
                                 <span for="Select Group">Select User</span>
                             </div>
@@ -113,31 +113,31 @@
                 <div class="row">
                     <div class="row row-cols-sm-3 m-auto m-sm-0">
                         <div class="forLabel">
-                            <input class="chronic-form-control mb-3 ps-3" type="text" name="AdminFrom" id="AdminFrom" required="required" />
+                            <input class="admin-form-control mb-3 ps-3" type="text" name="AdminFrom" id="AdminFrom" required="required" />
                             <span for="From">From</span>
                         </div>
                         <div class="forLabel">
-                            <input class="chronic-form-control mb-3 ps-3" type="text" name="AdminTo" id="AdminTo" required="required" />
+                            <input class="admin-form-control mb-3 ps-3" type="text" name="AdminTo" id="AdminTo" required="required" />
                             <span for="To">To</span>
                         </div>
                         <div class="forLabel">
-                            <input class="chronic-form-control mb-3 ps-3" type="text" name="Provider" id="Provider" required="required" />
+                            <input class="admin-form-control mb-3 ps-3" type="text" name="Provider" id="Provider" required="required" />
                             <span for="provider">Provider</span>
                         </div>
                         <div class="forLabel">
-                            <input class="chronic-form-control mb-3 ps-3" type="text" name="Company" id="Company" required="required" />
+                            <input class="admin-form-control mb-3 ps-3" type="text" name="Company" id="Company" required="required" />
                             <span for="company">Company</span>
                         </div>
                         <div class="forLabel">
-                            <input class="chronic-form-control mb-3 ps-3" type="Number" name="ApprovalNo" id="ApprovalNo" required="required" />
+                            <input class="admin-form-control mb-3 ps-3" type="Number" name="ApprovalNo" id="ApprovalNo" required="required" />
                             <span for="ApprovalNo">ApprovalNo.</span>
                         </div>
                         <div class="forLabel">
-                            <input class="chronic-form-control mb-3 ps-3" type="text" name="Branch" id="Branch" required="required" />
+                            <input class="admin-form-control mb-3 ps-3" type="text" name="Branch" id="Branch" required="required" />
                             <span for="branch">Branch</span>
                         </div>
                         <div class="forLabel">
-                            <input class="chronic-form-control mb-3 ps-3" type="text" name="CardId" id="CardId" required="required" />
+                            <input class="admin-form-control mb-3 ps-3" type="text" name="CardId" id="CardId" required="required" />
                             <span for="CardID">Card ID</span>
                         </div>
                     </div>

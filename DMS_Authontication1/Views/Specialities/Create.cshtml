@@ -25,17 +25,17 @@
                 <div class="flex-column d-flex pe-5">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="new-requ-form-parent row col-4 col-sm-6 col-md-8 mt-3">
-                        @Html.LabelFor(model => model.SPEC_ANAME, htmlAttributes: new { @class = "col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })
+                        @Html.LabelFor(model => model.SPEC_ANAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })
                         @Html.EditorFor(model => model.SPEC_ANAME, new { htmlAttributes = new { @class = "hr-form-control col-12 col-sm-8 border-0" } })
                         @Html.ValidationMessageFor(model => model.SPEC_ANAME, "", new { @class = "text-danger" })
                     </div>
                     <div class="new-requ-form-parent row col-4 col-sm-6 col-md-8 mt-3">
-                        @Html.LabelFor(model => model.SPEC_ENAME, htmlAttributes: new { @class = "col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })
+                        @Html.LabelFor(model => model.SPEC_ENAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })
                         @Html.EditorFor(model => model.SPEC_ENAME, new { htmlAttributes = new { @class = "hr-form-control col-12 col-sm-8 border-0" } })
                         @Html.ValidationMessageFor(model => model.SPEC_ENAME, "", new { @class = "text-danger" })
                     </div>
                     <div class="new-requ-form-parent row col-4 col-sm-6 col-md-8 mt-3">
-                        @Html.LabelFor(model => model.special_notes, htmlAttributes: new { @class = "col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })
+                        @Html.LabelFor(model => model.special_notes, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })
                         @Html.EditorFor(model => model.special_notes, new { htmlAttributes = new { @class = "hr-form-control col-12 col-sm-8 border-0" } })
                         @Html.ValidationMessageFor(model => model.special_notes, "", new { @class = "text-danger" })
                     </div>

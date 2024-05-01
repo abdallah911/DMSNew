@@ -20,7 +20,7 @@
         <div class="row m-4">
             <div  class="d-flex align-items-center justify-content-start form-group">
                 <div class="col-sm-3 ">
-                    <input id="txtSearchCard" type="text" name="Search" placeholder="search for card..." class="search-inp rounded-4 w-100 form-control" />
+                    <input id="txtSearchCard" type="text" name="Search" placeholder="search for card..." class="search-inp rounded-4 w-100 admin-form-control form-control" />
                 </div>
                 <div class="col-sm-3 position-absolute">
                     <button style="height:40px;" id="Search" type="button" class="search-btn text-light rounded-4 btn btn-primary">
@@ -42,27 +42,27 @@
 
                 <div class="col-sm-2">
                     @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
                 </div>
                 <div class="col-sm-2">
                     @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
                 </div>
                 <div class="col-sm-2">
                     @Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
                 </div>
                 <div class="col-sm-2">
                     @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
                 </div>
                 <div class="col-sm-2">
                     @Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
                 </div>
                 @*<div class="col-sm-2">
                         @Html.LabelFor(model => model.compEmp.gender, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.compEmp.gender, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        @Html.EditorFor(model => model.compEmp.gender, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
                     </div>*@
 
 
@@ -105,7 +105,7 @@
                 <div hidden id="Hidde"   class="w-50 d-flex align-items-center gap-2 col-sm-2">
                     <label>Provider</label>
                     @Html.DropDownListFor(m => m.Provider, (new SelectList(Model.GetProvidersList, "Id", "Name")),
-        new { @class = "form-control", id = "Provider" })
+        new { @class = "admin-form-control form-control", id = "Provider" })
 
                 </div>
 

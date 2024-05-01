@@ -1,0 +1,116 @@
+﻿  <!-- start sidebar -->
+<div class="sidebar-parent col-4 position-fixed z-2">
+    <div class="sideBar col-8">
+        <div class="operation-btns">
+            <a href="CS.html">
+                <button class="sidebar-item " id="costumerService">
+                    خدمة العملاء
+                </button>
+            </a>
+            <a href="CS_Medical-Network.html">
+                <button class="sidebar-item" id="medicalNetwork">
+                    الشبكة الطبية
+                </button>
+            </a>
+            <a href="CS_add-applicant.html">
+                <button class="sidebar-item" id="addApplicant">
+                    طلب إضافة مقدم خدمة
+                </button>
+            </a>
+            <a href="CS_Questionnaire.html">
+                <button class="sidebar-item" id="questionnaire">إستعلام</button>
+            </a>
+            <a href="CS_Operation.html">
+                <button class="sidebar-item" id="operation">Operation</button>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- end sidebar -->
+<div style="display: flex; flex-direction: column">
+    <div class="sios-overlay container-fluid mt-4">
+        <div class="container">
+            <i class="fa-solid fa-house"></i>
+            <h3>Admin Search</h3>
+        </div>
+    </div>
+
+    <section class="my-5">
+        <form name="formValidation"
+              id="formValidation"
+              action="CS_Medical-Network.html">
+            -
+            <div class="container-fluid col-sm-9 me-0 px-lg-5">
+                <div class="row mt-3 gap-4" dir="rtl">
+                    <div class="row-cols-sm-2 ms-auto m-sm-0 d-flex flex-column gap-4">
+                        <div class="px-2 mx-auto col-9 me-lg-0">
+                            <div style="height: 45px;" class="forLabel">
+                                <select class=" chronic-form-control  rounded border-3 ps-3"
+                                        id=""
+                                        required=""></select>
+                                <span style="right:20px; top: 30%;">الشركة كود \ اسم</span>
+                            </div>
+                        </div>
+                        <div class="px-2 mx-auto col-9 me-lg-0">
+                            <div style="height: 45px;" class="forLabel">
+                                <select class=" chronic-form-control  rounded border-3 ps-3"
+                                        id=""
+                                        required=""></select>
+                                <span style="right:20px; top: 30%;">الكارت كود \ اسم</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-column flex-lg-row gap-2 w-100 mt-4"
+                     dir="rtl">
+                    <div style="direction: ltr"
+                         class="print-claims-btns mx-auto ms-sm-5 pe-sm-5 d-flex flex-lg-column align-items-center gap-3 mt-5">
+                        <div style="white-space: nowrap; width: fit-content"
+                             class="d-flex align-items-center me-lg-auto ms-lg-5">
+                            <input name="medicalnetwork" id="categ" type="radio" />
+                            <label class=" fw-bold ms-2"
+                                   style="color: var(--color-secondary)"
+                                   for="categ">الفئة</label>
+                        </div>
+                        <br />
+                        <div style="white-space: nowrap; width: fit-content"
+                             class="d-flex align-items-center me-lg-auto ms-lg-5">
+                            <input name="medicalnetwork" id="cardNum" type="radio" />
+                            <label class=" fw-bold ms-2"
+                                   style="color: var(--color-secondary)"
+                                   for="cardNum">رقم الكارت</label>
+                        </div>
+                    </div>
+                    <div class="row gap-3 py-4 col-12 col-sm-10 mt-3 mx-auto ms-sm-auto"
+                         style="background: #e8e7ee">
+                        <div class="px-2 mx-auto col-9">
+                            <div style="height: 45px;" class="forLabel">
+                                <select class=" chronic-form-control  rounded border-3 ps-3"
+                                        id=""
+                                        required=""></select>
+                                <span style="right:20px; top: 30%;">المحافظة</span>
+                            </div>
+                        </div>
+                        <div class="px-2 mx-auto col-9">
+                            <div style="height: 45px;" class="forLabel">
+                                <select class=" chronic-form-control  rounded border-3 ps-3"
+                                        id=""
+                                        required=""></select>
+                                <span style="right:20px; top: 30%;">المنطقة</span>
+                            </div>
+                        </div>
+                        <div class="px-2 mx-auto col-9">
+                            <div style="height: 45px;" class="forLabel">
+                                <select class=" chronic-form-control  rounded border-3 ps-3"
+                                        id=""
+                                        required=""></select>
+                                <span style="right:20px; top: 30%;">نوع مقدم الخدمة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+    <div style="display: flex; flex-direction: column"></div>
+</div>

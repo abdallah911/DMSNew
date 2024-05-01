@@ -23,19 +23,19 @@
                 <div class="flex-column d-flex pe-5">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="new-requ-form-parent row col-4 col-sm-6 col-md-8 mt-3">
-                        @Html.LabelFor(model => model.DIAG_ANAME, htmlAttributes: new { @class = "col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })
+                        @Html.LabelFor(model => model.DIAG_ANAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })
                         @Html.EditorFor(model => model.DIAG_ANAME, new { htmlAttributes = new { @class = "hr-form-control col-12 col-sm-8 border-0" } })
                         @Html.ValidationMessageFor(model => model.DIAG_ANAME, "", new { @class = "text-danger" })
                     </div>
                     <div class="new-requ-form-parent row col-4 col-sm-6 col-md-8 mt-3">
-                        @Html.LabelFor(model => model.DIAG_ENAME, htmlAttributes: new { @class = "col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })
+                        @Html.LabelFor(model => model.DIAG_ENAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })
                         @Html.EditorFor(model => model.DIAG_ENAME, new { htmlAttributes = new { @class = "hr-form-control col-12 col-sm-8 border-0" } })
                         @Html.ValidationMessageFor(model => model.DIAG_ENAME, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="print-claims-btns d-flex mt-5 justify-content-end">
-                    <input id="submit" type="submit" value="Create" class="btn claims-search-btn ms-2 rounded-3; fs-5"
-                           style="background-color: #717382" />
+                <div class="print-claims-btns d-flex mt-3 justify-content-end">
+                    <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3"
+                             />
                 </div>
             </div>
             <div class="m-auto col-12 col-lg-4 my-4"></div>

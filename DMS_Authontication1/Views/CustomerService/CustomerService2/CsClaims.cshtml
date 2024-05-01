@@ -1,0 +1,547 @@
+﻿<div class="sidebar-parent col-4 position-fixed z-2">
+    <div class="sideBar col-8">
+        <div class="operation-btns">
+            <a href="CS.html">
+                <button class="sidebar-item active" id="costumerService">
+                    خدمة العملاء
+                </button>
+            </a>
+            <a href="CS_Medical-Network.html">
+                <button class="sidebar-item" id="medicalNetwork">
+                    الشبكة الطبية
+                </button>
+            </a>
+            <a href="CS_add-applicant.html">
+                <button class="sidebar-item" id="addApplicant">
+                    طلب إضافة مقدم خدمة
+                </button>
+            </a>
+            <a href="CS_Questionnaire.html">
+                <button class="sidebar-item" id="questionnaire">إستعلام</button>
+            </a>
+            <a href="CS_Operation.html">
+                <button class="sidebar-item" id="operation">Operation</button>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- end sidebar -->
+<section class="overflow-x-hidden">
+    <form action="CS.html">
+        <div style="direction: rtl" class="cs-page row mx-auto my-4">
+            <div class="row col-md-9 col-lg-10 container-fluid px-lg-5 justify-content-center justify-content-sm-start">
+                <div class="col-sm-8 col-md-6 col-lg-4 ps-md-4">
+                    <div class="cs-bg">
+                        <div class=" d-flex flex-column gap-3">
+                            <div style="color: var(--color-secondary)"
+                                 class="inputs-parent d-flex flex-column gap-2 position-relative">
+                                <input type="search"
+                                       class="admin-form-control pe-3"
+                                       placeholder="أدخل البطاقة أو رقم الهاتف" />
+                                <i class="fa-solid fa-magnifying-glass fa-rotate-270 position-absolute start-0 top-50 translate-middle-y ms-3"></i>
+                            </div>
+                            <div style="color: var(--color-secondary)"
+                                 class="inputs-parent d-flex flex-column gap-2 position-relative">
+                                <input type="search"
+                                       class="admin-form-control pe-3"
+                                       placeholder="بحث" />
+                                <i class="fa-solid fa-people-roof position-absolute start-0 top-50 translate-middle-y ms-5"></i>
+                                <i class="fa-solid fa-magnifying-glass fa-rotate-270 position-absolute start-0 top-50 translate-middle-y ms-3"></i>
+                            </div>
+                            <!-- test -->
+                            <div style="height: 70px;"
+                                 class="  forLabel  admin-form-control  d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input style="padding-right: 2rem !important;"
+                                       class="bg-transparent admin-form-control rounded-4    w-100 h-100 shadow-none rounded-2 p-1 pt-4 fw-bold text-dark-emphasis shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span style="right:10px"
+                                      class=" ms-auto me-2 mt-3   fw-bold"
+                                      for="name">
+                                    <i class="fa-solid fa-phone fa-l ms-1"></i>رقم الهاتف
+                                </span>
+                                <div class="ms-auto">
+                                    <button style="font-size: 10px"
+                                            type="button"
+                                            class="bg-opacity-50 fw-bold bg-dark rounded-4 d-flex align-items-center p-1 border-0 text-white position-absolute start-0 top-0 mt-2 ms-2">
+                                        حذف
+                                        <i style="
+                        right: 20%;
+                        background: var(--color-secondary);
+                        width: 15px;
+                        height: 15px;
+                      "
+                                           class="fa-solid fa-minus fa-2xs text-center justify-content-center align-items-center d-flex text-light rounded-circle me-1"></i>
+                                    </button>
+                                    <button style="font-size: 10px"
+                                            type="button"
+                                            class="bg-opacity-50 fw-bold bg-dark rounded-4 d-flex align-items-center p-1 border-0 text-white position-absolute start-0 bottom-0 ms-2 mb-2">
+                                        إضافة
+                                        <i style="
+                        background: var(--color-secondary);
+                        width: 15px;
+                        height: 15px;
+                      "
+                                           class="fa-solid fa-plus fa-2xs text-center justify-content-center align-items-center d-flex text-light rounded-circle me-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- test -->
+                            <div style="height: 70px;"
+                                 class="  forLabel  admin-form-control  d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input style="padding-right: 2rem !important;"
+                                       class="bg-transparent admin-form-control rounded-4    w-100 h-100 shadow-none rounded-2 p-1 pt-4 fw-bold text-dark-emphasis shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span style="right:10px"
+                                      class=" ms-auto me-2 mt-3   fw-bold"
+                                      for="name">
+                                    <i class="fa-solid fa-phone fa-l ms-1"></i>رقم الهاتف
+                                </span>
+                            </div>
+                        </div>
+
+                        <button type="button"
+                                class="btn fw-bold text-white rounded-3 mt-3">
+                            جديد
+                            <i class="fa-solid fa-rotate me-1"></i>
+                        </button>
+                    </div>
+                    <!-- Modal -->
+                    <div class="container d-flex my-3 justify-content-start">
+                        <div style="direction: rtl;"
+                             class="modal fade"
+                             id="csModal"
+                             tabindex="-1"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog ">
+                                <div class="modal-content">
+                                    <div class="modal-header sios-overlay  text-white px-4 px-md-5">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                            خدمة العملاء
+                                        </h1>
+                                        <button type="button"
+                                                class="btn-close ms-0 bg-white "
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" id="csFormContainer"></div>
+                                    <div class="sios-overlay mb-0 modal-footer px-4 px-md-5">
+                                        <button type="button"
+                                                class="btn text-white"
+                                                data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Modal -->
+                    <div class="d-flex flex-column gap-2 mt-3
+                ">
+                        <li style="list-style: none;"
+                            class="text-center d-grid gap-2 submenu">
+                            <a href="#"
+                               style="background: var(--color-gradient); color: white !important;"
+                               class="dropdown-item shadow-sm p-3 rounded-4 d-flex align-items-center justify-content-center gap-2 fs-4 fw-bold"
+                               onclick="csShow()">
+                                مزيد من المعلومات
+                                <i class="fas fa-chevron-down text-white"></i>
+                            </a>
+                            <div class="cs-div ">
+                                <a style="text-decoration: none;"
+                                   class="dropdown-item cs-btn mt-1 text-center w-100 "
+                                   href="./CsApproval.html"
+                                   id="CsApproval">
+                                    موافقة
+                                </a>
+                                <a style="text-decoration: none;"
+                                   class="dropdown-item cs-btn mt-2 text-center w-100 "
+                                   href="./CsShowConsumption.html"
+                                   id="CsShowConsumption">
+                                    عرض الإستهلاك
+                                </a>
+                                <a style="text-decoration: none;"
+                                   class="dropdown-item cs-btn mt-2 text-center w-100 "
+                                   href="./CsIndemnity.html"
+                                   id="CsIndemnity">التعويض</a>
+                                <a style="text-decoration: none;"
+                                   class="dropdown-item cs-btn mt-2 text-center w-100 "
+                                   href="./CsClaims.html"
+                                   id="CsClaims">المطالبات</a>
+                                <!-- Button trigger modal -->
+
+                                <button type="button"
+                                        class="dropdown-item cs-btn mt-2"
+                                        id="medicalNetworkFormBtn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">
+                                    الشبكة الطبية
+                                </button>
+
+                                <!-- Modal -->
+
+                                <a style="text-decoration: none;"
+                                   class="dropdown-item cs-btn mt-2 text-center w-100 "
+                                   href="./CsOnlineLive.html"
+                                   id="CsOnlineLive">
+                                    اون لاين لايف
+                                </a>
+                                <a style="text-decoration: none;"
+                                   class="dropdown-item cs-btn mt-2 text-center w-100 "
+                                   href="./CsMonthlyTreatment.html"
+                                   id="CsMonthlyTreatment">
+                                    العلاج الشهري
+                                </a>
+                                <button style="text-decoration: none;"
+                                        class="dropdown-item cs-btn mt-2 text-center w-100 "
+                                        type="button"
+                                        id="CsCardDesign">
+                                    تصميم البطاقة
+                                </button>
+                                <!-- Button trigger modal -->
+                                <button type="button"
+                                        class="dropdown-item cs-btn mt-2 "
+                                        id="CsPlaintsFormBtn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal1">
+                                    الشكاوى
+                                </button>
+
+                                <button type="button"
+                                        class="dropdown-item cs-btn mt-2 "
+                                        id="CsCompanyContractFormBtn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#companyContractModal">
+                                    عقد الشركة
+                                </button>
+
+                                <!-- Button trigger modal -->
+                                <button type="button"
+                                        class="dropdown-item cs-btn mt-2 "
+                                        id="CsExtendFormBtn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#extendModal">
+                                    مد
+                                </button>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+                <div class="cs-form-parent row col-sm-8 col-md-6 col-lg-8 collg justify-content-center">
+                    <div style="box-shadow: 0px 0px 4px 1px #6361704d"
+                         class="cs-bg border-bottom-0 row gap-3 gap-lg-0 p-0 mt-3">
+                        <div class=" p-3 mb-3 col-lg-6 gap-5 ">
+                            <div class="gap-3">
+                                <div class=" shadow-none rounded-0 inputs-parent d-flex flex-column">
+                                    <div style="gap: 10px; white-space: nowrap"
+                                         class="inputs-parent d-flex flex-column mt-3">
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="bg-white position-relative  w-100 h-100 shadow-none rounded-2 p-1 pt-4 fw-bold text-dark-emphasis border-0 pe-3 shadow-sm"
+                                                   type="text"
+                                                   required="required" />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-user ms-2 "></i>إسم
+                                                الموظف
+                                            </span>
+                                        </div>
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="bg-white  w-100 h-100 shadow-none rounded-2 p-1 pt-4 fw-bold text-dark-emphasis border-0  shadow-sm"
+                                                   type="text"
+                                                   required="required"
+                                                   disabled />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-id-card ms-2 "></i>رقم
+                                                كارت
+                                            </span>
+                                        </div>
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="bg-white  w-100 date-input h-100 shadow-none rounded-2 p-1 p-1 pt-4 fw-bold text-dark-emphasis border-0 pe-3 shadow-sm"
+                                                   type="text"
+                                                   required="required"
+                                                   disabled />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-cake-candles ms-2"></i>تاريخ
+                                                الميلاد
+                                            </span>
+                                        </div>
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="bg-white  w-100 h-100 shadow-none rounded-2 p-1 pt-4 fw-bold text-dark-emphasis border-0 pe-3 shadow-sm"
+                                                   type="text"
+                                                   required="required"
+                                                   disabled />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-id-card ms-2"></i>الهوية
+                                                الوطنية
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" p-3 col-lg-6 gap-5 ">
+                            <div class="gap-3">
+                                <div class=" shadow-none rounded-0 inputs-parent d-flex flex-column">
+                                    <div style="gap: 10px; white-space: nowrap"
+                                         class="inputs-parent d-flex flex-column mt-3">
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="bg-white  w-100 h-100 shadow-none rounded-2 p-1 pt-4 fw-bold text-dark-emphasis border-0 pe-3 shadow-sm"
+                                                   type="tel"
+                                                   required="required"
+                                                   disabled />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-phone ms-2"></i>1
+                                                جوال
+                                            </span>
+                                        </div>
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="bg-white  w-100 h-100 shadow-none rounded-2 p-1 pt-4 fw-bold text-dark-emphasis border-0 pe-3 shadow-sm"
+                                                   type="tel"
+                                                   required="required"
+                                                   disabled />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-phone ms-2"></i>2 جوال
+                                            </span>
+                                        </div>
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="bg-white  w-100 h-100 shadow-none rounded-2 p-1 pt-4 fw-bold text-dark-emphasis border-0 pe-3 shadow-sm"
+                                                   type="text"
+                                                   required="required"
+                                                   disabled />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-calendar-days ms-2"></i>العمر
+                                            </span>
+                                        </div>
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="bg-white  w-100  h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                                   type="text"
+                                                   required="required"
+                                                   disabled />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-droplet ms-2"></i>لون
+                                                البطاقة
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="box-shadow: 0px 1px 4px 1px #6361704d;border-top: var(--color-table-sec) 15px solid;"
+                         class="cs-bg border-bottom-0 row gap-3 gap-lg-0 p-0 mb-4">
+                        <div class=" p-3 mb-3 col-lg-6 gap-5 ">
+                            <div class="gap-3">
+                                <div class=" shadow-none rounded-0 inputs-parent d-flex flex-column">
+                                    <div style="gap: 10px; white-space: nowrap"
+                                         class="inputs-parent d-flex flex-column mt-3">
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="bg-white  w-100 h-100 shadow-none rounded-2 p-1 pt-4 fw-bold text-dark-emphasis border-0 pe-3 shadow-sm"
+                                                   type="text"
+                                                   required="required"
+                                                   disabled />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-money-check-dollar ms-2"></i>الحد الأقصى للمبلغ
+                                            </span>
+                                        </div>
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="bg-white  w-100 h-100 shadow-none rounded-2 p-1 pt-4 fw-bold text-dark-emphasis border-0  shadow-sm"
+                                                   type="text"
+                                                   required="required"
+                                                   disabled />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-layer-group ms-2"></i>إسم
+                                                الفئة
+                                            </span>
+                                        </div>
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="bg-white  w-100 h-100 shadow-none rounded-2 p-1 p-1 pt-4 fw-bold text-dark-emphasis border-0 pe-3 shadow-sm"
+                                                   type="text"
+                                                   required="required"
+                                                   disabled />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-table-cells-large ms-2"></i>درجة المستشفى
+                                            </span>
+                                        </div>
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="bg-white  w-100 h-100 shadow-none rounded-2 p-1 pt-4 fw-bold text-dark-emphasis border-0 pe-3 shadow-sm"
+                                                   type="text"
+                                                   required="required"
+                                                   disabled />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-id-card ms-2"></i>الدفع
+                                                الإستثناء
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" p-3 col-lg-6 gap-5 ">
+                            <div class="gap-3">
+                                <div class=" shadow-none rounded-0 inputs-parent d-flex flex-column">
+                                    <div style="gap: 10px; white-space: nowrap"
+                                         class="inputs-parent d-flex flex-column mt-3">
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="date-input bg-white  w-100 h-100 shadow-none rounded-2 p-1 pt-4 fw-bold text-dark-emphasis border-0 pe-3 shadow-sm"
+                                                   type="text"
+                                                   required="required"
+                                                   disabled />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-calendar ms-2"></i>تاريخ
+                                                الإنتهاء
+                                            </span>
+                                        </div>
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="date-input bg-white  w-100 h-100 shadow-none rounded-2 p-1 pt-4 fw-bold text-dark-emphasis border-0 pe-3 shadow-sm"
+                                                   type="text"
+                                                   required="required"
+                                                   disabled />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-calendar ms-2"></i>تاريخ
+                                                البدء
+                                            </span>
+                                        </div>
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="date-input bg-white  w-100 h-100 shadow-none rounded-2 p-1 pt-4 fw-bold text-dark-emphasis border-0 pe-3 shadow-sm"
+                                                   type="text"
+                                                   required="required"
+                                                   disabled />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-calendar-days ms-2"></i>إنتهاء الإستثناء
+                                            </span>
+                                        </div>
+                                        <div style="height: 45px;"
+                                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                            <input style="padding-right: 2rem !important;"
+                                                   class="bg-white  w-100 h-100 shadow-none rounded-2 p-1 pt-4 fw-bold text-dark-emphasis border-0 pe-3 shadow-sm"
+                                                   type="text"
+                                                   required="required"
+                                                   disabled />
+                                            <span style="right:10px"
+                                                  class=" ms-auto me-2 mt-1   fw-bold"
+                                                  for="">
+                                                <i class="fa-solid fa-desktop ms-2"></i>الشبكة
+                                                الطبية
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" w-100 m-auto px-0 mt-4 pb-5">
+                        <div style="min-height: 200px;border-top: var(--color-table-sec) 15px solid;border-bottom: var(--color-table-sec) 15px solid;"
+                             class=" table-responsive">
+                            <table style="white-space:nowrap"
+                                   id=""
+                                   class="table table-striped mt-3 text-center">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>رقم المطالبة</th>
+                                        <th>تاريخ المطالبة</th>
+                                        <th>رقم الباتش</th>
+                                        <th>رقم المجموعة</th>
+                                        <th>قيمة</th>
+                                        <th>ملاحظات</th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                            <div style="color: var(--color-secondary);direction:rtl"
+                                 class="inputs-parent row row-cols-sm-2 row-cols-md-3 row-gap-2 justify-content-center mx-auto position-relative">
+                                <div class="px-2">
+                                    <input type="text"
+                                           class="admin-form-control rounded-2 pe-2 w-100"
+                                           placeholder="عدد المطالبات"
+                                           disabled />
+                                </div>
+                                <div class="px-2">
+                                    <input type="text"
+                                           class="admin-form-control rounded-2 pe-2 w-100"
+                                           placeholder="إجمالي إجمالي المطالبات"
+                                           disabled />
+                                </div>
+                                <div class="px-2">
+                                    <input type="text"
+                                           class="admin-form-control rounded-2 pe-2 w-100"
+                                           placeholder="إجمالي صافي المطالبات"
+                                           disabled />
+                                </div>
+                            </div>
+                            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start  gap-3">
+                                <button style="text-decoration: none; font-size: 18px !important; width: fit-content !important; "
+                                        class=" btn d-flex align-items-center gap-2 py-2 px-4 rounded-3 text-white fw-medium text-center  my-3 w-100  "
+                                        type="button"
+                                        id="#">
+                                    أكثر
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

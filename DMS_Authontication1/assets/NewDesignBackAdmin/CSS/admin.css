@@ -161,7 +161,7 @@ body {
 .forLabel textarea:focus ~ span {
     pointer-events: none;
     font-size: 10px;
-    transform: translateY(-10px);
+    transform: translateY(-6px);
     color: #828282;
     transition: all 0.2s ease-in-out;
 }
@@ -219,12 +219,17 @@ input {
     
     span.select2.select2-container.select2-container--default.select2-container--below {
         width: 100% !important;
-        height: 50px;
+        height: 100%;
         
         position: relative;
         text-align: start;
     }
-
+span.select2-selection.select2-selection--multiple {
+    height: 100%;
+    border: 2px solid var(--color-secondary);
+    border-radius: 8px;
+    padding-bottom: 0;
+}
  span.select2-selection.select2-selection--single {
     background-color: transparent;
     border: 2px solid var(--color-secondary);
@@ -434,6 +439,10 @@ span.select2.select2-container.select2-container--default {
     z-index: 2000 !important;
 }
 /* ====================Table=========================================== */
+table,
+.table{
+    white-space:nowrap;
+}
 .admin-table {
     background-color: var(--color-table);
     padding: 20px;
@@ -1336,20 +1345,6 @@ div.cosum-form-parent {
 .search-field {
     position: relative;
     display: inline-block;
-}
-
-.sios-search input {
-    background-color: transparent;
-    border: solid var(--color-primary) 1px;
-    border-radius: 20px;
-    height: 40px;
-    padding-left: 80px;
-    position: relative;
-    outline: none;
-    color: var(--color-text);
-    font-size: 12px;
-    caret-color: var(--color-secondary);
-    width: 250px;
 }
 
 .sios-search .search-btn {

@@ -18,42 +18,43 @@
             </div>
         </div>
         <div class="portlet-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <input id="From" type="text" class="col-md-2 form-control " placeholder="From" />
-                </div>
-                <div class="col-md-2">
-                    <input id="To" type="text" class="col-md-2 form-control " placeholder="To" />
-                </div>
-                <div class="col-md-2">
-                    @Html.DropDownList("CompName", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompName" })
-
-                    @*<input id="CompName" type="text" class="col-md-2 form-control " placeholder="Company Name" />*@
-                </div>
-                @if (User.IsInRole("Admin"))
-                {
-                    <div class="col-md-2">
-                        @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = "form-control", @id = "userName" })
-                        @*<input id="userName" type="text" class="col-md-2 form-control " placeholder="User Name" />*@
+            <div class="row container mx-auto col-sm-8">
+                <div class="   pe-0 row row-cols-xl-4  row-cols-sm-2 row-gap-2 ">
+                    <div class="">
+                        <input id="From" type="text" class=" admin-form-control form-control " placeholder="From" />
                     </div>
-                }
-                <!--<div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
-                    <select id="PharmacyddlType" class="form-control">
-                        <option value="">Select Type</option>
-                        <option value="Daily">Daily</option>
-                        <option value="Monthly">Monthly</option>
-                        <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>-->
-                @*<option value="11604">Doctor</option>*@
-                <!--</select>
-                </div>-->
+                    <div class="">
+                        <input id="To" type="text" class=" admin-form-control form-control " placeholder="To" />
+                    </div>
+                    <div class="">
+                        @Html.DropDownList("CompName", ViewBag.company as SelectList, "Select Company", new { @class = "admin-form-control form-control", @id = "CompName" })
+
+                        @*<input id="CompName" type="text" class=" admin-form-control form-control " placeholder="Company Name" />*@
+                    </div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="">
+                            @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = "admin-form-control form-control", @id = "userName" })
+                            @*<input id="userName" type="text" class=" admin-form-control form-control " placeholder="User Name" />*@
+                        </div>
+                    }
+                    <!--<div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
+                <select id="PharmacyddlType" class="admin-form-control form-control">
+                    <option value="">Select Type</option>
+                    <option value="Daily">Daily</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>-->
+                    @*<option value="11604">Doctor</option>*@
+                    <!--</select>
+            </div>-->
+                </div>
             </div>
-            
-            <div class="row" style=" text-align:right">
-                <div class="col-md-12">
+            <div class="row text-center text-sm-end mt-3 me-sm-3">
+                <div class="">
                     <input id="ResetSearch" type="button" value="Reset" onclick="ClearAfterSalesSearchData();" class="btn fw-bold text-white rounded-3 btn-warning" />
                     <input id="Print" type="button" value="Pdf" class="btn fw-bold text-white rounded-3 btn-primary fa fa-file-pdf-o" />
                     <input id="PrintExcel" type="button" value="Excel" class="btn fw-bold text-white rounded-3 btn-success fa-file-excel-o " />
-                    <input id="AfterSalesSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3n btn-default  fa fa-search" />
+                    <input id="AfterSalesSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3 btn-default  fa fa-search" />
 
                 </div>
             </div>
@@ -66,8 +67,8 @@
                 <i class="fa fa-gift me-3"></i> Visits
             </div>
             <div class="actions">
-                <a id="Create my-4" href="/AfterSales/Create" style=" text-transform: none" class="btn fw-bold text-white rounded-3 btn-primary  btn-sm">
-                    <i class="fa fa-plus"></i> New Visit
+                <a id="Create my-4" href="/AfterSales/Create" style=" text-transform: none" class="ms-3 btn fw-bold text-white rounded-3 btn-primary  btn-sm">
+                    <i class="fa fa-plus "></i> New Visit
                 </a>
             </div>
         </div>

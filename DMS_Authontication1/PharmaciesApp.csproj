@@ -9459,6 +9459,30 @@
     <Content Include="Views\ProposalRenewals\ProposalStepTwoCreate.cshtml" />
     <Content Include="Views\ProposalRenewals\ProposalStepFourCreateAndStay.cshtml" />
     <Content Include="Views\ProposalRenewals\ProposalStepThreeCreate.cshtml" />
+    <Content Include="Views\Contracts\ContractsServiceProvidersContracts.cshtml" />
+    <Content Include="Views\Contracts\ContractsCompaniesContracts.cshtml" />
+    <Content Include="Views\Network\NetworkAddHRServiceProvider.cshtml" />
+    <Content Include="Views\Network\NetworkAddServiceProvider.cshtml" />
+    <Content Include="Views\Network\NetworkHRRequestsInquiry.cshtml" />
+    <Content Include="Views\Network\NetworkPharmaciesDiscountDetails.cshtml" />
+    <Content Include="Views\Network\NetworkPharmaciesDiscountSummary.cshtml" />
+    <Content Include="Views\Network\NetworkServiceProviderData.cshtml" />
+    <Content Include="Views\Network\NetworkPricesEditingCPT.cshtml" />
+    <Content Include="Views\CustomerService\CustomerService2\CS_Questionnaire.cshtml" />
+    <Content Include="Views\CustomerService\CustomerService2\CS_Operation.cshtml" />
+    <Content Include="Views\CustomerService\CustomerService2\CS_add-applicant.cshtml" />
+    <Content Include="Views\CustomerService\CustomerService2\CsClaims.cshtml" />
+    <Content Include="Views\CustomerService\CustomerService2\CS_Medical-Network.cshtml" />
+    <Content Include="Views\CustomerService\CustomerService2\CsApproval.cshtml" />
+    <Content Include="Views\CustomerService\CustomerService2\CsExtend.cshtml" />
+    <Content Include="Views\CustomerService\CustomerService2\CsCompanyContract.cshtml" />
+    <Content Include="Views\CustomerService\CustomerService2\CsIndemnity.cshtml" />
+    <Content Include="Views\CustomerService\CustomerService2\CsOnlineLive.cshtml" />
+    <Content Include="Views\CustomerService\CustomerService2\CsMedicalNetwork.cshtml" />
+    <Content Include="Views\CustomerService\CustomerService2\CsMonthlyTreatment.cshtml" />
+    <Content Include="Views\CustomerService\CustomerService2\CsShowConsumption.cshtml" />
+    <Content Include="Views\CustomerService\CustomerService2\CsPlaints.cshtml" />
+    <Content Include="Views\CustomerService\CustomerService2\CS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

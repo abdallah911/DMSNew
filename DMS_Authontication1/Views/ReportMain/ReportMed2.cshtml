@@ -37,138 +37,148 @@
 
                                     <div class="row">
                                         @*Date of Registration*@
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
+                                        
+
+                                            <div class="">
+                                                <label class="sios-color control-label sbold col-md-3">
                                                     Record Date :
                                                     <span class="required"> * </span>
                                                 </label>
-                                                <div class="col-md-6">
-                                                    <label class="control-label sbold col-md-3">
-                                                        From
-
-                                                    </label>
-                                                    <div class="col-md-9">
-                                                        <input id="RegistrationFrom" type="text" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  col-md-2 form-control " placeholder="From" />
-                                                    </div>
-                                                </div>
-                                                <br />
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="control-label sbold col-md-2">
-                                                TO
+                                            <div style="white-space:nowrap;" class=" ">
+                                                <div class="row row-cols-2 col-md-8 form-group ">
 
-                                            </label>
-                                            <div class="col-md-10">
-                                                <input id="RegistrationTo" type="text" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  col-md-2 form-control " placeholder="To" />
-                                            </div>
-                                        </div>
+                                                    <div class=" ">
+                                                        <label class="sios-color control-label sbold col-md-3">
+                                                            From
 
-                                        @* Company Number *@
-
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Company Number :
-
-                                                </label>
-                                                <div class="col-md-6">
-                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = " hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded form-control", id = "CompNo" })
-
-                                                </div>
-                                                <br />
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Card Number :
-
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <select id="CardNo" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  col-md-2 js-data-example-ajax" style="width: 100%">
-                                                        <option value="">select Card</option>
-                                                    </select>
-
-                                                </div>
-                                                <br />
-                                            </div>
-                                        </div>
-                                        <br />
-                                        
-                                        @* Repot Type *@
-
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label fs-4 sbold col-md-3">
-                                                    Repot Type :
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <select id="RepotType" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded form-control">                                                       
-                                                        <option value="1">Report Audit Medicine Chronic Details</option>
-                                                        <option value="2">Report Audit Medicine Chronic Summary</option>
-                                                                
-                                                        <option value="3">Report Medicine Chronic</option>
-                                                    </select>
-                                                </div>
-                                                <br />
-                                            </div>
-                                        </div>
-                                        <br />
-
-
-                                        @*Print Type*@
-
-                                        <div class="  col-md-8">
-                                            <div class=" d-flex gap-2 form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Print Type :
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <div class="checkbox-inline">
-                                                        <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
-                                                        <label for="pdf">
-                                                            PDF
                                                         </label>
+                                                        <div class=" ">
+                                                            <input id="RegistrationFrom" type="text" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  col-md-2 form-control " placeholder="From" />
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                    <br /> 
+                                                    <div class="">
+                                                        <label class="sios-color control-label sbold col-md-2">
+                                                            TO
 
-                                                <div class="col-md-2">
-                                                    <div class="checkbox-inline">
-                                                        <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
-                                                        <label for="excel">
-                                                            EXCEL
                                                         </label>
+                                                        <div class=" ">
+                                                            <input id="RegistrationTo" type="text" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  col-md-2 form-control " placeholder="To" />
+                                                        </div>
+
                                                     </div>
                                                 </div>
-                                                <br />
+
+
+                                               
                                             </div>
-                                        </div>
-                                        <br />
+                                            @* Company Number *@
 
-                                        @* For Buttons *@
 
-                                        <div class="d-flex gap-2 " style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
 
-                                            <div class=" " id="div_of_serv">
-                                                <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3 btn-warning" onclick="ClearAll2()">
-                                                    <span class="fa fa-save"></span> New
-                                                </button>
+                                       
+                                        <br /> <div class="col-md-8">
+                                                   <div class="form-group">
+                                                       <label class="sios-color control-label sbold col-md-3">
+                                                           Company Number :
 
-                                            </div>
+                                                       </label>
+                                                       <div class="col-md-6">
+                                                           @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = " hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded form-control", id = "CompNo" })
 
-                                            <div class=" " id="div_of_serv">
-                                                <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3 btn-primary" onclick="PrintReport2()">
-                                                    <span class="fa fa-save"></span> Print
-                                                </button>
+                                                       </div>
+                                                   </div>
+        <br />
+    </div>
+    <div class="col-md-8">
+        <div class="form-group">
+            <label class="sios-color control-label sbold col-md-3">
+                Card Number :
 
-                                            </div>
+            </label>
+            <div class="col-md-6">
+                <select id="CardNo" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  col-md-2 js-data-example-ajax" style="width: 100%">
+                    <option value="">select Card</option>
+                </select>
 
-                                        </div>
-                                    </div>
+            </div>
+            <br />
+        </div>
+    </div>
+    <br />
+
+    @* Repot Type *@
+
+    <div class="col-md-8">
+        <div class="form-group">
+            <label class="sios-color control-label fs-4 sbold col-md-3">
+                Repot Type :
+                <span class="required"> * </span>
+            </label>
+            <div class="col-md-6">
+                <select id="RepotType" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded form-control">
+                    <option value="1">Report Audit Medicine Chronic Details</option>
+                    <option value="2">Report Audit Medicine Chronic Summary</option>
+
+                    <option value="3">Report Medicine Chronic</option>
+                </select>
+            </div>
+            <br />
+        </div>
+    </div>
+    <br />
+
+
+    @*Print Type*@
+
+    <div class="  col-md-8">
+        <div class=" d-flex gap-2 form-group">
+            <label class="sios-color control-label sbold col-md-3">
+                Print Type :
+            </label>
+            <div class="col-md-2">
+                <div class="checkbox-inline">
+                    <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
+                    <label for="pdf">
+                        PDF
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="checkbox-inline">
+                    <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
+                    <label for="excel">
+                        EXCEL
+                    </label>
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+    <br />
+
+    @* For Buttons *@
+
+    <div class="d-flex gap-2 " style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
+
+        <div class=" " id="div_of_serv">
+            <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3 btn-warning" onclick="ClearAll2()">
+                <span class="fa fa-save"></span> New
+            </button>
+
+        </div>
+
+        <div class=" " id="div_of_serv">
+            <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3 btn-primary" onclick="PrintReport2()">
+                <span class="fa fa-save"></span> Print
+            </button>
+
+        </div>
+
+    </div>
+</div>
                                 </div>
                             </div>
                         </div>

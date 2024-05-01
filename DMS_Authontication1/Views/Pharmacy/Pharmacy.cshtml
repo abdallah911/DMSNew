@@ -38,11 +38,11 @@
         </div>
     </div>
     <div class="portlet-body">
-        <div class="sios-search container mb-4 mt-1 form-group">
+        <div style="white-space:nowrap" class="sios-search container mb-4 mt-1 form-group">
             <div class="row">
 
                 <div data-step="1" data-hint='Step one!' data-intro="Enter Card ID" class="col-md-3">
-                    <input id="txtSearchCard" type="text" placeholder="search for card..." class="admin-form-control ps-2 form-control" />
+                    <input id="txtSearchCard" type="text" placeholder="search for card..." class="w-100 admin-form-control ps-2 form-control" />
                 </div>
                 <div class="col-md-2" data-step="2" data-intro="click Search">
                     <button id="Search" type="button" class="btn btn-primary">
@@ -50,7 +50,7 @@
                     </button>
                 </div>
                 <div class=" col-md-2 btn-group" data-toggle="buttons">
-                    <label id="Approval" class="d-flex align-item-center gap-2 btn fw-bold text-white rounded-3 btn-info" disabled>
+                    <label id="Approval" class="d-flex align-items-center gap-2 btn fw-bold text-white rounded-3 btn-info" disabled>
                         <input id="HasApproval" style="width:14px;" type="checkbox" autocomplete="off">
                         <span class="glyphicon glyphicon-ok"></span> Has Approval
                     </label>
@@ -171,31 +171,34 @@
         <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
     </div>
     <div class="container-fluid my-4">
-        <div class="master">
-            <div class="table-responsive">
-                <table class="table" id="Pharmacy">
-                    <thead>
-                        <tr style="white-space:nowrap;">
-                            <th scope="col">Medicien Code</th>
-                            <th scope="col" align="center">Name</th>
-                            <th scope="col">Dosage</th>
-                            <th scope="col">Package Size</th>
-                            <th scope="col">Package Price</th>
-                            <th scope="col">Unit Number</th>
-                            <th scope="col">Unit Price</th>
-                            <th scope="col">Dose</th>
-                            <th scope="col">Duration</th>
-                            <th scope="col">Total Duration</th>
-                            @*<th scope="col">Total Units</th>*@
-                            <th scope="col">Approved Quantity</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Group</th>
-                            @* <th scope="col">&nbsp;</th>*@
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
+       
+        <div class="master px-0">
+            <div class="sios-bg ">
+                <div class="  table-responsive">
+                    <table class="table" id="Pharmacy">
+                        <thead>
+                            <tr style="white-space:nowrap;">
+                                <th scope="col">Medicien Code</th>
+                                <th scope="col" align="center">Name</th>
+                                <th scope="col">Dosage</th>
+                                <th scope="col">Package Size</th>
+                                <th scope="col">Package Price</th>
+                                <th scope="col">Unit Number</th>
+                                <th scope="col">Unit Price</th>
+                                <th scope="col">Dose</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Total Duration</th>
+                                @*<th scope="col">Total Units</th>*@
+                                <th scope="col">Approved Quantity</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Group</th>
+                                @* <th scope="col">&nbsp;</th>*@
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
 
-                </table>
+                    </table>
+                </div>
             </div>
             <!--Caculation-->
             <div id="load ">
@@ -233,16 +236,16 @@
 
 
 
-        <!--Save-->
-        <div class="container mt-3 mb-4 panel-footer" style="text-align:right;">
-            <input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn fw-bold text-white rounded-3 btn-info" />
-            <a data-step="11" style="float: left; margin-left:40px;" class="btn fw-bold text-white rounded-3 btn-primary" href="@Url.Action("GetFile","Pharmacy",new { fileName = "Pharmacy" })" download="PharmacyManual.pdf"><i class="fa fa-download"></i> Manual</a>
-            @*<input data-step="11" data-intro="Help" style="float: left;" id="Manual" type="button" value="Manual" class="btn btn-info" />*@
-            <input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn fw-bold text-white rounded-3 btn-warning" />
-            <input data-step="12" data-intro="Save Preception" id="submit" type="button" value="Dispense" class="btn fw-bold text-white rounded-3 btn-success" />
+            <!--Save-->
+            <div class="container mt-3 mb-4 panel-footer" style="text-align:right;">
+                <input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn fw-bold text-white rounded-3 btn-info" />
+                <a data-step="11" style="float: left; margin-left:40px;" class="btn fw-bold text-white rounded-3 btn-primary" href="@Url.Action("GetFile","Pharmacy",new { fileName = "Pharmacy" })" download="PharmacyManual.pdf"><i class="fa fa-download"></i> Manual</a>
+                @*<input data-step="11" data-intro="Help" style="float: left;" id="Manual" type="button" value="Manual" class="btn btn-info" />*@
+                <input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn fw-bold text-white rounded-3 btn-warning" />
+                <input data-step="12" data-intro="Save Preception" id="submit" type="button" value="Dispense" class="btn fw-bold text-white rounded-3 btn-success" />
+            </div>
         </div>
     </div>
-</div>
         </div>
     </div>
 </div>
