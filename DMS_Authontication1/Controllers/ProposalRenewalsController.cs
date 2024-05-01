@@ -13,7 +13,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace DMS_Authontication1.Controllers
 {
@@ -218,9 +218,10 @@ namespace DMS_Authontication1.Controllers
 
             var model = new List<RenwalStepTwoViewModel>(countCat);
 
-            var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION
+            var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION,
+                                                        DECODE(CLASS_CODE, '1', 1, '2', 2, '11', 3, '12', 4, '33', 5, '44', 6, '6', 7, '99', 8, '2F', 9, '3F', 10, '4F', 11, '5F', 12, CLASS_CODE)
                                                  FROM DMS_TEST.COMP_CONTRACT_CLASS
-                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY CLASS_CODE");
+                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY DECODE(CLASS_CODE, '1', 1, '2', 2, '11', 3, '12', 4, '33', 5, '44', 6, '6', 7, '99', 8, '2F', 9, '3F', 10, '4F', 11, '5F', 12, CLASS_CODE)");
 
             foreach (System.Data.DataRow row in compclassold.Rows)
             {
@@ -477,9 +478,10 @@ namespace DMS_Authontication1.Controllers
 
             var model = new List<RenewalInsideMedicalAuthorityViewModel>(countCat);
 
-            var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION
+            var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION,
+                                                        DECODE(CLASS_CODE, '1', 1, '2', 2, '11', 3, '12', 4, '33', 5, '44', 6, '6', 7, '99', 8, '2F', 9, '3F', 10, '4F', 11, '5F', 12, CLASS_CODE)
                                                  FROM DMS_TEST.COMP_CONTRACT_CLASS
-                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY CLASS_CODE");
+                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY DECODE(CLASS_CODE, '1', 1, '2', 2, '11', 3, '12', 4, '33', 5, '44', 6, '6', 7, '99', 8, '2F', 9, '3F', 10, '4F', 11, '5F', 12, CLASS_CODE)");
 
             foreach (System.Data.DataRow row in compclassold.Rows)
             {
@@ -1045,9 +1047,10 @@ namespace DMS_Authontication1.Controllers
 
             var model = new List<RenewalOutsideMedicalAuthorityViewModel>(countCat);
 
-            var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION
+            var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION,
+                                                        DECODE(CLASS_CODE, '1', 1, '2', 2, '11', 3, '12', 4, '33', 5, '44', 6, '6', 7, '99', 8, '2F', 9, '3F', 10, '4F', 11, '5F', 12, CLASS_CODE)
                                                  FROM DMS_TEST.COMP_CONTRACT_CLASS
-                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY CLASS_CODE");
+                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY DECODE(CLASS_CODE, '1', 1, '2', 2, '11', 3, '12', 4, '33', 5, '44', 6, '6', 7, '99', 8, '2F', 9, '3F', 10, '4F', 11, '5F', 12, CLASS_CODE)");
 
             foreach (System.Data.DataRow row in compclassold.Rows)
             {
@@ -1597,6 +1600,41 @@ namespace DMS_Authontication1.Controllers
 
                 return RedirectToAction("RenewalStepFour", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
             }
+        }
+
+        public ActionResult PrintRenewalReports(int id, int countClass)
+        {          
+            ReportDocument rd = new ReportDocument();
+            
+            if(countClass == 1)
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "OfferRenewal2Class.rpt"));
+            else if (countClass == 2)
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "OfferRenewal3Class.rpt"));
+            else if(countClass == 3)
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "OfferRenewal4Class.rpt"));
+            
+            
+            rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+
+            rd.SetParameterValue("@id", id);
+           
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pdf", DateTime.Now.Date.ToString("ddMMyyyy") + "Renewal Offer.pdf");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
     }

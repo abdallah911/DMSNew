@@ -1484,18 +1484,19 @@ index++)
         </div>
         <div class="empl-attach" dir="rtl">
             <!--<a href=""
-            style="text-decoration: none"
-            class="prev-butn-1 fs-4 mt-0 me-0 ms-4 mb-5">-->
+    style="text-decoration: none"
+    class="prev-butn-1 fs-4 mt-0 me-0 ms-4 mb-5">-->
             @*طباعة*@
             <!--<i class="fas fa-print"></i>
-            </a>-->
+    </a>-->
             @*<a href="" nclick="submitForm()"
-                   style="text-decoration: none"
-                   class="prev-butn-1 fs-4 mt-0 me-0 ms-0 mb-5">
-                    <i class="fas fa-save"></i>
-                    Save
-                </a>*@
-            <button type="submit" style="text-decoration:none; margin-top: 20px;margin-left: 10px;margin-right: 20px" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" >حفظ</button>
+           style="text-decoration: none"
+           class="prev-butn-1 fs-4 mt-0 me-0 ms-0 mb-5">
+            <i class="fas fa-save"></i>
+            Save
+        </a>*@
+            <button type="submit" style="text-decoration:none; margin-top: 20px;margin-left: 10px;margin-right: 20px" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5">حفظ</button>
+            <button type="button" style="text-decoration:none; margin-top: 20px;margin-left: 10px;margin-right: 20px" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="PrintRenewal('@Model[0].MainId', '@Model[0].CountClass')">طباعة</button>
 
             @*<button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="submitForm()">التالي</button>*@
         </div>}
