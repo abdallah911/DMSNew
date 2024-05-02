@@ -20,17 +20,19 @@
         @Html.AntiForgeryToken()
         <div class="container col-10 px-0 mt-4">
             <div style="white-space: nowrap" class="employee-form">
-                <div class="flex-column d-flex pe-5">
+                <div class="flex-column gap-2 d-flex pe-5">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="new-requ-form-parent row col-4 col-sm-6 col-md-8 mt-3">
-                        @Html.LabelFor(model => model.DIAG_ANAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })
-                        @Html.EditorFor(model => model.DIAG_ANAME, new { htmlAttributes = new { @class = "hr-form-control col-12 col-sm-8 border-0" } })
+                    <div class="forLabel admin-form-control border-0 px-2">
+                        @*@Html.LabelFor(model => model.DIAG_ANAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })*@
+                        @Html.EditorFor(model => model.DIAG_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100" } })
                         @Html.ValidationMessageFor(model => model.DIAG_ANAME, "", new { @class = "text-danger" })
+                        <span>DIAG ANAME</span>
                     </div>
-                    <div class="new-requ-form-parent row col-4 col-sm-6 col-md-8 mt-3">
-                        @Html.LabelFor(model => model.DIAG_ENAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })
-                        @Html.EditorFor(model => model.DIAG_ENAME, new { htmlAttributes = new { @class = "hr-form-control col-12 col-sm-8 border-0" } })
+                    <div class="forLabel admin-form-control border-0 px-2">
+                        @*@Html.LabelFor(model => model.DIAG_ENAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })*@
+                        @Html.EditorFor(model => model.DIAG_ENAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100" } })
                         @Html.ValidationMessageFor(model => model.DIAG_ENAME, "", new { @class = "text-danger" })
+                        <span>DIAG ENAME</span>
                     </div>
                 </div>
                 <div class="print-claims-btns d-flex mt-3 justify-content-end">

@@ -38,32 +38,37 @@
             </div>
         </div>
         <div  style="position: relative" class="row col-12 w-75 m-auto py-4 row">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 form-group">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-gap-2 form-group">
 
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })
+                <div class="forLabel admin-form-control   border-0 px-2">
+                    @*@Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })*@
                     @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
+                    <span>Company Name</span>
                 </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
+                <div class="forLabel admin-form-control   border-0 px-2">
+                    @*@Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })*@
                     @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
+                    <span>Name</span>
                 </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })
+                <div class="forLabel admin-form-control   border-0 px-2">
+                    @*@Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })*@
                     @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
+                    <span>Start Date</span>
                 </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
+                <div class="forLabel admin-form-control   border-0 px-2">
+                    @*@Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })*@
                     @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
+                    <span>End Date</span>
                 </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })
+                <div class="forLabel admin-form-control   border-0 px-2">
+                    @*@Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })*@
                     @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
+                    <span>Birth Date</span>
                 </div>
-                @*<div class="col-sm-2">
-                        @Html.LabelFor(model => model.compEmp.gender, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.compEmp.gender, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
-                    </div>*@
+                @*<div class="forLabel admin-form-control   border-0 px-2">
+            @Html.LabelFor(model => model.compEmp.gender, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.compEmp.gender, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
+        </div>*@
 
 
             </div>
@@ -102,18 +107,19 @@
 
             </div>
             <div class="d-grid gap-3" >
-                <div hidden id="Hidde"   class="w-50 d-flex align-items-center gap-2 col-sm-2">
-                    <label>Provider</label>
+                <div hidden id="Hidde" class="forLabel admin-form-control border-0 px-2">
+
                     @Html.DropDownListFor(m => m.Provider, (new SelectList(Model.GetProvidersList, "Id", "Name")),
         new { @class = "admin-form-control form-control", id = "Provider" })
-
+                    <span>Provider</span>
                 </div>
 
-                <div class="w-50 d-flex align-items-center gap-2 col-sm-2" hidden id="Hidden">
-                    <label style="font-size:medium;">Reasons</label>
+                <div class="forLabel admin-form-control   border-0 px-2" hidden id="Hidden">
+
 
                     @* <input type="hidden" id="textBoxVal" />*@
-                    <select class="w-50 mySelect2" multiple   name="SelectVal" id="SelectVal"></select>
+                    <select class="w-50 mySelect2" multiple name="SelectVal" id="SelectVal"></select>
+                    <span style="font-size:medium;">Reasons</span>
                 </div>
             </div>
             <div class="row">

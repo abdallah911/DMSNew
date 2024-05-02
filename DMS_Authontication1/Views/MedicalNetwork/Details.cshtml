@@ -140,16 +140,16 @@
                                 <h2 class="panel-heading "  >Update Status</h2>
                             </div>
                         </div>
-                                <div class="px-5  panel-body ">
+                                <div class="px-5 mb-2  panel-body ">
                                     <div class="row">
-                                        <div class=" d-flex align-items-center form-group">
+                                        <div style="white-space:nowrap;" class=" d-flex align-items-center form-group">
                                             <input type="text" id="id" value="@Model.ID" hidden />
                                             <div class="col-lg-3">
                                                 <h4>@Html.Label("Update Status :", htmlAttributes: new { @class = "sios-color control-label" })</h4>
 
                                             </div>
-                                            <div class="col-lg-3" data-step="7" data-intro="Select speciality">
-                                                <select id='ChangeStatus' class='form-control' onchange='UpdateStuts();'>
+                                            <div class="w-50 " data-step="7" data-intro="Select speciality">
+                                                <select id='ChangeStatus' class='ms-3 admin-form-control form-control' onchange='UpdateStuts();'>
                                                     <option value='N'> Select Action</option>
                                                     <option value='Accept'>Accept</option>
                                                     <option value='Reject'>Reject</option>

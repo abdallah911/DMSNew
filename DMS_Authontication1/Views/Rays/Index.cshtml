@@ -33,6 +33,7 @@
 
     }
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
 
 @if (!User.IsInRole("Admin"))
@@ -78,8 +79,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </form>
+</section>
+     
 }
 @if (User.IsInRole("Admin") && (edit || delete || view || fullcontroll))
 {
@@ -141,116 +143,117 @@
     </section>
 }
 <div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Claims
+    <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <i class="fa fa-gift me-3"></i>Claims
         </div>
 
     </div>
-    <br />
-    <div class="portlet-body">
-
-        <table class="ui celled table" id="Index" width="100%">
-            <thead>
-                <tr>
-
-                    <th>
-                        Approval No
-                    </th>
-                    <th>
-                        Card Id
-                    </th>
-                    <th>
-                        Company Percent
-                    </th>
-                    <th>
-                        Total Value
-                    </th>
-                    <th>
-                        Manager
-                    </th>
-
-                    <th>
-                        CreatedBy
-                    </th>
-
-                    <th>
-                        CreatedDate
-                    </th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-
-        </table>
-    </div>
-</div>
-@if (User.IsInRole("Admin") && fullcontroll)
-{
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Admin Count
-            </div>
-        </div>
-        <div class="portlet-body">
-            <table class="ui celled table" id="Counts" width="100%">
+    
+    <div class="sios-bg  container-fluid w-100 portlet-body">
+        <div class="table-responsive">
+            <table class="table table-striped mt-3 text-center ui celled table" id="Index" width="100%">
                 <thead>
                     <tr>
+
                         <th>
-                            Count
+                            Approval No
+                        </th>
+                        <th>
+                            Card Id
+                        </th>
+                        <th>
+                            Company Percent
                         </th>
                         <th>
                             Total Value
                         </th>
                         <th>
-                            Company Payment
-                        </th>
-                        <th>
-                            Person Payment
-                        </th>
-                        <th>
-                            Cash
+                            Manager
                         </th>
 
                         <th>
-                            Over Insurance
+                            CreatedBy
                         </th>
 
+                        <th>
+                            CreatedDate
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-
-                    </tr>
-                </tbody>
+                <tbody></tbody>
 
             </table>
         </div>
-
     </div>
+</div>
+@if (User.IsInRole("Admin") && fullcontroll)
+{ 
+        <div class=" portlet box  green">
+            <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+                <div class="m-3 fs-3 text-white caption">
+                    <i class="fa fa-gift me-3"></i>Admin Count
+                </div>
+            </div>
+            <div class=" portlet-body ">
+                <table class="mb-4 ui celled table" id="Counts" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Count
+                            </th>
+                            <th>
+                                Total Value
+                            </th>
+                            <th>
+                                Company Payment
+                            </th>
+                            <th>
+                                Person Payment
+                            </th>
+                            <th>
+                                Cash
+                            </th>
 
-}
-<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-<script src="~/Scripts/DMS/Ray/RayIndex.js?V=1.1"></script>
+                            <th>
+                                Over Insurance
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                0
+                            </td>
+
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+
+        }
+        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+        <script src="~/Scripts/DMS/Ray/RayIndex.js?V=1.1"></script>

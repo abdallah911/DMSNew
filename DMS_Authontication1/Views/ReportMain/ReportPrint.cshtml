@@ -37,40 +37,23 @@
 
                                     <div class="row container">
 
-                                        @* Company Number *@
-
-                                        <div class="col-md-8 mb-3">
-                                            <div class="form-group">
-                                                <label class="sios-color control-label sbold col-md-3">
-                                                    Company Number :
-
-                                                </label>
-                                                <div class="col-md-6">
-                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = " hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  form-control", id = "CompNoPrint" })
-
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="sios-color control-label sbold col-md-3">
-                                                    Contract Number :
-
-                                                </label>
-                                                <div class="col-md-6" >
-                                                    <select id="ContractNo" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  form-control" style="width: 100%">
-                                                        <option value="">Select Contract</option>
-                                                    </select>
-
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                        
+                                    @* Company Number *@ 
+                                    <div class="forLabel admin-form-control border-0 px-2 mb-2 form-group">
+                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "admin-form-control w-100 h-100 form-control", id = "CompNoPrint" })
+                                        <span class="sios-color control-label sbold col-md-3">
+                                            Company Number 
+                                        </span>
+                                    </div>
+                                    <div class="forLabel admin-form-control border-0 px-2 form-group">
+                                       <select id="ContractNo" class=" admin-form-control w-100 h-100  form-control" style="width: 100%">
+                                           <option value="">Select Contract</option>
+                                       </select>  
+                                        <span class=" control-label ">
+                                           Contract Number 
+                                       </span>
+                                    </div>
                                         <div class=" editeRquest    ">
-                                            <div class="m-3  fs-3 text-white  form-group">
+                                            <div class="m-3 d-flex  fs-3 text-white  form-group">
                                                 <label class="sios-color control-label sios-color fw-bold sbold col-md-3">
                                                     Type Print :
                                                 </label>
@@ -80,10 +63,18 @@
         <label>@Html.RadioButton("SmallRadio", "False")Small</label>
         <label>@Html.RadioButton("MiniRadio", "False")Mini</label>*@
 
-                                            <label class="sios-color control-label text-dark-emphasis col-md-2"><input class="me-2" data-val="true" id="Large" name="TypePrint" type="radio" value="Large">Large</label>
-                                            <label class="sios-color control-label text-dark-emphasis col-md-2"><input class="me-2" data-val="true" id="Medium" name="TypePrint" type="radio" value="Medium">Medium</label>
-                                            <label class="sios-color control-label text-dark-emphasis col-md-2"><input class="me-2" data-val="true" id="Small" name="TypePrint" type="radio" value="Small">Small</label>
-                                            <label class="sios-color control-label text-dark-emphasis col-md-2"><input class="me-2" data-val="true" id="Mini" name="TypePrint" type="radio" value="Mini">Mini</label>
+                                        <div class="d-flex align-items-center gap-2 me-3">
+                                            <label class=" control-label text-dark-emphasis "><input class="me-2" data-val="true" id="Large" name="TypePrint" type="radio" value="Large">Large</label>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2 me-3">
+                                            <label class=" control-label text-dark-emphasis "><input class="me-2" data-val="true" id="Medium" name="TypePrint" type="radio" value="Medium">Medium</label>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2 me-3">
+                                            <label class=" control-label text-dark-emphasis "><input class="me-2" data-val="true" id="Small" name="TypePrint" type="radio" value="Small">Small</label>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2 ">
+                                            <label class=" control-label text-dark-emphasis "><input class="me-2" data-val="true" id="Mini" name="TypePrint" type="radio" value="Mini">Mini</label>
+                                        </div>
 
                                                 
                                             </div>

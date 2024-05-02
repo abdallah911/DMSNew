@@ -43,8 +43,8 @@
         <div class="m-3 fs-3 text-white caption">
             <i class="fa fa-gift me-3"></i>labratory
         </div>
-        <div class="d-flex editeRquest fw-bold 214111 portlet-title actions">
-            <a id="Pending" href="javascript:;" class="d-flex align-items-center me-3btn fw-bold text-white rounded-3 btn-primary  btn-sm" disabled>
+        <div class="my-auto me-3 portlet-title actions">
+            <a id="Pending" href="javascript:;" class="btn fw-bold text-white rounded-3 btn-primary  btn-sm" disabled>
                 <i class="fa fa-pencil"></i> Pending
             </a>
         </div>
@@ -57,12 +57,12 @@
     <div class="portlet-body">
         <div class="row container">
             <div class="row form-group">
-                <div class="col-sm-3" data-step="1" data-hint='Step one!' data-intro="Enter Card ID">
-                    <input id="txtSearchCard" type="text" placeholder="search for card..." class="admin-form-control w-100 h-100  form-control" />
+                <div data-step="1" data-hint='Step one!' data-intro="Enter Card ID" style="width: 250px;  " class="col-md-3">
+                    <input id="txtSearchCard" type="text" placeholder="search for card..." style=" padding-left: 80px;" class="w-100 admin-form-control w-100 h-100 form-control" />
                 </div>
-                <div class="col-sm-3" data-step="2" data-intro="click Search">
-                    <button id="Search" type="button" class="btn fw-bold text-white rounded-3 btn-primary">
-                        <span class="glyphicon glyphicon-search"></span> Search
+                <div class="position-absolute col-md-2" data-step="2" data-intro="click Search">
+                    <button id="Search" type="button" style="height: 35.67px !important;" class="h-100 btn btn-primary">
+                        <i class="glyphicon glyphicon-search"></i> Search
                     </button>
                 </div>
                 @if (User.IsInRole("Admin"))

@@ -2,60 +2,61 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
 
-<br />
 
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Employee Not Active
+
+<div class="sios-container  portlet box  green">
+    <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+        <div class="m-3 fs-3 text-white  caption">
+            <i class="fa fa-gift me-3"></i>Employee Not Active
         </div>
 
     </div>
-    <br />
-    <div class="portlet-body">
+    
+    <div class="sios-bg container-fluid my-4 portlet-body">
+        <div class="table-responsive mx-lg-5">
+            <table class="table table-striped mt-3 text-center ui celled table" id="Index" width="100%">
+                <thead>
+                    <tr>
 
-        <table class="ui celled table" id="Index" width="100%">
-            <thead>
-                <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Full Name
+                        </th>
+                        <th>
+                            Card Id
+                        </th>
+                        <th>
+                            National Id
+                        </th>
+                        <th>
+                            Birth Date
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Created Date
+                        </th>
+                        <th>
+                            Attachment
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                        @*<th></th>
+                    <th></th>
+                    <th></th>*@
+                    </tr>
+                </thead>
+                <tbody></tbody>
 
-                    <th>
-                        Id
-                    </th>
-                    <th>
-                        Full Name
-                    </th>
-                    <th>
-                        Card Id
-                    </th>
-                    <th>
-                        National Id
-                    </th>
-                    <th>
-                        Birth Date
-                    </th>
-                    <th>
-                        Status
-                    </th>
-                    <th>
-                        Created Date
-                    </th>
-                    <th>
-                        Attachment
-                    </th>
-                    <th>
-                        Action
-                    </th>
-                    @*<th></th>
-                        <th></th>
-                        <th></th>*@
-                </tr>
-            </thead>
-            <tbody></tbody>
-
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
@@ -118,7 +119,7 @@
                 {
                     "data": "Id",
                     "mRender": function (data) {
-                        return "<select id='ChangeStatus' class='form-control' onchange='UpdateStuts(this);'><option value= 'N' > Select Action</option > <option value='true'>Yes</option> <option value='false'>No</option></select > ";
+                        return "<select id='ChangeStatus' style='width: 120px!important;'  class='admin-form-control form-control' onchange='UpdateStuts(this);'><option value= 'N' > Select Action</option > <option value='true'>Yes</option> <option value='false'>No</option></select > ";
                     }
                 },
 
