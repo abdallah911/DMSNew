@@ -56,9 +56,9 @@ function NextScreen() {
 
     window.location.href = '/ProposalRenewals/ProposalStepTwoCreate?countCat=' + $('#ClassCount').val();
 }
-function CustomerPrint(id, countClas) {
-   
-window.open('/ProposalRenewals/PrintRenewalReports?id=' + id +
+function PrintRenewal(id, countClas) {
+    debugger;
+    window.open('/ProposalRenewals/PrintRenewalReports?id=' + id +
     '&&countClass=' + countClas);
 }
   

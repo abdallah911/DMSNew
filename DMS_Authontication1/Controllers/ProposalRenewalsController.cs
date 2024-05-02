@@ -42,7 +42,8 @@ namespace DMS_Authontication1.Controllers
             //    startDate = new DateTime(2020, 1, 1);
             //if (!endDate.HasValue)
             //    endDate = new DateTime(2040, 12, 31);
-            var renewals = db.RenewalMains.ToList();
+            //var renewals = db.RenewalMains.ToList();
+            var renewals = db.RenewalMains.OrderByDescending(r => r.Id).ToList();
 
 
             return View(renewals);
@@ -980,8 +981,9 @@ namespace DMS_Authontication1.Controllers
                 IntensiveCareDaysCount = vM.IntensiveCareDaysCount,
                 DailyRoshitasCountPerMonth = vM.DailyRoshitasCountPerMonth,
                 CoronaVaccineCoverage = vM.CoronaVaccineCoverage,
-                MainId = vM.MainId
-
+                MainId = vM.MainId, 
+                ClassCode = vM.ClassCode
+                
             };
 
             return renewalthree;
@@ -1036,6 +1038,11 @@ namespace DMS_Authontication1.Controllers
         {
             ViewBag.MainId = mainId;
             ViewBag.CatCount = countCat;
+
+            if (TempData["Save"] != null && !string.IsNullOrEmpty(TempData["Save"].ToString()))
+                ViewBag.Save = "YES";
+            else
+                ViewBag.Save = "NO";
 
             var model2 = TempData["RenewalStepFourModel"] as List<RenewalOutsideMedicalAuthorityViewModel>;
 
@@ -1550,7 +1557,8 @@ namespace DMS_Authontication1.Controllers
                 IntensiveCareDaysCount = vM.IntensiveCareDaysCount,
                 DailyRoshitasCountPerMonth = vM.DailyRoshitasCountPerMonth,
                 CoronaVaccineCoverage = vM.CoronaVaccineCoverage,
-                MainId = vM.MainId
+                MainId = vM.MainId, 
+                ClassCode = vM.ClassCode
 
             };
 
@@ -1591,7 +1599,11 @@ namespace DMS_Authontication1.Controllers
                     }
                 }
 
-                return RedirectToAction("Show");
+                //PrintRenewalReports(model[0].MainId, model[0].CountClass);
+                TempData["Save"] = "YES";
+                return RedirectToAction("RenewalStepFour", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
+
+              //  return RedirectToAction("Show");
             }
             catch (Exception e)
             {
@@ -1606,17 +1618,17 @@ namespace DMS_Authontication1.Controllers
         {          
             ReportDocument rd = new ReportDocument();
             
-            if(countClass == 1)
+            if(countClass == 2)
                 rd.Load(Path.Combine(Server.MapPath("~/Reports"), "OfferRenewal2Class.rpt"));
-            else if (countClass == 2)
+            else if (countClass == 3)
                 rd.Load(Path.Combine(Server.MapPath("~/Reports"), "OfferRenewal3Class.rpt"));
-            else if(countClass == 3)
+            else if(countClass == 4)
                 rd.Load(Path.Combine(Server.MapPath("~/Reports"), "OfferRenewal4Class.rpt"));
             
             
             rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
 
-            rd.SetParameterValue("@id", id);
+            rd.SetParameterValue("@idd", id);
            
             Response.Buffer = false;
             Response.ClearContent();
@@ -1634,7 +1646,6 @@ namespace DMS_Authontication1.Controllers
             {
                 throw ex;
             }
-
         }
 
     }
