@@ -233,5 +233,6 @@ namespace DMS_Authontication1.ViewModel
 
         public int PricesOutsideMedicalAuthorityId { get; set; }
         public string PricesOutsideMedicalAuthority { get; set; }
+        public int DentalServiceId { get; set; }
     }
 }

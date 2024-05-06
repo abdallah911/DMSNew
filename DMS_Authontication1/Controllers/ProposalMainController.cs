@@ -603,12 +603,15 @@ namespace DMS_Authontication1.Controllers
             // Retrieve data from temporary storage or session
             // ...
             // Retrieve the list of Areas and CompanyActivities from the database
+            var ageAvgs = _dbContext.AgeAvgs.ToList();
             var colors = _dbContext.CardColors.ToList();
             var residenceDegree = _dbContext.ResidenceDegrees.ToList();
             var medicalNetworks = _dbContext.MedicalNetworks.ToList();
 
 
             // Convert the lists to SelectList items for use in dropdown lists
+            ViewBag.AgeList = new SelectList(ageAvgs, "Id", "Age");
+
             ViewBag.ColorList = new SelectList(colors, "Id", "Name");
             ViewBag.ResidenceList = new SelectList(residenceDegree, "Id", "Name");
             ViewBag.MedicalNetworkList = new SelectList(medicalNetworks, "Id", "Name");
@@ -735,9 +738,11 @@ namespace DMS_Authontication1.Controllers
                         var colors = _dbContext.CardColors.ToList();
                         var residenceDegree = _dbContext.ResidenceDegrees.ToList();
                         var medicalNetworks = _dbContext.MedicalNetworks.ToList();
+                        var ageAvgs = _dbContext.AgeAvgs.ToList();
 
 
                         // Convert the lists to SelectList items for use in dropdown lists
+                        ViewBag.AgeList = new SelectList(ageAvgs, "Id", "Age");
                         ViewBag.ColorList = new SelectList(colors, "Id", "Name");
                         ViewBag.ResidenceList = new SelectList(residenceDegree, "Id", "Name");
                         ViewBag.MedicalNetworkList = new SelectList(medicalNetworks, "Id", "Name");
@@ -785,6 +790,8 @@ namespace DMS_Authontication1.Controllers
             var colors = _dbContext.CardColors.ToList();
             var residenceDegree = _dbContext.ResidenceDegrees.ToList();
             var medicalNetworks = _dbContext.MedicalNetworks.ToList();
+            var ageAvgs = _dbContext.AgeAvgs.ToList();
+            ViewBag.AgeList = new SelectList(ageAvgs, "Id", "Age");
 
 
             ViewBag.MainId = newId;
@@ -873,7 +880,8 @@ namespace DMS_Authontication1.Controllers
                         var colors = _dbContext.CardColors.ToList();
                         var residenceDegree = _dbContext.ResidenceDegrees.ToList();
                         var medicalNetworks = _dbContext.MedicalNetworks.ToList();
-
+                        var ageAvgs = _dbContext.AgeAvgs.ToList();
+                        ViewBag.AgeList = new SelectList(ageAvgs, "Id", "Age");
 
                         // Convert the lists to SelectList items for use in dropdown lists
                         ViewBag.ColorList = new SelectList(colors, "Id", "Name");
@@ -910,7 +918,6 @@ namespace DMS_Authontication1.Controllers
                 Price = vM.Price,
                 MinAge= vM.MinAge,
                 MaxAge = vM.MaxAge,
-                AvgAge = vM.AvgAge,
                 ChecksInsideHospital = vM.ChecksInsideHospital,
                 PhysicalTherapyInsideHospital = vM.PhysicalTherapyInsideHospital,
                 OutsideClincInsideHospital = vM.OutsideClinicInsideHospital,
@@ -919,6 +926,7 @@ namespace DMS_Authontication1.Controllers
                 Accidents = vM.Accidents,
                 Death = vM.Death,
                 //relations
+                AgeAvgId = vM.AgeAvgId,
                 CardColorId = vM.CardColorId,
                 ResidenceDegreeId = vM.ResidenceDegreeId,
                 MedicalNetworkId = vM.MedicalNetworkId,
@@ -939,7 +947,6 @@ namespace DMS_Authontication1.Controllers
                 Price = proposalEntity.Price,
                 MinAge = proposalEntity.MinAge,
                 MaxAge = proposalEntity.MaxAge,
-                AvgAge = proposalEntity.AvgAge,
                 ChecksInsideHospital = proposalEntity.ChecksInsideHospital,
                 PhysicalTherapyInsideHospital = proposalEntity.PhysicalTherapyInsideHospital,
                 OutsideClinicInsideHospital = proposalEntity.OutsideClincInsideHospital,
@@ -948,6 +955,7 @@ namespace DMS_Authontication1.Controllers
                 Death = proposalEntity.Death,
                 Accidents = proposalEntity.Accidents,
                 //relations
+                AgeAvgId = proposalEntity.AgeAvgId,
                 CardColorId = proposalEntity.CardColorId,
                 ResidenceDegreeId = proposalEntity.ResidenceDegreeId,
                 MedicalNetworkId = proposalEntity.MedicalNetworkId,
@@ -966,7 +974,6 @@ namespace DMS_Authontication1.Controllers
             existingProposal.Price = proposalViewModel.Price;
             existingProposal.MinAge = proposalViewModel.MinAge;
             existingProposal.MaxAge = proposalViewModel.MaxAge;
-            existingProposal.AvgAge = proposalViewModel.AvgAge;
             existingProposal.ChecksInsideHospital = proposalViewModel.ChecksInsideHospital;
             existingProposal.PhysicalTherapyInsideHospital = proposalViewModel.PhysicalTherapyInsideHospital;
             existingProposal.OutsideClincInsideHospital = proposalViewModel.OutsideClinicInsideHospital;
@@ -974,6 +981,7 @@ namespace DMS_Authontication1.Controllers
             existingProposal.EmployeesDataFileName = proposalViewModel.EmployeesDataFileName;
             existingProposal.Accidents = proposalViewModel.Accidents;
             existingProposal.Death = proposalViewModel.Death;
+            existingProposal.AgeAvgId = proposalViewModel.AgeAvgId;
             existingProposal.CardColorId = proposalViewModel.CardColorId;
             existingProposal.ResidenceDegreeId = proposalViewModel.ResidenceDegreeId;
             existingProposal.MedicalNetworkId = proposalViewModel.MedicalNetworkId;
@@ -994,11 +1002,12 @@ namespace DMS_Authontication1.Controllers
             // Retrieve data from temporary storage or session
             // ...
             // Retrieve the list of Areas and CompanyActivities from the database
-          
 
+            var basicDentalServices = _dbContext.BasicDentalServices.ToList();
+            ViewBag.BasicDentalServices = new SelectList(basicDentalServices, "Id", "Name");
 
             // Convert the lists to SelectList items for use in dropdown lists
-          
+
             ViewBag.MainId = id;
             var mainProposal = _dbContext.ProposalMains.Include("ProposalInsiceMedicalAuthorities").FirstOrDefault(p => p.Id == id);
 
@@ -1036,8 +1045,11 @@ namespace DMS_Authontication1.Controllers
         public async Task<ActionResult> ProposalStepThreeCreate(List<ProposalInsideMedicalAuthorityViewModel> Model, int? MainProposalId
             ,string BackOrForwardOrMain="")
         {
+
             try
             {
+                var basicDentalServices = _dbContext.BasicDentalServices.ToList();
+
                 var secondproposal = _dbContext.ProposalStepTwos.Where(sp => sp.ProposalMainId == MainProposalId).ToList();
                 var secodProposalIndex = 0;
                 foreach (var model1 in Model)
@@ -1279,6 +1291,7 @@ namespace DMS_Authontication1.Controllers
                                     errors.Add(error.ErrorMessage);
                                 }
                             }
+                            ViewBag.BasicDentalServices = new SelectList(basicDentalServices, "Id", "Name");
                             ViewBag.MainId = MainProposalId;
                             ViewBag.Errors = errors;
                             ViewBag.CatCount = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == MainProposalId).CategoriesCount;
@@ -1306,6 +1319,7 @@ namespace DMS_Authontication1.Controllers
                  
                         ViewBag.MainId = MainProposalId;
 
+                        ViewBag.BasicDentalServices = new SelectList(basicDentalServices, "Id", "Name");
                         ViewBag.CatCount = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == MainProposalId).CategoriesCount;
                         ViewBag.previousUrl = System.Web.HttpContext.Current.Request.UrlReferrer?.ToString();
                         // If the model state is not valid, redisplay the form with errors
@@ -1313,6 +1327,7 @@ namespace DMS_Authontication1.Controllers
                         return View(Model);
                     }
                 }
+                ViewBag.BasicDentalServices = new SelectList(basicDentalServices, "Id", "Name");
                 // Redirect to a third page of the form
                 switch (BackOrForwardOrMain)
                 {
@@ -1330,6 +1345,8 @@ namespace DMS_Authontication1.Controllers
             }
             catch (Exception e)
             {
+                var basicDentalServices = _dbContext.BasicDentalServices.ToList();
+                ViewBag.BasicDentalServices = new SelectList(basicDentalServices, "Id", "Name");
                 var firstEntity = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == MainProposalId);
                 if (firstEntity != null)
                     _dbContext.ProposalMains.Remove(firstEntity);
@@ -1344,7 +1361,8 @@ namespace DMS_Authontication1.Controllers
             int prevId = Convert.ToInt32(Request.QueryString["prevId"]);
             // Retrieve data from temporary storage or session
             // ...
-
+            var basicDentalServices = _dbContext.BasicDentalServices.ToList();
+            ViewBag.BasicDentalServices = new SelectList(basicDentalServices, "Id", "Name");
 
 
             ViewBag.MainId = newId;
@@ -1602,7 +1620,8 @@ namespace DMS_Authontication1.Controllers
                             }
                         }
                         ViewBag.Errors = errors;
-                   
+                        var basicDentalServices = _dbContext.BasicDentalServices.ToList();
+                        ViewBag.BasicDentalServices = new SelectList(basicDentalServices, "Id", "Name");
                         ViewBag.MainId = id; 
 
                         ViewBag.CatCount = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == id).CategoriesCount;
@@ -1617,6 +1636,8 @@ namespace DMS_Authontication1.Controllers
             }
             catch (Exception e)
             {
+                var basicDentalServices = _dbContext.BasicDentalServices.ToList();
+                ViewBag.BasicDentalServices = new SelectList(basicDentalServices, "Id", "Name");
                 var firstEntity = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == id);
                 if (firstEntity != null)
                     _dbContext.ProposalMains.Remove(firstEntity);
@@ -1684,10 +1705,14 @@ namespace DMS_Authontication1.Controllers
                 IntensiveCareDaysCount = vM.IntensiveCareDaysCount,
                 DailyRoshitasCountPerMonth = vM.DailyRoshitasCountPerMonth,
                 CoronaVaccineCoverage = vM.CoronaVaccineCoverage,
-           
-                //relations
+                DentalProsthetics = vM.DentalProsthetics,
+                BasicDentalServiceId = vM.BasicDentalServiceId,
+                OpticalDetection = vM.OpticalDetection,
+                OpticalCount = vM.OpticalCount,
+                PregCount = vM.PregCount,
+            //relations
 
-                ProposalMainId = vM.ProposalMainId
+            ProposalMainId = vM.ProposalMainId
 
 
                 // Map other properties as needed
@@ -1755,7 +1780,12 @@ namespace DMS_Authontication1.Controllers
                 IntensiveCareDaysCount = vM.IntensiveCareDaysCount,
                 DailyRoshitasCountPerMonth = vM.DailyRoshitasCountPerMonth,
                 CoronaVaccineCoverage = vM.CoronaVaccineCoverage,
-              
+                DentalProsthetics = vM.DentalProsthetics,
+                BasicDentalServiceId = vM.BasicDentalServiceId,
+                OpticalDetection = vM.OpticalDetection,
+                OpticalCount = vM.OpticalCount,
+                PregCount = vM.PregCount,
+
                 //relations
 
                 ProposalMainId = vM.ProposalMainId
@@ -1822,13 +1852,17 @@ namespace DMS_Authontication1.Controllers
             existingProposal.IntensiveCareDaysCount = vM.IntensiveCareDaysCount;
             existingProposal.DailyRoshitasCountPerMonth = vM.DailyRoshitasCountPerMonth;
             existingProposal.CoronaVaccineCoverage = vM.CoronaVaccineCoverage;
-
+            existingProposal.DentalProsthetics = vM.DentalProsthetics;
+            existingProposal.BasicDentalServiceId = vM.BasicDentalServiceId;
+            existingProposal.OpticalDetection = vM.OpticalDetection;
+            existingProposal.OpticalCount = vM.OpticalCount;
+            existingProposal.PregCount = vM.PregCount;
             //relations
 
             existingProposal.ProposalMainId = vM.ProposalMainId;
 
         }
-        #endregion
+        #endregion 
 
         #region ProposalStepFour
         public ActionResult ProposalStepFourCreate(int id)
@@ -1837,7 +1871,8 @@ namespace DMS_Authontication1.Controllers
             // ...
             // Retrieve the list of Areas and CompanyActivities from the database
 
-
+            var dentalServices = _dbContext.DentalServices.ToList();
+            ViewBag.DentalServices = new SelectList(dentalServices, "Id", "Name");
 
             // Convert the lists to SelectList items for use in dropdown lists
 
@@ -1884,7 +1919,8 @@ namespace DMS_Authontication1.Controllers
             var mainId = 0;
             try
             {
-
+                var dentalServices = _dbContext.DentalServices.ToList();
+                ViewBag.DentalServices = new SelectList(dentalServices, "Id", "Name");
                 var secondproposal = _dbContext.ProposalStepTwos.Where(sp => sp.ProposalMainId == MainProposalId).ToList();
                 var secodProposalIndex = 0;
                 foreach (var model1 in Model)
@@ -2253,6 +2289,8 @@ namespace DMS_Authontication1.Controllers
             }
             catch (Exception e)
             {
+                var dentalServices = _dbContext.DentalServices.ToList();
+                ViewBag.DentalServices = new SelectList(dentalServices, "Id", "Name");
                 var firstEntity = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == MainProposalId);
                 if (firstEntity != null)
                     _dbContext.ProposalMains.Remove(firstEntity);
@@ -2269,7 +2307,8 @@ namespace DMS_Authontication1.Controllers
             int prevId = Convert.ToInt32(Request.QueryString["prevId"]);
             // Retrieve data from temporary storage or session
             // ...
-
+            var dentalServices = _dbContext.DentalServices.ToList();
+            ViewBag.DentalServices = new SelectList(dentalServices, "Id", "Name");
 
 
             ViewBag.MainId = newId;
@@ -2309,7 +2348,8 @@ namespace DMS_Authontication1.Controllers
         {
             try
             {
-
+                var dentalServices = _dbContext.DentalServices.ToList();
+                ViewBag.DentalServices = new SelectList(dentalServices, "Id", "Name");
                 var secondproposal = _dbContext.ProposalStepTwos.Where(sp => sp.ProposalMainId == id).ToList();
                 var secodProposalIndex = 0;
                 foreach (var model1 in Model)
@@ -2570,6 +2610,8 @@ namespace DMS_Authontication1.Controllers
             }
             catch (Exception e)
             {
+                var dentalServices = _dbContext.DentalServices.ToList();
+                ViewBag.DentalServices = new SelectList(dentalServices, "Id", "Name");
                 var firstEntity = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == id);
                 if (firstEntity != null)
                     _dbContext.ProposalMains.Remove(firstEntity);
@@ -2640,6 +2682,7 @@ namespace DMS_Authontication1.Controllers
                 DoctorsExaminationValue = vM.DoctorsExaminationValue,
                 //relations
                 PricesOutsideMedicalAuthorityId = vM.PricesOutsideMedicalAuthorityId,
+                DentalServiceId = vM.DentalServiceId,
 
                 ProposalMainId = vM.ProposalMainId
 
@@ -2711,6 +2754,7 @@ namespace DMS_Authontication1.Controllers
                 CoronaVaccineCoverage = vM.CoronaVaccineCoverage,
                 DoctorsExaminationValue = vM.DoctorsExaminationValue,
                 //relations
+                DentalServiceId = vM.DentalServiceId,
 
                 ProposalMainId = vM.ProposalMainId,
                 PricesOutsideMedicalAuthorityId = vM.PricesOutsideMedicalAuthorityId,
@@ -2780,6 +2824,8 @@ namespace DMS_Authontication1.Controllers
             existingProposal.CoronaVaccineCoverage = vM.CoronaVaccineCoverage;
             existingProposal.DoctorsExaminationValue = vM.DoctorsExaminationValue;
             //relations
+            existingProposal.DentalServiceId = vM.DentalServiceId;
+
             existingProposal.PricesOutsideMedicalAuthorityId = vM.PricesOutsideMedicalAuthorityId;
             existingProposal.ProposalMainId = vM.ProposalMainId;
 

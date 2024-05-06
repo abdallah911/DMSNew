@@ -22,7 +22,7 @@ namespace DMS_Authontication1.Models
         public decimal Price { get; set; }
         public int MinAge { get; set; }
         public int MaxAge { get; set; }
-        public int AvgAge { get; set; }
+        //public int AvgAge { get; set; }
         public ApprovalStepTwo ChecksInsideHospital { get; set; }
         public ApprovalStepTwo PhysicalTherapyInsideHospital { get; set; }
         public ApprovalStepTwo OutsideClincInsideHospital { get; set; }
@@ -33,6 +33,8 @@ namespace DMS_Authontication1.Models
         public int Accidents { get; set; }
         public int Death { get; set; }
         //----------relations--------------//
+        public int AgeAvgId { get; set; }
+        public AgeAvg AgeAvg { get; set; }
         public int CardColorId { get; set; }
         public CardColor CardColor { get; set; }
         public int ResidenceDegreeId { get; set; }

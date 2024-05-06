@@ -30,9 +30,9 @@ namespace DMS_Authontication1.ViewModel
         [Range(0, 200, ErrorMessage = "Max Age must be between 0 and 200.")]
         public int MaxAge { get; set; }
 
-        [Required(ErrorMessage = "Avg Age is required.")]
-        [Range(0, 200, ErrorMessage = "Avg Age must be between 0 and 200.")]
-        public int AvgAge { get; set; }
+        //[Required(ErrorMessage = "Avg Age is required.")]
+        //[Range(0, 200, ErrorMessage = "Avg Age must be between 0 and 200.")]
+        //public int AvgAge { get; set; }
         [Required(ErrorMessage = "Please provide the approval status for Checks Inside Hospital.")]
         public ApprovalStepTwo ChecksInsideHospital { get; set; }
 
@@ -58,6 +58,8 @@ namespace DMS_Authontication1.ViewModel
 
         public int Death { get; set; }
         //----------relations--------------//
+        [Required(ErrorMessage = "Please provide the Average Age.")]
+        public int AgeAvgId { get; set; }
         [Required(ErrorMessage = "Please provide the Card Color.")]
         public int CardColorId { get; set; }
 
