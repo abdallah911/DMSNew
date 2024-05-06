@@ -394,93 +394,9 @@
     <Compile Include="Helper\DocumentSetting.cs" />
     <Compile Include="Helper\FileUploadWrapper.cs" />
     <Compile Include="Hub\ProposalNotificationHub.cs" />
-    <Compile Include="Migrations\201802280728382_editUser.cs" />
-    <Compile Include="Migrations\201802280728382_editUser.Designer.cs">
-      <DependentUpon>201802280728382_editUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803011014281_role.cs" />
-    <Compile Include="Migrations\201803011014281_role.Designer.cs">
-      <DependentUpon>201803011014281_role.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803051238383_provider.cs" />
-    <Compile Include="Migrations\201803051238383_provider.Designer.cs">
-      <DependentUpon>201803051238383_provider.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803061306086_typeid.cs" />
-    <Compile Include="Migrations\201803061306086_typeid.Designer.cs">
-      <DependentUpon>201803061306086_typeid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805101131339_all.cs" />
-    <Compile Include="Migrations\201805101131339_all.Designer.cs">
-      <DependentUpon>201805101131339_all.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806061110299_tables.cs" />
-    <Compile Include="Migrations\201806061110299_tables.Designer.cs">
-      <DependentUpon>201806061110299_tables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811250838574_DoctorPersonalData.cs" />
-    <Compile Include="Migrations\201811250838574_DoctorPersonalData.Designer.cs">
-      <DependentUpon>201811250838574_DoctorPersonalData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811250906329_DoctorWorkPlace.cs" />
-    <Compile Include="Migrations\201811250906329_DoctorWorkPlace.Designer.cs">
-      <DependentUpon>201811250906329_DoctorWorkPlace.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811250920481_DailyPermission.cs" />
-    <Compile Include="Migrations\201811250920481_DailyPermission.Designer.cs">
-      <DependentUpon>201811250920481_DailyPermission.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811250925571_MonthlyPermissionTable.cs" />
-    <Compile Include="Migrations\201811250925571_MonthlyPermissionTable.Designer.cs">
-      <DependentUpon>201811250925571_MonthlyPermissionTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811250953116_DoctorPermissionTable.cs" />
-    <Compile Include="Migrations\201811250953116_DoctorPermissionTable.Designer.cs">
-      <DependentUpon>201811250953116_DoctorPermissionTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811251002298_Delete.cs" />
-    <Compile Include="Migrations\201811251002298_Delete.Designer.cs">
-      <DependentUpon>201811251002298_Delete.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811251245496_Basicdata.cs" />
-    <Compile Include="Migrations\201811251245496_Basicdata.Designer.cs">
-      <DependentUpon>201811251245496_Basicdata.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811260901522_ForigenKey.cs" />
-    <Compile Include="Migrations\201811260901522_ForigenKey.Designer.cs">
-      <DependentUpon>201811260901522_ForigenKey.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811260904386_DailyandMonthly.cs" />
-    <Compile Include="Migrations\201811260904386_DailyandMonthly.Designer.cs">
-      <DependentUpon>201811260904386_DailyandMonthly.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811260910487_Changes.cs" />
-    <Compile Include="Migrations\201811260910487_Changes.Designer.cs">
-      <DependentUpon>201811260910487_Changes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811260923285_Changes2.cs" />
-    <Compile Include="Migrations\201811260923285_Changes2.Designer.cs">
-      <DependentUpon>201811260923285_Changes2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811261331584_Changes3.cs" />
-    <Compile Include="Migrations\201811261331584_Changes3.Designer.cs">
-      <DependentUpon>201811261331584_Changes3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811270703061_aad.cs" />
-    <Compile Include="Migrations\201811270703061_aad.Designer.cs">
-      <DependentUpon>201811270703061_aad.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811271000128_ReName.cs" />
-    <Compile Include="Migrations\201811271000128_ReName.Designer.cs">
-      <DependentUpon>201811271000128_ReName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811271118266_Modification.cs" />
-    <Compile Include="Migrations\201811271118266_Modification.Designer.cs">
-      <DependentUpon>201811271118266_Modification.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811271146400_Modification2.cs" />
-    <Compile Include="Migrations\201811271146400_Modification2.Designer.cs">
-      <DependentUpon>201811271146400_Modification2.cs</DependentUpon>
+    <Compile Include="Migrations\202404221953025_ageavg2.cs" />
+    <Compile Include="Migrations\202404221953025_ageavg2.Designer.cs">
+      <DependentUpon>202404221953025_ageavg2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Acception.cs">
@@ -517,6 +433,7 @@
     </Compile>
     <Compile Include="Models\Area.cs" />
     <Compile Include="Models\Basic.cs" />
+    <Compile Include="Models\BasicDentalService.cs" />
     <Compile Include="Models\Basic_Data.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -606,6 +523,7 @@
     <Compile Include="Models\DeliveryRequestDetail.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DentalService.cs" />
     <Compile Include="Models\Department.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -8038,6 +7956,9 @@
     <Content Include="ProposalAssets\JS\jquery-ui.js" />
     <Content Include="ProposalAssets\JS\jquery.min.js" />
     <Content Include="ProposalAssets\JS\main.js" />
+    <Content Include="Scripts\DMS\NewReport.js" />
+    <Content Include="Scripts\DMS\PharmacyIndexNewDesign.js" />
+    <Content Include="Scripts\DMS\ProposalRenewals\ProposalRenewals.js" />
     <Content Include="Scripts\DMS\ReportMain\ReportMain.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -9015,6 +8936,10 @@
     <Content Include="Views\Roshitas\Details.cshtml" />
     <Content Include="Views\Roshitas\Edit.cshtml" />
     <Content Include="Views\Roshitas\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout_DashboardAdminNew.cshtml" />
+    <Content Include="Views\Shared\_Layout_DashboardNew.cshtml" />
+    <Content Include="Views\Shared\_Layout_Proposal.cshtml" />
+    <Content Include="Views\Shared\_Reports.cshtml" />
     <Content Include="Views\Medicines\AddDosageForm.cshtml" />
     <Content Include="Views\Medicines\AddLicType.cshtml" />
     <Content Include="Views\Medicines\AddMedType.cshtml" />
@@ -9026,6 +8951,119 @@
     <Content Include="Views\Medicines\_MedicineDosageFormList.cshtml" />
     <Content Include="Views\Medicines\_MedicineLicenseList.cshtml" />
     <Content Include="Views\Medicines\_MedicineTypeList.cshtml" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalAmt.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalAmtDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalByCard.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalCardDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalCompany.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalCompanyDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalDate.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalDateDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalDateServ.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalDateServDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalddd2.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalEditDelete.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalEditDeleteDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalEditDeleteDetails2.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalException.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalExceptionDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalold.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalPrv.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalPrvDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalRecollection.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalRecollectionDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalReply.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalReplyDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalResdnt.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalResdntDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalServBy.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalServByDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalService.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalServiceComp.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalServiceCompDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportApprovalServiceDetails.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov1.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov10.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov11.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov12.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov13.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov14.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov2.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov6.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov7.rpt" />
+    <Content Include="Reports\ContractReports\ReportEndComp11.rpt" />
+    <Content Include="Reports\ContractReports\ReportEndCompBefore1.rpt" />
+    <Content Include="Reports\CustomerServicesReports\ReportMonitor.rpt" />
+    <Content Include="Reports\LoseRatioReports\LosingCompaniesReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\LosingCompaniesReportTop10.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportComplete.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportCompleteDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportCurrent.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioCRMReportCurrentDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioLastReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportComplete.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCompleteCompare.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCompleteDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCurrent.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCurrentCompare.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCurrentDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioReportCompareContract.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioStateReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\TopCompaniesReport.rpt" />
+    <Content Include="Reports\LoseRatioReports\TopCompaniesReportTop10.rpt" />
+    <Content Include="Reports\OperationReport\ReportEmp.rpt" />
+    <Content Include="Reports\OperationReport\ReportEmpOldCmp.rpt" />
+    <Content Include="Reports\OperationReport\ReportEmpY.rpt" />
+    <Content Include="Reports\OperationReport\ReportEmpYLimit.rpt" />
+    <Content Include="Reports\OperationReport\ReportEmpYOldCmp.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationAdd.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationAdd2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeClass.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeClass2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeCode.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeCodeandleval.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeCostCsentr.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeCostCsentr2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeName.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeName2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangePhoto.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangePhoto2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationClose.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationClose2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationMissingCard.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationMissingCard2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationReActive.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationReActive2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationReplecmentCard.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationReplecmentCard2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationTransction.rpt" />
+    <Content Include="Reports\PrintingReports\OrderPrint.rpt" />
+    <Content Include="Reports\PrintingReports\OrderPrintPrint.rpt" />
+    <Content Include="Reports\PrintingReports\OrderWithoutPrint.rpt" />
+    <Content Include="Reports\PrintingReports\PrintWithDelivery.rpt" />
+    <Content Include="Reports\PrintingReports\PrintWithoutReview.rpt" />
+    <Content Include="Reports\PrintingReports\PrintWithReview.rpt" />
+    <Content Include="Reports\PrintingReports\TransactionWithoutPrint.rpt" />
+    <Content Include="Reports\SoficoReports\ActivationReport.rpt" />
+    <Content Include="Reports\SoficoReports\ActiveMedicineChronicReport.rpt" />
+    <Content Include="Reports\SoficoReports\AllClaimsReport.rpt" />
+    <Content Include="Reports\SoficoReports\CloseEmpReport.rpt" />
+    <Content Include="Reports\SoficoReports\SartEmpReport.rpt" />
+    <Content Include="Reports\MedicineChronicReport.rpt" />
+    <Content Include="Reports\ProviderCheckTop.rpt" />
+    <Content Include="Reports\ReportPrintHorizontal4.rpt" />
+    <Content Include="Reports\ReportPrintHorizontal5.rpt" />
+    <Content Include="Reports\ReportPrintHorizontal8.rpt" />
+    <Content Include="Reports\ReportPrintHorizontal88.rpt" />
+    <Content Include="Reports\ReviewDetails.rpt" />
+    <Content Include="Reports\ReviewSummary.rpt" />
+    <Content Include="Reports\OfferRenewal2Class.rpt" />
+    <Content Include="Reports\OfferRenewal3Class.rpt" />
+    <Content Include="Reports\OfferRenewal4Class.rpt" />
+    <Content Include="Views\ReportMain\ReportProviderCheck.cshtml" />
+    <Content Include="Views\ReportMain\Reports.cshtml" />
+    <Content Include="Views\ReportMain\ReviewBatch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

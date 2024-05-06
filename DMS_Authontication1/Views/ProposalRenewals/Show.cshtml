@@ -79,7 +79,7 @@
                                         <th scope="col">تاريخ الإنشاء</th>
 
                                         <th scope="col">تعديل</th>
-
+                                        <th scope="col">طباعة</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -88,33 +88,56 @@
                                     <tr>
 
 
-                                        @*<td dir="ltr">@item.Id</td>*@
+                                        <td dir="ltr" style="display:none;">@item.Id</td>
                                         <td dir="ltr">@item.Code</td>
                                         <td dir="ltr">@item.CompId</td>
                                         <td dir="ltr">@item.ContractNo</td>
                                         <td dir="ltr">@item.ClassCount</td>
                                         <td dir="ltr">@item.EmpCount</td>
-                                        @*<td dir="ltr">@item.UserId</td>*@
+                                        <td dir="ltr" style="display:none;">@item.UserId</td>
                                         <td dir="ltr">@item.CreatedDate</td>
 
                                         <td>
-                                            @Html.ActionLink("تعديل", "RenewalStepTwoShow", "ProposalRenewals", new { mainId = @item.Id, CompId = @item.CompId, ContractNo = @item.ContractNo, countCat = @item.ClassCount, typeAction = 2 }, new { style = "text-decoration:none;color: #fff; background: #6e7085;padding: 10px 30px;border-radius: 10px;font-weight: var(--font - bold);font-size: 18px;box-shadow: 0 0 2px #14061b4d;cursor: pointer; " })
+                                            @*@Html.ActionLink("تعديل", "RenewalStepTwoShow", "ProposalRenewals", new { mainId = @item.Id, CompId = @item.CompId, ContractNo = @item.ContractNo, countCat = @item.ClassCount, typeAction = 2 }, new { style = "text-decoration:none;color: #fff; background: #6e7085;padding: 10px 30px;border-radius: 10px;font-weight: var(--font - bold);font-size: 18px;box-shadow: 0 0 2px #14061b4d;cursor: pointer; " })*@
+                                            @*@Html.ActionLink("تعديل", "SaveData2", "ProposalRenewals", new { model = @item }, new { style = "text-decoration:none;color: #fff; background: #6e7085;padding: 10px 30px;border-radius: 10px;font-weight: var(--font - bold);font-size: 18px;box-shadow: 0 0 2px #14061b4d;cursor: pointer; " })*@
+
+                                            @using (Html.BeginForm("SaveData2", "ProposalRenewals", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+
+                                                @Html.Hidden("model.Code", item.Code)
+                                                @Html.Hidden("model.CompId", item.CompId)
+                                                @Html.Hidden("model.ContractNo", item.ContractNo)
+                                                @Html.Hidden("model.ClassCount", item.ClassCount)
+                                                @Html.Hidden("model.EmpCount", item.EmpCount)
+                                                @Html.Hidden("model.CreatedDate", item.CreatedDate)
+                                                @Html.Hidden("model.Id", item.Id)
+                                                @Html.Hidden("model.UserId", item.UserId)
+
+                                                <button type="submit" style="text-decoration:none;color: #fff; background: #6e7085;padding: 10px 30px;border-radius: 10px;font-weight: var(--font - bold);font-size: 18px;box-shadow: 0 0 2px #14061b4d;cursor: pointer;">تعديل</button>
+                                            }
                                         </td>
+                                        <td>
+                                        <td>
+                                            <button type="button"
+                                                    style="text-decoration:none;color: #fff; background: #6e7085;padding: 10px 30px;border-radius: 10px;font-weight: var(--font - bold);font-size: 18px;box-shadow: 0 0 2px #14061b4d;cursor: pointer;"
+                                                    onclick="PrintRenewal(@item.Id, @item.ClassCount)">
+                                                طباعة
+                                            </button>
+                                        </td>
+                                            @*@if (currentUserId == item.UserId)
+            {
+                <td>
+                    @Html.ActionLink("تعديل", "Edit", "ProposalMain", new { id = @item.Id }, new { style = "text-decoration:none;color: #fff; background: #6e7085;padding: 10px 30px;border-radius: 10px;font-weight: var(--font - bold);font-size: 18px;box-shadow: 0 0 2px #14061b4d;cursor: pointer; " })
+                </td>
+            }
+            else
+            {
+                <td>
+                    <a class="btn" style="white-space: nowrap;text-decoration: none; color: #fff; background: #6e7085; padding: 10px 30px; border-radius: 10px; font-weight: var(--font - bold); font-size: 18px; box-shadow: 0 0 2px #14061b4d; cursor: pointer; ">غير مسموح</a>
 
-
-                                        @*@if (currentUserId == item.UserId)
-                                        {
-                                            <td>
-                                                @Html.ActionLink("تعديل", "Edit", "ProposalMain", new { id = @item.Id }, new { style = "text-decoration:none;color: #fff; background: #6e7085;padding: 10px 30px;border-radius: 10px;font-weight: var(--font - bold);font-size: 18px;box-shadow: 0 0 2px #14061b4d;cursor: pointer; " })
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td>
-                                                <a class="btn" style="white-space: nowrap;text-decoration: none; color: #fff; background: #6e7085; padding: 10px 30px; border-radius: 10px; font-weight: var(--font - bold); font-size: 18px; box-shadow: 0 0 2px #14061b4d; cursor: pointer; ">غير مسموح</a>
-
-                                            </td>
-                                        }*@
+                </td>
+            }*@
 
 
                                     </tr>
@@ -138,32 +161,4 @@
 
     </div>
 </div>
-@section Scripts{
-
-    @if (TempData["UnauthorizedEditMessage"] != null)
-    {
-        <script>
-        alert('@TempData["UnauthorizedEditMessage"]');
-        </script>
-    }
-    <script>
-    $(document).ready(function () {
-        var successMessage = '@ViewBag.SuccessMessage';
-        if (successMessage) {
-            // Use the JavaScript alert function to display the message
-            alert(successMessage);
-        }
-        // Set the value of the search input on document ready
-        $("#searchInput").val("@ViewBag.SearchValue");
-
-        // Handle click event for clear button
-        $("#clearSearch").click(function () {
-        // Clear the search input
-        $("#searchInput").val("");
-
-        // Submit the form to show all data
-        $("#search-submit").click();
-        });
-        });
-    </script>
-}
+<script src="~/Scripts/DMS/ProposalRenewals/ProposalRenewals.js"></script>

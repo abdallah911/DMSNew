@@ -245,5 +245,6 @@ namespace DMS_Authontication1.ViewModel
         public int ContractNo { get; set; }
         public int CountClass { get; set; }
         public int typAction { get; set; }
+        public int MainIdOld { get; set; }
     }
 }

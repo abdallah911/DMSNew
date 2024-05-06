@@ -13,7 +13,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace DMS_Authontication1.Controllers
 {
@@ -35,67 +35,15 @@ namespace DMS_Authontication1.Controllers
 
 
         }
-        #region MainPage
-        // GET: ProposalMain
-
-
-        //public async Task<ActionResult> Show(string searchValue = "", DateTime? startDate = null, DateTime? endDate = null)
-        //{
-        //    // Retrieve the message from TempData
-        //    string successMessage = TempData["SuccessMessage"] as string;
-
-        //    // Pass the message to the view
-        //    ViewBag.SuccessMessage = successMessage;
-
-        //    if (!startDate.HasValue)          
-        //        startDate = new DateTime(2020, 1, 1);            
-        //    if (!endDate.HasValue)            
-        //        endDate = new DateTime(2040, 12, 31);
-        //    var renewals = _dbContext.RenewalMains.AsQueryable(); 
-
-
-        //    //if (string.IsNullOrEmpty(searchValue))
-        //    //{
-        //    //    renewals = renewals
-        //    //        .Where(b =>
-        //    //        (!startDate.HasValue || b.CreatedDate >= startDate) &&
-        //    //        (!endDate.HasValue || b.CreatedDate <= endDate)
-        //    //    )
-        //    //    .ToList();
-        //    //}
-        //    //else
-        //    //{
-        //    //    renewals = renewals
-        //    //       .Where(b =>
-        //    //           (!startDate.HasValue || b.CreatedDate >= startDate) &&
-        //    //           (!endDate.HasValue || b.CreatedDate <= endDate) &&
-        //    //           (b.CompId.ToString().ToLower().Contains(searchValue) ||
-        //    //             b.Code.Contains(searchValue))
-        //    //       )
-        //    //       .ToList();
-        //    //}
-
-        //    //var proposals = string.IsNullOrEmpty(searchValue)
-        //    //    ? GetProposals(startDate.Value, endDate.Value)
-        //    //    : PerformSearch(startDate.Value, endDate.Value, searchValue);
-
-        //    ViewBag.SearchValue = searchValue;
-        //    return View(renewals);
-        //}
-
+        #region MainPage        
         public async Task<ActionResult> Show()
-        {
-            // Retrieve the message from TempData
-            //string successMessage = TempData["SuccessMessage"] as string;
-
-            //// Pass the message to the view
-            //ViewBag.SuccessMessage = successMessage;
-
+        {           
             //if (!startDate.HasValue)
             //    startDate = new DateTime(2020, 1, 1);
             //if (!endDate.HasValue)
             //    endDate = new DateTime(2040, 12, 31);
-            var renewals = db.RenewalMains.ToList();
+            //var renewals = db.RenewalMains.ToList();
+            var renewals = db.RenewalMains.OrderByDescending(r => r.Id).ToList();
 
 
             return View(renewals);
@@ -149,11 +97,11 @@ namespace DMS_Authontication1.Controllers
                         ContractNo = model.ContractNo,
                         ClassCount = model.ClassCount,
                         EmpCount = model.EmpCount,
-                        UserId = currentUserId
+                        UserId = currentUserId,
+                        CreatedDate = DateTime.Now.Date
                     };
 
                     db.RenewalMains.Add(renewalMain);
-                    //db.RenewalMains.Add(renewalMain);
                     db.SaveChanges();
 
                     int id = renewalMain.Id;
@@ -162,13 +110,79 @@ namespace DMS_Authontication1.Controllers
 
                     db.SaveChanges();
 
-                    return RedirectToAction("RenewalStepTwoShow", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 1 });
+                    return RedirectToAction("RenewalStepTwoShow", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 1, mainIdOld = id });
+                                       
+                }
+                else
+                    return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index");                
+            }
+
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SaveData2(RenewalMain model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var currentUserId = User.Identity.GetUserId();
+
+                    var renewalMain = new RenewalMain
+                    {
+                        CompId = model.CompId,
+                        ContractNo = model.ContractNo,
+                        ClassCount = model.ClassCount,
+                        EmpCount = model.EmpCount,
+                        UserId = currentUserId,
+                        CreatedDate = DateTime.Now.Date
+                    };
+
+                    db.RenewalMains.Add(renewalMain);
+                    //db.RenewalMains.Add(renewalMain);
+                    db.SaveChanges();
+
+                    string cod = model.Code;
+
+                    //string cod = db.RenewalStepTwoes.Where(r => r.Code.StartsWith("10_")).ToList();
+
+                    int ind = cod.IndexOf('_');
+
+                    if (ind == -1)
+                        cod = cod + "_" + "1";
+                    else
+                    {
+                        string subCod = cod.Substring(0, ind + 1);
+                        string maxNumber = db.RenewalMains
+                             .Where(r => r.Code.StartsWith(subCod))
+                        .Select(r => r.Code)
+                        .ToList()
+                        .Select(code => int.Parse(code.Split('_').LastOrDefault()))
+                        .Max()
+                        .ToString();
+
+                        cod = subCod + (int.Parse(maxNumber.ToString()) + 1).ToString();
+                    }
+
+                    int id = renewalMain.Id;
+
+                    renewalMain.Code = cod;
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("RenewalStepTwoShow", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 2, mainIdOld = model.Id });
 
                     //return View("Index");
                     //return RedirectToAction(nameof(ProposalStepFourCreate));
                 }
                 else
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Show");
             }
             catch (Exception e)
             {
@@ -178,12 +192,11 @@ namespace DMS_Authontication1.Controllers
             }
 
         }
-
         #endregion
 
 
         #region ProposalStepTwo
-        public ActionResult RenewalStepTwoShow(int mainId, int CompId, int ContractNo, int countCat, int typeAction)
+        public ActionResult RenewalStepTwoShow(int mainId, int CompId, int ContractNo, int countCat, int typeAction, int mainIdOld)
         {
             var colors = _dbContext.CardColors.ToList();
             var residenceDegree = _dbContext.ResidenceDegrees.ToList();
@@ -206,9 +219,10 @@ namespace DMS_Authontication1.Controllers
 
             var model = new List<RenwalStepTwoViewModel>(countCat);
 
-            var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION
+            var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION,
+                                                        DECODE(CLASS_CODE, '1', 1, '2', 2, '11', 3, '12', 4, '33', 5, '44', 6, '6', 7, '99', 8, '2F', 9, '3F', 10, '4F', 11, '5F', 12, CLASS_CODE)
                                                  FROM DMS_TEST.COMP_CONTRACT_CLASS
-                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY CLASS_CODE");
+                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY DECODE(CLASS_CODE, '1', 1, '2', 2, '11', 3, '12', 4, '33', 5, '44', 6, '6', 7, '99', 8, '2F', 9, '3F', 10, '4F', 11, '5F', 12, CLASS_CODE)");
 
             foreach (System.Data.DataRow row in compclassold.Rows)
             {
@@ -232,50 +246,122 @@ namespace DMS_Authontication1.Controllers
                 int resDegree = int.Parse(row["HOSPITAL_DEGREE"].ToString());
                 int medl = int.Parse(row["COVER_RELATION"].ToString());
 
-                var renwalTwoMain = new RenwalStepTwoViewModel
+                RenewalStepTwo oldNew = db.RenewalStepTwoes.FirstOrDefault(r => r.MainId == mainIdOld && r.ClassCode == classCode);
+
+                if (typeAction == 2 && oldNew != null)
                 {
-                    AnnualCoverageCeiling = mxAmount,
-                    ParticipantsCount = countEmpClass,
-                    Price = pric,
 
-                    ChecksInsideHospital = ApprovalStepTwo.Yes,
-                    PhysicalTherapyInsideHospital = ApprovalStepTwo.Yes,
-                    OutsideClinicInsideHospital = ApprovalStepTwo.Yes,
-                    DentalServicesInsideHospital = ApprovalStepTwo.Yes,
+                    var renwalTwoMain = new RenwalStepTwoViewModel
+                    {
+                        AnnualCoverageCeiling = oldNew.AnnualCoverageCeiling,
+                        ParticipantsCount = oldNew.ParticipantsCount,
+                        Price = oldNew.Price,
 
-                    Death = mxAmount,
-                    Accidents = mxAmount,
-                    //relations
-                    CardColorId = colrCrd,
-                    ResidenceDegreeId = resDegree,
-                    MedicalNetworkId = medl,
+                        ChecksInsideHospital = MapApprovalStepTwoReves(oldNew.ChecksInsideHospital),
+                        PhysicalTherapyInsideHospital = MapApprovalStepTwoReves(oldNew.PhysicalTherapyInsideHospital),
+                        OutsideClinicInsideHospital = MapApprovalStepTwoReves(oldNew.OutsideClincInsideHospital),
+                        DentalServicesInsideHospital = MapApprovalStepTwoReves(oldNew.DentalServicesInsideHospital),
 
-                    MainId = mainId,
+                        Death = oldNew.Death,
+                        Accidents = oldNew.Accidents,
+                        //relations
+                        CardColorId = oldNew.CardColorId,
+                        ResidenceDegreeId = oldNew.ResidenceDegreeId,
+                        MedicalNetworkId = oldNew.MedicalNetworkId,
 
-                    AnnualCoverageCeilingOld = mxAmount,
-                    ParticipantsCountOld = countEmpClass,
-                    PriceOld = pric,
-                    DeathOld = mxAmount,
-                    AccidentsOld = mxAmount,
-                    ChecksInsideHospitalOld = ApprovalStepTwo.Yes,
-                    PhysicalTherapyInsideHospitalOld = ApprovalStepTwo.Yes,
-                    OutsideClinicInsideHospitalOld = ApprovalStepTwo.Yes,
-                    DentalServicesInsideHospitalOld = ApprovalStepTwo.Yes,
-                    CardColorIdOld = colrCrd,
-                    ResidenceDegreeIdOld = resDegree,
-                    MedicalNetworkIdOld = medl,
+                        MainId = mainId,
 
-                    ClassCode = classCode,
-                    CompId = CompId,
-                    ContractNo = ContractNo,
-                    CountClass = countCat,
-                    typAction = typeAction
-                };
+                        ////////////////////
+                        ///
+                        
+                        
+                        AnnualCoverageCeilingOld = mxAmount,
+                        ParticipantsCountOld = countEmpClass,
+                        PriceOld = pric,
+                        DeathOld = mxAmount,
+                        AccidentsOld = mxAmount,
+                        ChecksInsideHospitalOld = ApprovalStepTwo.PriorApproval,
+                        PhysicalTherapyInsideHospitalOld = ApprovalStepTwo.PriorApproval,
+                        OutsideClinicInsideHospitalOld = ApprovalStepTwo.PriorApproval,
+                        DentalServicesInsideHospitalOld = ApprovalStepTwo.PriorApproval,
+                        CardColorIdOld = colrCrd,
+                        ResidenceDegreeIdOld = resDegree,
+                        MedicalNetworkIdOld = medl,
 
-                model.Add(renwalTwoMain);
+                        ClassCode = classCode,
+                        CompId = CompId,
+                        ContractNo = ContractNo,
+                        CountClass = countCat,
+                        typAction = typeAction,
+                        MainIdOld = mainIdOld
+
+                    };
+
+                    model.Add(renwalTwoMain);
+                }
+                else
+                {
+                    var renwalTwoMain = new RenwalStepTwoViewModel
+                    {
+                        AnnualCoverageCeiling = mxAmount,
+                        ParticipantsCount = countEmpClass,
+                        Price = pric,
+
+                        ChecksInsideHospital = ApprovalStepTwo.Yes,
+                        PhysicalTherapyInsideHospital = ApprovalStepTwo.Yes,
+                        OutsideClinicInsideHospital = ApprovalStepTwo.Yes,
+                        DentalServicesInsideHospital = ApprovalStepTwo.Yes,
+
+                        Death = mxAmount,
+                        Accidents = mxAmount,
+                        //relations
+                        CardColorId = colrCrd,
+                        ResidenceDegreeId = resDegree,
+                        MedicalNetworkId = medl,
+
+                        MainId = mainId,
+
+                        AnnualCoverageCeilingOld = mxAmount,
+                        ParticipantsCountOld = countEmpClass,
+                        PriceOld = pric,
+                        DeathOld = mxAmount,
+                        AccidentsOld = mxAmount,
+                        ChecksInsideHospitalOld = ApprovalStepTwo.Yes,
+                        PhysicalTherapyInsideHospitalOld = ApprovalStepTwo.Yes,
+                        OutsideClinicInsideHospitalOld = ApprovalStepTwo.Yes,
+                        DentalServicesInsideHospitalOld = ApprovalStepTwo.Yes,
+                        CardColorIdOld = colrCrd,
+                        ResidenceDegreeIdOld = resDegree,
+                        MedicalNetworkIdOld = medl,
+
+                        ClassCode = classCode,
+                        CompId = CompId,
+                        ContractNo = ContractNo,
+                        CountClass = countCat,
+                        typAction = typeAction,
+                        MainIdOld = mainIdOld
+                    };
+
+                    model.Add(renwalTwoMain);
+                }
             }
             return View(model);
         }
+        private ApprovalStepTwo MapApprovalStepTwoReves(int stat)
+        {
+            switch (stat)
+            {
+                case 0:
+                    return ApprovalStepTwo.PriorApproval;
+                case 1:
+                    return ApprovalStepTwo.Yes;
+                case 2:
+                    return ApprovalStepTwo.No;
+                default:
+                    return ApprovalStepTwo.PriorApproval;
+            }
+        }
+
         private int MapApprovalStepTwo(ApprovalStepTwo stat)
         {
             switch (stat)
@@ -364,21 +450,21 @@ namespace DMS_Authontication1.Controllers
                         TempData["ErrorMessage"] = errors;
                         TempData["RenewalStepTwoModel"] = model;
                        
-                        return RedirectToAction("RenewalStepTwoShow", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction });
+                        return RedirectToAction("RenewalStepTwoShow", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
                         //return View(model);
                     }
                 }
-                return RedirectToAction("RenewalStepThree", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction });
+                return RedirectToAction("RenewalStepThree", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
             }
             catch (Exception e)
             {
                 TempData["RenewalStepTwoModel"] = model;
                 TempData["ErrorMessage"] = e.Message;
                 //ViewBag.ErrorMessage = e.Message;
-                return RedirectToAction("RenewalStepTwoShow", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction });
+                return RedirectToAction("RenewalStepTwoShow", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
             }
         }
-        public ActionResult RenewalStepThree(int mainId, int CompId, int ContractNo, int countCat, int typeAction)
+        public ActionResult RenewalStepThree(int mainId, int CompId, int ContractNo, int countCat, int typeAction, int mainIdOld)
         {
             ViewBag.MainId = mainId;
             ViewBag.CatCount = countCat;
@@ -393,15 +479,17 @@ namespace DMS_Authontication1.Controllers
 
             var model = new List<RenewalInsideMedicalAuthorityViewModel>(countCat);
 
-            var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION
+            var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION,
+                                                        DECODE(CLASS_CODE, '1', 1, '2', 2, '11', 3, '12', 4, '33', 5, '44', 6, '6', 7, '99', 8, '2F', 9, '3F', 10, '4F', 11, '5F', 12, CLASS_CODE)
                                                  FROM DMS_TEST.COMP_CONTRACT_CLASS
-                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY CLASS_CODE");
+                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY DECODE(CLASS_CODE, '1', 1, '2', 2, '11', 3, '12', 4, '33', 5, '44', 6, '6', 7, '99', 8, '2F', 9, '3F', 10, '4F', 11, '5F', 12, CLASS_CODE)");
 
             foreach (System.Data.DataRow row in compclassold.Rows)
             {
                 var classCode = row["CLASS_CODE"].ToString();
                 decimal maxAmount = decimal.Parse(row["MAX_AMOUNT"].ToString());
-
+                
+                #region Get old data
                 var servCode = dbOra.RunReader(@"SELECT DISTINCT D_SERV_CODE, D_SERV_CODE SER_SERV, CEILING_AMT, CEILING_PERT, NVL(CORONA, 'N') CORONA
                                                  FROM DMS_TEST.COMP_CUSTOMIZED_D                                                                  
                                                  WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' AND CLASS_CODE = '" + classCode + "'  "
@@ -614,7 +702,7 @@ namespace DMS_Authontication1.Controllers
                 if (dtNoRoshita.Rows.Count > 0)
                     noRoshita = int.Parse(dtNoRoshita.Rows[0][0].ToString());
 
-
+                #endregion
 
                 //var rows = servCode.AsEnumerable().Where(r => r.Field<int>("SER_SERV") == 111);
 
@@ -622,106 +710,212 @@ namespace DMS_Authontication1.Controllers
 
                 //DataRow[] rows = servCode.Select("SER_SERV = 111");
 
-                var renwalThreeMain = new RenewalInsideMedicalAuthorityViewModel
+                RenewalInsideMedicalAuthority oldNew = db.RenewalInsideMedicalAuthorities.FirstOrDefault(r => r.MainId == mainIdOld && r.ClassCode == classCode);
+
+                if (typeAction == 2 && oldNew != null)
                 {
-                    HospitalsResidenceServiceLimit = inpAm,
-                    HospitalsResidenceServiceLimitOld = inpAm,
-                    HospitalsResidenceServicePercentage = inpPer,
-                    HospitalsResidenceServicePercentageOld = inpPer,
-                    HospitalsResidenceServicePercentageoption = Isinp,
-                    HospitalsResidenceServiceLimitOption = Isinp,
-                    OutsideClinicsLimit = oputAm,
-                    OutsideClinicsLimitOld = oputAm,
-                    OutsideClinicsPercentage = oputPer,
-                    OutsideClinicsPercentageOld = oputPer,
-                    OutsideClinicsLimitOption = IsOut,
-                    OutsideClinicsPercentageoption = IsOut,
-                    ExaminationAndAnalysisLimit = labRayAm,
-                    ExaminationAndAnalysisLimitOld = labRayAm,
-                    ExaminationAndAnalysisPercentage = labRayPer,
-                    ExaminationAndAnalysisPercentageOld = labRayPer,
-                    ExaminationAndAnalysisLimitOption = IslabRay,
-                    ExaminationAndAnalysisPercentageoption = IslabRay,
-                    PhysicalTherapyLimit = phyAm,
-                    PhysicalTherapyLimitOld = phyAm,
-                    PhysicalTherapyPercentage = phyPer,
-                    PhysicalTherapyPercentageOld = phyPer,
-                    PhysicalTherapyLimitOption = Isphy,
-                    PhysicalTherapyPercentageoption = Isphy,
-                    DailyTherapyLimit = dailyAm,
-                    DailyTherapyLimitOld = dailyAm,
-                    DailyTherapyPercentage = dailyPer,
-                    DailyTherapyPercentageOld = dailyPer,
-                    DailyTherapyLimitOption = Isdaily,
-                    DailyTherapyPercentageoption = Isdaily,
-                    ChronicTherapyLimit = chronAm,
-                    ChronicTherapyLimitOld = chronAm,
-                    ChronicTherapyPercentage = chronPer,
-                    ChronicTherapyPercentageOld = chronPer,
-                    ChronicTherapyLimitOption = Ischron,
-                    ChronicTherapyPercentageoption = Ischron,
-                    NatChildBirthLimit = normaAm,
-                    NatChildBirthLimitOld = normaAm,
-                    NatChildBirthPercentage = normaPer,
-                    NatChildBirthPercentageOld = normaPer,
-                    NatChildBirthLimitOption = Isnorma,
-                    NatChildBirthPercentageoption = Isnorma,
-                    CaesChildBirthLimit = caesarAm,
-                    CaesChildBirthLimitOld = caesarAm,
-                    CaesChildBirthPercentage = caesarPer,
-                    CaesChildBirthPercentageOld = caesarPer,
-                    CaesChildBirthLimitOption = Iscaesar,
-                    CaesChildBirthPercentageoption = Iscaesar,
-                    LegalAbortionLimit = miscaAm,
-                    LegalAbortionLimitOld = miscaAm,
-                    LegalAbortionPercentage = miscaPer,
-                    LegalAbortionPercentageOld = miscaPer,
-                    LegalAbortionLimitOption = Ismisca,
-                    LegalAbortionPercentageoption = Ismisca,
-                    PregFollowUpLimit = folloAm,
-                    PregFollowUpLimitOld = folloAm,
-                    PregFollowUpPercentage = folloPer,
-                    PregFollowUpPercentageOld = folloPer,
-                    PregFollowUpLimitOption = Isfollo,
-                    PregFollowUpPercentageoption = Isfollo,
+                    var renwalThreeMain = new RenewalInsideMedicalAuthorityViewModel
+                    {
+                        HospitalsResidenceServiceLimit = oldNew.HospitalsResidenceServiceLimit,
+                        HospitalsResidenceServiceLimitOld = inpAm,
+                        HospitalsResidenceServicePercentage = oldNew.HospitalsResidenceServicePercentage,
+                        HospitalsResidenceServicePercentageOld = inpPer,
+                        HospitalsResidenceServicePercentageoption = oldNew.HospitalsResidenceServicePercentageoption,
+                        HospitalsResidenceServiceLimitOption = oldNew.HospitalsResidenceServiceLimitOption,
+                        OutsideClinicsLimit = oldNew.OutsideClinicsLimit,
+                        OutsideClinicsLimitOld = oputAm,
+                        OutsideClinicsPercentage = oldNew.OutsideClinicsPercentage,
+                        OutsideClinicsPercentageOld = oputPer,
+                        OutsideClinicsLimitOption = oldNew.OutsideClinicsLimitOption,
+                        OutsideClinicsPercentageoption = oldNew.OutsideClinicsPercentageoption,
+                        ExaminationAndAnalysisLimit = oldNew.ExaminationAndAnalysisLimit,
+                        ExaminationAndAnalysisLimitOld = labRayAm,
+                        ExaminationAndAnalysisPercentage = oldNew.ExaminationAndAnalysisPercentage,
+                        ExaminationAndAnalysisPercentageOld = labRayPer,
+                        ExaminationAndAnalysisLimitOption = oldNew.ExaminationAndAnalysisLimitOption,
+                        ExaminationAndAnalysisPercentageoption = oldNew.ExaminationAndAnalysisPercentageoption,
+                        PhysicalTherapyLimit = oldNew.PhysicalTherapyLimit,
+                        PhysicalTherapyLimitOld = phyAm,
+                        PhysicalTherapyPercentage = oldNew.PhysicalTherapyPercentage,
+                        PhysicalTherapyPercentageOld = phyPer,
+                        PhysicalTherapyLimitOption = oldNew.PhysicalTherapyLimitOption,
+                        PhysicalTherapyPercentageoption = oldNew.PhysicalTherapyPercentageoption,
+                        DailyTherapyLimit = oldNew.DailyTherapyLimit,
+                        DailyTherapyLimitOld = dailyAm,
+                        DailyTherapyPercentage = oldNew.DailyTherapyPercentage,
+                        DailyTherapyPercentageOld = dailyPer,
+                        DailyTherapyLimitOption = oldNew.DailyTherapyLimitOption,
+                        DailyTherapyPercentageoption = Isdaily,
+                        ChronicTherapyLimit = oldNew.ChronicTherapyLimit,
+                        ChronicTherapyLimitOld = chronAm,
+                        ChronicTherapyPercentage = oldNew.ChronicTherapyPercentage,
+                        ChronicTherapyPercentageOld = chronPer,
+                        ChronicTherapyLimitOption = oldNew.ChronicTherapyLimitOption,
+                        ChronicTherapyPercentageoption = oldNew.ChronicTherapyPercentageoption,
+                        NatChildBirthLimit = oldNew.NatChildBirthLimit,
+                        NatChildBirthLimitOld = normaAm,
+                        NatChildBirthPercentage = oldNew.NatChildBirthPercentage,
+                        NatChildBirthPercentageOld = normaPer,
+                        NatChildBirthLimitOption = oldNew.NatChildBirthLimitOption,
+                        NatChildBirthPercentageoption = oldNew.NatChildBirthPercentageoption,
+                        CaesChildBirthLimit = oldNew.CaesChildBirthLimit,
+                        CaesChildBirthLimitOld = caesarAm,
+                        CaesChildBirthPercentage = oldNew.CaesChildBirthPercentage,
+                        CaesChildBirthPercentageOld = caesarPer,
+                        CaesChildBirthLimitOption = oldNew.CaesChildBirthLimitOption,
+                        CaesChildBirthPercentageoption = oldNew.CaesChildBirthPercentageoption,
+                        LegalAbortionLimit = oldNew.LegalAbortionLimit,
+                        LegalAbortionLimitOld = miscaAm,
+                        LegalAbortionPercentage = oldNew.LegalAbortionPercentage,
+                        LegalAbortionPercentageOld = miscaPer,
+                        LegalAbortionLimitOption = oldNew.LegalAbortionLimitOption,
+                        LegalAbortionPercentageoption = oldNew.LegalAbortionPercentageoption,
+                        PregFollowUpLimit = oldNew.PregFollowUpLimit,
+                        PregFollowUpLimitOld = folloAm,
+                        PregFollowUpPercentage = oldNew.PregFollowUpPercentage,
+                        PregFollowUpPercentageOld = folloPer,
+                        PregFollowUpLimitOption = oldNew.PregFollowUpLimitOption,
+                        PregFollowUpPercentageoption = oldNew.PregFollowUpPercentageoption,
 
-                    AdvancedDentalServiceLimit = denAm,
-                    AdvancedDentalServiceLimitOld = denAm,
-                    BasicDentalServiceLimit = denAm,
-                    BasicDentalServiceLimitOld = denAm,
-                    AdvancedDentalServicePercentage = denPer,
-                    AdvancedDentalServicePercentageOld = denPer,
-                    BasicDentalServicePercentage = denPer,
-                    BasicDentalServicePercentageOld = denPer,
-                    AdvancedDentalServicePercentageoption = Isden,
-                    AdvancedDentalServiceLimitOption = Isden,
-                    BasicDentalServiceLimitOption = Isden,
-                    BasicDentalServicePercentageoption = Isden,
-                    OpticsLimit = optAm,
-                    OpticsLimitOld = optAm,
-                    OpticsPercentage = optPer,
-                    OpticsPercentageOld = optPer,
-                    OpticsLimitOption = Isopt,
-                    OpticsPercentageoption = Isopt,
-                    IntensiveCareDaysCount = int.Parse(icuAm.ToString()),
-                    IntensiveCareDaysCountOld = int.Parse(icuAm.ToString()),
-                    DailyRoshitasCountPerMonth = noRoshita,
-                    DailyRoshitasCountPerMonthOld = noRoshita,
-                    CoronaVaccineCoverage = coronaa,
-                    CoronaVaccineCoverageOld = coronaa,
+                        AdvancedDentalServiceLimit = oldNew.AdvancedDentalServiceLimit,
+                        AdvancedDentalServiceLimitOld = denAm,
+                        BasicDentalServiceLimit = oldNew.BasicDentalServiceLimit,
+                        BasicDentalServiceLimitOld = denAm,
+                        AdvancedDentalServicePercentage = oldNew.AdvancedDentalServicePercentage,
+                        AdvancedDentalServicePercentageOld = denPer,
+                        BasicDentalServicePercentage = oldNew.BasicDentalServicePercentage,
+                        BasicDentalServicePercentageOld = denPer,
+                        AdvancedDentalServicePercentageoption = oldNew.AdvancedDentalServicePercentageoption,
+                        AdvancedDentalServiceLimitOption = oldNew.AdvancedDentalServiceLimitOption,
+                        BasicDentalServiceLimitOption = oldNew.BasicDentalServiceLimitOption,
+                        BasicDentalServicePercentageoption = oldNew.BasicDentalServicePercentageoption,
+                        OpticsLimit = oldNew.OpticsLimit,
+                        OpticsLimitOld = optAm,
+                        OpticsPercentage = oldNew.OpticsPercentage,
+                        OpticsPercentageOld = optPer,
+                        OpticsLimitOption = oldNew.OpticsLimitOption,
+                        OpticsPercentageoption = oldNew.OpticsPercentageoption,
+                        IntensiveCareDaysCount = int.Parse(oldNew.IntensiveCareDaysCount.ToString()),
+                        IntensiveCareDaysCountOld = int.Parse(icuAm.ToString()),
+                        DailyRoshitasCountPerMonth = oldNew.DailyRoshitasCountPerMonth,
+                        DailyRoshitasCountPerMonthOld = noRoshita,
+                        CoronaVaccineCoverage = oldNew.CoronaVaccineCoverage,
+                        CoronaVaccineCoverageOld = coronaa,
 
-                    MainId = mainId,
-                    ClassCode = classCode,
-                    CompId = CompId,
-                    ContractNo = ContractNo,
-                    CountClass = countCat,
-                    typAction = typeAction
+                        MainId = mainId,
+                        ClassCode = classCode,
+                        CompId = CompId,
+                        ContractNo = ContractNo,
+                        CountClass = countCat,
+                        typAction = typeAction,
+                        MainIdOld = mainIdOld
+                    };
+
+                    model.Add(renwalThreeMain);
+                }
+                else
+                {
+                    var renwalThreeMain = new RenewalInsideMedicalAuthorityViewModel
+                    {
+                        HospitalsResidenceServiceLimit = inpAm,
+                        HospitalsResidenceServiceLimitOld = inpAm,
+                        HospitalsResidenceServicePercentage = inpPer,
+                        HospitalsResidenceServicePercentageOld = inpPer,
+                        HospitalsResidenceServicePercentageoption = Isinp,
+                        HospitalsResidenceServiceLimitOption = Isinp,
+                        OutsideClinicsLimit = oputAm,
+                        OutsideClinicsLimitOld = oputAm,
+                        OutsideClinicsPercentage = oputPer,
+                        OutsideClinicsPercentageOld = oputPer,
+                        OutsideClinicsLimitOption = IsOut,
+                        OutsideClinicsPercentageoption = IsOut,
+                        ExaminationAndAnalysisLimit = labRayAm,
+                        ExaminationAndAnalysisLimitOld = labRayAm,
+                        ExaminationAndAnalysisPercentage = labRayPer,
+                        ExaminationAndAnalysisPercentageOld = labRayPer,
+                        ExaminationAndAnalysisLimitOption = IslabRay,
+                        ExaminationAndAnalysisPercentageoption = IslabRay,
+                        PhysicalTherapyLimit = phyAm,
+                        PhysicalTherapyLimitOld = phyAm,
+                        PhysicalTherapyPercentage = phyPer,
+                        PhysicalTherapyPercentageOld = phyPer,
+                        PhysicalTherapyLimitOption = Isphy,
+                        PhysicalTherapyPercentageoption = Isphy,
+                        DailyTherapyLimit = dailyAm,
+                        DailyTherapyLimitOld = dailyAm,
+                        DailyTherapyPercentage = dailyPer,
+                        DailyTherapyPercentageOld = dailyPer,
+                        DailyTherapyLimitOption = Isdaily,
+                        DailyTherapyPercentageoption = Isdaily,
+                        ChronicTherapyLimit = chronAm,
+                        ChronicTherapyLimitOld = chronAm,
+                        ChronicTherapyPercentage = chronPer,
+                        ChronicTherapyPercentageOld = chronPer,
+                        ChronicTherapyLimitOption = Ischron,
+                        ChronicTherapyPercentageoption = Ischron,
+                        NatChildBirthLimit = normaAm,
+                        NatChildBirthLimitOld = normaAm,
+                        NatChildBirthPercentage = normaPer,
+                        NatChildBirthPercentageOld = normaPer,
+                        NatChildBirthLimitOption = Isnorma,
+                        NatChildBirthPercentageoption = Isnorma,
+                        CaesChildBirthLimit = caesarAm,
+                        CaesChildBirthLimitOld = caesarAm,
+                        CaesChildBirthPercentage = caesarPer,
+                        CaesChildBirthPercentageOld = caesarPer,
+                        CaesChildBirthLimitOption = Iscaesar,
+                        CaesChildBirthPercentageoption = Iscaesar,
+                        LegalAbortionLimit = miscaAm,
+                        LegalAbortionLimitOld = miscaAm,
+                        LegalAbortionPercentage = miscaPer,
+                        LegalAbortionPercentageOld = miscaPer,
+                        LegalAbortionLimitOption = Ismisca,
+                        LegalAbortionPercentageoption = Ismisca,
+                        PregFollowUpLimit = folloAm,
+                        PregFollowUpLimitOld = folloAm,
+                        PregFollowUpPercentage = folloPer,
+                        PregFollowUpPercentageOld = folloPer,
+                        PregFollowUpLimitOption = Isfollo,
+                        PregFollowUpPercentageoption = Isfollo,
+
+                        AdvancedDentalServiceLimit = denAm,
+                        AdvancedDentalServiceLimitOld = denAm,
+                        BasicDentalServiceLimit = denAm,
+                        BasicDentalServiceLimitOld = denAm,
+                        AdvancedDentalServicePercentage = denPer,
+                        AdvancedDentalServicePercentageOld = denPer,
+                        BasicDentalServicePercentage = denPer,
+                        BasicDentalServicePercentageOld = denPer,
+                        AdvancedDentalServicePercentageoption = Isden,
+                        AdvancedDentalServiceLimitOption = Isden,
+                        BasicDentalServiceLimitOption = Isden,
+                        BasicDentalServicePercentageoption = Isden,
+                        OpticsLimit = optAm,
+                        OpticsLimitOld = optAm,
+                        OpticsPercentage = optPer,
+                        OpticsPercentageOld = optPer,
+                        OpticsLimitOption = Isopt,
+                        OpticsPercentageoption = Isopt,
+                        IntensiveCareDaysCount = int.Parse(icuAm.ToString()),
+                        IntensiveCareDaysCountOld = int.Parse(icuAm.ToString()),
+                        DailyRoshitasCountPerMonth = noRoshita,
+                        DailyRoshitasCountPerMonthOld = noRoshita,
+                        CoronaVaccineCoverage = coronaa,
+                        CoronaVaccineCoverageOld = coronaa,
+
+                        MainId = mainId,
+                        ClassCode = classCode,
+                        CompId = CompId,
+                        ContractNo = ContractNo,
+                        CountClass = countCat,
+                        typAction = typeAction,
+                        MainIdOld = mainIdOld
 
 
-                };
+                    };
 
-                model.Add(renwalThreeMain);
-
+                    model.Add(renwalThreeMain);
+                }
             }
 
             return View(model);
@@ -787,8 +981,9 @@ namespace DMS_Authontication1.Controllers
                 IntensiveCareDaysCount = vM.IntensiveCareDaysCount,
                 DailyRoshitasCountPerMonth = vM.DailyRoshitasCountPerMonth,
                 CoronaVaccineCoverage = vM.CoronaVaccineCoverage,
-                MainId = vM.MainId
-
+                MainId = vM.MainId, 
+                ClassCode = vM.ClassCode
+                
             };
 
             return renewalthree;
@@ -824,25 +1019,30 @@ namespace DMS_Authontication1.Controllers
                         TempData["ErrorMessage"] = errors;
                         TempData["RenewalStepThreeModel"] = model;
 
-                        return RedirectToAction("RenewalStepThree", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction });
+                        return RedirectToAction("RenewalStepThree", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
                     }
                 }
 
-                return RedirectToAction("RenewalStepFour", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction });
+                return RedirectToAction("RenewalStepFour", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
             }
             catch (Exception e)
             {
                 TempData["ErrorMessage"] = e.Message;
                 TempData["RenewalStepThreeModel"] = model;
 
-                return RedirectToAction("RenewalStepThree", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction });
+                return RedirectToAction("RenewalStepThree", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
             }
         }
 
-        public ActionResult RenewalStepFour(int mainId, int CompId, int ContractNo, int countCat, int typeAction)
+        public ActionResult RenewalStepFour(int mainId, int CompId, int ContractNo, int countCat, int typeAction, int mainIdOld)
         {
             ViewBag.MainId = mainId;
             ViewBag.CatCount = countCat;
+
+            if (TempData["Save"] != null && !string.IsNullOrEmpty(TempData["Save"].ToString()))
+                ViewBag.Save = "YES";
+            else
+                ViewBag.Save = "NO";
 
             var model2 = TempData["RenewalStepFourModel"] as List<RenewalOutsideMedicalAuthorityViewModel>;
 
@@ -854,9 +1054,10 @@ namespace DMS_Authontication1.Controllers
 
             var model = new List<RenewalOutsideMedicalAuthorityViewModel>(countCat);
 
-            var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION
+            var compclassold = dbOra.RunReader(@"SELECT C_COMP_ID, CONTRACT_NO, CLASS_CODE, MAX_AMOUNT, NVL(ANNUAL_PREM, 0) ANNUAL_PREM, HOSPITAL_DEGREE, COVER_RELATION,
+                                                        DECODE(CLASS_CODE, '1', 1, '2', 2, '11', 3, '12', 4, '33', 5, '44', 6, '6', 7, '99', 8, '2F', 9, '3F', 10, '4F', 11, '5F', 12, CLASS_CODE)
                                                  FROM DMS_TEST.COMP_CONTRACT_CLASS
-                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY CLASS_CODE");
+                                                 WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' ORDER BY DECODE(CLASS_CODE, '1', 1, '2', 2, '11', 3, '12', 4, '33', 5, '44', 6, '6', 7, '99', 8, '2F', 9, '3F', 10, '4F', 11, '5F', 12, CLASS_CODE)");
 
             foreach (System.Data.DataRow row in compclassold.Rows)
             {
@@ -872,7 +1073,7 @@ namespace DMS_Authontication1.Controllers
                                      + "           WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo + "' AND CLASS_CODE = '" + classCode + "' "
                                      + "         ORDER BY D_SERV_CODE");
 
-
+                #region Get Old Data
                 decimal inpAm = servCode.AsEnumerable()
                               .Any(r => r.Field<string>("SER_SERV") == "121")
                               ? servCode.AsEnumerable()
@@ -1075,114 +1276,214 @@ namespace DMS_Authontication1.Controllers
                 if (dtNoRoshita.Rows.Count > 0)
                     noRoshita = int.Parse(dtNoRoshita.Rows[0][0].ToString());
 
+                #endregion
 
+                RenewalOutsideMedicalAuthority oldNew = db.RenewalOutsideMedicalAuthorities.FirstOrDefault(r => r.MainId == mainIdOld && r.ClassCode == classCode);
 
-                //var rows = servCode.AsEnumerable().Where(r => r.Field<int>("SER_SERV") == 111);
-
-                //DataRow rowss = servCode.AsEnumerable().SingleOrDefault(r => r.Field<int>("SER_SERV") == 111);
-
-                //DataRow[] rows = servCode.Select("SER_SERV = 111");
-
-                var renwalFourMain = new RenewalOutsideMedicalAuthorityViewModel
+                if (typeAction == 2 && oldNew != null)
                 {
-                    HospitalsResidenceServiceLimit = inpAm,
-                    HospitalsResidenceServiceLimitOld = inpAm,
-                    HospitalsResidenceServicePercentage = inpPer,
-                    HospitalsResidenceServicePercentageOld = inpPer,
-                    HospitalsResidenceServicePercentageoption = Isinp,
-                    HospitalsResidenceServiceLimitOption = Isinp,
-                    OutsideClinicsLimit = oputAm,
-                    OutsideClinicsLimitOld = oputAm,
-                    OutsideClinicsPercentage = oputPer,
-                    OutsideClinicsPercentageOld = oputPer,
-                    OutsideClinicsLimitOption = IsOut,
-                    OutsideClinicsPercentageoption = IsOut,
-                    ExaminationAndAnalysisLimit = labRayAm,
-                    ExaminationAndAnalysisLimitOld = labRayAm,
-                    ExaminationAndAnalysisPercentage = labRayPer,
-                    ExaminationAndAnalysisPercentageOld = labRayPer,
-                    ExaminationAndAnalysisLimitOption = IslabRay,
-                    ExaminationAndAnalysisPercentageoption = IslabRay,
-                    PhysicalTherapyLimit = phyAm,
-                    PhysicalTherapyLimitOld = phyAm,
-                    PhysicalTherapyPercentage = phyPer,
-                    PhysicalTherapyPercentageOld = phyPer,
-                    PhysicalTherapyLimitOption = Isphy,
-                    PhysicalTherapyPercentageoption = Isphy,
-                    DailyTherapyLimit = dailyAm,
-                    DailyTherapyLimitOld = dailyAm,
-                    DailyTherapyPercentage = dailyPer,
-                    DailyTherapyPercentageOld = dailyPer,
-                    DailyTherapyLimitOption = Isdaily,
-                    DailyTherapyPercentageoption = Isdaily,
-                    ChronicTherapyLimit = chronAm,
-                    ChronicTherapyLimitOld = chronAm,
-                    ChronicTherapyPercentage = chronPer,
-                    ChronicTherapyPercentageOld = chronPer,
-                    ChronicTherapyLimitOption = Ischron,
-                    ChronicTherapyPercentageoption = Ischron,
-                    NatChildBirthLimit = normaAm,
-                    NatChildBirthLimitOld = normaAm,
-                    NatChildBirthPercentage = normaPer,
-                    NatChildBirthPercentageOld = normaPer,
-                    NatChildBirthLimitOption = Isnorma,
-                    NatChildBirthPercentageoption = Isnorma,
-                    CaesChildBirthLimit = caesarAm,
-                    CaesChildBirthLimitOld = caesarAm,
-                    CaesChildBirthPercentage = caesarPer,
-                    CaesChildBirthPercentageOld = caesarPer,
-                    CaesChildBirthLimitOption = Iscaesar,
-                    CaesChildBirthPercentageoption = Iscaesar,
-                    LegalAbortionLimit = miscaAm,
-                    LegalAbortionLimitOld = miscaAm,
-                    LegalAbortionPercentage = miscaPer,
-                    LegalAbortionPercentageOld = miscaPer,
-                    LegalAbortionLimitOption = Ismisca,
-                    LegalAbortionPercentageoption = Ismisca,
-                    PregFollowUpLimit = folloAm,
-                    PregFollowUpLimitOld = folloAm,
-                    PregFollowUpPercentage = folloPer,
-                    PregFollowUpPercentageOld = folloPer,
-                    PregFollowUpLimitOption = Isfollo,
-                    PregFollowUpPercentageoption = Isfollo,
+                    var renwalFourMain = new RenewalOutsideMedicalAuthorityViewModel
+                    {
+                        HospitalsResidenceServiceLimit = oldNew.HospitalsResidenceServiceLimit,
+                        HospitalsResidenceServiceLimitOld = inpAm,
+                        HospitalsResidenceServicePercentage = oldNew.HospitalsResidenceServicePercentage,
+                        HospitalsResidenceServicePercentageOld = inpPer,
+                        HospitalsResidenceServicePercentageoption = oldNew.HospitalsResidenceServicePercentageoption,
+                        HospitalsResidenceServiceLimitOption = oldNew.HospitalsResidenceServiceLimitOption,
+                        OutsideClinicsLimit = oldNew.OutsideClinicsLimit,
+                        OutsideClinicsLimitOld = oputAm,
+                        OutsideClinicsPercentage = oldNew.OutsideClinicsPercentage,
+                        OutsideClinicsPercentageOld = oputPer,
+                        OutsideClinicsLimitOption = oldNew.OutsideClinicsLimitOption,
+                        OutsideClinicsPercentageoption = oldNew.OutsideClinicsPercentageoption,
+                        ExaminationAndAnalysisLimit = oldNew.ExaminationAndAnalysisLimit,
+                        ExaminationAndAnalysisLimitOld = labRayAm,
+                        ExaminationAndAnalysisPercentage = oldNew.ExaminationAndAnalysisPercentage,
+                        ExaminationAndAnalysisPercentageOld = labRayPer,
+                        ExaminationAndAnalysisLimitOption = oldNew.ExaminationAndAnalysisLimitOption,
+                        ExaminationAndAnalysisPercentageoption = oldNew.ExaminationAndAnalysisPercentageoption,
+                        PhysicalTherapyLimit = oldNew.PhysicalTherapyLimit,
+                        PhysicalTherapyLimitOld = phyAm,
+                        PhysicalTherapyPercentage = oldNew.PhysicalTherapyPercentage,
+                        PhysicalTherapyPercentageOld = phyPer,
+                        PhysicalTherapyLimitOption = oldNew.PhysicalTherapyLimitOption,
+                        PhysicalTherapyPercentageoption = oldNew.PhysicalTherapyPercentageoption,
+                        DailyTherapyLimit = oldNew.DailyTherapyLimit,
+                        DailyTherapyLimitOld = dailyAm,
+                        DailyTherapyPercentage = oldNew.DailyTherapyPercentage,
+                        DailyTherapyPercentageOld = dailyPer,
+                        DailyTherapyLimitOption = oldNew.DailyTherapyLimitOption,
+                        DailyTherapyPercentageoption = Isdaily,
+                        ChronicTherapyLimit = oldNew.ChronicTherapyLimit,
+                        ChronicTherapyLimitOld = chronAm,
+                        ChronicTherapyPercentage = oldNew.ChronicTherapyPercentage,
+                        ChronicTherapyPercentageOld = chronPer,
+                        ChronicTherapyLimitOption = oldNew.ChronicTherapyLimitOption,
+                        ChronicTherapyPercentageoption = oldNew.ChronicTherapyPercentageoption,
+                        NatChildBirthLimit = oldNew.NatChildBirthLimit,
+                        NatChildBirthLimitOld = normaAm,
+                        NatChildBirthPercentage = oldNew.NatChildBirthPercentage,
+                        NatChildBirthPercentageOld = normaPer,
+                        NatChildBirthLimitOption = oldNew.NatChildBirthLimitOption,
+                        NatChildBirthPercentageoption = oldNew.NatChildBirthPercentageoption,
+                        CaesChildBirthLimit = oldNew.CaesChildBirthLimit,
+                        CaesChildBirthLimitOld = caesarAm,
+                        CaesChildBirthPercentage = oldNew.CaesChildBirthPercentage,
+                        CaesChildBirthPercentageOld = caesarPer,
+                        CaesChildBirthLimitOption = oldNew.CaesChildBirthLimitOption,
+                        CaesChildBirthPercentageoption = oldNew.CaesChildBirthPercentageoption,
+                        LegalAbortionLimit = oldNew.LegalAbortionLimit,
+                        LegalAbortionLimitOld = miscaAm,
+                        LegalAbortionPercentage = oldNew.LegalAbortionPercentage,
+                        LegalAbortionPercentageOld = miscaPer,
+                        LegalAbortionLimitOption = oldNew.LegalAbortionLimitOption,
+                        LegalAbortionPercentageoption = oldNew.LegalAbortionPercentageoption,
+                        PregFollowUpLimit = oldNew.PregFollowUpLimit,
+                        PregFollowUpLimitOld = folloAm,
+                        PregFollowUpPercentage = oldNew.PregFollowUpPercentage,
+                        PregFollowUpPercentageOld = folloPer,
+                        PregFollowUpLimitOption = oldNew.PregFollowUpLimitOption,
+                        PregFollowUpPercentageoption = oldNew.PregFollowUpPercentageoption,
 
-                    AdvancedDentalServiceLimit = denAm,
-                    AdvancedDentalServiceLimitOld = denAm,
-                    BasicDentalServiceLimit = denAm,
-                    BasicDentalServiceLimitOld = denAm,
-                    AdvancedDentalServicePercentage = denPer,
-                    AdvancedDentalServicePercentageOld = denPer,
-                    BasicDentalServicePercentage = denPer,
-                    BasicDentalServicePercentageOld = denPer,
-                    AdvancedDentalServicePercentageoption = Isden,
-                    AdvancedDentalServiceLimitOption = Isden,
-                    BasicDentalServiceLimitOption = Isden,
-                    BasicDentalServicePercentageoption = Isden,
-                    OpticsLimit = optAm,
-                    OpticsLimitOld = optAm,
-                    OpticsPercentage = optPer,
-                    OpticsPercentageOld = optPer,
-                    OpticsLimitOption = Isopt,
-                    OpticsPercentageoption = Isopt,
-                    IntensiveCareDaysCount = int.Parse(icuAm.ToString()),
-                    IntensiveCareDaysCountOld = int.Parse(icuAm.ToString()),
-                    DailyRoshitasCountPerMonth = noRoshita,
-                    DailyRoshitasCountPerMonthOld = noRoshita,
-                    CoronaVaccineCoverage = coronaa,
-                    CoronaVaccineCoverageOld = coronaa,
+                        AdvancedDentalServiceLimit = oldNew.AdvancedDentalServiceLimit,
+                        AdvancedDentalServiceLimitOld = denAm,
+                        BasicDentalServiceLimit = oldNew.BasicDentalServiceLimit,
+                        BasicDentalServiceLimitOld = denAm,
+                        AdvancedDentalServicePercentage = oldNew.AdvancedDentalServicePercentage,
+                        AdvancedDentalServicePercentageOld = denPer,
+                        BasicDentalServicePercentage = oldNew.BasicDentalServicePercentage,
+                        BasicDentalServicePercentageOld = denPer,
+                        AdvancedDentalServicePercentageoption = oldNew.AdvancedDentalServicePercentageoption,
+                        AdvancedDentalServiceLimitOption = oldNew.AdvancedDentalServiceLimitOption,
+                        BasicDentalServiceLimitOption = oldNew.BasicDentalServiceLimitOption,
+                        BasicDentalServicePercentageoption = oldNew.BasicDentalServicePercentageoption,
+                        OpticsLimit = oldNew.OpticsLimit,
+                        OpticsLimitOld = optAm,
+                        OpticsPercentage = oldNew.OpticsPercentage,
+                        OpticsPercentageOld = optPer,
+                        OpticsLimitOption = oldNew.OpticsLimitOption,
+                        OpticsPercentageoption = oldNew.OpticsPercentageoption,
+                        IntensiveCareDaysCount = int.Parse(oldNew.IntensiveCareDaysCount.ToString()),
+                        IntensiveCareDaysCountOld = int.Parse(icuAm.ToString()),
+                        DailyRoshitasCountPerMonth = oldNew.DailyRoshitasCountPerMonth,
+                        DailyRoshitasCountPerMonthOld = noRoshita,
+                        CoronaVaccineCoverage = oldNew.CoronaVaccineCoverage,
+                        CoronaVaccineCoverageOld = coronaa,
 
-                    MainId = mainId,
-                    ClassCode = classCode,
-                    CompId = CompId,
-                    ContractNo = ContractNo,
-                    CountClass = countCat,
-                    typAction = typeAction
+                        MainId = mainId,
+                        ClassCode = classCode,
+                        CompId = CompId,
+                        ContractNo = ContractNo,
+                        CountClass = countCat,
+                        typAction = typeAction,
+                        MainIdOld = mainIdOld
+                    };
+
+                    model.Add(renwalFourMain);
+                }
+                else
+                {
+                    var renwalFourMain = new RenewalOutsideMedicalAuthorityViewModel
+                    {
+                        HospitalsResidenceServiceLimit = inpAm,
+                        HospitalsResidenceServiceLimitOld = inpAm,
+                        HospitalsResidenceServicePercentage = inpPer,
+                        HospitalsResidenceServicePercentageOld = inpPer,
+                        HospitalsResidenceServicePercentageoption = Isinp,
+                        HospitalsResidenceServiceLimitOption = Isinp,
+                        OutsideClinicsLimit = oputAm,
+                        OutsideClinicsLimitOld = oputAm,
+                        OutsideClinicsPercentage = oputPer,
+                        OutsideClinicsPercentageOld = oputPer,
+                        OutsideClinicsLimitOption = IsOut,
+                        OutsideClinicsPercentageoption = IsOut,
+                        ExaminationAndAnalysisLimit = labRayAm,
+                        ExaminationAndAnalysisLimitOld = labRayAm,
+                        ExaminationAndAnalysisPercentage = labRayPer,
+                        ExaminationAndAnalysisPercentageOld = labRayPer,
+                        ExaminationAndAnalysisLimitOption = IslabRay,
+                        ExaminationAndAnalysisPercentageoption = IslabRay,
+                        PhysicalTherapyLimit = phyAm,
+                        PhysicalTherapyLimitOld = phyAm,
+                        PhysicalTherapyPercentage = phyPer,
+                        PhysicalTherapyPercentageOld = phyPer,
+                        PhysicalTherapyLimitOption = Isphy,
+                        PhysicalTherapyPercentageoption = Isphy,
+                        DailyTherapyLimit = dailyAm,
+                        DailyTherapyLimitOld = dailyAm,
+                        DailyTherapyPercentage = dailyPer,
+                        DailyTherapyPercentageOld = dailyPer,
+                        DailyTherapyLimitOption = Isdaily,
+                        DailyTherapyPercentageoption = Isdaily,
+                        ChronicTherapyLimit = chronAm,
+                        ChronicTherapyLimitOld = chronAm,
+                        ChronicTherapyPercentage = chronPer,
+                        ChronicTherapyPercentageOld = chronPer,
+                        ChronicTherapyLimitOption = Ischron,
+                        ChronicTherapyPercentageoption = Ischron,
+                        NatChildBirthLimit = normaAm,
+                        NatChildBirthLimitOld = normaAm,
+                        NatChildBirthPercentage = normaPer,
+                        NatChildBirthPercentageOld = normaPer,
+                        NatChildBirthLimitOption = Isnorma,
+                        NatChildBirthPercentageoption = Isnorma,
+                        CaesChildBirthLimit = caesarAm,
+                        CaesChildBirthLimitOld = caesarAm,
+                        CaesChildBirthPercentage = caesarPer,
+                        CaesChildBirthPercentageOld = caesarPer,
+                        CaesChildBirthLimitOption = Iscaesar,
+                        CaesChildBirthPercentageoption = Iscaesar,
+                        LegalAbortionLimit = miscaAm,
+                        LegalAbortionLimitOld = miscaAm,
+                        LegalAbortionPercentage = miscaPer,
+                        LegalAbortionPercentageOld = miscaPer,
+                        LegalAbortionLimitOption = Ismisca,
+                        LegalAbortionPercentageoption = Ismisca,
+                        PregFollowUpLimit = folloAm,
+                        PregFollowUpLimitOld = folloAm,
+                        PregFollowUpPercentage = folloPer,
+                        PregFollowUpPercentageOld = folloPer,
+                        PregFollowUpLimitOption = Isfollo,
+                        PregFollowUpPercentageoption = Isfollo,
+
+                        AdvancedDentalServiceLimit = denAm,
+                        AdvancedDentalServiceLimitOld = denAm,
+                        BasicDentalServiceLimit = denAm,
+                        BasicDentalServiceLimitOld = denAm,
+                        AdvancedDentalServicePercentage = denPer,
+                        AdvancedDentalServicePercentageOld = denPer,
+                        BasicDentalServicePercentage = denPer,
+                        BasicDentalServicePercentageOld = denPer,
+                        AdvancedDentalServicePercentageoption = Isden,
+                        AdvancedDentalServiceLimitOption = Isden,
+                        BasicDentalServiceLimitOption = Isden,
+                        BasicDentalServicePercentageoption = Isden,
+                        OpticsLimit = optAm,
+                        OpticsLimitOld = optAm,
+                        OpticsPercentage = optPer,
+                        OpticsPercentageOld = optPer,
+                        OpticsLimitOption = Isopt,
+                        OpticsPercentageoption = Isopt,
+                        IntensiveCareDaysCount = int.Parse(icuAm.ToString()),
+                        IntensiveCareDaysCountOld = int.Parse(icuAm.ToString()),
+                        DailyRoshitasCountPerMonth = noRoshita,
+                        DailyRoshitasCountPerMonthOld = noRoshita,
+                        CoronaVaccineCoverage = coronaa,
+                        CoronaVaccineCoverageOld = coronaa,
+
+                        MainId = mainId,
+                        ClassCode = classCode,
+                        CompId = CompId,
+                        ContractNo = ContractNo,
+                        CountClass = countCat,
+                        typAction = typeAction,
+                        MainIdOld = mainIdOld
 
 
-                };
+                    };
 
-                model.Add(renwalFourMain);
-
+                    model.Add(renwalFourMain);
+                }
             }
 
 
@@ -1256,7 +1557,8 @@ namespace DMS_Authontication1.Controllers
                 IntensiveCareDaysCount = vM.IntensiveCareDaysCount,
                 DailyRoshitasCountPerMonth = vM.DailyRoshitasCountPerMonth,
                 CoronaVaccineCoverage = vM.CoronaVaccineCoverage,
-                MainId = vM.MainId
+                MainId = vM.MainId, 
+                ClassCode = vM.ClassCode
 
             };
 
@@ -1293,18 +1595,56 @@ namespace DMS_Authontication1.Controllers
                         TempData["ErrorMessage"] = errors;
                         TempData["RenewalStepFourModel"] = model;
 
-                        return RedirectToAction("RenewalStepFour", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction });
+                        return RedirectToAction("RenewalStepFour", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
                     }
                 }
 
-                return RedirectToAction("Show");
+                //PrintRenewalReports(model[0].MainId, model[0].CountClass);
+                TempData["Save"] = "YES";
+                return RedirectToAction("RenewalStepFour", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
+
+              //  return RedirectToAction("Show");
             }
             catch (Exception e)
             {
                 TempData["ErrorMessage"] = e.Message;
                 TempData["RenewalStepFourModel"] = model;
 
-                return RedirectToAction("RenewalStepFour", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction });
+                return RedirectToAction("RenewalStepFour", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
+            }
+        }
+
+        public ActionResult PrintRenewalReports(int id, int countClass)
+        {          
+            ReportDocument rd = new ReportDocument();
+            
+            if(countClass == 2)
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "OfferRenewal2Class.rpt"));
+            else if (countClass == 3)
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "OfferRenewal3Class.rpt"));
+            else if(countClass == 4)
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "OfferRenewal4Class.rpt"));
+            
+            
+            rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+
+            rd.SetParameterValue("@idd", id);
+           
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pdf", DateTime.Now.Date.ToString("ddMMyyyy") + "Renewal Offer.pdf");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
