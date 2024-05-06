@@ -254,8 +254,37 @@
     //    }
     //});
 
+    $('#RegistrationReviewFrom').datepicker({});
+    $('#RegistrationReviewTo').datepicker({});
+    $('#ProviderNo').select2({
+        placeholder: 'Search for a Provider ',
+        minimumInputLength: 2,
+        ajax: {
+            url: '/ReportMain/GetProvider/',
+            delay: 250,
+            dataType: 'json',
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page || 1
+                }
+                return query;
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+                var obj = {};
+                data.push(obj)
+                return {
+                    results: data,//.results,
+                    pagination: {
+                        more: (params.page * 10) < data.count_filtered
+                    }
+                };
+            }
+            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
 
-
+        }
+    });
 });
 
 function ClearAll() {
@@ -363,6 +392,56 @@ function ClearAllMed() {
     $("#pdfMed").prop("checked", false);
     $("#excelMed").prop("checked", false);
 
+}
+
+function ClearAllReview() {
+
+    $('#RegistrationReviewFrom').val('');
+    $('#RegistrationReviewTo').val('');
+    $('#ProviderNo').val('').trigger("change");
+    $('#BatchNo').val('');
+    $('#RepotType').val(1);
+
+    $("#pdf").prop("checked", false);
+    $("#excel").prop("checked", false);
+}
+
+function PrintReviewBatch() {
+    debugger;
+    var Regfrom = $('#RegistrationReviewFrom').val();
+    var Regto = $('#RegistrationReviewTo').val();
+    var ProvNo = '';
+
+    if ($('#ProviderNo').val() != null)
+        ProvNo = $('#ProviderNo').val();
+        
+    var BatchNo = $('#BatchNo').val();
+
+    var RepotType = $('#RepotTypeReview').val();
+
+    if ($("#excel").is(":checked")) {
+        // do something if the excel is  checked
+        if ($("#pdf").is(":checked")) {
+            // do something if the pdf is  checked
+            // Print PDF and EXCEL
+            window.open('/ReportMain/PrintReviewBatchPdf?Regfrom=' + Regfrom +
+                '&&Regto=' + Regto + '&&ProvNo=' + ProvNo + '&&BatchNo=' + BatchNo + '&&RepotType=' + RepotType);
+
+            window.open('/ReportMain/PrintReviewBatchExcel?Regfrom=' + Regfrom +
+                '&&Regto=' + Regto + '&&ProvNo=' + ProvNo + '&&BatchNo=' + BatchNo + '&&RepotType=' + RepotType);
+        }
+        else {
+            // Print EXCEL Only
+            window.open('/ReportMain/PrintReviewBatchExcel?Regfrom=' + Regfrom +
+                '&&Regto=' + Regto + '&&ProvNo=' + ProvNo + '&&BatchNo=' + BatchNo + '&&RepotType=' + RepotType);
+        }
+    }
+    else {
+        // Print PDF as Default
+        window.open('/ReportMain/PrintReviewBatchPdf?Regfrom=' + Regfrom +
+            '&&Regto=' + Regto + '&&ProvNo=' + ProvNo + '&&BatchNo=' + BatchNo + '&&RepotType=' + RepotType);
+
+    }
 }
 
 function PrintReport2() {

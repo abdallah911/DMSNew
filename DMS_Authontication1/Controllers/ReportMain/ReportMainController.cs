@@ -739,5 +739,153 @@ namespace DMS_Authontication1.Controllers.ReportMain
 
 
         #endregion
+
+        #region Reports2
+        public ActionResult ReviewBatch()
+        {
+            //var companyname = db.Contract_Comp.Select(c => new
+            //{
+            //    COMP_ID = c.C_COMP_ID,
+            //    Name = c.C_ANAME + " || " + c.C_COMP_ID
+
+            //}).ToList();
+            //SelectList companylist = new SelectList(companyname, "COMP_ID", "Name");
+            //ViewBag.company = companylist;
+
+            return View();
+        }
+        public JsonResult GetProvider(string search)
+        {
+            int intSearch;
+            int.TryParse(search, out intSearch);
+
+            var ProviderUsers = db.Serv_Providers1.Where(x => x.PR_CODE == intSearch || x.PR_ENAME.Contains(search) || x.PR_ANAME.Contains(search))
+                .Select(c => new
+                {
+                    id = c.PR_CODE,
+                    text = c.PR_CODE + " || " + c.PR_ENAME
+                }).ToList();
+            return new JsonResult { Data = ProviderUsers, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        public ActionResult PrintReviewBatchPdf(string Regfrom, string Regto, string ProvNo,
+                                                string BatchNo, string RepotType)
+        {
+            DateTime RegDateFrom, RegDateTo;
+            Int64 ProvNo1, ProvNo2, BatchNo1, BatchNo2;
+
+
+            RegDateFrom = string.IsNullOrEmpty(Regfrom) ? new DateTime(2016, 1, 1) : (Convert.ToDateTime(Regfrom)).Date;
+            RegDateTo = string.IsNullOrEmpty(Regto) ? DateTime.Now.Date : (Convert.ToDateTime(Regto)).Date;
+
+            ProvNo1 = string.IsNullOrEmpty(ProvNo) ? 0 : (Convert.ToInt32(ProvNo));
+            ProvNo2 = string.IsNullOrEmpty(ProvNo) ? 999999999999999999 : (Convert.ToInt64(ProvNo));
+
+            BatchNo1 = string.IsNullOrEmpty(BatchNo) ? 0 : (Convert.ToInt32(BatchNo));
+            BatchNo2 = string.IsNullOrEmpty(BatchNo) ? 999999999999999999 : (Convert.ToInt64(BatchNo));
+
+            ReportDocument rd = new ReportDocument();
+
+            switch (Convert.ToInt32(RepotType))
+            {
+
+                case 1:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReviewSummary.rpt"));
+                    break;
+                case 2:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReviewDetails.rpt"));
+                    break;
+                default:
+                    return View();
+            }
+
+            rd.SetDatabaseLogon("APP", "12369");
+
+            rd.SetParameterValue("dat1", RegDateFrom);
+            rd.SetParameterValue("dat2", RegDateTo);
+            rd.SetParameterValue("prv1", ProvNo1);
+            rd.SetParameterValue("prv2", ProvNo2);
+            rd.SetParameterValue("btch1", BatchNo1);
+            rd.SetParameterValue("btch2", BatchNo2);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pdf", RegDateFrom.ToString("ddMMyyyy") + "ReviewBatch.pdf");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ActionResult PrintReviewBatchExcel(string Regfrom, string Regto, string ProvNo,
+                                                  string BatchNo, string RepotType)
+        {
+            DateTime RegDateFrom, RegDateTo;
+            Int64 ProvNo1, ProvNo2, BatchNo1, BatchNo2;
+
+
+            RegDateFrom = string.IsNullOrEmpty(Regfrom) ? new DateTime(2016, 1, 1) : (Convert.ToDateTime(Regfrom)).Date;
+            RegDateTo = string.IsNullOrEmpty(Regto) ? DateTime.Now.Date : (Convert.ToDateTime(Regto)).Date;
+
+            ProvNo1 = string.IsNullOrEmpty(ProvNo) ? 0 : (Convert.ToInt32(ProvNo));
+            ProvNo2 = string.IsNullOrEmpty(ProvNo) ? 999999999999999999 : (Convert.ToInt64(ProvNo));
+
+            BatchNo1 = string.IsNullOrEmpty(BatchNo) ? 0 : (Convert.ToInt32(BatchNo));
+            BatchNo2 = string.IsNullOrEmpty(BatchNo) ? 999999999999999999 : (Convert.ToInt64(BatchNo));
+
+            ReportDocument rd = new ReportDocument();
+
+            switch (Convert.ToInt32(RepotType))
+            {
+
+                case 1:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReviewSummary.rpt"));
+                    break;
+                case 2:
+                    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReviewDetails.rpt"));
+                    break;
+                default:
+                    return View();
+            }
+
+            rd.SetDatabaseLogon("APP", "12369");
+
+            rd.SetParameterValue("dat1", RegDateFrom);
+            rd.SetParameterValue("dat2", RegDateTo);
+            rd.SetParameterValue("prv1", ProvNo1);
+            rd.SetParameterValue("prv2", ProvNo2);
+            rd.SetParameterValue("btch1", BatchNo1);
+            rd.SetParameterValue("btch2", BatchNo2);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/xls", RegDateFrom.ToString("ddMMyyyy") + "ReviewBatch.xls");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion
     }
 }

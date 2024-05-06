@@ -153,36 +153,18 @@
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNetCore.Http, Version=2.2.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNetCore.Http.2.2.2\lib\netstandard2.0\Microsoft.AspNetCore.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.AspNetCore.Http, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNetCore.WebUtilities.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.ObjectPool, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.ObjectPool.2.2.0\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Options, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Options.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=5.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.5.0.1\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -201,10 +183,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.OracleClient" />
@@ -216,23 +195,26 @@
     <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
     </Reference>
-    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
+    <Reference Include="System.IO.Pipelines, Version=5.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.5.0.2\lib\net461\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
-    <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -347,9 +329,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BrokerController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
-    <Compile Include="Controllers\NewReportsController.cs" />
     <Compile Include="Controllers\MobileApi\AccountMobileController.cs" />
+    <Compile Include="Controllers\NewReportsController.cs" />
     <Compile Include="Controllers\ProposalMainController.cs" />
+    <Compile Include="Controllers\ProposalRenewalsController.cs" />
     <Compile Include="Controllers\ReportMain\ReportMainController.cs" />
     <Compile Include="Controllers\LossRatio\LossRatioController.cs" />
     <Compile Include="Controllers\CustomerService\CustomerServiceController.cs" />
@@ -426,7 +409,13 @@
     <Compile Include="Models\AfterSale.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AgeAvg.cs" />
+    <Compile Include="Models\AgeAvg.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AlphabetLetter.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AnalysisLossRatio.cs" />
     <Compile Include="Models\ApprovalBil.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -475,6 +464,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CompContractClassEmp.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CompHolder.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CompStatement.cs">
@@ -671,6 +663,9 @@
     <Compile Include="Models\HrAdminCompany.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HrUserPage.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Indemnity.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -756,6 +751,15 @@
     <Compile Include="Models\Patch.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PendingCount.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PendingInPatient.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PendingOutPatient.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PETROTRADE_EMPLOYEES.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -764,6 +768,9 @@
     </Compile>
     <Compile Include="Models\PricesOutsideMedicalAuthority.cs" />
     <Compile Include="Models\Pricing.cs" />
+    <Compile Include="Models\PrintMedicalReport.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ProposalBasicData.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -825,6 +832,18 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RemainConsumption.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RenewalInsideMedicalAuthority.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RenewalMain.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RenewalOutsideMedicalAuthority.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RenewalStepTwo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RequestAddProvider.cs">
@@ -1306,6 +1325,9 @@
     <Compile Include="ViewModel\Proposal\ProposalBasicDataVM.cs" />
     <Compile Include="ViewModel\Proposal\ProposalBenefitVM.cs" />
     <Compile Include="ViewModel\ProviderServicesPermissionsViewModal.cs" />
+    <Compile Include="ViewModel\RenewalInsideMedicalAuthorityViewModel.cs" />
+    <Compile Include="ViewModel\RenewalOutsideMedicalAuthorityViewModel.cs" />
+    <Compile Include="ViewModel\RenwalStepTwoViewModel.cs" />
     <Compile Include="ViewModel\SpecilityDiagnoseViewmodel.cs" />
     <Compile Include="ViewModel\MedicineTypeViewmodel.cs" />
     <Compile Include="ViewModel\PentingPrintViewModel.cs" />
@@ -7131,236 +7153,6 @@
     <Content Include="assets\layouts\layout\scripts\demo.min.js" />
     <Content Include="assets\layouts\layout\scripts\layout.js" />
     <Content Include="assets\layouts\layout\scripts\layout.min.js" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\admin.css" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\all.min.css" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\bootstrap.min.css" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\dataTables.bootstrap5.min.css" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\HR-Style.css" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_flat_0_888888_40x100.png" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_glass_25_e1f0f5_1x400.png" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_glass_55_444444_1x400.png" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-bg_inset-soft_95_fef1ec_1x100.png" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-icons_222222_256x240.png" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-icons_309bbf_256x240.png" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-icons_444444_256x240.png" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-icons_bf3030_256x240.png" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\jquery-ui.css" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\jquery-ui.min.css" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\main-reports.css" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\main.css" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\Medical-Approval.css" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\menu-shared.css" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\ray-lab.css" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\select2.min.css" />
-    <Content Include="assets\NewDesignBackAdmin\CSS\toastr.min.css" />
-    <Content Include="assets\NewDesignBackAdmin\Images\All\background.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Images\All\Bg.jpeg" />
-    <Content Include="assets\NewDesignBackAdmin\Images\All\greater-than.svg" />
-    <Content Include="assets\NewDesignBackAdmin\Images\All\home-icon.svg" />
-    <Content Include="assets\NewDesignBackAdmin\Images\background-22-01.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Images\logo D M S 4-04.png" />
-    <Content Include="assets\NewDesignBackAdmin\Images\logo-dms-white.png" />
-    <Content Include="assets\NewDesignBackAdmin\Images\logo-dms-white2.png" />
-    <Content Include="assets\NewDesignBackAdmin\Images\logo-dms.png" />
-    <Content Include="assets\NewDesignBackAdmin\Images\up.png" />
-    <Content Include="assets\NewDesignBackAdmin\Images\Welcome.png" />
-    <Content Include="assets\NewDesignBackAdmin\Img\logo D M S 4-04.png" />
-    <Content Include="assets\NewDesignBackAdmin\Img\logo-dms-white2.png" />
-    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1  2-01.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1  2-02.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1 22-01.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1-01.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1-02.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-2-01.png" />
-    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-2-02.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S  77-01.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S gg-01.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S gg-02.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S gg-03.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S gg-04.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S gg-05.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S gg-06.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S gg-07.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-02.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-03.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-04.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-05.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-06.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-07.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\JS\bootstrap.bundle.min.js" />
-    <Content Include="assets\NewDesignBackAdmin\JS\dataTables.bootstrap5.min.js" />
-    <Content Include="assets\NewDesignBackAdmin\JS\HR-Script.js" />
-    <Content Include="assets\NewDesignBackAdmin\JS\Installation _ Select2 - The jQuery replacement for select boxes.html" />
-    <Content Include="assets\NewDesignBackAdmin\JS\Installation _ Select2 - The jQuery replacement for select boxes_files\5ad898c30986b0985fd29e4a8ca9d1cb.css" />
-    <Content Include="assets\NewDesignBackAdmin\JS\Installation _ Select2 - The jQuery replacement for select boxes_files\prettify.css" />
-    <Content Include="assets\NewDesignBackAdmin\JS\jquery-3.6.0.js" />
-    <Content Include="assets\NewDesignBackAdmin\JS\jquery-ui.js" />
-    <Content Include="assets\NewDesignBackAdmin\JS\jquery.dataTables.min.js" />
-    <Content Include="assets\NewDesignBackAdmin\JS\jquery.min.js" />
-    <Content Include="assets\NewDesignBackAdmin\JS\main-reports copy.js" />
-    <Content Include="assets\NewDesignBackAdmin\JS\main-reports.js" />
-    <Content Include="assets\NewDesignBackAdmin\JS\main.js" />
-    <Content Include="assets\NewDesignBackAdmin\JS\select2.min.js" />
-    <Content Include="assets\NewDesignBackAdmin\JS\toastr.min.js" />
-    <Content Include="assets\NewDesignBackAdmin\select2.min.css" />
-    <Content Include="assets\NewDesignBackAdmin\select2.min.js" />
-    <Content Include="assets\NewDesignBackAdmin\toastr.min.css" />
-    <Content Include="assets\NewDesignBackAdmin\toastr.min.js" />
-    <Content Include="assets\NewDesignBack\CSS\all.min.css" />
-    <Content Include="assets\NewDesignBack\CSS\bootstrap.min.css" />
-    <Content Include="assets\NewDesignBack\CSS\HR-Style.css" />
-    <Content Include="assets\NewDesignBack\CSS\jquery-ui.css" />
-    <Content Include="assets\NewDesignBack\CSS\main.css" />
-    <Content Include="assets\NewDesignBack\CSS\menu-shared.css" />
-    <Content Include="assets\NewDesignBack\CSS\pharm-menu.css" />
-    <Content Include="assets\NewDesignBack\CSS\ray-lab-menu.css" />
-    <Content Include="assets\NewDesignBack\CSS\ray-lab.css" />
-    <Content Include="assets\NewDesignBack\CSS\select2.min.css" />
-    <Content Include="assets\NewDesignBack\Images\All\background.jpg" />
-    <Content Include="assets\NewDesignBack\Images\All\Bg.jpeg" />
-    <Content Include="assets\NewDesignBack\Images\All\greater-than.svg" />
-    <Content Include="assets\NewDesignBack\Images\All\home-icon.svg" />
-    <Content Include="assets\NewDesignBack\Images\logo D M S 4-04.png" />
-    <Content Include="assets\NewDesignBack\Images\logo-dms-white2.png" />
-    <Content Include="assets\NewDesignBack\Images\logo-dms.png" />
-    <Content Include="assets\NewDesignBack\Images\logo.png" />
-    <Content Include="assets\NewDesignBack\Images\menus\ad-all-menus.jpg" />
-    <Content Include="assets\NewDesignBack\Images\menus\claims.jpg" />
-    <Content Include="assets\NewDesignBack\Images\menus\greater-than.png" />
-    <Content Include="assets\NewDesignBack\Images\pharm-menu\delivery.jpg" />
-    <Content Include="assets\NewDesignBack\Images\pharm-menu\help2.jpg" />
-    <Content Include="assets\NewDesignBack\Images\pharm-menu\pharmacy.jpg" />
-    <Content Include="assets\NewDesignBack\Images\ray-labMenu\manual.jpg" />
-    <Content Include="assets\NewDesignBack\Images\ray-labMenu\radio-center.jpg" />
-    <Content Include="assets\NewDesignBack\Images\up.png" />
-    <Content Include="assets\NewDesignBack\JS\bootstrap.bundle.min.js" />
-    <Content Include="assets\NewDesignBack\JS\jquery-3.6.0.js" />
-    <Content Include="assets\NewDesignBack\JS\jquery-ui.js" />
-    <Content Include="assets\NewDesignBack\JS\jquery.min.js" />
-    <Content Include="assets\NewDesignBack\JS\main.js" />
-    <Content Include="assets\NewDesign\css\all.min.css" />
-    <Content Include="assets\NewDesign\css\bootstrap.min.css" />
-    <Content Include="assets\NewDesign\css\cdn.datatables.net_v_bs5_jszip-3.10.1_dt-1.13.5_b-2.4.1_b-html5-2.4.1_b-print-2.4.1_datatables.min.css" />
-    <Content Include="assets\NewDesign\css\home.css" />
-    <Content Include="assets\NewDesign\css\hr.css" />
-    <Content Include="assets\NewDesign\css\jquery-ui.css" />
-    <Content Include="assets\NewDesign\css\main.css" />
-    <Content Include="assets\NewDesign\css\owl.carousel.min.css" />
-    <Content Include="assets\NewDesign\css\owl.theme.default.min.css" />
-    <Content Include="assets\NewDesign\css\owl.theme.green.min.css" />
-    <Content Include="assets\NewDesign\css\style2.css" />
-    <Content Include="assets\NewDesign\img\about.jpeg" />
-    <Content Include="assets\NewDesign\img\adminProfil\1.png" />
-    <Content Include="assets\NewDesign\img\adminProfil\2.png" />
-    <Content Include="assets\NewDesign\img\adminProfil\3.png" />
-    <Content Include="assets\NewDesign\img\adminProfil\self adminProfile.jpg" />
-    <Content Include="assets\NewDesign\img\ai3-removebg-preview.png" />
-    <Content Include="assets\NewDesign\img\application\1.png" />
-    <Content Include="assets\NewDesign\img\application\2.png" />
-    <Content Include="assets\NewDesign\img\application\3.png" />
-    <Content Include="assets\NewDesign\img\background  22-01.jpg" />
-    <Content Include="assets\NewDesign\img\BG WHITE.jpg" />
-    <Content Include="assets\NewDesign\img\Clients\air.jpg" />
-    <Content Include="assets\NewDesign\img\Clients\air2.jpg" />
-    <Content Include="assets\NewDesign\img\Clients\alfa.jpg" />
-    <Content Include="assets\NewDesign\img\Clients\care.png" />
-    <Content Include="assets\NewDesign\img\Clients\cleopatra.jpg" />
-    <Content Include="assets\NewDesign\img\Clients\مختبر.jpg" />
-    <Content Include="assets\NewDesign\img\clinic\e-clinicProfile.jpg" />
-    <Content Include="assets\NewDesign\img\clinic\website S  5555 4-16.png" />
-    <Content Include="assets\NewDesign\img\clinic\website S  5555-17.png" />
-    <Content Include="assets\NewDesign\img\clinic\website S  60000-17.png" />
-    <Content Include="assets\NewDesign\img\clinic\website S  900-17.png" />
-    <Content Include="assets\NewDesign\img\commerce\1.png" />
-    <Content Include="assets\NewDesign\img\commerce\2.png" />
-    <Content Include="assets\NewDesign\img\commerce\3.png" />
-    <Content Include="assets\NewDesign\img\commerce\E-commerceProfile.jpg" />
-    <Content Include="assets\NewDesign\img\commerce\website S  5555 8-18 %281%29.png" />
-    <Content Include="assets\NewDesign\img\enterPrice\ENTERPRISEProfileProduct.jpg" />
-    <Content Include="assets\NewDesign\img\enterPrice\main.png" />
-    <Content Include="assets\NewDesign\img\enterPrice\website S  7-17.png" />
-    <Content Include="assets\NewDesign\img\enterPrice\website S  70-17.png" />
-    <Content Include="assets\NewDesign\img\enterPrice\website S  80-17.png" />
-    <Content Include="assets\NewDesign\img\EPSRC-261120-ArtificialIntelligence-GettyImages-1206796363.jpg" />
-    <Content Include="assets\NewDesign\img\healthCare\1.png" />
-    <Content Include="assets\NewDesign\img\healthCare\2.png" />
-    <Content Include="assets\NewDesign\img\healthCare\3.png" />
-    <Content Include="assets\NewDesign\img\healthCare\Health care-16.png" />
-    <Content Include="assets\NewDesign\img\healthCare\HealthCareProfile.jpg" />
-    <Content Include="assets\NewDesign\img\Home.jpg" />
-    <Content Include="assets\NewDesign\img\Hr\1.png" />
-    <Content Include="assets\NewDesign\img\Hr\2.png" />
-    <Content Include="assets\NewDesign\img\Hr\3.png" />
-    <Content Include="assets\NewDesign\img\Hr\website S  HR-16.png" />
-    <Content Include="assets\NewDesign\img\Product1.png" />
-    <Content Include="assets\NewDesign\img\reports\background-22-01.jpg" />
-    <Content Include="assets\NewDesign\img\reports\logo D M S 4-04.png" />
-    <Content Include="assets\NewDesign\img\reports\logo-dms-white2.png" />
-    <Content Include="assets\NewDesign\img\reports\Untitled-1  2-01.jpg" />
-    <Content Include="assets\NewDesign\img\reports\Untitled-1  2-02.jpg" />
-    <Content Include="assets\NewDesign\img\reports\Untitled-1 22-01.jpg" />
-    <Content Include="assets\NewDesign\img\reports\Untitled-1-01.jpg" />
-    <Content Include="assets\NewDesign\img\reports\Untitled-1-02.jpg" />
-    <Content Include="assets\NewDesign\img\reports\Untitled-2-01.png" />
-    <Content Include="assets\NewDesign\img\reports\Untitled-2-02.jpg" />
-    <Content Include="assets\NewDesign\img\reports\website  S I O S  77-01.jpg" />
-    <Content Include="assets\NewDesign\img\reports\website  S I O S gg-01.jpg" />
-    <Content Include="assets\NewDesign\img\reports\website  S I O S gg-02.jpg" />
-    <Content Include="assets\NewDesign\img\reports\website  S I O S gg-03.jpg" />
-    <Content Include="assets\NewDesign\img\reports\website  S I O S gg-04.jpg" />
-    <Content Include="assets\NewDesign\img\reports\website  S I O S gg-05.jpg" />
-    <Content Include="assets\NewDesign\img\reports\website  S I O S gg-06.jpg" />
-    <Content Include="assets\NewDesign\img\reports\website  S I O S gg-07.jpg" />
-    <Content Include="assets\NewDesign\img\reports\website  S I O S-02.jpg" />
-    <Content Include="assets\NewDesign\img\reports\website  S I O S-03.jpg" />
-    <Content Include="assets\NewDesign\img\reports\website  S I O S-04.jpg" />
-    <Content Include="assets\NewDesign\img\reports\website  S I O S-05.jpg" />
-    <Content Include="assets\NewDesign\img\reports\website  S I O S-06.jpg" />
-    <Content Include="assets\NewDesign\img\reports\website  S I O S-07.jpg" />
-    <Content Include="assets\NewDesign\img\services\Business analysisProfile.jpg" />
-    <Content Include="assets\NewDesign\img\services\business.jpg" />
-    <Content Include="assets\NewDesign\img\services\cloud.jpg" />
-    <Content Include="assets\NewDesign\img\services\CloudAppDevelopmentProfile.jpg" />
-    <Content Include="assets\NewDesign\img\services\design.jpg" />
-    <Content Include="assets\NewDesign\img\services\mobile dev.jpg" />
-    <Content Include="assets\NewDesign\img\services\Mobile DevelopmentProfile.jpg" />
-    <Content Include="assets\NewDesign\img\services\Software Product Design.jpg" />
-    <Content Include="assets\NewDesign\img\services\Web Development Services.jpg" />
-    <Content Include="assets\NewDesign\img\services\web.jpg" />
-    <Content Include="assets\NewDesign\img\Hr\h3.jpg" />
-    <Content Include="assets\NewDesign\img\Hr\hr1.jpg" />
-    <Content Include="assets\NewDesign\img\Hr\hr2.jpg" />
-    <Content Include="assets\NewDesign\img\Hr\hrProduct.jpg" />
-    <Content Include="assets\NewDesign\img\Product1.png" />
-    <Content Include="assets\NewDesign\img\th.jpg" />
-    <Content Include="assets\NewDesign\img\Untitled-222222-01-removebg-preview.png" />
-    <Content Include="assets\NewDesign\img\website 8-06.jpg" />
-    <Content Include="assets\NewDesign\js\app.js" />
-    <Content Include="assets\NewDesign\js\bootstrap.bundle.min.js" />
-    <Content Include="assets\NewDesign\js\bootstrap.min.js" />
-    <Content Include="assets\NewDesign\js\cdnjs.cloudflare.com_ajax_libs_pdfmake_0.2.7_pdfmake.min.js" />
-    <Content Include="assets\NewDesign\js\cdnjs.cloudflare.com_ajax_libs_pdfmake_0.2.7_vfs_fonts.js" />
-    <Content Include="assets\NewDesign\js\index.js" />
-    <Content Include="assets\NewDesign\js\jquery-3.6.0.js" />
-    <Content Include="assets\NewDesign\js\jquery-3.6.3.min.js" />
-    <Content Include="assets\NewDesign\js\login.js" />
-    <Content Include="assets\NewDesign\js\main.js" />
-    <Content Include="assets\NewDesign\js\owl.carousel.js" />
-    <Content Include="assets\NewDesign\js\owl.carousel.min.js" />
-    <Content Include="assets\NewDesign\js\particles.js" />
-    <Content Include="assets\NewDesign\js\wow.min.js" />
-    <Content Include="assets\NewDesign\newcss\all.min.css" />
-    <Content Include="assets\NewDesign\newcss\bootstrap.min.css" />
-    <Content Include="assets\NewDesign\newcss\main.css" />
-    <Content Include="assets\NewDesign\webfonts\fa-brands-400.svg" />
-    <Content Include="assets\NewDesign\webfonts\fa-regular-400.svg" />
-    <Content Include="assets\NewDesign\webfonts\fa-solid-900.svg" />
     <Content Include="assets\pages\css\about.css" />
     <Content Include="assets\pages\css\about.min.css" />
     <Content Include="assets\pages\css\blog.css" />
@@ -7865,56 +7657,6 @@
     <Content Include="assets\pages\scripts\v,..min.js" />
     <Content Include="assets\pages\scripts\widgets.js" />
     <Content Include="assets\pages\scripts\widgets.min.js" />
-    <Content Include="assets\ReportDesign\CSS\all.min.css" />
-    <Content Include="assets\ReportDesign\CSS\bootstrap.min.css" />
-    <Content Include="assets\ReportDesign\CSS\images\ui-bg_flat_0_888888_40x100.png" />
-    <Content Include="assets\ReportDesign\CSS\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="assets\ReportDesign\CSS\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="assets\ReportDesign\CSS\images\ui-bg_glass_25_e1f0f5_1x400.png" />
-    <Content Include="assets\ReportDesign\CSS\images\ui-bg_glass_55_444444_1x400.png" />
-    <Content Include="assets\ReportDesign\CSS\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="assets\ReportDesign\CSS\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="assets\ReportDesign\CSS\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="assets\ReportDesign\CSS\images\ui-bg_inset-soft_95_fef1ec_1x100.png" />
-    <Content Include="assets\ReportDesign\CSS\images\ui-icons_222222_256x240.png" />
-    <Content Include="assets\ReportDesign\CSS\images\ui-icons_309bbf_256x240.png" />
-    <Content Include="assets\ReportDesign\CSS\images\ui-icons_444444_256x240.png" />
-    <Content Include="assets\ReportDesign\CSS\images\ui-icons_bf3030_256x240.png" />
-    <Content Include="assets\ReportDesign\CSS\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="assets\ReportDesign\CSS\jquery-ui.css" />
-    <Content Include="assets\ReportDesign\CSS\jquery-ui.min.css" />
-    <Content Include="assets\ReportDesign\CSS\main-reports.css" />
-    <Content Include="assets\ReportDesign\CSS\select2.min.css" />
-    <Content Include="assets\ReportDesign\Images\background-22-01.jpg" />
-    <Content Include="assets\ReportDesign\Images\logo D M S 4-04.png" />
-    <Content Include="assets\ReportDesign\Images\logo-dms-white2.png" />
-    <Content Include="assets\ReportDesign\Images\Untitled-1  2-01.jpg" />
-    <Content Include="assets\ReportDesign\Images\Untitled-1  2-02.jpg" />
-    <Content Include="assets\ReportDesign\Images\Untitled-1 22-01.jpg" />
-    <Content Include="assets\ReportDesign\Images\Untitled-1-01.jpg" />
-    <Content Include="assets\ReportDesign\Images\Untitled-1-02.jpg" />
-    <Content Include="assets\ReportDesign\Images\Untitled-2-01.png" />
-    <Content Include="assets\ReportDesign\Images\Untitled-2-02.jpg" />
-    <Content Include="assets\ReportDesign\Images\website  S I O S  77-01.jpg" />
-    <Content Include="assets\ReportDesign\Images\website  S I O S gg-01.jpg" />
-    <Content Include="assets\ReportDesign\Images\website  S I O S gg-02.jpg" />
-    <Content Include="assets\ReportDesign\Images\website  S I O S gg-03.jpg" />
-    <Content Include="assets\ReportDesign\Images\website  S I O S gg-04.jpg" />
-    <Content Include="assets\ReportDesign\Images\website  S I O S gg-05.jpg" />
-    <Content Include="assets\ReportDesign\Images\website  S I O S gg-06.jpg" />
-    <Content Include="assets\ReportDesign\Images\website  S I O S gg-07.jpg" />
-    <Content Include="assets\ReportDesign\Images\website  S I O S-02.jpg" />
-    <Content Include="assets\ReportDesign\Images\website  S I O S-03.jpg" />
-    <Content Include="assets\ReportDesign\Images\website  S I O S-04.jpg" />
-    <Content Include="assets\ReportDesign\Images\website  S I O S-05.jpg" />
-    <Content Include="assets\ReportDesign\Images\website  S I O S-06.jpg" />
-    <Content Include="assets\ReportDesign\Images\website  S I O S-07.jpg" />
-    <Content Include="assets\ReportDesign\JS\bootstrap.bundle.min.js" />
-    <Content Include="assets\ReportDesign\JS\jquery-3.6.0.js" />
-    <Content Include="assets\ReportDesign\JS\jquery-ui.js" />
-    <Content Include="assets\ReportDesign\JS\jquery.min.js" />
-    <Content Include="assets\ReportDesign\JS\main-reports.js" />
-    <Content Include="assets\ReportDesign\JS\select2.min.js" />
     <Content Include="Content\ApprovalImages\logo773242063151466883675182756090.jpeg" />
     <Content Include="Content\ApprovalImages\medical data183136055.png" />
     <Content Include="Content\ApprovalImages\te0st.jpg" />
@@ -8215,6 +7957,8 @@
     <Content Include="ProposalAssets\JS\jquery.min.js" />
     <Content Include="ProposalAssets\JS\main.js" />
     <Content Include="Scripts\DMS\NewReport.js" />
+    <Content Include="Scripts\DMS\PharmacyIndexNewDesign.js" />
+    <Content Include="Scripts\DMS\ProposalRenewals\ProposalRenewals.js" />
     <Content Include="Scripts\DMS\ReportMain\ReportMain.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -8743,48 +8487,6 @@
     <Content Include="assets\ManualFiles\PharmacyManual.pdf" />
     <Content Include="assets\ManualFiles\LabManual.pdf" />
     <Content Include="assets\ManualFiles\RayManual.pdf" />
-    <Content Include="assets\NewDesign\img\charts.webp" />
-    <Content Include="assets\NewDesign\webfonts\fa-brands-400.eot" />
-    <Content Include="assets\NewDesign\webfonts\fa-brands-400.ttf" />
-    <Content Include="assets\NewDesign\webfonts\fa-brands-400.woff" />
-    <Content Include="assets\NewDesign\webfonts\fa-brands-400.woff2" />
-    <Content Include="assets\NewDesign\webfonts\fa-regular-400.eot" />
-    <Content Include="assets\NewDesign\webfonts\fa-regular-400.ttf" />
-    <Content Include="assets\NewDesign\webfonts\fa-regular-400.woff" />
-    <Content Include="assets\NewDesign\webfonts\fa-regular-400.woff2" />
-    <Content Include="assets\NewDesign\webfonts\fa-solid-900.eot" />
-    <Content Include="assets\NewDesign\webfonts\fa-solid-900.ttf" />
-    <Content Include="assets\NewDesign\webfonts\fa-solid-900.woff" />
-    <Content Include="assets\NewDesign\webfonts\fa-solid-900.woff2" />
-    <Content Include="assets\NewDesign\webfonts\fa-v4compatibility.ttf" />
-    <Content Include="assets\NewDesign\webfonts\fa-v4compatibility.woff2" />
-    <Content Include="assets\NewDesignBack\webfonts\fa-brands-400.ttf" />
-    <Content Include="assets\NewDesignBack\webfonts\fa-brands-400.woff2" />
-    <Content Include="assets\NewDesignBack\webfonts\fa-regular-400.ttf" />
-    <Content Include="assets\NewDesignBack\webfonts\fa-regular-400.woff2" />
-    <Content Include="assets\NewDesignBack\webfonts\fa-solid-900.ttf" />
-    <Content Include="assets\NewDesignBack\webfonts\fa-solid-900.woff2" />
-    <Content Include="assets\NewDesignBack\webfonts\fa-v4compatibility.ttf" />
-    <Content Include="assets\NewDesignBack\webfonts\fa-v4compatibility.woff2" />
-    <Content Include="assets\ReportDesign\webfonts\fa-brands-400.ttf" />
-    <Content Include="assets\ReportDesign\webfonts\fa-brands-400.woff2" />
-    <Content Include="assets\ReportDesign\webfonts\fa-regular-400.ttf" />
-    <Content Include="assets\ReportDesign\webfonts\fa-regular-400.woff2" />
-    <Content Include="assets\ReportDesign\webfonts\fa-solid-900.ttf" />
-    <Content Include="assets\ReportDesign\webfonts\fa-solid-900.woff2" />
-    <Content Include="assets\ReportDesign\webfonts\fa-v4compatibility.ttf" />
-    <Content Include="assets\ReportDesign\webfonts\fa-v4compatibility.woff2" />
-    <Content Include="assets\NewDesignBackAdmin\JS\Installation _ Select2 - The jQuery replacement for select boxes_files\3463b090afc66f573d74febe0935c1f6.js.download" />
-    <Content Include="assets\NewDesignBackAdmin\JS\Installation _ Select2 - The jQuery replacement for select boxes_files\analytics.js.download" />
-    <Content Include="assets\NewDesignBackAdmin\JS\Installation _ Select2 - The jQuery replacement for select boxes_files\js" />
-    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-brands-400.ttf" />
-    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-brands-400.woff2" />
-    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-regular-400.ttf" />
-    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-regular-400.woff2" />
-    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-solid-900.ttf" />
-    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-solid-900.woff2" />
-    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-v4compatibility.ttf" />
-    <Content Include="assets\NewDesignBackAdmin\webfonts\fa-v4compatibility.woff2" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\DeployProfile.pubxml" />
     <None Include="Properties\PublishProfiles\DevelopingProfile.pubxml" />
@@ -8863,7 +8565,7 @@
     <Content Include="Views\Doctor\_Calc.cshtml" />
     <Content Include="Views\Doctor\_Calc2.cshtml" />
     <Content Include="Views\Doctor\_Edit.cshtml" />
-    <Content Include="Views\Pharmacy\PharmacyPage.cshtml" />
+    <Content Include="Views\Pharmacy\Pharmacy.cshtml" />
     <Content Include="Views\Pharmacy\_Cards.cshtml" />
     <Content Include="Views\Rays\Ray.cshtml" />
     <Content Include="Views\Rays\_Cards.cshtml" />
@@ -8890,6 +8592,7 @@
     <Content Include="Views\DoctorApprovals\_Providers.cshtml" />
     <Content Include="Views\DoctorApprovals\_SearchCards.cshtml" />
     <Content Include="Views\DoctorApprovals\_LastApproval.cshtml" />
+    <Content Include="Views\ControlPanel\Main.cshtml" />
     <Content Include="Views\DoctorMedicinesLabsRaysApproval\Index2.cshtml" />
     <Content Include="Views\DoctorMedicinesLabsRaysApproval\_SearchCards.cshtml" />
     <Content Include="Views\Labs\Pending2.cshtml" />
@@ -9171,57 +8874,83 @@
     <Content Include="Reports\ChronicDataDetails.rpt" />
     <Content Include="Reports\CompanyChronicReport.rpt" />
     <Content Include="Views\ReportMain\ReportPrint.cshtml" />
-    <Content Include="Reports\ReportsConsumption\Consum901-1Prem.rpt" />
-    <Content Include="Reports\ReportsConsumption\Consum901Prem.rpt" />
-    <Content Include="Views\ReportMain\Reports.cshtml" />
-    <Content Include="Reports\SoficoReports\ActivationReport.rpt" />
-    <Content Include="Reports\SoficoReports\ActiveMedicineChronicReport.rpt" />
-    <Content Include="Reports\SoficoReports\CloseEmpReport.rpt" />
-    <Content Include="Reports\SoficoReports\SartEmpReport.rpt" />
-    <Content Include="Reports\SoficoReports\AllClaimsReport.rpt" />
-    <Content Include="Views\ReportMain\ReportProviderCheck.cshtml" />
-    <Content Include="Reports\ProviderCheckTop.rpt" />
-    <Content Include="Views\NewReports\OperationReport.cshtml" />
-    <Content Include="Views\Shared\_Reports.cshtml" />
-    <Content Include="Reports\OperationReport\ReportEmp.rpt" />
-    <Content Include="Reports\OperationReport\ReportEmpOldCmp.rpt" />
-    <Content Include="Reports\OperationReport\ReportEmpY.rpt" />
-    <Content Include="Reports\OperationReport\ReportEmpYLimit.rpt" />
-    <Content Include="Reports\OperationReport\ReportEmpYOldCmp.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationAdd.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationAdd2.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationChangeClass.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationChangeClass2.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationChangeCode.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationChangeCodeandleval.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationChangeCostCsentr.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationChangeCostCsentr2.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationChangeName.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationChangeName2.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationChangePhoto.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationChangePhoto2.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationClose.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationClose2.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationMissingCard.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationMissingCard2.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationReActive.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationReActive2.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationReplecmentCard.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationReplecmentCard2.rpt" />
-    <Content Include="Reports\OperationReport\ReportOperationTransction.rpt" />
-    <Content Include="Views\NewReports\ApprovalReports.cshtml" />
-    <Content Include="Views\NewReports\ConsumptionReport.cshtml" />
     <Content Include="Views\GetApproval\Index.cshtml" />
     <Content Include="Views\Pharmacy\CardCode.cshtml" />
-    <Content Include="Reports\ApprovalReports\ReportAprov1.rpt" />
-    <Content Include="Reports\ApprovalReports\ReportAprov10.rpt" />
-    <Content Include="Reports\ApprovalReports\ReportAprov11.rpt" />
-    <Content Include="Reports\ApprovalReports\ReportAprov12.rpt" />
-    <Content Include="Reports\ApprovalReports\ReportAprov13.rpt" />
-    <Content Include="Reports\ApprovalReports\ReportAprov14.rpt" />
-    <Content Include="Reports\ApprovalReports\ReportAprov2.rpt" />
-    <Content Include="Reports\ApprovalReports\ReportAprov6.rpt" />
-    <Content Include="Reports\ApprovalReports\ReportAprov7.rpt" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\10e9748f-905d-4d0e-8054-2d3bcbadfcb9.gitconfig" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\3dfc044a-d7e8-468d-b68d-5355438af926.gitconfig" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\4c207129-489b-41e1-a772-dc0094e38df8.gitconfig" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\59d14dee-3637-4b82-a738-1203fcb9e5d3initial_preferences" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\711e7d24-faab-475d-a876-25569bd81da8.gitconfig" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\85999a57-ea5e-4956-a098-c3060eb7af60.gitconfig" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\9754898c-c893-4cdb-8442-66d2dc31b681.gitconfig" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\a95db1f2-dcff-4a89-b6c1-952ffebb94bc.gitconfig" />
+    <Content Include="ProposalAssets\Files\ConsumptionFiles\e61bcffa-c730-4038-bb39-70dc36f81f9d.gitconfig" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\48f1ec84-599f-46cd-9e1f-558c7e030356initial_preferences" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\931d4918-adf9-47e5-b61c-f2c8bc192816initial_preferences" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\b640db19-f8b0-4b49-88f5-e27ffac10515initial_preferences" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\e0e32484-d4db-4c52-afcc-be975e504fe4initial_preferences" />
+    <Content Include="ProposalAssets\Files\PracticeCardFiles\f95769d2-e6f8-4488-af77-ab912e002dccinitial_preferences" />
+    <Content Include="ProposalAssets\webfonts\fa-brands-400.ttf" />
+    <Content Include="ProposalAssets\webfonts\fa-brands-400.woff2" />
+    <Content Include="ProposalAssets\webfonts\fa-regular-400.ttf" />
+    <Content Include="ProposalAssets\webfonts\fa-regular-400.woff2" />
+    <Content Include="ProposalAssets\webfonts\fa-solid-900.ttf" />
+    <Content Include="ProposalAssets\webfonts\fa-solid-900.woff2" />
+    <Content Include="ProposalAssets\webfonts\fa-v4compatibility.ttf" />
+    <Content Include="ProposalAssets\webfonts\fa-v4compatibility.woff2" />
+    <Content Include="Views\ProposalMain\Create.cshtml" />
+    <Content Include="Views\ProposalMain\Edit.cshtml" />
+    <Content Include="Views\ProposalMain\Index.cshtml" />
+    <Content Include="Views\ProposalMain\PricingIndex.cshtml" />
+    <Content Include="Views\ProposalMain\PricingPage1.cshtml" />
+    <Content Include="Views\ProposalMain\PricingPage2.cshtml" />
+    <Content Include="Views\ProposalMain\PricingPage3.cshtml" />
+    <Content Include="Views\ProposalMain\PricingPage4.cshtml" />
+    <Content Include="Views\ProposalMain\ProposalStepFourCreate.cshtml" />
+    <Content Include="Views\ProposalMain\ProposalStepFourCreateAndStay.cshtml" />
+    <Content Include="Views\ProposalMain\ProposalStepFourEdit.cshtml" />
+    <Content Include="Views\ProposalMain\ProposalStepThreeCreate.cshtml" />
+    <Content Include="Views\ProposalMain\ProposalStepThreeEdit.cshtml" />
+    <Content Include="Views\ProposalMain\ProposalStepTwoCreate.cshtml" />
+    <Content Include="Views\ProposalMain\ProposalStepTwoEdit.cshtml" />
+    <Content Include="Views\ProposalRenewals\Index.cshtml" />
+    <Content Include="Views\ProposalRenewals\RenewalStepFour.cshtml" />
+    <Content Include="Views\ProposalRenewals\RenewalStepThree.cshtml" />
+    <Content Include="Views\ProposalRenewals\RenewalStepTwoShow.cshtml" />
+    <Content Include="Views\ProposalRenewals\Show.cshtml" />
+    <Content Include="Views\ProposalRenewals\StepTwo.cshtml" />
+    <Content Include="Views\Broker\Create.cshtml" />
+    <Content Include="Views\Broker\Edit.cshtml" />
+    <Content Include="Views\Broker\Index.cshtml" />
+    <Content Include="Views\NewReports\ApprovalReports.cshtml" />
+    <Content Include="Views\NewReports\ConsumptionReport.cshtml" />
+    <Content Include="Views\NewReports\Index.cshtml" />
+    <Content Include="Views\NewReports\OperationReport.cshtml" />
+    <Content Include="Views\NewReports\ReportsContract.cshtml" />
+    <Content Include="Views\NewReports\ReportsCustomerServices.cshtml" />
+    <Content Include="Views\NewReports\ReportsLoseRatio.cshtml" />
+    <Content Include="Views\NewReports\ReportsPharmacy.cshtml" />
+    <Content Include="Views\NewReports\ReportsPrinting.cshtml" />
+    <Content Include="Views\Roshitas\Create.cshtml" />
+    <Content Include="Views\Roshitas\Delete.cshtml" />
+    <Content Include="Views\Roshitas\Details.cshtml" />
+    <Content Include="Views\Roshitas\Edit.cshtml" />
+    <Content Include="Views\Roshitas\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout_DashboardAdminNew.cshtml" />
+    <Content Include="Views\Shared\_Layout_DashboardNew.cshtml" />
+    <Content Include="Views\Shared\_Layout_Proposal.cshtml" />
+    <Content Include="Views\Shared\_Reports.cshtml" />
+    <Content Include="Views\Medicines\AddDosageForm.cshtml" />
+    <Content Include="Views\Medicines\AddLicType.cshtml" />
+    <Content Include="Views\Medicines\AddMedType.cshtml" />
+    <Content Include="Views\Medicines\Delete.cshtml" />
+    <Content Include="Views\Medicines\Details.cshtml" />
+    <Content Include="Views\Medicines\DosageFormList.cshtml" />
+    <Content Include="Views\Medicines\LicList.cshtml" />
+    <Content Include="Views\Medicines\MedTypeList.cshtml" />
+    <Content Include="Views\Medicines\_MedicineDosageFormList.cshtml" />
+    <Content Include="Views\Medicines\_MedicineLicenseList.cshtml" />
+    <Content Include="Views\Medicines\_MedicineTypeList.cshtml" />
     <Content Include="Reports\ApprovalReports\ReportApprovalAmt.rpt" />
     <Content Include="Reports\ApprovalReports\ReportApprovalAmtDetails.rpt" />
     <Content Include="Reports\ApprovalReports\ReportApprovalByCard.rpt" />
@@ -9253,34 +8982,18 @@
     <Content Include="Reports\ApprovalReports\ReportApprovalServiceComp.rpt" />
     <Content Include="Reports\ApprovalReports\ReportApprovalServiceCompDetails.rpt" />
     <Content Include="Reports\ApprovalReports\ReportApprovalServiceDetails.rpt" />
-    <Content Include="Views\NewReports\ReportsContract.cshtml" />
-    <Content Include="Views\NewReports\ReportsPrinting.cshtml" />
-    <Content Include="Views\NewReports\ReportsCustomerServices.cshtml" />
-    <Content Include="Views\NewReports\ReportsPharmacy.cshtml" />
-    <Content Include="Views\NewReports\ReportsLoseRatio.cshtml" />
+    <Content Include="Reports\ApprovalReports\ReportAprov1.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov10.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov11.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov12.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov13.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov14.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov2.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov6.rpt" />
+    <Content Include="Reports\ApprovalReports\ReportAprov7.rpt" />
     <Content Include="Reports\ContractReports\ReportEndComp11.rpt" />
     <Content Include="Reports\ContractReports\ReportEndCompBefore1.rpt" />
-    <Content Include="Reports\PrintingReports\OrderPrint.rpt" />
-    <Content Include="Reports\PrintingReports\OrderPrintPrint.rpt" />
-    <Content Include="Reports\PrintingReports\OrderWithoutPrint.rpt" />
-    <Content Include="Reports\PrintingReports\PrintWithDelivery.rpt" />
-    <Content Include="Reports\PrintingReports\PrintWithoutReview.rpt" />
-    <Content Include="Reports\PrintingReports\PrintWithReview.rpt" />
-    <Content Include="Reports\PrintingReports\TransactionWithoutPrint.rpt" />
     <Content Include="Reports\CustomerServicesReports\ReportMonitor.rpt" />
-    <Content Include="Reports\LoseRatioReports\LossRatioReport.rpt" />
-    <Content Include="Views\Home\OldIndex.cshtml" />
-    <Content Include="Views\Account\OldLogin.cshtml" />
-    <Content Include="Views\Home\HR.cshtml" />
-    <Content Include="Views\Home\EnterPrise.cshtml" />
-    <Content Include="Views\Home\Commerce.cshtml" />
-    <Content Include="Views\Home\Clinic.cshtml" />
-    <Content Include="Views\Home\Health.cshtml" />
-    <Content Include="Views\Home\Admin.cshtml" />
-    <Content Include="Views\Home\Index - Copy.cshtml" />
-    <Content Include="Views\Home\Application.cshtml" />
-    <Content Include="Views\Pharmacy\Pharmacy.cshtml" />
-    <Content Include="Views\Shared\_Layout_DashboardAdminNew.cshtml" />
     <Content Include="Reports\LoseRatioReports\LosingCompaniesReport.rpt" />
     <Content Include="Reports\LoseRatioReports\LosingCompaniesReportTop10.rpt" />
     <Content Include="Reports\LoseRatioReports\LossRatioCRMReportComplete.rpt" />
@@ -9294,66 +9007,63 @@
     <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCurrent.rpt" />
     <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCurrentCompare.rpt" />
     <Content Include="Reports\LoseRatioReports\LossRatioManagerReportCurrentDetails.rpt" />
+    <Content Include="Reports\LoseRatioReports\LossRatioReport.rpt" />
     <Content Include="Reports\LoseRatioReports\LossRatioReportCompareContract.rpt" />
     <Content Include="Reports\LoseRatioReports\LossRatioStateReport.rpt" />
     <Content Include="Reports\LoseRatioReports\TopCompaniesReport.rpt" />
     <Content Include="Reports\LoseRatioReports\TopCompaniesReportTop10.rpt" />
-    <Content Include="Views\Pharmacy\IndexClaim.cshtml" />
-    <Content Include="Views\Pharmacy\CompaniesChronicDeliveryNew.cshtml" />
-    <Content Include="Views\Shared\_Layout_DashboardNew.cshtml" />
-    <Content Include="Views\User\Index - Copy.cshtml" />
-    <Content Include="Views\Account\Register - Copy.cshtml" />
-    <Content Include="Views\Pharmacy\Index - Copy.cshtml" />
-    <Content Include="Views\Pharmacy\DeletedStopRoshita - Copy.cshtml" />
-    <Content Include="Views\Rays\Index - Copy.cshtml" />
-    <Content Include="Views\Labs\Index - Copy.cshtml" />
-    <Content Include="Views\CompEmployees\IndexSms - Copy.cshtml" />
-    <Content Include="Views\CompanyGroup\Index - Copy.cshtml" />
-    <Content Include="Views\NewReports\Index.cshtml" />
-    <Content Include="Views\Broker\Create.cshtml" />
-    <Content Include="Views\Broker\Edit.cshtml" />
-    <Content Include="Views\Broker\Index.cshtml" />
-    <Content Include="Views\ProposalMain\Create.cshtml" />
-    <Content Include="Views\ProposalMain\Edit.cshtml" />
-    <Content Include="Views\ProposalMain\Index.cshtml" />
-    <Content Include="Views\ProposalMain\PricingIndex.cshtml" />
-    <Content Include="Views\ProposalMain\PricingPage1.cshtml" />
-    <Content Include="Views\ProposalMain\PricingPage2.cshtml" />
-    <Content Include="Views\ProposalMain\PricingPage3.cshtml" />
-    <Content Include="Views\ProposalMain\PricingPage4.cshtml" />
-    <Content Include="Views\ProposalMain\ProposalStepFourCreate.cshtml" />
-    <Content Include="Views\ProposalMain\ProposalStepFourCreateAndStay.cshtml" />
-    <Content Include="Views\ProposalMain\ProposalStepFourEdit.cshtml" />
-    <Content Include="Views\ProposalMain\ProposalStepThreeCreate.cshtml" />
-    <Content Include="Views\ProposalMain\ProposalStepThreeEdit.cshtml" />
-    <Content Include="Views\ProposalMain\ProposalStepTwoCreate.cshtml" />
-    <Content Include="Views\ProposalMain\ProposalStepTwoEdit.cshtml" />
-    <Content Include="Views\ControlPanel\Index.cshtml" />
-    <Content Include="Views\ControlPanel\Main.cshtml" />
-    <Content Include="Views\Shared\_Layout_Proposal.cshtml" />
-    <Content Include="ProposalAssets\Files\ConsumptionFiles\10e9748f-905d-4d0e-8054-2d3bcbadfcb9.gitconfig" />
-    <Content Include="ProposalAssets\Files\ConsumptionFiles\3dfc044a-d7e8-468d-b68d-5355438af926.gitconfig" />
-    <Content Include="ProposalAssets\Files\ConsumptionFiles\4c207129-489b-41e1-a772-dc0094e38df8.gitconfig" />
-    <Content Include="ProposalAssets\Files\ConsumptionFiles\59d14dee-3637-4b82-a738-1203fcb9e5d3initial_preferences" />
-    <Content Include="ProposalAssets\Files\ConsumptionFiles\711e7d24-faab-475d-a876-25569bd81da8.gitconfig" />
-    <Content Include="ProposalAssets\Files\ConsumptionFiles\85999a57-ea5e-4956-a098-c3060eb7af60.gitconfig" />
-    <Content Include="ProposalAssets\Files\ConsumptionFiles\9754898c-c893-4cdb-8442-66d2dc31b681.gitconfig" />
-    <Content Include="ProposalAssets\Files\ConsumptionFiles\a95db1f2-dcff-4a89-b6c1-952ffebb94bc.gitconfig" />
-    <Content Include="ProposalAssets\Files\ConsumptionFiles\e61bcffa-c730-4038-bb39-70dc36f81f9d.gitconfig" />
-    <Content Include="ProposalAssets\Files\PracticeCardFiles\48f1ec84-599f-46cd-9e1f-558c7e030356initial_preferences" />
-    <Content Include="ProposalAssets\Files\PracticeCardFiles\931d4918-adf9-47e5-b61c-f2c8bc192816initial_preferences" />
-    <Content Include="ProposalAssets\Files\PracticeCardFiles\b640db19-f8b0-4b49-88f5-e27ffac10515initial_preferences" />
-    <Content Include="ProposalAssets\Files\PracticeCardFiles\e0e32484-d4db-4c52-afcc-be975e504fe4initial_preferences" />
-    <Content Include="ProposalAssets\Files\PracticeCardFiles\f95769d2-e6f8-4488-af77-ab912e002dccinitial_preferences" />
-    <Content Include="ProposalAssets\webfonts\fa-brands-400.ttf" />
-    <Content Include="ProposalAssets\webfonts\fa-brands-400.woff2" />
-    <Content Include="ProposalAssets\webfonts\fa-regular-400.ttf" />
-    <Content Include="ProposalAssets\webfonts\fa-regular-400.woff2" />
-    <Content Include="ProposalAssets\webfonts\fa-solid-900.ttf" />
-    <Content Include="ProposalAssets\webfonts\fa-solid-900.woff2" />
-    <Content Include="ProposalAssets\webfonts\fa-v4compatibility.ttf" />
-    <Content Include="ProposalAssets\webfonts\fa-v4compatibility.woff2" />
+    <Content Include="Reports\OperationReport\ReportEmp.rpt" />
+    <Content Include="Reports\OperationReport\ReportEmpOldCmp.rpt" />
+    <Content Include="Reports\OperationReport\ReportEmpY.rpt" />
+    <Content Include="Reports\OperationReport\ReportEmpYLimit.rpt" />
+    <Content Include="Reports\OperationReport\ReportEmpYOldCmp.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationAdd.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationAdd2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeClass.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeClass2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeCode.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeCodeandleval.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeCostCsentr.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeCostCsentr2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeName.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangeName2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangePhoto.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationChangePhoto2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationClose.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationClose2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationMissingCard.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationMissingCard2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationReActive.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationReActive2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationReplecmentCard.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationReplecmentCard2.rpt" />
+    <Content Include="Reports\OperationReport\ReportOperationTransction.rpt" />
+    <Content Include="Reports\PrintingReports\OrderPrint.rpt" />
+    <Content Include="Reports\PrintingReports\OrderPrintPrint.rpt" />
+    <Content Include="Reports\PrintingReports\OrderWithoutPrint.rpt" />
+    <Content Include="Reports\PrintingReports\PrintWithDelivery.rpt" />
+    <Content Include="Reports\PrintingReports\PrintWithoutReview.rpt" />
+    <Content Include="Reports\PrintingReports\PrintWithReview.rpt" />
+    <Content Include="Reports\PrintingReports\TransactionWithoutPrint.rpt" />
+    <Content Include="Reports\SoficoReports\ActivationReport.rpt" />
+    <Content Include="Reports\SoficoReports\ActiveMedicineChronicReport.rpt" />
+    <Content Include="Reports\SoficoReports\AllClaimsReport.rpt" />
+    <Content Include="Reports\SoficoReports\CloseEmpReport.rpt" />
+    <Content Include="Reports\SoficoReports\SartEmpReport.rpt" />
     <Content Include="Reports\MedicineChronicReport.rpt" />
+    <Content Include="Reports\ProviderCheckTop.rpt" />
+    <Content Include="Reports\ReportPrintHorizontal4.rpt" />
+    <Content Include="Reports\ReportPrintHorizontal5.rpt" />
+    <Content Include="Reports\ReportPrintHorizontal8.rpt" />
+    <Content Include="Reports\ReportPrintHorizontal88.rpt" />
+    <Content Include="Reports\ReviewDetails.rpt" />
+    <Content Include="Reports\ReviewSummary.rpt" />
+    <Content Include="Reports\OfferRenewal2Class.rpt" />
+    <Content Include="Reports\OfferRenewal3Class.rpt" />
+    <Content Include="Reports\OfferRenewal4Class.rpt" />
+    <Content Include="Views\ReportMain\ReportProviderCheck.cshtml" />
+    <Content Include="Views\ReportMain\Reports.cshtml" />
+    <Content Include="Views\ReportMain\ReviewBatch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
@@ -9537,8 +9247,71 @@
       <LastGenOutput>RoshitaReport3.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Migrations\202404221953025_ageavg2.resx">
-      <DependentUpon>202404221953025_ageavg2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802280728382_editUser.resx">
+      <DependentUpon>201802280728382_editUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803011014281_role.resx">
+      <DependentUpon>201803011014281_role.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803051238383_provider.resx">
+      <DependentUpon>201803051238383_provider.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803061306086_typeid.resx">
+      <DependentUpon>201803061306086_typeid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805101131339_all.resx">
+      <DependentUpon>201805101131339_all.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806061110299_tables.resx">
+      <DependentUpon>201806061110299_tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811250838574_DoctorPersonalData.resx">
+      <DependentUpon>201811250838574_DoctorPersonalData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811250906329_DoctorWorkPlace.resx">
+      <DependentUpon>201811250906329_DoctorWorkPlace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811250920481_DailyPermission.resx">
+      <DependentUpon>201811250920481_DailyPermission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811250925571_MonthlyPermissionTable.resx">
+      <DependentUpon>201811250925571_MonthlyPermissionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811250953116_DoctorPermissionTable.resx">
+      <DependentUpon>201811250953116_DoctorPermissionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811251002298_Delete.resx">
+      <DependentUpon>201811251002298_Delete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811251245496_Basicdata.resx">
+      <DependentUpon>201811251245496_Basicdata.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811260901522_ForigenKey.resx">
+      <DependentUpon>201811260901522_ForigenKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811260904386_DailyandMonthly.resx">
+      <DependentUpon>201811260904386_DailyandMonthly.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811260910487_Changes.resx">
+      <DependentUpon>201811260910487_Changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811260923285_Changes2.resx">
+      <DependentUpon>201811260923285_Changes2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811261331584_Changes3.resx">
+      <DependentUpon>201811261331584_Changes3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811270703061_aad.resx">
+      <DependentUpon>201811270703061_aad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811271000128_ReName.resx">
+      <DependentUpon>201811271000128_ReName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811271118266_Modification.resx">
+      <DependentUpon>201811271118266_Modification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811271146400_Modification2.resx">
+      <DependentUpon>201811271146400_Modification2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\AfterSale\AfterSales.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

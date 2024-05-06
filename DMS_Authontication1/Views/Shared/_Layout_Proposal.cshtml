@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Jomhuria&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
     @*<link rel="stylesheet" href="~/assets/NewDesignBack/CSS/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/assets/NewDesignBack/CSS/jquery-ui.css" />*@
+        <link rel="stylesheet" href="~/assets/NewDesignBack/CSS/jquery-ui.css" />*@
     @*<link rel="stylesheet" href="~/assets/NewDesignBack/CSS/main.css" />*@
 
 
@@ -34,10 +34,11 @@
     <link href="~/assets/global/plugins/jquery-validity/css/jquery.validity.css" rel="stylesheet" />
     <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-    
+
     <link rel="stylesheet" href="~/ProposalAssets/CSS/all.min.css" />
     <link rel="stylesheet" href="~/ProposalAssets/CSS/bootstrap.min.css" />
     <link rel="stylesheet" href="~/ProposalAssets/CSS/jquery-ui.css" />
+    <link href="~/AdminAssets/CSS/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/ProposalAssets/CSS/main.css" />
 
     @Styles.Render("~/assets/HomeTemplete/Content/kendo/css")
@@ -88,6 +89,8 @@
                             @Html.ActionLink("Pricing", "PricingIndex", "ProposalMain", null, new { @class = "sios-nav-link nav-link active ", @id = "ProposalMain" })
 
                             @Html.ActionLink("Broker", "Index", "Broker", null, new { @class = "sios-nav-link nav-link active ", @id = "Broker" })
+                            
+                            @Html.ActionLink("Renewal", "Show", "ProposalRenewals", null, new { @class = "sios-nav-link nav-link active ", @id = "Renewal" })
                         }
                     }
                 </div>
@@ -204,7 +207,7 @@
     <script src="~/ProposalAssets/JS/main.js"></script>
 
     <script src="~/assets/admindashdoardmenu/CustomAfterSales/moment.min.js"></script>
-
+    <script src="~/Scripts/DMS/ProposalRenewals/select2.min.js"></script>
     <script src="~/assets/admindashdoardmenu/CustomAfterSales/bootstrap-datetimepicker.min.js"></script>
     <script src="~/assets/HomeTemplete/Scripts/jquery.signalR-2.4.1.js"></script>
     <script src="~/signalr/hubs"></script>

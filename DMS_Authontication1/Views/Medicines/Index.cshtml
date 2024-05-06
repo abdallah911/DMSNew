@@ -15,7 +15,7 @@
                 Medicines
             </div>
             <div style=" position: absolute;right: 1%;top: 50%;transform: translateY(-50%);">
-                <a id="Create" href="/Medicines/Create" class="px-2 text-light border-0 mx-2 rounded-2" style="background: #83439b;text-decoration: none;cursor: pointer;padding: 7.2px;">
+                <a id="Create" href="/Medicines/Create" class="btn fw-bold text-white rounded-3" style="cursor: pointer;padding: 7.2px;">
                     <i class="fas fa-plus"></i> Create
                 </a>
             </div>
@@ -23,9 +23,9 @@
     </div>
 </section>
 
-<div class="w-100 m-auto px-4 mt-4 pb-5">
+<div class="sios-bg w-100 m-auto px-4 my-4 pb-5">
     <div class="table-responsive">
-        <table id="Mediciness" class="table table-striped mt-3 text-center">
+        <table style="white-space:nowrap;" id="Mediciness" class="table table-striped mt-3 text-center">
             <thead>
                 <tr>
 
@@ -99,13 +99,13 @@
                 {
                     "data": "Id",
                     "mRender": function (data) {
-                        return '<a class="btn py-1 px-3 rounded-1 text-light border-0"style = "background: #717382;text-decoration: none;" href="/Medicines/Edit/' + data + '">Edit</a>';
+                        return '<a class="btn fw-bold text-white rounded-3"style = "  text-decoration: none;" href="/Medicines/Edit/' + data + '">Edit</a>';
                     }
                 },
                 {
                     "data": "Id",
                     "mRender": function (data) {
-                        return '<a class="btn py-1 px-3 rounded-1 text-light border-0"style = "background: #717382;text-decoration: none; " href="/Medicines/MedicineActivation/' + data + '">Change Activation</a>';
+                        return '<a class="btn fw-bold text-white rounded-3"style = "  text-decoration: none; " href="/Medicines/MedicineActivation/' + data + '">Change Activation</a>';
                     }
                 }
 
