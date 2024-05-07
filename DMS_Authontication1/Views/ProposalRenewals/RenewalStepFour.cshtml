@@ -45,12 +45,17 @@ CateCount = ViewBag.CatCount; }
                     </span>
                     <br />
                     <div>
+                        <h1 class="my-3" style="color: #3c65a1">
+                            خارج الهئة الطبية
+                        </h1>
+                    </div>
+                    <div>
 
 
                         @*@Html.ActionLink("السابق", "ProposalStepThreeCreate", new { id = ViewBag.MainId }, new { @class = "prev-butn", style = "text-decoration:none; margin-top: 20px;margin-left: 10px;margin-right: 20px" })
 
 
-                            @Html.ActionLink("الرئيسية", "Create", new { id = ViewBag.MainId }, new { @class = "prev-butn", style = "text-decoration:none; margin-top: 20px;margin-left: 10px;margin-right: 20px" })*@
+            @Html.ActionLink("الرئيسية", "Create", new { id = ViewBag.MainId }, new { @class = "prev-butn", style = "text-decoration:none; margin-top: 20px;margin-left: 10px;margin-right: 20px" })*@
 
                         @Html.ActionLink("الرئيسية +", "Show", "ProposalRenewals", new { }, new { @class = "prev-butn", style = "text-decoration: none; margin-top: 20px; margin-left: 10px; margin-right: 20px;" })
                         @Html.ActionLink("السابق +", "RenewalStepThree", "ProposalRenewals", new { mainId = Model[0].MainId, CompId = Model[0].CompId, ContractNo = Model[0].ContractNo, countCat = Model[0].CountClass, typeAction = Model[0].typAction, mainIdOld = Model[0].MainIdOld }, new { @class = "prev-butn", style = "text-decoration: none; margin-top: 20px;" })
@@ -58,16 +63,16 @@ CateCount = ViewBag.CatCount; }
 
 
                         @*<button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="submitForm()">حفظ</button>
-                            <button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="goToIndex()">الغاء</button>*@
+            <button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="goToIndex()">الغاء</button>*@
 
 
                     </div>
-                    <input style="pointer-events: none; width: fit-content; margin-top:10px; padding-top: 26.75px; padding-bottom: 26.75px; "
-                           class="text-align-end"
-                           type="text"
-                           placeholder="خارج الهيئة الطبية" />
+                    @*<input style="pointer-events: none; width: fit-content; margin-top:10px; padding-top: 26.75px; padding-bottom: 26.75px; "
+        class="text-align-end"
+        type="text"
+        placeholder="خارج الهيئة الطبية" />*@
                 </div>
-                <div>
+                <div style=" margin-top: 12px;">
                     <div style="height: 74px; margin: 10px">
                         <input style="pointer-events: none; margin-top: 0px"
                                type="text"
