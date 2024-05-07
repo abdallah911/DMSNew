@@ -65,17 +65,23 @@ namespace DMS_Authontication1.Controllers
 
         public JsonResult getInformation(Int32 CompId)
         {
-            int maxContract = db.Contract_Data
-                    .Where(c => c.C_COMP_ID == CompId)
-                    .Max(c => c.CONTRACT_NO);
+            int maxContract = int.Parse(dbOra.RunReader(@"SELECT NVL(MAX(CONTRACT_NO), 0) FROM DMS_TEST.CONTRACT_DATA WHERE C_COMP_ID = '" + CompId + "'").Rows[0][0].ToString());
 
-            int countClass = db.CompContractClasses
-                    .Where(c => c.C_COMP_ID == CompId)
-                     .Select(c => c.CLASS_CODE).Distinct().Count();
+            int countClass = int.Parse(dbOra.RunReader(@"SELECT NVL(COUNT (DISTINCT CLASS_CODE), 0) FROM DMS_TEST.COMP_CONTRACT_CLASS WHERE C_COMP_ID = '" + CompId +"' AND CONTRACT_NO = '" + maxContract +"'").Rows[0][0].ToString());
 
-            int countEmp = db.Comp_Employees
-                    .Where(c => c.C_COMP_ID == CompId && c.CONTRACT_NO == maxContract && (c.TERMINATE_FLAG ?? "N") != "Y")
-                     .Select(c => c.CARD_ID).Distinct().Count();
+            int countEmp = int.Parse(dbOra.RunReader(@"SELECT NVL(COUNT (DISTINCT CARD_ID),0) FROM DMS_TEST.COMP_EMPLOYEES WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + maxContract + "' AND NVL(TERMINATE_FLAG, 'N') != 'Y'").Rows[0][0].ToString());
+            
+            //int maxContract = db.Contract_Data
+            //        .Where(c => c.C_COMP_ID == CompId)
+            //        .Max(c => c.CONTRACT_NO);
+
+            //int countClass = db.CompContractClasses
+            //        .Where(c => c.C_COMP_ID == CompId)
+            //         .Select(c => c.CLASS_CODE).Distinct().Count();
+
+            //int countEmp = db.Comp_Employees
+            //        .Where(c => c.C_COMP_ID == CompId && c.CONTRACT_NO == maxContract && (c.TERMINATE_FLAG ?? "N") != "Y")
+            //         .Select(c => c.CARD_ID).Distinct().Count();
 
             return new JsonResult { Data = new { maxContract, countClass, countEmp }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }

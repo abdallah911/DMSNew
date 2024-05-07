@@ -8040,7 +8040,9 @@
     <Content Include="ProposalAssets\JS\main.js" />
     <Content Include="Scripts\DMS\NewReport.js" />
     <Content Include="Scripts\DMS\PharmacyIndexNewDesign.js" />
+    <Content Include="Scripts\DMS\ProposalRenewals\jquery.min.js" />
     <Content Include="Scripts\DMS\ProposalRenewals\ProposalRenewals.js" />
+    <Content Include="Scripts\DMS\ProposalRenewals\select2.min.js" />
     <Content Include="Scripts\DMS\ReportMain\ReportMain.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
