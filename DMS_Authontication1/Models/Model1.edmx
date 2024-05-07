@@ -2190,7 +2190,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="DailyRoshitasCountPerMonth" Type="int" Nullable="false" />
           <Property Name="CoronaVaccineCoverage" Type="bit" Nullable="false" />
           <Property Name="MainId" Type="int" Nullable="false" />
-          <Property Name="ClassCode" Type="int" Nullable="false" />
+          <Property Name="ClassCode" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="RenewalMains">
           <Key>
@@ -2266,7 +2266,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="DailyRoshitasCountPerMonth" Type="int" Nullable="false" />
           <Property Name="CoronaVaccineCoverage" Type="bit" Nullable="false" />
           <Property Name="MainId" Type="int" Nullable="false" />
-          <Property Name="ClassCode" Type="int" Nullable="false" />
+          <Property Name="ClassCode" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DoctorsExaminationValue" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="PricesOutsideMedicalAuthorityId" Type="int" Nullable="false" />
         </EntityType>
