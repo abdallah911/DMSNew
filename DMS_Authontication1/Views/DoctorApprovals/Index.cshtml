@@ -1,96 +1,115 @@
 ﻿@model DMS_TEST.ViewModel.Container1
 @{
-    ViewBag.Title = "Doctor Daily";
+
+
+
+    <!--Card Id Row-->
+    @Html.Partial("_Cards")
+    @Html.Partial("_Pharmacies")
+    @Html.Partial("_Branches")
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
-
-
-
-<!--Card Id Row-->
-@Html.Partial("_Cards")
-@Html.Partial("_Pharmacies")
-@Html.Partial("_Branches")
 <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
     <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
 </div>
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Doctor Daily
+
+<div class="sios-container editeRquest fw-bold portlet box  green">
+    <div class="sios-overlay container-fluid mt-4 portlet-title">
+        <div class="container ms-0 fs-3 text-white caption">
+            <i class="fa-solid fa-house"></i>Doctor Daily
+
         </div>
 
     </div>
     <div class="portlet-body">
-        <div class="row">
-            <div class="form-group">
-                <div class="col-sm-3">
-                    <input id="txtSearchCard" type="text" placeholder="search for card..." class="form-control" />
-                </div>
-                <div class="col-sm-3">
-                    <button id="Search" type="button" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-search"></span> Search
-                    </button>
+        <div class="container  row  row-cols-2  ">
+
+            <div class="col-8  col-lg-4 form-group">
+                <div class="w -100">
+                    <input id="txtSearchCard" type="text" placeholder="search for card..." class="w-100 admin-form-control w-100   rounded-3  ps-3 rounded-3" />
+
+
                 </div>
             </div>
-        </div>
-        <br />
-        <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;">Card ID</h2> </div>
-        <div class="row">
-            <div class="form-group">
-
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                </div>
-
-
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })
-                    @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "form-control", @id = "ddlSpeciality" })
-                </div>
-                <div class="col-sm-2">
-                    @Html.Label("Diagnoise", new { @class = "control-label" })
-                    <select id="ddlDiagnoises" style="width:100%" multiple></select>
-                </div>
-
-
+            <div class="col-4 ">
+                <button id="S earch" type="button" class="btn btn-primary">
+                    <span cla ss="glyphicon glyphicon-search"></span> Search
+                </button>
             </div>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-sm-2">
-                @Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+
+
+
+    <div class="sios-overlay  container-fluid mt-4 panel panel-info">
+        <div class="container ms-0 fs-3 text-white">
+            <i class="fa-solid fa-house "></i>
+            <h2 class="mb-0 panel-heading">Card ID</h2>
+        </div>
+    </div>
+    <div class="row container mx-auto">
+        <div class=" row row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-gap-3  m-auto m-sm-0 text-center form-group">
+
+            <div class="  forLabel admin-form-control   border-0 px-2  ">
+                @*@Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })*@
+                @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3 ", @ReadOnly = "true" } })
+                <span>
+                    Company Name
+                </span>
+            </div>
+            <div class="  forLabel admin-form-control   border-0 px-2  ">
+                @*@Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })*@
+                @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3 ", @ReadOnly = "true" } })
+                <span>Name</span>
+            </div>
+            <div class="  forLabel admin-form-control   border-0 px-2  ">
+                @*@Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })*@
+                @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3 ", @ReadOnly = "true" } })
+                <span>
+                    End Date
+                </span>
             </div>
 
-            <div class="col-sm-2">
-                @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+
+            <div class="  forLabel admin-form-control   border-0 px-2  ">
+                @*@Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })*@
+                @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "admin-form-control w-100 h-100  ", @id = "ddlSpeciality" })
+                <span>Speciality</span>
             </div>
-            @*<div class="col-sm-2">
-                    @Html.Label("Type", htmlAttributes: new { @class = "control-label" })
-                    <select id="ddlType" class="form-control">
-                        <option value="11601">Daily</option>
-                        <option value="11603">Monthly</option>
-                    </select>
-                </div>*@
+            <div class="  forLabel admin-form-control   border-0 px-2  ">
 
+                @*@Html.Label("Diagnoise", new { @class = "control-label" })*@
+                <select id="ddlDiagnoises" class="admin-form-control border-2 ps-3" style="width:100%" multiple></select>
+                <span>Diagnoise</span>
+            </div>
+            <div class="forLabel  admin-form-control  border-0 px-2">
+                @*@Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })*@
+                @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   rounded-3", @ReadOnly = "true" } })
+                <span>Limit</span>
+            </div>
+            <div class="forLabel  admin-form-control  border-0 px-2">
+                @*@Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })*@
+                @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   rounded-3", @ReadOnly = "true" } })
+                <span>Company Percent</span>
+            </div>
 
         </div>
-        <br />
-        @*//History*@
-        <div class="panel panel-info">
-            <h2 class="panel-heading" style="margin:1px;">History</h2>
-        </div>
+    </div>
 
-        <div class="table-responsive col-md-10" style="HEIGHT: 250px;position:relative">
+
+    @*//History*@
+
+    <div class="row bg-overlay my-4 editeRquest fw-bold ">
+        <div class="m-3 fs-3 text-white panel panel-info">
+            <h2 class="panel-heading">History</h2>
+        </div>
+    </div>
+
+
+    <div class="sios-bg border-bottom-0 px-3 container-fluid">
+        <div class=" table-responsive " style="HEIGHT: 250px;position:relative">
+
             <table class="table" id="History">
                 <thead>
                     <tr>
@@ -113,114 +132,134 @@
 
             </table>
         </div>
-        <br />
-        <div class="col-md-2">
-            <label class="control-label" for="From">From</label>
-            <input id="From" type="text" class="form-control" placeholder="From" disabled />
-            <label class="control-label" for="To">To</label>
-            <input id="To" type="text" class="form-control" placeholder="To" disabled />
-        </div>
-        <div class="row">
-            <div class="col-md-2">
+    </div>
 
+
+
+
+    <div class=" row row-cols-sm-2 row row-cols-sm-2 row-gap-3 d-flex flex-wrap flex-md-nowrap justify-content-center m-3 mt-4 mt-4">
+        <div class="  forLabel  admin-form-control border-0 px-2     ">
+
+            <input type="text" class="admin-form-control h-100 w-100" disabled />
+            <span class="control-label" for="From">From</span>
+        </div>
+        <div class="  forLabel  admin-form-control border-0 px-2     ">
+
+            <input type="text" class="admin-form-control h-100 w-100" disabled />
+            <span class="control-label" for="To">To</span>
+        </div>
+    </div>
+
+    <div class="row row-cols-sm-2 d-flex flex-wrap row-gap-3 flex-md-nowrap justify-content-center m-3 mt-4">
+
+
+        <div class="  forLabel   admin-form-control border-0 px-2     ">
+            <input id="PharmacyTxt" type="text" class="admin-form-control h-100 w-100" />
+            <span>Pharmacy</span>
+        </div>    <div class="  forLabel admin-form-control border-0 px-2     ">
+            <input id="BranchTxt" type="text" style="padding-right: 2rem !important; border: 2px solid var(--color-secondary) ;"
+                   class="admin-form-control h-100 w-100" />
+            <span>Branch</span>
+
+        </div>
+
+    </div>
+
+
+    <div class="sios-overlay container-fluid mt-4 panel panel-info">
+        <div class="container fs-3 text-white">
+            <h2 class="panel-heading">Medicines</h2>
+        </div>
+
+    </div>
+    <!--Dynamic table-->
+    <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;">
+        <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
+    </div>
+    <div class="row">
+        <div class="admin-form-control border-0 col-sm-12 position-relative">
+            <select id="AddMedicine" multiple="multiple" style="width:100%">
+                <option value="0">select medicine</option>
+            </select>
+            <span style="left:20px;" class="sios-color fw-medium fs-5  position-absolute top-50 translate-middle-y">select medicine</span>
+        </div>
+    </div>
+
+    <div class="sios-bg border-bottom-0 my-3 px-3 container-fluid">
+        <div class="table-responsive">
+            <table class="table" id="Pharmacy">
+                <thead>
+                    <tr>
+                        <th scope="col">Medicien Code</th>
+                        <th scope="col" align="center">name</th>
+                        <th scope="col">Dosage</th>
+                        <th scope="col">Package Size</th>
+                        <th scope="col">Package Price</th>
+                        <th scope="col">Unit Number</th>
+                        <th scope="col">Unit Price</th>
+                        <th scope="col">Dose</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Total Duration</th>
+                        <th scope="col">Total Units</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Group</th>
+                        <th scope="col">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <!--Caculation-->
+    </div>
+    <div class="row container mx-auto row">
+        <div class=" row row-cols-sm-2 row-cols-lg-3 row-gap-2 mb-4 form-group">
+            <div class="forLabel admin-form-control border-0 px-2">
+
+                <input id="txtTotalInvoice" type="text" class="admin-form-control w-100 h-100   rounded-3" ReadOnly="readonly" />
+                <span class="control-label">Total</span>
             </div>
-            <div class="col-md-3">
-                <input id="PharmacyTxt" type="text" class="form-control col-md-2" placeholder="Pharmacy" />
+            <div class="forLabel admin-form-control border-0 px-2">
+
+                <input id="txtTotalCopayment" type="text" class="admin-form-control w-100 h-100   rounded-3" ReadOnly="readonly" />
+                <span class="control-label">Person Payments</span>
             </div>
-            <div class="col-md-3">
-                <input id="BranchTxt" type="text" class="form-control col-md-2" placeholder="Branch" />
+            <div class="forLabel admin-form-control border-0 px-2">
+
+                <input id="txtValueCredit" type="text" class="admin-form-control w-100 h-100   rounded-3" ReadOnly="readonly" />
+                <span class="control-label">Value Credit</span>
             </div>
-        </div>
-        <br />
-        <br />
-        <div class="panel panel-info">
-            <h2 class="panel-heading" style="margin:1px;">Medicines</h2>
-        </div>
-        <!--Dynamic table-->
-        <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;">
-            <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <select id="AddMedicine" multiple="multiple" style="width:100%">
-                    <option value="0">select medicine</option>
-                </select>
+            <div class="forLabel admin-form-control border-0 px-2">
+
+                <input id="txtOverInsurance" type="text" class="admin-form-control w-100 h-100   rounded-3" ReadOnly="readonly" />
+                <span class="control-label">Over Insurance</span>
             </div>
-        </div>
-        <div class="container-fluid">
-            <div class="master">
-                <div class="table-responsive">
-                    <table class="table" id="Pharmacy">
-                        <thead>
-                            <tr>
-                                <th scope="col">Medicien Code</th>
-                                <th scope="col" align="center">name</th>
-                                <th scope="col">Dosage</th>
-                                <th scope="col">Package Size</th>
-                                <th scope="col">Package Price</th>
-                                <th scope="col">Unit Number</th>
-                                <th scope="col">Unit Price</th>
-                                <th scope="col">Dose</th>
-                                <th scope="col">Duration</th>
-                                <th scope="col">Total Duration</th>
-                                <th scope="col">Total Units</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Group</th>
-                                <th scope="col">&nbsp;</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
+            <div class="forLabel admin-form-control border-0 px-2">
 
-                    </table>
-                </div>
-                <!--Caculation-->
-
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Total</label>
-                            <input id="txtTotalInvoice" type="text" class="form-control" ReadOnly="readonly" />
-                        </div>
-                        <div class="col-sm-2">
-                            <label class="control-label">Person Payments</label>
-                            <input id="txtTotalCopayment" type="text" class="form-control" ReadOnly="readonly" />
-                        </div>
-                        <div class="col-sm-2">
-                            <label class="control-label">Value Credit</label>
-                            <input id="txtValueCredit" type="text" class="form-control" ReadOnly="readonly" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <label class="control-label">Over Insurance</label>
-                            <input id="txtOverInsurance" type="text" class="form-control" ReadOnly="readonly" />
-                        </div>
-                        <div class="col-sm-2">
-                            <label class="control-label">Cash</label>
-                            <input id="txtCash" type="text" class="form-control" ReadOnly="readonly" />
-                        </div>
-                        <div class="col-sm-2">
-                            <label class="control-label">Total cash</label>
-                            <input id="txtValueCash" type="text" class="form-control" ReadOnly="readonly" />
-                        </div>
-
-                    </div>
-
-                </div>
+                <input id="txtCash" type="text" class="admin-form-control w-100 h-100   rounded-3" ReadOnly="readonly" />
+                <span class="control-label">Cash</span>
             </div>
-        </div>
-        <!--Save-->
-        <div style="padding:10px 0; text-align:right">
-            <input id="reset" type="button" value="Reset" onclick="ClearCardData();ClearMedicineData();" class="btn btn-warning" />
-            <input id="submit" type="button" value="Save" class="btn btn-success" />
-        </div>
+            <div class="forLabel admin-form-control border-0 px-2">
+
+                <input id="txtValueCash" type="text" class="admin-form-control w-100 h-100   rounded-3" ReadOnly="readonly" />
+                <span class="control-label">Total cash</span>
+            </div>
+            <div class="d-flex justify-content-center gap-2 mx-auto" style="padding:10px 0; text-align:right">
+                <input id="reset" type="button" value="Reset" onclick="ClearCardData();ClearMedicineData();" class="btn fw-bold text-white rounded-3  btn-warning" />
+                <input id="submit" type="button" value="Save" class="btn fw-bold text-white rounded-3  btn-success" />
+            </div>
+
+
+
+
+        </div><!--Caculation-->
+
+
     </div>
 </div>
 @*//////////////////////////////////////////////////////  Sccripts /////////////////////// *@
 
 
 <script src="~/Scripts/DMS/DoctorApproval.js?V=2.5"></script>
+
+
 

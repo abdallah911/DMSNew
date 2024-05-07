@@ -1,10 +1,9 @@
 ﻿@{
     ViewBag.Title = "ReportMed2";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 
 }
-<br />
-<br />
+
 
 <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
@@ -17,17 +16,17 @@
 <div class="panel panel-info">
 
     <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
-        <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
+        <img src='/Content/images/demo_wait.gif' width="64" height="64" />Loading...
     </div>
 
-    <div class="portlet box blue">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i> Medicine Audit
+    <div class="sios-container portlet box blue">
+        <div class="row bg-overlay my-4 portlet-title">
+            <div class="m-3 fs-3 text-white caption">
+                <i class="fa fa-gift me-3"></i> Medicine Audit
             </div>
         </div>
         <div class="portlet-body">
-            <div class="row ">
+            <div class="row px-md-5 px-3 ">
                 <div class="col-md-12">
                     <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
 
@@ -40,42 +39,44 @@
                                         @*Date of Registration*@
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
+                                                <label class="sios-color control-label sbold col-md-3">
                                                     Record Date:
                                                     @*<span class="required"> * </span>*@
                                                 </label>
-                                                <div class="col-md-6">
-                                                    <label class="control-label sbold col-md-3">
-                                                        From
+                                                <div class="row row-cols-2">
+                                                    <div class=" ">
+                                                        <label class="sios-color control-label sbold col-md-3">
+                                                            From
 
-                                                    </label>
-                                                    <div class="col-md-9">
-                                                        <input id="RegistrationReviewFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                        </label>
+                                                        <div class=" ">
+                                                            <input id="RegistrationReviewFrom" type="text" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded border-0  " placeholder="From" />
+                                                        </div>
+                                                    </div>     <div class=" ">
+                                                        <label class="sios-color control-label sbold col-md-2">
+                                                            TO
+
+                                                        </label>
+                                                        <div class=" ">
+                                                            <input id="RegistrationReviewTo" type="text" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded border-0  " placeholder="To" />
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <br />
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <label class="control-label sbold col-md-2">
-                                                TO
-
-                                            </label>
-                                            <div class="col-md-10">
-                                                <input id="RegistrationReviewTo" type="text" class="col-md-2 form-control " placeholder="To" />
-                                            </div>
-                                        </div>
+                                   
 
                                         @* Company Number *@
 
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
+                                                <label class="sios-color control-label sbold col-md-3">
                                                     Provider Number:
 
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <select id="ProviderNo" name="ProviderNumber" class="col-md-2 form-control js-data-example-ajax" style="width: 100%"></select>
+                                                    <select id="ProviderNo" name="ProviderNumber" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded border-0  js-data-example-ajax" style="width: 100%"></select>
                                                 </div>
                                                 <br />
                                             </div>
@@ -83,12 +84,12 @@
                                         <br />
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
+                                                <label class="sios-color control-label sbold col-md-3">
                                                     Batch Number:
 
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <input id="BatchNo" class="col-md-2 form-control" placeholder="Enter Batch Number" style="width: 100%"/>                                                       
+                                                    <input id="BatchNo" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded   " placeholder="Enter Batch Number" style="width: 100%"/>                                                       
                                                 </div>
                                                 <br />
                                             </div>
@@ -99,12 +100,12 @@
 
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
+                                                <label class="sios-color control-label sbold col-md-3">
                                                     Repot Type :
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <select id="RepotTypeReview" class="form-control">                                                       
+                                                    <select id="RepotTypeReview" class=" hr-form-control h-100 w-100 rounded fw-bold p-3 pb-1 border-0 ">                                                       
                                                         <option value="1">Review Summary</option>
                                                         <option value="2">Review Details</option>                                                                
                                                     </select>
@@ -118,8 +119,8 @@
                                         @*Print Type*@
 
                                         <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
+                                            <div class="d-flex form-group">
+                                                <label class="sios-color control-label fs-4 sios-color sbold col-md-3">
                                                     Print Type :
                                                 </label>
                                                 <div class="col-md-2">
@@ -131,8 +132,8 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-2">
-                                                    <div class="checkbox-inline">
+                                                <div class="  col-md-2">
+                                                    <div class=" checkbox-inline">
                                                         <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
                                                         <label for="excel">
                                                             EXCEL
@@ -146,17 +147,17 @@
 
                                         @* For Buttons *@
 
-                                        <div class="col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
+                                        <div class="d-flex gap-2 col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
 
-                                            <div class="col-sm-4" id="div_of_serv">
-                                                <button id="Consumption" type="button" class="btn btn-warning" onclick="ClearAllReview()">
+                                            <div class=" " id="div_of_serv">
+                                                <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3 btn-warning" onclick="ClearAllReview()">
                                                     <span class="fa fa-save"></span> New
                                                 </button>
 
                                             </div>
 
-                                            <div class="col-sm-4" id="div_of_serv">
-                                                <button id="Consumption" type="button" class="btn btn-primary" onclick="PrintReviewBatch()">
+                                            <div class=" " id="div_of_serv">
+                                                <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3 btn-primary" onclick="PrintReviewBatch()">
                                                     <span class="fa fa-save"></span> Print
                                                 </button>
 

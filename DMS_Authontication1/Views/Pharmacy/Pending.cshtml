@@ -1,9 +1,11 @@
 ﻿@model DMS_Authontication1.Models.Notification
 @{
     ViewBag.Title = "Pending";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
+
 }
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-<div class="container">
+<div class="sios-container container">
     <div class="panel panel-info">
         <div hidden>
             <input id="IsFamily" name="IsFamily" value="" />
@@ -16,73 +18,77 @@
             <input type="text" id="RoshitaId" name="RoshitaId" hidden value="@Model.RoshitaId" />
             <input type="text" id="ServiceType" name="ServiceType" hidden value="@Model.Roshita.RoshetaType" />
             @*<div class="input-group col-md-3">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                    <input id="txtSearchApproval" class="form-control" placeholder="Click To Search">
-                </div>*@
-            <table class="table" id="Index">
-                <thead>
-                    <tr>
-                        <th scope="col" hidden>Medicine Id</th>
-                        <th scope="col" align="center">Name</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Medical Reply</th>
-                        <th scope="col">Dispense</th>
-                        <th scope="col">Note</th>
-                        <th></th>
-                    </tr>
+            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            <input id="txtSearchApproval" class="form-control" placeholder="Click To Search">
+        </div>*@
+            <div class="sios-bg container-fluid ">
+                <div class="table-responsive mx-lg-5">
+                    <table class="table table-striped mt-3 text-center table" id="Index">
+                        <thead>
+                            <tr>
+                                <th scope="col" hidden>Medicine Id</th>
+                                <th scope="col" align="center">Name</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Medical Reply</th>
+                                <th scope="col">Dispense</th>
+                                <th scope="col">Note</th>
+                                <th></th>
+                            </tr>
 
-                </thead>
-                <tbody>
-                    @for (int i = 0; i < Model.Roshita.RoshitaDetails.Count; i++)
-                    {
-                        <tr>
-                            <td hidden>
-                                @Model.Roshita.RoshitaDetails.ElementAt(i).Id
-                            </td>
-                            <td>
-                                @Model.Roshita.RoshitaDetails.ElementAt(i).MedicienName
-                            </td>
-                            @*<td>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Roshita.RoshitaDetails.Count; i++)
+                            {
+                                <tr>
+                                    <td hidden>
+                                        @Model.Roshita.RoshitaDetails.ElementAt(i).Id
+                                    </td>
+                                    <td>
+                                        @Model.Roshita.RoshitaDetails.ElementAt(i).MedicienName
+                                    </td>
+                                    @*<td>
                                     @Model.Roshita.RoshitaDetails.ElementAt(i).Amount
                                 </td>*@
-                            <td>
-                                @Html.EditorFor(model => model.Roshita.RoshitaDetails.ElementAt(i).Amount, new { htmlAttributes = new { @class = "form-control Amount ", @readonly = "readonly" } })
-                            </td>
-                            <td>
-                                @Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup
-                            </td>
-                            <td>
-                                @Model.Roshita.RoshitaDetails.ElementAt(i).IsDealed
-                            </td>
-                            <td>
-                                @Model.NotePharmacy
-                            </td>
-                            @if ((Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Accepted" || Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Rejected")
-                                 && Model.Roshita.RoshitaDetails.ElementAt(i).IsDealed == false)
-                            {
-                                <td>
-                                    <select id='ChangeStatus' class='form-control ChangeStatus' onchange='SelectDealed(this);'>
-                                        <option value='N'> Change IsDealed</option>
-                                        <option value='true'>Yes</option>
-                                        <option value='false'>No</option>
-                                    </select>
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    <select disabled id='ChangeStatus' class='form-control ChangeStatus' onchange='SelectDealed(this);'>
-                                        <option value='N'> Change IsDealed</option>
-                                        <option value='true'>Yes</option>
-                                        <option value='false'>No</option>
-                                    </select>
-                                </td>
-                            }
+                                    <td>
+                                        @Html.EditorFor(model => model.Roshita.RoshitaDetails.ElementAt(i).Amount, new { htmlAttributes = new { @class = "form-control Amount ", @readonly = "readonly" } })
+                                    </td>
+                                    <td>
+                                        @Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup
+                                    </td>
+                                    <td>
+                                        @Model.Roshita.RoshitaDetails.ElementAt(i).IsDealed
+                                    </td>
+                                    <td>
+                                        @Model.NotePharmacy
+                                    </td>
+                                    @if ((Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Accepted" || Model.Roshita.RoshitaDetails.ElementAt(i).PaymentGroup == "Rejected")
+                                         && Model.Roshita.RoshitaDetails.ElementAt(i).IsDealed == false)
+                                    {
+                                        <td>
+                                            <select id='ChangeStatus' class='form-control ChangeStatus' onchange='SelectDealed(this);'>
+                                                <option value='N'> Change IsDealed</option>
+                                                <option value='true'>Yes</option>
+                                                <option value='false'>No</option>
+                                            </select>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <select disabled id='ChangeStatus' class='form-control ChangeStatus' onchange='SelectDealed(this);'>
+                                                <option value='N'> Change IsDealed</option>
+                                                <option value='true'>Yes</option>
+                                                <option value='false'>No</option>
+                                            </select>
+                                        </td>
+                                    }
 
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
             <!--Caculation-->
             <div class="row">

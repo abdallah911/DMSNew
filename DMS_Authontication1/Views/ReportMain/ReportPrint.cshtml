@@ -1,10 +1,9 @@
 ﻿@{
     ViewBag.Title = "ReportPrint";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 
 }
-<br />
-<br />
+ 
 
 <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
@@ -14,19 +13,19 @@
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 
-<div class="panel panel-info">
+<div class="sios-container panel panel-info">
 
     <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
         <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
     </div>
 
     <div class="portlet box blue">
-        <div class="portlet-title">
-            <div class="caption">
+        <div class="row bg-overlay  editeRquest fw-bold  my-4 portlet-title">
+            <div class="m-3 fs-3 text-white caption">
                 <i class="fa fa-gift"></i> Print Card
             </div>
         </div>
-        <div class="portlet-body">
+        <div class="container portlet-body">
             <div class="row ">
                 <div class="col-md-12">
                     <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
@@ -36,43 +35,26 @@
                                 <div class="tab-content">
                                     <div asp-validation-summary="All" class="text-danger"></div>
 
-                                    <div class="row">
+                                    <div class="row container">
 
-                                        @* Company Number *@
-
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Company Number :
-
-                                                </label>
-                                                <div class="col-md-6">
-                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CompNoPrint" })
-
-                                                </div>
-                                                <br />
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Contract Number :
-
-                                                </label>
-                                                <div class="col-md-6" >
-                                                    <select id="ContractNo" class="form-control" style="width: 100%">
-                                                        <option value="">Select Contract</option>
-                                                    </select>
-
-                                                </div>
-                                                <br />
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
+                                    @* Company Number *@ 
+                                    <div class="forLabel admin-form-control border-0 px-2 mb-2 form-group">
+                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "admin-form-control w-100 h-100 form-control", id = "CompNoPrint" })
+                                        <span class="sios-color control-label sbold col-md-3">
+                                            Company Number 
+                                        </span>
+                                    </div>
+                                    <div class="forLabel admin-form-control border-0 px-2 form-group">
+                                       <select id="ContractNo" class=" admin-form-control w-100 h-100  form-control" style="width: 100%">
+                                           <option value="">Select Contract</option>
+                                       </select>  
+                                        <span class=" control-label ">
+                                           Contract Number 
+                                       </span>
+                                    </div>
+                                        <div class=" editeRquest    ">
+                                            <div class="m-3 d-flex  fs-3 text-white  form-group">
+                                                <label class="sios-color control-label sios-color fw-bold sbold col-md-3">
                                                     Type Print :
                                                 </label>
 
@@ -81,28 +63,36 @@
         <label>@Html.RadioButton("SmallRadio", "False")Small</label>
         <label>@Html.RadioButton("MiniRadio", "False")Mini</label>*@
 
-                                            <label class="control-label col-md-2"><input data-val="true" id="Large" name="TypePrint" type="radio" value="Large">Large</label>
-                                            <label class="control-label col-md-2"><input data-val="true" id="Medium" name="TypePrint" type="radio" value="Medium">Medium</label>
-                                            <label class="control-label col-md-2"><input data-val="true" id="Small" name="TypePrint" type="radio" value="Small">Small</label>
-                                            <label class="control-label col-md-2"><input data-val="true" id="Mini" name="TypePrint" type="radio" value="Mini">Mini</label>
+                                        <div class="d-flex align-items-center gap-2 me-3">
+                                            <label class=" control-label text-dark-emphasis "><input class="me-2" data-val="true" id="Large" name="TypePrint" type="radio" value="Large">Large</label>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2 me-3">
+                                            <label class=" control-label text-dark-emphasis "><input class="me-2" data-val="true" id="Medium" name="TypePrint" type="radio" value="Medium">Medium</label>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2 me-3">
+                                            <label class=" control-label text-dark-emphasis "><input class="me-2" data-val="true" id="Small" name="TypePrint" type="radio" value="Small">Small</label>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2 ">
+                                            <label class=" control-label text-dark-emphasis "><input class="me-2" data-val="true" id="Mini" name="TypePrint" type="radio" value="Mini">Mini</label>
+                                        </div>
 
-                                                <br />
+                                                
                                             </div>
                                         </div>
 
                                         @* For Buttons *@
 
-                                        <div class="col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
+                                        <div class="d-flex gap-2 " style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
 
-                                            <div class="col-sm-4" id="div_of_serv">
-                                                <button id="Consumption" type="button" class="btn btn-warning" onclick="ClearAllPrint()">
+                                            <div class=" " id="div_of_serv">
+                                                <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3 btn-warning" onclick="ClearAllPrint()">
                                                     <span class="fa fa-save"></span> New
                                                 </button>
 
                                             </div>
 
-                                            <div class="col-sm-4" id="div_of_serv">
-                                                <button id="Consumption" type="button" class="btn btn-primary" onclick="PrintReportPrint()">
+                                            <div class=" " id="div_of_serv">
+                                                <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3 btn-primary" onclick="PrintReportPrint()">
                                                     <span class="fa fa-save"></span> Print
                                                 </button>
 

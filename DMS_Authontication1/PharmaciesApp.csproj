@@ -8732,6 +8732,9 @@
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Medicines\_MedicineDosageFormList.cshtml" />
+    <Content Include="Views\Medicines\_MedicineLicenseList.cshtml" />
+    <Content Include="Views\Medicines\_MedicineTypeList.cshtml" />
     <Content Include="Views\Home\Clients.cshtml" />
     <Content Include="Views\Home\ContactUs.cshtml" />
     <Content Include="Views\Home\CompanyProfile.cshtml" />

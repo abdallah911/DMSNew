@@ -1,0 +1,117 @@
+﻿
+
+<div class="sidebar-parent col-4 position-fixed z-2">
+    <div style="direction: rtl;" class=" sideBar   col-8">
+        <div class="operation-btns">
+            <a href="./ContractsCompaniesContracts.html">
+                <button class="sidebar-item" id="ContractsCompaniesContracts">
+                    عقود الشركات
+                </button>
+            </a>
+            <a href="./ContractsServiceProvidersContracts.html">
+                <button class="sidebar-item"
+                        id="ContractsServiceProvidersContracts">
+                    عقود مقدمي الخدمة
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- end sidebar -->
+<section>
+    <form action="Contracts_Services_Pharmacies-discount_Details.html">
+        <div class="container-fluid px-lg-5">
+            <div style=" direction: rtl;"
+                 class="row row-cols-sm-2 mt-4 gap-3 mb-5">
+                <div class="col-sm-8 col-md-4  d-flex flex-column gap-3">
+                    <div style="gap:10px ;white-space: nowrap; "
+                         class="inputs-parent d-flex flex-column ">
+                        <div style="color: var(--color-secondary);"
+                             class="inputs-parent d-flex flex-column mt-3  position-relative">
+                            <input type="search"
+                                   class="admin-form-control  pe-3"
+                                   placeholder="بحث بإسم كود الشركة" />
+                            <i class="fa-solid fa-magnifying-glass fa-rotate-270 position-absolute start-0 top-50 translate-middle-y ms-3  "></i>
+                        </div>
+                        <div class="cs-bg d-grid gap-2 rounded">
+                            <div class="d-flex ">
+                                <div class="  forLabel w-75 admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                    <input class=" w-100 h-100  rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                           type="text"
+                                           required="required" />
+                                    <span class=" ms-auto mb-0 fw-bold" for="name">رقم العقد</span>
+                                </div>
+                                <div class="w-25 d-flex justify-content-center align-items-center text-center">
+                                    <i style="cursor: pointer;"
+                                       class="fa-solid fa-images fa-2xl h-100 text-white d-flex justify-content-center align-items-center bg-color-sec rounded-3 p-2 position-relative shadow-sm">
+                                        <span style="width: 20px;height: 20px;right: -5px;top: 3px;font-size: 12px;"
+                                              class=" d-flex justify-content-center align-items-center shadow-sm p-1 bg-color-sec position-absolute fw-medium text-white rounded-circle translate-middle-y ">22</span>
+                                    </i>
+                                </div>
+                            </div>
+                            <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100  rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" ms-auto mb-0 fw-bold" for="name">نوع العقد</span>
+                            </div>
+                            <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100  rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" ms-auto mb-0 fw-bold" for="name">نوع نسخة العقد</span>
+                            </div>
+                        </div>
+                        <div style="white-space: nowrap;"
+                             class="w-100    cs-bg rounded-top-1  inputs-parent  mt-3 position-relative">
+                            <div style="height: 100px;">
+                                <input class="w-100 h-100 rounded shadow-sm border-0"
+                                       type="text"
+                                       name=""
+                                       id="" />
+                            </div>
+                        </div>
+                        <div class="position-relative">
+                            <input class="w-100 rounded-pill admin-form-control pe-3 color-sec"
+                                   type="text" />
+                            <button type="button"
+                                    style="background: var(--color-gradient);"
+                                    class=" p-2 fw-medium text-white border-0 rounded-pill  d-flex align-items-center justify-content-center h-100 bg-color-sec position-absolute start-0 top-50 translate-middle-y">
+                                <p class="mb-0  ">بحث جديد</p>
+                                <i class="fa-solid fa-magnifying-glass me-1 "></i>
+                            </button>
+                        </div>
+                        <div style="white-space: nowrap;width: fit-content;height:fit-content ;"
+                             class=" col-sm-8 col-md-5  reprint-btns d-flex flex-wrap justify-content-center mx-auto mt-3 gap-3 ">
+                            <div style="width: fit-content;"
+                                 class="d-flex btn fw-bold d-flex align-items-center text-white py-2 px-4">
+                                <input style="cursor: pointer;"
+                                       type="file"
+                                       class="w-100 h-100"
+                                       id="imageInput"
+                                       placeholder="  إرفاق صور" />
+
+                                <i class="fa-solid fa-file-lines me-2 "></i>
+                            </div>
+                            <button type="submit"
+                                    class="btn fw-bold d-flex align-items-center text-white py-2 px-4">
+                                حفظ العقد
+                                <i class="fa-solid fa-download me-2"></i>
+                            </button>
+                            <button type="submit"
+                                    class="btn fw-bold d-flex align-items-center text-white py-2 px-4">
+                                صورة واضحة
+                                <i class="fa-solid fa-images me-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cs-bg rounded row col-sm-8 col-md-5 col-lg-6 justify-content-center px-0 ">
+                    <div style="height: fit-content;"
+                         class=" row row-cols-lg-4 row-cols-sm-2 row-gap-3"
+                         id="imageContainer"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

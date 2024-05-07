@@ -11,16 +11,16 @@
     </div>
 </div>
 
-<section class="print-claim-section mt-5">
+<section class="print-claim-section ">
     @using (Html.BeginForm("MedicineDosageForm", "Medicines", FormMethod.Post))
     {
         <div class="container">
             <div class="row mt-3">
                 <div class="row row-cols-sm-3 m-auto m-sm-0">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 w-100">
+                    <div class="forLabel d-flex gap-2  justify-content-start flex-column flex-md-row gap-md-5 w-100">
                         <div class="row col-12 col-md-2 my-auto">
-                            @Html.LabelFor(model => model.DosageFormName, htmlAttributes: new { @class = "fw-bold" })
+                            @Html.LabelFor(model => model.DosageFormName, htmlAttributes: new { @class = "sios-color fw-bold" })
                         </div>
                         <div class="row col-12 col-md-6">
                             @Html.EditorFor(model => model.DosageFormName, new { htmlAttributes = new { @class = "chronic-form-control" } })
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="print-claims-btns d-flex mt-5 justify-content-end">
+            <div class="print-claims-btns d-flex justify-content-end">
                 <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3"
                        />
             </div>
@@ -38,13 +38,13 @@
 </section>
 <div style="display: flex; flex-direction: column">
     <section >
-        <div class="sios-overlay container-fluid mt-4">
+        <div class="sios-overlay container-fluid  ">
             <div class="container">
                 <i class="fa-solid fa-house"></i>
                 <h3 class="">Dosage Form List</h3>
             </div>
         </div>
-        <div class="sios-bg claims-section container-fluid">
+        <div class="sios-bg claims-section mb-4 container-fluid">
             <div class="table-responsive">
                 <table id="example" class="table table-striped mt-3 text-center">
                     <thead>

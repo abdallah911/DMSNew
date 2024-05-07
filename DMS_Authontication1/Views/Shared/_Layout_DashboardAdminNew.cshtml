@@ -42,7 +42,7 @@
     </script>
 
 </head>
-<body>
+<body style="min-height:100vh;">
 
     @{
         var modellist = new List<ModulesPagesViewModel>();
@@ -354,6 +354,22 @@
                                         </li>
                                     </ul>
                                 }
+
+
+                                <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                                    <li class="nav-item dropdown" style="list-style-type: none">
+                                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mb-2 fa-solid fa-hand-holding"></i>
+                                            Customer&nbsp;Service
+                                            <i class="fas fa-chevron-down"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="dropdown-item" href="CS.html">Customer&nbsp;Service</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
                                 <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
                                     <li class="nav-item dropdown" style="list-style-type: none">
                                         <a class="nav-link"
@@ -394,16 +410,63 @@
                                 </ul>
 
                                 @*<ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
-                                        <li class="nav-item dropdown" style="list-style-type: none">
-                                            <a class="nav-link"
-                                                href="/ReportMain/Reports"
-                                               role="button"
-                                               aria-expanded="false">
-                                                <i class="fa-solid fa-file-waveform"></i>
-                                                Reports
-                                            </a>
-                                        </li>
-                                    </ul>*@
+                <li class="nav-item dropdown" style="list-style-type: none">
+                    <a class="nav-link"
+                        href="/ReportMain/Reports"
+                       role="button"
+                       aria-expanded="false">
+                        <i class="fa-solid fa-file-waveform"></i>
+                        Reports
+                    </a>
+                </li>
+            </ul>*@
+
+
+                                <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                                    <li class="nav-item dropdown" style="list-style-type: none">
+                                        <a class="nav-link"
+                                           href="#"
+                                           role="button"
+                                           data-bs-toggle="dropdown"
+                                           aria-expanded="false">
+                                            <i class="fa-solid fa-globe"></i>
+                                            Network
+                                            <i class="fas fa-chevron-down"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="dropdown-item"
+                                                   href="./NetworkHRRequestsInquiry.html">
+                                                    HR Requests Inquiry
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                   href="./NetworkServiceProviderData.html">Service Provider Data</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                   href="./NetworkAddServiceProvider.html">Add Service Provider</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                   href="./NetworkAddHRServiceProvider.html">Add HR Service Provider</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                   href="./NetworkPharmaciesDiscountDetails.html">Pharmacies Discount Details</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                   href="./NetworkPharmaciesDiscountSummary.html">Pharmacies Discount Summary</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                   href="./NetworkPricesEditingCPT.html">Prices Editing CPT</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
 
 
                                 if (modellist.Where(x => (x.ModuleName == "Pharmacies Management" || x.ModuleName == "Labratories Management" || x.ModuleName == "Rays Centers Management") && (x.PageId == 6 || x.PageId == 9 || x.PageId == 11)
@@ -459,6 +522,9 @@
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a class="dropdown-item" href="./Medical-Approval.html">Medical Approval</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="./Contracts.html">Contracts</a>
                                             </li>
                                             <li>
                                                 @Html.ActionLink("Offer", "Index", "ProposalMain", null, new { @class = "dropdown-item" })

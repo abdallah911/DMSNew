@@ -2,190 +2,231 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
-
-<h2>Details Indemnity</h2>
-
+<div class="row bg-overlay  editeRquest my-4 fw-bold ">
+    <div class="m-3 fs-3 text-white">
+        <h2>Details Indemnity</h2>
+    </div>
+</div>
 <div>
-    <hr />
-    <dl class="dl-horizontal">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
+    <dl class=" dl-horizontal">
+        <div class="sios-bg px-4 mb-0">
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayNameFor(model => model.Id)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt>
-            @Html.DisplayName("Card Id")
-        </dt>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
+            </dr>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayName("Card Id")
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CardId)
-        </dd>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.CardId)
+                </dd>
+            </dr>
 
-        <dt>
-            @Html.DisplayName("Name")
-        </dt>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayName("Name")
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.EmployeePersonalData.FullName)
-        </dd>
-        <dt>
-            @Html.DisplayName("National Id")
-        </dt>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.EmployeePersonalData.FullName)
+                </dd>
+            </dr>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayName("National Id")
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.EmployeePersonalData.NationalId)
-        </dd>
-
-
-
-        <dt>
-            @Html.DisplayName("Governorate ")
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Country.ArName)
-        </dd>
-        <dt>
-            @Html.DisplayName("Region ")
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Region.ArName)
-        </dd>
-        <dt>
-            @Html.DisplayName("NeighborHood ")
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NeighborHood)
-        </dd>
-        <dt>
-            @Html.DisplayName("Street Name")
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.StreetName)
-        </dd>
-        <dt>
-            @Html.DisplayName("Bulding No")
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BuldingNo)
-        </dd>
-        <dt>
-            @Html.DisplayName("Flat No ")
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FlatNo)
-        </dd>
-        <dt>
-            @Html.DisplayName("Phone1 ")
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Phone1)
-        </dd>
-        <dt>
-            @Html.DisplayName("Phone2 ")
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Phone2)
-        </dd>
-        <dt>
-            @Html.DisplayName("Provider ")
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Serv_Providers1.PR_ANAME)
-        </dd>
-        <dt>
-            @Html.DisplayName("Branch  ")
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.SERV_PROVIDERS_NEW.PR_ANAME)
-        </dd>
-        <dt>
-            @Html.DisplayName("Time To Deliverd ")
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Time)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt>
-            @Html.DisplayName("Action")
-        </dt>
-
-        <dd>
-            @Html.ActionLink("Confirm", "ConfirmOrder", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-info fa fa-edit", @style = " text-transform: none" })
-        </dd>
-        <dd>
-            <table id="Index" class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            Medicine Code
-                        </th>
-                        <th>
-                            Medicine Name
-                        </th>
-                        <th>
-                            Dosage Form
-                        </th>
-                        <th>
-                            Amount
-                        </th>
-                </thead>
-
-                @foreach (var item in Model.DeliveryRequestDetails)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MedicineCode)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MedicineName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DosageForm)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Amount)
-                        </td>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.EmployeePersonalData.NationalId)
+                </dd>
+            </dr>
 
 
 
-                    </tr>
-                }
-            </table>
-        </dd>
-        @*<dt>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayName("Governorate ")
+                </dt>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.Country.ArName)
+                </dd>
+            </dr>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayName("Region ")
+                </dt>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.Region.ArName)
+                </dd>
+            </dr>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayName("NeighborHood ")
+                </dt>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.NeighborHood)
+                </dd>
+            </dr>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayName("Street Name")
+                </dt>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.StreetName)
+                </dd>
+            </dr>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayName("Bulding No")
+                </dt>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.BuldingNo)
+                </dd>
+            </dr>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayName("Flat No ")
+                </dt>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.FlatNo)
+                </dd>
+            </dr>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayName("Phone1 ")
+                </dt>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.Phone1)
+                </dd>
+            </dr>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayName("Phone2 ")
+                </dt>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.Phone2)
+                </dd>
+            </dr>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayName("Provider ")
+                </dt>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.Serv_Providers1.PR_ANAME)
+                </dd>
+            </dr>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayName("Branch  ")
+                </dt>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.SERV_PROVIDERS_NEW.PR_ANAME)
+                </dd>
+            </dr>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayName("Time To Deliverd ")
+                </dt>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.Time)
+                </dd>
+            </dr>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.CreatedDate)
+                </dd>
+            </dr>
+
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.CreatedBy)
+                </dd>
+            </dr>
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dh col ">
+                    @Html.DisplayName("Action")
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.ActionLink("Confirm", "ConfirmOrder", new { id = Model.Id }, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3 btn-info fa fa-edit", @style = " text-transform: none" })
+                </dd>
+            </dr>
+        </div>
+        <dr class="sios-table-dr px-0  row">
+            <dd class="sios-bg sios-table-dd col">
+                <table id="Index" class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Medicine Code
+                            </th>
+                            <th>
+                                Medicine Name
+                            </th>
+                            <th>
+                                Dosage Form
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                    </thead>
+
+                    @foreach (var item in Model.DeliveryRequestDetails)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MedicineCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MedicineName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DosageForm)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+
+
+
+                        </tr>
+                    }
+                </table>
+            </dd>
+        </dr>
+        @*<dr class="sios-table-dr  row"> <dt class="sios-table-dh col ">
                 @Html.DisplayNameFor(model => model.AttachPDF)
             </dt>
 
-            <dd>
+            <dd class="sios-table-dd col">
 
                 @Html.ActionLink(" Download", "Download", new { id = Model.BatchID }, htmlAttributes: new { @class = "btn btn-info fa fa-download", @style = " text-transform: none" })
-            </dd>*@
+            </dd> </dr>*@
     </dl>
 </div>
 
 
-<br />
+
 <p>
-    @Html.ActionLink(" Back to List", "IndexAdmin", null, htmlAttributes: new { @class = "btn btn-primary fa fa-backward", @style = " text-transform: none" })
+    @Html.ActionLink(" Back to List", "IndexAdmin", null, htmlAttributes: new { @class = "m-4 mt-0 btn fw-bold text-white rounded-3 btn-primary fa fa-backward", @style = " text-transform: none" })
 
 
 </p>

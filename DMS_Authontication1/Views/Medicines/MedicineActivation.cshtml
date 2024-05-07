@@ -1,165 +1,209 @@
 ﻿@model DMS_Authontication1.Models.MedicineData
 
+
 @{
     ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
 
-<div class="panel panel-info">
-    <h2 class="panel-heading" style="margin:1px;">Change Medicine Activation </h2>
+<div class="sios-container panel panel-info">
+    <div class="sios-overlay container-fluid my-4  ">
+        <div class="m-3 fs-3 text-white">
+            <h2 class="panel-heading">Change Medicine Activation </h2>
+        </div>
+    </div>
     <div class="panel-body">
-        <h3>Are you sure you want to Change Activation?</h3>
+
+        <h3 class="sios-color m-3">Are you sure you want to Change Activation?</h3>
+
         <div>
 
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.COMP_ID)
-                </dt>
+            <dl class="sios-bg dl-horizontal">
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.COMP_ID)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.COMP_ID)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.COMP_ID)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.BRANCH_CODE)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.BRANCH_CODE)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.BRANCH_CODE)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.BRANCH_CODE)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.LIC_TYPE)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.LIC_TYPE)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.LIC_TYPE)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.LIC_TYPE)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.MED_GROUP)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.MED_GROUP)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.MED_GROUP)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.MED_GROUP)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.TRADE_NAME)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.TRADE_NAME)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.TRADE_NAME)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.TRADE_NAME)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.DOSAGE_FORM)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.DOSAGE_FORM)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.DOSAGE_FORM)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.DOSAGE_FORM)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.PACK_SIZE)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.PACK_SIZE)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.PACK_SIZE)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.PACK_SIZE)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.PACK_PRICE)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.PACK_PRICE)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.PACK_PRICE)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.PACK_PRICE)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.M_TYPE)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.M_TYPE)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.M_TYPE)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.M_TYPE)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.CON_MED)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.CON_MED)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.CON_MED)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.CON_MED)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.UNIT_NO)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.UNIT_NO)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.UNIT_NO)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.UNIT_NO)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.UNIT_PRICE)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.UNIT_PRICE)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.UNIT_PRICE)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.UNIT_PRICE)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.ACTIVE)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.ACTIVE)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.ACTIVE)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.ACTIVE)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.UPDATE_BY)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.UPDATE_BY)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.UPDATE_BY)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.UPDATE_BY)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.UPDATE_DATE)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.UPDATE_DATE)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.UPDATE_DATE)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.UPDATE_DATE)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.CREATED_BY)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.CREATED_BY)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.CREATED_BY)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.CREATED_BY)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.CREATED_DATE)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.CREATED_DATE)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.CREATED_DATE)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.CREATED_DATE)
+                    </dd>
+                </dr>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.GRN_CODE)
-                </dt>
+                <dr class="sios-table-dr  row">
+                    <dt class="sios-table-dh col ">
+                        @Html.DisplayNameFor(model => model.GRN_CODE)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.GRN_CODE)
-                </dd>
+                    <dd class="sios-table-dd col">
+                        @Html.DisplayFor(model => model.GRN_CODE)
+                    </dd>
+                </dr>
 
             </dl>
 
         </div>
     </div>
-    <div class="panel-footer" style="text-align:right;">
+    <div class="text-center mb-4 panel-footer" style="text-align:right;">
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()

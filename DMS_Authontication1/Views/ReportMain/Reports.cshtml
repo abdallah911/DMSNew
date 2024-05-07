@@ -1,10 +1,9 @@
 ﻿@{
     ViewBag.Title = "Reports";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 
 }
-<br />
-<br />
+ 
 
 <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
@@ -14,16 +13,16 @@
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 
-<div class="panel panel-info">
+<div class="sios-container panel panel-info">
 
     <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
         <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
     </div>
 
-    <div class="portlet box blue">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i> Medicine Audit
+    <div class=" portlet box blue">
+        <div class="row bg-overlay editeRquest fw-bold my-4 portlet-title"> 
+            <div class="m-3 fs-3 text-white caption">
+                <i class="fa fa-gift me-3"></i> Medicine Audit
             </div>
         </div>
         <div class="portlet-body">
@@ -31,7 +30,7 @@
                 <div class="col-md-12">
                     <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
 
-                        <div class="form-wizard">
+                        <div class="container form-wizard">
                             <div class="form-body">
                                 <div class="tab-content">
                                     <div asp-validation-summary="All" class="text-danger"></div>
@@ -39,15 +38,15 @@
                                     <div class="row">
 
                                         @*Date of Registration*@
-                                        <div class="row" id="RecordDateScreen" hidden="hidden">
+                                        <div class="row gap-2" id="RecordDateScreen" hidden="hidden">
                                             <div class="col-md-8">
                                                 <div class="form-group">
-                                                    <label class="control-label sbold col-md-3">
+                                                    <label class="  col-md-3">
                                                         Service Date :
                                                         <span class="required"> * </span>
                                                     </label>
                                                     <div class="col-md-6">
-                                                        <label class="control-label sbold col-md-3">
+                                                        <label class="  col-md-3">
                                                             From
 
                                                         </label>
@@ -55,11 +54,11 @@
                                                             <input id="RegistrationFromReports" type="text" class="col-md-2 form-control " placeholder="From" />
                                                         </div>
                                                     </div>
-                                                    <br />
+                                                    
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label class="control-label sbold col-md-2">
+                                                <label class="  col-md-2">
                                                     TO
 
                                                 </label>
@@ -69,12 +68,12 @@
                                             </div>
                                         </div>
 
-                                        <br />
+                                        
 
                                         @* Company Number *@
-                                        <div class="col-md-8">
+                                        <div class="col-md-8 mb-3">
                                             <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
+                                                <label class=" sios-color col-md-3">
                                                     Company Number :
 
                                                 </label>
@@ -82,15 +81,15 @@
                                                     @Html.DropDownList("CopmanyNumberReports", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumberReports" })
 
                                                 </div>
-                                                <br />
+                                                
                                             </div>
                                         </div>
-                                        <br />
+                                        
 
                                         @* Card Number *@
                                         @*<div class="col-md-8">
                                             <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
+                                                <label class="  col-md-3">
                                                     Card Number :
 
                                                 </label>
@@ -100,21 +99,21 @@
                                                     </select>
 
                                                 </div>
-                                                <br />
+                                                
                                             </div>
                                         </div>
-                                        <br />*@
+                                        *@
 
                                         @* Repot Type *@
 
-                                        <div class="col-md-8">
+                                        <div class="col-md-8 mb-3">
                                             <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
+                                                <label class="sios-color  col-md-3">
                                                     Repot Type :
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <select id="RepotTypeReports" class="form-control">
+                                                    <select id="RepotTypeReports" class=" hr-form-control h-100 w-100 rounded fw-bold p-3 pb-1 border-0 form-control">
                                                         <option value="1">Activation Report</option>
                                                         <option value="2">Start Employee Report</option>
                                                         <option value="3">Close Employee Report</option>
@@ -123,17 +122,17 @@
                                                        @* <option value="6">Report Audit Medicine Chronic Summary</option>*@
                                                     </select>
                                                 </div>
-                                                <br />
+                                                
                                             </div>
                                         </div>
-                                        <br />
+                                        
 
 
                                         @*Print Type*@
 
                                         <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
+                                            <div class="d-flex align-items-center my2 form-group">
+                                                <label class=" fs-4 sios-color col-md-3">
                                                     Print Type :
                                                 </label>
                                                 <div class="col-md-2">
@@ -153,24 +152,24 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <br />
+                                                
                                             </div>
                                         </div>
-                                        <br />
+                                        
 
                                         @* For Buttons *@
 
-                                        <div class="col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
+                                        <div class=" d-flex gap-2" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
 
-                                            <div class="col-sm-4" id="div_of_serv">
-                                                <button id="NewReports" type="button" class="btn btn-warning" onclick="ClearAllReports()">
+                                            <div class=" " id="div_of_serv">
+                                                <button id="NewReports" type="button" class="btn fw-bold text-white rounded-3 btn-warning" onclick="ClearAllReports()">
                                                     <span class="fa fa-save"></span> New
                                                 </button>
 
                                             </div>
 
-                                            <div class="col-sm-4" id="div_of_serv">
-                                                <button id="PrintReportsNew" type="button" class="btn btn-primary" onclick="PrintReports()">
+                                            <div class=" " id="div_of_serv">
+                                                <button id="PrintReportsNew" type="button" class="btn fw-bold text-white rounded-3 btn-primary" onclick="PrintReports()">
                                                     <span class="fa fa-save"></span> Print
                                                 </button>
 

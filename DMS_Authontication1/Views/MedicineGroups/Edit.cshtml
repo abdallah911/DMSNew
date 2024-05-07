@@ -5,67 +5,68 @@
     Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
 <!-- start section -->
-<div class="sios-overlay container-fluid mt-4">
-    <div class="container">
-        <i class="fa-solid fa-house"></i>
-        <h3>Edit Medicine Group</h3>
-    </div>
-</div>
-
-<section class="print-claim-section mt-5">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.GroupId)
-
+<div class="sios-container">
+    <div class="sios-overlay container-fluid mt-4">
         <div class="container">
-            <div class="row mt-3">
-                <div class="row row-cols-sm-3 m-auto m-sm-0">
-                    <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 w-100">
-                        <div class="row col-12 col-md-2 my-auto">
-                            @Html.LabelFor(model => model.GroupName, htmlAttributes: new { @class = "fw-bold" })
-                        </div>
-                        <div class="row col-12 col-md-6">
-                            @Html.EditorFor(model => model.GroupName, new { htmlAttributes = new { @class = "chronic-form-control", @style = "font-size: 16px" } })
-                            @Html.ValidationMessageFor(model => model.GroupName, "", new { @class = "text-danger" })
+         
+            <h3>   <i class="fa-solid fa-house me-3"></i>Edit Medicine Group</h3>
+        </div>
+    </div>
 
+    <section class=" print-claim-section mt-5">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.GroupId)
+
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="row row-cols-sm-3 m-auto m-sm-0">
+                        <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 w-100">
+                            <div class="row col-12 col-md-2 my-auto">
+                                @Html.LabelFor(model => model.GroupName, htmlAttributes: new { @class = "fw-bold" })
+                            </div>
+                            <div class="row col-12 col-md-6">
+                                @Html.EditorFor(model => model.GroupName, new { htmlAttributes = new { @class = "chronic-form-control", @style = "font-size: 16px" } })
+                                @Html.ValidationMessageFor(model => model.GroupName, "", new { @class = "text-danger" })
+
+                            </div>
                         </div>
-                    </div>
-                    <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 mt-4 w-100">
-                        <div class="row col-12 col-md-2 my-auto">
-                            @Html.Label("IsClosed", htmlAttributes: new { @class = "fw-bold" })
-                        </div>
-                        <div class="row col-12 col-md-6">
-                            <select style="color: #000; font-size: 16px" class="chronic-form-control" id="GroupType" name="GroupType">
-                                <option value="YES" class="fw-bold" style="color: #000">YES</option>
-                                <option value="NO" class="fw-bold" style="color: #000">NO</option>
-                            </select>
+                        <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 mt-4 w-100">
+                            <div class="row col-12 col-md-2 my-auto">
+                                @Html.Label("IsClosed", htmlAttributes: new { @class = "fw-bold" })
+                            </div>
+                            <div class="row col-12 col-md-6">
+                                <select style="color: #000; font-size: 16px" class="chronic-form-control" id="GroupType" name="GroupType">
+                                    <option value="YES" class="fw-bold" style="color: #000">YES</option>
+                                    <option value="NO" class="fw-bold" style="color: #000">NO</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="print-claims-btns d-flex mt-5 justify-content-end">
+                    <input id="Back" type="button" value="Back" onclick="window.location.replace('/MedicineGroups/index');" class="btn fw-bold text-white rounded-3"
+                           style="text-decoration: none;    />
+                    <input id="submit" type="submit" value="Update" class="btn fw-bold text-white rounded-3" />
+                    @*<a href="./Management_Medicines_Groups_Management.html"
+                           class="claims-search-btn ms-2 rounded-3; fs-5"
+                           style="text-decoration: none; background-color: #717382">Back</a>
+                        <button type="button "
+                                value="Search"
+                                class="claims-search-btn ms-2 rounded-3; fs-5"
+                                style="background-color: #717382">
+                            Update
+                        </button>*@
+                </div>
             </div>
-            <div class="print-claims-btns d-flex mt-5 justify-content-end">
-                <input id="Back" type="button" value="Back" onclick="window.location.replace('/MedicineGroups/index');" class="btn fw-bold text-white rounded-3"
-                       style="text-decoration: none;   />
-                <input id="submit" type="submit" value="Update" class="btn fw-bold text-white rounded-3"
-                        />
-                @*<a href="./Management_Medicines_Groups_Management.html"
-                       class="claims-search-btn ms-2 rounded-3; fs-5"
-                       style="text-decoration: none; background-color: #717382">Back</a>
-                    <button type="button "
-                            value="Search"
-                            class="claims-search-btn ms-2 rounded-3; fs-5"
-                            style="background-color: #717382">
-                        Update
-                    </button>*@
-            </div>
-        </div>
-    }
-</section>
-<div style="display: flex; flex-direction: column">
-    <section >
+        }
     </section>
+    <div style="display: flex; flex-direction: column">
+        <section>
+        </section>
+    </div>
 </div>
 <script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
 <script>

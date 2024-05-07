@@ -1,10 +1,9 @@
 ﻿@{
     ViewBag.Title = "ReportProviderCheck";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 
 }
-<br />
-<br />
+ 
 
 <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
@@ -14,19 +13,19 @@
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 
-<div class="panel panel-info">
+<div class=" sios-container panel panel-info">
 
     <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
-        <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
+        <img src='/Content/images/demo_wait.gif' width="64" height="64" />  Loading...
     </div>
 
     <div class="portlet box blue">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i> Report Provider Check
+        <div class="row bg-overlay my-4 editeRquest fw-bold portlet-title">
+            <div class="m-3 fs-3 text-white caption">
+                <i class="fa fa-gift me-3"></i> Report Provider Check
             </div>
         </div>
-        <div class="portlet-body">
+        <div class="container portlet-body">
             <div class="row ">
                 <div class="col-md-12">
                     <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
@@ -47,12 +46,9 @@
                                                         <span class="required"> * </span>
                                                     </label>
                                                     <div class="col-md-6">
-                                                        <label class="control-label sbold col-md-3">
-                                                            From
-
-                                                        </label>
+                                                       
                                                         <div class="col-md-9">
-                                                            <input id="RegistrationFromReportProviderCheck" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                            <input id="RegistrationFromReportProviderCheck" type="text" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  form-control " placeholder="From" />
                                                         </div>
                                                     </div>
                                                     <br />
@@ -64,7 +60,7 @@
 
                                                 </label>
                                                 <div class="col-md-10">
-                                                    <input id="RegistrationToReportProviderCheck" type="text" class="col-md-2 form-control " placeholder="To" />
+                                                    <input id="RegistrationToReportProviderCheck" type="text" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  col-md-2 form-control " placeholder="To" />
                                                 </div>
                                             </div>
                                         </div>
@@ -72,8 +68,8 @@
 
                                         @*Print Type*@
                                         <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
+                                            <div class=" d-flex form-group">
+                                                <label class="control-label fs-4 sios-color  sbold col-md-3">
                                                     Print Type :
                                                 </label>
                                                 <div class="col-md-2">
@@ -99,18 +95,18 @@
                                         <br />
 
                                         @* For Buttons *@
-                                        <div class="col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
+                                        <div class="d-flex gap-2" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
 
-                                            <div class="col-sm-4" id="div_of_serv">
+                                            <div class=" " id="div_of_serv">
                                                 <button id="NewReportProviderCheck" type="button" class="btn btn-warning" onclick="ClearAllReportProviderCheck()">
-                                                    <span class="fa fa-save"></span> New
+                                                    <span class="btn fw-bold rounded-3 fa fa-save text-white "></span> New
                                                 </button>
 
                                             </div>
 
-                                            <div class="col-sm-4" id="div_of_serv">
-                                                <button id="PrintProviderCheck" type="button" class="btn btn-primary" onclick="PrintReportProviderCheck()">
-                                                    <span class="fa fa-save"></span> Print
+                                            <div class=" " id="div_of_serv">
+                                                <button id="PrintProviderCheck" type="button" class="btn fw-bold text-white rounded-3 btn btn-primary" onclick="PrintReportProviderCheck()">
+                                                    <span class="btn fw-bold text-white rounded-3 fa fa-save"></span> Print
                                                 </button>
 
                                             </div>

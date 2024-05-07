@@ -1,0 +1,430 @@
+﻿<div class="sidebar-parent col-4 position-fixed z-2">
+    <div style="direction: rtl;" class=" sideBar   col-8">
+        <div class="operation-btns">
+            <a href="./NetworkHRRequestsInquiry.html">
+                <button class="sidebar-item" id="NetworkHRRequestsInquiry">
+                    طلب إستعلام HR
+                </button>
+            </a>
+            <a href="./NetworkServiceProviderData.html">
+                <button class="sidebar-item" id="NetworkServiceProviderData">
+                    بيانات مقدم الخدمة
+                </button>
+            </a>
+            <a href="./NetworkAddServiceProvider.html">
+                <button class="sidebar-item" id="NetworkAddServiceProvider">
+                    طلب إضافة مقدم خدمة
+                </button>
+            </a>
+            <a href="./NetworkAddHRServiceProvider.html">
+                <button class="sidebar-item " id="NetworkAddHRServiceProvider">
+                    طلب إضافة مقدم خدمة HR
+                </button>
+            </a>
+            <a href="./NetworkPharmaciesDiscountDetails.html">
+                <button class="sidebar-item "
+                        id="NetworkPharmaciesDiscountDetails">
+                    خصومات صيدليات Details
+                </button>
+            </a>
+            <a href="./NetworkPharmaciesDiscountSummary.html">
+                <button class="sidebar-item"
+                        id="NetworkPharmaciesDiscountSummary">
+                    خصومات صيدليات Summary
+                </button>
+            </a>   <a href="./NetworkPricesEditingCPT.html">
+                <button class="sidebar-item " id="NetworkPricesEditingCPT">
+                    تعديل أسعار CPT
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- end sidebar -->
+<section>
+    <form action="CS_add-applicant.html">
+        <div class=" container-fluid px-lg-5">
+            <div style=" direction: rtl;" class="row row-cols-sm-2 mt-4 mb-5">
+                <div class="col-sm-8 col-md-4 col-lg-3 d-flex flex-column gap-3">
+                    <div style="gap:10px ;white-space: nowrap;direction: rtl; "
+                         class="inputs-parent d-flex flex-column ">
+                        <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span style="right:10px"
+                                  class=" ms-auto mb-0 fw-bold"
+                                  for="name">مقدم الخدمة</span>
+                        </div>
+
+                        <div style="background-color :var(--color-table);"
+                             class="admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  position-relative">
+                            <div class="d-flex w-100 h-100 me-auto gap-2 ">
+                                <select style="color: var(--color-secondary)"
+                                        class=" cs-bg text-start w-100 fs-6 fw-bold text-end  shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                        name=""
+                                        id="">
+                                    <option value="">الكود القديم</option>
+                                </select>
+                            </div>
+                            <i class="fa-solid fa-magnifying-glass fa-rotate-270  color-sec position-absolute start-0 top-50 translate-middle-y ms-3  "></i>
+                        </div>
+                        <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span style="right:10px"
+                                  class=" ms-auto mb-0 fw-bold"
+                                  for="name">نوع مقدم الخدمة</span>
+                        </div>
+                        <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span style="right:10px"
+                                  class=" ms-auto mb-0 fw-bold"
+                                  for="name">الكود</span>
+                        </div>
+
+                        <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span style="right:10px"
+                                  class=" ms-auto mb-0 fw-bold"
+                                  for="name">الإسم بالعربي</span>
+                        </div>
+                        <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span style="right:10px"
+                                  class=" ms-auto mb-0 fw-bold"
+                                  for="name">الإسم بالإنجليزي</span>
+                        </div>
+                        <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span style="right:10px"
+                                  class=" ms-auto mb-0 fw-bold"
+                                  for="name">الفئة</span>
+                        </div>
+                        <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span style="right:10px"
+                                  class=" ms-auto mb-0 fw-bold"
+                                  for="name">التخصص</span>
+                        </div>
+                        <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span style="right:10px"
+                                  class=" ms-auto mb-0 fw-bold"
+                                  for="name">المحافظة</span>
+                        </div>
+                        <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span style="right:10px"
+                                  class=" ms-auto mb-0 fw-bold"
+                                  for="name">المنطقة</span>
+                        </div>
+                        <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span style="right:10px"
+                                  class=" ms-auto mb-0 fw-bold"
+                                  for="name">العنوان</span>
+                        </div>
+                        <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span style="right:10px"
+                                  class=" ms-auto mb-0 fw-bold"
+                                  for="name">رقم الفاكس</span>
+                        </div>
+                        <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span style="right:10px"
+                                  class=" ms-auto mb-0 fw-bold"
+                                  for="name">البريد الإلكتروني</span>
+                        </div>
+                        <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span style="right:10px"
+                                  class=" ms-auto mb-0 fw-bold"
+                                  for="name">رقم التليفون</span>
+                        </div>
+                        <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span style="right:10px"
+                                  class=" ms-auto mb-0 fw-bold"
+                                  for="name">رقم الموبايل</span>
+                        </div>
+                        <div style="direction: ltr;"
+                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span class=" start-0 ps-2 mb-0 fw-bold" for="name">
+                                GL.Account Nu
+                            </span>
+                        </div>
+
+                        <div style="direction: ltr;"
+                             class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <input class="cs-bg  w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                   type="text"
+                                   required="required" />
+                            <span class=" start-0 ps-2 mb-0 fw-bold" for="name">GL.Discount Account Nu</span>
+                        </div>
+
+                        <div style="white-space: nowrap;width: fit-content;height:fit-content ;"
+                             class=" col-sm-8 col-md-5  reprint-btns d-flex flex-wrap justify-content-center mx-auto mt-3 gap-3 ">
+                            <button type="submit"
+                                    class="btn fw-bold text-white py-2 px-4">
+                                موافق
+                            </button><button type="button"
+                                             class="btn fw-bold text-white py-2 px-4">
+                                رفض
+                            </button>
+                            <button type="button"
+                                    class="btn fw-bold text-white py-2 px-4">
+                                جديد
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-sm-8 col-md-5 col-lg-7 justify-content-center px-0 ">
+                    <div class="row  gap-3 gap-lg-0 justify-content-between">
+                        <div>
+                            <div style="color: var(--color-secondary);"
+                                 class="inputs-parent d-flex flex-column mt-3  position-relative">
+                                <input style="right:10px"
+                                       type="search"
+                                       class="admin-form-control  pe-3"
+                                       placeholder="البحث" />
+                                <i class="fa-solid fa-magnifying-glass fa-rotate-270 position-absolute start-0 top-50 translate-middle-y ms-3  "></i>
+                            </div>
+                            <div class="d-flex col-6  mx-auto justify-content-evenly gap-5 mt-3">
+                                <div class="cs-bg rounded-1 py-2 px-4 checkbox-box d-flex gap-2">
+                                    <label class="fw-bold" for="mainCheck">رئيسي</label><input id="mainCheck" type="checkbox" />
+                                </div>
+                                <div class="cs-bg rounded-1 py-2 px-4 checkbox-box d-flex gap-2">
+                                    <label class="fw-bold" for="activeCheck">مفعل</label><input id="activeCheck" type="checkbox" />
+                                </div>
+                            </div>
+                            <div style="height: 150px;"
+                                 class="w-100 ms-sm-auto  cs-bg rounded-top-1  inputs-parent d-flex flex-column mt-3 position-relative">
+                                <div style="right: 40px ;top:20px;"
+                                     class=" position-absolute border-2 forLabel bg-transparent admin-form-control d-flex justify-content-between  align-items-center border-0 rounded-2  ">
+                                    <input style="border: 2px solid var(--color-secondary); "
+                                           class=" w-100 h-100 shadow-none rounded-3 p-1  pe-3 shadow-sm"
+                                           type="text"
+                                           required="required" />
+
+                                    <span style="right:10px"
+                                          class=" ms-auto mb-0 fw-bold"
+                                          for="name">المنطقة</span>
+                                </div>
+                                <textarea class="textarea border-0 p-2 bg-white rounded-3"
+                                          placeholder=""
+                                          disabled
+                                          name=""
+                                          id=""
+                                          cols="30"
+                                          rows="10"></textarea>
+                                <div style="left: 10%;"
+                                     class="   gap-5 position-absolute  ">
+                                    <div style="width: 40px; height: 90px; box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.123);"
+                                         class="bg-light  d-flex flex-column justify-content-evenly align-items-center rounded-2 mt-2">
+                                        <div style="width: 28px;height: 28px ;background: var(--color-gradient);cursor: pointer; "
+                                             class="rounded-circle d-flex justify-content-center align-items-center ">
+                                            <i class="fa-solid fa-plus text-white"></i>
+                                        </div>
+                                        <div style="width: 28px;height: 28px ;background: var(--color-gradient);cursor: pointer; "
+                                             class="rounded-circle d-flex justify-content-center align-items-center ">
+                                            <i class="fa-solid fa-minus text-white"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="white-space: nowrap;"
+                                 class="w-100 row row-cols-sm-2   cs-bg rounded-top-1  inputs-parent  mt-3 position-relative">
+                                <div class=" d-flex flex-column gap-2 pe-lg-0 ps-lg-1 mb-2 ">
+                                    <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                        <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                               type="text"
+                                               required="required" />
+                                        <span style="right:10px"
+                                              class=" ms-auto mb-0 fw-bold"
+                                              for="name">الإسم المسئول الأول</span>
+                                    </div>
+                                    <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                        <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                               type="text"
+                                               required="required" />
+                                        <span style="right:10px"
+                                              class=" ms-auto mb-0 fw-bold"
+                                              for="name">رقم الموبايل</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column gap-2 pe-lg-0 ps-lg-1 mb-2 ">
+                                    <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                        <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                               type="text"
+                                               required="required" />
+                                        <span style="right:10px"
+                                              class=" ms-auto mb-0 fw-bold"
+                                              for="name">الإسم المسئول الثاني</span>
+                                    </div>
+                                    <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                        <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0 pe-3 shadow-sm"
+                                               type="text"
+                                               required="required" />
+                                        <span style="right:10px"
+                                              class=" ms-auto mb-0 fw-bold"
+                                              for="name">رقم الموبايل</span>
+                                    </div>
+                                </div>
+                                <div class="pe-lg-0 ps-lg-1 mb-2"></div>
+                            </div>
+                        </div>
+                        <div style="white-space: nowrap;direction: ltr;"
+                             class="cs-bg row row-cols-lg-2 gap-2 gap-sm-0 me-auto mt-3">
+                            <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0  shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class="start-0 me-3 mb-0 fw-bold " for="name">Provider Tex Fila</span>
+                            </div>
+                            <div class="  forLabel  admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0  shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" start-0 me-3 mb-0 fw-bold " for="name">Provider Tex Card</span>
+                            </div>
+                            <div class="  forLabel  admin-form-control mt-2 d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0  shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" start-0 me-3 mb-0 fw-bold " for="name">
+                                    Ded Tax %
+                                </span>
+                            </div>
+                            <div class="  forLabel  admin-form-control mt-2 d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0  shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" start-0 me-3 mb-0 fw-bold " for="name">
+                                    Earn Dis %
+                                </span>
+                            </div>
+                            <div class="  forLabel  admin-form-control mt-2 d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0  shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" start-0 me-3 mb-0 fw-bold " for="name">
+                                    Ded Tax %
+                                </span>
+                            </div>
+                            <div class="  forLabel  admin-form-control mt-2 d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0  shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" start-0 me-3 mb-0 fw-bold " for="name">
+                                    Checks Allow Period
+                                </span>
+                            </div>
+                            <div class="  forLabel  admin-form-control mt-2 d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0  shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" start-0 me-3 mb-0 fw-bold " for="name">
+                                    Tex Room
+                                </span>
+                            </div>
+                            <div class="  forLabel  admin-form-control mt-2 d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0  shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" start-0 me-3 mb-0 fw-bold " for="name">
+                                    Local Medicine Discount
+                                </span>
+                            </div>
+                            <div class="  forLabel  admin-form-control mt-2 d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0  shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" start-0 me-3 mb-0 fw-bold " for="name">
+                                    Foreign Medicine Discount
+                                </span>
+                            </div>
+                            <div class="  forLabel  admin-form-control mt-2 d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0  shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" start-0 me-3 mb-0 fw-bold " for="name">Local Development</span>
+                            </div>
+                            <div class="  forLabel  admin-form-control mt-2 d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0  shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" start-0 me-3 mb-0 fw-bold " for="name">Foreign Development</span>
+                            </div>
+                            <div class="  forLabel  admin-form-control mt-2 d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class="date-input w-100 h-100 shadow-none rounded-2 p-1 border-0  shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" start-0 me-3 mb-0 fw-bold " for="name">Contract Date</span>
+                            </div>
+                            <div class="  forLabel  admin-form-control mt-2 d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0  shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" start-0 me-3 mb-0 fw-bold " for="name">Development Expenses</span>
+                            </div>
+                            <div class="  forLabel  admin-form-control mt-2 d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0  shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" start-0 me-3 mb-0 fw-bold " for="name">Max Approval Amount</span>
+                            </div>
+                            <div class="  forLabel  admin-form-control mt-2 d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                <input class=" w-100 h-100 shadow-none rounded-2 p-1 border-0  shadow-sm"
+                                       type="text"
+                                       required="required" />
+                                <span class=" start-0 me-3 mb-0 fw-bold " for="name">Max Approval Nu</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height: fit-content; "
+                         class="  me-4  d-flex flex-column mt-3  gap-3">
+                        <div style="height: 150px;;"
+                             class="w-100   cs-bg rounded-top-1  inputs-parent d-flex flex-column ">
+                            <textarea class="textarea border-0 p-2 rounded-3"
+                                      placeholder="ملاحظات"
+                                      name=""
+                                      id=""
+                                      cols="30"
+                                      rows="10"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
