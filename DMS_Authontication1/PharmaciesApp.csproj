@@ -9149,6 +9149,20 @@
     <Content Include="Views\ReportMain\ReportProviderCheck.cshtml" />
     <Content Include="Views\ReportMain\Reports.cshtml" />
     <Content Include="Views\ReportMain\ReviewBatch.cshtml" />
+    <Content Include="Views\Network\NetworkAddHRServiceProvider.cshtml" />
+    <Content Include="Views\Network\NetworkAddServiceProvider.cshtml" />
+    <Content Include="Views\Network\NetworkHRRequestsInquiry.cshtml" />
+    <Content Include="Views\Network\NetworkPharmaciesDiscountDetails.cshtml" />
+    <Content Include="Views\Network\NetworkPharmaciesDiscountSummary.cshtml" />
+    <Content Include="Views\Network\NetworkPricesEditingCPT.cshtml" />
+    <Content Include="Views\Network\NetworkServiceProviderData.cshtml" />
+    <Content Include="Views\Pharmacy\CompaniesChronicDeliveryNew.cshtml" />
+    <Content Include="Views\Pharmacy\DeletedStopRoshita - Copy.cshtml" />
+    <Content Include="Views\Pharmacy\IndexClaim.cshtml" />
+    <Content Include="Views\Pharmacy\IndexNewDesign.cshtml" />
+    <Content Include="Views\Pharmacy\PharmacyPage.cshtml" />
+    <Content Include="Views\Contracts\ContractsCompaniesContracts.cshtml" />
+    <Content Include="Views\Contracts\ContractsServiceProvidersContracts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
