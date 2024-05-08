@@ -5512,13 +5512,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="PrintMedicalReports" EntityType="DB_A45413_DMSERPModel.PrintMedicalReport" />
           <EntitySet Name="RenewalMains" EntityType="DB_A45413_DMSERPModel.RenewalMain" />
           <EntitySet Name="AgeAvgs" EntityType="DB_A45413_DMSERPModel.AgeAvg" />
-          <EntitySet Name="RenewalInsideMedicalAuthorities" EntityType="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority" />
           <EntitySet Name="RenewalOutsideMedicalAuthorities" EntityType="DB_A45413_DMSERPModel.RenewalOutsideMedicalAuthority" />
           <EntitySet Name="RenewalStepTwoes" EntityType="DB_A45413_DMSERPModel.RenewalStepTwo" />
-          <AssociationSet Name="FK_RenewalInsideMedicalAuthorities_RenewalMains" Association="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains">
-            <End Role="RenewalMain" EntitySet="RenewalMains" />
-            <End Role="RenewalInsideMedicalAuthority" EntitySet="RenewalInsideMedicalAuthorities" />
-          </AssociationSet>
           <AssociationSet Name="FK_RenewalOutsideMedicalAuthorities_RenewalMains" Association="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_RenewalMains">
             <End Role="RenewalMain" EntitySet="RenewalMains" />
             <End Role="RenewalOutsideMedicalAuthority" EntitySet="RenewalOutsideMedicalAuthorities" />
@@ -5535,6 +5530,11 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="PendingOutPatients" EntityType="DB_A45413_DMSERPModel.PendingOutPatient" />
           <EntitySet Name="AlphabetLetters" EntityType="DB_A45413_DMSERPModel.AlphabetLetter" />
           <EntitySet Name="Basic_Data" EntityType="DB_A45413_DMSERPModel.Basic_Data" />
+          <EntitySet Name="RenewalInsideMedicalAuthorities" EntityType="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority" />
+          <AssociationSet Name="FK_RenewalInsideMedicalAuthorities_RenewalMains" Association="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains">
+            <End Role="RenewalMain" EntitySet="RenewalMains" />
+            <End Role="RenewalInsideMedicalAuthority" EntitySet="RenewalInsideMedicalAuthorities" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7617,10 +7617,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="EmpCount" Type="Int32" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="RenewalInsideMedicalAuthorities" Relationship="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains" FromRole="RenewalMain" ToRole="RenewalInsideMedicalAuthority" />
           <NavigationProperty Name="RenewalOutsideMedicalAuthorities" Relationship="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_RenewalMains" FromRole="RenewalMain" ToRole="RenewalOutsideMedicalAuthority" />
           <NavigationProperty Name="RenewalStepTwoes" Relationship="DB_A45413_DMSERPModel.FK_RenewalStepTwo_RenewalMains" FromRole="RenewalMain" ToRole="RenewalStepTwo" />
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="RenewalInsideMedicalAuthorities" Relationship="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains" FromRole="RenewalMain" ToRole="RenewalInsideMedicalAuthority" />
         </EntityType>
         <EntityType Name="AgeAvg">
           <Key>
@@ -7628,70 +7628,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Age" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="RenewalInsideMedicalAuthority">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HospitalsResidenceServiceLimitOption" Type="Boolean" Nullable="false" />
-          <Property Name="HospitalsResidenceServicePercentageoption" Type="Boolean" Nullable="false" />
-          <Property Name="HospitalsResidenceServiceLimit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="HospitalsResidenceServicePercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="OutsideClinicsLimitOption" Type="Boolean" Nullable="false" />
-          <Property Name="OutsideClinicsPercentageoption" Type="Boolean" Nullable="false" />
-          <Property Name="OutsideClinicsLimit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="OutsideClinicsPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ExaminationAndAnalysisLimitOption" Type="Boolean" Nullable="false" />
-          <Property Name="ExaminationAndAnalysisPercentageoption" Type="Boolean" Nullable="false" />
-          <Property Name="ExaminationAndAnalysisLimit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ExaminationAndAnalysisPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PhysicalTherapyLimitOption" Type="Boolean" Nullable="false" />
-          <Property Name="PhysicalTherapyPercentageoption" Type="Boolean" Nullable="false" />
-          <Property Name="PhysicalTherapyLimit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PhysicalTherapyPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="DailyTherapyLimitOption" Type="Boolean" Nullable="false" />
-          <Property Name="DailyTherapyPercentageoption" Type="Boolean" Nullable="false" />
-          <Property Name="DailyTherapyLimit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="DailyTherapyPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ChronicTherapyLimitOption" Type="Boolean" Nullable="false" />
-          <Property Name="ChronicTherapyPercentageoption" Type="Boolean" Nullable="false" />
-          <Property Name="ChronicTherapyLimit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ChronicTherapyPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="NatChildBirthLimitOption" Type="Boolean" Nullable="false" />
-          <Property Name="NatChildBirthPercentageoption" Type="Boolean" Nullable="false" />
-          <Property Name="NatChildBirthLimit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="NatChildBirthPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CaesChildBirthLimitOption" Type="Boolean" Nullable="false" />
-          <Property Name="CaesChildBirthPercentageoption" Type="Boolean" Nullable="false" />
-          <Property Name="CaesChildBirthLimit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CaesChildBirthPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="LegalAbortionLimitOption" Type="Boolean" Nullable="false" />
-          <Property Name="LegalAbortionPercentageoption" Type="Boolean" Nullable="false" />
-          <Property Name="LegalAbortionLimit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="LegalAbortionPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PregFollowUpLimitOption" Type="Boolean" Nullable="false" />
-          <Property Name="PregFollowUpPercentageoption" Type="Boolean" Nullable="false" />
-          <Property Name="PregFollowUpLimit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PregFollowUpPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="AdvancedDentalServiceLimitOption" Type="Boolean" Nullable="false" />
-          <Property Name="AdvancedDentalServicePercentageoption" Type="Boolean" Nullable="false" />
-          <Property Name="AdvancedDentalServiceLimit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="AdvancedDentalServicePercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="BasicDentalServiceLimitOption" Type="Boolean" Nullable="false" />
-          <Property Name="BasicDentalServicePercentageoption" Type="Boolean" Nullable="false" />
-          <Property Name="BasicDentalServiceLimit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="BasicDentalServicePercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="OpticsLimitOption" Type="Boolean" Nullable="false" />
-          <Property Name="OpticsPercentageoption" Type="Boolean" Nullable="false" />
-          <Property Name="OpticsLimit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="OpticsPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IntensiveCareDaysCount" Type="Int32" Nullable="false" />
-          <Property Name="DailyRoshitasCountPerMonth" Type="Int32" Nullable="false" />
-          <Property Name="CoronaVaccineCoverage" Type="Boolean" Nullable="false" />
-          <Property Name="MainId" Type="Int32" Nullable="false" />
-          <Property Name="ClassCode" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="RenewalMain" Relationship="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains" FromRole="RenewalInsideMedicalAuthority" ToRole="RenewalMain" />
         </EntityType>
         <EntityType Name="RenewalOutsideMedicalAuthority">
           <Key>
@@ -7783,18 +7719,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="Death" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RenewalMain" Relationship="DB_A45413_DMSERPModel.FK_RenewalStepTwo_RenewalMains" FromRole="RenewalStepTwo" ToRole="RenewalMain" />
         </EntityType>
-        <Association Name="FK_RenewalInsideMedicalAuthorities_RenewalMains">
-          <End Type="DB_A45413_DMSERPModel.RenewalMain" Role="RenewalMain" Multiplicity="1" />
-          <End Type="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority" Role="RenewalInsideMedicalAuthority" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RenewalMain">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RenewalInsideMedicalAuthority">
-              <PropertyRef Name="MainId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_RenewalOutsideMedicalAuthorities_RenewalMains">
           <End Type="DB_A45413_DMSERPModel.RenewalMain" Role="RenewalMain" Multiplicity="1" />
           <End Type="DB_A45413_DMSERPModel.RenewalOutsideMedicalAuthority" Role="RenewalOutsideMedicalAuthority" Multiplicity="*" />
@@ -7920,6 +7844,82 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="RenewalInsideMedicalAuthority">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HospitalsResidenceServiceLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="HospitalsResidenceServicePercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="HospitalsResidenceServiceLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="HospitalsResidenceServicePercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OutsideClinicsLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="OutsideClinicsPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="OutsideClinicsLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OutsideClinicsPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExaminationAndAnalysisLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="ExaminationAndAnalysisPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="ExaminationAndAnalysisLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ExaminationAndAnalysisPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PhysicalTherapyLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="PhysicalTherapyPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="PhysicalTherapyLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PhysicalTherapyPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DailyTherapyLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="DailyTherapyPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="DailyTherapyLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DailyTherapyPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ChronicTherapyLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="ChronicTherapyPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="ChronicTherapyLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ChronicTherapyPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NatChildBirthLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="NatChildBirthPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="NatChildBirthLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NatChildBirthPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CaesChildBirthLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="CaesChildBirthPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="CaesChildBirthLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CaesChildBirthPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LegalAbortionLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="LegalAbortionPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="LegalAbortionLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LegalAbortionPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PregFollowUpLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="PregFollowUpPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="PregFollowUpLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PregFollowUpPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AdvancedDentalServiceLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="AdvancedDentalServicePercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="AdvancedDentalServiceLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AdvancedDentalServicePercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BasicDentalServiceLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="BasicDentalServicePercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="BasicDentalServiceLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="BasicDentalServicePercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OpticsLimitOption" Type="Boolean" Nullable="false" />
+          <Property Name="OpticsPercentageoption" Type="Boolean" Nullable="false" />
+          <Property Name="OpticsLimit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OpticsPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IntensiveCareDaysCount" Type="Int32" Nullable="false" />
+          <Property Name="DailyRoshitasCountPerMonth" Type="Int32" Nullable="false" />
+          <Property Name="CoronaVaccineCoverage" Type="Boolean" Nullable="false" />
+          <Property Name="MainId" Type="Int32" Nullable="false" />
+          <Property Name="ClassCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RenewalMain" Relationship="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains" FromRole="RenewalInsideMedicalAuthority" ToRole="RenewalMain" />
+        </EntityType>
+        <Association Name="FK_RenewalInsideMedicalAuthorities_RenewalMains">
+          <End Type="DB_A45413_DMSERPModel.RenewalMain" Role="RenewalMain" Multiplicity="1" />
+          <End Type="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority" Role="RenewalInsideMedicalAuthority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RenewalMain">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalInsideMedicalAuthority">
+              <PropertyRef Name="MainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10737,70 +10737,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RenewalInsideMedicalAuthorities">
-            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority">
-              <MappingFragment StoreEntitySet="RenewalInsideMedicalAuthorities">
-                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
-                <ScalarProperty Name="MainId" ColumnName="MainId" />
-                <ScalarProperty Name="CoronaVaccineCoverage" ColumnName="CoronaVaccineCoverage" />
-                <ScalarProperty Name="DailyRoshitasCountPerMonth" ColumnName="DailyRoshitasCountPerMonth" />
-                <ScalarProperty Name="IntensiveCareDaysCount" ColumnName="IntensiveCareDaysCount" />
-                <ScalarProperty Name="OpticsPercentage" ColumnName="OpticsPercentage" />
-                <ScalarProperty Name="OpticsLimit" ColumnName="OpticsLimit" />
-                <ScalarProperty Name="OpticsPercentageoption" ColumnName="OpticsPercentageoption" />
-                <ScalarProperty Name="OpticsLimitOption" ColumnName="OpticsLimitOption" />
-                <ScalarProperty Name="BasicDentalServicePercentage" ColumnName="BasicDentalServicePercentage" />
-                <ScalarProperty Name="BasicDentalServiceLimit" ColumnName="BasicDentalServiceLimit" />
-                <ScalarProperty Name="BasicDentalServicePercentageoption" ColumnName="BasicDentalServicePercentageoption" />
-                <ScalarProperty Name="BasicDentalServiceLimitOption" ColumnName="BasicDentalServiceLimitOption" />
-                <ScalarProperty Name="AdvancedDentalServicePercentage" ColumnName="AdvancedDentalServicePercentage" />
-                <ScalarProperty Name="AdvancedDentalServiceLimit" ColumnName="AdvancedDentalServiceLimit" />
-                <ScalarProperty Name="AdvancedDentalServicePercentageoption" ColumnName="AdvancedDentalServicePercentageoption" />
-                <ScalarProperty Name="AdvancedDentalServiceLimitOption" ColumnName="AdvancedDentalServiceLimitOption" />
-                <ScalarProperty Name="PregFollowUpPercentage" ColumnName="PregFollowUpPercentage" />
-                <ScalarProperty Name="PregFollowUpLimit" ColumnName="PregFollowUpLimit" />
-                <ScalarProperty Name="PregFollowUpPercentageoption" ColumnName="PregFollowUpPercentageoption" />
-                <ScalarProperty Name="PregFollowUpLimitOption" ColumnName="PregFollowUpLimitOption" />
-                <ScalarProperty Name="LegalAbortionPercentage" ColumnName="LegalAbortionPercentage" />
-                <ScalarProperty Name="LegalAbortionLimit" ColumnName="LegalAbortionLimit" />
-                <ScalarProperty Name="LegalAbortionPercentageoption" ColumnName="LegalAbortionPercentageoption" />
-                <ScalarProperty Name="LegalAbortionLimitOption" ColumnName="LegalAbortionLimitOption" />
-                <ScalarProperty Name="CaesChildBirthPercentage" ColumnName="CaesChildBirthPercentage" />
-                <ScalarProperty Name="CaesChildBirthLimit" ColumnName="CaesChildBirthLimit" />
-                <ScalarProperty Name="CaesChildBirthPercentageoption" ColumnName="CaesChildBirthPercentageoption" />
-                <ScalarProperty Name="CaesChildBirthLimitOption" ColumnName="CaesChildBirthLimitOption" />
-                <ScalarProperty Name="NatChildBirthPercentage" ColumnName="NatChildBirthPercentage" />
-                <ScalarProperty Name="NatChildBirthLimit" ColumnName="NatChildBirthLimit" />
-                <ScalarProperty Name="NatChildBirthPercentageoption" ColumnName="NatChildBirthPercentageoption" />
-                <ScalarProperty Name="NatChildBirthLimitOption" ColumnName="NatChildBirthLimitOption" />
-                <ScalarProperty Name="ChronicTherapyPercentage" ColumnName="ChronicTherapyPercentage" />
-                <ScalarProperty Name="ChronicTherapyLimit" ColumnName="ChronicTherapyLimit" />
-                <ScalarProperty Name="ChronicTherapyPercentageoption" ColumnName="ChronicTherapyPercentageoption" />
-                <ScalarProperty Name="ChronicTherapyLimitOption" ColumnName="ChronicTherapyLimitOption" />
-                <ScalarProperty Name="DailyTherapyPercentage" ColumnName="DailyTherapyPercentage" />
-                <ScalarProperty Name="DailyTherapyLimit" ColumnName="DailyTherapyLimit" />
-                <ScalarProperty Name="DailyTherapyPercentageoption" ColumnName="DailyTherapyPercentageoption" />
-                <ScalarProperty Name="DailyTherapyLimitOption" ColumnName="DailyTherapyLimitOption" />
-                <ScalarProperty Name="PhysicalTherapyPercentage" ColumnName="PhysicalTherapyPercentage" />
-                <ScalarProperty Name="PhysicalTherapyLimit" ColumnName="PhysicalTherapyLimit" />
-                <ScalarProperty Name="PhysicalTherapyPercentageoption" ColumnName="PhysicalTherapyPercentageoption" />
-                <ScalarProperty Name="PhysicalTherapyLimitOption" ColumnName="PhysicalTherapyLimitOption" />
-                <ScalarProperty Name="ExaminationAndAnalysisPercentage" ColumnName="ExaminationAndAnalysisPercentage" />
-                <ScalarProperty Name="ExaminationAndAnalysisLimit" ColumnName="ExaminationAndAnalysisLimit" />
-                <ScalarProperty Name="ExaminationAndAnalysisPercentageoption" ColumnName="ExaminationAndAnalysisPercentageoption" />
-                <ScalarProperty Name="ExaminationAndAnalysisLimitOption" ColumnName="ExaminationAndAnalysisLimitOption" />
-                <ScalarProperty Name="OutsideClinicsPercentage" ColumnName="OutsideClinicsPercentage" />
-                <ScalarProperty Name="OutsideClinicsLimit" ColumnName="OutsideClinicsLimit" />
-                <ScalarProperty Name="OutsideClinicsPercentageoption" ColumnName="OutsideClinicsPercentageoption" />
-                <ScalarProperty Name="OutsideClinicsLimitOption" ColumnName="OutsideClinicsLimitOption" />
-                <ScalarProperty Name="HospitalsResidenceServicePercentage" ColumnName="HospitalsResidenceServicePercentage" />
-                <ScalarProperty Name="HospitalsResidenceServiceLimit" ColumnName="HospitalsResidenceServiceLimit" />
-                <ScalarProperty Name="HospitalsResidenceServicePercentageoption" ColumnName="HospitalsResidenceServicePercentageoption" />
-                <ScalarProperty Name="HospitalsResidenceServiceLimitOption" ColumnName="HospitalsResidenceServiceLimitOption" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="RenewalOutsideMedicalAuthorities">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalOutsideMedicalAuthority">
               <MappingFragment StoreEntitySet="RenewalOutsideMedicalAuthorities">
@@ -10996,6 +10932,70 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
                 <ScalarProperty Name="SOURCE_MOD" ColumnName="SOURCE_MOD" />
                 <ScalarProperty Name="BS_CODE" ColumnName="BS_CODE" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RenewalInsideMedicalAuthorities">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority">
+              <MappingFragment StoreEntitySet="RenewalInsideMedicalAuthorities">
+                <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+                <ScalarProperty Name="MainId" ColumnName="MainId" />
+                <ScalarProperty Name="CoronaVaccineCoverage" ColumnName="CoronaVaccineCoverage" />
+                <ScalarProperty Name="DailyRoshitasCountPerMonth" ColumnName="DailyRoshitasCountPerMonth" />
+                <ScalarProperty Name="IntensiveCareDaysCount" ColumnName="IntensiveCareDaysCount" />
+                <ScalarProperty Name="OpticsPercentage" ColumnName="OpticsPercentage" />
+                <ScalarProperty Name="OpticsLimit" ColumnName="OpticsLimit" />
+                <ScalarProperty Name="OpticsPercentageoption" ColumnName="OpticsPercentageoption" />
+                <ScalarProperty Name="OpticsLimitOption" ColumnName="OpticsLimitOption" />
+                <ScalarProperty Name="BasicDentalServicePercentage" ColumnName="BasicDentalServicePercentage" />
+                <ScalarProperty Name="BasicDentalServiceLimit" ColumnName="BasicDentalServiceLimit" />
+                <ScalarProperty Name="BasicDentalServicePercentageoption" ColumnName="BasicDentalServicePercentageoption" />
+                <ScalarProperty Name="BasicDentalServiceLimitOption" ColumnName="BasicDentalServiceLimitOption" />
+                <ScalarProperty Name="AdvancedDentalServicePercentage" ColumnName="AdvancedDentalServicePercentage" />
+                <ScalarProperty Name="AdvancedDentalServiceLimit" ColumnName="AdvancedDentalServiceLimit" />
+                <ScalarProperty Name="AdvancedDentalServicePercentageoption" ColumnName="AdvancedDentalServicePercentageoption" />
+                <ScalarProperty Name="AdvancedDentalServiceLimitOption" ColumnName="AdvancedDentalServiceLimitOption" />
+                <ScalarProperty Name="PregFollowUpPercentage" ColumnName="PregFollowUpPercentage" />
+                <ScalarProperty Name="PregFollowUpLimit" ColumnName="PregFollowUpLimit" />
+                <ScalarProperty Name="PregFollowUpPercentageoption" ColumnName="PregFollowUpPercentageoption" />
+                <ScalarProperty Name="PregFollowUpLimitOption" ColumnName="PregFollowUpLimitOption" />
+                <ScalarProperty Name="LegalAbortionPercentage" ColumnName="LegalAbortionPercentage" />
+                <ScalarProperty Name="LegalAbortionLimit" ColumnName="LegalAbortionLimit" />
+                <ScalarProperty Name="LegalAbortionPercentageoption" ColumnName="LegalAbortionPercentageoption" />
+                <ScalarProperty Name="LegalAbortionLimitOption" ColumnName="LegalAbortionLimitOption" />
+                <ScalarProperty Name="CaesChildBirthPercentage" ColumnName="CaesChildBirthPercentage" />
+                <ScalarProperty Name="CaesChildBirthLimit" ColumnName="CaesChildBirthLimit" />
+                <ScalarProperty Name="CaesChildBirthPercentageoption" ColumnName="CaesChildBirthPercentageoption" />
+                <ScalarProperty Name="CaesChildBirthLimitOption" ColumnName="CaesChildBirthLimitOption" />
+                <ScalarProperty Name="NatChildBirthPercentage" ColumnName="NatChildBirthPercentage" />
+                <ScalarProperty Name="NatChildBirthLimit" ColumnName="NatChildBirthLimit" />
+                <ScalarProperty Name="NatChildBirthPercentageoption" ColumnName="NatChildBirthPercentageoption" />
+                <ScalarProperty Name="NatChildBirthLimitOption" ColumnName="NatChildBirthLimitOption" />
+                <ScalarProperty Name="ChronicTherapyPercentage" ColumnName="ChronicTherapyPercentage" />
+                <ScalarProperty Name="ChronicTherapyLimit" ColumnName="ChronicTherapyLimit" />
+                <ScalarProperty Name="ChronicTherapyPercentageoption" ColumnName="ChronicTherapyPercentageoption" />
+                <ScalarProperty Name="ChronicTherapyLimitOption" ColumnName="ChronicTherapyLimitOption" />
+                <ScalarProperty Name="DailyTherapyPercentage" ColumnName="DailyTherapyPercentage" />
+                <ScalarProperty Name="DailyTherapyLimit" ColumnName="DailyTherapyLimit" />
+                <ScalarProperty Name="DailyTherapyPercentageoption" ColumnName="DailyTherapyPercentageoption" />
+                <ScalarProperty Name="DailyTherapyLimitOption" ColumnName="DailyTherapyLimitOption" />
+                <ScalarProperty Name="PhysicalTherapyPercentage" ColumnName="PhysicalTherapyPercentage" />
+                <ScalarProperty Name="PhysicalTherapyLimit" ColumnName="PhysicalTherapyLimit" />
+                <ScalarProperty Name="PhysicalTherapyPercentageoption" ColumnName="PhysicalTherapyPercentageoption" />
+                <ScalarProperty Name="PhysicalTherapyLimitOption" ColumnName="PhysicalTherapyLimitOption" />
+                <ScalarProperty Name="ExaminationAndAnalysisPercentage" ColumnName="ExaminationAndAnalysisPercentage" />
+                <ScalarProperty Name="ExaminationAndAnalysisLimit" ColumnName="ExaminationAndAnalysisLimit" />
+                <ScalarProperty Name="ExaminationAndAnalysisPercentageoption" ColumnName="ExaminationAndAnalysisPercentageoption" />
+                <ScalarProperty Name="ExaminationAndAnalysisLimitOption" ColumnName="ExaminationAndAnalysisLimitOption" />
+                <ScalarProperty Name="OutsideClinicsPercentage" ColumnName="OutsideClinicsPercentage" />
+                <ScalarProperty Name="OutsideClinicsLimit" ColumnName="OutsideClinicsLimit" />
+                <ScalarProperty Name="OutsideClinicsPercentageoption" ColumnName="OutsideClinicsPercentageoption" />
+                <ScalarProperty Name="OutsideClinicsLimitOption" ColumnName="OutsideClinicsLimitOption" />
+                <ScalarProperty Name="HospitalsResidenceServicePercentage" ColumnName="HospitalsResidenceServicePercentage" />
+                <ScalarProperty Name="HospitalsResidenceServiceLimit" ColumnName="HospitalsResidenceServiceLimit" />
+                <ScalarProperty Name="HospitalsResidenceServicePercentageoption" ColumnName="HospitalsResidenceServicePercentageoption" />
+                <ScalarProperty Name="HospitalsResidenceServiceLimitOption" ColumnName="HospitalsResidenceServiceLimitOption" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
