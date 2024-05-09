@@ -72,7 +72,13 @@ namespace DMS_Authontication1.Models
         public bool CoronaVaccineCoverage { get; set; }
         public int MainId { get; set; }
         public string ClassCode { get; set; }
+        public Nullable<int> BasicDentalServiceId { get; set; }
+        public string DentalProsthetics { get; set; }
+        public Nullable<int> OpticalCount { get; set; }
+        public Nullable<bool> OpticalDetection { get; set; }
+        public Nullable<int> PregCount { get; set; }
     
         public virtual RenewalMain RenewalMain { get; set; }
+        public virtual BasicDentalService BasicDentalService { get; set; }
     }
 }

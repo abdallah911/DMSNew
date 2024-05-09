@@ -183,6 +183,13 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="BasicDentalService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="CardAcceptionReasons">
           <Key>
             <PropertyRef Name="id" />
@@ -997,6 +1004,13 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="Amount" Type="float" />
           <Property Name="DosageForm" Type="nvarchar(max)" />
           <Property Name="RequestId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="DentalService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -2191,6 +2205,11 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="CoronaVaccineCoverage" Type="bit" Nullable="false" />
           <Property Name="MainId" Type="int" Nullable="false" />
           <Property Name="ClassCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BasicDentalServiceId" Type="int" />
+          <Property Name="DentalProsthetics" Type="nvarchar(max)" />
+          <Property Name="OpticalCount" Type="int" />
+          <Property Name="OpticalDetection" Type="bit" />
+          <Property Name="PregCount" Type="int" />
         </EntityType>
         <EntityType Name="RenewalMains">
           <Key>
@@ -2269,6 +2288,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="ClassCode" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DoctorsExaminationValue" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="PricesOutsideMedicalAuthorityId" Type="int" Nullable="false" />
+          <Property Name="DentalServiceId" Type="int" />
         </EntityType>
         <EntityType Name="RenewalStepTwo">
           <Key>
@@ -3158,6 +3178,18 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RenewalInsideMedicalAuthorities_BasicDentalService">
+          <End Role="BasicDentalService" Type="Self.BasicDentalService" Multiplicity="0..1" />
+          <End Role="RenewalInsideMedicalAuthorities" Type="Self.RenewalInsideMedicalAuthorities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BasicDentalService">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalInsideMedicalAuthorities">
+              <PropertyRef Name="BasicDentalServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RenewalInsideMedicalAuthorities_RenewalMains">
           <End Role="RenewalMains" Type="Self.RenewalMains" Multiplicity="1" />
           <End Role="RenewalInsideMedicalAuthorities" Type="Self.RenewalInsideMedicalAuthorities" Multiplicity="*" />
@@ -3167,6 +3199,18 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Principal>
             <Dependent Role="RenewalInsideMedicalAuthorities">
               <PropertyRef Name="MainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RenewalOutsideMedicalAuthorities_DentalService">
+          <End Role="DentalService" Type="Self.DentalService" Multiplicity="0..1" />
+          <End Role="RenewalOutsideMedicalAuthorities" Type="Self.RenewalOutsideMedicalAuthorities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DentalService">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalOutsideMedicalAuthorities">
+              <PropertyRef Name="DentalServiceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3600,6 +3644,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="ApprovalDetails" EntityType="Self.ApprovalDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApprovalMaster" EntityType="Self.ApprovalMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Basic_Data" EntityType="Self.Basic_Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BasicDentalService" EntityType="Self.BasicDentalService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardAcceptionReasons" EntityType="Self.CardAcceptionReasons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardCode" EntityType="Self.CardCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardsSms" EntityType="Self.CardsSms" Schema="dbo" store:Type="Tables" />
@@ -3627,6 +3672,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="DailyPermissions" EntityType="Self.DailyPermissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeliveryRequest" EntityType="Self.DeliveryRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeliveryRequestDetails" EntityType="Self.DeliveryRequestDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DentalService" EntityType="Self.DentalService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Diagnosis" EntityType="Self.Diagnosis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DMSComplaint" EntityType="Self.DMSComplaint" Schema="dbo" store:Type="Tables" />
@@ -3874,9 +3920,17 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <End Role="Country" EntitySet="Country" />
             <End Role="Region" EntitySet="Region" />
           </AssociationSet>
+          <AssociationSet Name="FK_RenewalInsideMedicalAuthorities_BasicDentalService" Association="Self.FK_RenewalInsideMedicalAuthorities_BasicDentalService">
+            <End Role="BasicDentalService" EntitySet="BasicDentalService" />
+            <End Role="RenewalInsideMedicalAuthorities" EntitySet="RenewalInsideMedicalAuthorities" />
+          </AssociationSet>
           <AssociationSet Name="FK_RenewalInsideMedicalAuthorities_RenewalMains" Association="Self.FK_RenewalInsideMedicalAuthorities_RenewalMains">
             <End Role="RenewalMains" EntitySet="RenewalMains" />
             <End Role="RenewalInsideMedicalAuthorities" EntitySet="RenewalInsideMedicalAuthorities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RenewalOutsideMedicalAuthorities_DentalService" Association="Self.FK_RenewalOutsideMedicalAuthorities_DentalService">
+            <End Role="DentalService" EntitySet="DentalService" />
+            <End Role="RenewalOutsideMedicalAuthorities" EntitySet="RenewalOutsideMedicalAuthorities" />
           </AssociationSet>
           <AssociationSet Name="FK_RenewalOutsideMedicalAuthorities_RenewalMains" Association="Self.FK_RenewalOutsideMedicalAuthorities_RenewalMains">
             <End Role="RenewalMains" EntitySet="RenewalMains" />
@@ -5535,6 +5589,16 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="PendingOutPatients" EntityType="DB_A45413_DMSERPModel.PendingOutPatient" />
           <EntitySet Name="AlphabetLetters" EntityType="DB_A45413_DMSERPModel.AlphabetLetter" />
           <EntitySet Name="Basic_Data" EntityType="DB_A45413_DMSERPModel.Basic_Data" />
+          <EntitySet Name="BasicDentalServices" EntityType="DB_A45413_DMSERPModel.BasicDentalService" />
+          <EntitySet Name="DentalServices" EntityType="DB_A45413_DMSERPModel.DentalService" />
+          <AssociationSet Name="FK_RenewalInsideMedicalAuthorities_BasicDentalService" Association="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_BasicDentalService">
+            <End Role="BasicDentalService" EntitySet="BasicDentalServices" />
+            <End Role="RenewalInsideMedicalAuthority" EntitySet="RenewalInsideMedicalAuthorities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RenewalOutsideMedicalAuthorities_DentalService" Association="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_DentalService">
+            <End Role="DentalService" EntitySet="DentalServices" />
+            <End Role="RenewalOutsideMedicalAuthority" EntitySet="RenewalOutsideMedicalAuthorities" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7692,6 +7756,12 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="MainId" Type="Int32" Nullable="false" />
           <Property Name="ClassCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="RenewalMain" Relationship="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains" FromRole="RenewalInsideMedicalAuthority" ToRole="RenewalMain" />
+          <Property Name="BasicDentalServiceId" Type="Int32" />
+          <Property Name="DentalProsthetics" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OpticalCount" Type="Int32" />
+          <Property Name="OpticalDetection" Type="Boolean" />
+          <Property Name="PregCount" Type="Int32" />
+          <NavigationProperty Name="BasicDentalService" Relationship="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_BasicDentalService" FromRole="RenewalInsideMedicalAuthority" ToRole="BasicDentalService" />
         </EntityType>
         <EntityType Name="RenewalOutsideMedicalAuthority">
           <Key>
@@ -7758,6 +7828,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="DoctorsExaminationValue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="PricesOutsideMedicalAuthorityId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RenewalMain" Relationship="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_RenewalMains" FromRole="RenewalOutsideMedicalAuthority" ToRole="RenewalMain" />
+          <Property Name="DentalServiceId" Type="Int32" />
+          <NavigationProperty Name="DentalService" Relationship="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_DentalService" FromRole="RenewalOutsideMedicalAuthority" ToRole="DentalService" />
         </EntityType>
         <EntityType Name="RenewalStepTwo">
           <Key>
@@ -7920,6 +7992,46 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="BasicDentalService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RenewalInsideMedicalAuthorities" Relationship="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_BasicDentalService" FromRole="BasicDentalService" ToRole="RenewalInsideMedicalAuthority" />
+        </EntityType>
+        <EntityType Name="DentalService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RenewalOutsideMedicalAuthorities" Relationship="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_DentalService" FromRole="DentalService" ToRole="RenewalOutsideMedicalAuthority" />
+        </EntityType>
+        <Association Name="FK_RenewalInsideMedicalAuthorities_BasicDentalService">
+          <End Type="DB_A45413_DMSERPModel.BasicDentalService" Role="BasicDentalService" Multiplicity="0..1" />
+          <End Type="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority" Role="RenewalInsideMedicalAuthority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BasicDentalService">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalInsideMedicalAuthority">
+              <PropertyRef Name="BasicDentalServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RenewalOutsideMedicalAuthorities_DentalService">
+          <End Type="DB_A45413_DMSERPModel.DentalService" Role="DentalService" Multiplicity="0..1" />
+          <End Type="DB_A45413_DMSERPModel.RenewalOutsideMedicalAuthority" Role="RenewalOutsideMedicalAuthority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DentalService">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalOutsideMedicalAuthority">
+              <PropertyRef Name="DentalServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10740,6 +10852,11 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="RenewalInsideMedicalAuthorities">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority">
               <MappingFragment StoreEntitySet="RenewalInsideMedicalAuthorities">
+                <ScalarProperty Name="PregCount" ColumnName="PregCount" />
+                <ScalarProperty Name="OpticalDetection" ColumnName="OpticalDetection" />
+                <ScalarProperty Name="OpticalCount" ColumnName="OpticalCount" />
+                <ScalarProperty Name="DentalProsthetics" ColumnName="DentalProsthetics" />
+                <ScalarProperty Name="BasicDentalServiceId" ColumnName="BasicDentalServiceId" />
                 <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
                 <ScalarProperty Name="MainId" ColumnName="MainId" />
                 <ScalarProperty Name="CoronaVaccineCoverage" ColumnName="CoronaVaccineCoverage" />
@@ -10804,6 +10921,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="RenewalOutsideMedicalAuthorities">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalOutsideMedicalAuthority">
               <MappingFragment StoreEntitySet="RenewalOutsideMedicalAuthorities">
+                <ScalarProperty Name="DentalServiceId" ColumnName="DentalServiceId" />
                 <ScalarProperty Name="PricesOutsideMedicalAuthorityId" ColumnName="PricesOutsideMedicalAuthorityId" />
                 <ScalarProperty Name="DoctorsExaminationValue" ColumnName="DoctorsExaminationValue" />
                 <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
@@ -10996,6 +11114,22 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
                 <ScalarProperty Name="SOURCE_MOD" ColumnName="SOURCE_MOD" />
                 <ScalarProperty Name="BS_CODE" ColumnName="BS_CODE" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BasicDentalServices">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.BasicDentalService">
+              <MappingFragment StoreEntitySet="BasicDentalService">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DentalServices">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.DentalService">
+              <MappingFragment StoreEntitySet="DentalService">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
