@@ -169,9 +169,7 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PrintMedicalReport" Width="1.5" PointX="41.375" PointY="5.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalMain" Width="1.5" PointX="41.375" PointY="20.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.AgeAvg" Width="1.5" PointX="20.375" PointY="29.75" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalOutsideMedicalAuthority" Width="1.5" PointX="43.625" PointY="12" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalStepTwo" Width="1.5" PointX="43.625" PointY="6.625" />
-        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_RenewalMains" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalStepTwo_RenewalMains" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Employee_Request_Type" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompHolder" Width="1.5" PointX="3.375" PointY="42.75" />
@@ -183,6 +181,8 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Basic_Data" Width="1.5" PointX="12.375" PointY="13.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalInsideMedicalAuthority" Width="1.5" PointX="43.625" PointY="47.125" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalOutsideMedicalAuthority" Width="1.5" PointX="43.625" PointY="16" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_RenewalMains" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

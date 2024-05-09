@@ -3587,11 +3587,22 @@ namespace DMS_TEST.Controllers
                 else if (roshta.Manager == "Pharmacy_Doctor")
                 {
                     roshta.Manager = "Pharmacy_Doctor_Stop";
-                    string CardId = db.Roshitas.Where(x => x.Id == id).FirstOrDefault().CardId;
-                    var roshitaDetails = db.RoshitaDetails.Where(x => x.RoshitaID == id).ToList();
-                    long DoctorRositaId = db.Roshitas.Where(x => x.CardId == CardId && (x.Manager == "Doctor_Daily" /*|| x.Manager == "Doctor_Chronic"*/)).OrderByDescending(x => x.CreatedDate).FirstOrDefault().Id;
+                    var roshitawithdetails = db.Roshitas.Include(x=>x.RoshitaDetails).Where(x => x.Id == id).FirstOrDefault();
+                    //var roshitaDetails = db.RoshitaDetails.Where(x => x.RoshitaID == id).ToList();
+                    var DoctorRosita = db.Roshitas.Include(x => x.RoshitaDetails).Where(x => x.CardId == roshitawithdetails.CardId && (x.Manager == "Doctor_Daily" /*|| x.Manager == "Doctor_Chronic"*/))
+                        .OrderByDescending(x => x.CreatedDate).ToList();
+                    long DoctorRositaId=0;
+                    foreach (var item in DoctorRosita)
+                    {
+                        var details = item.RoshitaDetails.Where(x => x.MedicienCode == roshitawithdetails.RoshitaDetails.ElementAt(0).MedicienCode).FirstOrDefault();
+                        if(details!=null)
+                        {
+                            DoctorRositaId = details.RoshitaID;
+                            break;
+                        }
+                    }
                     var DoctrorchronicRositaDetails = db.RoshitaDetails.Where(x => x.RoshitaID == DoctorRositaId).ToList();
-                    foreach (RoshitaDetail item in roshitaDetails)
+                    foreach (RoshitaDetail item in roshitawithdetails.RoshitaDetails)
                     {
                         foreach (RoshitaDetail item2 in DoctrorchronicRositaDetails)
                         {
