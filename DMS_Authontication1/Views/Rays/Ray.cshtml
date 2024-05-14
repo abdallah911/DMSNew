@@ -121,7 +121,7 @@
 
                     <div class="forLabel admin-form-control border-0 px-2">
                         @*@Html.LabelFor(model => model.compEmp.CompHolderName, htmlAttributes: new { @class = "control-label" })*@
-                        @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control", @ReadOnly = "true" } })
+                        @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control", @style = " border-color: red; font-weight: 700!important; box-shadow: 0 0 3px 1px #e1434369;", @ReadOnly = "true" } })
                         <span>Comp Name</span>
                     </div>
 
