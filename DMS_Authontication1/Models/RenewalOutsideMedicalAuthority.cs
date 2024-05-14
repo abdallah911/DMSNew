@@ -74,9 +74,7 @@ namespace DMS_Authontication1.Models
         public string ClassCode { get; set; }
         public decimal DoctorsExaminationValue { get; set; }
         public int PricesOutsideMedicalAuthorityId { get; set; }
-        public Nullable<int> DentalServiceId { get; set; }
     
         public virtual RenewalMain RenewalMain { get; set; }
-        public virtual DentalService DentalService { get; set; }
     }
 }
