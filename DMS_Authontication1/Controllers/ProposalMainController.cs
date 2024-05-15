@@ -21,6 +21,7 @@ namespace DMS_Authontication1.Controllers
         private readonly ApplicationDbContext _dbContext;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private DMS_TESTEntities db = new DMS_TESTEntities();
 
         public ProposalMainController()
         {
@@ -603,7 +604,7 @@ namespace DMS_Authontication1.Controllers
             // Retrieve data from temporary storage or session
             // ...
             // Retrieve the list of Areas and CompanyActivities from the database
-            var ageAvgs = _dbContext.AgeAvgs.ToList();
+            var ageAvgs = db.AgeAvgs.ToList();
             var colors = _dbContext.CardColors.ToList();
             var residenceDegree = _dbContext.ResidenceDegrees.ToList();
             var medicalNetworks = _dbContext.MedicalNetworks.ToList();
@@ -738,7 +739,7 @@ namespace DMS_Authontication1.Controllers
                         var colors = _dbContext.CardColors.ToList();
                         var residenceDegree = _dbContext.ResidenceDegrees.ToList();
                         var medicalNetworks = _dbContext.MedicalNetworks.ToList();
-                        var ageAvgs = _dbContext.AgeAvgs.ToList();
+                        var ageAvgs = db.AgeAvgs.ToList();
 
 
                         // Convert the lists to SelectList items for use in dropdown lists
@@ -790,7 +791,7 @@ namespace DMS_Authontication1.Controllers
             var colors = _dbContext.CardColors.ToList();
             var residenceDegree = _dbContext.ResidenceDegrees.ToList();
             var medicalNetworks = _dbContext.MedicalNetworks.ToList();
-            var ageAvgs = _dbContext.AgeAvgs.ToList();
+            var ageAvgs = db.AgeAvgs.ToList();
             ViewBag.AgeList = new SelectList(ageAvgs, "Id", "Age");
 
 
@@ -880,7 +881,7 @@ namespace DMS_Authontication1.Controllers
                         var colors = _dbContext.CardColors.ToList();
                         var residenceDegree = _dbContext.ResidenceDegrees.ToList();
                         var medicalNetworks = _dbContext.MedicalNetworks.ToList();
-                        var ageAvgs = _dbContext.AgeAvgs.ToList();
+                        var ageAvgs = db.AgeAvgs.ToList();
                         ViewBag.AgeList = new SelectList(ageAvgs, "Id", "Age");
 
                         // Convert the lists to SelectList items for use in dropdown lists
