@@ -117,6 +117,12 @@ CateCount = ViewBag.CatCount;
                                    placeholder="الخدمات الاساسية للاسنان" />
                         </div>
                         <div style="height: 74px; margin: 10px">
+                            <input class="myInput"
+                                   style="pointer-events: none"
+                                   type="text"
+                                   placeholder="قائمة الخدمات الاساسية للاسنان" />
+                        </div>
+                        <div style="height: 74px; margin: 10px">
                             <input style="pointer-events: none"
                                    type="text"
                                    placeholder="البصريات" />
@@ -725,6 +731,27 @@ index++)
                                             </div>
                                         </section>
                                     </div>
+                                    <div style="
+                      display: flex;
+                      flex-direction: column;
+
+                      align-items: center;
+                    ">
+                                        <div style="width: 90%">
+                                            <div class="seleect-container">
+                                                <select name="Model[@index].MedicalNetworkId" class="seleect" id="cars">
+                                                    <option value="">اختر الخدمات الأساسية للأسنان</option> <!-- Default option -->
+                                                    @foreach (var color in ViewBag.DentalServices)
+                                                    {
+                                                        <option value="@color.Value" @(color.Value == Model[index].DentalServiceId.ToString() ? "selected" : "")>@color.Text</option>
+                                                    }
+                                                </select>
+                                                @*@Html.ValidationMessage($"Model[{index}].MedicalNetworkId", "", new { @class = "text-danger" })*@
+
+                                            </div>
+
+                                        </div>
+                                    </div>
                                     <div>
                                         <div style="display: flex; gap: 0.1rem">
                                             <input type="text"
@@ -791,15 +818,15 @@ index++)
                                                     نعم
                                                 </label>
                                                 @*<input style="
-                                                            position: absolute;
-                                                            height: 40px;
-                                                            top: 7px;
-                                                            left: 50%;
-                                                            z-index: 0;
-                                                            transform: translate(-50%);
-                                                          "
-                                                       type="text"
-                                                       class="dynamic-input" name="Model[@index].CoronaVaccine" value="@Model[index].CoronaVaccine" />*@
+                         position: absolute;
+                         height: 40px;
+                         top: 7px;
+                         left: 50%;
+                         z-index: 0;
+                         transform: translate(-50%);
+                       "
+                    type="text"
+                    class="dynamic-input" name="Model[@index].CoronaVaccine" value="@Model[index].CoronaVaccine" />*@
                                                 <input class="dynamic-radio form-check-input radio-no me-5"
                                                        type="radio"
                                                        name="Model[@index].CoronaVaccineCoverage"

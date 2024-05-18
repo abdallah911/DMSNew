@@ -60,6 +60,8 @@ namespace DMS_Authontication1.ViewModel
         //----------relations--------------//
         [Required(ErrorMessage = "Please provide the Average Age.")]
         public int AgeAvgId { get; set; }
+        public int? AgeAvg { get; set; } = 27;
+
         [Required(ErrorMessage = "Please provide the Card Color.")]
         public int CardColorId { get; set; }
 

@@ -35,6 +35,7 @@ namespace DMS_Authontication1.Models
         //----------relations--------------//
         public int AgeAvgId { get; set; }
         public AgeAvg AgeAvg { get; set; }
+
         public int CardColorId { get; set; }
         public CardColor CardColor { get; set; }
         public int ResidenceDegreeId { get; set; }
