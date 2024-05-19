@@ -5551,6 +5551,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <End Role="RenewalMain" EntitySet="RenewalMains" />
             <End Role="RenewalOutsideMedicalAuthority" EntitySet="RenewalOutsideMedicalAuthorities" />
           </AssociationSet>
+          <EntitySet Name="BasicDentalServices" EntityType="DB_A45413_DMSERPModel.BasicDentalService" />
+          <EntitySet Name="DentalServices" EntityType="DB_A45413_DMSERPModel.DentalService" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7936,6 +7938,20 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BasicDentalService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DentalService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10756,6 +10772,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="RenewalStepTwoes">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalStepTwo">
               <MappingFragment StoreEntitySet="RenewalStepTwo">
+                <ScalarProperty Name="AvgAge" ColumnName="AvgAge" />
                 <ScalarProperty Name="Death" ColumnName="Death" />
                 <ScalarProperty Name="Accidents" ColumnName="Accidents" />
                 <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
@@ -10767,7 +10784,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="OutsideClincInsideHospital" ColumnName="OutsideClincInsideHospital" />
                 <ScalarProperty Name="PhysicalTherapyInsideHospital" ColumnName="PhysicalTherapyInsideHospital" />
                 <ScalarProperty Name="ChecksInsideHospital" ColumnName="ChecksInsideHospital" />
-                <ScalarProperty Name="AvgAge" ColumnName="AvgAge" />
                 <ScalarProperty Name="MaxAge" ColumnName="MaxAge" />
                 <ScalarProperty Name="MinAge" ColumnName="MinAge" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
@@ -11012,6 +11028,22 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="HospitalsResidenceServiceLimit" ColumnName="HospitalsResidenceServiceLimit" />
                 <ScalarProperty Name="HospitalsResidenceServicePercentageoption" ColumnName="HospitalsResidenceServicePercentageoption" />
                 <ScalarProperty Name="HospitalsResidenceServiceLimitOption" ColumnName="HospitalsResidenceServiceLimitOption" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BasicDentalServices">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.BasicDentalService">
+              <MappingFragment StoreEntitySet="BasicDentalService">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DentalServices">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.DentalService">
+              <MappingFragment StoreEntitySet="DentalService">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
