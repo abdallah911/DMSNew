@@ -69,7 +69,7 @@ $(function () {
         $('#insurance_LIVEL').val('');
         $('#ddEmp_CEILING_PERT').val('');
         companid = $('#txtSearchCard').val().split('-')[0];
-        if (companid == "500142" || companid == "500103" || companid == "500125" || companid == "10560" || companid == "500172") {
+        if (companid.startsWith("500") || companid == "10560") {
             alert("هذا العميل لايحتاج موافقة علي الروشتات الخارجية علي ان يتم ادخال كافة البيانات والادوية علي السيستم");
 
         }

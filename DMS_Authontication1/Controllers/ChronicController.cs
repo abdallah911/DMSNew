@@ -33,15 +33,26 @@ namespace DMS_TEST.Controllers
             //    ViewBag.Message = "ValidationDate";
             //    return View(data);
             //}
+            DateTime datenow = DateTime.Now.Date;
+            //var datenowvalue = new DateTime(datenow.Year, datenow.Month, datenow.Day);
+            var empCardTerminationFlag = db.Comp_Employees.Where(x => x.CARD_ID == id && x.INS_START_DATE <= datenow
+            && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
             int CompId = Convert.ToInt32(id.Split('-')[0].ToString());
-            if (CompId.ToString().StartsWith("70") || CompId.ToString().StartsWith("10"))
+            if (!string.IsNullOrEmpty(empCardTerminationFlag.FAX))
             {
-                if (DateTime.Now.Day > 5 && DateTime.Now.Day <= 20)
+                if (empCardTerminationFlag.FAX == "0")
                 {
-                    ViewBag.Message = "Finish Dispence Date";
-                    return View(data);
+                    if (CompId.ToString().StartsWith("70") || CompId.ToString().StartsWith("10"))
+                    {
+                        if (DateTime.Now.Day > 5 && DateTime.Now.Day <= 20)
+                        {
+                            ViewBag.Message = "Finish Dispence Date";
+                            return View(data);
+                        }
+                    }
                 }
             }
+
             //chick if company is hold or not 
 
             var model = db.APPROVAL_BAD.Where(x => x.COMP_ID == CompId).FirstOrDefault();
@@ -73,10 +84,7 @@ namespace DMS_TEST.Controllers
                 ViewBag.Message = "Company is not existed";
                 return View(data);
             }
-            DateTime datenow = DateTime.Now.Date;
-            //var datenowvalue = new DateTime(datenow.Year, datenow.Month, datenow.Day);
-            var empCardTerminationFlag = db.Comp_Employees.Where(x => x.CARD_ID == id && x.INS_START_DATE <= datenow
-            && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+
             if (empCardTerminationFlag != null)
             {
                 if (emp == "Y" && empCardTerminationFlag.TERMINATE_FLAG == "N")
