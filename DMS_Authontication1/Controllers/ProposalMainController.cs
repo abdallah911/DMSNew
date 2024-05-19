@@ -1008,7 +1008,7 @@ namespace DMS_Authontication1.Controllers
                 // ...
                 // Retrieve the list of Areas and CompanyActivities from the database
 
-                var basicDentalServices = db.BasicDentalService.ToList();
+                var basicDentalServices = db.BasicDentalServices.ToList();
                 ViewBag.BasicDentalServices = new SelectList(basicDentalServices, "Id", "Name");
 
                 // Convert the lists to SelectList items for use in dropdown lists
@@ -1061,7 +1061,7 @@ namespace DMS_Authontication1.Controllers
 
             try
             {
-                var basicDentalServices = db.BasicDentalService.ToList();
+                var basicDentalServices = db.BasicDentalServices.ToList();
 
                 var secondproposal = _dbContext.ProposalStepTwos.Where(sp => sp.ProposalMainId == MainProposalId).ToList();
                 var secodProposalIndex = 0;
@@ -1358,7 +1358,7 @@ namespace DMS_Authontication1.Controllers
             }
             catch (Exception e)
             {
-                var basicDentalServices = db.BasicDentalService.ToList();
+                var basicDentalServices = db.BasicDentalServices.ToList();
                 ViewBag.BasicDentalServices = new SelectList(basicDentalServices, "Id", "Name");
                 var firstEntity = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == MainProposalId);
                 if (firstEntity != null)
@@ -1374,7 +1374,7 @@ namespace DMS_Authontication1.Controllers
             int prevId = Convert.ToInt32(Request.QueryString["prevId"]);
             // Retrieve data from temporary storage or session
             // ...
-            var basicDentalServices = db.BasicDentalService.ToList();
+            var basicDentalServices = db.BasicDentalServices.ToList();
             ViewBag.BasicDentalServices = new SelectList(basicDentalServices, "Id", "Name");
 
 
@@ -1633,7 +1633,7 @@ namespace DMS_Authontication1.Controllers
                             }
                         }
                         ViewBag.Errors = errors;
-                        var basicDentalServices = db.BasicDentalService.ToList();
+                        var basicDentalServices = db.BasicDentalServices.ToList();
                         ViewBag.BasicDentalServices = new SelectList(basicDentalServices, "Id", "Name");
                         ViewBag.MainId = id; 
 
@@ -1649,7 +1649,7 @@ namespace DMS_Authontication1.Controllers
             }
             catch (Exception e)
             {
-                var basicDentalServices = db.BasicDentalService.ToList();
+                var basicDentalServices = db.BasicDentalServices.ToList();
                 ViewBag.BasicDentalServices = new SelectList(basicDentalServices, "Id", "Name");
                 var firstEntity = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == id);
                 if (firstEntity != null)
@@ -1884,7 +1884,7 @@ namespace DMS_Authontication1.Controllers
             // ...
             // Retrieve the list of Areas and CompanyActivities from the database
 
-            var dentalServices = _dbContext.DentalServices.ToList();
+            var dentalServices = db.DentalServices.ToList();
             ViewBag.DentalServices = new SelectList(dentalServices, "Id", "Name");
 
             // Convert the lists to SelectList items for use in dropdown lists
@@ -1932,7 +1932,7 @@ namespace DMS_Authontication1.Controllers
             var mainId = 0;
             try
             {
-                var dentalServices = _dbContext.DentalServices.ToList();
+                var dentalServices = db.DentalServices.ToList();
                 ViewBag.DentalServices = new SelectList(dentalServices, "Id", "Name");
                 var secondproposal = _dbContext.ProposalStepTwos.Where(sp => sp.ProposalMainId == MainProposalId).ToList();
                 var secodProposalIndex = 0;
@@ -2302,7 +2302,7 @@ namespace DMS_Authontication1.Controllers
             }
             catch (Exception e)
             {
-                var dentalServices = _dbContext.DentalServices.ToList();
+                var dentalServices = db.DentalServices.ToList();
                 ViewBag.DentalServices = new SelectList(dentalServices, "Id", "Name");
                 var firstEntity = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == MainProposalId);
                 if (firstEntity != null)
@@ -2320,7 +2320,7 @@ namespace DMS_Authontication1.Controllers
             int prevId = Convert.ToInt32(Request.QueryString["prevId"]);
             // Retrieve data from temporary storage or session
             // ...
-            var dentalServices = _dbContext.DentalServices.ToList();
+            var dentalServices = db.DentalServices.ToList();
             ViewBag.DentalServices = new SelectList(dentalServices, "Id", "Name");
 
 
@@ -2361,7 +2361,7 @@ namespace DMS_Authontication1.Controllers
         {
             try
             {
-                var dentalServices = _dbContext.DentalServices.ToList();
+                var dentalServices = db.DentalServices.ToList();
                 ViewBag.DentalServices = new SelectList(dentalServices, "Id", "Name");
                 var secondproposal = _dbContext.ProposalStepTwos.Where(sp => sp.ProposalMainId == id).ToList();
                 var secodProposalIndex = 0;
@@ -2623,7 +2623,7 @@ namespace DMS_Authontication1.Controllers
             }
             catch (Exception e)
             {
-                var dentalServices = _dbContext.DentalServices.ToList();
+                var dentalServices = db.DentalServices.ToList();
                 ViewBag.DentalServices = new SelectList(dentalServices, "Id", "Name");
                 var firstEntity = _dbContext.ProposalMains.FirstOrDefault(p => p.Id == id);
                 if (firstEntity != null)
