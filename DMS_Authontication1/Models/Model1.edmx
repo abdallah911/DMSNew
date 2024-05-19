@@ -2205,7 +2205,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="CoronaVaccineCoverage" Type="bit" Nullable="false" />
           <Property Name="MainId" Type="int" Nullable="false" />
           <Property Name="ClassCode" Type="nvarchar" MaxLength="50" Nullable="false" />
-         
         </EntityType>
         <EntityType Name="RenewalMains">
           <Key>
@@ -2295,7 +2294,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="MinAge" Type="int" />
           <Property Name="MaxAge" Type="int" />
-          <Property Name="AvgAge" Type="int" />
           <Property Name="ChecksInsideHospital" Type="int" Nullable="false" />
           <Property Name="PhysicalTherapyInsideHospital" Type="int" Nullable="false" />
           <Property Name="OutsideClincInsideHospital" Type="int" Nullable="false" />
@@ -2307,6 +2305,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="ClassCode" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Accidents" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Death" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="AvgAge" Type="int" />
         </EntityType>
         <EntityType Name="RequestAddProvider">
           <Key>
@@ -7666,8 +7665,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="MedicalNetworkId" Type="Int32" Nullable="false" />
           <Property Name="MainId" Type="Int32" Nullable="false" />
           <Property Name="ClassCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Accidents" Type="Decimal" Nullable="false" />
-          <Property Name="Death" Type="Decimal" Nullable="false" />
+          <Property Name="Accidents" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Death" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="RenewalMain" Relationship="DB_A45413_DMSERPModel.FK_RenewalStepTwo_RenewalMains" FromRole="RenewalStepTwo" ToRole="RenewalMain" />
         </EntityType>
         <Association Name="FK_RenewalStepTwo_RenewalMains">
