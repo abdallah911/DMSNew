@@ -183,6 +183,13 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="BasicDentalService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="CardAcceptionReasons">
           <Key>
             <PropertyRef Name="id" />
@@ -997,6 +1004,13 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="Amount" Type="float" />
           <Property Name="DosageForm" Type="nvarchar(max)" />
           <Property Name="RequestId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="DentalService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -2280,7 +2294,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="MinAge" Type="int" />
           <Property Name="MaxAge" Type="int" />
-          <Property Name="AvgAge" Type="int" />
           <Property Name="ChecksInsideHospital" Type="int" Nullable="false" />
           <Property Name="PhysicalTherapyInsideHospital" Type="int" Nullable="false" />
           <Property Name="OutsideClincInsideHospital" Type="int" Nullable="false" />
@@ -2292,6 +2305,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="ClassCode" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Accidents" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Death" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="AvgAge" Type="int" />
         </EntityType>
         <EntityType Name="RequestAddProvider">
           <Key>
@@ -3600,6 +3614,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="ApprovalDetails" EntityType="Self.ApprovalDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApprovalMaster" EntityType="Self.ApprovalMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Basic_Data" EntityType="Self.Basic_Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BasicDentalService" EntityType="Self.BasicDentalService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardAcceptionReasons" EntityType="Self.CardAcceptionReasons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardCode" EntityType="Self.CardCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardsSms" EntityType="Self.CardsSms" Schema="dbo" store:Type="Tables" />
@@ -3627,6 +3642,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="DailyPermissions" EntityType="Self.DailyPermissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeliveryRequest" EntityType="Self.DeliveryRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeliveryRequestDetails" EntityType="Self.DeliveryRequestDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DentalService" EntityType="Self.DentalService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Diagnosis" EntityType="Self.Diagnosis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DMSComplaint" EntityType="Self.DMSComplaint" Schema="dbo" store:Type="Tables" />
@@ -5535,6 +5551,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <End Role="RenewalMain" EntitySet="RenewalMains" />
             <End Role="RenewalOutsideMedicalAuthority" EntitySet="RenewalOutsideMedicalAuthorities" />
           </AssociationSet>
+          <EntitySet Name="BasicDentalServices" EntityType="DB_A45413_DMSERPModel.BasicDentalService" />
+          <EntitySet Name="DentalServices" EntityType="DB_A45413_DMSERPModel.DentalService" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7920,6 +7938,20 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BasicDentalService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DentalService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10740,6 +10772,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="RenewalStepTwoes">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalStepTwo">
               <MappingFragment StoreEntitySet="RenewalStepTwo">
+                <ScalarProperty Name="AvgAge" ColumnName="AvgAge" />
                 <ScalarProperty Name="Death" ColumnName="Death" />
                 <ScalarProperty Name="Accidents" ColumnName="Accidents" />
                 <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
@@ -10751,7 +10784,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="OutsideClincInsideHospital" ColumnName="OutsideClincInsideHospital" />
                 <ScalarProperty Name="PhysicalTherapyInsideHospital" ColumnName="PhysicalTherapyInsideHospital" />
                 <ScalarProperty Name="ChecksInsideHospital" ColumnName="ChecksInsideHospital" />
-                <ScalarProperty Name="AvgAge" ColumnName="AvgAge" />
                 <ScalarProperty Name="MaxAge" ColumnName="MaxAge" />
                 <ScalarProperty Name="MinAge" ColumnName="MinAge" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
@@ -10996,6 +11028,22 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="HospitalsResidenceServiceLimit" ColumnName="HospitalsResidenceServiceLimit" />
                 <ScalarProperty Name="HospitalsResidenceServicePercentageoption" ColumnName="HospitalsResidenceServicePercentageoption" />
                 <ScalarProperty Name="HospitalsResidenceServiceLimitOption" ColumnName="HospitalsResidenceServiceLimitOption" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BasicDentalServices">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.BasicDentalService">
+              <MappingFragment StoreEntitySet="BasicDentalService">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DentalServices">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.DentalService">
+              <MappingFragment StoreEntitySet="DentalService">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
