@@ -150,8 +150,6 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<PrintMedicalReport> PrintMedicalReports { get; set; }
         public virtual DbSet<RenewalMain> RenewalMains { get; set; }
         public virtual DbSet<AgeAvg> AgeAvgs { get; set; }
-        public virtual DbSet<BasicDentalService> BasicDentalService { get; set; }
-
         public virtual DbSet<RenewalStepTwo> RenewalStepTwoes { get; set; }
         public virtual DbSet<Employee_Request_Type> Employee_Request_Type { get; set; }
         public virtual DbSet<CompHolder> CompHolders { get; set; }
