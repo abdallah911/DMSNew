@@ -1198,7 +1198,7 @@ namespace DMS_Synchronization
                 || tableName == "APP.POLL_PERCENT_CARD" || tableName == "APP.POLL_AMOUNT" || tableName == "APP.POLL_AMOUNT_CARD"
                 || tableName == "APP.POLL_DATA_CHRONIC" || tableName == "APP.POLL_DATA_DIAG" || tableName == "APP.POLL_DATA_EXCEPTIONS"
                 || tableName == "APP.POLL_DATA_PREX" || tableName == "APP.COMP_CUSTOMIZED_D_D_MED_EMP"
-                || tableName == "APP.COMP_CUSTOMIZED_D_D_MED" || tableName == "APP.REMAIN_CONSUMATION"|| tableName == "APP.CONSUMPTION_POOL")
+                || tableName == "APP.COMP_CUSTOMIZED_D_D_MED" || tableName == "APP.REMAIN_CONSUMATION" || tableName == "APP.CONSUMPTION_POOL")
             {
                 conn = _connectionSettings.OrcaleConnectionApp;
             }
@@ -8201,7 +8201,7 @@ namespace DMS_Synchronization
                                     ST_DAY = cardmed.Rows[0][19].ToString() != string.Empty ? Int16.Parse(cardmed.Rows[0][19].ToString()) : Int16.Parse(null),
                                     PhoneNumber = cardmed.Rows[0][20].ToString() != string.Empty ? cardmed.Rows[0][20].ToString() : null,
                                     NationalId = cardmed.Rows[0][21].ToString() != string.Empty ? cardmed.Rows[0][21].ToString() : null,
-                                    IsSync = false,
+                                    IsSync = true,
                                     SyncDate = DateTime.Now,
                                     SyncBy = "Aya",
                                     ExceptionType = cardmed.Rows[0][25].ToString() != string.Empty ? cardmed.Rows[0][25].ToString() : null,
@@ -8224,7 +8224,7 @@ namespace DMS_Synchronization
                                     Manager = "Doctor_Chronic",
                                     CreatedBy = cardmed.Rows[0][5].ToString() != string.Empty ? cardmed.Rows[0][5].ToString() : "Admin",
                                     CreatedDate = cardmed.Rows[0][6].ToString() != string.Empty ? DateTime.Parse(cardmed.Rows[0][6].ToString()) : (DateTime?)null,
-                                    IsSync = false,
+                                    IsSync = true,
                                     SyncBy = "Aya",
                                     SyncDate = DateTime.Now,
                                     Diagnose2 = "Empty",
@@ -8270,7 +8270,7 @@ namespace DMS_Synchronization
                                         ACT_MONTH = cardmedicne.Rows[k][25].ToString() != string.Empty ? cardmedicne.Rows[k][25].ToString() : null,
                                         LFT_MONTH = cardmedicne.Rows[k][26].ToString() != string.Empty ? decimal.Parse(cardmedicne.Rows[k][26].ToString()) : (decimal?)null,
                                         MONTH_DATE_STOP = cardmedicne.Rows[k][27].ToString() != string.Empty ? DateTime.Parse(cardmedicne.Rows[k][27].ToString()) : (DateTime?)null,
-                                        IsSync = false,
+                                        IsSync = true,
                                         SyncDate = DateTime.Now,
                                         SyncBy = "Aya",
 
@@ -8312,7 +8312,7 @@ namespace DMS_Synchronization
                                             IsDealed = RoshitaDetail.Rows[a][8].ToString() != string.Empty ? bool.Parse(RoshitaDetail.Rows[a][8].ToString()) : bool.Parse(null),
                                             PaymentGroup = RoshitaDetail.Rows[a][10].ToString() != string.Empty ? RoshitaDetail.Rows[a][10].ToString() : null,
                                             RoshitaID = roshitaId,
-                                            IsSync = false,
+                                            IsSync = true,
                                             SyncDate = DateTime.Now,
                                             SyncBy = "Aya",
 
