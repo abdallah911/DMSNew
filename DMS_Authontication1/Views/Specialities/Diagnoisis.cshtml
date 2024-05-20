@@ -3,102 +3,125 @@
 @{
     ViewBag.Title = "SpecilityDiagnoisis";
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
-
-@using (Html.BeginForm("Diagnoisis", "Specialities", FormMethod.Post))
-{
-    <div class="panel panel-primary">
-        <h2 class="panel-heading" style="margin:1px;">New Diagnoisis</h2>
-        <div class="panel-body">
-            <div class="form-horizontal">
-                @*@Html.HiddenFor(model => model.SPEC_ID)*@
-
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DIAG_ANAME, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.DIAG_ANAME, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.DIAG_ANAME, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DIAG_ENAME, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.DIAG_ENAME, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.DIAG_ENAME, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="panel-footer" style="text-align:right;">
-            <input id="submit" type="submit" value="Create" class="btn btn-success" />
-        </div>
-    </div>
-}
-
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Diagnoisis List
-        </div>
-    </div>
-    <br />
-    <div class="portlet-body">
-        <table class="table" @*style="margin-left: 78px;"*@>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.SPEC_ID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DIAG_ANAME)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DIAG_ENAME)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ACTIVE)
-                </th>
-                <th>Actions</th>
-            </tr>
-            @foreach (var item in Model.DiagnosisList)
-            {
-                string Activation = item.ACTIVE == "1" ? "Deactivate" : "activate";
-                var btnClass = item.ACTIVE == "1" ? "btn btn-warning" : "btn btn-info";
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SPEC_ID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DIAG_ANAME)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DIAG_ENAME)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ACTIVE)
-                </td>
-                <td>
-                    <button type="button" class="@btnClass" data-id=@item.Id onclick="Activation(this);">@Activation</button>
-                </td>
-            </tr>
-            }
-
-        </table>
+<!-- start section -->
+<div class="sios-overlay container-fluid mt-4">
+    <div class="container">
+        <i class="fa-solid fa-house"></i>
+        <h3>New Dosage Form</h3>
     </div>
 </div>
+
+<section class="print-claim-section mt-5">
+
+    @using (Html.BeginForm("Diagnoisis", "Specialities", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container col-10 px-0 mt-4">
+            <div style="white-space: nowrap" class="employee-form">
+                <div class="flex-column gap-2 d-flex pe-5">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="forLabel admin-form-control border-0 px-2">
+                        @*@Html.LabelFor(model => model.DIAG_ANAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })*@
+                        @Html.EditorFor(model => model.DIAG_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100" } })
+                        @Html.ValidationMessageFor(model => model.DIAG_ANAME, "", new { @class = "text-danger" })
+                        <span>DIAG ANAME</span>
+                    </div>
+                    <div class="forLabel admin-form-control border-0 px-2">
+                        @*@Html.LabelFor(model => model.DIAG_ENAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })*@
+                        @Html.EditorFor(model => model.DIAG_ENAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100" } })
+                        @Html.ValidationMessageFor(model => model.DIAG_ENAME, "", new { @class = "text-danger" })
+                        <span>DIAG ENAME</span>
+                    </div>
+                </div>
+                <div class="print-claims-btns d-flex mt-3 justify-content-end">
+                    <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3"
+                             />
+                </div>
+            </div>
+            <div class="m-auto col-12 col-lg-4 my-4"></div>
+        </div>
+    }
+
+</section>
+<div style="display: flex; flex-direction: column">
+    <section  >
+        <div class="sios-overlay container-fluid mt-4">
+            <div class="container">
+                <i class="fa-solid fa-house"></i>
+                <h3 class="">Diagnoisis List</h3>
+            </div>
+        </div>
+        <div class="sios-bg claims-section container-fluid">
+            <div class="table-responsive">
+                <table id="example" class="table table-striped mt-3 text-center">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SPEC_ID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DIAG_ANAME)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DIAG_ENAME)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ACTIVE)
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.DiagnosisList)
+                        {
+                            string Activation = item.ACTIVE == "1" ? "Deactivate" : "activate";
+                            var btnClass = item.ACTIVE == "1" ? "btn btn-warning" : "btn btn-info";
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SPEC_ID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DIAG_ANAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DIAG_ENAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ACTIVE)
+                                </td>
+                                <td>
+                                    <button type="button" class="btn fw-bold text-white rounded-3"  data-id=@item.Id onclick="Activation(this);">@Activation</button>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="my-4 m-auto border-bottom border-2"></div>
+        </div>
+    </section>
+</div>
+
 
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
+
 <script>
+    $(function () {
+        $("#example").DataTable();
+    });
     function Activation(button) {
 
         var id = $(button).data('id');

@@ -2,27 +2,28 @@
 
 @{
     ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
 <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
     <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
 </div>
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Get Approval
+<div class="sios-container editeRquest fw-bold pt-4 portlet box  green">
+    <div class="row bg-overlay portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <i class="fa fa-gift me-3"></i>Get Approval
         </div>
 
     </div>
-    <br />
+    
     <div class="portlet-body">
 
-        <div class="row">
-            <div style="margin-left:1px;" class="form-group">
-                <div class="col-sm-3">
-                    <input id="txtSearchCard" type="text" name="Search" placeholder="search for card..." class="form-control" />
+        <div class="row m-4">
+            <div  class="d-flex align-items-center justify-content-start form-group">
+                <div class="col-sm-3 ">
+                    <input id="txtSearchCard" type="text" name="Search" placeholder="search for card..." class="search-inp rounded-4 w-100 admin-form-control form-control" />
                 </div>
-                <div class="col-sm-3">
-                    <button id="Search" type="button" class="btn btn-primary">
+                <div class="col-sm-3 position-absolute">
+                    <button style="height:40px;" id="Search" type="button" class="search-btn text-light rounded-4 btn btn-primary">
                         <span class="glyphicon glyphicon-search"></span> Search
                     </button>
                 </div>
@@ -30,35 +31,44 @@
         </div>
         @Html.Partial("Cards")
 
-        <br />
-        <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;">Card </h2> </div>
-        <div class="row">
-            <div class="form-group">
+        
+        <div class="row bg-overlay">
+            <div class="m-3 fs-3 text-white panel panel-info">
+                <h2 class="panel-heading"  >Card </h2>
+            </div>
+        </div>
+        <div  style="position: relative" class="row col-12 w-75 m-auto py-4 row">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-gap-2 form-group">
 
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                <div class="forLabel admin-form-control   border-0 px-2">
+                    @*@Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })*@
+                    @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
+                    <span>Company Name</span>
                 </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                <div class="forLabel admin-form-control   border-0 px-2">
+                    @*@Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })*@
+                    @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
+                    <span>Name</span>
                 </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                <div class="forLabel admin-form-control   border-0 px-2">
+                    @*@Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })*@
+                    @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
+                    <span>Start Date</span>
                 </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                <div class="forLabel admin-form-control   border-0 px-2">
+                    @*@Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })*@
+                    @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
+                    <span>End Date</span>
                 </div>
-                <div class="col-sm-2">
-                    @Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })
-                    @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                <div class="forLabel admin-form-control   border-0 px-2">
+                    @*@Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })*@
+                    @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
+                    <span>Birth Date</span>
                 </div>
-                @*<div class="col-sm-2">
-                        @Html.LabelFor(model => model.compEmp.gender, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.compEmp.gender, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
-                    </div>*@
+                @*<div class="forLabel admin-form-control   border-0 px-2">
+            @Html.LabelFor(model => model.compEmp.gender, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.compEmp.gender, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
+        </div>*@
 
 
             </div>
@@ -68,47 +78,53 @@
 
         </div>
 
-        <br />
-        <div class="panel panel-info"><h2 class="panel-heading" style="margin:1px;">Permissions</h2> </div>
-
-        <div class="row">
+        
+        <div class="row bg-overlay">
+            <div class="m-3 fs-3 text-whitepanel panel-info">
+                <h2 class="m-3 fs-3 text-white panel-heading"  >Permissions</h2>
+            </div>
+        </div>
+        <div class="row row-cols-sm-2 row-gap-3 justify-content-between  my-4 px-3 row">
             <div class="form-group">
 
-                <div class="col-sm-2">
+                <div class="row col-12 m-auto">
 
                     <label style="font-size:medium">Approval Type</label>
-                    <div></div>
-                    <label class="custom-control custom-radio">
-                        <input onclick="myFunction()" id="radio1" name="radio" value="Normal" type="radio" class="custom-control-input">
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">Normal</span>
-                    </label>
-                    <label class="custom-control custom-radio">
-                        <input onclick="Function()" id="radio2" name="radio" value="Vip" type="radio" class="custom-control-input">
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">Vip</span>
-                    </label>
-
-                </div>
-                <div hidden id="Hidde" style="margin-left:10px;" class="col-sm-2">
-                    <label>Provider</label>
-                    @Html.DropDownListFor(m => m.Provider, (new SelectList(Model.GetProvidersList, "Id", "Name")),
-        new { @class = "form-control", id = "Provider" })
-
+                    <div class="mt-3 d-flex gap-3">
+                        <label class="custom-control custom-radio">
+                            <input onclick="myFunction()" id="radio1" name="radio" value="Normal" type="radio" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Normal</span>
+                        </label>
+                        <label class="custom-control custom-radio">
+                            <input onclick="Function()" id="radio2" name="radio" value="Vip" type="radio" class="ms-4 custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Vip</span>
+                        </label>
+                    </div>
                 </div>
 
-                <div class="col-sm-2" hidden id="Hidden">
-                    <label style="font-size:medium; margin-left:12px;">Reasons</label>
-
-                    @* <input type="hidden" id="textBoxVal" />*@
-                    <select class="mySelect2" multiple style="width :280px;" name="SelectVal" id="SelectVal"></select>
-                </div>
 
             </div>
+            <div class="d-grid gap-3" >
+                <div hidden id="Hidde" class="forLabel admin-form-control border-0 px-2">
 
+                    @Html.DropDownListFor(m => m.Provider, (new SelectList(Model.GetProvidersList, "Id", "Name")),
+        new { @class = "admin-form-control form-control", id = "Provider" })
+                    <span>Provider</span>
+                </div>
+
+                <div class="forLabel admin-form-control   border-0 px-2" hidden id="Hidden">
+
+
+                    @* <input type="hidden" id="textBoxVal" />*@
+                    <select class="w-50 mySelect2" multiple name="SelectVal" id="SelectVal"></select>
+                    <span style="font-size:medium;">Reasons</span>
+                </div>
+            </div>
             <div class="row">
 
-                <button style="margin-left:750px;width:110px;" id="submit" type="submit" class="btn btn-info ">Submit</button>
+                <button style="margin-left:750px;width:110px;" id="submit" type="submit" class="text-white fw-bold btn btn-info ">Submit</button>
 
 
             </div>

@@ -1,0 +1,180 @@
+﻿@*@model IEnumerable<DMS_Authontication1.Models.Comp_Employees>*@
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Admin Search
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row" style="padding-bottom: 15px;">
+
+            <div class="col-md-3">
+                <input id="CardId" type="text" class="col-md-2 form-control " placeholder="Card ID" />
+            </div>
+            <div class="col-md-3">
+                <input id="Company" type="text" class="col-md-2 form-control " placeholder="Company" />
+            </div>
+
+        </div>
+        <br />
+        <div style=" text-align:right">
+            <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
+            <input id="SendAllSms" type="button" value="Send All Sms" onclick="SendAll();" class="btn btn-success fa-file-excel-o " disabled />
+            <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />
+        </div>
+    </div>
+</div>
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Employees
+        </div>
+    </div>
+    <br />
+    <div class="portlet-body">
+        <table class="ui celled table" id="Employees" style="width:100%">
+            <thead>
+                <tr>
+
+                    <th>
+                        Card ID
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Contract
+                    </th>
+                    <th>
+                        National Id
+                    </th>
+                    <th>
+                        Phone Number
+                    </th>
+
+                    <th>
+                        Sms Code
+                    </th>
+                    <th></th>
+                    <th></th>
+                    @* <th></th>*@
+                </tr>
+            </thead>
+            <tbody></tbody>
+
+        </table>
+    </div>
+</div>
+
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script>
+    $(function () {
+        $("#SendAllSms").attr("disabled", "disabled");
+        $('#adminSearch').click(function () {
+            if (($("#Company").val() != '' || $("#Company").val() != undefined) && ($("#CardId").val() == '' || $("#CardId").val() == undefined))
+                $("#SendAllSms").attr("disabled", false);
+            $('#Employees').dataTable().fnDestroy();
+            $("#Employees").DataTable({
+                "sAjaxSource": '/CompEmployees/EmployeesListSms?CardId=' + $("#CardId").val() + '&&Company=' + $("#Company").val(),
+                "bServerSide": true,
+                "processing": true,
+                "bFilter": true,
+                "bSort": false,
+                "pageLength": 10,
+                "bInfo": true,
+                "columns": [
+                    { "data": "CARD_ID" },
+                    { "data": "EMP_ENAME" },
+                    { "data": "CONTRACT_NO" },
+                    { "data": "EMP_ID" },
+                    { "data": "TEL1" },
+                    { "data": "Code" },
+                    {
+                        "data": "Id",
+                        "mRender": function (data) {
+                            return '<a class="btn btn-warning" style = " text-transform: none" href="/CompEmployees/Edit/' + data + '">Edit</a>';
+
+                        }
+                    },
+                    {
+                        "data": "Id",
+                        "mRender": function (data) {
+                            return '<button type="button" class="btn btn-info" data-id=' + data + ' onclick="SMSCode(this);"> SMS Code</button>';
+
+                        }
+                    }
+
+
+                ]
+            });
+        });
+    });
+    function SMSCode(button) {
+        debugger;
+        var row = $(button).closest("TR");
+        var Code = $("TD", row).eq(5).html();
+        var id = $(button).data('id');
+        if (Code != "" && Code != undefined) {
+            toastr.error("يوجد كود مفعل يجب استخدامه " + Code);
+        }
+        else {
+            bootbox.confirm("Are you sure to Resend Verficstion Code ?", function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: '/CompEmployees/SMSCode',
+                        data: { id: id },
+                        success: function (returndata) {
+                            if (returndata.ok) {
+                                bootbox.alert("Send successfully, verfication code is " + returndata.returndata)
+                            } else {
+                                bootbox.alert(returndata.returndata)
+
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+    function SendAll() {
+        if (($("#Company").val() != '' && $("#Company").val() != undefined) && ($("#CardId").val() == '' || $("#CardId").val() == undefined)) {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '/CompEmployees/SMSCodeForAll',
+                data: { CopmId: $("#Company").val() },
+                success: function (returndata) {
+                    if (returndata.ok) {
+                        bootbox.alert("Send successfully ")
+                    } else {
+                        bootbox.alert(returndata.returndata)
+
+                    }
+                },
+                error: function (ex) {
+                    bootbox.alert('Failed to send code for company ');
+                }
+
+            });
+        }
+        else {
+            bootbox.alert(" Please enter company id only ");
+        }
+    }
+
+    function ClearSearchData() {
+        $("#Company").val("");
+        $("#CardId").val("");
+    }
+
+
+</script>

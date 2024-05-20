@@ -1,0 +1,105 @@
+﻿@model IEnumerable<DMS_Authontication1.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
+}
+
+<div class="portlet box  green  " style="margin:auto">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Users List
+        </div>
+        <div class="actions">
+            <a id="Create" href="/Account/Register" style=" text-transform: none" class="btn btn-success   btn-sm">
+                <i class="fa fa-plus"></i> Create User
+            </a>
+            <a id="Create" href="/Role/Index" class="btn btn-primary   btn-sm">
+                <i class="fa fa-list"></i> Roles
+            </a>
+        </div>
+    </div>
+    <br />
+    <div class="portlet-body">
+        <table class="table" id="Users">
+            <thead>
+                <tr>
+                    <th>
+                        User Name
+                    </th>
+                    <th>
+                        First Name
+                    </th>
+                    <th>
+                        Last Name
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Type
+                    </th>
+
+                    <th>
+                        Provider
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+
+        </table>
+    </div>
+</div>
+
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+
+    $(function () {
+        //  $(document).ready(function () {
+        $("#Users").DataTable({
+            "sAjaxSource": '/User/UserList',
+            "bServerSide": true,
+            "processing": true,
+            "bFilter": true,
+            "bSort": false,
+            "pageLength": 10,
+            "bInfo": true,
+            "columns": [
+                { "data": "UserName", "name": "UserName" },
+                { "data": "FName", "name": "FName" },
+                { "data": "LName", "name": "LName" },
+                { "data": "Email", "name": "Email" },
+                { "data": "Provider", "name": "Provider" },
+                { "data": "Type", "name": "Type" },
+                {
+                    "data": "Id",
+                    "mRender": function (data) {
+                        return '<a class="btn btn-warning" style = " text-transform: none"  href="/User/AdminResetPassword/?UserId=' + data + '">Change Password</a>';
+                    }
+                },
+                {
+                    "data": "Id",
+                    "mRender": function (data) {
+                        return '<a class="btn btn-default fa fa-list" style=" text-transform: none" href="/User/UserPermision/?UserId=' + data + '"> Permisions</a>'
+                    }
+                }
+                //{
+                //    "data": "UserName",
+                //    "mRender": function (data) {
+                //        return '<a class="btn btn-danger" href="/User/Delete/' + data + '"> Delete</button>';
+
+                //    }
+                //}
+
+            ]
+
+        });
+
+
+        $("#Users").DataTable();
+
+    });
+</script>

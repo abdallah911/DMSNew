@@ -1,43 +1,81 @@
 ﻿@model DMS_Authontication1.ViewModel.MedicineTypeViewmodel
 @{
     ViewBag.Title = "MedicineType";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
+<div class="sios-container">
+    <!-- start section -->
+    <div class="sios-overlay container-fluid mt-4">
+        <div class="m-3 fs-3 text-white">
+        
+            <h3>    <i class="fa-solid fa-house me-3"></i>New Medicine Type</h3>
+        </div>
+    </div>
 
-@using (Html.BeginForm("MedicineType", "Medicines", FormMethod.Post))
-{
-    <div class="panel panel-primary">
-        <h2 class="panel-heading" style="margin:1px;">New Medicine Type</h2>
-        <div class="panel-body">
-            <div class="form-horizontal">
-
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.MedicineTypeName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.MedicineTypeName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.MedicineTypeName, "", new { @class = "text-danger" })
+    <section class="print-claim-section  ">
+        @using (Html.BeginForm("MedicineType", "Medicines", FormMethod.Post))
+        {
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="row row-cols-sm-3 m-auto m-sm-0">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 w-100">
+                            <div class="row col-12 col-md-2 my-auto">
+                                @Html.LabelFor(model => model.MedicineTypeName, htmlAttributes: new { @class = "sios-color fw-bold" })
+                            </div>
+                            <div class="row col-12 col-md-6">
+                                @Html.EditorFor(model => model.MedicineTypeName, new { htmlAttributes = new { @class = "chronic-form-control" } })
+                                @Html.ValidationMessageFor(model => model.MedicineTypeName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="print-claims-btns d-flex  justify-content-end">
+                    <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3"
+                       />
+                </div>
             </div>
-        </div>
-        <div class="panel-footer" style="text-align:right;">
-            <input id="submit" type="submit" value="Create" class="btn btn-success" />
-        </div>
-    </div>
-}
+        }
+    </section>
+    <div style="display: flex; flex-direction: column">
+        <section>
+            <div class="sios-overlay container-fluid mt-4">
+                <div class="m-3 fs-3 text-white">
+                 
+                    <h3 class="">   <i class="fa-solid fa-house me-3"></i>Medicine Type List</h3>
+                </div>
+            </div>
+            <div class="sios-bg claims-section container-fluid mb-4">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped mt-3 text-center">
+                        <thead>
+                            <tr>
+                                <th>License Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.medtypelist)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MedicineTypeName)
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn fw-bold text-white rounded-3" data-id=@item.Id onclick="Delete(this);"> Delete</button>
+                                    </td>
+                                </tr>
+                            }
 
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Medicine Type List
-        </div>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="my-4 m-auto border-bottom border-2"></div>
+            </div>
+        </section>
     </div>
-    <br />
-    <div class="portlet-body">
-        @Html.Partial("_MedicineTypeList")
-    </div>
+
 </div>
-
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

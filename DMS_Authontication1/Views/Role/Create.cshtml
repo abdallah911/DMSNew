@@ -2,38 +2,42 @@
 
 @{
     ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="panel panel-info">
-        <h2 class="panel-heading" style="margin:1px;">Create Role</h2>
-        <div class="panel-body">
-            <div class="form-horizontal">
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                    </div>
+<div class="sios-container">
+    <section class="container-fluid mt-4">
+        <!--  New request -->
+        <div class="row bg-overlay">
+            <div style="position: relative"
+                 class="editeRquest fw-bold text-light">
+                <div class="m-3 fs-3">
+                    <i class="fa fa-home me-3"></i>
+                    Create Role
                 </div>
-
-                @*<div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
-                </div>
-            </div>*@
-        </div></div>
-            
-        <div class="panel-footer" style="text-align:right;">
-            <input id="Back" type="button" value="Back" onclick="window.location.replace('/Role/index');" class="btn btn-warning" />
-            <input id="submit" type="submit" value="Create" class="btn btn-success" />
+            </div>
         </div>
+    </section>
+    <div id="home">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="container col-10 px-0 mt-4">
+                <div style="white-space: nowrap" class="employee-form">
+                    <div class="flex-column d-flex pe-5">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="new-requ-form-parent row col-4 col-sm-6 col-md-8 mt-3">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "hr-form-control col-12 col-sm-8 border-0" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center">
+                        <input id="Back" type="button" value="Back" onclick="window.location.replace('/Role/index');" class="btn fw-bold text-white rounded-3" />
+                        <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3" />
+                    </div>
+                </div>
+                <div class="m-auto col-12 col-lg-4 my-4"></div>
+            </div>
+        }
     </div>
-}
+</div>

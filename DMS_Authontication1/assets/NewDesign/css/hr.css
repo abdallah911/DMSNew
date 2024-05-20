@@ -1,0 +1,145 @@
+* {
+  font-family: sans-serif;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  transition: all 0.4s;
+}
+
+:root {
+    --main-color: rgb(62, 115, 151);
+    --animate-duration: 2s;
+  }
+
+#HR {
+  background-image: url(../img/BG\ WHITE.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  background-size: cover;
+  height: 100%;
+}
+
+h2 {
+  font-weight: bold !important;
+}
+p {
+  padding: 7px 0px 25px;
+}
+
+h4 {
+  font-weight: bold !important;
+}
+
+.details-product {
+  background-color: rgba(221, 228, 228, 0.336);
+  padding: 15px;
+}
+
+.owl-carousel .owl-dots {
+  width: 100%;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.owl-carousel .owl-dot {
+  margin: 5px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: none !important;
+  background-color: rgba(115, 129, 129, 0.582);
+}
+
+.carousel-indicators {
+  display: flex;
+  align-items: center;
+  transition: 1s;
+}
+
+.carousel-item  {
+    height: 50%;
+    padding-bottom: 40px;
+}
+.carousel-indicators button.active {
+  all: unset;
+  color: #13c5dd;
+  background-color: rgba(163, 151, 151, 0.712) !important;
+  border-radius: 50%;
+  width: 20px !important;
+  height: 20px !important;
+  margin: 50px 10px 0px;
+  transition: 0.7s;
+}
+
+.carousel-indicators [data-bs-target] {
+  all: unset;
+  background-color: white !important;
+  border: 3px solid var(--main-color) !important;
+  margin: 50px 5px 0px;
+  width: 13px !important;
+  height: 13px !important;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+
+#btnUp {
+    color: white;
+    background-color: var(--main-color) !important;
+    border-radius: 50%;
+    padding: 10px 13px;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    display: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+  }
+/* =============footer================= */
+
+
+.footer {
+  background-color: var(--main-color) !important;
+  color: white;
+}
+
+.footer h5 {
+  font-weight: bolder !important;
+}
+
+.footerP2 {
+  position: relative;
+}
+
+.footerP2::after {
+  content: "";
+  position: absolute;
+  width: 2.5px;
+  height: 90px;
+  border-radius: 50%;
+  top: 38%;
+  background-color: white;
+  right: -20px;
+}
+.footerP2::before {
+  content: "";
+  position: absolute;
+  width: 2.5px;
+  height: 90px;
+  border-radius: 50%;
+  top: 38%;
+  background-color: white;
+  left: -40px;
+}
+
+.footerP1 p {
+  letter-spacing: 1px;
+}
+.line {
+  background-color: white;
+  height: 5px;
+  width: 70px;
+  margin-left: 30px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}

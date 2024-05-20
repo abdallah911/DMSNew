@@ -1,0 +1,468 @@
+﻿@model DMS_Authontication1.ViewModel.PricingAggregateViewModel
+
+
+@{
+    if (ViewBag != null)
+    {
+        ViewBag.Title = "Pricing Page 1";
+        Layout = "~/Views/Shared/_Layout_Proposal.cshtml";
+        var Errors = ViewBag.Errors;
+    }
+}
+
+@*@if (ViewBag.Errors != null)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewBag.Errors)
+                {
+                    <li>@error</li>
+                }
+            </ul>
+        </div>
+    }*@
+
+
+
+
+<!-- start section -->
+<section class="mb-5">
+    <div class="container-fluid mt-4">
+
+            <div class="row">
+
+
+                <div class="col-lg-10 d-flex flex-wrap flex-md-nowrap gap-4 w-100">
+                    <div class="sec-3 w-100 mt-3">
+                        <div>
+                            <div class="main-form" >
+                                <div style="position: relative">
+                                    <div class="d-flex gap-2">
+                                        @if (@Model.ProposalMain.IsBroker == true)
+                                        {
+                                            <div class="d-flex gap-4 align-items-center">
+                                                <label style="color:#000; width:100px">
+                                                    اسم السمسار
+                                                </label>
+                                                <div>
+                                                    <input disabled class="sios-form-control home-input col"
+                                                           type="text"
+                                                           value="@Model.ProposalMain.Broker.Name"
+                                                           placeholder="اسم السمسار" readonly />
+                                                </div>
+                                                <label class="fw-bold" >
+                                                    نسبة%
+                                                </label>
+                                                <div>
+                                                    <input disabled style="
+
+                                                    background-color: #e3e3e3;
+                                                    font-size: 16px;
+                                                    border: none;
+                                                    border-radius: 2px;
+                                                     "
+                                                           class="brokeEnabled sios-form-control home-input col"
+                                                           type="text"
+                                                           name="BrokerPercentage"
+                                                           placeholder="النسبة %"
+                                                           value="@Model.ProposalMain.BrokerPercentage"
+                                                           id="BrokerPercentage" />
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                    <div class="d-flex gap-4 align-items-center">
+                                        <label class="fw-bold" style="width:100px">
+                                            اسم السمسار
+                                        </label>
+                                        <div>
+                                            <input disabled class="sios-form-control fw-bold home-input col"
+                                                   type="text"
+                                                   value="لايوجد سمسار"
+                                                   placeholder="اسم السمسار" readonly />
+                                        </div>
+                                        <label class="fw-bold">
+                                            نسبة%
+                                        </label>
+                                        <div>
+                                            <input disabled style="
+
+                                                    background-color: #e3e3e3;
+                                                    font-size: 16px;
+                                                    border: none;
+                                                    border-radius: 2px;
+                                                     "
+                                                   class="brokeEnabled sios-form-control home-input col"
+                                                   type="text"
+                                                   name="BrokerPercentage"
+                                                   placeholder="النسبة %"
+                                                   value="لايوجد سمسار"
+                                                   id="BrokerPercentage" />
+                                        </div>
+                                    </div>
+
+                                        }
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-3 align-items-center">
+                                    <label class="fw-bold" style="width:100px">
+                                        الإسم بالعربي
+                                    </label>
+                                    <input disabled value="@Model.ProposalMain.CompanyArabicName" class="sios-form-control home-input col"
+                                           type="text"
+                                           placeholder="الإسم بالعربي" />
+                                </div>
+                                <div class="d-flex gap-3 align-items-center">
+                                    <label class="fw-bold" style="width:100px">
+                                        الإسم بالإنجليزي
+                                    </label>
+                                    <input disabled value="@Model.ProposalMain.CompanyEnglishName" class="sios-form-control home-input left-dire col"
+                                           type="text"
+                                           placeholder="الإسم بالإنجليزي" />
+                                </div>
+                                <div class="d-flex gap-3 align-items-center">
+                                    <label class="fw-bold" style="width:100px">
+                                        رقم التليفون
+                                    </label>
+                                    <input disabled value="@Model.ProposalMain.CompanyTelePhone" class="sios-form-control home-input col"
+                                           type="number"
+                                           placeholder="رقم التليفون" />
+
+                                </div>
+                                <div class="d-flex gap-3 align-items-center">
+                                    <label class="fw-bold" style="width:100px">
+                                        المنطقة
+                                    </label>
+                                    <input disabled value="@Model.ProposalMain.Area.Name" class="sios-form-control home-input col"
+                                           type="text"
+                                           placeholder="المنطقة" />
+
+                                </div>
+
+                                @*<div class="d-flex gap-3 align-items-center">
+                                    <label class="fw-bold" style="width:100px">
+                                        الإسم المسؤل
+                                    </label>
+                                    <input class="sios-form-control home-input col"
+                                           type="text"
+                                           disabled value="@Model.ProposalMain.AdministratorName"
+                                           placeholder="الإسم المسؤل" />
+
+                                </div>
+                                <div class="d-flex gap-3 align-items-center">
+                                    <label class="fw-bold" style="width:100px">
+                                        رقم الموبايل
+                                    </label>
+                                    <input disabled value="@Model.ProposalMain.AdministratorPhone" class="sios-form-control home-input col"
+                                           type="number"
+                                           placeholder="رقم الموبايل" />
+
+                                </div>*@
+                                <div class="d-flex gap-3 align-items-center">
+                                    <label class="fw-bold" style="width:100px">
+                                        تاريخ العقد
+                                    </label>
+                                    <input disabled value="@Model.ProposalMain.ContractDate" class="date-input sios-form-control home-input col"
+                                           type="text"
+                                           id="inputContractDate"
+                                           placeholder="تاريخ العقد" />
+                                </div>
+
+                                <div class="d-flex gap-3 align-items-center" style="position: relative">
+                                    <label class="fw-bold" style="width:100px">
+                                    زيارة الطبيب
+                                    </label>
+                                    <input style="height: 45px"
+                                           class="sios-form-control home-input col pb-2 fw-bold"
+                                           type="text"
+                                           disabled />
+                                    <div class="d-flex gap-2"
+                                         style="
+                          position: absolute;
+                          top: 50%;
+                          left: 40%;
+                          transform: translate(-50%, -50%);
+                          width: 60%;
+                        ">
+                                        <input style="
+                            background-color: #e3e3e3;
+                            font-size: 16px;
+                            border: none;
+                            border-radius: 2px;
+                          " disabled value="@Model.ProposalMain.DoctorVisitsCount"
+                                               class="sios-form-control home-input col"
+                                               type="text"
+                                               placeholder="عدد زيارات" />
+
+
+                                        <input style="
+                            background-color: #e3e3e3;
+                            font-size: 16px;
+                            border: none;
+                            border-radius: 2px;
+                          " disabled value="@Model.ProposalMain.DoctorVisitsDuration"
+                                               class="sios-form-control home-input col"
+                                               type="text"
+                                               placeholder="مدة زيارات" />
+
+                                    </div>
+                                </div>
+
+                                <div class="d-flex gap-3 align-items-center">
+                                    <label class="fw-bold" style="width:100px">
+                                        البريد الالكتروني
+                                    </label>
+                                    <input class="sios-form-control home-input col"
+                                           type="text"
+                                           disabled value="@Model.ProposalMain.Email"
+                                           placeholder="البريد الالكتروني" />
+
+                                </div>
+                                <div class="d-flex gap-3 align-items-center">
+                                    <label class="fw-bold" style="width:100px">
+                                        نشاط الشركة
+                                    </label>
+                                    <input class="sios-form-control home-input col"
+                                           type="text"
+                                           disabled value="@Model.ProposalMain.CompanyActivity.Name"
+                                           placeholder="نشاط الشركة" />
+                                </div>
+
+                                @if (Model.ProposalMain.InsuranceExists == true)
+                                {
+                                    <div class="d-flex gap-3 align-items-center">
+                                        <label class="fw-bold" style="width:100px">
+                                            التأمين
+                                        </label>
+                                        <p class="fw-bold text-center mt-2">يوجد تأمين</p>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div class="d-flex gap-3 align-items-center">
+                                        <label class="fw-bold" style="width:100px">
+                                            التأمين
+                                        </label>
+                                    <p class="fw-bold text-center mt-2"> لا يوجد تأمين</p>
+                                    </div>
+                                }
+
+                                <div class="d-flex gap-3 align-items-center">
+                                    <label class="fw-bold" style="width:100px">
+                                        عدد فئات
+                                    </label>
+                                    <input class="sios-form-control home-input col"
+                                           type="text"
+                                           disabled value="@Model.ProposalMain.CategoriesCount"
+                                           placeholder="عدد فئات" />
+
+                                </div>
+                            </div>
+
+                        </div>
+                        </div>
+                        <div class="form-bg-sec w-100">
+                            <div class="form-bg col-12 w-100">
+                                <div class="pool-box">
+                                    <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
+                                        <div class="pool-field">
+                                            <div class="inputs">
+                                                <input class="sios-form-control home-input"
+                                                       style="margin-right: 8px; color:#000"
+                                                       type="text"
+                                                       disabled value="@Model.ProposalMain.MedicationPoolVal"
+                                                       placeholder="قيمة" />
+                                                <label class="mt-1 me-3 ms-0 fw-bold">قيمة</label>
+                                                <input class="sios-form-control home-input"
+                                                       type="text"
+                                                       style="margin-right: 8px; color:#000"
+                                                       disabled value="@Model.ProposalMain.MedicationPoolPercentage"
+                                                       placeholder="نسبة" />
+                                                <label class="mt-1 me-4 fw-bold">نسبة</label>
+                                            </div>
+                                            <h6 style="color: #000; width:100px">Medication Pool</h6>
+                                        </div>
+                                        <div class="d-flex flex-column ps-2 pt-2">
+                                        </div>
+                                    </div>
+
+                                    <!-- PreX Pool -->
+                                    <div class="pool-field-box mb-2">
+                                        <div class="pool-field">
+                                                <div class="inputs">
+                                                <input disabled class="sios-form-control home-input" style="margin-right: 8px; color:#000" type="text" placeholder="قيمة" value="@Model.ProposalMain.PrexPoolVal" />
+                                                    <label style="color:#000" class="mt-1 me-3 ms-0 fw-bold">قيمة</label>
+                                                <input disabled class="sios-form-control home-input" style="margin-right: 8px; color:#000" type="text" placeholder="نسبة" value="@Model.ProposalMain.PrexPoolPercentage" />
+                                                    <label style="color:#000" class="mt-1 me-4 fw-bold">نسبة</label>
+                                                </div>
+                                            <h6 style="color:#000;">PreX Pool</h6>
+                                        </div>
+                                        <div class="coverage-box d-flex">
+                                            <div class="coverage-radio-box d-flex">
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="PrexPoolCoverage_PreviousAndLater">سابق ولاحق</label>
+                                                    <input class="form-check-input" disabled name="PrexPoolCoverage" type="radio" id="PrexPoolCoverage_PreviousAndLater" value="PreviousAndLater" @(Model.ProposalMain.PrexPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.PreviousAndLater ? "checked" : "") />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="PrexPoolCoverage_Later">لاحق</label>
+                                                    <input class="form-check-input" disabled name="PrexPoolCoverage" type="radio" id="PrexPoolCoverage_Later" value="Later" @(Model.ProposalMain.PrexPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Later ? "checked" : "") />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="PrexPoolCoverage_Previous">سابق</label>
+                                                    <input class="form-check-input" disabled name="PrexPoolCoverage" type="radio" id="PrexPoolCoverage_Previous" value="Previous" @(Model.ProposalMain.PrexPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Previous ? "checked" : "") />
+                                                </div>
+                                            </div>
+                                            <p style="color:#000;">نوع التغطية</p>
+                                        </div>
+                                    </div>
+                                    <div class="pool-field-box mb-2">
+                                        <div class="pool-field">
+                                            <div class="inputs">
+                                                <input class="sios-form-control home-input" style="margin-right: 8px; color:#000" type="text" disabled value="@Model.ProposalMain.ExceptionPoolVal" placeholder="قيمة" />
+                                                    <label style="color:#000" class="fw-bold mt-1 me-3 ms-0">قيمة</label>
+                                                <input class="sios-form-control home-input" style="margin-right: 8px; color:#000" type="text" disabled value="@Model.ProposalMain.ExceptionPoolPercentage" placeholder="نسبة" />
+                                                    <label class="mt-1 me-4 fw-bold" style="color:#000">نسبة</label>
+                                            </div>
+                                            <h6 style="color:#000;">Exception Pool</h6>
+                                        </div>
+                                        <div class="coverage-box d-flex">
+                                            <div class="coverage-radio-box d-flex">
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="ExceptionPoolCoverage_PreviousAndLater">سابق ولاحق</label>
+                                                    <input class="form-check-input" name="ExceptionPoolCoverage" type="radio" id="ExceptionPoolCoverage_PreviousAndLater" value="PreviousAndLater" disabled @(Model.ProposalMain.ExceptionPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.PreviousAndLater ? "checked" : "") />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="ExceptionPoolCoverage_Later">لاحق</label>
+                                                    <input class="form-check-input" name="ExceptionPoolCoverage" type="radio" id="ExceptionPoolCoverage_Later" value="Later" disabled @(Model.ProposalMain.ExceptionPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Later ? "checked" : "") />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="ExceptionPoolCoverage_Previous">سابق</label>
+                                                    <input class="form-check-input" name="ExceptionPoolCoverage" type="radio" id="ExceptionPoolCoverage_Previous" value="Previous" disabled @(Model.ProposalMain.ExceptionPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Previous ? "checked" : "") />
+                                                </div>
+                                            </div>
+                                            <p style="color:#000;">نوع التغطية</p>
+                                        </div>
+                                        <div class="d-flex flex-column ps-2">
+                                        </div>
+
+                                    </div>
+                                    <div class="pool-field-box mb-2">
+                                        <div class="pool-field">
+                                            <div class="inputs">
+                                                <input class="sios-form-control home-input" style="margin-right: 8px; color:#000" type="text" name="ChronicPoolVal" placeholder="قيمة" disabled value="@Model.ProposalMain.ChronicPoolVal" />
+                                                    <label class="mt-1 me-3 ms-0 fw-bold" style="color:#000">قيمة</label>
+                                                <input class="sios-form-control home-input" style="margin-right: 8px; color:#000" type="text" name="ChronicPoolPercentage" placeholder="نسبة" disabled value="@Model.ProposalMain.ChronicPoolPercentage" />
+                                                    <label class="mt-1 me-4 fw-bold" style="color:#000">نسبة</label>
+                                            </div>
+                                            <h6 style="color:#000;">Chronic Pool</h6>
+                                        </div>
+                                        <div class="coverage-box d-flex">
+                                            <div class="coverage-radio-box d-flex">
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="ChronicPoolCoverage_PreviousAndLater">سابق ولاحق</label>
+                                                    <input class="form-check-input" name="ChronicPoolCoverage" type="radio" id="ChronicPoolCoverage_PreviousAndLater" value="PreviousAndLater" disabled @(Model.ProposalMain.ChronicPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.PreviousAndLater ? "checked" : "") />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="ChronicPoolCoverage_Later">لاحق</label>
+                                                    <input class="form-check-input" name="ChronicPoolCoverage" type="radio" id="ChronicPoolCoverage_Later" value="Later" disabled @(Model.ProposalMain.ChronicPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Later ? "checked" : "") />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="ChronicPoolCoverage_Previous">سابق</label>
+                                                    <input class="form-check-input" name="ChronicPoolCoverage" type="radio" id="ChronicPoolCoverage_Previous" value="Previous" disabled @(Model.ProposalMain.ChronicPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Previous ? "checked" : "") />
+                                                </div>
+                                            </div>
+                                            <p style="color:#000;">نوع التغطية</p>
+                                        </div>
+                                        <div class="d-flex flex-column ps-2">
+                                        </div>
+                                    </div>
+                                    <div class="pool-field-box mb-2">
+                                        <div class="pool-field">
+                                            <div class="inputs">
+                                                <input class="sios-form-control home-input" style="margin-right: 8px; color:#000" type="text" name="CriticalPoolVal" placeholder="قيمة" disabled value="@Model.ProposalMain.CriticalPoolVal" />
+                                                    <label class="mt-1 me-3 ms-0 fw-bold" style="color:#000">قيمة</label>
+                                                <input class="sios-form-control home-input" style="margin-right: 8px; color:#000" type="text" name="CriticalPoolPercentage" placeholder="نسبة" disabled value="@Model.ProposalMain.CriticalPoolPercentage" />
+                                                    <label class="mt-1 me-4 fw-bold" style="color:#000">نسبة</label>
+                                            </div>
+                                            <h6 style="color:#000;">Critical Pool</h6>
+                                        </div>
+                                        <div class="coverage-box d-flex">
+                                            <div class="coverage-radio-box d-flex">
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="CriticalPoolCoverage_PreviousAndLater">سابق ولاحق</label>
+                                                    <input class="form-check-input" name="CriticalPoolCoverage" type="radio" id="CriticalPoolCoverage_PreviousAndLater" value="PreviousAndLater" disabled @(Model.ProposalMain.CriticalPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.PreviousAndLater ? "checked" : "") />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="CriticalPoolCoverage_Later">لاحق</label>
+                                                    <input class="form-check-input" name="CriticalPoolCoverage" type="radio" id="CriticalPoolCoverage_Later" value="Later" disabled @(Model.ProposalMain.CriticalPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Later ? "checked" : "") />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="CriticalPoolCoverage_Previous">سابق</label>
+                                                    <input class="form-check-input" name="CriticalPoolCoverage" type="radio" id="CriticalPoolCoverage_Previous" value="Previous" disabled @(Model.ProposalMain.CriticalPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Previous ? "checked" : "") />
+                                                </div>
+                                            </div>
+                                            <p style="color:#000;">نوع التغطية</p>
+                                        </div>
+                                        <div class="d-flex flex-column ps-2">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <!-- Repeat the structure for Exception Pool, Chronic Pool, and Critical Pool -->
+                                    <!-- Exception Pool -->
+                                    
+                                    <!-- Chronic Pool -->
+                                   
+
+                                    <!-- Critical Pool -->
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="btns-box">
+                            <div class="action-btns w-25 m-auto">
+                                @*<a style="width: fit-content;">
+            <button type="button" class="text-align-center btn next-btn px-4" onclick="submitForm()">التالي</button>
+        </a>*@
+                                @Html.ActionLink("التالي", "PricingPage2", new { proposalMainId = Model.ProposalMain.Id }, new
+                           {
+                               @class = "text-align-center btn next-btn px-4",
+                               style = " background:linear-gradient( 45deg, #07386e 0%, #17609b 18%, rgb(65 134 193) 50%, #17609b 75%, #07386e 100% ); "
+                           })
+                            </div>
+                            <br />
+                            <div class="action-btns w-25 m-auto">
+                                <button type="button" class="btn action-btn p-2" onclick="goToIndex()">
+                                    الغاء
+                                </button>
+                                <a href="~/ProposalAssets/Files/ConsumptionFiles/@Model.ProposalMain.ConsumptionFileName" class="btn" style="text-decoration:none;color: #fff; background: #6e7085;padding: 10px 30px;border-radius: 10px;font-weight: var(--font - bold);font-size: 18px;box-shadow: 0 0 2px #14061b4d;cursor: pointer; " target="_blank">الاستهلاكات</a>
+                            </div>
+                            <br />
+                            <div class="w-25 action-btns"
+                                 style="
+                    margin-right: 35%;
+                    grid-template-columns: repeat(1, auto);
+                  ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+</section>
+@section Scripts{
+    <script>
+        
+
+      
+        function goToIndex() {
+            window.location.href = '/ProposalMain/Index'; 
+        }
+      
+    </script>
+    }
+
+<!-- end section -->

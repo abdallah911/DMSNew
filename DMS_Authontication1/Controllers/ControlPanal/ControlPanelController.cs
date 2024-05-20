@@ -29,12 +29,19 @@ namespace DMS_Authontication1.Controllers.ControlPanal
         public ActionResult Main()
         {
 
-            ViewBag.UserName =  User.Identity.Name;
+            ViewBag.UserName = User.Identity.Name;
             var user = UserManager.FindById(User.Identity.GetUserId());
-            ViewBag.PhoneNumber=user.PhoneNumber;
+            ViewBag.PhoneNumber = user.PhoneNumber;
             ViewBag.Address = user.Address;
             ViewBag.Email = user.Email;
             return View(user);
         }
+        [Authorize]
+        // GET: ControlPanel
+        public ActionResult Index()
+        {
+            return View();
+        }
+
     }
 }

@@ -53,6 +53,20 @@ namespace DMS_TEST.Controllers
             }
             return View();
         }
+        [Authorize(Roles = "Pharmacy")]
+        public ActionResult PharmacyPage()
+        {
+            NotificationHub objNotifHub = new NotificationHub();
+            objNotifHub.SendMessages();
+            Session.Clear();
+            ViewBag.ddlSpeciality = new SelectList(db.Specialities1, "SPEC_ID", "SPEC_ANAME");
+            if (User.IsInRole("Admin"))
+            {
+                var context = new ApplicationDbContext();
+                ViewBag.ddlUsers = new SelectList(context.Users.Where(x => x.Type == "1" || x.Type == "2" || x.Type == "Admin").ToList(), "UserName", "UserName", User.Identity.Name);
+            }
+            return View();
+        }
         [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
         public ActionResult CardCode()
         {
@@ -3279,6 +3293,23 @@ namespace DMS_TEST.Controllers
             }
             return View();
         }
+        //Main Roshta
+        [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
+        public ActionResult IndexClaim()
+        {
+            var context = new ApplicationDbContext();
+
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.ddlUsers = new SelectList(context.Users.ToList(), "UserName", "UserName", User.Identity.Name);
+            }
+            else if (User.IsInRole("Pharmacy_Admin"))
+            {
+                var CurrentUser = context.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                ViewBag.ddlUsers = new SelectList(context.Users.Where(x => x.Provider == CurrentUser.Provider).ToList(), "UserName", "UserName", User.Identity.Name);
+            }
+            return View();
+        }
 
 
         [Authorize(Roles = "Admin")]
@@ -4850,6 +4881,24 @@ namespace DMS_TEST.Controllers
         #region CompaniesChronicDelivery
         [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
         public ActionResult CompaniesChronicDelivery()
+        {
+
+            var CurrentUser = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+            //int userProvider = Convert.ToInt32(CurrentUser.Provider);
+            var medCards = db.Med_Card.Where(m => (m.PROVIDER_CODE.Contains(CurrentUser.Provider) || m.PROVIDER_CODE.Contains("1268")) && m.LOOK_01 == 0)
+                .Join(db.Contract_Comp, m => m.C_COMP_ID, c => c.C_COMP_ID, (m, c) => new { m, c }).Select(
+                l => new
+                {
+                    value = l.m.C_COMP_ID,
+                    text = l.m.C_COMP_ID + "||" + l.c.C_ENAME,
+                }).Distinct().ToList();
+            ViewBag.ddlcompanies = new SelectList(medCards, "value", "text");
+
+            return View();
+        }
+
+        [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
+        public ActionResult CompaniesChronicDeliveryNew()
         {
 
             var CurrentUser = UserDB.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();

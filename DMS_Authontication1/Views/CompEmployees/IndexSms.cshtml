@@ -1,79 +1,79 @@
-﻿@*@model IEnumerable<DMS_Authontication1.Models.Comp_Employees>*@
-
-@{
+﻿@{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
+
 }
+<style>
+    tr {
+        text-align: center;
+    }
+</style>
 
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Admin Search
-        </div>
-    </div>
-    <div class="portlet-body">
-        <div class="row" style="padding-bottom: 15px;">
-
-            <div class="col-md-3">
-                <input id="CardId" type="text" class="col-md-2 form-control " placeholder="Card ID" />
-            </div>
-            <div class="col-md-3">
-                <input id="Company" type="text" class="col-md-2 form-control " placeholder="Company" />
-            </div>
-
-        </div>
-        <br />
-        <div style=" text-align:right">
-            <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
-            <input id="SendAllSms" type="button" value="Send All Sms" onclick="SendAll();" class="btn btn-success fa-file-excel-o " disabled />
-            <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />
-        </div>
-    </div>
-</div>
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Employees
-        </div>
-    </div>
-    <br />
-    <div class="portlet-body">
-        <table class="ui celled table" id="Employees" style="width:100%">
-            <thead>
-                <tr>
-
-                    <th>
-                        Card ID
-                    </th>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Contract
-                    </th>
-                    <th>
-                        National Id
-                    </th>
-                    <th>
-                        Phone Number
-                    </th>
-
-                    <th>
-                        Sms Code
-                    </th>
-                    <th></th>
-                    <th></th>
-                    @* <th></th>*@
-                </tr>
-            </thead>
-            <tbody></tbody>
-
-        </table>
+<!-- start section -->
+<div class="sios-overlay container-fluid mt-4">
+    <div class="container">
+        <i class="fa-solid fa-house"></i>
+        <h3>Admin Search</h3>
     </div>
 </div>
 
+<section class="sios-container print-claim-section mt-5">
+    <form name="formValidation" id="formValidation" action="">
+        <div class="container">
+            <div class="row mt-3">
+                <div class="row row-cols-sm-3 m-auto m-sm-0">
+                    <div class="forLabel">
+                        <input class="chronic-form-control mb-3 ps-3" type="text" name="CardId" id="CardId" required="required" />
+                        <span for="CardId">Card ID</span>
+                    </div>
+                    <div class="forLabel">
+                        <input class="chronic-form-control mb-3 ps-3" type="text" name="Company" id="Company" required="required" />
+                        <span for="company">Company</span>
+                    </div>
+                </div>
+            </div>
+            <div class="print-claims-btns d-flex mt-5 justify-content-end">
+                <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3"   />
+                <input id="SendAllSms" type="button" value="Send All Sms" onclick="SendAll();" class="btn fw-bold text-white rounded-3"  disabled />
+                <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3"  />
 
-<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+            </div>
+        </div>
+    </form>
+</section>
+<div style="display: flex; flex-direction: column">
+    <section style="display: flex;flex-direction: column;flex-grow: 1;">
+        <div class="sios-overlay container-fluid mt-4">
+            <div class="container">
+                <i class="fa-solid fa-house"></i>
+                <h3 class="">Employees</h3>
+            </div>
+        </div>
+        <div class="cs-bg claims-section container-fluid">
+            <div class="table-responsive">
+                <table id="Employees" class="table table-striped mt-3 text-center">
+                    <thead>
+                        <tr>
+                            <th>Card ID</th>
+                            <th>Name</th>
+                            <th>Contract</th>
+                            <th>National ID</th>
+                            <th>Phone Number</th>
+                            <th>Sms Code</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="my-4 m-auto border-bottom border-2"></div>
+        </div>
+
+    </section>
+</div>
+
+<script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
 <script>
     $(function () {
         $("#SendAllSms").attr("disabled", "disabled");
@@ -99,14 +99,14 @@
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            return '<a class="btn btn-warning" style = " text-transform: none" href="/CompEmployees/Edit/' + data + '">Edit</a>';
+                            return '<a class="text-light btn" style="background-color: #717382" style = " text-transform: none" href="/CompEmployees/Edit/' + data + '">Edit</a>';
 
                         }
                     },
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            return '<button type="button" class="btn btn-info" data-id=' + data + ' onclick="SMSCode(this);"> SMS Code</button>';
+                            return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="SMSCode(this);"> SMS Code</button>';
 
                         }
                     }

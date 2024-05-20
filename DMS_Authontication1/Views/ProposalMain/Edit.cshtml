@@ -1,0 +1,520 @@
+﻿@model DMS_Authontication1.ViewModel.ProposalMainViewModel
+
+@{
+    if (ViewBag != null)
+    {
+        ViewBag.Title = "Edit";
+        Layout = "~/Views/Shared/_Layout_Proposal.cshtml";
+        var Errors = ViewBag.Errors;
+    }
+}
+
+@*@if (ViewBag.Errors != null)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewBag.Errors)
+                {
+                    <li>@error</li>
+                }
+            </ul>
+        </div>
+    }*@
+
+
+
+<!-- start section -->
+<section class="mb-5">
+    <div class="container-fluid mt-4">
+        @using (Html.BeginForm("Edit", "ProposalMain", FormMethod.Post, new { enctype = "multipart/form-data", id = "ProposalMainForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <h1 style="text-align: center; color: #3c65a1;">تعديل</h1>
+            <input hidden type="number" name="id" value="@Model.Id" />
+            <input hidden type="text" name="code" value="@Model.Code" />
+
+
+            <div class="row">
+
+
+                <div class="col-lg-10 m-auto w-100">
+                    <div class="sec-3 row mt-3">
+                        <div class="col-8">
+                            <div class="main-form col-12">
+                                <div style="position: relative">
+                                    <input disabled
+                                           id="disabled"
+                                           style="height: 45px"
+                                           class="sios-form-control home-input col pb-2"
+                                           type="text"
+                                           placeholder="سمسار" />
+                                    <div class="d-flex gap-2"
+                                         style="
+                          position: absolute;
+                          top: 50%;
+                          left: 50%;
+                          transform: translate(-50%, -50%);
+                          width: 60%;
+                        ">
+                                        <div class="brokeDisabled"
+                                             style="
+                            display: block;
+                            color: #778183;
+                            width: 100%;
+                            text-align: center;
+                          ">
+                                        </div>
+                                        @Html.DropDownList("brokerId", (SelectList)ViewBag.BrokerList, "الاسم", new
+                                        {
+                                       @class = "brokeEnabled sios-form-control col",
+                                       style = "display: none;background - color: #e3e3e3;font - size: 12px;border: none;border - radius: 2px;",
+                                       id = "district"
+                                        })
+                                        @Html.ValidationMessageFor(model => model.BrokerId, "", new { @class = "text-danger" })
+                                        <input style="
+                            display: none;
+                            background-color: #e3e3e3;
+                            font-size: 12px;
+                            border: none;
+                            border-radius: 2px;
+                          "
+                                               class="brokeEnabled sios-form-control home-input col"
+                                               type="text"
+                                               name="BrokerPercentage"
+                                               value="@Model.BrokerPercentage"
+                                               placeholder="النسبة %" />
+                                        @Html.ValidationMessageFor(model => model.BrokerPercentage, "", new { @class = "text-danger" })
+                                        @Html.CheckBoxFor(model => model.IsBroker, new { style = "height: fit-content; margin-top: 4px;", id = "toggleEnable" })
+                                        <label style="color:#000" class="brokeDisabled fw-bold" for="">يوجد</label>
+
+                                        @*<input style="height: fit-content; margin-top: 4px;"
+        type="checkbox"
+        id="toggleEnable"
+        name="IsBroker"
+        value="@Model.IsBroker" />*@
+                                        <label for="myCheckbox"></label>
+                                    </div>
+                                </div>
+
+                                @*<input name="Id" class="sios-form-control col"
+        type="password"
+        placeholder="رقم العملية" />*@
+                                <div class="d-flex" style="align-items:center;">
+                                    <span class="fw-bold" style="width:100px">
+                                        الإسم بالعربي
+                                    </span>
+                                    <input name="CompanyArabicName" class="sios-form-control col"
+                                           type="text"
+                                           placeholder="الإسم بالعربي" value="@Model.CompanyArabicName" />
+                                </div>
+                                @Html.ValidationMessageFor(model => model.CompanyArabicName, "", new { @class = "text-danger" })
+                                <div class="d-flex" style="align-items:center;">
+                                    <span class="fw-bold" style="width:100px">
+                                        الإسم بالإنجليزي
+                                    </span>
+                                    <input name="CompanyEnglishName" class="sios-form-control left-dire col"
+                                           type="text"
+                                           placeholder="الإسم بالإنجليزي" value="@Model.CompanyEnglishName" />
+                                </div>
+                                @Html.ValidationMessageFor(model => model.CompanyEnglishName, "", new { @class = "text-danger" })
+                                <div class="d-flex" style="align-items:center;">
+                                    <span class="fw-bold" style="width:100px">
+                                        رقم التليفون
+                                    </span>
+                                    <input name="CompanyTelePhone" class="sios-form-control col"
+                                           type="number"
+                                           placeholder="رقم التليفون" value="@Model.CompanyTelePhone" />
+                                </div>
+                                @Html.ValidationMessageFor(model => model.CompanyTelePhone, "", new { @class = "text-danger" })
+                                <div class="d-flex" style="align-items:center;">
+                                    <span class="fw-bold" style="width:117px">
+                                        المنطقة
+                                    </span>
+                                    @*@Html.LabelFor(model => model.AreaId)*@
+                                    @Html.DropDownList("AreaId", (SelectList)ViewBag.AreaList, "المنطقة", new { @class = "sios-form-control", id = "district" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
+                                @*<select class="sios-form-control"
+                name="district"
+                id="district">
+            <option value="district">المنطقة</option>
+        </select>*@
+                                <div class="d-flex" style="align-items:center;">
+                                    <span class="fw-bold" style="width:100px">
+                                        الإسم المسؤول
+                                    </span>
+                                    <input class="sios-form-control col"
+                                           type="text"
+                                           name="AdministratorName"
+                                           placeholder="الإسم المسؤل" value="@Model.AdministratorName" />
+                                </div>
+                                @Html.ValidationMessageFor(model => model.AdministratorName, "", new { @class = "text-danger" })
+                                <div class="d-flex" style="align-items:center;">
+                                    <span class="fw-bold" style="width:100px">
+                                        رقم الموبايل
+                                    </span>
+                                    <input name="AdministratorPhone" class="sios-form-control col"
+                                           type="number"
+                                           placeholder="رقم الموبايل" value="@Model.AdministratorPhone" />
+                                </div>
+                                @Html.ValidationMessageFor(model => model.AdministratorPhone, "", new { @class = "text-danger" })
+                                <div class="d-flex" style="align-items:center;">
+                                    <span class="fw-bold" style="width:100px">
+                                        تاريخ العقد
+                                    </span>
+                                    <input name="ContractDate" class="date-input sios-form-control col"
+                                           type="text"
+                                           id="inputContractDate"
+                                           placeholder="تاريخ العقد" value="@Model.ContractDate" />
+                                </div>
+                                @Html.ValidationMessageFor(model => model.ContractDate, "", new { @class = "text-danger" })
+
+                                <div style="position: relative">
+                                    <input style="height: 45px"
+                                           class="sios-form-control home-input col pb-2"
+                                           type="text"
+                                           disabled
+                                           placeholder="زيارة الطبيب" />
+                                    <div class="d-flex gap-2"
+                                         style="
+                          position: absolute;
+                          top: 50%;
+                          left: 40%;
+                          transform: translate(-50%, -50%);
+                          width: 60%;
+                        ">
+                                        <input style="
+                            background-color: #e3e3e3;
+                            font-size: 12px;
+                            border: none;
+                            border-radius: 2px;
+                          " name="DoctorVisitsCount"
+                                               class="sios-form-control col"
+                                               type="text"
+                                               placeholder="عدد زيارات" value="@Model.DoctorVisitsCount" />
+                                        @Html.ValidationMessageFor(model => model.DoctorVisitsCount, "", new { @class = "text-danger" })
+
+                                        <input style="
+                            background-color: #e3e3e3;
+                            font-size: 12px;
+                            border: none;
+                            border-radius: 2px;
+                          " name="DoctorVisitsDuration"
+                                               class="sios-form-control col"
+                                               type="text"
+                                               placeholder="مدة زيارات" value="@Model.DoctorVisitsDuration" />
+                                        @Html.ValidationMessageFor(model => model.DoctorVisitsDuration, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                <div class="d-flex" style="align-items:center;">
+                                    <span class="fw-bold" style="width:100px">
+                                        البريد الالكتروني
+                                    </span>
+                                    <input class="sios-form-control col"
+                                           type="text"
+                                           name="Email"
+                                           placeholder="البريد الالكتروني" value="@Model.Email" />
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            <div class="d-flex" style="align-items:center;">
+                                <span class="fw-bold" style="width:117px">
+                                    نشاط الشركة
+                                </span>
+                                @*@Html.LabelFor(model => model.AreaId)*@
+                                @Html.DropDownList("CompanyActivityId", (SelectList)ViewBag.CompanyActivityList, "نشاط الشركة", new { @class = "sios-form-control", id = "district" })
+                            </div>
+                                    @Html.ValidationMessageFor(model => model.CompanyActivityId, "", new { @class = "text-danger" })
+                                    <div style="position: relative">
+                                        <input class="sios-form-control home-input col"
+                                               type="text"
+                                               disabled
+                                               placeholder="يوجد تأمين للشركة" />
+
+
+
+                                        <div style="
+                                              position: absolute;
+                                              left: 30%;
+                                              top: 50%;
+                                              transform: translate(-50%, -50%);
+                                            ">
+                                            <div class="coverage-radio-box d-flex gap-5">
+                                                <div class="coverage-radio-field">
+                                                    @Html.RadioButtonFor(model => model.InsuranceExists, true, new { id = "radio1" })
+                                                    <label for="radio1">نعم</label>
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    @Html.RadioButtonFor(model => model.InsuranceExists, false, new { id = "radio2" })
+                                                    <label for="radio2">لا</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.InsuranceExists, "", new { @class = "text-danger" })
+                            <div class="d-flex" style="align-items:center;">
+                                <span class="fw-bold" style="width:100px">
+                                    عدد فئات
+                                </span>
+                                <input class="sios-form-control col"
+                                       type="text"
+                                       name="CategoriesCount"
+                                       placeholder="عدد فئات" value="@Model.CategoriesCount" />
+                            </div>
+                                    @Html.ValidationMessageFor(model => model.CategoriesCount, "", new { @class = "text-danger" })
+                            </div>
+                            </div>
+                        <div class="form-bg-sec col-4">
+                            <div class="form-bg col-12">
+                                <div class="pool-box">
+                                    <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
+                                        <div class="pool-field">
+                                            <div class="inputs">
+                                                <input class="sios-form-control home-input"
+                                                       type="text"
+                                                       style="color:#000"
+                                                       name="MedicationPoolVal"
+                                                       placeholder="قيمة" value="@Model.MedicationPoolVal" />
+                                                @Html.ValidationMessageFor(model => model.MedicationPoolVal, "", new { @class = "text-danger" })
+                                                <input class="sios-form-control home-input"
+                                                       type="text"
+                                                       style="color:#000"
+                                                       name="MedicationPoolPercentage"
+                                                       placeholder="نسبة" value="@Model.MedicationPoolPercentage" />
+                                                @Html.ValidationMessageFor(model => model.MedicationPoolPercentage, "", new { @class = "text-danger" })
+                                            </div>
+                                            <h6 style="color:#000">Medication Pool</h6>
+                                        </div>
+                                    </div>
+                                    <!-- PreX Pool -->
+                                    <div class="pool-field-box mb-2">
+                                        <div class="pool-field">
+                                            <div class="inputs">
+                                                <input value="@Model.PrexPoolVal" style="color:#000" class="sios-form-control home-input" type="text" name="PrexPoolVal" placeholder="قيمة" />
+                                                @Html.ValidationMessageFor(model => model.PrexPoolVal, "", new { @class = "text-danger" })
+                                                <input value="@Model.PrexPoolPercentage" style="color:#000" class="sios-form-control home-input" type="text" name="PrexPoolPercentage" placeholder="نسبة" />
+                                                @Html.ValidationMessageFor(model => model.PrexPoolPercentage, "", new { @class = "text-danger" })
+                                            </div>
+                                            <h6 style="color:#000">PreX Pool</h6>
+                                        </div>
+                                        <div class="coverage-box d-flex">
+                                            <div class="coverage-radio-box d-flex">
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000" for="PrexPoolCoverage_PreviousAndLater">سابق ولاحق</label>
+                                                    <input class="form-check-input"  @(Model.PrexPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.PreviousAndLater ? "checked" : "") name="PrexPoolCoverage" type="radio" id="PrexPoolCoverage_PreviousAndLater" value="PreviousAndLater" />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000" for="PrexPoolCoverage_Later">لاحق</label>
+                                                    <input class="form-check-input" @(Model.PrexPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Later ? "checked" : "") name="PrexPoolCoverage" type="radio" id="PrexPoolCoverage_Later" value="Later" />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000" for="PrexPoolCoverage_Previous">سابق</label>
+                                                    <input class="form-check-input"  @(Model.PrexPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Previous ? "checked" : "") name="PrexPoolCoverage" type="radio" id="PrexPoolCoverage_Previous" value="Previous" />
+                                                </div>
+                                            </div>
+                                            <p style="color:#000">نوع التغطية</p>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.PrexPoolCoverage, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <!-- Repeat the structure for Exception Pool, Chronic Pool, and Critical Pool -->
+                                    <!-- Exception Pool -->
+                                    <div class="pool-field-box mb-2">
+                                        <div class="pool-field">
+                                            <div class="inputs">
+                                                <input value="@Model.ExceptionPoolVal" style="color:#000" class="sios-form-control home-input" type="text" name="ExceptionPoolVal" placeholder="قيمة" />
+                                                @Html.ValidationMessageFor(model => model.ExceptionPoolVal, "", new { @class = "text-danger" })
+                                                <input value="@Model.ExceptionPoolPercentage" style="color:#000" class="sios-form-control home-input" type="text" name="ExceptionPoolPercentage" placeholder="نسبة" />
+                                                @Html.ValidationMessageFor(model => model.ExceptionPoolPercentage, "", new { @class = "text-danger" })
+                                            </div>
+                                            <h6 style="color:#000">Exception Pool</h6>
+                                        </div>
+                                        <div class="coverage-box d-flex">
+                                            <div class="coverage-radio-box d-flex">
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000" for="ExceptionPoolCoverage_PreviousAndLater">سابق ولاحق</label>
+                                                    <input class="form-check-input" @(Model.ExceptionPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.PreviousAndLater ? "checked" : "") name="ExceptionPoolCoverage" type="radio" id="ExceptionPoolCoverage_PreviousAndLater" value="PreviousAndLater" />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000;" for="ExceptionPoolCoverage_Later">لاحق</label>
+                                                    <input class="form-check-input"  @(Model.ExceptionPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Later ? "checked" : "") name="ExceptionPoolCoverage" type="radio" id="ExceptionPoolCoverage_Later" value="Later" />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000" for="ExceptionPoolCoverage_Previous">سابق</label>
+                                                    <input class="form-check-input"  @(Model.ExceptionPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Previous ? "checked" : "") name="ExceptionPoolCoverage" type="radio" id="ExceptionPoolCoverage_Previous" value="Previous" />
+                                                </div>
+                                            </div>
+                                            <p style="color:#000">نوع التغطية</p>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.ExceptionPoolCoverage, "", new { @class = "text-danger" })
+                                    </div>
+                                    <!-- Chronic Pool -->
+                                    <div class="pool-field-box mb-2">
+                                        <div class="pool-field">
+                                            <div class="inputs">
+                                                <input value="@Model.ChronicPoolVal" style="color:#000" class="sios-form-control home-input" type="text" name="ChronicPoolVal" placeholder="قيمة" />
+                                                @Html.ValidationMessageFor(model => model.ChronicPoolVal, "", new { @class = "text-danger" })
+                                                <input value="@Model.ChronicPoolPercentage" style="color:#000" class="sios-form-control home-input" type="text" name="ChronicPoolPercentage" placeholder="نسبة" />
+                                                @Html.ValidationMessageFor(model => model.ChronicPoolPercentage, "", new { @class = "text-danger" })
+                                            </div>
+                                            <h6 style="color:#000">Chronic Pool</h6>
+                                        </div>
+                                        <div class="coverage-box d-flex">
+                                            <div class="coverage-radio-box d-flex">
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000" for="ChronicPoolCoverage_PreviousAndLater">سابق ولاحق</label>
+                                                    <input class="form-check-input"  @(Model.ChronicPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.PreviousAndLater ? "checked" : "") name="ChronicPoolCoverage" type="radio" id="ChronicPoolCoverage_PreviousAndLater" value="PreviousAndLater" />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000" for="ChronicPoolCoverage_Later">لاحق</label>
+                                                    <input class="form-check-input"  @(Model.ChronicPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Later ? "checked" : "") name="ChronicPoolCoverage" type="radio" id="ChronicPoolCoverage_Later" value="Later" />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000" for="ChronicPoolCoverage_Previous">سابق</label>
+                                                    <input class="form-check-input"  @(Model.ChronicPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Previous ? "checked" : "") name="ChronicPoolCoverage" type="radio" id="ChronicPoolCoverage_Previous" value="Previous" />
+                                                </div>
+                                            </div>
+                                            <p style="color:#000">نوع التغطية</p>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.ChronicPoolCoverage, "", new { @class = "text-danger" })
+
+                                    </div>
+
+                                    <!-- Critical Pool -->
+                                    <div class="pool-field-box mb-2">
+                                        <div class="pool-field">
+                                            <div class="inputs">
+                                                <input value="@Model.CriticalPoolVal" style="color:#000" class="sios-form-control home-input" type="text" name="CriticalPoolVal" placeholder="قيمة" />
+                                                @Html.ValidationMessageFor(model => model.CriticalPoolVal, "", new { @class = "text-danger" })
+                                                <input value="@Model.CriticalPoolPercentage" style="color:#000" class="sios-form-control home-input" type="text" name="CriticalPoolPercentage" placeholder="نسبة" />
+                                                @Html.ValidationMessageFor(model => model.CriticalPoolPercentage, "", new { @class = "text-danger" })
+                                            </div>
+                                            <h6 style="color:#000">Critical Pool</h6>
+                                        </div>
+                                        <div class="coverage-box d-flex">
+                                            <div class="coverage-radio-box d-flex">
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000" for="CriticalPoolCoverage_PreviousAndLater">سابق ولاحق</label>
+                                                    <input class="form-check-input"  @(Model.CriticalPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.PreviousAndLater ? "checked" : "") name="CriticalPoolCoverage" type="radio" id="CriticalPoolCoverage_PreviousAndLater" value="PreviousAndLater" />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000" for="CriticalPoolCoverage_Later">لاحق</label>
+                                                    <input class="form-check-input"  @(Model.CriticalPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Later ? "checked" : "") name="CriticalPoolCoverage" type="radio" id="CriticalPoolCoverage_Later" value="Later" />
+                                                </div>
+                                                <div class="coverage-radio-field">
+                                                    <label style="color:#000" for="CriticalPoolCoverage_Previous">سابق</label>
+                                                    <input class="form-check-input"  @(Model.CriticalPoolCoverage == DMS_Authontication1.Models.ProposalCoverage.Previous ? "checked" : "") name="CriticalPoolCoverage" type="radio" id="CriticalPoolCoverage_Previous" value="Previous" />
+                                                </div>
+                                            </div>
+                                            <p style="color:#000">نوع التغطية</p>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.CriticalPoolCoverage, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="btns-box">
+                            <div class="d-flex action-btns w-75 m-auto">
+                                <div>
+                                    <button type="button" class="btn action-btn py-2 px-4 fs-5 fw-bold" onclick="clearForm()">جديد</button>
+                                </div>
+                                <div>
+                                    <a style="width: fit-content;">
+                                        <button type="button" class="text-align-center btn next-btn px-5 fs-5 fw-bold" onclick="submitForm()">التالي</button>
+                                    </a>
+                                </div>
+
+                                
+                            </div>
+                            <br />
+                            <div class="action-btns d-flex w-75 m-auto"
+                                 style="grid-template-columns: repeat(2, auto)">
+
+                                <div>
+                                    <button type="button" class="btn action-btn py-2 px-4 fs-5 fw-bold" onclick="goToIndex()">
+                                        الغاء
+                                    </button>
+                                </div>
+                                                                
+                                <div>
+                                    <input hidden id="edit-2" type="file" name="ConsumptionFile" class="prev-butn-1 mt-0 me-0 ms-0 ms-md-4 mb-5"
+                                           onchange="updateFileNameLabel(this, 'file-label1')" value="@Model.ConsumptionFile" />
+
+                                    <label for="edit-2" class="btn action-btn py-2 px-4 fs-5 fw-bold" id="file-label1">
+                                        إستهلاكات
+                                        <i class="fas fa-paperclip"></i>
+                                    </label>
+                                </div>
+                                
+                                @Html.ValidationMessageFor(model => model.ConsumptionFile, "", new { @class = "text-danger" })
+                            </div>
+                            <br />
+                            <div class="w-25 action-btns"
+                                 style="
+                    margin-right: 35%;
+                    grid-template-columns: repeat(1, auto);
+                  ">
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</section>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            const $toggleEnable = $("#toggleEnable");
+            const $disabled = $("#disabled");
+            const $brokeDisabled = $(".brokeDisabled");
+            const $brokeEnabled = $(".brokeEnabled");
+
+            $toggleEnable.change(function () {
+                if ($(this).prop("checked")) {
+                    $toggleEnable.css("marginTop", "10px");
+                    $disabled.prop("disabled", false);
+                    $brokeDisabled.hide();
+                    $brokeEnabled.show();
+                } else {
+                    $toggleEnable.css("marginTop", "3px");
+                    $disabled.prop("disabled", true);
+                    $brokeDisabled.show();
+                    $brokeEnabled.hide();
+                }
+            });
+            // Check the state of toggleEnable on page load
+            if ($toggleEnable.prop("checked")) {
+                $toggleEnable.trigger("change"); // Trigger the change event
+            }
+        });
+        function clearForm() {
+            // Replace 'yourFormId' with the actual ID of your form
+            var form = document.getElementById('ProposalMainForm');
+
+            // Reset the form
+            form.reset();
+        }
+        function submitForm() {
+            // Replace 'yourFormId' with the actual ID of your form
+            var form = document.getElementById('ProposalMainForm');
+
+            // Submit the form
+            form.submit();
+        }
+        function goToIndex() {
+            window.location.href = '/ProposalMain/Index';
+        }
+        function updateFileNameLabel(input, labelId) {
+            if (input.files.length > 0) {
+                var fileName = input.files[0].name;
+                $("#" + labelId).text(fileName);
+            }
+        }
+    </script>
+}
+
+<!-- end section -->

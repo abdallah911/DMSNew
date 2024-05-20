@@ -2,167 +2,198 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
-
-<h2>Details Add Provider Request</h2>
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CompName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CompName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ResponsableFor)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ResponsableFor)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Country)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Country)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Region)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Region)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NumberOfPeople)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NumberOfPeople)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ServName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ServName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ServAddress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ServAddress)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ProviderTypeName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProviderTypeName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-    </dl>
+<div class="row bg-overlay my-4 ">
+    <div class="m-3 fs-3 text-white  ">
+        <h2>Details Add Provider Request</h2>
+    </div>
 </div>
 
+            <div>
 
-<br />
-<p>
-    <div class="portlet-body">
+                <dl class="sios-bg dl-horizontal">
 
-        <div class="panel panel-info">
-            <h2 class="panel-heading" style="margin:1px;">Update Status</h2>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="form-group">
-                        <input type="text" id="id" value="@Model.ID" hidden />
-                        <div class="col-lg-3">
-                            <h4>@Html.Label("Update Status :", htmlAttributes: new { @class = "control-label" })</h4>
+                    <dr class="sios-table-dr  row">
+                        <dt class="sios-table-dt col ">
+                            @Html.DisplayNameFor(model => model.ID)
+                        </dt>
 
-                        </div>
-                        <div class="col-lg-3" data-step="7" data-intro="Select speciality">
-                            <select id='ChangeStatus' class='form-control' onchange='UpdateStuts();'>
-                                <option value='N'> Select Action</option>
-                                <option value='Accept'>Accept</option>
-                                <option value='Reject'>Reject</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+                        <dd class="sios-table-dd col">
+                            @Html.DisplayFor(model => model.ID)
+                        </dd>
+                    </dr>
+
+                    <dr class="sios-table-dr  row">
+                        <dt class="sios-table-dt col ">
+                            @Html.DisplayNameFor(model => model.CompName)
+                        </dt>
+
+                        <dd class="sios-table-dd col">
+                            @Html.DisplayFor(model => model.CompName)
+                        </dd>
+                    </dr>
+                    <dr class="sios-table-dr  row">
+                        <dt class="sios-table-dt col ">
+                            @Html.DisplayNameFor(model => model.CreatedBy)
+                        </dt>
+
+                        <dd class="sios-table-dd col">
+                            @Html.DisplayFor(model => model.CreatedBy)
+                        </dd>
+                    </dr>
+                    <dr class="sios-table-dr  row">
+                        <dt class="sios-table-dt col ">
+                            @Html.DisplayNameFor(model => model.ResponsableFor)
+                        </dt>
+                        <dd class="sios-table-dd col">
+                            @Html.DisplayFor(model => model.ResponsableFor)
+                        </dd>
+                    </dr>
+                    <dr class="sios-table-dr  row">
+                        <dt class="sios-table-dt col ">
+                            @Html.DisplayNameFor(model => model.Country)
+                        </dt>
+
+                        <dd class="sios-table-dd col">
+                            @Html.DisplayFor(model => model.Country)
+                        </dd>
+                    </dr>
+
+                    <dr class="sios-table-dr  row">
+                        <dt class="sios-table-dt col ">
+                            @Html.DisplayNameFor(model => model.Region)
+                        </dt>
+
+                        <dd class="sios-table-dd col">
+                            @Html.DisplayFor(model => model.Region)
+                        </dd>
+                    </dr>
+
+                    <dr class="sios-table-dr  row">
+                        <dt class="sios-table-dt col ">
+                            @Html.DisplayNameFor(model => model.PhoneNumber)
+                        </dt>
+
+                        <dd class="sios-table-dd col">
+                            @Html.DisplayFor(model => model.PhoneNumber)
+                        </dd>
+                    </dr>
+                    <dr class="sios-table-dr  row">
+                        <dt class="sios-table-dt col ">
+                            @Html.DisplayNameFor(model => model.NumberOfPeople)
+                        </dt>
+
+                        <dd class="sios-table-dd col">
+                            @Html.DisplayFor(model => model.NumberOfPeople)
+                        </dd>
+                    </dr>
+                    <dr class="sios-table-dr  row">
+                        <dt class="sios-table-dt col ">
+                            @Html.DisplayNameFor(model => model.ServName)
+                        </dt>
+
+                        <dd class="sios-table-dd col">
+                            @Html.DisplayFor(model => model.ServName)
+                        </dd>
+                    </dr>
+
+                    <dr class="sios-table-dr  row">
+                        <dt class="sios-table-dt col ">
+                            @Html.DisplayNameFor(model => model.ServAddress)
+                        </dt>
+
+                        <dd class="sios-table-dd col">
+                            @Html.DisplayFor(model => model.ServAddress)
+                        </dd>
+                    </dr>
+                    <dr class="sios-table-dr  row">
+                        <dt class="sios-table-dt col ">
+                            @Html.DisplayNameFor(model => model.ProviderTypeName)
+                        </dt>
+
+                        <dd class="sios-table-dd col">
+                            @Html.DisplayFor(model => model.ProviderTypeName)
+                        </dd>
+                    </dr>
+
+                    <dr class="sios-table-dr  row">
+                        <dt class="sios-table-dt col ">
+                            @Html.DisplayNameFor(model => model.CreatedDate)
+                        </dt>
+
+                        <dd class="sios-table-dd col">
+                            @Html.DisplayFor(model => model.CreatedDate)
+                        </dd>
+                    </dr>
+                </dl>
             </div>
 
-            <!--Save-->
-            <div class="panel-footer" style="text-align:right;">
-                @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary fa fa-backward", @style = " text-transform: none" })
-                @*<input data-step="12" data-intro="Update Status" id="submit" type="button" value="Update" class="btn btn-success fa fa-check" />*@
-            </div>
 
-        </div>
-    </div>
+         
+            <p>
+                <div class="portlet-body">
+
+                    <div class="panel panel-info">
+                        <div class="row bg-overlay my-4">
+                            <div class="m-3 fs-3 text-white  ">
+                                <h2 class="panel-heading "  >Update Status</h2>
+                            </div>
+                        </div>
+                                <div class="px-5 mb-2  panel-body ">
+                                    <div class="row">
+                                        <div style="white-space:nowrap;" class=" d-flex align-items-center form-group">
+                                            <input type="text" id="id" value="@Model.ID" hidden />
+                                            <div class="col-lg-3">
+                                                <h4>@Html.Label("Update Status :", htmlAttributes: new { @class = "sios-color control-label" })</h4>
+
+                                            </div>
+                                            <div class="w-50 " data-step="7" data-intro="Select speciality">
+                                                <select id='ChangeStatus' class='ms-3 admin-form-control form-control' onchange='UpdateStuts();'>
+                                                    <option value='N'> Select Action</option>
+                                                    <option value='Accept'>Accept</option>
+                                                    <option value='Reject'>Reject</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Save-->
+                                <div class="panel-footer px-5" style="text-align:right;">
+                                    @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3 btn-primary fa fa-backward", @style = " text-transform: none" })
+                                    @*<input data-step="12" data-intro="Update Status" id="submit" type="button" value="Update" class="btn btn-success fa fa-check" />*@
+                                </div>
+
+                            </div>
+                        </div>
 </p>
-<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
-<script src="~/assets/HomeTemplete/js/intro.js"></script>
-<script>
-    function UpdateStuts() {
-        var id = $("#id").val();
-        if ($("#ChangeStatus").val() != "N") {
-            $.ajax({
-                type: 'POST',
-                url: '/MedicalNetwork/ChangeStatus',
-                dataType: 'Json',
-                data: {
-                    Id: id,
-                    status: $("#ChangeStatus").val()
-                },
-                dataType: 'Json',
-                success: function (r) {
-                    toastr.success("Save Success");
-                },
-                error: function () {
-                    toastr.error("Error Save Data");
-                }
-            });
-        }
-        else {
-            toastr.error("Please Select Status ");
-        }
+            <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+            <script src="~/assets/HomeTemplete/js/intro.js"></script>
+            <script>
+                function UpdateStuts() {
+                    var id = $("#id").val();
+                    if ($("#ChangeStatus").val() != "N") {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/MedicalNetwork/ChangeStatus',
+                            dataType: 'Json',
+                            data: {
+                                Id: id,
+                                status: $("#ChangeStatus").val()
+                            },
+                            dataType: 'Json',
+                            success: function (r) {
+                                toastr.success("Save Success");
+                            },
+                            error: function () {
+                                toastr.error("Error Save Data");
+                            }
+                        });
+                    }
+                    else {
+                        toastr.error("Please Select Status ");
+                    }
 
-    }
-</script>
+                }
+            </script>

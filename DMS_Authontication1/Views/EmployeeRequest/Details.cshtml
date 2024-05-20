@@ -2,650 +2,817 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
-
-<h2>Details</h2>
-
-<div>
-    @if (Model.TYPE == 1)
-    {
-        <h4>Create Employee</h4>
-        <hr />
-        <dl class="dl-horizontal">
-
-
-            <dt>
-                @Html.DisplayName("First ENAME")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_ST)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Second EName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_SC)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Third EName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_TH)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Fourth EName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_FR)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("First AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_ST)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Second AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_SC)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Third AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_TH)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Fourth AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_FR)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("National Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.NATIONAL_ID)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Birth Date")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.BIRTHDATE)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Gender ")
-            </dt>
-
-            <dd>
-                @if (Model.GENDER == 1)
-                {
-                    @Html.DisplayName("Male")
-                }
-                @if (Model.GENDER == 2)
-                {
-                    @Html.DisplayName("Female")
-                }
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Mobile ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.MOBILE)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Email ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMAIL)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Start Date")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.START_DATE)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Relation ")
-            </dt>
-
-            <dd>
-                @if (Model.EMP_RELATION == "1")
-                {
-                    @Html.DisplayName("Employee")
-                }
-                @if (Model.EMP_RELATION == "2")
-                {
-                    @Html.DisplayName("Husband / Wife")
-                }
-                @if (Model.EMP_RELATION == "3")
-                {
-                    @Html.DisplayName("Son / Daughter")
-                }
-                @if (Model.EMP_RELATION == "4")
-                {
-                    @Html.DisplayName("Father / Mother")
-                }
-            </dd>
-
-
-            <dt>
-                @Html.DisplayName("Address ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ADDRESS)
-            </dd>
-            <dt>
-                @Html.DisplayName("Branch ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.BRANCH)
-            </dd>
-
-
-            <dt>
-                @Html.DisplayName("Employee Class")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_CLASS)
-            </dd>
-
-
-
-            <dt>
-                @Html.DisplayName("Request Code")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.REQUEST_CODE)
-            </dd>
-
-
-
-
-            <dt>
-                @Html.DisplayName("Company Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.COMP_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Status ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.APPROVE_FLAG)
-            </dd>
-
-
-            <dt>
-                @Html.DisplayName("Employee Image ")
-            </dt>
-
-            <dd>
-                @Html.ActionLink(" Download", "DownloadAttachment", new { FileName = Model.EMP_IMG }, htmlAttributes: new { @class = "btn btn-info fa fa-download", @style = " text-transform: none" })
-            </dd>
-        </dl>
-    }
-    @if (Model.TYPE == 2)
-    {
-        <h4> Edit Level </h4>
-        <hr />
-
-        <dl class="dl-horizontal">
-
-
-            <dt>
-                @Html.DisplayName("Card Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CARD_ID)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Mobile ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.MOBILE)
-            </dd>
-
-
-            <dt>
-                @Html.DisplayName("Start Date")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.START_DATE)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Reason ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.RESON)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Employee Class")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_CLASS)
-            </dd>
-
-
-
-            <dt>
-                @Html.DisplayName("Request Code")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.REQUEST_CODE)
-            </dd>
-
-
-
-
-            <dt>
-                @Html.DisplayName("Company Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.COMP_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Status ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.APPROVE_FLAG)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Employee Image ")
-            </dt>
-
-            <dd>
-                @Html.ActionLink(" Download", "DownloadAttachment", new { FileName = Model.TYP_EMP_UPDATE }, htmlAttributes: new { @class = "btn btn-info fa fa-download", @style = " text-transform: none" })
-            </dd>
-        </dl>
-    }
-    @if (Model.TYPE == 5)
-    {
-        <h4>Reopen</h4>
-        <hr />
-        <dl class="dl-horizontal">
-
-
-            <dt>
-                @Html.DisplayName("Card Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CARD_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Reopen Date")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.REOPEN_DATE)
-            </dd>
-
-
-            <dt>
-                @Html.DisplayName("Request Code")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.REQUEST_CODE)
-            </dd>
-            <dt>
-                @Html.DisplayName("Company Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.COMP_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Status ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.APPROVE_FLAG)
-            </dd>
-        </dl>
-    }
-    @if (Model.TYPE == 4)
-    {
-        <h4>RePrint</h4>
-        <hr />
-        <dl class="dl-horizontal">
-
-
-            <dt>
-                @Html.DisplayName("Card Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CARD_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("RePrint Reason")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.PRINT_REASON)
-            </dd>
-
-
-            <dt>
-                @Html.DisplayName("Request Code")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.REQUEST_CODE)
-            </dd>
-            <dt>
-                @Html.DisplayName("Company Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.COMP_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Status ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.APPROVE_FLAG)
-            </dd>
-        </dl>
-    }
-    @if (Model.TYPE == 6)
-    {
-        <h4>RePrint</h4>
-        <hr />
-        <dl class="dl-horizontal">
-
-
-            <dt>
-                @Html.DisplayName("Card Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CARD_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("New Card Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.NEW_CARD_ID)
-            </dd>
-
-
-            <dt>
-                @Html.DisplayName("Request Code")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.REQUEST_CODE)
-            </dd>
-            <dt>
-                @Html.DisplayName("Company Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.COMP_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Status ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.APPROVE_FLAG)
-            </dd>
-        </dl>
-    }
-    @if (Model.TYPE == 7)
-    {
-        <h4>RePrint</h4>
-        <hr />
-        <dl class="dl-horizontal">
-
-
-            <dt>
-                @Html.DisplayName("Card Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CARD_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("First ENAME")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_ST)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Second EName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_SC)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Third EName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_TH)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Fourth EName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_FR)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("First AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_ST)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Second AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_SC)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Third AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_TH)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Fourth AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_FR)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Request Code")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.REQUEST_CODE)
-            </dd>
-            <dt>
-                @Html.DisplayName("Company Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.COMP_ID)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Status ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.APPROVE_FLAG)
-            </dd>
-        </dl>
-    }
-    @if (Model.TYPE == 3)
-    {
-        <h4>Termination Request</h4>
-        <hr />
-        <dl class="dl-horizontal">
-
-
-            <dt>
-                @Html.DisplayName("Card Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CARD_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Termination Date")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.TERMINATE_DATE)
-            </dd>
-
-
-            <dt>
-                @Html.DisplayName("Do you take Card?")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DELIVER_CARD_FLAG)
-            </dd>
-
-            <dt>
-                @Html.DisplayName(" Take Card Date")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DELIVER_CARD_DATE)
-            </dd>
-            <dt>
-                @Html.DisplayName("Request Code")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.REQUEST_CODE)
-            </dd>
-            <dt>
-                @Html.DisplayName("Company Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.COMP_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Status ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.APPROVE_FLAG)
-            </dd>
-        </dl>
-    }
+<div class="row bg-overlay my-4 portlet-title">
+    <div class="m-3 fs-3 text-white caption">
+        <h2>Details</h2>
+    </div>
 </div>
-<p>
-    @if (!User.IsInRole("Admin"))
-    {
-        @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary fa fa-backward", @style = " text-transform: none" })
-    }
-    else
-    {
-        <div class="portlet-body">
 
-            <div class="panel panel-info">
-                <h2 class="panel-heading" style="margin:1px;">Update Status</h2>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="form-group">
-                            <input type="text" id="id" value="@Model.REQUEST_CODE" hidden />
-                            <div class="col-lg-3">
-                                <h4>@Html.Label("Update Status :", htmlAttributes: new { @class = "control-label" })</h4>
-
+        <d1>
+          
+                        @if (Model.TYPE == 1)
+                        {<div class="row bg-overlay my-4 portlet-title">
+                                <div class="m-3 fs-3 text-white caption">
+                                    <h4>Create Employee</h4>
+                                    
+                                </div>
                             </div>
-                            <div class="col-lg-3" data-step="7" data-intro="Select speciality">
-                                @Html.TextAreaFor(model => model.APPROVE_FLAG, new { htmlAttributes = new { @class = "form-control" } })
+
+                            <dl class="dl-horizontal">
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("First ENAME")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ENAME_ST)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Second EName")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ENAME_SC)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Third EName")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ENAME_TH)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Fourth EName")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ENAME_FR)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("First AName")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ANAME_ST)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Second AName")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ANAME_SC)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Third AName")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ANAME_TH)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Fourth AName")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ANAME_FR)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("National Id")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.NATIONAL_ID)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Birth Date")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.BIRTHDATE)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Gender ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+
+
+
+                                        @if (Model.GENDER == 1)
+                                        {
+                                            @Html.DisplayName("Male")
+                                        }
+                                        @if (Model.GENDER == 2)
+                                        {
+                                            @Html.DisplayName("Female")
+                                        }
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Mobile ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.MOBILE)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Email ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMAIL)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Start Date")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.START_DATE)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Relation ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @if (Model.EMP_RELATION == "1")
+                                        {
+                                            @Html.DisplayName("Employee")
+                                        }
+                                        @if (Model.EMP_RELATION == "2")
+                                        {
+                                            @Html.DisplayName("Husband / Wife")
+                                        }
+                                        @if (Model.EMP_RELATION == "3")
+                                        {
+                                            @Html.DisplayName("Son / Daughter")
+                                        }
+                                        @if (Model.EMP_RELATION == "4")
+                                        {
+                                            @Html.DisplayName("Father / Mother")
+                                        }
+                                    </dd>
+                                </dr>
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Address ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.ADDRESS)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Branch ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.BRANCH)
+                                    </dd>
+                                </dr>
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Employee Class")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_CLASS)
+                                    </dd>
+                                </dr>
+
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Request Code")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.REQUEST_CODE)
+                                    </dd>
+                                </dr>
+
+
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Company Id")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.COMP_ID)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Status ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.APPROVE_FLAG)
+                                    </dd>
+                                </dr>
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Employee Image ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.ActionLink(" Download", "DownloadAttachment", new { FileName = Model.EMP_IMG }, htmlAttributes: new { @class = "btn btn-info fa fa-download", @style = " text-transform: none" })
+                                    </dd>
+                                </dr>
+                            </dl>
+                        }
+                        @if (Model.TYPE == 2)
+                        {<div class="row bg-overlay my-4 portlet-title">
+                                <div class="m-3 fs-3 text-white caption">
+                                    <h4> Edit Level </h4>
+                                    
+                                </div>
+                            </div>
+                            <dl class="dl-horizontal">
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Card Id")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.CARD_ID)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Mobile ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.MOBILE)
+                                    </dd>
+                                </dr>
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Start Date")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.START_DATE)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Reason ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.RESON)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Employee Class")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_CLASS)
+                                    </dd>
+                                </dr>
+
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Request Code")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.REQUEST_CODE)
+                                    </dd>
+                                </dr>
+
+
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Company Id")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.COMP_ID)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Status ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.APPROVE_FLAG)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Employee Image ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.ActionLink(" Download", "DownloadAttachment", new { FileName = Model.TYP_EMP_UPDATE }, htmlAttributes: new { @class = "btn btn-info fa fa-download", @style = " text-transform: none" })
+                                    </dd>
+                                </dr>
+                            </dl>
+                        }
+                        @if (Model.TYPE == 5)
+                        {<div class="row bg-overlay my-4 portlet-title">
+                                <div class="m-3 fs-3 text-white caption">
+                                    <h4>Reopen</h4>
+                                    
+                                </div>
+                            </div>
+                            <dl class="dl-horizontal">
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Card Id")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.CARD_ID)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Reopen Date")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.REOPEN_DATE)
+                                    </dd>
+                                </dr>
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Request Code")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.REQUEST_CODE)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Company Id")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.COMP_ID)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Status ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.APPROVE_FLAG)
+                                    </dd>
+                                </dr>
+                            </dl>
+                        }
+                        @if (Model.TYPE == 4)
+                        {<div class="row bg-overlay my-4 portlet-title">
+                                <div class="m-3 fs-3 text-white caption">
+                                    <h4>RePrint</h4>
+                                    
+                                </div>
+                            </div>
+                            <dl class="dl-horizontal">
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Card Id")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.CARD_ID)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("RePrint Reason")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.PRINT_REASON)
+                                    </dd>
+                                </dr>
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Request Code")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.REQUEST_CODE)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Company Id")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.COMP_ID)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Status ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.APPROVE_FLAG)
+                                    </dd>
+                                </dr>
+                            </dl>
+                        }
+                        @if (Model.TYPE == 6)
+                        {<div class="row bg-overlay my-4 portlet-title">
+                                <div class="m-3 fs-3 text-white caption">
+                                    <h4>RePrint</h4>
+                                    
+                                </div>
+                            </div>
+                            <dl class="dl-horizontal">
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Card Id")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.CARD_ID)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("New Card Id")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.NEW_CARD_ID)
+                                    </dd>
+                                </dr>
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Request Code")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.REQUEST_CODE)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Company Id")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.COMP_ID)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Status ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.APPROVE_FLAG)
+                                    </dd>
+                                </dr>
+                            </dl>
+                        }
+                        @if (Model.TYPE == 7)
+                        {<div class="row bg-overlay my-4 portlet-title">
+                                <div class="m-3 fs-3 text-white caption">
+                                    <h4>RePrint</h4>
+                                    
+                                </div>
+                            </div>
+                            <dl class="dl-horizontal">
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Card Id")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.CARD_ID)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("First ENAME")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ENAME_ST)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Second EName")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ENAME_SC)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Third EName")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ENAME_TH)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Fourth EName")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ENAME_FR)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("First AName")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ANAME_ST)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Second AName")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ANAME_SC)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Third AName")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ANAME_TH)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Fourth AName")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.EMP_ANAME_FR)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Request Code")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.REQUEST_CODE)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Company Id")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.COMP_ID)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Status ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.APPROVE_FLAG)
+                                    </dd>
+                                </dr>
+                            </dl>
+                        }
+                        @if (Model.TYPE == 3)
+                        {<div class="row bg-overlay my-4 portlet-title">
+                                <div class="m-3 fs-3 text-white caption">
+                                    <h4>Termination Request</h4>
+                                    
+                                </div>
+                            </div>
+                            <dl class="sios-bg p-0 dl-horizontal">
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Card Id")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.CARD_ID)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Termination Date")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.TERMINATE_DATE)
+                                    </dd>
+                                </dr>
+
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Do you take Card?")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.DELIVER_CARD_FLAG)
+                                    </dd>
+                                </dr>
+
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName(" Take Card Date")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.DELIVER_CARD_DATE)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Request Code")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.REQUEST_CODE)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Company Id")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.COMP_ID)
+                                    </dd>
+                                </dr>
+                                <dr class="sios-table-dr  row">
+                                    <dh class="sios-table-dh col ">
+                                        @Html.DisplayName("Status ")
+                                    </dh>
+
+                                    <dd class="sios-table-dd col">
+                                        @Html.DisplayFor(model => model.APPROVE_FLAG)
+                                    </dd>
+                                </dr>
+                            </dl>
+                        }
+
+                 
+
+</d1>
+
+        <p>
+            @if (!User.IsInRole("Admin"))
+            {
+                @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary fa fa-backward", @style = " text-transform: none" })
+            }
+            else
+            {
+                <div class="portlet-body">
+
+                    <div class="panel panel-info">
+                        <div class="row bg-overlay  ">
+                            <div class="m-3 fs-3 text-white  ">
+                                <h2 class="panel-heading" >Update Status</h2>
                             </div>
                         </div>
+                        <div class="mt-4 panel-body">
+                            <div class="row">
+                                <div class="d-flex align-items-center form-group">
+                                    <input type="text" id="id" value="@Model.REQUEST_CODE" hidden />
+                                    <div class="mx-3  col-lg-3">
+                                        <h4>@Html.Label("Update Status :", htmlAttributes: new { @class = "sios-color control-label" })</h4>
+
+                                    </div>
+                                    <div class="col-lg-3" data-step="7" data-intro="Select speciality">
+                                        @Html.TextAreaFor(model => model.APPROVE_FLAG, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Save-->
+                        <div class="panel-footer px-md-5" style="text-align:right;">
+                            @*<input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
+                            @*<input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn btn-warning" />*@
+                            @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3 btn btn-primary fa fa-backward", @style = " text-transform: none" })
+                            <input data-step="12" data-intro="Update Status" id="submit" type="button" value="Update" class="btn fw-bold text-white rounded-3 btn-success fa fa-check" />
+                        </div>
+
                     </div>
-                </div>
-
-                <!--Save-->
-                <div class="panel-footer" style="text-align:right;">
-                    @*<input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
-                    @*<input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn btn-warning" />*@
-                    @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary fa fa-backward", @style = " text-transform: none" })
-                    <input data-step="12" data-intro="Update Status" id="submit" type="button" value="Update" class="btn btn-success fa fa-check" />
-                </div>
-
-            </div>
-        </div>
-    }
+                        </div>
+                        }
 </p>
-<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
-<script src="~/assets/HomeTemplete/js/intro.js"></script>
-<script src="~/Scripts/DMS/HR/UpdateRequestStatus.js?V=1.1"></script>
+        <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+        <script src="~/assets/HomeTemplete/js/intro.js"></script>
+        <script src="~/Scripts/DMS/HR/UpdateRequestStatus.js?V=1.1"></script>

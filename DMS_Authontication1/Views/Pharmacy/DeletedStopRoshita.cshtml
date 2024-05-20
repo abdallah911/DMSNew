@@ -32,110 +32,127 @@
 
     }
     ViewBag.Title = "Delete Stop Roshita";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
 @if (User.IsInRole("Admin") && (edit || delete || view || fullcontroll))
 {
-
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Admin Search
-            </div>
-        </div>
-        <div class="portlet-body">
-            <input id="edit" value="@edit.ToString()" hidden />
-            <input id="delete" value="@delete.ToString()" hidden />
-            <input id="view" value="@view.ToString()" hidden />
-            <input id="fullcontroll" value="@fullcontroll.ToString()" hidden />
-
-            <div class="row" style="padding-bottom: 15px;">
-                <div class="col-md-2">
-                    <input id="AdminFrom" type="text" class="col-md-2 form-control " placeholder="From" />
-                </div>
-                <div class="col-md-2">
-                    <input id="Provider" type="text" class="col-md-2 form-control " placeholder="Provider" />
-                </div>
-                <div class="col-md-2">
-                    <input id="Company" type="text" class="col-md-2 form-control " placeholder="Company" />
-                </div>
-                <div class="col-md-2">
-                    <input id="ApprovalNo" type="text" class="col-md-2 form-control " placeholder="ApprovalNo" />
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <input id="AdminTo" type="text" class="col-md-2 form-control " placeholder="To" />
-                </div>
-                <div class="col-md-2">
-                    <input id="Branch" type="text" class="col-md-2 form-control " placeholder="Branch" />
-                </div>
-                <div class="col-md-2">
-                    <input id="CardId" type="text" class="col-md-2 form-control " placeholder="Card ID" />
-                </div>
-                <div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
-                    <select id="ddlType" class="form-control">
-                        <option value="">Select Type</option>
-                        <option value="Stop-ED">Edit</option>
-                        <option value="_Stop">Delete</option>
-                        @*<option value="11604">Doctor</option>*@
-                    </select>
-                </div>
-            </div>
-            <div style=" text-align:right">
-                <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
-                @*<input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o " />*@
-                <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />
-            </div>
+    <input id="edit" value="@edit.ToString()" hidden />
+    <input id="delete" value="@delete.ToString()" hidden />
+    <input id="view" value="@view.ToString()" hidden />
+    <input id="fullcontroll" value="@fullcontroll.ToString()" hidden />
+    <div class="sios-overlay container-fluid mt-4">
+        <div class="container">
+            <i class="fa-solid fa-house"></i>
+            <h3>Admin Search</h3>
         </div>
     </div>
+
+    <section class="print-claim-section">
+        <form name="formValidation"
+              id="formValidation"
+              action="Pharmacy_claims.html">
+            <div class="container">
+                <div class="row">
+                    <div class="row row-cols-sm-3 m-auto m-sm-0">
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="text" name="AdminFrom" id="AdminFrom" required="required" />
+                            <span for="From">From</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="text" name="AdminTo" id="AdminTo" required="required" />
+                            <span for="To">To</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="text" name="Provider" id="Provider" required="required" />
+                            <span for="provider">Provider</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="text" name="Company" id="Company" required="required" />
+                            <span for="company">Company</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="Number" name="ApprovalNo" id="ApprovalNo" required="required" />
+                            <span for="ApprovalNo">ApprovalNo.</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="text" name="Branch" id="Branch" required="required" />
+                            <span for="branch">Branch</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="chronic-form-control mb-3 ps-3" type="text" name="CardId" id="CardId" required="required" />
+                            <span for="CardID">Card ID</span>
+                        </div>
+                        <div class="forLabel">
+                            <select class="chronic-form-control mb-3 ps-3" name="ddlType" id="ddlType" required>
+                                <option value="" style="font-weight: 800"></option>
+                                <option value="" style="font-weight: 800">Select Type</option>
+                                <option value="Stop-ED" style="font-weight: 800">Edit</option>
+                                <option value="_Stop" style="font-weight: 800">Delete</option>
+                            </select>
+                            <span for="Select Group">Select Type</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="print-claims-btns d-flex mt-5">
+                    <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn reset-btn me-2" />
+                    <input id="adminSearch" type="button" value="Search" class="btn claims-search-btn ms-2 " />
+
+                </div>
+            </div>
+        </form>
+    </section>
 }
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Claims
+
+<div style="display: flex; flex-direction: column">
+    <section style="min-height: 80vh;display: flex;flex-direction: column;flex-grow: 1; ">
+        <div class="sios-overlay container-fluid mt-4">
+            <div class="container">
+                <i class="fa-solid fa-house"></i>
+                <h3 class="">Claims</h3>
+            </div>
         </div>
+        <div class="btn py-1 px-3 rounded-1 text-light border-0 w-100 m-auto px-4 mt-4 pb-5">
+            <div class="table-responsive">
+                <table id="Index" class="table table-striped mt-3 text-center">
+                    <thead>
+                        <tr>
 
-    </div>
-    <br />
-    <div class="portlet-body">
+                            <th>
+                                Approval No
+                            </th>
+                            <th>
+                                Card Id
+                            </th>
+                            <th>
+                                Company Percent
+                            </th>
+                            <th>
+                                Total Value
+                            </th>
+                            <th>
+                                Manager
+                            </th>
 
-        <table class="ui celled table" id="Index" width="100%">
-            <thead>
-                <tr>
+                            <th>
+                                CreatedBy
+                            </th>
 
-                    <th>
-                        Approval No
-                    </th>
-                    <th>
-                        Card Id
-                    </th>
-                    <th>
-                        Company Percent
-                    </th>
-                    <th>
-                        Total Value
-                    </th>
-                    <th>
-                        Manager
-                    </th>
-
-                    <th>
-                        UpdatedBy
-                    </th>
-
-                    <th>
-                        UpdatedDate
-                    </th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-
-        </table>
-    </div>
+                            <th>
+                                CreatedDate
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 </div>
-<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-<script src="~/Scripts/DMS/DeleteStopRoshita.js?V=1.0"></script>
+
+<script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
+<script src="~/Scripts/DMS/DeleteStopRoshita.js?V=1.1"></script>
 

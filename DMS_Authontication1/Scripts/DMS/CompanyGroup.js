@@ -12,7 +12,8 @@
                 for (var i = 0; i < r.length; i++) {
 
                     var data = "<tr >" +
-                        "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Select(this);'></Button>" + "</td>" +
+                        "<td >" + "<button type='button' id='plus' value='Search' class='claims-search-btn ms-2 rounded-3; fs-5' style='background-color: #717382' onclick='Select(this);'><i class='fas fa-plus'></i></button>" + "</td>" +
+                        //"<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Select(this);'></Button>" + "</td>" +
                         "<td>" + r[i].C_COMP_ID + "</td>" +
                         "<td>" + r[i].C_ANAME + "</td>" +
                         "</tr>"
@@ -20,7 +21,7 @@
 
                 }
                 $('#Companies').DataTable();
-
+                $('#CompaniesModal').modal('show');
             },
             error: function () {
                 alert("Error Retrieve");
@@ -29,7 +30,7 @@
         });
     });
     $('#Add').click(function () {
-        var maxCode=0;
+        var maxCode = 0;
         $('#Sites tbody tr').each(function () {
             var row = $(this);
             if (parseInt(row.find("TD").eq(0).html()) > maxCode) {
@@ -39,7 +40,7 @@
         var tBody = $("#Sites > TBODY")[0];
         var row = tBody.insertRow(-1);
         var cell = $(row.insertCell(-1));
-        cell.html(maxCode+1);
+        cell.html(maxCode + 1);
         cell = $(row.insertCell(-1));
         cell.html($('.modal-body #name').val());
         // remove button
@@ -81,7 +82,7 @@
             }
         });
     });
-    
+
 })
 function Delete(button) {
     //Determine the reference of the Row using the Button.

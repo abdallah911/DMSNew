@@ -1,0 +1,208 @@
+﻿   <!-- start sidebar -->
+<div class="sidebar-parent col-4 position-fixed z-2">
+    <div class="sideBar col-8">
+        <div class="operation-btns">
+            <a href="CS.html">
+                <button class="sidebar-item " id="costumerService">
+                    خدمة العملاء
+                </button>
+            </a>
+            <a href="CS_Medical-Network.html">
+                <button class="sidebar-item" id="medicalNetwork">
+                    الشبكة الطبية
+                </button>
+            </a>
+            <a href="CS_add-applicant.html">
+                <button class="sidebar-item" id="addApplicant">
+                    طلب إضافة مقدم خدمة
+                </button>
+            </a>
+            <a href="CS_Questionnaire.html">
+                <button class="sidebar-item" id="questionnaire">إستعلام</button>
+            </a>
+            <a href="CS_Operation.html">
+                <button class="sidebar-item" id="operation">Operation</button>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- end sidebar -->
+<section class="overflow-x-hidden">
+    <form action="CS_Operation.html">
+        <div style="direction: rtl" class="cs-page row mx-auto my-4">
+            <div class="row col-md-9 col-lg-10 container-fluid px-lg-5 justify-content-center justify-content-sm-start">
+                <div class="col-sm-8 col-md-5 d-flex flex-column gap-2 pe-lg-0">
+                    <div class="cs-bg">
+                        <div class="d-flex align-items-center gap-3">
+                            <div style="color: var(--color-secondary)"
+                                 class="inputs-parent w-75 d-flex flex-column gap-2 position-relative">
+                                <input type="search"
+                                       class="admin-form-control pe-3"
+                                       placeholder="كود الباتش" />
+                                <i class="fa-solid fa-magnifying-glass fa-rotate-270 position-absolute start-0 top-50 translate-middle-y ms-3"></i>
+                            </div>
+                            <i class="fa-solid fa-check bg-success text-white p-2 rounded-circle"></i>
+                        </div>
+                        <!-- =================================test============================= -->
+                        <!-- =================================test============================= -->
+
+                        <div class="d-flex flex-column gap-3">
+                            <div style="gap: 10px; white-space: nowrap"
+                                 class="inputs-parent d-flex flex-column mt-3">
+                                <div style="height: 45px;"
+                                     class="  forLabel  admin-form-control  d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                    <input style="padding-right: 2rem !important;"
+                                           class=" admin-form-control   bg-white border-0  w-100 h-100  rounded p-1 pt-4 fw-bold text-dark-emphasis shadow-sm"
+                                           type="text"
+                                           required="required" />
+                                    <div class="d-flex justify-content-end gap-2  ms-4 top-50 translate-middle-y  position-absolute">
+                                        <input type="text"
+                                               style="padding: 4px !important;"
+                                               class="date-input w-25 bg-dark-subtle rounded-1 p-1 border-0 pe-2 shadow-sm"
+                                               placeholder="من"
+                                               id="startDate" />
+                                        <input type="text"
+                                               style="padding: 4px !important;"
+                                               class="date-input w-25 bg-dark-subtle rounded-1 p-1 border-0 pe-2 shadow-sm"
+                                               placeholder="الى"
+                                               id="endDate" />
+                                    </div>
+                                    <span style="right:10px"
+                                          class=" ms-auto me-2 mt-1   fw-bold"
+                                          for="name">
+                                        <i class="fa-solid fa-phone fa-l ms-1"></i>تاريخ
+                                    </span>
+                                </div>
+                                <div style="height: 45px;"
+                                     class="  forLabel  admin-form-control  d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                    <input style="padding-right: 2rem !important;"
+                                           class=" admin-form-control   bg-white border-0  w-100 h-100  rounded p-1 pt-4 fw-bold text-dark-emphasis shadow-sm"
+                                           type="text"
+                                           required="required" />
+                                    <span style="right:10px"
+                                          class=" ms-auto me-2 mt-1   fw-bold"
+                                          for="name">
+                                        <i class="fa-solid fa-phone fa-l ms-1"></i>سبب إعادة
+                                        الطباعة
+                                    </span>
+                                </div>
+                                <div style="height: 45px;"
+                                     class="  forLabel  admin-form-control  d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                    <input style="padding-right: 2rem !important;"
+                                           class=" admin-form-control   bg-white border-0  w-100 h-100  rounded p-1 pt-4 fw-bold text-dark-emphasis shadow-sm"
+                                           type="text"
+                                           required="required" />
+                                    <span style="right:10px"
+                                          class=" ms-auto me-2 mt-1   fw-bold"
+                                          for="name">
+                                        <i class="fa-solid fa-phone fa-l ms-1"></i>لون الكارت
+                                    </span>
+                                </div>
+                                <div style="height: 45px;"
+                                     class="  forLabel  admin-form-control  d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                    <input style="padding-right: 2rem !important;"
+                                           class=" admin-form-control   bg-white border-0  w-100 h-100  rounded p-1 pt-4 fw-bold text-dark-emphasis shadow-sm"
+                                           type="text"
+                                           required="required" />
+                                    <span style="right:10px"
+                                          class=" ms-auto me-2 mt-1   fw-bold"
+                                          for="name">
+                                        <i class="fa-solid fa-phone fa-l ms-1"></i>رقم الكارت
+                                    </span>
+                                </div>
+                                <div style="height: 45px;"
+                                     class="  forLabel  admin-form-control  d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                                    <input style="padding-right: 2rem !important;"
+                                           class=" admin-form-control   bg-white border-0  w-100 h-100  rounded p-1 pt-4 fw-bold text-dark-emphasis shadow-sm"
+                                           type="text"
+                                           required="required" />
+                                    <span style="right:10px"
+                                          class=" ms-auto me-2 mt-1   fw-bold"
+                                          for="name">
+                                        <i class="fa-solid fa-phone fa-l ms-1"></i>كود
+                                        الطباعة
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height: 150px"
+                         class="cs-bg rounded-top-1 inputs-parent d-flex flex-column mt-3">
+                        <textarea class="border-0 p-2 rounded-3"
+                                  name=""
+                                  id=""
+                                  cols="30"
+                                  rows="10">
+                  </textarea>
+                    </div>
+                    <div style="white-space: nowrap"
+                         class="row row-cols-2 col-10 col-md-12 col-lg- mx-auto reprint-btns d-flex justify-content-center mt-3 my-3">
+                        <div class="pe-0">
+                            <button style="background-color: #17609b"
+                                    type="submit"
+                                    class="btn fw-bold w-100 h-100 text-white py-2 px-4">
+                                جديد
+                            </button>
+                        </div>
+
+                        <button style="background-color: #7a9779"
+                                type="button"
+                                class="btn d-flex align-items-center justify-content-evenly fw-bold text-white py-2 px-2">
+                            تمت المراجعة
+                            <div class="bg-light-subtle rounded-2 p-1 me-1">
+                                <i class="fa-solid fa-check bg-success text-white p-2 rounded-circle"></i>
+                            </div>
+                        </button>
+                        <button style="height: 50px; background-color: #7ea2af"
+                                type="button"
+                                class="btn ms-auto fw-bold text-white py-2 px-4 mt-2">
+                            طباعة
+                        </button>
+                    </div>
+                </div>
+                <div class="cs-form-parent row col-sm-8 col-md-7 justify-content-center me-sm-0">
+                    <div class="cs-form-box col-lg-7 gap-5 px-0">
+                        <div style="height: 150px"
+                             class="cs-bg border-bottom-0 p-0 rounded-3 inputs-parent d-flex flex-column mt-3">
+                            <textarea class="border-0 p-2 rounded-3 shadow-sm"
+                                      name=""
+                                      id=""
+                                      cols="30"
+                                      rows="10"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 ps-0 pe-0 pe-lg-3">
+                        <div class="cs-form-box gap-5">
+                            <div style="height: 150px"
+                                 class="cs-bg rounded-top-1 inputs-parent d-flex flex-column mt-3">
+                                <textarea class="border-0 p-2 shadow-sm"
+                                          placeholder="عدد الكروت"
+                                          name=""
+                                          id=""
+                                          cols="30"
+                                          rows="10"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height: 150px"
+                         class="cs-bg border-bottom-0 p-0 rounded-3 inputs-parent d-flex flex-column mt-3">
+                        <textarea class="border-0 p-2 rounded-3 shadow-sm"
+                                  name=""
+                                  id=""
+                                  cols="30"
+                                  rows="10"></textarea>
+                    </div>
+                    <div style="height: 150px"
+                         class="cs-bg rounded-top-1 inputs-parent d-flex flex-column mt-3">
+                        <textarea class="border-0 p-2 rounded-3 shadow-sm"
+                                  placeholder="ملاحظات"
+                                  name=""
+                                  id=""
+                                  cols="30"
+                                  rows="10"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

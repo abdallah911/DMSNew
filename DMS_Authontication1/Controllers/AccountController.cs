@@ -168,6 +168,7 @@ namespace DMS_Authontication1.Controllers
                             {
                                 case "Pharmacy":
                                     return Redirect("/Pharmacy/Pharmacy");
+                                    //return Redirect("/Pharmacy/PharmacyPage");
                                 case "Lab":
                                     return RedirectToLocal("/Labs/Lab");
                                 case "Rays":
@@ -175,7 +176,7 @@ namespace DMS_Authontication1.Controllers
                                 case "Doctor":
                                     return RedirectToLocal("/DoctorApprovals");
                                 case "Admin":
-                                    return RedirectToLocal("/ControlPanel/Main");
+                                    return RedirectToLocal("/ControlPanel");
                                 case "AdminHelth":
                                     return RedirectToLocal("/ControlPanel/Main");
                                 case "HR":

@@ -2,24 +2,30 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
 
-
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Medicines
+<section class="container-fluid mt-4">
+    <!--  New request -->
+    <div class="row bg-overlay">
+        <div style="position: relative"
+             class="editeRquest fw-bold text-light">
+            <div class="m-3 fs-3">
+                <i class="fa fa-home me-3"></i>
+                Medicines
+            </div>
+            <div style=" position: absolute;right: 1%;top: 50%;transform: translateY(-50%);">
+                <a id="Create" href="/Medicines/Create" class="btn fw-bold text-white rounded-3" style="cursor: pointer;padding: 7.2px;">
+                    <i class="fas fa-plus"></i> Create
+                </a>
+            </div>
         </div>
-        <div class="actions">
-            <a id="Create" href="/Medicines/Create" class="btn btn-success     btn-sm">
-                <i class="fa fa-plus"></i> Create
-            </a>
-        </div>
-
     </div>
-    <br />
-    <div class="portlet-body">
-        <table class="ui celled table" id="Mediciness" style="width:100%">
+</section>
+
+<div class="sios-bg w-100 m-auto px-4 my-4 pb-5">
+    <div class="table-responsive">
+        <table style="white-space:nowrap;" id="Mediciness" class="table table-striped mt-3 text-center">
             <thead>
                 <tr>
 
@@ -50,7 +56,7 @@
                     </th>
                     <th>
                         license Type
-                    </th> 
+                    </th>
                     <th>
                         ACTIVE
                     </th>
@@ -60,13 +66,12 @@
                 </tr>
             </thead>
             <tbody></tbody>
-
         </table>
     </div>
 </div>
 
 
-<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
 <script>
     $(function () {
         var id;
@@ -89,18 +94,18 @@
                 { "data": "MED_GROUP", "name": "Med Group" },
                 { "data": "LIC_TYPE", "name": " LIC Type" },
                 { "data": "ACTIVE", "name": "ACTIVE" },
-                
+
                 //{ "data": "M_TYPE", "name": "M Type" },
                 {
                     "data": "Id",
                     "mRender": function (data) {
-                        return '<a class="btn btn-warning" href="/Medicines/Edit/' + data + '">Edit</a>';
+                        return '<a class="btn fw-bold text-white rounded-3"style = "  text-decoration: none;" href="/Medicines/Edit/' + data + '">Edit</a>';
                     }
                 },
                 {
                     "data": "Id",
                     "mRender": function (data) {
-                        return '<a class="btn btn-danger" href="/Medicines/MedicineActivation/' + data + '">Change Activation</a>';
+                        return '<a class="btn fw-bold text-white rounded-3"style = "  text-decoration: none; " href="/Medicines/MedicineActivation/' + data + '">Change Activation</a>';
                     }
                 }
 

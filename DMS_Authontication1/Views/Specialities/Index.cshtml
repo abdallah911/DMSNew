@@ -2,22 +2,30 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Specialities
-        </div>
-        <div class="actions">
-            <a id="Create" href="/Specialities/Create" class="btn btn-success   btn-sm">
-                <i class="fa fa-plus"></i> Create New
-            </a>
+
+<section class="container-fluid mt-4">
+    <!--  New request -->
+    <div class="row bg-overlay">
+        <div style="position: relative"
+             class="editeRquest fw-bold text-light">
+            <div class="m-3 fs-3">
+                <i class="fa-solid fa-home me-3"></i>
+                Specialities
+            </div>
+            <div style=" position: absolute;right: 1%;top: 50%;transform: translateY(-50%);">
+                <a id="Create" href="/Specialities/Create" class="btn fw-bold text-white rounded-3n" style="text-decoration: none;cursor: pointer; padding: 7.2px;">
+                    <i class="fas fa-plus"></i> Create New
+                </a>
+            </div>
         </div>
     </div>
-    <br />
-    <div class="portlet-body">
-        <table class="table">
+</section>
+
+<div class="sios-bg w-100 m-auto px-4 my-4 pb-5">
+    <div class="table-responsive">
+        <table id="Index" class="table table-striped mt-3 text-center">
             <thead>
                 <tr>
                     <th>
@@ -38,6 +46,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.CREATED_BY)
                     </th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
@@ -69,12 +78,10 @@
                         </td>
 
                         <td>
-                            @*@Html.ActionLink("Edit", "Edit", new { id=item.SPEC_ID }) |*@
-                            @*@Html.ActionLink("Diagnoises", "Diagnoisis", new { id = item.SPEC_ID })*@
-                            <a class="btn btn-default fa fa-list" style=" text-transform: none" href="/Specialities/Diagnoisis/@item.SPEC_ID"> Diagnoisis</a>
-                            |
-                            @*@Html.ActionLink("Change Activatation", "Delete", new { id = item.SPEC_ID })*@
-                            <button type="button" class="@btnClass" data-id=@item.SPEC_ID onclick="Activation(this);">@Activation</button>
+                            <a class="btn fw-bold text-white rounded-3"   href="/Specialities/Diagnoisis/@item.SPEC_ID"> Diagnoisis</a>
+                        </td>
+                        <td>
+                            <button type="button" class="btn fw-bold text-white rounded-3"  data-id=@item.SPEC_ID onclick="Activation(this);">@Activation</button>
                         </td>
                     </tr>
                 }
@@ -82,30 +89,33 @@
         </table>
     </div>
 </div>
-<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+
+
+<script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
+
 <script>
     $(function () {
         $('#Index').dataTable();
     })
     function Activation(button) {
 
-            var id = $(button).data('id');
+        var id = $(button).data('id');
 
-            bootbox.confirm("Are you sure to change this activaion ?", function (result) {
-                if (result) {
-                    $.ajax({
-                        type: "POST",
-                        dataType: "json",
-                        url: '/Specialities/Activation',
-                        data: { id: id },
-                        success: function (returndata) {
-                            if (returndata.ok) {
-                                toastr.success("Changed")
-                                location.reload();
-                            }
+        bootbox.confirm("Are you sure to change this activaion ?", function (result) {
+            if (result) {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: '/Specialities/Activation',
+                    data: { id: id },
+                    success: function (returndata) {
+                        if (returndata.ok) {
+                            toastr.success("Changed")
+                            location.reload();
                         }
-                    });
-                }
-            });
-        }
+                    }
+                });
+            }
+        });
+    }
 </script>

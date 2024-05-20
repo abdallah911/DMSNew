@@ -1,47 +1,58 @@
 ﻿@model DMS_Authontication1.Models.Specialities1
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <div class="panel panel-info">
-        <h2 class="panel-heading" style="margin:1px;">Create  a Specility</h2>
-        <div class="panel-body">
-            <div class="form-horizontal" style="padding-left: 93px;">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SPEC_ANAME, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.SPEC_ANAME, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.SPEC_ANAME, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SPEC_ENAME, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.SPEC_ENAME, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.SPEC_ENAME, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.special_notes, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.special_notes, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.special_notes, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+<div class="sios-container">
+<section class="container-fluid mt-4">
+    <!--  New request -->
+    <div class="row bg-overlay">
+        <div style="position: relative"
+             class="editeRquest fw-bold text-light">
+            <div class="m-3 fs-3">
+                <i class="fa fa-home me-3"></i>
+                Create  a Speciality
             </div>
         </div>
-        <div class="panel-footer" style="text-align:right;">
-            <input id="Back" type="button" value="Back" onclick="window.location.replace('/Specialities/index');" class="btn btn-warning" />
-            <input id="submit" type="submit" value="Create" class="btn btn-success" />
-        </div>
     </div>
-}
+</section>
+<div id="home">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="container col-10 px-0 mt-4">
+            <div style="white-space: nowrap" class="employee-form">
+                <div class="flex-column d-flex gap-2 pe-5">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="forLabel admin-form-control border-0 px-2">
+                        @*@Html.LabelFor(model => model.SPEC_ANAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })*@
+                        @Html.EditorFor(model => model.SPEC_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100" } })
+                        @Html.ValidationMessageFor(model => model.SPEC_ANAME, "", new { @class = "text-danger" })
+                        <span>SPEC ANAME</span>
+                    </div>
+                    <div class="forLabel admin-form-control border-0 px-2">
+                        @*@Html.LabelFor(model => model.SPEC_ENAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })*@
+                        @Html.EditorFor(model => model.SPEC_ENAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100" } })
+                        @Html.ValidationMessageFor(model => model.SPEC_ENAME, "", new { @class = "text-danger" })
+                        <span>SPEC ENAME</span>
+
+                    </div>
+                    <div class="forLabel admin-form-control border-0 px-2">
+                        @*@Html.LabelFor(model => model.special_notes, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })*@
+                        @Html.EditorFor(model => model.special_notes, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100" } })
+                        @Html.ValidationMessageFor(model => model.special_notes, "", new { @class = "text-danger" })
+                        <span>special notes</span>
+
+                    </div>
+                </div>
+                <div class="mt-5 d-flex gap-2 text-center">
+                    <input id="Back" type="button" value="Back" onclick="window.location.replace('/Specialities/index');" class="btn fw-bold text-white rounded-3" />
+                    <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3" />
+                </div>
+            </div>
+            <div class="m-auto col-12 col-lg-4 my-4"></div>
+        </div>
+    }</div>
+</div>
+
 

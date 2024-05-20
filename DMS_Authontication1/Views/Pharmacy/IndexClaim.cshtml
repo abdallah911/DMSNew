@@ -1,0 +1,205 @@
+﻿@using Microsoft.AspNet.Identity;
+@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    var role = 1;
+    if (User.IsInRole("Admin"))
+    {
+        role = 0;
+        var modellist = new List<ModulesPagesViewModel>();
+        var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+        if (claim != null)
+        {
+            modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+            if (modellist != null)
+            {
+                var obj = modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 4 && (x.FullControl || x.EditPermission
+                                              || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+                if (obj != null)
+                {
+                    edit = obj.EditPermission;
+                    delete = obj.ActivationControl;
+                    view = obj.Preview;
+                    fullcontroll = obj.FullControl;
+
+                }
+            }
+        }
+
+    }
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_DashboardNew.cshtml";
+}
+<style>
+    tr {
+        text-align: center;
+    }
+</style>
+<input id="role" value="@role.ToString()" hidden />
+
+<!-- start section -->
+<div class="sios-overlay container-fluid">
+    <div class="container">
+        <i class="fa-solid fa-house"></i>
+        <h3>Print Claims</h3>
+    </div>
+</div>
+
+<section class="print-claim-section">
+    <form name="formValidation" id="formValidation" action="Pharmacy_claims.html">
+        <div class="container">
+            <div class="row">
+                <div class="row row-cols-sm-3 m-auto m-sm-0">
+
+                    <div class="forLabel">
+                        <input class="chronic-form-control mb-3 ps-3" type="date" name="From" required="required" id="From" />
+                        <span for="From">From</span>
+                    </div>
+                    <div class="forLabel">
+                        <input class="chronic-form-control mb-3 ps-3"
+                               type="date"
+                               name="To" id="To"
+                               required="required" />
+                        <span for="To">To</span>
+                    </div>
+
+                    <div class="forLabel">
+                        <input class="chronic-form-control mb-3 ps-3"
+                               type="text" id="PharmacyCardId"
+                               name="CardID"
+                               required="required" />
+                        <span for="CardID">Card ID</span>
+                    </div>
+                    <div class="forLabel">
+                        <input class="chronic-form-control mb-3 ps-3" id="PharmacyApprovalNo"
+                               type="text"
+                               name="ApprovalNo"
+                               required="required" />
+                        <span for="ApprovalNo">ApprovalNo.</span>
+                    </div>
+                    <div class="forLabel">
+                        <select id="PharmacyddlType" class="chronic-form-control mb-3 ps-3" name="Select Group" required>
+                            <option value=""></option>
+                            <option value="Daily">Daily</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>
+                        </select>
+                        <span for="Select Group">Select Type</span>
+                    </div>
+                </div>
+            </div>
+            <div class="print-claims-btns d-flex mt-5">
+                <input id="Print" type="button" value="Print" class="print-btn me-2" />
+                <input id="PharmacyResetSearch" type="button" value="Reset" onclick="ClearPharmacySearchData();" class="reset-btn" />
+                <input id="PharmacyAdminSearch" type="button" value="Search" class="claims-search-btn ms-2" />
+            </div>
+
+        </div>
+    </form>
+</section>
+<div style="display: flex; flex-direction:column">
+    <section style="min-height:80vh; display:flex; flex-direction:column; flex-grow:1">
+        <div class="sios-overlay container-fluid mt-4">
+            <div class="container">
+                <i class="fa-solid fa-house"></i>
+                <h3 class="">Claims</h3>
+            </div>
+        </div>
+        <div class="claims-section container">
+            @*<div class="d-flex justify-content-between gap-3 flex-wrap align-items-center">
+                    <div class="d-flex align-items-center">
+                        <p class="me-2 mb-0">show</p>
+                        <select class="claims-form-control p-1 me-2" name="" id="">
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="75">75</option>
+                            <option value="100">100</option>
+                        </select>
+                        <p class="mb-0">entries</p>
+                    </div>
+
+                    <div class="sios-search d-flex mb-0 ms-sm-auto">
+                        <div class="search-field ms-auto">
+                            <input type="text" id="claimsSearchInput" class="search-inp" />
+
+                            <button type="button" id="claimsSearchbtn" class="search-btn">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </div>*@
+            <div class="claims-section-data mt-3">
+                <table class="w-100" id="Index">
+                    <thead class="mt-3">
+                        <tr class="text-center">
+                            <th>
+                                Approval No
+                            </th>
+                            <th>
+                                Card Id
+                            </th>
+                            <th>
+                                Company Percent
+                            </th>
+                            <th>
+                                Total Value
+                            </th>
+                            <th>
+                                Manager
+                            </th>
+
+                            <th>
+                                CreatedBy
+                            </th>
+
+                            <th>
+                                CreatedDate
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class=" ">
+                        @*<tr class="text-center">
+
+                                <td>
+                                    <a class="edit-btn btn" href="#">Edit</a>
+                                </td>
+                                <td>
+                                    <a class="details-btn btn" href="#">Details</a>
+                                </td>
+                                <td>
+                                    <button type="button" class="delete-btn btn" data-id="">
+                                        Delete
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="print-claims-btn btn" data-id="">
+                                        Print
+                                    </button>
+                                </td>
+                            </tr>*@
+                    </tbody>
+                </table>
+            </div>
+            <div class="my-4 m-auto border-bottom border-2"></div>
+        </div>
+    </section>
+</div>
+
+<script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
+<script src="~/Scripts/DMS/PharmacyIndex.js?V=6.2"></script>
+<script>
+    $(document).ready(function () {
+        $("#PharmacyPage").removeClass("pharmacy-active");
+        $("#CompaniesChronicDeliveryNew").removeClass("chronicdelivery-active");
+        $("#IndexClaim").addClass("claims-active");
+    });
+</script>

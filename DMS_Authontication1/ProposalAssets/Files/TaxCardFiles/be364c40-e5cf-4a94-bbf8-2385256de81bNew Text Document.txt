@@ -1,0 +1,4 @@
+  repoa01.SetDatabaseLogon("APP", "12369");
+                repoa01.SetParameterValue("comp", comp);
+                repoa01.SetParameterValue("rel1", rel1);
+                repoa01.SetParameterValue("rel2", rel2);

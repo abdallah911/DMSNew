@@ -1,0 +1,121 @@
+﻿@model DMS_Authontication1.Models.RenewalMain
+
+
+@{
+    if (ViewBag != null)
+    {
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout_Proposal.cshtml";
+        //var Errors = ViewBag.Errors;
+    }
+}
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+
+<div class="container-fluid mt-4">
+    @using (Html.BeginForm("SaveData", "ProposalRenewals", FormMethod.Post, new { enctype = "multipart/form-data", id = "RenewalMainForm" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+
+            @*<input hidden name="Id" value="@ViewBag.MainId" />*@
+            <div class="col-lg-10 m-auto w-100">
+                <div class="sec-3 row mt-3">
+                    <div class="col-8 mx-auto">
+                        <div style="direction: rtl; background: linear-gradient(45deg, #cad4e6, #e9eef8);" class="main-form d-grid gap-1 p-4 mx-auto rounded col-12">
+
+
+                            <div class="d-flex  justify-content-between" style="align-items:center;">
+
+                                <span class="fw-bold" style="width:100px">
+                                    أسم الشركة
+                                </span>
+                                @*@Html.TextBoxFor(model => model.CompanyArabicName, new { @class = "sios-form-control home-input w-75", placeholder = "الإسم بالعربي" })*@
+
+                                <div class="d-flex w-75 gap-3">
+                                    @*<input id="CompanyName" class="sios-form-control home-input w-75" style="width: 100%" />*@
+
+                                    @Html.DropDownListFor(model => model.CompId, ViewBag.company as SelectList, "Select Company", new { @class = "select2 sios-form-control home-input w-75", style = "width: 100%", id = "CompId" })
+
+                                    @*<div class="col-md-6">
+                                            <input id="CompanyName" class="sios-form-control home-input w-75" placeholder="Enter Batch Number" style="width: 100%" />
+                                        </div>*@
+                                    <button style=" white-space: nowrap; width:fit-content; margin-bottom: 5px; padding: 4px 12px; background: var(--color-secondary); border-color: var(--color-secondary);" id="Search" type="button" class="btn me-auto btn-primary" onclick="SearchRenewal()">
+                                        <span class=" fa fa-magnifying-glass"></span> Search
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="d-flex  justify-content-between" style="align-items:center;">
+                                <span class="fw-bold" style="width:100px">
+                                    رقم العقد
+                                </span>
+
+                                @Html.TextBoxFor(model => model.ContractNo, new { @class = "sios-form-control home-input w-75", @readonly = "readonly", style = "width: 100%" })
+
+                                @*<input id="ContractNo" class="sios-form-control home-input w-75" style="width: 100%" disabled />*@
+                            </div>
+
+                            <div class="d-flex justify-content-between" style="align-items:center;">
+                                <span class="fw-bold" style="width:100px">
+                                    عدد الفئات
+                                </span>
+                                @*<input id="ClassCount" class="sios-form-control home-input w-75" style="width: 100%" disabled />*@
+                                @Html.TextBoxFor(model => model.ClassCount, new { @class = "sios-form-control home-input w-75", @readonly = "readonly", style = "width: 100%" })
+
+                            </div>
+
+                            <div class="d-flex justify-content-between" style="align-items:center;">
+                                <span class="fw-bold" style="width:117px">
+                                    عدد الموظفين
+                                </span>
+                                @Html.TextBoxFor(model => model.EmpCount, new { @class = "sios-form-control home-input w-75", style = "width: 100%", @readonly = "readonly" })
+
+                                @*<input id="EmployeeCount" class="sios-form-control home-input w-75" style="width: 100%" disabled />*@
+                            </div>
+                        </div>
+
+                        <div class="btns-box">
+                            <div class="d-flex action-btns gap-2 fs-6 w-75 mx-auto ms-sm-0 justify-content-center justify-content-sm-start">
+                                <div>
+                                    <a style="width: fit-content;">
+                                        <button type="submit" style=" height: 48px;" class="text-align-center btn next-btn fs-5 fw-bold py-2 px-5">التالي</button>
+                                    </a>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn action-btn fs-5 fw-bold rounded py-2 px-4" onclick="ClearAll()" id="NewForm">جديد</button>
+
+                                </div>
+
+                            </div>
+                            <br />
+                            <div class="d-flex action-btns w-75 m-auto">
+
+
+                            </div>
+                            <br />
+                            <div class="w-25 action-btns"
+                                 style="
+                    margin-right: 35%;
+                    grid-template-columns: repeat(1, auto);
+                  ">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+<script>
+    $(document).ready(function () {
+
+        $("select2").select2()(["multiple: true"]);
+    });
+</script>
+
+<script src="~/Scripts/DMS/ProposalRenewals/ProposalRenewals.js"></script>

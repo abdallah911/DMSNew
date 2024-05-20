@@ -1,364 +1,827 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    if (!User.Identity.IsAuthenticated)
+    {
+        Layout = null;
+    }
 }
 @if (!User.Identity.IsAuthenticated)
 {
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/animate.css">
-    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/magnific-popup.css">
-    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/aos.css">
-    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/ionicons.min.css">
-    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/jquery.timepicker.css">
-    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/flaticon.css">
-    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/icomoon.css">
-    <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/style.css">
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SIOS - @ViewBag.Title</title>
+        <link rel="stylesheet" href="~/assets/NewDesign/css/all.min.css" />
+        <link rel="stylesheet" href="~/assets/NewDesign/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/assets/NewDesign/css/owl.carousel.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <link rel="stylesheet" href="~/assets/NewDesign/css/home.css" />
+    </head>
+    <body>
 
-    <section class="home-slider owl-carousel">
-        <div class="slider-item" style="background-image:url(/assets/global/img/bg_1.jpg);">
-            <div class="overlay"></div>
-            <div class="container">
-                <div class="row no-gutters slider-text align-items-center justify-content-start" data-scrollax-parent="true">
-                    <div class="col-md-6 text ftco-animate">
-                        <h1 class="mb-4">We Care <span>About Your Health</span></h1>
-                        <h3 class="subheading">Your Health is Our Top Priority with Comprehensive, Affordable medical.</h3>
-                        <p><a href="#" class="btn btn-secondary px-4 py-3 mt-3">View our works</a></p>
+        <section id="loading">
+            <i class="fa-solid fa-arrows-spin fa-spin"></i>
+        </section>
+        <div id="home" class="home">
+            <nav class="navbar fixed-top navbar-expand-lg">
+                <div class="container-fluid">
+                    <a class="navbar-brand ms-5" href="#">
+                        <img class="logo"
+                             src="~/assets/NewDesign/img/Untitled-222222-01-removebg-preview.png"
+                             width="85"
+                             alt="" />
+                    </a>
+                    <button class="navbar-toggler"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link mx-2 active" aria-current="page" href="#home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2" href="#service">Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2" href="#about">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2" href="#products">Our Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-2" href="#clint">Our clients</a>
+                            </li>
+                        </ul>
                     </div>
+                    <a id="login" href="/Account/Login" class="btn fw-bold text-white login-btn">Login</a>
                 </div>
-            </div>
-        </div>
-        <div class="slider-item" style="background-image:url(/assets/global/img/bg_2.jpg);">
-            <div class="overlay"></div>
-            <div class="container">
-                <div class="row no-gutters slider-text align-items-center justify-content-start" data-scrollax-parent="true">
-                    <div class="col-md-6 text ftco-animate">
-                        <h1 class="mb-4">We Care <span style="color:white">About Your Health</span></h1>
-                        <h3 class="subheading" style="color:white">Your Health is Our Top Priority with Comprehensive, Affordable medical.</h3>
-                        <p><a href="#" class="btn btn-secondary px-4 py-3 mt-3">View our works</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slider-item" style="background-image:url(/assets/global/img/bg_2.jpg);">
-            <div class="overlay"></div>
-            <div class="container">
-                <div class="row no-gutters slider-text align-items-center justify-content-start" data-scrollax-parent="true">
-                    <div class="col-md-6 text ftco-animate">
-                        <h1 class="mb-4">We Care <span style="color:white">About Your Health</span></h1>
-                        <h3 class="subheading" style="color:white">Your Health is Our Top Priority with Comprehensive, Affordable medical.</h3>
-                        <p><a href="#" class="btn btn-secondary px-4 py-3 mt-3">View our works</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    @*<section class="ftco-services ftco-no-pb">
-        <div class="container">
-            <div class="row no-gutters">
-                <div class="col-md-3 d-flex services align-self-stretch p-4 ftco-animate">
-                    <div class="media block-6 d-block text-center">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="flaticon-doctor"></span>
-                        </div>
-                        <div class="media-body p-2 mt-3">
-                            <h3 class="heading">Qualitfied Doctors</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex services align-self-stretch p-4 ftco-animate">
-                    <div class="media block-6 d-block text-center">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="flaticon-ambulance"></span>
-                        </div>
-                        <div class="media-body p-2 mt-3">
-                            <h3 class="heading">Emergency Cases</h3>
-                            <p>An so vulgar to on points wanted rapture ous resolving continued household</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex services align-self-stretch p-4 ftco-animate">
-                    <div class="media block-6 d-block text-center">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="flaticon-stethoscope"></span>
-                        </div>
-                        <div class="media-body p-2 mt-3">
-                            <h3 class="heading">Online Appointment</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 d-flex services align-self-stretch p-4 ftco-animate">
-                    <div class="media block-6 d-block text-center">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="flaticon-24-hours"></span>
-                        </div>
-                        <div class="media-body p-2 mt-3">
-                            <h3 class="heading">24 Hours Service</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>*@
-    <section class="ftco-section ftco-no-pt ftc-no-pb">
-        <div class="container">
-            <div class="row no-gutters">
-                <div class="col-md-5 p-md-5 img img-2 mt-5 mt-md-0" style="background-image: url(/assets/global/img/about.jpg);">
-                </div>
-                <div class="col-md-7 wrap-about py-4 py-md-5 ftco-animate">
-                    <div class="heading-section mb-5">
-                        <div class="pl-md-5 ml-md-5">
-                            <span class="subheading">About DMS</span>
-                            <h2 class="mb-4" style="font-size: 28px;">Introducing DMS</h2>
-                        </div>
-                    </div>
-                    <div class="pl-md-5 ml-md-5 mb-5">
-                        <p>Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members. At DMS, the company offers a wide range of health insurance products at affordable prices to make health insurance every human being’s right. And as a company, single-mindedly dedicated to health insurance. Simple language, clear policies, transparent procedures and innovative products, making health insurance the way it ought to be. We know health care. We know insurance.</p>
-                        <div class="row mt-5 pt-2">
-                            <div class="col-lg-6">
-                                <div class="services-2 d-flex">
-                                    <div class="icon mt-2 mr-3 d-flex justify-content-center align-items-center"><span class="flaticon-first-aid-kit"></span></div>
-                                    <div class="text">
-                                        <h3>Primary Care</h3>
-                                        <p>Far far away, behind the word mountains, far from the countries Vokalia.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="services-2 d-flex">
-                                    <div class="icon mt-2 mr-3 d-flex justify-content-center align-items-center"><span class="flaticon-dropper"></span></div>
-                                    <div class="text">
-                                        <h3>Lab Test</h3>
-                                        <p>Far far away, behind the word mountains, far from the countries Vokalia.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="services-2 d-flex">
-                                    <div class="icon mt-2 mr-3 d-flex justify-content-center align-items-center"><span class="flaticon-experiment-results"></span></div>
-                                    <div class="text">
-                                        <h3>Symptom Check</h3>
-                                        <p>Far far away, behind the word mountains, far from the countries Vokalia.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="services-2 d-flex">
-                                    <div class="icon mt-2 mr-3 d-flex justify-content-center align-items-center"><span class="flaticon-heart-rate"></span></div>
-                                    <div class="text">
-                                        <h3>Heart Rate</h3>
-                                        <p>Far far away, behind the word mountains, far from the countries Vokalia.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--==========================
-     Success Partners
-    ============================-->
-    <section id="successPartners" class="section-bg">
-        <div class="container">
+            </nav>
+            <div id="particles-js"></div>
 
-            <div class="section-header">
-                <h3>Success Partners</h3>
+            <div class="container home-container overflow-hidden h-100 d-flex justify-content-center align-items-center ms-5 w-50">
+                <div class="home-text text-uppercase">
+                    <h1>
+                        specialize in providing custom software sulotions unique Needs
+                    </h1>
+                    <div class="btns mt-5">
+                        <a class="btn1 px-4 me-5 shadow-lg text-white fw-bold fs-6 py-3 btn rounded-2">
+                            Get started <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
 
-            <div class="row contact-info">
-                <div class="col-md-3">
-                    <div>
-                        <h3>@*<a href="#"></a>*@Alfa Lab</h3>
+            <div id="btnUp" class="btn">
+                <i class="fa-solid fa-chevron-up fs-2"></i>
+            </div>
+
+        </div>
+
+        <div id="service" class="services overflow-hidden py-5">
+            <div class="service-header text-center w-100 wow animate__animated animate__fadeInDown">
+                <!-- <i class="fa-solid fa-stethoscope text-uppercase fs-1 fw-bold"></i> -->
+                <h1>Our Services</h1>
+            </div>
+
+            <div class="container mb-5 w-75">
+                <div class="row py-5 g-5">
+                    <div class="col-md-6 text-center">
+                        <div class="card h-100 rounded-top-4 animate__animated wow animate__backInLeft">
+                            <div class="card-img rounded-top-4">
+                                <img src="~/assets/NewDesign/img/services/Business analysisProfile.jpg"
+                                     class="w-100 rounded-top-4 object-fit-cover"
+                                     alt="" />
+                            </div>
+
+                            <div class="card-text px-2 py-3">
+                                <h5>Business Analysis Services</h5>
+                                <p>
+                                    Product Design To provide our clients with best-in-class
+                                    software products fully compliant with users' needs our team
+                                    gives high priority to business analysis. Our professional
+                                    analysts handle deep research of the product idea, vision and
+                                    goals, business processes, conduct feasibility analysis, wrap
+                                    it up into estimations and project requirements, and are
+                                    involved into each stage of development life cycle for a
+                                    sucessful and proper software product delivery.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div>
-                        <h3>Cleopatra hospital</h3>
+                    <div class="col-md-6 text-center">
+                        <div class="card h-100 rounded-top-4 animate__animated wow animate__zoomIn">
+                            <div class="card-img rounded-top-4">
+                                <img src="~/assets/NewDesign/img/services/Software Product Design.jpg"
+                                     class="w-100 rounded-top-4 object-fit-cover"
+                                     alt="" />
+                            </div>
+
+                            <div class="card-text px-2 py-3">
+                                <h5>Software Product Design</h5>
+                                <p>
+                                    Our product design team creates seamless UX and visually
+                                    appealing UI for web and mobile applications. Start your
+                                    product with a thought-out design and meaningful interfaces
+                                    catering to the needs of both business and end- users.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div>
-                        <h3>Techno Scan</h3>
+                    <div class="col-md-6 text-center">
+                        <div class="card h-100 rounded-top-4 animate__animated wow animate__backInRight">
+                            <div class="card-img rounded-top-4">
+                                <img src="~/assets/NewDesign/img/services/Web Development Services.jpg"
+                                     class="w-100 rounded-top-4 object-fit-cover"
+                                     alt="" />
+                            </div>
+
+                            <div class="card-text px-2 py-3">
+                                <h5>Web Development Services</h5>
+                                <p>
+                                    Having a separate web development department, we cover the
+                                    vast majority of your technology needs, making web solutions
+                                    scalable, secure, and of high-performance. Combining client
+                                    requirements, usability best practices, and functionality
+                                    together, we wrap it up into value-driven web software
+                                    product. Leverage our experience in developing web solutions
+                                    of any complexity: from a single page website to a
+                                    full-fledged web app.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div>
-                        <h3>Al borg Lab</h3>
+                    <div class="col-md-6 text-center">
+                        <div class="card h-100 rounded-top-4 animate__animated wow animate__backInLeft">
+                            <div class="card-img rounded-top-4">
+                                <img src="~/assets/NewDesign/img/services/Mobile DevelopmentProfile.jpg"
+                                     class="w-100 rounded-top-4 object-fit-cover"
+                                     alt="" />
+                            </div>
+
+                            <div class="card-text px-2 py-3">
+                                <h5>Mobile Development</h5>
+                                <p>
+                                    IOS, Android and Cross-platform development, We offer native
+                                    and cross-platform mobile solutions to help companies grow by
+                                    automating their business processes on portable devices or
+                                    bringing their software product to market. Boost your online
+                                    presence or develop internal corporate mobile application to
+                                    make your business work from wherever you are.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div class="card h-100 rounded-top-4 animate__animated wow animate__zoomIn">
+                            <div class="card-img rounded-top-4">
+                                <img src="~/assets/NewDesign/img/services/design-graphics-.jpg"
+                                     class="w-100 rounded-top-4 object-fit-cover"
+                                     alt="" />
+                            </div>
+
+                            <div class="card-text px-2 py-3">
+                                <h5>graphic design software</h5>
+                                <p>
+                                    We will help find the right logo style, fonts, icons, and
+                                    colors combinations for your personal or business logo. Our
+                                    easy-to-use design tool will help you choose the template that
+                                    you really love. Using hundred of design options you can find
+                                    the best right for your company.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div class="card h-100 rounded-top-4 animate__animated wow animate__backInRight">
+                            <div class="card-img rounded-top-4">
+                                <img src="~/assets/NewDesign/img/services/CloudAppDevelopmentProfile.jpg"
+                                     class="w-100 rounded-top-4 object-fit-cover"
+                                     alt="" />
+                            </div>
+
+                            <div class="card-text px-2 py-3">
+                                <h5>Cloud App Development</h5>
+                                <p>
+                                    We help build apps using Amazon, Google, Microsoft Azure & IBM
+                                    Bluemix to leverage the cloud advantages and scale on-demand
+                                    with ease.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- #Success Partners -->
-    <script src="~/assets/global/plugins/design/homecontent/js/jquery.min.js"></script>
-    <script src="~/assets/global/plugins/design/homecontent/js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="~/assets/global/plugins/design/homecontent/js/popper.min.js"></script>
-    <script src="~/assets/global/plugins/design/homecontent/js/bootstrap.min.js"></script>
-    <script src="~/assets/global/plugins/design/homecontent/js/jquery.easing.1.3.js"></script>
-    <script src="~/assets/global/plugins/design/homecontent/js/jquery.waypoints.min.js"></script>
-    <script src="~/assets/global/plugins/design/homecontent/js/jquery.stellar.min.js"></script>
-    <script src="~/assets/global/plugins/design/homecontent/js/owl.carousel.min.js"></script>
-    <script src="~/assets/global/plugins/design/homecontent/js/jquery.magnific-popup.min.js"></script>
-    <script src="~/assets/global/plugins/design/homecontent/js/aos.js"></script>
-    <script src="~/assets/global/plugins/design/homecontent/js/jquery.animateNumber.min.js"></script>
-    <script src="~/assets/global/plugins/design/homecontent/js/bootstrap-datepicker.js"></script>
-    <script src="~/assets/global/plugins/design/homecontent/js/jquery.timepicker.min.js"></script>
-    <script src="~/assets/global/plugins/design/homecontent/js/scrollax.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="~/assets/global/plugins/design/homecontent/js/google-map.js"></script>
-    <script src="~/assets/global/plugins/design/homecontent/js/main.js"></script>
+
+        <div id="about" class="about py-5">
+            <div class="about-Text my-3 text-center py-3">
+                <div class="w-75 m-auto text-white overflow-hidden fw-bold">
+                    <h1 class="pb-3 animate__animated wow animate__flipInX">
+                        OUR VALUES
+                    </h1>
+                    <p class="animate__animated wow animate__slideInUp">
+                        Our approach to cooperation with clients stands on the concept of
+                        painless software development. As a beginning-to-end software
+                        development provider we focus on client business pecularities and
+                        challenges, pay attention to details and quality, and also make the
+                        development process flexible and advantageous.
+                    </p>
+                    <p class="animate__animated wow animate__slideInUp">
+                        SIOS is a software development company. We develop end-to-end
+                        software for midsize companies and enterprises, mainly from EGYPT.
+                        We help business to upscale creating valuable and best-fit custom
+                        so.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="products" class="py-5">
+            <div class="products-header text-uppercase wow animate__animated animate__fadeInDown pb-5 w-100 text-center">
+                <!-- <i class="fa-solid fa-ranking-star fs-1 fw-bold"></i> -->
+                <h1>Our Products</h1>
+            </div>
+            <div class="container py-5">
+                <div id="hr" class="row product-card rounded-5">
+                    <div class="col-md-6">
+                        <div class="product-text wow animate__animated animate__slideInDown d-flex flex-column h-100 justify-content-center p-2 align-items-start">
+                            <h2>
+                                <span class="main-color fw-bold">HR</span> SOFTWARE DEVELOPMENT
+                            </h2>
+                            <p class="text-muted fs-5 my-3">
+                                Within the decade of HR software development experience, we have
+                                helped to automate the HRM workflows in 10+ companies
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="product-img wow animate__animated animate__slideInUp h-100">
+                            <img src="~/assets/NewDesign/img/Hr/hrProduct.jpg"
+                                 class="w-100 h-100 wow animate__animated"
+                                 alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div id="enterprise" class="row product-card my-5 rounded-5">
+                    <div class="col-md-6">
+                        <div class="product-img wow animate__animated animate__slideInLeft h-100">
+                            <img src="~/assets/NewDesign/img/enterPrice/ENTERPRISEProfileProduct.jpg"
+                                 class="w-100 h-100"
+                                 alt="" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="product-text wow animate__animated animate__slideInRight d-flex flex-column h-100 justify-content-center p-2 align-items-start">
+                            <h3>
+                                <span class="main-color fw-bold">ENTERPRISE </span>Application
+                                Development Services
+                            </h3>
+                            <p class="text-muted fs-5 my-3">
+                                Automate, optimize and power your business-critical processes
+                                with customly designed enterprise software solutions
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="app" class="row product-card rounded-5">
+                    <div class="col-md-6">
+                        <div class="product-text wow animate__animated animate__slideInDown d-flex flex-column h-100 justify-content-center p-2 align-items-start">
+                            <h3>Application <span class="main-color fw-bold">DMS</span></h3>
+                            <p class="text-muted fs-5 my-3">
+                                We are (SIOS)smart integrated greation system company we are
+                                software company that works at naging health care companie
+                                Clinics a corporations, It's a shareholdtoyptian comp which
+                                register (ITIDA)
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="product-img wow animate__animated animate__slideInUp h-100">
+                            <img src="~/assets/NewDesign/img/Product1.png"
+                                 class="w-100 h-100 wow animate__animated"
+                                 alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div id="commerce" class="row product-card my-5 rounded-5">
+                    <div class="col-md-6">
+                        <div class="product-img wow animate__animated animate__slideInLeft h-100">
+                            <img src="~/assets/NewDesign/img/commerce/E-commerceProfile.jpg" class="w-100 h-100" alt="" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="product-text wow animate__animated animate__slideInRight d-flex flex-column h-100 justify-content-center p-2 align-items-start">
+                            <h3>
+                                <span class="main-color fw-bold">E-COMMERCE </span> Developer
+                                Services
+                            </h3>
+                            <p class="text-muted fs-5 my-3">
+                                Elevate your eCommerce business with custom solutions drived by
+                                Magento, Shopify, Drupal and other proved platforms. We help
+                                brands, wholesalers, distributors and manufacturers grow their
+                                revenue streams delivering stable and scalable turnkey eCommerce
+                                software.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="self-admin" class="row product-card rounded-5">
+                    <div class="col-md-6">
+                        <div class="product-text wow animate__animated animate__slideInDown d-flex flex-column h-100 justify-content-center p-2 align-items-start">
+                            <h3>
+                                <span class="main-color fw-bold">SELF-ADMIN</span> COMPANIES
+                                SYSTEMS
+                            </h3>
+                            <p class="text-muted fs-5 my-3">
+                                Many institutions rely on managing the health care file for
+                                their employees on their own, so we had to provide a system that
+                                serves these institutions.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="product-img wow animate__animated animate__slideInUp h-100">
+                            <img src="~/assets/NewDesign/img/adminProfil/self adminProfile.jpg"
+                                 class="w-100 h-100 wow animate__animated"
+                                 alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div id="clinic" class="row product-card my-5 rounded-5">
+                    <div class="col-md-6">
+                        <div class="product-img wow animate__animated animate__slideInLeft h-100">
+                            <img src="~/assets/NewDesign/img/clinic/e-clinicProfile.jpg"
+                                 class="w-100 h-100"
+                                 alt="" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="product-text wow animate__animated animate__slideInRight d-flex flex-column h-100 justify-content-center p-2 align-items-start">
+                            <h3>
+                                <span class="main-color fw-bold">E-Clinic </span>
+                                Systems
+                            </h3>
+                            <p class="text-muted fs-5 my-3">
+                                eClinic Systems is a comprehensive clinic management system
+                                software tailored to meet the needs of modern health clinics,
+                                individual practitioners, and third-party billing companies.
+                                With features encompassing Patient Care Management, Mobile App
+                                integration, Online Appointment Scheduling, Secured Messaging,
+                                eBilling, Insurance Handling, Accounting, HR/Payroll, and
+                                HL7/Integrated PACS, eClinic offers a robust solution to
+                                streamline healthcare practices. Available as both On-Premise
+                                and Cloud installations, this web-based clinic software is
+                                developed based on the best practices around the world, aiming
+                                to enhance patient care quality while maximizing efficiency and
+                                revenue streams
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="healthCare" class="row product-card rounded-5">
+                    <div class="col-md-6">
+                        <div class="product-text wow animate__animated animate__slideInDown d-flex flex-column h-100 justify-content-center p-2 align-items-start">
+                            <h3>
+                                <span class="main-color fw-bold">Healthcare</span> Company
+                                Management System
+                            </h3>
+                            <p class="text-muted fs-5 my-3">
+                                We are one of the leading companies in providing an integrated
+                                application for managing healthcare companies, not in Egypt but
+                                in the Middle East.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="product-img wow animate__animated animate__slideInUp h-100">
+                            <img src="~/assets/NewDesign/img/healthCare/HealthCareProfile.jpg"
+                                 class="w-100 h-100 wow animate__animated"
+                                 alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="clint" class="py-5">
+            <div class="w-100 text-center">
+                <h1 class="serviceShadow text-uppercase main-color fw-bold animate__animated wow animate__fadeInUp">
+                    Our Partner
+                </h1>
+            </div>
+            <div class="container py-5">
+                <div class="owl-carousel my-3 owl-theme">
+                    <div class="item rounded-circle text-center">
+                        <img src="~/assets/NewDesign/img/Clients/care.png"
+                             class="w-100 rounded-circle"
+                             alt="" />
+                    </div>
+
+                    <div class="item rounded-circle text-center">
+                        <img src="~/assets/NewDesign/img/Clients/مختبر.jpg"
+                             class="w-100 rounded-circle"
+                             alt="" />
+                    </div>
+                    <div class="item rounded-circle text-center">
+                        <img src="~/assets/NewDesign/img/Clients/cleopatra.jpg"
+                             class="w-100 rounded-circle"
+                             alt="" />
+                    </div>
+                    <div class="item rounded-circle text-center">
+                        <img src="~/assets/NewDesign/img/Clients/alfa.jpg"
+                             class="w-100 rounded-circle"
+                             alt="" />
+                    </div>
+                    <div class="item rounded-circle text-center">
+                        <img src="~/assets/NewDesign/img/Clients/air.jpg"
+                             class="w-100 rounded-circle"
+                             alt="" />
+                    </div>
+                    <div class="item rounded-circle text-center">
+                        <img src="~/assets/NewDesign/img/Clients/air2.jpg"
+                             class="w-100 rounded-circle"
+                             alt="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer py-0">
+                <div class="container-fluid pt-5">
+                    <div class="row m-auto">
+                        <div class="col-md-5">
+                            <div class="footerP1 me-4 p-3">
+                                <h1 class="mb-1 ms-3">COMPANY</h1>
+                                <div class="line"></div>
+                                <p class="h6">
+                                    SIOS is a software development company. We develop end-to-end
+                                    software for midsize companies and enterprises, mainly from
+                                    EGYPT. We help business to upscale creating valuable and
+                                    best-fit custom so.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="footerP2">
+                                <h1>Head-Office</h1>
+                                <div class="line ms-0"></div>
+                                <h6>12 Abdelazim Awadallah St., Heliopolis, Cairo</h6>
+                                <h5 class="mt-5">Contact</h5>
+                                <p><i class="fa-regular fa-envelope"></i> SIOS@gmail.com</p>
+                                <p>
+                                    <i class="fa-solid fa-phone"></i> 01032274222 – 01026006177
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 ms-4">
+                            <div class="footerP3">
+                                <h1>Servives</h1>
+                                <div class="line ms-0"></div>
+
+                                <p>
+                                    <i class="fa-solid fa-caret-right me-2"></i>
+                                    Business Analysis Services
+                                </p>
+                                <p>
+                                    <i class="fa-solid fa-caret-right me-2"></i>
+                                    Web Development Services
+                                </p>
+                                <p>
+                                    <i class="fa-solid fa-caret-right me-2"></i>
+                                    Mobile Development
+                                </p>
+                                <p>
+                                    <i class="fa-solid text-capitalize fa-caret-right me-2"></i>
+                                    Graphic Design Software
+                                </p>
+                                <p>
+                                    <i class="fa-solid text-capitalize fa-caret-right me-2"></i>
+                                    Software Product Design
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+        <script src="~/assets/NewDesign/js/bootstrap.bundle.min.js"></script>
+        <script src="~/assets/NewDesign/js/bootstrap.min.js"></script>
+        <script src="~/assets/NewDesign/js/jquery-3.6.3.min.js"></script>
+        <script src="~/assets/NewDesign/js/owl.carousel.min.js"></script>
+        <script src="~/assets/NewDesign/js/wow.min.js"></script>
+        <script src="~/assets/NewDesign/js/particles.js"></script>
+        <script src="~/assets/NewDesign/js/app.js"></script>
+
+        <script src="~/assets/NewDesign/js/index.js"></script>
+    </body>
+</html>
 }
 else if (User.IsInRole("Admin"))
 {
-    <h1>DMS Dashboard</h1>
+<h1>DMS Dashboard</h1>
 
-    <!-- Styles -->
-    <style>
-        #ProviderClamesChartDiv {
-            width: 100%;
-            height: 7000px;
-        }
-    </style>
+<!-- Styles -->
+<style>
+    #ProviderClamesChartDiv {
+        width: 100%;
+        height: 7000px;
+    }
+</style>
 
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+<!-- Chart code -->
+<script>
+    am4core.ready(function () {
+        //User Chart
+        // Create chart instance
+        var chart = am4core.create("UserChartDiv", am4charts.PieChart);
+        // Add and configure Series
+        var pieSeries = chart.series.push(new am4charts.PieSeries());
+        pieSeries.dataFields.value = "litres";
+        pieSeries.dataFields.category = "User";
+
+        // Let's cut a hole in our Pie chart the size of 30% the radius
+        chart.innerRadius = am4core.percent(50);
+
+        // Put a thick white border around each Slice
+        pieSeries.slices.template.stroke = am4core.color("#fff");
+        pieSeries.slices.template.strokeWidth = 2;
+        pieSeries.slices.template.strokeOpacity = 1;
+        pieSeries.slices.template
+            // change the cursor on hover to make it apparent the object can be interacted with
+            .cursorOverStyle = [
+                {
+                    "property": "cursor",
+                    "value": "pointer"
+                }
+            ];
+
+        pieSeries.alignLabels = false;
+        pieSeries.labels.template.bent = true;
+        pieSeries.labels.template.radius = 3;
+        pieSeries.labels.template.padding(0, 0, 0, 0);
+
+        pieSeries.ticks.template.disabled = true;
+
+        // Create a base filter effect (as if it's not there) for the hover to return to
+        var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+        shadow.opacity = 0;
+
+        // Create hover state
+        var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+
+        // Slightly shift the shadow and make it more prominent on hover
+        var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+        hoverShadow.opacity = 0.7;
+        hoverShadow.blur = 5;
+
+        // Add a legend
+        chart.legend = new am4charts.Legend();
+        //Clams Chart
+        var Clameschart = am4core.create("ClamesChartDiv", am4charts.PieChart);
+        // Add and configure Series
+        var ClamespieSeries = Clameschart.series.push(new am4charts.PieSeries());
+        ClamespieSeries.dataFields.value = "litres";
+        ClamespieSeries.dataFields.category = "Clames";
+
+        // Let's cut a hole in our Pie chart the size of 30% the radius
+        Clameschart.innerRadius = am4core.percent(30);
+
+        // Put a thick white border around each Slice
+        ClamespieSeries.slices.template.stroke = am4core.color("#fff");
+        ClamespieSeries.slices.template.strokeWidth = 2;
+        ClamespieSeries.slices.template.strokeOpacity = 1;
+        ClamespieSeries.slices.template
+            // change the cursor on hover to make it apparent the object can be interacted with
+            .cursorOverStyle = [
+                {
+                    "property": "cursor",
+                    "value": "pointer"
+                }
+            ];
+
+        ClamespieSeries.alignLabels = false;
+        ClamespieSeries.labels.template.bent = true;
+        ClamespieSeries.labels.template.radius = 3;
+        ClamespieSeries.labels.template.padding(0, 0, 0, 0);
+
+        ClamespieSeries.ticks.template.disabled = true;
+
+        // Create a base filter effect (as if it's not there) for the hover to return to
+        var shadow = ClamespieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+        shadow.opacity = 0;
+
+        // Create hover state
+        var hoverState = ClamespieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+
+        // Slightly shift the shadow and make it more prominent on hover
+        var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+        hoverShadow.opacity = 0.7;
+        hoverShadow.blur = 5;
+        Clameschart.legend = new am4charts.Legend();
+        //Ajax
+        $.ajax({
+            type: 'POST',
+            url: '/Home/getUser/',
+            dataType: 'json',
+            data: { id: 1 },
+            success: function (result) {
+                // Add data
+                chart.data = [{
+                    "User": "Oracle",
+                    "litres": result.OracleUserCount
+                }, {
+                    "User": "SQL",
+                    "litres": result.SqlUserCount
+                }
+                ];
+                Clameschart.data = [{
+                    "Clames": "Oracle",
+                    "litres": result.OracleClamesCount
+                }, {
+                    "Clames": "SQL",
+                    "litres": result.SqlClamesCount
+                }
+                ];
+
+            },
+            error: function (ex) {
+                bootbox.alert('Failed to retrieve counts.');
+            }
+
+        });
+
+    }); // end am4core.ready()
+</script>
+
+//All Pharmacies Names
+<script>
+    am4core.ready(function () {
+
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+
+        var chart = am4core.create("ProviderClamesChartDiv", am4charts.XYChart);
+        chart.padding(40, 40, 40, 40);
+
+        var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.renderer.grid.template.location = 0;
+        categoryAxis.dataFields.category = "provider";
+        categoryAxis.renderer.minGridDistance = 1;
+        categoryAxis.renderer.inversed = true;
+        categoryAxis.renderer.grid.template.disabled = true;
+
+        var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+        valueAxis.min = 0;
+
+        var series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.categoryY = "provider";
+        series.dataFields.valueX = "clames";
+        series.tooltipText = "{valueX.value}"
+        series.columns.template.strokeOpacity = 0;
+        series.columns.template.column.cornerRadiusBottomRight = 5;
+        series.columns.template.column.cornerRadiusTopRight = 5;
+
+        var labelBullet = series.bullets.push(new am4charts.LabelBullet())
+        labelBullet.label.horizontalCenter = "left";
+        labelBullet.label.dx = 10;
+        labelBullet.label.text = "{values.valueX.workingValue.formatNumber('#')}";
+        labelBullet.locationX = 1;
+
+        // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+        series.columns.template.adapter.add("fill", function (fill, target) {
+            return chart.colors.getIndex(target.dataItem.index);
+        });
+
+        categoryAxis.sortBySeries = series;
+
+        //Ajax
+        $.ajax({
+            type: 'POST',
+            url: '/Home/getProviderClames/',
+            dataType: 'json',
+            data: { id: 1 },
+            success: function (result) {
+                // Add data
+                chart.data = result.PharmacyClames;
+
+
+            },
+            error: function (ex) {
+                bootbox.alert('Failed to retrieve counts.');
+            }
+
+        });
+
+
+
+    }); // end am4core.ready()
+</script>
+//Manger Clames
+<script>
+    am4core.ready(function () {
+
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+
+        var chart = am4core.create("MangerClamesChartDiv", am4charts.XYChart);
+        chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+        //Ajax
+        $.ajax({
+            type: 'POST',
+            url: '/Home/getMangerClames/',
+            dataType: 'json',
+            data: { id: 1 },
+            success: function (result) {
+                debugger;
+                // Add data
+                chart.data = result.MangerClames;
+
+
+            },
+            error: function (ex) {
+                bootbox.alert('Failed to retrieve counts.');
+            }
+
+        });
+
+
+        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.renderer.grid.template.location = 0;
+        categoryAxis.dataFields.category = "manger";
+        categoryAxis.renderer.minGridDistance = 40;
+        categoryAxis.fontSize = 11;
+        categoryAxis.renderer.labels.template.dy = 5;
+
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.min = 0;
+        valueAxis.renderer.minGridDistance = 30;
+        valueAxis.renderer.baseGrid.disabled = true;
+
+
+        var series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.categoryX = "manger";
+        series.dataFields.valueY = "clames";
+        series.columns.template.tooltipText = "{valueY.value}";
+        series.columns.template.tooltipY = 0;
+        series.columns.template.strokeOpacity = 0;
+
+        // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+        series.columns.template.adapter.add("fill", function (fill, target) {
+            return chart.colors.getIndex(target.dataItem.index);
+        });
+
+    }); // end am4core.ready()
+</script>
+<!-- HTML -->
+
+<h3 class="col-md-6">Users/Month</h3>
+<h3 class="col-md-6">Claims/Month</h3>
+<div class="col-md-6 chartdiv" id="UserChartDiv"></div>
+<div class="col-md-6 chartdiv" id="ClamesChartDiv"></div>
+<h3 class="col-md-12">Manger Claims/Month</h3>
+<div style="overflow: auto;width: 100%;" class="col-md-12">
+    <div class="col-md-12 chartdiv" id="MangerClamesChartDiv" style="width: 150%;"></div>
+</div>
+<h3 class="col-md-12">Pharmacies Claims/Month</h3>
+
+<div style="overflow: auto;height: 300px;" class="col-md-12">
+    <div class="col-md-12 chartdiv" id="ProviderClamesChartDiv"></div>
+</div>
+
+}
+else
+{
+<div style="padding-left: 93px;">
     <!-- Resources -->
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 
-    <!-- Chart code -->
-    <script>
-        am4core.ready(function () {
-            //User Chart
-            // Create chart instance
-            var chart = am4core.create("UserChartDiv", am4charts.PieChart);
-            // Add and configure Series
-            var pieSeries = chart.series.push(new am4charts.PieSeries());
-            pieSeries.dataFields.value = "litres";
-            pieSeries.dataFields.category = "User";
+    <h1>Your Dashboard</h1>
+    <h3 class="col-md-12">Claims/Month</h3>
+    <div class="col-md-9 chartdiv" id="ProviderClamesChartDiv"></div>
 
-            // Let's cut a hole in our Pie chart the size of 30% the radius
-            chart.innerRadius = am4core.percent(50);
-
-            // Put a thick white border around each Slice
-            pieSeries.slices.template.stroke = am4core.color("#fff");
-            pieSeries.slices.template.strokeWidth = 2;
-            pieSeries.slices.template.strokeOpacity = 1;
-            pieSeries.slices.template
-                // change the cursor on hover to make it apparent the object can be interacted with
-                .cursorOverStyle = [
-                    {
-                        "property": "cursor",
-                        "value": "pointer"
-                    }
-                ];
-
-            pieSeries.alignLabels = false;
-            pieSeries.labels.template.bent = true;
-            pieSeries.labels.template.radius = 3;
-            pieSeries.labels.template.padding(0, 0, 0, 0);
-
-            pieSeries.ticks.template.disabled = true;
-
-            // Create a base filter effect (as if it's not there) for the hover to return to
-            var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
-            shadow.opacity = 0;
-
-            // Create hover state
-            var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
-
-            // Slightly shift the shadow and make it more prominent on hover
-            var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
-            hoverShadow.opacity = 0.7;
-            hoverShadow.blur = 5;
-
-            // Add a legend
-            chart.legend = new am4charts.Legend();
-            //Clams Chart
-            var Clameschart = am4core.create("ClamesChartDiv", am4charts.PieChart);
-            // Add and configure Series
-            var ClamespieSeries = Clameschart.series.push(new am4charts.PieSeries());
-            ClamespieSeries.dataFields.value = "litres";
-            ClamespieSeries.dataFields.category = "Clames";
-
-            // Let's cut a hole in our Pie chart the size of 30% the radius
-            Clameschart.innerRadius = am4core.percent(30);
-
-            // Put a thick white border around each Slice
-            ClamespieSeries.slices.template.stroke = am4core.color("#fff");
-            ClamespieSeries.slices.template.strokeWidth = 2;
-            ClamespieSeries.slices.template.strokeOpacity = 1;
-            ClamespieSeries.slices.template
-                // change the cursor on hover to make it apparent the object can be interacted with
-                .cursorOverStyle = [
-                    {
-                        "property": "cursor",
-                        "value": "pointer"
-                    }
-                ];
-
-            ClamespieSeries.alignLabels = false;
-            ClamespieSeries.labels.template.bent = true;
-            ClamespieSeries.labels.template.radius = 3;
-            ClamespieSeries.labels.template.padding(0, 0, 0, 0);
-
-            ClamespieSeries.ticks.template.disabled = true;
-
-            // Create a base filter effect (as if it's not there) for the hover to return to
-            var shadow = ClamespieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
-            shadow.opacity = 0;
-
-            // Create hover state
-            var hoverState = ClamespieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
-
-            // Slightly shift the shadow and make it more prominent on hover
-            var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
-            hoverShadow.opacity = 0.7;
-            hoverShadow.blur = 5;
-            Clameschart.legend = new am4charts.Legend();
-            //Ajax
-            $.ajax({
-                type: 'POST',
-                url: '/Home/getUser/',
-                dataType: 'json',
-                data: { id: 1 },
-                success: function (result) {
-                    // Add data
-                    chart.data = [{
-                        "User": "Oracle",
-                        "litres": result.OracleUserCount
-                    }, {
-                        "User": "SQL",
-                        "litres": result.SqlUserCount
-                    }
-                    ];
-                    Clameschart.data = [{
-                        "Clames": "Oracle",
-                        "litres": result.OracleClamesCount
-                    }, {
-                        "Clames": "SQL",
-                        "litres": result.SqlClamesCount
-                    }
-                    ];
-
-                },
-                error: function (ex) {
-                    bootbox.alert('Failed to retrieve counts.');
-                }
-
-            });
-
-        }); // end am4core.ready()
-    </script>
-
-    //All Pharmacies Names
     <script>
         am4core.ready(function () {
 
@@ -367,81 +830,17 @@ else if (User.IsInRole("Admin"))
             // Themes end
 
             var chart = am4core.create("ProviderClamesChartDiv", am4charts.XYChart);
-            chart.padding(40, 40, 40, 40);
-
-            var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
-            categoryAxis.renderer.grid.template.location = 0;
-            categoryAxis.dataFields.category = "provider";
-            categoryAxis.renderer.minGridDistance = 1;
-            categoryAxis.renderer.inversed = true;
-            categoryAxis.renderer.grid.template.disabled = true;
-
-            var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
-            valueAxis.min = 0;
-
-            var series = chart.series.push(new am4charts.ColumnSeries());
-            series.dataFields.categoryY = "provider";
-            series.dataFields.valueX = "clames";
-            series.tooltipText = "{valueX.value}"
-            series.columns.template.strokeOpacity = 0;
-            series.columns.template.column.cornerRadiusBottomRight = 5;
-            series.columns.template.column.cornerRadiusTopRight = 5;
-
-            var labelBullet = series.bullets.push(new am4charts.LabelBullet())
-            labelBullet.label.horizontalCenter = "left";
-            labelBullet.label.dx = 10;
-            labelBullet.label.text = "{values.valueX.workingValue.formatNumber('#')}";
-            labelBullet.locationX = 1;
-
-            // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-            series.columns.template.adapter.add("fill", function (fill, target) {
-                return chart.colors.getIndex(target.dataItem.index);
-            });
-
-            categoryAxis.sortBySeries = series;
-
-            //Ajax
-            $.ajax({
-                type: 'POST',
-                url: '/Home/getProviderClames/',
-                dataType: 'json',
-                data: { id: 1 },
-                success: function (result) {
-                    // Add data
-                    chart.data = result.PharmacyClames;
-
-
-                },
-                error: function (ex) {
-                    bootbox.alert('Failed to retrieve counts.');
-                }
-
-            });
-
-
-
-        }); // end am4core.ready()
-    </script>
-    //Manger Clames
-    <script>
-        am4core.ready(function () {
-
-            // Themes begin
-            am4core.useTheme(am4themes_animated);
-            // Themes end
-
-            var chart = am4core.create("MangerClamesChartDiv", am4charts.XYChart);
             chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
             //Ajax
             $.ajax({
                 type: 'POST',
-                url: '/Home/getMangerClames/',
+                url: '/Home/getCurrentProviderClames/',
                 dataType: 'json',
                 data: { id: 1 },
                 success: function (result) {
                     debugger;
                     // Add data
-                    chart.data = result.MangerClames;
+                    chart.data = result.UserClames;
 
 
                 },
@@ -479,99 +878,5 @@ else if (User.IsInRole("Admin"))
 
         }); // end am4core.ready()
     </script>
-    <!-- HTML -->
-
-    <h3 class="col-md-6">Users/Month</h3>
-    <h3 class="col-md-6">Claims/Month</h3>
-    <div class="col-md-6 chartdiv" id="UserChartDiv"></div>
-    <div class="col-md-6 chartdiv" id="ClamesChartDiv"></div>
-    <h3 class="col-md-12">Manger Claims/Month</h3>
-    <div style="overflow: auto;width: 100%;" class="col-md-12">
-        <div class="col-md-12 chartdiv" id="MangerClamesChartDiv" style="width: 150%;"></div>
-    </div>
-    <h3 class="col-md-12">Pharmacies Claims/Month</h3>
-
-    <div style="overflow: auto;height: 300px;" class="col-md-12">
-        <div class="col-md-12 chartdiv" id="ProviderClamesChartDiv"></div>
-    </div>
-
+</div>
 }
-else
-{
-    <div style="padding-left: 93px;">
-        <!-- Resources -->
-        <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-        <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-        <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
-        <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-
-        <h1>Your Dashboard</h1>
-        <h3 class="col-md-12">Claims/Month</h3>
-        <div class="col-md-9 chartdiv" id="ProviderClamesChartDiv"></div>
-
-        <script>
-            am4core.ready(function () {
-
-                // Themes begin
-                am4core.useTheme(am4themes_animated);
-                // Themes end
-
-                var chart = am4core.create("ProviderClamesChartDiv", am4charts.XYChart);
-                chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-                //Ajax
-                $.ajax({
-                    type: 'POST',
-                    url: '/Home/getCurrentProviderClames/',
-                    dataType: 'json',
-                    data: { id: 1 },
-                    success: function (result) {
-                        debugger;
-                        // Add data
-                        chart.data = result.UserClames;
-
-
-                    },
-                    error: function (ex) {
-                        bootbox.alert('Failed to retrieve counts.');
-                    }
-
-                });
-
-
-                var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-                categoryAxis.renderer.grid.template.location = 0;
-                categoryAxis.dataFields.category = "manger";
-                categoryAxis.renderer.minGridDistance = 40;
-                categoryAxis.fontSize = 11;
-                categoryAxis.renderer.labels.template.dy = 5;
-
-                var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-                valueAxis.min = 0;
-                valueAxis.renderer.minGridDistance = 30;
-                valueAxis.renderer.baseGrid.disabled = true;
-
-
-                var series = chart.series.push(new am4charts.ColumnSeries());
-                series.dataFields.categoryX = "manger";
-                series.dataFields.valueY = "clames";
-                series.columns.template.tooltipText = "{valueY.value}";
-                series.columns.template.tooltipY = 0;
-                series.columns.template.strokeOpacity = 0;
-
-                // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-                series.columns.template.adapter.add("fill", function (fill, target) {
-                    return chart.colors.getIndex(target.dataItem.index);
-                });
-
-            }); // end am4core.ready()
-        </script>
-    </div>
-}
-
-
-
-@*<script>
-        $(function () {
-            introJs().start();
-        })
-    </script>*@

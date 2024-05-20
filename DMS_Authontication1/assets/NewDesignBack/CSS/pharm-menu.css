@@ -1,0 +1,220 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-image: url("./../Images/All/Bg.jpeg");
+  background-attachment: fixed;
+  background-size: cover;
+  backdrop-filter: blur(5px), brightness(1%), contrast(200%), over;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.body-overlay {
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* height: 100%; */
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* max-width: 1200px; */
+  margin: 3rem;
+  padding: 40px 0;
+}
+
+.container .card-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  /* width: 50%; */
+}
+
+.container .card-container .card {
+  position: relative;
+  border: none;
+  width: 520px;
+  height: 240px;
+  /* box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.05),
+    inset -1px -1px 5px rgba(255, 255, 255, 0.5), 1px 1px 5px rgba(0, 0, 0, 0.05),
+    -1px -1px 5px rgba(255, 255, 255, 0.5); */
+  border-radius: 15px;
+  margin: 0;
+}
+.container .card-container .card .box {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  /* background: #ebf5fc; */
+  border-radius: 15px;
+  box-shadow: 5px 5px 3px #9c48a571;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.container .card-container .card:first-child .box {
+  background-image: url("./../Images/pharm-menu/pharmacy.jpg");
+  background-size: cover;
+  animation: child1 1s;
+}
+@keyframes child1 {
+  from {
+    transform: translateX(-500px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.container .card-container .card:nth-child(2) .box {
+  background-image: url("./../Images/menus/claims.jpg");
+  background-size: cover;
+  animation: child2 1s;
+}
+@keyframes child2 {
+  from {
+    transform: translateY(-500px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.container .card-container .card:nth-child(3) .box {
+  background-image: url("./../Images/pharm-menu/delivery.jpg");
+  background-size: cover;
+  animation: child3 1s;
+}
+@keyframes child3 {
+  from {
+    transform: translateY(500px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.container .card-container .card:nth-child(4) .box {
+  background-image: url("./../Images/pharm-menu/help2.jpg");
+  background-size: cover;
+  animation: child4 1s;
+}
+@keyframes child4 {
+  from {
+    transform: translateX(500px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.container .card-container .card .box .content {
+  background: linear-gradient(
+    to left,
+    #2e085a51 0%,
+    #62348851 18%,
+    #83439b51 50%,
+    #9c48a551 75%,
+    #c1569b51 100%
+  );
+
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  /* padding: 20px; */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+}
+.container .card-container .card .box:hover .content {
+  background: none;
+  background-color: #9c48a571;
+}
+.container .card-container .card .box .content h2 {
+  position: absolute;
+  top: -10px;
+  right: 30px;
+  font-size: 8em;
+  color: rgba(0, 0, 0, 0.02);
+  transition: 0.5s;
+}
+.container .card-container .card:hover .box .content h2 {
+  color: rgba(0, 0, 0, 0.05);
+}
+
+.container .card-container .card .box .content h3 {
+  font-size: 2.5em;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  z-index: 1;
+  transition: 0.5s;
+  align-self: center;
+}
+/* .container .card-container .card:hover .box .content h3 {
+    color: #4f739d;
+} */
+.container .card-container .card .box .content img {
+  width: 25px;
+  filter: invert(1);
+  /* height: 30px; */
+  transition: all 0.5s ease-in-out;
+}
+.container .card-container .card .box:hover .content img {
+  display: none;
+}
+
+@media (max-width: 1025px) {
+  nav {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .logo img {
+    height: 130px;
+  }
+  .ads-container {
+    border: 0;
+    background-color: transparent;
+    box-shadow: none;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+  }
+  .ads-container .left {
+    margin-bottom: 1rem;
+  }
+  .ads-container .left img {
+    width: 350px;
+    border-radius: 15px;
+    margin-right: 10px;
+  }
+  .ads-container .right {
+    text-align: center;
+  }
+  .container .card-container {
+    grid-template-columns: auto;
+  }
+  .container .card-container .card {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 530px) {
+  .container .card-container .card {
+    width: 350px;
+  }
+}

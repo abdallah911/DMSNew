@@ -1,0 +1,145 @@
+﻿<div class="sidebar-parent col-4 position-fixed z-2">
+    <div style="direction: rtl;" class=" sideBar   col-8">
+        <div class="operation-btns">
+            <a href="./NetworkHRRequestsInquiry.html">
+                <button class="sidebar-item active" id="NetworkHRRequestsInquiry">
+                    طلب إستعلام HR
+                </button>
+            </a>
+            <a href="./NetworkServiceProviderData.html">
+                <button class="sidebar-item" id="NetworkServiceProviderData">
+                    بيانات مقدم الخدمة
+                </button>
+            </a>
+            <a href="./NetworkAddServiceProvider.html">
+                <button class="sidebar-item" id="NetworkAddServiceProvider">
+                    طلب إضافة مقدم خدمة
+                </button>
+            </a>
+            <a href="./NetworkAddHRServiceProvider.html">
+                <button class="sidebar-item " id="NetworkAddHRServiceProvider">
+                    طلب إضافة مقدم خدمة HR
+                </button>
+            </a>
+            <a href="./NetworkPharmaciesDiscountDetails.html">
+                <button class="sidebar-item "
+                        id="NetworkPharmaciesDiscountDetails">
+                    خصومات صيدليات Details
+                </button>
+            </a>
+            <a href="./NetworkPharmaciesDiscountSummary.html">
+                <button class="sidebar-item"
+                        id="NetworkPharmaciesDiscountSummary">
+                    خصومات صيدليات Summary
+                </button>
+            </a>   <a href="./NetworkPricesEditingCPT.html">
+                <button class="sidebar-item " id="NetworkPricesEditingCPT">
+                    تعديل أسعار CPT
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- end sidebar -->
+<section>
+    <form action="Policy_Check-up.html">
+        <div class="container-fluid px-lg-5">
+            <div style="direction: rtl"
+                 class="row row-cols-lg-2 col-lg-9 ms-lg-auto mt-4 mb-5">
+                <div class="col-sm-8 col-lg-5  5">
+                    <div class="admin-form-control  d-flex justify-content-between align-items-center border-0 rounded-2 my-3 ">
+                        <div class="d-flex w-100 h-100 me-auto gap-2 ">
+                            <select style="color: var(--color-secondary)"
+                                    class=" cs-bg text-start w-100 fs-6 fw-bold text-end  shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                    name=""
+                                    id="">
+                                <option value="">مقدم الخدمة</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="admin-form-control  d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                        <div class="d-flex w-100 h-100 me-auto gap-2 ">
+                            <select style="color: var(--color-secondary)"
+                                    class=" cs-bg text-start w-100 fs-6 fw-bold text-end  shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                    name=""
+                                    id="">
+                                <option value="">نوع الخدمة</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="white-space: nowrap"
+                         class="reprint-btns d-flex justify-content-center mt-3 gap-3">
+                        <button type="submit"
+                                class="btn fw-bold text-white py-2 px-4">
+                            حفظ
+                        </button>
+                        <button type="button"
+                                class="btn fw-bold text-white py-2 px-4">
+                            جديد
+                        </button>
+                        <button type="button"
+                                class="btn fw-bold text-white py-2 px-4">
+                            تعديل
+                        </button>
+                    </div>
+                </div>
+                <div class="col-sm-8 col-lg-7">
+                    <div style="width: fit-content;"
+                         class=" d-flex flex-column  justify-content-evenly gap-3 mt-3">
+                        <div class="cs-bg rounded-1 py-2 px-4 checkbox-box d-flex gap-2">
+                            <input id="mainCheck" type="checkbox" /><label class="fw-bold"
+                                                                           for="mainCheck">جديد</label>
+                        </div>
+                        <div class="cs-bg rounded-1 py-2 px-4 checkbox-box d-flex gap-2">
+                            <input id="activeCheck" type="checkbox" /><label class="fw-bold"
+                                                                             for="activeCheck">تعديل</label>
+                        </div>
+                    </div>
+                    <div style="gap: 10px; "
+                         class="cs-bg inputs-parent rounded-2 d-flex flex-column mt-3 p-3">
+                        <div class="bg-white admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2">
+                            <h6 class="me-3 mb-0 fw-bold">الخصم</h6>
+                            <div class=" w-50 d-flex justify-content-end gap-2 ms-4">
+                                <input style="outline: none;"
+                                       type="number"
+                                       class=" cs-bg w-50 bg-light-subtle rounded-1 p-1 border-0 pe-2 shadow-sm"
+                                       placeholder="نسبة" />
+                                <input style="outline: none;"
+                                       type="number"
+                                       class=" cs-bg w-50 bg-light-subtle rounded-1 p-1 border-0 pe-2 shadow-sm"
+                                       placeholder="قيمة" />
+                            </div>
+                        </div>
+                        <div class="bg-white admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2">
+                            <h6 class="me-3 mb-0 fw-bold">السعر</h6>
+                            <div class="w-50 d-flex justify-content-end gap-2 ms-4">
+                                <input style="outline: none;"
+                                       type="text"
+                                       class=" cs-bg w-100 bg-light-subtle rounded-1 p-1 border-0 pe-2 shadow-sm"
+                                       placeholder="" />
+                            </div>
+                        </div>
+                        <div class="bg-white admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2">
+                            <h6 class="me-3 mb-0 fw-bold">تاريخ</h6>
+                            <div class="w-50 d-flex justify-content-end gap-2 ms-4">
+                                <input style="outline: none;"
+                                       type="text"
+                                       class="date-input cs-bg w-50 bg-light-subtle rounded-1 p-1 border-0 pe-2 shadow-sm"
+                                       placeholder="من" />
+                                <input style="outline: none;"
+                                       type="text"
+                                       class="date-input cs-bg w-50 bg-light-subtle rounded-1 p-1 border-0 pe-2 shadow-sm"
+                                       placeholder="الى" />
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-2 my-3 mx-auto">
+                            <input id="discount" class="" type="checkbox" />
+                            <label for="discount" class="mb-0 color-sec fw-medium fs-4">تطبيق الخصم على الخدمات</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

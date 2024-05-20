@@ -1,11 +1,10 @@
 ﻿@model DMS_Authontication1.ViewModel.CustomerService.CustomerServiceViewModel
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
 
-<br />
-<br />
+ 
 
 <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
@@ -15,19 +14,19 @@
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 
-<div class="panel panel-info">
+<div class="sios-container panel panel-info">
     
     <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
         <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
     </div>
 
     <div class="portlet box blue">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i> Pharmacy Report
+        <div class="row bg-overlay editeRquest fw-bold my-4 portlet-title">
+            <div class="m-3 fs-3 text-white caption">
+                <i class="fa fa-gift me-3"></i> Pharmacy Report
             </div>
         </div>
-        <div class="portlet-body">
+        <div class=" container portlet-body">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#ReportTab" data-toggle="tab">Reports</a></li>
                 <li><a href="#ChronicParmacyTab" data-toggle="tab">Chronic Parmacy</a></li>
@@ -57,10 +56,10 @@
 
                                                     </label>
                                                     <div class="col-md-9">
-                                                        <input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                        <input id="RegistrationFrom" type="text" class="admin-form-control ps-2 col-md-2 form-control " placeholder="From" />
                                                     </div>
                                                 </div>
-                                                <br />
+                                               
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -69,7 +68,7 @@
 
                                             </label>
                                             <div class="col-md-10">
-                                                <input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                                                <input id="RegistrationTo" type="text" class="col-md-2 form-control "    placeholder="To" />
                                             </div>
                                         </div>
 
@@ -82,13 +81,13 @@
 
                                                 </label>
                                                 <div class="col-md-6">
-                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 js-data-example-ajax", style = "width: 100%", id = "CompNo" })
+                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = " hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  col-md-2 js-data-example-ajax", style = "width: 100%", id = "CompNo" })
 
                                                 </div>
-                                                <br />
+                                               
                                             </div>
                                         </div>
-                                        <br />
+                                       
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label class="control-label sbold col-md-3">
@@ -96,15 +95,15 @@
 
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <select id="CardNo" class="col-md-2 js-data-example-ajax" style="width: 100%">
+                                                    <select id="CardNo" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded col-md-2 js-data-example-ajax" style="width: 100%">
                                                         <option value="">select Card</option>
                                                     </select>
 
                                                 </div>
-                                                <br />
+                                               
                                             </div>
                                         </div>
-                                        <br />
+                                       
                                         @* User Name *@
 
                                         <div class="col-md-8">
@@ -114,12 +113,12 @@
 
                                                 </label>
                                                 <div class="col-md-6">
-                                                    @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = "col-md-2 js-data-example-ajax", style = "width: 100%", @id = "userName" })
+                                                    @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = " hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded col-md-2 js-data-example-ajax", style = "width: 100%", @id = "userName" })
                                                 </div>
-                                                <br />
+                                               
                                             </div>
                                         </div>
-                                        <br />
+                                       
 
                                         @* Service provider number *@
                                         <div class="col-md-8">
@@ -138,10 +137,10 @@
 
                                                     </select>
                                                 </div>
-                                                <br />
+                                               
                                             </div>
                                         </div>
-                                        <br />
+                                       
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label class="control-label sbold col-md-3">
@@ -157,10 +156,10 @@
                                                     @*<input id="SerProvNumber" type="number" class="col-md-2 form-control " min="0" />*@
 
                                                 </div>
-                                                <br />
+                                               
                                             </div>
                                         </div>
-                                        <br />
+                                       
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label class="control-label sbold col-md-3">
@@ -173,10 +172,10 @@
                                                         <option value="Edit">Edit</option>
                                                     </select>
                                                 </div>
-                                                <br />
+                                               
                                             </div>
                                         </div>
-                                        <br />
+                                       
                                         @* Repot Type *@
 
                                         <div class="col-md-8">
@@ -200,10 +199,10 @@
                                                 <option value="916">Consumption per Card according to service Type (916)</option>*@
                                                     </select>
                                                 </div>
-                                                <br />
+                                               
                                             </div>
                                         </div>
-                                        <br />
+                                       
 
 
                                         @*Print Type*@
@@ -230,10 +229,10 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <br />
+                                               
                                             </div>
                                         </div>
-                                        <br />
+                                       
 
                                         @* For Buttons *@
 
@@ -285,10 +284,10 @@
                                                 <div class="col-md-6">
                                                     @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 js-data-example-ajax", style = "width: 100%", id = "CopmanyNumber2" })
                                                 </div>
-                                                <br />
+                                               
                                             </div>
                                         </div>
-                                        <br />
+                                       
 
                                         @* Month *@
 
@@ -300,10 +299,10 @@
                                                 <div class="col-md-6">
                                                     <input id="Date" type="text" class="col-md-2 js-data-example-ajax" style="width: 100%" placeholder="Select Month" />
                                                 </div>
-                                                <br />
+                                               
                                             </div>
                                         </div>
-                                        <br />
+                                       
 
                                         @* Group *@
 
@@ -317,10 +316,10 @@
                                                         <option value="">Select Group</option>
                                                     </select>
                                                 </div>
-                                                <br />
+                                               
                                             </div>
                                         </div>
-                                        <br />
+                                       
 
                                         @* Card Id *@
                                         <div class="col-md-8">
@@ -334,10 +333,10 @@
                                                     </select>
 
                                                 </div>
-                                                <br />
+                                               
                                             </div>
                                         </div>
-                                        <br />
+                                       
 
                                         <div class="row" style=" text-align:center">
                                             <div class="col-md-12">
@@ -357,7 +356,7 @@
 
             </div>
         </div>
-
+</div>
 
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 <script src="~/Scripts/DMS/ReportMain/ReportMain.js?V=3.2"></script>

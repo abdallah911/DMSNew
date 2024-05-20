@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DMS_TEST.ViewModel.Container1>
 
 <div class="modal fade " id="CompaniesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-lg"  role="document">
+    <div class="modal-dialog  modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -28,16 +28,16 @@
         </div>
     </div>
 </div>
-<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
 <script>
     var CompId;
     function Select(button) {
         var row = $(button).closest("TR");
         CompId = $("TD", row).eq(1).html();
-         var CompName = $("TD", row).eq(2).html();
-         $('#txtSearchCompany').val(CompId + " | " + CompName);
-       
-       
+        var CompName = $("TD", row).eq(2).html();
+        $('#txtSearchCompany').val(CompId + " | " + CompName);
+
+
         $.ajax({
             type: "POST",
             dataType: "json",
@@ -51,19 +51,19 @@
                     var data = "<tr >" +
                         "<td>" + r[i].S_ID + "</td>" +
                         "<td>" + r[i].S_NAME + "</td>" +
-                        " <td >" + "<Button class='btn btn-danger glyphicon glyphicon-trash' onclick='Delete(this);'>Remove</Button>" + "</td>" +
+                        //" <td >" + "<button class=' py-1 px - 3 rounded - 1 text - light border - 0'style = 'background: #717382' onclick='Delete(this);'><i class='fas fa-remove'></i>Remove</button>" + "</td>" +
+                        " <td >" + "<Button class='btn ' onclick='Delete(this);'>Remove</Button>" + "</td>" +
                         "</tr>"
                     setData.append(data);
                 }
                 $('#CompaniesModal').modal('hide');
             },
-            error: function(r)
-                {
-                    window.alert(' No Company sites ');
-                }
-           
+            error: function (r) {
+                window.alert(' No Company sites ');
+            }
+
         });
-   
+
     }
-  
+
 </script>

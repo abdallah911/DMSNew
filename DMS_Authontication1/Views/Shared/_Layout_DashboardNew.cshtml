@@ -1,0 +1,290 @@
+﻿@using Microsoft.AspNet.Identity;
+@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIOS - @ViewBag.Title</title>
+
+    <link rel="stylesheet" href="~/assets/NewDesignBack/CSS/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Jomhuria&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/assets/NewDesignBack/CSS/main.css" />
+    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/select2.min.css" />
+
+    <link rel="stylesheet" href="~/assets/NewDesignBack/CSS/HR-Style.css" />
+
+
+    <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/jquery-validity/css/jquery.validity.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    @Styles.Render("~/assets/HomeTemplete/Content/kendo/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-227248876-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-227248876-1');
+    </script>
+
+</head>
+<body>
+
+    @{
+        var modellist = new List<ModulesPagesViewModel>();
+        var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+        if (claim != null)
+        {
+            modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+        }
+
+    }
+    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+    }
+    <!-- Main Menu -->
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="~/assets/NewDesignBack/images/logo D M S 4-04.png" alt="sios-logo" />
+            </a>
+            <button class="menu-icon navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup"
+                    sios-aria-controls="navbarNavAltMarkup"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="fa-solid fa-bars fa-2xl"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="nav-links navbar-nav">
+                    @{
+                        if ((User.IsInRole("Pharmacy") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
+                        {
+
+                            @Html.ActionLink("Pharmacy", "PharmacyPage", "Pharmacy", null, new { @class = "sios-nav-link nav-link active ", @id = "PharmacyPage" })
+
+                            @Html.ActionLink("Claims", "IndexClaim", "Pharmacy", null, new { @class = "sios-nav-link nav-link", @id = "IndexClaim" })
+                            @Html.ActionLink("Chronic Delivery", "CompaniesChronicDeliveryNew", "Pharmacy", null, new { @class = "sios-nav-link nav-link", @id = "CompaniesChronicDeliveryNew" })
+                        }
+                    }
+                </div>
+                <div class="sios-hr-parent d-flex align-items-center">
+                    <div class="sios-hr-btn dropdown">
+                        <button type="button"
+                                class="btn dropdown-toggle"
+                                data-bs-toggle="dropdown">
+                            Hello @User.Identity.GetUserName()
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Profile", "Main", "ControlPanel", null, new { @class = "dropdown-item" })</li>
+                            <li>@Html.ActionLink("Manage Account", "Index", "Manage", null, new { @class = "dropdown-item" })</li>
+                            <li><a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <button type="button"
+                                class="bell-dropdown btn dropdown-toggle"
+                                data-bs-toggle="dropdown">
+                            <i class="icon-parent fa-regular fa-bell fa-2xl ms-2 ms-md-3"></i>
+                        </button>
+                        <ul class="dropdown-menu" id="divNotificationValues">
+                        </ul>
+
+                        <div class="rounded-circle bell-num"><p id="notification">0</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- end menu -->
+    @* container *@
+    @{
+
+        @RenderBody()
+        <!-- .site-footer -->
+        <footer style="margin-top: auto">
+            <div class="footer pb-3">
+                <div class="container-fluid pt-5">
+                    <div class="row m-auto d-flex justify-content-center">
+                        <div class="col-md-3 me-4">
+                            <div class="footerP1">
+                                <h1 class="mb-1">
+                                    <img class="logo-white"
+                                         src="~/assets/NewDesignBack/Images/logo-dms-white2.png"
+                                         alt="" />
+                                </h1>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="footerP2">
+                                <h5>Address</h5>
+                                <div class="line ms-0 mb-1"></div>
+                                <h6 class="mt-3">
+                                    <p>12 Abdelazim Awadallah St., Heliopolis, Cairo</p>
+                                </h6>
+                                <i class="fa-brands fa-facebook fs-4 ms-1 me-3"></i>
+                                <i class="fa-brands fa-instagram fs-4 me-3"></i>
+                                <i class="fa-brands fa-linkedin fs-4"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 ms-lg-4">
+                            <div class="footerP3">
+                                <h5>Contact</h5>
+                                <div class="line ms-0"></div>
+                                <p><i class="fa-regular fa-envelope"></i> DMS@gmail.com</p>
+                                <p>
+                                    <i class="fa-solid fa-phone"></i> 01032274222 –
+                                    01026006177
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    }
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <!-- Include jQuery first -->
+    <script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
+
+    <!-- Followed by Bootstrap -->
+    <script src="~/assets/NewDesignBackAdmin/JS/bootstrap.bundle.min.js"></script>
+
+    <!-- Followed by STYLE scripts -->
+
+    <script src="~/assets/NewDesignBackAdmin/JS/jquery-3.6.0.js"></script>
+    <script src="~/assets/NewDesignBackAdmin/JS/jquery-ui.js"></script>
+
+    <!-- Followed by DataTables scripts -->
+    <script src="~/assets/NewDesignBackAdmin/JS/jquery.dataTables.min.js"></script>
+    <script src="~/assets/NewDesignBackAdmin/JS/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Followed by SELECT2 scripts -->
+    <script src="~/assets/NewDesignBackAdmin/JS/select2.min.js"></script>
+    <!-- Finally, include your main.js -->
+    <script src="~/assets/NewDesignBackAdmin/JS/HR-Script.js"></script>
+    <script src="~/assets/NewDesignBackAdmin/JS/main.js"></script>
+
+    <script src="~/assets/HomeTemplete/scripts/bootbox.js"></script>
+    <script src="~/assets/HomeTemplete/Scripts/jquery.signalR-2.4.1.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+    <script>
+        var notification = 0;
+        $(document).ready(function () {
+            // Declare a proxy to reference the hub.
+            var notifications = $.connection.notificationHub;
+            // Create a function that the hub can call to broadcast messages.
+            notifications.client.updateMessages = function () {
+                getAllMessages()
+            };
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                console.log("connection started")
+                //notifications.onconn();
+                getAllMessages();
+            }).fail(function (e) {
+                console.log("Could not Connect!");
+                alert(e);
+            });
+
+            $("#btnClaim").click(function () {
+                window.location.replace('/Pharmacy/index?id=undefined');
+            });
+            $(".collaps").click(function () {
+                //alert("The paragraph was clicked.");
+                if ($("#side-menu").hasClass("activeblock")) {
+                    console.log("Inside Ifff");
+                    $("#side-menu").removeClass("activeblock");
+                    $(".content").removeClass("fullWidth");
+                    $(".collaps i").addClass('fa-times');
+                    $(".collaps i").removeClass("fa-bars");
+                }
+                else {
+                    console.log("Inside ELSE Ifff");
+                    $("#side-menu").addClass("activeblock");
+                    $(".content").addClass("fullWidth");
+                    $(".collaps i").removeClass('fa-times');
+                    $(".collaps i").addClass("fa-bars");
+                }
+            });
+            $(".burger").click(function () {
+                if ($(window).width() <= 768) {
+                    console.log("Inside  Ifff WIDTH");
+                    $("#side-menu").removeClass("activeblock");
+                    $(".content").removeClass("fullWidth");
+                }
+            });
+        });
+
+        function getAllMessages() {
+            $.ajax({
+                url: '/Home/GetNotifications',
+                success: function (result) {
+                    //debugger;
+                    $('#notification').text(result.length);
+
+                    $('#divNotificationValues').empty();
+                    $.each(result, function (key, value) {
+                        $('#divNotificationValues').append('<li><a class="dropdown-item" href="' + value.DetailsURL + '?NotificationId=' + value.Id + '">' + value.TypeNmae + '-' + value.Details + '</a></li>');
+                    });
+                }
+            });
+        }
+
+        const gotChecked = () => {
+            const checked = document.querySelector(".got-checked");
+            const checkBox = document.getElementById("approval");
+
+            // Check if the checkbox is checked
+            if (checkBox.checked) {
+                // If checked, add the check icon
+                checked.innerHTML = "<i class='fas fa-check me-2'></i>";
+            } else {
+                // If not checked, remove the check icon
+                checked.innerHTML = "";
+            }
+        };
+
+        var inputsTranslate = document.querySelectorAll(".chronic-form-control");
+        var spansTranslate = document.querySelectorAll(".if-has-value");
+
+        // Convert NodeList to an array for iteration
+        inputsTranslate = Array.from(inputsTranslate);
+        spansTranslate = Array.from(spansTranslate);
+
+        inputsTranslate.forEach((input) => {
+            // Check if the input is disabled
+            if (input.disabled || input.readonly || input.value=="" ) {
+                spansTranslate.forEach((span) => {
+                    // Add the "has-value" class to the span
+                    span.classList.add("has-value");
+                });
+            }
+        });
+
+
+    </script>
+
+</body>
+
+</html>

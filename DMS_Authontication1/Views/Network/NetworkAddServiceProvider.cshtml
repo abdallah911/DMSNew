@@ -1,0 +1,208 @@
+﻿<div class="sidebar-parent col-4 position-fixed z-2">
+    <div style="direction: rtl;" class=" sideBar   col-8">
+        <div class="operation-btns">
+            <a href="./NetworkHRRequestsInquiry.html">
+                <button class="sidebar-item" id="NetworkHRRequestsInquiry">
+                    طلب إستعلام HR
+                </button>
+            </a>
+            <a href="./NetworkServiceProviderData.html">
+                <button class="sidebar-item" id="NetworkServiceProviderData">
+                    بيانات مقدم الخدمة
+                </button>
+            </a>
+            <a href="./NetworkAddServiceProvider.html">
+                <button class="sidebar-item" id="NetworkAddServiceProvider">
+                    طلب إضافة مقدم خدمة
+                </button>
+            </a>
+            <a href="./NetworkAddHRServiceProvider.html">
+                <button class="sidebar-item " id="NetworkAddHRServiceProvider">
+                    طلب إضافة مقدم خدمة HR
+                </button>
+            </a>
+            <a href="./NetworkPharmaciesDiscountDetails.html">
+                <button class="sidebar-item " id="NetworkPharmaciesDiscountDetails">
+                    خصومات صيدليات Details
+                </button>
+            </a>
+            <a href="./NetworkPharmaciesDiscountSummary.html">
+                <button class="sidebar-item" id="NetworkPharmaciesDiscountSummary">
+                    خصومات صيدليات Summary
+                </button>
+            </a>   <a href="./NetworkPricesEditingCPT.html">
+                <button class="sidebar-item " id="NetworkPricesEditingCPT">
+                    تعديل أسعار CPT
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- end sidebar -->
+<section>
+    <form action="CS_add-applicant.html">
+        <div class="container-fluid px-lg-5">
+            <div style=" direction: rtl;" class="row row-cols-sm-2 mt-4 mb-5">
+                <div class="col-sm-8 col-md-4 d-flex flex-column gap-3">
+                    <div style="color: var(--color-secondary);"
+                         class="inputs-parent d-flex flex-column mt-3  position-relative">
+                        <input type="search"
+                               class="admin-form-control  pe-3"
+                               placeholder="البحث" />
+                        <i class="fa-solid fa-magnifying-glass fa-rotate-270 position-absolute start-0 top-50 translate-middle-y ms-3  "></i>
+                    </div>
+                    <div style="gap:10px ;white-space: nowrap; "
+                         class="inputs-parent d-flex flex-column ">
+                        <div style="background-color :var(--color-table)"
+                             class="admin-form-control w-50 d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <div class="d-flex justify-content-center align-items-center  me-3">
+                                <input type="checkbox"
+                                       class="text-start w-100 bg-transparent shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                       id="radio1" />
+                                <label style="color: var(--color-secondary);"
+                                       for="radio1"
+                                       class="fs-6 me-2 mb-0 fw-bold ">رئيسي</label>
+                            </div>
+                        </div>
+                        <div style="background-color :var(--color-table)"
+                             class="admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <h6 class="me-3 mb-0 fw-bold ">نوع مقدم الخدمة</h6>
+                            <div class="d-flex justify-content-end gap-2 ms-4">
+                                <input type="text"
+                                       class="text-start w-100 bg-transparent shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                       disabled />
+                            </div>
+                        </div>
+                        <div style="background-color :var(--color-table);"
+                             class="admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <h6 class="me-3 mb-0 fw-bold ">الإسم بالعربي</h6>
+                            <div class="d-flex justify-content-end gap-2 ms-4">
+                                <input type="text"
+                                       class="text-start w-100 bg-transparent shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                       disabled />
+                            </div>
+                        </div>
+                        <div style="background-color :var(--color-table)"
+                             class="admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <h6 class="me-3 mb-0 fw-bold ">الإسم بالإنجليزي</h6>
+                            <div class="d-flex justify-content-end gap-2 ms-4">
+                                <input type="text"
+                                       class="text-start w-100 bg-transparent shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                       disabled />
+                            </div>
+                        </div>
+                        <div style="background-color :var(--color-table)"
+                             class="admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <h6 class="me-3 mb-0 fw-bold ">المحافظة</h6>
+                            <div class="d-flex justify-content-end gap-2 ms-4">
+                                <input type="text"
+                                       class="text-start w-100 bg-transparent shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                       disabled />
+                            </div>
+                        </div>
+                        <div style="background-color :var(--color-table)"
+                             class="admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <h6 class="me-3 mb-0 fw-bold ">المنطقة</h6>
+                            <div class="d-flex justify-content-end gap-2 ms-4">
+                                <input type="text"
+                                       class="text-start w-100 bg-transparent shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                       disabled />
+                            </div>
+                        </div>
+                        <div style="background-color :var(--color-table);"
+                             class="admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <h6 class="me-3 mb-0 fw-bold ">البريد الإلكتروني</h6>
+                            <div class="d-flex justify-content-end gap-2 ms-4">
+                                <input type="text"
+                                       class="text-start w-100 bg-transparent shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                       disabled />
+                            </div>
+                        </div>
+                        <div style="background-color :var(--color-table)"
+                             class="admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <h6 class="me-3 mb-0 fw-bold ">رقم الموبايل</h6>
+                            <div class="d-flex justify-content-end gap-2 ms-4">
+                                <input type="text"
+                                       class="text-start w-100 bg-transparent shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                       disabled />
+                            </div>
+                        </div>
+                        <div style="background-color :var(--color-table)"
+                             class="admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <h6 class="me-3 mb-0 fw-bold ">الكود</h6>
+                            <div class="d-flex justify-content-end gap-2 ms-4">
+                                <input type="text"
+                                       class="text-start w-100 bg-transparent shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                       disabled />
+                            </div>
+                        </div>
+                        <div style="background-color :var(--color-table)"
+                             class="admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <h6 class="me-3 mb-0 fw-bold ">مقدم الخدمة</h6>
+                            <div class="d-flex justify-content-end gap-2 ms-4">
+                                <input type="text"
+                                       class="text-start w-100 bg-transparent shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                       disabled />
+                            </div>
+                        </div>
+                        <div style="background-color :var(--color-table);"
+                             class="admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <h6 class="me-3 mb-0 fw-bold ">العنوان</h6>
+                            <div class="d-flex justify-content-end gap-2 ms-4">
+                                <input type="text"
+                                       class="text-start w-100 bg-transparent shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                       disabled />
+                            </div>
+                        </div>
+                        <div style="background-color :var(--color-table)"
+                             class="admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <h6 class="me-3 mb-0 fw-bold ">رقم الفاكس</h6>
+                            <div class="d-flex justify-content-end gap-2 ms-4">
+                                <input type="text"
+                                       class="text-start w-100 bg-transparent shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                       disabled />
+                            </div>
+                        </div>
+                        <div style="background-color :var(--color-table)"
+                             class="admin-form-control d-flex justify-content-between align-items-center border-0 rounded-2  ">
+                            <h6 class="me-3 mb-0 fw-bold ">رقم التليفون</h6>
+                            <div class="d-flex justify-content-end gap-2 ms-4">
+                                <input type="text"
+                                       class="text-start w-100 bg-transparent shadow-none rounded-1 p-1 border-0 pe-3 shadow-sm "
+                                       disabled />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center px-0 col-sm-8 col-md-5">
+                    <div style="height: fit-content; "
+                         class="  me-4  d-flex flex-column mt-3 ">
+                        <div style="height: 150px;;"
+                             class="w-100   cs-bg rounded-top-1  inputs-parent d-flex flex-column ">
+                            <textarea class="textarea border-0 p-2 rounded-3"
+                                      placeholder=""
+                                      name=""
+                                      id=""
+                                      cols="30"
+                                      rows="10"></textarea>
+                        </div>
+                    </div>
+                    <div style="white-space: nowrap;width: fit-content;height:fit-content ;"
+                         class=" col-sm-8 col-md-5  reprint-btns d-flex flex-wrap justify-content-center mt-3 gap-3 ">
+                        <button type="submit"
+                                class="btn fw-bold text-white py-2 px-4">
+                            موافق
+                        </button><button type="button"
+                                         class="btn fw-bold text-white py-2 px-4">
+                            رفض
+                        </button>
+                        <button type="button"
+                                class="btn fw-bold text-white py-2 px-4">
+                            جديد
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
