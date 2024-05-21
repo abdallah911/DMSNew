@@ -345,12 +345,12 @@ namespace DMS_Synchronization
             {
 
 
-                _currenctConnectionString = connectionSettings.SQlConnection;
-                SyncToSqlTableSH<Med_Card>(StringHelper.GetQyertMED_CARD, StringHelper.GetTableNameMED_CARD);
-                SyncToSqlTableSH<Med_Medicine>(StringHelper.GetQyertMED_MEDICINE, StringHelper.GetTableNameMED_MEDICINE);
+                //_currenctConnectionString = connectionSettings.SQlConnection;
+                //SyncToSqlTableSH<Med_Card>(StringHelper.GetQyertMED_CARD, StringHelper.GetTableNameMED_CARD);
+                //SyncToSqlTableSH<Med_Medicine>(StringHelper.GetQyertMED_MEDICINE, StringHelper.GetTableNameMED_MEDICINE);
 
-                UpdateToSqlTableSH<Med_Card>(StringHelper.GetTableNameMED_CARD);
-                UpdateToSqlTableSH<Med_Medicine>(StringHelper.GetTableNameMED_MEDICINE);
+                //UpdateToSqlTableSH<Med_Card>(StringHelper.GetTableNameMED_CARD);
+                //UpdateToSqlTableSH<Med_Medicine>(StringHelper.GetTableNameMED_MEDICINE);
 
             }
 

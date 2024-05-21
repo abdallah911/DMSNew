@@ -268,15 +268,15 @@ namespace DMS_TEST.Controllers
                     var emp = db.fn_searchCompEmployees(id).ToList();
                     if (emp.Count() > 0)
                     {
-                        System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
-                        System.Environment.NewLine + emp.FirstOrDefault() + System.Environment.NewLine);
+                        //System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
+                        //System.Environment.NewLine + emp.FirstOrDefault() + System.Environment.NewLine);
                         return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                     }
                     else
                     {
                         var empnext = db.fn_searchCompEmployeesForNextContract(id).ToList();
-                        System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
-                        System.Environment.NewLine + empnext.FirstOrDefault() + System.Environment.NewLine);
+                        //System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
+                        //System.Environment.NewLine + empnext.FirstOrDefault() + System.Environment.NewLine);
                         return new JsonResult { Data = empnext, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                     }
                 }
@@ -287,15 +287,15 @@ namespace DMS_TEST.Controllers
                         var emp = db.fn_searchCompEmployees(id).ToList();
                         if (emp.Count() > 0)
                         {
-                            System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
-                        System.Environment.NewLine + emp.FirstOrDefault() + System.Environment.NewLine);
+                            //    System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
+                            //System.Environment.NewLine + emp.FirstOrDefault() + System.Environment.NewLine);
                             return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                         }
                         else
                         {
                             var empnext = db.fn_searchCompEmployeesForNextContract(id).ToList();
-                            System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
-                        System.Environment.NewLine + empnext.FirstOrDefault() + System.Environment.NewLine);
+                            //    System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
+                            //System.Environment.NewLine + empnext.FirstOrDefault() + System.Environment.NewLine);
                             return new JsonResult { Data = empnext, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                         }
                     }
@@ -3592,7 +3592,7 @@ namespace DMS_TEST.Controllers
                     var DoctorRosita = db.Roshitas.Include(x => x.RoshitaDetails).Where(x => x.CardId == roshitawithdetails.CardId && (x.Manager == "Doctor_Daily" /*|| x.Manager == "Doctor_Chronic"*/))
                         .OrderByDescending(x => x.CreatedDate).ToList();
                     long DoctorRositaId = 0;
-                    if (roshitawithdetails.RoshitaDetails.Count()>0)
+                    if (roshitawithdetails.RoshitaDetails.Count() > 0)
                     {
                         foreach (var item in DoctorRosita)
                         {

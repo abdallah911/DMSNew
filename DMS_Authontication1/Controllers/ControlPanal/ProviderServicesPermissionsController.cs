@@ -71,6 +71,20 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                 }).ToList();
             return new JsonResult { Data = ProviderUsers, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        public JsonResult GetProviderUsersName(string search, int page)
+        {
+            //int intSearch;
+            //int.TryParse(search, out intSearch);
+
+            var ProviderUsers = UserDB.Users.Where(r => r.UserName.Contains(search) || r.FName.Contains(search) || r.Email.Contains(search) || r.Type.Contains(search)
+                    || r.LName.Contains(search) || r.Provider.Contains(search))
+                .Select(c => new
+                {
+                    id = c.Id,
+                    text = c.UserName + " || " + c.Email
+                }).ToList();
+            return new JsonResult { Data = ProviderUsers, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         public JsonResult GetActiveEmployess(string search, int page)
         {
             long lgSearch;
@@ -109,35 +123,49 @@ namespace DMS_Authontication1.Controllers.ControlPanal
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProviderName,ServiceCode,IsActive,CompId,ClassCode,CardId,IsDeleted,CreatedBy,CreatedDate,UpdatedBy,UpdatedDate")] ProviderServicesPermission providerServicesPermission)
+        public ActionResult Create([Bind(Include = "Id,ProviderName,ServiceCode,IsActive,CompId,ClassCode,CardId,IsDeleted,CreatedBy,CreatedDate,UpdatedBy,UpdatedDate")] ProviderServicesPermissionsViewModal model)
         {
+            if (model.UserId == null)
+            {
+                ProviderBlock providerBlock = new ProviderBlock
+                {
+                    Id = model.Id,
+                    UserId = model.UserId,
+                    CompId = int.Parse(model.CompId),
+                    IsActive = model.IsActive,
+                    ServiceCode = model.ServiceCode.ToString(),
+                };
+                db.ProviderBlocks.Add(providerBlock);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
             ViewBag.Validation = true;
             if (ModelState.IsValid)
             {
                 //List<ProviderServicesPermission> permission = new List<ProviderServicesPermission>();
                 ProviderServicesPermission _permision = new ProviderServicesPermission();
-                if (providerServicesPermission.CardId != null && providerServicesPermission.ClassCode == null)
+                if (model.CardId != null && model.ClassCode == null)
                 {
-                    var permission = db.ProviderServicesPermissions.Where(x => x.IsDeleted == false && x.ServiceCode == providerServicesPermission.ServiceCode
-                                    && x.CardId == providerServicesPermission.CardId).ToList().OrderByDescending(x => x.Id);
+                    var permission = db.ProviderServicesPermissions.Where(x => x.IsDeleted == false && x.ServiceCode == model.ServiceCode
+                                    && x.CardId == model.CardId).ToList().OrderByDescending(x => x.Id);
                     _permision = permission.FirstOrDefault();
                 }
-                else if (providerServicesPermission.CardId != null && providerServicesPermission.ClassCode != null)
+                else if (model.CardId != null && model.ClassCode != null)
                 {
-                    var permission = db.ProviderServicesPermissions.Where(x => x.IsDeleted == false && x.ServiceCode == providerServicesPermission.ServiceCode
-                                    && x.CardId == providerServicesPermission.CardId && x.ClassCode == providerServicesPermission.ClassCode).ToList().OrderByDescending(x => x.Id);
+                    var permission = db.ProviderServicesPermissions.Where(x => x.IsDeleted == false && x.ServiceCode == model.ServiceCode
+                                    && x.CardId == model.CardId && x.ClassCode == model.ClassCode).ToList().OrderByDescending(x => x.Id);
                     _permision = permission.FirstOrDefault();
                 }
-                else if (providerServicesPermission.CompId != null && providerServicesPermission.ClassCode == null)
+                else if (model.CompId != null && model.ClassCode == null)
                 {
-                    var permission = db.ProviderServicesPermissions.Where(x => x.IsDeleted == false && x.ServiceCode == providerServicesPermission.ServiceCode
-                                    && (x.CompId == providerServicesPermission.CompId || x.CompId == "ALL")).ToList().OrderByDescending(x => x.Id);
+                    var permission = db.ProviderServicesPermissions.Where(x => x.IsDeleted == false && x.ServiceCode == model.ServiceCode
+                                    && (x.CompId == model.CompId || x.CompId == "ALL")).ToList().OrderByDescending(x => x.Id);
                     _permision = permission.FirstOrDefault();
                 }
-                else if (providerServicesPermission.CompId != null && providerServicesPermission.ClassCode != null)
+                else if (model.CompId != null && model.ClassCode != null)
                 {
-                    var permission = db.ProviderServicesPermissions.Where(x => x.IsDeleted == false && x.ServiceCode == providerServicesPermission.ServiceCode
-                                    && (x.CompId == providerServicesPermission.CompId || x.CompId == "ALL") && x.ClassCode == providerServicesPermission.ClassCode).ToList().OrderByDescending(x => x.Id);
+                    var permission = db.ProviderServicesPermissions.Where(x => x.IsDeleted == false && x.ServiceCode == model.ServiceCode
+                                    && (x.CompId == model.CompId || x.CompId == "ALL") && x.ClassCode == model.ClassCode).ToList().OrderByDescending(x => x.Id);
                     _permision = permission.FirstOrDefault();
                 }
                 if (_permision != null && _permision.IsActive == false)
@@ -164,15 +192,29 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                     }
                 }
 
+                ProviderServicesPermission providerServicesPermission = new ProviderServicesPermission
+                {
+                    Id = model.Id,
+                    CardId = model.CardId,
+                    ClassCode = model.ClassCode,
+                    CompId = model.CompId,
+                    IsActive = model.IsActive,
+                    IsDeleted = model.IsDeleted,
+                    ProviderName = model.ProviderName,
+                    ServiceCode = model.ServiceCode,
+                    UpdatedBy = model.UpdatedBy,
+                    UpdatedDate = model.UpdatedDate
+                };
                 providerServicesPermission.CreatedBy = User.Identity.Name;
                 providerServicesPermission.CreatedDate = DateTime.Now;
 
                 db.ProviderServicesPermissions.Add(providerServicesPermission);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
-            return View(providerServicesPermission);
+            return View(model);
         }
 
         // GET: ProviderServicesPermissions/Edit/5
