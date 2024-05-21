@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using CrystalDecisions.CrystalReports.Engine;
 
 
 namespace DMS_Authontication1.Controllers
@@ -32,13 +33,22 @@ namespace DMS_Authontication1.Controllers
         }
         #region MainPage
         // GET: ProposalMain
-        public async Task<ActionResult> Index(string searchValue = "", DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<ActionResult> Index(string searchValue = "", DateTime? startDate = null, DateTime? endDate = null,
+                                              string IdMain = "", string CountClass = "")
         {
             // Retrieve the message from TempData
-            string successMessage = TempData["SuccessMessage"] as string;
+            //string successMessage = TempData["SuccessMessage"] as string;
+
+            string successMessage = TempData.Peek("SuccessMessage") as string;
 
             // Pass the message to the view
             ViewBag.SuccessMessage = successMessage;
+
+            if (!string.IsNullOrEmpty(IdMain))
+            {
+                ViewBag.IdMain = IdMain;
+                ViewBag.CountClass = CountClass;
+            }
             //startDate ??= new DateTime(2020, 1, 1);
             //endDate ??= new DateTime(2100, 12, 31);
             if (!startDate.HasValue)
@@ -60,6 +70,41 @@ namespace DMS_Authontication1.Controllers
             ViewBag.SearchValue = searchValue;
             return View(proposals);
         }
+
+        public ActionResult PrintProposalReports(int id, int countClass)
+        {
+            ReportDocument rd = new ReportDocument();
+
+            if (countClass == 2)
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "Offer2Class.rpt"));
+            else if (countClass == 3)
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "Offer3Class.rpt"));
+            else if (countClass == 4)
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "Offer4Class.rpt"));
+
+
+            rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
+
+            rd.SetParameterValue("@idd", id);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pdf", DateTime.Now.Date.ToString("ddMMyyyy") + "Proposal.pdf");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         // GET: ProposalMain/Edit
         public async Task<ActionResult> Edit(int id)
         {
@@ -2283,18 +2328,24 @@ namespace DMS_Authontication1.Controllers
                 objNotifHub.SendProposalMessages();
                 // Store a message in TempData
                 TempData["SuccessMessage"] = "Proposal has been created successfully.";
+                //TempData["IdMain"] = MainProposalId;
+                //TempData["CountClass"] = Model.Count;
+                //PrintRenewalReports(MainProposalId, Model.Count);
+
                 switch (BackOrForwardOrMain)
                 {
                     case "back":
                         return RedirectToAction(nameof(ProposalStepThreeCreate), new { id = MainProposalId });
 
                     case "forward":
-                        return RedirectToAction(nameof(Index));
+                        return RedirectToAction(nameof(Index), new { IdMain = MainProposalId , CountClass = Model.Count });
                     case "main":
                         return RedirectToAction(nameof(Create), new { id = MainProposalId });
                     default:
                         break;
                 }
+                
+                
                 return RedirectToAction(nameof(Index));
 
                 //return RedirectToAction(nameof(ProposalStepFourCreate), new { id = MainProposalId });
@@ -2311,6 +2362,7 @@ namespace DMS_Authontication1.Controllers
             }
 
         }
+
 
 
         // GET: ProposalMain/ProposalStepTwoEdit/1
@@ -2619,7 +2671,11 @@ namespace DMS_Authontication1.Controllers
                 await _dbContext.SaveChangesAsync();
                 objNotifHub.SendProposalMessages();
                 TempData["SuccessMessage"] = "Proposal has been created successfully.";
-                return RedirectToAction(nameof(Index));
+                //TempData["IdMain"] = id;
+                //TempData["CountClass"] = Model.Count;
+                //PrintRenewalReports(id, Model.Count);
+
+                return RedirectToAction(nameof(Index), new { IdMain = id, CountClass = Model.Count });
             }
             catch (Exception e)
             {
