@@ -125,7 +125,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,ProviderName,ServiceCode,IsActive,CompId,ClassCode,CardId,IsDeleted,CreatedBy,CreatedDate,UpdatedBy,UpdatedDate")] ProviderServicesPermissionsViewModal model)
         {
-            if (model.UserId == null)
+            if (model.UserId != null)
             {
                 ProviderBlock providerBlock = new ProviderBlock
                 {

@@ -8149,12 +8149,13 @@ namespace DMS_Synchronization
             //double count = GetCount(tableName, _connectionSettings.OrcaleConnection);
             var maxiteration = Math.Ceiling(count / 1000);
             var tableName = "CLOSE_EMP_DATA";
-            List<Med_Card> MedCard = new List<Med_Card>();
-            List<Med_Medicine> medMedicines = new List<Med_Medicine>();
-            List<Roshita> roshitas = new List<Roshita>();
-            List<RoshitaDetail> roshitasDetail = new List<RoshitaDetail>();
+            
             for (int i = 0; i < maxiteration; i = i)
             {
+                List<Med_Card> MedCard = new List<Med_Card>();
+                List<Med_Medicine> medMedicines = new List<Med_Medicine>();
+                List<Roshita> roshitas = new List<Roshita>();
+                List<RoshitaDetail> roshitasDetail = new List<RoshitaDetail>();
                 try
                 {
                     var data = GetOracleTable<CLOSE_EMP_DATA>(string.Format(query, (i * 1000), ((++i) * 1000)), _connectionSettings.OrcaleConnection);
