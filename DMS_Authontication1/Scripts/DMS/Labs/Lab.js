@@ -821,6 +821,45 @@ function SelectLab(event) {
                         });
 
                     }
+                    else if (Group == "Pending")
+                    {
+                        var dialog = bootbox.dialog({
+                            title: 'This Test is Not Covered!',
+                            message: "<p>Pay method?</p>",
+                            onEscape: function () {
+                                RemoveSelection(Code);
+                            },
+                            buttons: {
+                                Cash: {
+                                    label: "Cash",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        Group = "Cash";
+                                        AppendRow();
+                                        Calculation();
+                                    }
+                                },
+                                Approval: {
+                                    label: "Approval",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        Group = "Approval";
+                                        AppendRow();
+                                        Calculation();
+                                    }
+                                },
+                                Tele: {
+                                    label: "Pending",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        Group = "Pending";
+                                        AppendRow();
+                                        Calculation();
+                                    }
+                                }
+                            }
+                        });
+                    }
                     else {
                         AppendRow();
                         Calculation();
