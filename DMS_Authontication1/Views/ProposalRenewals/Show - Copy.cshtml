@@ -1,0 +1,186 @@
+﻿@using DMS_Authontication1.Models;
+@using Microsoft.AspNet.Identity;
+@model List<RenewalMain>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Proposal.cshtml";
+    var currentUserId = User.Identity.GetUserId();
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/ProposalAssets/CSS/broker.css" />
+}
+
+<!-- ////////////// Main Content ////////////// -->
+<div style="display: flex; flex-direction: column; min-height: 90vh">
+    <div class="bg-grid-container">
+        <div class="container">
+            <div class="form-bg col-10">
+                <div class="pool-box">
+
+                    <!-- PreX Pool -->
+                    <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
+                        <div class="pool-field">
+                            <div class="inputs">
+                                <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                    <input class="sios-form-control  w-100  border-0 ">
+                                    <span>ALL</span>
+                                </div>
+                                <div class="forLabel" style=" width: 20%;   margin-right: 5%;  ">
+                                    <input class="sios-form-control  w-100  border-0 ">
+                                    <span>Midicaion</span>
+                                </div>
+                            </div>
+                            <h6 style="color: #000;"> Pool</h6>
+                        </div>
+                        <div class="pool-field">
+                            <div class="inputs w-100">
+                                <div class="forLabel ms-auto me-4 position-relative" multible style="width: 50%; ">
+                                    <select style="margin-right: 5%;" class="sios-form-control  w-100  border-0 "></select>
+
+                                    <span style=" left: 10px !important; padding-left: 0; ">Multiselection</span>
+                                </div>
+                            </div>
+                            <h6 style="color: #000;"> Services</h6>
+                        </div>
+                    </div>
+                    <div class="pool-field-box mb-2">
+                        <div class="pool-field">
+                            <div class="inputs">
+                                <input class="sios-form-control home-input" data-val="true" data-val-number="The field PrexPoolVal must be a number." data-val-range="Prex Pool Value cannot be less than zero." data-val-range-max="2147483647" data-val-range-min="0" id="PrexPoolVal" name="PrexPoolVal" placeholder="قيمة" type="text" value="">
+                                <input class="sios-form-control home-input" data-val="true" data-val-number="The field PrexPoolPercentage must be a number." data-val-range="Prex pool percentage must be between 0 and 100." data-val-range-max="100" data-val-range-min="0" id="PrexPoolPercentage" name="PrexPoolPercentage" placeholder="نسبة" type="text" value="">
+
+                            </div>
+                            <h6 style="color:#000;">pool</h6>
+                        </div>
+                        <div class="coverage-box d-flex">
+                            <div class="coverage-radio-box d-flex">
+                                <div class="coverage-radio-field">
+                                    <label style="color:#000;" for="PrexPoolCoverage_PreviousAndLater">سابق ولاحق</label>
+                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="PrexPoolCoverage_PreviousAndLater" name="PrexPoolCoverage" type="radio" value="PreviousAndLater">
+
+                                </div>
+                                <div class="coverage-radio-field">
+                                    <label style="color:#000;" for="PrexPoolCoverage_Later">لاحق</label>
+                                    <input class="form-check-input" id="PrexPoolCoverage_Later" name="PrexPoolCoverage" type="radio" value="Later">
+
+                                </div>
+                                <div class="coverage-radio-field">
+                                    <label style="color:#000;" for="PrexPoolCoverage_Previous">سابق</label>
+                                    <input class="form-check-input" id="PrexPoolCoverage_Previous" name="PrexPoolCoverage" type="radio" value="Previous">
+
+                                </div>
+                            </div>
+                            <p style="color:#000;">نوع التغطية</p>
+                        </div>
+                        @*style="margin-right: 150px;"*@
+                        <div class="coverage-box d-flex">
+                            <div class="coverage-radio-box d-flex">
+                                <div class="coverage-radio-field">
+                                    <label style="color:#000;" for="PrexPoolCoverage_PreviousAndLater2">عمليات</label>
+                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="PrexPoolCoverage_PreviousAndLater2" name="PrexPoolCoverage" type="checkbox" value="PreviousAndLater">
+
+                                </div>
+                                <div class="coverage-radio-field">
+                                    <label style="color:#000;" for="PrexPoolCoverage_Later2">ادوية</label>
+                                    <input class="form-check-input" id="PrexPoolCoverage_Later2" name="PrexPoolCoverage" type="checkbox" value="Later">
+
+                                </div>
+                                <div class="coverage-radio-field">
+                                    <label style="color:#000;" for="PrexPoolCoverage_Previous2">تحاليل</label>
+                                    <input class="form-check-input" id="PrexPoolCoverage_Previous2" name="PrexPoolCoverage" type="checkbox" value="Previous">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column ps-2">
+                            <span class="field-validation-valid text-danger" data-valmsg-for="PrexPoolVal" data-valmsg-replace="true"></span>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="PrexPoolPercentage" data-valmsg-replace="true"></span>
+                            <span class="field-validation-valid text-danger" data-valmsg-for="PrexPoolCoverage" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
+                        <div class="pool-field">
+                            <div class="inputs">
+                                <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                    <input class="sios-form-control  w-100  border-0 " disabled>
+                                    <span></span>
+                                </div>
+                                <div class="forLabel" style=" width: 20%;   margin-right: 5%;  ">
+                                    <input class="sios-form-control  w-100  border-0 ">
+                                    <span></span>
+                                </div>
+                            </div>
+                            <h6 style="color: #000;"> Stop Loss</h6>
+
+                        </div>
+
+                    </div>
+                    <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
+                        <div class="pool-field" style="height: 70px;">
+                            <div class="inputs ">
+                                <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                    <input class="sios-form-control  w-100  border-0 ">
+                                    <span>عدد الزيارات</span>
+                                    <div class="d-flex gap-3">
+                                        <div class="coverage-radio-field">
+                                            <label style="color:#000;" for="monthinput">شهر</label>
+                                            <input class="form-check-input" id="monthinput" name="visits" type="radio" value="Later">
+
+                                        </div>
+                                        <div class="coverage-radio-field">
+                                            <label style="color:#000;" for="weekInput">اسبوع</label>
+                                            <input class="form-check-input" id="weekInput" name="visits" type="radio" value="Previous">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="forLabel" style=" width: 20%;   margin-right: 5%;  ">
+                                    <input class="sios-form-control  w-100  border-0 ">
+                                    <span>قيمة الزيارة</span>
+                                </div>
+                            </div>
+                            <h6 style="color: #000;"> Visitors</h6>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="position: relative">
+                    <input disabled="" id="disabled" style="height: 45px; color:#000;" class="sios-form-control home-input col pb-2" type="text" placeholder="Broker">
+                    <div class="d-flex gap-2" style="
+                                                  position: absolute;
+                                                  top: 50%;
+                                                  left: 50%;
+                                                  transform: translate(-50%, -50%);
+                                                  width: 60%;
+                                                ">
+                        <div class="brokeDisabled" style="
+                                                    display: block;
+                                                    color: #778183;
+                                                    width: 100%;
+                                                    text-align: center;
+                                                  ">
+                        </div>
+                        <select class="brokeEnabled sios-form-control col" id="districtBroker" name="brokerId" style="display: none;background-color: #e3e3e3; font-size: 12px;border: none; border-radius: 2px;">
+                            <option value="">الاسم</option>
+                            <option value="1">amira</option>
+                            <option value="2">RANAA</option>
+                        </select>
+                        <input class="brokeEnabled sios-form-control home-input col" data-val="true" data-val-number="The field BrokerPercentage must be a number." data-val-range="Broker Percentage must be between 0 and 100." data-val-range-max="100" data-val-range-min="0" id="BrokerPercentage" name="BrokerPercentage" placeholder="النسبة %" style="display: none; background-color: #e3e3e3; font-size: 12px; border: none; border-radius: 2px;" type="text" value="">
+                        <input data-val="true" data-val-required="The IsBroker field is required." id="toggleEnable" name="IsBroker" style="height: fit-content; margin-top: 4px;" type="checkbox" value="true"><input name="IsBroker" type="hidden" value="false">
+                        <label class="brokeDisabled fw-bold" for="" style="color: #000;">يوجد</label>
+
+
+                        <label for="myCheckbox"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+
+<script src="~/Scripts/DMS/ProposalRenewals/ProposalRenewals.js"></script>

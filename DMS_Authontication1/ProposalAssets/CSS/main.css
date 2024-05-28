@@ -680,14 +680,15 @@ a.next-a {
   display: flex;
   justify-content: end;
 }
-.pool-field input {
-  width: 20%;
-  margin-bottom: 0%;
-  background-color: #e3e3e3;
-  padding-left: 5px;
-  font-size: 17px;
-  color: var(--color-primary);
-  margin-right: 5%;
+.pool-field input,
+.pool-field select {
+    width: 20%;
+    margin-bottom: 0%;
+    background-color: #e3e3e3;
+    padding-left: 5px;
+    font-size: 17px;
+    color: var(--color-primary);
+    margin-right: 5%;
 }
 @media (min-width:992px) and (max-width:1200px) {
   .pool-field h6{
@@ -778,10 +779,51 @@ a.next-a {
   font-weight: var(--font-bold);
   margin-bottom: 0;
 }
-/* footer */
+
+/*=================forLabel=========================*/
+
+.forLabel input:focus, .select2 input:focus, textarea:focus, select:focus:not(select.form-select.form-select-sm) {
+    outline: none;
+    /* border: 2px solid #566084; */
+    box-shadow: 0 0 5px #566084;
+    padding: 14px 10px 0 !important;
+    transition: all 0.2s ease-in;
+    font-weight: 700;
+    color: #555;
+}
+    .forLabel input:valid ~ span, .forLabel select:valid ~ span:last-of-type, .forLabel textarea:valid ~ span, .forLabel input:focus ~ span, .forLabel select:focus ~ span, .forLabel textarea:focus ~ span {
+        pointer-events: none;
+        font-size: 10px;
+        transform: translateY(-6px);
+        color: #828282;
+        transition: all 0.2s ease-in-out;
+    }
+.forLabel > span:not(.select2-container),  .select {
+    position: absolute;
+    top: 20%;
+    /* left: 10px; */
+    color: var(--color-secondary);
+    font-weight: bold;
+    font-size: 12px;
+    padding-left: 20px;
+    width: max-content;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+}
+ 
+.forLabel input:focus, .select2 input:focus, textarea:focus, select:focus:not(select.form-select.form-select-sm) {
+    outline: none;
+    /* border: 2px solid #566084; */
+    box-shadow: 0 0 5px #566084;
+    padding: 14px 10px 0 !important;
+    transition: all 0.2s ease-in;
+    font-weight: 700;
+    color: #555;
+}
+    /* footer */
 
 
-.footer {
+    .footer {
   background: var(--color-gradient) !important;
   color: white;
 }
