@@ -69,7 +69,7 @@ $(function () {
         $('#insurance_LIVEL').val('');
         $('#ddEmp_CEILING_PERT').val('');
         companid = $('#txtSearchCard').val().split('-')[0];
-        if (companid == "500142" || companid == "500103" || companid == "500125" || companid == "10560") {
+        if (companid.startsWith("500") || companid == "10560") {
             alert("هذا العميل لايحتاج موافقة علي الروشتات الخارجية علي ان يتم ادخال كافة البيانات والادوية علي السيستم");
 
         }
@@ -1204,7 +1204,7 @@ $(function () {
                         //bootbox.confirm("يرجي التحقق من وجود ختم الطبيب المعالج وفي  حاله عدم وجود ختم مقدم الخدمه لايتم صرف الروشته والا سيتم خصمها بالكامل علي سيادتكم"
                         //شاملا الحرف الموجود مع الرقم 
                         var compid = $('#txtSearchCard').val().split('-')[0];
-                        if ((compid == "500142" || compid == "500103" || compid == "500125" || compid == "10560") && ($('#ddlType').val() == "11603" || $('#ddlType').val() == "11601")) {
+                        if ((compid == "500142" || compid == "500103" || compid == "500125" || compid == "10560" || compid == "500172") && ($('#ddlType').val() == "11603" || $('#ddlType').val() == "11601")) {
                             alert("هذا العميل لايحتاج موافقة علي الروشتات الخارجية علي ان يتم ادخال كافة البيانات والادوية علي السيستم");
                             $('#ClaimNumber').val(' ');
                             $('#submit').click();
@@ -1814,6 +1814,36 @@ function SelectMedicien(event) {
                                                                 //});
                                                                 ////}
                                                                 // end if for group no
+                                                            }
+                                                            else if (Group == "Pending") {
+                                                                var dialog = bootbox.dialog({
+                                                                    //title: 'This Medicien is Not Covered!',
+                                                                    title: 'This medicine requires approval',
+                                                                    message: "<p>Pay method?</p>",
+                                                                    onEscape: function () {
+                                                                        RemoveSelection(MedicienCode);
+                                                                    },
+                                                                    //backdrop: true,
+                                                                    buttons: {
+                                                                        Cash: {
+                                                                            label: "Cash",
+                                                                            className: 'btn-info',
+                                                                            callback: function () {
+                                                                                Group = "Cash";
+                                                                                AppendRow();
+                                                                            }
+                                                                        }
+                                                                        , Tele: {
+                                                                            label: "Pending",
+                                                                            className: 'btn-info',
+                                                                            callback: function () {
+                                                                                Group = "Pending";
+                                                                                //toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                                                                AppendRow();
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                });
                                                             }
                                                             else {
                                                                 AppendRow();

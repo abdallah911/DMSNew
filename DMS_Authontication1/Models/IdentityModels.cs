@@ -89,7 +89,11 @@ namespace DMS_Authontication1.Models
         public DbSet<ProposalNotification> ProposalNotifications { get; set; }
         public DbSet<ProposalNotificationApplicationUser> ProposalNotificationApplicationUsers { get; set; }
         public DbSet<PricesOutsideMedicalAuthority> PricesOutsideMedicalAuthorities { get; set; }
-         public ApplicationDbContext()
+        public DbSet<AgeAvg> AgeAvgs { get; set; }
+        public DbSet<BasicDentalService> BasicDentalServices { get; set; }
+        public DbSet<DentalService> DentalServices { get; set; }
+
+        public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }

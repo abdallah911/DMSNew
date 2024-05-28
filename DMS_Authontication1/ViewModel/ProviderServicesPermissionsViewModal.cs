@@ -23,5 +23,6 @@ namespace DMS_TEST.ViewModel
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
 
+        public string UserId { get; set; }
     }
 }

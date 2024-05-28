@@ -37,7 +37,7 @@ $(function () {
             success: function (returndata) {
                 if (returndata.ok) {
                     if (returndata.data == "Yes") {
-                        
+
                     }
                     else {
                         $("#wait").css("display", "none");
@@ -370,7 +370,7 @@ function Calculation() {
     if (Limit > AnuualLimit || Limit == 0) {
         Limit = AnuualLimit;
     }
-    if (Limit != 0 ) {
+    if (Limit != 0) {
         ValueCredit = (total * (co / 100)).toFixed(2);
         if ((Limit * (co / 100)) <= (ValueCredit)) {
             $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
@@ -599,54 +599,96 @@ function SelectMedicien(event) {
                                     }
                                 });
                             }
-                            else {
-                                AppendRow();
-                                Calculation();
+                            else if (Group == "Pending") {
+                                var dialog = bootbox.dialog({
+                                    title: 'This Medicien is Not Covered!',
+                                    message: "<p>Pay method?</p>",
+                                    onEscape: function () {
+                                        RemoveSelection(MedicienCode);
+                                    },
+                                    buttons: {
+                                        Cash: {
+                                            label: "Cash",
+                                            className: 'btn-info',
+                                            callback: function () {
+                                                Group = "Cash";
+                                                AppendRow();
+                                                Calculation();
+                                            }
+                                        },
+                                        Approval: {
+                                            label: "Approved",
+                                            className: 'btn-info',
+                                            callback: function () {
+                                                Group = "Approval";
+                                                AppendRow();
+                                                Calculation();
+                                            }
+                                        },
+                                        Tele: {
+                                            label: "Pending",
+                                            className: 'btn-info',
+                                            callback: function () {
+                                                Group = "Pending";
+                                                AppendRow();
+                                                Calculation();
+                                            }
+                                        }
+                                    }
+                                });
+
                             }
                         }
+                    });
+            }
+                            else {
+                AppendRow();
+                                Calculation();
+            }
+        }
                         else {
-                            RemoveSelection(Code);
+                RemoveSelection(Code);
                             bootbox.alert("This Medicine had been exchanged Today ");
-                            $("#wait").css("display", "none");
-                        }
-                    },
-                    error: function (r) {
-                        bootbox.alert("Ajax exchanged Today  Error");
-                        $("#wait").css("display", "none");
-                    }
-
-                });
                 $("#wait").css("display", "none");
+            }
+                    },
+    error: function (r) {
+        bootbox.alert("Ajax exchanged Today  Error");
+        $("#wait").css("display", "none");
+    }
+
+});
+$("#wait").css("display", "none");
 
             },
-            error: function (ex) {
-                bootbox.alert('Failed to retrieve Lab Data.');
-            }
+error: function (ex) {
+    bootbox.alert('Failed to retrieve Lab Data.');
+}
 
         });
-        function AppendRow() {
-            var tBody = $("#Labs > TBODY")[0];
-            var row = tBody.insertRow(-1);
-            var cell = $(row.insertCell(-1));
-            cell.html(MedicienCode);
-            cell = $(row.insertCell(-1));
-            cell.html(MedicienName);
+function AppendRow() {
+    var tBody = $("#Labs > TBODY")[0];
+    var row = tBody.insertRow(-1);
+    var cell = $(row.insertCell(-1));
+    cell.html(MedicienCode);
+    cell = $(row.insertCell(-1));
+    cell.html(MedicienName);
 
-            cell = $(row.insertCell(-1));
-            var AppendAmount = $("<input />");
-            AppendAmount.attr("type", "text");
-            //AppendAmount.attr('readonly', 'readonly');
-            AppendAmount.addClass("form-control");
-            AppendAmount.attr("onkeyup", "Calculation();");
-            AppendAmount.addClass('Amount');
-            AppendAmount.val(Amount);
+    cell = $(row.insertCell(-1));
+    var AppendAmount = $("<input />");
+    AppendAmount.attr("type", "text");
+    //AppendAmount.attr('readonly', 'readonly');
+    AppendAmount.addClass("form-control");
+    AppendAmount.attr("onkeyup", "Calculation();");
+    AppendAmount.addClass('Amount');
+    AppendAmount.val(Amount);
 
-            cell.append(AppendAmount);
-            cell = $(row.insertCell(-1));
-            cell.html(Group);
-            toastr.success('Added successfully ');
-            $("#wait").css("display", "none");
-        }
+    cell.append(AppendAmount);
+    cell = $(row.insertCell(-1));
+    cell.html(Group);
+    toastr.success('Added successfully ');
+    $("#wait").css("display", "none");
+}
     }
 }
 

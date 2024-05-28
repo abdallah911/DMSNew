@@ -31,14 +31,14 @@
 <div class="bg-grid-container">
     @using (Html.BeginForm("ProposalStepTwoCreate", "ProposalMain", FormMethod.Post, new { enctype = "multipart/form-data", id = "ProposalSecondForm" }))
     {
-        <input hidden value="@ViewBag.MainId" type="number" name="MainProposalId">
+        <input hidden value="@ViewBag.MainId" type="number" name="MainProposalId" />
         @Html.AntiForgeryToken()
         <div class="grid-container" dir="rtl">
             <div class="part1">
                 <div style="width: 95%" class="prev-container" dir="ltr">
                     @*<a class="prev-butn" href="@ViewBag.previousUrl" onclick="storeFormData();" style="color:transparent; margin-top: 20px;
-        margin-left: 10px;
-        margin-right: 20px">السابق</a>*@
+                        margin-left: 10px;
+                        margin-right: 20px">السابق</a>*@
                     @*<button type="button" sclass="prev-butn" , style="text-decoration: none; color: transparent; margin-top: 20px; margin-left: 10px; margin-right: 20px" onclick="submitForm('back')">السابق</button>*@
                     <button type="button" style="text-decoration: none; margin-top: 20px; margin-left: 10px; margin-right: 20px" class="prev-butn" onclick="submitForm('back')">السابق</button>
 
@@ -69,12 +69,7 @@
                                type="text"
                                placeholder="درجة الاقامة" />
                     </div>
-                    <div style="height: 57px; margin:10px">
-                        <input class="myInput"
-                               style="pointer-events: none; height: 45px; margin-top:29x;"
-                               type="text"
-                               placeholder="السعر" />
-                    </div>
+
                     <div style="height: 57px; margin:10px">
                         <input class="myInput"
                                style="pointer-events: none; height: 45px;"
@@ -129,6 +124,12 @@
                                type="text"
                                placeholder="الحد الأقصى في حالات الوفاة" />
                     </div>
+                    <div style="height: 57px; margin:10px">
+                        <input class="myInput"
+                               style="pointer-events: none; height: 45px; margin-top:29x;"
+                               type="text"
+                               placeholder="السعر" />
+                    </div>
                 </div>
             </div>
 
@@ -150,7 +151,7 @@
                         <input hidden name="Model[@index].Id" value="@Model[index].Id" />
 
                         <div class="cate@(catIndex) ">
-                            <button class="cate-title">الفئة @(index+1)</button>
+                            <button class="cate-title">الفئة @(index + 1)</button>
 
                             <div class="d-flex">
                                 <div class="cate-parent">
@@ -172,7 +173,7 @@
                     ">
                                         <div style="width: 90%">
                                             <div class="seleect-container">
-                                                <select name="Model[@index].MedicalNetworkId" class="seleect" id="cars" >
+                                                <select name="Model[@index].MedicalNetworkId" class="seleect" id="cars">
                                                     <option value="">اختر الشبكة الطبية</option> <!-- Default option -->
                                                     @foreach (var color in ViewBag.MedicalNetworkList)
                                                     {
@@ -205,11 +206,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <input type="text" name="Model[@index].Price" value="@Model[index].Price" />
-                                        @*@Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })*@
 
-                                    </div>
                                     <div style="position: relative">
                                         @*<input type="text" style="pointer-events: none" name="Model[@index].Price"/>*@
                                         <div style="
@@ -224,10 +221,7 @@
                           text-align: center;
                           padding-right: 0;
                           width: 45%;
-                          height: 34px;
-                        "
-                                                   type="text"
-                                                   placeholder="من" value="@Model[index].MinAge" />
+                          height: 34px;" type="text" placeholder="من" value="@Model[index].MinAge" />
                                             @*@Html.ValidationMessage($"Model[{index}].MinAge", "", new { @class = "text-danger" })*@
 
                                             <input name="Model[@index].MaxAge" value="@Model[index].MaxAge" style="
@@ -242,11 +236,27 @@
 
                                         </div>
                                     </div>
-                                    <div>
-                                        <input type="text" name="Model[@index].AvgAge" value="@Model[index].AvgAge" />
-                                        @*@Html.ValidationMessage($"Model[{index}].AvgAge", "", new { @class = "text-danger" })*@
 
+                                    <div style="
+                      display: flex;
+                      flex-direction: column;
 
+                      align-items: center;
+                    ">
+                                        <div style="width: 90%">
+                                            <div class="seleect-container">
+                                                <select name="Model[@index].AgeAvgId" class="seleect" id="cars">
+                                                    <option value="">اختر متوسط الأعمار</option> <!-- Default option -->
+                                                    @foreach (var age in ViewBag.AgeList)
+                                                    {
+                                                        <option value="@age.Value" @(age.Value == Model[index].AgeAvgId.ToString() ? "selected" : "")>@age.Text</option>
+                                                    }
+                                                </select>
+                                                @*@Html.ValidationMessage($"Model[{index}].MedicalNetworkId", "", new { @class = "text-danger" })*@
+
+                                            </div>
+
+                                        </div>
                                     </div>
                                     <div style="
                       display: flex;
@@ -311,8 +321,8 @@
                                     </div>
                                     <div style="position: relative;">
                                         <!-- <section
-      class="d-flex mt-2 justify-content-center align-items-center"
-    > -->
+                                          class="d-flex mt-2 justify-content-center align-items-center"
+                                        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -350,13 +360,13 @@
                                             </div>
                                             @* @Html.ValidationMessage($"Model[{index}].PhysicalTherapyInsideHospital", "", new { @class = "text-danger" })*@
                                         </section>
-                                      
+
                                     </div>
 
                                     <div style="position: relative;">
                                         <!-- <section
-              class="d-flex mt-2 justify-content-center align-items-center"
-            > -->
+                                          class="d-flex mt-2 justify-content-center align-items-center"
+                                        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -398,8 +408,8 @@
                                     </div>
                                     <div style="position: relative;">
                                         <!-- <section
-              class="d-flex mt-2 justify-content-center align-items-center"
-            > -->
+                                          class="d-flex mt-2 justify-content-center align-items-center"
+                                        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -445,13 +455,19 @@
                                     <div>
                                         <input type="text" name="Model[@index].Death" value="@Model[index].Death" />
                                     </div>
+                                    <div>
+                                        <input type="text" name="Model[@index].Price" value="@Model[index].Price" />
+                                        @*@Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })*@
+
+                                    </div>
                                 </div>
-                          
                             </div>
+
                         </div>
                     }
                 </div>
             </div>
+
         </div>
         <div style="display: flex; gap:2rem; margin-top:10px;" dir="rtl">
             <div style="margin-right:25px;">
@@ -466,19 +482,19 @@
             <div style="display: flex; justify-content:end; width:100%; gap:2rem; margin-left:10px;">
 
                 @*<a href="#" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5">
-            <i class="fas fa-save"></i>
-            &nbsp;
-            Save
-        </a>*@
+                        <i class="fas fa-save"></i>
+                        &nbsp;
+                        Save
+                    </a>*@
                 <button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="goToIndex()">الغاء</button>
                 <button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="clearForm()" id="NewForm">جديد</button>
 
                 <button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="submitForm('forward')">التالي</button>
             </div>
         </div>
+
     }
 </div>
-
 @section Scripts{
     <script>
 

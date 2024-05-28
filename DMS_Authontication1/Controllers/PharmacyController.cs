@@ -282,15 +282,15 @@ namespace DMS_TEST.Controllers
                     var emp = db.fn_searchCompEmployees(id).ToList();
                     if (emp.Count() > 0)
                     {
-                        System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
-                        System.Environment.NewLine + emp.FirstOrDefault() + System.Environment.NewLine);
+                        //System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
+                        //System.Environment.NewLine + emp.FirstOrDefault() + System.Environment.NewLine);
                         return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                     }
                     else
                     {
                         var empnext = db.fn_searchCompEmployeesForNextContract(id).ToList();
-                        System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
-                        System.Environment.NewLine + empnext.FirstOrDefault() + System.Environment.NewLine);
+                        //System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
+                        //System.Environment.NewLine + empnext.FirstOrDefault() + System.Environment.NewLine);
                         return new JsonResult { Data = empnext, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                     }
                 }
@@ -301,15 +301,15 @@ namespace DMS_TEST.Controllers
                         var emp = db.fn_searchCompEmployees(id).ToList();
                         if (emp.Count() > 0)
                         {
-                            System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
-                        System.Environment.NewLine + emp.FirstOrDefault() + System.Environment.NewLine);
+                            //    System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
+                            //System.Environment.NewLine + emp.FirstOrDefault() + System.Environment.NewLine);
                             return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                         }
                         else
                         {
                             var empnext = db.fn_searchCompEmployeesForNextContract(id).ToList();
-                            System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
-                        System.Environment.NewLine + empnext.FirstOrDefault() + System.Environment.NewLine);
+                            //    System.IO.File.AppendAllText(Server.MapPath("~/Registerlog.txt"), DateTime.Now.ToString() + ": " +
+                            //System.Environment.NewLine + empnext.FirstOrDefault() + System.Environment.NewLine);
                             return new JsonResult { Data = empnext, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                         }
                     }
@@ -3618,21 +3618,35 @@ namespace DMS_TEST.Controllers
                 else if (roshta.Manager == "Pharmacy_Doctor")
                 {
                     roshta.Manager = "Pharmacy_Doctor_Stop";
-                    string CardId = db.Roshitas.Where(x => x.Id == id).FirstOrDefault().CardId;
-                    var roshitaDetails = db.RoshitaDetails.Where(x => x.RoshitaID == id).ToList();
-                    long DoctorRositaId = db.Roshitas.Where(x => x.CardId == CardId && (x.Manager == "Doctor_Daily" /*|| x.Manager == "Doctor_Chronic"*/)).OrderByDescending(x => x.CreatedDate).FirstOrDefault().Id;
-                    var DoctrorchronicRositaDetails = db.RoshitaDetails.Where(x => x.RoshitaID == DoctorRositaId).ToList();
-                    foreach (RoshitaDetail item in roshitaDetails)
+                    var roshitawithdetails = db.Roshitas.Include(x => x.RoshitaDetails).Where(x => x.Id == id).FirstOrDefault();
+                    //var roshitaDetails = db.RoshitaDetails.Where(x => x.RoshitaID == id).ToList();
+                    var DoctorRosita = db.Roshitas.Include(x => x.RoshitaDetails).Where(x => x.CardId == roshitawithdetails.CardId && (x.Manager == "Doctor_Daily" /*|| x.Manager == "Doctor_Chronic"*/))
+                        .OrderByDescending(x => x.CreatedDate).ToList();
+                    long DoctorRositaId = 0;
+                    if (roshitawithdetails.RoshitaDetails.Count() > 0)
                     {
-                        foreach (RoshitaDetail item2 in DoctrorchronicRositaDetails)
+                        foreach (var item in DoctorRosita)
                         {
-                            if (item.MedicienCode == item2.MedicienCode)
+                            var details = item.RoshitaDetails.Where(x => x.MedicienCode == roshitawithdetails.RoshitaDetails.ElementAt(0).MedicienCode).FirstOrDefault();
+                            if (details != null)
                             {
-                                item2.IsDealed = false;
-                                db.Entry(item2).State = EntityState.Modified;
+                                DoctorRositaId = details.RoshitaID;
+                                break;
                             }
                         }
+                        var DoctrorchronicRositaDetails = db.RoshitaDetails.Where(x => x.RoshitaID == DoctorRositaId).ToList();
+                        foreach (RoshitaDetail item in roshitawithdetails.RoshitaDetails)
+                        {
+                            foreach (RoshitaDetail item2 in DoctrorchronicRositaDetails)
+                            {
+                                if (item.MedicienCode == item2.MedicienCode)
+                                {
+                                    item2.IsDealed = false;
+                                    db.Entry(item2).State = EntityState.Modified;
+                                }
+                            }
 
+                        }
                     }
                     db.SaveChanges();
                 }
@@ -5092,8 +5106,8 @@ namespace DMS_TEST.Controllers
             if (ServiceCode == "11602")
             {
 
-                //string compardatestr = "20/" + ((DateTime.Now.Day <= 20) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString(); 
-                string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
+                string compardatestr = "20/" + ((DateTime.Now.Day <= 20) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString();
+                //string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
                 //string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
                 DateTime compardate = DateTime.ParseExact(compardatestr, "dd/MM/yyyy", null);
 
@@ -5265,18 +5279,18 @@ namespace DMS_TEST.Controllers
                     AcumlatorList = db.Roshitas.Where(r => r.CardId == id && !r.Manager.Contains("Stop") && r.Manager != "Doctor_Chronic"
                      && r.Manager != "Doctor_Daily" && r.CreatedDate >= emp.INS_START_DATE && r.CreatedDate < emp.INS_END_DATE).ToList();
                 }
-                if (ServiceCode == "11602")
-                {
-                    PersonNoPay = (from roshita in db.Roshitas
-                                   join details in db.RoshitaDetails
-                                         on roshita.Id equals details.RoshitaID
-                                   where roshita.CardId == id && roshita.Manager == "Pharmacy_Chronic"
-                                   && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= emp.INS_START_DATE && roshita.CreatedDate < emp.INS_END_DATE
-                                   select new
-                                   {
-                                       Amount = details.Amount,
-                                   }).ToList().Sum(r => r.Amount);
-                }
+                //if (ServiceCode == "11602")
+                //{
+                PersonNoPay = (from roshita in db.Roshitas
+                               join details in db.RoshitaDetails
+                                     on roshita.Id equals details.RoshitaID
+                               where roshita.CardId == id && roshita.Manager == "Pharmacy_Chronic"
+                               && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= emp.INS_START_DATE && roshita.CreatedDate < emp.INS_END_DATE
+                               select new
+                               {
+                                   Amount = details.Amount,
+                               }).ToList().Sum(r => r.Amount);
+                //}
                 List<Roshita> copyacumlator = new List<Roshita>();
                 copyacumlator.AddRange(AcumlatorList);
                 for (int i = 0; i < copyacumlator.Count(); i++)
@@ -5596,8 +5610,8 @@ namespace DMS_TEST.Controllers
             if (ServiceCode == "11602")
             {
 
-                //string compardatestr = "20/" + ((DateTime.Now.Day <= 20) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString();
-                string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
+                string compardatestr = "20/" + ((DateTime.Now.Day <= 20) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString();
+                //string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
                 DateTime compardate = DateTime.ParseExact(compardatestr, "dd/MM/yyyy", null);
 
                 if ((emp.INS_END_DATE < compardate) && !(emp.CARD_ID.Split('-')[0].Contains("500")))
@@ -5627,29 +5641,29 @@ namespace DMS_TEST.Controllers
                 double RoshitaNoPayEdit = 0;
                 string isfamily = "";
                 string ispool = "";
-                if (ServiceCode == "11602")
-                {
-                    RoshitaNoPayEdit = (from roshita in db.Roshitas
-                                        join details in db.RoshitaDetails
-                                              on roshita.Id equals details.RoshitaID
-                                        where roshita.Id == RoshitaId && roshita.CardId == id && roshita.Manager == "Pharmacy_Chronic"
-                                        && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= emp.INS_START_DATE && roshita.CreatedDate < emp.INS_END_DATE
-                                        select new
-                                        {
-                                            Amount = details.Amount,
-                                        }).ToList().Sum(r => r.Amount);
+                //if (ServiceCode == "11602")
+                //{
+                RoshitaNoPayEdit = (from roshita in db.Roshitas
+                                    join details in db.RoshitaDetails
+                                          on roshita.Id equals details.RoshitaID
+                                    where roshita.Id == RoshitaId && roshita.CardId == id && roshita.Manager == "Pharmacy_Chronic"
+                                    && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= emp.INS_START_DATE && roshita.CreatedDate < emp.INS_END_DATE
+                                    select new
+                                    {
+                                        Amount = details.Amount,
+                                    }).ToList().Sum(r => r.Amount);
 
 
-                    PersonNoPay = (from roshita in db.Roshitas
-                                   join details in db.RoshitaDetails
-                                         on roshita.Id equals details.RoshitaID
-                                   where roshita.Id != RoshitaId && roshita.CardId == id && roshita.Manager == "Pharmacy_Chronic"
-                                   && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= emp.INS_START_DATE && roshita.CreatedDate < emp.INS_END_DATE
-                                   select new
-                                   {
-                                       Amount = details.Amount,
-                                   }).ToList().Sum(r => r.Amount);
-                }
+                PersonNoPay = (from roshita in db.Roshitas
+                               join details in db.RoshitaDetails
+                                     on roshita.Id equals details.RoshitaID
+                               where roshita.Id != RoshitaId && roshita.CardId == id && roshita.Manager == "Pharmacy_Chronic"
+                               && details.MedicineNoPay == "Yes" && roshita.CreatedDate >= emp.INS_START_DATE && roshita.CreatedDate < emp.INS_END_DATE
+                               select new
+                               {
+                                   Amount = details.Amount,
+                               }).ToList().Sum(r => r.Amount);
+                //}
                 var remainingconsumption = db.RemainConsumptions.Where(x => x.CARD_ID == id && x.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
                 var remainingPool = db.CONSUMPTION_POOL.Where(r => r.COMP_ID == emp.C_COMP_ID).FirstOrDefault();
                 if (remainingconsumption != null)

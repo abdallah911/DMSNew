@@ -150,8 +150,6 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<PrintMedicalReport> PrintMedicalReports { get; set; }
         public virtual DbSet<RenewalMain> RenewalMains { get; set; }
         public virtual DbSet<AgeAvg> AgeAvgs { get; set; }
-        public virtual DbSet<RenewalInsideMedicalAuthority> RenewalInsideMedicalAuthorities { get; set; }
-        public virtual DbSet<RenewalOutsideMedicalAuthority> RenewalOutsideMedicalAuthorities { get; set; }
         public virtual DbSet<RenewalStepTwo> RenewalStepTwoes { get; set; }
         public virtual DbSet<Employee_Request_Type> Employee_Request_Type { get; set; }
         public virtual DbSet<CompHolder> CompHolders { get; set; }
@@ -161,6 +159,10 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<PendingOutPatient> PendingOutPatients { get; set; }
         public virtual DbSet<AlphabetLetter> AlphabetLetters { get; set; }
         public virtual DbSet<Basic_Data> Basic_Data { get; set; }
+        public virtual DbSet<RenewalInsideMedicalAuthority> RenewalInsideMedicalAuthorities { get; set; }
+        public virtual DbSet<RenewalOutsideMedicalAuthority> RenewalOutsideMedicalAuthorities { get; set; }
+        public virtual DbSet<BasicDentalService> BasicDentalServices { get; set; }
+        public virtual DbSet<DentalService> DentalServices { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)

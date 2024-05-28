@@ -76,11 +76,11 @@
                                         <th scope="col">الاسم بالعربي</th>
                                         @*<th scope="col">الاسم بالانجليوي</th>*@
                                         @*<th scope="col">رقم التلفون</th>
-                                            <th scope="col"> المنطقة</th>
+        <th scope="col"> المنطقة</th>
 
 
-                                            <th scope="col">اسم المسئول</th>
-                                            <th scope="col">رقم الموبايل</th>*@
+        <th scope="col">اسم المسئول</th>
+        <th scope="col">رقم الموبايل</th>*@
 
                                         <th scope="col">تاريخ العقد</th>
                                         @*  <th scope="col">البريد الالكتروني</th>*@
@@ -89,9 +89,15 @@
                                         <th scope="col"> تأمين</th>
 
                                         <th scope="col">عدد الفئات</th>
+
+                                        <th scope="col">طباعة</th>
+
                                         <th scope="col">الاستهلاكات </th>
 
+
+
                                         <th scope="col">تعديل</th>
+
 
                                         @*<th scope="col">تسعير</th>*@
                                     </tr>
@@ -135,6 +141,15 @@
 
 
                                         <td>@item.CategoriesCount</td>
+
+                                        <td>
+                                            <button type="button"
+                                                    style="text-decoration:none;color: #fff; background: #6e7085;padding: 10px 30px;border-radius: 10px;font-weight: var(--font - bold);font-size: 18px;box-shadow: 0 0 2px #14061b4d;cursor: pointer;"
+                                                    onclick="PrintProposal(@item.Id, @item.CategoriesCount)">
+                                                طباعة
+                                            </button>
+                                        </td>
+
                                         @if (@item.ConsumptionFile != null)
                                         {
                                             <td>
@@ -157,10 +172,10 @@
                                         }
                                         else
                                         {
-                                    <td>
-                                        <a class="btn" style="white-space: nowrap;text-decoration: none; color: #fff; background: #6e7085; padding: 10px 30px; border-radius: 10px; font-weight: var(--font - bold); font-size: 18px; box-shadow: 0 0 2px #14061b4d; cursor: pointer; ">غير مسموح</a>
+                                            <td>
+                                                <a class="btn" style="white-space: nowrap;text-decoration: none; color: #fff; background: #6e7085; padding: 10px 30px; border-radius: 10px; font-weight: var(--font - bold); font-size: 18px; box-shadow: 0 0 2px #14061b4d; cursor: pointer; ">غير مسموح</a>
 
-                                    </td>
+                                            </td>
                                         }
 
                                         @*<td>
@@ -195,24 +210,42 @@
         alert('@TempData["UnauthorizedEditMessage"]');
         </script>
     }
-    <script>
+<script>
     $(document).ready(function () {
         var successMessage = '@ViewBag.SuccessMessage';
+
         if (successMessage) {
             // Use the JavaScript alert function to display the message
             alert(successMessage);
         }
+
+        var idd = '@(ViewBag.IdMain ?? "")';
+        var countClass = '@(ViewBag.CountClass ?? "")';
+
+
+        if (idd != null && idd != '') {
+            PrintProposal(idd, countClass);
+        }
+
+
         // Set the value of the search input on document ready
         $("#searchInput").val("@ViewBag.SearchValue");
 
         // Handle click event for clear button
         $("#clearSearch").click(function () {
-        // Clear the search input
-        $("#searchInput").val("");
+            // Clear the search input
+            $("#searchInput").val("");
 
-        // Submit the form to show all data
-        $("#search-submit").click();
+            // Submit the form to show all data
+            $("#search-submit").click();
         });
-        });
-    </script>
+
+
+    });
+
+        function PrintProposal(id, countClas) {
+            window.open('/ProposalMain/PrintProposalReports?id=' + id +
+                '&&countClass=' + countClas);
+        }
+</script>
 }

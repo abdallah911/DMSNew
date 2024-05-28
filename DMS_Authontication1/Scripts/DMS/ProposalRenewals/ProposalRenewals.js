@@ -19,7 +19,7 @@ function ClearAll() {
 }
 
 function SearchRenewal() {
-    if ($('#CompId').val() != "") {
+    if ($('#CompId').val() != "" && !isNaN($('#CompId').val())) {
         $("#wait").css("display", "block");
         $.ajax({
             type: "POST",
