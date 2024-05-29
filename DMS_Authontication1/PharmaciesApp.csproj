@@ -9398,6 +9398,7 @@
     <Content Include="Reports\Offer3Class.rpt" />
     <Content Include="Reports\Offer4Class.rpt" />
     <Content Include="Views\ProposalRenewals\Show - Copy.cshtml" />
+    <Content Include="Views\ReportMain\PriceList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

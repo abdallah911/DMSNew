@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "ReportMed2";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
+
+}
+
+
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+
+<div class="sios-container  editeRquest fw-bold my-4">
+    <div class="row bg-overlay">
+        <div class="m-3 fs-3 text-white caption">
+            <i class="fa fa-gift me-3"></i> Price List
+        </div>
+    </div>
+    <div class="container portlet-body">
+        <div class="row ">
+            <div class="col-md-12">
+                <form class="form-horizontal">
+
+                    <div class="form-wizard">
+                        <div class="form-body">
+                            <div class="tab-content">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+
+                                <div class="row gap-3 my-4">
+                                    <div class="forLabel admin-form-control border-0 px-2 form-group">
+                                        <select class=" admin-form-control w-100 h-100 form-control">
+                                            <option></option>
+                                            <option></option>
+
+                                            <option></option>
+                                        </select>
+                                        <span class="  control-label  ">
+                                            Type Provider
+
+                                        </span>
+                                    </div>
+
+                                    <div class="forLabel admin-form-control border-0 px-2 form-group">
+                                        <select class=" admin-form-control w-100 h-100 form-control">
+                                            <option></option>
+                                            <option></option>
+
+                                            <option></option>
+                                        </select>
+                                        <span class="  control-label  ">
+                                            Provider Name
+
+                                        </span>
+                                    </div>
+
+
+
+
+
+                                    <div class=" d-flex gap-2 col-md-8">
+                                        <label class="pt-2 color-sec">upload Excel</label>
+                                        <div class=" d-flex gap-2 form-group">
+                                            <input class="admin-form-control rounded-3 ps-2 py-2" type="file" />
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/DMS/ReportMain/ReportMain.js?V=3.2"></script>
