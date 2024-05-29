@@ -901,6 +901,30 @@ function SelectMedicien(event) {
                                                                     });
 
                                                                 }
+                                                                else if (Group == "Pending") {
+                                                                    var dialog = bootbox.dialog({
+                                                                        title: 'This Medicien is Not Covered!',
+                                                                        message: "<p>Pay method?</p>",
+                                                                        buttons: {
+                                                                            Cash: {
+                                                                                label: "Cash",
+                                                                                className: 'btn-info',
+                                                                                callback: function () {
+                                                                                    Group = "Cash";
+                                                                                    AppendRow();
+                                                                                }
+                                                                            },
+                                                                            Tele: {
+                                                                                label: "Pending",
+                                                                                className: 'btn-info',
+                                                                                callback: function () {
+                                                                                    Group = "Pending";
+                                                                                    AppendRow();
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                }
                                                                 else {
                                                                     AppendRow();
                                                                 }

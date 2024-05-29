@@ -847,6 +847,44 @@ function SelectRay(event) {
                             }
                         });
                     }
+                    else if (Group == "Pending") {
+                        var dialog = bootbox.dialog({
+                            title: 'This Rays is Not Covered!',
+                            message: "<p>Pay method?</p>",
+                            onEscape: function () {
+                                RemoveSelection(Code);
+                            },
+                            buttons: {
+                                Cash: {
+                                    Rayel: "Cash",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        Group = "Cash";
+                                        AppendRow();
+                                        Calculation();
+                                    }
+                                },
+                                Approval: {
+                                    Rayel: "Approval",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        Group = "Approval";
+                                        AppendRow();
+                                        Calculation();
+                                    }
+                                },
+                                Pending: {
+                                    Rayel: "Pending",
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        Group = "Pending";
+                                        AppendRow();
+                                        Calculation();
+                                    }
+                                }
+                            }
+                        });
+                    }
                     else {
                         AppendRow();
                         Calculation();
@@ -949,7 +987,7 @@ function Calculation() {
         if (limit_Daily > AnuualLimit || limit_Daily == 0) {
             limit_Daily = AnuualLimit;
         }
-        if (limit_Daily != 0 ) {
+        if (limit_Daily != 0) {
             ValueCredit = (total * (CompanyPayment / 100)).toFixed(2);
             if ((limit_Daily * (CompanyPayment / 100)) <= (ValueCredit)) {
                 $('#txtTotalCopayment').val((limit_Daily * (person / 100)).toFixed(2));

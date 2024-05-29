@@ -2015,6 +2015,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="CompId" Type="int" />
           <Property Name="ServiceCode" Type="nvarchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="CardId" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ProviderComplaint">
           <Key>
@@ -7487,6 +7488,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="CompId" Type="Int32" />
           <Property Name="ServiceCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CardId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_EmployeesSMSCode_Comp_Employees">
           <End Type="DB_A45413_DMSERPModel.Comp_Employees" Role="Comp_Employees" Multiplicity="1" />
@@ -10603,6 +10605,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="ProviderBlocks">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ProviderBlock">
               <MappingFragment StoreEntitySet="ProviderBlock">
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ServiceCode" ColumnName="ServiceCode" />
                 <ScalarProperty Name="CompId" ColumnName="CompId" />

@@ -545,6 +545,44 @@ function SelectMedicien(event) {
                                     }
                                 });
                             }
+                            else if (Group == "Pending") {
+                                var dialog = bootbox.dialog({
+                                    title: 'This Ray is Not Covered!',
+                                    message: "<p>Pay method?</p>",
+                                    onEscape: function () {
+                                        RemoveSelection(MedicienCode);
+                                    },
+                                    buttons: {
+                                        Cash: {
+                                            label: "Cash",
+                                            className: 'btn-info',
+                                            callback: function () {
+                                                Group = "Cash";
+                                                AppendRow();
+                                                Calculation();
+                                            }
+                                        },
+                                        Approval: {
+                                            label: "Approved",
+                                            className: 'btn-info',
+                                            callback: function () {
+                                                Group = "Approval";
+                                                AppendRow();
+                                                Calculation();
+                                            }
+                                        },
+                                        Tele: {
+                                            label: "Pending",
+                                            className: 'btn-info',
+                                            callback: function () {
+                                                Group = "Pending";
+                                                AppendRow();
+                                                Calculation();
+                                            }
+                                        }
+                                    }
+                                });
+                            }
                             else {
                                 AppendRow();
                                 Calculation();
