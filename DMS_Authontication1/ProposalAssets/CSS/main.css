@@ -684,7 +684,8 @@ a.next-a {
 .pool-field select {
     width: 20%;
     margin-bottom: 0%;
-    background-color: #e3e3e3;
+    background-color: #e3e3e3;`+
+        -+-02` 
     padding-left: 5px;
     font-size: 17px;
     color: var(--color-primary);
