@@ -285,6 +285,26 @@
 
         }
     });
+
+   
+    $("#TypeProvider").change(function () {
+        debugger;
+        if ($("#TypeProvider").val() != "") {
+           
+            $.ajax({
+                type: 'POST',
+                url: '/ReportMain/Provider/',
+                dataType: 'json',
+                data: { id: $(this).val() },
+                success: function (diag) {
+                    $("#Provider").empty();
+                    $.each(diag, function (index, row) {
+                        $("#Provider").append("<option value='" + row.Value + "'>" + row.Text + "</option>");
+                    });
+                }
+            });
+        }
+    });
 });
 
 function ClearAll() {
