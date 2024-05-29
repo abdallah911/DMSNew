@@ -9397,6 +9397,7 @@
     <Content Include="Reports\Offer2Class.rpt" />
     <Content Include="Reports\Offer3Class.rpt" />
     <Content Include="Reports\Offer4Class.rpt" />
+    <Content Include="Views\ProposalRenewals\RenewalBasicData.cshtml" />
     <Content Include="Views\ProposalRenewals\Show - Copy.cshtml" />
     <Content Include="Views\ReportMain\PriceList.cshtml" />
   </ItemGroup>

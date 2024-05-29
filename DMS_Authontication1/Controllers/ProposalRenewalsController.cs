@@ -116,8 +116,10 @@ namespace DMS_Authontication1.Controllers
 
                     db.SaveChanges();
 
-                    return RedirectToAction("RenewalStepTwoShow", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 1, mainIdOld = id });
-                                       
+                    //return RedirectToAction("RenewalStepTwoShow", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 1, mainIdOld = id });
+                    return RedirectToAction("RenewalBasicData", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 1, mainIdOld = id });
+
+                    
                 }
                 else
                     return RedirectToAction("Index");
@@ -199,7 +201,13 @@ namespace DMS_Authontication1.Controllers
 
         }
         #endregion
-
+        #region RenewalBasicData
+        public ActionResult RenewalBasicData(int mainId, int CompId, int ContractNo, int countCat, int typeAction, int mainIdOld)
+        {
+         
+            return View();
+        }
+        #endregion
 
         #region ProposalStepTwo
         public ActionResult RenewalStepTwoShow(int mainId, int CompId, int ContractNo, int countCat, int typeAction, int mainIdOld)
