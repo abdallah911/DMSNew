@@ -9398,8 +9398,16 @@
     <Content Include="Reports\Offer3Class.rpt" />
     <Content Include="Reports\Offer4Class.rpt" />
     <Content Include="Views\ProposalRenewals\RenewalBasicData.cshtml" />
-    <Content Include="Views\ProposalRenewals\Show - Copy.cshtml" />
     <Content Include="Views\ReportMain\PriceListUpload.cshtml" />
+    <Content Include="Views\Network\NetworkAddHRServiceProvider.cshtml" />
+    <Content Include="Views\Network\NetworkAddServiceProvider.cshtml" />
+    <Content Include="Views\Network\NetworkHRRequestsInquiry.cshtml" />
+    <Content Include="Views\Network\NetworkPharmaciesDiscountDetails.cshtml" />
+    <Content Include="Views\Network\NetworkPharmaciesDiscountSummary.cshtml" />
+    <Content Include="Views\Network\NetworkPricesEditingCPT.cshtml" />
+    <Content Include="Views\Network\NetworkServiceProviderData.cshtml" />
+    <Content Include="Views\Contracts\ContractsCompaniesContracts.cshtml" />
+    <Content Include="Views\Contracts\ContractsServiceProvidersContracts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
