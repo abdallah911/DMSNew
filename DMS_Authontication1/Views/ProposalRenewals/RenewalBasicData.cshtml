@@ -154,10 +154,31 @@
                             </div>
                         </div>
                     </div>
+                    <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
+                        <div style="padding: 15px 10px;" class="pool-field d-flex justify-content-between rounded-bottom-0">
+                            <h6 class=" sios-color fw-bold my-auto "> Broker</h6>
+                            <div class="d-flex align-items-center justify-content-start w-50 gap-2 text-start">
+                                <label for="broker" class="fs-5 fw-bold">يوجد</label>
+                                <input type="checkbox" style="width:10px;" id="brokerCheck" class="" />
+                            </div>
+                        </div>
+                        <div class="pool-field d-none  rounded-0" id="brockDisable" style="height: 50px;">
+                            <div class="inputs w-100">
+                                <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                    <input class="sios-form-control  w-100  border-0 " disabled="">
+                                    <span>الإسم</span>
+                                </div>
+                                <div class="forLabel" style=" width: 20%;   margin-right: 5%;  ">
+                                    <input class="sios-form-control  w-100  border-0 ">
+                                    <span>النسبة</span>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
                 </div>
-
-                <div class="my-1 shadow-sm" style="position: relative ">
+                
+                @*<div class="my-1 shadow-sm" style="position: relative ">
                     <input disabled="" id="disabled" style="height: 50px; color:#000;" class="sios-form-control home-input col ps-2 bg-white pb-2  sios-color" type="text">
                     <span class=" sios-color position-absolute top-50 translate-middle-y fw-bold " style="left:10px;">Broker</span>
                     <div class="d-flex gap-2" style="
@@ -187,7 +208,7 @@
                             <label for="myCheckbox"></label>
                         </div>
                     </div>
-                </div>
+                </div>*@
 
                 <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
                     <div class="pool-field shadow-sm py-3 px-2  " style="height:50px;">
@@ -219,7 +240,7 @@
                                 <span>مصاريف الإصدار</span>
                             </div>
                         </div>
-                        <h6 style="color: #000;"></h6>
+                        <h6 class="sios-color fw-bold">Expenses</h6>
 
                     </div>
 
@@ -230,16 +251,22 @@
 </div>
 
 <script>
-
-  
-        $("#toggleEnable").change(function () {
-            if ($(this).is(":checked")) {
-                console.log("work");
-                $(".brokeEnabled").show();
-            } else {
-                $(".brokeDisabled").hide();
+    $(document).ready(function () {
+        $('#brokerCheck').change(function () {
+            if ($(this).is(':checked')) {
+                $('#brockDisable').toggleClass("d-none");
             }
         });
+    });
+  
+        //$("#toggleEnable").change(function () {
+        //    if ($(this).is(":checked")) {
+        //        console.log("work");
+        //        $(".brokeEnabled").show();
+        //    } else {
+        //        $(".brokeDisabled").hide();
+        //    }
+        //});
 
 
 
