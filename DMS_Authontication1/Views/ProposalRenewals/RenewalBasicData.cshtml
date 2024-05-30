@@ -228,8 +228,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="pool-field-box mb-2 " style="height:50px;">
-                    <div class="pool-field py-2 position-relative">
+                <div class="pool-field-box mb-2 ">
+                    <div class="pool-field p-2 py-3 position-relative">
                         <div class="inputs w-100">
                             <div class="forLabel" style="width: 20%; margin-right: 5%;">
                                 <input class="sios-form-control  w-100  border-0 ">
@@ -251,13 +251,21 @@
 </div>
 
 <script>
+
     $(document).ready(function () {
         $('#brokerCheck').change(function () {
-            if ($(this).is(':checked')) {
-                $('#brockDisable').toggleClass("d-none");
-            }
+            console.log("it works")
+            $('#brockDisable').show();
         });
     });
+
+    //$(document).ready(function () {
+    //    $('#brokerCheck').change(function () {
+    //        if ($(this).is(':checked')) {
+    //            $('#brockDisable').toggleClass("d-none");
+    //        }
+    //    });
+    //});
   
         //$("#toggleEnable").change(function () {
         //    if ($(this).is(":checked")) {

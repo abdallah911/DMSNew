@@ -826,8 +826,9 @@ a.next-a {
 .sios-color {
     color: #17609b !important ;
 }
-.cate-child-toggle{
-    height:unset !important;
+.cate-child-toggle {
+    min-height: 135px;
+    padding: 5px;
 }
 /* footer */
 .footer {
