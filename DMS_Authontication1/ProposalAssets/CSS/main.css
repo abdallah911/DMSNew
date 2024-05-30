@@ -762,6 +762,7 @@ a.next-a {
 .coverage-radio-field input {
   margin-left: 5px;
   width: 10px;
+  height:10px
 }
 
 .form-check-input:checked {
@@ -825,15 +826,13 @@ a.next-a {
 .sios-color {
     color: #17609b !important ;
 }
-
-
-
-    /* footer */
-
-
-    .footer {
-  background: var(--color-gradient) !important;
-  color: white;
+.cate-child-toggle{
+    height:unset !important;
+}
+/* footer */
+.footer {
+    background: var(--color-gradient) !important;
+    color: white;
 }
 
 .footer h5 {
