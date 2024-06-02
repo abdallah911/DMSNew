@@ -827,14 +827,20 @@ a.next-a {
     color: #17609b !important ;
 }
 .cate-child-toggle {
-    min-height: 135px;
+    min-height: 160px;
     padding: 5px;
 }
-/* footer */
-.footer {
-    background: var(--color-gradient) !important;
-    color: white;
-}
+    .cate-child-toggle .coverage-radio-box {
+        border-radius: 9px;
+        background-color: #72aae647;
+        padding: 4px;
+        margin-top: 4px;
+    }
+    /* footer */
+    .footer {
+        background: var(--color-gradient) !important;
+        color: white;
+    }
 
 .footer h5 {
   font-weight: bolder !important;
