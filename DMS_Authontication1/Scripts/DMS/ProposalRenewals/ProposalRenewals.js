@@ -18,16 +18,14 @@ function ClearAll() {
 
 }
 
-$(document).ready(function () {
-    $("#toggleEnable").change(function () {
-        if ($(this).is(":checked")) {
-            console.log("work");
-            $("#brokeEnabled").show();
-        } else {
-            $("#brokeDisabled").hide();
-        }
-    });
-});
+function ShowBroker() {
+    if ($("#brokerCheck").is(":checked")) {
+        $('#brockDisable').show();
+    }
+    else {
+        $('#brockDisable').hide();
+    }
+}
 function SearchRenewal() {
     if ($('#CompId').val() != "" && !isNaN($('#CompId').val())) {
         $("#wait").css("display", "block");
