@@ -1853,6 +1853,13 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="CREATED_BY" Type="nvarchar" MaxLength="255" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="PoolService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceName" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Pr_Bra">
           <Key>
             <PropertyRef Name="Id" />
@@ -2144,6 +2151,25 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
           <Property Name="SyncDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="RenewalBasicData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ValuePool" Type="float" />
+          <Property Name="PercentPool" Type="nchar" MaxLength="10" />
+          <Property Name="TypeCovarge" Type="int" />
+          <Property Name="StopLoss" Type="float" />
+          <Property Name="VisitorValue" Type="float" />
+          <Property Name="VisitorNumber" Type="int" />
+          <Property Name="VisitorType" Type="int" />
+          <Property Name="IsBroker" Type="bit" />
+          <Property Name="BrokerId" Type="int" />
+          <Property Name="BrokerPercentage" Type="int" />
+          <Property Name="IssuanceExpenses" Type="float" />
+          <Property Name="AdminExpenses" Type="float" />
+          <Property Name="MainId" Type="int" />
+        </EntityType>
         <EntityType Name="RenewalInsideMedicalAuthorities">
           <Key>
             <PropertyRef Name="Id" />
@@ -2285,6 +2311,13 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="DoctorsExaminationValue" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="PricesOutsideMedicalAuthorityId" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'DB_A45413_DMSERP.dbo.RenewalServicePool' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="RenewalServicePool">
+          <Property Name="MainId" Type="int" />
+          <Property Name="ServiceId" Type="int" />
+          <Property Name="ServiceName" Type="nvarchar(max)" />
+        </EntityType>-->
         <EntityType Name="RenewalStepTwo">
           <Key>
             <PropertyRef Name="Id" />
@@ -3173,6 +3206,18 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RenewalBasicData_RenewalMains">
+          <End Role="RenewalMains" Type="Self.RenewalMains" Multiplicity="0..1" />
+          <End Role="RenewalBasicData" Type="Self.RenewalBasicData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RenewalMains">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalBasicData">
+              <PropertyRef Name="MainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RenewalInsideMedicalAuthorities_RenewalMains">
           <End Role="RenewalMains" Type="Self.RenewalMains" Multiplicity="1" />
           <End Role="RenewalInsideMedicalAuthorities" Type="Self.RenewalInsideMedicalAuthorities" Multiplicity="*" />
@@ -3197,6 +3242,12 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+error 6004: The table 'DB_A45413_DMSERP.dbo.RenewalServicePool' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_RenewalServicePool_PoolService" />-->
+        <!--Errors Found During Generation:
+error 6004: The table 'DB_A45413_DMSERP.dbo.RenewalServicePool' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_RenewalServicePool_RenewalBasicData" />-->
         <Association Name="FK_RenewalStepTwo_RenewalMains">
           <End Role="RenewalMains" Type="Self.RenewalMains" Multiplicity="1" />
           <End Role="RenewalStepTwo" Type="Self.RenewalStepTwo" Multiplicity="*" />
@@ -3696,6 +3747,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="PendingInPatient" EntityType="Self.PendingInPatient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PendingOutPatient" EntityType="Self.PendingOutPatient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PETROTRADE_EMPLOYEES" EntityType="Self.PETROTRADE_EMPLOYEES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PoolService" EntityType="Self.PoolService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pr_Bra" EntityType="Self.Pr_Bra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrescriptionRoshitaDignosis" EntityType="Self.PrescriptionRoshitaDignosis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrintMedicalReport" EntityType="Self.PrintMedicalReport" Schema="dbo" store:Type="Tables" />
@@ -3717,6 +3769,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RelationShip" EntityType="Self.RelationShip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RemainConsumption" EntityType="Self.RemainConsumption" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RenewalBasicData" EntityType="Self.RenewalBasicData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RenewalInsideMedicalAuthorities" EntityType="Self.RenewalInsideMedicalAuthorities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RenewalMains" EntityType="Self.RenewalMains" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RenewalOutsideMedicalAuthorities" EntityType="Self.RenewalOutsideMedicalAuthorities" Schema="dbo" store:Type="Tables" />
@@ -3890,6 +3943,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <AssociationSet Name="FK_Region_Country" Association="Self.FK_Region_Country">
             <End Role="Country" EntitySet="Country" />
             <End Role="Region" EntitySet="Region" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RenewalBasicData_RenewalMains" Association="Self.FK_RenewalBasicData_RenewalMains">
+            <End Role="RenewalMains" EntitySet="RenewalMains" />
+            <End Role="RenewalBasicData" EntitySet="RenewalBasicData" />
           </AssociationSet>
           <AssociationSet Name="FK_RenewalInsideMedicalAuthorities_RenewalMains" Association="Self.FK_RenewalInsideMedicalAuthorities_RenewalMains">
             <End Role="RenewalMains" EntitySet="RenewalMains" />
@@ -5554,6 +5611,12 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           </AssociationSet>
           <EntitySet Name="BasicDentalServices" EntityType="DB_A45413_DMSERPModel.BasicDentalService" />
           <EntitySet Name="DentalServices" EntityType="DB_A45413_DMSERPModel.DentalService" />
+          <EntitySet Name="PoolServices" EntityType="DB_A45413_DMSERPModel.PoolService" />
+          <EntitySet Name="RenewalBasicDatas" EntityType="DB_A45413_DMSERPModel.RenewalBasicData" />
+          <AssociationSet Name="FK_RenewalBasicData_RenewalMains" Association="DB_A45413_DMSERPModel.FK_RenewalBasicData_RenewalMains">
+            <End Role="RenewalMain" EntitySet="RenewalMains" />
+            <End Role="RenewalBasicData" EntitySet="RenewalBasicDatas" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7641,6 +7704,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="CreatedDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="RenewalInsideMedicalAuthorities" Relationship="DB_A45413_DMSERPModel.FK_RenewalInsideMedicalAuthorities_RenewalMains" FromRole="RenewalMain" ToRole="RenewalInsideMedicalAuthority" />
           <NavigationProperty Name="RenewalOutsideMedicalAuthorities" Relationship="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_RenewalMains" FromRole="RenewalMain" ToRole="RenewalOutsideMedicalAuthority" />
+          <NavigationProperty Name="RenewalBasicDatas" Relationship="DB_A45413_DMSERPModel.FK_RenewalBasicData_RenewalMains" FromRole="RenewalMain" ToRole="RenewalBasicData" />
         </EntityType>
         <EntityType Name="AgeAvg">
           <Key>
@@ -7954,6 +8018,45 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="PoolService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="RenewalBasicData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ValuePool" Type="Double" />
+          <Property Name="PercentPool" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TypeCovarge" Type="Int32" />
+          <Property Name="StopLoss" Type="Double" />
+          <Property Name="VisitorValue" Type="Double" />
+          <Property Name="VisitorNumber" Type="Int32" />
+          <Property Name="VisitorType" Type="Int32" />
+          <Property Name="IsBroker" Type="Boolean" />
+          <Property Name="BrokerId" Type="Int32" />
+          <Property Name="BrokerPercentage" Type="Int32" />
+          <Property Name="IssuanceExpenses" Type="Double" />
+          <Property Name="AdminExpenses" Type="Double" />
+          <Property Name="MainId" Type="Int32" />
+          <NavigationProperty Name="RenewalMain" Relationship="DB_A45413_DMSERPModel.FK_RenewalBasicData_RenewalMains" FromRole="RenewalBasicData" ToRole="RenewalMain" />
+        </EntityType>
+        <Association Name="FK_RenewalBasicData_RenewalMains">
+          <End Type="DB_A45413_DMSERPModel.RenewalMain" Role="RenewalMain" Multiplicity="0..1" />
+          <End Type="DB_A45413_DMSERPModel.RenewalBasicData" Role="RenewalBasicData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RenewalMain">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalBasicData">
+              <PropertyRef Name="MainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -11047,6 +11150,34 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.DentalService">
               <MappingFragment StoreEntitySet="DentalService">
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PoolServices">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PoolService">
+              <MappingFragment StoreEntitySet="PoolService">
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RenewalBasicDatas">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalBasicData">
+              <MappingFragment StoreEntitySet="RenewalBasicData">
+                <ScalarProperty Name="MainId" ColumnName="MainId" />
+                <ScalarProperty Name="AdminExpenses" ColumnName="AdminExpenses" />
+                <ScalarProperty Name="IssuanceExpenses" ColumnName="IssuanceExpenses" />
+                <ScalarProperty Name="BrokerPercentage" ColumnName="BrokerPercentage" />
+                <ScalarProperty Name="BrokerId" ColumnName="BrokerId" />
+                <ScalarProperty Name="IsBroker" ColumnName="IsBroker" />
+                <ScalarProperty Name="VisitorType" ColumnName="VisitorType" />
+                <ScalarProperty Name="VisitorNumber" ColumnName="VisitorNumber" />
+                <ScalarProperty Name="VisitorValue" ColumnName="VisitorValue" />
+                <ScalarProperty Name="StopLoss" ColumnName="StopLoss" />
+                <ScalarProperty Name="TypeCovarge" ColumnName="TypeCovarge" />
+                <ScalarProperty Name="PercentPool" ColumnName="PercentPool" />
+                <ScalarProperty Name="ValuePool" ColumnName="ValuePool" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
