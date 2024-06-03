@@ -14,6 +14,12 @@ namespace DMS_Authontication1.Models
     
     public partial class RenewalBasicData
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public RenewalBasicData()
+        {
+            this.RenewalServicePools = new HashSet<RenewalServicePool>();
+        }
+    
         public int Id { get; set; }
         public Nullable<double> ValuePool { get; set; }
         public string PercentPool { get; set; }
@@ -30,5 +36,7 @@ namespace DMS_Authontication1.Models
         public Nullable<int> MainId { get; set; }
     
         public virtual RenewalMain RenewalMain { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RenewalServicePool> RenewalServicePools { get; set; }
     }
 }

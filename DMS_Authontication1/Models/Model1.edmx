@@ -2311,13 +2311,14 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="DoctorsExaminationValue" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="PricesOutsideMedicalAuthorityId" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'DB_A45413_DMSERP.dbo.RenewalServicePool' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="RenewalServicePool">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
           <Property Name="MainId" Type="int" />
           <Property Name="ServiceId" Type="int" />
-          <Property Name="ServiceName" Type="nvarchar(max)" />
-        </EntityType>-->
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="RenewalStepTwo">
           <Key>
             <PropertyRef Name="Id" />
@@ -3242,12 +3243,30 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-error 6004: The table 'DB_A45413_DMSERP.dbo.RenewalServicePool' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_RenewalServicePool_PoolService" />-->
-        <!--Errors Found During Generation:
-error 6004: The table 'DB_A45413_DMSERP.dbo.RenewalServicePool' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_RenewalServicePool_RenewalBasicData" />-->
+        <Association Name="FK_RenewalServicePol_PoolService">
+          <End Role="PoolService" Type="Self.PoolService" Multiplicity="0..1" />
+          <End Role="RenewalServicePool" Type="Self.RenewalServicePool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoolService">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalServicePool">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RenewalServicePol_RenewalBasicData">
+          <End Role="RenewalBasicData" Type="Self.RenewalBasicData" Multiplicity="0..1" />
+          <End Role="RenewalServicePool" Type="Self.RenewalServicePool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RenewalBasicData">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalServicePool">
+              <PropertyRef Name="MainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RenewalStepTwo_RenewalMains">
           <End Role="RenewalMains" Type="Self.RenewalMains" Multiplicity="1" />
           <End Role="RenewalStepTwo" Type="Self.RenewalStepTwo" Multiplicity="*" />
@@ -3773,6 +3792,7 @@ error 6004: The table 'DB_A45413_DMSERP.dbo.RenewalServicePool' is referenced by
           <EntitySet Name="RenewalInsideMedicalAuthorities" EntityType="Self.RenewalInsideMedicalAuthorities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RenewalMains" EntityType="Self.RenewalMains" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RenewalOutsideMedicalAuthorities" EntityType="Self.RenewalOutsideMedicalAuthorities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RenewalServicePool" EntityType="Self.RenewalServicePool" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RenewalStepTwo" EntityType="Self.RenewalStepTwo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestAddProvider" EntityType="Self.RequestAddProvider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roshita" EntityType="Self.Roshita" Schema="dbo" store:Type="Tables" />
@@ -3955,6 +3975,14 @@ error 6004: The table 'DB_A45413_DMSERP.dbo.RenewalServicePool' is referenced by
           <AssociationSet Name="FK_RenewalOutsideMedicalAuthorities_RenewalMains" Association="Self.FK_RenewalOutsideMedicalAuthorities_RenewalMains">
             <End Role="RenewalMains" EntitySet="RenewalMains" />
             <End Role="RenewalOutsideMedicalAuthorities" EntitySet="RenewalOutsideMedicalAuthorities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RenewalServicePol_PoolService" Association="Self.FK_RenewalServicePol_PoolService">
+            <End Role="PoolService" EntitySet="PoolService" />
+            <End Role="RenewalServicePool" EntitySet="RenewalServicePool" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RenewalServicePol_RenewalBasicData" Association="Self.FK_RenewalServicePol_RenewalBasicData">
+            <End Role="RenewalBasicData" EntitySet="RenewalBasicData" />
+            <End Role="RenewalServicePool" EntitySet="RenewalServicePool" />
           </AssociationSet>
           <AssociationSet Name="FK_RenewalStepTwo_RenewalMains" Association="Self.FK_RenewalStepTwo_RenewalMains">
             <End Role="RenewalMains" EntitySet="RenewalMains" />
@@ -5616,6 +5644,15 @@ error 6004: The table 'DB_A45413_DMSERP.dbo.RenewalServicePool' is referenced by
           <AssociationSet Name="FK_RenewalBasicData_RenewalMains" Association="DB_A45413_DMSERPModel.FK_RenewalBasicData_RenewalMains">
             <End Role="RenewalMain" EntitySet="RenewalMains" />
             <End Role="RenewalBasicData" EntitySet="RenewalBasicDatas" />
+          </AssociationSet>
+          <EntitySet Name="RenewalServicePools" EntityType="DB_A45413_DMSERPModel.RenewalServicePool" />
+          <AssociationSet Name="FK_RenewalServicePol_PoolService" Association="DB_A45413_DMSERPModel.FK_RenewalServicePol_PoolService">
+            <End Role="PoolService" EntitySet="PoolServices" />
+            <End Role="RenewalServicePool" EntitySet="RenewalServicePools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RenewalServicePol_RenewalBasicData" Association="DB_A45413_DMSERPModel.FK_RenewalServicePol_RenewalBasicData">
+            <End Role="RenewalBasicData" EntitySet="RenewalBasicDatas" />
+            <End Role="RenewalServicePool" EntitySet="RenewalServicePools" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
@@ -8024,6 +8061,7 @@ error 6004: The table 'DB_A45413_DMSERP.dbo.RenewalServicePool' is referenced by
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ServiceName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RenewalServicePools" Relationship="DB_A45413_DMSERPModel.FK_RenewalServicePol_PoolService" FromRole="PoolService" ToRole="RenewalServicePool" />
         </EntityType>
         <EntityType Name="RenewalBasicData">
           <Key>
@@ -8044,6 +8082,7 @@ error 6004: The table 'DB_A45413_DMSERP.dbo.RenewalServicePool' is referenced by
           <Property Name="AdminExpenses" Type="Double" />
           <Property Name="MainId" Type="Int32" />
           <NavigationProperty Name="RenewalMain" Relationship="DB_A45413_DMSERPModel.FK_RenewalBasicData_RenewalMains" FromRole="RenewalBasicData" ToRole="RenewalMain" />
+          <NavigationProperty Name="RenewalServicePools" Relationship="DB_A45413_DMSERPModel.FK_RenewalServicePol_RenewalBasicData" FromRole="RenewalBasicData" ToRole="RenewalServicePool" />
         </EntityType>
         <Association Name="FK_RenewalBasicData_RenewalMains">
           <End Type="DB_A45413_DMSERPModel.RenewalMain" Role="RenewalMain" Multiplicity="0..1" />
@@ -8053,6 +8092,40 @@ error 6004: The table 'DB_A45413_DMSERP.dbo.RenewalServicePool' is referenced by
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="RenewalBasicData">
+              <PropertyRef Name="MainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RenewalServicePool">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="MainId" Type="Int32" />
+          <Property Name="ServiceId" Type="Int32" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="PoolService" Relationship="DB_A45413_DMSERPModel.FK_RenewalServicePol_PoolService" FromRole="RenewalServicePool" ToRole="PoolService" />
+          <NavigationProperty Name="RenewalBasicData" Relationship="DB_A45413_DMSERPModel.FK_RenewalServicePol_RenewalBasicData" FromRole="RenewalServicePool" ToRole="RenewalBasicData" />
+        </EntityType>
+        <Association Name="FK_RenewalServicePol_PoolService">
+          <End Type="DB_A45413_DMSERPModel.PoolService" Role="PoolService" Multiplicity="0..1" />
+          <End Type="DB_A45413_DMSERPModel.RenewalServicePool" Role="RenewalServicePool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PoolService">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalServicePool">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RenewalServicePol_RenewalBasicData">
+          <End Type="DB_A45413_DMSERPModel.RenewalBasicData" Role="RenewalBasicData" Multiplicity="0..1" />
+          <End Type="DB_A45413_DMSERPModel.RenewalServicePool" Role="RenewalServicePool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RenewalBasicData">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RenewalServicePool">
               <PropertyRef Name="MainId" />
             </Dependent>
           </ReferentialConstraint>
@@ -11179,6 +11252,15 @@ error 6004: The table 'DB_A45413_DMSERP.dbo.RenewalServicePool' is referenced by
                 <ScalarProperty Name="PercentPool" ColumnName="PercentPool" />
                 <ScalarProperty Name="ValuePool" ColumnName="ValuePool" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RenewalServicePools">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalServicePool">
+              <MappingFragment StoreEntitySet="RenewalServicePool">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="MainId" ColumnName="MainId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

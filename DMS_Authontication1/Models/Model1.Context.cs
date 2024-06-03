@@ -165,6 +165,7 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<DentalService> DentalServices { get; set; }
         public virtual DbSet<PoolService> PoolServices { get; set; }
         public virtual DbSet<RenewalBasicData> RenewalBasicDatas { get; set; }
+        public virtual DbSet<RenewalServicePool> RenewalServicePools { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)

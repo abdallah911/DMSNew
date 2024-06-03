@@ -462,6 +462,7 @@
     <Compile Include="Models\AlphabetLetter.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AnalysisLossRatio.cs" />
     <Compile Include="Models\ApprovalBil.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -881,6 +882,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RenewalOutsideMedicalAuthority.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RenewalServicePool.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RenewalStepTwo.cs">
