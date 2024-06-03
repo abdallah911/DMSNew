@@ -1327,6 +1327,7 @@
     <Compile Include="ViewModel\ProviderServicesPermissionsViewModal.cs" />
     <Compile Include="ViewModel\RenewalInsideMedicalAuthorityViewModel.cs" />
     <Compile Include="ViewModel\RenewalOutsideMedicalAuthorityViewModel.cs" />
+    <Compile Include="ViewModel\RenwalBasicDataViewModel.cs" />
     <Compile Include="ViewModel\RenwalStepTwoViewModel.cs" />
     <Compile Include="ViewModel\SpecilityDiagnoseViewmodel.cs" />
     <Compile Include="ViewModel\MedicineTypeViewmodel.cs" />
