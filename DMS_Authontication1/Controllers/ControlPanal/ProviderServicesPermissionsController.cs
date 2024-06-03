@@ -127,11 +127,13 @@ namespace DMS_Authontication1.Controllers.ControlPanal
         {
             if (model.UserId != null)
             {
+                int comp ;
+                int.TryParse(model.CompId,out comp);
                 ProviderBlock providerBlock = new ProviderBlock
                 {
                     Id = model.Id,
                     UserId = model.UserId,
-                    CompId = int.Parse(model.CompId),
+                    CompId = comp,
                     IsActive = model.IsActive,
                     ServiceCode = model.ServiceCode.ToString(),
                     CardId = model.CardId,
