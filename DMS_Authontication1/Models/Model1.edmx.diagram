@@ -185,6 +185,9 @@
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalOutsideMedicalAuthorities_RenewalMains" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.BasicDentalService" Width="1.5" PointX="37.375" PointY="31.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.DentalService" Width="1.5" PointX="39.375" PointY="31.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PoolService" Width="1.5" PointX="28.375" PointY="41.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalBasicData" Width="1.5" PointX="43.625" PointY="30.5" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalBasicData_RenewalMains" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

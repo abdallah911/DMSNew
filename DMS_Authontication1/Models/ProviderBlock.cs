@@ -19,5 +19,6 @@ namespace DMS_Authontication1.Models
         public Nullable<int> CompId { get; set; }
         public string ServiceCode { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string CardId { get; set; }
     }
 }
