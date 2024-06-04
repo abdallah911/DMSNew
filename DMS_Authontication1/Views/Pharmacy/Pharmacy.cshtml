@@ -117,7 +117,7 @@
                         @Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                     </div>
-                    <div class="col-sm-2" >
+                    <div class="col-sm-2">
                         @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
                         @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
                     </div>
@@ -139,7 +139,10 @@
                             <option value="11604">Doctor</option>
                         </select>
                     </div>
-
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.compEmp.CompHolderName, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @style = "border-color:red", @class = "fw-bold form-control", @ReadOnly = "true" } })
+                    </div>
 
                 </div>
             </div>

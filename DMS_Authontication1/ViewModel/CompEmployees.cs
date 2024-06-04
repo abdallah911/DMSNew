@@ -22,6 +22,8 @@ namespace DMS_TEST
         public string EMP_ANAME_SC { get; set; }
         [DisplayName("Third Name")]
         public string EMP_ANAME_TH { get; set; }
+        [DisplayName("Comp Name")]
+        public string CompHolderName { get; set; }
         [DisplayName("Start Date")]
         public Nullable<System.DateTime> INS_START_DATE { get; set; }
         [DisplayName("End Date")]
