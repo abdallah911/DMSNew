@@ -216,33 +216,21 @@
 
 <script>
 
+
     $(document).ready(function () {
         $('#brokerCheck').change(function () {
-            console.log("it works")
-            $('#brockDisable').show();
+            if ($(this).is(':checked')) {
+                $('#brockDisable').toggleClass("d-none");
+            }
         });
     });
-
-    //$(document).ready(function () {
-    //    $('#brokerCheck').change(function () {
-    //        if ($(this).is(':checked')) {
-    //            $('#brockDisable').toggleClass("d-none");
-    //        }
-    //    });
-    //});
-
-        //$("#toggleEnable").change(function () {
-        //    if ($(this).is(":checked")) {
-        //        console.log("work");
-        //        $(".brokeEnabled").show();
-        //    } else {
-        //        $(".brokeDisabled").hide();
-        //    }
-        //});
+  
+    
 
 
 
 </script>
+<script src="~/Scripts/DMS/ProposalRenewals/jquery.min.js"></script>
 <script src="~/Scripts/DMS/ProposalRenewals/ProposalRenewals.js"></script>
 
 
