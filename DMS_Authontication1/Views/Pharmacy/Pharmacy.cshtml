@@ -117,49 +117,44 @@
                             <select id="ddlDiagnoises" style="width:100%" multiple></select>
                             <span>Diagnoise</span>
                         </div>
-                        <div class="forLabel admin-form-control border-0 px-2">
-                            @*@Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })*@
-                            @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control", @ReadOnly = "true" } })
-                            <span>Birth Date</span>
-                        </div>
-                        <div class="forLabel admin-form-control border-0 px-2" hidden>
-                            @*@Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })*@
-                            @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control", @ReadOnly = "true" } })
-                            <span>Company Percent</span>
-                        </div>
-                        <div class="forLabel admin-form-control border-0 px-2">
-                            @*@Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })*@
-                            @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control", @ReadOnly = "true" } })
-                            <span>Company Percent</span>
-                        </div>
-                        <div class="forLabel admin-form-control border-0 px-2" data-step="3" data-intro="Enter Preception Date">
-                            @*@Html.Label("Prescription Date", htmlAttributes: new { @class = "control-label", @title = "لابد ان يكون ف اخر 7 ايام " })*@
-                            @Html.Editor("PrescriptionDate", new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control", @ReadOnly = "true", @title = "لابد ان يكون ف اخر 7 ايام " } })
-                            <span>Prescription Date</span>
-                        </div>
-                        <div class="forLabel admin-form-control border-0 px-2" data-step="5" data-intro="Enter Phone with 11 Number " id="phone">
-                            @*@Html.Label("Phone Number", htmlAttributes: new { @class = "control-label" })*@
-                            @Html.Editor("PhoneNumber", new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control", @id = "PhoneNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
-                            <span>Phone Number</span>
-                        </div>
-                        <div class="forLabel admin-form-control border-0 px-2" data-step="6" data-intro="Select Preception type Default is Daily">
-                            @*@Html.Label("Type", htmlAttributes: new { @class = "control-label" })*@
-                            <select id="ddlType" class="admin-form-control w-100 h-100 form-control">
-                                <option value="0">Select Preception type</option>
-                                <option value="11601">Daily</option>
-                                <option value="11603">Monthly</option>
-                                <option value="11602">Chronic</option>
-                                <option value="11604">Doctor</option>
-                            </select>
-                            <span>Type</span>
-                        </div>
-
-                        <div class="forLabel admin-form-control border-0 px-2">
-                            @*@Html.LabelFor(model => model.compEmp.CompHolderName, htmlAttributes: new { @class = "control-label" })*@
-                            @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control", @style = " border-color: red; font-weight: 700!important; box-shadow: 0 0 3px 1px #e1434369;", @ReadOnly = "true" } })
-                            <span>Comp Name</span>
-                        </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2" hidden>
+                        @Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2" data-step="3" data-intro="Enter Preception Date">
+                        @Html.Label("Prescription Date", htmlAttributes: new { @class = "control-label", @title = "لابد ان يكون ف اخر 7 ايام " })
+                        @Html.Editor("PrescriptionDate", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true", @title = "لابد ان يكون ف اخر 7 ايام " } })
+                    </div>
+                    <div class="col-sm-2" data-step="5" data-intro="Enter Phone with 11 Number " id="phone">
+                        @Html.Label("Phone Number", htmlAttributes: new { @class = "control-label" })
+                        @Html.Editor("PhoneNumber", new { htmlAttributes = new { @class = "form-control", @id = "PhoneNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                    </div>
+                    <div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
+                        @Html.Label("Type", htmlAttributes: new { @class = "control-label" })
+                        <select id="ddlType" class="form-control">
+                            <option value="0">Select Preception type</option>
+                            <option value="11601">Daily</option>
+                            <option value="11603">Monthly</option>
+                            <option value="11602">Chronic</option>
+                            <option value="11604">Doctor</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.compEmp.CompHolderName, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @style = "border-color:red", @class = "fw-bold form-control", @ReadOnly = "true" } })
+                    </div>
+
                 </div>
 
             </div>

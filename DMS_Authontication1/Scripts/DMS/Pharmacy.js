@@ -62,6 +62,7 @@ $(function () {
         $('#PhoneNumber').val('');
         $('#contractComp_C_ANAME').val('');
         $('#compEmp_EMP_ANAME').val('');
+        $('#compEmp_CompHolderName').val('');
         $('#compEmp_INS_START_DATE').val('');
         $('#compEmp_INS_END_DATE').val('');
         $('#compEmp_BIRTH_DATE').val('');
@@ -2476,6 +2477,7 @@ function ClearCardData() {
     $('#PhoneNumber').val('');
     $('#contractComp_C_ANAME').val('');
     $('#compEmp_EMP_ANAME').val('');
+    $('#compEmp_CompHolderName').val('');
     $('#compEmp_INS_START_DATE').val('');
     $('#compEmp_INS_END_DATE').val('');
     $('#compEmp_BIRTH_DATE').val('');

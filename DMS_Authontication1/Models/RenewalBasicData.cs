@@ -22,7 +22,7 @@ namespace DMS_Authontication1.Models
     
         public int Id { get; set; }
         public Nullable<double> ValuePool { get; set; }
-        public string PercentPool { get; set; }
+        public Nullable<int> PercentPool { get; set; }
         public Nullable<int> TypeCovarge { get; set; }
         public Nullable<double> StopLoss { get; set; }
         public Nullable<double> VisitorValue { get; set; }
@@ -34,6 +34,9 @@ namespace DMS_Authontication1.Models
         public Nullable<double> IssuanceExpenses { get; set; }
         public Nullable<double> AdminExpenses { get; set; }
         public Nullable<int> MainId { get; set; }
+        public Nullable<bool> IsMedication { get; set; }
+        public Nullable<bool> IsInpatient { get; set; }
+        public Nullable<bool> IsLab { get; set; }
     
         public virtual RenewalMain RenewalMain { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

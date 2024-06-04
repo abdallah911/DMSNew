@@ -2157,7 +2157,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="ValuePool" Type="float" />
-          <Property Name="PercentPool" Type="nchar" MaxLength="10" />
+          <Property Name="PercentPool" Type="int" />
           <Property Name="TypeCovarge" Type="int" />
           <Property Name="StopLoss" Type="float" />
           <Property Name="VisitorValue" Type="float" />
@@ -2169,6 +2169,9 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="IssuanceExpenses" Type="float" />
           <Property Name="AdminExpenses" Type="float" />
           <Property Name="MainId" Type="int" />
+          <Property Name="IsMedication" Type="bit" />
+          <Property Name="IsInpatient" Type="bit" />
+          <Property Name="IsLab" Type="bit" />
         </EntityType>
         <EntityType Name="RenewalInsideMedicalAuthorities">
           <Key>
@@ -8069,7 +8072,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="ValuePool" Type="Double" />
-          <Property Name="PercentPool" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PercentPool" Type="Int32" />
           <Property Name="TypeCovarge" Type="Int32" />
           <Property Name="StopLoss" Type="Double" />
           <Property Name="VisitorValue" Type="Double" />
@@ -8083,6 +8086,9 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="MainId" Type="Int32" />
           <NavigationProperty Name="RenewalMain" Relationship="DB_A45413_DMSERPModel.FK_RenewalBasicData_RenewalMains" FromRole="RenewalBasicData" ToRole="RenewalMain" />
           <NavigationProperty Name="RenewalServicePools" Relationship="DB_A45413_DMSERPModel.FK_RenewalServicePol_RenewalBasicData" FromRole="RenewalBasicData" ToRole="RenewalServicePool" />
+          <Property Name="IsMedication" Type="Boolean" />
+          <Property Name="IsInpatient" Type="Boolean" />
+          <Property Name="IsLab" Type="Boolean" />
         </EntityType>
         <Association Name="FK_RenewalBasicData_RenewalMains">
           <End Type="DB_A45413_DMSERPModel.RenewalMain" Role="RenewalMain" Multiplicity="0..1" />
@@ -11238,6 +11244,9 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="RenewalBasicDatas">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalBasicData">
               <MappingFragment StoreEntitySet="RenewalBasicData">
+                <ScalarProperty Name="IsLab" ColumnName="IsLab" />
+                <ScalarProperty Name="IsInpatient" ColumnName="IsInpatient" />
+                <ScalarProperty Name="IsMedication" ColumnName="IsMedication" />
                 <ScalarProperty Name="MainId" ColumnName="MainId" />
                 <ScalarProperty Name="AdminExpenses" ColumnName="AdminExpenses" />
                 <ScalarProperty Name="IssuanceExpenses" ColumnName="IssuanceExpenses" />
