@@ -849,6 +849,9 @@
     <Compile Include="Models\RenewalOutsideMedicalAuthority.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RenewalServicePool.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RenewalStepTwo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
