@@ -91,6 +91,9 @@ namespace DMS_Authontication1.Controllers
         public async Task<ActionResult> SaveDataBasicData(RenwalBasicDataViewModel model)
         {
 
+
+
+
             return RedirectToAction("RenewalStepTwoShow", new { mainId = model.MainId, model.CompId, ContractNo = model.ContractNo, countCat = model.CountClass, typeAction = model.typAction, mainIdOld = model.MainId });
 
             //try
@@ -231,7 +234,7 @@ namespace DMS_Authontication1.Controllers
                     db.SaveChanges();
 
                   //  return RedirectToAction("RenewalStepTwoShow", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 2, mainIdOld = model.Id });
-                    return RedirectToAction("RenewalBasicData", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 1, mainIdOld = id });
+                    return RedirectToAction("RenewalBasicData", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 2, mainIdOld = id });
 
 
                     //return View("Index");
@@ -254,12 +257,31 @@ namespace DMS_Authontication1.Controllers
         {
 
             ViewBag.CompId = CompId;
-           ViewBag.ContractNo = ContractNo;
-           ViewBag.CountClass = countCat;
+            ViewBag.ContractNo = ContractNo;
+            ViewBag.CountClass = countCat;
             ViewBag.typAction = typeAction;
-           ViewBag.MainId = mainIdOld;
+            ViewBag.MainId = mainIdOld;
 
-            return View();
+
+            var polService = db.PoolServices.ToList();
+            var brokerr = _dbContext.Brokers.ToList();
+            
+
+            ViewBag.PolServ = new SelectList(polService, "Id", "ServiceName");
+            ViewBag.Brokerss = new SelectList(brokerr, "Id", "Name");
+
+
+            var model = new RenwalBasicDataViewModel();
+
+            model.CompId = CompId;
+            model.ContractNo = ContractNo;
+            model.CountClass = countCat;
+            model.typAction = typeAction;
+            model.MainId = mainIdOld;
+
+
+
+            return View(model);
         }
         #endregion
 
