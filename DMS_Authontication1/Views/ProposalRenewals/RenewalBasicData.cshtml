@@ -66,7 +66,8 @@
                                         @*<select style="margin-right: 5%;" class="sios-form-control w-100 border-0"></select>*@
 
                                         @*@Html.DropDownListFor(model => Model.poolService, ViewBag.PolServ as SelectList, "Select Services", new { @class = "sios-form-control w-100 border-0", style = "width: 100%", id = "poolService", multiple = "multiple" })*@
-                                        @Html.ListBoxFor(model => Model.poolService, ViewBag.PolServ as SelectList, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", id = "poolService" })
+                                        @Html.DropDownListFor(model => Model.poolService, ViewBag.PolServ as SelectList, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", id = "ddlServices" })
+
 
                                         @*  <span style="left: 10px !important; padding-left: 0;">Multiselection</span>*@
                                     </div>
@@ -192,13 +193,13 @@
                                 <h6 class="sios-color fw-bold my-auto">Broker</h6>
                                 <div class="d-flex align-items-center justify-content-start w-50 gap-2 text-start">
                                     <label for="broker" class="fs-5 fw-bold">يوجد</label>
-                                    @Html.CheckBoxFor(model => model.IsBroker, new { @class = "" , @style="box-shadow:none;", onclick= "ShowBroker()", id = "brokerCheck" })
+                                    @Html.CheckBoxFor(model => model.IsBroker, new { @class = "", @style = "box-shadow:none;", onclick = "ShowBroker()", id = "brokerCheck" })
 
 
                                     @* <input type="checkbox" style="width:10px;" id="brokerCheck" class="" />*@
                                 </div>
                             </div>
-                            <div class="pool-field rounded-0"  id="brockDisable" style="height: 50px; display:none;" >
+                            <div class="pool-field rounded-0" id="brockDisable" style="height: 50px; display:none;">
                                 <div class="inputs w-100">
                                     <div class="forLabel" style="width: 20%; margin-right: 5%;">
 
@@ -277,6 +278,5 @@
 
 
 <script src="~/Scripts/DMS/ProposalRenewals/jquery.min.js"></script>
+<script src="~/Scripts/DMS/ProposalRenewals/select2.min.js"></script>
 <script src="~/Scripts/DMS/ProposalRenewals/ProposalRenewals.js"></script>
-
-
