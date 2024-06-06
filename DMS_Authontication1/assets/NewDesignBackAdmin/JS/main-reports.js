@@ -12,7 +12,7 @@ $(document).ready(function () {
   //   localStorage.setItem("isClicked", false);
   // });
   $(".sidebar-item").click(function () {
-    $(".sidebar-item").removeClass("active");
+      $(this).removeClass("active");
     $(this).addClass("active");
     localStorage.setItem("activeLink", $(this).attr("id"));
   });

@@ -21,10 +21,10 @@
             <div class="row container mx-auto col-sm-8">
                 <div class="   pe-0 row row-cols-xl-4  row-cols-sm-2 row-gap-2 ">
                     <div class="">
-                        <input id="From" type="text" class=" admin-form-control form-control " placeholder="From" />
+                        <input id="From" type="text" class="date-input admin-form-control form-control " placeholder="From" />
                     </div>
                     <div class="">
-                        <input id="To" type="text" class=" admin-form-control form-control " placeholder="To" />
+                        <input id="To" type="text" class="date-input admin-form-control form-control " placeholder="To" />
                     </div>
                     <div class="">
                         @Html.DropDownList("CompName", ViewBag.company as SelectList, "Select Company", new { @class = "admin-form-control form-control", @id = "CompName" })

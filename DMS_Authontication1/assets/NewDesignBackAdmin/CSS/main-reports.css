@@ -581,8 +581,8 @@ div.hide-pseudo::before {
 }
 .select2-selection--single .select2-selection__arrow {
     top: 15% !important;
-    left: 5px !important;
     right: unset !important;
+    left: 4px;
 }
 /* footer */
 .footer {
