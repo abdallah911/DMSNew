@@ -356,7 +356,7 @@
                                 }
 
 
-                                <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                                @*<ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
                                     <li class="nav-item dropdown" style="list-style-type: none">
                                         <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="mb-2 fa-solid fa-hand-holding"></i>
@@ -369,7 +369,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                </ul>
+                                </ul>*@
                                 <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
                                     <li class="nav-item dropdown" style="list-style-type: none">
                                         <a class="nav-link"
@@ -424,7 +424,7 @@
             </ul>*@
 
 
-                                <ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
+                                @*<ul class="ps-0 Admin-main-ul" style="margin-top: 3px">
                                     <li class="nav-item dropdown" style="list-style-type: none">
                                         <a class="nav-link"
                                            href="#"
@@ -468,7 +468,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                </ul>
+                                </ul>*@
 
 
                                 if (modellist.Where(x => (x.ModuleName == "Pharmacies Management" || x.ModuleName == "Labratories Management" || x.ModuleName == "Rays Centers Management") && (x.PageId == 6 || x.PageId == 9 || x.PageId == 11)
@@ -504,7 +504,9 @@
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                                 {
                                                     <li>@Html.ActionLink("Labs", "Lab", "Labs", null, new { @class = "dropdown-item" })</li>
+
                                                 }
+                                           
                                                 <!-- <li><a class="dropdown-item" href="#">Hospital</a></li> -->
                                             </ul>
                                         </li>
@@ -535,6 +537,13 @@
                                             <li>
                                                 <a class="dropdown-item" href="./Radio-Centers.html">Policy</a>
                                             </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Networks</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Customer&nbsp;Service</a>
+                                            </li>
+
                                             <li>
                                                 <a class="dropdown-item" href="#">Network</a>
                                             </li>

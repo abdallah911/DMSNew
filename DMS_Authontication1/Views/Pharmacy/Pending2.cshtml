@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<DMS_TEST.ViewModel.Roshita_RoshitaDetails>
 @{
     ViewBag.Title = "Pending";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
+
 }
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 @Html.Partial("_Approvals")
@@ -41,7 +43,7 @@
 
 
             </div>
-            <br/>
+            
             @*<div class="panel-footer" style="text-align:right;">
                 <a id="Print" href="#" class="btn btn-success glyphicon glyphicon-print " disabled> Print</a>
 

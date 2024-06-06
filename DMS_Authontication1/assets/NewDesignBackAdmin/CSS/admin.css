@@ -258,6 +258,13 @@ span.select2-selection__arrow {
 span.select2-dropdown.select2-dropdown--below {
     z-index: 4000;
 }
+ul#select2-ddlDiagnoises-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+li.select2-selection__choice{
+    width: 24%;
+}
 /* ====================CS Pages=========================================== */
 
 .cs-page-container span.select2.select2-container.select2-container--default {
@@ -438,7 +445,67 @@ span.select2.select2-container.select2-container--default {
 .doctor-page-container .select2-container.select2-container--open {
     z-index: 2000 !important;
 }
+/* ====================permission Table=========================================== */
+.jsgrid-header-row > .jsgrid-header-cell {
+    background-color: #86aef770 !important;
+    font-weight: 700 !important;
+}
+.jsgrid-row td.jsgrid-cell {
+    background-color: #0000000d !important;
+
+}
+td.jsgrid-cell {
+    border-color: #ebe9e9;
+    background-color: transparent !important;
+    padding: 10px;
+}
+.jsgrid-cell input[type="text"] {
+    border-color: #ebe9e9;
+    border-radius: 6px;
+    padding: 8px;
+    box-shadow: 0 0 4px 1px #00000014;
+    outline: none;
+}
+
+span.jsgrid-pager-nav-button {
+    background-color: var(--color-btn);
+    color: white !important;
+    width: 100px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 4px;
+}
+span.jsgrid-pager-nav-button:hover {
+    background-color: var(--color-btn-sec) !important;
+}
+span.jsgrid-pager-nav-button a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+}
+.jsgrid-pager span.jsgrid-pager-page {
+    color: #17609b;
+    background: white;
+    display: inline-block;
+    margin-left: 1.2px;
+    box-shadow: 0 0 3px 1px #00000017;
+    text-decoration: none;
+    font-weight: 700;
+    height: 26.6px;
+    border-radius: 2px;
+    width: 30px;
+    text-align: center;
+}
+span.jsgrid-pager-page.jsgrid-pager-current-page {
+    background-color: #17609b;
+    color: white;
+}
+span.jsgrid-pager-page:hover {
+    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.281);
+}
+
 /* ====================Table=========================================== */
+
 table,
 .table{
     white-space:nowrap;
@@ -858,6 +925,17 @@ textarea {
 
 .modal-header {
     border-radius: 20px 20px 0 0;
+    background: var(--color-gradient);
+    color: white;
+}
+.modal-header button.close {
+    background: white;
+    font-size: 30px;
+    padding: 0px 10px;
+    display: flex;
+    border-radius: 8px;
+    border: none;
+    color: var(--color-btn);
 }
 
     .modal-header h1 {
@@ -1443,6 +1521,7 @@ select:valid {
     font-weight: 700;
     color: #555;
     font-size: 14px;
+    padding-top: 13px;
 }
 
 select:focus:not(select.form-select.form-select-sm) {
@@ -3710,6 +3789,21 @@ dd.sios-table-dd {
 }
 .sios-color{
     color:var(--color-secondary);
+}
+.fa-search,
+.fa-check,
+.fa-backward,
+.fa-download,
+.fa-remove,
+.fa-list,
+.fa-info-square,
+.fa-pencil,
+.fa-edit,
+.fa-file-pdf-o {
+    font-size: 14px !important;
+    font-family: "Almarai", sans-serif;
+    height: 35px;
+    font-weight: 800;
 }
 /* ====================footer========================================== */
 .footer {

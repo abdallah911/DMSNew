@@ -29,11 +29,11 @@
 <div class="sios-container portlet box  green">
     <div class="d-flex bg-overlay justify-content-between editeRquest fw-bold my-4 portlet-title">
         <div class="m-3 fs-3 text-white caption">
-            <i class="fa fa-gift me-3"></i>Pharmacies
+            <i class="fa-solid fa-gift me-3"></i>Pharmacies
         </div>
         <div class="my-auto me-3 portlet-title actions">
             <a id="Pending" href="javascript:;" class="btn fw-bold text-white rounded-3 btn-primary  btn-sm" disabled>
-                <i class="fa fa-pencil me-3"></i> Pending
+                <i class="fa-solid fa-pencil me-3"></i> Pending
             </a>
         </div>
     </div>
@@ -155,6 +155,12 @@
                         @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @style = "border-color:red", @class = "fw-bold form-control", @ReadOnly = "true" } })
                     </div>
 
+                        <div class="forLabel admin-form-control border-0 px-2">
+                            @*@Html.LabelFor(model => model.compEmp.CompHolderName, htmlAttributes: new { @class = "control-label" })*@
+                            @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control", @ReadOnly = "true" } })
+                            <span>Comp Name</span>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -247,7 +253,7 @@
             <!--Save-->
             <div class="container mt-3 mb-4 panel-footer" style="text-align:right;">
                 <input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn fw-bold text-white rounded-3 btn-info" />
-                <a data-step="11" style="float: left; margin-left:40px;" class="btn fw-bold text-white rounded-3 btn-primary" href="@Url.Action("GetFile","Pharmacy",new { fileName = "Pharmacy" })" download="PharmacyManual.pdf"><i class="fa fa-download"></i> Manual</a>
+                <a data-step="11" style="float: left; margin-left:40px;" class="btn fw-bold text-white rounded-3 btn-primary" href="@Url.Action("GetFile","Pharmacy",new { fileName = "Pharmacy" })" download="PharmacyManual.pdf"><i class="fa-solid fa-download"></i> Manual</a>
                 @*<input data-step="11" data-intro="Help" style="float: left;" id="Manual" type="button" value="Manual" class="btn btn-info" />*@
                 <input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn fw-bold text-white rounded-3 btn-warning" />
                 <input data-step="12" data-intro="Save Preception" id="submit" type="button" value="Dispense" class="btn fw-bold text-white rounded-3 btn-success" />

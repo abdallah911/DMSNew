@@ -6,7 +6,7 @@ $(document).ready(function () {
  
 $(function () {
     $('#CompId').select2();
-
+    $('#ddlServices').select2();
 });
 function ClearAll() {
 

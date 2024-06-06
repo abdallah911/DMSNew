@@ -23,7 +23,7 @@
             <div class="d-flex editeRquest fw-bold  portlet-title  actions">
                 <div class="m-3 fs-3 text-white ">
                     <a id="Pending" href="javascript:;" class="d-flex align-items-center me-3 btn btn-primary  btn-sm" disabled>
-                        <i class="fa fa-pencil me-3"></i> Pending
+                        <i class="fa-solid fa-pencil me-3"></i> Pending
                     </a>
                 </div> 
         </div>
@@ -31,18 +31,18 @@
     
     <div class="portlet-body">
         <div class="row mx-auto">
-            <div class="row form-group">
-                <div data-step="1" data-hint='Step one!' data-intro="Enter Card ID" style="width: 250px;  " class="col-md-3">
+            <div class="row row-gap-3 form-group">
+                <div data-step="1" data-hint='Step one!' data-intro="Enter Card ID" style="width: 250px;height:40px  " class="col-md-3">
                     <input id="txtSearchCard" type="text" placeholder="search for card..." style=" padding-left: 80px;" class="w-100 admin-form-control w-100 h-100 form-control" />
                 </div>
                 <div   class="position-absolute col-md-2" data-step="2" data-intro="click Search">
-                    <button id="Search" type="button" style="height: 35.67px !important;" class="h-100 btn btn-primary">
+                    <button id="Search" type="button" style="height: 40px !important;" class="h-100 btn btn-primary">
                         <i class="glyphicon glyphicon-search"></i> Search
                     </button>
                 </div>
                 @if (User.IsInRole("Admin"))
                 {
-                    <div class="col-md-offset-3 col-md-3">
+                    <div style="height:40px" class="col-md-offset-3 col-md-3">
                         @Html.DropDownList("ddlUsers", null, htmlAttributes: new { @class = "admin-form-control w-100 h-100 form-control", @id = "ddlUsers" })
                     </div>
                 }
@@ -119,9 +119,10 @@
                         <span>Claim Number</span>
                     </div>
 
-                    <div class="col-sm-2">
-                        @Html.LabelFor(model => model.compEmp.CompHolderName, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @style = "border-color:red", @class = "fw-bold form-control", @ReadOnly = "true" } })
+                    <div class="forLabel admin-form-control border-0 px-2">
+                        @*@Html.LabelFor(model => model.compEmp.CompHolderName, htmlAttributes: new { @class = "control-label" })*@
+                        @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control" , @ReadOnly = "true" } })
+                        <span>Comp Name</span>
                     </div>
 
                 </div>
@@ -194,7 +195,7 @@
         </div>
         <div class="container mt-3 mb-4 panel-footer" style="text-align:right;">
             <input style="float: left;" id="Help" type="button" value="Help" class="btn fw-bold text-white rounded-3 btn-info" />
-            <a data-step="11" style="float: left; margin-left:40px;" class="btn fw-bold text-white rounded-3 btn fw-bold text-white rounded-3-primary" href="@Url.Action("GetFile","Pharmacy",new { fileName = "Ray" })" download="PharmacyManual.pdf"><i class="fa fa-download"></i> Manual</a>
+            <a data-step="11" style="float: left; margin-left:40px;" class="btn fw-bold text-white rounded-3 btn fw-bold text-white rounded-3-primary" href="@Url.Action("GetFile","Pharmacy",new { fileName = "Ray" })" download="PharmacyManual.pdf"><i class="fa-solid fa-download"></i> Manual</a>
             <input data-step="8" data-intro="Reset Labs" id="reset" type="button" value="Reset" onclick="ClearRayData();" class="btn fw-bold text-white rounded-3 btn-warning" />
             <input data-step="9" data-intro="Save Labs" id="submit" type="button" value="Save" class="btn fw-bold text-white rounded-3 btn-success" />
         </div>
