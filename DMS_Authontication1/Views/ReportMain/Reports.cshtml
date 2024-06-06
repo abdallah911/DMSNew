@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 
 }
- 
+
 
 <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
@@ -20,7 +20,7 @@
     </div>
 
     <div class=" portlet box blue">
-        <div class="row bg-overlay editeRquest fw-bold my-4 portlet-title"> 
+        <div class="row bg-overlay editeRquest fw-bold my-4 portlet-title">
             <div class="m-3 fs-3 text-white caption">
                 <i class="fa fa-gift me-3"></i> Reports
             </div>
@@ -54,7 +54,7 @@
                                                             <input id="RegistrationFromReports" type="text" class="col-md-2 form-control " placeholder="From" />
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -68,7 +68,7 @@
                                             </div>
                                         </div>
 
-                                        
+
 
                                         @* Company Number *@
                                         <div class="col-md-8 mb-3">
@@ -81,27 +81,27 @@
                                                     @Html.DropDownList("CopmanyNumberReports", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumberReports" })
 
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
-                                        
+
 
                                         @* Card Number *@
                                         @*<div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="  col-md-3">
-                                                    Card Number :
+                                                <div class="form-group">
+                                                    <label class="  col-md-3">
+                                                        Card Number :
 
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <select id="CardNoReports" class="col-md-2 js-data-example-ajax" style="width: 100%">
-                                                        <option value="">select Card</option>
-                                                    </select>
+                                                    </label>
+                                                    <div class="col-md-6">
+                                                        <select id="CardNoReports" class="col-md-2 js-data-example-ajax" style="width: 100%">
+                                                            <option value="">select Card</option>
+                                                        </select>
+
+                                                    </div>
 
                                                 </div>
-                                                
                                             </div>
-                                        </div>
                                         *@
 
                                         @* Repot Type *@
@@ -119,13 +119,13 @@
                                                         <option value="3">Close Employee Report</option>
                                                         <option value="4">Active Medicine Chronic Report</option>
                                                         <option value="5">Claims Report</option>
-                                                       @* <option value="6">Report Audit Medicine Chronic Summary</option>*@
+                                                        @* <option value="6">Report Audit Medicine Chronic Summary</option>*@
                                                     </select>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
-                                        
+
 
 
                                         @*Print Type*@
@@ -152,10 +152,10 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
-                                        
+
 
                                         @* For Buttons *@
 
