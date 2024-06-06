@@ -168,6 +168,10 @@
 
                         </div>
                     </div>
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.compEmp.CompHolderName, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @style = "border-color:red", @class = "fw-bold form-control", @ReadOnly = "true" } })
+                    </div>
                 </div>
 
             </div>
@@ -270,4 +274,4 @@
 @*scripts*@
 <script src="~/assets/HomeTemplete/js/intro.js"></script>
 
-<script src="~/Scripts/DMS/Labs/Lab.js?V=4.2"></script>
+<script src="~/Scripts/DMS/Labs/Lab.js?V=4.3"></script>

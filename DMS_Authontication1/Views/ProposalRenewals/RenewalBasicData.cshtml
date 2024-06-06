@@ -1,279 +1,282 @@
-﻿@using DMS_Authontication1.Models;
-@using Microsoft.AspNet.Identity;
-@model List<RenewalMain>
+﻿@using Microsoft.AspNet.Identity;
+@model DMS_Authontication1.ViewModel.RenwalBasicDataViewModel
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Proposal.cshtml";
     var currentUserId = User.Identity.GetUserId();
-}
 
-@section Styles {
-    <link rel="stylesheet" href="~/ProposalAssets/CSS/broker.css" />
 }
-
 <!-- ////////////// Main Content ////////////// -->
 <div style="display: flex; flex-direction: column; min-height: 90vh">
-    <div class="bg-grid-container">
-        <div class="container">
-            <div class="form-bg col-10">
-                <div class="pool-box">
+    @using (Html.BeginForm("SaveDataBasicData", "ProposalRenewals", FormMethod.Post, new { enctype = "multipart/form-data", id = "RenewalMainForm" }))
+    {
+        <!--@Html.AntiForgeryToken()-->
 
-                    <!-- PreX Pool -->
-                    <div class="pool-field-box pb-2 " style="padding-bottom: 30px;">
-                        <div class="pool-field rounded-0">
+        @*@model.CompId = ViewBag.CompId;
+            @model.ContractNo = ViewBag.ContractNo;
+            @model.CountClass = ViewBag.CountClass;
+            @model.typAction = ViewBag.typAction;
+            @model.MainId = ViewBag.MainId;*@
 
-                            <h6 class=" sios-color"> Pool</h6>
-                        </div>
-                        <div class="pool-field rounded-top-0" style="height: 50px;">
-                            <div class="inputs w-100">
-                                <div class="forLabel" style="width: 20%; margin-right: 5%;">
-                                    <input class="sios-form-control  w-100  border-0 ">
-                                    <span>ALL</span>
-                                </div>
-                                <div class="forLabel" style=" width: 20%;   margin-right: 5%;  ">
-                                    <input class="sios-form-control  w-100  border-0 ">
-                                    <span>Midicaion</span>
-                                </div>
+        <!--<input hidden name="Model.CompId" value="@ViewBag.CompId" />
+        <input hidden name="Model.ContractNo" value="@ViewBag.ContractNo" />
+
+        <input hidden name="Model.CountClass" value="@ViewBag.CountClass" />
+        <input hidden name="Model.typAction" value="@ViewBag.typAction" />
+
+        <input hidden name="Model.MainId" value="@ViewBag.MainId" />-->
+
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.CompId)
+        @Html.HiddenFor(model => model.ContractNo)
+        @Html.HiddenFor(model => model.CountClass)
+        @Html.HiddenFor(model => model.typAction)
+        @Html.HiddenFor(model => model.MainId)
+
+        <div class="bg-grid-container">
+            <div class="container">
+                <div class="form-bg col-10">
+                    <div class="pool-box">
+                        <!-- PreX Pool -->
+                        <div class="pool-field-box pb-2" style="padding-bottom: 30px;">
+                            <div class="pool-field rounded-0">
+                                <h6 class="sios-color">Pool</h6>
                             </div>
+                            <div class="pool-field rounded-top-0" style="height: 50px;">
+                                <div class="inputs w-100">
+                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                        @*<input class="sios-form-control w-100 border-0" />*@
+                                        @Html.TextBoxFor(model => Model.ValueAllOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })
 
-                        </div>
+                                        <span>ALL</span>
+                                    </div>
+                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                        @* <input class="sios-form-control w-100 border-0" />*@
+                                        @Html.TextBoxFor(model => Model.ValueMedicationOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })
 
-                        <div class="pool-field" style="height: 70px;">
-                            <div class="inputs w-100">
-                                <div class="forLabel ms-auto me-4 position-relative  "  style="width: 70%; padding-right: 30px; height: 60px; ">
-                                    <select style="margin-right: 5%;" id="ddlServices" class="sios-form-control  w-100  border-0 " multiple>
-                                        <option>sdddcf</option>
-                                        <option>sdfcc</option>
-                                    </select>
-                                   
-                                    <span style=" right: 40px !important; padding-left: 0; ">Multiselection</span>
-                                </div>
-                            </div>
-                            <h6 class=" sios-color"> Services</h6>
-                        </div>
-                    </div>
-                    <div class="pool-field-box mb-2">
-                        <div class="pool-field " style="height:50px">
-                            <div class="inputs w-100">
-                                <input class="sios-form-control home-input text-center " data-val="true" data-val-number="The field PrexPoolVal must be a number." data-val-range="Prex Pool Value cannot be less than zero." data-val-range-max="2147483647" data-val-range-min="0" id="PrexPoolVal" name="PrexPoolVal" placeholder="قيمة" type="text" value="">
-                                <input class="sios-form-control home-input text-center " data-val="true" data-val-number="The field PrexPoolPercentage must be a number." data-val-range="Prex pool percentage must be between 0 and 100." data-val-range-max="100" data-val-range-min="0" id="PrexPoolPercentage" name="PrexPoolPercentage" placeholder="نسبة" type="text" value="">
-
-                            </div>
-
-                        </div>
-                        <div class="coverage-box d-flex position-relative">
-                            <div class="coverage-radio-box d-flex">
-                                <div class="coverage-radio-field">
-                                    <label style="color:#000;" for="PrexPoolCoverage_PreviousAndLater">سابق ولاحق</label>
-                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="PrexPoolCoverage_PreviousAndLater" name="PrexPoolCoverage" type="radio" value="PreviousAndLater">
-
-                                </div>
-                                <div class="coverage-radio-field">
-                                    <label style="color:#000;" for="PrexPoolCoverage_Later">لاحق</label>
-                                    <input class="form-check-input" id="PrexPoolCoverage_Later" name="PrexPoolCoverage" type="radio" value="Later">
-
-                                </div>
-                                <div class="coverage-radio-field">
-                                    <label style="color:#000;" for="PrexPoolCoverage_Previous">سابق</label>
-                                    <input class="form-check-input" id="PrexPoolCoverage_Previous" name="PrexPoolCoverage" type="radio" value="Previous">
-
-                                </div>
-                            </div>
-                            <p class=" sios-color fs-5 fw-bold" style="  position:absolute ;right:20px">نوع التغطية</p>
-                        </div>
-                        @*style="margin-right: 150px;"*@
-                        <div class="coverage-box d-flex">
-                            <div class="coverage-radio-box d-flex">
-                                <div class="coverage-radio-field">
-                                    <label style="color:#000;" for="PrexPoolCoverage_PreviousAndLater2">عمليات</label>
-                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="PrexPoolCoverage_PreviousAndLater2" name="PrexPoolCoverage" type="checkbox" value="PreviousAndLater">
-
-                                </div>
-                                <div class="coverage-radio-field">
-                                    <label style="color:#000;" for="PrexPoolCoverage_Later2">ادوية</label>
-                                    <input class="form-check-input" id="PrexPoolCoverage_Later2" name="PrexPoolCoverage" type="checkbox" value="Later">
-
-                                </div>
-                                <div class="coverage-radio-field">
-                                    <label style="color:#000;" for="PrexPoolCoverage_Previous2">تحاليل</label>
-                                    <input class="form-check-input" id="PrexPoolCoverage_Previous2" name="PrexPoolCoverage" type="checkbox" value="Previous">
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-column ps-2">
-                            <span class="field-validation-valid text-danger" data-valmsg-for="PrexPoolVal" data-valmsg-replace="true"></span>
-                            <span class="field-validation-valid text-danger" data-valmsg-for="PrexPoolPercentage" data-valmsg-replace="true"></span>
-                            <span class="field-validation-valid text-danger" data-valmsg-for="PrexPoolCoverage" data-valmsg-replace="true"></span>
-                        </div>
-                    </div>
-                    <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
-                        <div class="pool-field rounded-bottom-0">
-
-                            <h6 class=" sios-color"> Stop Loss</h6>
-
-                        </div>
-                        <div class="pool-field rounded-0" style="height: 50px;">
-                            <div class="inputs w-100">
-                                <div class="forLabel" style="width: 20%; margin-right: 5%;">
-                                    <input class="sios-form-control  w-100  border-0 " disabled>
-                                    <span></span>
-                                </div>
-                                <div class="forLabel" style=" width: 20%;   margin-right: 5%;  ">
-                                    <input class="sios-form-control  w-100  border-0 ">
-                                    <span></span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
-                        <div class="pool-field rounded-bottom-0">
-                            <h6 class="sios-color"> Visitors</h6>
-                        </div>
-                        <div class="pool-field rounded-top-0" style="height: 70px;">
-                            <div class="inputs w-100 ">
-                                <div class="forLabel" style="width: 20%; margin-right: 5%;">
-                                    <input class="sios-form-control  w-100  border-0 ">
-                                    <span>عدد الزيارات</span>
-                                    <div class="d-flex gap-3">
-                                        <div class="coverage-radio-field">
-                                            <label style="color:#000;" for="monthinput">شهر</label>
-                                            <input class="form-check-input" style=" padding: 0 !important;" id="monthinput" name="visits" type="radio" value="Later">
-
-                                        </div>
-                                        <div class="coverage-radio-field">
-                                            <label style="color:#000;" for="weekInput">اسبوع</label>
-                                            <input class="form-check-input" style=" padding: 0 !important;" id="weekInput" name="visits" type="radio" value="Previous">
-
-                                        </div>
+                                        <span>Midicaion</span>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="pool-field">
+                                <div class="inputs w-100">
+                                    <div class="forLabel ms-auto me-4 position-relative" style="width: 70%; padding-right: 30px;">
+                                        @*<select style="margin-right: 5%;" class="sios-form-control w-100 border-0"></select>*@
 
-                                <div class="forLabel" style=" width: 20%;   margin-right: 5%;  ">
-                                    <input class="sios-form-control  w-100  border-0 ">
-                                    <span>قيمة الزيارة</span>
+                                        @*@Html.DropDownListFor(model => Model.poolService, ViewBag.PolServ as SelectList, "Select Services", new { @class = "sios-form-control w-100 border-0", style = "width: 100%", id = "poolService", multiple = "multiple" })*@
+                                        @Html.DropDownListFor(model => Model.poolService, ViewBag.PolServ as SelectList, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", id = "ddlServices" })
+
+
+                                        @*  <span style="left: 10px !important; padding-left: 0;">Multiselection</span>*@
+                                    </div>
+                                </div>
+                                <h6 class="sios-color">Services</h6>
+                            </div>
+                        </div>
+                        <div class="pool-field-box mb-2">
+                            <div class="pool-field" style="height:50px">
+                                <div class="inputs w-100">
+                                    @Html.TextBoxFor(model => Model.ValuePool, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
+                                    @Html.TextBoxFor(model => Model.PercentPool, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
+
+                                    @*<input class="sios-form-control home-input text-center" data-val="true" data-val-number="The field PrexPoolVal must be a number." data-val-range="Prex Pool Value cannot be less than zero." data-val-range-max="2147483647" data-val-range-min="0" id="PrexPoolVal" name="PrexPoolVal" placeholder="قيمة" type="text" value="" />
+                                        <input class="sios-form-control home-input text-center" data-val="true" data-val-number="The field PrexPoolPercentage must be a number." data-val-range="Prex pool percentage must be between 0 and 100." data-val-range-max="100" data-val-range-min="0" id="PrexPoolPercentage" name="PrexPoolPercentage" placeholder="نسبة" type="text" value="" />*@
+                                </div>
+                            </div>
+                            <div class="coverage-box d-flex position-relative">
+                                <div class="coverage-radio-box d-flex">
+                                    <div class="coverage-radio-field">
+                                        <label style="color:#000;" for="TypeCovarge">سابق ولاحق</label>
+                                        @Html.RadioButtonFor(model => model.TypeCovarge, 1, new { @class = "form-check-input", id = "TypeCovarge" })
+                                        @*<input class="form-check-input" data-val="true" data-val-required="The TypeCovarge field is required." id="TypeCovarge" name="TypeCovarge" type="radio" value="1" />*@
+                                    </div>
+                                    <div class="coverage-radio-field">
+                                        <label style="color:#000;" for="TypeCovarge">لاحق</label>
+                                        @* <input class="form-check-input" id="TypeCovarge" name="TypeCovarge" type="radio" value="2" />*@
+                                        @Html.RadioButtonFor(model => model.TypeCovarge, 2, new { @class = "form-check-input", id = "TypeCovarge" })
+                                    </div>
+                                    <div class="coverage-radio-field">
+                                        <label style="color:#000;" for="TypeCovarge">سابق</label>
+                                        @Html.RadioButtonFor(model => model.TypeCovarge, 3, new { @class = "form-check-input", id = "TypeCovarge" })
+                                        @*   <input class="form-check-input" id="TypeCovarge" name="TypeCovarge" type="radio" value="3" />*@
+                                    </div>
+                                </div>
+                                <p class="sios-color fs-5 fw-bold" style="position:absolute; right:20px">نوع التغطية</p>
+                            </div>
+                            <div class="coverage-box d-flex">
+                                <div class="coverage-radio-box d-flex">
+                                    <div class="coverage-radio-field">
+                                        <label style="color:#000;" for="IsInpatient">عمليات</label>
+                                        @*<input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="PrexPoolCoverage_PreviousAndLater2" name="PrexPoolCoverage" type="checkbox" value="PreviousAndLater" />*@
+                                        @Html.CheckBoxFor(model => model.IsInpatient, new { @class = "form-check-input", id = "IsInpatient" })
+
+                                    </div>
+                                    <div class="coverage-radio-field">
+                                        <label style="color:#000;" for="IsMedication">ادوية</label>
+                                        @* <input class="form-check-input" id="PrexPoolCoverage_Later2" name="PrexPoolCoverage" type="checkbox" value="Later" />*@
+                                        @Html.CheckBoxFor(model => model.IsMedication, new { @class = "form-check-input", id = "IsMedication" })
+                                    </div>
+                                    <div class="coverage-radio-field">
+                                        <label style="color:#000;" for="IsLab">تحاليل</label>
+                                        @Html.CheckBoxFor(model => model.IsLab, new { @class = "form-check-input", id = "IsLab" })
+                                        @*<input class="form-check-input" id="PrexPoolCoverage_Previous2" name="PrexPoolCoverage" type="checkbox" value="Previous" />*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column ps-2">
+                                <span class="field-validation-valid text-danger" data-valmsg-for="PrexPoolVal" data-valmsg-replace="true"></span>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="PrexPoolPercentage" data-valmsg-replace="true"></span>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="PrexPoolCoverage" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
+                            <div class="pool-field rounded-bottom-0">
+                                <h6 class="sios-color">Stop Loss</h6>
+                            </div>
+                            <div class="pool-field rounded-0" style="height: 50px;">
+                                <div class="inputs w-100">
+                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                        @Html.TextBoxFor(model => model.StopLossOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })
+
+                                        @*<input class="sios-form-control w-100 border-0" disabled />*@
+                                        <span></span>
+                                    </div>
+                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+
+                                        @Html.TextBoxFor(model => model.StopLoss, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
+
+                                        @*<input class="sios-form-control w-100 border-0" />*@
+                                        <span></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-             
-
-
-
-                    <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
-                        <div style="padding: 15px 10px;"  class="pool-field d-flex justify-content-between rounded-bottom-0">
-                            <h6 class=" sios-color fw-bold my-auto "> Broker</h6>
-                            <div class="d-flex align-items-center justify-content-start w-50 gap-2 text-start">
-                                <label for="brokerCheck" class="fs-5 fw-bold">يوجد</label>
-                                <input type="checkbox" style="width:10px;" onclick="ShowBroker()" id="brokerCheck" class="" />
+                        <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
+                            <div class="pool-field rounded-bottom-0">
+                                <h6 class="sios-color">Visitors</h6>
                             </div>
-                        </div>
-                        <div  class="pool-field   rounded-0" id="brockDisable" style="height: 50px; display:none;">
-                            <div class="inputs w-100">
-                                <div class="forLabel" style="width: 20%; margin-right: 5%;">
-                                    <input class="sios-form-control  w-100  border-0 " disabled="">
-                                    <span>الإسم</span>
+                            <div class="pool-field rounded-top-0" style="height: 70px;">
+                                <div class="inputs w-100">
+                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                        @Html.TextBoxFor(model => model.VisitorNumber, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
+
+                                        @*<input class="sios-form-control w-100 border-0" />*@
+                                        <span>عدد الزيارات</span>
+                                        <div class="d-flex gap-3">
+                                            <div class="coverage-radio-field">
+                                                <label style="color:#000;" for="monthinput">شهر</label>
+                                                @Html.RadioButtonFor(model => model.VisitorType, 2, new { @class = "form-check-input", id = "VisitorType" })
+
+                                                @*     <input class="form-check-input" style="padding: 0 !important;" id="monthinput" name="visits" type="radio" value="Later" />*@
+                                            </div>
+                                            <div class="coverage-radio-field">
+                                                <label style="color:#000;" for="weekInput">اسبوع</label>
+                                                @Html.RadioButtonFor(model => model.VisitorType, 1, new { @class = "form-check-input", id = "VisitorType" })
+
+                                                @*                                                <input class="form-check-input" style="padding: 0 !important;" id="weekInput" name="visits" type="radio" value="Previous" />*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                        @Html.TextBoxFor(model => model.VisitorValue, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
+
+                                        @*  <input class="sios-form-control w-100 border-0" />*@
+                                        <span>قيمة الزيارة</span>
+                                    </div>
                                 </div>
-                                <div class="forLabel" style=" width: 20%;   margin-right: 5%;  ">
-                                    <input class="sios-form-control  w-100  border-0 ">
-                                    <span>النسبة</span>
+                            </div>
+                        </div>
+                        <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
+                            <div style="padding: 15px 10px;" class="pool-field d-flex justify-content-between rounded-bottom-0">
+                                <h6 class="sios-color fw-bold my-auto">Broker</h6>
+                                <div class="d-flex align-items-center justify-content-start w-50 gap-2 text-start">
+                                    <label for="broker" class="fs-5 fw-bold">يوجد</label>
+                                    @Html.CheckBoxFor(model => model.IsBroker, new { @class = "", @style = "box-shadow:none;", onclick = "ShowBroker()", id = "brokerCheck" })
+
+
+                                    @* <input type="checkbox" style="width:10px;" id="brokerCheck" class="" />*@
+                                </div>
+                            </div>
+                            <div class="pool-field rounded-0" id="brockDisable" style="height: 50px; display:none;">
+                                <div class="inputs w-100">
+                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+
+                                        @*@Html.TextBoxFor(model => model.BrokerId, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })*@
+
+                                        @Html.DropDownListFor(model => model.BrokerId, ViewBag.Brokerss as SelectList, "Select Broker", new { @class = "sios-form-control w-100 border-0", style = "width: 100%", id = "BrokerId" })
+
+                                        @*<input class="sios-form-control w-100 border-0" disabled />*@
+                                        <span>الإسم</span>
+                                    </div>
+                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+
+                                        @Html.TextBoxFor(model => model.BrokerPercentage, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
+
+                                        @*<input class="sios-form-control w-100 border-0" />*@
+                                        <span>النسبة</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-                </div>
-                
-                @*<div class="my-1 shadow-sm" style="position: relative ">
-                    <input disabled="" id="disabled" style="height: 50px; color:#000;" class="sios-form-control home-input col ps-2 bg-white pb-2  sios-color" type="text">
-                    <span class=" sios-color position-absolute top-50 translate-middle-y fw-bold " style="left:10px;">Broker</span>
-                    <div class="d-flex gap-2" style="
-                                                  position: absolute;
-                                                  top: 50%;
-                                                  left: 50%;
-                                                  transform: translate(-50%, -50%);
-                                                  width: 60%;
-                                                ">
-                        <div class="brokeDisabled" style="
-                                                    display: block;
-                                                    color: #778183;
-                                                    width: 100%;
-                                                    text-align: center;
-                                                  ">
-
-                            <select class="brokeEnabled d-none sios-form-control col" id="districtBroker" name="brokerId" style="  font-size: 12px;border: none; border-radius: 2px;">
-                                <option value="">الاسم</option>
-                                <option value="1">amira</option>
-                                <option value="2">RANAA</option>
-                            </select>
-                            <input class="brokeEnabled sios-form-control home-input col" data-val="true" data-val-number="The field BrokerPercentage must be a number." data-val-range="Broker Percentage must be between 0 and 100." data-val-range-max="100" data-val-range-min="0" id="BrokerPercentage" name="BrokerPercentage" placeholder="النسبة %" style="display: none; background-color: #e3e3e3; font-size: 12px; border: none; border-radius: 2px;" type="text" value="">
-                            <input data-val="true" data-val-required="The IsBroker field is required." id="toggleEnable" name="IsBroker" style="height: fit-content; margin-top: 4px;" type="checkbox" value="true"><input name="IsBroker" type="hidden" value="false">
-                            <label class="brokeDisabled fw-bold" for="toggleEnable" style="color: #000;">يوجد</label>
-
-
-                            <label for="myCheckbox"></label>
-                        </div>
-                    </div>
-                </div>*@
-
-                <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
-                    <div class="pool-field shadow-sm py-3 px-2  " style="height:50px;">
-
-                        <h6 class=" sios-color fw-bold">Loss Ratio</h6>
-                    </div>
-                    <div class="pool-field py-2 shadow-sm position-relative" style="height:50px;">
-                        <div class="inputs w-100">
-                            <div class="forLabel" style="width: 20%; margin-right: 5%;">
-                                <input class="sios-form-control  w-100  border-0 " disabled>
-                                <span>expected Loss Ratio</span>
+                        <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
+                            <div class="pool-field shadow-sm py-3 px-2" style="height:50px;">
+                                <h6 class="sios-color fw-bold">Loss Ratio</h6>
                             </div>
-                            <div class="forLabel" style=" width: 20%;   margin-right: 5%;  ">
-                                <input class="sios-form-control  w-100  border-0 " disabled>
-                                <span>Loss Ratio</span>
+                            <div class="pool-field py-2 shadow-sm position-relative" style="height:50px;">
+                                <div class="inputs w-100">
+                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+
+                                        @Html.TextBoxFor(model => model.ExpectedLossRatioOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })
+
+
+                                        @*<input class="sios-form-control w-100 border-0" disabled />*@
+                                        <span>expected Loss Ratio</span>
+                                    </div>
+                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+
+                                        @Html.TextBoxFor(model => model.LossRatioOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })
+
+                                        @*<input class="sios-form-control w-100 border-0" disabled />*@
+                                        <span>Loss Ratio</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pool-field-box mb-2">
+                            <div class="pool-field p-2 py-3 position-relative">
+                                <div class="inputs w-100">
+                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                        @*<input class="sios-form-control w-100 border-0" />*@
+                                        @Html.TextBoxFor(model => model.AdminExpenses, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
+
+                                        <span>مصاريف ادارية</span>
+                                    </div>
+                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                        @Html.TextBoxFor(model => model.IssuanceExpenses, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
+
+                                        @*<input class="sios-form-control w-100 border-0" />*@
+                                        <span>مصاريف الإصدار</span>
+                                    </div>
+                                </div>
+                                <h6 class="sios-color fw-bold">Expenses</h6>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="pool-field-box mb-2 ">
-                    <div class="pool-field p-2 py-3 position-relative">
-                        <div class="inputs w-100">
-                            <div class="forLabel" style="width: 20%; margin-right: 5%;">
-                                <input class="sios-form-control  w-100  border-0 ">
-                                <span>مصاريف ادارية</span>
-                            </div>
-                            <div class="forLabel" style=" width: 20%;   margin-right: 5%;  ">
-                                <input class="sios-form-control  w-100  border-0 ">
-                                <span>مصاريف الإصدار</span>
-                            </div>
-                        </div>
-                        <h6 class="sios-color fw-bold">Expenses</h6>
-
+                    <div>
+                        <a style="width: fit-content;">
+                            <button type="submit" style="height: 48px;" class="text-align-center btn next-btn fs-5 fw-bold py-2 px-5">التالي</button>
+                        </a>
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
+    }
 </div>
 
-<script>
 
 
-    $(document).ready(function () {
-        $('#brokerCheck').change(function () {
-            if ($(this).is(':checked')) {
-                $('#brockDisable').toggleClass("d-none");
-            }
-        });
-    });
-  
-    
-
-
-
-</script>
 <script src="~/Scripts/DMS/ProposalRenewals/jquery.min.js"></script>
+<script src="~/Scripts/DMS/ProposalRenewals/select2.min.js"></script>
 <script src="~/Scripts/DMS/ProposalRenewals/ProposalRenewals.js"></script>
-
-

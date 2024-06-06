@@ -763,6 +763,9 @@
     <Compile Include="Models\PETROTRADE_EMPLOYEES.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PoolService.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PrescriptionRoshitaDignosi.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -834,6 +837,9 @@
     <Compile Include="Models\RemainConsumption.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RenewalBasicData.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RenewalInsideMedicalAuthority.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -841,6 +847,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RenewalOutsideMedicalAuthority.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RenewalServicePool.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RenewalStepTwo.cs">
@@ -1327,6 +1336,7 @@
     <Compile Include="ViewModel\ProviderServicesPermissionsViewModal.cs" />
     <Compile Include="ViewModel\RenewalInsideMedicalAuthorityViewModel.cs" />
     <Compile Include="ViewModel\RenewalOutsideMedicalAuthorityViewModel.cs" />
+    <Compile Include="ViewModel\RenwalBasicDataViewModel.cs" />
     <Compile Include="ViewModel\RenwalStepTwoViewModel.cs" />
     <Compile Include="ViewModel\SpecilityDiagnoseViewmodel.cs" />
     <Compile Include="ViewModel\MedicineTypeViewmodel.cs" />
@@ -9398,8 +9408,16 @@
     <Content Include="Reports\Offer3Class.rpt" />
     <Content Include="Reports\Offer4Class.rpt" />
     <Content Include="Views\ProposalRenewals\RenewalBasicData.cshtml" />
-    <Content Include="Views\ProposalRenewals\Show - Copy.cshtml" />
     <Content Include="Views\ReportMain\PriceListUpload.cshtml" />
+    <Content Include="Views\Network\NetworkAddHRServiceProvider.cshtml" />
+    <Content Include="Views\Network\NetworkAddServiceProvider.cshtml" />
+    <Content Include="Views\Network\NetworkHRRequestsInquiry.cshtml" />
+    <Content Include="Views\Network\NetworkPharmaciesDiscountDetails.cshtml" />
+    <Content Include="Views\Network\NetworkPharmaciesDiscountSummary.cshtml" />
+    <Content Include="Views\Network\NetworkPricesEditingCPT.cshtml" />
+    <Content Include="Views\Network\NetworkServiceProviderData.cshtml" />
+    <Content Include="Views\Contracts\ContractsCompaniesContracts.cshtml" />
+    <Content Include="Views\Contracts\ContractsServiceProvidersContracts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

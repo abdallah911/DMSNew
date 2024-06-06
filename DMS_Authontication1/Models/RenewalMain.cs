@@ -20,6 +20,7 @@ namespace DMS_Authontication1.Models
             this.RenewalStepTwoes = new HashSet<RenewalStepTwo>();
             this.RenewalInsideMedicalAuthorities = new HashSet<RenewalInsideMedicalAuthority>();
             this.RenewalOutsideMedicalAuthorities = new HashSet<RenewalOutsideMedicalAuthority>();
+            this.RenewalBasicDatas = new HashSet<RenewalBasicData>();
         }
     
         public int Id { get; set; }
@@ -37,5 +38,7 @@ namespace DMS_Authontication1.Models
         public virtual ICollection<RenewalInsideMedicalAuthority> RenewalInsideMedicalAuthorities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RenewalOutsideMedicalAuthority> RenewalOutsideMedicalAuthorities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RenewalBasicData> RenewalBasicDatas { get; set; }
     }
 }

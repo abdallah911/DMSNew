@@ -67,11 +67,24 @@ namespace DMS_TEST.Controllers
 
             var HrUserNamre = User.Identity.GetUserName();
             var userid = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Id;
-            var found = db.ProviderBlocks.Where(x => x.UserId == userid && x.CompId == CompId && x.ServiceCode == "11602" && x.IsActive == true).Any();
-            if (found)
+            var providerBlock = db.ProviderBlocks.Where(x => x.UserId == userid && x.CardId == id && x.ServiceCode == "11602").FirstOrDefault();
+            if (providerBlock != null)
             {
-                ViewBag.Message = "Block";
-                return View(data);
+                if (providerBlock.IsActive.Value)
+                {
+                    ViewBag.Message = "Block";
+                    return View(data);
+                }
+            }
+            else
+            {
+
+                var found = db.ProviderBlocks.Where(x => x.UserId == userid && x.CompId == CompId && x.ServiceCode == "11602" && x.IsActive == true).Any();
+                if (found)
+                {
+                    ViewBag.Message = "Block";
+                    return View(data);
+                }
             }
             Contract_Comp contractComp = db.Contract_Comp.Where(x => x.C_COMP_ID == CompId).FirstOrDefault();
             string emp = "";

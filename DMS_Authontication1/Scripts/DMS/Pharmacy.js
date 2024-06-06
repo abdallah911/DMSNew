@@ -62,6 +62,7 @@ $(function () {
         $('#PhoneNumber').val('');
         $('#contractComp_C_ANAME').val('');
         $('#compEmp_EMP_ANAME').val('');
+        $('#compEmp_CompHolderName').val('');
         $('#compEmp_INS_START_DATE').val('');
         $('#compEmp_INS_END_DATE').val('');
         $('#compEmp_BIRTH_DATE').val('');
@@ -1850,34 +1851,83 @@ function SelectMedicien(event) {
                                                             }
                                                         }
                                                         else {
-                                                            var dialog = bootbox.dialog({
-                                                                //title: 'This Medicien is Not Covered!',
-                                                                title: 'This medicine requires approval',
-                                                                message: "<p>Pay method?</p>",
-                                                                onEscape: function () {
-                                                                    RemoveSelection(MedicienCode);
-                                                                },
-                                                                //backdrop: true,
-                                                                buttons: {
-                                                                    Cash: {
-                                                                        label: "Cash",
-                                                                        className: 'btn-info',
-                                                                        callback: function () {
-                                                                            Group = "Cash";
+                                                            if (Group == "NO") {
+                                                                $.ajax({
+                                                                    dataType: "json",
+                                                                    url: '/Pharmacy/CheckVip',
+                                                                    data: {
+                                                                        id: $('#txtSearchCard').val()
+                                                                    },
+                                                                    success: function (r) {
+                                                                        if (r.IsVip == 1) {
+                                                                            Group = "Accepted";
                                                                             AppendRow();
                                                                         }
-                                                                    }
-                                                                    , Tele: {
-                                                                        label: "Pending",
-                                                                        className: 'btn-info',
-                                                                        callback: function () {
-                                                                            Group = "PendingChronic";
-                                                                            //toastr.info('برجاءالتواصل مع الاداره الطبيه');
-                                                                            AppendRow();
+                                                                        else {
+
+                                                                            var dialog = bootbox.dialog({
+                                                                                //title: 'This Medicien is Not Covered!',
+                                                                                title: 'This medicine requires approval',
+                                                                                message: "<p>Pay method?</p>",
+                                                                                onEscape: function () {
+                                                                                    RemoveSelection(MedicienCode);
+                                                                                },
+                                                                                //backdrop: true,
+                                                                                buttons: {
+                                                                                    Cash: {
+                                                                                        label: "Cash",
+                                                                                        className: 'btn-info',
+                                                                                        callback: function () {
+                                                                                            Group = "Cash";
+                                                                                            AppendRow();
+                                                                                        }
+                                                                                    }
+                                                                                    , Tele: {
+                                                                                        label: "Pending",
+                                                                                        className: 'btn-info',
+                                                                                        callback: function () {
+                                                                                            Group = "PendingChronic";
+                                                                                            //toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                                                                            AppendRow();
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            });
                                                                         }
                                                                     }
-                                                                }
-                                                            });
+                                                                });
+                                                            }
+                                                            else {
+                                                                var dialog = bootbox.dialog({
+                                                                    //title: 'This Medicien is Not Covered!',
+                                                                    title: 'This medicine requires approval',
+                                                                    message: "<p>Pay method?</p>",
+                                                                    onEscape: function () {
+                                                                        RemoveSelection(MedicienCode);
+                                                                    },
+                                                                    //backdrop: true,
+                                                                    buttons: {
+                                                                        Cash: {
+                                                                            label: "Cash",
+                                                                            className: 'btn-info',
+                                                                            callback: function () {
+                                                                                Group = "Cash";
+                                                                                AppendRow();
+                                                                            }
+                                                                        }
+                                                                        , Tele: {
+                                                                            label: "Pending",
+                                                                            className: 'btn-info',
+                                                                            callback: function () {
+                                                                                Group = "PendingChronic";
+                                                                                //toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                                                                AppendRow();
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                });
+                                                            }
+
                                                         }
                                                     }
                                                     else {
@@ -2427,6 +2477,7 @@ function ClearCardData() {
     $('#PhoneNumber').val('');
     $('#contractComp_C_ANAME').val('');
     $('#compEmp_EMP_ANAME').val('');
+    $('#compEmp_CompHolderName').val('');
     $('#compEmp_INS_START_DATE').val('');
     $('#compEmp_INS_END_DATE').val('');
     $('#compEmp_BIRTH_DATE').val('');

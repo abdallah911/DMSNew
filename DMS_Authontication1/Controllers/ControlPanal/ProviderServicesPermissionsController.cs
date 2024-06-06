@@ -123,17 +123,20 @@ namespace DMS_Authontication1.Controllers.ControlPanal
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProviderName,ServiceCode,IsActive,CompId,ClassCode,CardId,IsDeleted,CreatedBy,CreatedDate,UpdatedBy,UpdatedDate")] ProviderServicesPermissionsViewModal model)
+        public ActionResult Create([Bind(Include = "Id,ProviderName,ServiceCode,IsActive,CompId,ClassCode,CardId,IsDeleted,CreatedBy,CreatedDate,UpdatedBy,UpdatedDate,UserId")] ProviderServicesPermissionsViewModal model)
         {
             if (model.UserId != null)
             {
+                int comp ;
+                int.TryParse(model.CompId,out comp);
                 ProviderBlock providerBlock = new ProviderBlock
                 {
                     Id = model.Id,
                     UserId = model.UserId,
-                    CompId = int.Parse(model.CompId),
+                    CompId = comp,
                     IsActive = model.IsActive,
                     ServiceCode = model.ServiceCode.ToString(),
+                    CardId = model.CardId,
                 };
                 db.ProviderBlocks.Add(providerBlock);
                 db.SaveChanges();

@@ -223,7 +223,7 @@ namespace DMS_Authontication1.Controllers.ReportMain
             }).ToList();
             SelectList companylist = new SelectList(companyname, "COMP_ID", "Name");
             ViewBag.company = companylist;
-            
+
             return View();
         }
 
@@ -258,7 +258,7 @@ namespace DMS_Authontication1.Controllers.ReportMain
             }
 
             rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
-            
+
             if (Convert.ToInt32(RepotType) != 3)
             {
                 rd.SetParameterValue("@from", RegDateFrom);
@@ -318,7 +318,7 @@ namespace DMS_Authontication1.Controllers.ReportMain
             }
 
             rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
-            
+
             if (Convert.ToInt32(RepotType) != 3)
             {
                 rd.SetParameterValue("@from", RegDateFrom);
@@ -352,7 +352,7 @@ namespace DMS_Authontication1.Controllers.ReportMain
         #region Report3
         public ActionResult CompanyChronicReport(string Date = "", int CompId = 0, int GroupId = 0, string CardId = "")
         {
-            
+
             DateTime DispenseDate = Convert.ToDateTime(Date);
 
             ReportDocument rd = new ReportDocument();
@@ -429,10 +429,10 @@ namespace DMS_Authontication1.Controllers.ReportMain
         public JsonResult GetContractNo(string CompId)
         {
             int comp = int.Parse(CompId);
-           
+
             var contractNo = db.Contract_Data.Where(u => u.C_COMP_ID == comp).Select(c => new
             {
-                ContractNo = c.CONTRACT_NO,               
+                ContractNo = c.CONTRACT_NO,
 
             }).OrderBy(u => u.ContractNo).ToList();
             SelectList contractNumberList = new SelectList(contractNo, "ContractNo", "ContractNo");
@@ -442,11 +442,11 @@ namespace DMS_Authontication1.Controllers.ReportMain
         }
 
         public ActionResult PrintReport(Int32 CompId, int contract, string typ)
-        {            
+        {
             ReportDocument rd = new ReportDocument();
 
 
-            if(typ == "Large")
+            if (typ == "Large")
                 rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReportPrintHorizontal4.rpt"));
             else if (typ == "Medium")
                 rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReportPrintHorizontal5.rpt"));
@@ -457,10 +457,10 @@ namespace DMS_Authontication1.Controllers.ReportMain
 
 
             rd.SetDatabaseLogon("APP", "12369");
-            
+
             rd.SetParameterValue("cmp", CompId);
             rd.SetParameterValue("contr", contract);
-          
+
 
             Response.Buffer = false;
             Response.ClearContent();
@@ -489,7 +489,7 @@ namespace DMS_Authontication1.Controllers.ReportMain
 
             return View();
         }
-     
+
         public ActionResult PrintReportsPdf(string ServiceFrom, string ServiceTo, string CopmanyNumber, string RepotType)
         {
             DateTime ServiceDateFrom, ServiceDateTo;
@@ -676,9 +676,9 @@ namespace DMS_Authontication1.Controllers.ReportMain
             ReportDocument rd = new ReportDocument();
 
             rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ProviderCheckTop.rpt"));
-            
+
             rd.SetDatabaseLogon("APP", "12369");
-            
+
             rd.SetParameterValue("dat1", ServiceDateFrom);
             rd.SetParameterValue("dat2", ServiceDateTo);
 
@@ -710,7 +710,7 @@ namespace DMS_Authontication1.Controllers.ReportMain
 
 
             ReportDocument rd = new ReportDocument();
-            
+
             rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ProviderCheckTop.rpt"));
 
             rd.SetDatabaseLogon("APP", "12369");
@@ -888,11 +888,22 @@ namespace DMS_Authontication1.Controllers.ReportMain
 
         #endregion
 
-        #region Reports2
+        #region PriceListUpload
         public ActionResult PriceListUpload()
         {
             return View();
         }
+
+        public JsonResult Provider(string id)
+        {
+            int Code = Convert.ToInt32(id);
+            var provider = db.Serv_Providers1.Where(x => x.PRV_TYPE == Code).ToList();
+            SelectList Providerlist = new SelectList(provider, "PR_CODE", "PR_ENAME");
+            //  return new JsonResult { Data = Providerlist, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return Json(Providerlist, JsonRequestBehavior.AllowGet);
+        }
+
+
         #endregion
 
     }

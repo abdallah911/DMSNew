@@ -12,13 +12,13 @@ namespace DMS_Authontication1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProviderBlock
+    public partial class RenewalServicePool
     {
+        public Nullable<int> MainId { get; set; }
+        public Nullable<int> ServiceId { get; set; }
         public int Id { get; set; }
-        public string UserId { get; set; }
-        public Nullable<int> CompId { get; set; }
-        public string ServiceCode { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public string CardId { get; set; }
+    
+        public virtual PoolService PoolService { get; set; }
+        public virtual RenewalBasicData RenewalBasicData { get; set; }
     }
 }
