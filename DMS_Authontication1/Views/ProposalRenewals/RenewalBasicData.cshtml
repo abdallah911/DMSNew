@@ -7,6 +7,18 @@
     var currentUserId = User.Identity.GetUserId();
 
 }
+@if (ViewBag.Errors != null)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewBag.Errors)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    </div>
+}
+
 <!-- ////////////// Main Content ////////////// -->
 <div style="display: flex; flex-direction: column; min-height: 90vh">
     @using (Html.BeginForm("SaveDataBasicData", "ProposalRenewals", FormMethod.Post, new { enctype = "multipart/form-data", id = "RenewalMainForm" }))

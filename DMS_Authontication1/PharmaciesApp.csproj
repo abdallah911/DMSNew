@@ -9418,6 +9418,7 @@
     <Content Include="Views\Network\NetworkServiceProviderData.cshtml" />
     <Content Include="Views\Contracts\ContractsCompaniesContracts.cshtml" />
     <Content Include="Views\Contracts\ContractsServiceProvidersContracts.cshtml" />
+    <Content Include="Reports\OfferRenewal1Class.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
