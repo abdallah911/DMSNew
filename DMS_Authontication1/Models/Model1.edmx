@@ -2155,7 +2155,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ValuePool" Type="float" />
           <Property Name="PercentPool" Type="int" />
           <Property Name="TypeCovarge" Type="int" />
