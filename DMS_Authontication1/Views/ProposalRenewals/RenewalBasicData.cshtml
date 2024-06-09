@@ -39,49 +39,50 @@
                             <div class="pool-field rounded-0">
                                 <h6 class="sios-color">Pool</h6>
                             </div>
-                            <div class="pool-field rounded-top-0" style="height: 50px;">
+                            <div class="pool-field rounded-top-0" style="height: 60px;">
                                 <div class="inputs w-100">
-                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                    <div class="forLabel position-relative" style="width: 20%; margin-right: 5%; ">
                                         @*<input class="sios-form-control w-100 border-0" />*@
-                                        @Html.TextBoxFor(model => Model.ValueAllOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })
+                                        @Html.TextBoxFor(model => Model.ValueAllOld, new { @class = "sios-form-control w-100 border-0 ", style = "width: 100% ; height: 40px; padding-top: 10px;padding-left: 10px;", @disabled = "disabled" })
 
-                                        <span>ALL</span>
+                                        <span style=" left: 10px !important; padding-left: 0;">ALL</span>
                                     </div>
-                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                    <div class="forLabel position-relative" style="width: 20%; margin-right: 5%;">
                                         @* <input class="sios-form-control w-100 border-0" />*@
-                                        @Html.TextBoxFor(model => Model.ValueMedicationOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })
+                                        @Html.TextBoxFor(model => Model.ValueMedicationOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%;height: 40px; padding-top: 10px;padding-left: 10px;", @disabled = "disabled" })
 
-                                        <span>Midicaion</span>
+                                        <span style=" left: 10px !important; padding-left: 0;">Midicaion</span>
                                     </div>
                                 </div>
 
                             </div>
-                            <div style="height:70px" class="pool-field">
+                            <div style="height:80px" class="pool-field">
                                 <div class="inputs w-100">
-                                    <div class="forLabel ms-auto me-4 position-relative" style="width: 70%; padding-right: 30px;">
+                                    <div class="forLabel ms-auto me-4 position-relative" style="width: 70%; padding-right: 30px; ">
 
                                         @*@Html.DropDownListFor(model => Model.poolService, ViewBag.PolServ as SelectList, "Select Services", new { @class = "sios-form-control w-100 border-0", style = "width: 100%", id = "poolService", multiple = "multiple" })*@
-                                        @Html.DropDownListFor(model => Model.poolService, ViewBag.PolServ as SelectList, new { @class = "sios-form-control select2 w-100 border-0", style = "width: 100%", id = "poolService" , multiple = "multiple" }) <span style="right: 40px !important; padding-left: 0;">Multiselection</span>
+                                        @Html.DropDownListFor(model => Model.poolService, ViewBag.PolServ as SelectList, new { @class = "sios-form-control select2 w-100 border-0", style = "width: 100%", id = "poolService", multiple = "multiple" })
+                                        <span style="right: 40px !important; padding-left: 0;">Multiselection</span>
                                     </div>
                                 </div>
                                 <h6 class="sios-color">Services</h6>
                             </div>
-                        </div> 
+                        </div>
                         <div class="pool-field-box mb-2">
-                            <div class="pool-field" style="height:50px">
+                            <div class="pool-field" style="height:60px">
                                 <div class="inputs w-100">
-                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                    <div class="forLabel position-relative" style="width: 20%; margin-right: 5%;">
                                         @*<input class="sios-form-control w-100 border-0" />*@
                                         @*@Html.TextBoxFor(model => Model.ValueAllOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })*@
-                                        @Html.TextBoxFor(model => Model.ValuePool, new { @class = "sios-form-control w-100 border-0 ps-2", style = "width: 100%" })
-                                        <span>ALL</span>
+                                        @Html.TextBoxFor(model => Model.ValuePool, new { @class = "sios-form-control w-100 border-0 ps-2", style = "width: 100% ;height: 40px; padding-top: 10px;padding-left: 10px;" })
+                                        <span style=" left: 10px !important; padding-left: 0;">ALL</span>
                                     </div>
-                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                    <div class="forLabel position-relative" style="width: 20%; margin-right: 5%;">
                                         @* <input class="sios-form-control w-100 border-0" />*@
                                         @*@Html.TextBoxFor(model => Model.ValueMedicationOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })*@
-                                        @Html.TextBoxFor(model => Model.PercentPool, new { @class = "sios-form-control w-100 border-0 ps-2", style = "width: 100%" })
+                                        @Html.TextBoxFor(model => Model.PercentPool, new { @class = "sios-form-control w-100 border-0 ps-2", style = "width: 100% ;height: 40px; padding-top: 10px;padding-left: 10px;" })
 
-                                        <span>Midicaion</span>
+                                        <span style=" left: 10px !important; padding-left: 0;">Midicaion</span>
                                     </div>
                                 </div>
                             </div>
@@ -93,13 +94,13 @@
                                         @*<input class="form-check-input" data-val="true" data-val-required="The TypeCovarge field is required." id="TypeCovarge" name="TypeCovarge" type="radio" value="1" />*@
                                     </div>
                                     <div class="coverage-radio-field">
-                                        <label style="color:#000;" for="TypeCovarge">لاحق</label>
+                                        <label style="color:#000;" for="TypeCovarge2">لاحق</label>
                                         @* <input class="form-check-input" id="TypeCovarge" name="TypeCovarge" type="radio" value="2" />*@
-                                        @Html.RadioButtonFor(model => model.TypeCovarge, 2, new { @class = "form-check-input", id = "TypeCovarge" })
+                                        @Html.RadioButtonFor(model => model.TypeCovarge, 2, new { @class = "form-check-input", id = "TypeCovarge2" })
                                     </div>
                                     <div class="coverage-radio-field">
-                                        <label style="color:#000;" for="TypeCovarge">سابق</label>
-                                        @Html.RadioButtonFor(model => model.TypeCovarge, 3, new { @class = "form-check-input", id = "TypeCovarge" })
+                                        <label style="color:#000;" for="TypeCovarge3">سابق</label>
+                                        @Html.RadioButtonFor(model => model.TypeCovarge, 3, new { @class = "form-check-input", id = "TypeCovarge3" })
                                         @*   <input class="form-check-input" id="TypeCovarge" name="TypeCovarge" type="radio" value="3" />*@
                                     </div>
                                 </div>
@@ -131,24 +132,24 @@
                                 <span class="field-validation-valid text-danger" data-valmsg-for="PrexPoolCoverage" data-valmsg-replace="true"></span>
                             </div>
                         </div>
-                        <div class="pool-field-box mb-2" style="padding-bottom: 30px;">
+                        <div class="pool-field-box mb-2" style="padding-bottom: 30px;  ">
                             <div class="pool-field rounded-bottom-0">
                                 <h6 class="sios-color">Stop Loss</h6>
                             </div>
-                            <div class="pool-field rounded-0" style="height: 50px;">
+                            <div class="pool-field rounded-0" style="height: 60px;">
                                 <div class="inputs w-100">
                                     <div class="forLabel" style="width: 20%; margin-right: 5%;">
-                                        @Html.TextBoxFor(model => model.StopLossOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })
+                                        @Html.TextBoxFor(model => model.StopLossOld, new { @class = "sios-form-control w-100 border-0", @style = "width: 100% ; height: 40px; padding-top: 10px!important; padding-left: 10px; ", @disabled = "disabled" })
 
                                         @*<input class="sios-form-control w-100 border-0" disabled />*@
-                                        <span></span>
+                                        <span style=" left: 10px !important; padding-left: 0;"></span>
                                     </div>
                                     <div class="forLabel" style="width: 20%; margin-right: 5%;">
 
-                                        @Html.TextBoxFor(model => model.StopLoss, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
+                                        @Html.TextBoxFor(model => model.StopLoss, new { @class = "sios-form-control w-100 border-0", @style = "width: 100%  ; height: 40px; padding-top: 10px!important;padding-left: 10px; " })
 
                                         @*<input class="sios-form-control w-100 border-0" />*@
-                                        <span></span>
+                                        <span style=" left: 10px !important; padding-left: 0;"></span>
                                     </div>
                                 </div>
                             </div>
@@ -157,33 +158,33 @@
                             <div class="pool-field rounded-bottom-0">
                                 <h6 class="sios-color">Visitors</h6>
                             </div>
-                            <div class="pool-field rounded-top-0" style="height: 70px;">
+                            <div class="pool-field rounded-top-0" style="height: 70px; height: 80px; ">
                                 <div class="inputs w-100">
-                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
-                                        @Html.TextBoxFor(model => model.VisitorNumber, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
+                                    <div class="forLabel position-relative" style="width: 20%; margin-right: 5%;">
+                                        @Html.TextBoxFor(model => model.VisitorNumber, new { @class = "sios-form-control w-100 border-0", @style = "width: 100% ;  height: 40px; padding-top: 10px !important;padding-left: 10px;" })
 
                                         @*<input class="sios-form-control w-100 border-0" />*@
-                                        <span>عدد الزيارات</span>
+                                        <span style=" top: 5px; left: 10px !important; padding-left: 0;">عدد الزيارات</span>
                                         <div class="d-flex gap-3">
                                             <div class="coverage-radio-field">
                                                 <label style="color:#000;" for="monthinput">شهر</label>
-                                                @Html.RadioButtonFor(model => model.VisitorType, 2, new { @class = "form-check-input", id = "VisitorType" })
+                                                @Html.RadioButtonFor(model => model.VisitorType, 2, new { @class = "form-check-input", id = "monthinput" })
 
                                                 @*     <input class="form-check-input" style="padding: 0 !important;" id="monthinput" name="visits" type="radio" value="Later" />*@
                                             </div>
                                             <div class="coverage-radio-field">
                                                 <label style="color:#000;" for="weekInput">اسبوع</label>
-                                                @Html.RadioButtonFor(model => model.VisitorType, 1, new { @class = "form-check-input", id = "VisitorType" })
+                                                @Html.RadioButtonFor(model => model.VisitorType, 1, new { @class = "form-check-input", id = "weekInput" })
 
                                                 @*                                                <input class="form-check-input" style="padding: 0 !important;" id="weekInput" name="visits" type="radio" value="Previous" />*@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
-                                        @Html.TextBoxFor(model => model.VisitorValue, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
+                                    <div class="forLabel position-relative" style="width: 20%; margin-right: 5%;">
+                                        @Html.TextBoxFor(model => model.VisitorValue, new { @class = "sios-form-control w-100 border-0", @style = "width: 100% ; height: 40px; padding-top: 10px!important; padding-left: 10px; " })
 
                                         @*  <input class="sios-form-control w-100 border-0" />*@
-                                        <span>قيمة الزيارة</span>
+                                        <span style="top:5px; left: 10px !important; padding-left: 0;">قيمة الزيارة</span>
                                     </div>
                                 </div>
                             </div>
@@ -192,8 +193,8 @@
                             <div style="padding: 15px 10px;" class="pool-field d-flex justify-content-between rounded-bottom-0">
                                 <h6 class="sios-color fw-bold my-auto">Broker</h6>
                                 <div class="d-flex align-items-center justify-content-start w-50 gap-2 text-start">
-                                    <label for="broker" class="fs-5 fw-bold">يوجد</label>
-                                    @Html.CheckBoxFor(model => model.IsBroker, new { @class = "", @style = "box-shadow:none;", onclick = "ShowBroker()", id = "brokerCheck" })
+                                    <label for="brokerCheck" class="fs-5 fw-bold">يوجد</label>
+                                    @Html.CheckBoxFor(model => model.IsBroker, new { @class = "", @style = "box-shadow:none;width: fit-content;", onclick = "ShowBroker()", id = "brokerCheck" })
 
 
                                     @* <input type="checkbox" style="width:10px;" id="brokerCheck" class="" />*@
@@ -201,21 +202,21 @@
                             </div>
                             <div class="pool-field rounded-0" id="brockDisable" style="height: 50px; display:none;">
                                 <div class="inputs w-100">
-                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                    <div class="forLabel position-relative" style="width: 20%; margin-right: 5%;">
 
                                         @*@Html.TextBoxFor(model => model.BrokerId, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })*@
 
-                                        @Html.DropDownListFor(model => model.BrokerId, ViewBag.Brokerss as SelectList, "Select Broker", new { @class = "sios-form-control w-100 border-0", style = "width: 100%", id = "BrokerId" })
+                                        @Html.DropDownListFor(model => model.BrokerId, ViewBag.Brokerss as SelectList, "Select Broker", new { @class = "sios-form-control w-100 border-0", style = "width: 100%  ;height: 40px; padding-top: 10px!important;padding-left: 4px; ", id = "BrokerId" })
 
                                         @*<input class="sios-form-control w-100 border-0" disabled />*@
-                                        <span>الإسم</span>
+                                        <span style=" left: 10px !important; padding-left: 0;">الإسم</span>
                                     </div>
-                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                    <div class="forLabel position-relative" style="width: 20%; margin-right: 5%;">
 
-                                        @Html.TextBoxFor(model => model.BrokerPercentage, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
+                                        @Html.TextBoxFor(model => model.BrokerPercentage, new { @class = "sios-form-control w-100 border-0", @style = "width: 100% ; height: 40px; padding-top: 10px!important;padding-left: 10px; " })
 
                                         @*<input class="sios-form-control w-100 border-0" />*@
-                                        <span>النسبة</span>
+                                        <span style=" left: 10px !important; padding-left: 0;">النسبة</span>
                                     </div>
                                 </div>
                             </div>
@@ -224,40 +225,40 @@
                             <div class="pool-field shadow-sm py-3 px-2" style="height:50px;">
                                 <h6 class="sios-color fw-bold">Loss Ratio</h6>
                             </div>
-                            <div class="pool-field py-2 shadow-sm position-relative" style="height:50px;">
+                            <div class="pool-field rounded-0" style="height:60px;">
                                 <div class="inputs w-100">
-                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                    <div class="forLabel position-relative" style="width: 20%; margin-right: 5%;">
 
-                                        @Html.TextBoxFor(model => model.ExpectedLossRatioOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })
+                                        @Html.TextBoxFor(model => model.ExpectedLossRatioOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100% ; height: 40px; padding-top: 10px!important; padding-left: 10px;  ", @disabled = "disabled" })
 
 
                                         @*<input class="sios-form-control w-100 border-0" disabled />*@
-                                        <span>expected Loss Ratio</span>
+                                        <span style=" left: 10px !important; padding-left: 0;">expected Loss Ratio</span>
                                     </div>
-                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                    <div class="forLabel position-relative" style="width: 20%; margin-right: 5%;">
 
-                                        @Html.TextBoxFor(model => model.LossRatioOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })
+                                        @Html.TextBoxFor(model => model.LossRatioOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100% ; height: 40px; padding-top: 10px!important;padding-left: 10px; ", @disabled = "disabled" })
 
                                         @*<input class="sios-form-control w-100 border-0" disabled />*@
-                                        <span>Loss Ratio</span>
+                                        <span style=" left: 10px !important; padding-left: 0;">Loss Ratio</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="pool-field-box mb-2">
-                            <div class="pool-field p-2 py-3 position-relative">
+                        <div class="pool-field-box mb-2" >
+                            <div class="pool-field p-2 py-3 position-relative"style="height: 60px;">
                                 <div class="inputs w-100">
-                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                    <div class="forLabel position-relative" style="width: 20%; margin-right: 5%;">
                                         @*<input class="sios-form-control w-100 border-0" />*@
-                                        @Html.TextBoxFor(model => model.AdminExpenses, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
+                                        @Html.TextBoxFor(model => model.AdminExpenses, new { @class = "sios-form-control w-100 border-0", style = "width: 100% ; height: 40px; padding-top: 10px!important;padding-left: 10px; " })
 
-                                        <span>مصاريف ادارية</span>
+                                        <span style=" left: 10px !important; padding-left: 0;">مصاريف ادارية</span>
                                     </div>
-                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
-                                        @Html.TextBoxFor(model => model.IssuanceExpenses, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
+                                    <div class="forLabel position-relative" style="width: 20%; margin-right: 5%;">
+                                        @Html.TextBoxFor(model => model.IssuanceExpenses, new { @class = "sios-form-control w-100 border-0", style = "width: 100% ; height: 40px; padding-top: 10px!important; padding-left: 10px;" })
 
                                         @*<input class="sios-form-control w-100 border-0" />*@
-                                        <span>مصاريف الإصدار</span>
+                                        <span style=" left: 10px !important; padding-left: 0;">مصاريف الإصدار</span>
                                     </div>
                                 </div>
                                 <h6 class="sios-color fw-bold">Expenses</h6>

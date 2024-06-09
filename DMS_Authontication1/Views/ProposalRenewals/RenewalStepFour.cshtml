@@ -55,7 +55,7 @@ CateCount = ViewBag.CatCount; }
                         @*@Html.ActionLink("السابق", "ProposalStepThreeCreate", new { id = ViewBag.MainId }, new { @class = "prev-butn", style = "text-decoration:none; margin-top: 20px;margin-left: 10px;margin-right: 20px" })
 
 
-            @Html.ActionLink("الرئيسية", "Create", new { id = ViewBag.MainId }, new { @class = "prev-butn", style = "text-decoration:none; margin-top: 20px;margin-left: 10px;margin-right: 20px" })*@
+                            @Html.ActionLink("الرئيسية", "Create", new { id = ViewBag.MainId }, new { @class = "prev-butn", style = "text-decoration:none; margin-top: 20px;margin-left: 10px;margin-right: 20px" })*@
 
                         @Html.ActionLink("الرئيسية +", "Show", "ProposalRenewals", new { }, new { @class = "prev-butn", style = "text-decoration: none; margin-top: 20px; margin-left: 10px; margin-right: 20px;" })
                         @Html.ActionLink("السابق +", "RenewalStepThree", "ProposalRenewals", new { mainId = Model[0].MainId, CompId = Model[0].CompId, ContractNo = Model[0].ContractNo, countCat = Model[0].CountClass, typeAction = Model[0].typAction, mainIdOld = Model[0].MainIdOld }, new { @class = "prev-butn", style = "text-decoration: none; margin-top: 20px;" })
@@ -63,14 +63,14 @@ CateCount = ViewBag.CatCount; }
 
 
                         @*<button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="submitForm()">حفظ</button>
-            <button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="goToIndex()">الغاء</button>*@
+                            <button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="goToIndex()">الغاء</button>*@
 
 
                     </div>
                     @*<input style="pointer-events: none; width: fit-content; margin-top:10px; padding-top: 26.75px; padding-bottom: 26.75px; "
-        class="text-align-end"
-        type="text"
-        placeholder="خارج الهيئة الطبية" />*@
+                        class="text-align-end"
+                        type="text"
+                        placeholder="خارج الهيئة الطبية" />*@
                 </div>
                 <div style=" margin-top: 12px;">
                     <div style="height: 74px; margin: 10px">
@@ -922,8 +922,11 @@ index++)
                                                         <input class="form-check-input" id="radio66" name="radio2-6" type="radio" value="Previous">
                                                     </div>
                                                 </div>
-                                                <select class="seleect" id="">
-                                                </select>
+                                                <div class="forLabel w-100  position-relative" style="width: 70%; ">
+                                                    <select class="seleect" id="ddlAdvancedDental" multiple>
+                                                    </select>
+                                                    <span style="right: 10px !important; padding-left: 0; top: 14px;">Multiselection</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1006,8 +1009,11 @@ index++)
                                                         <input class="form-check-input" id="radio67" name="radio2-7" type="radio" value="Previous">
                                                     </div>
                                                 </div>
-                                                <select class="seleect" id="">
-                                                </select>
+                                                <div class="forLabel w-100  position-relative" style="width: 70%; ">
+                                                    <select class="seleect" id="ddlBasicDental" multiple>
+                                                    </select>
+                                                    <span style="right: 10px !important; padding-left: 0; top: 14px;">Multiselection</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1875,8 +1881,11 @@ index++)
                                                         <input class="form-check-input" id="radio6-2-2-5" name="radio5" type="radio" value="Previous" disabled>
                                                     </div>
                                                 </div>
-                                                <select class="seleect" id=""  disabled>
-                                                </select>
+                                                <div class="forLabel w-100  position-relative" style="width: 70%; ">
+                                                    <select class="seleect" id="ddlAdvancedDentalDisabled" multiple disabled>
+                                                    </select>
+                                                    <span style="right: 10px !important; padding-left: 0; top: 14px;">Multiselection</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1961,8 +1970,11 @@ index++)
                                                         <input class="form-check-input" id="radio6-2-2-6" name="radio6" type="radio" value="Previous" disabled>
                                                     </div>
                                                 </div>
-                                                <select class="seleect" id="" disabled>
-                                                </select>
+                                                <div class="forLabel w-100  position-relative" style="width: 70%; ">
+                                                    <select class="seleect" id="ddlBasicDentalDisabled" multiple disabled>
+                                                    </select>
+                                                    <span style="right: 10px !important; padding-left: 0; top: 14px;">Multiselection</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -2068,7 +2080,7 @@ index++)
                                         </div>
                                     </div>
 
-                                   
+
                                     <div class="position-relative">
                                         <div class="px-2">
                                             <select class="seleect" id="" disabled>
@@ -2292,4 +2304,6 @@ index++)
 }
 
 
+<script src="~/Scripts/DMS/ProposalRenewals/jquery.min.js"></script>
+<script src="~/Scripts/DMS/ProposalRenewals/select2.min.js"></script>
 <script src="~/Scripts/DMS/ProposalRenewals/ProposalRenewals.js"></script>
