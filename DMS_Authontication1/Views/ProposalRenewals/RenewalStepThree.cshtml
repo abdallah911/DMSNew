@@ -534,93 +534,93 @@ CateCount = ViewBag.CatCount; }
                                         <div class="position-relative ">
 
                                             @*<button type="button" class="rounded-circle mb-2 toggleEnable" id="" style="width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; background: linear-gradient(45deg, #07386e 0%, #17609b 18%, rgb(65 134 193) 50%, #17609b 75%, #07386e 100%); border: none; color: white; position: absolute; bottom: -4px; right: -11px; z-index: 22220 !important; font-size: 21px;"><i class="fa-solid fa-caret-down"></i></button>*@
-                <div class="  divToggle " style="white-space:nowrap" id="divToggle1">
-                    <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
-                        <div class="coverage-radio-field fw-medium">
-                            <label style="color:#000;" for="radio1">مغطى</label>
-                            <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio1" name="radio1-1" type="radio" value="PreviousAndLater">
-
-                        </div>
-                        <div class="coverage-radio-field fw-medium">
-                            <label style="color:#000;" for="radio2">بموافقة مسبقة</label>
-                            <input class="form-check-input" id="radio2" name="radio1-1" type="radio" value="Later">
-
-                        </div>
-                        <div class="coverage-radio-field fw-medium">
-                            <label style="color:#000;" for="radio3">نظام الدفع والإسترداد</label>
-                            <input class="form-check-input" id="radio3" name="radio1-1" type="radio" value="Previous">
-
-                        </div>
-                    </div>
-                    <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
-                        <div class="coverage-radio-field fw-medium">
-                            <label style="color:#000;" for="radio4">سابق ولاحق</label>
-                            <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio4" name="radio2-1" type="radio" value="PreviousAndLater">
-
-                        </div>
-                        <div class="coverage-radio-field">
-                            <label style="color:#000;" for="radio5">لاحق</label>
-                            <input class="form-check-input" id="radio5" name="radio2-1" type="radio" value="Later">
-
-                        </div>
-                        <div class="coverage-radio-field">
-                            <label style="color:#000;" for="radio6">سابق</label>
-                            <input class="form-check-input" id="radio6" name="radio2-1" type="radio" value="Previous">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="cate-child-toggle">
-            <div style="display: flex; gap: 0.1rem">
-                <input type="text"
-                       disabled
-                       id="data-@(index+1)-7-1"
-                       name="Model[@index].CaesChildBirthLimit"
-                       value="@Model[index].CaesChildBirthLimit"
-                       style="width: 50%; margin: 5px" />
-                <input type="text"
-                       disabled
-                       id="data-@(index+1)-7-2"
-                       name="Model[@index].CaesChildBirthPercentage"
-                       value="@Model[index].CaesChildBirthPercentage"
-                       style="width: 50%; margin: 5px" />
-            </div>
-            <section class="form-check-container">
-                <div class="form-check">
-
-                    <input class="form-check-input"
-                           type="checkbox"
-                           name="Model[@index].CaesChildBirthLimitOption"
-                           @(Model[index].CaesChildBirthLimitOption == true ? "checked" : "")
-                           id="@(index+1)-7-1"
-                           data-target="data-@(index+1)-7-1"
-                           onclick="updateHiddenInput('CaesChildBirthLimitOption-hidden-@index', this)" />
-                    <label style="font-size:16px;" class="form-check-label" for="@(index+1)-7-1">
-                        حد التغطية
-                    </label>
-                </div>
-                <div class="form-check">
-
-                    <input class="form-check-input"
-                           type="checkbox"
-                           name="Model[@index].CaesChildBirthPercentageoption"
-                           @(Model[index].CaesChildBirthPercentageoption == true ? "checked" : "")
-                           id="@(index+1)-7-2"
-                           data-target="data-@(index+1)-7-2"
-                           onclick="updateHiddenInput('CaesChildBirthPercentageoption-hidden-@index', this)" />
-                    <label style="font-size:16px;" class="form-check-label" for="@(index+1)-7-2">
-                        نسبه التغطية
-                    </label>
-                </div>
-            </section>
-            <div class="position-relative">
-
-                @*<button type="button" class="rounded-circle mb-2 toggleEnable" id="" style=" width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; background: linear-gradient(45deg, #07386e 0%, #17609b 18%, rgb(65 134 193) 50%, #17609b 75%, #07386e 100%); border: none; color: white; position: absolute; bottom: -4px; right: -11px; z-index: 22220 !important; font-size: 21px;"><i class="fa-solid fa-caret-down"></i></button>*@
-                                            <div class="divToggle " style="white-space:nowrap" id="">
+                                            <div class="  divToggle " style="white-space:nowrap" id="divToggle1">
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;" for="radio1">مغطى</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio1" name="radio1-1" type="radio" value="PreviousAndLater">
+
+                                                    </div>
+                                                    <div class="coverage-radio-field fw-medium">
+                                                        <label style="color:#000;" for="radio2">بموافقة مسبقة</label>
+                                                        <input class="form-check-input" id="radio2" name="radio1-1" type="radio" value="Later">
+
+                                                    </div>
+                                                    <div class="coverage-radio-field fw-medium">
+                                                        <label style="color:#000;" for="radio3">نظام الدفع والإسترداد</label>
+                                                        <input class="form-check-input" id="radio3" name="radio1-1" type="radio" value="Previous">
+
+                                                    </div>
+                                                </div>
+                                                <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
+                                                    <div class="coverage-radio-field fw-medium">
+                                                        <label style="color:#000;" for="radio4">سابق ولاحق</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio4" name="radio2-1" type="radio" value="PreviousAndLater">
+
+                                                    </div>
+                                                    <div class="coverage-radio-field">
+                                                        <label style="color:#000;" for="radio5">لاحق</label>
+                                                        <input class="form-check-input" id="radio5" name="radio2-1" type="radio" value="Later">
+
+                                                    </div>
+                                                    <div class="coverage-radio-field">
+                                                        <label style="color:#000;" for="radio6">سابق</label>
+                                                        <input class="form-check-input" id="radio6" name="radio2-1" type="radio" value="Previous">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cate-child-toggle">
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-7-1"
+                                                   name="Model[@index].CaesChildBirthLimit"
+                                                   value="@Model[index].CaesChildBirthLimit"
+                                                   style="width: 50%; margin: 5px" />
+                                            <input type="text"
+                                                   disabled
+                                                   id="data-@(index+1)-7-2"
+                                                   name="Model[@index].CaesChildBirthPercentage"
+                                                   value="@Model[index].CaesChildBirthPercentage"
+                                                   style="width: 50%; margin: 5px" />
+                                        </div>
+                                        <section class="form-check-container">
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model[@index].CaesChildBirthLimitOption"
+                                                       @(Model[index].CaesChildBirthLimitOption == true ? "checked" : "")
+                                                       id="@(index+1)-7-1"
+                                                       data-target="data-@(index+1)-7-1"
+                                                       onclick="updateHiddenInput('CaesChildBirthLimitOption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-7-1">
+                                                    حد التغطية
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="Model[@index].CaesChildBirthPercentageoption"
+                                                       @(Model[index].CaesChildBirthPercentageoption == true ? "checked" : "")
+                                                       id="@(index+1)-7-2"
+                                                       data-target="data-@(index+1)-7-2"
+                                                       onclick="updateHiddenInput('CaesChildBirthPercentageoption-hidden-@index', this)" />
+                                                <label style="font-size:16px;" class="form-check-label" for="@(index+1)-7-2">
+                                                    نسبه التغطية
+                                                </label>
+                                            </div>
+                                        </section>
+                                        <div class="position-relative">
+
+                                            @*<button type="button" class="rounded-circle mb-2 toggleEnable" id="" style=" width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; background: linear-gradient(45deg, #07386e 0%, #17609b 18%, rgb(65 134 193) 50%, #17609b 75%, #07386e 100%); border: none; color: white; position: absolute; bottom: -4px; right: -11px; z-index: 22220 !important; font-size: 21px;"><i class="fa-solid fa-caret-down"></i></button>*@
+                                            <div class="divToggle " style="white-space:nowrap" id="">
+                                                <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
+                                                    <div class="coverage-radio-field fw-medium">
+                                                        <label style="color:#000;" for="radio12">مغطى</label>
                                                         <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio12" name="radio1-2" type="radio" value="PreviousAndLater">
 
                                                     </div>
@@ -782,7 +782,7 @@ CateCount = ViewBag.CatCount; }
                                         </section>
                                         <div class="position-relative ">
 
-                                             @*<button type="button" class="rounded-circle mb-2 toggleEnable" id="" style="width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; background: linear-gradient(45deg, #07386e 0%, #17609b 18%, rgb(65 134 193) 50%, #17609b 75%, #07386e 100%); border: none; color: white; position: absolute; bottom: -4px; right: -11px; z-index: 22220 !important; font-size: 21px;"><i class="fa-solid fa-caret-down"></i></button*@
+                                            @*<button type="button" class="rounded-circle mb-2 toggleEnable" id="" style="width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; background: linear-gradient(45deg, #07386e 0%, #17609b 18%, rgb(65 134 193) 50%, #17609b 75%, #07386e 100%); border: none; color: white; position: absolute; bottom: -4px; right: -11px; z-index: 22220 !important; font-size: 21px;"><i class="fa-solid fa-caret-down"></i></button*@
                                             <div class="divToggle " style="white-space:nowrap" id="divToggle1">
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
@@ -900,8 +900,11 @@ CateCount = ViewBag.CatCount; }
                                                         <input class="form-check-input" id="radio66" name="radio2-6" type="radio" value="Previous">
                                                     </div>
                                                 </div>
-                                                <select class="seleect" id="">
-                                                </select>
+                                                <div class="forLabel w-100  position-relative" style="width: 70%; ">
+                                                    <select class="seleect" id="ddlAdvancedDental" multiple> 
+                                                    </select>
+                                                    <span style="right: 10px !important; padding-left: 0; top: 14px;">Multiselection</span>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -985,9 +988,13 @@ CateCount = ViewBag.CatCount; }
                                                         <label style="color:#000;" for="radio67">سابق</label>
                                                         <input class="form-check-input" id="radio67" name="radio2-7" type="radio" value="Previous">
                                                     </div>
+                                                </div>   
+                                                <div class="forLabel w-100  position-relative" style="width: 70%; ">
+                                                    <select class="seleect" id="ddlBasicDental" multiple>
+                                                    </select>
+                                                    <span style="right: 10px !important; padding-left: 0; top: 14px;">Multiselection</span>
                                                 </div>
-                                                <select class="seleect" id="">
-                                                </select>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -1666,7 +1673,7 @@ CateCount = ViewBag.CatCount; }
                                             </div>
                                         </div>
                                     </div>
-                                    <div  class="cate-child-toggle">
+                                    <div class="cate-child-toggle">
                                         <div style="display: flex; gap: 0.1rem">
                                             <input type="text"
                                                    disabled
@@ -1832,8 +1839,12 @@ CateCount = ViewBag.CatCount; }
                                                         <input class="form-check-input" id="radio6-2-2-5" name="radio5" type="radio" value="Previous" disabled>
                                                     </div>
                                                 </div>
-                                                <select class="seleect" id="" disabled>
-                                                </select>
+                                                <div class="forLabel w-100  position-relative" style="width: 70%; ">
+                                                    <select class="seleect" id="ddlAdvancedDentalDisabled" multiple disabled>
+                                                    </select>
+                                                    <span style="right: 10px !important; padding-left: 0; top: 14px;">Multiselection</span>
+                                                </div>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -1918,8 +1929,11 @@ CateCount = ViewBag.CatCount; }
                                                         <input class="form-check-input" id="radio6-2-2-6" name="radio6" type="radio" value="Previous" disabled>
                                                     </div>
                                                 </div>
-                                                <select class="seleect" id="" disabled>
-                                                </select>
+                                                <div class="forLabel w-100  position-relative" style="width: 70%; "> 
+                                                    <select class="seleect" id="ddlBasicDentalDisabled" multiple disabled>
+                                                    </select>
+                                                    <span style="right: 10px !important; padding-left: 0; top: 14px;">Multiselection</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -2093,7 +2107,9 @@ CateCount = ViewBag.CatCount; }
             @*<button type="button" style="text-decoration: none;" class="prev-butn d-flex justify-content-center align-items-center mt-0  ms-0 mb-5" onclick="submitForm()">التالي</button>*@
         </div>}
 </div>
-
+<script src="~/Scripts/DMS/ProposalRenewals/jquery.min.js"></script>
+<script src="~/Scripts/DMS/ProposalRenewals/select2.min.js"></script>
+<script src="~/Scripts/DMS/ProposalRenewals/ProposalRenewals.js"></script>
 @section Scripts{
     <script>
         //$(document).ready(function () {

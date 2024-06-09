@@ -938,4 +938,24 @@ li.select2-search.select2-search--inline {
     border-radius: 4px;
     height: 30px;
     top: 0;
+    right: 0;
+}
+li.select2-selection__choice {
+    font-size: 14px;
+    font-weight: 700;
+    color: #393939;
+}
+.select2-search.select2-search--inline input.select2-search__field {
+    width: 100% !important;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 16px !important;
+    font-weight: 700;
+    color: #434343;
+    direction: ltr;
+    padding-left: 10px !important;
+    padding-top: 0 !important;
+    height: 100%;
+    margin-top: 0;
 }
