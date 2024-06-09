@@ -9,26 +9,9 @@
 }
 <!-- ////////////// Main Content ////////////// -->
 <div style="display: flex; flex-direction: column; min-height: 90vh">
-    @using (Html.BeginForm("SaveDataBasicData", "ProposalRenewals", FormMethod.Post, new { enctype = "multipart/form-data", id = "RenewalMainForm" }))
-    {
-        <!--@Html.AntiForgeryToken()-->
-
-          @*@model.CompId = ViewBag.CompId;
-            @model.ContractNo = ViewBag.ContractNo;
-            @model.CountClass = ViewBag.CountClass;
-            @model.typAction = ViewBag.typAction;
-            @model.MainId = ViewBag.MainId;*@
-
-        <!--<input hidden name="Model.CompId" value="@ViewBag.CompId" />
-        <input hidden name="Model.ContractNo" value="@ViewBag.ContractNo" />
-
-        <input hidden name="Model.CountClass" value="@ViewBag.CountClass" />
-        <input hidden name="Model.typAction" value="@ViewBag.typAction" />
-
-        <input hidden name="Model.MainId" value="@ViewBag.MainId" />-->
-
-        @Html.AntiForgeryToken()
-
+    @using (Html.BeginForm("SaveDataBasicData", "ProposalRenewals", FormMethod.Post))
+    { 
+        @Html.AntiForgeryToken() 
         @Html.HiddenFor(model => model.CompId)
         @Html.HiddenFor(model => model.ContractNo)
         @Html.HiddenFor(model => model.CountClass)
@@ -61,22 +44,17 @@
                                 </div>
 
                             </div>
-                            <div class="pool-field">
+                            <div style="height:70px" class="pool-field">
                                 <div class="inputs w-100">
                                     <div class="forLabel ms-auto me-4 position-relative" style="width: 70%; padding-right: 30px;">
 
                                         @*@Html.DropDownListFor(model => Model.poolService, ViewBag.PolServ as SelectList, "Select Services", new { @class = "sios-form-control w-100 border-0", style = "width: 100%", id = "poolService", multiple = "multiple" })*@
-                                        @Html.DropDownListFor(model => Model.poolService, ViewBag.PolServ as SelectList, new { @class = "sios-form-control select2 w-100 border-0", style = "width: 100%", id = "" })
-
-
-                                        @*  <span style="left: 10px !important; padding-left: 0;">Multiselection</span>*@
+                                        @Html.DropDownListFor(model => Model.poolService, ViewBag.PolServ as SelectList, new { @class = "sios-form-control select2 w-100 border-0", style = "width: 100%", id = "poolService" , multiple = "multiple" }) <span style="right: 40px !important; padding-left: 0;">Multiselection</span>
                                     </div>
                                 </div>
                                 <h6 class="sios-color">Services</h6>
                             </div>
-                        </div>
-                        <select style="margin-right: 5%;" id="ddlServices" class="sios-form-control w-100 border-0"><option>ddfc</option></select>
-
+                        </div> 
                         <div class="pool-field-box mb-2">
                             <div class="pool-field" style="height:50px">
                                 <div class="inputs w-100">
@@ -285,7 +263,14 @@
     }
 </div>
 
-
-<script src="~/Scripts/DMS/ProposalRenewals/jquery.min.js"></script> 
+ 
+<script src="~/Scripts/DMS/ProposalRenewals/jquery.min.js"></script>
 <script src="~/Scripts/DMS/ProposalRenewals/select2.min.js"></script>
 <script src="~/Scripts/DMS/ProposalRenewals/ProposalRenewals.js"></script>
+ 
+ <script>
+        $(document).ready(function () { 
+            $('#poolService').select2();
+    });
+</script>
+ 

@@ -2,7 +2,7 @@
 $(document).ready(function () {
 
     $('#CompId').select2();
-    $('#ddlServices').select2();
+    $('#poolService').select2();
 });
  
  
