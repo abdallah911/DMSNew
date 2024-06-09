@@ -21,26 +21,9 @@
 
 <!-- ////////////// Main Content ////////////// -->
 <div style="display: flex; flex-direction: column; min-height: 90vh">
-    @using (Html.BeginForm("SaveDataBasicData", "ProposalRenewals", FormMethod.Post, new { enctype = "multipart/form-data", id = "RenewalMainForm" }))
-    {
-        <!--@Html.AntiForgeryToken()-->
-
-        @*@model.CompId = ViewBag.CompId;
-            @model.ContractNo = ViewBag.ContractNo;
-            @model.CountClass = ViewBag.CountClass;
-            @model.typAction = ViewBag.typAction;
-            @model.MainId = ViewBag.MainId;*@
-
-        <!--<input hidden name="Model.CompId" value="@ViewBag.CompId" />
-        <input hidden name="Model.ContractNo" value="@ViewBag.ContractNo" />
-
-        <input hidden name="Model.CountClass" value="@ViewBag.CountClass" />
-        <input hidden name="Model.typAction" value="@ViewBag.typAction" />
-
-        <input hidden name="Model.MainId" value="@ViewBag.MainId" />-->
-
-        @Html.AntiForgeryToken()
-
+    @using (Html.BeginForm("SaveDataBasicData", "ProposalRenewals", FormMethod.Post))
+    { 
+        @Html.AntiForgeryToken() 
         @Html.HiddenFor(model => model.CompId)
         @Html.HiddenFor(model => model.ContractNo)
         @Html.HiddenFor(model => model.CountClass)
@@ -71,30 +54,35 @@
                                         <span>Midicaion</span>
                                     </div>
                                 </div>
+
                             </div>
-                            <div class="pool-field">
+                            <div style="height:70px" class="pool-field">
                                 <div class="inputs w-100">
                                     <div class="forLabel ms-auto me-4 position-relative" style="width: 70%; padding-right: 30px;">
-                                        @*<select style="margin-right: 5%;" class="sios-form-control w-100 border-0"></select>*@
 
                                         @*@Html.DropDownListFor(model => Model.poolService, ViewBag.PolServ as SelectList, "Select Services", new { @class = "sios-form-control w-100 border-0", style = "width: 100%", id = "poolService", multiple = "multiple" })*@
-                                        @Html.DropDownListFor(model => Model.poolService, ViewBag.PolServ as SelectList, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", id = "ddlServices" })
-
-
-                                        @*  <span style="left: 10px !important; padding-left: 0;">Multiselection</span>*@
+                                        @Html.DropDownListFor(model => Model.poolService, ViewBag.PolServ as SelectList, new { @class = "sios-form-control select2 w-100 border-0", style = "width: 100%", id = "poolService" , multiple = "multiple" }) <span style="right: 40px !important; padding-left: 0;">Multiselection</span>
                                     </div>
                                 </div>
                                 <h6 class="sios-color">Services</h6>
                             </div>
-                        </div>
+                        </div> 
                         <div class="pool-field-box mb-2">
                             <div class="pool-field" style="height:50px">
                                 <div class="inputs w-100">
-                                    @Html.TextBoxFor(model => Model.ValuePool, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
-                                    @Html.TextBoxFor(model => Model.PercentPool, new { @class = "sios-form-control w-100 border-0", style = "width: 100%" })
+                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                        @*<input class="sios-form-control w-100 border-0" />*@
+                                        @*@Html.TextBoxFor(model => Model.ValueAllOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })*@
+                                        @Html.TextBoxFor(model => Model.ValuePool, new { @class = "sios-form-control w-100 border-0 ps-2", style = "width: 100%" })
+                                        <span>ALL</span>
+                                    </div>
+                                    <div class="forLabel" style="width: 20%; margin-right: 5%;">
+                                        @* <input class="sios-form-control w-100 border-0" />*@
+                                        @*@Html.TextBoxFor(model => Model.ValueMedicationOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })*@
+                                        @Html.TextBoxFor(model => Model.PercentPool, new { @class = "sios-form-control w-100 border-0 ps-2", style = "width: 100%" })
 
-                                    @*<input class="sios-form-control home-input text-center" data-val="true" data-val-number="The field PrexPoolVal must be a number." data-val-range="Prex Pool Value cannot be less than zero." data-val-range-max="2147483647" data-val-range-min="0" id="PrexPoolVal" name="PrexPoolVal" placeholder="قيمة" type="text" value="" />
-                                        <input class="sios-form-control home-input text-center" data-val="true" data-val-number="The field PrexPoolPercentage must be a number." data-val-range="Prex pool percentage must be between 0 and 100." data-val-range-max="100" data-val-range-min="0" id="PrexPoolPercentage" name="PrexPoolPercentage" placeholder="نسبة" type="text" value="" />*@
+                                        <span>Midicaion</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="coverage-box d-flex position-relative">
@@ -287,8 +275,14 @@
     }
 </div>
 
-
-
+ 
 <script src="~/Scripts/DMS/ProposalRenewals/jquery.min.js"></script>
 <script src="~/Scripts/DMS/ProposalRenewals/select2.min.js"></script>
 <script src="~/Scripts/DMS/ProposalRenewals/ProposalRenewals.js"></script>
+ 
+ <script>
+        $(document).ready(function () { 
+            $('#poolService').select2();
+    });
+</script>
+ 

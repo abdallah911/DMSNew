@@ -212,17 +212,17 @@ input {
     transition: all 0.2s ease-in-out;
 }
  span.select2.select2-container.select2-container--default {
-    height: 45px;
+    height: 45px !important;
     width: 100% !important;
 }
 
-    
+
     span.select2.select2-container.select2-container--default.select2-container--below {
         width: 100% !important;
         height: 100%;
-        
         position: relative;
         text-align: start;
+        height: 45px;
     }
 span.select2-selection.select2-selection--multiple {
     height: 100%;
@@ -265,6 +265,10 @@ ul#select2-ddlDiagnoises-container {
 li.select2-selection__choice{
     width: 24%;
 }
+span#select2-ddlSpeciality-container {
+    height: 100% !important;
+    padding-top: 7px;
+}
 /* ====================CS Pages=========================================== */
 
 .cs-page-container span.select2.select2-container.select2-container--default {
@@ -286,6 +290,7 @@ li.select2-selection__choice{
     border: 3px solid var(--color-secondary);
     border-radius: 6px;
     height: 100%;
+    padding-top: 10px;
 }
 
 .cs-page-container span#select2--container {
