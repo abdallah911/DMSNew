@@ -339,6 +339,21 @@ namespace DMS_Authontication1.Controllers
 
                     };
 
+
+                    if (model.poolService != null)
+                    {
+                        renewalBasicData.RenewalServicePools = new List<RenewalServicePool>();
+                        foreach (var serviceId in model.poolService)
+                        {
+                            renewalBasicData.RenewalServicePools.Add(new RenewalServicePool
+                            {
+                                ServiceId = serviceId
+                            });
+                        }
+                    }
+
+
+
                     db.RenewalBasicDatas.Add(renewalBasicData);
                     db.SaveChanges();
 
