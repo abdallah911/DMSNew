@@ -901,7 +901,12 @@ CateCount = ViewBag.CatCount; }
                                                     </div>
                                                 </div>
                                                 <div class="forLabel w-100  position-relative" style="width: 70%; ">
-                                                    <select class="seleect" id="ddlAdvancedDental" multiple> 
+                                                    <select class="seleect" id="ddlAdvancedDental" multiple>
+
+                                                        @foreach (var item in ViewBag.advancService)
+                                                        {
+                                                        <option value="@item.Id">@item.Name</option>
+                                                        }
                                                     </select>
                                                     <span style="right: 10px !important; padding-left: 0; top: 14px;">Multiselection</span>
                                                 </div>
@@ -991,6 +996,10 @@ CateCount = ViewBag.CatCount; }
                                                 </div>   
                                                 <div class="forLabel w-100  position-relative" style="width: 70%; ">
                                                     <select class="seleect" id="ddlBasicDental" multiple>
+                                                        @foreach (var item in ViewBag.basicService)
+                                                        {
+                                                            <option value="@item.Id">@item.Name</option>
+                                                        }
                                                     </select>
                                                     <span style="right: 10px !important; padding-left: 0; top: 14px;">Multiselection</span>
                                                 </div>

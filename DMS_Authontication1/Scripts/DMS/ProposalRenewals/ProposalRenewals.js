@@ -6,8 +6,7 @@ $(document).ready(function () {
     $('#ddlBasicDental').select2();
     $('#ddlAdvancedDental').select2();
     $('#ddlBasicDentalDisabled').select2();
-    $('#ddlAdvancedDentalDisabled').select2();
-
+    $('#ddlAdvancedDentalDisabled').select2();    
 });
  
  

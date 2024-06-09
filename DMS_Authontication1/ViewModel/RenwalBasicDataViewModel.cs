@@ -36,12 +36,12 @@ namespace DMS_Authontication1.ViewModel
         public int VisitorNumber { get; set; }
         public int VisitorType { get; set; }
         public bool IsBroker { get; set; }
-        public int BrokerId { get; set; }
+        public int? BrokerId { get; set; }
         
         //[Required(ErrorMessage = "Broker Percentage is required.")]
         //[Range(0, 100, ErrorMessage = "Broker Percentage must be greater than or equal to zero.")]
         //[RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "Invalid Broker Percentage format.")]
-        public int BrokerPercentage { get; set; }
+        public int? BrokerPercentage { get; set; }
 
         [Required(ErrorMessage = "Issuance Expenses is required.")]
         [Range(0, double.MaxValue, ErrorMessage = "Issuance Expenses must be greater than or equal to zero.")]

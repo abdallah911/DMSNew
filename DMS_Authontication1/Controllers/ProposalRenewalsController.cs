@@ -227,8 +227,6 @@ namespace DMS_Authontication1.Controllers
                 return View(model2);
             }
 
-
-
             var polMed = dbOra.RunReader(@"SELECT NVL(P.AMOUNT, 0), P.AMOUNT_TYPE
                                            FROM APP.POLL_DATA P, APP.POLL_DATA_SERVICE S
                                            WHERE P.POLL_CODE = S.POLL_CODE AND P.COMP_ID = '" + CompId + "' AND P.CONTRACT_NO = '" + ContractNo + "' AND S.SERV_CODE IN('11601', '11602', '11603')");
@@ -277,6 +275,7 @@ namespace DMS_Authontication1.Controllers
             if (stopLos != null && stopLos.Rows.Count > 0)
                 model.StopLossOld = Convert.ToDouble(stopLos.Rows[0][0].ToString());
 
+            model.poolService = polService.Select(s => s.Id).ToList();
 
             RenewalBasicData oldNew = db.RenewalBasicDatas.FirstOrDefault(r => r.MainId == mainIdOld);
 
@@ -298,6 +297,11 @@ namespace DMS_Authontication1.Controllers
                 model.IsMedication = oldNew.IsMedication.Value;
                 model.IsInpatient = oldNew.IsInpatient.Value;
                 model.IsLab = oldNew.IsLab.Value;
+
+                model.poolService = db.RenewalServicePools
+                                   .Where(x => x.MainId == oldNew.Id)
+                                   .Select(x => x.ServiceId ?? 0)
+                                   .ToList();
             }
 
             return View(model);
@@ -310,12 +314,11 @@ namespace DMS_Authontication1.Controllers
         {
             try
             {
-                //if(model.IsBroker == false)
-                //{
-                //    model.BrokerId = null;
-                //    model.BrokerPercentage = null;
-
-                //}
+                if (model.IsBroker == false)
+                {
+                    model.BrokerId = null;
+                    model.BrokerPercentage = null;
+                }
                 if (ModelState.IsValid)
                 {
                     var renewalBasicData = new RenewalBasicData
@@ -682,6 +685,8 @@ namespace DMS_Authontication1.Controllers
         {
             ViewBag.MainId = mainId;
             ViewBag.CatCount = countCat;
+            ViewBag.basicService = db.BasicDentalServices.ToList();
+            ViewBag.advancService = db.DentalServices.ToList();
 
             var model2 = TempData["RenewalStepThreeModel"] as List<RenewalInsideMedicalAuthorityViewModel>;
 
@@ -1252,6 +1257,8 @@ namespace DMS_Authontication1.Controllers
         {
             ViewBag.MainId = mainId;
             ViewBag.CatCount = countCat;
+            ViewBag.basicService = db.BasicDentalServices.ToList();
+            ViewBag.advancService = db.DentalServices.ToList();
 
             if (TempData["Save"] != null && !string.IsNullOrEmpty(TempData["Save"].ToString()))
                 ViewBag.Save = "YES";
