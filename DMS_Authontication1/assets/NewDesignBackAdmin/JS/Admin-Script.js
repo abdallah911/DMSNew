@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
   $(".slider").slick({
     // Slick settings go here

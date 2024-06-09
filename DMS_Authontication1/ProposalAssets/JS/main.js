@@ -4,6 +4,10 @@
 //        dateFormat: "dd-mm-yy",
 //    });
 //});
+$(document).ready(function () {
+$('#CompId').select2();
+$('#ddlServices').select2();
+});
 
 $(document).ready(function () {
 

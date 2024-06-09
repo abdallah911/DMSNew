@@ -1,13 +1,15 @@
 ﻿
 $(document).ready(function () {
-     
-    $("select2").select2();
-});
- 
-$(function () {
+
     $('#CompId').select2();
     $('#ddlServices').select2();
 });
+ 
+ 
+//$(document).ready(function () {
+//    $('#CompId').select2();
+//    $('#ddlServices').select2();
+//});
 function ClearAll() {
 
     $('#CompId').val('');
