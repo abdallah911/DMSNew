@@ -352,12 +352,26 @@ namespace DMS_Authontication1.Controllers
                         }
                     }
 
-
-
                     db.RenewalBasicDatas.Add(renewalBasicData);
                     db.SaveChanges();
 
-                    return RedirectToAction("RenewalStepTwoShow", new { mainId = model.MainId, model.CompId, ContractNo = model.ContractNo, countCat = model.CountClass, typeAction = model.typAction, mainIdOld = model.MainId });
+                    //if (model.poolService != null)
+                    //{
+                    //    foreach (var serviceId in model.poolService)
+                    //    {
+                    //        var renewalServicePool = new RenewalServicePool
+                    //        {
+                    //            MainId = renewalBasicData.Id,
+                    //            ServiceId = serviceId
+                    //        };
+                    //        db.RenewalServicePools.Add(renewalServicePool);
+                    //    }
+                    //    db.SaveChanges();
+                    //}
+
+
+
+                        return RedirectToAction("RenewalStepTwoShow", new { mainId = model.MainId, model.CompId, ContractNo = model.ContractNo, countCat = model.CountClass, typeAction = model.typAction, mainIdOld = model.MainId });
 
                 }
                 else
