@@ -20,9 +20,9 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <div class="container col-10 px-0 mt-4">
+        <div class="container col-sm-8 col-lg-6  px-0 my-4">
             <div style="white-space: nowrap" class="employee-form">
-                <div class="flex-column d-flex gap-2 pe-5">
+                <div class="flex-column d-flex gap-2  ">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="forLabel admin-form-control border-0 px-2">
                         @*@Html.LabelFor(model => model.SPEC_ANAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })*@
@@ -45,12 +45,11 @@
 
                     </div>
                 </div>
-                <div class="mt-5 d-flex gap-2 text-center">
+                <div class="col-md-4 mt-3 d-flex justify-content-center">
                     <input id="Back" type="button" value="Back" onclick="window.location.replace('/Specialities/index');" class="btn fw-bold text-white rounded-3" />
                     <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3" />
                 </div>
             </div>
-            <div class="m-auto col-12 col-lg-4 my-4"></div>
         </div>
     }</div>
 </div>

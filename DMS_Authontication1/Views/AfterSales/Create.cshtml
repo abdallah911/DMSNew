@@ -81,58 +81,48 @@
 
 
                                                 <div class="form-group CompanyTypeOld" id="CompanyTypeOld">
-                                                    <label class="sios-color control-label sbold col-md-4">
-                                                        @Html.DisplayNameFor(model => model.CompanyName) :
-                                                        <span class="required"> * </span>
-                                                    </label>
-                                                    <div class="col-md-8">
+
+                                                    @*@Html.DisplayNameFor(model => model.CompanyName) :*@
+
+                                                    <div class="forLabel  col-md-8">
                                                         @Html.DropDownList("CompanyNameList", ViewBag.company as SelectList, "Select Company", new { @class = "mb-2  admin-form-control   form-control", @id = "CompanyNameList" })
-
-
                                                         @*<input type="text" class="mb-2  admin-form-control   form-control" asp-for="FirstName" />*@
                                                         @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                                                        <span style="left:0px"> Company Name * </span>
                                                     </div>
                                                 </div>
-                                                <div class="form-group " id="CompanyTypeNew">
-                                                    <label class="sios-color control-label sbold col-md-4">
-                                                        @Html.DisplayNameFor(model => model.CompanyName) :
-                                                        <span class="required"> * </span>
-                                                    </label>
-                                                    <div class="col-md-8">
+                                                <div class="form-group  " style="display:none;" id="CompanyTypeNew">
+                                                    @*@Html.DisplayNameFor(model => model.CompanyName) :*@
+                                                    <div class="forLabel  col-md-8">
                                                         @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "mb-2  admin-form-control   form-control" } })
-
                                                         @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                                                        <span style="left:0px"> Company Name * </span>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group CompanyTypeOld">
-                                                    <label class="sios-color control-label sbold col-md-4">
-                                                        @Html.DisplayNameFor(model => model.BranchName) :
-                                                    </label>
-                                                    <div class="col-md-8">
+                                                    @*@Html.DisplayNameFor(model => model.BranchName) :*@
+                                                    <div class="forLabel col-md-8">
                                                         <select id="BranchName" class="mb-2  admin-form-control   form-control" data-step="2" data-intro="Select BranchName">
                                                         </select>
                                                         @*@Html.DropDownListFor(model => model.Department, ViewBag.Department as SelectList, "Select Department", new { @class = "mb-2  admin-form-control   form-control", id = "Department" })*@
                                                         @Html.ValidationMessageFor(model => model.BranchName, "", new { @class = "text-danger" })
+                                                    <span style="left:0px"> Branch Name </span>
+
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label class="sios-color control-label sbold col-md-4">
-                                                        @Html.DisplayNameFor(model => model.PersonName) :
-                                                    </label>
-                                                    <div class="col-md-8">
+                                                    @*@Html.DisplayNameFor(model => model.PersonName) :*@
+                                                    <div class="forLabel col-md-8">
                                                         @Html.EditorFor(model => model.PersonName, new { htmlAttributes = new { @class = "mb-2  admin-form-control   form-control" } })
                                                         @Html.ValidationMessageFor(model => model.PersonName, "", new { @class = "text-danger" })
+                                                        <span style="left:0px">Person Name </span> 
                                                     </div>
-                                                </div>
-
+                                                </div> 
                                                 <div class="form-group">
-                                                    <label class="sios-color control-label sbold col-md-4">
-                                                        @Html.DisplayNameFor(model => model.VisitReason) :
-                                                        <span class="required"> * </span>
-                                                    </label>
-                                                    <div class="col-md-8">
+                                                    @*@Html.DisplayNameFor(model => model.VisitReason) :*@ 
+                                                    <div class="forLabel col-md-8">
                                                         <select id="VisitReasonList" class="mb-2  admin-form-control   form-control" data-step="3" data-intro="Select Visit Reason">
                                                             <option>Select Reason</option>
                                                             <option valur="حل مشكلة ال Network">حل مشكلة ال Network</option>
@@ -142,40 +132,40 @@
                                                         </select>
                                                         @*<input type="text" class="mb-2  admin-form-control   form-control" value="" id="ComplaintReason" />*@
                                                         @Html.ValidationMessageFor(model => model.VisitReason, "", new { @class = "text-danger" })
+                                                    <span style="left:0px">Visit Reason *  </span>
+
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label class="sios-color control-label sbold col-md-4">
-                                                        @Html.DisplayNameFor(model => model.VisitDate) :
-                                                    </label>
-                                                    <div class="col-md-8">
-                                                        @Html.EditorFor(model => model.VisitDate, new { htmlAttributes = new { @class = "col-md-2 mb-2  admin-form-control   form-control CreatDate", @placeholder = "Date" } })
+                                                    @*@Html.DisplayNameFor(model => model.VisitDate) :*@
+                                                    <div class="forLabel col-md-8">
+                                                        @Html.EditorFor(model => model.VisitDate, new { htmlAttributes = new { @class = "col-md-2 mb-2 date-input  admin-form-control   form-control CreatDate", @placeholder = "Date" } })
                                                         @*<input id="CreatedDate" type="datetime" class="col-md-2 mb-2  admin-form-control   form-control " placeholder="Date" />*@
                                                         @Html.ValidationMessageFor(model => model.VisitDate, "", new { @class = "text-danger" })
+                                                        <span style="left:0px"> Visit Date</span>
+
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label class="sios-color control-label sbold col-md-4">
-                                                        @Html.DisplayNameFor(model => model.Region) :
-                                                    </label>
-                                                    <div class="col-md-8">
+                                                    @*@Html.DisplayNameFor(model => model.Region) :*@
+                                                    <div class="forLabel col-md-8">
                                                         @Html.EditorFor(model => model.Region, new { htmlAttributes = new { @class = "mb-2  admin-form-control   form-control" } })
                                                         @Html.ValidationMessageFor(model => model.Region, "", new { @class = "text-danger" })
+                                                        <span style="left:0px">Region </span>
+
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label class="sios-color control-label sbold col-md-4">
-                                                        @Html.DisplayNameFor(model => model.Phone) :
-                                                        <span class="required"> * </span>
-
-                                                    </label>
-                                                    <div class="col-md-8">
+                                                    @*@Html.DisplayNameFor(model => model.Phone) :*@ 
+                                                    <div class="forLabel col-md-8">
                                                         @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "mb-2  admin-form-control   form-control ", @onkeypress = "return /[0-9]/i.test(event.key)" } })
                                                         @*<input type="text" class="mb-2  admin-form-control   form-control" id="Phone" value="" onkeypress="return /[0-9]/i.test(event.key)" />*@
                                                         @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                                                        <span style="left:0px">Phone * </span>
+
                                                     </div>
                                                 </div>
 
@@ -259,9 +249,9 @@
     <div class="container mt-3 mb-4 panel panel-info" >
         <!--Save-->
         <div class="panel-footer" style="text-align:right;">
-            <input data-step="6" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn fw-bold text-white rounded-3 btn-info" />
-            <input data-step="7" data-intro="Reset " id="reset" type="button" value="Reset" onclick="ClearVisitDataData();" class="btn fw-bold text-white rounded-3 btn-warning" />
-            <input data-step="8" data-intro="Save Visit" id="submit" type="button" value="Save" class="btn fw-bold text-white rounded-3 btn-success" onclick="Submit_Save()" />
+            <input data-step="6" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn fw-bold text-white rounded-3  " />
+            <input data-step="7" data-intro="Reset " id="reset" type="button" value="Reset" onclick="ClearVisitDataData();" class="btn fw-bold text-white rounded-3  " />
+            <input data-step="8" data-intro="Save Visit" id="submit" type="button" value="Save" class="btn fw-bold text-white rounded-3   " onclick="Submit_Save()" />
         </div>
     </div>
 </div>

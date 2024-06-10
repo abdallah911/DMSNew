@@ -133,9 +133,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="print-claims-btns d-flex mt-5">
-                    <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn reset-btn me-2" />
-                    <input id="adminSearch" type="button" value="Search" class="btn claims-search-btn ms-2 " />
+                <div class="print-claims-btns d-flex gap-2 mt-5">
+                    <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3 " />
+                    <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3  " />
 
                 </div>
             </div>
@@ -193,66 +193,68 @@
 </div>
 @if (User.IsInRole("Admin") && fullcontroll)
 { 
-        <div class=" portlet box  green mb-4">
-            <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
-                <div class="m-3 fs-3 text-white caption">
-                    <i class="fa fa-gift me-3"></i>Admin Count
-                </div>
-            </div>
-            <div class=" portlet-body ">
-                <table class="mb-4 ui celled table" id="Counts" width="100%">
-                    <thead>
-                        <tr>
-                            <th>
-                                Count
-                            </th>
-                            <th>
-                                Total Value
-                            </th>
-                            <th>
-                                Company Payment
-                            </th>
-                            <th>
-                                Person Payment
-                            </th>
-                            <th>
-                                Cash
-                            </th>
-
-                            <th>
-                                Over Insurance
-                            </th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-
-                        </tr>
-                    </tbody>
-
-                </table>
-            </div>
-
+<div class=" portlet box  green mb-4">
+    <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <i class="fa fa-gift me-3"></i>Admin Count
         </div>
+    </div>
+    <div class=" portlet-body ">
+        <div class="sios-bg container-fluid w-100  ">
+            <table class="mb-4 ui celled table" id="Counts" width="100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Count
+                        </th>
+                        <th>
+                            Total Value
+                        </th>
+                        <th>
+                            Company Payment
+                        </th>
+                        <th>
+                            Person Payment
+                        </th>
+                        <th>
+                            Cash
+                        </th>
+
+                        <th>
+                            Over Insurance
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            0
+                        </td>
+
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>
 
         }
         <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>

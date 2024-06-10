@@ -17,27 +17,27 @@
     </div>
 </div>
 
-<section class="sios-container print-claim-section mt-5">
-    <form name="formValidation" id="formValidation" action="">
+<section class="   mt-4">
+    <form class="mb-0" name="formValidation" id="formValidation" action="">
         <div class="container">
             <div class="row mt-3">
-                <div class="row row-cols-sm-3 m-auto m-sm-0">
+                <div class="row  row-cols-sm-2 col-md-8  row-gap-2  m-auto m-sm-0">
                     <div class="forLabel">
-                        <input class="chronic-form-control mb-3 ps-3" type="text" name="CardId" id="CardId" required="required" />
+                        <input class="admin-form-control ps-3" type="text" name="CardId" id="CardId" required="required" />
                         <span for="CardId">Card ID</span>
                     </div>
                     <div class="forLabel">
-                        <input class="chronic-form-control mb-3 ps-3" type="text" name="Company" id="Company" required="required" />
+                        <input class="admin-form-control ps-3" type="text" name="Company" id="Company" required="required" />
                         <span for="company">Company</span>
                     </div>
                 </div>
+                <div class="print-claims-btns mt-3 mt-md-0 col-md-4 d-flex gap-2  justify-content-center  ">
+                    <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3" style="height: fit-content;" />
+                    <input id="SendAllSms" type="button" value="Send All Sms" onclick="SendAll();" class="btn d-none fw-bold text-white rounded-3" style="height: fit-content;" disabled />
+                    <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3" style="height: fit-content;" />
+                </div>
             </div>
-            <div class="print-claims-btns d-flex gap-2 mt-5 justify-content-end">
-                <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3"   />
-                <input id="SendAllSms"  type="button" value="Send All Sms" onclick="SendAll();" class="btn d-none fw-bold text-white rounded-3"  disabled />
-                <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3"  />
-
-            </div>
+           
         </div>
     </form>
 </section>

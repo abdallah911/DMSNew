@@ -166,7 +166,10 @@
                 </dt>
 
                 <dd class="sios-table-dd col">
-                    @Html.ActionLink("Confirm", "ConfirmOrder", new { id = Model.Id }, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3 btn-info fa fa-edit", @style = " text-transform: none" })
+                    <div class="btn fw-bold text-white rounded-3">
+                        <i class="fa-solid fa-edit me-1"></i>
+                        @Html.ActionLink("Confirm", "ConfirmOrder", new { id = Model.Id }, htmlAttributes: new { @class = " text-white ", @style = "text-decoration:none; text-transform: none" })
+                    </div> 
                 </dd>
             </dr>
         </div>
@@ -226,8 +229,10 @@
 
 
 <p>
-    @Html.ActionLink(" Back to List", "IndexAdmin", null, htmlAttributes: new { @class = "m-4 mt-0 btn fw-bold text-white rounded-3 btn-primary fa fa-backward", @style = " text-transform: none" })
-
+    <div class="btn fw-bold text-white rounded-3 d-flex align-items-center ms-4" style="width:fit-content;">
+        <i class="fa-solid fa-caret-left fs-6 me-1"></i>
+        @Html.ActionLink(" Back to List", "IndexAdmin", null, htmlAttributes: new { @class = " text-white ", @style = "text-decoration:none; text-transform: none" })
+    </div>
 
 </p>
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>

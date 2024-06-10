@@ -34,7 +34,7 @@ body {
     font-size: 14px;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+  /*  overflow-x: hidden;*/
 }
 /* start sidebar */
 
@@ -155,6 +155,8 @@ body {
 
 .forLabel input:valid ~ span,
 .forLabel select:valid ~ span:last-of-type,
+.forLabel select:disabled ~ span:last-of-type,
+.forLabel input:disabled ~ span:last-of-type,
 .forLabel textarea:valid ~ span,
 .forLabel input:focus ~ span,
 .forLabel select:focus ~ span,
@@ -236,7 +238,12 @@ span.select2-selection.select2-selection--multiple {
     border-radius: 6px;
     height: 100%;
 }
-
+span#select2-CompNo-container,
+span#select2-CompNoPrint-container,
+span#select2-CardNo-container {
+    height: 100% !important;
+    padding-top: 6px;
+}
  span#select2--container {
     height: 100%;
     padding: 9px 10px;
@@ -260,15 +267,61 @@ span.select2-dropdown.select2-dropdown--below {
 }
 ul#select2-ddlDiagnoises-container {
     display: flex;
-    flex-wrap: wrap;
+     
 }
-li.select2-selection__choice{
-    width: 24%;
+li.select2-selection__choice {
+    width: fit-content;
+    font-size: 10px;
 }
 span#select2-ddlSpeciality-container {
     height: 100% !important;
     padding-top: 7px;
 }
+.select2-search.select2-search--inline input.select2-search__field {
+    width: 100% !important;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 16px !important;
+    font-weight: 700;
+    color: #434343;
+    direction: ltr;
+    padding-left: 10px !important;
+    padding-top: 0 !important;
+    height: 100%;
+    margin-top: 0;
+    margin-right: 0;
+}
+.pool-field .forLabel li.select2-selection__choice {
+    background-color: #cacaca !important;
+}
+.select2-60 span.select2-selection.select2-selection--multiple {
+    height: 60px;
+}
+.select2-60 textarea.select2-search__field {
+    width: 100% !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 6px 6px 0 0;
+    height: 30px !important;
+    padding: 6px !important;
+    font-weight: 700;
+    font-size: 14px !important;
+    background: #f0f0f0;
+    margin: 0 !important;
+    border: 1px solid var(--color-secondary) !important;
+}
+.select2-60 span.select2-selection.select2-selection--multiple {
+    padding-top: 28px;
+}
+.select2-60 span.select2.select2-container.select2-container--default {
+    top: 0;
+    position: absolute;
+    left: 0;
+    padding: 0 10px;
+}
+
 /* ====================CS Pages=========================================== */
 
 .cs-page-container span.select2.select2-container.select2-container--default {
@@ -454,6 +507,7 @@ span.select2.select2-container.select2-container--default {
 .jsgrid-header-row > .jsgrid-header-cell {
     background-color: #86aef770 !important;
     font-weight: 700 !important;
+    font-size: 12px;
 }
 .jsgrid-row td.jsgrid-cell {
     background-color: #0000000d !important;
@@ -463,6 +517,7 @@ td.jsgrid-cell {
     border-color: #ebe9e9;
     background-color: transparent !important;
     padding: 10px;
+    font-size: 12px;
 }
 .jsgrid-cell input[type="text"] {
     border-color: #ebe9e9;
@@ -500,6 +555,10 @@ span.jsgrid-pager-nav-button a {
     border-radius: 2px;
     width: 30px;
     text-align: center;
+}
+.jsgrid-pager-page a {
+    color: var(--color-btn);
+    text-decoration: none;
 }
 span.jsgrid-pager-page.jsgrid-pager-current-page {
     background-color: #17609b;
@@ -949,6 +1008,24 @@ textarea {
 
 .modal-footer {
     border-radius: 0 0 20px 20px;
+    background: var(--color-secondary);
+}
+.modal-footer button.btn.btn-primary {
+    color: var(--color-btn);
+    font-weight: 700;
+    background: white;
+}
+button.bootbox-close-button.close {
+    border: none;
+    border-radius: 8px;
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: var(--color-btn);
 }
 
 .modal.fade .modal-dialog {
@@ -1862,14 +1939,10 @@ form .sios-form-control-2 {
 
     .print-claim-section form {
         position: relative;
-        margin-bottom: 20px;
+         
     }
 
-    .print-claim-section form {
-        @media (max-width: 576px) {
-            margin-bottom: 70px;
-        }
-    }
+ 
 
 .claims-form-control {
     width: 25%;
@@ -3795,7 +3868,7 @@ dd.sios-table-dd {
 .sios-color{
     color:var(--color-secondary);
 }
-.fa-search,
+/*.fa-search,
 .fa-check,
 .fa-backward,
 .fa-download,
@@ -3809,7 +3882,7 @@ dd.sios-table-dd {
     font-family: "Almarai", sans-serif;
     height: 35px;
     font-weight: 800;
-}
+}*/
 /* ====================footer========================================== */
 .footer {
     background: var(--color-gradient);

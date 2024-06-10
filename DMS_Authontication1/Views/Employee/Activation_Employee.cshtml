@@ -113,13 +113,13 @@
                 {
                     "data": "Id",
                     "mRender": function (data) {
-                        return '<a class="btn fw-bold text-white rounded-3 btn-info fa fa-download" style = " text-transform: none"  href="/Employee/DownloadNationaId/' + data + '"> Download </a>';
+                        return '<a class="btn fw-bold text-white rounded-3  " style = " text-transform: none"  href="/Employee/DownloadNationaId/' + data + '"> <i class="fa-solid fa-download me-1"></i>Download </a>';
                     }
                 },
                 {
                     "data": "Id",
                     "mRender": function (data) {
-                        return "<select id='ChangeStatus' style='width: 120px!important;'  class='admin-form-control form-control' onchange='UpdateStuts(this);'><option value= 'N' > Select Action</option > <option value='true'>Yes</option> <option value='false'>No</option></select > ";
+                        return "<select id='ChangeStatus' style='width: 120px!important;'  class='admin-form-control shadow-sm form-control' onchange='UpdateStuts(this);'><option value= 'N' > Select Action</option > <option value='true'>Yes</option> <option value='false'>No</option></select > ";
                     }
                 },
 

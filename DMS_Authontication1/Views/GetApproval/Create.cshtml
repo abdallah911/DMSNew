@@ -18,7 +18,7 @@
     <div class="portlet-body">
 
         <div class="row m-4">
-            <div  class="d-flex align-items-center justify-content-start form-group">
+            <div class="d-flex align-items-center justify-content-start form-group">
                 <div class="col-sm-3 ">
                     <input id="txtSearchCard" type="text" name="Search" placeholder="search for card..." class="search-inp rounded-4 w-100 admin-form-control form-control" />
                 </div>
@@ -31,13 +31,13 @@
         </div>
         @Html.Partial("Cards")
 
-        
+
         <div class="row bg-overlay">
             <div class="m-3 fs-3 text-white panel panel-info">
-                <h2 class="panel-heading"  >Card </h2>
+                <h2 class="panel-heading">Card </h2>
             </div>
         </div>
-        <div  style="position: relative" class="row col-12 w-75 m-auto py-4 row">
+        <div style="position: relative" class="row col-12 w-75 m-auto py-4 row">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-gap-2 form-group">
 
                 <div class="forLabel admin-form-control   border-0 px-2">
@@ -66,9 +66,9 @@
                     <span>Birth Date</span>
                 </div>
                 @*<div class="forLabel admin-form-control   border-0 px-2">
-            @Html.LabelFor(model => model.compEmp.gender, htmlAttributes: new { @class = "control-label" })
-            @Html.EditorFor(model => model.compEmp.gender, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
-        </div>*@
+                    @Html.LabelFor(model => model.compEmp.gender, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.compEmp.gender, new { htmlAttributes = new { @class = "admin-form-control form-control", @ReadOnly = "true" } })
+                </div>*@
 
 
             </div>
@@ -78,10 +78,10 @@
 
         </div>
 
-        
+
         <div class="row bg-overlay">
             <div class="m-3 fs-3 text-whitepanel panel-info">
-                <h2 class="m-3 fs-3 text-white panel-heading"  >Permissions</h2>
+                <h2 class="m-3 fs-3 text-white panel-heading">Permissions</h2>
             </div>
         </div>
         <div class="row row-cols-sm-2 row-gap-3 justify-content-between  my-4 px-3 row">
@@ -106,7 +106,7 @@
 
 
             </div>
-            <div class="d-grid gap-3" >
+            <div class="d-grid  gap-3">
                 <div hidden id="Hidde" class="forLabel admin-form-control border-0 px-2">
 
                     @Html.DropDownListFor(m => m.Provider, (new SelectList(Model.GetProvidersList, "Id", "Name")),
@@ -114,20 +114,17 @@
                     <span>Provider</span>
                 </div>
 
-                <div class="forLabel admin-form-control   border-0 px-2" hidden id="Hidden">
-
-
+                <div class="forLabel select2-60 admin-form-control w-100  border-0 px-2" style="width: 70%; padding-right: 30px; " hidden id="Hidden">
                     @* <input type="hidden" id="textBoxVal" />*@
-                    <select class="w-50 mySelect2" multiple name="SelectVal" id="SelectVal"></select>
-                    <span style="font-size:medium;">Reasons</span>
+                    <select class="sios-form-control w-100 border-0 mySelect2" multiple name="SelectVal" id="SelectVal"></select>
+                    <span style=" right: 20px !important; padding-left: 0; top: 4px;">Reasons</span>
                 </div>
-            </div>
-            <div class="row">
-
-                <button style="margin-left:750px;width:110px;" id="submit" type="submit" class="text-white fw-bold btn btn-info ">Submit</button>
-
 
             </div>
+
+        </div> 
+        <div class="row col-sm-6 mx-auto  "> 
+            <button id="submit" type="submit" class="btn fw-bold text-white rounded-3 me-auto me-md-5 ms-auto mb-4 " style="width:fit-content;">Submit</button> 
         </div>
     </div>
 </div>

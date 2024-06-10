@@ -26,7 +26,7 @@
                     <div class="flex-column d-flex pe-5">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="new-requ-form-parent row col-4 col-sm-6 col-md-8 mt-3">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = " sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })
                             @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "hr-form-control col-12 col-sm-8 border-0" } })
                             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>

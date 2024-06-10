@@ -77,13 +77,13 @@
                 @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "admin-form-control w-100 h-100  ", @id = "ddlSpeciality" })
                 <span>Speciality</span>
             </div>
-            <div class="  forLabel admin-form-control   border-0 px-2  ">
-
+             
+            <div class="  forLabel select2-60  admin-form-control   border-0 px-2  " style="height:60px"> 
                 @*@Html.Label("Diagnoise", new { @class = "control-label" })*@
                 <select id="ddlDiagnoises" class="admin-form-control border-2 ps-3" style="width:100%" multiple></select>
-                <span>Diagnoise</span>
+                <span style="right: 20px !important; padding-left: 0; top: 14px; color: var(--color-secondary) !important; font-size: 11px;">Diagnoise</span>
             </div>
-            <div class="forLabel  admin-form-control  border-0 px-2">
+            <div class="forLabel select2-60  admin-form-control  border-0 px-2">
                 @*@Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })*@
                 @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   rounded-3", @ReadOnly = "true" } })
                 <span>Limit</span>
@@ -100,10 +100,10 @@
 
     @*//History*@
 
-    <div class="row bg-overlay my-4 editeRquest fw-bold ">
-        <div class="m-3 fs-3 text-white panel panel-info">
-            <h2 class="panel-heading">History</h2>
-        </div>
+    <div class="row bg-overlay p-3 my-4 editeRquest fw-bold "> 
+            <div class="  m-3 fs-3 text-white panel panel-info">
+                <h2 class="panel-heading mb-0">History</h2>
+            </div> 
     </div>
 
 
@@ -167,8 +167,8 @@
 
 
     <div class="sios-overlay container-fluid mt-4 panel panel-info">
-        <div class="container fs-3 text-white">
-            <h2 class="panel-heading">Medicines</h2>
+        <div class="m-3 fs-3 text-white">
+            <h2 class="panel-heading mb-0">Medicines</h2>
         </div>
 
     </div>
@@ -179,7 +179,7 @@
     <div class="row">
         <div class="admin-form-control border-0 col-sm-12 position-relative">
             <select id="AddMedicine" multiple="multiple" style="width:100%">
-                <option value="0">select medicine</option>
+                <option value="0"> </option>
             </select>
             <span style="left:20px;" class="sios-color fw-medium fs-5  position-absolute top-50 translate-middle-y">select medicine</span>
         </div>

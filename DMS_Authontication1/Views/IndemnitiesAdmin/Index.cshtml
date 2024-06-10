@@ -147,15 +147,21 @@
                             }
                             @if (!User.IsInRole("Admin") || fullcontroll || view)
                             {
-                                <td class="  align-items-center gap-1">
-                                    @Html.ActionLink(" Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = " btn fw-bold text-white rounded-3 btn-primary fa fa-list", @style = " text-transform: none" })
-                                </td>
+                             <td class="  align-items-center gap-1">
+                                 <div class="btn fw-bold text-white rounded-3  ">
+                                     <i class="fa fa-list me-1"></i>
+                                     @Html.ActionLink(" Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "text-white ", @style = "text-decoration:none; text-transform: none" })
+                                 </div>
+                             </td>
                             }
                             @if (!User.IsInRole("Admin") || fullcontroll || delete)
                             {
-                                <td style="white-space:nowrap" class="d-flex align-items-center gap-1">
-                                    @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3 btn-danger fa fa-remove", @style = " text-transform: none" })
-                                </td>
+                             <td style="white-space:nowrap" class="d-flex align-items-center gap-1">
+                                 <div class="btn fw-bold text-white rounded-3 btn-danger">
+                                     <i class="fa-solid fa-trash me-1"></i>
+                                     @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = " text-white", @style = "text-decoration:none; text-transform: none" })
+                                 </div>
+                             </td>
                             }
                         </tr>
                     }

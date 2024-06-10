@@ -12,27 +12,29 @@
         </div>
     </div>
 
-    <section class="print-claim-section">
+    <section class="print-claim-section mb-4">
         @using (Html.BeginForm("MedicineLicenseType", "Medicines", FormMethod.Post))
         {
             <div class="container mb-0">
                 <div class="row mt-3">
-                    <div class="row row-cols-sm-3 m-auto m-sm-0">
+                    <div class="row row-cols-sm-2 row-gap-3 mx-auto">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 w-100">
-                            <div class="row col-12 col-md-2 my-auto">
-                                @Html.LabelFor(model => model.licType, htmlAttributes: new { @class = "sios-color fw-bold" })
+                        <div class=" col-md-8  ">
+                            <div class="  col-12 col-md-2 my-auto">
+                                @*@Html.LabelFor(model => model.licType, htmlAttributes: new { @class = "sios-color fw-bold" })*@
                             </div>
-                            <div class="row col-12 col-md-6">
-                                @Html.EditorFor(model => model.licType, new { htmlAttributes = new { @class = "chronic-form-control" } })
+                            <div class="forLabel row col-12 col-md-6">
+                                @Html.EditorFor(model => model.licType, new { htmlAttributes = new { @class = "admin-form-control" } })
                                 @Html.ValidationMessageFor(model => model.licType, "", new { @class = "text-danger" })
+                                <span style="left:3px ">License Name</span>
                             </div>
+                        </div>
+                        <div class="col-md-4 d-flex justify-content-center">
+                            <input id="submit" type="submit" value="Create" class="btn mx-auto fw-bold text-white rounded-3" />
                         </div>
                     </div>
                 </div>
-                <div class="print-claims-btns d-flex   justify-content-end">
-                    <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3" />
-                </div>
+               
             </div>
         }
     </section>

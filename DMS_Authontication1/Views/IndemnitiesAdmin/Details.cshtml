@@ -218,15 +218,17 @@
                         @Html.DisplayFor(modelItem => item.ServiceDate)
                     </td>
                     <td>
-                        @Html.ActionLink(" Download", "Download", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info text-white fa fa-download", @style = " text-transform: none" })
-
+                        <div class="btn fw-bold text-white rounded-3">
+                            <i class="fa-solid fa-download me-1"></i> 
+                            @Html.ActionLink(" Download", "Download", new { id = item.Id }, htmlAttributes: new { @class = " text-white ", @style = "text-decoration:none; text-transform: none" })
+                        </div>
                     </td>
 
 
                 </tr>
             }
         </table>
-        </td>
+       
         @*<th>
                 @Html.DisplayNameFor(model => model.AttachPDF)
             </th>
@@ -242,7 +244,7 @@
 
 
 
-<p>
+<p class="mb-0">
     @if (!User.IsInRole("Admin"))
     {
         @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary fa fa-backward", @style = " text-transform: none" })
@@ -255,28 +257,29 @@
         </div>
         <div class="status-box d-flex align-items-center justify-content-between container mx-auto panel panel-info">
 
-            <div class="panel-body">
-                <div class="row">
-                    <div class="d-flex align-items-center mt-4 gap-3 form-group">
+            <div class="panel-body mt-4">
+                <div class="row row-cols-md-2">
+                    <div class="col-md-8  d-flex align-items-center   gap-3 form-group">
                         <input class="admin-form-control ps-3 pt-2" type="text" id="id" value="@Model.Id" hidden />
                         <div class="">
                             <h4>@Html.Label("Update Status :", htmlAttributes: new { @class = "me-2 sios-color fs-4 fw-medium control-label", @style = "white-space: nowrap;  " })</h4>
 
                         </div>
                         <div style="width:250px;" class="col-lg-3" data-step="7" data-intro="Select speciality">
-                            @Html.TextAreaFor(model => model.Status, new { htmlAttributes = new { @class = "chronic-form-control ps-3 pt-2 form-control", @style = "height: 40px !important; border-radius: 10px" } })
+                            @Html.TextAreaFor(model => model.Status, new { htmlAttributes = new { @class = "admin-form-control ps-3 pt-2 form-control", @style = "height: 40px !important; border-radius: 10px" } })
                         </div>
+                    </div>  
+                    <!--Save-->
+                    <div class="col-md-4 d-flex gap-2 justify-content-center mt-2 panel-footer" style="text-align:right;">
+                        @*<input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
+                        @*<input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn btn-warning" />*@
+                        @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3", @style = "width: fit-content; height: fit-content" })
+                        <input data-step="12" data-intro="Update Status" id="submit" type="button" value="Update" class="btn fw-bold text-white rounded-3" style="height:fit-content;"/>
                     </div>
                 </div>
             </div>
 
-            <!--Save-->
-            <div class="panel-footer" style="text-align:right;">
-                @*<input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
-                @*<input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn btn-warning" />*@
-                @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3", @style = "width: fit-content; height: fit-content" })
-                <input data-step="12" data-intro="Update Status" id="submit" type="button" value="Update" class="btn fw-bold text-white rounded-3" />
-            </div>
+       
 
         </div>
 

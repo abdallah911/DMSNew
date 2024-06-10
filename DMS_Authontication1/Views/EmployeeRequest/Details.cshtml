@@ -774,7 +774,10 @@
         <p>
             @if (!User.IsInRole("Admin"))
             {
-                @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary fa fa-backward", @style = " text-transform: none" })
+            <div class="btn fw-bold text-white rounded-3">
+                <i class="fa-solid fa-caret-left me-1"></i>
+                @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "  ", @style = " text-transform: none" })
+            </div> 
             }
             else
             {
@@ -783,7 +786,7 @@
                     <div class="panel panel-info">
                         <div class="row bg-overlay  ">
                             <div class="m-3 fs-3 text-white  ">
-                                <h2 class="panel-heading" >Update Status</h2>
+                                <h2 class="panel-heading">Update Status</h2>
                             </div>
                         </div>
                         <div class="mt-4 panel-body">
@@ -795,24 +798,27 @@
 
                                     </div>
                                     <div class="col-lg-3" data-step="7" data-intro="Select speciality">
-                                        @Html.TextAreaFor(model => model.APPROVE_FLAG, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.TextAreaFor(model => model.APPROVE_FLAG, new { htmlAttributes = new { @class = "admin-form-control form-control" } })
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!--Save-->
-                        <div class="panel-footer px-md-5" style="text-align:right;">
+                        <div class="d-flex mt-2 gap-2 justify-content-center justify-content-sm-end me-sm-4 panel-footer px-md-5" style="text-align:right;">
                             @*<input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
                             @*<input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn btn-warning" />*@
-                            @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3 btn btn-primary fa fa-backward", @style = " text-transform: none" })
-                            <input data-step="12" data-intro="Update Status" id="submit" type="button" value="Update" class="btn fw-bold text-white rounded-3 btn-success fa fa-check" />
+                            <div class="btn fw-bold text-white rounded-3 ">
+                                <i class="fa-solid fa-caret-left me-1"></i>
+                                @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "text-white", @style = "text-decoration:none; text-transform: none" })
+                            </div> 
+                            <input data-step="12" data-intro="Update Status" id="submit" type="button" value="Update" class="btn fw-bold text-white rounded-3 btn-success " />
                         </div>
 
                     </div>
-                        </div>
-                        }
-</p>
+                </div>
+            }
+        </p>
         <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
         <script src="~/assets/HomeTemplete/js/intro.js"></script>
         <script src="~/Scripts/DMS/HR/UpdateRequestStatus.js?V=1.1"></script>
