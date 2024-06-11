@@ -963,3 +963,20 @@ li.select2-selection__choice {
     margin-top: 0;
     margin-right: 0;
 }
+ul.select2-selection__rendered {
+    display: flex !important;
+    flex-wrap: nowrap;
+}
+.renewals-ddl span.select2.select2-container.select2-container--default {
+    height: 33px !important;
+    border-radius: 5px;
+    border: none; 
+    font-weight: 600;
+}
+.renewals-ddl span.select2-selection.select2-selection--single {
+    border: none;
+    box-shadow: 0 0 3px 1px #0000002b;
+}
+.proposal-container {
+    min-height: calc(100vh - 318px);
+}

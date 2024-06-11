@@ -232,11 +232,12 @@ span.select2-selection.select2-selection--multiple {
     border-radius: 8px;
     padding-bottom: 0;
 }
- span.select2-selection.select2-selection--single {
+span.select2-selection.select2-selection--single {
     background-color: transparent;
     border: 2px solid var(--color-secondary);
     border-radius: 6px;
     height: 100%;
+    padding-top: 10px;
 }
 span#select2-CompNo-container,
 span#select2-CompNoPrint-container,
@@ -267,7 +268,7 @@ span.select2-dropdown.select2-dropdown--below {
 }
 ul#select2-ddlDiagnoises-container {
     display: flex;
-     
+    margin-top: 15px;
 }
 li.select2-selection__choice {
     width: fit-content;
@@ -1272,7 +1273,23 @@ p.count-p {
         margin-left: 25px;
     }
 }
-
+ul.ps-0.Admin-main-ul.mb-0:first-of-type {
+    background-color: white;
+    border-radius: 12px;
+    padding: 12px !important;
+}
+ul.ps-0.Admin-main-ul.mb-0:first-of-type:hover {
+    background: var(--color-gradient);
+}
+ul.ps-0.Admin-main-ul.mb-0:first-of-type:hover li a i,
+ul.ps-0.Admin-main-ul.mb-0:first-of-type:hover li a {
+    color:white;
+}
+ul.ps-0.Admin-main-ul.mb-0:first-of-type li a i,
+ul.ps-0.Admin-main-ul.mb-0:first-of-type li a{
+color: var(--color-secondary);
+font-size: 12px;
+}
 /* //////////// Overriding HR-Style //////////// */
 .profile-bg-overlay,
 .bg-overlay {

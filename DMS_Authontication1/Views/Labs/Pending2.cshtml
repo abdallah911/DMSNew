@@ -5,19 +5,19 @@
     }
     <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
     @Html.Partial("_Approvals")
-    <div class="sios-container container-fluid">
-        <div class="panel panel-info">
+    <div class="sios-container px-0 container-fluid">
+        <div class="ppx-0 panel panel-info">
             <div class="d-flex bg-overlay justify-content-between editeRquest fw-bold my-4 portlet-title">
                 <div class="m-3 fs-3 text-white caption">
                     <h2 class="panel-heading" style="margin:1px;">Pending</h2>
                 </div>
             </div>
-            <div class="panel-body">
-                <div class="input-group col-md-3">
+            <div class="panel-body ">
+                <div class="container forLabel admin-form-control border-0  mx-0 mb-3 col-md-3"> 
+                    <input id="txtSearchApproval" class="admin-form-control w-100 h-100 rounded-3 form-control" placeholder="Click To Search">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                    <input id="txtSearchApproval" class="admin-form-control form-control" placeholder="Click To Search">
                 </div>
-                <div class="sios-bg container-fluid master">
+                <div class="sios-bg  container-fluid master">
                     <div class="table-responsive">
                         <table class="table table-striped mt-3 text-center " id="Index">
                             <thead>
@@ -36,11 +36,11 @@
                         </table>
                     </div>
                 </div>
-                <div class="row">
+                <div class="container">
 
-                    <div class="col-md-3">
-                        <label class="control-label">Total Amount</label>
-                        <input id="TotalAmount" disabled class="form-control col-md-3" />
+                    <div class="forLabel admin-form-control border-0 px-2 mt-3 col-md-3">
+                        <span class="control-label">Total Amount</span>
+                        <input id="TotalAmount" disabled class="admin-form-control w-100 h-100 rounded-3 form-control col-md-3" />
                     </div>
 
                     @*<div class="col-md-3">

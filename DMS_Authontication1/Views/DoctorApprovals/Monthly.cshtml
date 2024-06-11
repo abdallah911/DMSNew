@@ -18,16 +18,14 @@
 
 <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px; z-index:100000;">
     <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
-</div>
-
+</div> 
 <div class="sios-container editeRquest fw-bold pt-4 portlet box  green">
     <div class="row bg-overlay  portlet-title">
         <div class="m-3 fs-3 text-white caption">
             <i class="fa fa-gift"></i>Chronic Management
         </div>
     </div>
-    <div class="portlet-body">
-
+    <div class="portlet-body"> 
         <ul class="nav nav-tabs">
             <li><a href="#CompaniesTab" data-toggle="tab">Companies</a></li>
             <li class="active"><a href="#IndividualTab" data-toggle="tab">Individual</a></li>
@@ -40,12 +38,9 @@
                             <div class="col-sm-3">
                                 <input id="txtSearchCompany" type="text" placeholder="search for company..." class="form-control" />
                             </div>
-                            <div class="col-sm-3">
-
-                            </div>
-
-                        </div>
-
+                            <div class="col-sm-3"> 
+                            </div> 
+                        </div> 
                     </div>
                     <div class="row">
                         <div class="form-group">
@@ -94,8 +89,7 @@
                                 </div>*@
                         </div>
                     </div>
-                </div>
-
+                </div> 
             </div>
             <div id="IndividualTab" class="tab-pane fade  in active">
                 <div class="form-horizontal">
@@ -109,8 +103,7 @@
                                 <button id="AddCard" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                                     <i class="glyphicon glyphicon-search"></i> Search
                                 </button>
-                            </div>
-
+                            </div> 
                         </div>
                     </div>
                     <div class="table-responsive" style="HEIGHT: 300px;position:relative">
@@ -138,11 +131,9 @@
                                     <th scope="col">&nbsp;</th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
-
+                            <tbody></tbody> 
                         </table>
-                    </div>
-                    
+                    </div> 
                     <input id="ShowDetailsCard" type="button" value="Show more details" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowDetailsCard($('#AddCardTxt').val())" />
                     <br /><br />
                     <div class="panel panel-info">
@@ -166,8 +157,7 @@
                                 <div class="col-md-3">
                                     <button id="EmployeeData" class=" btn btn-primary" data-toggle="modal" data-target="#EmplyeeModal" @*onclick="EmployeeData();"*@><i class="fa fa-info-circle" aria-hidden="true"></i>Employee Data</button>
                                 </div>
-                            </div>
-
+                            </div> 
                             <div class="container-fluid" style="margin-top:40px">
                                 @*<div class="master"></div>*@
                                 <div class="table-responsive">
@@ -196,40 +186,27 @@
                                                 <th scope="col">Pool Type</th>
                                                 <th scope="col"> </th>
                                                 <th scope="col"> </th>
-                                            </tr>
-
+                                            </tr> 
                                         </thead>
-                                        <tbody></tbody>
-
-                                    </table>
-
+                                        <tbody></tbody> 
+                                    </table> 
                                 </div>
-                            </div>
-
+                            </div> 
                         </div>
                         <!--Save-->
                         <div class="panel-footer" style="text-align:right;">
                             <a id="LastApproval" class=" btn btn-default glyphicon glyphicon-eye-open" style="float:left"> Last Approval</a>
                             <input id="SubmetChronic" type="button" value="Save mediciens" class="btn btn-success glyphicon glyphicon-save">
                         </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
+                    </div> 
+                </div> 
+            </div> 
+        </div> 
+    </div> 
+</div> 
 
 
 
-
-
-
-<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script> 
 <script src="~/Scripts/DMS/Monthly_Chronic_Approvals.js?V=5.2"></script>
 <script src="~/Scripts/DMS/SharedShowDetails.js?V=3"></script>
