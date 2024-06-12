@@ -52,29 +52,29 @@
                   action="Pharmacy_claims.html">
                 <div class="container">
                     <div class="row">
-                        <div class="row row-cols-sm-3 m-auto m-sm-0">
+                        <div class="row row-gap-2 row-cols-sm-3 m-auto m-sm-0">
                             <div class="forLabel">
-                                <input class="admin-form-control mb-3 ps-3" type="date" name="From" id="From" required="required" />
-                                <span for="From">From</span>
+                                <input class="admin-form-control  " type="date" name="From" id="From" required="required" />
+                                <span style="left:3px" for="From">From</span>
                             </div>
                             <div class="forLabel">
-                                <input class="admin-form-control mb-3 ps-3" type="date" name="To" id="To" required="required" />
-                                <span for="To">To</span>
+                                <input class="admin-form-control  " type="date" name="To" id="To" required="required" />
+                                <span style="left:3px" for="To">To</span>
                             </div>
                             <div class="forLabel">
-                                <input class="admin-form-control mb-3 ps-3" type="Number" name="LabsApprovalNo" id="LabsApprovalNo" required="required" />
-                                <span for="LabsApprovalNo">ApprovalNo.</span>
+                                <input class="admin-form-control  " type="Number" name="LabsApprovalNo" id="LabsApprovalNo" required="required" />
+                                <span style="left:3px" for="LabsApprovalNo">ApprovalNo.</span>
                             </div>
                             <div class="forLabel">
-                                <input class="admin-form-control mb-3 ps-3" type="text" id="LabsCardId" name="LabsCardId" required="required" />
-                                <span for="LabsCardId">Card ID</span>
+                                <input class="admin-form-control  " type="text" id="LabsCardId" name="LabsCardId" required="required" />
+                                <span style="left:3px" for="LabsCardId">Card ID</span>
                             </div>
                             @if (User.IsInRole("Lab_Admin"))
                             {
                                 <div class="forLabel">
-                                    @Html.DropDownList("ddlUsers", null, "All", htmlAttributes: new { @class = "admin-form-control mb-3 ps-3", @id = "ddlUsers" })
+                                    @Html.DropDownList("ddlUsers", null, "All", htmlAttributes: new { @class = "admin-form-control  ", @id = "ddlUsers" })
 
-                                    <span for="Select Group">Select User</span>
+                                    <span style="left:3px" for="Select Group">Select User</span>
                                 </div>
                             }
                         </div>
@@ -90,7 +90,7 @@
         <input id="view" value="@view.ToString()" hidden />
         <input id="fullcontroll" value="@fullcontroll.ToString()" hidden />
         <div class="sios-overlay container-fluid mt-4">
-            <div class="m-3 fs-3 text-white">
+            <div class="m-3 fs-3 d-flex gap-1 text-white">
                 <i class="fa-solid fa-house"></i>
                 <h3>Admin Search</h3>
             </div>
@@ -102,38 +102,38 @@
                   action="Pharmacy_claims.html">
                 <div class="container">
                     <div class="row">
-                        <div class="row row-cols-sm-3 m-auto m-sm-0">
+                        <div class="row row-gap-2 row-cols-sm-3 m-auto m-sm-0">
                             <div class="forLabel">
-                                <input class="admin-form-control mb-3 ps-3" type="text" name="AdminFrom" id="AdminFrom" required="required" />
-                                <span for="From">From</span>
+                                <input class="admin-form-control  " type="text" name="AdminFrom" id="AdminFrom" required="required" />
+                                <span style="left:3px" for="From">From</span>
                             </div>
                             <div class="forLabel">
-                                <input class="admin-form-control mb-3 ps-3" type="text" name="AdminTo" id="AdminTo" required="required" />
-                                <span for="To">To</span>
+                                <input class="admin-form-control  " type="text" name="AdminTo" id="AdminTo" required="required" />
+                                <span style="left:3px" for="To">To</span>
                             </div>
                             <div class="forLabel">
-                                <input class="admin-form-control mb-3 ps-3" type="text" name="Provider" id="Provider" required="required" />
-                                <span for="provider">Provider</span>
+                                <input class="admin-form-control  " type="text" name="Provider" id="Provider" required="required" />
+                                <span style="left:3px" for="provider">Provider</span>
                             </div>
                             <div class="forLabel">
-                                <input class="admin-form-control mb-3 ps-3" type="text" name="Company" id="Company" required="required" />
-                                <span for="company">Company</span>
+                                <input class="admin-form-control  " type="text" name="Company" id="Company" required="required" />
+                                <span style="left:3px" for="company">Company</span>
                             </div>
                             <div class="forLabel">
-                                <input class="admin-form-control mb-3 ps-3" type="Number" name="ApprovalNo" id="ApprovalNo" required="required" />
-                                <span for="ApprovalNo">ApprovalNo.</span>
+                                <input class="admin-form-control  " type="Number" name="ApprovalNo" id="ApprovalNo" required="required" />
+                                <span style="left:3px" for="ApprovalNo">ApprovalNo.</span>
                             </div>
                             <div class="forLabel">
-                                <input class="admin-form-control mb-3 ps-3" type="text" name="Branch" id="Branch" required="required" />
-                                <span for="branch">Branch</span>
+                                <input class="admin-form-control  " type="text" name="Branch" id="Branch" required="required" />
+                                <span style="left:3px" for="branch">Branch</span>
                             </div>
                             <div class="forLabel">
-                                <input class="admin-form-control mb-3 ps-3" type="text" name="CardId" id="CardId" required="required" />
-                                <span for="CardID">Card ID</span>
+                                <input class="admin-form-control  " type="text" name="CardId" id="CardId" required="required" />
+                                <span style="left:3px" for="CardID">Card ID</span>
                             </div>
                         </div>
                     </div>
-                    <div class="print-claims-btns d-flex gap-2 mt-5">
+                    <div class="print-claims-btns d-flex gap-2 mt-3 ">
                         <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3" />
                         <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3 " />
 

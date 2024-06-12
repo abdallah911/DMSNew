@@ -14,7 +14,7 @@
 
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 
-<div class="container-fluid mt-4">
+<div class="proposal-container  container-fluid ">
     @using (Html.BeginForm("SaveData", "ProposalRenewals", FormMethod.Post, new { enctype = "multipart/form-data", id = "RenewalMainForm" }))
     {
         @Html.AntiForgeryToken()
@@ -36,9 +36,9 @@
 
                                 <div class="d-flex w-75 gap-3">
                                     @*<input id="CompanyName" class="sios-form-control home-input w-75" style="width: 100%" />*@
-
-                                    @Html.DropDownListFor(model => model.CompId, ViewBag.company as SelectList, "Select Company", new { @class = "select2 sios-form-control home-input w-75", style = "width: 100%", id = "CompId" })
-
+                                    <div class="renewals-ddl w-75">
+                                        @Html.DropDownListFor(model => model.CompId, ViewBag.company as SelectList, "Select Company", new { @class = "select2 sios-form-control home-input w-100", style = "width: 100%", id = "CompId" })
+                                    </div>
                                     @*<div class="col-md-6">
                                             <input id="CompanyName" class="sios-form-control home-input w-75" placeholder="Enter Batch Number" style="width: 100%" />
                                         </div>*@

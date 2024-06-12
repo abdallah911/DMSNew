@@ -99,23 +99,23 @@ CateCount = ViewBag.CatCount; }
                                type="text"
                                placeholder="الولادة القيصرية" />
                     </div>
-                    <div style="height: 162px; margin: 10px">
+                    <div style="height: 161px; margin: 10px">
                         <input style="pointer-events: none"
                                type="text"
                                placeholder="الاجهاض القانوني" />
                     </div>
-                    <div style="height: 162px; margin: 10px">
+                    <div style="height: 161px; margin: 10px">
                         <input style="pointer-events: none"
                                type="text"
                                placeholder="متابعة الحمل " />
                     </div>
-                    <div style="height: 220px; margin: 10px">
+                    <div style="height: 230px; margin: 10px">
                         <input class="myInput"
                                style="pointer-events: none"
                                type="text"
                                placeholder="الخدمات الاساسية للاسنان المتقدمة" />
                     </div>
-                    <div style="height: 220px; margin: 10px">
+                    <div style="height: 230px; margin: 10px">
                         <input class="myInput"
                                style="pointer-events: none"
                                type="text"
@@ -533,39 +533,41 @@ CateCount = ViewBag.CatCount; }
                                         </section>
                                         <div class="position-relative ">
 
+                                            
                                             @*<button type="button" class="rounded-circle mb-2 toggleEnable" id="" style="width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; background: linear-gradient(45deg, #07386e 0%, #17609b 18%, rgb(65 134 193) 50%, #17609b 75%, #07386e 100%); border: none; color: white; position: absolute; bottom: -4px; right: -11px; z-index: 22220 !important; font-size: 21px;"><i class="fa-solid fa-caret-down"></i></button>*@
                                             <div class="  divToggle " style="white-space:nowrap" id="divToggle1">
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio1">مغطى</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio1" name="radio1-1" type="radio" value="PreviousAndLater">
+
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-1-1">مغطى</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-1-1" name="Model[@index].coverage-1-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio2">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" id="radio2" name="radio1-1" type="radio" value="Later">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-1-2">بموافقة مسبقة</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-1-2" name="Model[@index].coverage-1-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio3">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" id="radio3" name="radio1-1" type="radio" value="Previous">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-1-3">نظام الدفع والإسترداد</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-1-3" name="Model[@index].coverage-1-1" type="radio" >
 
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio4">سابق ولاحق</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio4" name="radio2-1" type="radio" value="PreviousAndLater">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-1-4">سابق ولاحق</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-1-4" name="Model[@index].PreviousAndLater-1-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio5">لاحق</label>
-                                                        <input class="form-check-input" id="radio5" name="radio2-1" type="radio" value="Later">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-1-5">لاحق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-1-5" name="Model[@index].PreviousAndLater-1-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio6">سابق</label>
-                                                        <input class="form-check-input" id="radio6" name="radio2-1" type="radio" value="Previous">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-1-6">سابق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-1-6" name="Model[@index].PreviousAndLater-1-1" type="radio" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -620,35 +622,35 @@ CateCount = ViewBag.CatCount; }
                                             <div class="divToggle " style="white-space:nowrap" id="">
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio12">مغطى</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio12" name="radio1-2" type="radio" value="PreviousAndLater">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-2-1">مغطى</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-2-1" name="Model[@index].coverage-2-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio22">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" id="radio22" name="radio1-2" type="radio" value="Later">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-2-2">بموافقة مسبقة</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-2-2" name="Model[@index].coverage-2-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio32">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" id="radio32" name="radio1-2" type="radio" value="Previous">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-2-3">نظام الدفع والإسترداد</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-2-3" name="Model[@index].coverage-2-1" type="radio" >
 
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio42">سابق ولاحق</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio42" name="radio2-2" type="radio" value="PreviousAndLater">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-2-4">سابق ولاحق</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-2-4" name="Model[@index].PreviousAndLater-2-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio52">لاحق</label>
-                                                        <input class="form-check-input" id="radio52" name="radio2-2" type="radio" value="Later">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-2-5">لاحق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-2-5" name="Model[@index].PreviousAndLater-2-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio62">سابق</label>
-                                                        <input class="form-check-input" id="radio62" name="radio2-2" type="radio" value="Previous">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-2-6">سابق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-2-6" name="Model[@index].PreviousAndLater-2-1" type="radio" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -703,35 +705,35 @@ CateCount = ViewBag.CatCount; }
                                             <div class="divToggle " style="white-space:nowrap" id="">
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio14">مغطى</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio14" name="radio1-3" type="radio" value="PreviousAndLater">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-3-1">مغطى</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-3-1" name="Model[@index].coverage-3-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio24">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" id="radio24" name="radio1-3" type="radio" value="Later">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-3-2">بموافقة مسبقة</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-3-2" name="Model[@index].coverage-3-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio34">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" id="radio34" name="radio1-3" type="radio" value="Previous">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-3-3">نظام الدفع والإسترداد</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-3-3" name="Model[@index].coverage-3-1" type="radio" >
 
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio44">سابق ولاحق</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio44" name="radio2-3" type="radio" value="PreviousAndLater">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-3-4">سابق ولاحق</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-3-4" name="Model[@index].PreviousAndLater-3-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio54">لاحق</label>
-                                                        <input class="form-check-input" id="radio54" name="radio2-3" type="radio" value="Later">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-3-5">لاحق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-3-5" name="Model[@index].PreviousAndLater-3-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio64">سابق</label>
-                                                        <input class="form-check-input" id="radio64" name="radio2-3" type="radio" value="Previous">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-3-6">سابق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-3-6" name="Model[@index].PreviousAndLater-3-1" type="radio" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -786,41 +788,41 @@ CateCount = ViewBag.CatCount; }
                                             <div class="divToggle " style="white-space:nowrap" id="divToggle1">
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio15">مغطى</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio15" name="radio1-5" type="radio" value="PreviousAndLater">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-4-1">مغطى</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-4-1" name="Model[@index].coverage-4-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio25">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" id="radio25" name="radio1-5" type="radio" value="Later">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-4-2">بموافقة مسبقة</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-4-2" name="Model[@index].coverage-4-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio35">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" id="radio35" name="radio1-5" type="radio" value="Previous">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-4-3">نظام الدفع والإسترداد</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-4-3" name="Model[@index].coverage-4-1" type="radio" >
 
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio45">سابق ولاحق</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio45" name="radio2-5" type="radio" value="PreviousAndLater">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-4-4">سابق ولاحق</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-4-4" name="Model[@index].PreviousAndLater-4-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio55">لاحق</label>
-                                                        <input class="form-check-input" id="radio55" name="radio2-5" type="radio" value="Later">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-4-5">لاحق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-4-5" name="Model[@index].PreviousAndLater-4-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio65">سابق</label>
-                                                        <input class="form-check-input" id="radio65" name="radio2-5" type="radio" value="Previous">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-4-6">سابق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-4-6" name="Model[@index].PreviousAndLater-4-1" type="radio" >
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="height: 220px;" class="cate-child-toggle">
+                                    <div style="height: 230px;" class="cate-child-toggle">
                                         <div style="display: flex; gap: 0.1rem">
                                             <input type="text"
                                                    disabled
@@ -869,45 +871,45 @@ CateCount = ViewBag.CatCount; }
                                             <div class=" mb-2 divToggle" style="white-space:nowrap" id="">
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio16">مغطى</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio16" name="radio1-6" type="radio" value="PreviousAndLater">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-5-1">مغطى</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-5-1" name="Model[@index].coverage-5-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio26">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" id="radio26" name="radio1-6" type="radio" value="Later">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-5-2">بموافقة مسبقة</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-5-2" name="Model[@index].coverage-5-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio36">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" id="radio36" name="radio1-6" type="radio" value="Previous">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-5-3">نظام الدفع والإسترداد</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-5-3" name="Model[@index].coverage-5-1" type="radio" >
 
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio46">سابق ولاحق</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio46" name="radio2-6" type="radio" value="PreviousAndLater">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-5-4">سابق ولاحق</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-5-4" name="Model[@index].PreviousAndLater-5-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio56">لاحق</label>
-                                                        <input class="form-check-input" id="radio56" name="radio2-6" type="radio" value="Later">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-5-5">لاحق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-5-5" name="Model[@index].PreviousAndLater-5-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio66">سابق</label>
-                                                        <input class="form-check-input" id="radio66" name="radio2-6" type="radio" value="Previous">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-5-6">سابق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-5-6" name="Model[@index].PreviousAndLater-5-1" type="radio" >
                                                     </div>
                                                 </div>
                                                 <div class="forLabel w-100  position-relative" style="width: 70%; ">
-                                                    <select class="seleect" id="ddlAdvancedDental" multiple>
+                                                    <select class="ddlAdvancedDental seleect"  multiple="multiple">
 
                                                         @foreach (var item in ViewBag.advancService)
                                                         {
                                                         <option value="@item.Id">@item.Name</option>
                                                         }
-                                                    </select>
+                                             </select>
                                                     <span style="right: 10px !important; padding-left: 0; top: 14px;">Multiselection</span>
                                                 </div>
                                             </div>
@@ -915,7 +917,7 @@ CateCount = ViewBag.CatCount; }
 
 
                                     </div>
-                                    <div style="height: 220px;" class="cate-child-toggle">
+                                    <div style="height: 230px;" class="cate-child-toggle">
                                         <div style="display: flex; gap: 0.1rem">
                                             <input type="text"
                                                    disabled
@@ -963,43 +965,44 @@ CateCount = ViewBag.CatCount; }
                                             <div class=" mb-2 divToggle" style="white-space:nowrap" id="">
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio17">مغطى</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio17" name="radio1-7" type="radio" value="PreviousAndLater">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-6-1">مغطى</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-6-1" name="Model[@index].coverage-6-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio27">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" id="radio27" name="radio1-7" type="radio" value="Later">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-6-2">بموافقة مسبقة</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-6-2" name="Model[@index].coverage-6-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio37">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" id="radio37" name="radio1-7" type="radio" value="Previous">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-6-3">نظام الدفع والإسترداد</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-6-3" name="Model[@index].coverage-6-1" type="radio" >
 
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio47">سابق ولاحق</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio47" name="radio2-7" type="radio" value="PreviousAndLater">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-6-4">سابق ولاحق</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-6-4" name="Model[@index].PreviousAndLater-6-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio57">لاحق</label>
-                                                        <input class="form-check-input" id="radio57" name="radio2-7" type="radio" value="Later">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-6-5">لاحق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-6-5" name="Model[@index].PreviousAndLater-6-1" type="radio" >
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio67">سابق</label>
-                                                        <input class="form-check-input" id="radio67" name="radio2-7" type="radio" value="Previous">
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-6-6">سابق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-6-6" name="Model[@index].PreviousAndLater-6-1" type="radio" >
                                                     </div>
                                                 </div>   
                                                 <div class="forLabel w-100  position-relative" style="width: 70%; ">
-                                                    <select class="seleect" id="ddlBasicDental" multiple>
+                                                    <select class="ddlBasicDental seleect"   multiple>
                                                         @foreach (var item in ViewBag.basicService)
                                                         {
                                                             <option value="@item.Id">@item.Name</option>
                                                         }
+                                            
                                                     </select>
                                                     <span style="right: 10px !important; padding-left: 0; top: 14px;">Multiselection</span>
                                                 </div>
@@ -1090,18 +1093,18 @@ CateCount = ViewBag.CatCount; }
                                         <section class="form-check-container mt-0 cate-parent position-relative">
                                             <div class="coverage-radio-box text-center justify-content-center m-0 gap-3 d-flex">
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio17">من الحد الأقصى</label>
-                                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio17" name="radio1" type="radio" value="PreviousAndLater">
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-1-1">من الحد الأقصى</label>
+                                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-co-radio-1-1" name="Model[@index].coverage2-1-1" type="radio" >
 
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio27">مغطى</label>
-                                                    <input class="form-check-input" id="radio27" name="radio1" type="radio" value="Later">
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-1-2">مغطى</label>
+                                                    <input class="form-check-input" id="data-@(index+1)-co-radio-1-2" name="Model[@index].coverage2-1-1" type="radio" >
 
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio37">غير مغطى</label>
-                                                    <input class="form-check-input" id="radio37" name="radio1" type="radio" value="Previous">
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-1-3">غير مغطى</label>
+                                                    <input class="form-check-input" id="data-@(index+1)-co-radio-1-3" name="Model[@index].coverage2-1-1" type="radio" >
 
                                                 </div>
                                             </div>
@@ -1111,18 +1114,18 @@ CateCount = ViewBag.CatCount; }
                                         <section class="form-check-container mt-0 cate-parent position-relative">
                                             <div class="coverage-radio-box text-center justify-content-center m-0 gap-3 d-flex">
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio18">من الحد الأقصى</label>
-                                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio18" name="radio1-2" type="radio" value="PreviousAndLater">
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-2-1">من الحد الأقصى</label>
+                                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-co-radio-2-1" name="Model[@index].coverage2-2-1" type="radio" >
 
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio28">مغطى</label>
-                                                    <input class="form-check-input" id="radio28" name="radio1-2" type="radio" value="Later">
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-2-2">مغطى</label>
+                                                    <input class="form-check-input" id="data-@(index+1)-co-radio-2-2" name="Model[@index].coverage2-2-1" type="radio" >
 
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio38">غير مغطى</label>
-                                                    <input class="form-check-input" id="radio38" name="radio1-2" type="radio" value="Previous">
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-2-3">غير مغطى</label>
+                                                    <input class="form-check-input" id="data-@(index+1)-co-radio-2-3" name="Model[@index].coverage2-2-1" type="radio" >
 
                                                 </div>
                                             </div>
@@ -1132,18 +1135,18 @@ CateCount = ViewBag.CatCount; }
                                         <section class="form-check-container mt-0 cate-parent position-relative">
                                             <div class="coverage-radio-box text-center justify-content-center gap-3 m-0 d-flex">
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio19">من الحد الأقصى</label>
-                                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio19" name="radio1-3" type="radio" value="PreviousAndLater">
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-3-1">من الحد الأقصى</label>
+                                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-co-radio-3-1" name="Model[@index].coverage2-3-1" type="radio" >
 
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio29">مغطى</label>
-                                                    <input class="form-check-input" id="radio29" name="radio1-3" type="radio" value="Later">
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-3-2">مغطى</label>
+                                                    <input class="form-check-input" id="data-@(index+1)-co-radio-3-2" name="Model[@index].coverage2-3-1" type="radio" >
 
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio39">غير مغطى</label>
-                                                    <input class="form-check-input" id="radio39" name="radio1-3" type="radio" value="Previous">
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-3-3">غير مغطى</label>
+                                                    <input class="form-check-input" id="data-@(index+1)-co-radio-3-3" name="Model[@index].coverage2-3-1" type="radio" >
 
                                                 </div>
                                             </div>
@@ -1478,35 +1481,35 @@ CateCount = ViewBag.CatCount; }
                                             <div class="  divToggle " style="white-space:nowrap" id="divToggle1">
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio1-2">مغطى</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio1-2" name="radio2-1-1" type="radio" value="PreviousAndLater" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-1-1-2">مغطى</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-1-1-2" name="Model[@index].coverage-2-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio2-2">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" id="radio2-2" name="radio2-1-1" type="radio" value="Later" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-1-2-2">بموافقة مسبقة</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-1-2-2" name="Model[@index].coverage-2-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio3-2">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" id="radio3-2" name="radio2-1-1" type="radio" value="Previous" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-1-3-2">نظام الدفع والإسترداد</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-1-3-2" name="Model[@index].coverage-2-2" type="radio" disabled>
 
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio4-2">سابق ولاحق</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio4-2" name="radio2-2-1" type="radio" value="PreviousAndLater" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-1-4-2">سابق ولاحق</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-1-4-2" name="Model[@index].PreviousAndLater-1-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio5-2">لاحق</label>
-                                                        <input class="form-check-input" id="radio5-2-2-1" name="radio2" type="radio" value="Later" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-1-5-2">لاحق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-1-5-2" name="Model[@index].PreviousAndLater-1-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio6-2">سابق</label>
-                                                        <input class="form-check-input" id="radio6-2-2-1" name="radio2" type="radio" value="Previous" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-1-6-2">سابق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-1-6-2" name="Model[@index].PreviousAndLater-1-2" type="radio" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1563,35 +1566,35 @@ CateCount = ViewBag.CatCount; }
                                             <div class="divToggle " style="white-space:nowrap" id="">
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio1-2">مغطى</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio1-2" name="radio2-1-2" type="radio" value="PreviousAndLater" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-2-1-2">مغطى</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-2-1-2" name="Model[@index].coverage-2-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio22-2">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" id="radio22-2" name="radio2-1-2" type="radio" value="Later" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-2-2-2">بموافقة مسبقة</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-2-2-2" name="Model[@index].coverage-2-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio32-2">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" id="radio32-2" name="radio2-1-2" type="radio" value="Previous" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-2-3-2">نظام الدفع والإسترداد</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-2-3-2" name="Model[@index].coverage-2-2" type="radio" disabled>
 
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio42-2">سابق ولاحق</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio42-2" name="radio2-2-2" type="radio" value="PreviousAndLater" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-2-4-2">سابق ولاحق</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-2-4-2" name="Model[@index].PreviousAndLater-2-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio52-2">لاحق</label>
-                                                        <input class="form-check-input" id="radio52-2" name="radio2-2-2" type="radio" value="Later" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-2-5-2">لاحق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-2-5-2" name="Model[@index].PreviousAndLater-2-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio62-2">سابق</label>
-                                                        <input class="form-check-input" id="radio62-2" name="radio2-2-2" type="radio" value="Previous" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-2-6-2">سابق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-2-6-2" name="Model[@index].PreviousAndLater-2-2" type="radio" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1648,35 +1651,35 @@ CateCount = ViewBag.CatCount; }
                                             <div class=" divToggle  " style="white-space:nowrap" id="">
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio13-2">مغطى</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio13-2" name="radio" type="radio2-1-3" value="PreviousAndLater" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-3-1-2">مغطى</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-3-1-2" name="Model[@index].coverage-3-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio23-2">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" id="radio23-2" name="radio2-1-3" type="radio" value="Later" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-3-2-2">بموافقة مسبقة</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-3-2-2" name="Model[@index].coverage-3-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio33-2">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" id="radio33-2" name="radio2-1-3" type="radio" value="Previous" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-3-3-2">نظام الدفع والإسترداد</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-3-3-2" name="Model[@index].coverage-3-2" type="radio" disabled>
 
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio43-2">سابق ولاحق</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio43-2" name="radio2-2-3" type="radio" value="PreviousAndLater" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-3-4-2">سابق ولاحق</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-3-4-2" name="Model[@index].PreviousAndLater-3-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio53-2">لاحق</label>
-                                                        <input class="form-check-input" id="radio53-2" name="radio2-2-3" type="radio" value="Later" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-3-5-2">لاحق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-3-5-2" name="Model[@index].PreviousAndLater-3-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio63-2">سابق</label>
-                                                        <input class="form-check-input" id="radio63-2" name="radio2-2-3" type="radio" value="Previous" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-3-6-2">سابق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-3-6-2" name="Model[@index].PreviousAndLater-3-2" type="radio" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1733,41 +1736,41 @@ CateCount = ViewBag.CatCount; }
                                             <div class="divToggle " style="white-space:nowrap" id="">
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio14-2">مغطى</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio14-2" name="radio2-1-4" type="radio" value="PreviousAndLater" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-4-1-2">مغطى</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-4-1-2" name="Model[@index].coverage-4-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio24-2">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" id="radio24-2" name="radio2-1-4" type="radio" value="Later" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-4-2-2">بموافقة مسبقة</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-4-2-2" name="Model[@index].coverage-4-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio34-2">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" id="radio34-2" name="radio2-1-4" type="radio" value="Previous" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-4-3-2">نظام الدفع والإسترداد</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-4-3-2" name="Model[@index].coverage-4-2" type="radio" disabled>
 
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio44-2">سابق ولاحق</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio44-2" name="radio2-2-4" type="radio" value="PreviousAndLater" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-4-4-2">سابق ولاحق</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-4-4-2" name="Model[@index].PreviousAndLater-4-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio54-2">لاحق</label>
-                                                        <input class="form-check-input" id="radio54-2" name="radio2-2-4" type="radio" value="Later" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-4-5-2">لاحق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-4-5-2" name="Model[@index].PreviousAndLater-4-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio64-2">سابق</label>
-                                                        <input class="form-check-input" id="radio64-2" name="radio2-2-4" type="radio" value="Previous" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-4-6-2">سابق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-4-6-2" name="Model[@index].PreviousAndLater-4-2" type="radio" disabled>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="height: 220px;" class="cate-child-toggle">
+                                    <div style="height: 230px;" class="cate-child-toggle">
                                         <div style="display: flex; gap: 0.1rem">
                                             <input type="text"
                                                    disabled
@@ -1817,47 +1820,47 @@ CateCount = ViewBag.CatCount; }
                                             <div class=" mb-2 divToggle " style="white-space:nowrap" id="">
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio1-5">مغطى</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio1-2" name="radio2-1-5" type="radio" value="PreviousAndLater" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-5-1-2">مغطى</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-5-1-2" name="Model[@index].coverage-5-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio2-5">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" id="radio2-5" name="radio2-1-5" type="radio" value="Later" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-5-2-2">بموافقة مسبقة</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-5-2-2" name="Model[@index].coverage-5-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio3-5">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" id="radio3-5" name="radio2-1-5" type="radio" value="Previous" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-5-3-2">نظام الدفع والإسترداد</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-5-3-2" name="Model[@index].coverage-5-2" type="radio" disabled>
 
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio4-5">سابق ولاحق</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio4-5" name="radio2-2-5" type="radio" value="PreviousAndLater" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-5-4-2">سابق ولاحق</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-5-4-2" name="Model[@index].PreviousAndLater-5-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio5-5">لاحق</label>
-                                                        <input class="form-check-input" id="radio5-2-2-5" name="radio5" type="radio" value="Later" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-5-5-2">لاحق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-5-5-2" name="Model[@index].PreviousAndLater-5-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio6-5">سابق</label>
-                                                        <input class="form-check-input" id="radio6-2-2-5" name="radio5" type="radio" value="Previous" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-5-6-2">سابق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-5-6-2" name="Model[@index].PreviousAndLater-5-2" type="radio" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="forLabel w-100  position-relative" style="width: 70%; ">
-                                                    <select class="seleect" id="ddlAdvancedDentalDisabled" multiple disabled>
+                                                <div class="forLabel my-2  w-100  position-relative" style="width: 70%; ">
+                                                    <select class="ddlAdvancedDental seleect"   multiple disabled>
                                                     </select>
                                                     <span style="right: 10px !important; padding-left: 0; top: 14px;">Multiselection</span>
                                                 </div>
-                                               
+
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="height: 220px;" class="cate-child-toggle">
+                                    <div style="height: 230px;" class="cate-child-toggle">
                                         <div style="display: flex; gap: 0.1rem">
                                             <input type="text"
                                                    disabled
@@ -1907,39 +1910,39 @@ CateCount = ViewBag.CatCount; }
                                             <div class=" mb-2 divToggle" style="white-space:nowrap" id="">
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio1-6">مغطى</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio1-6" name="radio2-1-6" type="radio" value="PreviousAndLater" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-6-1-2">مغطى</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-6-1-2" name="Model[@index].coverage-6-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio2-6">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" id="radio2-6" name="radio2-1-6" type="radio" value="Later" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-6-2-2">بموافقة مسبقة</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-6-2-2" name="Model[@index].coverage-6-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio3-6">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" id="radio3-6" name="radio2-1-6" type="radio" value="Previous" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-6-3-2">نظام الدفع والإسترداد</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-6-3-2" name="Model[@index].coverage-6-2" type="radio" disabled>
 
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
-                                                        <label style="color:#000;" for="radio4-6">سابق ولاحق</label>
-                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio4-6" name="radio2-2-6" type="radio" value="PreviousAndLater" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-6-4-2">سابق ولاحق</label>
+                                                        <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-radio-6-4-2" name="Model[@index].PreviousAndLater-6-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio5-6">لاحق</label>
-                                                        <input class="form-check-input" id="radio5-2-2-6" name="radio6" type="radio" value="Later" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-6-5-2">لاحق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-6-5-2" name="Model[@index].PreviousAndLater-6-2" type="radio" disabled>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
-                                                        <label style="color:#000;" for="radio6-6">سابق</label>
-                                                        <input class="form-check-input" id="radio6-2-2-6" name="radio6" type="radio" value="Previous" disabled>
+                                                        <label style="color:#000;" for="data-@(index+1)-radio-6-6-2">سابق</label>
+                                                        <input class="form-check-input" id="data-@(index+1)-radio-6-6-2" name="Model[@index].PreviousAndLater-6-2" type="radio" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="forLabel w-100  position-relative" style="width: 70%; "> 
-                                                    <select class="seleect" id="ddlBasicDentalDisabled" multiple disabled>
+                                                <div class="forLabel my-2   w-100  position-relative" style="width: 70%; ">
+                                                    <select class="ddlBasicDental seleect"   multiple disabled>
                                                     </select>
                                                     <span style="right: 10px !important; padding-left: 0; top: 14px;">Multiselection</span>
                                                 </div>
@@ -2032,18 +2035,18 @@ CateCount = ViewBag.CatCount; }
                                         <section class="form-check-container mt-0 cate-parent position-relative">
                                             <div class="coverage-radio-box text-center justify-content-center m-0 gap-3 d-flex">
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio172">من الحد الأقصى</label>
-                                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio172" name="radio" type="radio" value="PreviousAndLater" disabled>
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-1-1-2">من الحد الأقصى</label>
+                                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-co-radio-1-1-2" name="Model[@index].coverage2-1-2" type="radio">
 
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio272">مغطى</label>
-                                                    <input class="form-check-input" id="radio272" name="radio" type="radio" value="Later" disabled>
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-1-2-2">مغطى</label>
+                                                    <input class="form-check-input" id="data-@(index+1)-co-radio-1-2-2" name="Model[@index].coverage2-1-2" type="radio">
 
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio372">غير مغطى</label>
-                                                    <input class="form-check-input" id="radio372" name="radio" type="radio" value="Previous" disabled>
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-1-3-2">غير مغطى</label>
+                                                    <input class="form-check-input" id="data-@(index+1)-co-radio-1-3-2" name="Model[@index].coverage2-1-2" type="radio">
 
                                                 </div>
                                             </div>
@@ -2053,18 +2056,18 @@ CateCount = ViewBag.CatCount; }
                                         <section class="form-check-container mt-0 cate-parent position-relative">
                                             <div class="coverage-radio-box text-center justify-content-center m-0 gap-3 d-flex">
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio182">من الحد الأقصى</label>
-                                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio182" name="radio2" type="radio" value="PreviousAndLater" disabled>
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-2-1-2">من الحد الأقصى</label>
+                                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-co-radio-2-1-2" name="Model[@index].coverage2-2-2" type="radio">
 
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio282">مغطى</label>
-                                                    <input class="form-check-input" id="radio282" name="radio2" type="radio" value="Later" disabled>
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-2-2-2">مغطى</label>
+                                                    <input class="form-check-input" id="data-@(index+1)-co-radio-2-3-2" name="Model[@index].coverage2-2-2" type="radio">
 
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio382">غير مغطى</label>
-                                                    <input class="form-check-input" id="radio382" name="radio2" type="radio" value="Previous" disabled>
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-2-3-2">غير مغطى</label>
+                                                    <input class="form-check-input" id="data-@(index+1)-co-radio-2-3-2" name="Model[@index].coverage2-2-2" type="radio">
 
                                                 </div>
                                             </div>
@@ -2074,18 +2077,18 @@ CateCount = ViewBag.CatCount; }
                                         <section class="form-check-container mt-0 cate-parent position-relative">
                                             <div class="coverage-radio-box text-center justify-content-center gap-3 m-0 d-flex">
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio192">من الحد الأقصى</label>
-                                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="radio192" name="radio3" type="radio" value="PreviousAndLater" disabled>
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-3-1-2">من الحد الأقصى</label>
+                                                    <input class="form-check-input" data-val="true" data-val-required="The PrexPoolCoverage field is required." id="data-@(index+1)-co-radio-3-1-2" name="Model[@index].coverage2-3-2" type="radio">
 
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio292">مغطى</label>
-                                                    <input class="form-check-input" id="radio292" name="radio3" type="radio" value="Later" disabled>
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-3-2-2">مغطى</label>
+                                                    <input class="form-check-input" id="data-@(index+1)-co-radio-3-2-2" name="Model[@index].coverage2-3-2" type="radio">
 
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
-                                                    <label style="color:#000;" for="radio392">غير مغطى</label>
-                                                    <input class="form-check-input" id="radio392" name="radio3" type="radio" value="Previous" disabled>
+                                                    <label style="color:#000;" for="data-@(index+1)-co-radio-3-3-2">غير مغطى</label>
+                                                    <input class="form-check-input" id="data-@(index+1)-co-radio-3-3-2" name="Model[@index].coverage2-3-2" type="radio">
 
                                                 </div>
                                             </div>
@@ -2121,6 +2124,8 @@ CateCount = ViewBag.CatCount; }
 <script src="~/Scripts/DMS/ProposalRenewals/ProposalRenewals.js"></script>
 @section Scripts{
     <script>
+      
+
         //$(document).ready(function () {
         //    $('.toggleEnable').on('click', function () {
         //        $(this).siblings('.divToggle').toggleClass("d-none");

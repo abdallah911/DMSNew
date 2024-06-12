@@ -35,34 +35,24 @@
                                 <div class="tab-content">
                                     <div asp-validation-summary="All" class="text-danger"></div>
 
-                                    <div class="row">
+                                    <div class="row row-gap-2">
                                         @*Date of Registration*@
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <label class="sios-color control-label sbold col-md-3">
+                                                <label class="sios-color control-label sbold mb-1 ms-2 col-md-3">
                                                     Record Date:
                                                     @*<span class="required"> * </span>*@
-                                                </label>
-                                                <div class="row row-cols-2">
-                                                    <div class=" ">
-                                                        <label class="sios-color control-label sbold col-md-3">
-                                                            From
-
-                                                        </label>
-                                                        <div class=" ">
-                                                            <input id="RegistrationReviewFrom" type="text" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded border-0  " placeholder="From" />
-                                                        </div>
-                                                    </div>     <div class=" ">
-                                                        <label class="sios-color control-label sbold col-md-2">
-                                                            TO
-
-                                                        </label>
-                                                        <div class=" ">
-                                                            <input id="RegistrationReviewTo" type="text" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded border-0  " placeholder="To" />
-                                                        </div>
+                                                </label> 
+                                                <div class="row row-cols-2" style="padding: 0 10px;">
+                                                    <div class="  forLabel admin-form-control   border-0 px-2    ">
+                                                        <input id="RegistrationReviewFrom" type="text" class=" admin-form-control ps-3 w-100 h-100 rounded-3   " />
+                                                        <span class="sios-color control-label sbold col-md-3"> From  </span>
+                                                    </div>
+                                                    <div class="  forLabel admin-form-control   border-0 px-2    ">
+                                                        <input id="RegistrationReviewTo" type="text" class="admin-form-control ps-3 w-100 h-100 rounded-3   " />
+                                                        <span class="sios-color control-label sbold col-md-2">TO</span>
                                                     </div>
                                                 </div>
-                                                <br />
                                             </div>
                                         </div>
                                    
@@ -70,87 +60,65 @@
                                         @* Company Number *@
 
                                         <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="sios-color control-label sbold col-md-3">
-                                                    Provider Number:
-
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <select id="ProviderNo" name="ProviderNumber" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded border-0  js-data-example-ajax" style="width: 100%"></select>
-                                                </div>
-                                                <br />
-                                            </div>
+                                            <div class="  forLabel admin-form-control   border-0 px-2   form-group"> 
+                                                <select id="ProviderNo" name="ProviderNumber" class="admin-form-control w-100 h-100 rounded-3   js-data-example-ajax" style="width: 100%"></select>
+                                                <span class="sios-color control-label sbold col-md-3"> Provider Number </span>
+                                            </div>  
                                         </div>
-                                        <br />
+                                        
                                         <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="sios-color control-label sbold col-md-3">
-                                                    Batch Number:
-
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <input id="BatchNo" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded   " placeholder="Enter Batch Number" style="width: 100%"/>                                                       
-                                                </div>
-                                                <br />
+                                            <div class="  forLabel admin-form-control   border-0 px-2   form-group"> 
+                                                <input id="BatchNo" class=" admin-form-control w-100 h-100 rounded-3   "  style="width: 100%"  />
+                                                <span class="sios-color control-label sbold col-md-3"> Batch Number </span>
                                             </div>
                                         </div>
-                                        <br />
+                                        
                                         
                                         @* Repot Type *@
 
                                         <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="sios-color control-label sbold col-md-3">
-                                                    Repot Type :
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <select id="RepotTypeReview" class=" hr-form-control h-100 w-100 rounded fw-bold p-3 pb-1 border-0 ">                                                       
-                                                        <option value="1">Review Summary</option>
-                                                        <option value="2">Review Details</option>                                                                
-                                                    </select>
-                                                </div>
-                                                <br/>
+                                            <div class="  forLabel admin-form-control   border-0 px-2   form-group"> 
+                                                <select id="RepotTypeReview" class="admin-form-control w-100 h-100 rounded-3  ps-3">
+                                                    <option value="1">Review Summary</option>
+                                                    <option value="2">Review Details</option>
+                                                </select> 
+                                                <span class="sios-color control-label sbold col-md-3">Repot Type *</span>
                                             </div>
                                         </div>
-                                        <br />
+                                        
 
 
                                         @*Print Type*@
 
                                         <div class="col-md-8">
-                                            <div class="d-flex form-group">
+                                            <div class="d-flex align-items-center form-group mt-3">
                                                 <label class="sios-color control-label fs-4 sios-color sbold col-md-3">
                                                     Print Type :
                                                 </label>
-                                                <div class="col-md-2">
+                                                <div class="col-md-4 d-flex align-items-center mt-1 gap-2">
                                                     <div class="checkbox-inline">
                                                         <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
-                                                        <label for="pdf">
+                                                        <label class="fw-bold" for="pdf">
                                                             PDF
                                                         </label>
-                                                    </div>
-                                                </div>
-
-                                                <div class="  col-md-2">
+                                                    </div> 
                                                     <div class=" checkbox-inline">
                                                         <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
-                                                        <label for="excel">
+                                                        <label class="fw-bold"  for="excel">
                                                             EXCEL
                                                         </label>
                                                     </div>
-                                                </div>
-                                                <br />
+                                                </div> 
                                             </div>
                                         </div>
-                                        <br />
+                                        
 
                                         @* For Buttons *@
 
                                         <div class="d-flex gap-2 col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
 
                                             <div class=" " id="div_of_serv">
-                                                <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3 btn-warning" onclick="ClearAllReview()">
+                                                <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3 " onclick="ClearAllReview()">
                                                     <span class="fa fa-save"></span> New
                                                 </button>
 

@@ -25,28 +25,29 @@
                     <div class="row row-cols-sm-3 m-auto m-sm-0">
                         <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 w-100">
                             <div class="row col-12 col-md-2 my-auto">
-                                @Html.LabelFor(model => model.GroupName, htmlAttributes: new { @class = "fw-bold" })
+                                @*@Html.LabelFor(model => model.GroupName, htmlAttributes: new { @class = "fw-bold" })*@
                             </div>
-                            <div class="row col-12 col-md-6">
-                                @Html.EditorFor(model => model.GroupName, new { htmlAttributes = new { @class = "chronic-form-control", @style = "font-size: 16px" } })
+                            <div class="forLabel row col-12 col-md-6">
+                                @Html.EditorFor(model => model.GroupName, new { htmlAttributes = new { @class = "admin-form-control", @style = "font-size: 16px" } })
                                 @Html.ValidationMessageFor(model => model.GroupName, "", new { @class = "text-danger" })
-
+                                <span style="left:3px"  >Group Name</span>
                             </div>
                         </div>
                         <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 mt-4 w-100">
                             <div class="row col-12 col-md-2 my-auto">
-                                @Html.Label("IsClosed", htmlAttributes: new { @class = "fw-bold" })
+                                @*@Html.Label("IsClosed", htmlAttributes: new { @class = "fw-bold" })*@
                             </div>
-                            <div class="row col-12 col-md-6">
-                                <select style="color: #000; font-size: 16px" class="chronic-form-control" id="GroupType" name="GroupType">
+                            <div class="forLabel row col-12 col-md-6">
+                                <select style="color: #000; font-size: 16px" class="admin-form-control" id="GroupType" name="GroupType">
                                     <option value="YES" class="fw-bold" style="color: #000">YES</option>
                                     <option value="NO" class="fw-bold" style="color: #000">NO</option>
                                 </select>
+                                <span style="left:3px">Is Closed</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="print-claims-btns d-flex mt-5 justify-content-end">
+                <div class="print-claims-btns d-flex mt-3 justify-content-center">
                     <input id="Back" type="button" value="Back" onclick="window.location.replace('/MedicineGroups/index');" class="btn fw-bold text-white rounded-3"
                            style="text-decoration: none;    />
                     <input id="submit" type="submit" value="Update" class="btn fw-bold text-white rounded-3" />

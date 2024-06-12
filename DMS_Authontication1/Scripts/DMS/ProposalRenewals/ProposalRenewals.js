@@ -1,12 +1,9 @@
 ﻿
-$(document).ready(function () {
-
+$(document).ready(function () { 
     $('#CompId').select2();
     $('#poolService').select2();
-    $('#ddlBasicDental').select2();
-    $('#ddlAdvancedDental').select2();
-    $('#ddlBasicDentalDisabled').select2();
-    $('#ddlAdvancedDentalDisabled').select2();    
+    $('.ddlBasicDental').select2();
+    $('.ddlAdvancedDental').select2();
 });
  
  

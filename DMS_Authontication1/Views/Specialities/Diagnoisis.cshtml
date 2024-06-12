@@ -19,8 +19,8 @@
     {
         @Html.AntiForgeryToken()
         <div class="container col-10 px-0 mt-4">
-            <div style="white-space: nowrap" class="employee-form">
-                <div class="flex-column gap-2 d-flex pe-5">
+            <div style="white-space: nowrap" class="row row-cols-sm-2 row-gap-3 mx-auto">
+                <div class="flex-column gap-2 d-flex ">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="forLabel admin-form-control border-0 px-2">
                         @*@Html.LabelFor(model => model.DIAG_ANAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })*@
@@ -35,12 +35,10 @@
                         <span>DIAG ENAME</span>
                     </div>
                 </div>
-                <div class="print-claims-btns d-flex mt-3 justify-content-end">
-                    <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3"
-                             />
+                <div class="col-md-4 d-flex justify-content-center">
+                    <input id="submit" type="submit" value="Create" class="btn mt-sm-auto fw-bold text-white rounded-3" style="height:fit-content;" />
                 </div>
-            </div>
-            <div class="m-auto col-12 col-lg-4 my-4"></div>
+            </div> 
         </div>
     }
 

@@ -156,11 +156,11 @@
                         return date;
                     }
                 },
-                {
+                {  
                     "data": "REQUEST_CODE",
                     "mRender": function (data) {
                         if ("@fullcontroll" == "True" || "@view" == "True") {
-                            return '<a class="btn btn-primary fa fa-list" href="/EmployeeRequest/Details/' + data + '"> Details </a>';
+                            return ' <a class="btn btn-primary  " href="/EmployeeRequest/Details/' + data + '"><i class="fa fa-list me-1"></i> Details </a>';
                         }
                         else
                             return '<input  data-id=' + data + '  hidden  /> ';

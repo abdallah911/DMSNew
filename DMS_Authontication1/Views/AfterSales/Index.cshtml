@@ -51,15 +51,26 @@
             </div>
             <div class="row text-center text-sm-end mt-3 me-sm-3">
                 <div class="">
-                    <input id="ResetSearch" type="button" value="Reset" onclick="ClearAfterSalesSearchData();" class="btn fw-bold text-white rounded-3 btn-warning" />
-                    <input id="Print" type="button" value="Pdf" class="btn fw-bold text-white rounded-3 btn-primary fa fa-file-pdf-o" />
-                    <input id="PrintExcel" type="button" value="Excel" class="btn fw-bold text-white rounded-3 btn-success fa-file-excel-o " />
-                    <input id="AfterSalesSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3 btn-default  fa fa-search" />
+                    <div class="btn fw-bold text-white rounded-3 ">
 
+                        <input id="ResetSearch" type="button" value="Reset" onclick="ClearAfterSalesSearchData();" class="bg-transparent  border-0 text-white " />
+                    </div>
+                    <div class="btn fw-bold text-white rounded-3 ">
+                        <i class="fa-solid fa-file-pdf me-1"></i>
+                        <input id="Print" type="button" value="Pdf" class="bg-transparent border-0 text-white  " />
+                    </div> 
+                    <div class="btn fw-bold text-white rounded-3 ">
+                        <i class="fa-solid fa-file-excel me-1"></i>
+                        <input id="PrintExcel" type="button" value="Excel" class="bg-transparent border-0 text-white " />
+                    </div> 
+                    <div class="btn fw-bold text-white rounded-3 ">
+                        <i class="fa-solid fa-search me-1"></i> 
+                        <input id="AfterSalesSearch" type="button" value="Search" class="bg-transparent border-0 text-white " />
+                    </div> 
                 </div>
-            </div>
-        </div>
-    </div>
+                        </div>
+                    </div>
+                </div>
 
     <div class="portlet box  red-pink">
         <div class=" portlet-title">
@@ -67,7 +78,7 @@
                 <i class="fa fa-gift me-3"></i> Visits
             </div>
             <div class="actions">
-                <a id="Create my-4" href="/AfterSales/Create" style=" text-transform: none" class="ms-3 btn fw-bold text-white rounded-3 btn-primary  btn-sm">
+                <a id="Create my-4" href="/AfterSales/Create" style=" text-transform: none" class="ms-4 btn fw-bold text-white rounded-3 btn-primary  btn-sm">
                     <i class="fa fa-plus "></i> New Visit
                 </a>
             </div>
