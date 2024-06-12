@@ -947,6 +947,15 @@ li.select2-selection__choice {
     font-size: 14px;
     font-weight: 700;
     color: #393939;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    background: #dadada !important;
+}
+ul.select2-selection__rendered {
+    justify-content: start;
+    direction: ltr;
+    gap: 5px;
+    padding-left: 4px !important;
 }
 .select2-search.select2-search--inline input.select2-search__field {
     width: 100% !important;
