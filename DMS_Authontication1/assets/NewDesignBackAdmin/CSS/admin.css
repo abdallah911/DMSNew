@@ -267,12 +267,16 @@ span.select2-dropdown.select2-dropdown--below {
     z-index: 4000;
 }
 ul#select2-ddlDiagnoises-container {
-    display: flex;
-    margin-top: 15px;
+    display: flex !important;
+    margin-top: 3px;
+    align-items: center;
+    overflow-x: scroll;
 }
 li.select2-selection__choice {
-    width: fit-content;
+    min-width: fit-content;
     font-size: 10px;
+    margin-top: 2px !important;
+    margin-bottom: 2px;
 }
 span#select2-ddlSpeciality-container {
     height: 100% !important;
@@ -321,6 +325,12 @@ span#select2-ddlSpeciality-container {
     position: absolute;
     left: 0;
     padding: 0 10px;
+}
+.ddlDiagnoises span.select2.select2-container.select2-container--default {
+    height: 100% !important;
+}
+.ddlDiagnoises span.select2-selection.select2-selection--multiple {
+    height: 100%;
 }
 
 /* ====================CS Pages=========================================== */

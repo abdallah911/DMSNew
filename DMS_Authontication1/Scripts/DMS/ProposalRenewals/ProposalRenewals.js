@@ -21,6 +21,14 @@ function ClearAll() {
 
 }
 
+$(document).ready(function () {
+    $('.basic-data-ddl span.select2-selection__choice__remove').on('click', function () {
+        console.log("it works");
+        $('.basic-data-ddl').css('top', '60px !important');
+        $('.basic-data-ddl .select2 .select2-container .select2-container--default select2-container--focus').removeClass('.select2-container--open')
+    });
+});
+
 function ShowBroker() {
     if ($("#brokerCheck").is(":checked")) {
         $('#brockDisable').show();
