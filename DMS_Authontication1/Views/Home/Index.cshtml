@@ -15,7 +15,8 @@
         <link rel="stylesheet" href="~/assets/NewDesign/css/all.min.css" />
         <link rel="stylesheet" href="~/assets/NewDesign/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/assets/NewDesign/css/owl.carousel.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <link href="~/assets/NewDesign/css/animate.min.css" rel="stylesheet" />
+        @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />*@
         <link rel="stylesheet" href="~/assets/NewDesign/css/home.css" />
     </head>
     <body>
@@ -515,13 +516,14 @@
             </div>
         </footer>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+        @*<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>*@
+        <script src="~/assets/NewDesign/js/Chart.min.js"></script>
         <script src="~/assets/NewDesign/js/bootstrap.bundle.min.js"></script>
         <script src="~/assets/NewDesign/js/bootstrap.min.js"></script>
         <script src="~/assets/NewDesign/js/jquery-3.6.3.min.js"></script>
         <script src="~/assets/NewDesign/js/owl.carousel.min.js"></script>
         <script src="~/assets/NewDesign/js/wow.min.js"></script>
-        <script src="~/assets/NewDesign/js/particles.js"></script>
+        @*<script src="~/assets/NewDesign/js/particles.js"></script>*@
         <script src="~/assets/NewDesign/js/app.js"></script>
 
         <script src="~/assets/NewDesign/js/index.js"></script>
@@ -540,11 +542,17 @@ else if (User.IsInRole("Admin"))
     }
 </style>
 
+
 <!-- Resources -->
-<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-<script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
-<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+@*<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>*@
+
+    <script src="~/assets/NewDesign/js/core.js"></script>
+    <script src="~/assets/NewDesign/js/charts.js"></script>
+    <script src="~/assets/NewDesign/js/material.js"></script>
+    <script src="~/assets/NewDesign/js/animated.js"></script>
 
 <!-- Chart code -->
 <script>
@@ -813,10 +821,16 @@ else
 {
 <div style="padding-left: 93px;">
     <!-- Resources -->
-    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    @*<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
-    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>*@
+
+      <script src="~/assets/NewDesign/js/core.js"></script>
+    <script src="~/assets/NewDesign/js/charts.js"></script>
+    <script src="~/assets/NewDesign/js/material.js"></script>
+    <script src="~/assets/NewDesign/js/animated.js"></script>
+
 
     <h1>Your Dashboard</h1>
     <h3 class="col-md-12">Claims/Month</h3>

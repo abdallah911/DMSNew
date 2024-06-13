@@ -84,17 +84,17 @@
                                placeholder="السعر" />
                     </div>
                     @* <div style="height: 57px; margin:10px">
-                            <input class="myInput"
-                                   style="pointer-events: none; height: 45px;"
-                                   type="text"
-                                   placeholder="العمر" />
-                        </div>
-                        <div style="height: 57px; margin:10px">
-                            <input class="myInput"
-                                   style="pointer-events: none; height: 45px;"
-                                   type="text"
-                                   placeholder="متوسط الاعمار" />
-                        </div>*@
+            <input class="myInput"
+                   style="pointer-events: none; height: 45px;"
+                   type="text"
+                   placeholder="العمر" />
+        </div>
+        <div style="height: 57px; margin:10px">
+            <input class="myInput"
+                   style="pointer-events: none; height: 45px;"
+                   type="text"
+                   placeholder="متوسط الاعمار" />
+        </div>*@
                     <div style="height: 57px; margin:10px">
                         <input class="myInput"
                                style="pointer-events: none; height: 45px;"
@@ -136,6 +136,28 @@
                                style="pointer-events: none; height: 45px;"
                                type="text"
                                placeholder="الحد الأقصى في حالات الوفاة" />
+                    </div>
+                    <div style="height: 74px; margin: 10px">
+                        <input class="myInput"
+                               style="pointer-events: none"
+                               type="text"
+                               placeholder="عدد حالات الولادة" />
+                    </div>
+                    <div style="height: 74px; margin: 10px">
+                        <input class="myInput"
+                               style="pointer-events: none"
+                               type="text"
+                               placeholder="عدد حالات البصريات" />
+                    </div>  <div style="height: 74px; margin: 10px">
+                        <input class="myInput"
+                               style="pointer-events: none"
+                               type="text"
+                               placeholder="عدد حالات الأسنان" />
+                    </div>  <div style="height: 74px; margin: 10px">
+                        <input class="myInput"
+                               style="pointer-events: none"
+                               type="text"
+                               placeholder="ملاحظات" />
                     </div>
                 </div>
             </div>
@@ -222,10 +244,12 @@
                                         </div>
                                     </div>
 
-                                    <div>
-                                        <input type="text" name="Model[@index].Price" value="@Model[index].Price" />
-                                        @Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })
-
+                                
+                                    <div class="d-flex align-items-center gap-2 justify-content-center px-4"> 
+                                            <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="عدد">
+                                            <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة"> 
+                                        @*<input type="text" name="Model[@index].Price" value="@Model[index].Price" />
+                                        @Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })*@
                                     </div>
 
                                     <div style="
@@ -291,8 +315,8 @@
                                     </div>
                                     <div style="position: relative;">
                                         <!-- <section
-                          class="d-flex mt-2 justify-content-center align-items-center"
-                        > -->
+          class="d-flex mt-2 justify-content-center align-items-center"
+        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -335,8 +359,8 @@
 
                                     <div style="position: relative;">
                                         <!-- <section
-                          class="d-flex mt-2 justify-content-center align-items-center"
-                        > -->
+          class="d-flex mt-2 justify-content-center align-items-center"
+        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -378,8 +402,8 @@
                                     </div>
                                     <div style="position: relative;">
                                         <!-- <section
-                          class="d-flex mt-2 justify-content-center align-items-center"
-                        > -->
+          class="d-flex mt-2 justify-content-center align-items-center"
+        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -424,6 +448,20 @@
                                     </div>
                                     <div>
                                         <input type="text" name="Model[@index].Death" value="@Model[index].Death" />
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 justify-content-center px-4"> 
+                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="عدد">
+                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة"> 
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 justify-content-center px-4"> 
+                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="عدد">
+                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة"> 
+                                    </div> <div class="d-flex align-items-center gap-2 justify-content-center px-4"> 
+                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="عدد">
+                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة"> 
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <input type="text" placeholder="ملاحظة">
                                     </div>
                                 </div>
                                 <div class="cate-parent">
@@ -478,10 +516,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <input type="text" name="Model[@index].PriceOld" value="@Model[index].Price" disabled />
-                                        @Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })
-
+                                    <div class="d-flex align-items-center gap-2 justify-content-center px-4"> 
+                                            <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="عدد" disabled>
+                                            <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة" disabled> 
+                                        @*<input type="text" name="Model[@index].PriceOld" value="@Model[index].Price" disabled />
+                                        @Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })*@ 
                                     </div>
 
                                     <div style="
@@ -547,8 +586,8 @@
                                     </div>
                                     <div style="position: relative;">
                                         <!-- <section
-                          class="d-flex mt-2 justify-content-center align-items-center"
-                        > -->
+          class="d-flex mt-2 justify-content-center align-items-center"
+        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -593,8 +632,8 @@
 
                                     <div style="position: relative;">
                                         <!-- <section
-                          class="d-flex mt-2 justify-content-center align-items-center"
-                        > -->
+          class="d-flex mt-2 justify-content-center align-items-center"
+        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -639,8 +678,8 @@
                                     </div>
                                     <div style="position: relative;">
                                         <!-- <section
-                          class="d-flex mt-2 justify-content-center align-items-center"
-                        > -->
+          class="d-flex mt-2 justify-content-center align-items-center"
+        > -->
                                         <section class="form-check-container" style="position: absolute; top:14%; right:2%;">
                                             <div class="form-check">
 
@@ -691,6 +730,20 @@
                                         <input type="text" name="Model[@index].DeathOld" value="@Model[index].DeathOld"
                                                disabled />
                                     </div>
+                                    <div class="d-flex align-items-center gap-2 justify-content-center px-4"> 
+                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="عدد" disabled>
+                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة" disabled> 
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 justify-content-center px-4"> 
+                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="عدد" disabled>
+                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة" disabled> 
+                                    </div> <div class="d-flex align-items-center gap-2 justify-content-center px-4"> 
+                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="عدد" disabled>
+                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة" disabled> 
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                    </div>
+
                                 </div>
 
                             </div>

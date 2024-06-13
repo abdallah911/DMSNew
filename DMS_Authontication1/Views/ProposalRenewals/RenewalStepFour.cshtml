@@ -186,6 +186,37 @@ CateCount = ViewBag.CatCount; }
                                type="text"
                                placeholder="كشف الولادة" />
                     </div>
+                    <div style="height: 74px; margin: 10px">
+                        <input class="myInput"
+                               style="pointer-events: none"
+                               type="text"
+                               placeholder="عدد حالات الولادة" />
+                    </div>
+                    <div style="height: 74px; margin: 10px">
+                        <input class="myInput"
+                               style="pointer-events: none"
+                               type="text"
+                               placeholder="عدد حالات البصريات" />
+                    </div>
+                    <div style="height: 74px; margin: 10px">
+                        <input class="myInput"
+                               style="pointer-events: none"
+                               type="text"
+                               placeholder="عدد حالات الأسنان" />
+                    </div> 
+                    <div style="height: 74px; margin: 10px">
+                        <input class="myInput"
+                               style="pointer-events: none"
+                               type="text"
+                               placeholder="داخل وخارج الهيئة" />
+                    </div>
+
+                    <div style="height: 74px; margin: 10px">
+                        <input class="myInput"
+                               style="pointer-events: none"
+                               type="text"
+                               placeholder="ملاحظات" />
+                    </div>
                 </div>
             </div>
 
@@ -1065,11 +1096,11 @@ index++)
                                     </div>
 
 
-                                    <div>
-                                        <input type="number" name="Model[@index].IntensiveCareDaysCount" value="@Model[index].IntensiveCareDaysCount" />
+                                    <div class="d-flex align-items-center  justify-content-center px-4">
+                                        <input type="number" class="my-0 w-100" name="Model[@index].IntensiveCareDaysCount" value="@Model[index].IntensiveCareDaysCount" />
                                     </div>
-                                    <div>
-                                        <input type="number" name="Model[@index].DailyRoshitasCountPerMonth" value="@Model[index].DailyRoshitasCountPerMonth" />
+                                    <div class="d-flex align-items-center  justify-content-center px-4">
+                                        <input type="number" class="my-0 w-100" name="Model[@index].DailyRoshitasCountPerMonth" value="@Model[index].DailyRoshitasCountPerMonth" />
                                     </div>
                                     <div>
                                         <section class="form-check-container position-relative">
@@ -1106,18 +1137,14 @@ index++)
                                             </div>
                                         </section>
                                     </div>
-                                    <div class="position-relative">
-                                        <div>
-                                            <input type="text" class="" />
-                                        </div>
+                                    <div class="d-flex align-items-center  justify-content-center px-4 position-relative"> 
+                                       <input type="text" class="my-0 w-100 " /> 
                                     </div>
 
 
-                                    <div class="position-relative">
-                                        <div class="px-2">
-                                            <select class="seleect" id="">
-                                            </select>
-                                        </div>
+                                    <div class="d-flex align-items-center  justify-content-center px-4 position-relative"> 
+                                       <select class="my-0 w-100 seleect" id="">
+                                       </select> 
                                     </div>
                                     <div>
                                         <section class="form-check-container mt-0 cate-parent position-relative">
@@ -1182,7 +1209,33 @@ index++)
                                             </div>
                                         </section>
                                     </div>
-
+                                    <div class="d-flex align-items-center  justify-content-center px-4">
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="عدد">
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="نسبة">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center  justify-content-center px-4">
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="عدد">
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="نسبة">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center  justify-content-center px-4">
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="عدد">
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="نسبة">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center  justify-content-center px-4">
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="عدد">
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="نسبة">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <input type="text" placeholder="ملاحظة">
+                                    </div>
                                 </div>
                                 <div class="cate-parent">
                                     <div>
@@ -2031,12 +2084,12 @@ index++)
                                     </div>
 
 
-                                    <div>
-                                        <input type="number" name="Model[@index].IntensiveCareDaysCountOld" value="@Model[index].IntensiveCareDaysCount"
+                                    <div class="d-flex align-items-center  justify-content-center px-4  ">
+                                        <input type="number" class="my-0 w-100" name="Model[@index].IntensiveCareDaysCountOld" value="@Model[index].IntensiveCareDaysCount"
                                                disabled />
                                     </div>
-                                    <div>
-                                        <input type="number" name="Model[@index].DailyRoshitasCountPerMonthOld" value="@Model[index].DailyRoshitasCountPerMonth"
+                                    <div class="d-flex align-items-center  justify-content-center px-4   ">
+                                        <input type="number" class="my-0 w-100" name="Model[@index].DailyRoshitasCountPerMonthOld" value="@Model[index].DailyRoshitasCountPerMonth"
                                                disabled />
                                     </div>
                                     <div>
@@ -2077,18 +2130,14 @@ index++)
                                             </div>
                                         </section>
                                     </div>
-                                    <div class="position-relative">
-                                        <div>
-                                            <input type="text" class="" disabled />
-                                        </div>
+                                    <div class="d-flex align-items-center  justify-content-center px-4 position-relative"> 
+                                            <input type="text" class="my-0 w-100" disabled /> 
                                     </div>
 
 
-                                    <div class="position-relative">
-                                        <div class="px-2">
-                                            <select class="seleect" id="" disabled>
-                                            </select>
-                                        </div>
+                                    <div class="d-flex align-items-center  justify-content-center px-4 position-relative"> 
+                                            <select class="my-0 seleect" id="" disabled>
+                                            </select> 
                                     </div>
                                     <div>
                                         <section class="form-check-container mt-0 cate-parent position-relative">
@@ -2152,6 +2201,31 @@ index++)
                                                 </div>
                                             </div>
                                         </section>
+                                    </div>
+                                    <div class="d-flex align-items-center  justify-content-center px-4">
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="عدد" disabled >
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="نسبة" disabled >
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center  justify-content-center px-4">
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="عدد" disabled >
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="نسبة" disabled >
+                                        </div>
+                                    </div> <div class="d-flex align-items-center  justify-content-center px-4">
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="عدد" disabled >
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="نسبة" disabled >
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center  justify-content-center px-4">
+                                        <div style="display: flex; gap: 0.1rem">
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="عدد" disabled >
+                                            <input type="number" style="width: 50%; margin: 5px" placeholder="نسبة" disabled >
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center" disabled>
                                     </div>
                                 </div>
                             </div>
