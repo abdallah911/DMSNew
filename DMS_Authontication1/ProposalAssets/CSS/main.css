@@ -989,3 +989,22 @@ ul.select2-selection__rendered {
 .proposal-container {
     min-height: calc(100vh - 318px);
 }
+.basic-data-ddl span.select2.select2-container.select2-container--default {
+    height: 96px;
+}
+.basic-data-ddl span.select2-selection.select2-selection--multiple {
+    display: flex;
+    align-items: center;
+    padding-top: 38px;
+}
+.basic-data-ddl span.select2-selection__choice__remove {
+    border-right: none !important;
+}
+
+.basic-data-ddl li.select2-selection__choice {
+    margin: 4px !important;
+    padding: 1px 15px !important;
+}
+.basic-data-ddl ul.select2-selection__rendered {
+    display: inline-block !important;
+}
