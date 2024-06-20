@@ -78,8 +78,11 @@
                 <span>Speciality</span>
             </div>
              
-            <div class="  forLabel select2-60  admin-form-control   border-0 px-2  " style="height:60px"> 
+            <div class="  forLabel select2-60 ddlDiagnoises admin-form-control   border-0 px-2  " style="height:80px"> 
                 @*@Html.Label("Diagnoise", new { @class = "control-label" })*@
+                <div id="diagnoisesExpand" class="btn d-flex justify-content-center align-items-center  ms-1 ,b-1 text-white rounded-circle position-apsolute start-0 top-0 translate-middle-y   z-2" style="width:20px; height:20px; padding:12px;margin-bottom:20px;"> 
+                    <i class="fa fa-plus " style="font-size:16px;"></i>
+                </div>
                 <select id="ddlDiagnoises" class="admin-form-control border-2 ps-3" style="width:100%" multiple></select>
                 <span style="right: 20px !important; padding-left: 0; top: 14px; color: var(--color-secondary) !important; font-size: 11px;">Diagnoise</span>
             </div>
@@ -244,8 +247,8 @@
                 <span class="control-label">Total cash</span>
             </div>
             <div class="d-flex justify-content-center gap-2 mx-auto" style="padding:10px 0; text-align:right">
-                <input id="reset" type="button" value="Reset" onclick="ClearCardData();ClearMedicineData();" class="btn fw-bold text-white rounded-3  btn-warning" />
-                <input id="submit" type="button" value="Save" class="btn fw-bold text-white rounded-3  btn-success" />
+                <input id="reset" type="button" value="Reset" onclick="ClearCardData();ClearMedicineData();" class="btn fw-bold text-white rounded-3 " />
+                <input id="submit" type="button" value="Save" class="btn fw-bold text-white rounded-3 " />
             </div>
 
 

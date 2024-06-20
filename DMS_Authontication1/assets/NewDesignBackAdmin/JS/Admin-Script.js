@@ -245,10 +245,9 @@ $('input[type="radio"]').change(function () {
   $(".pop-up").not(targetPop).removeClass("d-flex");
   $(targetPop).addClass("d-flex");
   $(targetPop).removeClass("d-none");
-});
-//  ======================Profile================================================================
+}); 
 
-// ====================doctor chronic Scripts=======================================================
+// ====================doctor  Scripts=======================================================
 $(document).ready(function () {
   $("#simple-tab-1").removeClass("active");
 
@@ -256,6 +255,37 @@ $(document).ready(function () {
     $("#simple-tab-0").removeClass("chicked");
   });
 });
+
+//=--=-=-=-=-=-=-
+$(document).ready(function () {
+    let styleApplied = false;
+
+
+  
+      
+$('#diagnoisesExpand').on('click', function () {
+    if (!styleApplied) {
+        $('.ddlDiagnoises ul#select2-ddlDiagnoises-container')
+            .css({
+                'overflow-y': 'scroll',
+                'overflow': 'hidden',
+                'flex-wrap': 'wrap',
+                ' height': '40px'
+            });
+        styleApplied = true;
+    } else {
+        $('.ddlDiagnoises ul#select2-ddlDiagnoises-container')
+            .css({
+                'overflow-y': 'hidden',
+                'overflow': 'scroll',
+                'flex-wrap': 'no-wrap',
+                ' height': 'unset'
+            });
+        styleApplied = false;
+    }
+    });
+});
+
 // ====================Sidebar Script=======================================================
 
 $(document).ready(function () {

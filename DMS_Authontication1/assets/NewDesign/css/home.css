@@ -22,7 +22,7 @@
     url('../img/Home.jpg');
   background-position: center;
   background-repeat: no-repeat;
-  cursor: pointer;
+  /*cursor: pointer;*/
   background-size: 100% 100%;
   z-index: 33;
 }
