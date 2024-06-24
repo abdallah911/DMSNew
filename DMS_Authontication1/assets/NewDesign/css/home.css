@@ -528,3 +528,8 @@ a {
   margin-bottom: 15px;
   border-radius: 10px;
 }
+.owl-stage{
+    display:flex;
+    align-items:center;
+    height:250px;
+}
