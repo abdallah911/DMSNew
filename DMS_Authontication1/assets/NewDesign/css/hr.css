@@ -1,9 +1,9 @@
 * {
-  font-family: sans-serif;
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  transition: all 0.4s;
+    font-family: "Roboto", sans-serif;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    transition: all 0.4s;
 }
 
 :root {
@@ -24,7 +24,11 @@ h2 {
   font-weight: bold !important;
 }
 p {
-  padding: 7px 0px 25px;
+    padding: 7px 0px 25px;
+    font-size: 1.2em;
+    font-weight: 300;
+    line-height: 1.6;
+}
 }
 
 h4 {
