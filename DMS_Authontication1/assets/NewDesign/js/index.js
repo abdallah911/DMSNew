@@ -4,7 +4,22 @@ $(document).ready(function(){
  
 
 })
-
+$(document).ready(function () {
+    $(".read-more-btn").click(function () {
+        // Change the style of the sibling element 
+        $(this).siblings(".read-more-text").removeClass("d-none");
+        $(this).siblings(".read-less-btn").removeClass("d-none");
+        $(this).addClass("d-none");
+        console.log("it works")
+    });
+    $(".read-less-btn").click(function () {
+        // Change the style of the sibling element 
+        $(this).siblings(".read-more-text").addClass("d-none");
+        $(this).siblings(".read-more-btn").removeClass("d-none");
+        $(this).addClass("d-none");
+        console.log("it works")
+    });
+});
 
 
 
@@ -107,3 +122,10 @@ $("#app").on("click", function () {
     location.href = "/Home/Application";
 
 });
+$(document).ready(function () {
+$("#read-more-btn").on("click", function (event) {
+    event.stopPropagation();
+    alert("Button inside #app clicked!");
+});
+});
+
