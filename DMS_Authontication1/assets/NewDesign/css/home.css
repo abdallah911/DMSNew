@@ -29,17 +29,17 @@
 
 
 #loading {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left:0 ;
-  background-color: #999b9ec5;
-  z-index: 999999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* display: none;  */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #6a798cc5;
+    z-index: 999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* display: none;  */
 }
 
 #loading i {
@@ -115,7 +115,7 @@ a {
 }
 
 .navbar {
-  background-color: rgba(70, 97, 172, 0.377);
+  /*background-color: rgba(70, 97, 172, 0.377);*/
 }
 
 .login-btn {
@@ -473,15 +473,115 @@ a {
 }
 
 .product-card {
-  overflow: hidden;
-  background-color: rgba(221, 228, 228, 0.336);
-  cursor: pointer;
+    overflow: hidden;
+    background-color: rgba(221, 228, 228, 0.336);
+    cursor: pointer;
+    padding: 0;
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+    ;
 }
 
 .product-card:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
 }
 
+/* ================================cards================================= */
+.product-card{
+    position:relative;
+}
+product-card {
+    width: calc(96% / 3);
+    position: relative;
+}
+.product-card:hover .product-text {
+    animation: layer-move 0.4s ease-in-out !important;
+    animation-fill-mode: forwards;
+    height: calc(100% + 20px);
+}
+/*.product-img:hover .product-text h2,
+.product-img:hover .product-text p {
+    display:block;
+    transition: 6s all ease-in
+
+}*/
+@keyframes layer-move {
+    0% {
+    }
+    10% {
+        padding: 20px 15px;
+        display: flex !important;
+    }
+    100% {
+        height: calc(100% - 5px) !important;
+    }
+
+}
+
+
+.product-img img {
+    width: 100%;
+}
+
+.product-text {
+    bottom: 0;
+    position: absolute;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    background-color: #00000073;
+    line-height: 1.5;
+    height: 0%;
+    width: 100%;
+    font-size: 14px;
+    color: white !important;
+    padding: 10px;
+    line-height: 1.6;
+    transform: translateY(20px);
+}
+.product-text h2 {
+    width: 100%;
+    text-align: center;
+    /*transition: 2s all ease-in*/
+
+}
+    .product-text p {
+        /*display: none;
+    transition: 2s all ease-in*/
+        color: white !important;
+        font-weight: 300 !important;
+        font-size: 12px !important;
+       
+    }
+/* =============Read More BTN================= */
+.read-more-btn,
+.read-less-btn {
+    color: #a7a7a7 ;
+}
+/* ====================Scroll bar=========================================== */
+
+::-webkit-scrollbar {
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background: #c8cbdb;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #9195a7;
+    border: 4px solid #c8cbdb;
+    width: 24px;
+    border-radius: 15px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #7d7d92;
+    }
 /* =============footer================= */
 .footer {
   background-color: var(--main-color) !important;
