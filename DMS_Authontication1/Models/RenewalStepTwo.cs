@@ -32,6 +32,14 @@ namespace DMS_Authontication1.Models
         public string ClassCode { get; set; }
         public int Accidents { get; set; }
         public int Death { get; set; }
+        public Nullable<int> PricePercent { get; set; }
+        public Nullable<int> BirthNumber { get; set; }
+        public Nullable<int> BirthPercent { get; set; }
+        public Nullable<int> OpticalNumber { get; set; }
+        public Nullable<int> OpticalPercent { get; set; }
+        public Nullable<int> DentalNumber { get; set; }
+        public Nullable<int> DentalPercent { get; set; }
+        public string Notes { get; set; }
     
         public virtual RenewalMain RenewalMain { get; set; }
     }
