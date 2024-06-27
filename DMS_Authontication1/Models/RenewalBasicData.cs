@@ -37,6 +37,7 @@ namespace DMS_Authontication1.Models
         public Nullable<bool> IsMedication { get; set; }
         public Nullable<bool> IsInpatient { get; set; }
         public Nullable<bool> IsLab { get; set; }
+        public string Notes { get; set; }
     
         public virtual RenewalMain RenewalMain { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
