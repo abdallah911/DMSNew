@@ -107,7 +107,7 @@
 }
 
 .nav-item:hover {
-  background: rgba(255, 255, 255, 0.705);
+    background: var(--main-color) !important;
 }
 
 a {
@@ -203,6 +203,9 @@ a {
   overflow: hidden;
   height: 50% !important;
 }
+.card-text{
+    height:50%;
+}
 
 .card-img img {
   height: 100%;
@@ -216,9 +219,11 @@ a {
 .card-text p {
     padding: 8px 30px;
     text-align: start !important;
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: 300;
     line-height: 1.6;
+    max-height: 80%;
+    overflow-y: scroll;
 }
   /* display: -webkit-box;
   -webkit-line-clamp: 4;
@@ -365,7 +370,7 @@ a {
 }
 
 .about-Text {
-  background-color: var(--main-color);
+    background-color: #0720306e;
 }
 
 /* =================contactUs==================== */
@@ -552,14 +557,14 @@ product-card {
     /*transition: 2s all ease-in*/
 
 }
-    .product-text p {
-        /*display: none;
-    transition: 2s all ease-in*/
-        color: white !important;
-        font-weight: 300 !important;
-        font-size: 12px !important;
-       
-    }
+.product-text p {
+    /*display: none;
+transition: 2s all ease-in*/
+    color: white !important;
+    font-weight: 300 !important;
+    font-size: 1em !important;
+   
+}
 /* =============Read More BTN================= */
 .read-more-btn,
 .read-less-btn {

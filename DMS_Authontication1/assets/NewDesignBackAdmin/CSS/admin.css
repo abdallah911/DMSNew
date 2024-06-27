@@ -155,8 +155,8 @@ body {
 
 .forLabel input:valid ~ span,
 .forLabel select:valid ~ span:last-of-type,
-.forLabel select:disabled ~ span:last-of-type,
-.forLabel input:disabled ~ span:last-of-type,
+/*.forLabel select:disabled ~ span:last-of-type,
+.forLabel input:disabled ~ span:last-of-type,*/
 .forLabel textarea:valid ~ span,
 .forLabel input:focus ~ span,
 .forLabel select:focus ~ span,
@@ -332,9 +332,17 @@ span#select2-ddlSpeciality-container {
 .ddlDiagnoises span.select2-selection.select2-selection--multiple {
     height: 100%;
 }
+.ddlDiagnoises ul#select2-ddlDiagnoises-container{
+    height:45px;
+}
+li.select2-results__option.select2-results__option--selectable.select2-results__option--selected {
+    background-color: #e4e6e8de;
+}
+li.select2-results__option.select2-results__option--selectable.select2-results__option--selected:hover {
+    background-color: #3875d7bf;
+}
 
 /* ====================CS Pages=========================================== */
-
 .cs-page-container span.select2.select2-container.select2-container--default {
     height: 100%;
     width: 100% !important;
@@ -1059,16 +1067,22 @@ button.bootbox-close-button.close {
     outline: none;
     caret-color: var(--color-secondary);
 }
+.admin-form-control[readonly="readonly"],
+.admin-form-control[readonly="true"],
+.admin-form-control[disabled] {
+    cursor: no-drop;
+    background: gainsboro;
+    border-color: #28689bbf;
+}
 
-    .admin-form-control h6 {
-        color: var(--color-secondary);
-    }
+.admin-form-control h6 {
+    color: var(--color-secondary);
+}
 
-    .admin-form-control::placeholder {
-        color: var(--color-secondary);
-        font-weight: bold;
-    }
-
+.admin-form-control::placeholder {
+    color: var(--color-secondary);
+    font-weight: bold;
+}
 .cs-page input::placeholder {
     color: var(--color-secondary);
 }
