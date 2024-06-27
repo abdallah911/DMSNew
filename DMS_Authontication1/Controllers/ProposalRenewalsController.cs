@@ -275,7 +275,7 @@ namespace DMS_Authontication1.Controllers
             if (stopLos != null && stopLos.Rows.Count > 0)
                 model.StopLossOld = Convert.ToDouble(stopLos.Rows[0][0].ToString());
 
-            model.poolService = polService.Select(s => s.Id).ToList();
+            //model.poolService = polService.Select(s => s.Id).ToList();
 
             RenewalBasicData oldNew = db.RenewalBasicDatas.FirstOrDefault(r => r.MainId == mainIdOld);
 
