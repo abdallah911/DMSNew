@@ -68,6 +68,7 @@ namespace DMS_Authontication1.ViewModel
         public double LossRatioOld { get; set; }
         public double ExpectedLossRatioOld { get; set; }
         public List<int> poolService { get; set; }
+        public string Notes { get; set; }
     }
 
 }

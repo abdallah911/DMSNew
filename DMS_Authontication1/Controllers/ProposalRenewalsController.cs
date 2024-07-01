@@ -160,31 +160,60 @@ namespace DMS_Authontication1.Controllers
                     //string cod = db.RenewalStepTwoes.Where(r => r.Code.StartsWith("10_")).ToList();
 
                     int ind = cod.IndexOf('_');
+                    string subCod;
+                    string OldCod;
+                    //if (ind == -1)
+                    //    cod = cod + "_" + "1";
+                    //else
+                    //{
+                    //    string subCod = cod.Substring(0, ind + 1);
+                    //    string maxNumber = db.RenewalMains
+                    //         .Where(r => r.Code.StartsWith(subCod))
+                    //    .Select(r => r.Code)
+                    //    .ToList()
+                    //    .Select(code => int.Parse(code.Split('_').LastOrDefault()))
+                    //    .Max()
+                    //    .ToString();
+
+                    //    cod = subCod + (int.Parse(maxNumber.ToString()) + 1).ToString();
+                    //}
 
                     if (ind == -1)
-                        cod = cod + "_" + "1";
+                    {
+                        subCod = cod + "_";
+                        OldCod = cod;
+                    }
                     else
                     {
-                        string subCod = cod.Substring(0, ind + 1);
-                        string maxNumber = db.RenewalMains
-                             .Where(r => r.Code.StartsWith(subCod))
-                        .Select(r => r.Code)
-                        .ToList()
-                        .Select(code => int.Parse(code.Split('_').LastOrDefault()))
-                        .Max()
-                        .ToString();
-
-                        cod = subCod + (int.Parse(maxNumber.ToString()) + 1).ToString();
+                        subCod = cod.Substring(0, ind + 1);
+                        OldCod = cod.Substring(0, ind);
                     }
+                        
+
+                    string maxNumber = db.RenewalMains
+                    .Where(r => r.Code.StartsWith(subCod))
+                    .Select(r => r.Code)
+                    .ToList()
+                    .Select(code => code.Split('_').LastOrDefault())
+                    .Where(code => code != null)  // Filter out null values
+                    .Select(code => int.Parse(code))
+                    .DefaultIfEmpty(0)  // Default to 1 if there are no valid integers
+                    .Max()
+                    .ToString();
+
+                    cod = subCod + (int.Parse(maxNumber.ToString()) + 1).ToString();
+
 
                     int id = renewalMain.Id;
+
+
 
                     renewalMain.Code = cod;
 
                     db.SaveChanges();
 
                   //  return RedirectToAction("RenewalStepTwoShow", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 2, mainIdOld = model.Id });
-                    return RedirectToAction("RenewalBasicData", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 2, mainIdOld = id });
+                    return RedirectToAction("RenewalBasicData", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 2, mainIdOld = OldCod });
 
 
                     //return View("Index");
@@ -289,14 +318,18 @@ namespace DMS_Authontication1.Controllers
                 model.VisitorNumber = oldNew.VisitorNumber.Value;
                 model.VisitorType = oldNew.VisitorType.Value;
                 model.IsBroker = oldNew.IsBroker.Value;
-                model.BrokerId = oldNew.BrokerId.Value;
-                model.BrokerPercentage = oldNew.BrokerPercentage.Value;
+                if (model.IsBroker == true)
+                {
+                    model.BrokerId = oldNew.BrokerId.Value;
+                    model.BrokerPercentage = oldNew.BrokerPercentage.Value;
+                }
                 model.IssuanceExpenses = oldNew.IssuanceExpenses.Value;
                 model.AdminExpenses = oldNew.AdminExpenses.Value;
                 model.MainId = oldNew.MainId.Value;
                 model.IsMedication = oldNew.IsMedication.Value;
                 model.IsInpatient = oldNew.IsInpatient.Value;
                 model.IsLab = oldNew.IsLab.Value;
+                model.Notes = oldNew.Notes;
 
                 model.poolService = db.RenewalServicePools
                                    .Where(x => x.MainId == oldNew.Id)
@@ -338,7 +371,8 @@ namespace DMS_Authontication1.Controllers
                         MainId = model.MainId,
                         IsMedication = model.IsMedication,
                         IsInpatient = model.IsInpatient,
-                        IsLab = model.IsLab
+                        IsLab = model.IsLab,
+                        Notes = model.Notes
 
                     };
 
@@ -374,7 +408,7 @@ namespace DMS_Authontication1.Controllers
 
 
 
-                        return RedirectToAction("RenewalStepTwoShow", new { mainId = model.MainId, model.CompId, ContractNo = model.ContractNo, countCat = model.CountClass, typeAction = model.typAction, mainIdOld = model.MainId });
+                        return RedirectToAction("RenewalStepTwoShow", new { mainId = model.MainId, model.CompId, ContractNo = model.ContractNo, countCat = model.CountClass, typeAction = model.typAction, mainIdOld = model.MainIdOld });
 
                 }
                 else
@@ -681,6 +715,8 @@ namespace DMS_Authontication1.Controllers
                 return RedirectToAction("RenewalStepTwoShow", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
             }
         }
+        #endregion
+        #region ProposalStepThree
         public ActionResult RenewalStepThree(int mainId, int CompId, int ContractNo, int countCat, int typeAction, int mainIdOld)
         {
             ViewBag.MainId = mainId;
@@ -1252,7 +1288,8 @@ namespace DMS_Authontication1.Controllers
                 return RedirectToAction("RenewalStepThree", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
             }
         }
-
+        #endregion
+        #region ProposalStepFour
         public ActionResult RenewalStepFour(int mainId, int CompId, int ContractNo, int countCat, int typeAction, int mainIdOld)
         {
             ViewBag.MainId = mainId;
@@ -1834,7 +1871,7 @@ namespace DMS_Authontication1.Controllers
                 return RedirectToAction("RenewalStepFour", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
             }
         }
-
+        #endregion
         public ActionResult PrintRenewalReports(int id, int countClass)
         {          
             ReportDocument rd = new ReportDocument();
@@ -1871,5 +1908,4 @@ namespace DMS_Authontication1.Controllers
         }
 
     }
-    #endregion
 }

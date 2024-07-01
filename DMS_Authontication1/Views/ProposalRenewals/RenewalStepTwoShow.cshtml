@@ -246,8 +246,8 @@
 
 
                                     <div class="d-flex align-items-center gap-2 justify-content-center px-4">
-                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="قيمة">
-                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة">
+                                        <input type="text" name="Model[@index].Price" value="@Model[index].Price" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="قيمة">
+                                        <input type="text" name="Model[@index].PricePercent" value="@Model[index].PricePercent" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة">
                                         @*<input type="text" name="Model[@index].Price" value="@Model[index].Price" />
             @Html.ValidationMessage($"Model[{index}].Price", "", new { @class = "text-danger" })*@
                                     </div>
@@ -450,18 +450,18 @@
                                         <input type="text" name="Model[@index].Death" value="@Model[index].Death" />
                                     </div>
                                     <div class="d-flex align-items-center gap-2 justify-content-center px-4">
-                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="عدد">
-                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة">
+                                        <input type="text" name="Model[@index].BirthNumber" value="@Model[index].BirthNumber"  class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="عدد">
+                                        <input type="text" name="Model[@index].BirthPercent" value="@Model[index].BirthPercent"  class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة">
                                     </div>
                                     <div class="d-flex align-items-center gap-2 justify-content-center px-4">
-                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="عدد">
-                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة">
+                                        <input type="text" name="Model[@index].OpticalNumber" value="@Model[index].OpticalNumber"  class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="عدد">
+                                        <input type="text" name="Model[@index].OpticalPercent" value="@Model[index].OpticalPercent"  class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة">
                                     </div> <div class="d-flex align-items-center gap-2 justify-content-center px-4">
-                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="عدد">
-                                        <input type="number" class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة">
+                                        <input type="text" name="Model[@index].DentalNumber" value="@Model[index].DentalNumber"  class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="عدد">
+                                        <input type="text" name="Model[@index].DentalPercent" value="@Model[index].DentalPercent"  class="shadow-sm border-0 form-control" style="width: 50%; margin: 5px" placeholder="نسبة">
                                     </div> 
                                     <div class="d-flex align-items-center justify-content-center px-4 py-2" style="height: 90px;">
-                                        <textarea type="text" class="sios-form-control h-100 w-100 mb-0 border-0" placeholder="ملاحظة" style="width: 100%;  background-color: #e3e3e3; padding-top: 10px !important; padding-left: 10px; "></textarea>
+                                        <textarea type="text" name="Model[@index].Notes" value="@Model[index].Notes"  class="sios-form-control h-100 w-100 mb-0 border-0" placeholder="ملاحظة" style="width: 100%;  background-color: #e3e3e3; padding-top: 10px !important; padding-left: 10px; "></textarea>
 
                                     </div>
                                 </div>

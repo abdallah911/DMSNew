@@ -246,5 +246,29 @@ namespace DMS_Authontication1.ViewModel
         public int CountClass { get; set; }
         public int typAction { get; set; }
         public int MainIdOld { get; set; }
+
+
+        public int? NaturalBirthType { get; set; }
+        public int? NaturalBirthCovaregType { get; set; }
+        public int? CaesarBirthType { get; set; }
+        public int? CaesarBirthCovaregType { get; set; }
+        public int? FollowUpPregType { get; set; }
+        public int? FollowUpPregCovaregType { get; set; }
+        public int? AdvancedDentalType { get; set; }
+        public int? AdvancedDentalCovaregType { get; set; }
+        public int? BasicDentalType { get; set; }
+        public int? BasicDentalCovaregType { get; set; }
+        public int? LegalAbortionType { get; set; }
+        public int? LegalAbortionCovaregType { get; set; }
+        public int? DentalVisit { get; set; }
+        public int? OpticalVisit { get; set; }
+        public int? BirthVisit { get; set; }
+        [Required(ErrorMessage = "Transport Ambulance Percent is required.")]
+        [Range(0, 100, ErrorMessage = "Transport Ambulance Percent must be between 0 and 100")]
+        public int TransportAmbulancePercent { get; set; }
+        public List<int> AdvancDentalService { get; set; }
+        public List<int> BascDentalService { get; set; }
+        public string Notes { get; set; }
+
     }
 }
