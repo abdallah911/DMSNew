@@ -1,14 +1,15 @@
 * {
-  font-family: sans-serif;
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  transition: all 0.4s;
+    font-family: "Roboto", sans-serif; 
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    transition: all 0.4s;
 }
 
 :root {
-  --main-color: rgb(62, 115, 151);
-  --animate-duration: 2s;
+    --main-color: rgb(62, 115, 151);
+    --animate-duration: 2s;
+    --gradient-color: linear-gradient(45deg, #4152a6, #7824d1);
 }
 
 .main-color {
@@ -16,15 +17,14 @@
 }
 
 #particles-js {
-  width: 100%;
-  height: 100vh;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('../img/Home.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  /*cursor: pointer;*/
-  background-size: 100% 100%;
-  z-index: 33;
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgb(0 0 0 / 13%), rgb(0 0 0 / 40%)), url(../img/Home.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    /*cursor: pointer;*/
+    background-size: 100% 100%;
+    z-index: 33;
 }
 
 
@@ -61,6 +61,10 @@
   top: 0%;
   left: 0%;
 }
+.navbar {
+    white-space: nowrap;
+}
+
 
 /* .dots {
    position: absolute; 
@@ -98,20 +102,29 @@
 } */
 
 .nav-item {
-  margin: 0px 10px !important;
-  font-size: large;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 6px;
-  border-radius: 5px;
+    margin: 0px 10px !important;
+    font-size: large;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 6px;
+    border-radius: 5px;
+    transition: .2s all ease-in;
+}
+
+.nav-item a {
+    color: white;
 }
 
 .nav-item:hover {
-  background: rgba(255, 255, 255, 0.705);
+    background: var(--gradient-color);
+    transition: .2s all ease-in;
+}
+.nav-item:hover a{
+    color:white !important;
 }
 
 a {
-  color: white !important;
+  color: white ;
 }
 
 .navbar {
@@ -171,15 +184,15 @@ a {
 } */
 
 #btnUp {
-  color: white;
-  background-color: var(--main-color);
-  border-radius: 50%;
-  padding: 10px 13px;
-  position: fixed;
-  right: 10px;
-  bottom: 10px;
-  display: none;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+    color: white;
+    background: var(--gradient-color) !important;
+    border-radius: 50%;
+    padding: 10px 13px;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    display: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
 }
 
 /* ==================services=================== */
@@ -203,6 +216,9 @@ a {
   overflow: hidden;
   height: 50% !important;
 }
+.card-text{
+    height:50%;
+}
 
 .card-img img {
   height: 100%;
@@ -214,8 +230,14 @@ a {
 }
 
 .card-text p {
-  padding: 8px 30px;
-  text-align: start !important;
+    padding: 8px 30px;
+    text-align: start !important;
+    font-size: 1em;
+    font-weight: 300;
+    line-height: 1.6;
+    max-height: 80%;
+    overflow-y: scroll;
+}
   /* display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
@@ -361,7 +383,7 @@ a {
 }
 
 .about-Text {
-  background-color: var(--main-color);
+    background-color: #0720306e;
 }
 
 /* =================contactUs==================== */
@@ -465,11 +487,11 @@ a {
 }
 
 #products {
-  background-image: url(../img/BG\ WHITE.jpg);
+/*  background-image: url(../img/BG\ WHITE.jpg);
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
-  background-size: cover;
+  background-size: cover;*/
 }
 
 .product-card {
@@ -548,14 +570,14 @@ product-card {
     /*transition: 2s all ease-in*/
 
 }
-    .product-text p {
-        /*display: none;
-    transition: 2s all ease-in*/
-        color: white !important;
-        font-weight: 300 !important;
-        font-size: 12px !important;
-       
-    }
+.product-text p {
+    /*display: none;
+transition: 2s all ease-in*/
+    color: white !important;
+    font-weight: 300 !important;
+    font-size: 1em !important;
+   
+}
 /* =============Read More BTN================= */
 .read-more-btn,
 .read-less-btn {
@@ -584,8 +606,8 @@ product-card {
     }
 /* =============footer================= */
 .footer {
-  background-color: var(--main-color) !important;
-  color: white;
+    color: white;
+    background:linear-gradient(45deg, #181e3c, #340937);
 }
 
 .footer h5 {

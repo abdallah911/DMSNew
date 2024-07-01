@@ -256,35 +256,58 @@ $(document).ready(function () {
   });
 });
 
-//=--=-=-=-=-=-=-
-$(document).ready(function () {
-    let styleApplied = false;
+//==========================doctor daily===================================
 
-
-  
-      
-$('#diagnoisesExpand').on('click', function () {
-    if (!styleApplied) {
+$(document).ready(function () { 
+    $('#diagnoisesExpand').on('click', function () {
+        $(this).addClass('d-none');
+        $('#diagnoisesMinus').removeClass('d-none');
         $('.ddlDiagnoises ul#select2-ddlDiagnoises-container')
             .css({
                 'overflow-y': 'scroll',
-                'overflow': 'hidden',
+                'overflow-x': 'hidden',
                 'flex-wrap': 'wrap',
-                ' height': '40px'
-            });
-        styleApplied = true;
-    } else {
+                ' height': '45px !important',
+            }); 
+    });
+    $('#diagnoisesMinus').on('click', function () {
+        $(this).addClass('d-none');
+        $('#diagnoisesExpand').removeClass('d-none');
         $('.ddlDiagnoises ul#select2-ddlDiagnoises-container')
             .css({
                 'overflow-y': 'hidden',
-                'overflow': 'scroll',
-                'flex-wrap': 'no-wrap',
-                ' height': 'unset'
-            });
-        styleApplied = false;
-    }
-    });
+                'overflow-x': 'scroll',
+                'flex-wrap': 'nowrap',
+                ' height': 'unset',
+            }); 
+    }); 
 });
+
+
+//$(document).ready(function () {
+//    let styleApplied = false;
+//$('#diagnoisesExpand').on('click', function () {
+//    if (!styleApplied) {
+//        $('.ddlDiagnoises ul#select2-ddlDiagnoises-container')
+//            .css({
+//                'overflow-y': 'scroll',
+//                'overflow': 'hidden',
+//                'flex-wrap': 'wrap !important',
+//                ' height': '40px'
+//            });
+//        styleApplied = true;
+//    } else {
+//        $('.ddlDiagnoises ul#select2-ddlDiagnoises-container')
+//            .css({
+//                'overflow-y': 'hidden',
+//                'overflow': 'scroll',
+//                'flex-wrap': 'no-wrap !important',
+//                ' height': 'unset'
+//            });
+//        styleApplied = false;
+//    }
+//    });
+//});
 
 // ====================Sidebar Script=======================================================
 

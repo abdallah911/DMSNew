@@ -1,3 +1,14 @@
+////===============navebar========================
+//$(document).ready(function () {
+//    $(window).scroll(function () {
+//        if ($(window).scrollTop() >= $(window).height()) {
+//            $('.navbar').css('background', 'white'); // Change to your desired color
+//        } else {
+//            $('.navbar').css('background-color', 'transparent'); // Revert to original color
+//        }
+//    });
+//});
+
 // ===========Loading Screen==================
 $(document).ready(function(){
   $('#loading').fadeOut(500)
@@ -34,22 +45,25 @@ $(".nav-item").on("click", function () {
 let scrollservice = $("#service").offset().top;
 $(window).on("scroll", function () {
   let wScroll = $(window).scrollTop();
-  if (wScroll > scrollservice - 230) {
+  if (wScroll > scrollservice ) {
     // $(".service-header").addClass("headermove");
     $("#btnUp").show(100);
 
     // $(".service-header").css("transform", "translateY(0%)");
-    $(".navbar").css("background-color", "rgb(62, 115, 151)");
-    $(".navbar").css("height", "55px");
+    $(".navbar").css("background-color", "white");
+      $(".navbar").css("height", "70px");
+      $("a.nav-link").css("color", "#4e2e69");
     // $(".card").css("transform", "translateX(0%)");
 
     // $(".card").addClass("cardmove");
   } else {
-    $(".navbar").css("background-color", "");
+    $(".navbar").css("background-color", "transparent");
     // $(".service-header").removeClass("headermove");
     // $(".service-header").css("transform", "translateY(-170%)");
     $(".navbar").css("height", "");
-    $("#btnUp").hide(100);
+      $("#btnUp").hide(100);
+      $("a.nav-link").css("color", "#fff");
+
     // $(".card").css("transform", "translateX(-380%)");
 
     // $(".card").removeClass("cardmove");
