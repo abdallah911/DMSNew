@@ -1849,7 +1849,7 @@ function SelectMedicien(event) {
                                                             }
                                                         }
                                                         else {
-                                                            if (Group == "NO") {
+                                                            if (Group == "YES" || Group == "NO") {
                                                                 $.ajax({
                                                                     dataType: "json",
                                                                     url: '/Pharmacy/CheckVip',
