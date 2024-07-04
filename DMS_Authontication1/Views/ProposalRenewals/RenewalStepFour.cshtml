@@ -567,31 +567,30 @@ index++)
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">مغطى</label>
-                                                        <input class="form-check-input" value="1" data-val-required="The Natural Birth Type field is required." id="data-@(index+1)-radio-1-4" name="Model[@index].NaturalBirthType" type="radio">
+                                                        <input class="form-check-input" value="1" data-val-required="The Natural Birth Type field is required." id="data-@(index+1)-radio-1-4" name="Model[@index].NaturalBirthType" type="radio" @(Model[@index].NaturalBirthType == 1 ? "checked" : "")>
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" value="2" data-val-required="The Natural Birth Type field is required." id="data-@(index+1)-radio-1-4" name="Model[@index].NaturalBirthType" type="radio">
+                                                        <input class="form-check-input" value="2" data-val-required="The Natural Birth Type field is required." id="data-@(index+1)-radio-1-4" name="Model[@index].NaturalBirthType" type="radio" @(Model[@index].NaturalBirthType == 2 ? "checked" : "")>
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" value="3" data-val-required="The  Natural Birth Type field is required." id="data-@(index+1)-radio-1-4" name="Model[@index].NaturalBirthType" type="radio">
+                                                        <input class="form-check-input" value="3" data-val-required="The  Natural Birth Type field is required." id="data-@(index+1)-radio-1-4" name="Model[@index].NaturalBirthType" type="radio" @(Model[@index].NaturalBirthType == 3 ? "checked" : "")>
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">سابق ولاحق</label>
-                                                        <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-5" data-val-required="The  Natural Birth Type Covareg field is required." name="Model[@index].NaturalBirthCovaregType" type="radio">
-
+                                                        <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-5" data-val-required="The  Natural Birth Type Covareg field is required." name="Model[@index].NaturalBirthCovaregType" type="radio" @(Model[@index].NaturalBirthCovaregType == 1 ? "checked" : "")>
                                                     </div>
-                                                    <div class="coverage-radio-field">
+                                                    <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">لاحق</label>
-                                                        <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-5" data-val-required="The  Natural Birth Type Covareg field is required." name="Model[@index].NaturalBirthCovaregType" type="radio">
+                                                        <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-5" data-val-required="The  Natural Birth Type Covareg field is required." name="Model[@index].NaturalBirthCovaregType" type="radio" @(Model[@index].NaturalBirthCovaregType == 2 ? "checked" : "")>
 
                                                     </div>
-                                                    <div class="coverage-radio-field">
+                                                    <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">سابق</label>
-                                                        <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-5" data-val-required="The  Natural Birth Type Covareg field is required." name="Model[@index].NaturalBirthCovaregType" type="radio">
+                                                        <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-5" data-val-required="The  Natural Birth Type Covareg field is required." name="Model[@index].NaturalBirthCovaregType" type="radio" @(Model[@index].NaturalBirthCovaregType == 3 ? "checked" : "")>
 
                                                     </div>
                                                 </div>
@@ -648,31 +647,31 @@ index++)
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">مغطى</label>
-                                                        <input class="form-check-input" value="1" data-val-required="The Caesar Birth Type field is required." id="data-@(index+1)-radio-1-6" name="Model[@index].CaesarBirthType" type="radio">
+                                                        <input class="form-check-input" value="1" data-val-required="The Caesar Birth Type field is required." id="data-@(index+1)-radio-1-6" name="Model[@index].CaesarBirthType" type="radio" @(Model[@index].CaesarBirthType == 1 ? "checked" : "")>
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" value="2" data-val-required="The Caesar Birth Type field is required." id="data-@(index+1)-radio-1-6" name="Model[@index].CaesarBirthType" type="radio">
+                                                        <input class="form-check-input" value="2" data-val-required="The Caesar Birth Type field is required." id="data-@(index+1)-radio-1-6" name="Model[@index].CaesarBirthType" type="radio" @(Model[@index].CaesarBirthType == 2 ? "checked" : "")>
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" value="3" data-val-required="The Caesar Birth Type field is required." id="data-@(index+1)-radio-1-6" name="Model[@index].CaesarBirthType" type="radio">
+                                                        <input class="form-check-input" value="3" data-val-required="The Caesar Birth Type field is required." id="data-@(index+1)-radio-1-6" name="Model[@index].CaesarBirthType" type="radio" @(Model[@index].CaesarBirthType == 3 ? "checked" : "")>
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">سابق ولاحق</label>
-                                                        <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-7" data-val-required="The Caesar Birth Type Covareg field is required." name="Model[@index].CaesarBirthCovaregType" type="radio">
+                                                        <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-7" data-val-required="The Caesar Birth Type Covareg field is required." name="Model[@index].CaesarBirthCovaregType" type="radio" @(Model[@index].CaesarBirthCovaregType == 1 ? "checked" : "")>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
                                                         <label style="color:#000;">لاحق</label>
-                                                        <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-7" data-val-required="The Caesar Birth Type Covareg field is required." name="Model[@index].CaesarBirthCovaregType" type="radio">
+                                                        <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-7" data-val-required="The Caesar Birth Type Covareg field is required." name="Model[@index].CaesarBirthCovaregType" type="radio" @(Model[@index].CaesarBirthCovaregType == 2 ? "checked" : "")>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
                                                         <label style="color:#000;">سابق</label>
-                                                        <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-7" data-val-required="The Caesar Birth Type Covareg field is required." name="Model[@index].CaesarBirthCovaregType" type="radio">
+                                                        <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-7" data-val-required="The Caesar Birth Type Covareg field is required." name="Model[@index].CaesarBirthCovaregType" type="radio" @(Model[@index].CaesarBirthCovaregType == 3 ? "checked" : "")>
 
                                                     </div>
                                                 </div>
@@ -729,31 +728,31 @@ index++)
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">مغطى</label>
-                                                        <input class="form-check-input" value="1" data-val-required="The Legal Abortion Type field is required." id="data-@(index+1)-radio-1-8" name="Model[@index].LegalAbortionType" type="radio">
+                                                        <input class="form-check-input" value="1" data-val-required="The Legal Abortion Type field is required." id="data-@(index+1)-radio-1-8" name="Model[@index].LegalAbortionType" type="radio" @(Model[@index].LegalAbortionType == 1 ? "checked" : "")>
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" value="2" data-val-required="The Legal Abortion Type field is required." id="data-@(index+1)-radio-1-8" name="Model[@index].LegalAbortionType" type="radio">
+                                                        <input class="form-check-input" value="2" data-val-required="The Legal Abortion Type field is required." id="data-@(index+1)-radio-1-8" name="Model[@index].LegalAbortionType" type="radio" @(Model[@index].LegalAbortionType == 2 ? "checked" : "")>
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" value="3" data-val-required="The Legal Abortion Type field is required." id="data-@(index+1)-radio-1-8" name="Model[@index].LegalAbortionType" type="radio">
+                                                        <input class="form-check-input" value="3" data-val-required="The Legal Abortion Type field is required." id="data-@(index+1)-radio-1-8" name="Model[@index].LegalAbortionType" type="radio" @(Model[@index].LegalAbortionType == 3 ? "checked" : "")>
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">سابق ولاحق</label>
-                                                        <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-9" data-val-required="The Legal Abortion Type Covareg field is required." name="Model[@index].LegalAbortionCovaregType" type="radio">
+                                                        <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-9" data-val-required="The Legal Abortion Type Covareg field is required." name="Model[@index].LegalAbortionCovaregType" type="radio" @(Model[@index].LegalAbortionCovaregType == 1 ? "checked" : "")>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
                                                         <label style="color:#000;">لاحق</label>
-                                                        <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-9" data-val-required="The Legal Abortion Type Covareg field is required." name="Model[@index].LegalAbortionCovaregType" type="radio">
+                                                        <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-9" data-val-required="The Legal Abortion Type Covareg field is required." name="Model[@index].LegalAbortionCovaregType" type="radio" @(Model[@index].LegalAbortionCovaregType == 2 ? "checked" : "")>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
                                                         <label style="color:#000;">سابق</label>
-                                                        <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-9" data-val-required="The Legal Abortion Type Covareg field is required." name="Model[@index].LegalAbortionCovaregType" type="radio">
+                                                        <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-9" data-val-required="The Legal Abortion Type Covareg field is required." name="Model[@index].LegalAbortionCovaregType" type="radio" @(Model[@index].LegalAbortionCovaregType == 3 ? "checked" : "")>
 
                                                     </div>
                                                 </div>
@@ -810,31 +809,31 @@ index++)
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">مغطى</label>
-                                                        <input class="form-check-input" value="1" data-val-required="The Follow Up Preg Type field is required." id="data-@(index+1)-radio-1-10" name="Model[@index].FollowUpPregType" type="radio">
+                                                        <input class="form-check-input" value="1" data-val-required="The Follow Up Preg Type field is required." id="data-@(index+1)-radio-1-10" name="Model[@index].FollowUpPregType" type="radio" @(Model[@index].FollowUpPregType == 1 ? "checked" : "")>
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" value="2" data-val-required="The Follow Up Preg Type field is required." id="data-@(index+1)-radio-1-10" name="Model[@index].FollowUpPregType" type="radio">
+                                                        <input class="form-check-input" value="2" data-val-required="The Follow Up Preg Type field is required." id="data-@(index+1)-radio-1-10" name="Model[@index].FollowUpPregType" type="radio" @(Model[@index].FollowUpPregType == 2 ? "checked" : "")>
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" value="3" data-val-required="The Follow Up Preg Type field is required." id="data-@(index+1)-radio-1-10" name="Model[@index].FollowUpPregType" type="radio">
+                                                        <input class="form-check-input" value="3" data-val-required="The Follow Up Preg Type field is required." id="data-@(index+1)-radio-1-10" name="Model[@index].FollowUpPregType" type="radio" @(Model[@index].FollowUpPregType == 3 ? "checked" : "")>
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">سابق ولاحق</label>
-                                                        <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-11" data-val-required="The Follow Up Preg Type Covareg field is required." name="Model[@index].FollowUpPregCovaregType" type="radio">
+                                                        <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-11" data-val-required="The Follow Up Preg Type Covareg field is required." name="Model[@index].FollowUpPregCovaregType" type="radio" @(Model[@index].FollowUpPregCovaregType == 3 ? "checked" : "")>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
                                                         <label style="color:#000;">لاحق</label>
-                                                        <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-11" data-val-required="The Follow Up Preg Type Covareg field is required." name="Model[@index].FollowUpPregCovaregType" type="radio">
+                                                        <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-11" data-val-required="The Follow Up Preg Type Covareg field is required." name="Model[@index].FollowUpPregCovaregType" type="radio" @(Model[@index].FollowUpPregCovaregType == 3 ? "checked" : "")>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
                                                         <label style="color:#000;">سابق</label>
-                                                        <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-11" data-val-required="The Follow Up Preg Type Covareg field is required." name="Model[@index].FollowUpPregCovaregType" type="radio">
+                                                        <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-11" data-val-required="The Follow Up Preg Type Covareg field is required." name="Model[@index].FollowUpPregCovaregType" type="radio" @(Model[@index].FollowUpPregCovaregType == 3 ? "checked" : "")>
 
                                                     </div>
                                                 </div>
@@ -890,31 +889,31 @@ index++)
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">مغطى</label>
-                                                        <input class="form-check-input" value="1" data-val-required="The Advanced Dental Type field is required." id="data-@(index+1)-radio-1-12" name="Model[@index].AdvancedDentalType" type="radio">
+                                                        <input class="form-check-input" value="1" data-val-required="The Advanced Dental Type field is required." id="data-@(index+1)-radio-1-12" name="Model[@index].AdvancedDentalType" type="radio" @(Model[@index].AdvancedDentalType == 1 ? "checked" : "")>
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" value="2" data-val-required="The Advanced Dental Type field is required." id="data-@(index+1)-radio-1-12" name="Model[@index].AdvancedDentalType" type="radio">
+                                                        <input class="form-check-input" value="2" data-val-required="The Advanced Dental Type field is required." id="data-@(index+1)-radio-1-12" name="Model[@index].AdvancedDentalType" type="radio" @(Model[@index].AdvancedDentalType == 2 ? "checked" : "")>
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" value="3" data-val-required="The Advanced Dental Type field is required." id="data-@(index+1)-radio-1-12" name="Model[@index].AdvancedDentalType" type="radio">
+                                                        <input class="form-check-input" value="3" data-val-required="The Advanced Dental Type field is required." id="data-@(index+1)-radio-1-12" name="Model[@index].AdvancedDentalType" type="radio" @(Model[@index].AdvancedDentalType == 3 ? "checked" : "")>
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">سابق ولاحق</label>
-                                                        <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-13" data-val-required="The Advanced Dental Type Covareg field is required." name="Model[@index].AdvancedDentalCovaregType" type="radio">
+                                                        <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-13" data-val-required="The Advanced Dental Type Covareg field is required." name="Model[@index].AdvancedDentalCovaregType" type="radio" @(Model[@index].AdvancedDentalCovaregType == 1 ? "checked" : "")>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
                                                         <label style="color:#000;">لاحق</label>
-                                                        <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-13" data-val-required="The Advanced Dental Type Covareg field is required." name="Model[@index].AdvancedDentalCovaregType" type="radio">
+                                                        <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-13" data-val-required="The Advanced Dental Type Covareg field is required." name="Model[@index].AdvancedDentalCovaregType" type="radio" @(Model[@index].AdvancedDentalCovaregType == 2 ? "checked" : "")>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
                                                         <label style="color:#000;">سابق</label>
-                                                        <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-13" data-val-required="The Advanced Dental Type Covareg field is required." name="Model[@index].AdvancedDentalCovaregType" type="radio">
+                                                        <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-13" data-val-required="The Advanced Dental Type Covareg field is required." name="Model[@index].AdvancedDentalCovaregType" type="radio" @(Model[@index].AdvancedDentalCovaregType == 3 ? "checked" : "")>
 
                                                     </div>
                                                 </div>
@@ -981,31 +980,31 @@ index++)
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">مغطى</label>
-                                                        <input class="form-check-input" value="1" data-val-required="The Basic Dental Type field is required." id="data-@(index+1)-radio-1-14" name="Model[@index].BasicDentalType" type="radio">
+                                                        <input class="form-check-input" value="1" data-val-required="The Basic Dental Type field is required." id="data-@(index+1)-radio-1-14" name="Model[@index].BasicDentalType" type="radio" @(Model[@index].BasicDentalType == 3 ? "checked" : "")>
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">بموافقة مسبقة</label>
-                                                        <input class="form-check-input" value="2" data-val-required="The Basic Dental Type field is required." id="data-@(index+1)-radio-1-14" name="Model[@index].BasicDentalType" type="radio">
+                                                        <input class="form-check-input" value="2" data-val-required="The Basic Dental Type field is required." id="data-@(index+1)-radio-1-14" name="Model[@index].BasicDentalType" type="radio" @(Model[@index].BasicDentalType == 3 ? "checked" : "")>
                                                     </div>
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">نظام الدفع والإسترداد</label>
-                                                        <input class="form-check-input" value="3" data-val-required="The Basic Dental Type field is required." id="data-@(index+1)-radio-1-14" name="Model[@index].BasicDentalType" type="radio">
+                                                        <input class="form-check-input" value="3" data-val-required="The Basic Dental Type field is required." id="data-@(index+1)-radio-1-14" name="Model[@index].BasicDentalType" type="radio" @(Model[@index].BasicDentalType == 3 ? "checked" : "")>
                                                     </div>
                                                 </div>
                                                 <div class="coverage-radio-box text-center justify-content-center gap-3 d-flex">
                                                     <div class="coverage-radio-field fw-medium">
                                                         <label style="color:#000;">سابق ولاحق</label>
-                                                        <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-15" data-val-required="The Basic Dental Type Covareg field is required." name="Model[@index].BasicDentalCovaregType" type="radio">
+                                                        <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-15" data-val-required="The Basic Dental Type Covareg field is required." name="Model[@index].BasicDentalCovaregType" type="radio" @(Model[@index].BasicDentalCovaregType == 3 ? "checked" : "")>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
                                                         <label style="color:#000;">لاحق</label>
-                                                        <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-15" data-val-required="The Basic Dental Type Covareg field is required." name="Model[@index].BasicDentalCovaregType" type="radio">
+                                                        <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-15" data-val-required="The Basic Dental Type Covareg field is required." name="Model[@index].BasicDentalCovaregType" type="radio" @(Model[@index].BasicDentalCovaregType == 3 ? "checked" : "")>
 
                                                     </div>
                                                     <div class="coverage-radio-field">
                                                         <label style="color:#000;">سابق</label>
-                                                        <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-15" data-val-required="The Basic Dental Type Covareg field is required." name="Model[@index].BasicDentalCovaregType" type="radio">
+                                                        <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-15" data-val-required="The Basic Dental Type Covareg field is required." name="Model[@index].BasicDentalCovaregType" type="radio" @(Model[@index].BasicDentalCovaregType == 3 ? "checked" : "")>
 
                                                     </div>
                                                 </div>
@@ -1125,16 +1124,16 @@ index++)
                                             <div class="coverage-radio-box text-center justify-content-center m-0 gap-3 d-flex">
                                                 <div class="coverage-radio-field fw-medium">
                                                     <label style="color:#000;">من الحد الأقصى</label>
-                                                    <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-20" data-val-required="The Dental Visit field is required." name="Model[@index].DentalVisit" type="radio">
+                                                    <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-20" data-val-required="The Dental Visit field is required." name="Model[@index].DentalVisit" type="radio" @(Model[@index].DentalVisit == 1 ? "checked" : "")>
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
                                                     <label style="color:#000;">مغطى</label>
-                                                    <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-20" data-val-required="The Dental Visit field is required." name="Model[@index].DentalVisit" type="radio">
+                                                    <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-20" data-val-required="The Dental Visit field is required." name="Model[@index].DentalVisit" type="radio" @(Model[@index].DentalVisit == 2 ? "checked" : "")>
 
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
                                                     <label style="color:#000;">غير مغطى</label>
-                                                    <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-20" data-val-required="The Dental Visit field is required." name="Model[@index].DentalVisit" type="radio">
+                                                    <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-20" data-val-required="The Dental Visit field is required." name="Model[@index].DentalVisit" type="radio" @(Model[@index].DentalVisit == 3 ? "checked" : "")>
 
                                                 </div>
                                             </div>
@@ -1145,16 +1144,16 @@ index++)
                                             <div class="coverage-radio-box text-center justify-content-center m-0 gap-3 d-flex">
                                                 <div class="coverage-radio-field fw-medium">
                                                     <label style="color:#000;">من الحد الأقصى</label>
-                                                    <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-21" data-val-required="The Optical Visit field is required." name="Model[@index].OpticalVisit" type="radio">
+                                                    <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-21" data-val-required="The Optical Visit field is required." name="Model[@index].OpticalVisit" type="radio" @(Model[@index].OpticalVisit == 1 ? "checked" : "")>
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
                                                     <label style="color:#000;">مغطى</label>
-                                                    <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-21" data-val-required="The Optical Visit field is required." name="Model[@index].OpticalVisit" type="radio">
+                                                    <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-21" data-val-required="The Optical Visit field is required." name="Model[@index].OpticalVisit" type="radio" @(Model[@index].OpticalVisit == 2 ? "checked" : "")>
 
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
                                                     <label style="color:#000;">غير مغطى</label>
-                                                    <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-21" data-val-required="The Optical Visit field is required." name="Model[@index].OpticalVisit" type="radio">
+                                                    <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-21" data-val-required="The Optical Visit field is required." name="Model[@index].OpticalVisit" type="radio" @(Model[@index].OpticalVisit == 3 ? "checked" : "")>
 
                                                 </div>
                                             </div>
@@ -1165,16 +1164,16 @@ index++)
                                             <div class="coverage-radio-box text-center justify-content-center m-0 gap-3 d-flex">
                                                 <div class="coverage-radio-field fw-medium">
                                                     <label style="color:#000;">من الحد الأقصى</label>
-                                                    <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-22" data-val-required="The Birth Visit field is required." name="Model[@index].BirthVisit" type="radio">
+                                                    <input class="form-check-input" value="1" id="data-@(index+1)-radio-1-22" data-val-required="The Birth Visit field is required." name="Model[@index].BirthVisit" type="radio" @(Model[@index].BirthVisit == 1 ? "checked" : "")>
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
                                                     <label style="color:#000;">مغطى</label>
-                                                    <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-22" data-val-required="The Birth Visit field is required." name="Model[@index].BirthVisit" type="radio">
+                                                    <input class="form-check-input" value="2" id="data-@(index+1)-radio-1-22" data-val-required="The Birth Visit field is required." name="Model[@index].BirthVisit" type="radio" @(Model[@index].BirthVisit == 2 ? "checked" : "")>
 
                                                 </div>
                                                 <div class="coverage-radio-field fw-medium">
                                                     <label style="color:#000;">غير مغطى</label>
-                                                    <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-22" data-val-required="The Birth Visit field is required." name="Model[@index].BirthVisit" type="radio">
+                                                    <input class="form-check-input" value="3" id="data-@(index+1)-radio-1-22" data-val-required="The Birth Visit field is required." name="Model[@index].BirthVisit" type="radio" @(Model[@index].BirthVisit == 3 ? "checked" : "")>
 
                                                 </div>
                                             </div>
@@ -1182,8 +1181,8 @@ index++)
                                     </div>
                             
                                     <div class="d-flex align-items-center justify-content-center px-4 py-2" style="height: 90px;">
-                                        <textarea type="text" class="sios-form-control h-100 w-100 mb-0 border-0" placeholder="ملاحظة" style="width: 100%;  background-color: #e3e3e3; padding-top: 10px !important; padding-left: 10px; "></textarea>
-                                      @*  <textarea type="text" name="Model[@index].Notes" value="@Model[index].Notes" class="sios-form-control h-100 w-100 mb-0 border-0" placeholder="ملاحظة" style="width: 100%;  background-color: #e3e3e3; padding-top: 10px !important; padding-left: 10px; "></textarea>*@
+                                     @*   <textarea type="text" class="sios-form-control h-100 w-100 mb-0 border-0" placeholder="ملاحظة" style="width: 100%;  background-color: #e3e3e3; padding-top: 10px !important; padding-left: 10px; "></textarea>*@
+                                        <textarea type="text" name="Model[@index].Notes" value="@Model[index].Notes" class="sios-form-control h-100 w-100 mb-0 border-0" placeholder="ملاحظة" style="width: 100%;  background-color: #e3e3e3; padding-top: 10px !important; padding-left: 10px; "></textarea>
 
                                     </div>
                                 </div>

@@ -544,8 +544,15 @@ namespace DMS_Authontication1.Controllers
                         ContractNo = ContractNo,
                         CountClass = countCat,
                         typAction = typeAction,
-                        MainIdOld = mainIdOld
-
+                        MainIdOld = mainIdOld, 
+                        Notes = oldNew.Notes,
+                        PricePercent = (int)oldNew.PricePercent,
+                        BirthNumber = (int)oldNew.BirthNumber,
+                        BirthPercent = (int)oldNew.BirthPercent,
+                        OpticalNumber = (int)oldNew.OpticalNumber,
+                        OpticalPercent = (int)oldNew.OpticalPercent,
+                        DentalNumber = (int)oldNew.DentalNumber,
+                        DentalPercent = (int)oldNew.DentalPercent
                     };
 
                     model.Add(renwalTwoMain);
@@ -651,7 +658,15 @@ namespace DMS_Authontication1.Controllers
                 ResidenceDegreeId = vM.ResidenceDegreeId,
                 MedicalNetworkId = vM.MedicalNetworkId,
                 MainId = vM.MainId,
-                ClassCode = vM.ClassCode
+                ClassCode = vM.ClassCode,
+                PricePercent = vM.PricePercent,
+                BirthNumber = vM.BirthNumber,
+                BirthPercent = vM.BirthPercent,
+                OpticalNumber = vM.OpticalNumber,
+                OpticalPercent = vM.OpticalPercent,
+                DentalNumber = vM.DentalNumber,
+                DentalPercent = vM.DentalPercent,
+                Notes = vM.Notes
                 // Map other properties as needed
             };
 
@@ -1063,7 +1078,37 @@ namespace DMS_Authontication1.Controllers
                         ContractNo = ContractNo,
                         CountClass = countCat,
                         typAction = typeAction,
-                        MainIdOld = mainIdOld
+                        MainIdOld = mainIdOld,
+
+                        NaturalBirthType = oldNew.NaturalBirthType,
+                        NaturalBirthCovaregType = oldNew.NaturalBirthCovaregType,
+                        CaesarBirthType = oldNew.CaesarBirthType,
+                        CaesarBirthCovaregType = oldNew.CaesarBirthCovaregType,
+                        FollowUpPregType = oldNew.FollowUpPregType,
+                        FollowUpPregCovaregType = oldNew.FollowUpPregCovaregType,
+                        AdvancedDentalType = oldNew.AdvancedDentalType,
+                        AdvancedDentalCovaregType = oldNew.AdvancedDentalCovaregType,
+                        BasicDentalType = oldNew.BasicDentalType,
+                        BasicDentalCovaregType = oldNew.BasicDentalCovaregType,
+                        LegalAbortionType = oldNew.LegalAbortionType,
+                        LegalAbortionCovaregType = oldNew.LegalAbortionCovaregType,
+                        DentalVisit = oldNew.DentalVisit,
+                        OpticalVisit = oldNew.OpticalVisit,
+                        BirthVisit = oldNew.BirthVisit,
+                        TransportAmbulancePercent = (int)oldNew.TransportAmbulancePercent,
+                        Notes = oldNew.Notes,
+                        //,
+
+
+
+                        AdvancDentalService = db.RenewalInsideAdvanceDentals
+                                   .Where(x => x.MainId == oldNew.Id)
+                                   .Select(x => x.ServiceId ?? 0)
+                                   .ToList(),
+                        BascDentalService = db.RenewalInsideBasicDentals
+                                   .Where(x => x.MainId == oldNew.Id)
+                                   .Select(x => x.ServiceId ?? 0)
+                                   .ToList()                      
                     };
 
                     model.Add(renwalThreeMain);
@@ -1237,10 +1282,51 @@ namespace DMS_Authontication1.Controllers
                 DailyRoshitasCountPerMonth = vM.DailyRoshitasCountPerMonth,
                 CoronaVaccineCoverage = vM.CoronaVaccineCoverage,
                 MainId = vM.MainId, 
-                ClassCode = vM.ClassCode
-                
-            };
+                ClassCode = vM.ClassCode,
 
+                NaturalBirthType = vM.NaturalBirthType,
+                NaturalBirthCovaregType = vM.NaturalBirthCovaregType,
+                CaesarBirthType = vM.CaesarBirthType,
+                CaesarBirthCovaregType = vM.CaesarBirthCovaregType,
+                FollowUpPregType = vM.FollowUpPregType,
+                FollowUpPregCovaregType = vM.FollowUpPregCovaregType,
+                AdvancedDentalType = vM.AdvancedDentalType,
+                AdvancedDentalCovaregType = vM.AdvancedDentalCovaregType,
+                BasicDentalType = vM.BasicDentalType,
+                BasicDentalCovaregType = vM.BasicDentalCovaregType,
+                LegalAbortionType = vM.LegalAbortionType,
+                LegalAbortionCovaregType = vM.LegalAbortionCovaregType,
+                DentalVisit = vM.DentalVisit,
+                OpticalVisit = vM.OpticalVisit,
+                BirthVisit = vM.BirthVisit,
+                TransportAmbulancePercent = vM.TransportAmbulancePercent,
+                Notes = vM.Notes,
+                 
+            };
+            //if (vM.AdvancDentalService != null)
+            //{
+            //    vM.AdvancDentalService = new List<RenewalInsideAdvanceDental>();
+
+            //    foreach (var serviceId in vM.AdvancDentalService)
+            //    {
+            //        vM.AdvancDentalService.Add(new RenewalInsideAdvanceDental
+            //        {
+            //            ServiceId = serviceId
+            //        });
+            //    }
+            //}
+
+            //if (model.poolService != null)
+            //{
+            //    renewalBasicData.RenewalServicePools = new List<RenewalServicePool>();
+            //    foreach (var serviceId in model.poolService)
+            //    {
+            //        renewalBasicData.RenewalServicePools.Add(new RenewalServicePool
+            //        {
+            //            ServiceId = serviceId
+            //        });
+            //    }
+            //}
             return renewalthree;
         }
 
@@ -1255,7 +1341,43 @@ namespace DMS_Authontication1.Controllers
                         var renewalThree = MapViewModelToEntityStepThree(mod);
 
                         db.RenewalInsideMedicalAuthorities.Add(renewalThree);
+
                         db.SaveChanges();
+
+                        if (mod.AdvancDentalService != null)
+                        {
+                            var mainId = renewalThree.Id; // Assuming MainId is the key property
+
+                            foreach (var dentalService in mod.AdvancDentalService)
+                            {
+                                var advancDentalService = new RenewalInsideAdvanceDental
+                                {
+                                    MainId = mainId,
+                                    ServiceId = dentalService
+                                };
+                                db.RenewalInsideAdvanceDentals.Add(advancDentalService);
+                            }
+
+                            db.SaveChanges();
+                        }
+
+                        if (mod.BascDentalService != null)
+                        {
+                            var mainId = renewalThree.Id;
+
+                            foreach (var dentalService in mod.BascDentalService)
+                            {
+                                var basicDentalService = new RenewalInsideBasicDental
+                                {
+                                    MainId = mainId,
+                                    ServiceId = dentalService
+                                };
+                                db.RenewalInsideBasicDentals.Add(basicDentalService);
+                            }
+
+                            db.SaveChanges();
+                        }
+
                     }
                     else
                     {
@@ -1270,7 +1392,7 @@ namespace DMS_Authontication1.Controllers
                         }
 
                         ViewBag.Errors = errors;
-                        
+
                         TempData["ErrorMessage"] = errors;
                         TempData["RenewalStepThreeModel"] = model;
 

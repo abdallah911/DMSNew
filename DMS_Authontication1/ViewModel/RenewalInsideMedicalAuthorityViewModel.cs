@@ -270,5 +270,6 @@ namespace DMS_Authontication1.ViewModel
         public List<int> BascDentalService { get; set; }
         public string Notes { get; set; }
 
+
     }
 }
