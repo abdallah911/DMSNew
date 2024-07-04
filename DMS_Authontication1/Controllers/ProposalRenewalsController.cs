@@ -161,7 +161,14 @@ namespace DMS_Authontication1.Controllers
 
                     int ind = cod.IndexOf('_');
                     string subCod;
-                    string OldCod;
+                   
+                    string OldCod = db.RenewalMains
+                    .Where(r => r.Code == cod)                    
+                    .Select(r => r.Id)
+                    .FirstOrDefault().ToString();
+                   
+                    
+                    
                     //if (ind == -1)
                     //    cod = cod + "_" + "1";
                     //else
@@ -178,16 +185,14 @@ namespace DMS_Authontication1.Controllers
                     //    cod = subCod + (int.Parse(maxNumber.ToString()) + 1).ToString();
                     //}
 
-                    if (ind == -1)
-                    {
-                        subCod = cod + "_";
-                        OldCod = cod;
-                    }
+                    
+
+
+                    if (ind == -1)                   
+                        subCod = cod + "_";                      
                     else
-                    {
                         subCod = cod.Substring(0, ind + 1);
-                        OldCod = cod.Substring(0, ind);
-                    }
+                    
                         
 
                     string maxNumber = db.RenewalMains
@@ -1300,7 +1305,7 @@ namespace DMS_Authontication1.Controllers
                 OpticalVisit = vM.OpticalVisit,
                 BirthVisit = vM.BirthVisit,
                 TransportAmbulancePercent = vM.TransportAmbulancePercent,
-                Notes = vM.Notes,
+                Notes = vM.Notes
                  
             };
             //if (vM.AdvancDentalService != null)
@@ -1756,7 +1761,33 @@ namespace DMS_Authontication1.Controllers
                         ContractNo = ContractNo,
                         CountClass = countCat,
                         typAction = typeAction,
-                        MainIdOld = mainIdOld
+                        MainIdOld = mainIdOld,
+                        
+                        NaturalBirthType = oldNew.NaturalBirthType,
+                        NaturalBirthCovaregType = oldNew.NaturalBirthCovaregType,
+                        CaesarBirthType = oldNew.CaesarBirthType,
+                        CaesarBirthCovaregType = oldNew.CaesarBirthCovaregType,
+                        FollowUpPregType = oldNew.FollowUpPregType,
+                        FollowUpPregCovaregType = oldNew.FollowUpPregCovaregType,
+                        AdvancedDentalType = oldNew.AdvancedDentalType,
+                        AdvancedDentalCovaregType = oldNew.AdvancedDentalCovaregType,
+                        BasicDentalType = oldNew.BasicDentalType,
+                        BasicDentalCovaregType = oldNew.BasicDentalCovaregType,
+                        LegalAbortionType = oldNew.LegalAbortionType,
+                        LegalAbortionCovaregType = oldNew.LegalAbortionCovaregType,
+                        DentalVisit = oldNew.DentalVisit,
+                        OpticalVisit = oldNew.OpticalVisit,
+                        BirthVisit = oldNew.BirthVisit,
+                        Notes = oldNew.Notes,
+                      
+                        AdvancDentalService = db.RenewalOtsideAdvanceDentals
+                                   .Where(x => x.MainId == oldNew.Id)
+                                   .Select(x => x.ServiceId ?? 0)
+                                   .ToList(),
+                        BascDentalService = db.RenewalOtsideBasicDentals
+                                   .Where(x => x.MainId == oldNew.Id)
+                                   .Select(x => x.ServiceId ?? 0)
+                                   .ToList()
                     };
 
                     model.Add(renwalFourMain);
@@ -1938,8 +1969,24 @@ namespace DMS_Authontication1.Controllers
                 DailyRoshitasCountPerMonth = vM.DailyRoshitasCountPerMonth,
                 CoronaVaccineCoverage = vM.CoronaVaccineCoverage,
                 MainId = vM.MainId, 
-                ClassCode = vM.ClassCode
+                ClassCode = vM.ClassCode,
 
+                NaturalBirthType = vM.NaturalBirthType,
+                NaturalBirthCovaregType = vM.NaturalBirthCovaregType,
+                CaesarBirthType = vM.CaesarBirthType,
+                CaesarBirthCovaregType = vM.CaesarBirthCovaregType,
+                FollowUpPregType = vM.FollowUpPregType,
+                FollowUpPregCovaregType = vM.FollowUpPregCovaregType,
+                AdvancedDentalType = vM.AdvancedDentalType,
+                AdvancedDentalCovaregType = vM.AdvancedDentalCovaregType,
+                BasicDentalType = vM.BasicDentalType,
+                BasicDentalCovaregType = vM.BasicDentalCovaregType,
+                LegalAbortionType = vM.LegalAbortionType,
+                LegalAbortionCovaregType = vM.LegalAbortionCovaregType,
+                DentalVisit = vM.DentalVisit,
+                OpticalVisit = vM.OpticalVisit,
+                BirthVisit = vM.BirthVisit,
+                Notes = vM.Notes
             };
 
             return renewalfour;
@@ -1957,6 +2004,41 @@ namespace DMS_Authontication1.Controllers
 
                         db.RenewalOutsideMedicalAuthorities.Add(renewalFour);
                         db.SaveChanges();
+
+                        if (mod.AdvancDentalService != null)
+                        {
+                            var mainId = renewalFour.Id; // Assuming MainId is the key property
+
+                            foreach (var dentalService in mod.AdvancDentalService)
+                            {
+                                var advancDentalService = new RenewalOtsideAdvanceDental
+                                {
+                                    MainId = mainId,
+                                    ServiceId = dentalService
+                                };
+                                db.RenewalOtsideAdvanceDentals.Add(advancDentalService);
+                            }
+
+                            db.SaveChanges();
+                        }
+
+                        if (mod.BascDentalService != null)
+                        {
+                            var mainId = renewalFour.Id;
+
+                            foreach (var dentalService in mod.BascDentalService)
+                            {
+                                var basicDentalService = new RenewalOtsideBasicDental
+                                {
+                                    MainId = mainId,
+                                    ServiceId = dentalService
+                                };
+                                db.RenewalOtsideBasicDentals.Add(basicDentalService);
+                            }
+
+                            db.SaveChanges();
+                        }
+
                     }
                     else
                     {
