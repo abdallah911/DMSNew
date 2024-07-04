@@ -2,24 +2,28 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    //Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardHospital.cshtml";
+
+
 }
 @if (Model != null)
 {
     @Html.Hidden("Edate", @Model.ExitDate, new { @id = "Edate", @name = "Edate" })
     @Html.Hidden("Endate", @Model.EnterDate, new { @id = "Endate", @name = "Endate" })
 }
-<div class="portlet box green" style="margin-top:80px">
-    <div class="portlet-title">
-        <div class="caption">
+<div class="sios-container portlet box green" >
+    <div class="sios-overlay container-fluid mt-4 mb-0 portlet-title">
+        <div class="container ms-0 text-white fs-3 caption">
             <i class="fa fa-edit"></i> Edit Approval
         </div>
         <div class="actions">
-            <a id="Create" href="/Hospital/AprovalsEdit" style=" text-transform: none" class="btn btn-primary  btn-sm dark">
+            <a id="Create" href="/Hospital/AprovalsEdit" style=" text-transform: none ;white-space:nowrap;" class="btn fw-bold text-white rounded-3   btn-sm dark">
                 <i class="fa fa-backward"></i> Back To List
             </a>
         </div>
     </div>
-    <br />
+    
     <input id="count" value="0" hidden="hidden" />
     <div class="portlet-body ">
         <div class="row ">
@@ -32,72 +36,50 @@
                             <div class="tab-content">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <span class="text-danger">@ViewBag.Error</span>
-                                <div class="row ">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label sbold col-md-4">
+                                <div class="row row-cols-sm-2 container mx-auto my-4 ">
+                                    <div class="row row-cols-md-2 row-gap-2 col-sm-8">
+                                        <div class="forLabel admin-form-control border-0 px-2 form-group">
+                                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   rounded-3 form-control", @required = "required" } })
+                                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                            <span class="control-label sbold col-md-4">
                                                 @Html.DisplayName("Code") :
-                                            </label>
-                                            <div class="col-md-8">
-                                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-
-                                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-
-                                            </div>
+                                            </span>
                                         </div>
-                                        <div class="form-group" id="CompanyTypeNew">
-                                            <label class="control-label sbold col-md-4">
+                                        <div class="forLabel admin-form-control border-0 px-2 form-group" id="CompanyTypeNew">
+                                            @Html.EditorFor(model => model.EnterDate, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   rounded-3 form-control CreatDate" } })
+                                            @Html.ValidationMessageFor(model => model.EnterDate, "", new { @class = "text-danger" })
+
+                                            <span class="control-label sbold col-md-4">
                                                 @Html.DisplayName("Enter Date") :
                                                 @*<span class="required"> * </span>*@
-                                            </label>
-                                            <div class="col-md-8">
-                                                @Html.EditorFor(model => model.EnterDate, new { htmlAttributes = new { @class = "form-control CreatDate" } })
-
-                                                @Html.ValidationMessageFor(model => model.EnterDate, "", new { @class = "text-danger" })
-                                            </div>
+                                            </span>
                                         </div>
-
-
-                                        <div class="form-group">
-                                            <label class="control-label sbold col-md-4">
+                                        <div class="forLabel admin-form-control border-0 px-2 form-group">
+                                            @Html.EditorFor(model => model.ExitDate, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   rounded-3 form-control CreatDate" } })
+                                            @Html.ValidationMessageFor(model => model.ExitDate, "", new { @class = "text-danger" })
+                                            <span class="control-label sbold col-md-4">
                                                 @Html.DisplayName("Exit Date") :
                                                 @*<span class="required"> * </span>*@
-                                            </label>
-                                            <div class="col-md-8">
-                                                @Html.EditorFor(model => model.ExitDate, new { htmlAttributes = new { @class = "form-control CreatDate" } })
-
-                                                @Html.ValidationMessageFor(model => model.ExitDate, "", new { @class = "text-danger" })
-
-                                            </div>
+                                            </span>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label sbold col-md-4">
+                                        <div class="forLabel admin-form-control border-0 px-2 form-group">
+                                            @Html.EditorFor(model => model.TotalValue, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   rounded-3 form-control", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                                            @Html.ValidationMessageFor(model => model.TotalValue, "", new { @class = "text-danger" })
+                                            <span class="control-label sbold col-md-4">
                                                 @Html.DisplayName("Total") :
-                                            </label>
-                                            <div class="col-md-8">
-                                                @Html.EditorFor(model => model.TotalValue, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return /[0-9]/i.test(event.key)" } })
-
-                                                @Html.ValidationMessageFor(model => model.TotalValue, "", new { @class = "text-danger" })
-
-                                            </div>
+                                            </span>
                                         </div>
-
-
-
                                     </div>
-
-                                    <br />
-
-                                </div>
-
+                                    <div class="col-sm-4 d-flex gap-2 justify-content-center mt-3 mt-sm-auto panel-footer" style="text-align:right;">
+                                        @*<input data-step="8" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
+                                        <input id="reset" type="button" value="Reset" onclick="ClearData();" class="btn fw-bold text-white rounded-3 " />
+                                        <input id="submit" type="submit" value="Save" class="btn fw-bold text-white rounded-3 " />
+                                    </div>
+                                </div> 
                             </div>
                         </div>
                     </div>
-                    <div class="panel-footer" style="text-align:right;">
-                        @*<input data-step="8" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
-                        <input id="reset" type="button" value="Reset" onclick="ClearData();" class="btn btn-warning" />
-                        <input id="submit" type="submit" value="Save" class="btn btn-success" />
-                    </div>
+                 
                 }
             </div>
         </div>

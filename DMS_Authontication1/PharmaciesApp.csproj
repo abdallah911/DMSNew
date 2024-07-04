@@ -9025,7 +9025,7 @@
     <Content Include="Views\Reports\Premium.cshtml" />
     <Content Include="Views\Complaint\CreateDMSComplaint.cshtml" />
     <Content Include="Views\Complaint\CreateProviderComplaint.cshtml" />
-    <Content Include="Views\Hospital\Index.cshtml" />
+    <Content Include="Views\Hospital\Index-2.cshtml" />
     <Content Include="Views\Hospital\_Cards.cshtml" />
     <Content Include="Views\Hospital\_Approvel.cshtml" />
     <Content Include="Views\CompEmployees\Create.cshtml" />
@@ -9415,6 +9415,8 @@
     <Content Include="Views\Network\NetworkServiceProviderData.cshtml" />
     <Content Include="Views\Contracts\ContractsCompaniesContracts.cshtml" />
     <Content Include="Views\Contracts\ContractsServiceProvidersContracts.cshtml" />
+    <Content Include="Views\Shared\_Layout_DashboardHospital.cshtml" />
+    <Content Include="Views\Hospital\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

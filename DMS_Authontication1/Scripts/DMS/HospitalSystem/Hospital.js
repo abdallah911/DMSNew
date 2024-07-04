@@ -82,8 +82,10 @@ $(function () {
         $("#div_of_servEmergancy").hide();
         $("#divNotes").hide();
 
-        $("#other-data").show();
-        $("#total_id").show();
+        //$("#other-data").show();
+        $(".other-data").show();
+        //$("#total_id").show();
+        $(".total_id").show();
         $("#SpecialityDiv").hide();
         $("#serviceselect").hide();
 
@@ -118,8 +120,10 @@ $(function () {
         $("#DoctortName").hide();
         $("#DoctortNameEmergancydiv").hide();
 
-        $("#other-data").show();
-        $("#total_id").show();
+        //$("#other-data").show();
+        $(".other-data").show();
+        //$("#total_id").show();
+        $(".total_id").show(); 
         $("#DoctortName").hide();
 
         $("#Physical").html("");
@@ -348,9 +352,11 @@ $(function () {
                                         else {
                                             alert(" لا يمكن تقديم الخدمة للموظف الا فى حالات الطوارئ");
 
-                                            $("#other-data").hide();
+                                            //$("#other-data").hide();
+                                            $(".other-data").hide();
                                             $("#divNotes").hide();
-                                            $("#total_id").hide();
+                                            //$("#total_id").hide();
+                                            $(".total_id").hide(); 
                                             $("#DoctortNameEmergancydiv").show();
                                             $("#SpecialityDiv").show();
                                             $("#serviceselect").hide();
@@ -624,8 +630,10 @@ $(function () {
         $("#Services").empty();
         $("#ServicesEmergancy").empty();
 
-        $("#other-data").show();
-        $("#total_id").show();
+        //$("#other-data").show();
+        $(".other-data").show();
+        //$("#total_id").show();
+        $(".total_id").show(); 
         $("#SpecialityDiv").hide();
 
         $("#SaveAll").html('<input id="submit" type="button"  onclick="Submit_Save()" value="Save" class="btn btn-success" style="padding:10px 20px" />');
@@ -738,8 +746,10 @@ $(function () {
                 //$("#serviceselect").show();
                 $("#divNotes").hide();
 
-                $("#other-data").show();
-                $("#total_id").show();
+                //$("#other-data").show();
+                $(".other-data").show();
+                //$("#total_id").show();
+                $(".total_id").show();
                 $("#DoctortName").hide();
                 $("#SpecialityDiv").hide();
                 $("#serviceselect").hide();
@@ -763,9 +773,11 @@ $(function () {
                     + '<option value="111042">  الدخول الي الرعاية </option>'
                     + '<option value="111043"> النقل الي غرفة </option>');
                 
-                $("#other-data").hide();
+                //$("#other-data").hide();
+                $(".other-data").hide();
                 $("#divNotes").hide();
-                $("#total_id").hide();
+                //$("#total_id").hide();
+                $(".total_id").hide();
                 $("#DoctortNameEmergancydiv").show();
                 $("#SpecialityDiv").show();
                 $("#serviceselect").hide();
@@ -1042,9 +1054,11 @@ $(function () {
 
                     if ($("#Services").val() == 11105 || $("#Services").val() == 11203) {
 
-                        $("#other-data").hide();
+                        //$("#other-data").hide();
+                        $(".other-data").hide();
                         $("#divNotes").hide();
-                        $("#total_id").hide();
+                        //$("#total_id").hide();
+                        $(".total_id").hide();
                         $("#DoctortName").show();
                         $("#SpecialityDiv").show();
                         $("#serviceselect").hide();
@@ -1111,17 +1125,21 @@ $(function () {
 
                     }
                     if ($("#Services").val() == 11414 || $("#Services").val() == 11301) {
-                        $("#other-data").hide();
+                        //$("#other-data").hide();
+                        $(".other-data").hide();
                         $("#divNotes").hide();
-                        $("#total_id").hide();
+                        //$("#total_id").hide();
+                        $(".total_id").hide();
                         $("#serviceselect").hide();
                         $("#SpecialityDiv").hide();
                     }
 
                     if ($("#Services").val() == 11201 || $("#Services").val() == 11206) {
-                        $("#other-data").show();
+                        //$("#other-data").show();
+                        $(".other-data").show();
                         $("#divNotes").hide();
-                        $("#total_id").show();
+                        //$("#total_id").show();
+                        $(".total_id").show();
                         $("#serviceselect").show();
                         $("#SpecialityDiv").hide();
                     }
@@ -1500,8 +1518,10 @@ function ClearHospitalData() {
     $("#div_of_serv").hide();
     $("#div_of_servEmergancy").hide();
 
-    $("#other-data").show();
-    $("#total_id").show();
+    //$("#other-data").show();
+    $(".other-data").show();
+    //$("#total_id").show();
+    $(".total_id").show();
     $("#SpecialityDiv").hide();
     $("#serviceselect").hide();
 }

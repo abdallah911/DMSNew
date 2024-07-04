@@ -35,10 +35,13 @@ $(document).ready(function () {
 
 
 // ======Change background link==========
-$(".nav-item").on("click", function () {
-  $(".nav-item").css("background-color", "");
-  $(this).css("background-color", "rgba(255, 255, 255, 0.705)");
-});
+//$(".nav-item").on("click", function () {
+//    $(".nav-item").css("background-color", "");
+//    $(this).css({
+//        'background-color': '#6e468b9c',
+//        'color' : 'var(--main-color)'
+//    });
+//});
 
 // ======Change backgroung nav==========
 
