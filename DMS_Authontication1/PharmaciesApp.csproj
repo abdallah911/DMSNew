@@ -7304,9 +7304,6 @@
     <Content Include="assets\NewDesign\img\about.jpeg" />
     <Content Include="assets\NewDesign\img\adminProfil\self adminProfile.jpg" />
     <Content Include="assets\NewDesign\img\ai3-removebg-preview.png" />
-    <Content Include="assets\NewDesign\img\application\1.png" />
-    <Content Include="assets\NewDesign\img\application\2.png" />
-    <Content Include="assets\NewDesign\img\application\3.png" />
     <Content Include="assets\NewDesign\img\background  22-01.jpg" />
     <Content Include="assets\NewDesign\img\BG WHITE.jpg" />
     <Content Include="assets\NewDesign\img\Clients\air.jpg" />
@@ -7316,26 +7313,9 @@
     <Content Include="assets\NewDesign\img\Clients\cleopatra.jpg" />
     <Content Include="assets\NewDesign\img\Clients\مختبر.jpg" />
     <Content Include="assets\NewDesign\img\clinic\e-clinicProfile.jpg" />
-    <Content Include="assets\NewDesign\img\clinic\website S  5555 4-16.png" />
-    <Content Include="assets\NewDesign\img\clinic\website S  5555-17.png" />
-    <Content Include="assets\NewDesign\img\clinic\website S  60000-17.png" />
-    <Content Include="assets\NewDesign\img\clinic\website S  900-17.png" />
-    <Content Include="assets\NewDesign\img\commerce\1.png" />
-    <Content Include="assets\NewDesign\img\commerce\2.png" />
-    <Content Include="assets\NewDesign\img\commerce\3.png" />
     <Content Include="assets\NewDesign\img\commerce\E-commerceProfile.jpg" />
-    <Content Include="assets\NewDesign\img\commerce\website S  5555 8-18 %281%29.png" />
     <Content Include="assets\NewDesign\img\enterPrice\ENTERPRISEProfileProduct.jpg" />
-    <Content Include="assets\NewDesign\img\enterPrice\main.png" />
-    <Content Include="assets\NewDesign\img\enterPrice\website S  7-17.png" />
-    <Content Include="assets\NewDesign\img\enterPrice\website S  70-17.png" />
-    <Content Include="assets\NewDesign\img\enterPrice\website S  80-17.png" />
     <Content Include="assets\NewDesign\img\EPSRC-261120-ArtificialIntelligence-GettyImages-1206796363.jpg" />
-    <Content Include="assets\NewDesign\img\healthCare\1.png" />
-    <Content Include="assets\NewDesign\img\healthCare\2.png" />
-    <Content Include="assets\NewDesign\img\healthCare\3.png" />
-    <Content Include="assets\NewDesign\img\healthCare\Health care-16.png" />
-    <Content Include="assets\NewDesign\img\healthCare\healthcareProfile.jpg" />
     <Content Include="assets\NewDesign\img\Home.jpg" />
     <Content Include="assets\NewDesign\img\Hr\1.png" />
     <Content Include="assets\NewDesign\img\Hr\2.png" />
@@ -9431,6 +9411,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
+    <Folder Include="assets\NewDesign\img\application\" />
+    <Folder Include="assets\NewDesign\img\healthCare\" />
     <Folder Include="Content\AddApprovalFiles\" />
     <Folder Include="Content\DoctorImages\" />
     <Folder Include="Content\DoctorStampImages\" />
