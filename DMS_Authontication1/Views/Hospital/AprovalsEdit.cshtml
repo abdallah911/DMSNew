@@ -1,93 +1,96 @@
 ﻿@model IEnumerable<DMS_Authontication1.Models.ApprovalBil>
 @{
     ViewBag.Title = "Approvals Edit";
+    Layout = "~/Views/Shared/_Layout_DashboardHospital.cshtml";
+    //Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
+
 }
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
+<div class="sios-container portlet box  green">
+    <div class="sios-overlay container-fluid mt-4 mb-0 portlet-title">
+        <div class="container ms-0 text-white fs-3 caption">
             <i class="fa fa-gift"></i>Aprovals Edit
         </div>
         <div class="actions">
-            <a id="Create" href="/Hospital/Edit" style=" text-transform: none" class="btn btn-primary  btn-sm dark">
+            <a id="Create" href="/Hospital/Edit" style=" text-transform: none; white-space: nowrap;" class="btn fw-bold text-white rounded-3">
                 <i class="fa fa-add"></i> Add Bill
             </a>
         </div>
     </div>
-    <br />
-    <div class="portlet-body">
-
-        <table class="ui celled table" id="Index" width="100%">
-            <thead>
-                <tr>
-
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        Code
-                    </th>
-                    <th>
-                        Enter Date
-                    </th>
-                    <th>
-                        Exit Date
-                    </th>
-                    <th>
-                        Total Value
-                    </th>
-
-                    <th></th>
-                    @*<th></th>
-                        <th></th>*@
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+    <div class="cs-bg w-100 m-auto my-4  portlet-body">
+        <div class="table-responsive">
+            <table class="ui celled table" id="Index" width="100%">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(model => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.Code)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.EnterDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.ExitDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.TotalValue)
-                        </td>
-                        @*<td>
-                                <button type="button" class="btn btn-info fa fa-print" onclick="Print(@item.IdPrimary);"> Print</button>
-                            </td>*@
-                        <td>
-                            <a class="btn btn-warning fa fa-edit" href="/Hospital/Edit?code=@item.Code" style=" text-transform: none"> Edit</a>
-                        </td>
-                        @*<td>
-                                <a class="btn btn-danger fa fa-remove" href="/Hospital/Delete/@item.IdPrimary" style=" text-transform: none"> Delete</a>
-                            </td>*@
 
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Code
+                        </th>
+                        <th>
+                            Enter Date
+                        </th>
+                        <th>
+                            Exit Date
+                        </th>
+                        <th>
+                            Total Value
+                        </th>
+
+                        <th></th>
+                        @*<th></th>
+                            <th></th>*@
                     </tr>
-                }
-            </tbody>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(model => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.EnterDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.ExitDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.TotalValue)
+                            </td>
+                            @*<td>
+                                    <button type="button" class="btn btn-info fa fa-print" onclick="Print(@item.IdPrimary);"> Print</button>
+                                </td>*@
+                            <td>
+                                <a class="btn fw-bold text-white rounded-3" href="/Hospital/Edit?code=@item.Code" style=" text-transform: none"> Edit</a>
+                            </td>
+                            @*<td>
+                                    <a class="btn btn-danger fa fa-remove" href="/Hospital/Delete/@item.IdPrimary" style=" text-transform: none"> Delete</a>
+                                </td>*@
 
-        </table>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
     </div>
 </div>
-<script src="~/assets/HomeTemplete/js/intro.js"></script>
-<script>
-    $(function () {
+    <script src="~/assets/HomeTemplete/js/intro.js"></script>
+    <script>
+        $(function () {
 
-        $('#Index').DataTable();
-    });
-    function Print(id) {
-        window.open('/Hospital/PrintRequest?ID=' + id);
-    }
+            $('#Index').DataTable();
+        });
+        function Print(id) {
+            window.open('/Hospital/PrintRequest?ID=' + id);
+        }
 
-</script>
+    </script>

@@ -634,6 +634,7 @@ table,
 .dataTables_wrapper > div:first-of-type {
     justify-content: space-between;
     gap: 0;
+    margin-bottom: 10px;
 }
 
     .dataTables_wrapper > div:first-of-type div:first-child {
@@ -647,6 +648,7 @@ table,
     .dataTables_wrapper > div:first-of-type div:last-child {
         width: 250px;
         justify-content: start;
+        margin-right: 25px;
     }
 
 .dataTables_wrapper > div:last-of-type {
@@ -1025,6 +1027,11 @@ textarea {
         margin-right: 20px;
     }
 
+.bootbox-body {
+    font-size: 16px;
+    direction: rtl !important;
+    font-weight: 700;
+}
 .modal-footer {
     border-radius: 0 0 20px 20px;
     background: var(--color-secondary);
@@ -1033,6 +1040,19 @@ textarea {
     color: var(--color-btn);
     font-weight: 700;
     background: white;
+}
+.modal-body {
+    padding-top: 80px;
+}
+.modal-body::after {
+    content: "";
+    position: absolute;
+    background: var(--color-secondary);
+    width: 100%;
+    height: 60px;
+    top: 0;
+    left: 0;
+    z-index: 0;
 }
 button.bootbox-close-button.close {
     border: none;
@@ -1045,8 +1065,10 @@ button.bootbox-close-button.close {
     align-items: center;
     color: white;
     background: var(--color-btn);
+    z-index: 5 !important;
+    position: absolute;
+    top: 12px;
 }
-
 .modal.fade .modal-dialog {
     transform: translate(-3%, 28%);
 }
@@ -1631,6 +1653,27 @@ select:focus:not(select.form-select.form-select-sm) {
     transition: all 0.2s ease-in;
     font-weight: 700;
     color: #555;
+}
+.admin-form-control[readonly="readonly"] ,
+.admin-form-control[readonly="true"] ,
+.admin-form-control[disabled]  {
+    outline: none; 
+    box-shadow: 0 0 5px #0b132d47;
+    transition: all 0.2s ease-in;
+    font-weight: 700;
+    color: #555;
+    font-size: 14px;
+    padding-top: 13px;
+}
+
+.forLabel .admin-form-control[readonly="readonly"] ~ span,
+.forLabel .admin-form-control[readonly="true"] ~ span,
+.forLabel .admin-form-control[disabled] ~ span{
+    pointer-events: none;
+    font-size: 10px;
+    transform: translateY(-6px);
+    color: #828282;
+    transition: all 0.2s ease-in-out;
 }
 
 .forLabel input:valid,
@@ -2868,7 +2911,7 @@ td button:hover {
 .table-responsive label input {
     position: absolute;
     background: transparent;
-    border: 1px solid var(--color-primary);
+    border: 1px solid #8a9cbc;
     padding-left: 80px;
     left: 0;
     height: 100%;
@@ -3924,6 +3967,31 @@ dd.sios-table-dd {
     height: 35px;
     font-weight: 800;
 }*/
+
+
+
+
+
+
+
+/* ============***************========Hospital=========***************============= */
+.hosp-main-ul  {
+    gap: 20px;
+}
+.hosp-main-ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight:700;
+}
+
+
+
+
+
+
+
+
+
 /* ====================footer========================================== */
 .footer {
     background: var(--color-gradient);

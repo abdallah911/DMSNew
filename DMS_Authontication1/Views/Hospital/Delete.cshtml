@@ -2,22 +2,26 @@
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    //Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardHospital.cshtml";
+
+
 }
 
 
 <div class="portlet box green" style="margin:auto">
-    <div class="portlet-title">
-        <div class="caption">
+    <div class="sios-overlay container-fluid mt-4 mb-4 portlet-title">
+        <div class="container ms-0 text-white fs-3 caption">
             <i class="fa fa-info-circle"></i>Delete
         </div>
         <div class="actions">
-            <a id="Create" href="/Hospital/Claims" style=" text-transform: none" class="btn btn-primary  btn-sm blue-ebonyclay">
+            <a id="Create" href="/Hospital/Claims" style=" text-transform: none;white-space:nowrap;" class="btn fw-bold text-white rounded-3">
                 <i class="fa fa-list"></i> Claims List
             </a>
         </div>
     </div>
-    <br />
-    <div class="portlet-body">
+    
+    <div class="portlet-body mb-4">
         <div class="row ">
             <div class="col-md-12">
                 <!-- BEGIN PAGE HEADER-->
@@ -28,128 +32,128 @@
                     <div class="form-body">
                         <div class="tab-content">
                             <div class="row ">
-                                <dl class="dl-horizontal">
-                                    <dt>
+                                <dl class="sios-bg dl-horizontal">
+                                    <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
                                         @Html.DisplayName("Company Id : ")
                                     </dt>
 
-                                    <dd>
+                                    <dd class="sios-table-dd col">
                                         @Html.DisplayFor(model => model.C_COMP_ID)
-                                    </dd>
+                                    </dd></dr>
 
-                                    <dt>
+                                    <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
                                         @Html.DisplayName("Card Id :")
                                     </dt>
 
-                                    <dd>
+                                    <dd class="sios-table-dd col">
                                         @Html.DisplayFor(model => model.CARD_ID)
-                                    </dd>
+                                    </dd></dr>
 
-                                    <dt>
+                                    <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
                                         @Html.DisplayName("Services :")
                                     </dt>
 
-                                    <dd>
+                                    <dd class="sios-table-dd col">
                                         @Html.DisplayFor(model => model.SERVICES)
-                                    </dd>
+                                    </dd></dr>
 
-                                    <dt>
+                                    <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
                                         @Html.DisplayName("Request Number :")
                                     </dt>
 
-                                    <dd>
+                                    <dd class="sios-table-dd col">
                                         @Html.DisplayFor(model => model.REQUEST_NUM)
-                                    </dd>
+                                    </dd></dr>
 
-                                    <dt>
+                                    <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
                                         @Html.DisplayName("Claim Number :")
                                     </dt>
 
-                                    <dd>
+                                    <dd class="sios-table-dd col">
                                         @Html.DisplayFor(model => model.CLAIM_NO)
-                                    </dd>
+                                    </dd></dr>
 
-                                    <dt>
+                                    <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
                                         @Html.DisplayName("National Id :")
                                     </dt>
 
-                                    <dd>
+                                    <dd class="sios-table-dd col">
                                         @Html.DisplayFor(model => model.NATIONAL_ID)
-                                    </dd>
+                                    </dd></dr>
 
-                                    <dt>
+                                    <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
                                         @Html.DisplayName("Phone :")
                                     </dt>
 
-                                    <dd>
+                                    <dd class="sios-table-dd col">
                                         @Html.DisplayFor(model => model.PHONE)
-                                    </dd>
+                                    </dd></dr>
 
 
-                                    <dt>
+                                    <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
                                         @Html.DisplayName("Company Percent :")
                                     </dt>
 
-                                    <dd>
+                                    <dd class="sios-table-dd col">
                                         @Html.DisplayFor(model => model.COMP_PERC)
-                                    </dd>
+                                    </dd></dr>
 
-                                    <dt>
+                                    <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
                                         @Html.DisplayName("Cash :")
                                     </dt>
 
-                                    <dd>
+                                    <dd class="sios-table-dd col">
                                         @Html.DisplayFor(model => model.CASH)
-                                    </dd>
+                                    </dd></dr>
 
-                                    <dt>
+                                    <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
                                         @Html.DisplayName("Total Value :")
                                     </dt>
 
-                                    <dd>
+                                    <dd class="sios-table-dd col">
                                         @Html.DisplayFor(model => model.TOTAL_VALUE)
-                                    </dd>
+                                    </dd></dr>
 
-                                    <dt>
+                                    <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
                                         @Html.DisplayName("Over Insurance :")
                                     </dt>
 
-                                    <dd>
+                                    <dd class="sios-table-dd col">
                                         @Html.DisplayFor(model => model.OVER_INSURANCE)
-                                    </dd>
+                                    </dd></dr>
 
-                                    <dt>
+                                    <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
                                         @Html.DisplayName("Total Cash :")
                                     </dt>
 
-                                    <dd>
+                                    <dd class="sios-table-dd col">
                                         @Html.DisplayFor(model => model.TOTAL_CASH)
-                                    </dd>
+                                    </dd></dr>
 
 
 
-                                    <dt>
+                                    <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
                                         @Html.DisplayName("Patient Payment :")
                                     </dt>
 
-                                    <dd>
+                                    <dd class="sios-table-dd col">
                                         @Html.DisplayFor(model => model.PERSON_PAYMENT)
-                                    </dd>
+                                    </dd></dr>
 
-                                    <dt>
+                                    <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
                                         @Html.DisplayName("Company Payment :")
                                     </dt>
 
-                                    <dd>
+                                    <dd class="sios-table-dd col">
                                         @Html.DisplayFor(model => model.COMPANY_PAYMENT)
-                                    </dd>
-                                    <dt>
+                                    </dd></dr>
+                                    <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
                                         @Html.DisplayName("Note :")
                                     </dt>
 
-                                    <dd>
+                                    <dd class="sios-table-dd col">
                                         @Html.DisplayFor(model => model.Note)
-                                    </dd>
+                                    </dd></dr>
 
                                 </dl>
 
@@ -157,8 +161,8 @@
                                 {
                                     @Html.AntiForgeryToken()
 
-                                    <div class="form-actions no-color col-md-offset-2">
-                                        <input type="submit" value="Delete" class="btn btn-danger" style=" text-transform: none" />
+                                    <div class="form-actions no-color ms-4 col-md-offset-2">
+                                        <input type="submit" value="Delete" class="btn fw-bold text-white rounded-3" style=" text-transform: none" />
                                     </div>
                                 }
                             </div>

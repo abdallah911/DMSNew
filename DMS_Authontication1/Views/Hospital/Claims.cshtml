@@ -1,110 +1,114 @@
 ﻿@model IEnumerable<DMS_Authontication1.Models.HospitalClaim>
 @{
     ViewBag.Title = "Claims";
+    //Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardHospital.cshtml";
+
+
 }
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
+<div class="sios-container portlet box  green">
+    <div class="sios-overlay container-fluid mt-4 mb-0 portlet-title">
+        <div class="container ms-0 text-white fs-3 caption">
             <i class="fa fa-gift"></i>Claims
         </div>
 
-    </div>
-    <br />
-    <div class="portlet-body">
-
-        <table class="ui celled table" id="Index" width="100%">
-            <thead>
-                <tr>
-
-                    <th>
-                        Request No
-                    </th>
-                    <th>
-                        Card Id
-                    </th>
-                    <th>
-                        Company Percent
-                    </th>
-                    <th>
-                        Person Payment
-                    </th>
-                    <th>
-                        Total Value
-                    </th>
-                    <th>
-                        Over Insurance
-                    </th>
-                    <th>
-                        Total Cash
-                    </th>
-                    <th>
-                        Services
-                    </th>
-                    <th>
-                        Created By
-                    </th>
-
-                    <th>
-                        Created Date
-                    </th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+    </div> 
+    <div class="cs-bg w-100 m-auto my-4  portlet-body">
+        <div class="table-responsive">
+            <table class=" ui celled table" id="Index" width="100%">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(model => item.REQUEST_NUM)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.CARD_ID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.COMP_PERC)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.PERSON_PAYMENT)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.TOTAL_VALUE)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.OVER_INSURANCE)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.TOTAL_CASH)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SERVICES)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.CreatedBy)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.CreatedDate)
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-info fa fa-print" onclick="Print(@item.IdPrimary);"> Print</button>
-                        </td>
-                        <td>
-                            <a class="btn btn-warning fa fa-edit" href="/Hospital/Edit/@item.IdPrimary" style=" text-transform: none"> Edit</a>
-                            @*<button type="button" class="btn btn-dark" onclick="Print(@item.ID);"> Edit</button>*@
-                        </td>
-                        <td>
-                            <a class="btn btn-danger fa fa-remove" href="/Hospital/Delete/@item.IdPrimary" style=" text-transform: none"> Delete</a>
-                        </td>
 
+                        <th>
+                            Request No
+                        </th>
+                        <th>
+                            Card Id
+                        </th>
+                        <th>
+                            Company Percent
+                        </th>
+                        <th>
+                            Person Payment
+                        </th>
+                        <th>
+                            Total Value
+                        </th>
+                        <th>
+                            Over Insurance
+                        </th>
+                        <th>
+                            Total Cash
+                        </th>
+                        <th>
+                            Services
+                        </th>
+                        <th>
+                            Created By
+                        </th>
+
+                        <th>
+                            Created Date
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(model => item.REQUEST_NUM)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.CARD_ID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.COMP_PERC)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.PERSON_PAYMENT)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.TOTAL_VALUE)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.OVER_INSURANCE)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.TOTAL_CASH)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SERVICES)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.CreatedBy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.CreatedDate)
+                            </td>
+                            <td>
+                                <button type="button" class="btn fw-bold text-white rounded-3" onclick="Print(@item.IdPrimary);"> Print</button>
+                            </td>
+                            <td>
+                                <a class="btn fw-bold text-white rounded-3" href="/Hospital/Edit/@item.IdPrimary" style=" text-transform: none"> Edit</a>
+                                @*<button type="button" class="btn btn-dark" onclick="Print(@item.ID);"> Edit</button>*@
+                            </td>
+                            <td>
+                                <a class="btn fw-bold text-white rounded-3" href="/Hospital/Delete/@item.IdPrimary" style=" text-transform: none"> Delete</a>
+                            </td>
 
-        </table>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
     </div>
 </div>
 <script src="~/assets/HomeTemplete/js/intro.js"></script>

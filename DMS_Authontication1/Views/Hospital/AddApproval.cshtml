@@ -1,20 +1,27 @@
 ﻿@model DMS_Authontication1.ViewModel.HospitalVM.AddApproval
 @{
     ViewBag.Title = "AddApproval";
-}
+    //Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardHospital.cshtml";
 
-<div class="portlet box green" style="margin-top:80px">
-    <div class="portlet-title">
-        <div class="caption">
+}
+<style>
+    body{
+        min-height:unset !important;  
+    }
+</style>
+<div class="sios-container portlet box green" >
+    <div class="sios-overlay container-fluid mt-4 mb-0 portlet-title">
+        <div class="container ms-0 text-white fs-3 caption">
             <i class="fa fa-plus"></i> Add Approval
         </div>
-        <div class="actions">
-            <a id="Create" href="/Hospital/Index" style=" text-transform: none" class="btn btn-primary  btn-sm dark">
+        <div class="actions" style="white-space:nowrap;">
+            <a id="Create" href="/Hospital/Index" style=" text-transform: none" class="btn fw-bold text-white rounded-3    btn-sm dark">
                 <i class="fa fa-backward"></i> Back To Home
             </a>
         </div>
     </div>
-    <br />
+    
     <input id="count" value="0" hidden="hidden" />
     <div class="portlet-body ">
         <div class="row ">
@@ -27,50 +34,37 @@
                             <div class="tab-content">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <span class="text-danger">@ViewBag.Error</span>
-                                <div class="row ">
-                                    <div class="col-md-6">
-                                        <div class="form-group" id="CompanyTypeNew">
-                                            <label class="control-label sbold col-md-4">
-                                                @Html.DisplayNameFor(model => model.Note) :
-                                                <span class="required"> * </span>
-                                            </label>
-                                            <div class="col-md-8">
-                                                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
-
-                                                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
-                                            </div>
+                                <div class="row row-cols-sm-2 mx-auto container my-4 ">
+                                    <div class="col-sm-8 col-md-6 d-grid gap-2">
+                                        <div class="forLabel admin-form-control border-0 px-2 form-group" id="CompanyTypeNew">
+                                            @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100  rounded-3 form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                                            <span class="control-label sbold col-md-4">@Html.DisplayNameFor(model => model.Note) :    <span class="required"> * </span></span>
                                         </div>
-
-
-                                        <div class="form-group">
-                                            <label class="control-label sbold col-md-4">
-                                                @Html.DisplayName("Upload Files") :
-                                                <span class="required"> * </span>
-                                            </label>
-                                            <div class="col-md-8">
+                                        <div class="px-2">
+                                            <div class="d-flex admin-form-control   form-group">
                                                 @*@Html.EditorFor(model=>model.ImageFile, new { htmlAttributes = new { @class = "col-md-2 form-control ", @type = "file", @required = "true" } })*@
                                                 @*@Html.EditorFor(model => model.DeliveryManData.ImagePath, new { htmlAttributes = new { @class = "form-control",@type = "file" } })*@
-                                                <input name="ImageFile" id="ImageFile" type="file" class="col-md-2 form-control " multiple required/>
+                                                <label class="control-label sbold w-25 p-2" style="white-space:nowrap;">
+                                                    @Html.DisplayName("Upload Files") :
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <input name="ImageFile" id="ImageFile" type="file" class="w-75 form-control " multiple required />
                                                 @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-
-
-
                                     </div>
-
-                                    <br />
-
-                                </div>
-
+                                    <div class="d-flex justify-content-center gap-2 mt-3 mt-sm-auto col-sm-4 panel-footer" style="text-align:right;">
+                                        @*<input data-step="8" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
+                                        <input id="reset" type="button" value="Reset" onclick="ClearData();" class="btn fw-bold text-white rounded-3 " />
+                                        <input id="submit" type="submit" value="Save" class="btn fw-bold text-white rounded-3 " />
+                                    </div>
+                                </div>   
+                            
                             </div>
                         </div>
                     </div>
-                    <div class="panel-footer" style="text-align:right;">
-                        @*<input data-step="8" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
-                        <input id="reset" type="button" value="Reset" onclick="ClearData();" class="btn btn-warning" />
-                        <input id="submit" type="submit" value="Save" class="btn btn-success" />
-                    </div>
+                
                 }
             </div>
         </div>

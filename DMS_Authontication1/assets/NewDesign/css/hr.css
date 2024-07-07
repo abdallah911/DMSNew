@@ -7,9 +7,10 @@
 }
 
 :root {
-    --main-color: rgb(62, 115, 151);
+    --gradient-color: linear-gradient(45deg, #181e3c, #340937);
+    --main-color: #833f82;
     --animate-duration: 2s;
-  }
+}
 
 #HR {
   background-image: url(../img/BG\ WHITE.jpg);
@@ -29,8 +30,12 @@ p {
     font-weight: 300;
     line-height: 1.6;
 }
-}
-
+.footer p {
+    padding: 8px;
+    font-size: 14px; 
+    line-height: 1.2;
+    margin-bottom:0;
+} 
 h4 {
   font-weight: bold !important;
 }
@@ -103,8 +108,8 @@ h4 {
 
 
 .footer {
-  background-color: var(--main-color) !important;
-  color: white;
+    background: var(--gradient-color) !important;
+    color: white;
 }
 
 .footer h5 {
