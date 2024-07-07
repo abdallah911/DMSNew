@@ -7301,7 +7301,6 @@
     <Content Include="assets\NewDesign\css\owl.theme.default.min.css" />
     <Content Include="assets\NewDesign\css\owl.theme.green.min.css" />
     <Content Include="assets\NewDesign\css\style2.css" />
-    <Content Include="assets\NewDesign\img\about.jpeg" />
     <Content Include="assets\NewDesign\img\adminProfil\self adminProfile.jpg" />
     <Content Include="assets\NewDesign\img\ai3-removebg-preview.png" />
     <Content Include="assets\NewDesign\img\background  22-01.jpg" />
