@@ -206,6 +206,19 @@ namespace DMS_Authontication1.Controllers
                 }
 
             }
+            if (data.ClaimNumber != null)
+            {
+                long claim = long.Parse(data.ClaimNumber.Value.ToString());
+                var claimphoto = db.ClaimPhotoes.Where(x => x.CardId == data.CardId && x.ClaimNumber == claim).FirstOrDefault();
+                if (claimphoto != null)
+                {
+                    claimphoto.IsDispense = true;
+                    claimphoto.UpdatedBy = User.Identity.Name;
+                    claimphoto.UpdatedDate = DateTime.Now;
+                    db.Entry(claimphoto).State = EntityState.Modified;
+
+                }
+            }
             int result = db.SaveChanges();
             Session["id"] = data.Id;
             return Json("2" + data.CreatedDate.Value.ToString("ddMMyy") + data.Id);

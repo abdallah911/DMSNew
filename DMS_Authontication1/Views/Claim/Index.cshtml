@@ -1,0 +1,134 @@
+﻿@model IEnumerable<DMS_Authontication1.Models.ClaimPhoto>
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+}
+
+@*<h2>Users</h2>
+    <div>
+        @Html.ActionLink("Back to ControlPanel", "Main", "ControlPanel")
+    </div>*@
+@*<p>
+        <a href="/Account/Register">Create New User</a>
+
+    </p>*@
+
+<div class="portlet box  green  " style="margin:auto">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Claim List
+        </div>
+        <div class="actions">
+            <a id="Create" href="/Claim/Create" style=" text-transform: none" class="btn btn-success   btn-sm">
+                <i class="fa fa-plus"></i> Create New
+            </a>
+        </div>
+    </div>
+    <br />
+    <div class="portlet-body">
+        <table class="table" id="Claims">
+            <thead>
+                <tr>
+                    <th>
+                        Card Id
+                    </th>
+                    <th>
+                        Claim No
+                    </th>
+                    <th>
+                        Is Dispense
+                    </th>
+                    <th>
+                        Photo
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+
+        </table>
+    </div>
+</div>
+
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+
+    $(function () {
+        //  $(document).ready(function () {
+        $('#Claims').dataTable().fnDestroy();
+        $("#Claims").DataTable({
+            "sAjaxSource": '/Claim/ClaimList',
+            "bServerSide": true,
+            "processing": true,
+            "bFilter": true,
+            "bSort": false,
+            "pageLength": 10,
+            "bInfo": true,
+            "columns": [
+                { "data": "CardId", "name": "Card Id" },
+                { "data": "ClaimNumber", "name": "Claim No" },
+                {
+                    "data": "IsDispense",
+                    "name": "Is Dispense",
+                    "mRender": function (data) {
+                        if (data == 1)
+                            return "Yes";
+                        else return "No";
+                    }
+                },
+                //download photo
+                {
+                    "data": "Id",
+                    "name": "Photo",
+                    "mRender": function (data) {
+                        return '<a class="btn btn-info fa fa-download"  style=" text-transform: none" href="/Claim/Download/' + data + '"> Download</a>';
+                    }
+                },
+                {
+                    "data": "Id",
+                    "mRender": function (data) {
+                        return '<button type="button" class="btn btn-danger" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+                    }
+                }
+
+            ]
+
+        });
+
+
+        $("#Claims").DataTable();
+
+    });
+
+
+    function Delete(button) {
+
+        var id = $(button).data('id');
+
+        bootbox.confirm("Are you sure to delete This Claim Form ?", function (result) {
+            if (result) {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: '/Claim/ClaimDelete',
+                    data: { id: id },
+                    success: function (returndata) {
+                        if (returndata.ok) {
+                            toastr.success("Deleted");
+                            if (role == "1") {
+                                location.reload();
+                            }
+                            else {
+                                $("#Claims").DataTable();
+                            }
+                            //location.reload();
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>

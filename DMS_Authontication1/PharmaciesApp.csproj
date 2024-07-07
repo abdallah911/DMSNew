@@ -298,6 +298,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ControlPanal\ClaimController.cs" />
     <Compile Include="Controllers\MobileApi\AccountMobileController.cs" />
     <Compile Include="Controllers\ReportMain\ReportMainController.cs" />
     <Compile Include="Controllers\LossRatio\LossRatioController.cs" />
@@ -495,6 +496,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CardUsed.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClaimPhoto.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CompanyContractPhoto.cs">
@@ -1325,6 +1329,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\ClaimPhotoesViewModel.cs" />
     <Compile Include="ViewModel\AcceptionViewModel.cs" />
     <Compile Include="ViewModel\AdminChangeUserPasswordNM.cs" />
     <Compile Include="ViewModel\CustomerService\DetailsCustomerServiceViewModel.cs" />
@@ -8552,10 +8557,17 @@
     <Content Include="Views\ReportMain\ReportPrint.cshtml" />
     <Content Include="Views\GetApproval\Index.cshtml" />
     <Content Include="Views\Pharmacy\CardCode.cshtml" />
+    <Content Include="Views\Claim\AdminResetPassword.cshtml" />
+    <Content Include="Views\Claim\ChangeSuccess.cshtml" />
+    <Content Include="Views\Claim\Delete.cshtml" />
+    <Content Include="Views\Claim\Create.cshtml" />
+    <Content Include="Views\Claim\Index.cshtml" />
+    <Content Include="Views\Claim\UserPermision.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
     <Folder Include="Content\AddApprovalFiles\" />
+    <Folder Include="Content\Claims\" />
     <Folder Include="Content\DoctorImages\" />
     <Folder Include="Content\DoctorStampImages\" />
     <Folder Include="Content\EmployeeRegister\" />

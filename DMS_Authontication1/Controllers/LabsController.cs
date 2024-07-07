@@ -176,7 +176,7 @@ namespace DMS_Authontication1.Controllers
         {
             var companyId = data.CardId.Split('-')[0];
             ApprovalCode modelcode = new ApprovalCode();
-            if (companyId == "888"&&data.ClaimNumber!=null)
+            if (companyId == "888" && data.ClaimNumber != null)
             {
                 var claimchick = data.ClaimNumber.ToString();
                 modelcode = db.ApprovalCodes.Where(x => x.Code == claimchick && x.Card_ID == data.CardId && x.IsActive).FirstOrDefault();
@@ -235,6 +235,19 @@ namespace DMS_Authontication1.Controllers
                         }
                     }
                 }
+                if (data.ClaimNumber != null)
+                {
+                    long claim = long.Parse(data.ClaimNumber.Value.ToString());
+                    var claimphoto = db.ClaimPhotoes.Where(x => x.CardId == data.CardId && x.ClaimNumber == claim).FirstOrDefault();
+                    if (claimphoto != null)
+                    {
+                        claimphoto.IsDispense = true;
+                        claimphoto.UpdatedBy = User.Identity.Name;
+                        claimphoto.UpdatedDate = DateTime.Now;
+                        db.Entry(claimphoto).State = EntityState.Modified;
+
+                    }
+                }
                 int result = db.SaveChanges();
                 Session["id"] = data.Id;
                 //data.CreatedDate.ToString();
@@ -268,7 +281,7 @@ namespace DMS_Authontication1.Controllers
                         string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
                         NotificationHub objNotifHub = new NotificationHub();
                         Notification notification = new Notification();
-                        notification.SentTo = CardId.Split('-')[0] == "888" ? "AdminHelth": "Admin";
+                        notification.SentTo = CardId.Split('-')[0] == "888" ? "AdminHelth" : "Admin";
                         notification.CreatedBy = User.Identity.Name;
                         notification.CreatedDate = DateTime.Now;
                         notification.Type = 1;//pending
