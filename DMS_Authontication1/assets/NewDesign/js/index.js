@@ -53,19 +53,22 @@ $(window).on("scroll", function () {
     $("#btnUp").show(100);
 
     // $(".service-header").css("transform", "translateY(0%)");
-    $(".navbar").css("background-color", "white");
+      $(".navbar").css("background-color", "white");
+      $(".navbar").css("box-shadow","0px 1px 10px 2px #2006222b");
       $(".navbar").css("height", "70px");
       $("a.nav-link").css("color", "#4e2e69");
     // $(".card").css("transform", "translateX(0%)");
 
     // $(".card").addClass("cardmove");
   } else {
-    $(".navbar").css("background-color", "transparent");
+      $(".navbar").css("background-color", "transparent");
+      $(".navbar").css("box-shadow", "none");
     // $(".service-header").removeClass("headermove");
     // $(".service-header").css("transform", "translateY(-170%)");
     $(".navbar").css("height", "");
       $("#btnUp").hide(100);
       $("a.nav-link").css("color", "#fff");
+
 
     // $(".card").css("transform", "translateX(-380%)");
 
@@ -104,7 +107,7 @@ $(".owl-carousel").owlCarousel({
 });
 
 $("#btnUp").on("click", function () {
-  $("html,body").animate({ scrollTop: "0px" }, 1000);
+  $("html,body").animate({ scrollTop: "0px" }, 400);
 });
 
 document.addEventListener("DOMContentLoaded", function () {
