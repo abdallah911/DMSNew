@@ -131,13 +131,17 @@ a {
 }
 
 .navbar {
-  /*background-color: rgba(70, 97, 172, 0.377);*/
+    /*background-color: rgba(70, 97, 172, 0.377);*/
+    transition: .2s all cubic-bezier(0.4, 0, 1, 1);
 }
 
 .login-btn {
   background-color: #3e63c99a !important;
   margin-left: 20px;
   padding: 10px !important;
+}
+.login-btn:hover {
+    background-color: #3e63c9a3 !important;
 }
 
 .btn1 {
@@ -239,7 +243,7 @@ a {
     font-weight: 300;
     line-height: 1.6;
     max-height: 80%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
   /* display: -webkit-box;
   -webkit-line-clamp: 4;
@@ -385,7 +389,7 @@ a {
 }
 
 .about-Text {
-    background-color: #0720306e;
+    background-color: #1b04127d;
 }
 
 /* =================contactUs==================== */
@@ -573,12 +577,11 @@ product-card {
 
 }
 .product-text p {
-    /*display: none;
-transition: 2s all ease-in*/
     color: white !important;
     font-weight: 300 !important;
     font-size: 1.2em !important;
-   
+    max-height: 130px;
+    overflow-y: auto;
 }
 /* =============Read More BTN================= */
 .read-more-btn,
