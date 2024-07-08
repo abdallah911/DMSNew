@@ -1136,6 +1136,7 @@ button.bootbox-close-button.close {
     color: var(--color-table-text);
     padding: 4px 8px;
     font-size: 10px;
+    font-weight: 600;
 }
 
 .cs-bg th {
