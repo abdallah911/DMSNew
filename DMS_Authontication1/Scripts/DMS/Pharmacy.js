@@ -1239,7 +1239,7 @@ $(function () {
             type: "POST",
             dataType: "json",
             url: '/Pharmacy/HaveClaimPhoto',
-            data: { id: CardId, claimnum: $("#ClaimNumber").val() },
+            data: { id: CardId, claimnum: $("#ClaimNumber").val(), type: 'Pharm' },
             success: function (returndata) {
                 if (returndata.ok) {
                     bootbox.dialog({

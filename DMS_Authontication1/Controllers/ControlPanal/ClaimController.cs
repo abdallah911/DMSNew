@@ -12,7 +12,7 @@ using DMS_Authontication1.ViewModel;
 
 namespace DMS_Authontication1.Controllers
 {
-    [Authorize(Roles = "Admin,Doctor")]
+    [Authorize(Roles = "Admin,Doctor,Pharmacy,Pharmacy_Admin,Lab,Lab_Admin,Rays,Rays_Admin")]
     public class ClaimController : Controller
     {
         private DMS_TESTEntities db = new DMS_TESTEntities();
@@ -99,6 +99,9 @@ namespace DMS_Authontication1.Controllers
                 entity.ClaimNumber = model.ClaimNumber;
                 entity.CardId = model.CardId;
                 entity.IsDispense = false;
+                entity.IsDespenseLab = false;
+                entity.IsDespenseRay = false;
+                entity.IsDespensePharm = false;
                 entity.CreatedBy = User.Identity.Name;
                 entity.CreatedDate = DateTime.Now;
                 if (model.ImageFile != null)

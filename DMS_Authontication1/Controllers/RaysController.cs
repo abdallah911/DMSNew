@@ -212,7 +212,8 @@ namespace DMS_Authontication1.Controllers
                 var claimphoto = db.ClaimPhotoes.Where(x => x.CardId == data.CardId && x.ClaimNumber == claim).FirstOrDefault();
                 if (claimphoto != null)
                 {
-                    claimphoto.IsDispense = true;
+                    claimphoto.IsDispense = (claimphoto.IsDespenseLab.Value && claimphoto.IsDespensePharm.Value) ? true : false;
+                    claimphoto.IsDespenseRay = true;
                     claimphoto.UpdatedBy = User.Identity.Name;
                     claimphoto.UpdatedDate = DateTime.Now;
                     db.Entry(claimphoto).State = EntityState.Modified;

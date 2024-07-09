@@ -243,6 +243,9 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDespenseLab" Type="bit" />
+          <Property Name="IsDespenseRay" Type="bit" />
+          <Property Name="IsDespensePharm" Type="bit" />
         </EntityType>
         <EntityType Name="Co_Insurance_01">
           <Key>
@@ -8321,6 +8324,9 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDespenseLab" Type="Boolean" />
+          <Property Name="IsDespenseRay" Type="Boolean" />
+          <Property Name="IsDespensePharm" Type="Boolean" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -11540,6 +11546,9 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="ClaimPhotoes">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ClaimPhoto">
               <MappingFragment StoreEntitySet="ClaimPhoto">
+                <ScalarProperty Name="IsDespensePharm" ColumnName="IsDespensePharm" />
+                <ScalarProperty Name="IsDespenseRay" ColumnName="IsDespenseRay" />
+                <ScalarProperty Name="IsDespenseLab" ColumnName="IsDespenseLab" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />

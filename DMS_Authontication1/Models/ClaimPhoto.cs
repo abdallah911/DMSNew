@@ -23,5 +23,8 @@ namespace DMS_Authontication1.Models
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public string UpdatedBy { get; set; }
+        public Nullable<bool> IsDespenseLab { get; set; }
+        public Nullable<bool> IsDespenseRay { get; set; }
+        public Nullable<bool> IsDespensePharm { get; set; }
     }
 }
