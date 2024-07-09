@@ -523,6 +523,45 @@ namespace DMS_TEST.Controllers
             }
         }
         [HttpPost]
+        public JsonResult HaveClaimPhoto(string id, int claimnum, string type = "Pharm")
+        {
+            try
+            {
+                if (type == "Pharm")
+                {
+                    var claim = db.ClaimPhotoes.Where(r => r.CardId == id && r.ClaimNumber == claimnum && r.IsDispense == false && r.IsDespensePharm == false).FirstOrDefault();
+                    if (claim != null)
+                    {
+
+                        return Json(new { ok = true, Id = claim.Id, message = "Ok" }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else if (type == "Lab")
+                {
+                    var claim = db.ClaimPhotoes.Where(r => r.CardId == id && r.ClaimNumber == claimnum && r.IsDispense == false && r.IsDespenseLab == false).FirstOrDefault();
+                    if (claim != null)
+                    {
+
+                        return Json(new { ok = true, Id = claim.Id, message = "Ok" }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else if (type == "Ray")
+                {
+                    var claim = db.ClaimPhotoes.Where(r => r.CardId == id && r.ClaimNumber == claimnum && r.IsDispense == false && r.IsDespenseRay == false).FirstOrDefault();
+                    if (claim != null)
+                    {
+
+                        return Json(new { ok = true, Id = claim.Id, message = "Ok" }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                return Json(new { ok = false, message = "No" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ok = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
         public JsonResult HaveDoctor(string id)
         {
             try
@@ -2652,6 +2691,20 @@ namespace DMS_TEST.Controllers
                         }
                     }
 
+                }
+                if (data.ClaimNumber != null)
+                {
+                    long claim = long.Parse(data.ClaimNumber.Value.ToString());
+                    var claimphoto = db.ClaimPhotoes.Where(x => x.CardId == roshita.CardId && x.ClaimNumber == claim).FirstOrDefault();
+                    if (claimphoto != null)
+                    {
+                        claimphoto.IsDispense = (claimphoto.IsDespenseRay.Value && claimphoto.IsDespenseLab.Value) ? true : false;
+                        claimphoto.IsDespensePharm = true;
+                        claimphoto.UpdatedBy = User.Identity.Name;
+                        claimphoto.UpdatedDate = DateTime.Now;
+                        db.Entry(claimphoto).State = EntityState.Modified;
+
+                    }
                 }
                 int result = db.SaveChanges();
                 var model = db.CardsSms.Where(c => c.CardId == roshita.CardId).FirstOrDefault();

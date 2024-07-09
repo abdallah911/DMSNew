@@ -195,6 +195,7 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalInsideBasicDental" Width="1.5" PointX="21.375" PointY="42.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalOtsideAdvanceDental" Width="1.5" PointX="23.375" PointY="42.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalOtsideBasicDental" Width="1.5" PointX="25.375" PointY="42.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ClaimPhoto" Width="1.5" PointX="27.375" PointY="44.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
