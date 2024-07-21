@@ -74,6 +74,22 @@ namespace DMS_Authontication1.Models
         public string ClassCode { get; set; }
         public decimal DoctorsExaminationValue { get; set; }
         public int PricesOutsideMedicalAuthorityId { get; set; }
+        public Nullable<int> NaturalBirthType { get; set; }
+        public Nullable<int> NaturalBirthCovaregType { get; set; }
+        public Nullable<int> CaesarBirthType { get; set; }
+        public Nullable<int> CaesarBirthCovaregType { get; set; }
+        public Nullable<int> FollowUpPregType { get; set; }
+        public Nullable<int> FollowUpPregCovaregType { get; set; }
+        public Nullable<int> LegalAbortionType { get; set; }
+        public Nullable<int> LegalAbortionCovaregType { get; set; }
+        public Nullable<int> AdvancedDentalType { get; set; }
+        public Nullable<int> AdvancedDentalCovaregType { get; set; }
+        public Nullable<int> BasicDentalType { get; set; }
+        public Nullable<int> BasicDentalCovaregType { get; set; }
+        public Nullable<int> DentalVisit { get; set; }
+        public Nullable<int> OpticalVisit { get; set; }
+        public Nullable<int> BirthVisit { get; set; }
+        public string Notes { get; set; }
     
         public virtual RenewalMain RenewalMain { get; set; }
     }

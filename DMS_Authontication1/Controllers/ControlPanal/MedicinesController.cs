@@ -401,19 +401,19 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                 mcodeChronic.SyncBy = "Updated";
                 db.Entry(mcodeChronic).State = EntityState.Modified;
 
-                var roshitaDetails = db.RoshitaDetails.Where(r => r.MedicienCode == mcodeChronic.MED_CODE && r.Roshita.CardId == mcodeChronic.CARD_NO &&
-                  r.Roshita.Manager == "Doctor_chronic").FirstOrDefault();
-                //Roshita roshita = db.Roshitas.Where(x => x.CardId == mcodeChronic.CARD_NO && x.Manager == "Doctor_chronic").FirstOrDefault();
-                //if (roshita != null)
+                //var roshitaDetails = db.RoshitaDetails.Where(r => r.MedicienCode == mcodeChronic.MED_CODE && r.Roshita.CardId == mcodeChronic.CARD_NO &&
+                //  r.Roshita.Manager == "Doctor_chronic").FirstOrDefault();
+                ////Roshita roshita = db.Roshitas.Where(x => x.CardId == mcodeChronic.CARD_NO && x.Manager == "Doctor_chronic").FirstOrDefault();
+                ////if (roshita != null)
+                ////{
+                ////    RoshitaDetail roshitaDetail = db.RoshitaDetails.Where(x => x.RoshitaID == roshita.Id && x.MedicienCode == mcodeChronic.MED_CODE).FirstOrDefault();
+                //if (roshitaDetails != null)
                 //{
-                //    RoshitaDetail roshitaDetail = db.RoshitaDetails.Where(x => x.RoshitaID == roshita.Id && x.MedicienCode == mcodeChronic.MED_CODE).FirstOrDefault();
-                if (roshitaDetails != null)
-                {
-                    roshitaDetails.TotalUnits = mcodeChronic.NO_OF_UINT;
-                    roshitaDetails.Amount = mcodeChronic.TOTAL_AMT.Value;
-                    db.Entry(roshitaDetails).State = EntityState.Modified;
-                }
+                //    roshitaDetails.TotalUnits = mcodeChronic.NO_OF_UINT;
+                //    roshitaDetails.Amount = mcodeChronic.TOTAL_AMT.Value;
+                //    db.Entry(roshitaDetails).State = EntityState.Modified;
                 //}
+                ////}
 
             }
             db.SaveChanges();
