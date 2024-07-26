@@ -515,7 +515,8 @@ namespace DMS_TEST.Controllers
             {
                 if (type == "Pharm")
                 {
-                    var claim = db.ClaimPhotoes.Where(r => r.CardId == id && r.ClaimNumber == claimnum && r.IsDispense == false && r.IsDespensePharm == false).FirstOrDefault();
+                    var claim = db.ClaimPhotoes.Where(r => r.CardId == id && r.ClaimNumber == claimnum && r.IsDispense == false
+                    && r.IsDespensePharm == false && r.IsDeleted == false).FirstOrDefault();
                     if (claim != null)
                     {
 
@@ -524,7 +525,8 @@ namespace DMS_TEST.Controllers
                 }
                 else if (type == "Lab")
                 {
-                    var claim = db.ClaimPhotoes.Where(r => r.CardId == id && r.ClaimNumber == claimnum && r.IsDispense == false && r.IsDespenseLab == false).FirstOrDefault();
+                    var claim = db.ClaimPhotoes.Where(r => r.CardId == id && r.ClaimNumber == claimnum && r.IsDispense == false
+                    && r.IsDespenseLab == false && r.IsDeleted == false).FirstOrDefault();
                     if (claim != null)
                     {
 
@@ -533,7 +535,8 @@ namespace DMS_TEST.Controllers
                 }
                 else if (type == "Ray")
                 {
-                    var claim = db.ClaimPhotoes.Where(r => r.CardId == id && r.ClaimNumber == claimnum && r.IsDispense == false && r.IsDespenseRay == false).FirstOrDefault();
+                    var claim = db.ClaimPhotoes.Where(r => r.CardId == id && r.ClaimNumber == claimnum && r.IsDispense == false
+                    && r.IsDespenseRay == false && r.IsDeleted == false).FirstOrDefault();
                     if (claim != null)
                     {
 
@@ -2681,7 +2684,7 @@ namespace DMS_TEST.Controllers
                 if (data.ClaimNumber != null)
                 {
                     long claim = long.Parse(data.ClaimNumber.Value.ToString());
-                    var claimphoto = db.ClaimPhotoes.Where(x => x.CardId == roshita.CardId && x.ClaimNumber == claim).FirstOrDefault();
+                    var claimphoto = db.ClaimPhotoes.Where(x => x.CardId == roshita.CardId && x.ClaimNumber == claim && x.IsDeleted == false).FirstOrDefault();
                     if (claimphoto != null)
                     {
                         claimphoto.IsDispense = (claimphoto.IsDespenseRay.Value && claimphoto.IsDespenseLab.Value) ? true : false;
@@ -2855,7 +2858,7 @@ namespace DMS_TEST.Controllers
             string Adaltation = "Child";
             if (Id != "1")
             {
-                if (age > 6)
+                if (age > 12)
                 {
                     Adaltation = "Adult";
                 }
@@ -3714,6 +3717,20 @@ namespace DMS_TEST.Controllers
                     }
 
 
+                }
+                if (roshta.ClaimNumber != null)
+                {
+                    long claim = long.Parse(roshta.ClaimNumber.Value.ToString());
+                    var claimphoto = db.ClaimPhotoes.Where(x => x.CardId == roshta.CardId && x.ClaimNumber == claim).FirstOrDefault();
+                    if (claimphoto != null)
+                    {
+                        claimphoto.IsDispense = false;
+                        claimphoto.IsDespensePharm = false;
+                        claimphoto.UpdatedBy = User.Identity.Name;
+                        claimphoto.UpdatedDate = DateTime.Now;
+                        db.Entry(claimphoto).State = EntityState.Modified;
+
+                    }
                 }
                 db.SaveChanges();
                 return Json(new { ok = true, data = db.SaveChanges(), message = "ok" }, JsonRequestBehavior.AllowGet);

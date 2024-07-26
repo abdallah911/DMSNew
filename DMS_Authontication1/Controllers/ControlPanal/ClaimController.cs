@@ -102,6 +102,7 @@ namespace DMS_Authontication1.Controllers
                 entity.IsDespenseLab = false;
                 entity.IsDespenseRay = false;
                 entity.IsDespensePharm = false;
+                entity.IsDeleted = false;
                 entity.CreatedBy = User.Identity.Name;
                 entity.CreatedDate = DateTime.Now;
                 if (model.ImageFile != null)
@@ -127,7 +128,7 @@ namespace DMS_Authontication1.Controllers
                 {
                     sEcho = sEcho,
                     aaData = db.ClaimPhotoes.OrderBy(m => m.Id)
-                    .Where(r => r.CardId.Contains(sSearch))
+                    .Where(r => r.CardId.Contains(sSearch) && r.IsDeleted == false)
                     .Select(l => new ClaimPhotoesViewModel
                     {
                         Id = l.Id,
@@ -138,8 +139,8 @@ namespace DMS_Authontication1.Controllers
 
                     }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                    iTotalRecords = db.ClaimPhotoes.Count(),
-                    iTotalDisplayRecords = db.ClaimPhotoes.Count()
+                    iTotalRecords = db.ClaimPhotoes.Where(x => x.IsDeleted == false).Count(),
+                    iTotalDisplayRecords = db.ClaimPhotoes.Where(x => x.IsDeleted == false).Count()
                 };
                 //return Ok(result);
                 return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -149,7 +150,7 @@ namespace DMS_Authontication1.Controllers
                 var result = new
                 {
                     sEcho = sEcho,
-                    aaData = db.ClaimPhotoes.OrderBy(m => m.Id).AsEnumerable()
+                    aaData = db.ClaimPhotoes.OrderBy(m => m.Id).Where(x => x.IsDeleted == false).AsEnumerable()
                    .Select(l => new ClaimPhotoesViewModel
                    {
                        Id = l.Id,
@@ -158,8 +159,8 @@ namespace DMS_Authontication1.Controllers
                        IsDispense = l.IsDispense,
                        Url = l.Url,
                    }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
-                    iTotalRecords = db.ClaimPhotoes.Count(),
-                    iTotalDisplayRecords = db.ClaimPhotoes.Count()
+                    iTotalRecords = db.ClaimPhotoes.Where(x => x.IsDeleted == false).Count(),
+                    iTotalDisplayRecords = db.ClaimPhotoes.Where(x => x.IsDeleted == false).Count()
                 };
                 return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
@@ -172,8 +173,17 @@ namespace DMS_Authontication1.Controllers
         {
             try
             {
-                var claim = db.ClaimPhotoes.Find(id);
-                db.ClaimPhotoes.Remove(claim);
+                var claimphoto = db.ClaimPhotoes.Where(x => x.Id == id).FirstOrDefault();
+                if (claimphoto != null)
+                {
+                    claimphoto.IsDeleted = true;
+                    claimphoto.DeletedBy = User.Identity.Name;
+                    claimphoto.DeletedDate = DateTime.Now;
+                    db.Entry(claimphoto).State = EntityState.Modified;
+
+                }
+                //var claim = db.ClaimPhotoes.Find(id);
+                //db.ClaimPhotoes.Remove(claim);
                 db.SaveChanges();
                 return Json(new { ok = true, data = db.SaveChanges(), message = "ok" }, JsonRequestBehavior.AllowGet);
             }
@@ -188,7 +198,7 @@ namespace DMS_Authontication1.Controllers
 
             var fileName = db.ClaimPhotoes.Where(x => x.Id == id).Select(x => x.Url).FirstOrDefault();
             // Set the path to your image file
-            var filePath =Server.MapPath(fileName);
+            var filePath = Server.MapPath(fileName);
 
             // Check if the file exists
             if (!System.IO.File.Exists(filePath))

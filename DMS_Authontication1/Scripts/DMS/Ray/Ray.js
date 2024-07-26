@@ -33,6 +33,22 @@ $(function () {
                 $('#phone').show();
             }
             $("#wait").css("display", "block");
+            if ($('#txtSearchCard').val() == "500172-1-11462-1") {
+                //bootbox.alert("برجاء التواصل مع الإدارة الطبية لوجود خطأ في البطاقة الطبية الخاصة بكم للإستمرار برجاء الضغط ok");
+                bootbox.dialog({
+                    title: 'Alert!',
+                    message: "Ok" + "برجاء التواصل مع الإدارة الطبية لوجود خطأ في البطاقة الطبية الخاصة بكم للإستمرار برجاء الضغط ",
+                    buttons: {
+                        Ok: {
+                            label: "Ok",
+                            className: 'btn-info',
+                            callback: function () {
+                                $("#wait").css("display", "none");
+                            }
+                        }
+                    }
+                });
+            }
             $.ajax({
                 url: '/Pharmacy/AddCard',
                 data: { id: $('#txtSearchCard').val() },
@@ -620,7 +636,7 @@ $(function () {
             bootbox.alert("Please Insert Card ID");
     });
 
-    $("#ClaimNumber").on("mouseleave", function () {
+    $("#ClaimNumber").on("focusout", function () {
         //Get Claim photo
 
         $.ajax({

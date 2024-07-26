@@ -26,5 +26,8 @@ namespace DMS_Authontication1.Models
         public Nullable<bool> IsDespenseLab { get; set; }
         public Nullable<bool> IsDespenseRay { get; set; }
         public Nullable<bool> IsDespensePharm { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
+        public string DeletedBy { get; set; }
+        public Nullable<System.DateTime> DeletedDate { get; set; }
     }
 }

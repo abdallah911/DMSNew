@@ -82,324 +82,339 @@ $(function () {
         if ($('#txtSearchCard').val() != "") {
             $('#txtSearchCard').val($('#txtSearchCard').val().trim())
             $("#wait").css("display", "block");
-
-            $.ajax({
-                url: '/Pharmacy/AddCardPharmacy',
-                data: { id: $('#txtSearchCard').val() },
-                dataType: 'Json',
-                success: function (r) {
-                    $('#txtSearchCard').attr('disabled', true);
-                    $('#Cards').dataTable().fnDestroy();
-                    var setData = $("#Cards Tbody");
-                    setData.empty();
-                    for (var i = 0; i < r.length; i++) {
-                        if (r[i].BIRTH_DATE != null) {
-                            var MyDate_String_Value = r[i].BIRTH_DATE;
-                            var value = new Date
-                                (
-                                    parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                                );
-                            birthdate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                        } else {
-                            birthdate = null;
+            if ($('#txtSearchCard').val() == "500172-1-11462-1") {
+                //bootbox.alert("برجاء التواصل مع الإدارة الطبية لوجود خطأ في البطاقة الطبية الخاصة بكم للإستمرار برجاء الضغط ok");
+                bootbox.dialog({
+                    title: 'Alert!',
+                    message: "Ok"+"برجاء التواصل مع الإدارة الطبية لوجود خطأ في البطاقة الطبية الخاصة بكم للإستمرار برجاء الضغط ",
+                    buttons: {
+                        Ok: {
+                            label: "Ok",
+                            className: 'btn-info',
+                            callback: function () {
+                                $("#wait").css("display", "none");
+                            }
                         }
-                        if (r[i].SPECIFIC_DATE != null) {
-                            var MyDate_String_Value = r[i].SPECIFIC_DATE;
-                            var value = new Date
-                                (
-                                    parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                                );
-                            StartDate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                        } else {
-                            StartDate = null;
-                        }
-                        if (r[i].TERMINATE_DATE >= r[i].NoW) {
-                            dat1 = null
-                        }
-                        if (r[i].INS_END_DATE != null && StartDate != null) {
-                            //end date
-                            var MyDate_String_Value1 = r[i].INS_END_DATE;
-                            var value1 = new Date(parseFloat(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, '')));
-                            dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
-                        }
-                        else {
-                            dat1 = null;
-                        }
-                        var data = "<tr >" +
-                            "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-plus' onclick='Select(this);'></Button>" + "</td>" +
-                            "<td>" + r[i].CARD_ID + "</td>" +
-                            "<td>" + r[i].EMP_ANAME + "</td>" +
-                            "<td>" + r[i].EMP_ENAME + "</td>" +
-                            "<td>" + StartDate + "</td>" +
-                            "<td>" + dat1 + "</td>" +
-                            "<td>" + birthdate + "</td>" +
-                            "<td>" + r[i].CompHolderName + "</td>" +
-                            "</tr>"
-                        var array_name = [];
-                        array_name.push(data)
-                        setData.append(array_name);
-
                     }
-
-                    if (r.length == 1) {
+                });
+            }
+                $.ajax({
+                    url: '/Pharmacy/AddCardPharmacy',
+                    data: { id: $('#txtSearchCard').val() },
+                    dataType: 'Json',
+                    success: function (r) {
                         $('#txtSearchCard').attr('disabled', true);
-                        $('#Pending').attr('disabled', false);
-                        $('#Approval').attr('disabled', false);
-                        CardId = r[0].CARD_ID;
-                        $('#txtSearchCard').val(CardId);
-                        var ArName = r[0].EMP_ENAME;
-                        var CompHolderName = r[0].CompHolderName;
-                        firstDate = new Date(parseFloat(r[0].INS_END_DATE.replace(/(^.*\()|([+-].*$)/g, '')));
-                        diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
-                        var EndDate = dat1;
-                        //var today = new Date();
-                        //var dd = today.getDate();
-                        //var mm = today.getMonth(); //January is 0!
-                        //var yyyy = today.getFullYear();
-                        //var CurrentDate = new Date(yyyy, mm, dd);
-                        //if (EndDate != null) {
-                        //    newDate = EndDate.split('/').reverse().join('.');
-                        //} else {
-                        //    newDate = "";
-                        //}
-                        //var date = new Date(newDate);
-                        var companyId = [];
-                        companyId = CardId.split('-', 1);
-                        CompId = companyId[0];
-                        // Chick company is closed or oopen
+                        $('#Cards').dataTable().fnDestroy();
+                        var setData = $("#Cards Tbody");
+                        setData.empty();
+                        for (var i = 0; i < r.length; i++) {
+                            if (r[i].BIRTH_DATE != null) {
+                                var MyDate_String_Value = r[i].BIRTH_DATE;
+                                var value = new Date
+                                    (
+                                        parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                    );
+                                birthdate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                            } else {
+                                birthdate = null;
+                            }
+                            if (r[i].SPECIFIC_DATE != null) {
+                                var MyDate_String_Value = r[i].SPECIFIC_DATE;
+                                var value = new Date
+                                    (
+                                        parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                    );
+                                StartDate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                            } else {
+                                StartDate = null;
+                            }
+                            if (r[i].TERMINATE_DATE >= r[i].NoW) {
+                                dat1 = null
+                            }
+                            if (r[i].INS_END_DATE != null && StartDate != null) {
+                                //end date
+                                var MyDate_String_Value1 = r[i].INS_END_DATE;
+                                var value1 = new Date(parseFloat(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, '')));
+                                dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
+                            }
+                            else {
+                                dat1 = null;
+                            }
+                            var data = "<tr >" +
+                                "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-plus' onclick='Select(this);'></Button>" + "</td>" +
+                                "<td>" + r[i].CARD_ID + "</td>" +
+                                "<td>" + r[i].EMP_ANAME + "</td>" +
+                                "<td>" + r[i].EMP_ENAME + "</td>" +
+                                "<td>" + StartDate + "</td>" +
+                                "<td>" + dat1 + "</td>" +
+                                "<td>" + birthdate + "</td>" +
+                                "<td>" + r[i].CompHolderName + "</td>" +
+                                "</tr>"
+                            var array_name = [];
+                            array_name.push(data)
+                            setData.append(array_name);
 
-                        $.ajax({
-                            type: "POST",
-                            dataType: "json",
-                            url: '/Pharmacy/CkeckCompanyClosedorOpen',
-                            data: { id: CompId, CardId: CardId },
-                            success: function (returndata) {
-                                if (returndata.ok) {
-                                    $("#wait").css("display", "none");
-                                    $('#txtSearchCard').val(CardId);
-                                    $('#CardsModal').modal('hide');
+                        }
+
+                        if (r.length == 1) {
+                            $('#txtSearchCard').attr('disabled', true);
+                            $('#Pending').attr('disabled', false);
+                            $('#Approval').attr('disabled', false);
+                            CardId = r[0].CARD_ID;
+                            $('#txtSearchCard').val(CardId);
+                            var ArName = r[0].EMP_ENAME;
+                            var CompHolderName = r[0].CompHolderName;
+                            firstDate = new Date(parseFloat(r[0].INS_END_DATE.replace(/(^.*\()|([+-].*$)/g, '')));
+                            diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+                            var EndDate = dat1;
+                            //var today = new Date();
+                            //var dd = today.getDate();
+                            //var mm = today.getMonth(); //January is 0!
+                            //var yyyy = today.getFullYear();
+                            //var CurrentDate = new Date(yyyy, mm, dd);
+                            //if (EndDate != null) {
+                            //    newDate = EndDate.split('/').reverse().join('.');
+                            //} else {
+                            //    newDate = "";
+                            //}
+                            //var date = new Date(newDate);
+                            var companyId = [];
+                            companyId = CardId.split('-', 1);
+                            CompId = companyId[0];
+                            // Chick company is closed or oopen
+
+                            $.ajax({
+                                type: "POST",
+                                dataType: "json",
+                                url: '/Pharmacy/CkeckCompanyClosedorOpen',
+                                data: { id: CompId, CardId: CardId },
+                                success: function (returndata) {
+                                    if (returndata.ok) {
+                                        $("#wait").css("display", "none");
+                                        $('#txtSearchCard').val(CardId);
+                                        $('#CardsModal').modal('hide');
 
 
-                                    //
+                                        //
 
-                                    $.ajax({
-                                        type: "POST",
-                                        dataType: "json",
-                                        url: '/Pharmacy/GetCompActivation',
-                                        data: { id: CompId, CardId: CardId },
-                                        success: function (returndata) {
-                                            if (returndata.ok) {
-                                                if (returndata.data == "Yes") {
+                                        $.ajax({
+                                            type: "POST",
+                                            dataType: "json",
+                                            url: '/Pharmacy/GetCompActivation',
+                                            data: { id: CompId, CardId: CardId },
+                                            success: function (returndata) {
+                                                if (returndata.ok) {
+                                                    if (returndata.data == "Yes") {
 
-                                                    $("#wait").css("display", "none");
-                                                    $('#txtSearchCard').val(CardId);
-                                                    $('#compEmp_EMP_ANAME').val(ArName);
-                                                    $('#compEmp_CompHolderName').val(CompHolderName);
-                                                    $('#compEmp_INS_START_DATE').val(StartDate);
-                                                    $('#compEmp_INS_END_DATE').val(EndDate);
-                                                    $('#compEmp_BIRTH_DATE').val(birthdate);
-                                                    //AddNationalId();
-                                                    $('#CardsModal').modal('hide');
-                                                    //Get ceiling and Limit
-                                                    if (companid == "888") {
-                                                        $("#ddlType").val(11601).change();
+                                                        $("#wait").css("display", "none");
+                                                        $('#txtSearchCard').val(CardId);
+                                                        $('#compEmp_EMP_ANAME').val(ArName);
+                                                        $('#compEmp_CompHolderName').val(CompHolderName);
+                                                        $('#compEmp_INS_START_DATE').val(StartDate);
+                                                        $('#compEmp_INS_END_DATE').val(EndDate);
+                                                        $('#compEmp_BIRTH_DATE').val(birthdate);
+                                                        //AddNationalId();
+                                                        $('#CardsModal').modal('hide');
+                                                        //Get ceiling and Limit
+                                                        if (companid == "888") {
+                                                            $("#ddlType").val(11601).change();
+                                                        }
+                                                        else {
+                                                            GetLimit();
+                                                        }
+                                                        //Get Approvals
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            dataType: "json",
+                                                            url: '/Pharmacy/HaveApproval',
+                                                            data: { id: CardId },
+                                                            success: function (returndata) {
+                                                                if (returndata.ok) {
+                                                                    bootbox.alert("لتفعيل الموافقة" + " Has Approval " + "هذا الكارت له موافقة يرجي الضغط علي");
+                                                                    //bootbox.alert(' هذا الكارت له موافقة يرجي الضغط علي  Has Approval  لتفعيل الموافقة');
+                                                                }
+                                                                else {
+                                                                    //bootbox.alert(' No Company Name ');
+                                                                }
+                                                            }
+                                                        });
+                                                        //Get Doctor
+
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            dataType: "json",
+                                                            url: '/Pharmacy/HaveDoctor',
+                                                            data: { id: CardId },
+                                                            success: function (returndata) {
+                                                                if (returndata.ok) {
+                                                                    bootbox.dialog({
+                                                                        closeButton: false,
+                                                                        title: 'Chronic',
+                                                                        // message: " هذا العميل لديه علاج مسجل فى شاشة Doctor   هل تود صرفه",
+                                                                        message: "هل تود صرفه" + " Doctor " + "هذا العميل لديه علاج شهري مسجل فى شاشة",
+                                                                        buttons: {
+                                                                            Print: {
+                                                                                label: "Yes",
+                                                                                className: 'btn-info',
+                                                                                callback: function () {
+                                                                                    window.location.replace("/Doctor/Doctor?id=" + CardId + "&&NationalId=" + NationalId);
+                                                                                }
+                                                                            },
+                                                                            New: {
+                                                                                label: "No",
+                                                                                className: 'btn-danger',
+                                                                                callback: function () {
+
+                                                                                }
+                                                                            }
+
+                                                                        }
+                                                                    });
+                                                                }
+                                                                else {
+                                                                    //bootbox.alert(' No Company Name ');
+                                                                }
+                                                            }
+                                                        });
+                                                        //Get Chronic
+
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            dataType: "json",
+                                                            url: '/Pharmacy/HaveChronic',
+                                                            data: { id: CardId },
+                                                            success: function (returndata) {
+                                                                if (returndata.ok) {
+                                                                    bootbox.dialog({
+                                                                        closeButton: false,
+                                                                        title: 'Chronic',
+                                                                        //message: "هذا العميل لدية علاج شهري هل تود صرفة",
+                                                                        message: "هل تود صرفه" + " Chronic " + "هذا العميل لديه علاج شهري مسجل فى شاشة",
+                                                                        buttons: {
+                                                                            Print: {
+                                                                                label: "Yes",
+                                                                                className: 'btn-info',
+                                                                                callback: function () {
+                                                                                    window.location.replace("/Chronic/Chronic?id=" + CardId + "&&NationalId=" + NationalId);
+                                                                                }
+                                                                            },
+                                                                            New: {
+                                                                                label: "No",
+                                                                                className: 'btn-danger',
+                                                                                callback: function () {
+
+                                                                                }
+                                                                            }
+
+                                                                        }
+                                                                    });
+                                                                }
+                                                                else {
+                                                                    //bootbox.alert(' No Company Name ');
+                                                                }
+                                                            }
+                                                        });
+                                                        //Get ClaimNumber
+
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            dataType: "json",
+                                                            url: '/Pharmacy/HaveClaim',
+                                                            data: { id: CardId },
+                                                            success: function (Code) {
+                                                                if (Code == "0") {
+                                                                    haveClaim = 1;
+                                                                    alert("هذا العميل لديه موافقة يرجي ادخال رقم الموافقة داخل " + "Calim Number");
+                                                                }
+                                                            }
+                                                        });
+
                                                     }
                                                     else {
-                                                        GetLimit();
+                                                        $("#wait").css("display", "none");
+                                                        bootbox.dialog({
+                                                            title: 'Alert!',
+                                                            message: returndata.message,
+                                                            buttons: {
+                                                                Ok: {
+                                                                    label: "Ok",
+                                                                    className: 'btn-info',
+                                                                    callback: function () {
+                                                                        ClearCardData();
+                                                                    }
+                                                                }
+                                                            }
+                                                        });
                                                     }
-                                                    //Get Approvals
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        dataType: "json",
-                                                        url: '/Pharmacy/HaveApproval',
-                                                        data: { id: CardId },
-                                                        success: function (returndata) {
-                                                            if (returndata.ok) {
-                                                                bootbox.alert("لتفعيل الموافقة" + " Has Approval " + "هذا الكارت له موافقة يرجي الضغط علي");
-                                                                //bootbox.alert(' هذا الكارت له موافقة يرجي الضغط علي  Has Approval  لتفعيل الموافقة');
-                                                            }
-                                                            else {
-                                                                //bootbox.alert(' No Company Name ');
-                                                            }
-                                                        }
-                                                    });
-                                                    //Get Doctor
-
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        dataType: "json",
-                                                        url: '/Pharmacy/HaveDoctor',
-                                                        data: { id: CardId },
-                                                        success: function (returndata) {
-                                                            if (returndata.ok) {
-                                                                bootbox.dialog({
-                                                                    closeButton: false,
-                                                                    title: 'Chronic',
-                                                                    // message: " هذا العميل لديه علاج مسجل فى شاشة Doctor   هل تود صرفه",
-                                                                    message: "هل تود صرفه" + " Doctor " + "هذا العميل لديه علاج شهري مسجل فى شاشة",
-                                                                    buttons: {
-                                                                        Print: {
-                                                                            label: "Yes",
-                                                                            className: 'btn-info',
-                                                                            callback: function () {
-                                                                                window.location.replace("/Doctor/Doctor?id=" + CardId + "&&NationalId=" + NationalId);
-                                                                            }
-                                                                        },
-                                                                        New: {
-                                                                            label: "No",
-                                                                            className: 'btn-danger',
-                                                                            callback: function () {
-
-                                                                            }
-                                                                        }
-
-                                                                    }
-                                                                });
-                                                            }
-                                                            else {
-                                                                //bootbox.alert(' No Company Name ');
-                                                            }
-                                                        }
-                                                    });
-                                                    //Get Chronic
-
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        dataType: "json",
-                                                        url: '/Pharmacy/HaveChronic',
-                                                        data: { id: CardId },
-                                                        success: function (returndata) {
-                                                            if (returndata.ok) {
-                                                                bootbox.dialog({
-                                                                    closeButton: false,
-                                                                    title: 'Chronic',
-                                                                    //message: "هذا العميل لدية علاج شهري هل تود صرفة",
-                                                                    message: "هل تود صرفه" + " Chronic " + "هذا العميل لديه علاج شهري مسجل فى شاشة",
-                                                                    buttons: {
-                                                                        Print: {
-                                                                            label: "Yes",
-                                                                            className: 'btn-info',
-                                                                            callback: function () {
-                                                                                window.location.replace("/Chronic/Chronic?id=" + CardId + "&&NationalId=" + NationalId);
-                                                                            }
-                                                                        },
-                                                                        New: {
-                                                                            label: "No",
-                                                                            className: 'btn-danger',
-                                                                            callback: function () {
-
-                                                                            }
-                                                                        }
-
-                                                                    }
-                                                                });
-                                                            }
-                                                            else {
-                                                                //bootbox.alert(' No Company Name ');
-                                                            }
-                                                        }
-                                                    });
-                                                    //Get ClaimNumber
-
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        dataType: "json",
-                                                        url: '/Pharmacy/HaveClaim',
-                                                        data: { id: CardId },
-                                                        success: function (Code) {
-                                                            if (Code == "0") {
-                                                                haveClaim = 1;
-                                                                alert("هذا العميل لديه موافقة يرجي ادخال رقم الموافقة داخل " + "Calim Number");
-                                                            }
-                                                        }
-                                                    });
-
                                                 }
                                                 else {
-                                                    $("#wait").css("display", "none");
-                                                    bootbox.dialog({
-                                                        title: 'Alert!',
-                                                        message: returndata.message,
-                                                        buttons: {
-                                                            Ok: {
-                                                                label: "Ok",
-                                                                className: 'btn-info',
-                                                                callback: function () {
-                                                                    ClearCardData();
+                                                    if (returndata.data == "Hold") {
+                                                        $("#wait").css("display", "none");
+                                                        bootbox.dialog({
+                                                            title: 'Alert!',
+                                                            message: returndata.message,
+                                                            buttons: {
+                                                                Ok: {
+                                                                    label: "Ok",
+                                                                    className: 'btn-info',
+                                                                    callback: function () {
+                                                                        ClearCardData();
+                                                                    }
                                                                 }
                                                             }
-                                                        }
-                                                    });
+                                                        });
+                                                    }
+                                                    else if (returndata.data == "Expire") {
+                                                        $("#wait").css("display", "none");
+                                                        bootbox.dialog({
+                                                            title: 'Alert!',
+                                                            message: returndata.message,
+                                                            buttons: {
+                                                                Ok: {
+                                                                    label: "Ok",
+                                                                    className: 'btn-info',
+                                                                    callback: function () {
+                                                                        ClearCardData();
+                                                                    }
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                    else
+                                                        bootbox.alert('failed  company activation , please check your internet connection ');
                                                 }
                                             }
-                                            else {
-                                                if (returndata.data == "Hold") {
-                                                    $("#wait").css("display", "none");
-                                                    bootbox.dialog({
-                                                        title: 'Alert!',
-                                                        message: returndata.message,
-                                                        buttons: {
-                                                            Ok: {
-                                                                label: "Ok",
-                                                                className: 'btn-info',
-                                                                callback: function () {
-                                                                    ClearCardData();
-                                                                }
-                                                            }
-                                                        }
-                                                    });
-                                                }
-                                                else if (returndata.data == "Expire") {
-                                                    $("#wait").css("display", "none");
-                                                    bootbox.dialog({
-                                                        title: 'Alert!',
-                                                        message: returndata.message,
-                                                        buttons: {
-                                                            Ok: {
-                                                                label: "Ok",
-                                                                className: 'btn-info',
-                                                                callback: function () {
-                                                                    ClearCardData();
-                                                                }
-                                                            }
-                                                        }
-                                                    });
-                                                }
-                                                else
-                                                    bootbox.alert('failed  company activation , please check your internet connection ');
-                                            }
-                                        }
-                                    });
+                                        });
 
+                                    }
+                                    else {
+                                        bootbox.alert('برجاء الرجوع الى ادارة الشركة التابعة لسيادتكم ..');
+                                        $("#wait").css("display", "none");
+                                        $('#txtSearchCard').val(CardId);
+                                        $('#CardsModal').modal('hide');
+                                    }
                                 }
-                                else {
-                                    bootbox.alert('برجاء الرجوع الى ادارة الشركة التابعة لسيادتكم ..');
-                                    $("#wait").css("display", "none");
-                                    $('#txtSearchCard').val(CardId);
-                                    $('#CardsModal').modal('hide');
-                                }
-                            }
-                        });
+                            });
 
 
 
-                    }
-                    else if (r.length == 0) {
-                        alert(' برجاء التأكد من الرقم الطبي وفي حاله استمرار المشكله ارسال صوره البطاقه علي رقم01205566050 ');
-                        $('#CardsModal').modal('hide');
+                        }
+                        else if (r.length == 0) {
+                            alert(' برجاء التأكد من الرقم الطبي وفي حاله استمرار المشكله ارسال صوره البطاقه علي رقم01205566050 ');
+                            $('#CardsModal').modal('hide');
+                            $("#wait").css("display", "none");
+                        }
+                        else {
+                            $('#Cards').DataTable();
+                            $('#CardsModal').modal({ backdrop: 'static', keyboard: false });
+                            $("#wait").css("display", "none");
+                        }
+                    },
+                    error: function () {
+                        bootbox.alert("Too many data  Retrieve more specific characters solve the problem and check your internet connection");
                         $("#wait").css("display", "none");
                     }
-                    else {
-                        $('#Cards').DataTable();
-                        $('#CardsModal').modal({ backdrop: 'static', keyboard: false });
-                        $("#wait").css("display", "none");
-                    }
-                },
-                error: function () {
-                    bootbox.alert("Too many data  Retrieve more specific characters solve the problem and check your internet connection");
-                    $("#wait").css("display", "none");
-                }
-            });
+                });
         }
         else {
             bootbox.alert("Please Insert Card Id");
@@ -1232,7 +1247,7 @@ $(function () {
             bootbox.alert("Please Insert Card ID");
     });
 
-    $("#ClaimNumber").on("mouseleave", function () {
+    $("#ClaimNumber").on("focusout", function () {
         //Get Claim photo
 
         $.ajax({
