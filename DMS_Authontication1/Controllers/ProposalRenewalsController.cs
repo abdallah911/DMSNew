@@ -88,56 +88,6 @@ namespace DMS_Authontication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SaveDataBasicData(RenwalBasicDataViewModel model)
-        {
-
-
-
-
-            return RedirectToAction("RenewalStepTwoShow", new { mainId = model.MainId, model.CompId, ContractNo = model.ContractNo, countCat = model.CountClass, typeAction = model.typAction, mainIdOld = model.MainId });
-
-            //try
-            //{
-            //    if (ModelState.IsValid)
-            //    {
-            //        var currentUserId = User.Identity.GetUserId();
-
-            //        var renewalMain = new RenewalMain
-            //        {
-            //            CompId = model.CompId,
-            //            ContractNo = model.ContractNo,
-            //            ClassCount = model.ClassCount,
-            //            EmpCount = model.EmpCount,
-            //            UserId = currentUserId,
-            //            CreatedDate = DateTime.Now.Date
-            //        };
-
-            //        db.RenewalMains.Add(renewalMain);
-            //        db.SaveChanges();
-
-            //        int id = renewalMain.Id;
-
-            //        renewalMain.Code = id.ToString();
-
-            //        db.SaveChanges();
-
-            //        //return RedirectToAction("RenewalStepTwoShow", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 1, mainIdOld = id });
-            //        return RedirectToAction("RenewalStepTwoShow", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 1, mainIdOld = id });
-
-
-            //    }
-            //    else
-            //        return RedirectToAction("Index");
-            //}
-            //catch (Exception e)
-            //{
-            //    return RedirectToAction("Index");
-            //}
-
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> SaveData(RenewalMain model)
         {
             try
@@ -210,31 +160,65 @@ namespace DMS_Authontication1.Controllers
                     //string cod = db.RenewalStepTwoes.Where(r => r.Code.StartsWith("10_")).ToList();
 
                     int ind = cod.IndexOf('_');
+                    string subCod;
+                   
+                    string OldCod = db.RenewalMains
+                    .Where(r => r.Code == cod)                    
+                    .Select(r => r.Id)
+                    .FirstOrDefault().ToString();
+                   
+                    
+                    
+                    //if (ind == -1)
+                    //    cod = cod + "_" + "1";
+                    //else
+                    //{
+                    //    string subCod = cod.Substring(0, ind + 1);
+                    //    string maxNumber = db.RenewalMains
+                    //         .Where(r => r.Code.StartsWith(subCod))
+                    //    .Select(r => r.Code)
+                    //    .ToList()
+                    //    .Select(code => int.Parse(code.Split('_').LastOrDefault()))
+                    //    .Max()
+                    //    .ToString();
 
-                    if (ind == -1)
-                        cod = cod + "_" + "1";
+                    //    cod = subCod + (int.Parse(maxNumber.ToString()) + 1).ToString();
+                    //}
+
+                    
+
+
+                    if (ind == -1)                   
+                        subCod = cod + "_";                      
                     else
-                    {
-                        string subCod = cod.Substring(0, ind + 1);
-                        string maxNumber = db.RenewalMains
-                             .Where(r => r.Code.StartsWith(subCod))
-                        .Select(r => r.Code)
-                        .ToList()
-                        .Select(code => int.Parse(code.Split('_').LastOrDefault()))
-                        .Max()
-                        .ToString();
+                        subCod = cod.Substring(0, ind + 1);
+                    
+                        
 
-                        cod = subCod + (int.Parse(maxNumber.ToString()) + 1).ToString();
-                    }
+                    string maxNumber = db.RenewalMains
+                    .Where(r => r.Code.StartsWith(subCod))
+                    .Select(r => r.Code)
+                    .ToList()
+                    .Select(code => code.Split('_').LastOrDefault())
+                    .Where(code => code != null)  // Filter out null values
+                    .Select(code => int.Parse(code))
+                    .DefaultIfEmpty(0)  // Default to 1 if there are no valid integers
+                    .Max()
+                    .ToString();
+
+                    cod = subCod + (int.Parse(maxNumber.ToString()) + 1).ToString();
+
 
                     int id = renewalMain.Id;
+
+
 
                     renewalMain.Code = cod;
 
                     db.SaveChanges();
 
                   //  return RedirectToAction("RenewalStepTwoShow", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 2, mainIdOld = model.Id });
-                    return RedirectToAction("RenewalBasicData", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 2, mainIdOld = id });
+                    return RedirectToAction("RenewalBasicData", new { mainId = id, model.CompId, ContractNo = model.ContractNo, countCat = model.ClassCount, typeAction = 2, mainIdOld = OldCod });
 
 
                     //return View("Index");
@@ -256,20 +240,43 @@ namespace DMS_Authontication1.Controllers
         public ActionResult RenewalBasicData(int mainId, int CompId, int ContractNo, int countCat, int typeAction, int mainIdOld)
         {
 
-            ViewBag.CompId = CompId;
-            ViewBag.ContractNo = ContractNo;
-            ViewBag.CountClass = countCat;
-            ViewBag.typAction = typeAction;
-            ViewBag.MainId = mainIdOld;
+            //ViewBag.CompId = CompId;
+            //ViewBag.ContractNo = ContractNo;
+            //ViewBag.CountClass = countCat;
+            //ViewBag.typAction = typeAction;
+            //ViewBag.MainId = mainIdOld;
 
 
             var polService = db.PoolServices.ToList();
-            var brokerr = _dbContext.Brokers.ToList();
-            
+            var brokerr = _dbContext.Brokers.ToList();           
 
             ViewBag.PolServ = new SelectList(polService, "Id", "ServiceName");
             ViewBag.Brokerss = new SelectList(brokerr, "Id", "Name");
 
+            var model2 = TempData["RenewalBasicDataModell"] as RenwalBasicDataViewModel;
+
+            if (model2 != null)
+            {
+                ViewBag.Errors = TempData["ErrorMessage"];
+                return View(model2);
+            }
+
+            var polMed = dbOra.RunReader(@"SELECT NVL(P.AMOUNT, 0), P.AMOUNT_TYPE
+                                           FROM APP.POLL_DATA P, APP.POLL_DATA_SERVICE S
+                                           WHERE P.POLL_CODE = S.POLL_CODE AND P.COMP_ID = '" + CompId + "' AND P.CONTRACT_NO = '" + ContractNo + "' AND S.SERV_CODE IN('11601', '11602', '11603')");
+
+            var polAll = dbOra.RunReader(@"SELECT NVL(P.AMOUNT, 0), P.AMOUNT_TYPE
+                                           FROM APP.POLL_DATA P, APP.POLL_DATA_SERVICE S
+                                           WHERE P.POLL_CODE = S.POLL_CODE AND P.COMP_ID = '" + CompId + "' AND P.CONTRACT_NO = '" + ContractNo + "' AND S.SERV_CODE NOT IN ('11601', '11602', '11603')");
+
+
+            var lossR = dbOra.RunReader(@"SELECT GROSS, EXPECTED_OF_CONTRACT, NET_PREMIUM, (OVER_HEAD / 100)  OVER_HEAD 
+                                           FROM APP.LR_CONSUM_FINAL 
+                                           WHERE COMP_ID = '" + CompId + "' ORDER BY RN");
+            
+            var stopLos = dbOra.RunReader(@"SELECT NVL(STOP_LOSS, 0) STOP_LOSS
+                                            FROM DMS_TEST.STOP_SEQ_DATA_D
+                                            WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + ContractNo  + "'");
 
             var model = new RenwalBasicDataViewModel();
 
@@ -279,10 +286,169 @@ namespace DMS_Authontication1.Controllers
             model.typAction = typeAction;
             model.MainId = mainIdOld;
 
+            if (polMed != null && polMed.Rows.Count > 0)
+                model.ValueMedicationOld = Convert.ToDouble(polMed.Rows[0][0].ToString());
 
+            if (polAll != null && polAll.Rows.Count > 0)
+                model.ValueAllOld = Convert.ToDouble(polAll.Rows[0][0].ToString());
+
+
+            if (lossR != null && lossR.Rows.Count > 0)
+            {
+                if (lossR.Rows.Count == 1)
+                {
+                    model.ExpectedLossRatioOld = Convert.ToDouble((Convert.ToDouble(lossR.Rows[0]["EXPECTED_OF_CONTRACT"].ToString()) / Convert.ToDouble(lossR.Rows[0]["NET_PREMIUM"].ToString()) + Convert.ToDouble(lossR.Rows[0]["OVER_HEAD"].ToString())) * 100);
+                    model.LossRatioOld = 0;
+                }
+                else
+                {
+                    model.ExpectedLossRatioOld = Convert.ToDouble((Convert.ToDouble(lossR.Rows[0]["EXPECTED_OF_CONTRACT"].ToString()) / Convert.ToDouble(lossR.Rows[0]["NET_PREMIUM"].ToString()) + Convert.ToDouble(lossR.Rows[0]["OVER_HEAD"].ToString())) * 100);
+                    model.LossRatioOld = Convert.ToDouble((Convert.ToDouble(lossR.Rows[1]["GROSS"].ToString()) / Convert.ToDouble(lossR.Rows[1]["NET_PREMIUM"].ToString()) + Convert.ToDouble(lossR.Rows[1]["OVER_HEAD"].ToString())) * 100); 
+                }
+            }
+            if (stopLos != null && stopLos.Rows.Count > 0)
+                model.StopLossOld = Convert.ToDouble(stopLos.Rows[0][0].ToString());
+
+            //model.poolService = polService.Select(s => s.Id).ToList();
+
+            RenewalBasicData oldNew = db.RenewalBasicDatas.FirstOrDefault(r => r.MainId == mainIdOld);
+
+            if (typeAction == 2 && oldNew != null)
+            {
+                model.ValuePool = oldNew.ValuePool.Value;
+                model.PercentPool = oldNew.PercentPool.Value;
+                model.TypeCovarge = oldNew.TypeCovarge.Value;
+                model.StopLoss = oldNew.StopLoss.Value;
+                model.VisitorValue = oldNew.VisitorValue.Value;
+                model.VisitorNumber = oldNew.VisitorNumber.Value;
+                model.VisitorType = oldNew.VisitorType.Value;
+                model.IsBroker = oldNew.IsBroker.Value;
+                if (model.IsBroker == true)
+                {
+                    model.BrokerId = oldNew.BrokerId.Value;
+                    model.BrokerPercentage = oldNew.BrokerPercentage.Value;
+                }
+                model.IssuanceExpenses = oldNew.IssuanceExpenses.Value;
+                model.AdminExpenses = oldNew.AdminExpenses.Value;
+                model.MainId = oldNew.MainId.Value;
+                model.IsMedication = oldNew.IsMedication.Value;
+                model.IsInpatient = oldNew.IsInpatient.Value;
+                model.IsLab = oldNew.IsLab.Value;
+                model.Notes = oldNew.Notes;
+
+                model.poolService = db.RenewalServicePools
+                                   .Where(x => x.MainId == oldNew.Id)
+                                   .Select(x => x.ServiceId ?? 0)
+                                   .ToList();
+            }
 
             return View(model);
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SaveDataBasicData(RenwalBasicDataViewModel model)
+        {
+            try
+            {
+                if (model.IsBroker == false)
+                {
+                    model.BrokerId = null;
+                    model.BrokerPercentage = null;
+                }
+                if (ModelState.IsValid)
+                {
+                    var renewalBasicData = new RenewalBasicData
+                    {
+                        ValuePool = model.ValuePool,
+                        PercentPool = model.PercentPool,
+                        TypeCovarge = model.TypeCovarge,
+                        StopLoss = model.StopLoss,
+                        VisitorValue = model.VisitorValue,
+                        VisitorNumber = model.VisitorNumber,
+                        VisitorType = model.VisitorType,
+                        IsBroker = model.IsBroker,
+                        BrokerId = model.BrokerId,
+                        BrokerPercentage = model.BrokerPercentage,
+                        IssuanceExpenses = model.IssuanceExpenses,
+                        AdminExpenses = model.AdminExpenses,
+                        MainId = model.MainId,
+                        IsMedication = model.IsMedication,
+                        IsInpatient = model.IsInpatient,
+                        IsLab = model.IsLab,
+                        Notes = model.Notes
+
+                    };
+
+
+                    if (model.poolService != null)
+                    {
+                        renewalBasicData.RenewalServicePools = new List<RenewalServicePool>();
+                        foreach (var serviceId in model.poolService)
+                        {
+                            renewalBasicData.RenewalServicePools.Add(new RenewalServicePool
+                            {
+                                ServiceId = serviceId
+                            });
+                        }
+                    }
+
+                    db.RenewalBasicDatas.Add(renewalBasicData);
+                    db.SaveChanges();
+
+                    //if (model.poolService != null)
+                    //{
+                    //    foreach (var serviceId in model.poolService)
+                    //    {
+                    //        var renewalServicePool = new RenewalServicePool
+                    //        {
+                    //            MainId = renewalBasicData.Id,
+                    //            ServiceId = serviceId
+                    //        };
+                    //        db.RenewalServicePools.Add(renewalServicePool);
+                    //    }
+                    //    db.SaveChanges();
+                    //}
+
+
+
+                        return RedirectToAction("RenewalStepTwoShow", new { mainId = model.MainId, model.CompId, ContractNo = model.ContractNo, countCat = model.CountClass, typeAction = model.typAction, mainIdOld = model.MainIdOld });
+
+                }
+                else
+                {
+                    List<string> errors = new List<string>();
+
+                    foreach (var value in ModelState.Values)
+                    {
+                        foreach (var error in value.Errors)
+                        {
+                            errors.Add(error.ErrorMessage);
+                        }
+                    }
+
+                    ViewBag.Errors = errors;
+                    // Retrieve the list of Areas and CompanyActivities from the database
+
+                    TempData["RenewalBasicDataModell"] = model;
+                    TempData["ErrorMessage"] = errors;
+
+                    return RedirectToAction("RenewalBasicData", new { mainId = model.MainId, model.CompId, ContractNo = model.ContractNo, countCat = model.CountClass, typeAction = model.typAction, mainIdOld = model.MainIdOld });
+
+                    //return RedirectToAction("RenewalStepTwoShow", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["RenewalBasicDataModell"] = model;
+                TempData["ErrorMessage"] = e.Message;
+
+                return RedirectToAction("RenewalBasicData", new { mainId = model.MainId, model.CompId, ContractNo = model.ContractNo, countCat = model.CountClass, typeAction = model.typAction, mainIdOld = model.MainIdOld });
+
+            }
+        }
+
         #endregion
 
         #region ProposalStepTwo
@@ -383,8 +549,15 @@ namespace DMS_Authontication1.Controllers
                         ContractNo = ContractNo,
                         CountClass = countCat,
                         typAction = typeAction,
-                        MainIdOld = mainIdOld
-
+                        MainIdOld = mainIdOld, 
+                        Notes = oldNew.Notes,
+                        PricePercent = (int)oldNew.PricePercent,
+                        BirthNumber = (int)oldNew.BirthNumber,
+                        BirthPercent = (int)oldNew.BirthPercent,
+                        OpticalNumber = (int)oldNew.OpticalNumber,
+                        OpticalPercent = (int)oldNew.OpticalPercent,
+                        DentalNumber = (int)oldNew.DentalNumber,
+                        DentalPercent = (int)oldNew.DentalPercent
                     };
 
                     model.Add(renwalTwoMain);
@@ -490,7 +663,15 @@ namespace DMS_Authontication1.Controllers
                 ResidenceDegreeId = vM.ResidenceDegreeId,
                 MedicalNetworkId = vM.MedicalNetworkId,
                 MainId = vM.MainId,
-                ClassCode = vM.ClassCode
+                ClassCode = vM.ClassCode,
+                PricePercent = vM.PricePercent,
+                BirthNumber = vM.BirthNumber,
+                BirthPercent = vM.BirthPercent,
+                OpticalNumber = vM.OpticalNumber,
+                OpticalPercent = vM.OpticalPercent,
+                DentalNumber = vM.DentalNumber,
+                DentalPercent = vM.DentalPercent,
+                Notes = vM.Notes
                 // Map other properties as needed
             };
 
@@ -554,10 +735,14 @@ namespace DMS_Authontication1.Controllers
                 return RedirectToAction("RenewalStepTwoShow", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
             }
         }
+        #endregion
+        #region ProposalStepThree
         public ActionResult RenewalStepThree(int mainId, int CompId, int ContractNo, int countCat, int typeAction, int mainIdOld)
         {
             ViewBag.MainId = mainId;
             ViewBag.CatCount = countCat;
+            ViewBag.basicService = db.BasicDentalServices.ToList();
+            ViewBag.advancService = db.DentalServices.ToList();
 
             var model2 = TempData["RenewalStepThreeModel"] as List<RenewalInsideMedicalAuthorityViewModel>;
 
@@ -898,7 +1083,37 @@ namespace DMS_Authontication1.Controllers
                         ContractNo = ContractNo,
                         CountClass = countCat,
                         typAction = typeAction,
-                        MainIdOld = mainIdOld
+                        MainIdOld = mainIdOld,
+
+                        NaturalBirthType = oldNew.NaturalBirthType,
+                        NaturalBirthCovaregType = oldNew.NaturalBirthCovaregType,
+                        CaesarBirthType = oldNew.CaesarBirthType,
+                        CaesarBirthCovaregType = oldNew.CaesarBirthCovaregType,
+                        FollowUpPregType = oldNew.FollowUpPregType,
+                        FollowUpPregCovaregType = oldNew.FollowUpPregCovaregType,
+                        AdvancedDentalType = oldNew.AdvancedDentalType,
+                        AdvancedDentalCovaregType = oldNew.AdvancedDentalCovaregType,
+                        BasicDentalType = oldNew.BasicDentalType,
+                        BasicDentalCovaregType = oldNew.BasicDentalCovaregType,
+                        LegalAbortionType = oldNew.LegalAbortionType,
+                        LegalAbortionCovaregType = oldNew.LegalAbortionCovaregType,
+                        DentalVisit = oldNew.DentalVisit,
+                        OpticalVisit = oldNew.OpticalVisit,
+                        BirthVisit = oldNew.BirthVisit,
+                        TransportAmbulancePercent = (int)oldNew.TransportAmbulancePercent,
+                        Notes = oldNew.Notes,
+                        //,
+
+
+
+                        AdvancDentalService = db.RenewalInsideAdvanceDentals
+                                   .Where(x => x.MainId == oldNew.Id)
+                                   .Select(x => x.ServiceId ?? 0)
+                                   .ToList(),
+                        BascDentalService = db.RenewalInsideBasicDentals
+                                   .Where(x => x.MainId == oldNew.Id)
+                                   .Select(x => x.ServiceId ?? 0)
+                                   .ToList()                      
                     };
 
                     model.Add(renwalThreeMain);
@@ -1072,10 +1287,51 @@ namespace DMS_Authontication1.Controllers
                 DailyRoshitasCountPerMonth = vM.DailyRoshitasCountPerMonth,
                 CoronaVaccineCoverage = vM.CoronaVaccineCoverage,
                 MainId = vM.MainId, 
-                ClassCode = vM.ClassCode
-                
-            };
+                ClassCode = vM.ClassCode,
 
+                NaturalBirthType = vM.NaturalBirthType,
+                NaturalBirthCovaregType = vM.NaturalBirthCovaregType,
+                CaesarBirthType = vM.CaesarBirthType,
+                CaesarBirthCovaregType = vM.CaesarBirthCovaregType,
+                FollowUpPregType = vM.FollowUpPregType,
+                FollowUpPregCovaregType = vM.FollowUpPregCovaregType,
+                AdvancedDentalType = vM.AdvancedDentalType,
+                AdvancedDentalCovaregType = vM.AdvancedDentalCovaregType,
+                BasicDentalType = vM.BasicDentalType,
+                BasicDentalCovaregType = vM.BasicDentalCovaregType,
+                LegalAbortionType = vM.LegalAbortionType,
+                LegalAbortionCovaregType = vM.LegalAbortionCovaregType,
+                DentalVisit = vM.DentalVisit,
+                OpticalVisit = vM.OpticalVisit,
+                BirthVisit = vM.BirthVisit,
+                TransportAmbulancePercent = vM.TransportAmbulancePercent,
+                Notes = vM.Notes
+                 
+            };
+            //if (vM.AdvancDentalService != null)
+            //{
+            //    vM.AdvancDentalService = new List<RenewalInsideAdvanceDental>();
+
+            //    foreach (var serviceId in vM.AdvancDentalService)
+            //    {
+            //        vM.AdvancDentalService.Add(new RenewalInsideAdvanceDental
+            //        {
+            //            ServiceId = serviceId
+            //        });
+            //    }
+            //}
+
+            //if (model.poolService != null)
+            //{
+            //    renewalBasicData.RenewalServicePools = new List<RenewalServicePool>();
+            //    foreach (var serviceId in model.poolService)
+            //    {
+            //        renewalBasicData.RenewalServicePools.Add(new RenewalServicePool
+            //        {
+            //            ServiceId = serviceId
+            //        });
+            //    }
+            //}
             return renewalthree;
         }
 
@@ -1090,7 +1346,43 @@ namespace DMS_Authontication1.Controllers
                         var renewalThree = MapViewModelToEntityStepThree(mod);
 
                         db.RenewalInsideMedicalAuthorities.Add(renewalThree);
+
                         db.SaveChanges();
+
+                        if (mod.AdvancDentalService != null)
+                        {
+                            var mainId = renewalThree.Id; // Assuming MainId is the key property
+
+                            foreach (var dentalService in mod.AdvancDentalService)
+                            {
+                                var advancDentalService = new RenewalInsideAdvanceDental
+                                {
+                                    MainId = mainId,
+                                    ServiceId = dentalService
+                                };
+                                db.RenewalInsideAdvanceDentals.Add(advancDentalService);
+                            }
+
+                            db.SaveChanges();
+                        }
+
+                        if (mod.BascDentalService != null)
+                        {
+                            var mainId = renewalThree.Id;
+
+                            foreach (var dentalService in mod.BascDentalService)
+                            {
+                                var basicDentalService = new RenewalInsideBasicDental
+                                {
+                                    MainId = mainId,
+                                    ServiceId = dentalService
+                                };
+                                db.RenewalInsideBasicDentals.Add(basicDentalService);
+                            }
+
+                            db.SaveChanges();
+                        }
+
                     }
                     else
                     {
@@ -1105,7 +1397,7 @@ namespace DMS_Authontication1.Controllers
                         }
 
                         ViewBag.Errors = errors;
-                        
+
                         TempData["ErrorMessage"] = errors;
                         TempData["RenewalStepThreeModel"] = model;
 
@@ -1123,11 +1415,14 @@ namespace DMS_Authontication1.Controllers
                 return RedirectToAction("RenewalStepThree", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
             }
         }
-
+        #endregion
+        #region ProposalStepFour
         public ActionResult RenewalStepFour(int mainId, int CompId, int ContractNo, int countCat, int typeAction, int mainIdOld)
         {
             ViewBag.MainId = mainId;
             ViewBag.CatCount = countCat;
+            ViewBag.basicService = db.BasicDentalServices.ToList();
+            ViewBag.advancService = db.DentalServices.ToList();
 
             if (TempData["Save"] != null && !string.IsNullOrEmpty(TempData["Save"].ToString()))
                 ViewBag.Save = "YES";
@@ -1466,7 +1761,33 @@ namespace DMS_Authontication1.Controllers
                         ContractNo = ContractNo,
                         CountClass = countCat,
                         typAction = typeAction,
-                        MainIdOld = mainIdOld
+                        MainIdOld = mainIdOld,
+                        
+                        NaturalBirthType = oldNew.NaturalBirthType,
+                        NaturalBirthCovaregType = oldNew.NaturalBirthCovaregType,
+                        CaesarBirthType = oldNew.CaesarBirthType,
+                        CaesarBirthCovaregType = oldNew.CaesarBirthCovaregType,
+                        FollowUpPregType = oldNew.FollowUpPregType,
+                        FollowUpPregCovaregType = oldNew.FollowUpPregCovaregType,
+                        AdvancedDentalType = oldNew.AdvancedDentalType,
+                        AdvancedDentalCovaregType = oldNew.AdvancedDentalCovaregType,
+                        BasicDentalType = oldNew.BasicDentalType,
+                        BasicDentalCovaregType = oldNew.BasicDentalCovaregType,
+                        LegalAbortionType = oldNew.LegalAbortionType,
+                        LegalAbortionCovaregType = oldNew.LegalAbortionCovaregType,
+                        DentalVisit = oldNew.DentalVisit,
+                        OpticalVisit = oldNew.OpticalVisit,
+                        BirthVisit = oldNew.BirthVisit,
+                        Notes = oldNew.Notes,
+                      
+                        AdvancDentalService = db.RenewalOtsideAdvanceDentals
+                                   .Where(x => x.MainId == oldNew.Id)
+                                   .Select(x => x.ServiceId ?? 0)
+                                   .ToList(),
+                        BascDentalService = db.RenewalOtsideBasicDentals
+                                   .Where(x => x.MainId == oldNew.Id)
+                                   .Select(x => x.ServiceId ?? 0)
+                                   .ToList()
                     };
 
                     model.Add(renwalFourMain);
@@ -1648,8 +1969,24 @@ namespace DMS_Authontication1.Controllers
                 DailyRoshitasCountPerMonth = vM.DailyRoshitasCountPerMonth,
                 CoronaVaccineCoverage = vM.CoronaVaccineCoverage,
                 MainId = vM.MainId, 
-                ClassCode = vM.ClassCode
+                ClassCode = vM.ClassCode,
 
+                NaturalBirthType = vM.NaturalBirthType,
+                NaturalBirthCovaregType = vM.NaturalBirthCovaregType,
+                CaesarBirthType = vM.CaesarBirthType,
+                CaesarBirthCovaregType = vM.CaesarBirthCovaregType,
+                FollowUpPregType = vM.FollowUpPregType,
+                FollowUpPregCovaregType = vM.FollowUpPregCovaregType,
+                AdvancedDentalType = vM.AdvancedDentalType,
+                AdvancedDentalCovaregType = vM.AdvancedDentalCovaregType,
+                BasicDentalType = vM.BasicDentalType,
+                BasicDentalCovaregType = vM.BasicDentalCovaregType,
+                LegalAbortionType = vM.LegalAbortionType,
+                LegalAbortionCovaregType = vM.LegalAbortionCovaregType,
+                DentalVisit = vM.DentalVisit,
+                OpticalVisit = vM.OpticalVisit,
+                BirthVisit = vM.BirthVisit,
+                Notes = vM.Notes
             };
 
             return renewalfour;
@@ -1667,6 +2004,41 @@ namespace DMS_Authontication1.Controllers
 
                         db.RenewalOutsideMedicalAuthorities.Add(renewalFour);
                         db.SaveChanges();
+
+                        if (mod.AdvancDentalService != null)
+                        {
+                            var mainId = renewalFour.Id; // Assuming MainId is the key property
+
+                            foreach (var dentalService in mod.AdvancDentalService)
+                            {
+                                var advancDentalService = new RenewalOtsideAdvanceDental
+                                {
+                                    MainId = mainId,
+                                    ServiceId = dentalService
+                                };
+                                db.RenewalOtsideAdvanceDentals.Add(advancDentalService);
+                            }
+
+                            db.SaveChanges();
+                        }
+
+                        if (mod.BascDentalService != null)
+                        {
+                            var mainId = renewalFour.Id;
+
+                            foreach (var dentalService in mod.BascDentalService)
+                            {
+                                var basicDentalService = new RenewalOtsideBasicDental
+                                {
+                                    MainId = mainId,
+                                    ServiceId = dentalService
+                                };
+                                db.RenewalOtsideBasicDentals.Add(basicDentalService);
+                            }
+
+                            db.SaveChanges();
+                        }
+
                     }
                     else
                     {
@@ -1703,12 +2075,13 @@ namespace DMS_Authontication1.Controllers
                 return RedirectToAction("RenewalStepFour", new { mainId = model[0].MainId, CompId = model[0].CompId, ContractNo = model[0].ContractNo, countCat = model[0].CountClass, typeAction = model[0].typAction, mainIdOld = model[0].MainIdOld });
             }
         }
-
+        #endregion
         public ActionResult PrintRenewalReports(int id, int countClass)
         {          
             ReportDocument rd = new ReportDocument();
-            
-            if(countClass == 2)
+            if (countClass == 1)    
+                rd.Load(Path.Combine(Server.MapPath("~/Reports"), "OfferRenewal1Class.rpt"));
+            else if(countClass == 2)
                 rd.Load(Path.Combine(Server.MapPath("~/Reports"), "OfferRenewal2Class.rpt"));
             else if (countClass == 3)
                 rd.Load(Path.Combine(Server.MapPath("~/Reports"), "OfferRenewal3Class.rpt"));
@@ -1739,5 +2112,4 @@ namespace DMS_Authontication1.Controllers
         }
 
     }
-    #endregion
 }

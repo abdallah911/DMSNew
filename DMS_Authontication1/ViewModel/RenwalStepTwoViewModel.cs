@@ -78,5 +78,37 @@ namespace DMS_Authontication1.ViewModel
         public int CountClass { get; set; }
         public int typAction { get; set; }
         public int MainIdOld { get; set; }
+        
+        [Required(ErrorMessage = "Price is required.")]
+        [Range(0, 100, ErrorMessage = "Price must be greater than or equal to zero.")]        
+        public int PricePercent { get; set; }
+        [Required(ErrorMessage = "Birth Number is required.")]
+        [Range(0, double.MaxValue, ErrorMessage = "Birth Number must be greater than or equal to zero.")]
+        public int BirthNumber { get; set; }
+
+        [Required(ErrorMessage = "Birth Percent is required.")]
+        [Range(0, 100, ErrorMessage = "Birth Percent must be greater than or equal to zero.")]
+        public int  BirthPercent { get; set; }
+       
+        [Required(ErrorMessage = "Optical Number is required.")]
+        [Range(0, double.MaxValue, ErrorMessage = "Optical Number must be greater than or equal to zero.")]
+        public int OpticalNumber { get; set; }
+       
+        [Required(ErrorMessage = "Optical Percent is required.")]
+        [Range(0, 100, ErrorMessage = "Optical Percent must be greater than or equal to zero.")]
+        public int OpticalPercent { get; set; }
+        
+        [Required(ErrorMessage = "Dental Number is required.")]
+        [Range(0, double.MaxValue, ErrorMessage = "Dental Number must be greater than or equal to zero.")]
+        public int DentalNumber { get; set; }
+        [Required(ErrorMessage = "Dental Percent is required.")]
+        [Range(0, 100, ErrorMessage = "Dental Percent must be greater than or equal to zero.")]
+        public int DentalPercent { get; set; }
+
+        public string Notes { get; set; }
+
+
+
+
     }
 }

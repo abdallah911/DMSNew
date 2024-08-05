@@ -7,16 +7,29 @@
     var currentUserId = User.Identity.GetUserId();
 
 }
+@if (ViewBag.Errors != null)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewBag.Errors)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    </div>
+}
+
 <!-- ////////////// Main Content ////////////// -->
 <div style="display: flex; flex-direction: column; min-height: 90vh">
     @using (Html.BeginForm("SaveDataBasicData", "ProposalRenewals", FormMethod.Post))
-    { 
-        @Html.AntiForgeryToken() 
+    {
+        @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.CompId)
         @Html.HiddenFor(model => model.ContractNo)
         @Html.HiddenFor(model => model.CountClass)
         @Html.HiddenFor(model => model.typAction)
         @Html.HiddenFor(model => model.MainId)
+        @Html.HiddenFor(model => model.MainIdOld)
 
         <div class="bg-grid-container">
             <div class="container">
@@ -39,6 +52,8 @@
                                         @* <input class="sios-form-control w-100 border-0" />*@
                                         @Html.TextBoxFor(model => Model.ValueMedicationOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%;height: 40px; padding-top: 10px;padding-left: 10px;", @disabled = "disabled" })
 
+
+
                                         <span style=" left: 10px !important; padding-left: 0;">Midicaion</span>
                                     </div>
                                 </div>
@@ -49,8 +64,14 @@
                                     <div class="forLabel basic-data-ddl ms-auto me-4 position-relative" style="width: 70%; padding-right: 30px; ">
 
                                         @*@Html.DropDownListFor(model => Model.poolService, ViewBag.PolServ as SelectList, "Select Services", new { @class = "sios-form-control w-100 border-0", style = "width: 100%", id = "poolService", multiple = "multiple" })*@
-                                        @Html.DropDownListFor(model => Model.poolService, ViewBag.PolServ as SelectList, new { @class = "sios-form-control select2 w-100 border-0", style = "width: 100%", id = "poolService", multiple = "multiple" })
-                                        <span style="right: 40px !important; padding-left: 0;">Multiselection</span>
+                                        @Html.ListBoxFor(model => Model.poolService, (SelectList)ViewBag.PolServ, new { @class = "sios-form-control select2 w-100 border-0", style = "width: 100%", multiple = "multiple" })
+
+                                        @*  @Html.DropDownListFor(model => Model.poolService, new SelectList(ViewBag.PolServ, "Value", "Text", Model.poolService), new { @class = "sios-form-control select2 w-100 border-0", style = "width: 100%", id = "poolService", multiple = "multiple" })*@
+
+                                        @*<select asp-for="Model.poolService" asp-items="ViewBag.PolServ" class = "sios-form-control select2 w-100 border-0" style = "width: 100%" id = "poolService" multiple = "multiple" ></select>*@
+
+
+                                        <span style="right: 40px !important; padding-left: 0;">Poll Services</span>
                                     </div>
                                 </div>
                                 <h6 class="sios-color">Services</h6>
@@ -63,14 +84,14 @@
                                         @*<input class="sios-form-control w-100 border-0" />*@
                                         @*@Html.TextBoxFor(model => Model.ValueAllOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })*@
                                         @Html.TextBoxFor(model => Model.ValuePool, new { @class = "sios-form-control w-100 border-0 ps-2", style = "width: 100% ;height: 40px; padding-top: 10px;padding-left: 10px;" })
-                                        <span style=" left: 10px !important; padding-left: 0;">ALL</span>
+                                        <span style=" left: 10px !important; padding-left: 0;">قيمة</span>
                                     </div>
                                     <div class="forLabel position-relative" style="width: 20%; margin-right: 5%;">
                                         @* <input class="sios-form-control w-100 border-0" />*@
                                         @*@Html.TextBoxFor(model => Model.ValueMedicationOld, new { @class = "sios-form-control w-100 border-0", style = "width: 100%", @disabled = "disabled" })*@
                                         @Html.TextBoxFor(model => Model.PercentPool, new { @class = "sios-form-control w-100 border-0 ps-2", style = "width: 100% ;height: 40px; padding-top: 10px;padding-left: 10px;" })
 
-                                        <span style=" left: 10px !important; padding-left: 0;">Midicaion</span>
+                                        <span style=" left: 10px !important; padding-left: 0;">نسبة</span>
                                     </div>
                                 </div>
                             </div>
@@ -260,9 +281,11 @@
                             <div class="pool-field rounded-0" style="height:90px;">
                                 <div class="inputs w-100">
                                     <div class="forLabel position-relative" style="width: 45%; margin-right:5%; ">
-                                        <textarea type="text" class="sios-form-control w-100 mb-0 border-0" style="width: 100%; height: 70px; background-color: #e3e3e3; padding-top: 20px !important; padding-left: 10px; "></textarea>
+                                        @*  <textarea type="text" class="sios-form-control w-100 mb-0 border-0" style="width: 100%; height: 70px; background-color: #e3e3e3; padding-top: 20px !important; padding-left: 10px; "></textarea>*@
+                                        @Html.TextAreaFor(model => model.Notes, new { @class = "sios-form-control w-100 mb-0 border-0", style = "width: 100%; height: 70px; background-color: #e3e3e3; padding-top: 20px !important; padding-left: 10px;" })
+
                                         <span style=" left: 10px !important; padding-left: 0;">Type your Note</span>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
