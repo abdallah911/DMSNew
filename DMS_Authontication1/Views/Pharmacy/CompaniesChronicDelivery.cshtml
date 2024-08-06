@@ -1,132 +1,134 @@
 ﻿
 @{
     ViewBag.Title = "CompaniesChronicDelivery";
+    Layout = "~/Views/Shared/_Layout_DashboardPharmacy.cshtml";
+
 }
 <style>
     .ui-datepicker-calendar {
         display: none;
     }
 </style>
-
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Companies Chronic Search
+<div class="pharm-container">
+    <div class="portlet box  green">
+        <div class="sios-overlay container-fluid mt-4 portlet-title">
+            <div class="container ms-0 fs-3 text-white caption">
+                <i class="fa-solid fa-home me-1"></i>Companies Chronic Search
+            </div>
+        </div>
+        <div class="container portlet-body">
+            <div class="row row-cols-sm-2 row-cols-lg-3 row-gap-2">
+                <div class="admin-form-control border-0 px-2 ">
+                    @Html.DropDownList("ddlCompanies", null, "Select Company", htmlAttributes: new { @class = "admin-form-control w-100 h-100 rounded-2 form-control", @id = "ddlCompanies" })
+                </div> 
+                <div class="forLabel admin-form-control border-0 px-2  ">
+                    <input id="Date" type="text" class="admin-form-control w-100 h-100 rounded-2   form-control " placeholder="" required="" />
+                    <span style="padding-left:12px;">Select Month</span>
+                </div>
+                <div class="forLabel select-group-none admin-form-control border-0 px-2" data-step="6" data-intro="Select Preception type Default is Daily">
+                    <select id="ddlGroups" class="admin-form-control w-100 h-100 rounded-2 form-control"required="">
+                    </select>
+                    <span style="padding-left:12px;">Select Group</span>
+                </div>
+                <div class="forLabel admin-form-control border-0 px-2  ">
+                    <input id="CardId" type="text" class="admin-form-control w-100 h-100 rounded-2 form-control " placeholder=""  required=""/>
+                    <span style="padding-left:12px;">Card ID</span>
+                </div>
+                <div class="mx-auto me-lg-0">
+                    <div class="d-flex gap-2 justify-content-center justify-content-lg-end ">
+                        <input id="ResetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn text-white fw-bold rounded-3 " />
+                        <input id="Print" type="button" value="Print" class="btn text-white fw-bold rounded-3  " />
+                        <input id="Search" type="button" value="Search" class="btn text-white fw-bold rounded-3 " />
+                    </div>
+                </div>
+            </div>
+            
+        
         </div>
     </div>
-    <div class="portlet-body">
-        <div class="row">
-            <div class="col-md-2">
-                @Html.DropDownList("ddlCompanies", null, "Select Company", htmlAttributes: new { @class = "form-control", @id = "ddlCompanies" })
-            </div>
-            <div class="col-md-2">
-                <input id="Date" type="text" class="col-md-2 form-control " placeholder="Select Month" />
-            </div>
-            <div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
-                <select id="ddlGroups" class="form-control" >
-                    <option value="">Select Group</option>
 
-                </select>
-            </div>
-            <div class="col-md-2">
-                <input id="CardId" type="text" class="col-md-2 form-control " placeholder="Card ID" />
+    <div class="portlet box  green">
+        <div class="sios-overlay container-fluid mt-4  portlet-title">
+            <div class="container ms-0 fs-3 text-white caption"> Companies Chronic Medicines
             </div>
 
         </div>
-        <br />
-        <div class="row" style=" text-align:right">
-            <div class="col-md-12">
-                <input id="ResetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
-                <input id="Print" type="button" value="Print" class="btn btn-primary fa fa-file-pdf-o" />
-                <input id="Search" type="button" value="Search" class="btn btn-default  fa fa-search" />
+        
+        <div class="sios-bg container-fluid my-4 portlet-body">
+            <div class="table-responsive mx-lg-5 ">
+                <table class="table table-striped mt-3 text-center" id="Index">
+                    <thead>
+                        <tr style="white-space:nowrap;">
+                            <th scope="col">CardId</th>
+                            <th scope="col">Company Group</th>
+                            <th scope="col" align="center">Medicien Code</th>
+                            <th scope="col" align="center">Name</th>
+                            <th scope="col">Dosage</th>
+                            <th scope="col">Package Size</th>
+                            <th scope="col">Package Price</th>
+                            <th scope="col">Unit Number</th>
+                            <th scope="col">Unit Price</th>
+                            <th scope="col">Dose</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Total Duration</th>
+                            <th scope="col">Total Units</th>
+                            <th scope="col">Amount</th>
+                            @*<th scope="col">Medicine Type</th>*@
+                            <th scope="col">Month</th>
+                            <th scope="col">Act</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
 
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="portlet box  green">
+        <div class="sios-overlay container-fluid mt-4 portlet-title">
+            <div class="container ms-0 fs-3 text-white caption"> Count
+            </div>
+        </div>
+        <div class="sios-bg container-fluid my-4 portlet-body">
+            <div class="table-responsive mx-lg-5">
+                <table class=" ui celled table" id="Counts" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Total Counts
+                            </th>
+                            <th>
+                                Total Cards
+                            </th>
+                            <th>
+                                Total Value
+                            </th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                0
+                            </td>
+
+
+                        </tr>
+                    </tbody>
+
+                </table>
             </div>
         </div>
     </div>
 </div>
-
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Companies Chronic Medicines
-        </div>
-
-    </div>
-    <br />
-    <div class="portlet-body">
-
-        <table class="ui celled table" id="Index" width="100%">
-            <thead>
-                <tr style="white-space:nowrap;">
-                    <th scope="col">CardId</th>
-                    <th scope="col">Company Group</th>
-                    <th scope="col" align="center">Medicien Code</th>
-                    <th scope="col" align="center">Name</th>
-                    <th scope="col">Dosage</th>
-                    <th scope="col">Package Size</th>
-                    <th scope="col">Package Price</th>
-                    <th scope="col">Unit Number</th>
-                    <th scope="col">Unit Price</th>
-                    <th scope="col">Dose</th>
-                    <th scope="col">Duration</th>
-                    <th scope="col">Total Duration</th>
-                    <th scope="col">Total Units</th>
-                    <th scope="col">Amount</th>
-                    @*<th scope="col">Medicine Type</th>*@
-                    <th scope="col">Month</th>
-                    <th scope="col">Act</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-
-        </table>
-    </div>
-</div>
-
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Count
-        </div>
-    </div>
-    <div class="portlet-body">
-        <table class="ui celled table" id="Counts" width="100%">
-            <thead>
-                <tr>
-                    <th>
-                        Total Counts
-                    </th>
-                    <th>
-                        Total Cards
-                    </th>
-                    <th>
-                        Total Value
-                    </th>
-
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        0
-                    </td>
-                    <td>
-                        0
-                    </td>
-                    <td>
-                        0
-                    </td>
-
-
-                </tr>
-            </tbody>
-
-        </table>
-    </div>
-
-</div>
-
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 <script src="~/Scripts/DMS/CompaniesChronicDelivery.js?V=1"></script>
 

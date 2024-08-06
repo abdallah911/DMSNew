@@ -9275,6 +9275,7 @@
     <Content Include="Views\Claim\Create.cshtml" />
     <Content Include="Views\Claim\Index.cshtml" />
     <Content Include="Views\Claim\UserPermision.cshtml" />
+    <Content Include="Views\Shared\_Layout_DashboardPharmacy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

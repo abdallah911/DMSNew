@@ -33,230 +33,242 @@
 
     }
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
-}
-<input id="role" value="@role.ToString()" hidden />
-@if (!User.IsInRole("Admin"))
-{
-    <div class=" editeRquest fw-bold pt-4 portlet box  green">
-        <div class="row bg-overlay portlet-title">
-            <div class="m-3 fs-3 text-white caption">
-                <i class="fa fa-gift"></i>Print Claims
+    Layout = "~/Views/Shared/_Layout_DashboardPharmacy.cshtml";
+}<div class="pharm-container">
+    <input id="role" value="@role.ToString()" hidden />
+    @if (!User.IsInRole("Admin"))
+    {
+
+        <div class=" portlet box  green">
+            <div class="sios-overlay container-fluid my-4 portlet-title">
+                <div class="container ms-0 fs-3 text-white caption">
+                    <i class="fa-solid fa-home me-1"></i>Print Claims
+                </div>
             </div>
-        </div>
-        <div class="portlet-body">
-            <div class="row row-col-xl-4 row-cols-lg-3 row-cols-sm-2 row-gap-2">
-                <div class="">
-                    <input id="From" type="text" class="admin-form-control w-100  ps-3 " placeholder="From" />
-                </div>
-                <div class="">
-                    <input id="To" type="text" class="admin-form-control w-100  ps-3 " placeholder="To" />
-                </div>
-                <div class="">
-                    <input id="PharmacyApprovalNo" type="text" class="admin-form-control w-100  ps-3 " placeholder="ApprovalNo" />
-                </div>
-                <div class="">
-                    <input id="PharmacyCardId" type="text" class="admin-form-control w-100  ps-3 " placeholder="Card ID" />
-                </div>
-                <div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
-                    <select id="PharmacyddlType" class="form-control">
-                        <option value="">Select Type</option>
-                        <option value="Daily">Daily</option>
-                        <option value="Monthly">Monthly</option>
-                        <option value="Pharmacy_admin">Pharmacy_admin</option>
-                        @*<option value="11604">Doctor</option>*@
-                    </select>
-                </div>
-                @if (User.IsInRole("Pharmacy_Admin"))
-                {
-                    <div class="">
-                        @Html.DropDownList("ddlUsers", null, "All", htmlAttributes: new { @class = "form-control", @id = "ddlUsers" })
+            <div class="container portlet-body">
+                <div class="row row-cols-sm-2 row-cols-lg-3 row-gap-2">
+                    <div class="forLabel admin-form-control border-0 px-2 ">
+                        <input id="From" type="text" class="admin-form-control w-100  ps-3 " placeholder="" required />
+                        <span style="padding-left:12px;">From</span>
                     </div>
-                }
-            </div>
-            
-            <div class="row" style=" text-align:right">
-                <div class="col-md-12">
-                    <input id="PharmacyResetSearch" type="button" value="Reset" onclick="ClearPharmacySearchData();" class="btn btn-warning" />
-                    <input id="Print" type="button" value="Print" class="btn btn-primary fa fa-file-pdf-o" />
-                    @*<input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o " />*@
-                    <input id="PharmacyAdminSearch" type="button" value="Search" style="font-family: 'Almarai', sans-serif;" class="btn fw-bold text-white rounded-3 btn-default   " />
+                    <div class="forLabel admin-form-control border-0 px-2 ">
+                        <input id="To" type="text" class="admin-form-control w-100  ps-3 " placeholder="" required />
+                        <span style="padding-left:12px;">To</span> 
+                    </div>
+                    <div class="forLabel admin-form-control border-0 px-2 ">
+                        <input id="PharmacyApprovalNo" type="text" class="admin-form-control w-100  ps-3 " placeholder="" required />
+                        <span style="padding-left:12px;">ApprovalNo</span>
 
+                    </div>
+                    <div class="forLabel admin-form-control border-0 px-2 ">
+                        <input id="PharmacyCardId" type="text" class="admin-form-control w-100  ps-3 " placeholder="" required />
+                        <span style="padding-left:12px;">Card ID</span>
+
+                    </div>
+                    <div class="forLabel admin-form-control border-0 px-2 " data-step="6" data-intro="Select Preception type Default is Daily">
+                        <select id="PharmacyddlType" class="admin-form-control w-100  ps-3 form-control" required>
+                            <option value=""></option>
+                            <option value="Daily">Daily</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Pharmacy_admin">Pharmacy_admin</option>
+                            @*<option value="11604">Doctor</option>*@
+                        </select>
+                        <span style="padding-left:12px;">Select Type</span> 
+                    </div>
+                    @if (User.IsInRole("Pharmacy_Admin"))
+                    {
+                        <div class="forLabel admin-form-control border-0 px-2 ">
+                            @Html.DropDownList("ddlUsers", null, "All", htmlAttributes: new { @class = "form-control", @id = "ddlUsers" })
+                        </div>
+                    }
+                    <div style=" text-align:right">
+                        <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3" />
+                        <input id="PrintExcel" type="button" value="Excel" class="btn fw-bold text-white rounded-3 fa-file-excel-o " />
+                        <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3 " />
+                    </div>
                 </div>
+
+              
             </div>
         </div>
-    </div>
-}
-@if (User.IsInRole("Admin") && (edit || delete || view || fullcontroll))
-{
+    }
+    @if (User.IsInRole("Admin") && (edit || delete || view || fullcontroll))
+    {
 
-    <div class="  editeRquest fw-bold pt-4 portlet box  green">
+        <div class="  editeRquest fw-bold pt-4 portlet box  green">
+            <div class="row bg-overlay portlet-title">
+                <div class="m-3 fs-3 text-white caption"> Admin Search
+                </div>
+            </div>
+            <div class="container pt-4 portlet-body">
+                <input id="edit" value="@edit.ToString()" hidden />
+                <input id="delete" value="@delete.ToString()" hidden />
+                <input id="view" value="@view.ToString()" hidden />
+                <input id="fullcontroll" value="@fullcontroll.ToString()" hidden />
+
+                <div class="row row-cols-sm-2 row-cols-lg-3 row-gap-2" style="padding-bottom: 15px;">
+                    <div class="forLabel admin-form-control border-0 px-2 ">
+                        <input id="AdminFrom" type="text" class="admin-form-control w-100  ps-3 " placeholder="" required />
+                        <span style="padding-left:12px;">From</span>
+                    </div>
+                    <div class="forLabel admin-form-control border-0 px-2 ">
+                        <input id="Provider" type="text" class="admin-form-control w-100  ps-3 " placeholder="" required />
+                        <span style="padding-left:12px;">Provider</span>
+                    </div>
+                    <div class="forLabel admin-form-control border-0 px-2 ">
+                        <input id="Company" type="text" class="admin-form-control w-100  ps-3 " placeholder="" required />
+                        <span style="padding-left:12px;">Company</span>
+                    </div>
+                    <div class="forLabel admin-form-control border-0 px-2 ">
+                        <input id="ApprovalNo" type="text" class="admin-form-control w-100  ps-3 " placeholder="" required />
+                        <span style="padding-left:12px;">ApprovalNo</span>
+                    </div>
+                    <div class="forLabel admin-form-control border-0 px-2 ">
+                        <input id="AdminTo" type="text" class="admin-form-control w-100  ps-3 " placeholder="" required />
+                        <span style="padding-left:12px;">To</span>
+                    </div>
+                    <div class="forLabel admin-form-control border-0 px-2 ">
+                        <input id="Branch" type="text" class="admin-form-control w-100  ps-3 " placeholder="" required />
+                        <span style="padding-left:12px;">Branch</span>
+                    </div>
+                    <div class="forLabel admin-form-control border-0 px-2 ">
+                        <input id="CardId" type="text" class="admin-form-control w-100  ps-3 " placeholder="" required />
+                        <span style="padding-left:12px;">Card ID</span>
+                    </div>
+                    <div class="forLabel admin-form-control border-0 px-2  " data-step="6" data-intro="Select Preception type Default is Daily">
+                        <select style="height:40px;" id="ddlType" class="admin-form-control w-100  ps-3 form-control" required>
+                            <option value=""></option>
+                            <option value="Daily">Daily</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Pharmacy_admin">Pharmacy_admin</option>
+                            <option value="Pharmacy_Data">Pharmacy_Data</option>
+                            @*<option value="11604">Doctor</option>*@
+                        </select>
+                        <span style="padding-left:12px;">Select Type</span>
+                    </div>
+                    <div style=" text-align:right">
+                        <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3" />
+                        <input id="PrintExcel" type="button" value="Excel" class="btn fw-bold text-white rounded-3 fa-file-excel-o " />
+                        <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3 " />
+                    </div>
+                </div>
+
+             
+            </div>
+        </div>
+    }
+    <div class="  editeRquest fw-bold py-4 portlet box  green">
         <div class="row bg-overlay portlet-title">
-            <div class="m-3 fs-3 text-white caption">
-                <i class="fa fa-gift me-3"></i>Admin Search
+            <div class="m-3 fs-3 text-white caption"> Claims
             </div>
+
         </div>
-        <div class="container pt-4 portlet-body">
-            <input id="edit" value="@edit.ToString()" hidden />
-            <input id="delete" value="@delete.ToString()" hidden />
-            <input id="view" value="@view.ToString()" hidden />
-            <input id="fullcontroll" value="@fullcontroll.ToString()" hidden />
-
-            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-gap-2" style="padding-bottom: 15px;">
-                <div class="">
-                    <input id="AdminFrom" type="text" class="admin-form-control w-100  ps-3 " placeholder="From" />
-                </div>
-                <div class="">
-                    <input id="Provider" type="text" class="admin-form-control w-100  ps-3 " placeholder="Provider" />
-                </div>
-                <div class="">
-                    <input id="Company" type="text" class="admin-form-control w-100  ps-3 " placeholder="Company" />
-                </div>
-                <div class="">
-                    <input id="ApprovalNo" type="text" class="admin-form-control w-100  ps-3 " placeholder="ApprovalNo" />
-                </div>
-                <div class="">
-                    <input id="AdminTo" type="text" class="admin-form-control w-100  ps-3 " placeholder="To" />
-                </div>
-                <div class="">
-                    <input id="Branch" type="text" class="admin-form-control w-100  ps-3 " placeholder="Branch" />
-                </div>
-                <div class="">
-                    <input id="CardId" type="text" class="admin-form-control w-100  ps-3 " placeholder="Card ID" />
-                </div>
-                <div class=" " data-step="6" data-intro="Select Preception type Default is Daily">
-                    <select style="height:40px;" id="ddlType" class="admin-form-control w-100  ps-3 form-control">
-                        <option value="">Select Type</option>
-                        <option value="Daily">Daily</option>
-                        <option value="Monthly">Monthly</option>
-                        <option value="Pharmacy_admin">Pharmacy_admin</option>
-                        <option value="Pharmacy_Data">Pharmacy_Data</option>
-                        @*<option value="11604">Doctor</option>*@
-                    </select>
-                </div>
-            </div>
-           
-            <div style=" text-align:right">
-                <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3" />
-                <input id="PrintExcel" type="button" value="Excel" class="btn fw-bold text-white rounded-3 fa-file-excel-o " />
-                <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3 " />
-            </div>
-        </div>
-    </div>
-}
-<div class="  editeRquest fw-bold py-4 portlet box  green">
-    <div class="row bg-overlay portlet-title">
-        <div class="m-3 fs-3 text-white caption">
-            <i class="fa fa-gift me-3"></i>Claims
-        </div>
-
-    </div>
-    <div class="cs-bg w-100 m-auto px-4 mt-4 pb-5">
-        <div class="table-responsive portlet-body">
-
-            <table class="table table-striped mt-3 text-center ui celled table" id="Index" width="100%">
-                <thead>
-                    <tr>
-
-                        <th>
-                            Approval No
-                        </th>
-                        <th>
-                            Card Id
-                        </th>
-                        <th>
-                            Company Percent
-                        </th>
-                        <th>
-                            Total Value
-                        </th>
-                        <th>
-                            Manager
-                        </th>
-
-                        <th>
-                            CreatedBy
-                        </th>
-
-                        <th>
-                            CreatedDate
-                        </th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-
-            </table>
-        </div>
-    </div>
-</div>
-@if (User.IsInRole("Admin") && fullcontroll)
-{
-    <div class=" editeRquest fw-bold pt-4portlet box  green">
-        <div class="row bg-overlay portlet-title">
-            <div class="m-3 fs-3 text-white caption">
-                <i class="fa fa-gift me-3"></i>Admin Count
-            </div>
-        </div>
-        <div class="cs-bg w-100 m-auto px-4 my-4 pb-5">
-            <div class="table-responsive portlet-body">
-                <table class="table table-striped mt-3 text-center ui celled table" id="Counts" width="100%">
+        <div class="sios-bg container-fluid my-4">
+            <div class="table-responsive mx-lg-5 portlet-body">
+                <table class="table table-striped mt-3 text-center ui celled" id="Index" width="100%">
                     <thead>
                         <tr>
+
                             <th>
-                                Count
+                                Approval No
+                            </th>
+                            <th>
+                                Card Id
+                            </th>
+                            <th>
+                                Company Percent
                             </th>
                             <th>
                                 Total Value
                             </th>
                             <th>
-                                Company Payment
-                            </th>
-                            <th>
-                                Person Payment
-                            </th>
-                            <th>
-                                Cash
+                                Manager
                             </th>
 
                             <th>
-                                Over Insurance
+                                CreatedBy
                             </th>
 
+                            <th>
+                                CreatedDate
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                0
-                            </td>
-
-                        </tr>
-                    </tbody>
+                    <tbody></tbody>
 
                 </table>
             </div>
         </div>
     </div>
+    @if (User.IsInRole("Admin") && fullcontroll)
+    {
+        <div class=" editeRquest fw-bold pt-4portlet box  green">
+            <div class="row bg-overlay portlet-title">
+                <div class="m-3 fs-3 text-white caption">
+                    <i class="fa fa-gift me-3"></i>Admin Count
+                </div>
+            </div>
+            <div class="cs-bg w-100 m-auto px-4 my-4 pb-5">
+                <div class="table-responsive portlet-body">
+                    <table class="table table-striped mt-3 text-center ui celled table" id="Counts" width="100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Count
+                                </th>
+                                <th>
+                                    Total Value
+                                </th>
+                                <th>
+                                    Company Payment
+                                </th>
+                                <th>
+                                    Person Payment
+                                </th>
+                                <th>
+                                    Cash
+                                </th>
 
-}
+                                <th>
+                                    Over Insurance
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    0
+                                </td>
+
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 <script src="~/Scripts/DMS/PharmacyIndex.js?V=6.2"></script>

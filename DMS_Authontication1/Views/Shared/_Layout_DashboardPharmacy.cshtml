@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/bootstrap.min.css" />
     <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/jquery-ui.min.css" />
     <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/select2.min.css" />
-    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/admin.css" />  <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/admin.css" /> 
+    <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
     <link href="~/assets/global/plugins/jquery-validity/css/jquery.validity.css" rel="stylesheet" />
     <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
@@ -57,59 +58,58 @@
                 </button>
                 @*@if ((User.IsInRole("Admin") || User.IsInRole("AdminHelth") || User.IsInRole("Doctor")) && User.Identity.IsAuthenticated)
                     {*@
-                <div class="collapse navbar-collapse justify-content-between align-items-center mt-0"
-                     id="navbarSupportedContent">
-                    <div class="d-flex flex-column mx-auto flex-lg-row mb-3 mb-lg-0 ps-4 ">
-                        <ul class="ps-0 hosp-main-ul nav navbar-nav nav-admin-cus" style="color: #000">
-                            <li><a href="/Hospital">Hospital</a></li>
-                            <li><a href="/Hospital/Claims">Claims</a></li>
-                            <li><a href="/Hospital/AddApproval">Add Approval</a></li>
-                            <li><a href="/Hospital/AprovalsEdit">Approvals Edit</a></li>
-                        </ul>
-                    </div>
-                    <div class="d-flex">
-                        <ul class="ps-0 Admin-main-ul mb-0">
-                            <li class="nav-item dropdown" style="list-style-type: none">
-                                <a class="nav-link"
-                                   href="#"
-                                   role="button"
-                                   data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    Hello, @User.Identity.GetUserName()
-                                    <i class="fas fa-chevron-down"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Profile", "Main", "ControlPanel", null, new { @class = "dropdown-item" })</li>
-                                    <li>@Html.ActionLink("Manage Account", "Index", "Manage", null, new { @class = "dropdown-item" })</li>
-                                    <li><hr class="dropdown-divider" /></li>
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">LogOut</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <ul class="ps-0 Admin-main-ul mb-0">
-                            <li class="nav-item dropdown mt-2" style="list-style-type: none">
-                                <a class="nav-link"
-                                   href="#"
-                                   role="button"
-                                   data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    <i class="fas fa-bell fs-4"></i>
-                                </a>
-                                <div class="notific">
-                                    1
-                                </div>
-                                <div class="dropdown-menu dropdown-menu-end"
-                                     aria-labelledby="bell-dropdown" id="divNotificationValues">
-                                    @*<a class="dropdown-item" href="#">{{CardIDDDD CardIDDDD - 1000-1-175-1}}</a>
-                                        <hr class="dropdown-divider" />
-                                        <a class="dropdown-item" href="#">{{CardID}}</a>*@
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+            <div class="collapse navbar-collapse justify-content-between align-items-center mt-0"
+                 id="navbarSupportedContent">
+                <div class="d-flex flex-column mx-auto flex-lg-row mb-3 mb-lg-0 ps-4 ">
+                    <ul class="ps-0 hosp-main-ul nav navbar-nav nav-admin-cus" style="color: #000">
+                        <li><a href="/Pharmacy/Pharmacy">Pharmacy</a></li>
+                        <li><a href="/Pharmacy">Claims</a></li>
+                        <li><a href="/Pharmacy/CompaniesChronicDelivery">Chronic Delivery</a></li> 
+                    </ul>
+                </div> 
+                <div class="d-flex">
+                    <ul class="ps-0 Admin-main-ul mb-0">
+                        <li class="nav-item dropdown" style="list-style-type: none">
+                            <a class="nav-link"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Hello, @User.Identity.GetUserName()
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Profile", "Main", "ControlPanel", null, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Manage Account", "Index", "Manage", null, new { @class = "dropdown-item" })</li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">LogOut</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="ps-0 Admin-main-ul mb-0">
+                        <li class="nav-item dropdown mt-2" style="list-style-type: none">
+                            <a class="nav-link"
+                               href="#"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="fas fa-bell fs-4"></i>
+                            </a>
+                            <div class="notific">
+                                1
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-end"
+                                 aria-labelledby="bell-dropdown" id="divNotificationValues">
+                                @*<a class="dropdown-item" href="#">{{CardIDDDD CardIDDDD - 1000-1-175-1}}</a>
+                        <hr class="dropdown-divider" />
+                        <a class="dropdown-item" href="#">{{CardID}}</a>*@
+                            </div>
+                        </li>
+                    </ul>
                 </div>
+            </div>
                 @* } *@
             </div>
         </nav>

@@ -34,7 +34,7 @@ body {
     font-size: 14px;
     margin: 0;
     padding: 0;
-  /*  overflow-x: hidden;*/
+    overflow-x: hidden;
 }
 /* start sidebar */
 
@@ -214,7 +214,7 @@ input {
     transition: all 0.2s ease-in-out;
 }
  span.select2.select2-container.select2-container--default {
-    height: 45px !important;
+    height: 40px !important;
     width: 100% !important;
 }
 
@@ -341,7 +341,9 @@ li.select2-results__option.select2-results__option--selectable.select2-results__
 li.select2-results__option.select2-results__option--selectable.select2-results__option--selected:hover {
     background-color: #3875d7bf;
 }
-
+.select-group-none span.select2-selection__placeholder {
+    display: none;
+}
 /* ====================CS Pages=========================================== */
 .cs-page-container span.select2.select2-container.select2-container--default {
     height: 100%;
@@ -896,8 +898,8 @@ textarea {
     min-height: calc(100vh - 259.5px);
 }
 
-.sios-container{
-    min-height:calc(100vh - 259.5px )
+.pharm-container {
+    min-height: calc(100vh - 272px )
 }
 
 .after-sales-page-container,
@@ -1355,9 +1357,9 @@ font-size: 12px;
         padding: 0 10px !important;
     }
 
-th,
-td {
+th,td {
     vertical-align: middle;
+    text-align: center;
 }
 
 @media (min-width: 1200px) {
