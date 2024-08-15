@@ -1,6 +1,6 @@
 :root {
     /* color */
-    --color-hr: linear-gradient(45deg, #471F5D 0%, #ae7cb2 50%, #471F5D 100%);
+    --color-hr: linear-gradient(45deg, #703a96 0%, #c48cc3 50%, #703a96 100%);
     --color-hr-btn: #4f3265;
     --color-primary: #778183;
     --color-text: #1b1b1b;
@@ -29,7 +29,7 @@ a{
     text-decoration:none;
 }
 body {
-    background: url(../Img/new-dms-logo.png);
+    background: url(../Img/Untitled-122-01.jpg);
     background-blend-mode: multiply;
     background-size: contain;
     background-attachment: fixed;
@@ -40,6 +40,38 @@ body {
     background-position: center;
     overflow-x: hidden;
 }
+body.hr-page {
+    background: unset;
+    background-blend-mode: multiply;
+    background-size: contain;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    background-position: center;
+    overflow-x: hidden;
+    position:relative;
+}
+    body.hr-page::after {
+        content: '';
+        background: url(../Img/new-dms-logo.png);
+        background-size: contain;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        font-size: 14px;
+        top: 0;
+        left: 6.7%;
+        transform: translateY(-50%);
+        transform: translateX(-50%);
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        transform: scale(0.4);
+        z-index: -1;
+        opacity: 17%;
+    }
+
 /* start sidebar */
 
 .sidebar-parent {
@@ -149,7 +181,7 @@ body {
         pointer-events: none;
         transition: all 0.2s ease-in-out;
     }
-.hr-sec .forLabel > span:not(.select2-container),
+.hr-page .forLabel > span:not(.select2-container),
 .select {
     color: var(--color-hr-btn);
 }
@@ -213,19 +245,19 @@ input {
 ::-webkit-scrollbar-thumb:hover {
     background: #7d7d92;
 }
-.hr-sec::-webkit-scrollbar-track {
+.hr-page::-webkit-scrollbar-track {
     background: #d7c8db;
     border-radius: 20px;
 }
 
-.hr-sec::-webkit-scrollbar-thumb {
+.hr-page::-webkit-scrollbar-thumb {
     background: #9b91a7;
     border: 4px solid #d7c8db;
     width: 24px;
     border-radius: 15px;
 }
 
-.hr-sec::-webkit-scrollbar-thumb:hover {
+.hr-page::-webkit-scrollbar-thumb:hover {
     background: #867d92;
 }
 /* ====================select2 style=========================================== */
@@ -262,7 +294,7 @@ span.select2-selection.select2-selection--single {
     height: 100%;
     padding-top: 10px;
 }
-.hr-sec span.select2-selection.select2-selection--single {
+.hr-page span.select2-selection.select2-selection--single {
     border: 2px solid var(--color-hr-btn);
 }
 span#select2-CompNo-container,
@@ -646,10 +678,10 @@ table,
     color: var(--color-table-text);
     padding: 10px !important;
 }
-.hr-sec .table > :not(caption) > * > * { 
+.hr-page .table > :not(caption) > * > * { 
     color: white; 
 }
-.hr-sec td.dataTables_empty {
+.hr-page td.dataTables_empty {
     color: var(--color-hr-btn);
 }
 
@@ -704,7 +736,7 @@ table,
 .dataTables_wrapper > div:last-of-type div {
     width: fit-content;
 }
-.hr-sec .dataTables_wrapper > div:last-of-type div {
+.hr-page .dataTables_wrapper > div:last-of-type div {
     color: var(--color-hr-btn);
 }
 
@@ -774,13 +806,13 @@ ul.pagination {
     .table-responsive .paginate_button.previous a:hover {
         background-color: var(--color-btn-sec) !important;
     }
-.hr-sec .table-responsive .paginate_button.next a,
-.hr-sec .table-responsive .paginate_button.previous a {
+.hr-page .table-responsive .paginate_button.next a,
+.hr-page .table-responsive .paginate_button.previous a {
     background-color: var(--color-hr-btn);
 }
 
-    .hr-sec .table-responsive .paginate_button.next a:hover,
-    .hr-sec .table-responsive .paginate_button.previous a:hover {
+    .hr-page .table-responsive .paginate_button.next a:hover,
+    .hr-page .table-responsive .paginate_button.previous a:hover {
         background-color: #3f2554 !important;
     }
 
@@ -812,7 +844,7 @@ ul.pagination {
     .table-responsive label:hover {
         background-color: var(--color-btn-sec);
     }
-.hr-sec .table-responsive label {
+.hr-page .table-responsive label {
     display: flex;
     align-items: center;
     background-color: var(--color-hr-btn);
@@ -826,7 +858,7 @@ ul.pagination {
     z-index: 2;
 }
 
- .hr-sec .table-responsive label:hover {
+ .hr-page .table-responsive label:hover {
         background-color: #3f2554;
     }
 
@@ -841,7 +873,7 @@ ul.pagination {
     border-radius: 15px;
     z-index: -1;
 }
-.hr-sec .table-responsive label input {
+.hr-page .table-responsive label input {
     border-color: #9784a2;
 }
 
@@ -880,7 +912,7 @@ select.form-select.form-select-sm {
     vertical-align: bottom;
     background: #86aef770;
 }
-.hr-sec .table > thead {
+.hr-page .table > thead {
     vertical-align: bottom;
     background: var(--color-hr);
 }
@@ -1019,7 +1051,7 @@ textarea {
         color: var(--color-btn) !important;
         border: 2px solid var(--color-btn);
     }
-.hr-sec .btn {
+.hr-page .btn {
     background-color: var(--color-hr-btn);
     border-radius: 12px;
     font-size: 14px !important;
@@ -1027,15 +1059,36 @@ textarea {
     border: 2px solid var(--color-hr-btn);
 }
 
-    .hr-sec .btn:hover {
+    .hr-page .btn:hover {
         background-color: #402653;
         box-shadow: 0 0 2px 1px #1c072b6b;
     }
 
-    .hr-sec .btn.active,
-    .hr-sec .btn.chicked,
-    .hr-sec .btn:focus {
+    .hr-page .btn.active,
+    .hr-page .btn.chicked,
+    .hr-page .btn:focus {
         background-color: white !important;
+        color: var(--color-hr-btn) !important;
+        border: 2px solid var(--color-hr-btn);
+    }
+.hr-page .action-btn {
+    background: var(--color-hr);
+    border-radius: 12px;
+    font-size: 14px !important;
+    color: white;
+    border: 2px solid #945cab;
+    box-shadow: 0px 1PX 2px 1px #2c0b405e;
+}
+
+    .hr-page .action-btn:hover {
+        background: linear-gradient(135deg, #703a96 0%, #c48cc3 50%, #703a96 100%);
+        box-shadow: 0px 1PX 2px 1px #2c0b406e;
+    }
+
+    .hr-page .action-btn.active,
+    .hr-page .action-btn.chicked,
+    .hr-page .action-btn:focus {
+        background: white !important;
         color: var(--color-hr-btn) !important;
         border: 2px solid var(--color-hr-btn);
     }
@@ -1248,8 +1301,9 @@ p.count-p {
      .Admin-navbar.hr-nav-bar {
         background: var(--color-hr) !important;
     }
-.hr-sec .Admin-navbar.hr-nav-bar {
+.hr-page .Admin-navbar.hr-nav-bar {
     background: url(../Img/navbar-bg.jpg) !important;
+    background-size: cover !important;
 }
 #navbarSupportedContent {
     align-items: center;
@@ -1292,7 +1346,7 @@ p.count-p {
 .dropdown-item {
     color: #17609b !important;
 }
-.hr-sec .dropdown-item {
+.hr-page .dropdown-item {
     color: var(--color-hr-btn) !important;
 }
 
@@ -1301,7 +1355,7 @@ p.count-p {
     color: #fff !important;
     background: var(--color-gradient) !important;
 }
-.hr-sec .dropdown-item:focus, .hr-sec .dropdown-item:hover {
+.hr-page .dropdown-item:focus, .hr-page .dropdown-item:hover {
     color: #fff !important;
     background: var(--color-hr) !important;
 }
@@ -1441,7 +1495,7 @@ font-size: 12px;
 .bg-overlay {
     background: var(--color-gradient);
 }
-.hr-sec .bg-overlay {
+.hr-page .bg-overlay {
     background: var(--color-hr);
 }
 .search-data,
@@ -4141,10 +4195,10 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
         color: white;
         border: 2px solid white;
     }
-.hr-sec .pharm-main-ul:not(.nav-admin-cus) a.nav-link:hover {
+.hr-page .pharm-main-ul:not(.nav-admin-cus) a.nav-link:hover {
     background: var(--color-hr); 
 }
-.hr-sec .pharm-main-ul:not(.nav-admin-cus) a.nav-link:focus {
+.hr-page .pharm-main-ul:not(.nav-admin-cus) a.nav-link:focus {
     background: var(--color-hr);
     color:white;
     border-color:white;
@@ -4153,8 +4207,8 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
 .pharm-main-ul:not(.nav-admin-cus) i {
     color: var(--color-secondary);
 }
-.hr-sec .hosp-main-ul:not(.nav-admin-cus) i,
-.hr-sec .pharm-main-ul:not(.nav-admin-cus) i {
+.hr-page .hosp-main-ul:not(.nav-admin-cus) i,
+.hr-page .pharm-main-ul:not(.nav-admin-cus) i {
     color: var(--color-hr-btn);
 }
 
@@ -4184,7 +4238,14 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
     border-radius: 12px
 }
 .fade.in {
-    opacity: 1;
+    
+}
+.fade:not(.show){
+display: none !important ;
+}
+.tab-content > .fade.active.in {
+    display: block !important;
+    opacity: 1 ;
 }
 .hr-nav-tabs {
     overflow-x: auto;
@@ -4214,16 +4275,23 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
         background: var(--color-hr);
         color: white;
     }
-.hr-sec .sios-form-control {
+.hr-page .sios-form-control {
     background-color: transparent;
     border: #9689a3 solid 2px;
     border-radius: 15px;
     height: 40px;
     font-size: 12px;
-    color: var(--color-text);
+    color: #495057;
     outline: none;
-    caret-color: var(--color-secondary);
+    padding: 12px 10px 5px !important;
+    caret-color: var(--color-hr-btn);
+    font-weight: bold;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border-radius: 6px;
 }
+    .hr-page .sios-form-control:focus {
+        border-color: var(--color-hr-btn);
+    }
 /* ====================footer========================================== */
 .footer {
     background: var(--color-gradient);

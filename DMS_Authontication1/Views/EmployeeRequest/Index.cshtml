@@ -39,11 +39,11 @@
         <p class="  my-4 mx-auto ms-sm-4">
             @if (fullcontroll || view)
             {
-                @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn rounded-3 text-white fw-bold me-2 active", @style = " text-transform: none" })
+                @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn action-btn rounded-3 text-white fw-bold me-2 active", @style = " text-transform: none" })
             }
             @if (fullcontroll || Create)
             {
-                @Html.ActionLink(" Create Request", "EditRequest", null, htmlAttributes: new { @class = "btn rounded-3 text-white fw-bold", @style = " text-transform: none" })
+                @Html.ActionLink(" Create Request", "EditRequest", null, htmlAttributes: new { @class = "btn action-btn rounded-3 text-white fw-bold", @style = " text-transform: none" })
             }
         </p>
     }
