@@ -192,9 +192,11 @@ $(function () {
    
       $("#example").DataTable();
       $("#index").DataTable();
-
+      
   });
-
+$(document).ready(function () {
+          $(".select2").select2();
+      });
   
  
 

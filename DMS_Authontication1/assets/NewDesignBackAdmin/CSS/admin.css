@@ -1,7 +1,8 @@
 :root {
     /* color */
+    --color-hr: linear-gradient(45deg, #471F5D 0%, #ae7cb2 50%, #471F5D 100%);
+    --color-hr-btn: #4f3265;
     --color-primary: #778183;
-    --color-hr: #6b89c5;
     --color-text: #1b1b1b;
     --color-table: linear-gradient(45deg, #cad4e6, #e9eef8);
     --color-table-sec: #cad4e6;
@@ -28,14 +29,15 @@ a{
     text-decoration:none;
 }
 body {
-    background: url("./../Images/background-22-01.jpg");
+    background: url(../Img/new-dms-logo.png);
     background-blend-mode: multiply;
-    background-size: cover;
+    background-size: contain;
     background-attachment: fixed;
     background-repeat: no-repeat;
     font-size: 14px;
     margin: 0;
     padding: 0;
+    background-position: center;
     overflow-x: hidden;
 }
 /* start sidebar */
@@ -147,6 +149,10 @@ body {
         pointer-events: none;
         transition: all 0.2s ease-in-out;
     }
+.hr-sec .forLabel > span:not(.select2-container),
+.select {
+    color: var(--color-hr-btn);
+}
 
 .contracts-page-container .forLabel span,
 .contracts-page-container .select,
@@ -204,9 +210,24 @@ input {
     border-radius: 15px;
 }
 
-    ::-webkit-scrollbar-thumb:hover {
-        background: #7d7d92;
-    }
+::-webkit-scrollbar-thumb:hover {
+    background: #7d7d92;
+}
+.hr-sec::-webkit-scrollbar-track {
+    background: #d7c8db;
+    border-radius: 20px;
+}
+
+.hr-sec::-webkit-scrollbar-thumb {
+    background: #9b91a7;
+    border: 4px solid #d7c8db;
+    width: 24px;
+    border-radius: 15px;
+}
+
+.hr-sec::-webkit-scrollbar-thumb:hover {
+    background: #867d92;
+}
 /* ====================select2 style=========================================== */
 .select2-label {
     pointer-events: none;
@@ -240,6 +261,9 @@ span.select2-selection.select2-selection--single {
     border-radius: 6px;
     height: 100%;
     padding-top: 10px;
+}
+.hr-sec span.select2-selection.select2-selection--single {
+    border: 2px solid var(--color-hr-btn);
 }
 span#select2-CompNo-container,
 span#select2-CompNoPrint-container,
@@ -610,14 +634,23 @@ table,
 
 .table-responsive {
     overflow-x: auto;
-    border-bottom: var(--color-table-sec) 8px solid;
-    white-space:nowrap:
+    border-bottom: var(--color-table-sec) 5px solid;
+    white-space:nowrap;
+}
+.table-responsive { 
+    border-bottom: #7a4a7f 5px solid
 }
 
 .table > :not(caption) > * > * {
     background-color: transparent;
     color: var(--color-table-text);
     padding: 10px !important;
+}
+.hr-sec .table > :not(caption) > * > * { 
+    color: white; 
+}
+.hr-sec td.dataTables_empty {
+    color: var(--color-hr-btn);
 }
 
 .dataTables_filter {
@@ -668,9 +701,12 @@ table,
     margin-bottom: 15px;
 }
 
-    .dataTables_wrapper > div:last-of-type div {
-        width: fit-content;
-    }
+.dataTables_wrapper > div:last-of-type div {
+    width: fit-content;
+}
+.hr-sec .dataTables_wrapper > div:last-of-type div {
+    color: var(--color-hr-btn);
+}
 
 ul.pagination {
     margin-bottom: 0;
@@ -734,10 +770,18 @@ ul.pagination {
     width: 100px;
     text-align: center;
 }
-
     .table-responsive .paginate_button.next a:hover,
     .table-responsive .paginate_button.previous a:hover {
         background-color: var(--color-btn-sec) !important;
+    }
+.hr-sec .table-responsive .paginate_button.next a,
+.hr-sec .table-responsive .paginate_button.previous a {
+    background-color: var(--color-hr-btn);
+}
+
+    .hr-sec .table-responsive .paginate_button.next a:hover,
+    .hr-sec .table-responsive .paginate_button.previous a:hover {
+        background-color: #3f2554 !important;
     }
 
 .table-responsive .paginate_button.active a {
@@ -749,19 +793,7 @@ ul.pagination {
         background-color: #17609bdf;
     }
 
-.table-responsive label {
-    display: flex;
-    align-items: center;
-    background-color: var(--color-btn);
-    gap: 10px;
-    border-radius: 15px;
-    padding: 10px;
-    font-weight: normal;
-    color: #ffffff;
-    position: relative;
-    height: 40px;
-    z-index: 2;
-}
+
 
 .table-responsive label {
     display: flex;
@@ -780,18 +812,38 @@ ul.pagination {
     .table-responsive label:hover {
         background-color: var(--color-btn-sec);
     }
+.hr-sec .table-responsive label {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-hr-btn);
+    gap: 10px;
+    border-radius: 15px;
+    padding: 10px;
+    font-weight: normal;
+    color: #ffffff;
+    position: relative;
+    height: 40px;
+    z-index: 2;
+}
 
-    .table-responsive label input {
-        position: absolute;
-        background: transparent;
-        border: 1px solid var(--color-primary);
-        padding-left: 80px;
-        left: 0;
-        height: 100%;
-        width: 250px;
-        border-radius: 15px;
-        z-index: -1;
+ .hr-sec .table-responsive label:hover {
+        background-color: #3f2554;
     }
+
+.table-responsive label input {
+    position: absolute;
+    background: transparent;
+    border: 1px solid var(--color-primary);
+    padding-left: 80px;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    border-radius: 15px;
+    z-index: -1;
+}
+.hr-sec .table-responsive label input {
+    border-color: #9784a2;
+}
 
         .table-responsive label input:focus {
             background: transparent;
@@ -828,7 +880,10 @@ select.form-select.form-select-sm {
     vertical-align: bottom;
     background: #86aef770;
 }
-
+.hr-sec .table > thead {
+    vertical-align: bottom;
+    background: var(--color-hr);
+}
 .activation-page-table table th {
     color: var(--color-secondary);
     height: 20px;
@@ -964,23 +1019,25 @@ textarea {
         color: var(--color-btn) !important;
         border: 2px solid var(--color-btn);
     }
-.hr-btn {
-    background-color: var(--color-hr);
+.hr-sec .btn {
+    background-color: var(--color-hr-btn);
     border-radius: 12px;
     font-size: 14px !important;
-    color:white
+    color: white ;
+    border: 2px solid var(--color-hr-btn);
 }
 
-    .hr-btn:hover {
-        background-color: var(--color-btn-sec);
+    .hr-sec .btn:hover {
+        background-color: #402653;
+        box-shadow: 0 0 2px 1px #1c072b6b;
     }
 
-    .hr-btn.active,
-    .hr-btn.chicked,
-    .hr-btn:focus {
+    .hr-sec .btn.active,
+    .hr-sec .btn.chicked,
+    .hr-sec .btn:focus {
         background-color: white !important;
-        color: var(--color-btn) !important;
-        border: 2px solid var(--color-hr);
+        color: var(--color-hr-btn) !important;
+        border: 2px solid var(--color-hr-btn);
     }
 
 .cs-btn {
@@ -1191,6 +1248,9 @@ p.count-p {
      .Admin-navbar.hr-nav-bar {
         background: var(--color-hr) !important;
     }
+.hr-sec .Admin-navbar.hr-nav-bar {
+    background: url(../Img/navbar-bg.jpg) !important;
+}
 #navbarSupportedContent {
     align-items: center;
     /* justify-content: center; */
@@ -1232,13 +1292,19 @@ p.count-p {
 .dropdown-item {
     color: #17609b !important;
 }
+.hr-sec .dropdown-item {
+    color: var(--color-hr-btn) !important;
+}
 
-    .dropdown-item:focus,
-    .dropdown-item:hover {
-        color: #fff !important;
-        background: var(--color-gradient) !important;
-    }
-
+.dropdown-item:focus,
+.dropdown-item:hover {
+    color: #fff !important;
+    background: var(--color-gradient) !important;
+}
+.hr-sec .dropdown-item:focus, .hr-sec .dropdown-item:hover {
+    color: #fff !important;
+    background: var(--color-hr) !important;
+}
 .cs-div .dropdown-item {
     color: #005aa3 !important;
     font-weight: bold;
@@ -1375,7 +1441,7 @@ font-size: 12px;
 .bg-overlay {
     background: var(--color-gradient);
 }
-.sec-bg .bg-overlay {
+.hr-sec .bg-overlay {
     background: var(--color-hr);
 }
 .search-data,
@@ -2944,19 +3010,7 @@ td button:hover {
     .table-responsive .paginate_button.active a:hover {
         background-color: #905ba3;
     }
-
-.table-responsive label input {
-    position: absolute;
-    background: transparent;
-    border: 1px solid #8a9cbc;
-    padding-left: 80px;
-    left: 0;
-    height: 100%;
-    width: 250px;
-    border-radius: 15px;
-    z-index: -1;
-}
-
+     
     .table-responsive label input:focus {
         background: transparent;
         box-shadow: none;
@@ -4077,17 +4131,31 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
     font-size: 14px;
     transition: .2s all ease-in;
 }
-
+ .pharm-main-ul:not(.nav-admin-cus) a.nav-link { 
+    color: var(--color-hr-btn);
+    border: 2px solid var(--color-hr-btn); 
+}
     .hosp-main-ul:not(.nav-admin-cus) a.nav-link:hover,
     .pharm-main-ul:not(.nav-admin-cus) a.nav-link:hover {
         background: var(--color-gradient);
         color: white;
         border: 2px solid white;
     }
-
+.hr-sec .pharm-main-ul:not(.nav-admin-cus) a.nav-link:hover {
+    background: var(--color-hr); 
+}
+.hr-sec .pharm-main-ul:not(.nav-admin-cus) a.nav-link:focus {
+    background: var(--color-hr);
+    color:white;
+    border-color:white;
+}
 .hosp-main-ul:not(.nav-admin-cus) i,
 .pharm-main-ul:not(.nav-admin-cus) i {
     color: var(--color-secondary);
+}
+.hr-sec .hosp-main-ul:not(.nav-admin-cus) i,
+.hr-sec .pharm-main-ul:not(.nav-admin-cus) i {
+    color: var(--color-hr-btn);
 }
 
 .hosp-main-ul:not(.nav-admin-cus) a.nav-link:hover i,
@@ -4109,10 +4177,10 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
     border-radius: 12px
 }
 
-.sec-bg {
-    background: url(../Img/section-bg.jpg);
+.logo-watermark {
+    background: url(../Img/new-dms-logo.jpg);
     background-size: 100% 100%;
-    padding: 0 ;
+    padding: 0;
     border-radius: 12px
 }
 .fade.in {
@@ -4131,7 +4199,7 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
 }
     .hr-nav-tabs li a {
         font-size: 16px;
-        color: var(--color-hr);
+        color: var(--color-hr-btn);
         font-weight: bold;
         padding: 10px;
         border-radius: 14px;
@@ -4146,9 +4214,9 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
         background: var(--color-hr);
         color: white;
     }
-.sec-bg .sios-form-control {
+.hr-sec .sios-form-control {
     background-color: transparent;
-    border: #99abd0 solid 2px;
+    border: #9689a3 solid 2px;
     border-radius: 15px;
     height: 40px;
     font-size: 12px;

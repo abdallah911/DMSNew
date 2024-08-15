@@ -33,7 +33,7 @@
         }
     }
 }
-<div class="sec-bg  ">
+<div class="  ">
     <p class=" my-4 mx-auto ms-sm-4">
         @if (fullcontroll || view)
         {
@@ -41,7 +41,7 @@
         }
         @if (fullcontroll || Create)
         {
-            @Html.ActionLink(" Create Request", "EditRequest", null, htmlAttributes: new { @class = "btn hr-btn rounded-3 text-white fw-bold", @style = " text-transform: none" })
+            @Html.ActionLink(" Create Request", "EditRequest", null, htmlAttributes: new { @class = "btn hr-btn rounded-3 text-white fw-bold active", @style = " text-transform: none" })
         }
     </p>
     <div class=" sios-container editeRquest fw-bold  portlet box  green">
@@ -256,13 +256,13 @@
                                         <div class="row row-cols-md-2 col-md-8 col-lg-6  row-gap-2" style="height:fit-content">
 
                                             @*<div class=" forLabel px-2   border-0 d-flex justify-content-between align-items-center  rounded-2 form-group " id="divCardId" style="display: none;">
-                            <select id="CARD_ID" class="border-2 sios-form-control  w-100 h-100  rounded-2 p-1 pt-4 fw-bold text-dark-emphasis  shadow-sm js-data-example-ajax" style="width: 100%"></select>
-                            @Html.ValidationMessageFor(model => model.CARD_ID, "", new { @class = "text-danger" })
-                            <span class="start-0">
-                                @Html.Label("Card Id", htmlAttributes: new { @class = "control-label " })
-                                <span class="required"> * </span>
-                            </span>
-                        </div>*@
+                                                <select id="CARD_ID" class="border-2 sios-form-control  w-100 h-100  rounded-2 p-1 pt-4 fw-bold text-dark-emphasis  shadow-sm js-data-example-ajax" style="width: 100%"></select>
+                                                @Html.ValidationMessageFor(model => model.CARD_ID, "", new { @class = "text-danger" })
+                                                <span class="start-0">
+                                                    @Html.Label("Card Id", htmlAttributes: new { @class = "control-label " })
+                                                    <span class="required"> * </span>
+                                                </span>
+                                            </div>*@
                                             <div class=" forLabel px-2   border-0 d-flex justify-content-between align-items-center  rounded-2 form-group ">
 
                                                 @Html.DropDownListFor(m => m.GENDER, new List<SelectListItem>
@@ -297,15 +297,15 @@
                                                 @Html.EditorFor(model => model.START_DATE, new { htmlAttributes = new { @class = "border-2 sios-form-control  w-100 h-100  rounded-2 p-1 pt-4 fw-bold text-dark-emphasis  shadow-sm  form-control" } })
                                                 @Html.ValidationMessageFor(model => model.START_DATE, "", new { @class = "text-danger" })
                                                 <span class="start-0">
-                                                    @Html.Label("Start Date", htmlAttributes: new { @class = "control-label " })
+                                                    @Html.Label("Start Date", htmlAttributes: new { @class = "control-label" })
                                                     <span class="required"> * </span>
                                                 </span>
                                             </div>
 
 
                                             <div class="row mx-auto w-100 d-grid gap-2 px-0">
-                                                <div class="col-md-6 ms-md-auto  forLabel px-2   border-0 d-flex justify-content-between align-items-center  rounded-2 form-group " style="height:48px;">
-                                                    <input class="border-2 sios-form-control  w-100 h-100  rounded-2 p-1 pt-4 fw-bold text-dark-emphasis  shadow-sm  form-control text-box single-line" id="EMP_IMG" name="EMP_IMG" required="True" type="File" value="">
+                                                <div class="col-md-6 ms-md-auto  forLabel px-2 border-0 d-flex justify-content-between align-items-center  rounded-2 form-group " style="height:48px;">
+                                                    <input class="border-2 sios-form-control w-100 h-100  rounded-2 p-1 pt-4 fw-bold text-dark-emphasis  shadow-sm  form-control text-box single-line" id="EMP_IMG" name="EMP_IMG" required="True" type="File" value="">
                                                     <span class="field-validation-valid text-danger" data-valmsg-for="EMP_IMG" data-valmsg-replace="true"></span>
                                                     <span class="start-0" style="top:5px;">
                                                         <label class="control-label " for="Employee_Photo">Employee Photo</label>
@@ -313,15 +313,15 @@
                                                     </span>
                                                 </div>
 
-                                                <div class="col-md-6 ms-md-auto  forLabel px-2   border-0 d-flex justify-content-between align-items-center  rounded-2 form-group " style="height:48px;">
-                                                    <input class="border-2 sios-form-control  w-100 h-100  rounded-2 p-1 pt-4 fw-bold text-dark-emphasis  shadow-sm  form-control text-box single-line" id="UploadExcel" name="UploadExcel" type="File" value="">
+                                                <div class="col-md-6 ms-md-auto  forLabel px-2 border-0 d-flex justify-content-between align-items-center  rounded-2 form-group " style="height:48px;">
+                                                    <input class="border-2 sios-form-control w-100 h-100  rounded-2 p-1 pt-4 fw-bold text-dark-emphasis  shadow-sm  form-control text-box single-line" id="UploadExcel" name="UploadExcel" type="File" value="">
                                                     <span class="start-0">
                                                         <label class="control-label " for="Upload_Excel">Upload Excel</label>
                                                     </span>
                                                 </div>
                                                 <div class="col-md-6 ms-md-auto form-group  ">
                                                     @*<label class="control-label " for="Download_Excel">Download Excel</label>*@
-                                                    <i class="fa fa-download bg-white position-absolute rounded-circle p-2 " style=" color: var(--color-hr);font-size: 19px;">  </i>
+                                                    <i class="fa fa-download bg-white position-absolute rounded-circle p-2 " style="color: var(--color-hr-btn);font-size: 19px;border: 1px solid;">  </i>
                                                     <input data-step="8" data-intro="DownLoad Excel" id="DownLoadEXCL" type="button" value=" DownLoad Excel " onclick="DownLoadEXCLFunc('1');" class="btn hr-btn text-white rounded-pill" style="padding-left: 34px;">
 
                                                     <span class="start-0"></span>

@@ -7297,7 +7297,7 @@
     <Content Include="assets\NewDesignBackAdmin\Img\Form-Bg.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\logo D M S 4-04.png" />
     <Content Include="assets\NewDesignBackAdmin\Img\logo-dms-white2.png" />
-    <Content Include="assets\NewDesignBackAdmin\Img\section-bg.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\navbar-bg.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\SL-122222-54830-26 [Converted]  é-01 %281%29.png" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1  2-01.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1  2-02.jpg" />
@@ -9279,6 +9279,7 @@
     <Content Include="Views\Claim\UserPermision.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardPharmacy.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardHR.cshtml" />
+    <Content Include="Views\EmployeeRequest\AppointmentBookingTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

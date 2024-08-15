@@ -39,7 +39,7 @@
         <p class="  my-4 mx-auto ms-sm-4">
             @if (fullcontroll || view)
             {
-                @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn rounded-3 text-white fw-bold me-2", @style = " text-transform: none" })
+                @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn rounded-3 text-white fw-bold me-2 active", @style = " text-transform: none" })
             }
             @if (fullcontroll || Create)
             {
@@ -50,7 +50,7 @@
 </div>
 @if (fullcontroll || view)
 {
-    <div class=" sec-bg  sios-container editeRquest fw-bold  portlet box  green">
+    <div class="   sios-container editeRquest fw-bold  portlet box  green">
         <div class="row bg-overlay portlet-title">
             <div class="m-3 fs-3 text-white caption">
                 <i class="fa fa-gift me-1"></i>Operation
