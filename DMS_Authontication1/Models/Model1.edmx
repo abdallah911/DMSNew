@@ -2429,10 +2429,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="OpticalVisit" Type="int" />
           <Property Name="BirthVisit" Type="int" />
           <Property Name="Notes" Type="nvarchar(max)" />
-          <Property Name="OutsideNetworkInpatientType" Type="int" />
-          <Property Name="OutsideNetworkInpatientValue" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="OutsideNetworkOutpatientType" Type="int" />
-          <Property Name="OutsideNetworkOutpatientValue" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PreXChronicType" Type="int" />
+          <Property Name="PreXChronicValue" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CriticalType" Type="int" />
+          <Property Name="CriticalValue" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="RenewalServicePool">
           <Key>
@@ -8220,10 +8220,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="OpticalVisit" Type="Int32" />
           <Property Name="BirthVisit" Type="Int32" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="OutsideNetworkInpatientType" Type="Int32" />
-          <Property Name="OutsideNetworkInpatientValue" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="OutsideNetworkOutpatientType" Type="Int32" />
-          <Property Name="OutsideNetworkOutpatientValue" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PreXChronicType" Type="Int32" />
+          <Property Name="PreXChronicValue" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CriticalType" Type="Int32" />
+          <Property Name="CriticalValue" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <Association Name="FK_RenewalOutsideMedicalAuthorities_RenewalMains">
           <End Type="DB_A45413_DMSERPModel.RenewalMain" Role="RenewalMain" Multiplicity="1" />
@@ -11455,10 +11455,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="RenewalOutsideMedicalAuthorities">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalOutsideMedicalAuthority">
               <MappingFragment StoreEntitySet="RenewalOutsideMedicalAuthorities">
-                <ScalarProperty Name="OutsideNetworkOutpatientValue" ColumnName="OutsideNetworkOutpatientValue" />
-                <ScalarProperty Name="OutsideNetworkOutpatientType" ColumnName="OutsideNetworkOutpatientType" />
-                <ScalarProperty Name="OutsideNetworkInpatientValue" ColumnName="OutsideNetworkInpatientValue" />
-                <ScalarProperty Name="OutsideNetworkInpatientType" ColumnName="OutsideNetworkInpatientType" />
+                <ScalarProperty Name="CriticalValue" ColumnName="CriticalValue" />
+                <ScalarProperty Name="CriticalType" ColumnName="CriticalType" />
+                <ScalarProperty Name="PreXChronicValue" ColumnName="PreXChronicValue" />
+                <ScalarProperty Name="PreXChronicType" ColumnName="PreXChronicType" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="BirthVisit" ColumnName="BirthVisit" />
                 <ScalarProperty Name="OpticalVisit" ColumnName="OpticalVisit" />
