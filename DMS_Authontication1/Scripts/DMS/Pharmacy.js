@@ -86,7 +86,7 @@ $(function () {
                 //bootbox.alert("برجاء التواصل مع الإدارة الطبية لوجود خطأ في البطاقة الطبية الخاصة بكم للإستمرار برجاء الضغط ok");
                 bootbox.dialog({
                     title: 'Alert!',
-                    message: "Ok"+"برجاء التواصل مع الإدارة الطبية لوجود خطأ في البطاقة الطبية الخاصة بكم للإستمرار برجاء الضغط ",
+                    message: "Ok" + "برجاء التواصل مع الإدارة الطبية لوجود خطأ في البطاقة الطبية الخاصة بكم للإستمرار برجاء الضغط ",
                     buttons: {
                         Ok: {
                             label: "Ok",
@@ -98,323 +98,323 @@ $(function () {
                     }
                 });
             }
-                $.ajax({
-                    url: '/Pharmacy/AddCardPharmacy',
-                    data: { id: $('#txtSearchCard').val() },
-                    dataType: 'Json',
-                    success: function (r) {
-                        $('#txtSearchCard').attr('disabled', true);
-                        $('#Cards').dataTable().fnDestroy();
-                        var setData = $("#Cards Tbody");
-                        setData.empty();
-                        for (var i = 0; i < r.length; i++) {
-                            if (r[i].BIRTH_DATE != null) {
-                                var MyDate_String_Value = r[i].BIRTH_DATE;
-                                var value = new Date
-                                    (
-                                        parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                                    );
-                                birthdate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                            } else {
-                                birthdate = null;
-                            }
-                            if (r[i].SPECIFIC_DATE != null) {
-                                var MyDate_String_Value = r[i].SPECIFIC_DATE;
-                                var value = new Date
-                                    (
-                                        parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                                    );
-                                StartDate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                            } else {
-                                StartDate = null;
-                            }
-                            if (r[i].TERMINATE_DATE >= r[i].NoW) {
-                                dat1 = null
-                            }
-                            if (r[i].INS_END_DATE != null && StartDate != null) {
-                                //end date
-                                var MyDate_String_Value1 = r[i].INS_END_DATE;
-                                var value1 = new Date(parseFloat(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, '')));
-                                dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
-                            }
-                            else {
-                                dat1 = null;
-                            }
-                            var data = "<tr >" +
-                                "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-plus' onclick='Select(this);'></Button>" + "</td>" +
-                                "<td>" + r[i].CARD_ID + "</td>" +
-                                "<td>" + r[i].EMP_ANAME + "</td>" +
-                                "<td>" + r[i].EMP_ENAME + "</td>" +
-                                "<td>" + StartDate + "</td>" +
-                                "<td>" + dat1 + "</td>" +
-                                "<td>" + birthdate + "</td>" +
-                                "<td>" + r[i].CompHolderName + "</td>" +
-                                "</tr>"
-                            var array_name = [];
-                            array_name.push(data)
-                            setData.append(array_name);
-
+            $.ajax({
+                url: '/Pharmacy/AddCardPharmacy',
+                data: { id: $('#txtSearchCard').val() },
+                dataType: 'Json',
+                success: function (r) {
+                    $('#txtSearchCard').attr('disabled', true);
+                    $('#Cards').dataTable().fnDestroy();
+                    var setData = $("#Cards Tbody");
+                    setData.empty();
+                    for (var i = 0; i < r.length; i++) {
+                        if (r[i].BIRTH_DATE != null) {
+                            var MyDate_String_Value = r[i].BIRTH_DATE;
+                            var value = new Date
+                                (
+                                    parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            birthdate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                        } else {
+                            birthdate = null;
                         }
-
-                        if (r.length == 1) {
-                            $('#txtSearchCard').attr('disabled', true);
-                            $('#Pending').attr('disabled', false);
-                            $('#Approval').attr('disabled', false);
-                            CardId = r[0].CARD_ID;
-                            $('#txtSearchCard').val(CardId);
-                            var ArName = r[0].EMP_ENAME;
-                            var CompHolderName = r[0].CompHolderName;
-                            firstDate = new Date(parseFloat(r[0].INS_END_DATE.replace(/(^.*\()|([+-].*$)/g, '')));
-                            diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
-                            var EndDate = dat1;
-                            //var today = new Date();
-                            //var dd = today.getDate();
-                            //var mm = today.getMonth(); //January is 0!
-                            //var yyyy = today.getFullYear();
-                            //var CurrentDate = new Date(yyyy, mm, dd);
-                            //if (EndDate != null) {
-                            //    newDate = EndDate.split('/').reverse().join('.');
-                            //} else {
-                            //    newDate = "";
-                            //}
-                            //var date = new Date(newDate);
-                            var companyId = [];
-                            companyId = CardId.split('-', 1);
-                            CompId = companyId[0];
-                            // Chick company is closed or oopen
-
-                            $.ajax({
-                                type: "POST",
-                                dataType: "json",
-                                url: '/Pharmacy/CkeckCompanyClosedorOpen',
-                                data: { id: CompId, CardId: CardId },
-                                success: function (returndata) {
-                                    if (returndata.ok) {
-                                        $("#wait").css("display", "none");
-                                        $('#txtSearchCard').val(CardId);
-                                        $('#CardsModal').modal('hide');
-
-
-                                        //
-
-                                        $.ajax({
-                                            type: "POST",
-                                            dataType: "json",
-                                            url: '/Pharmacy/GetCompActivation',
-                                            data: { id: CompId, CardId: CardId },
-                                            success: function (returndata) {
-                                                if (returndata.ok) {
-                                                    if (returndata.data == "Yes") {
-
-                                                        $("#wait").css("display", "none");
-                                                        $('#txtSearchCard').val(CardId);
-                                                        $('#compEmp_EMP_ANAME').val(ArName);
-                                                        $('#compEmp_CompHolderName').val(CompHolderName);
-                                                        $('#compEmp_INS_START_DATE').val(StartDate);
-                                                        $('#compEmp_INS_END_DATE').val(EndDate);
-                                                        $('#compEmp_BIRTH_DATE').val(birthdate);
-                                                        //AddNationalId();
-                                                        $('#CardsModal').modal('hide');
-                                                        //Get ceiling and Limit
-                                                        if (companid == "888") {
-                                                            $("#ddlType").val(11601).change();
-                                                        }
-                                                        else {
-                                                            GetLimit();
-                                                        }
-                                                        //Get Approvals
-                                                        $.ajax({
-                                                            type: "POST",
-                                                            dataType: "json",
-                                                            url: '/Pharmacy/HaveApproval',
-                                                            data: { id: CardId },
-                                                            success: function (returndata) {
-                                                                if (returndata.ok) {
-                                                                    bootbox.alert("لتفعيل الموافقة" + " Has Approval " + "هذا الكارت له موافقة يرجي الضغط علي");
-                                                                    //bootbox.alert(' هذا الكارت له موافقة يرجي الضغط علي  Has Approval  لتفعيل الموافقة');
-                                                                }
-                                                                else {
-                                                                    //bootbox.alert(' No Company Name ');
-                                                                }
-                                                            }
-                                                        });
-                                                        //Get Doctor
-
-                                                        $.ajax({
-                                                            type: "POST",
-                                                            dataType: "json",
-                                                            url: '/Pharmacy/HaveDoctor',
-                                                            data: { id: CardId },
-                                                            success: function (returndata) {
-                                                                if (returndata.ok) {
-                                                                    bootbox.dialog({
-                                                                        closeButton: false,
-                                                                        title: 'Chronic',
-                                                                        // message: " هذا العميل لديه علاج مسجل فى شاشة Doctor   هل تود صرفه",
-                                                                        message: "هل تود صرفه" + " Doctor " + "هذا العميل لديه علاج شهري مسجل فى شاشة",
-                                                                        buttons: {
-                                                                            Print: {
-                                                                                label: "Yes",
-                                                                                className: 'btn-info',
-                                                                                callback: function () {
-                                                                                    window.location.replace("/Doctor/Doctor?id=" + CardId + "&&NationalId=" + NationalId);
-                                                                                }
-                                                                            },
-                                                                            New: {
-                                                                                label: "No",
-                                                                                className: 'btn-danger',
-                                                                                callback: function () {
-
-                                                                                }
-                                                                            }
-
-                                                                        }
-                                                                    });
-                                                                }
-                                                                else {
-                                                                    //bootbox.alert(' No Company Name ');
-                                                                }
-                                                            }
-                                                        });
-                                                        //Get Chronic
-
-                                                        $.ajax({
-                                                            type: "POST",
-                                                            dataType: "json",
-                                                            url: '/Pharmacy/HaveChronic',
-                                                            data: { id: CardId },
-                                                            success: function (returndata) {
-                                                                if (returndata.ok) {
-                                                                    bootbox.dialog({
-                                                                        closeButton: false,
-                                                                        title: 'Chronic',
-                                                                        //message: "هذا العميل لدية علاج شهري هل تود صرفة",
-                                                                        message: "هل تود صرفه" + " Chronic " + "هذا العميل لديه علاج شهري مسجل فى شاشة",
-                                                                        buttons: {
-                                                                            Print: {
-                                                                                label: "Yes",
-                                                                                className: 'btn-info',
-                                                                                callback: function () {
-                                                                                    window.location.replace("/Chronic/Chronic?id=" + CardId + "&&NationalId=" + NationalId);
-                                                                                }
-                                                                            },
-                                                                            New: {
-                                                                                label: "No",
-                                                                                className: 'btn-danger',
-                                                                                callback: function () {
-
-                                                                                }
-                                                                            }
-
-                                                                        }
-                                                                    });
-                                                                }
-                                                                else {
-                                                                    //bootbox.alert(' No Company Name ');
-                                                                }
-                                                            }
-                                                        });
-                                                        //Get ClaimNumber
-
-                                                        $.ajax({
-                                                            type: "POST",
-                                                            dataType: "json",
-                                                            url: '/Pharmacy/HaveClaim',
-                                                            data: { id: CardId },
-                                                            success: function (Code) {
-                                                                if (Code == "0") {
-                                                                    haveClaim = 1;
-                                                                    alert("هذا العميل لديه موافقة يرجي ادخال رقم الموافقة داخل " + "Calim Number");
-                                                                }
-                                                            }
-                                                        });
-
-                                                    }
-                                                    else {
-                                                        $("#wait").css("display", "none");
-                                                        bootbox.dialog({
-                                                            title: 'Alert!',
-                                                            message: returndata.message,
-                                                            buttons: {
-                                                                Ok: {
-                                                                    label: "Ok",
-                                                                    className: 'btn-info',
-                                                                    callback: function () {
-                                                                        ClearCardData();
-                                                                    }
-                                                                }
-                                                            }
-                                                        });
-                                                    }
-                                                }
-                                                else {
-                                                    if (returndata.data == "Hold") {
-                                                        $("#wait").css("display", "none");
-                                                        bootbox.dialog({
-                                                            title: 'Alert!',
-                                                            message: returndata.message,
-                                                            buttons: {
-                                                                Ok: {
-                                                                    label: "Ok",
-                                                                    className: 'btn-info',
-                                                                    callback: function () {
-                                                                        ClearCardData();
-                                                                    }
-                                                                }
-                                                            }
-                                                        });
-                                                    }
-                                                    else if (returndata.data == "Expire") {
-                                                        $("#wait").css("display", "none");
-                                                        bootbox.dialog({
-                                                            title: 'Alert!',
-                                                            message: returndata.message,
-                                                            buttons: {
-                                                                Ok: {
-                                                                    label: "Ok",
-                                                                    className: 'btn-info',
-                                                                    callback: function () {
-                                                                        ClearCardData();
-                                                                    }
-                                                                }
-                                                            }
-                                                        });
-                                                    }
-                                                    else
-                                                        bootbox.alert('failed  company activation , please check your internet connection ');
-                                                }
-                                            }
-                                        });
-
-                                    }
-                                    else {
-                                        bootbox.alert('برجاء الرجوع الى ادارة الشركة التابعة لسيادتكم ..');
-                                        $("#wait").css("display", "none");
-                                        $('#txtSearchCard').val(CardId);
-                                        $('#CardsModal').modal('hide');
-                                    }
-                                }
-                            });
-
-
-
+                        if (r[i].SPECIFIC_DATE != null) {
+                            var MyDate_String_Value = r[i].SPECIFIC_DATE;
+                            var value = new Date
+                                (
+                                    parseFloat(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            StartDate = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                        } else {
+                            StartDate = null;
                         }
-                        else if (r.length == 0) {
-                            alert(' برجاء التأكد من الرقم الطبي وفي حاله استمرار المشكله ارسال صوره البطاقه علي رقم01205566050 ');
-                            $('#CardsModal').modal('hide');
-                            $("#wait").css("display", "none");
+                        if (r[i].TERMINATE_DATE >= r[i].NoW) {
+                            dat1 = null
+                        }
+                        if (r[i].INS_END_DATE != null && StartDate != null) {
+                            //end date
+                            var MyDate_String_Value1 = r[i].INS_END_DATE;
+                            var value1 = new Date(parseFloat(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, '')));
+                            dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
                         }
                         else {
-                            $('#Cards').DataTable();
-                            $('#CardsModal').modal({ backdrop: 'static', keyboard: false });
-                            $("#wait").css("display", "none");
+                            dat1 = null;
                         }
-                    },
-                    error: function () {
-                        bootbox.alert("Too many data  Retrieve more specific characters solve the problem and check your internet connection");
+                        var data = "<tr >" +
+                            "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-plus' onclick='Select(this);'></Button>" + "</td>" +
+                            "<td>" + r[i].CARD_ID + "</td>" +
+                            "<td>" + r[i].EMP_ANAME + "</td>" +
+                            "<td>" + r[i].EMP_ENAME + "</td>" +
+                            "<td>" + StartDate + "</td>" +
+                            "<td>" + dat1 + "</td>" +
+                            "<td>" + birthdate + "</td>" +
+                            "<td>" + r[i].CompHolderName + "</td>" +
+                            "</tr>"
+                        var array_name = [];
+                        array_name.push(data)
+                        setData.append(array_name);
+
+                    }
+
+                    if (r.length == 1) {
+                        $('#txtSearchCard').attr('disabled', true);
+                        $('#Pending').attr('disabled', false);
+                        $('#Approval').attr('disabled', false);
+                        CardId = r[0].CARD_ID;
+                        $('#txtSearchCard').val(CardId);
+                        var ArName = r[0].EMP_ENAME;
+                        var CompHolderName = r[0].CompHolderName;
+                        firstDate = new Date(parseFloat(r[0].INS_END_DATE.replace(/(^.*\()|([+-].*$)/g, '')));
+                        diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+                        var EndDate = dat1;
+                        //var today = new Date();
+                        //var dd = today.getDate();
+                        //var mm = today.getMonth(); //January is 0!
+                        //var yyyy = today.getFullYear();
+                        //var CurrentDate = new Date(yyyy, mm, dd);
+                        //if (EndDate != null) {
+                        //    newDate = EndDate.split('/').reverse().join('.');
+                        //} else {
+                        //    newDate = "";
+                        //}
+                        //var date = new Date(newDate);
+                        var companyId = [];
+                        companyId = CardId.split('-', 1);
+                        CompId = companyId[0];
+                        // Chick company is closed or oopen
+
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: '/Pharmacy/CkeckCompanyClosedorOpen',
+                            data: { id: CompId, CardId: CardId },
+                            success: function (returndata) {
+                                if (returndata.ok) {
+                                    $("#wait").css("display", "none");
+                                    $('#txtSearchCard').val(CardId);
+                                    $('#CardsModal').modal('hide');
+
+
+                                    //
+
+                                    $.ajax({
+                                        type: "POST",
+                                        dataType: "json",
+                                        url: '/Pharmacy/GetCompActivation',
+                                        data: { id: CompId, CardId: CardId },
+                                        success: function (returndata) {
+                                            if (returndata.ok) {
+                                                if (returndata.data == "Yes") {
+
+                                                    $("#wait").css("display", "none");
+                                                    $('#txtSearchCard').val(CardId);
+                                                    $('#compEmp_EMP_ANAME').val(ArName);
+                                                    $('#compEmp_CompHolderName').val(CompHolderName);
+                                                    $('#compEmp_INS_START_DATE').val(StartDate);
+                                                    $('#compEmp_INS_END_DATE').val(EndDate);
+                                                    $('#compEmp_BIRTH_DATE').val(birthdate);
+                                                    //AddNationalId();
+                                                    $('#CardsModal').modal('hide');
+                                                    //Get ceiling and Limit
+                                                    if (companid == "888") {
+                                                        $("#ddlType").val(11601).change();
+                                                    }
+                                                    else {
+                                                        GetLimit();
+                                                    }
+                                                    //Get Approvals
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        dataType: "json",
+                                                        url: '/Pharmacy/HaveApproval',
+                                                        data: { id: CardId },
+                                                        success: function (returndata) {
+                                                            if (returndata.ok) {
+                                                                bootbox.alert("لتفعيل الموافقة" + " Has Approval " + "هذا الكارت له موافقة يرجي الضغط علي");
+                                                                //bootbox.alert(' هذا الكارت له موافقة يرجي الضغط علي  Has Approval  لتفعيل الموافقة');
+                                                            }
+                                                            else {
+                                                                //bootbox.alert(' No Company Name ');
+                                                            }
+                                                        }
+                                                    });
+                                                    //Get Doctor
+
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        dataType: "json",
+                                                        url: '/Pharmacy/HaveDoctor',
+                                                        data: { id: CardId },
+                                                        success: function (returndata) {
+                                                            if (returndata.ok) {
+                                                                bootbox.dialog({
+                                                                    closeButton: false,
+                                                                    title: 'Chronic',
+                                                                    // message: " هذا العميل لديه علاج مسجل فى شاشة Doctor   هل تود صرفه",
+                                                                    message: "هل تود صرفه" + " Doctor " + "هذا العميل لديه علاج شهري مسجل فى شاشة",
+                                                                    buttons: {
+                                                                        Print: {
+                                                                            label: "Yes",
+                                                                            className: 'btn-info',
+                                                                            callback: function () {
+                                                                                window.location.replace("/Doctor/Doctor?id=" + CardId + "&&NationalId=" + NationalId);
+                                                                            }
+                                                                        },
+                                                                        New: {
+                                                                            label: "No",
+                                                                            className: 'btn-danger',
+                                                                            callback: function () {
+
+                                                                            }
+                                                                        }
+
+                                                                    }
+                                                                });
+                                                            }
+                                                            else {
+                                                                //bootbox.alert(' No Company Name ');
+                                                            }
+                                                        }
+                                                    });
+                                                    //Get Chronic
+
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        dataType: "json",
+                                                        url: '/Pharmacy/HaveChronic',
+                                                        data: { id: CardId },
+                                                        success: function (returndata) {
+                                                            if (returndata.ok) {
+                                                                bootbox.dialog({
+                                                                    closeButton: false,
+                                                                    title: 'Chronic',
+                                                                    //message: "هذا العميل لدية علاج شهري هل تود صرفة",
+                                                                    message: "هل تود صرفه" + " Chronic " + "هذا العميل لديه علاج شهري مسجل فى شاشة",
+                                                                    buttons: {
+                                                                        Print: {
+                                                                            label: "Yes",
+                                                                            className: 'btn-info',
+                                                                            callback: function () {
+                                                                                window.location.replace("/Chronic/Chronic?id=" + CardId + "&&NationalId=" + NationalId);
+                                                                            }
+                                                                        },
+                                                                        New: {
+                                                                            label: "No",
+                                                                            className: 'btn-danger',
+                                                                            callback: function () {
+
+                                                                            }
+                                                                        }
+
+                                                                    }
+                                                                });
+                                                            }
+                                                            else {
+                                                                //bootbox.alert(' No Company Name ');
+                                                            }
+                                                        }
+                                                    });
+                                                    //Get ClaimNumber
+
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        dataType: "json",
+                                                        url: '/Pharmacy/HaveClaim',
+                                                        data: { id: CardId },
+                                                        success: function (Code) {
+                                                            if (Code == "0") {
+                                                                haveClaim = 1;
+                                                                alert("هذا العميل لديه موافقة يرجي ادخال رقم الموافقة داخل " + "Calim Number");
+                                                            }
+                                                        }
+                                                    });
+
+                                                }
+                                                else {
+                                                    $("#wait").css("display", "none");
+                                                    bootbox.dialog({
+                                                        title: 'Alert!',
+                                                        message: returndata.message,
+                                                        buttons: {
+                                                            Ok: {
+                                                                label: "Ok",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    ClearCardData();
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                            else {
+                                                if (returndata.data == "Hold") {
+                                                    $("#wait").css("display", "none");
+                                                    bootbox.dialog({
+                                                        title: 'Alert!',
+                                                        message: returndata.message,
+                                                        buttons: {
+                                                            Ok: {
+                                                                label: "Ok",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    ClearCardData();
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                                else if (returndata.data == "Expire") {
+                                                    $("#wait").css("display", "none");
+                                                    bootbox.dialog({
+                                                        title: 'Alert!',
+                                                        message: returndata.message,
+                                                        buttons: {
+                                                            Ok: {
+                                                                label: "Ok",
+                                                                className: 'btn-info',
+                                                                callback: function () {
+                                                                    ClearCardData();
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                                else
+                                                    bootbox.alert('failed  company activation , please check your internet connection ');
+                                            }
+                                        }
+                                    });
+
+                                }
+                                else {
+                                    bootbox.alert('برجاء الرجوع الى ادارة الشركة التابعة لسيادتكم ..');
+                                    $("#wait").css("display", "none");
+                                    $('#txtSearchCard').val(CardId);
+                                    $('#CardsModal').modal('hide');
+                                }
+                            }
+                        });
+
+
+
+                    }
+                    else if (r.length == 0) {
+                        alert(' برجاء التأكد من الرقم الطبي وفي حاله استمرار المشكله ارسال صوره البطاقه علي رقم01205566050 ');
+                        $('#CardsModal').modal('hide');
                         $("#wait").css("display", "none");
                     }
-                });
+                    else {
+                        $('#Cards').DataTable();
+                        $('#CardsModal').modal({ backdrop: 'static', keyboard: false });
+                        $("#wait").css("display", "none");
+                    }
+                },
+                error: function () {
+                    bootbox.alert("Too many data  Retrieve more specific characters solve the problem and check your internet connection");
+                    $("#wait").css("display", "none");
+                }
+            });
         }
         else {
             bootbox.alert("Please Insert Card Id");
@@ -1288,459 +1288,469 @@ $(function () {
             }
         });
     });
-
-})
-function SelectMedicienCompany(event) {
-    var Code = event.params.args.data.id
-    $("#wait").css("display", "block");
-    var MedicienCode;
-    var MedicienName;
-    var DosageForm;
-    var PackPrice;
-    var PackSize;
-    var UnitNumber;
-    var UnitPrice;
-    var Group;
-    var IsCover;
-    var edit = 0;
-    $.ajax({
-        type: 'POST',
-        url: '/Pharmacy/GetMedicineByCode/',
-        dataType: 'json',
-        data: { code: Code },
-        success: function (r) {
-            MedicienCode = r.M_CODE;
-            MedicienName = r.TRADE_NAME;
-            DosageForm = r.DOSAGE_FORM;
-            PackPrice = r.PACK_PRICE;
-            PackSize = r.PACK_SIZE;
-            UnitNumber = r.UNIT_NO;
-            UnitPrice = r.UNIT_PRICE;
-            Group = r.Group_Type;
-            IsCover = r.IsCovered.toString();
-            var medicineGroups = new Array();
-            var medicineGroup = {};
-            medicineGroup.TRADE_NAME = MedicienCode; //current medicine code
-            medicineGroups.push(medicineGroup);
-
-            $('#Pharmacy tbody tr').each(function () {
-                var row = $(this);
-                var medicineGroup = {};
-                medicineGroup.M_CODE = row.find("TD").eq(0).html();
-                medicineGroups.push(medicineGroup);
-                if (parseInt(row.find("TD").eq(0).html()) == parseInt(MedicienCode)) {
-                    edit = 1;
-                    event.preventDefault();
-                    toastr.error('Added before');
-                    $("#wait").css("display", "none");
-
+    $('#ddlDiagnoises').on('select2:selecting', function (event) {
+        var CodeDiagnosis = event.params.args.data.id
+        //Gender Check
+        $.ajax({
+            dataType: "json",
+            url: '/Pharmacy/GenderValidationDiagnoses',
+            data: {
+                CardId: $('#txtSearchCard').val(),
+                DiagnosesCode: CodeDiagnosis,
+                Id: Genderr
+            },
+            success: function (r) {
+                if (r != "True") {
+                    $("#ddlDiagnoises").val(null).change();
+                    toastr.error("This Diagnoses dosn't match patient's gender");
                 }
+            },
+            error: function (r) { }
+        }).done(function () {
+            //Age Check
+            $.ajax({
+                dataType: "json",
+                url: '/Pharmacy/AgeValidationDiagnoses',
+                data: {
+                    CardId: $('#txtSearchCard').val(),
+                    AgeCode: CodeDiagnosis,
+                    Id: Age
+                },
+                success: function (r) {
+                    if (r != "True") {
+                        $("#ddlDiagnoises").val(null).change();
+                        toastr.error("This Diagnoses dosn't match patient's Age");
+                    }
+                },
+                error: function (r) { }
             });
-            if (edit == 0) {
-                Group = "Accepted";
-                AppendRow();
+        });
+    })
+});
+    function SelectMedicienCompany(event) {
+        var Code = event.params.args.data.id
+        $("#wait").css("display", "block");
+        var MedicienCode;
+        var MedicienName;
+        var DosageForm;
+        var PackPrice;
+        var PackSize;
+        var UnitNumber;
+        var UnitPrice;
+        var Group;
+        var IsCover;
+        var edit = 0;
+        $.ajax({
+            type: 'POST',
+            url: '/Pharmacy/GetMedicineByCode/',
+            dataType: 'json',
+            data: { code: Code },
+            success: function (r) {
+                MedicienCode = r.M_CODE;
+                MedicienName = r.TRADE_NAME;
+                DosageForm = r.DOSAGE_FORM;
+                PackPrice = r.PACK_PRICE;
+                PackSize = r.PACK_SIZE;
+                UnitNumber = r.UNIT_NO;
+                UnitPrice = r.UNIT_PRICE;
+                Group = r.Group_Type;
+                IsCover = r.IsCovered.toString();
+                var medicineGroups = new Array();
+                var medicineGroup = {};
+                medicineGroup.TRADE_NAME = MedicienCode; //current medicine code
+                medicineGroups.push(medicineGroup);
+
+                $('#Pharmacy tbody tr').each(function () {
+                    var row = $(this);
+                    var medicineGroup = {};
+                    medicineGroup.M_CODE = row.find("TD").eq(0).html();
+                    medicineGroups.push(medicineGroup);
+                    if (parseInt(row.find("TD").eq(0).html()) == parseInt(MedicienCode)) {
+                        edit = 1;
+                        event.preventDefault();
+                        toastr.error('Added before');
+                        $("#wait").css("display", "none");
+
+                    }
+                });
+                if (edit == 0) {
+                    Group = "Accepted";
+                    AppendRow();
+                }
+
+                $("#wait").css("display", "none");
+
+            },
+            error: function (ex) {
+                bootbox.alert('Failed to retrieve Medicine Data.');
             }
 
+        });
+        function AppendRow() {
+            var tBody = $("#Pharmacy > TBODY")[0];
+            var row = tBody.insertRow(-1);
+            var cell = $(row.insertCell(-1));
+            cell.html(MedicienCode);
+            cell = $(row.insertCell(-1));
+            cell.html(MedicienName);
+            cell = $(row.insertCell(-1));
+            cell.html(DosageForm);
+            cell = $(row.insertCell(-1));
+            cell.html(PackSize);
+            cell = $(row.insertCell(-1));
+            var PackagePrice = $("<input  />");
+            PackagePrice.attr("type", "text");
+            PackagePrice.addClass("form-control");
+            PackagePrice.addClass("PackagePrice");
+            PackagePrice.attr("onkeyup", "changeTotalUnits(this);");
+            PackagePrice.val(PackPrice);
+            cell.append(PackagePrice);
+            cell = $(row.insertCell(-1));
+            cell.html(UnitNumber);
+            cell = $(row.insertCell(-1));
+            var unitprice = $("<input  />");
+            unitprice.attr("type", "text");
+            unitprice.attr('readonly', 'readonly');
+            unitprice.addClass("form-control");
+            unitprice.addClass('UnitPrice');
+            cell.append(unitprice);
+            cell = $(row.insertCell(-1));
+            var Dose = $("<input  />");
+            Dose.attr("type", "text");
+            Dose.addClass("form-control");
+            Dose.addClass("Dose");
+            Dose.attr("onkeyup", "changeTable(this);");
+            if (DosageForm == "GEL" || DosageForm == "CREAM" || DosageForm == "SUPP" || DosageForm == "SPRAY" || DosageForm == "DROPS" /*|| DosageForm == "SACHET"*/) {
+                cell.append(1);
+            } else {
+                cell.append(Dose);
+            }
+            cell = $(row.insertCell(-1));
+            var Duration = $("<input  />");
+            Duration.attr("type", "text");
+            Duration.addClass("form-control");
+            Duration.addClass("Duration");
+            Duration.attr("onkeyup", "changeTotalDuration(this);changeTable(this);");
+            cell.append(Duration);
+            cell = $(row.insertCell(-1));
+            var TotalDuration = $("<input  />");
+            TotalDuration.attr("type", "text");
+            TotalDuration.addClass("form-control");
+            TotalDuration.addClass("TotalDuration");
+            TotalDuration.attr("onfocusout", "changeTotalDuration(this);");
+            cell.append(TotalDuration);
+            cell = $(row.insertCell(-1));
+            if (DosageForm == "ELIXIR" || DosageForm == "SYRUP" || DosageForm == "SUSPENTION" || DosageForm == "EMULSION" || DosageForm == "SOUTION") {
+                var TotalUnits = $("<input  />");
+                TotalUnits.attr("type", "text");
+                TotalUnits.addClass('TotalUnits');
+                TotalUnits.addClass("form-control");
+                TotalUnits.attr("onkeyup", "changeTotalUnits(this);");
+                cell.append(TotalUnits);
+            }
+            else {
+                var TotalUnits = $("<input  />");
+                TotalUnits.attr("type", "text");
+                TotalUnits.attr('readonly', 'readonly');
+                TotalUnits.addClass('TotalUnits');
+                TotalUnits.addClass("form-control");
+                cell.append(TotalUnits);
+            }
+            cell = $(row.insertCell(-1));
+            var AppendAmount = $("<input  />");
+            AppendAmount.attr("type", "text");
+            AppendAmount.attr('readonly', 'readonly');
+            AppendAmount.addClass("form-control");
+            AppendAmount.addClass('Amount');
+            cell.append(AppendAmount);
+            cell = $(row.insertCell(-1));
+            cell.html(Group);
+            toastr.success('Added successfully ');
             $("#wait").css("display", "none");
-
-        },
-        error: function (ex) {
-            bootbox.alert('Failed to retrieve Medicine Data.');
         }
-
-    });
-    function AppendRow() {
-        var tBody = $("#Pharmacy > TBODY")[0];
-        var row = tBody.insertRow(-1);
-        var cell = $(row.insertCell(-1));
-        cell.html(MedicienCode);
-        cell = $(row.insertCell(-1));
-        cell.html(MedicienName);
-        cell = $(row.insertCell(-1));
-        cell.html(DosageForm);
-        cell = $(row.insertCell(-1));
-        cell.html(PackSize);
-        cell = $(row.insertCell(-1));
-        var PackagePrice = $("<input  />");
-        PackagePrice.attr("type", "text");
-        PackagePrice.addClass("form-control");
-        PackagePrice.addClass("PackagePrice");
-        PackagePrice.attr("onkeyup", "changeTotalUnits(this);");
-        PackagePrice.val(PackPrice);
-        cell.append(PackagePrice);
-        cell = $(row.insertCell(-1));
-        cell.html(UnitNumber);
-        cell = $(row.insertCell(-1));
-        var unitprice = $("<input  />");
-        unitprice.attr("type", "text");
-        unitprice.attr('readonly', 'readonly');
-        unitprice.addClass("form-control");
-        unitprice.addClass('UnitPrice');
-        cell.append(unitprice);
-        cell = $(row.insertCell(-1));
-        var Dose = $("<input  />");
-        Dose.attr("type", "text");
-        Dose.addClass("form-control");
-        Dose.addClass("Dose");
-        Dose.attr("onkeyup", "changeTable(this);");
-        if (DosageForm == "GEL" || DosageForm == "CREAM" || DosageForm == "SUPP" || DosageForm == "SPRAY" || DosageForm == "DROPS" /*|| DosageForm == "SACHET"*/) {
-            cell.append(1);
-        } else {
-            cell.append(Dose);
-        }
-        cell = $(row.insertCell(-1));
-        var Duration = $("<input  />");
-        Duration.attr("type", "text");
-        Duration.addClass("form-control");
-        Duration.addClass("Duration");
-        Duration.attr("onkeyup", "changeTotalDuration(this);changeTable(this);");
-        cell.append(Duration);
-        cell = $(row.insertCell(-1));
-        var TotalDuration = $("<input  />");
-        TotalDuration.attr("type", "text");
-        TotalDuration.addClass("form-control");
-        TotalDuration.addClass("TotalDuration");
-        TotalDuration.attr("onfocusout", "changeTotalDuration(this);");
-        cell.append(TotalDuration);
-        cell = $(row.insertCell(-1));
-        if (DosageForm == "ELIXIR" || DosageForm == "SYRUP" || DosageForm == "SUSPENTION" || DosageForm == "EMULSION" || DosageForm == "SOUTION") {
-            var TotalUnits = $("<input  />");
-            TotalUnits.attr("type", "text");
-            TotalUnits.addClass('TotalUnits');
-            TotalUnits.addClass("form-control");
-            TotalUnits.attr("onkeyup", "changeTotalUnits(this);");
-            cell.append(TotalUnits);
-        }
-        else {
-            var TotalUnits = $("<input  />");
-            TotalUnits.attr("type", "text");
-            TotalUnits.attr('readonly', 'readonly');
-            TotalUnits.addClass('TotalUnits');
-            TotalUnits.addClass("form-control");
-            cell.append(TotalUnits);
-        }
-        cell = $(row.insertCell(-1));
-        var AppendAmount = $("<input  />");
-        AppendAmount.attr("type", "text");
-        AppendAmount.attr('readonly', 'readonly');
-        AppendAmount.addClass("form-control");
-        AppendAmount.addClass('Amount');
-        cell.append(AppendAmount);
-        cell = $(row.insertCell(-1));
-        cell.html(Group);
-        toastr.success('Added successfully ');
-        $("#wait").css("display", "none");
     }
-}
-function SelectMedicienCompanyPending(event) {
-    var Code = event.params.args.data.id
-    $("#wait").css("display", "block");
-    var MedicienCode;
-    var MedicienName;
-    var DosageForm;
-    var PackPrice;
-    var PackSize;
-    var UnitNumber;
-    var UnitPrice;
-    var Group;
-    var IsCover;
-    var edit = 0;
-    $.ajax({
-        type: 'POST',
-        url: '/Pharmacy/GetMedicineByCode/',
-        dataType: 'json',
-        data: { code: Code },
-        success: function (r) {
-            MedicienCode = r.M_CODE;
-            MedicienName = r.TRADE_NAME;
-            DosageForm = r.DOSAGE_FORM;
-            PackPrice = r.PACK_PRICE;
-            PackSize = r.PACK_SIZE;
-            UnitNumber = r.UNIT_NO;
-            UnitPrice = r.UNIT_PRICE;
-            Group = r.Group_Type;
-            IsCover = r.IsCovered.toString();
-            var medicineGroups = new Array();
-            var medicineGroup = {};
-            medicineGroup.TRADE_NAME = MedicienCode; //current medicine code
-            medicineGroups.push(medicineGroup);
-
-            $('#Pharmacy tbody tr').each(function () {
-                var row = $(this);
+    function SelectMedicienCompanyPending(event) {
+        var Code = event.params.args.data.id
+        $("#wait").css("display", "block");
+        var MedicienCode;
+        var MedicienName;
+        var DosageForm;
+        var PackPrice;
+        var PackSize;
+        var UnitNumber;
+        var UnitPrice;
+        var Group;
+        var IsCover;
+        var edit = 0;
+        $.ajax({
+            type: 'POST',
+            url: '/Pharmacy/GetMedicineByCode/',
+            dataType: 'json',
+            data: { code: Code },
+            success: function (r) {
+                MedicienCode = r.M_CODE;
+                MedicienName = r.TRADE_NAME;
+                DosageForm = r.DOSAGE_FORM;
+                PackPrice = r.PACK_PRICE;
+                PackSize = r.PACK_SIZE;
+                UnitNumber = r.UNIT_NO;
+                UnitPrice = r.UNIT_PRICE;
+                Group = r.Group_Type;
+                IsCover = r.IsCovered.toString();
+                var medicineGroups = new Array();
                 var medicineGroup = {};
-                medicineGroup.M_CODE = row.find("TD").eq(0).html();
+                medicineGroup.TRADE_NAME = MedicienCode; //current medicine code
                 medicineGroups.push(medicineGroup);
-                if (parseInt(row.find("TD").eq(0).html()) == parseInt(MedicienCode)) {
-                    edit = 1;
-                    event.preventDefault();
-                    toastr.error('Added before');
-                    $("#wait").css("display", "none");
 
+                $('#Pharmacy tbody tr').each(function () {
+                    var row = $(this);
+                    var medicineGroup = {};
+                    medicineGroup.M_CODE = row.find("TD").eq(0).html();
+                    medicineGroups.push(medicineGroup);
+                    if (parseInt(row.find("TD").eq(0).html()) == parseInt(MedicienCode)) {
+                        edit = 1;
+                        event.preventDefault();
+                        toastr.error('Added before');
+                        $("#wait").css("display", "none");
+
+                    }
+                });
+                if (edit == 0) {
+                    Group = "Pending";
+                    //toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                    AppendRow();
                 }
-            });
-            if (edit == 0) {
-                Group = "Pending";
-                //toastr.info('برجاءالتواصل مع الاداره الطبيه');
-                AppendRow();
+
+                $("#wait").css("display", "none");
+
+            },
+            error: function (ex) {
+                bootbox.alert('Failed to retrieve Medicine Data.');
             }
 
+        });
+        function AppendRow() {
+            var tBody = $("#Pharmacy > TBODY")[0];
+            var row = tBody.insertRow(-1);
+            var cell = $(row.insertCell(-1));
+            cell.html(MedicienCode);
+            cell = $(row.insertCell(-1));
+            cell.html(MedicienName);
+            cell = $(row.insertCell(-1));
+            cell.html(DosageForm);
+            cell = $(row.insertCell(-1));
+            cell.html(PackSize);
+            cell = $(row.insertCell(-1));
+            var PackagePrice = $("<input  />");
+            PackagePrice.attr("type", "text");
+            PackagePrice.addClass("form-control");
+            PackagePrice.addClass("PackagePrice");
+            PackagePrice.attr("onkeyup", "changeTotalUnits(this);");
+            PackagePrice.val(PackPrice);
+            cell.append(PackagePrice);
+            cell = $(row.insertCell(-1));
+            cell.html(UnitNumber);
+            cell = $(row.insertCell(-1));
+            var unitprice = $("<input  />");
+            unitprice.attr("type", "text");
+            unitprice.attr('readonly', 'readonly');
+            unitprice.addClass("form-control");
+            unitprice.addClass('UnitPrice');
+            cell.append(unitprice);
+            cell = $(row.insertCell(-1));
+            var Dose = $("<input  />");
+            Dose.attr("type", "text");
+            Dose.addClass("form-control");
+            Dose.addClass("Dose");
+            Dose.attr("onkeyup", "changeTable(this);");
+            if (DosageForm == "GEL" || DosageForm == "CREAM" || DosageForm == "SUPP" || DosageForm == "SPRAY" || DosageForm == "DROPS" /*|| DosageForm == "SACHET"*/) {
+                cell.append(1);
+            } else {
+                cell.append(Dose);
+            }
+            cell = $(row.insertCell(-1));
+            var Duration = $("<input  />");
+            Duration.attr("type", "text");
+            Duration.addClass("form-control");
+            Duration.addClass("Duration");
+            Duration.attr("onkeyup", "changeTotalDuration(this);changeTable(this);");
+            cell.append(Duration);
+            cell = $(row.insertCell(-1));
+            var TotalDuration = $("<input  />");
+            TotalDuration.attr("type", "text");
+            TotalDuration.addClass("form-control");
+            TotalDuration.addClass("TotalDuration");
+            TotalDuration.attr("onfocusout", "changeTotalDuration(this);");
+            cell.append(TotalDuration);
+            cell = $(row.insertCell(-1));
+            if (DosageForm == "ELIXIR" || DosageForm == "SYRUP" || DosageForm == "SUSPENTION" || DosageForm == "EMULSION" || DosageForm == "SOUTION") {
+                var TotalUnits = $("<input  />");
+                TotalUnits.attr("type", "text");
+                TotalUnits.addClass('TotalUnits');
+                TotalUnits.addClass("form-control");
+                TotalUnits.attr("onkeyup", "changeTotalUnits(this);");
+                cell.append(TotalUnits);
+            }
+            else {
+                var TotalUnits = $("<input  />");
+                TotalUnits.attr("type", "text");
+                TotalUnits.attr('readonly', 'readonly');
+                TotalUnits.addClass('TotalUnits');
+                TotalUnits.addClass("form-control");
+                cell.append(TotalUnits);
+            }
+            cell = $(row.insertCell(-1));
+            var AppendAmount = $("<input  />");
+            AppendAmount.attr("type", "text");
+            AppendAmount.attr('readonly', 'readonly');
+            AppendAmount.addClass("form-control");
+            AppendAmount.addClass('Amount');
+            cell.append(AppendAmount);
+            cell = $(row.insertCell(-1));
+            cell.html(Group);
+            toastr.success('Added successfully ');
             $("#wait").css("display", "none");
-
-        },
-        error: function (ex) {
-            bootbox.alert('Failed to retrieve Medicine Data.');
         }
-
-    });
-    function AppendRow() {
-        var tBody = $("#Pharmacy > TBODY")[0];
-        var row = tBody.insertRow(-1);
-        var cell = $(row.insertCell(-1));
-        cell.html(MedicienCode);
-        cell = $(row.insertCell(-1));
-        cell.html(MedicienName);
-        cell = $(row.insertCell(-1));
-        cell.html(DosageForm);
-        cell = $(row.insertCell(-1));
-        cell.html(PackSize);
-        cell = $(row.insertCell(-1));
-        var PackagePrice = $("<input  />");
-        PackagePrice.attr("type", "text");
-        PackagePrice.addClass("form-control");
-        PackagePrice.addClass("PackagePrice");
-        PackagePrice.attr("onkeyup", "changeTotalUnits(this);");
-        PackagePrice.val(PackPrice);
-        cell.append(PackagePrice);
-        cell = $(row.insertCell(-1));
-        cell.html(UnitNumber);
-        cell = $(row.insertCell(-1));
-        var unitprice = $("<input  />");
-        unitprice.attr("type", "text");
-        unitprice.attr('readonly', 'readonly');
-        unitprice.addClass("form-control");
-        unitprice.addClass('UnitPrice');
-        cell.append(unitprice);
-        cell = $(row.insertCell(-1));
-        var Dose = $("<input  />");
-        Dose.attr("type", "text");
-        Dose.addClass("form-control");
-        Dose.addClass("Dose");
-        Dose.attr("onkeyup", "changeTable(this);");
-        if (DosageForm == "GEL" || DosageForm == "CREAM" || DosageForm == "SUPP" || DosageForm == "SPRAY" || DosageForm == "DROPS" /*|| DosageForm == "SACHET"*/) {
-            cell.append(1);
-        } else {
-            cell.append(Dose);
-        }
-        cell = $(row.insertCell(-1));
-        var Duration = $("<input  />");
-        Duration.attr("type", "text");
-        Duration.addClass("form-control");
-        Duration.addClass("Duration");
-        Duration.attr("onkeyup", "changeTotalDuration(this);changeTable(this);");
-        cell.append(Duration);
-        cell = $(row.insertCell(-1));
-        var TotalDuration = $("<input  />");
-        TotalDuration.attr("type", "text");
-        TotalDuration.addClass("form-control");
-        TotalDuration.addClass("TotalDuration");
-        TotalDuration.attr("onfocusout", "changeTotalDuration(this);");
-        cell.append(TotalDuration);
-        cell = $(row.insertCell(-1));
-        if (DosageForm == "ELIXIR" || DosageForm == "SYRUP" || DosageForm == "SUSPENTION" || DosageForm == "EMULSION" || DosageForm == "SOUTION") {
-            var TotalUnits = $("<input  />");
-            TotalUnits.attr("type", "text");
-            TotalUnits.addClass('TotalUnits');
-            TotalUnits.addClass("form-control");
-            TotalUnits.attr("onkeyup", "changeTotalUnits(this);");
-            cell.append(TotalUnits);
-        }
-        else {
-            var TotalUnits = $("<input  />");
-            TotalUnits.attr("type", "text");
-            TotalUnits.attr('readonly', 'readonly');
-            TotalUnits.addClass('TotalUnits');
-            TotalUnits.addClass("form-control");
-            cell.append(TotalUnits);
-        }
-        cell = $(row.insertCell(-1));
-        var AppendAmount = $("<input  />");
-        AppendAmount.attr("type", "text");
-        AppendAmount.attr('readonly', 'readonly');
-        AppendAmount.addClass("form-control");
-        AppendAmount.addClass('Amount');
-        cell.append(AppendAmount);
-        cell = $(row.insertCell(-1));
-        cell.html(Group);
-        toastr.success('Added successfully ');
-        $("#wait").css("display", "none");
     }
-}
-function SelectMedicien(event) {
-    var Code = event.params.args.data.id
-    $("#wait").css("display", "block");
-    var MedicienCode;
-    var MedicienName;
-    var DosageForm;
-    var PackPrice;
-    var PackSize;
-    var UnitNumber;
-    var UnitPrice;
-    var Group;
-    var IsCover;
-    var GenderValidation = false;
-    var AgeValiation = false;
-    var edit = 0;
-    var isChronic = 0;
-    $.ajax({
-        type: 'POST',
-        url: '/Pharmacy/GetMedicineByCode/',
-        dataType: 'json',
-        data: { code: Code },
-        success: function (r) {
-            if (r.M_TYPE == "CHRONIC") {
-                isChronic = 1;
-                //edit = 1;
-                //toastr.error('لا يمكن صرف هذا الدواء ضمن الادويه اليوميه للاستفسار برجاء الاتصال علي رقم الادارة الطبيه');
-                //$("#AddMedicine option[value='" + Code + "']").remove();
-                //$("#wait").css("display", "none");
-
-            }
-            MedicienCode = r.M_CODE;
-            MedicienName = r.TRADE_NAME;
-            DosageForm = r.DOSAGE_FORM;
-            PackPrice = r.PACK_PRICE;
-            PackSize = r.PACK_SIZE;
-            UnitNumber = r.UNIT_NO;
-            UnitPrice = r.UNIT_PRICE;
-            Group = r.Group_Type;
-            IsCover = r.IsCovered.toString();
-            var medicineGroups = new Array();
-            var medicineGroup = {};
-            medicineGroup.TRADE_NAME = MedicienCode; //current medicine code
-            medicineGroups.push(medicineGroup);
-
-            $('#Pharmacy tbody tr').each(function () {
-                var row = $(this);
-                var medicineGroup = {};
-                medicineGroup.M_CODE = row.find("TD").eq(0).html();
-                medicineGroups.push(medicineGroup);
-                if (parseInt(row.find("TD").eq(0).html()) == parseInt(MedicienCode)) {
-                    edit = 1;
-                    event.preventDefault();
-                    toastr.error('Added before');
-                    $("#wait").css("display", "none");
+    function SelectMedicien(event) {
+        var Code = event.params.args.data.id
+        $("#wait").css("display", "block");
+        var MedicienCode;
+        var MedicienName;
+        var DosageForm;
+        var PackPrice;
+        var PackSize;
+        var UnitNumber;
+        var UnitPrice;
+        var Group;
+        var IsCover;
+        var GenderValidation = false;
+        var AgeValiation = false;
+        var edit = 0;
+        var isChronic = 0;
+        $.ajax({
+            type: 'POST',
+            url: '/Pharmacy/GetMedicineByCode/',
+            dataType: 'json',
+            data: { code: Code },
+            success: function (r) {
+                if (r.M_TYPE == "CHRONIC") {
+                    isChronic = 1;
+                    //edit = 1;
+                    //toastr.error('لا يمكن صرف هذا الدواء ضمن الادويه اليوميه للاستفسار برجاء الاتصال علي رقم الادارة الطبيه');
+                    //$("#AddMedicine option[value='" + Code + "']").remove();
+                    //$("#wait").css("display", "none");
 
                 }
-            });
-            var samegroup = false;
-            var samegroupAll = false;
-            var Duration = false;
-            //
-            if (edit == 0) {
-                if (IsCover == "true") {
-                    //Gender Check
-                    $.ajax({
-                        dataType: "json",
-                        url: '/Pharmacy/GenderValidation',
-                        data: {
-                            CardId: $('#txtSearchCard').val(),
-                            MedicineCode: MedicienCode,
-                            Id: Genderr
-                        },
-                        success: function (r) {
-                            if (r == "True") {
-                                GenderValidation = true;
-                            }
-                            else {
-                                RemoveSelection(Code);
-                                //toastr.error("You can't dispense this medicine");
-                                toastr.error("this medicine dosn't match patient's gender");
-                                $("#wait").css("display", "none");
+                MedicienCode = r.M_CODE;
+                MedicienName = r.TRADE_NAME;
+                DosageForm = r.DOSAGE_FORM;
+                PackPrice = r.PACK_PRICE;
+                PackSize = r.PACK_SIZE;
+                UnitNumber = r.UNIT_NO;
+                UnitPrice = r.UNIT_PRICE;
+                Group = r.Group_Type;
+                IsCover = r.IsCovered.toString();
+                var medicineGroups = new Array();
+                var medicineGroup = {};
+                medicineGroup.TRADE_NAME = MedicienCode; //current medicine code
+                medicineGroups.push(medicineGroup);
 
-                            }
-                        },
-                        error: function (r) { }
-                    }).done(function () {
-                        //Age Check
+                $('#Pharmacy tbody tr').each(function () {
+                    var row = $(this);
+                    var medicineGroup = {};
+                    medicineGroup.M_CODE = row.find("TD").eq(0).html();
+                    medicineGroups.push(medicineGroup);
+                    if (parseInt(row.find("TD").eq(0).html()) == parseInt(MedicienCode)) {
+                        edit = 1;
+                        event.preventDefault();
+                        toastr.error('Added before');
+                        $("#wait").css("display", "none");
+
+                    }
+                });
+                var samegroup = false;
+                var samegroupAll = false;
+                var Duration = false;
+                //
+                if (edit == 0) {
+                    if (IsCover == "true") {
+                        //Gender Check
                         $.ajax({
                             dataType: "json",
-                            url: '/Pharmacy/AgeValidation',
+                            url: '/Pharmacy/GenderValidation',
                             data: {
                                 CardId: $('#txtSearchCard').val(),
                                 MedicineCode: MedicienCode,
-                                Id: Age
+                                Id: Genderr
                             },
                             success: function (r) {
                                 if (r == "True") {
-                                    AgeValiation = true;
+                                    GenderValidation = true;
                                 }
                                 else {
-                                    if (GenderValidation = true) {
-                                        RemoveSelection(Code);
-                                        //toastr.error("You can't dispense this medicine");
-                                        toastr.error("this medicine dosn't match patient's Age");
-                                        $("#wait").css("display", "none");
-                                    }
+                                    RemoveSelection(Code);
+                                    //toastr.error("You can't dispense this medicine");
+                                    toastr.error("this medicine dosn't match patient's gender");
+                                    $("#wait").css("display", "none");
+
                                 }
                             },
                             error: function (r) { }
                         }).done(function () {
-                            //medicine group
+                            //Age Check
                             $.ajax({
-                                type: 'POST',
-                                url: '/Pharmacy/MedicinesGroupValiadtion/',
-                                dataType: 'Json',
-                                contentType: "application/json; charset=utf-8",
-                                data: JSON.stringify(medicineGroups),
+                                dataType: "json",
+                                url: '/Pharmacy/AgeValidation',
+                                data: {
+                                    CardId: $('#txtSearchCard').val(),
+                                    MedicineCode: MedicienCode,
+                                    Id: Age
+                                },
                                 success: function (r) {
-                                    if (r == true) {
-                                        if (AgeValiation == true) {
-                                            RemoveSelection(Code);
-                                            //toastr.error("You can't dispense this medicine");//same Group
-                                            toastr.error("medicines has the same medicine group");
-                                            $("#wait").css("display", "none");
-                                        }
-                                        samegroup = true;
+                                    if (r == "True") {
+                                        AgeValiation = true;
                                     }
                                     else {
-                                        samegroup = false;
+                                        if (GenderValidation = true) {
+                                            RemoveSelection(Code);
+                                            //toastr.error("You can't dispense this medicine");
+                                            toastr.error("this medicine dosn't match patient's Age");
+                                            $("#wait").css("display", "none");
+                                        }
                                     }
                                 },
-                                error: function () {
-                                    samegroup = false;
-                                }
+                                error: function (r) { }
                             }).done(function () {
-
-                                //medicine group All
+                                //medicine group
                                 $.ajax({
-                                    url: '/Pharmacy/MedicinesGroupValiadtionAll/',
+                                    type: 'POST',
+                                    url: '/Pharmacy/MedicinesGroupValiadtion/',
                                     dataType: 'Json',
                                     contentType: "application/json; charset=utf-8",
-                                    data: {
-                                        CardId: $('#txtSearchCard').val(),
-                                        MedicineCode: MedicienCode
-                                    },
+                                    data: JSON.stringify(medicineGroups),
                                     success: function (r) {
-
                                         if (r == true) {
-                                            if (samegroup == false) {
+                                            if (AgeValiation == true) {
                                                 RemoveSelection(Code);
                                                 //toastr.error("You can't dispense this medicine");//same Group
                                                 toastr.error("medicines has the same medicine group");
                                                 $("#wait").css("display", "none");
                                             }
-                                            samegroupAll = true;
+                                            samegroup = true;
                                         }
                                         else {
-                                            samegroupAll = false;
+                                            samegroup = false;
                                         }
                                     },
                                     error: function () {
-                                        samegroupAll = false;
+                                        samegroup = false;
                                     }
                                 }).done(function () {
+
+                                    //medicine group All
                                     $.ajax({
-                                        url: '/Pharmacy/MedicinesDurationValiadtion/',
+                                        url: '/Pharmacy/MedicinesGroupValiadtionAll/',
                                         dataType: 'Json',
                                         contentType: "application/json; charset=utf-8",
                                         data: {
@@ -1748,655 +1758,829 @@ function SelectMedicien(event) {
                                             MedicineCode: MedicienCode
                                         },
                                         success: function (r) {
-                                            if (r == true) {
-                                                if (samegroupAll == false) {
-                                                    RemoveSelection(Code);
-                                                    // toastr.error("You can't dispense this medicine");//'Duration Validation'
-                                                    toastr.error("this medicine still in your previous duration ");//'Duration Validation'
-                                                    $("#wait").css("display", "none");
-                                                    Duration = true;
-                                                }
 
+                                            if (r == true) {
+                                                if (samegroup == false) {
+                                                    RemoveSelection(Code);
+                                                    //toastr.error("You can't dispense this medicine");//same Group
+                                                    toastr.error("medicines has the same medicine group");
+                                                    $("#wait").css("display", "none");
+                                                }
+                                                samegroupAll = true;
                                             }
                                             else {
-                                                Duration = false;
+                                                samegroupAll = false;
                                             }
                                         },
                                         error: function () {
-                                            Duration = false;
+                                            samegroupAll = false;
                                         }
                                     }).done(function () {
-                                        if (GenderValidation == true && AgeValiation == true && IsCover == "true" && samegroup == false && samegroupAll == false && Duration == false) {
-                                            //check Daily
-                                            $("#wait").css("display", "block");
-                                            $.ajax({
-                                                dataType: "json",
-                                                url: '/Pharmacy/CheckDaily',
-                                                data: {
-                                                    id: $('#txtSearchCard').val(),
-                                                    code: MedicienCode
-                                                },
-                                                success: function (r) {
-                                                    if (r.check == 0) {
+                                        $.ajax({
+                                            url: '/Pharmacy/MedicinesDurationValiadtion/',
+                                            dataType: 'Json',
+                                            contentType: "application/json; charset=utf-8",
+                                            data: {
+                                                CardId: $('#txtSearchCard').val(),
+                                                MedicineCode: MedicienCode
+                                            },
+                                            success: function (r) {
+                                                if (r == true) {
+                                                    if (samegroupAll == false) {
+                                                        RemoveSelection(Code);
+                                                        // toastr.error("You can't dispense this medicine");//'Duration Validation'
+                                                        toastr.error("this medicine still in your previous duration ");//'Duration Validation'
                                                         $("#wait").css("display", "none");
-                                                        // chick if chronic or not 
-                                                        if (isChronic == 0) {
-                                                            //append row
-                                                            if (Group == "NO") {
-                                                                $.ajax({
-                                                                    dataType: "json",
-                                                                    url: '/Pharmacy/CheckVip',
-                                                                    data: {
-                                                                        id: $('#txtSearchCard').val()
-                                                                    },
-                                                                    success: function (r) {
-                                                                        if (r.IsVip == 1) {
-                                                                            Group = "Accepted";
-                                                                            AppendRow();
+                                                        Duration = true;
+                                                    }
+
+                                                }
+                                                else {
+                                                    Duration = false;
+                                                }
+                                            },
+                                            error: function () {
+                                                Duration = false;
+                                            }
+                                        }).done(function () {
+                                            if (GenderValidation == true && AgeValiation == true && IsCover == "true" && samegroup == false && samegroupAll == false && Duration == false) {
+                                                //check Daily
+                                                $("#wait").css("display", "block");
+                                                $.ajax({
+                                                    dataType: "json",
+                                                    url: '/Pharmacy/CheckDaily',
+                                                    data: {
+                                                        id: $('#txtSearchCard').val(),
+                                                        code: MedicienCode
+                                                    },
+                                                    success: function (r) {
+                                                        if (r.check == 0) {
+                                                            $("#wait").css("display", "none");
+                                                            // chick if chronic or not 
+                                                            if (isChronic == 0) {
+                                                                //append row
+                                                                if (Group == "NO") {
+                                                                    $.ajax({
+                                                                        dataType: "json",
+                                                                        url: '/Pharmacy/CheckVip',
+                                                                        data: {
+                                                                            id: $('#txtSearchCard').val()
+                                                                        },
+                                                                        success: function (r) {
+                                                                            if (r.IsVip == 1) {
+                                                                                Group = "Accepted";
+                                                                                AppendRow();
+                                                                            }
+                                                                            else {
+                                                                                var dialog = bootbox.dialog({
+                                                                                    //title: 'This Medicien is Not Covered!',
+                                                                                    title: 'This medicine requires approval',
+                                                                                    message: "<p>Pay method?</p>",
+                                                                                    onEscape: function () {
+                                                                                        RemoveSelection(MedicienCode);
+                                                                                    },
+                                                                                    //backdrop: true,
+                                                                                    buttons: {
+                                                                                        Cash: {
+                                                                                            label: "Cash",
+                                                                                            className: 'btn-info',
+                                                                                            callback: function () {
+                                                                                                Group = "Cash";
+                                                                                                AppendRow();
+                                                                                            }
+                                                                                        }
+                                                                                        , Tele: {
+                                                                                            label: "Pending",
+                                                                                            className: 'btn-info',
+                                                                                            callback: function () {
+                                                                                                Group = "Pending";
+                                                                                                //toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                                                                                AppendRow();
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                });
+                                                                            }
                                                                         }
-                                                                        else {
-                                                                            var dialog = bootbox.dialog({
-                                                                                //title: 'This Medicien is Not Covered!',
-                                                                                title: 'This medicine requires approval',
-                                                                                message: "<p>Pay method?</p>",
-                                                                                onEscape: function () {
-                                                                                    RemoveSelection(MedicienCode);
-                                                                                },
-                                                                                //backdrop: true,
-                                                                                buttons: {
-                                                                                    Cash: {
-                                                                                        label: "Cash",
-                                                                                        className: 'btn-info',
-                                                                                        callback: function () {
-                                                                                            Group = "Cash";
-                                                                                            AppendRow();
-                                                                                        }
-                                                                                    }
-                                                                                    , Tele: {
-                                                                                        label: "Pending",
-                                                                                        className: 'btn-info',
-                                                                                        callback: function () {
-                                                                                            Group = "Pending";
-                                                                                            //toastr.info('برجاءالتواصل مع الاداره الطبيه');
-                                                                                            AppendRow();
-                                                                                        }
-                                                                                    }
+                                                                    });
+                                                                    ////if ($('#txtSearchCard').val().split('-')[0].includes("500")) {
+                                                                    ////    Group = "Accepted";
+                                                                    ////    AppendRow();
+                                                                    ////}
+                                                                    ////else {
+                                                                    //var dialog = bootbox.dialog({
+                                                                    //    title: 'This Medicien is Not Covered!',
+                                                                    //    message: "<p>Pay method?</p>",
+                                                                    //    //title: '!هذا الدواء غير مغطى',
+                                                                    //    //message: "<p float='right'>طريقه الدفع؟</p>",
+                                                                    //    onEscape: function () {
+                                                                    //        RemoveSelection(MedicienCode);
+                                                                    //    },
+                                                                    //    //backdrop: true,
+                                                                    //    buttons: {
+                                                                    //        Cash: {
+                                                                    //            label: "Cash",
+                                                                    //            className: 'btn-info',
+                                                                    //            callback: function () {
+                                                                    //                Group = "Cash";
+                                                                    //                AppendRow();
+                                                                    //            }
+                                                                    //        }
+                                                                    //        //, Approval: {
+                                                                    //        //    label: "Approved",
+                                                                    //        //    className: 'btn-info',
+                                                                    //        //    callback: function () {
+                                                                    //        //        Group = "Approval";
+                                                                    //        //        AppendRow();
+                                                                    //        //    }
+                                                                    //        //}
+                                                                    //        , Tele: {
+                                                                    //            label: "Pending",
+                                                                    //            className: 'btn-info',
+                                                                    //            callback: function () {
+                                                                    //                Group = "Pending";
+                                                                    //                toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                                                    //                AppendRow();
+                                                                    //            }
+                                                                    //        }
+                                                                    //    }
+                                                                    //});
+                                                                    ////}
+                                                                    // end if for group no
+                                                                }
+                                                                else if (Group == "Pending") {
+                                                                    var dialog = bootbox.dialog({
+                                                                        //title: 'This Medicien is Not Covered!',
+                                                                        title: 'This medicine requires approval',
+                                                                        message: "<p>Pay method?</p>",
+                                                                        onEscape: function () {
+                                                                            RemoveSelection(MedicienCode);
+                                                                        },
+                                                                        //backdrop: true,
+                                                                        buttons: {
+                                                                            Cash: {
+                                                                                label: "Cash",
+                                                                                className: 'btn-info',
+                                                                                callback: function () {
+                                                                                    Group = "Cash";
+                                                                                    AppendRow();
                                                                                 }
-                                                                            });
-                                                                        }
-                                                                    }
-                                                                });
-                                                                ////if ($('#txtSearchCard').val().split('-')[0].includes("500")) {
-                                                                ////    Group = "Accepted";
-                                                                ////    AppendRow();
-                                                                ////}
-                                                                ////else {
-                                                                //var dialog = bootbox.dialog({
-                                                                //    title: 'This Medicien is Not Covered!',
-                                                                //    message: "<p>Pay method?</p>",
-                                                                //    //title: '!هذا الدواء غير مغطى',
-                                                                //    //message: "<p float='right'>طريقه الدفع؟</p>",
-                                                                //    onEscape: function () {
-                                                                //        RemoveSelection(MedicienCode);
-                                                                //    },
-                                                                //    //backdrop: true,
-                                                                //    buttons: {
-                                                                //        Cash: {
-                                                                //            label: "Cash",
-                                                                //            className: 'btn-info',
-                                                                //            callback: function () {
-                                                                //                Group = "Cash";
-                                                                //                AppendRow();
-                                                                //            }
-                                                                //        }
-                                                                //        //, Approval: {
-                                                                //        //    label: "Approved",
-                                                                //        //    className: 'btn-info',
-                                                                //        //    callback: function () {
-                                                                //        //        Group = "Approval";
-                                                                //        //        AppendRow();
-                                                                //        //    }
-                                                                //        //}
-                                                                //        , Tele: {
-                                                                //            label: "Pending",
-                                                                //            className: 'btn-info',
-                                                                //            callback: function () {
-                                                                //                Group = "Pending";
-                                                                //                toastr.info('برجاءالتواصل مع الاداره الطبيه');
-                                                                //                AppendRow();
-                                                                //            }
-                                                                //        }
-                                                                //    }
-                                                                //});
-                                                                ////}
-                                                                // end if for group no
-                                                            }
-                                                            else if (Group == "Pending") {
-                                                                var dialog = bootbox.dialog({
-                                                                    //title: 'This Medicien is Not Covered!',
-                                                                    title: 'This medicine requires approval',
-                                                                    message: "<p>Pay method?</p>",
-                                                                    onEscape: function () {
-                                                                        RemoveSelection(MedicienCode);
-                                                                    },
-                                                                    //backdrop: true,
-                                                                    buttons: {
-                                                                        Cash: {
-                                                                            label: "Cash",
-                                                                            className: 'btn-info',
-                                                                            callback: function () {
-                                                                                Group = "Cash";
-                                                                                AppendRow();
+                                                                            }
+                                                                            , Tele: {
+                                                                                label: "Pending",
+                                                                                className: 'btn-info',
+                                                                                callback: function () {
+                                                                                    Group = "Pending";
+                                                                                    //toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                                                                    AppendRow();
+                                                                                }
                                                                             }
                                                                         }
-                                                                        , Tele: {
-                                                                            label: "Pending",
-                                                                            className: 'btn-info',
-                                                                            callback: function () {
-                                                                                Group = "Pending";
-                                                                                //toastr.info('برجاءالتواصل مع الاداره الطبيه');
-                                                                                AppendRow();
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                });
+                                                                    });
+                                                                }
+                                                                else {
+                                                                    AppendRow();
+                                                                }
                                                             }
                                                             else {
-                                                                AppendRow();
+                                                                if (Group == "YES" || Group == "NO") {
+                                                                    $.ajax({
+                                                                        dataType: "json",
+                                                                        url: '/Pharmacy/CheckVip',
+                                                                        data: {
+                                                                            id: $('#txtSearchCard').val()
+                                                                        },
+                                                                        success: function (r) {
+                                                                            if (r.IsVip == 1) {
+                                                                                Group = "Accepted";
+                                                                                AppendRow();
+                                                                            }
+                                                                            else {
+
+                                                                                var dialog = bootbox.dialog({
+                                                                                    //title: 'This Medicien is Not Covered!',
+                                                                                    title: 'This medicine requires approval',
+                                                                                    message: "<p>Pay method?</p>",
+                                                                                    onEscape: function () {
+                                                                                        RemoveSelection(MedicienCode);
+                                                                                    },
+                                                                                    //backdrop: true,
+                                                                                    buttons: {
+                                                                                        Cash: {
+                                                                                            label: "Cash",
+                                                                                            className: 'btn-info',
+                                                                                            callback: function () {
+                                                                                                Group = "Cash";
+                                                                                                AppendRow();
+                                                                                            }
+                                                                                        }
+                                                                                        , Tele: {
+                                                                                            label: "Pending",
+                                                                                            className: 'btn-info',
+                                                                                            callback: function () {
+                                                                                                Group = "PendingChronic";
+                                                                                                //toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                                                                                AppendRow();
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                });
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                }
+                                                                else {
+                                                                    var dialog = bootbox.dialog({
+                                                                        //title: 'This Medicien is Not Covered!',
+                                                                        title: 'This medicine requires approval',
+                                                                        message: "<p>Pay method?</p>",
+                                                                        onEscape: function () {
+                                                                            RemoveSelection(MedicienCode);
+                                                                        },
+                                                                        //backdrop: true,
+                                                                        buttons: {
+                                                                            Cash: {
+                                                                                label: "Cash",
+                                                                                className: 'btn-info',
+                                                                                callback: function () {
+                                                                                    Group = "Cash";
+                                                                                    AppendRow();
+                                                                                }
+                                                                            }
+                                                                            , Tele: {
+                                                                                label: "Pending",
+                                                                                className: 'btn-info',
+                                                                                callback: function () {
+                                                                                    Group = "PendingChronic";
+                                                                                    //toastr.info('برجاءالتواصل مع الاداره الطبيه');
+                                                                                    AppendRow();
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                }
+
                                                             }
                                                         }
                                                         else {
-                                                            if (Group == "YES" || Group == "NO") {
-                                                                $.ajax({
-                                                                    dataType: "json",
-                                                                    url: '/Pharmacy/CheckVip',
-                                                                    data: {
-                                                                        id: $('#txtSearchCard').val()
-                                                                    },
-                                                                    success: function (r) {
-                                                                        if (r.IsVip == 1) {
-                                                                            Group = "Accepted";
-                                                                            AppendRow();
-                                                                        }
-                                                                        else {
-
-                                                                            var dialog = bootbox.dialog({
-                                                                                //title: 'This Medicien is Not Covered!',
-                                                                                title: 'This medicine requires approval',
-                                                                                message: "<p>Pay method?</p>",
-                                                                                onEscape: function () {
-                                                                                    RemoveSelection(MedicienCode);
-                                                                                },
-                                                                                //backdrop: true,
-                                                                                buttons: {
-                                                                                    Cash: {
-                                                                                        label: "Cash",
-                                                                                        className: 'btn-info',
-                                                                                        callback: function () {
-                                                                                            Group = "Cash";
-                                                                                            AppendRow();
-                                                                                        }
-                                                                                    }
-                                                                                    , Tele: {
-                                                                                        label: "Pending",
-                                                                                        className: 'btn-info',
-                                                                                        callback: function () {
-                                                                                            Group = "PendingChronic";
-                                                                                            //toastr.info('برجاءالتواصل مع الاداره الطبيه');
-                                                                                            AppendRow();
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            });
-                                                                        }
-                                                                    }
-                                                                });
-                                                            }
-                                                            else {
-                                                                var dialog = bootbox.dialog({
-                                                                    //title: 'This Medicien is Not Covered!',
-                                                                    title: 'This medicine requires approval',
-                                                                    message: "<p>Pay method?</p>",
-                                                                    onEscape: function () {
-                                                                        RemoveSelection(MedicienCode);
-                                                                    },
-                                                                    //backdrop: true,
-                                                                    buttons: {
-                                                                        Cash: {
-                                                                            label: "Cash",
-                                                                            className: 'btn-info',
-                                                                            callback: function () {
-                                                                                Group = "Cash";
-                                                                                AppendRow();
-                                                                            }
-                                                                        }
-                                                                        , Tele: {
-                                                                            label: "Pending",
-                                                                            className: 'btn-info',
-                                                                            callback: function () {
-                                                                                Group = "PendingChronic";
-                                                                                //toastr.info('برجاءالتواصل مع الاداره الطبيه');
-                                                                                AppendRow();
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                });
-                                                            }
-
+                                                            RemoveSelection(Code);
+                                                            //bootbox.alert("This Medicine had been exchanged ");
+                                                            bootbox.alert(r.messa);
+                                                            //bootbox.alert("هذا الدواء تم التعامل معه من قبل , برجاء مراجعه الادويه المزمنه للمريض,او الاتصال بالاداره الطبيه");
+                                                            $("#wait").css("display", "none");
                                                         }
-                                                    }
-                                                    else {
-                                                        RemoveSelection(Code);
-                                                        //bootbox.alert("This Medicine had been exchanged ");
-                                                        bootbox.alert(r.messa);
-                                                        //bootbox.alert("هذا الدواء تم التعامل معه من قبل , برجاء مراجعه الادويه المزمنه للمريض,او الاتصال بالاداره الطبيه");
+                                                    },
+                                                    error: function (r) {
+                                                        bootbox.alert("failed Exchanged validation ,chacke your internet connection  ");
                                                         $("#wait").css("display", "none");
                                                     }
-                                                },
-                                                error: function (r) {
-                                                    bootbox.alert("failed Exchanged validation ,chacke your internet connection  ");
-                                                    $("#wait").css("display", "none");
-                                                }
 
-                                            });
-                                        }
+                                                });
+                                            }
+                                        });
                                     });
                                 });
-                            });
+                            })
                         })
-                    })
+                    }
+                    else {
+                        RemoveSelection(Code);
+                        toastr.error("Medicine isn't covered");
+                    }
                 }
-                else {
-                    RemoveSelection(Code);
-                    toastr.error("Medicine isn't covered");
-                }
+
+                $("#wait").css("display", "none");
+
+            },
+            error: function (ex) {
+                bootbox.alert('Failed to retrieve Medicine Data.');
             }
 
+        });
+        function AppendRow() {
+            var tBody = $("#Pharmacy > TBODY")[0];
+            var row = tBody.insertRow(-1);
+            var cell = $(row.insertCell(-1));
+            cell.html(MedicienCode);
+            cell = $(row.insertCell(-1));
+            cell.html(MedicienName);
+            cell = $(row.insertCell(-1));
+            cell.html(DosageForm);
+            cell = $(row.insertCell(-1));
+            cell.html(PackSize);
+            cell = $(row.insertCell(-1));
+            var PackagePrice = $("<input  />");
+            PackagePrice.attr("type", "text");
+            PackagePrice.addClass("form-control");
+            PackagePrice.addClass("PackagePrice");
+            PackagePrice.attr("onkeyup", "changeTotalUnits(this);");
+            PackagePrice.val(PackPrice);
+            cell.append(PackagePrice);
+            cell = $(row.insertCell(-1));
+            cell.html(UnitNumber);
+            cell = $(row.insertCell(-1));
+            var unitprice = $("<input  />");
+            unitprice.attr("type", "text");
+            unitprice.attr('readonly', 'readonly');
+            unitprice.addClass("form-control");
+            unitprice.addClass('UnitPrice');
+            cell.append(unitprice);
+            cell = $(row.insertCell(-1));
+            var Dose = $("<input  />");
+            Dose.attr("type", "text");
+            Dose.addClass("form-control");
+            Dose.addClass("Dose");
+            Dose.attr("onkeyup", "changeTable(this);");
+            if (DosageForm == "GEL" || DosageForm == "CREAM" || DosageForm == "SUPP" || DosageForm == "SPRAY" || DosageForm == "DROPS" /*|| DosageForm == "SACHET"*/) {
+                cell.append(1);
+            } else {
+                cell.append(Dose);
+            }
+            cell = $(row.insertCell(-1));
+            var Duration = $("<input  />");
+            Duration.attr("type", "text");
+            Duration.addClass("form-control");
+            Duration.addClass("Duration");
+            Duration.attr("onkeyup", "changeTotalDuration(this);changeTable(this);");
+            cell.append(Duration);
+            cell = $(row.insertCell(-1));
+            var TotalDuration = $("<input  />");
+            TotalDuration.attr("type", "text");
+            TotalDuration.addClass("form-control");
+            TotalDuration.addClass("TotalDuration");
+            TotalDuration.attr("onfocusout", "changeTotalDuration(this);");
+            cell.append(TotalDuration);
+            cell = $(row.insertCell(-1));
+            if (DosageForm == "ELIXIR" || DosageForm == "SYRUP" || DosageForm == "SUSPENTION" || DosageForm == "EMULSION" || DosageForm == "SOUTION") {
+                var TotalUnits = $("<input  />");
+                TotalUnits.attr("type", "text");
+                TotalUnits.addClass('TotalUnits');
+                TotalUnits.addClass("form-control");
+                TotalUnits.attr("onkeyup", "changeTotalUnits(this);");
+                cell.append(TotalUnits);
+            }
+            else {
+                var TotalUnits = $("<input  />");
+                TotalUnits.attr("type", "text");
+                TotalUnits.attr('readonly', 'readonly');
+                TotalUnits.addClass('TotalUnits');
+                TotalUnits.addClass("form-control");
+                cell.append(TotalUnits);
+            }
+            cell = $(row.insertCell(-1));
+            var AppendAmount = $("<input  />");
+            AppendAmount.attr("type", "text");
+            AppendAmount.attr('readonly', 'readonly');
+            AppendAmount.addClass("form-control");
+            AppendAmount.addClass('Amount');
+            cell.append(AppendAmount);
+            cell = $(row.insertCell(-1));
+            cell.html(Group);
+            toastr.success('Added successfully ');
             $("#wait").css("display", "none");
-
-        },
-        error: function (ex) {
-            bootbox.alert('Failed to retrieve Medicine Data.');
         }
-
-    });
-    function AppendRow() {
-        var tBody = $("#Pharmacy > TBODY")[0];
-        var row = tBody.insertRow(-1);
-        var cell = $(row.insertCell(-1));
-        cell.html(MedicienCode);
-        cell = $(row.insertCell(-1));
-        cell.html(MedicienName);
-        cell = $(row.insertCell(-1));
-        cell.html(DosageForm);
-        cell = $(row.insertCell(-1));
-        cell.html(PackSize);
-        cell = $(row.insertCell(-1));
-        var PackagePrice = $("<input  />");
-        PackagePrice.attr("type", "text");
-        PackagePrice.addClass("form-control");
-        PackagePrice.addClass("PackagePrice");
-        PackagePrice.attr("onkeyup", "changeTotalUnits(this);");
-        PackagePrice.val(PackPrice);
-        cell.append(PackagePrice);
-        cell = $(row.insertCell(-1));
-        cell.html(UnitNumber);
-        cell = $(row.insertCell(-1));
-        var unitprice = $("<input  />");
-        unitprice.attr("type", "text");
-        unitprice.attr('readonly', 'readonly');
-        unitprice.addClass("form-control");
-        unitprice.addClass('UnitPrice');
-        cell.append(unitprice);
-        cell = $(row.insertCell(-1));
-        var Dose = $("<input  />");
-        Dose.attr("type", "text");
-        Dose.addClass("form-control");
-        Dose.addClass("Dose");
-        Dose.attr("onkeyup", "changeTable(this);");
-        if (DosageForm == "GEL" || DosageForm == "CREAM" || DosageForm == "SUPP" || DosageForm == "SPRAY" || DosageForm == "DROPS" /*|| DosageForm == "SACHET"*/) {
-            cell.append(1);
-        } else {
-            cell.append(Dose);
-        }
-        cell = $(row.insertCell(-1));
-        var Duration = $("<input  />");
-        Duration.attr("type", "text");
-        Duration.addClass("form-control");
-        Duration.addClass("Duration");
-        Duration.attr("onkeyup", "changeTotalDuration(this);changeTable(this);");
-        cell.append(Duration);
-        cell = $(row.insertCell(-1));
-        var TotalDuration = $("<input  />");
-        TotalDuration.attr("type", "text");
-        TotalDuration.addClass("form-control");
-        TotalDuration.addClass("TotalDuration");
-        TotalDuration.attr("onfocusout", "changeTotalDuration(this);");
-        cell.append(TotalDuration);
-        cell = $(row.insertCell(-1));
-        if (DosageForm == "ELIXIR" || DosageForm == "SYRUP" || DosageForm == "SUSPENTION" || DosageForm == "EMULSION" || DosageForm == "SOUTION") {
-            var TotalUnits = $("<input  />");
-            TotalUnits.attr("type", "text");
-            TotalUnits.addClass('TotalUnits');
-            TotalUnits.addClass("form-control");
-            TotalUnits.attr("onkeyup", "changeTotalUnits(this);");
-            cell.append(TotalUnits);
-        }
-        else {
-            var TotalUnits = $("<input  />");
-            TotalUnits.attr("type", "text");
-            TotalUnits.attr('readonly', 'readonly');
-            TotalUnits.addClass('TotalUnits');
-            TotalUnits.addClass("form-control");
-            cell.append(TotalUnits);
-        }
-        cell = $(row.insertCell(-1));
-        var AppendAmount = $("<input  />");
-        AppendAmount.attr("type", "text");
-        AppendAmount.attr('readonly', 'readonly');
-        AppendAmount.addClass("form-control");
-        AppendAmount.addClass('Amount');
-        cell.append(AppendAmount);
-        cell = $(row.insertCell(-1));
-        cell.html(Group);
-        toastr.success('Added successfully ');
-        $("#wait").css("display", "none");
     }
-}
-function changeTable(button) {
-    //Dose and Duration
-    var row = $(button).closest("TR");
-    var PackSize = $("TD", row).eq(3).html();
-    var UnitNumber = $("TD", row).eq(5).html();
-    var Dose = $("TD", row).find(".Dose").val();
+    function changeTable(button) {
+        //Dose and Duration
+        var row = $(button).closest("TR");
+        var PackSize = $("TD", row).eq(3).html();
+        var UnitNumber = $("TD", row).eq(5).html();
+        var Dose = $("TD", row).find(".Dose").val();
 
-    if (isNaN(Dose) || Dose.trim() == "") {
-        Dose = $("TD", row).eq(7).html();
         if (isNaN(Dose) || Dose.trim() == "") {
-            Dose = 1;
+            Dose = $("TD", row).eq(7).html();
+            if (isNaN(Dose) || Dose.trim() == "") {
+                Dose = 1;
+            }
         }
-    }
-    var Duration = $("TD", row).find(".Duration").val();
-    if (isNaN(Duration) || Duration.trim() == "" || Duration == "0") {
-        Duration = 1;
-        $("TD", row).find(".Duration").val(Duration);
-    }
-    Dose = parseFloat(Dose);
-    if (Dose == 0) {
-        Dose = 1
-        $("TD", row).find(".Dose").val(Dose);
-    }
-    Duration = parseFloat(Duration);
-    PackSize = parseFloat(PackSize);
-    UnitNumber = parseFloat(UnitNumber);
+        var Duration = $("TD", row).find(".Duration").val();
+        if (isNaN(Duration) || Duration.trim() == "" || Duration == "0") {
+            Duration = 1;
+            $("TD", row).find(".Duration").val(Duration);
+        }
+        Dose = parseFloat(Dose);
+        if (Dose == 0) {
+            Dose = 1
+            $("TD", row).find(".Dose").val(Dose);
+        }
+        Duration = parseFloat(Duration);
+        PackSize = parseFloat(PackSize);
+        UnitNumber = parseFloat(UnitNumber);
 
-    var TotUnits = (Dose * Duration) / (PackSize / UnitNumber);
-    TotUnits = Math.ceil(TotUnits)
-    //TotUnits = Math.round(TotUnits) == 0 ? 1 : Math.round(TotUnits);
-    $("TD", row).find(".TotalUnits").val(TotUnits);
-    var UnitPrice = (parseFloat($("TD", row).find(".PackagePrice").val() / parseFloat(UnitNumber))).toFixed(2);
-    $("TD", row).find(".UnitPrice").val(UnitPrice);
-    var Amount = (parseFloat(UnitPrice) * parseFloat($("TD", row).find(".TotalUnits").val())).toFixed(2);
-    $("TD", row).find(".Amount").val(Amount);
-    var TotalDuration = $("TD", row).find(".TotalDuration").val();
-    if ((parseFloat(Duration)) > (parseFloat(TotalDuration))) {
-        //  bootbox.alert("Total duration Must be more than Durartion ");
-        $("TD", row).find(".Duration").val(TotalDuration);
-        return false;
-    }
-    ((parseFloat(Dose)) >= 1 && (parseFloat(Dose)) <= 6) ? $("TD", row).find(".Dose").val((parseFloat(Dose))) : $("TD", row).find(".Dose").val(1);
-    ((parseFloat(Duration)) < 1) ? $("TD", row).find(".Duration").val(1) : $("TD", row).find(".Duration").val((parseFloat(Duration)));
-    //if ((parseFloat(Dose)) > 6) {
-    //    bootbox.alert("Dose Must be less than or equal 6 ");
-    //    $("TD", row).find(".Dose").val(1);
-    //    return false;
+        var TotUnits = (Dose * Duration) / (PackSize / UnitNumber);
+        TotUnits = Math.ceil(TotUnits)
+        //TotUnits = Math.round(TotUnits) == 0 ? 1 : Math.round(TotUnits);
+        $("TD", row).find(".TotalUnits").val(TotUnits);
+        var UnitPrice = (parseFloat($("TD", row).find(".PackagePrice").val() / parseFloat(UnitNumber))).toFixed(2);
+        $("TD", row).find(".UnitPrice").val(UnitPrice);
+        var Amount = (parseFloat(UnitPrice) * parseFloat($("TD", row).find(".TotalUnits").val())).toFixed(2);
+        $("TD", row).find(".Amount").val(Amount);
+        var TotalDuration = $("TD", row).find(".TotalDuration").val();
+        if ((parseFloat(Duration)) > (parseFloat(TotalDuration))) {
+            //  bootbox.alert("Total duration Must be more than Durartion ");
+            $("TD", row).find(".Duration").val(TotalDuration);
+            return false;
+        }
+        ((parseFloat(Dose)) >= 1 && (parseFloat(Dose)) <= 6) ? $("TD", row).find(".Dose").val((parseFloat(Dose))) : $("TD", row).find(".Dose").val(1);
+        ((parseFloat(Duration)) < 1) ? $("TD", row).find(".Duration").val(1) : $("TD", row).find(".Duration").val((parseFloat(Duration)));
+        //if ((parseFloat(Dose)) > 6) {
+        //    bootbox.alert("Dose Must be less than or equal 6 ");
+        //    $("TD", row).find(".Dose").val(1);
+        //    return false;
 
+        //}
+        var dos = $("TD", row).find(".Dosage").val();
+        var dosage = $("TD", row).eq(2).html();
+        TotUnits <= 0 ? changeTable(button) : null;
+        Calculation();
+
+    }
+    //function changeTotalDuration(button) {
+
+    //    var row = $(button).closest("TR");
+    //    var TotalDuration = $("TD", row).find(".TotalDuration").val();
+    //    var Duration = $("TD", row).find(".Duration").val();
+    //    var Dose = $("TD", row).find(".Dose").val();
+    //    if ((parseFloat(diffDays)) < (parseFloat(Duration))) {
+    //        bootbox.alert("Duration Must be less than Contract days ");
+    //        $("TD", row).find(".Duration").val(diffDays);
+    //        return false;
+    //    }
+
+    //    if ($('#ddlType').val() == "11601" && (parseFloat(Duration)) > 21) {
+    //        bootbox.alert(" duration Must be more than less than 21 ");
+    //        $("TD", row).find(".Duration").val(5);
+    //        return false;
+    //    }
+    //    if ($('#ddlType').val() == "11603" && (parseFloat(Duration)) >= 28) {
+    //        bootbox.alert(" Duration Must be less than  or equal 28 ");
+    //        $("TD", row).find(".Duration").val(28);
+    //        return false;
+    //    }
+    //    if ((parseFloat(Duration)) > (parseFloat(TotalDuration))) {
+    //        bootbox.alert("Total duration Must be greater than Durartion ");
+    //        $("TD", row).find(".TotalDuration").val(Duration);
+    //        return false;
+    //    }
+    //    if ($('#ddlType').val() == "11601" && (parseFloat(TotalDuration)) < 5) {
+    //        bootbox.alert("Total duration Must be more than 5 and less than 21 ");
+    //        $("TD", row).find(".TotalDuration").val(5);
+    //        return false;
+    //    }
+    //    if ($('#ddlType').val() == "11601" && (parseFloat(TotalDuration)) > 21) {
+    //        bootbox.alert("Total duration Must be more than 5 and less than 21 ");
+    //        $("TD", row).find(".TotalDuration").val(5);
+    //        return false;
+    //    }
+    //    if ($('#ddlType').val() == "11603" && TotalDuration < 5) {
+    //        bootbox.alert("Total duration Must be more than 5 and less than or equal 28 ");
+    //        $("TD", row).find(".TotalDuration").val(28);
+    //        return false;
+    //    }
+    //    if ($('#ddlType').val() == "11603" && TotalDuration >= 28) {
+    //        bootbox.alert("Total duration Must be less than  or equal 28 ");
+    //        $("TD", row).find(".TotalDuration").val(28);
+    //        return false;
+    //    }
+
+    //    Calculation();
     //}
-    var dos = $("TD", row).find(".Dosage").val();
-    var dosage = $("TD", row).eq(2).html();
-    TotUnits <= 0 ? changeTable(button) : null;
-    Calculation();
 
-}
-//function changeTotalDuration(button) {
-
-//    var row = $(button).closest("TR");
-//    var TotalDuration = $("TD", row).find(".TotalDuration").val();
-//    var Duration = $("TD", row).find(".Duration").val();
-//    var Dose = $("TD", row).find(".Dose").val();
-//    if ((parseFloat(diffDays)) < (parseFloat(Duration))) {
-//        bootbox.alert("Duration Must be less than Contract days ");
-//        $("TD", row).find(".Duration").val(diffDays);
-//        return false;
-//    }
-
-//    if ($('#ddlType').val() == "11601" && (parseFloat(Duration)) > 21) {
-//        bootbox.alert(" duration Must be more than less than 21 ");
-//        $("TD", row).find(".Duration").val(5);
-//        return false;
-//    }
-//    if ($('#ddlType').val() == "11603" && (parseFloat(Duration)) >= 28) {
-//        bootbox.alert(" Duration Must be less than  or equal 28 ");
-//        $("TD", row).find(".Duration").val(28);
-//        return false;
-//    }
-//    if ((parseFloat(Duration)) > (parseFloat(TotalDuration))) {
-//        bootbox.alert("Total duration Must be greater than Durartion ");
-//        $("TD", row).find(".TotalDuration").val(Duration);
-//        return false;
-//    }
-//    if ($('#ddlType').val() == "11601" && (parseFloat(TotalDuration)) < 5) {
-//        bootbox.alert("Total duration Must be more than 5 and less than 21 ");
-//        $("TD", row).find(".TotalDuration").val(5);
-//        return false;
-//    }
-//    if ($('#ddlType').val() == "11601" && (parseFloat(TotalDuration)) > 21) {
-//        bootbox.alert("Total duration Must be more than 5 and less than 21 ");
-//        $("TD", row).find(".TotalDuration").val(5);
-//        return false;
-//    }
-//    if ($('#ddlType').val() == "11603" && TotalDuration < 5) {
-//        bootbox.alert("Total duration Must be more than 5 and less than or equal 28 ");
-//        $("TD", row).find(".TotalDuration").val(28);
-//        return false;
-//    }
-//    if ($('#ddlType').val() == "11603" && TotalDuration >= 28) {
-//        bootbox.alert("Total duration Must be less than  or equal 28 ");
-//        $("TD", row).find(".TotalDuration").val(28);
-//        return false;
-//    }
-
-//    Calculation();
-//}
-
-function changeTotalDuration(button) {
-    var MinDay = ($('#ddlType').val() == "11601") ? 5 : 1;
-    var MaxDay = ($('#ddlType').val() == "11601") ? 14 : 28;
-    //var companid = $('#txtSearchCard').val().split('-')[0];
-    if (companid == "888") {
-        MinDay = 1;
-        MaxDay = 28;
-    }
-    var row = $(button).closest("TR");
-    var TotalDuration = parseFloat($("TD", row).find(".TotalDuration").val());
-    var Duration = parseFloat($("TD", row).find(".Duration").val());
-    Duration = isNaN(Duration) ? 1 : (MaxDay > Duration) ? Duration : MaxDay;
-    TotalDuration = isNaN(TotalDuration) || TotalDuration < MinDay || TotalDuration < Duration ?
-        ((Duration < MinDay) ? MinDay : Duration)
-        : ((TotalDuration > MaxDay) ? MaxDay : TotalDuration);
-    $("TD", row).find(".Duration").val(Duration);
-    $("TD", row).find(".TotalDuration").val(TotalDuration);
-
-    if (!($('#txtSearchCard').val().split('-')[0].includes("500"))) {
-        if ((parseFloat(diffDays)) < (parseFloat(Duration))) {
-            bootbox.alert("Duration Must be less than Contract days ");
-            $("TD", row).find(".Duration").val(diffDays);
-            //bootbox.alert("Duration Must be less than Contract days ");
-
-            //if ($('#txtSearchCard').val().split('-')[0].includes("500")) {
-            //    $.ajax({
-            //        dataType: "json",
-            //        url: '/Pharmacy/GetSecondContract',
-            //        data: {
-            //            id: $('#txtSearchCard').val()
-            //        },
-            //        success: function (r) {
-            //            if (r.check == 1) {
-            //                firstDate = new Date(parseFloat(r.Employee.INS_END_DATE.replace(/(^.*\()|([+-].*$)/g, '')));
-            //                diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
-            //                if ((parseFloat(diffDays)) < (parseFloat(Duration))) {
-            //                    bootbox.alert("Duration Must be less than Contract days ");
-            //                    $("TD", row).find(".Duration").val(diffDays);
-            //                }
-            //            }
-            //            else {
-            //                bootbox.alert("Duration Must be less than Contract days ");
-            //                $("TD", row).find(".Duration").val(diffDays);
-            //            }
-            //        },
-            //        error: function (r) {
-            //            bootbox.alert("Duration Must be less than Contract days ");
-            //            $("TD", row).find(".Duration").val(diffDays);
-            //        }
-
-            //    });
-            //}
-
-            //else {
-            //    bootbox.alert("Duration Must be less than Contract days ");
-            //    $("TD", row).find(".Duration").val(diffDays);
-            //}
-
+    function changeTotalDuration(button) {
+        var MinDay = ($('#ddlType').val() == "11601") ? 5 : 1;
+        var MaxDay = ($('#ddlType').val() == "11601") ? 14 : 28;
+        //var companid = $('#txtSearchCard').val().split('-')[0];
+        if (companid == "888") {
+            MinDay = 1;
+            MaxDay = 28;
         }
-    }
-    Calculation();
-}
+        var row = $(button).closest("TR");
+        var TotalDuration = parseFloat($("TD", row).find(".TotalDuration").val());
+        var Duration = parseFloat($("TD", row).find(".Duration").val());
+        Duration = isNaN(Duration) ? 1 : (MaxDay > Duration) ? Duration : MaxDay;
+        TotalDuration = isNaN(TotalDuration) || TotalDuration < MinDay || TotalDuration < Duration ?
+            ((Duration < MinDay) ? MinDay : Duration)
+            : ((TotalDuration > MaxDay) ? MaxDay : TotalDuration);
+        $("TD", row).find(".Duration").val(Duration);
+        $("TD", row).find(".TotalDuration").val(TotalDuration);
 
-function changeTotalUnits(button) {
-    var row = $(button).closest("TR");
-    var UnitNumber = $("TD", row).eq(5).html();
-    if (parseFloat($("TD", row).find(".TotalUnits").val()) > 6) {
-        $("TD", row).find(".TotalUnits").val(6);
-    } else if (parseFloat($("TD", row).find(".TotalUnits").val()) < 1) {
-        $("TD", row).find(".TotalUnits").val(1);
-    }
-    if (parseFloat($("TD", row).find(".PackagePrice").val()) < 1) {
-        $("TD", row).find(".PackagePrice").val(1);
-    }
-    //Amount value
-    var UnitPrice = (parseFloat($("TD", row).find(".PackagePrice").val() / parseFloat(UnitNumber))).toFixed(2);
+        if (!($('#txtSearchCard').val().split('-')[0].includes("500"))) {
+            if ((parseFloat(diffDays)) < (parseFloat(Duration))) {
+                bootbox.alert("Duration Must be less than Contract days ");
+                $("TD", row).find(".Duration").val(diffDays);
+                //bootbox.alert("Duration Must be less than Contract days ");
 
-    $("TD", row).find(".UnitPrice").val(UnitPrice);
-    var Amount = (parseFloat(UnitPrice) * parseFloat($("TD", row).find(".TotalUnits").val())).toFixed(2);
-    $("TD", row).find(".Amount").val(Amount);
+                //if ($('#txtSearchCard').val().split('-')[0].includes("500")) {
+                //    $.ajax({
+                //        dataType: "json",
+                //        url: '/Pharmacy/GetSecondContract',
+                //        data: {
+                //            id: $('#txtSearchCard').val()
+                //        },
+                //        success: function (r) {
+                //            if (r.check == 1) {
+                //                firstDate = new Date(parseFloat(r.Employee.INS_END_DATE.replace(/(^.*\()|([+-].*$)/g, '')));
+                //                diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+                //                if ((parseFloat(diffDays)) < (parseFloat(Duration))) {
+                //                    bootbox.alert("Duration Must be less than Contract days ");
+                //                    $("TD", row).find(".Duration").val(diffDays);
+                //                }
+                //            }
+                //            else {
+                //                bootbox.alert("Duration Must be less than Contract days ");
+                //                $("TD", row).find(".Duration").val(diffDays);
+                //            }
+                //        },
+                //        error: function (r) {
+                //            bootbox.alert("Duration Must be less than Contract days ");
+                //            $("TD", row).find(".Duration").val(diffDays);
+                //        }
 
-    Calculation();
+                //    });
+                //}
 
-}
+                //else {
+                //    bootbox.alert("Duration Must be less than Contract days ");
+                //    $("TD", row).find(".Duration").val(diffDays);
+                //}
 
-function Remove(button, event) {
-    var row = $(button).closest("TR");
-    var name = $("TD", row).eq(0).html();
-    bootbox.confirm("Do you want to delete: " + name, function (result) {
-        if (result) {
-            var row = $(button).closest("TR");
-            var table = $("#Pharmacy")[0];
-            table.deleteRow(row[0].rowIndex);
-            $('#AddDiagnoise').attr('disabled', false);
-            $('#RemoveDiagnoise').attr('disabled', false);
-            Calculation();
-
-        } else {
-            var values = $('#AddMedicine').val();
-            values.push(name);
-            $('#AddMedicine').val(values).change();
-
+            }
         }
-    });
+        Calculation();
+    }
 
-}
-function Calculation() {
-    if ($("#Pharmacy >tbody TR").length != 0) {
-        var sum = 0;
-        var sumCash = 0;
-        $('#Pharmacy TBODY TR').each(function () {
-            var row = $(this);
-            if (row.find("TD").eq(12).html() != "Pending" && row.find("TD").eq(12).html() != "PendingChronic") {
-                sum += parseFloat(("TD", row).find(".Amount").val());
-                if (row.find("TD").eq(12).html() == "Cash")
-                    sumCash += parseFloat(("TD", row).find(".Amount").val());
+    function changeTotalUnits(button) {
+        var row = $(button).closest("TR");
+        var UnitNumber = $("TD", row).eq(5).html();
+        if (parseFloat($("TD", row).find(".TotalUnits").val()) > 6) {
+            $("TD", row).find(".TotalUnits").val(6);
+        } else if (parseFloat($("TD", row).find(".TotalUnits").val()) < 1) {
+            $("TD", row).find(".TotalUnits").val(1);
+        }
+        if (parseFloat($("TD", row).find(".PackagePrice").val()) < 1) {
+            $("TD", row).find(".PackagePrice").val(1);
+        }
+        //Amount value
+        var UnitPrice = (parseFloat($("TD", row).find(".PackagePrice").val() / parseFloat(UnitNumber))).toFixed(2);
+
+        $("TD", row).find(".UnitPrice").val(UnitPrice);
+        var Amount = (parseFloat(UnitPrice) * parseFloat($("TD", row).find(".TotalUnits").val())).toFixed(2);
+        $("TD", row).find(".Amount").val(Amount);
+
+        Calculation();
+
+    }
+
+    function Remove(button, event) {
+        var row = $(button).closest("TR");
+        var name = $("TD", row).eq(0).html();
+        bootbox.confirm("Do you want to delete: " + name, function (result) {
+            if (result) {
+                var row = $(button).closest("TR");
+                var table = $("#Pharmacy")[0];
+                table.deleteRow(row[0].rowIndex);
+                $('#AddDiagnoise').attr('disabled', false);
+                $('#RemoveDiagnoise').attr('disabled', false);
+                Calculation();
+
+            } else {
+                var values = $('#AddMedicine').val();
+                values.push(name);
+                $('#AddMedicine').val(values).change();
+
             }
         });
 
-        $("#txtTotalInvoice").val(sum.toFixed(2));
-        $('#txtCash').val(sumCash.toFixed(2));
-        $('#txtOverInsurance').val("0");
-        if ($('#ddlType').val() == "11601") {
+    }
+    function Calculation() {
+        if ($("#Pharmacy >tbody TR").length != 0) {
+            var sum = 0;
+            var sumCash = 0;
+            $('#Pharmacy TBODY TR').each(function () {
+                var row = $(this);
+                if (row.find("TD").eq(12).html() != "Pending" && row.find("TD").eq(12).html() != "PendingChronic") {
+                    sum += parseFloat(("TD", row).find(".Amount").val());
+                    if (row.find("TD").eq(12).html() == "Cash")
+                        sumCash += parseFloat(("TD", row).find(".Amount").val());
+                }
+            });
 
-            var Limit = parseFloat($("#insurance_LIVEL").val());
-            var co = $("#ddEmp_CEILING_PERT").val();
-            var person = parseFloat(100 - co);//percentage
-            //total-cash
-            var total = parseFloat($('#txtTotalInvoice').val()) - sumCash;
-            var cash = parseFloat($('#txtCash').val());
-            var ValueCredit = 0;
-            if (Limit > AnuualLimit || Limit == 0) {
-                Limit = AnuualLimit;
-            }
-            if (Limit != 0 && co != 0) {
-                ValueCredit = (total * (co / 100)).toFixed(2);
-                if ((Limit * (co / 100)) <= (ValueCredit) && co != 0) {//over insurance
-                    $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
-                    Limit = (Limit * (co / 100)).toFixed(2);
-                    $('#txtValueCredit').val(Limit);
-                    $('#txtOverInsurance').val((total - Limit - parseFloat($('#txtTotalCopayment').val())).toFixed(2));
+            $("#txtTotalInvoice").val(sum.toFixed(2));
+            $('#txtCash').val(sumCash.toFixed(2));
+            $('#txtOverInsurance').val("0");
+            if ($('#ddlType').val() == "11601") {
+
+                var Limit = parseFloat($("#insurance_LIVEL").val());
+                var co = $("#ddEmp_CEILING_PERT").val();
+                var person = parseFloat(100 - co);//percentage
+                //total-cash
+                var total = parseFloat($('#txtTotalInvoice').val()) - sumCash;
+                var cash = parseFloat($('#txtCash').val());
+                var ValueCredit = 0;
+                if (Limit > AnuualLimit || Limit == 0) {
+                    Limit = AnuualLimit;
                 }
-                else if ((Limit * (co / 100)) > (ValueCredit) /*|| co == 0*/) {//no over insurance
-                    $('#txtValueCredit').val((total * (co / 100)).toFixed(2));
-                    $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
+                if (Limit != 0 && co != 0) {
+                    ValueCredit = (total * (co / 100)).toFixed(2);
+                    if ((Limit * (co / 100)) <= (ValueCredit) && co != 0) {//over insurance
+                        $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
+                        Limit = (Limit * (co / 100)).toFixed(2);
+                        $('#txtValueCredit').val(Limit);
+                        $('#txtOverInsurance').val((total - Limit - parseFloat($('#txtTotalCopayment').val())).toFixed(2));
+                    }
+                    else if ((Limit * (co / 100)) > (ValueCredit) /*|| co == 0*/) {//no over insurance
+                        $('#txtValueCredit').val((total * (co / 100)).toFixed(2));
+                        $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
+                    }
                 }
+                else {
+                    $('#txtValueCredit').val(((total) * (co / 100)).toFixed(2));
+                    $('#txtTotalCopayment').val(((total) * (person / 100)).toFixed(2));
+                }
+                $('#txtValueCash').val((sumCash + parseFloat($('#txtTotalCopayment').val()) + parseFloat($('#txtOverInsurance').val())).toFixed(2));
             }
-            else {
-                $('#txtValueCredit').val(((total) * (co / 100)).toFixed(2));
-                $('#txtTotalCopayment').val(((total) * (person / 100)).toFixed(2));
+            else if ($('#ddlType').val() == "11603") {
+                //monthly
+                var Limit = parseFloat($("#insurance_LIVEL").val());
+                var co = $("#ddEmp_CEILING_PERT").val();
+                var person = parseFloat(100 - co);
+                //total-cash
+                var total = parseFloat($('#txtTotalInvoice').val()) - sumCash;
+                var cash = parseFloat($('#txtCash').val());
+                var ValueCredit = 0;
+                if (Limit > AnuualLimit || Limit == 0) {
+                    Limit = AnuualLimit;
+                }
+
+                if (Limit != 0 && co != 0) {
+                    ValueCredit = (total * (co / 100)).toFixed(2);
+                    if ((Limit * (co / 100)) <= (ValueCredit) && co != 0) {
+                        $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
+                        Limit = (Limit * (co / 100)).toFixed(2);
+                        $('#txtValueCredit').val(Limit);//(Limit * (co / 100)).toFixed(2)
+                        $('#txtOverInsurance').val((total - Limit - parseFloat($('#txtTotalCopayment').val())).toFixed(2));
+                    }
+                    else if ((Limit * (co / 100)) > (ValueCredit) /*|| co == 0*/) {
+                        $('#txtValueCredit').val((total * (co / 100)).toFixed(2));
+                        $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
+                    }
+                }
+                else {
+                    $('#txtValueCredit').val(((total) * (co / 100)).toFixed(2));
+                    $('#txtTotalCopayment').val(((total) * (person / 100)).toFixed(2));
+
+                }
+                $('#txtValueCash').val((sumCash + parseFloat($('#txtTotalCopayment').val()) + parseFloat($('#txtOverInsurance').val())).toFixed(2));
             }
-            $('#txtValueCash').val((sumCash + parseFloat($('#txtTotalCopayment').val()) + parseFloat($('#txtOverInsurance').val())).toFixed(2));
         }
-        else if ($('#ddlType').val() == "11603") {
-            //monthly
-            var Limit = parseFloat($("#insurance_LIVEL").val());
-            var co = $("#ddEmp_CEILING_PERT").val();
-            var person = parseFloat(100 - co);
-            //total-cash
-            var total = parseFloat($('#txtTotalInvoice').val()) - sumCash;
-            var cash = parseFloat($('#txtCash').val());
-            var ValueCredit = 0;
-            if (Limit > AnuualLimit || Limit == 0) {
-                Limit = AnuualLimit;
-            }
+        else {
+            $('#txtTotalInvoice').val('');
+            $('#txtTotalCopayment').val('');
+            $('#txtValueCredit').val('');
+            $('#txtOverInsurance').val('');
+            $('#txtCash').val('');
+            $('#txtValueCash').val('');
+        }
 
-            if (Limit != 0 && co != 0) {
-                ValueCredit = (total * (co / 100)).toFixed(2);
-                if ((Limit * (co / 100)) <= (ValueCredit) && co != 0) {
-                    $('#txtTotalCopayment').val((Limit * (person / 100)).toFixed(2));
-                    Limit = (Limit * (co / 100)).toFixed(2);
-                    $('#txtValueCredit').val(Limit);//(Limit * (co / 100)).toFixed(2)
-                    $('#txtOverInsurance').val((total - Limit - parseFloat($('#txtTotalCopayment').val())).toFixed(2));
-                }
-                else if ((Limit * (co / 100)) > (ValueCredit) /*|| co == 0*/) {
-                    $('#txtValueCredit').val((total * (co / 100)).toFixed(2));
-                    $('#txtTotalCopayment').val((total * (person / 100)).toFixed(2));
-                }
-            }
-            else {
-                $('#txtValueCredit').val(((total) * (co / 100)).toFixed(2));
-                $('#txtTotalCopayment').val(((total) * (person / 100)).toFixed(2));
 
-            }
-            $('#txtValueCash').val((sumCash + parseFloat($('#txtTotalCopayment').val()) + parseFloat($('#txtOverInsurance').val())).toFixed(2));
+    }
+    function GetLimit() {
+        if (companid == "500118" || companid == "500119" || companid == "500120" || companid == "500121" || companid == "500122") {
+            link = '/Pharmacy/CellingAmountAirPort';
+        }
+        else {
+            link = '/Pharmacy/CellingAmount';
+        }
+        if ($('#ddlType').val() != 0) {
+            //Co-Payment
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: link,
+                data: {
+                    id: CardId,
+                    ServiceCode: $('#ddlType').val()
+                },
+                success: function (r) {
+                    if (r.Validation == false) {
+                        // toastr.info(r.Message);
+                        //ClearCardData();
+                        alert(r.Message);
+                        //history.go(0);
+                        window.location.replace("/Pharmacy/Pharmacy");
+                        //window.location.reload();
+
+                    } else {
+                        $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
+                        AnuualLimit = r.Limit;
+                        $('#IsFamily').val(r.IsFamily);
+                        $('#IsPool').val(r.IsPool);
+                        $('#AllLimit').val(r.AnnualLimit);
+                        if ($("#ddlType").val() == "11601") {
+                            if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
+                                $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
+                            } else {
+                                alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
+                                $("#insurance_LIVEL").val("0.001");
+
+                                $('#ddEmp_CEILING_PERT').val("0");
+                            }
+                        }
+                        else if ($("#ddlType").val() == "11603") {
+
+                            //if (CompId.startsWith("10") || CompId.startsWith("70") || CompId == "500135" || CompId == "500136" || CompId == "500137" || CompId == "500138" || CompId == "500139" || CompId == "500140" || CompId == "500145") {
+                            //    alert("برجاء الرجوع للإداره الطبيه");
+                            //    window.location.reload();
+                            //} else {}
+                            if (r.LimitMonthlyPreceptionCount && r.CoInsurancelimit.INSURANCE_MONTH >= 0) {
+                                $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_MONTH);
+
+                            } else {
+                                alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
+                                $("#insurance_LIVEL").val("0.001");
+                                $('#ddEmp_CEILING_PERT').val("0");
+                            }
+
+                        }
+                        else if ($("#ddlType").val() == "11602") {
+                            window.location.replace("/Chronic/Chronic?id=" + CardId + "&&NationalId=" + NationalId);
+                        }
+                        else if ($("#ddlType").val() == "11604") {
+                            window.location.replace("/Doctor/Doctor?id=" + CardId + "&&NationalId=" + NationalId);
+                            //window.location.replace("/Doctor/Doctor/" + CardId);
+                        }
+                    }
+                },
+                error: function (err) {
+                    alert("Failed to retrieve Company Annual Limit. please check your internet connection");
+                    location.reload();
+                }
+            })
+            Calculation();
+
+        }
+        else {
+            $("#insurance_LIVEL").val("");
+
+            $('#ddEmp_CEILING_PERT').val("");
         }
     }
-    else {
+
+    function GetCompName() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '/Pharmacy/GetCompName',
+            data: { id: CardId },
+            success: function (returndata) {
+                if (returndata.ok) {
+                    $("#contractComp_C_ANAME").val(returndata.data.C_ANAME);
+                }
+                else {
+                    bootbox.alert(' No Company Name ');
+                }
+            }
+        });
+    }
+    function RemoveSelection(Code) {
+        var values = $('#AddMedicine').val();
+        if (values) {
+            var i = values.indexOf(Code);
+            if (i >= 0) {
+                values.splice(i, 1);
+                $('#AddMedicine').val(values).change();
+            }
+        }
+    }
+    function ClearCardData() {
+        $('#txtSearchCard').val('');
+        $('#Comments').val('');
+        $("#Approval").removeClass('active');
+        $('#HasApproval').attr("checked", false)
+        $('#Approval').attr('disabled', true);
+        $('#Pending').attr('disabled', true);
+        $("#PrescriptionDate").datepicker('destroy').datepicker({
+            maxDate: '0',
+            minDate: '-6D',
+            dateFormat: 'dd-mm-yy',
+        });
+        $('#PrescriptionDate').val('');
+        $('#ClaimNumber').val('');
+        $('#PhoneNumber').val('');
+        $('#contractComp_C_ANAME').val('');
+        $('#compEmp_EMP_ANAME').val('');
+        $('#compEmp_CompHolderName').val('');
+        $('#compEmp_INS_START_DATE').val('');
+        $('#compEmp_INS_END_DATE').val('');
+        $('#compEmp_BIRTH_DATE').val('');
+        $('#insurance_LIVEL').val('');
+        $('#ddEmp_CEILING_PERT').val('');
+    }
+    function ClearMedicineData() {
+        $("#Pharmacy >tbody").empty();
+        $("#AddMedicine").empty();
+        $("#ddlDiagnoises").val(null).change();
+
         $('#txtTotalInvoice').val('');
         $('#txtTotalCopayment').val('');
         $('#txtValueCredit').val('');
@@ -2405,179 +2589,31 @@ function Calculation() {
         $('#txtValueCash').val('');
     }
 
+    function AddNationalId() {
+        //add National Id
+        bootbox.prompt({
+            title: "Please,Enter Patient National ID  : ",
+            centerVertical: true,
+            closeButton: false,
+            //required: true,
+            //cancel: "Reset",
+            callback: function (result) {
 
-}
-function GetLimit() {
-    if (companid == "500118" || companid == "500119" || companid == "500120" || companid == "500121" || companid == "500122") {
-        link = '/Pharmacy/CellingAmountAirPort';
-    }
-    else {
-        link = '/Pharmacy/CellingAmount';
-    }
-    if ($('#ddlType').val() != 0) {
-        //Co-Payment
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: link,
-            data: {
-                id: CardId,
-                ServiceCode: $('#ddlType').val()
-            },
-            success: function (r) {
-                if (r.Validation == false) {
-                    // toastr.info(r.Message);
-                    //ClearCardData();
-                    alert(r.Message);
-                    //history.go(0);
-                    window.location.replace("/Pharmacy/Pharmacy");
-                    //window.location.reload();
-
-                } else {
-                    $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
-                    AnuualLimit = r.Limit;
-                    $('#IsFamily').val(r.IsFamily);
-                    $('#IsPool').val(r.IsPool);
-                    $('#AllLimit').val(r.AnnualLimit);
-                    if ($("#ddlType").val() == "11601") {
-                        if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
-                            $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
-                        } else {
-                            alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
-                            $("#insurance_LIVEL").val("0.001");
-
-                            $('#ddEmp_CEILING_PERT').val("0");
-                        }
-                    }
-                    else if ($("#ddlType").val() == "11603") {
-
-                        //if (CompId.startsWith("10") || CompId.startsWith("70") || CompId == "500135" || CompId == "500136" || CompId == "500137" || CompId == "500138" || CompId == "500139" || CompId == "500140" || CompId == "500145") {
-                        //    alert("برجاء الرجوع للإداره الطبيه");
-                        //    window.location.reload();
-                        //} else {}
-                        if (r.LimitMonthlyPreceptionCount && r.CoInsurancelimit.INSURANCE_MONTH >= 0) {
-                            $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_MONTH);
-
-                        } else {
-                            alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
-                            $("#insurance_LIVEL").val("0.001");
-                            $('#ddEmp_CEILING_PERT').val("0");
-                        }
-
-                    }
-                    else if ($("#ddlType").val() == "11602") {
-                        window.location.replace("/Chronic/Chronic?id=" + CardId + "&&NationalId=" + NationalId);
-                    }
-                    else if ($("#ddlType").val() == "11604") {
-                        window.location.replace("/Doctor/Doctor?id=" + CardId + "&&NationalId=" + NationalId);
-                        //window.location.replace("/Doctor/Doctor/" + CardId);
-                    }
+                if (result === null) {
+                    window.location = '/Pharmacy/Pharmacy';
+                    return true;
                 }
-            },
-            error: function (err) {
-                alert("Failed to retrieve Company Annual Limit. please check your internet connection");
-                location.reload();
-            }
-        })
-        Calculation();
+                if (result === "" || result.length != 14 || isNaN(result)) {
+                    toastr.error("برجاء ادخال الرقم القومي الصحيح المتكون من 14 رقم");
+                    return false;
+                } else {
+                    //$("#wait").css("display", "block");
+                    NationalId = result;
+                    return true;
 
-    }
-    else {
-        $("#insurance_LIVEL").val("");
-
-        $('#ddEmp_CEILING_PERT').val("");
-    }
-}
-
-function GetCompName() {
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: '/Pharmacy/GetCompName',
-        data: { id: CardId },
-        success: function (returndata) {
-            if (returndata.ok) {
-                $("#contractComp_C_ANAME").val(returndata.data.C_ANAME);
-            }
-            else {
-                bootbox.alert(' No Company Name ');
-            }
-        }
-    });
-}
-function RemoveSelection(Code) {
-    var values = $('#AddMedicine').val();
-    if (values) {
-        var i = values.indexOf(Code);
-        if (i >= 0) {
-            values.splice(i, 1);
-            $('#AddMedicine').val(values).change();
-        }
-    }
-}
-function ClearCardData() {
-    $('#txtSearchCard').val('');
-    $('#Comments').val('');
-    $("#Approval").removeClass('active');
-    $('#HasApproval').attr("checked", false)
-    $('#Approval').attr('disabled', true);
-    $('#Pending').attr('disabled', true);
-    $("#PrescriptionDate").datepicker('destroy').datepicker({
-        maxDate: '0',
-        minDate: '-6D',
-        dateFormat: 'dd-mm-yy',
-    });
-    $('#PrescriptionDate').val('');
-    $('#ClaimNumber').val('');
-    $('#PhoneNumber').val('');
-    $('#contractComp_C_ANAME').val('');
-    $('#compEmp_EMP_ANAME').val('');
-    $('#compEmp_CompHolderName').val('');
-    $('#compEmp_INS_START_DATE').val('');
-    $('#compEmp_INS_END_DATE').val('');
-    $('#compEmp_BIRTH_DATE').val('');
-    $('#insurance_LIVEL').val('');
-    $('#ddEmp_CEILING_PERT').val('');
-}
-function ClearMedicineData() {
-    $("#Pharmacy >tbody").empty();
-    $("#AddMedicine").empty();
-    $("#ddlDiagnoises").val(null).change();
-
-    $('#txtTotalInvoice').val('');
-    $('#txtTotalCopayment').val('');
-    $('#txtValueCredit').val('');
-    $('#txtOverInsurance').val('');
-    $('#txtCash').val('');
-    $('#txtValueCash').val('');
-}
-
-function AddNationalId() {
-    //add National Id
-    bootbox.prompt({
-        title: "Please,Enter Patient National ID  : ",
-        centerVertical: true,
-        closeButton: false,
-        //required: true,
-        //cancel: "Reset",
-        callback: function (result) {
-
-            if (result === null) {
-                window.location = '/Pharmacy/Pharmacy';
-                return true;
-            }
-            if (result === "" || result.length != 14 || isNaN(result)) {
-                toastr.error("برجاء ادخال الرقم القومي الصحيح المتكون من 14 رقم");
+                }
                 return false;
-            } else {
-                //$("#wait").css("display", "block");
-                NationalId = result;
-                return true;
 
             }
-            return false;
-
-        }
-    });
-}
-
+        });
+    }

@@ -2875,6 +2875,54 @@ namespace DMS_TEST.Controllers
             }
             return new JsonResult { Data = "False", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
+
+        //Gender Validation
+        public JsonResult GenderValidationDiagnoses(string CardId, string DiagnosesCode, string Id)
+        {
+            var EmpGender = db.Comp_Employees.Where(x => x.CARD_ID == CardId).FirstOrDefault().GENDER;
+            var Gender = db.Diagnosis.Where(x => x.DIAG_CODE == DiagnosesCode).FirstOrDefault().Gender;
+            if (Id == "1")
+            {
+                return new JsonResult { Data = "True", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            if (EmpGender == Gender || EmpGender == 0 || EmpGender == null)
+            {
+                return new JsonResult { Data = "True", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            if (Gender == 3)
+            {
+                return new JsonResult { Data = "True", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            return new JsonResult { Data = "False", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        //Age Validation
+        public JsonResult AgeValidationDiagnoses(string CardId, string AgeCode, string Id)
+        {
+            var EmpBithdate = db.Comp_Employees.Where(x => x.CARD_ID == CardId).FirstOrDefault().BIRTH_DATE;
+            var today = DateTime.Today;
+            var age = today.Year - (EmpBithdate == null ? today.Year : EmpBithdate.Value.Year);
+            string Adaltation = "Child";
+            if (Id != "1")
+            {
+                if (age > 12)
+                {
+                    Adaltation = "Adult";
+                }
+                var Age = db.Diagnosis.Where(x => x.DIAG_CODE == AgeCode).FirstOrDefault().Age;
+
+                if (Adaltation == Age || Age == "All" || age == 0)
+                {
+                    return new JsonResult { Data = "True", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+            }
+            else
+            {
+                return new JsonResult { Data = "True", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            return new JsonResult { Data = "False", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
         //Medicine Is Covered
         public JsonResult ISCovered(string MedicineCode)
         {
@@ -4457,7 +4505,7 @@ namespace DMS_TEST.Controllers
                 string accptionlistString = "";
                 var DataService1 = new Comp_Customized_D_D();
                 var med_card = new Med_Card();
-                int? NoOver = 0, NoPay = 0;
+                int? NoOver = 0, NoPay = 0, AcceptionId = 0;
                 double CellingPert;
 
                 var DataService = db.Comp_Customized_D_D_Emp.Where(c => c.C_COMP_ID == patient.C_COMP_ID && c.CONTRACT_NO == patient.CONTRACT_NO && c.SER_SERV == data.RoshetaType && c.CARD_ID == patient.CARD_ID).FirstOrDefault();
@@ -4468,6 +4516,7 @@ namespace DMS_TEST.Controllers
                 RoshitaAcception _RoshitaAcception = db.RoshitaAcceptions.Where(x => x.RoshitaId == Approval).FirstOrDefault();
                 if (_RoshitaAcception != null)
                 {
+                    AcceptionId = _RoshitaAcception.AcceptionId;
                     var acception = db.Acceptions.Where(x => x.Id == _RoshitaAcception.AcceptionId).FirstOrDefault();
                     if (acception != null && acception.ApprovalType == "Vip")
                     {
@@ -4500,7 +4549,7 @@ namespace DMS_TEST.Controllers
                     }
                     else
                     {
-                        rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReport.rpt"));
+                        rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RoshitaReportNew.rpt"));
                     }
                 }
                 var y = db.RoshitaDetails.Where(r => r.RoshitaID == data.Id && r.IsDealed == true)
@@ -4591,6 +4640,7 @@ namespace DMS_TEST.Controllers
                     CellingPert = 100;
                 }
 
+                rd.SetParameterValue("hasApprovalCode", AcceptionId);
                 rd.SetParameterValue("pay", NoPay);
                 rd.SetParameterValue("over", NoOver);
                 rd.SetParameterValue("perc", CellingPert);

@@ -1066,6 +1066,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="Age" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gender" Type="int" />
         </EntityType>
         <EntityType Name="DMSComplaint">
           <Key>
@@ -4642,6 +4644,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Int32" />
         </EntityType>
         <EntityType Name="EmployeeRelation">
           <Key>
@@ -8837,6 +8841,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="Diagnosis">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Diagnosi">
               <MappingFragment StoreEntitySet="Diagnosis">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="DIAG_CODE" ColumnName="DIAG_CODE" />
                 <ScalarProperty Name="SPEC_ID" ColumnName="SPEC_ID" />

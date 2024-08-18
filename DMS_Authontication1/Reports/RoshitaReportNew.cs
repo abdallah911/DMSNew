@@ -16,14 +16,14 @@ namespace DMS_Authontication1.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class RoshitaReport : ReportClass {
+    public class RoshitaReportNew : ReportClass {
         
-        public RoshitaReport() {
+        public RoshitaReportNew() {
         }
         
         public override string ResourceName {
             get {
-                return "RoshitaReport.rpt";
+                return "RoshitaReportNew.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace DMS_Authontication1.Reports {
         
         public override string FullResourceName {
             get {
-                return "DMS_Authontication1.Reports.RoshitaReport.rpt";
+                return "DMS_Authontication1.Reports.RoshitaReportNew.rpt";
             }
             set {
                 // Do nothing
@@ -298,9 +298,9 @@ namespace DMS_Authontication1.Reports {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedRoshitaReport : Component, ICachedReport {
+    public class CachedRoshitaReportNew : Component, ICachedReport {
         
-        public CachedRoshitaReport() {
+        public CachedRoshitaReportNew() {
         }
         
         [Browsable(false)]
@@ -337,7 +337,7 @@ namespace DMS_Authontication1.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            RoshitaReport rpt = new RoshitaReport();
+            RoshitaReportNew rpt = new RoshitaReportNew();
             rpt.Site = this.Site;
             return rpt;
         }

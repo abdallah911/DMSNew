@@ -423,8 +423,8 @@ namespace DMS_Synchronization
                 SyncToSqlTable<PollData>(StringHelper.GetQyertPOLL_DATA, StringHelper.GetTableNamePOLL_DATA);
 
 
-                PushMedicineData();
-                UpdatePushMedicineData();
+                //PushMedicineData();
+                //UpdatePushMedicineData();
                 PushMedicineGroup();
                 #region DMS_Test
                 //PushSqlTables<MEDICINE_DATA>(StringHelper.GetQyertMedicineData, StringHelper.GetTableNameMedicineData);
@@ -445,7 +445,7 @@ namespace DMS_Synchronization
                 SyncToSqlTable<CompContractClass>(StringHelper.GetQyertCOMP_CONTRACT_CLASS, StringHelper.GetTableNameCOMP_CONTRACT_CLASS);
                 SyncToSqlTable<Serv_Providers>(StringHelper.GetQyertSERV_PROVIDERS, StringHelper.GetTableNameSERV_PROVIDERS);
                 SyncToSqlTable<Basic_Data>(StringHelper.GetQyertBASIC_DATA, StringHelper.GetTableNameBASIC_DATA);
-                SyncToSqlTable<MedicineData>(StringHelper.GetQyertMEDICINE_DATA, StringHelper.GetTableNameMEDICINE_DATA);
+                //SyncToSqlTable<MedicineData>(StringHelper.GetQyertMEDICINE_DATA, StringHelper.GetTableNameMEDICINE_DATA);
                 SyncToSqlTable<Comp_Customized_D_D>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D);
                 SyncToSqlTable<COMP_CUSTOMIZED_D>(StringHelper.GetQyertCOMP_CUSTOMIZED_D, StringHelper.GetTableNameCOMP_CUSTOMIZED_D);
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_EMP>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_EMP, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_EMP);
@@ -476,7 +476,7 @@ namespace DMS_Synchronization
                 UpdateSqlTable<CompContractClass>(StringHelper.GetUpdateQyertCOMP_CONTRACT_CLASS, StringHelper.GetTableNameCOMP_CONTRACT_CLASS, "CompContractClass");
                 UpdateSqlTable<Serv_Providers>(StringHelper.GetUpdateQyertSERV_PROVIDERS, StringHelper.GetTableNameSERV_PROVIDERS, "Serv_Providers1");
                 UpdateSqlTable<Basic_Data>(StringHelper.GetUpdateQyertBASIC_DATA, StringHelper.GetTableNameBASIC_DATA, "Basic_Data");
-                UpdateSqlTable<MedicineData>(StringHelper.GetUpdateQyertMEDICINE_DATA, StringHelper.GetTableNameMEDICINE_DATA, "MedicineData");
+                //UpdateSqlTable<MedicineData>(StringHelper.GetUpdateQyertMEDICINE_DATA, StringHelper.GetTableNameMEDICINE_DATA, "MedicineData");
                 UpdateSqlTable<Comp_Customized_D_D>(StringHelper.GetUpdateQyertCOMP_CUSTOMIZED_D_D, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D, "Comp_Customized_D_D");
                 UpdateSqlTable<COMP_CUSTOMIZED_D>(StringHelper.GetUpdateQyertCOMP_CUSTOMIZED_D, StringHelper.GetTableNameCOMP_CUSTOMIZED_D, "COMP_CUSTOMIZED_D");
                 UpdateSqlTable<Comp_Employees>(StringHelper.GetUpdateQyertCOMP_EMPLOYEES, StringHelper.GetTableNameCOMP_EMPLOYEES, "Comp_Employees");
@@ -911,7 +911,7 @@ namespace DMS_Synchronization
         {
 
             string conn = "";
-            if (tableName == "SH_01.MEDICINE_DATA" || tableName == "SH_01.CO_INSURANCE_01"
+            if (/*tableName == "SH_01.MEDICINE_DATA" ||*/ tableName == "SH_01.CO_INSURANCE_01"
                 || tableName == "SH_01.SER_PROV_DISC" || tableName == "SH_01.DMS_02_EMP_D_ENT_MAN")
             {
                 conn = _connectionSettings.OrcaleConnectionSH65;
@@ -1009,11 +1009,11 @@ namespace DMS_Synchronization
                                     " AND PRV_TYPE=" + ORACLEdatatable.Rows[i][3];
                                 break;
 
-                            case "MedicineData":
-                                UpdateQuery = UpdateQuery + " WHERE COMP_ID=" + ORACLEdatatable.Rows[i][0] +
-                                    " AND BRANCH_CODE=" + ORACLEdatatable.Rows[i][1] + " AND M_CODE='" + ORACLEdatatable.Rows[i][2] +
-                                    "'";
-                                break;
+                            //case "MedicineData":
+                            //    UpdateQuery = UpdateQuery + " WHERE COMP_ID=" + ORACLEdatatable.Rows[i][0] +
+                            //        " AND BRANCH_CODE=" + ORACLEdatatable.Rows[i][1] + " AND M_CODE='" + ORACLEdatatable.Rows[i][2] +
+                            //        "'";
+                            //    break;
 
                             case "COMP_CUSTOMIZED_D":
                                 UpdateQuery = UpdateQuery + " WHERE COMP_ID=" + ORACLEdatatable.Rows[i][0] +
@@ -1153,13 +1153,13 @@ namespace DMS_Synchronization
                         string queryD = "update Comp_Customized_D set CEILING_AMT = null WHERE CEILING_AMT = 0";
                         ExecuteSQLUpdateQuery(queryD, _connectionSettings.SQlConnection);
                     }
-                    if (tableName == "MEDICINE_DATA")
-                    {
-                        string queryD = " UPDATE MedicineData SET diagnoisegender = 3, iscovered = 1, DiagnoiseAge = 'All'";
-                        ExecuteSQLUpdateQuery(queryD, _connectionSettings.SQlConnection);
-                        string queryDa = " UPDATE MedicineData SET ACTIVE = 'Y' WHERE ACTIVE IS NULL";
-                        ExecuteSQLUpdateQuery(queryDa, _connectionSettings.SQlConnection);
-                    }
+                    //if (tableName == "MEDICINE_DATA")
+                    //{
+                    //    string queryD = " UPDATE MedicineData SET diagnoisegender = 3, iscovered = 1, DiagnoiseAge = 'All'";
+                    //    ExecuteSQLUpdateQuery(queryD, _connectionSettings.SQlConnection);
+                    //    string queryDa = " UPDATE MedicineData SET ACTIVE = 'Y' WHERE ACTIVE IS NULL";
+                    //    ExecuteSQLUpdateQuery(queryDa, _connectionSettings.SQlConnection);
+                    //}
 
                     string OracleQuery = "UPDATE " + tableName + " SET IS_SYNC = 1,SYNC_DATE=SYSDATE,SYNC_BY = 'Admin' WHERE IS_SYNC=1 and SYNC_BY = 'UPDATE'";
                     ExecuteOracleQuery(OracleQuery, conn);
@@ -1183,13 +1183,14 @@ namespace DMS_Synchronization
         private static void SyncToSqlTable<T>(string query, string tableName)
         {
             string conn = "";
-            if (tableName == "SH_01.MEDICINE_DATA")
-            {
-                conn = _connectionSettings.OrcaleConnectionSH65;
-                string OracleQuery2 = "UPDATE SH_01.MEDICINE_DATA SET UNIT_PRICE = ROUND(UNIT_PRICE,3),PACK_PRICE=ROUND(PACK_PRICE,3),PACK_SIZE = ROUND(PACK_SIZE,3) WHERE IS_SYNC=0 OR SYNC_BY='UPDATE'";
-                ExecuteOracleQuery(OracleQuery2, _connectionSettings.OrcaleConnectionSH65);
-            }
-            else if (tableName == "SH_01.SER_PROV_DISC" || tableName == "SH_01.CO_INSURANCE_01" || tableName == "SH_01.DMS_02_EMP_D_ENT_MAN")
+            //if (tableName == "SH_01.MEDICINE_DATA")
+            //{
+            //    conn = _connectionSettings.OrcaleConnectionSH65;
+            //    string OracleQuery2 = "UPDATE SH_01.MEDICINE_DATA SET UNIT_PRICE = ROUND(UNIT_PRICE,3),PACK_PRICE=ROUND(PACK_PRICE,3),PACK_SIZE = ROUND(PACK_SIZE,3) WHERE IS_SYNC=0 OR SYNC_BY='UPDATE'";
+            //    ExecuteOracleQuery(OracleQuery2, _connectionSettings.OrcaleConnectionSH65);
+            //}
+            //else
+            if (tableName == "SH_01.SER_PROV_DISC" || tableName == "SH_01.CO_INSURANCE_01" || tableName == "SH_01.DMS_02_EMP_D_ENT_MAN")
             {
                 conn = _connectionSettings.OrcaleConnectionSH65;
             }
@@ -1243,9 +1244,9 @@ namespace DMS_Synchronization
                             case "DIAGNOSES":
                                 SqlTableName = "Diagnosis";
                                 break;
-                            case "MEDICINE_DATA":
-                                SqlTableName = "MedicineData";
-                                break;
+                            //case "MEDICINE_DATA":
+                            //    SqlTableName = "MedicineData";
+                            //    break;
                             case "SER_PROV_DISC":
                                 SqlTableName = "Ser_Prov_Disc";
                                 break;
@@ -1364,13 +1365,13 @@ namespace DMS_Synchronization
                 string queryD = "update Comp_Customized_D set CEILING_AMT = null WHERE CEILING_AMT = 0";
                 ExecuteSQLUpdateQuery(queryD, _connectionSettings.SQlConnection);
             }
-            if (tableName == "MEDICINE_DATA")
-            {
-                string queryD = " UPDATE MedicineData SET diagnoisegender = 3, iscovered = 1, DiagnoiseAge = 'All'";
-                ExecuteSQLUpdateQuery(queryD, _connectionSettings.SQlConnection);
-                string queryDa = " UPDATE MedicineData SET ACTIVE = 'Y' WHERE ACTIVE IS NULL";
-                ExecuteSQLUpdateQuery(queryDa, _connectionSettings.SQlConnection);
-            }
+            //if (tableName == "MEDICINE_DATA")
+            //{
+            //    string queryD = " UPDATE MedicineData SET diagnoisegender = 3, iscovered = 1, DiagnoiseAge = 'All'";
+            //    ExecuteSQLUpdateQuery(queryD, _connectionSettings.SQlConnection);
+            //    string queryDa = " UPDATE MedicineData SET ACTIVE = 'Y' WHERE ACTIVE IS NULL";
+            //    ExecuteSQLUpdateQuery(queryDa, _connectionSettings.SQlConnection);
+            //}
 
             string OracleQuery = "UPDATE " + tableName + " SET IS_SYNC = 1,SYNC_DATE=SYSDATE,SYNC_BY = 'Admin' WHERE IS_SYNC=0 OR IS_SYNC IS NULL";
             ExecuteOracleQuery(OracleQuery, conn);
@@ -3810,9 +3811,9 @@ namespace DMS_Synchronization
 
                         switch (tableName)
                         {
-                            case "MedicineData":
-                                SqlTableName = "MEDICINE_DATA";
-                                break;
+                            //case "MedicineData":
+                            //    SqlTableName = "MEDICINE_DATA";
+                            //    break;
                             case "MedicineGroup":
                                 SqlTableName = "MEDICINE_GRUOP";
                                 break;
@@ -3964,9 +3965,9 @@ namespace DMS_Synchronization
 
             }
 
-            string UpdateMedCardQuery = "UPDATE MedicineData SET IsSync=1,SyncBy='SQLTEST',SyncDate=GETDATE() " +
-               " WHERE IsSync=0 OR IsSync IS NULL ";
-            var resultmessage = ExecuteNonQueryCommand(UpdateMedCardQuery, _connectionSettings.SQlConnection);
+            //string UpdateMedCardQuery = "UPDATE MedicineData SET IsSync=1,SyncBy='SQLTEST',SyncDate=GETDATE() " +
+            //   " WHERE IsSync=0 OR IsSync IS NULL ";
+            //var resultmessage = ExecuteNonQueryCommand(UpdateMedCardQuery, _connectionSettings.SQlConnection);
 
         }
 
@@ -4066,9 +4067,9 @@ namespace DMS_Synchronization
 
             }
 
-            string UpdateMedCardQuery = "UPDATE MedicineData SET IsSync=1,SyncBy='SQLTEST',SyncDate=GETDATE() " +
-               " WHERE IsSync=0 OR IsSync IS NULL ";
-            var resultmessage = ExecuteNonQueryCommand(UpdateMedCardQuery, _connectionSettings.SQlConnection);
+            //string UpdateMedCardQuery = "UPDATE MedicineData SET IsSync=1,SyncBy='SQLTEST',SyncDate=GETDATE() " +
+            //   " WHERE IsSync=0 OR IsSync IS NULL ";
+            //var resultmessage = ExecuteNonQueryCommand(UpdateMedCardQuery, _connectionSettings.SQlConnection);
 
         }
 

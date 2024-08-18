@@ -457,7 +457,44 @@ $(function () {
         });
 
     });
-
+    $('#ddlDiagnoises').on('select2:selecting', function (event) {
+        var CodeDiagnosis = event.params.args.data.id
+        //Gender Check
+        $.ajax({
+            dataType: "json",
+            url: '/Pharmacy/GenderValidationDiagnoses',
+            data: {
+                CardId: $('#txtSearchCard').val(),
+                DiagnosesCode: CodeDiagnosis,
+                Id: 0
+            },
+            success: function (r) {
+                if (r != "True") {
+                    $("#ddlDiagnoises").val(null).change();
+                    toastr.error("This Diagnoses dosn't match patient's gender");
+                }
+            },
+            error: function (r) { }
+        }).done(function () {
+            //Age Check
+            $.ajax({
+                dataType: "json",
+                url: '/Pharmacy/AgeValidationDiagnoses',
+                data: {
+                    CardId: $('#txtSearchCard').val(),
+                    AgeCode: CodeDiagnosis,
+                    Id: 0
+                },
+                success: function (r) {
+                    if (r != "True") {
+                        $("#ddlDiagnoises").val(null).change();
+                        toastr.error("This Diagnoses dosn't match patient's Age");
+                    }
+                },
+                error: function (r) { }
+            });
+        });
+    })
     function phonenumber(inputtxt) {
         var phoneno = /01\d{9}$/;
         if (inputtxt.match(phoneno)) {
