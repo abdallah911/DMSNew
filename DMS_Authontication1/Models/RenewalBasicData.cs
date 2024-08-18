@@ -29,8 +29,8 @@ namespace DMS_Authontication1.Models
         public Nullable<int> VisitorNumber { get; set; }
         public Nullable<int> VisitorType { get; set; }
         public Nullable<bool> IsBroker { get; set; }
-        public int? BrokerId { get; set; }
-        public int? BrokerPercentage { get; set; }
+        public Nullable<int> BrokerId { get; set; }
+        public Nullable<int> BrokerPercentage { get; set; }
         public Nullable<double> IssuanceExpenses { get; set; }
         public Nullable<double> AdminExpenses { get; set; }
         public Nullable<int> MainId { get; set; }

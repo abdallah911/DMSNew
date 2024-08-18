@@ -90,6 +90,10 @@ namespace DMS_Authontication1.Models
         public Nullable<int> OpticalVisit { get; set; }
         public Nullable<int> BirthVisit { get; set; }
         public string Notes { get; set; }
+        public Nullable<int> OutsideNetworkInpatientType { get; set; }
+        public Nullable<decimal> OutsideNetworkInpatientValue { get; set; }
+        public Nullable<int> OutsideNetworkOutpatientType { get; set; }
+        public Nullable<decimal> OutsideNetworkOutpatientValue { get; set; }
     
         public virtual RenewalMain RenewalMain { get; set; }
     }

@@ -1424,6 +1424,12 @@ namespace DMS_Authontication1.Controllers
             ViewBag.basicService = db.BasicDentalServices.ToList();
             ViewBag.advancService = db.DentalServices.ToList();
 
+            ViewBag.basicService = db.OutsideNetworkInpatientResaons.ToList();
+            ViewBag.advancService = db.OutsideNetworkOutpatientResaons.ToList();
+            ViewBag.basicService = db.PreXChronicReasons.ToList();
+            ViewBag.advancService = db.CriticalReasons.ToList();
+
+
             if (TempData["Save"] != null && !string.IsNullOrEmpty(TempData["Save"].ToString()))
                 ViewBag.Save = "YES";
             else

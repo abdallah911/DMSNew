@@ -259,6 +259,10 @@ index++)
                         <input type="hidden" name="Model[@index].AdvancedDentalServicePercentageoption" id="AdvancedDentalServicePercentageoption-hidden-@index" value="@model1.AdvancedDentalServicePercentageoption.ToString().ToLower()" />
                         <input type="hidden" name="Model[@index].BasicDentalServicePercentageoption" id="BasicDentalServicePercentageoption-hidden-@index" value="@model1.BasicDentalServicePercentageoption.ToString().ToLower()" />
                         <input type="hidden" name="Model[@index].OpticsPercentageoption" id="OpticsPercentageoption-hidden-@index" value="@model1.OpticsPercentageoption.ToString().ToLower()" />
+                        
+                        
+                        
+                        
                         <div class="cate@(catIndex)">
                             <button class="cate-title">الفئة @(index+1)</button>
                             <div class="d-flex">
@@ -310,7 +314,12 @@ index++)
     </section>
      </div>-->
                                     <div class="d-flex align-items-center  justify-content-center px-4 position-relative">
-                                        <select class="my-0 w-100 seleect" id="">
+                                        <select class="my-0 w-100 seleect" name="Model[@index].HospitalsResidenceServiceLimit">
+                                            <option value="">اختر الشبكة الطبية</option> <!-- Default option -->
+                                            @foreach (var itm in ViewBag.OutsideNetworkInpatientResaons)
+                                            {
+                                                <option value="@itm.Value" @(itm.Value == Model[index].HospitalsResidenceServiceLimit.ToString() ? "selected" : "")>@itm.Text</option>
+                                            }
                                         </select>
                                     </div>
 
@@ -359,10 +368,15 @@ index++)
                 </div>
             </section>
         </div>*@
-                                    <div class="d-flex align-items-center  justify-content-center px-4 position-relative">
-                                        <select class="my-0 w-100 seleect" id="">
-                                        </select>
-                                    </div>
+                                <div class="d-flex align-items-center  justify-content-center px-4 position-relative">
+                                    <select class="my-0 w-100 seleect" name="Model[@index].OutsideClinicsLimit">
+                                        <option value="">اختر الشبكة الطبية</option> <!-- Default option -->
+                                        @foreach (var itm in ViewBag.OutsideNetworkOutpatientResaons)
+                                        {
+                                            <option value="@itm.Value" @(itm.Value == Model[index].OutsideClinicsLimit.ToString() ? "selected" : "")>@itm.Text</option>
+                                        }
+                                    </select>
+                                </div>
                                     <div>
                                         <div style="display: flex; gap: 0.1rem">
                                             <input type="text"
@@ -1208,9 +1222,14 @@ index++)
 
 
                                     <div class="d-flex align-items-center justify-content-center px-4 position-relative gap-2 flex-wrap" style="height: 120px;  align-content: center; ">
-                                        <select class="my-0 w-100 seleect" id="">
-                                        </select> 
-                                        <input type="text" class="my-0 w-100 " /> 
+                                        <select class="my-0 w-100 seleect" name="Model[@index].OutsideNetworkInpatientType">
+                                            <option value="">اختر الشبكة الطبية</option> <!-- Default option -->
+                                            @foreach (var itm in ViewBag.OutsideNetworkOutpatientResaons)
+                                            {
+                                                <option value="@itm.Value" @(itm.Value == Model[index].OutsideClinicsLimit.ToString() ? "selected" : "")>@itm.Text</option>
+                                            }
+                                        </select>
+                                        <input type="text" class="my-0 w-100 " />
                                     </div>
                                     <div class="d-flex align-items-center justify-content-center px-4 position-relative gap-2 flex-wrap" style="height: 120px;  align-content: center; ">
                                         <select class="my-0 w-100 seleect" id="">

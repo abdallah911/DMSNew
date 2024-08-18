@@ -30,8 +30,8 @@ namespace DMS_Authontication1.Models
         public int MedicalNetworkId { get; set; }
         public int MainId { get; set; }
         public string ClassCode { get; set; }
-        //public int Accidents { get; set; }
-        //public int Death { get; set; }
+        public decimal Accidents { get; set; }
+        public decimal Death { get; set; }
         public Nullable<int> PricePercent { get; set; }
         public Nullable<int> BirthNumber { get; set; }
         public Nullable<int> BirthPercent { get; set; }
@@ -40,8 +40,6 @@ namespace DMS_Authontication1.Models
         public Nullable<int> DentalNumber { get; set; }
         public Nullable<int> DentalPercent { get; set; }
         public string Notes { get; set; }
-        public decimal Accidents { get; set; }
-        public decimal Death { get; set; }
     
         public virtual RenewalMain RenewalMain { get; set; }
     }

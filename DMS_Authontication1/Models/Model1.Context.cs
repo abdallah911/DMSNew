@@ -171,6 +171,10 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<RenewalOtsideAdvanceDental> RenewalOtsideAdvanceDentals { get; set; }
         public virtual DbSet<RenewalOtsideBasicDental> RenewalOtsideBasicDentals { get; set; }
         public virtual DbSet<ClaimPhoto> ClaimPhotoes { get; set; }
+        public virtual DbSet<CriticalReason> CriticalReasons { get; set; }
+        public virtual DbSet<OutsideNetworkInpatientResaon> OutsideNetworkInpatientResaons { get; set; }
+        public virtual DbSet<OutsideNetworkOutpatientResaon> OutsideNetworkOutpatientResaons { get; set; }
+        public virtual DbSet<PreXChronicReason> PreXChronicReasons { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)

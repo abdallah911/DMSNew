@@ -12,10 +12,9 @@ namespace DMS_Authontication1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RenewalInsideAdvanceDental
+    public partial class OutsideNetworkOutpatientResaon
     {
         public int Id { get; set; }
-        public Nullable<int> MainId { get; set; }
-        public Nullable<int> ServiceId { get; set; }
+        public string Name { get; set; }
     }
 }

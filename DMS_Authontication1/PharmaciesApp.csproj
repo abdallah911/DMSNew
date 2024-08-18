@@ -513,6 +513,9 @@
     <Compile Include="Models\Co_Insurance_01.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CriticalReason.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CronaEmergancy.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -752,6 +755,12 @@
     <Compile Include="Models\Notification.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OutsideNetworkInpatientResaon.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OutsideNetworkOutpatientResaon.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Patch.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -771,6 +780,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PrescriptionRoshitaDignosi.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PreXChronicReason.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PricesOutsideMedicalAuthority.cs" />
