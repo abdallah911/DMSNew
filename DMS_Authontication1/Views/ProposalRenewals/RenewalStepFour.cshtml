@@ -315,10 +315,10 @@ index++)
      </div>-->
                                     <div class="d-flex align-items-center  justify-content-center px-4 position-relative">
                                         <select class="my-0 w-100 seleect" name="Model[@index].HospitalsResidenceServiceLimit">
-                                            <option value="">اختر الشبكة الطبية</option> <!-- Default option -->
-                                            @foreach (var itm in ViewBag.OutsideNetworkInpatientResaons)
+                                            <option value="">اختر من القائمة</option> <!-- Default option -->
+                                            @foreach (var itm in ViewBag.OutsideNetworkInResaons)
                                             {
-                                                <option value="@itm.Value" @(itm.Value == Model[index].HospitalsResidenceServiceLimit.ToString() ? "selected" : "")>@itm.Text</option>
+                                                <option value="@itm.Id" @(itm.Id == Model[index].HospitalsResidenceServiceLimit ? "selected" : "")>@itm.Name</option>
                                             }
                                         </select>
                                     </div>
@@ -370,10 +370,10 @@ index++)
         </div>*@
                                 <div class="d-flex align-items-center  justify-content-center px-4 position-relative">
                                     <select class="my-0 w-100 seleect" name="Model[@index].OutsideClinicsLimit">
-                                        <option value="">اختر الشبكة الطبية</option> <!-- Default option -->
-                                        @foreach (var itm in ViewBag.OutsideNetworkOutpatientResaons)
+                                        <option value="">اختر من القائمة</option> <!-- Default option -->
+                                        @foreach (var itm in ViewBag.OutsideNetworkOutResaons)
                                         {
-                                            <option value="@itm.Value" @(itm.Value == Model[index].OutsideClinicsLimit.ToString() ? "selected" : "")>@itm.Text</option>
+                                            <option value="@itm.Id" @(itm.Id == Model[index].OutsideClinicsLimit ? "selected" : "")>@itm.Name</option>
                                         }
                                     </select>
                                 </div>
@@ -1222,19 +1222,28 @@ index++)
 
 
                                     <div class="d-flex align-items-center justify-content-center px-4 position-relative gap-2 flex-wrap" style="height: 120px;  align-content: center; ">
-                                        <select class="my-0 w-100 seleect" name="Model[@index].OutsideNetworkInpatientType">
-                                            <option value="">اختر الشبكة الطبية</option> <!-- Default option -->
-                                            @foreach (var itm in ViewBag.OutsideNetworkOutpatientResaons)
+                                        <select class="my-0 w-100 seleect" name="Model[@index].PreXChronicType">
+                                            <option value="">اختر من القائمة</option> <!-- Default option -->
+                                            @foreach (var itm in ViewBag.PreXChroncReasons)
                                             {
-                                                <option value="@itm.Value" @(itm.Value == Model[index].OutsideClinicsLimit.ToString() ? "selected" : "")>@itm.Text</option>
+                                                <option value="@itm.Id" @(itm.Id == Model[index].PreXChronicType ? "selected" : "")>@itm.Name</option>
                                             }
                                         </select>
-                                        <input type="text" class="my-0 w-100 " />
+                                        <input type="text" class="my-0 w-100"  
+                                               name="Model[@index].PreXChronicValue"
+                                               value="@Model[index].PreXChronicValue" />
                                     </div>
                                     <div class="d-flex align-items-center justify-content-center px-4 position-relative gap-2 flex-wrap" style="height: 120px;  align-content: center; ">
-                                        <select class="my-0 w-100 seleect" id="">
-                                        </select> 
-                                        <input type="text" class="my-0 w-100 " /> 
+                                        <select class="my-0 w-100 seleect" name="Model[@index].CriticalType">
+                                            <option value="">اختر من القائمة</option> <!-- Default option -->
+                                            @foreach (var itm in ViewBag.CriticlReasons)
+                                            {
+                                                <option value="@itm.Id" @(itm.Id == Model[index].CriticalType ? "selected" : "")>@itm.Name</option>
+                                            }
+                                        </select>
+                                        <input type="text" class="my-0 w-100"
+                                               name="Model[@index].CriticalValue"
+                                               value="@Model[index].CriticalValue" />
                                     </div>
 
                                     <div class="d-flex align-items-center justify-content-center px-4 py-2" style="height: 90px;">

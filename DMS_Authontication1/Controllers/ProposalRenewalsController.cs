@@ -1424,10 +1424,10 @@ namespace DMS_Authontication1.Controllers
             ViewBag.basicService = db.BasicDentalServices.ToList();
             ViewBag.advancService = db.DentalServices.ToList();
 
-            ViewBag.basicService = db.OutsideNetworkInpatientResaons.ToList();
-            ViewBag.advancService = db.OutsideNetworkOutpatientResaons.ToList();
-            ViewBag.basicService = db.PreXChronicReasons.ToList();
-            ViewBag.advancService = db.CriticalReasons.ToList();
+            ViewBag.OutsideNetworkInResaons = db.OutsideNetworkInpatientResaons.ToList();
+            ViewBag.OutsideNetworkOutResaons = db.OutsideNetworkOutpatientResaons.ToList();
+            ViewBag.PreXChroncReasons = db.PreXChronicReasons.ToList();
+            ViewBag.CriticlReasons = db.CriticalReasons.ToList();
 
 
             if (TempData["Save"] != null && !string.IsNullOrEmpty(TempData["Save"].ToString()))
@@ -1784,6 +1784,10 @@ namespace DMS_Authontication1.Controllers
                         DentalVisit = oldNew.DentalVisit,
                         OpticalVisit = oldNew.OpticalVisit,
                         BirthVisit = oldNew.BirthVisit,
+                        PreXChronicValue = oldNew.PreXChronicValue,
+                        CriticalValue = oldNew.CriticalValue,
+                        PreXChronicType = oldNew.PreXChronicType,
+                        CriticalType = oldNew.CriticalType,
                         Notes = oldNew.Notes,
                       
                         AdvancDentalService = db.RenewalOtsideAdvanceDentals
@@ -1992,7 +1996,11 @@ namespace DMS_Authontication1.Controllers
                 DentalVisit = vM.DentalVisit,
                 OpticalVisit = vM.OpticalVisit,
                 BirthVisit = vM.BirthVisit,
-                Notes = vM.Notes
+                Notes = vM.Notes,
+                PreXChronicValue = vM.PreXChronicValue,
+                CriticalValue = vM.CriticalValue,
+                PreXChronicType = vM.PreXChronicType,
+                CriticalType = vM.CriticalType
             };
 
             return renewalfour;

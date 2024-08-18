@@ -30,11 +30,11 @@ namespace DMS_Authontication1.ViewModel
         [Required(ErrorMessage = "Please provide a value for Outside Clinics Percentage Option.")]
         public bool OutsideClinicsPercentageoption { get; set; }
 
-        [ConditionalRequired(nameof(OutsideClinicsLimitOption), true, ErrorMessage = "Outside Clinics Limit is required.")]
+        //[ConditionalRequired(nameof(OutsideClinicsLimitOption), true, ErrorMessage = "Outside Clinics Limit is required.")]
         [Range(0, double.MaxValue, ErrorMessage = "Outside Clinics Limit must be between 0 and the maximum value.")]
         public decimal? OutsideClinicsLimit { get; set; }
 
-        [ConditionalRequired(nameof(OutsideClinicsPercentageoption), true, ErrorMessage = "Outside Clinics Percentage is required.")]
+        //[ConditionalRequired(nameof(OutsideClinicsPercentageoption), true, ErrorMessage = "Outside Clinics Percentage is required.")]
         [Range(0, 100, ErrorMessage = "Outside Clinics Percentage must be between 0 and 100.")]
         public decimal? OutsideClinicsPercentage { get; set; }
 
@@ -264,6 +264,14 @@ namespace DMS_Authontication1.ViewModel
         public int? BirthVisit { get; set; }    
         public List<int> AdvancDentalService { get; set; }
         public List<int> BascDentalService { get; set; }
+
+        [Range(0, double.MaxValue, ErrorMessage = "Hospitals Residence Service Limit must be between 0 and the maximum value.")]
+        public decimal? PreXChronicValue { get; set; }
+
+        [Range(0, double.MaxValue, ErrorMessage = "Hospitals Residence Service Limit must be between 0 and the maximum value.")]
+        public decimal? CriticalValue { get; set; }
+        public int? PreXChronicType { get; set; }
+        public int? CriticalType { get; set; }
         public string Notes { get; set; }
     }
 }
