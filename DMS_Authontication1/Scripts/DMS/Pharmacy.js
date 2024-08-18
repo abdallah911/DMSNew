@@ -1234,6 +1234,48 @@ $(function () {
             bootbox.alert("Please Insert Card ID");
     });
 
+    $("#ClaimNumber").on("mouseleave", function () {
+        //Get Claim photo
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '/Pharmacy/HaveClaimPhoto',
+            data: { id: CardId, claimnum: $("#ClaimNumber").val(), type: 'Pharm' },
+            success: function (returndata) {
+                if (returndata.ok) {
+                    bootbox.dialog({
+                        closeButton: false,
+                        title: 'Claim Photo',
+                        //message: "هذا العميل لدية علاج شهري هل تود صرفة",
+                        message: "هل تود تحميل الصورة" + " claim " + "هذا العميل له نموذج",
+                        buttons: {
+                            Print: {
+                                label: "Yes",
+                                className: 'btn-info',
+                                callback: function () {
+                                    $('#ClaimNumber').prop('readonly', true);
+                                    window.open("/Claim/Download/" + returndata.Id);
+                                }
+                            },
+                            New: {
+                                label: "No",
+                                className: 'btn-danger',
+                                callback: function () {
+
+                                }
+                            }
+
+                        }
+                    });
+                }
+                else {
+                    //bootbox.alert(' No Company Name ');
+                }
+            }
+        });
+    });
+
 })
 function SelectMedicienCompany(event) {
     var Code = event.params.args.data.id

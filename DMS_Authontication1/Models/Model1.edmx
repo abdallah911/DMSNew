@@ -230,6 +230,23 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="CreatedBy" Type="nvarchar(max)" />
           <Property Name="CreatedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="ClaimPhoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CardId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClaimNumber" Type="bigint" Nullable="false" />
+          <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsDispense" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDespenseLab" Type="bit" />
+          <Property Name="IsDespenseRay" Type="bit" />
+          <Property Name="IsDespensePharm" Type="bit" />
+        </EntityType>
         <EntityType Name="Co_Insurance_01">
           <Key>
             <PropertyRef Name="id" />
@@ -3767,6 +3784,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="CardCode" EntityType="Self.CardCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardsSms" EntityType="Self.CardsSms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardUsed" EntityType="Self.CardUsed" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClaimPhoto" EntityType="Self.ClaimPhoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Co_Insurance_01" EntityType="Self.Co_Insurance_01" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COMP_CUSTOMIZED_D" EntityType="Self.COMP_CUSTOMIZED_D" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comp_Customized_D_D" EntityType="Self.Comp_Customized_D_D" Schema="dbo" store:Type="Tables" />
@@ -5739,6 +5757,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="RenewalInsideBasicDentals" EntityType="DB_A45413_DMSERPModel.RenewalInsideBasicDental" />
           <EntitySet Name="RenewalOtsideAdvanceDentals" EntityType="DB_A45413_DMSERPModel.RenewalOtsideAdvanceDental" />
           <EntitySet Name="RenewalOtsideBasicDentals" EntityType="DB_A45413_DMSERPModel.RenewalOtsideBasicDental" />
+          <EntitySet Name="ClaimPhotoes" EntityType="DB_A45413_DMSERPModel.ClaimPhoto" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -8291,6 +8310,23 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MainId" Type="Int32" />
           <Property Name="ServiceId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ClaimPhoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CardId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimNumber" Type="Int64" Nullable="false" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDispense" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDespenseLab" Type="Boolean" />
+          <Property Name="IsDespenseRay" Type="Boolean" />
+          <Property Name="IsDespensePharm" Type="Boolean" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -11503,6 +11539,24 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
               <MappingFragment StoreEntitySet="RenewalOtsideBasicDental">
                 <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
                 <ScalarProperty Name="MainId" ColumnName="MainId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClaimPhotoes">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ClaimPhoto">
+              <MappingFragment StoreEntitySet="ClaimPhoto">
+                <ScalarProperty Name="IsDespensePharm" ColumnName="IsDespensePharm" />
+                <ScalarProperty Name="IsDespenseRay" ColumnName="IsDespenseRay" />
+                <ScalarProperty Name="IsDespenseLab" ColumnName="IsDespenseLab" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsDispense" ColumnName="IsDispense" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="ClaimNumber" ColumnName="ClaimNumber" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "UserPermision";
+}
+
+
+<h2>@ViewBag.userName Permision</h2>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<link href="~/assets/HomeTemplete/jsgrid-1.5.3/jsgrid.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/jsgrid-1.5.3/jsgrid-theme.min.css" rel="stylesheet" />
+<script src="~/assets/HomeTemplete/jsgrid-1.5.3/jsgrid.min.js"></script>
+
+<div id="jsGrid">
+</div>
+<script type="text/javascript">
+    var url = new URL(window.location.href);
+
+    var UserId = url.searchParams.get("UserId");
+    var result;
+    //$.ajax({
+    //    url: '/Role/PagesPermision',
+    //    data: { Roleid: RoleId },
+    //    dataType: 'Json',
+    //    success: function (result) {
+    //        result = result;
+    //    },
+    //    error: function () {
+    //    }
+    //});
+
+    $("#jsGrid").jsGrid({
+        width: "100%",
+        height: "800px",
+        autoload: true,
+        inserting: false,
+        editing: true,
+        sorting: true,
+        paging: true,
+        //data: result,
+        controller: {
+            loadData: function (filter) {
+                return $.ajax({
+                    //type: "GET",
+                    dataType: "json",
+                    url: "/User/PagesPermision?UserId=" + UserId,
+                });
+            },
+            //insertItem: $.noop,
+            updateItem: function (filter) {
+                return $.ajax({
+                    //type: "GET",
+                    dataType: "json",
+                    url: "/User/UpdateUserPagesPermision",
+                    data: {
+                        ActivationControl: filter.ActivationControl,
+                        AddPermission: filter.AddPermission,
+                        EditPermission: filter.EditPermission,
+                        FullControl: filter.FullControl,
+                        PageId: filter.PageId,
+                        UserId: UserId,
+                        Preview: filter.Preview
+                    },
+                    success: function (result) {
+                        alert(result);
+                        location.reload();
+                        //toastr.success(result);
+                        //$("#jsGrid").jsGrid("refresh");
+                    },
+                    error: function () {
+                        alert(result);
+                        location.reload();
+                        //toastr.error(result);
+
+                    }
+                })
+            }
+            //deleteItem: $.noop
+        },
+        fields: [
+            { name: "ModuleName", type: "text", width: 150, disabled: true },
+            { name: "PageName", type: "text", width: 150, disabled: true },
+            //{ name: "Age", type: "number", width: 50 },
+            //{ name: "Address", type: "text", width: 200 },
+            //{ name: "Country", type: "select", items: countries, valueField: "Id", textField: "Name" },
+            { name: "FullControl", type: "checkbox", title: "FullControl", sorting: false },
+            { name: "Preview", type: "checkbox", title: "Preview", sorting: false },
+            { name: "AddPermission", type: "checkbox", title: "AddPermission", sorting: false },
+            { name: "EditPermission", type: "checkbox", title: "EditPermission", sorting: false },
+            { name: "ActivationControl", type: "checkbox", title: "ActivationControl", sorting: false },
+            { name: "PageId", type: "control", deleteButton: false }
+        ]
+
+    });
+
+</script>
+
