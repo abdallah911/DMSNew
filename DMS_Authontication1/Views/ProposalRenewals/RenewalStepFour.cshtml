@@ -186,13 +186,24 @@ CateCount = ViewBag.CatCount; }
                                type="text"
                                placeholder="كشف الولادة" />
                     </div>
-               
+                    <div style="height: 97px; margin: 10px">
+                        <input class="myInput"
+                               style="pointer-events: none"
+                               type="text"
+                               placeholder="الأمراض السابقة على تاريخ التعاقد و الأمراض المزمنه" />
+                    </div> <div style="height: 74px; margin: 10px">
+                        <input class="myInput"
+                               style="pointer-events: none"
+                               type="text"
+                               placeholder="الحالات الحرجة" />
+                    </div>
                     <div style="height: 74px; margin: 10px">
                         <input class="myInput"
                                style="pointer-events: none"
                                type="text"
                                placeholder="ملاحظات" />
                     </div>
+
                 </div>
             </div>
 
@@ -252,93 +263,105 @@ index++)
                             <button class="cate-title">الفئة @(index+1)</button>
                             <div class="d-flex">
                                 <div class="cate-parent">
-                                    <div>
-                                        <div style="display: flex; gap: 0.1rem">
-                                            <input type="text"
-                                                   disabled
-                                                   id="data-@(index+1)-0-1"
-                                                   name="Model[@index].HospitalsResidenceServiceLimit"
-                                                   value="@Model[index].HospitalsResidenceServiceLimit"
-                                                   style="width: 50%; margin: 5px" />
-                                            <input type="text"
-                                                   disabled
-                                                   id="data-@(index+1)-0-2"
-                                                   name="Model[@index].HospitalsResidenceServicePercentage"
-                                                   value="@Model[index].HospitalsResidenceServicePercentage"
-                                                   style="width: 50%; margin: 5px" />
-                                        </div>
-                                        <section class="form-check-container">
-                                            <div class="form-check">
-                                                <!-- Hidden input to store the actual boolean value -->
-                                                <input class="form-check-input"
-                                                       type="checkbox"
-                                                       name="Model[@index].HospitalsResidenceServiceLimitOption"
-                                                       @(Model[index].HospitalsResidenceServiceLimitOption == true ? "checked" : "")
-                                                       id="@(index+1)-0-1"
-                                                       data-target="data-@(index+1)-0-1"
-                                                       onclick="updateHiddenInput('HospitalsResidenceServiceLimitOption-hidden-@index', this)" />
-                                                <label class="form-check-label" for="@(index+1)-0-1">
-                                                    حد التغطية
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input"
-                                                       type="checkbox"
-                                                       name="Model[@index].HospitalsResidenceServicePercentageoption"
-                                                       @(Model[index].HospitalsResidenceServicePercentageoption == true ? "checked" : "")
-                                                       id="@(index+1)-0-2"
-                                                       data-target="data-@(index+1)-0-2"
-                                                       onclick="updateHiddenInput('HospitalsResidenceServicePercentageoption-hidden-@index', this)" />
+                                    @*   <div>
+         <div style="display: flex; gap: 0.1rem">
+            <input type="text"
+                   disabled
+                   id="data-@(index+1)-0-1"
+                   name="Model[@index].HospitalsResidenceServiceLimit"
+                   value="@Model[index].HospitalsResidenceServiceLimit"
+                   style="width: 50%; margin: 5px" />
+            <input type="text"
+                   disabled
+                   id="data-@(index+1)-0-2"
+                   name="Model[@index].HospitalsResidenceServicePercentage"
+                   value="@Model[index].HospitalsResidenceServicePercentage"
+                   style="width: 50%; margin: 5px" />
+        </div>*@
 
-                                                <label class="form-check-label" for="@(index+1)-0-2">
-                                                    نسبه التغطية
-                                                </label>
-                                            </div>
-                                        </section>
+
+                                    <!--<section class="form-check-container">
+    <div class="form-check">-->
+                                    <!-- Hidden input to store the actual boolean value -->
+                                    <!--<input class="form-check-input"
+                   type="checkbox"
+                   name="Model[@index].HospitalsResidenceServiceLimitOption"
+                   @(Model[index].HospitalsResidenceServiceLimitOption == true ? "checked" : "")
+                   id="@(index+1)-0-1"
+                   data-target="data-@(index+1)-0-1"
+                   onclick="updateHiddenInput('HospitalsResidenceServiceLimitOption-hidden-@index', this)" />
+            <label class="form-check-label" for="@(index+1)-0-1">
+                حد التغطية
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input"
+                   type="checkbox"
+                   name="Model[@index].HospitalsResidenceServicePercentageoption"
+                   @(Model[index].HospitalsResidenceServicePercentageoption == true ? "checked" : "")
+                   id="@(index+1)-0-2"
+                   data-target="data-@(index+1)-0-2"
+                   onclick="updateHiddenInput('HospitalsResidenceServicePercentageoption-hidden-@index', this)" />
+
+            <label class="form-check-label" for="@(index+1)-0-2">
+                نسبه التغطية
+            </label>
+        </div>
+    </section>
+     </div>-->
+                                    <div class="d-flex align-items-center  justify-content-center px-4 position-relative">
+                                        <select class="my-0 w-100 seleect" id="">
+                                        </select>
                                     </div>
-                                    <div>
-                                        <div style="display: flex; gap: 0.1rem">
-                                            <input type="text"
-                                                   disabled
-                                                   id="data-@(index+1)-1-1"
-                                                   name="Model[@index].OutsideClinicsLimit"
-                                                   value="@Model[index].OutsideClinicsLimit"
-                                                   style="width: 50%; margin: 5px" />
-                                            <input type="text"
-                                                   disabled
-                                                   id="data-@(index+1)-1-2"
-                                                   name="Model[@index].OutsideClinicsPercentage"
-                                                   value="@Model[index].OutsideClinicsPercentage"
-                                                   style="width: 50%; margin: 5px" />
-                                        </div>
-                                        <section class="form-check-container">
-                                            <div class="form-check">
 
-                                                <input class="form-check-input"
-                                                       type="checkbox"
-                                                       name="Model[@index].OutsideClinicsLimitOption"
-                                                       @(Model[index].OutsideClinicsLimitOption == true ? "checked" : "")
-                                                       id="@(index+1)-1-1"
-                                                       data-target="data-@(index+1)-1-1"
-                                                       onclick="updateHiddenInput('OutsideClinicsLimitOption-hidden-@index', this)" />
-                                                <label class="form-check-label" for="@(index+1)-1-1">
-                                                    حد التغطية
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
 
-                                                <input class="form-check-input"
-                                                       type="checkbox"
-                                                       name="Model[@index].OutsideClinicsPercentageoption"
-                                                       @(Model[index].OutsideClinicsPercentageoption == true ? "checked" : "")
-                                                       id="@(index+1)-1-2"
-                                                       data-target="data-@(index+1)-1-2"
-                                                       onclick="updateHiddenInput('OutsideClinicsPercentageoption-hidden-@index', this)" />
-                                                <label class="form-check-label" for="@(index+1)-1-2">
-                                                    نسبه التغطية
-                                                </label>
-                                            </div>
-                                        </section>
+                                    @*<div>
+            <div style="display: flex; gap: 0.1rem">
+                <input type="text"
+                       disabled
+                       id="data-@(index+1)-1-1"
+                       name="Model[@index].OutsideClinicsLimit"
+                       value="@Model[index].OutsideClinicsLimit"
+                       style="width: 50%; margin: 5px" />
+                <input type="text"
+                       disabled
+                       id="data-@(index+1)-1-2"
+                       name="Model[@index].OutsideClinicsPercentage"
+                       value="@Model[index].OutsideClinicsPercentage"
+                       style="width: 50%; margin: 5px" />
+            </div>
+            <section class="form-check-container">
+                <div class="form-check">
+
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="Model[@index].OutsideClinicsLimitOption"
+                           @(Model[index].OutsideClinicsLimitOption == true ? "checked" : "")
+                           id="@(index+1)-1-1"
+                           data-target="data-@(index+1)-1-1"
+                           onclick="updateHiddenInput('OutsideClinicsLimitOption-hidden-@index', this)" />
+                    <label class="form-check-label" for="@(index+1)-1-1">
+                        حد التغطية
+                    </label>
+                </div>
+                <div class="form-check">
+
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="Model[@index].OutsideClinicsPercentageoption"
+                           @(Model[index].OutsideClinicsPercentageoption == true ? "checked" : "")
+                           id="@(index+1)-1-2"
+                           data-target="data-@(index+1)-1-2"
+                           onclick="updateHiddenInput('OutsideClinicsPercentageoption-hidden-@index', this)" />
+                    <label class="form-check-label" for="@(index+1)-1-2">
+                        نسبه التغطية
+                    </label>
+                </div>
+            </section>
+        </div>*@
+                                    <div class="d-flex align-items-center  justify-content-center px-4 position-relative">
+                                        <select class="my-0 w-100 seleect" id="">
+                                        </select>
                                     </div>
                                     <div>
                                         <div style="display: flex; gap: 0.1rem">
@@ -1181,105 +1204,125 @@ index++)
                                             </div>
                                         </section>
                                     </div>
-                            
+
+
+
+                                    <div class="d-flex align-items-center justify-content-center px-4 position-relative gap-2 flex-wrap" style="height: 120px;  align-content: center; ">
+                                        <select class="my-0 w-100 seleect" id="">
+                                        </select> 
+                                        <input type="text" class="my-0 w-100 " /> 
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center px-4 position-relative gap-2 flex-wrap" style="height: 120px;  align-content: center; ">
+                                        <select class="my-0 w-100 seleect" id="">
+                                        </select> 
+                                        <input type="text" class="my-0 w-100 " /> 
+                                    </div>
+
                                     <div class="d-flex align-items-center justify-content-center px-4 py-2" style="height: 90px;">
-                                     @*   <textarea type="text" class="sios-form-control h-100 w-100 mb-0 border-0" placeholder="ملاحظة" style="width: 100%;  background-color: #e3e3e3; padding-top: 10px !important; padding-left: 10px; "></textarea>*@
+                                        @*   <textarea type="text" class="sios-form-control h-100 w-100 mb-0 border-0" placeholder="ملاحظة" style="width: 100%;  background-color: #e3e3e3; padding-top: 10px !important; padding-left: 10px; "></textarea>*@
                                         <textarea type="text" name="Model[@index].Notes" value="@Model[index].Notes" class="sios-form-control h-100 w-100 mb-0 border-0" placeholder="ملاحظة" style="width: 100%;  background-color: #e3e3e3; padding-top: 10px !important; padding-left: 10px; "></textarea>
 
                                     </div>
                                 </div>
                                 <div class="cate-parent">
-                                    <div>
-                                        <div style="display: flex; gap: 0.1rem">
-                                            <input type="text"
-                                                   disabled
-                                                   id="data-@(index+1)-0-1"
-                                                   name="Model[@index].HospitalsResidenceServiceLimitOld"
-                                                   value="@Model[index].HospitalsResidenceServiceLimitOld"
-                                                   style="width: 50%; margin: 5px" />
-                                            <input type="text"
-                                                   disabled
-                                                   id="data-@(index+1)-0-2"
-                                                   name="Model[@index].HospitalsResidenceServicePercentageOld"
-                                                   value="@Model[index].HospitalsResidenceServicePercentageOld"
-                                                   style="width: 50%; margin: 5px" />
-                                        </div>
-                                        <section class="form-check-container">
-                                            <div class="form-check">
-                                                <!-- Hidden input to store the actual boolean value -->
-                                                <input class="form-check-input"
-                                                       type="checkbox"
-                                                       name="Model[@index].HospitalsResidenceServiceLimitOption"
-                                                       @(Model[index].HospitalsResidenceServiceLimitOption == true ? "checked" : "")
-                                                       id="@(index+1)-0-1-2"
-                                                       data-target="data-@(index+1)-0-1"
-                                                       onclick="updateHiddenInput('HospitalsResidenceServiceLimitOption-hidden-@index', this)"
-                                                       disabled />
-                                                <label class="form-check-label" for="@(index+1)-0-1-2">
-                                                    حد التغطية
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input"
-                                                       type="checkbox"
-                                                       name="Model[@index].HospitalsResidenceServicePercentageoption"
-                                                       @(Model[index].HospitalsResidenceServicePercentageoption == true ? "checked" : "")
-                                                       id="@(index+1)-0-2-2"
-                                                       data-target="data-@(index+1)-0-2"
-                                                       onclick="updateHiddenInput('HospitalsResidenceServicePercentageoption-hidden-@index', this)"
-                                                       disabled />
+                                    <!--<div>
+    <div style="display: flex; gap: 0.1rem">
+        <input type="text"
+               disabled
+               id="data-@(index+1)-0-1"
+               name="Model[@index].HospitalsResidenceServiceLimitOld"
+               value="@Model[index].HospitalsResidenceServiceLimitOld"
+               style="width: 50%; margin: 5px" />
+        <input type="text"
+               disabled
+               id="data-@(index+1)-0-2"
+               name="Model[@index].HospitalsResidenceServicePercentageOld"
+               value="@Model[index].HospitalsResidenceServicePercentageOld"
+               style="width: 50%; margin: 5px" />
+    </div>
+    <section class="form-check-container">
+        <div class="form-check">-->
+                                    <!-- Hidden input to store the actual boolean value -->
+                                    <!--<input class="form-check-input"
+                       type="checkbox"
+                       name="Model[@index].HospitalsResidenceServiceLimitOption"
+                       @(Model[index].HospitalsResidenceServiceLimitOption == true ? "checked" : "")
+                       id="@(index+1)-0-1-2"
+                       data-target="data-@(index+1)-0-1"
+                       onclick="updateHiddenInput('HospitalsResidenceServiceLimitOption-hidden-@index', this)"
+                       disabled />
+                <label class="form-check-label" for="@(index+1)-0-1-2">
+                    حد التغطية
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input"
+                       type="checkbox"
+                       name="Model[@index].HospitalsResidenceServicePercentageoption"
+                       @(Model[index].HospitalsResidenceServicePercentageoption == true ? "checked" : "")
+                       id="@(index+1)-0-2-2"
+                       data-target="data-@(index+1)-0-2"
+                       onclick="updateHiddenInput('HospitalsResidenceServicePercentageoption-hidden-@index', this)"
+                       disabled />
 
-                                                <label class="form-check-label" for="@(index+1)-0-2-2">
-                                                    نسبه التغطية
-                                                </label>
-                                            </div>
-                                        </section>
+                <label class="form-check-label" for="@(index+1)-0-2-2">
+                    نسبه التغطية
+                </label>
+            </div>
+        </section>
+    </div>
+    <div>
+        <div style="display: flex; gap: 0.1rem">
+            <input type="text"
+                   disabled
+                   id="data-@(index+1)-1-1"
+                   name="Model[@index].OutsideClinicsLimitOld"
+                   value="@Model[index].OutsideClinicsLimitOld"
+                   style="width: 50%; margin: 5px" />
+            <input type="text"
+                   disabled
+                   id="data-@(index+1)-1-2"
+                   name="Model[@index].OutsideClinicsPercentageOld"
+                   value="@Model[index].OutsideClinicsPercentageOld"
+                   style="width: 50%; margin: 5px" />
+        </div>
+        <section class="form-check-container">
+            <div class="form-check">
+
+                <input class="form-check-input"
+                       type="checkbox"
+                       name="Model[@index].OutsideClinicsLimitOption"
+                       @(Model[index].OutsideClinicsLimitOption == true ? "checked" : "")
+                       id="@(index+1)-1-1-2"
+                       data-target="data-@(index+1)-1-1"
+                       onclick="updateHiddenInput('OutsideClinicsLimitOption-hidden-@index', this)"
+                       disabled />
+                <label class="form-check-label" for="@(index+1)-1-1-2">
+                    حد التغطية
+                </label>
+            </div>
+            <div class="form-check">
+
+                <input class="form-check-input"
+                       type="checkbox"
+                       name="Model[@index].OutsideClinicsPercentageoption"
+                       @(Model[index].OutsideClinicsPercentageoption == true ? "checked" : "")
+                       id="@(index+1)-1-2-2"
+                       data-target="data-@(index+1)-1-2"
+                       onclick="updateHiddenInput('OutsideClinicsPercentageoption-hidden-@index', this)"
+                       disabled />
+                <label class="form-check-label" for="@(index+1)-1-2-2">
+                    نسبه التغطية
+                </label>
+            </div>
+        </section>
+    </div>-->
+                                    <div class="d-flex align-items-center  justify-content-center px-4 position-relative">
+                                        <select class="my-0 w-100 seleect" id="" disabled>                                 </select>
                                     </div>
-                                    <div>
-                                        <div style="display: flex; gap: 0.1rem">
-                                            <input type="text"
-                                                   disabled
-                                                   id="data-@(index+1)-1-1"
-                                                   name="Model[@index].OutsideClinicsLimitOld"
-                                                   value="@Model[index].OutsideClinicsLimitOld"
-                                                   style="width: 50%; margin: 5px" />
-                                            <input type="text"
-                                                   disabled
-                                                   id="data-@(index+1)-1-2"
-                                                   name="Model[@index].OutsideClinicsPercentageOld"
-                                                   value="@Model[index].OutsideClinicsPercentageOld"
-                                                   style="width: 50%; margin: 5px" />
-                                        </div>
-                                        <section class="form-check-container">
-                                            <div class="form-check">
-
-                                                <input class="form-check-input"
-                                                       type="checkbox"
-                                                       name="Model[@index].OutsideClinicsLimitOption"
-                                                       @(Model[index].OutsideClinicsLimitOption == true ? "checked" : "")
-                                                       id="@(index+1)-1-1-2"
-                                                       data-target="data-@(index+1)-1-1"
-                                                       onclick="updateHiddenInput('OutsideClinicsLimitOption-hidden-@index', this)"
-                                                       disabled />
-                                                <label class="form-check-label" for="@(index+1)-1-1-2">
-                                                    حد التغطية
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-
-                                                <input class="form-check-input"
-                                                       type="checkbox"
-                                                       name="Model[@index].OutsideClinicsPercentageoption"
-                                                       @(Model[index].OutsideClinicsPercentageoption == true ? "checked" : "")
-                                                       id="@(index+1)-1-2-2"
-                                                       data-target="data-@(index+1)-1-2"
-                                                       onclick="updateHiddenInput('OutsideClinicsPercentageoption-hidden-@index', this)"
-                                                       disabled />
-                                                <label class="form-check-label" for="@(index+1)-1-2-2">
-                                                    نسبه التغطية
-                                                </label>
-                                            </div>
-                                        </section>
+                                    <div class="d-flex align-items-center  justify-content-center px-4 position-relative">
+                                        <select class="my-0 w-100 seleect" id="" disabled>
+                                        </select>
                                     </div>
                                     <div>
                                         <div style="display: flex; gap: 0.1rem">
@@ -2081,14 +2124,14 @@ index++)
                                             </div>
                                         </section>
                                     </div>
-                                    <div class="d-flex align-items-center  justify-content-center px-4 position-relative"> 
-                                            <input type="text" class="my-0 w-100" disabled /> 
+                                    <div class="d-flex align-items-center  justify-content-center px-4 position-relative">
+                                        <input type="text" class="my-0 w-100" disabled />
                                     </div>
 
 
-                                    <div class="d-flex align-items-center  justify-content-center px-4 position-relative"> 
-                                            <select class="my-0 seleect" id="" disabled>
-                                            </select> 
+                                    <div class="d-flex align-items-center  justify-content-center px-4 position-relative">
+                                        <select class="my-0 seleect" id="" disabled>
+                                        </select>
                                     </div>
                                     <div>
                                         <section class="form-check-container mt-0 cate-parent position-relative">
@@ -2153,9 +2196,17 @@ index++)
                                             </div>
                                         </section>
                                     </div>
-                                 
-                                  
-                                    <div class="d-flex align-items-center justify-content-center"style="height: 90px;" disabled>
+                                    <div class="d-flex align-items-center justify-content-center px-4 position-relative gap-2 flex-wrap" style=" height: 120px; align-content: center; ">
+                                        <select class="my-0 seleect" id="" disabled>
+                                        </select>
+                                        <input type="text" class="my-0 w-100" disabled />
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center px-4 position-relative gap-2 flex-wrap" style=" height: 120px; align-content: center; ">
+                                        <select class="my-0 seleect" id="" disabled>
+                                        </select>
+                                        <input type="text" class="my-0 w-100" disabled />
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center" style="height: 90px;" disabled>
                                     </div>
                                 </div>
                             </div>
