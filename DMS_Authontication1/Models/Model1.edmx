@@ -963,6 +963,13 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="ArName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="CriticalReason">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="CronaEmergancy">
           <Key>
             <PropertyRef Name="Id" />
@@ -1802,6 +1809,20 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="NoteAdmin" Type="nvarchar(max)" />
           <Property Name="NotePharmacy" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="OutsideNetworkInpatientResaon">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="OutsideNetworkOutpatientResaon">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Patchs">
           <Key>
             <PropertyRef Name="Id" />
@@ -1919,6 +1940,13 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PreXChronicReason">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PrintMedicalReport">
           <Key>
@@ -2401,6 +2429,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="OpticalVisit" Type="int" />
           <Property Name="BirthVisit" Type="int" />
           <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="OutsideNetworkInpatientType" Type="int" />
+          <Property Name="OutsideNetworkInpatientValue" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OutsideNetworkOutpatientType" Type="int" />
+          <Property Name="OutsideNetworkOutpatientValue" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="RenewalServicePool">
           <Key>
@@ -3809,6 +3841,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="Contract_Comp" EntityType="Self.Contract_Comp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contract_Data" EntityType="Self.Contract_Data" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CriticalReason" EntityType="Self.CriticalReason" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CronaEmergancy" EntityType="Self.CronaEmergancy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DailyPermissions" EntityType="Self.DailyPermissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeliveryRequest" EntityType="Self.DeliveryRequest" Schema="dbo" store:Type="Tables" />
@@ -3861,6 +3894,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="Name_Ray" EntityType="Self.Name_Ray" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Name_Ray_Cen" EntityType="Self.Name_Ray_Cen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OutsideNetworkInpatientResaon" EntityType="Self.OutsideNetworkInpatientResaon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OutsideNetworkOutpatientResaon" EntityType="Self.OutsideNetworkOutpatientResaon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patchs" EntityType="Self.Patchs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PendingCount" EntityType="Self.PendingCount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PendingInPatient" EntityType="Self.PendingInPatient" Schema="dbo" store:Type="Tables" />
@@ -3869,6 +3904,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="PoolService" EntityType="Self.PoolService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pr_Bra" EntityType="Self.Pr_Bra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrescriptionRoshitaDignosis" EntityType="Self.PrescriptionRoshitaDignosis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PreXChronicReason" EntityType="Self.PreXChronicReason" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PrintMedicalReport" EntityType="Self.PrintMedicalReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProposalBasicData" EntityType="Self.ProposalBasicData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProposalBenefits" EntityType="Self.ProposalBenefits" Schema="dbo" store:Type="Tables" />
@@ -5765,6 +5801,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="RenewalOtsideAdvanceDentals" EntityType="DB_A45413_DMSERPModel.RenewalOtsideAdvanceDental" />
           <EntitySet Name="RenewalOtsideBasicDentals" EntityType="DB_A45413_DMSERPModel.RenewalOtsideBasicDental" />
           <EntitySet Name="ClaimPhotoes" EntityType="DB_A45413_DMSERPModel.ClaimPhoto" />
+          <EntitySet Name="CriticalReasons" EntityType="DB_A45413_DMSERPModel.CriticalReason" />
+          <EntitySet Name="OutsideNetworkInpatientResaons" EntityType="DB_A45413_DMSERPModel.OutsideNetworkInpatientResaon" />
+          <EntitySet Name="OutsideNetworkOutpatientResaons" EntityType="DB_A45413_DMSERPModel.OutsideNetworkOutpatientResaon" />
+          <EntitySet Name="PreXChronicReasons" EntityType="DB_A45413_DMSERPModel.PreXChronicReason" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -8180,6 +8220,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="OpticalVisit" Type="Int32" />
           <Property Name="BirthVisit" Type="Int32" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OutsideNetworkInpatientType" Type="Int32" />
+          <Property Name="OutsideNetworkInpatientValue" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OutsideNetworkOutpatientType" Type="Int32" />
+          <Property Name="OutsideNetworkOutpatientValue" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <Association Name="FK_RenewalOutsideMedicalAuthorities_RenewalMains">
           <End Type="DB_A45413_DMSERPModel.RenewalMain" Role="RenewalMain" Multiplicity="1" />
@@ -8337,6 +8381,34 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="DeletedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CriticalReason">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="OutsideNetworkInpatientResaon">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="OutsideNetworkOutpatientResaon">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PreXChronicReason">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -11383,6 +11455,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="RenewalOutsideMedicalAuthorities">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.RenewalOutsideMedicalAuthority">
               <MappingFragment StoreEntitySet="RenewalOutsideMedicalAuthorities">
+                <ScalarProperty Name="OutsideNetworkOutpatientValue" ColumnName="OutsideNetworkOutpatientValue" />
+                <ScalarProperty Name="OutsideNetworkOutpatientType" ColumnName="OutsideNetworkOutpatientType" />
+                <ScalarProperty Name="OutsideNetworkInpatientValue" ColumnName="OutsideNetworkInpatientValue" />
+                <ScalarProperty Name="OutsideNetworkInpatientType" ColumnName="OutsideNetworkInpatientType" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="BirthVisit" ColumnName="BirthVisit" />
                 <ScalarProperty Name="OpticalVisit" ColumnName="OpticalVisit" />
@@ -11572,6 +11648,38 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="ClaimNumber" ColumnName="ClaimNumber" />
                 <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CriticalReasons">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CriticalReason">
+              <MappingFragment StoreEntitySet="CriticalReason">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OutsideNetworkInpatientResaons">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.OutsideNetworkInpatientResaon">
+              <MappingFragment StoreEntitySet="OutsideNetworkInpatientResaon">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OutsideNetworkOutpatientResaons">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.OutsideNetworkOutpatientResaon">
+              <MappingFragment StoreEntitySet="OutsideNetworkOutpatientResaon">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PreXChronicReasons">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PreXChronicReason">
+              <MappingFragment StoreEntitySet="PreXChronicReason">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
