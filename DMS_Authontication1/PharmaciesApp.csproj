@@ -1294,6 +1294,12 @@
       <DependentUpon>RoshitaReportAfterBefore.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\RoshitaReportNew.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RoshitaReportNew.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\ClaimPhotoesViewModel.cs" />
     <Compile Include="ViewModel\AcceptionViewModel.cs" />
@@ -9773,6 +9779,10 @@
     <EmbeddedResource Include="Reports\RoshitaReportAfterBefore.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RoshitaReportAfterBefore.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RoshitaReportNew.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RoshitaReportNew.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

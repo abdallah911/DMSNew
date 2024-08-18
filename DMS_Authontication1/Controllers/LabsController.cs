@@ -765,6 +765,20 @@ namespace DMS_Authontication1.Controllers
                     }
 
                 }
+                if (roshta.ClaimNumber != null)
+                {
+                    long claim = long.Parse(roshta.ClaimNumber.Value.ToString());
+                    var claimphoto = db.ClaimPhotoes.Where(x => x.CardId == roshta.CardId && x.ClaimNumber == claim).FirstOrDefault();
+                    if (claimphoto != null)
+                    {
+                        claimphoto.IsDispense = false;
+                        claimphoto.IsDespenseLab = false;
+                        claimphoto.UpdatedBy = User.Identity.Name;
+                        claimphoto.UpdatedDate = DateTime.Now;
+                        db.Entry(claimphoto).State = EntityState.Modified;
+
+                    }
+                }
                 db.SaveChanges();
                 NotificationHub objNotifHub = new NotificationHub();
                 Notification notification = db.Notifications.AsEnumerable().Where(x => x.RoshitaId == roshta.Id && x.CreatedDate.ToShortDateString() == roshta.CreatedDate.Value.ToShortDateString()).OrderByDescending(x => x.Id).FirstOrDefault();

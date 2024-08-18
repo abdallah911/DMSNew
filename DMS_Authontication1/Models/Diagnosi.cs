@@ -37,5 +37,7 @@ namespace DMS_Authontication1.Models
         public Nullable<bool> IsSync { get; set; }
         public Nullable<System.DateTime> SyncDate { get; set; }
         public string SyncBy { get; set; }
+        public string Age { get; set; }
+        public Nullable<int> Gender { get; set; }
     }
 }
