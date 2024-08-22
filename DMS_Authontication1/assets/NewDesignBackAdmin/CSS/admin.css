@@ -71,9 +71,18 @@ body.hr-page {
         z-index: -1;
         opacity: 17%;
     }
-
+    /*=====================components======================*/
+.no-wrap{
+    white-space:nowrap;
+}
+.hr-color{
+    color:var(--color-hr-btn);
+}
+.hr-color::placeholder{
+    color:var(--color-hr-btn);
+    font-weight:700;
+}
 /* start sidebar */
-
 .sidebar-parent {
     top: 20%;
 }
@@ -295,7 +304,10 @@ span.select2-selection.select2-selection--single {
     padding-top: 10px;
 }
 .hr-page span.select2-selection.select2-selection--single {
-    border: 2px solid var(--color-hr-btn);
+    border: 2px solid #9689a3 ;
+}
+.hr-page span.select2-selection.select2-selection--single:focus {
+    border-color: var(--color-hr-btn);
 }
 span#select2-CompNo-container,
 span#select2-CompNoPrint-container,
@@ -678,8 +690,11 @@ table,
     color: var(--color-table-text);
     padding: 10px !important;
 }
-.hr-page .table > :not(caption) > * > * { 
-    color: white; 
+.hr-page .table > thead > tr > th {
+    color: white;
+}
+.hr-page .table > tbody > tr > td {
+    color: var(--color-hr-btn);
 }
 .hr-page td.dataTables_empty {
     color: var(--color-hr-btn);
@@ -1004,7 +1019,6 @@ textarea {
 .contracts-page-container,
 .policy-page-container,
 .reports-page-container,
-.hr-page-container,
 .admin-page-container,
 .doctor-page-container,
 .management-page-container,
@@ -1013,7 +1027,9 @@ textarea {
 .page-container {
     min-height: calc(100vh - 190px);
 }
-
+.hr-page .sios-container {
+    min-height: calc(100vh - 284px);
+}
 .bg-color-sec {
     background-color: var(--color-secondary);
 }
@@ -1235,7 +1251,16 @@ button.bootbox-close-button.close {
     background: gainsboro;
     border-color: #28689bbf;
 }
-
+.hr-page input[readonly="readonly"],
+.hr-page input[readonly="true"],
+.hr-page input[disabled],
+.hr-page select[readonly="readonly"],
+.hr-page select[readonly="true"],
+.hr-page select[disabled] {
+    cursor: no-drop;
+    background: gainsboro;
+    border-color: #9689a3;
+}
 .admin-form-control h6 {
     color: var(--color-secondary);
 }
@@ -1342,8 +1367,10 @@ p.count-p {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     /*left: -10px;*/
 }
-
-.dropdown-item {
+.hr-page .Admin-main-ul .dropdown-menu {
+    top: 130%;
+}
+    .dropdown-item {
     color: #17609b !important;
 }
 .hr-page .dropdown-item {
@@ -1876,7 +1903,7 @@ select:focus:not(select.form-select.form-select-sm) {
 
 @media (min-width: 767px) {
     form .sios-form-control {
-        width: 15%;
+        /*width: 15%;*/
     }
 }
 
@@ -4159,6 +4186,7 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
     .hosp-main-ul li a {
         font-size: 26px;
     }
+    
 
     .pharm-main-ul,
     .hosp-main-ul {
@@ -4175,193 +4203,278 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
         gap: 30px;
     }
 }
-.hosp-main-ul:not(.nav-admin-cus) a.nav-link,
-.pharm-main-ul:not(.nav-admin-cus) a.nav-link {
+
+.hr-page .pharm-main-ul {
+    gap: 5px;
+}
+    .hr-page .pharm-main-ul a {
+        padding: 8px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+.hr-page .pharm-main-ul a:hover {
     background: white;
-    color: var(--color-secondary);
-    border: 2px solid var(--color-secondary);
-    padding: 4px;
-    border-radius: 10px;
-    font-size: 14px;
-    transition: .2s all ease-in;
-}
- .pharm-main-ul:not(.nav-admin-cus) a.nav-link { 
     color: var(--color-hr-btn);
-    border: 2px solid var(--color-hr-btn); 
 }
-    .hosp-main-ul:not(.nav-admin-cus) a.nav-link:hover,
-    .pharm-main-ul:not(.nav-admin-cus) a.nav-link:hover {
-        background: var(--color-gradient);
-        color: white;
-        border: 2px solid white;
+.hr-page .pharm-main-ul a:focus {
+    background: white;
+    color: var(--color-hr-btn);
+}
+@media  (min-width:1601px) {
+    .hr-page .pharm-main-ul {
+        gap: 18px;
+    } 
+}
+@media (min-width:1300px) and (max-width:1600px) {
+    .hr-page .pharm-main-ul {
+        gap: 10px;
     }
-.hr-page .pharm-main-ul:not(.nav-admin-cus) a.nav-link:hover {
-    background: var(--color-hr); 
+.hr-page .pharm-main-ul li a {
+    font-size: 20px;
+  }
 }
-.hr-page .pharm-main-ul:not(.nav-admin-cus) a.nav-link:focus {
-    background: var(--color-hr);
-    color:white;
-    border-color:white;
-}
-.hosp-main-ul:not(.nav-admin-cus) i,
-.pharm-main-ul:not(.nav-admin-cus) i {
-    color: var(--color-secondary);
-}
-.hr-page .hosp-main-ul:not(.nav-admin-cus) i,
-.hr-page .pharm-main-ul:not(.nav-admin-cus) i {
-    color: var(--color-hr-btn);
-}
-
-.hosp-main-ul:not(.nav-admin-cus) a.nav-link:hover i,
-.pharm-main-ul:not(.nav-admin-cus) a.nav-link:hover i {
-    color: white;
-}
-.hosp-main-ul:not(.nav-admin-cus) a.dropdown-item,
-.pharm-main-ul:not(.nav-admin-cus) a.dropdown-item { 
-    font-size: 10px; 
-}
-
-/*=====================hr-bg============================================*/
-
-
-.form-bg {
-    background: url(../Img/Form-Bg.jpg);
-    background-size: 100% 100%;
-    padding: 1.5rem;
-    border-radius: 12px
-}
-
-.logo-watermark {
-    background: url(../Img/new-dms-logo.jpg);
-    background-size: 100% 100%;
-    padding: 0;
-    border-radius: 12px
-}
-.fade.in {
-    
-}
-.fade:not(.show){
-display: none !important ;
-}
-.tab-content > .fade.active.in {
-    display: block !important;
-    opacity: 1 ;
-}
-.hr-nav-tabs {
-    overflow-x: auto;
-    gap: 1rem;
-    white-space: nowrap;
-    flex-wrap: nowrap;
-    padding: 14px;
-    margin: 10px auto;
-    background: #eff2f7;
-    width: 92%;
-    border-radius: 20px;
-}
-    .hr-nav-tabs li a {
+@media (min-width:1100px) and (max-width:1299px) {
+    .hr-page .pharm-main-ul li a {
         font-size: 16px;
-        color: var(--color-hr-btn);
-        font-weight: bold;
-        padding: 10px;
-        border-radius: 14px;
-        transition: 0.2s all ease-in
     }
-        .hr-nav-tabs li a:hover {
-            background: var(--color-hr);
+}
+@media  (max-width:1099px) {
+    .hr-page .pharm-main-ul li a {
+        font-size: 14px;
+    }
+  
+}
+@media (max-width:991px){
+  
+    .hr-page .pharm-main-ul li a {
+        font-size: 10px;
+    }
+    .hr-page .pharm-main-ul:not(.nav-admin-cus) a.nav-link {
+        font-size: 10px;
+    }
+    .hr-page .Admin-main-ul a i:last-child {
+        font-size: 14px !important;
+    }
+    .hr-page .notific {
+        top: 0%;
+        left: 70%;
+        font-size: 10px;
+        height: 15px;
+        width: 15px;
+    }
+}
+@media (min-width:767px) and (max-width:800px) {
+    .hr-page .pharm-main-ul {
+        gap: 0px;
+    }
+}
+
+    .hosp-main-ul:not(.nav-admin-cus) a.nav-link,
+    .pharm-main-ul:not(.nav-admin-cus) a.nav-link {
+        background: white;
+        color: var(--color-secondary);
+        border: 2px solid var(--color-secondary);
+        padding: 4px;
+        border-radius: 10px;
+        font-size: 14px;
+        transition: .2s all ease-in;
+    }
+
+    .pharm-main-ul:not(.nav-admin-cus) a.nav-link {
+        color: var(--color-hr-btn);
+        border: 2px solid var(--color-hr-btn);
+    }
+
+        .hosp-main-ul:not(.nav-admin-cus) a.nav-link:hover,
+        .pharm-main-ul:not(.nav-admin-cus) a.nav-link:hover {
+            background: var(--color-gradient);
             color: white;
-            transition: 0.2s all ease-in
+            border: 2px solid white;
         }
-    .hr-nav-tabs li.active a {
+
+    .hr-page .pharm-main-ul:not(.nav-admin-cus) a.nav-link:hover {
+        background: var(--color-hr);
+    }
+
+    .hr-page .pharm-main-ul:not(.nav-admin-cus) a.nav-link:focus {
         background: var(--color-hr);
         color: white;
-    }
-.hr-page .sios-form-control {
-    background-color: transparent;
-    border: #9689a3 solid 2px;
-    border-radius: 15px;
-    height: 40px;
-    font-size: 12px;
-    color: #495057;
-    outline: none;
-    padding: 12px 10px 5px !important;
-    caret-color: var(--color-hr-btn);
-    font-weight: bold;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    border-radius: 6px;
-}
-    .hr-page .sios-form-control:focus {
-        border-color: var(--color-hr-btn);
-    }
-/* ====================footer========================================== */
-.footer {
-    background: var(--color-gradient);
-    color: white;
-}
-.hr-footer {
-    background: var(--color-hr);
-}
-.footer h5 {
-    font-weight: bolder !important;
-}
-
-.footerP2 {
-    position: relative;
-    margin-left: 50px;
-}
-
-    .footerP2::before {
-        content: "";
-        position: absolute;
-        width: 3px;
-        height: 90px;
-        margin-right: 20px;
-        border-radius: 50% !important;
-        top: 10%;
-        background-color: white;
-        left: -50px;
+        border-color: white;
     }
 
-.footerP3 {
-    position: relative;
-    margin-left: 50px;
-}
-
-    .footerP3::before {
-        content: "";
-        position: absolute;
-        width: 3px;
-        height: 90px;
-        margin-right: 20px;
-        border-radius: 50% !important;
-        top: 10%;
-        background-color: white;
-        left: -50px;
+    .hosp-main-ul:not(.nav-admin-cus) i,
+    .pharm-main-ul:not(.nav-admin-cus) i {
+        color: var(--color-secondary);
     }
 
-.footerP1 p {
-    letter-spacing: 1px;
-}
+    .hr-page .hosp-main-ul:not(.nav-admin-cus) i,
+    .hr-page .pharm-main-ul:not(.nav-admin-cus) i {
+        color: var(--color-hr-btn);
+    }
 
-.line {
-    background-color: white;
-    height: 5px;
-    width: 70px;
-    margin-left: 10px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-}
+    .hosp-main-ul:not(.nav-admin-cus) a.nav-link:hover i,
+    .pharm-main-ul:not(.nav-admin-cus) a.nav-link:hover i {
+        color: white;
+    }
 
-.logo-white {
-    width: 140px;
-    margin-top: 10px;
-    background-image: url(../Img/logo-dms-white2.png);
-    background-size: contain;
-    margin-right: 3rem;
-    opacity: 0.8;
-    background-repeat: no-repeat;
-    transition: all 0.2s ease-in-out;
-}
+    .hosp-main-ul:not(.nav-admin-cus) a.dropdown-item,
+    .pharm-main-ul:not(.nav-admin-cus) a.dropdown-item {
+        font-size: 10px;
+    }
 
-    .logo-white:hover {
+    /*=====================hr-bg============================================*/
+
+
+    .form-bg {
+        background: url(../Img/Form-Bg.jpg);
+        background-size: 100% 100%;
+        padding: 1.5rem;
+        border-radius: 12px
+    }
+
+    .logo-watermark {
+        background: url(../Img/new-dms-logo.jpg);
+        background-size: 100% 100%;
+        padding: 0;
+        border-radius: 12px
+    }
+
+    .fade.in {
+    }
+
+    .fade:not(.show) {
+        display: none !important;
+    }
+
+    .tab-content > .fade.active.in {
+        display: block !important;
         opacity: 1;
     }
+
+    .hr-nav-tabs {
+        overflow-x: auto;
+        gap: 1rem;
+        white-space: nowrap;
+        flex-wrap: nowrap;
+        padding: 14px;
+        margin: 10px auto;
+        background: #eff2f7;
+        width: 92%;
+        border-radius: 20px;
+    }
+
+        .hr-nav-tabs li a {
+            font-size: 16px;
+            color: var(--color-hr-btn);
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 14px;
+            transition: 0.2s all ease-in
+        }
+
+            .hr-nav-tabs li a:hover {
+                background: var(--color-hr);
+                color: white;
+                transition: 0.2s all ease-in
+            }
+
+        .hr-nav-tabs li.active a {
+            background: var(--color-hr);
+            color: white;
+        }
+
+    .hr-page .sios-form-control {
+        background-color: transparent;
+        border: #9689a3 solid 2px;
+        border-radius: 15px;
+        height: 40px;
+        font-size: 12px;
+        color: #495057;
+        outline: none;
+        padding: 12px 10px 5px !important;
+        caret-color: var(--color-hr-btn);
+        font-weight: bold;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        border-radius: 6px;
+    }
+.hr-page .sios-form-control:focus,
+.hr-page select:focus,
+.hr-page input:focus {
+    border-color: var(--color-hr-btn) !important;
+    box-shadow: 0 0 5px #7c5684b5 !important;
+}
+    /* ====================footer========================================== */
+    .footer {
+        background: var(--color-gradient);
+        color: white;
+    }
+
+    .hr-footer {
+        background: var(--color-hr);
+    }
+
+    .footer h5 {
+        font-weight: bolder !important;
+    }
+
+    .footerP2 {
+        position: relative;
+        margin-left: 50px;
+    }
+
+        .footerP2::before {
+            content: "";
+            position: absolute;
+            width: 3px;
+            height: 90px;
+            margin-right: 20px;
+            border-radius: 50% !important;
+            top: 10%;
+            background-color: white;
+            left: -50px;
+        }
+
+    .footerP3 {
+        position: relative;
+        margin-left: 50px;
+    }
+
+        .footerP3::before {
+            content: "";
+            position: absolute;
+            width: 3px;
+            height: 90px;
+            margin-right: 20px;
+            border-radius: 50% !important;
+            top: 10%;
+            background-color: white;
+            left: -50px;
+        }
+
+    .footerP1 p {
+        letter-spacing: 1px;
+    }
+
+    .line {
+        background-color: white;
+        height: 5px;
+        width: 70px;
+        margin-left: 10px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+    }
+
+    .logo-white {
+        width: 140px;
+        margin-top: 10px;
+        background-image: url(../Img/logo-dms-white2.png);
+        background-size: contain;
+        margin-right: 3rem;
+        opacity: 0.8;
+        background-repeat: no-repeat;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .logo-white:hover {
+            opacity: 1;
+        }

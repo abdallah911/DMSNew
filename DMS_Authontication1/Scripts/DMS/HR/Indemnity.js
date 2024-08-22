@@ -65,10 +65,14 @@ $(function () {
         if ($(this).val() == "1") {//Indvidual
             $("#divCompany").hide();
             $("#divIndividual").show();
+            $(".div-individual").show();
+
         }
         else {
             $("#divCompany").show();
             $("#divIndividual").hide();
+            $(".div-individual").hide();
+
         }
 
     });

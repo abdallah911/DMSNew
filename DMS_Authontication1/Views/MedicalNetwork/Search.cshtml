@@ -3,7 +3,7 @@
 @using Newtonsoft.Json;
 @{
     ViewBag.Title = "Search";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardHR.cshtml";
 
     var edit = false;
     var delete = false;
@@ -37,234 +37,208 @@
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 <input type="text" id="compname" value="@ViewBag.CompName" hidden="hidden" />
-<br />
-<div style="margin-top:40px">
-    <p>
-        @if (fullcontroll || view)
-        {
-            @Html.ActionLink(" Search", "Search", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-search ", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || Create)
-        {
-            @Html.ActionLink(" Create Request ", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus ", @style = " text-transform: none" })
-        }
-    </p>
-</div>
-@if (fullcontroll || view)
-{
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Inquiries about an invoice
+
+<div class="sios-container">
+    <div>
+        <p class="mx-4 my-0 py-3">
+
+            @if (fullcontroll || view)
+            {
+                @Html.ActionLink(" Search", "Search", null, htmlAttributes: new { @class = "btn action-btn active", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || Create)
+            {
+                @Html.ActionLink(" Create Request ", "CreateRequest", null, htmlAttributes: new { @class = "btn action-btn  ", @style = " text-transform: none" })
+            }
+        </p>
+    </div>
+    @if (fullcontroll || view)
+    {
+        <div class="portlet box  green">
+            <div class="row bg-overlay portlet-title">
+                <div class="m-3 fs-3 text-white caption">
+                    <i class="fa fa-gift me-1"></i>Inquiries about an invoice
+                </div>
             </div>
-        </div>
-        <div class="portlet-body">
-            <div class="row ">
+            <div class="portlet-body my-5 ">
+                <div class="row ">
 
-                @*Date of company *@
-                @if (User.IsInRole("HR_Admin"))
-                {
-                    <div class="col-md-4">
+                    @*Date of company *@
+                    @if (User.IsInRole("HR_Admin"))
+                    {
 
-                        <div class="form-group" id="Company_Number">
-                            <div class="col-sm-6">
+                        <div class="forLabel px-2 border-0 form-group" id="Company_Number">
 
-                                @Html.Label("Company Number", htmlAttributes: new { @class = "control-label" })
-                            </div>
-                            <div class=" col-md-6">
-                                @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
-
-                            </div>
+                            @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
+                            <span class="start-0">   @Html.Label("Company Number", htmlAttributes: new { @class = "control-label" }) </span>
                         </div>
 
-                    </div>
-                    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                    <script>
-                        $(document).ready(function () {
-                            $("#CompanyNumber").select2();
-                        });
-                    </script>
-                }
-                else
-                {
-                    <input id="compname" type="text" value="@ViewBag.CompName" hidden="hidden" />
+                        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                $("#CompanyNumber").select2();
+                            });
+                        </script>
+                    }
+                    else
+                    {
+                        <input id="compname" type="text" value="@ViewBag.CompName" hidden="hidden" />
+                    }
+                    <div class="">
+                        <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+                            <!-- BEGIN PAGE HEADER-->
+                            <!-- BEGIN THEME PANEL -->
+                            <div class="form-wizard">
+                                <div class="form-body">
+                                    <div class="tab-content">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
 
-                }
 
-                <br />
+                                        <div class="  row row-gap-3 container mx-auto  portlet box  green ">
 
-                <div class="col-md-12">
-                    <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
-                        <!-- BEGIN PAGE HEADER-->
-                        <!-- BEGIN THEME PANEL -->
-                        <div class="form-wizard">
-                            <div class="form-body">
-                                <div class="tab-content">
-                                    <div asp-validation-summary="All" class="text-danger"></div>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <div class="col-md-10">
-                                                    <div class="checkbox-inline">
-                                                        <input type="radio" id="type_rad" name="Search_Type" value="Class" data-name="class">
-                                                        @Html.Label("Class")
+
+                                            <div class="col-md-8 portlet-body">
+                                                <div class="row  p-4 px-5 pb-5 rounded-3 " style="background: #c0acca85;">
+                                                    <div class="pt-2 pb-4 fs-4 fw-bold text-white caption">
+                                                        <i class="fa fa-search me-1"></i>Search
                                                     </div>
-                                                </div>
-                                            </div>
-                                            @if (ViewBag.compclasseslist == null)
-                                            {
-                                                <div class="form-group" id="class_levels" hidden>
-                                                    <div class=" col-md-10">
-                                                        <select class="form-control" id="class_selectList">
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                <div class="form-group" id="class_levels" hidden>
-                                                    <div class=" col-md-10">
-                                                        @Html.DropDownList("class_levels", ViewBag.compclasseslist as SelectList, new { @class = "form-control", id = "class_selectList" })
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
-                                        @*Date of Card *@
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <div class=" col-md-10">
-                                                    <div class="checkbox-inline">
-                                                        <input type="radio" id="type_rad" name="Search_Type" value="Card" data-name="card">
-                                                        @Html.Label("Card ID")
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group" id="card_div" hidden>
-                                                @if (User.IsInRole("HR") || User.IsInRole("HR_Admin"))
-                                                {
-                                                    <div class="col-md-12">
-                                                        <select id="txtSearchCard" class="js-data-example-ajax" style="width: 100%"></select>
-                                                    </div>
-                                                    <br />
-                                                }
-                                                else
-                                                {
-                                                    <div class=" col-md-12">
-                                                        <input id="txtSearchCard" type="text" placeholder="search for card..." class="form-control" />
-                                                    </div>
-                                                    <br />
-                                                }
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="portlet box  green  col-md-6">
-                                            <div class="portlet-title">
-                                                <div class="caption">
-                                                    <i class="fa fa-search"></i>Search
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <div class="portlet-body">
-                                                <div class="row " style="margin-left:30px;margin-right:30px">
-                                                    <div class="form-group">
-
-                                                        <div class="col-sm-4">
-                                                            @Html.Label("Provider Type", htmlAttributes: new { @class = "control-label" })
-                                                        </div>
-                                                        <div class="col-sm-8">
-                                                            @Html.DropDownList("Provider_Type", ViewBag.provider as SelectList, "Select Provider", new { @class = "form-control", id = "provider_Type" })
+                                                    <div class="col-sm-9 d-flex flex-column row-gap-2 form-group">
+                                                        <div class="forLabel px-2 border-0 form-group">
+                                                            @Html.DropDownList("Provider_Type", ViewBag.provider as SelectList, "Select Provider", new { @class = "border-2 sios-form-control w-100 form-control", id = "provider_Type" })
+                                                            <span class="start-0 text-white">
+                                                                @Html.Label("Provider Type", htmlAttributes: new { @class = "control-label" })
+                                                            </span>
                                                         </div>
 
-                                                        <div class="col-sm-12" id="SpecialistDiv" style="margin-top:25px" hidden>
-                                                            <div class="col-sm-4">
+                                                        <div class="forLabel px-2 border-0 form-group" id="SpecialistDiv" style="display:none">
+                                                            @Html.DropDownList("Specialist", new SelectList(""), new { @class = "border-2 sios-form-control w-100 form-control", id = "SpecialistId" })
+                                                            <span class="start-0 text-white">
                                                                 @Html.Label("Specialist", htmlAttributes: new { @class = "control-label" })
-                                                            </div>
-                                                            <div class=" col-sm-8">
-                                                                @Html.DropDownList("Specialist", new SelectList(""), new { @class = "form-control", id = "SpecialistId" })
-                                                            </div>
+                                                            </span>
                                                         </div>
 
-                                                        <div class="col-sm-12" style="margin-top:25px">
-                                                            <div class="col-sm-4">
+                                                        <div class="forLabel px-2 border-0 form-group">
+                                                            @Html.DropDownList("Country", ViewBag.address as SelectList, "Select Governorate", new { @class = "border-2 sios-form-control w-100 form-control", id = "Country_select" })
+                                                            <span class="start-0 text-white">
                                                                 @Html.Label("Governorate", htmlAttributes: new { @class = "control-label" })
-                                                            </div>
-                                                            <div class="col-sm-8">
-                                                                @Html.DropDownList("Country", ViewBag.address as SelectList, "Select Governorate", new { @class = "form-control", id = "Country_select" })
-                                                            </div>
+                                                            </span>
                                                         </div>
-                                                        <div class="col-sm-12" style="margin-top:25px">
-                                                            <div class="col-sm-4">
+                                                        <div class="forLabel px-2 border-0 form-group">
+                                                            @Html.DropDownList("Region", new SelectList(""), new { @class = "border-2 sios-form-control w-100 form-control", id = "Region_select" })
+                                                            <span class="start-0 text-white">
                                                                 @Html.Label("Region", htmlAttributes: new { @class = "control-label" })
-                                                            </div>
-                                                            <div class=" col-sm-8">
-                                                                @Html.DropDownList("Region", new SelectList(""), new { @class = "form-control", id = "Region_select" })
-                                                            </div>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <div class="col-sm-6">
-                                                <button id="Search" type="button" class="btn btn-success" onclick="SearchProvider()">
-                                                    <span class="glyphicon glyphicon-search"></span> Search
-                                                </button>
-                                            </div>
-                                            <div class="col-sm-6" id="div_of_serv">
-                                                <button id="new" type="button" class="btn btn-secondary-outline" onclick="NewRequest()">
-                                                    <span class="fa fa-reply"></span> New
-                                                </button>
 
                                             </div>
+                                            <div class="col-md-4 d-flex flex-column align-items-center justify-content-end gap-2 text-center" style="white-space:nowrap">
+                                                <div class="text-center">
+                                                    <div class="checkbox-inline" style=" margin-left: -15px !important; ">
+                                                        <input type="radio" id="type_rad" name="Search_Type" value="Class" data-name="class">
+                                                        <label for="type_rad">Class</label>
+                                                    </div>
+                                                    @if (ViewBag.compclasseslist == null)
+                                                    {
+                                                        <div class="form-group p-2 bg-dark-subtle rounded-4 form-group" id="class_levels" style="display:none">
+                                                            <select class="form-control rounded-3 bg-transparent form-control" style="border:2px solid #9689a3;" id="class_selectList">
+                                                            </select>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="form-group p-2 bg-dark-subtle rounded-4 form-group" id="class_levels" style="display:none">
+                                                            @Html.DropDownList("class_levels", ViewBag.compclasseslist as SelectList, new { @class = "form-control rounded-3 bg-transparent form-control", @style = "border:2px solid #9689a3;", id = "class_selectList" })
+                                                        </div>
+                                                    }
+
+                                                    @*Date of Card *@
+                                                    <div class="form-group mt-3">
+                                                        <div class="checkbox-inline">
+                                                            <input type="radio" id="type_rad-2" name="Search_Type" value="Card" data-name="card">
+                                                            <label for="type_rad-2">Card ID</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" id="card_div" style="display:none">
+                                                        @if (User.IsInRole("HR") || User.IsInRole("HR_Admin"))
+                                                        {
+                                                            <div class="form-group p-2 bg-dark-subtle rounded-4 ">
+                                                                <select id="txtSearchCard" class="form-control rounded-3 js-data-example-ajax" style="width: 100%"></select>
+                                                            </div>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="form-group p-2 bg-dark-subtle rounded-4  ">
+                                                                <input id="txtSearchCard" type="text" placeholder="search for card..." class="form-control rounded-3 form-control" />
+                                                            </div>
+
+                                                        }
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex gap-2 mt-3">
+                                                    <div class=" ">
+                                                        <button id="Search" type="button" class="btn fw-bold rounded-3" onclick="SearchProvider()">
+                                                            <span class="glyphicon glyphicon-search"></span> Search
+                                                        </button>
+                                                    </div>
+                                                    <div class="" id="div_of_serv">
+                                                        <button id="new" type="button" class="btn fw-bold rounded-3" onclick="NewRequest()">
+                                                            <span class="fa fa-reply"></span> New
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*Date of Service*@
+
+                                            <div class="container col-md-offset-1 table-responsive mx-auto " style="margin-top:80px;margin-bottom:100px" id="list_div">
+
+                                                <table class="table" id="ProviderList">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                @Html.DisplayName("PRENAME")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("ADDRESS 1")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("ADDRESS 2")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("TEL 1")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("TEL 2")
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayName("Specialist")
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="ProviderListBody"></tbody>
+                                                </table>
+                                            </div>
+
+
                                         </div>
-
-                                        @*Date of Service*@
-
-                                        <div class="col-md-offset-1 col-md-10" style="margin-top:80px;margin-bottom:100px" id="list_div">
-
-                                            <table class="table" id="ProviderList">
-                                                <thead>
-                                                    <tr>
-                                                        <th>
-                                                            @Html.DisplayName("PRENAME")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("ADDRESS 1")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("ADDRESS 2")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("TEL 1")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("TEL 2")
-                                                        </th>
-                                                        <th>
-                                                            @Html.DisplayName("Specialist")
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="ProviderListBody"></tbody>
-                                            </table>
-                                        </div>
-                                        <br />
-
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
+
             </div>
 
         </div>
 
-    </div>
-}
+    }
+</div>
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 <script>
     var input = document.getElementById("txtSearchCard");

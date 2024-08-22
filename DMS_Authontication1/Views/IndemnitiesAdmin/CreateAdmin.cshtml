@@ -2,24 +2,26 @@
 
 @{
     ViewBag.Title = "Create ";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardHR.cshtml";
 }
 <input type="text" id="UserCompId" value="@ViewBag.UserCompId" hidden="hidden" />
 
-<br />
+
 @using (Html.BeginForm("CreateAdmin", "IndemnitiesAdmin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal createInde-form", role = "form" }))
 {
     <input type="hidden" id="CompanyName" name="CompanyName" value="@ViewBag.CompName" />
 
     @Html.AntiForgeryToken()
-    <div class="portlet box  green" style="margin-top:40px">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>New Request
-            </div>
+
+<div class="portlet box  green" style="margin-top:40px">
+    <div class="row bg-overlay portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <i class="fa fa-gift"></i>New Request
         </div>
-        <div class="portlet-body">
-            <div class="form-horizontal">
+    </div>
+    <div class="portlet-body">
+        <div class="form-horizontal">
+            <div class="container mx-auto row row-cols-sm-2 row-cols-md-3 row-gap-2 my-4">
                 @if (ViewBag.error != "0")
                 {
                     <p><h3 class="text-danger"> يجب ادخال جميع المرفقات بطريقه صحيحه  </h3></p>
@@ -28,15 +30,12 @@
 
                 @if (User.IsInRole("HR_Admin"))
                 {
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            @Html.Label("Company", htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="forLabel px-2   border-0  form-group  ">
+                        @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "border-2 sios-form-control w-100 form-control", id = "CompanyNumber" })
+                        <span class="start-0">
+                            @Html.Label("Company", htmlAttributes: new { @class = "control-label " })
                             <span class="required"> * </span>
-                            <div class="col-md-9">
-                                @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
-
-                            </div>
-                        </div>
+                        </span>
                     </div>
                     <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
                     <script>
@@ -45,323 +44,308 @@
                         });
                     </script>
                 }
+                <div class="forLabel px-2   border-0  form-group  ">
 
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        @Html.Label("Type of check", new { @class = "col-md-3 control-label" })
-                        @if (User.IsInRole("User"))
-                        {
-                            <div class="col-md-9">
-                                @Html.DropDownListFor(m => m.Type, new List<SelectListItem>
-                                     {
-                                        new SelectListItem{ Text="Individual", Value = "1" ,Selected=true},
-                                      }, null, new { @class = "form-control", @required = "True", @disabled = "disabled" })
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="col-md-9">
-                                @Html.DropDownListFor(m => m.Type, new List<SelectListItem>
-                                     {
-                                        new SelectListItem{ Text="Individual", Value = "1" ,Selected=true},
-                                        new SelectListItem{ Text="company", Value = "2" },
-                                     }, null, new { @class = "form-control", @required = "True" })
-                            </div>
-                        }
+                    @if (User.IsInRole("User"))
+                    {
+                        @Html.DropDownListFor(m => m.Type, new List<SelectListItem>
+                             {
+                                new SelectListItem{ Text="Individual", Value = "1" ,Selected=true},
+                              }, null, new { @class = "border-2 sios-form-control w-100 form-control", @required = "True", @disabled = "disabled" })
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(m => m.Type, new List<SelectListItem>
+                             {
+                                new SelectListItem{ Text="Individual", Value = "1" ,Selected=true},
+                                new SelectListItem{ Text="company", Value = "2" },
+                             }, null, new { @class = "border-2 sios-form-control w-100 form-control", @required = "True" })
+                    }
+                    <span class="start-0"> @Html.Label("Type of check", new { @class = " control-label" })</span>
 
-                    </div>
                 </div>
                 @if (User.IsInRole("User"))
                 {
-                    <div id="divIndividual">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <input type="hidden" id="userRole" value="1" />
-                                @Html.Label("Card Id", htmlAttributes: new { @class = "control-label col-md-3" })
-                                <div class="col-md-9">
-                                    @Html.HiddenFor(model => model.RelatedCardId)
-                                    @*@Html.EditorFor(model=>model.RelatedCardId, new { htmlAttributes = new { @class = "form-control", @value = '"'+ViewBag.cardID+'"' } })*@
-                                    <input type="text" id="RelatedCardId" name="RelatedCardId" value="@ViewBag.cardID" class="form-control" disabled />
-                                    @*@Html.DropDownListFor(model => model.RelatedCardId, Enumerable.Empty<SelectListItem>()
-                                        , htmlAttributes: new { @class = "js-data-example-ajax", @style = "width: 100%" })*@
-                                    @*<select id="RelatedCardId" class="js-data-example-ajax" style="width: 100%"></select>*@
+                    <div class="forLabel px-2   border-0  form-group  div-individual">
+                        <input type="hidden" id="userRole" value="1" />
+                        @Html.HiddenFor(model => model.RelatedCardId)
+                        @*@Html.EditorFor(model=>model.RelatedCardId, new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @value = '"'+ViewBag.cardID+'"' } })*@
+                        <input type="text" id="RelatedCardId" name="RelatedCardId" value="@ViewBag.cardID" class="border-2 sios-form-control w-100 form-control" disabled />
+                        @*@Html.DropDownListFor(model => model.RelatedCardId, Enumerable.Empty<SelectListItem>()
+                , htmlAttributes: new { @class = "js-data-example-ajax", @style = "width: 100%" })*@
+                        @*<select id="RelatedCardId" class="js-data-example-ajax" style="width: 100%"></select>*@
 
-                                    @*@Html.EditorFor(model => model.CardID, new { htmlAttributes = new { @class = "form-control", @required = "True" } })*@
-                                    @Html.ValidationMessageFor(model => model.RelatedCardId, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" hidden>
-                            <div class="form-group col-md-6">
-                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
-                                <span class="text-danger">*</span>
-                                <div class="col-md-9">
-                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                @Html.Label("National Id", htmlAttributes: new { @class = "control-label col-md-3" })
-                                <span class="text-danger">*</span>
-                                <div class="col-md-9">
-                                    @Html.EditorFor(model => model.NationalId, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return /[0-9]/i.test(event.key)" } })
-                                    @Html.ValidationMessageFor(model => model.NationalId, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
+                        @*@Html.EditorFor(model => model.CardID, new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @required = "True" } })*@
+                        @Html.ValidationMessageFor(model => model.RelatedCardId, "", new { @class = "text-danger" })
+                        <span class="start-0">
+                            @Html.Label("Card Id", htmlAttributes: new { @class = "control-label " })
+                        </span>
+
+                    </div>
+                    <div class="forLabel px-2   border-0  form-group  div-individual" hidden>
+
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", required = "true" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        <span class="start-0">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label " })
+                            <span class="text-danger">*</span>
+                        </span>
+
+                    </div>
+                    <div class="forLabel px-2   border-0  form-group  div-individual">
+
+                        @Html.EditorFor(model => model.NationalId, new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @onkeypress = "return /[0-9]/i.test(event.key)", required = "true" } })
+                        @Html.ValidationMessageFor(model => model.NationalId, "", new { @class = "text-danger" })
+                        <span class="start-0">
+                            @Html.Label("National Id", htmlAttributes: new { @class = "control-label " })
+                            <span class="text-danger">*</span>
+                        </span>
+
                     </div>
                 }
                 else
                 {
-                    <div id="divIndividual">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <input type="hidden" id="userRole" value="2" />
-                                @Html.Label("Card Id", htmlAttributes: new { @class = "control-label col-md-3" })
-                                <div class="col-md-9">
-                                    @Html.DropDownListFor(model => model.RelatedCardId, Enumerable.Empty<SelectListItem>()
-                                   , htmlAttributes: new { @class = "js-data-example-ajax", @style = "width: 100%" })
-                                    @*<select id="RelatedCardId" class="js-data-example-ajax" style="width: 100%"></select>*@
+                    <div class="forLabel px-2   border-0  form-group  div-individual">
+                        <input type="hidden" id="userRole" value="2" />
 
-                                    @*@Html.EditorFor(model => model.CardID, new { htmlAttributes = new { @class = "form-control", @required = "True" } })*@
-                                    @Html.ValidationMessageFor(model => model.RelatedCardId, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
-                                @*<span class="text-danger">*</span>*@
-                                <div class="col-md-9">
-                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                @Html.Label("National Id", htmlAttributes: new { @class = "control-label col-md-3" })
-                                <span class="text-danger">*</span>
-                                <div class="col-md-9">
-                                    @Html.EditorFor(model => model.NationalId, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return /[0-9]/i.test(event.key)" } })
-                                    @Html.ValidationMessageFor(model => model.NationalId, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
+                        @Html.DropDownListFor(model => model.RelatedCardId, Enumerable.Empty<SelectListItem>()
+                       , htmlAttributes: new { @class = "js-data-example-ajax", @style = "width: 100%", required = "true" })
+                        @*<select id="RelatedCardId" class="js-data-example-ajax" style="width: 100%"></select>*@
+
+                        @*@Html.EditorFor(model => model.CardID, new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @required = "True" } })*@
+                        @Html.ValidationMessageFor(model => model.RelatedCardId, "", new { @class = "text-danger" })
+                        <span class="start-0"style=" transform: translateY(-6px); ">  @Html.Label("Card Id", htmlAttributes: new { @class = "control-label " }) </span>
+
+                    </div>
+                    <div class="forLabel px-2   border-0  form-group  div-individual">
+
+                        @*<span class="text-danger">*</span>*@
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", required = "true" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        <span class="start-0">@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label " })</span>
+
+                    </div>
+                    <div class="forLabel px-2   border-0  form-group  div-individual">
+
+                        @Html.EditorFor(model => model.NationalId, new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @onkeypress = "return /[0-9]/i.test(event.key)", required = "true" } })
+                        @Html.ValidationMessageFor(model => model.NationalId, "", new { @class = "text-danger" })
+                        <span class="start-0">
+                            @Html.Label("National Id", htmlAttributes: new { @class = "control-label " })
+                            <span class="text-danger">*</span>
+                        </span>
+
                     </div>
                 }
                 @*<div class="row">
 
-                        <div class="form-group col-md-6">
-                            @Html.Label("Bank Name", htmlAttributes: new { @class = "control-label col-md-3" })
-                            <span class="text-danger">*</span>
-                            <div class="col-md-9">
-                                @Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @class = "form-control", @required = "True" } })
-                                @Html.ValidationMessageFor(model => model.BankName, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            @Html.Label("Bank Branch", htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.EditorFor(model => model.BankBranch, new { htmlAttributes = new { @class = "form-control", @required = "True" } })
-                                @Html.ValidationMessageFor(model => model.BankBranch, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            @Html.Label("Bank Account", htmlAttributes: new { @class = "control-label col-md-3" })
-                            <span class="text-danger">*</span>
-                            <div class="col-md-9">
-                                @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class = "form-control", @required = "True" } })
-                                @Html.ValidationMessageFor(model => model.BankAccount, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>*@
-
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-3" })
-                        <span class="text-danger">*</span>
-                        <div class="col-md-9">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-
-                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <span class="text-danger">*</span>
-                        <div class="col-md-9">
-                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @id = "Phone", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
-
-                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-                @*services details*@
-
-                <div class="portlet box  green">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <i class="fa fa-gift"></i>Add Cards
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-                        <div class="form-horizontal">
-                            <div class="form-group col-md-6">
-                                @Html.Label("Card Id", htmlAttributes: new { @class = "control -label col-md-3" })
-                                <div class="col-md-10">
-                                    <select id="CardId" class="js-data-example-ajax" style="width: 100%"></select>
-                                </div>
-                            </div>
-
-                            <div class="form-group"></div>
-                            <div class="portlet box  green">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="fa fa-gift"></i>Card Services
-                                    </div>
-
-                                </div>
-                                <br />
-                                <div class="portlet-body">
-
-                                    <table class="ui celled table" id="CardServices" width="100 %">
-                                        <thead>
-                                            <tr>
-
-                                                <th>
-                                                    Card Id
-                                                </th>
-
-
-                                                <th>
-                                                    National Id Image
-                                                </th>
-                                                <th>
-                                                    Action
-                                                </th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-
-                                    </table>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="portlet box  green">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <i class="fa fa-gift"></i>Add services
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-                        <div class="form-horizontal">
-
-
-                            <div class="form-group col-md-3">
-                                @Html.Label("Specialist", htmlAttributes: new { @class = "control -label col-md-3" })
-                                <div class="col-md-6">
-                                    @Html.DropDownList("Specialist", ViewBag.SpecialistId as SelectList, "--Select--", new { @class = "form-control col-md-8", id = "Specialist", @required = "True" })
-                                </div>
-                            </div>
-
-
-                            <div class="form-group col-md-3">
-                                @Html.Label("Service", htmlAttributes: new { @class = "control-label col-md-3" })
-                                <div class="col-md-6">
-                                    @Html.DropDownList("Service", ViewBag.ServiceId as SelectList, "--Select--", new { @class = "form-control col-md-8", id = "Services", @required = "True" })
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-2">
-                                @Html.Label("Value", htmlAttributes: new { @class = "control-label col-md-4" })
-                                <div class="col-md-8">
-                                    @Html.Editor("ValueTest", new { htmlAttributes = new { @class = "form-control", @required = "True", @min = 1, @onkeypress = "return /[0-9]/i.test(event.key)" } })
-                                    @Html.ValidationMessage("ValueTest", "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-4">
-                                @Html.Label("Service Date", htmlAttributes: new { @class = "control-label col-md-6" })
-                                <div class="col-md-6">
-                                    @Html.Editor("ServiceDateTest", new { htmlAttributes = new { @class = "form-control", @required = "True" } })
-                                    @Html.ValidationMessage("ServiceDateTest", "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-
-
-                            <input type="button" id="addServices" value="Add" class="btn btn-success" style="text-transform: none" />
-                            <div class="form-group"></div>
-                            <div class="portlet box  green">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="fa fa-gift"></i>Services
-                                    </div>
-
-                                </div>
-                                <br />
-                                <div class="portlet-body">
-
-                                    <table class="ui celled table" id="tblServices">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    Card Id
-                                                </th>
-                                                <th>
-                                                    Specialist Name
-                                                </th>
-                                                <th>
-                                                    Service Name
-                                                </th>
-                                                <th>
-                                                    Total
-                                                </th>
-                                                <th>
-                                                    Service Date
-                                                </th>
-                                                <th>
-                                                    Service Files
-                                                </th>
-                                                <th style="text-align: center;">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-
-                                    </table>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                    </div>
+        <div class="forLabel px-2   border-0  form-group  ">
+            @Html.Label("Bank Name", htmlAttributes: new { @class = "control-label " })
+            <span class="text-danger">*</span>
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @required = "True" } })
+                @Html.ValidationMessageFor(model => model.BankName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        </div>
+        <div class="row">
+            <div class="forLabel px-2   border-0  form-group  ">
+                @Html.Label("Bank Branch", htmlAttributes: new { @class = "control-label " })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.BankBranch, new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @required = "True" } })
+                    @Html.ValidationMessageFor(model => model.BankBranch, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        <div class="panel-footer" style="text-align:right;">
-            <input data-step="9" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ResetSaveIndemnty();" class="btn btn-warning" />
-            <button id="btn_create_new" type="submit" class="btn btn-success" style="text-transform: none">
-                <i class="fa fa-check"></i> Create
-            </button>
+        <div class="row">
+            <div class="forLabel px-2   border-0  form-group  ">
+                @Html.Label("Bank Account", htmlAttributes: new { @class = "control-label " })
+                <span class="text-danger">*</span>
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @required = "True" } })
+                    @Html.ValidationMessageFor(model => model.BankAccount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
+
+                <div class="forLabel px-2   border-0  form-group  ">
+
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", required = "true" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    <span class="start-0">
+                        @Html.Label("Email", htmlAttributes: new { @class = "control-label " })
+                        <span class="text-danger">*</span>
+                    </span>
+
+                </div>
+                <div class="forLabel px-2   border-0  form-group  ">
+
+                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @id = "Phone", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    <span class="start-0">
+                        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label " })
+                        <span class="text-danger">*</span>
+                    </span>
+
+                </div>
+                @*services details*@
+            </div>
+        <div class="portlet box  green">
+            <div class="row bg-overlay portlet-title">
+                <div class="m-3 fs-3 text-white caption">
+                    <i class="fa fa-gift"></i>Add Cards
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="form-horizontal">
+                    <div class="container mx-auto row row-cols-sm-2 row-cols-md-3 row-gap-2 my-4">
+                        <div class=" forLabel px-2   border-0  form-group  ">
+                    
+                            <select id="CardId" class="js-data-example-ajax" style="width: 100%"></select>
+                            <span class="start-0">   @Html.Label("Card Id", htmlAttributes: new { @class = "control -label " }) </span>
+                    
+                        </div>
+                    </div>
+                    <div class="form-group"></div>
+                    <div class="portlet box  green">
+                        <div class="row bg-overlay portlet-title">
+                            <div class="m-3 fs-3 text-white caption">
+                                <i class="fa fa-gift"></i>Card Services
+                            </div>
+
+                        </div>
+
+                        <div class="my-4 table-responsive portlet-body">
+
+                            <table class="ui celled table" id="CardServices" width="100 %">
+                                <thead>
+                                    <tr>
+
+                                        <th>
+                                            Card Id
+                                        </th>
+
+
+                                        <th>
+                                            National Id Image
+                                        </th>
+                                        <th>
+                                            Action
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="portlet box  green">
+            <div class="row bg-overlay portlet-title">
+                <div class="m-3 fs-3 text-white caption">
+                    <i class="fa fa-gift"></i>Add services
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="form-horizontal">
+                    <div class="container mx-auto row row-cols-sm-2 row-cols-md-3 row-gap-2 my-4" style="white-space:nowrap">
+
+                        <div class="forLabel px-2   border-0  form-group ">
+                            @Html.DropDownList("Specialist", ViewBag.SpecialistId as SelectList, "--Select--", new { @class = "border-2 sios-form-control w-100 form-control", @style = "background:#aa98ae;color:var(--color-hr-btn) ", id = "Specialist", @required = "True" })
+                            <span class="start-0 text-white" style=" transform: translateY(-6px); ">@Html.Label("Specialist", htmlAttributes: new { @class = "control -label " })</span>
+                        </div>
+
+
+                        <div class="forLabel px-2   border-0  form-group ">
+
+                            @Html.DropDownList("Service", ViewBag.ServiceId as SelectList, "--Select--", new { @class = "border-2 sios-form-control w-100 form-control", @style = "background:#aa98ae;color:var(--color-hr-btn) ", id = "Services", @required = "True" })
+                            <span class="start-0 text-white" style=" transform: translateY(-6px); ">   @Html.Label("Service", htmlAttributes: new { @class = "control-label " })</span>
+
+
+                        </div>
+
+                        <div class="forLabel px-2   border-0  form-group ">
+
+                            @Html.Editor("ValueTest", new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @style = "background:#aa98ae;color:var(--color-hr-btn) ", @required = "True", @min = 1, @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                            @Html.ValidationMessage("ValueTest", "", new { @class = "text-danger" })
+                            <span class="start-0 text-white">    @Html.Label("Value", htmlAttributes: new { @class = "control-label col-md-4" })</span>
+
+                        </div>
+
+                        <div class="forLabel px-2   border-0  form-group ">
+
+                            @Html.Editor("ServiceDateTest", new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @style = "background:#aa98ae;color:var(--color-hr-btn) ", @required = "True" } })
+                            @Html.ValidationMessage("ServiceDateTest", "", new { @class = "text-danger" })
+                            <span class="start-0 text-white">    @Html.Label("Service Date", htmlAttributes: new { @class = "control-label " })</span>
+
+                        </div>
+                        <div class="ms-sm-auto text-center text-sm-end">
+                            <input type="button" id="addServices" value="Add" class="btn " style="text-transform: none" />
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-group"></div>
+                    <div class=" portlet box  green">
+                        <div class="row bg-overlay portlet-title">
+                            <div class="m-3 fs-3 text-white caption">
+                                <i class="fa fa-gift"></i>Services
+                            </div>
+
+                        </div>
+
+                        <div class="mt-4 table-responsive portlet-body">
+
+                            <table class="ui celled table" id="tblServices">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Card Id
+                                        </th>
+                                        <th>
+                                            Specialist Name
+                                        </th>
+                                        <th>
+                                            Service Name
+                                        </th>
+                                        <th>
+                                            Total
+                                        </th>
+                                        <th>
+                                            Service Date
+                                        </th>
+                                        <th>
+                                            Service Files
+                                        </th>
+                                        <th style="text-align: center;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                </div>
+            </div>
         </div>
     </div>
+    <div class="panel-footer container mx-auto text-center text-sm-end mt-3 mb-4" style="text-align:right;"> 
+        <input data-step="9" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ResetSaveIndemnty();" class="btn " />
+        <button id="btn_create_new" type="submit" class="btn " style="text-transform: none">
+            <i class="fa fa-check"></i> Create
+        </button> 
+    </div>
+</div>
 }
 
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
