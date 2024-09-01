@@ -78,6 +78,9 @@ body.hr-page {
 .hr-color{
     color:var(--color-hr-btn);
 }
+.hr-bg {
+    background: var(--color-hr-btn);
+}
 .hr-color::placeholder{
     color:var(--color-hr-btn);
     font-weight:700;
@@ -419,6 +422,9 @@ li.select2-results__option.select2-results__option--selectable.select2-results__
     }
 .select-group-none span.select2-selection__placeholder {
     display: none;
+}
+.select2-no-border  span.select2-selection.select2-selection--single {
+    border: none;
 }
 /* ====================CS Pages=========================================== */
 .cs-page-container span.select2.select2-container.select2-container--default {
@@ -836,6 +842,13 @@ ul.pagination {
     width: 35px;
 }
 
+.hr-page .table-responsive .paginate_button.active a {
+    background-color: #5f0864;
+    color:white
+}
+.hr-page .page-item:not(:first-child) .page-link {
+    color:var(--color-hr-btn);
+}
     .table-responsive .paginate_button.active a:hover {
         background-color: #17609bdf;
     }
@@ -1028,7 +1041,7 @@ textarea {
     min-height: calc(100vh - 190px);
 }
 .hr-page .sios-container {
-    min-height: calc(100vh - 284px);
+    min-height: calc(100vh - 276px);
 }
 .bg-color-sec {
     background-color: var(--color-secondary);
@@ -1098,7 +1111,7 @@ textarea {
 
     .hr-page .action-btn:hover {
         background: linear-gradient(135deg, #703a96 0%, #c48cc3 50%, #703a96 100%);
-        box-shadow: 0px 1PX 2px 1px #2c0b406e;
+        box-shadow: 0px 2PX 2px 1px #2c0b404a;
     }
 
     .hr-page .action-btn.active,
@@ -1400,7 +1413,9 @@ p.count-p {
     color: #c8bec8;
     border: none;
 }
-
+nav > div > div .nav-link:hover {
+    box-shadow: inset #2303231c 0px 0px 60px -12px;
+}
 .Admin-main-ul:not(:first-child) {
     margin-left: 15px;
 }
@@ -4181,12 +4196,10 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
     font-weight: 700;
     font-size: 18px;
 }
-@media (min-width:1500px) {
-    .pharm-main-ul li a,
-    .hosp-main-ul li a {
-        font-size: 26px;
-    }
-    
+@media (min-width: 1620px) {
+    .pharm-main-ul li a, .hosp-main-ul li a {
+        font-size: 22px;
+    } 
 
     .pharm-main-ul,
     .hosp-main-ul {
@@ -4230,12 +4243,15 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
         gap: 10px;
     }
 .hr-page .pharm-main-ul li a {
-    font-size: 20px;
+    font-size: 16px;
   }
 }
 @media (min-width:1100px) and (max-width:1299px) {
     .hr-page .pharm-main-ul li a {
-        font-size: 16px;
+        font-size: 14px;
+    }
+    .hr-page .pharm-main-ul {
+        gap: 5px;
     }
 }
 @media  (max-width:1099px) {
@@ -4244,7 +4260,16 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
     }
   
 }
-@media (max-width:991px){
+@media (max-width:1147px) {
+    .hr-page .pharm-main-ul li a {
+        font-size: 12px;
+    }
+
+    .hr-page .pharm-main-ul {
+        gap: 0px;
+    }
+}
+@media (max-width:1015px){
   
     .hr-page .pharm-main-ul li a {
         font-size: 10px;

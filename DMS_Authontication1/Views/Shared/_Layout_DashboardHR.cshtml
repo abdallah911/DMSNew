@@ -14,11 +14,12 @@
     <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/all.min.css" />
     <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/bootstrap.min.css" />
     <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/jquery-ui.min.css" />
-    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/select2.min.css" /> 
+    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/select2.min.css" />
     <link rel="stylesheet" href="~/assets/HomeTemplete/Content/toastr.min.css" />
     <link href="~/assets/global/plugins/jquery-validity/css/jquery.validity.css" rel="stylesheet" />
     <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/admin.css" />
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-227248876-1"></script>
 
@@ -38,7 +39,7 @@
                        href="~/Home/Index"
                        role="button"
                        aria-expanded="false">
-                       <img  class="w-100 h-100 " src="~/assets/NewDesignBackAdmin/Img/logo-subtitle.png" alt="dms logo" />
+                        <img class="w-100 h-100 " src="~/assets/NewDesignBackAdmin/Img/logo-subtitle.png" alt="dms logo" />
                     </a>
                 </div>
                 <button class="navbar-toggler me-4"
@@ -53,7 +54,7 @@
                 </button>
                 @*@if ((User.IsInRole("Admin") || User.IsInRole("AdminHelth") || User.IsInRole("Doctor")) && User.Identity.IsAuthenticated)
                     {*@    <div class="collapse navbar-collapse justify-content-between align-items-center mt-0"
-                     id="navbarSupportedContent">
+                                id="navbarSupportedContent">
                     <div class="d-flex flex-column mx-auto flex-lg-row mb-3 mb-md-0 ps-4 ">
                         <ul class="ps-0 pharm-main-ul nav navbar-nav nav-admin-cus" style="color: #000;white-space:nowrap">
                             <li><a href="/EmployeeRequest/index" class="link-cus">Operation</a></li>
@@ -63,6 +64,8 @@
                             <li><a href="/HrChronic/InquiryAboutCard" class="link-cus">Medication</a></li>
                             <li><a href="/Contractors/Index" class="link-cus">Contracts</a></li>
                             <li><a href="/Reports/Index" class="link-cus">Reports</a></li>
+                            <li><a href="/ConsumptionAdmin/HrConsumptionReports" class="link-cus">Reports Details</a></li>
+
                         </ul>
                     </div>
                     <div class="d-flex align-items-center">
@@ -119,7 +122,7 @@
 
     @RenderBody()
     <!-- .site-footer -->
-    <footer class="hr-footer-parent" style="margin-top: auto" >
+    <footer class="hr-footer-parent" style="margin-top: auto">
         <div class="footer hr-footer pb-3">
             <div class="container-fluid pt-5">
                 <div class="row m-auto d-flex justify-content-center">
@@ -184,6 +187,7 @@
     @*<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>*@
     @*<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>*@
     <script src="~/Scripts/DMS/HR/EditRequest.js?V=1.2"></script>
+    <script src="~/assets/NewDesignBackAdmin/JS/HR-Script.js"></script>
 
 
 </body>

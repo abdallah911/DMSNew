@@ -33,7 +33,7 @@
 
 <div class="sios-container">
     <div class="">
-        <p class="mx-4 my-0 py-3 d-flex gap-2">
+        <p class="mx-4 my-0 py-3 d-flex flex-wrap no-wrap gap-2">
             @if (fullcontroll || view)
             {
                 @Html.ActionLink(" Inquiries About An Invoice", "Inquiries", null, htmlAttributes: new { @class = "btn action-btn active", @style = " text-transform: none" })
@@ -57,7 +57,7 @@
 <div class="portlet box  green">
     <div class="row bg-overlay portlet-title">
         <div class="m-3 fs-3 text-white caption">
-            <i class="fa fa-gift"></i>Inquiries about an invoice
+            <i class="fa-solid fa-home me-1"></i>Inquiries about an invoice
         </div>
     </div>
     <div class="portlet-body">
@@ -71,139 +71,139 @@
                         <div class="form-body">
                             <div class="tab-content">
                                 <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class=" row row-cols-md-2 row-gap-2 container mx-auto">
+                                    <div class=" d-flex flex-column gap-2 my-4 no-wrap">
 
-                                <div class="row row-cols-sm-2 gap-2 container mx-auto my-4 no-wrap">
-
-                                    @*Date of Registration*@
-                                    <div class="d-flex align-items-center sios-form-control  form-group" style="padding: 0 10px !important;">
-                                        <label class="col-4 hr-color control-label ">
-                                            Date of Registration :
-                                        </label>
-                                        <div class="col-8   d-flex align-items-baseline  position-relative">
-                                            <input type="text" id="RegistrationFrom" style="outline:none;box-shadow:none!important;" class="date-input border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="From"><i class="fa-solid fa-calendar-days opacity-75 me-2 hr-color"></i>
-                                            <div style="width: 1px; height: 20px;  right: 49%;" class="line position-absolute top-50  translate-middle-y opacity-75  "></div>
-                                            <input type="text" id="RegistrationTo" style="outline:none;box-shadow:none!important;" class="date-input outli border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="to"><i class="fa-solid fa-calendar-days opacity-75 hr-color"></i>
+                                        @*Date of Registration*@
+                                        <div class="d-flex align-items-center sios-form-control w-100 form-group" style="padding: 0 10px !important;">
+                                            <label class="col-4 hr-color control-label ">
+                                                Date of Registration
+                                            </label>
+                                            <div class="col-8   d-flex align-items-baseline  position-relative">
+                                                <input type="text" id="RegistrationFrom" style="outline:none;box-shadow:none!important;" class="date-input border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="From"><i class="fa-solid fa-calendar-days opacity-75 me-2 hr-color"></i>
+                                                <div style="width: 1px; height: 20px;  right: 49%;" class="line position-absolute top-50  translate-middle-y opacity-75  "></div>
+                                                <input type="text" id="RegistrationTo" style="outline:none;box-shadow:none!important;" class="date-input outli border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="to"><i class="fa-solid fa-calendar-days opacity-75 hr-color"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    @*Date of Service*@
-                                    <div class="d-flex align-items-center sios-form-control  form-group" style="padding: 0 10px !important;">
-                                        <label class="col-4 hr-color control-label ">
-                                            Date of Service :
-                                        </label>
-                                        <div class="col-8   d-flex align-items-baseline  position-relative">
-                                            <input type="text" id="ServiceFrom" style="outline:none;box-shadow:none!important;" class="date-input border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="From"><i class="fa-solid fa-calendar-days opacity-75 me-2 hr-color"></i>
-                                            <div style="width: 1px; height: 20px;  right: 49%;" class="line position-absolute top-50  translate-middle-y opacity-75  "></div>
-                                            <input type="text" id="ServiceTo" style="outline:none;box-shadow:none!important;" class="date-input outli border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="to"><i class="fa-solid fa-calendar-days opacity-75 hr-color"></i>
+                                        @*Date of Service*@
+                                        <div class="d-flex align-items-center sios-form-control w-100 form-group" style="padding: 0 10px !important;">
+                                            <label class="col-4 hr-color control-label ">
+                                                Date of Service
+                                            </label>
+                                            <div class="col-8   d-flex align-items-baseline  position-relative">
+                                                <input type="text" id="ServiceFrom" style="outline:none;box-shadow:none!important;" class="date-input border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="From"><i class="fa-solid fa-calendar-days opacity-75 me-2 hr-color"></i>
+                                                <div style="width: 1px; height: 20px;  right: 49%;" class="line position-absolute top-50  translate-middle-y opacity-75  "></div>
+                                                <input type="text" id="ServiceTo" style="outline:none;box-shadow:none!important;" class="date-input outli border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="to"><i class="fa-solid fa-calendar-days opacity-75 hr-color"></i>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    @* Claim Number *@
-                                    <div class="d-flex align-items-center sios-form-control  form-group" style="padding: 0 10px !important;">
-                                        <label class="col-4 hr-color control-label ">
-                                            Date of Service :
-                                        </label>
-                                        <div class="col-8   d-flex align-items-baseline  position-relative">
-                                            <input type="text" id="ClaimFrom" style="outline:none;box-shadow:none!important;" class="date-input border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="From"><i class="fa-solid fa-calendar-days opacity-75 me-2 hr-color"></i>
-                                            <div style="width: 1px; height: 20px;  right: 49%;" class="line position-absolute top-50  translate-middle-y opacity-75  "></div>
-                                            <input type="text" id="ClaimTo" style="outline:none;box-shadow:none!important;" class="date-input outli border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="to"><i class="fa-solid fa-calendar-days opacity-75 hr-color"></i>
+                                        @* Claim Number *@
+                                        <div class="d-flex align-items-center sios-form-control w-100 form-group" style="padding: 0 10px !important;">
+                                            <label class="col-4 hr-color control-label ">
+                                                Claim Number
+                                            </label>
+                                            <div class="col-8   d-flex align-items-baseline  position-relative">
+                                                <input type="text" id="ClaimFrom" style="outline:none;box-shadow:none!important;" class="date-input border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="From"><i class="fa-solid fa-calendar-days opacity-75 me-2 hr-color"></i>
+                                                <div style="width: 1px; height: 20px;  right: 49%;" class="line position-absolute top-50  translate-middle-y opacity-75  "></div>
+                                                <input type="text" id="ClaimTo" style="outline:none;box-shadow:none!important;" class="date-input outli border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="to"><i class="fa-solid fa-calendar-days opacity-75 hr-color"></i>
+                                            </div>
                                         </div>
+
+
+                                        @* Copmany Number *@
+                                        <div class="d-flex align-items-center sios-form-control w-100 form-group" style="padding: 0 10px !important;"> 
+                                            <label class="col-4 hr-color control-label ">
+                                                Copmany Number
+                                            </label>
+                                            <div class="col-8   d-flex align-items-baseline  position-relative">
+
+                                                @if (User.IsInRole("HR_Admin"))
+                                                {
+                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = " outli border-0 w-100 h-100 p-2 bg-transparent text-center hr-color", id = "CopmanyNumber" })
+
+                                                    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                    <script>
+                                                        $(document).ready(function () {
+                                                            $('#CopmanyNumber').select2();
+                                                        });
+                                                    </script>
+                                                }
+                                                else
+                                                {
+                                                    <input id="CopmanyNumber" type="number" class=" outli border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" value="@ViewBag.compnum" min="0" readonly="readonly" />
+
+                                                }
+                                            </div>
+
+                                        </div>
+
+
+                                        @* Service provider number *@
+
+                                        <div class="forLabel px-0 border-0 form-group">
+
+                                            <input id="SerProvNumber" type="number" class="col-md-2 border-2 sios-form-control w-100 form-control " required min="0" />
+                                            <span class="start-0 top-50 translate-middle-y"  style=" transform: translateY(-6px); padding-left:12px"><label class="control-label fw-bold col-md-4">Service Provider Number</label></span>
+
+
+                                        </div>
+
+
                                     </div>
-                                  
-
-                                    @* Copmany Number *@
-                                     
-                                     <div class="forLabel px-0 border-0 form-group">
-                                      
-
-                                         @if (User.IsInRole("HR_Admin"))
-                                         { 
-                                                 @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "border-2 sios-form-control w-100 form-control", id = "CopmanyNumber" })
-                                              
-                                             <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                                             <script>
-                                                 $(document).ready(function () {
-                                                     $('#CopmanyNumber').select2();
-                                                 });
-                                             </script>
-                                         }
-                                         else
-                                         { 
-                                                 <input id="CopmanyNumber" type="number" class="col-md-2 border-2 sios-form-control w-100 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-                                                 <span class="start-0"style=" transform: translateY(-6px); padding-left:12px">
-                                                     <label class="control-label sbold col-md-3">
-                                                         Copmany Number :
-                                                     </label>
-                                                 </span>
-                                         }
-
-                                     </div> 
-
-
-                                    @* Service provider number *@
-                                     
-                                     <div class="forLabel px-0 border-0 form-group">
-                                         
-                                         <input id="SerProvNumber" type="number" class="col-md-2 border-2 sios-form-control w-100 form-control " required min="0" />
-                                         <span class="start-0"style=" transform: translateY(-6px); padding-left:12px"><label class="control-label sbold col-md-4">Service Provider Number :</label></span>
-                                   
-                                   
-                                     </div> 
-
-
-                                    @*Print Type*@
-                                     
-                                     <div class="forLabel px-0 border-0 form-group">
-                                         <label class="control-label sbold col-md-3">
-                                             Print Type :
-                                         </label>
-                                         <div class="col-md-2">
-                                             <div class="checkbox-inline">
-                                                 <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
-                                                 <label for="pdf">
-                                                     PDF
-                                                 </label>
-                                             </div>
-                                         </div>
-
-                                         @*<div class="col-md-2">
-                                               <div class="checkbox-inline">
-                                                   <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
-                                                   <label for="excel">
-                                                       EXCEL
-                                                   </label>
-                                               </div>
-                                           </div>*@
-
-                                     </div> 
-
-
+           
                                     @* For Buttons *@
 
-                                    <div class="col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px">
+                                <div class="d-flex flex-column gap-2 justify-content-end align-items-start  no-wrap">
 
-                                        <div class="col-sm-4" id="div_of_serv">
-                                            <button id="MedicalServices" type="button" class="btn btn-primary" onclick="PrintMedicalServices('MedicalServices')">
-                                                <span class="fa fa-save"></span> Medical Services
-                                            </button>
-
-                                        </div>
-
-                                        <div class="col-sm-4" id="div_of_serv">
-                                            <button id="OtherServices" type="button" class="btn btn-primary" onclick="PrintMedicalServices('OtherServices')">
-                                                <span class="fa fa-save"></span> Other Services
-                                            </button>
-
-                                        </div>
-
-                                        <div class="col-sm-4" id="div_of_serv">
-                                            <button id="SerOutMediAuth" type="button" class="btn btn-primary" onclick="PrintMedicalServices('SerOutMediAuth')">
-                                                <span class="fa fa-save"></span> Services Outside the Medical Authority
-                                            </button>
-
-                                        </div>
+                                    <div class=" " id="div_of_serv">
+                                        <button id="MedicalServices" type="button" class="btn btn-primary" onclick="PrintMedicalServices('MedicalServices')">
+                                            <span class="fa fa-save"></span> Medical Services
+                                        </button>
 
                                     </div>
+
+                                    <div class=" " id="div_of_serv">
+                                        <button id="OtherServices" type="button" class="btn btn-primary" onclick="PrintMedicalServices('OtherServices')">
+                                            <span class="fa fa-save"></span> Other Services
+                                        </button>
+
+                                    </div>
+
+                                    <div class=" " id="div_of_serv">
+                                        <button id="SerOutMediAuth" type="button" class="btn btn-primary" onclick="PrintMedicalServices('SerOutMediAuth')">
+                                            <span class="fa fa-save"></span> Services Outside the Medical Authority
+                                        </button>
+
+                                    </div>
+
+                                    @*Print Type*@
+
+                                    <div class="w-100 d-flex gap-3 justify-content-start px-0 border-0 form-group">
+                                        <label class="control-label fw-bold col-md-3">
+                                            Print Type
+                                        </label>
+                                        <div class="col-md-2">
+                                            <div class="checkbox-inline">
+                                                <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
+                                                <label for="pdf">
+                                                    PDF
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        @*<div class="col-md-2">
+                                             <div class="checkbox-inline">
+                                                 <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
+                                                 <label for="excel">
+                                                     EXCEL
+                                                 </label>
+                                             </div>
+                                         </div>*@
+
+                                    </div>
+
                                 </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -220,10 +220,15 @@
 
 </div>
     }
-
+    </div>
     <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-
     <script>
+        //$(document).ready(function () {
+
+        //    $('.hr-footer-parent').insertAfter('.sios-container');
+
+        //});
+
         $(function () {
             var id;
             $('#RegistrationFrom').datepicker({});

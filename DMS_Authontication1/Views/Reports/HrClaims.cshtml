@@ -3,7 +3,7 @@
 @using Newtonsoft.Json;
 @{
     ViewBag.Title = "Reports";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardHR.cshtml";
     var edit = false;
     var delete = false;
     var view = false;
@@ -30,114 +30,126 @@
         }
     }
 }
-<br />
-<div style="margin-top:40px">
-    <p>
-        @if (User.Identity.Name != "sofico-hr")
-        {
-            if (fullcontroll || view)
+
+<div class="sios-container">
+    <div class="">
+        <p class="mx-4 my-0 py-3 flex-wrap no-wrap d-flex gap-2">
+            @if (User.Identity.Name != "sofico-hr")
             {
-                @Html.ActionLink(" Inquiries About An Invoice", "Inquiries", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+                if (fullcontroll || view)
+                {
+                    @Html.ActionLink(" Inquiries About An Invoice", "Inquiries", null, htmlAttributes: new { @class = "btn action-btn", @style = " text-transform: none" })
+                }
             }
-        }
-        @if (fullcontroll || Create)
-        {
-            @Html.ActionLink("Staff Report ", "StaffConsumption", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || edit)
-        {
-            @Html.ActionLink(" Consumption", "ConsumptionHR", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || delete)
-        {
-            @Html.ActionLink(" Online Claims", "HrClaims", null, htmlAttributes: new { @class = "btn btn-secondary-outline ", @style = " text-transform: none" })
-        }
-    </p>
-</div>
-@if (fullcontroll || view)
-{
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Print Claims
-            </div>
-        </div>
-        <div class="portlet-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <input id="From" type="text" class="col-md-2 form-control " placeholder="From" />
-                </div>
-                <div class="col-md-2">
-                    <input id="To" type="text" class="col-md-2 form-control " placeholder="To" />
-                </div>
-                <div class="col-md-2">
-                    <input id="PharmacyApprovalNo" type="text" class="col-md-2 form-control " placeholder="ApprovalNo" />
-                </div>
-                <div class="col-md-2">
-                    <input id="PharmacyCardId" type="text" class="col-md-2 form-control " placeholder="Card ID" />
-                </div>
-                <div class="col-sm-2" data-step="6" data-intro="Select Type">
-                    <select id="ClaimType" class="form-control">
-                        <option value="0">All</option>
-                        <option value="1">Pharmacy</option>
-                        <option value="2">Lab</option>
-                        <option value="3">Ray</option>
-                    </select>
-                </div>
-                @if (User.IsInRole("HR_Admin"))
-                {
-                    <div class="col-md-2">
-                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CopmanyNumber" })
-
-                    </div>
-                    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                    <script>
-                        $(document).ready(function () {
-                            $('#CopmanyNumber').select2();
-                        });
-                    </script>
-                }
-                else
-                {
-                    <div class="col-md-6" hidden>
-                        <input id="CopmanyNumber" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-
-                    </div>
-                }
-            </div>
-            <div class="row" style="margin-top:40px;">
-                <div class="col-sm-2" id="divPharmacyType" data-step="6" data-intro="Select Preception type Default is Daily" hidden>
-                    <select id="ddlType" class="form-control">
-                        <option value="">Select Type</option>
-                        <option value="Daily">Daily</option>
-                        <option value="Monthly">Monthly</option>
-                        <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>
-                    </select>
-                </div>
-            </div>
-            <br />
-            <div class="row" style=" text-align:right">
-                <div class="col-md-12">
-                    <input id="PharmacyResetSearch" type="button" value="Reset" onclick="ClearPharmacySearchData();" class="btn btn-warning" />
-                    <input id="PharmacyAdminSearch" type="button" value="Search" class="btn btn-default  fa fa-search" />
-                    <input id="Print" type="button" value="Print" class="btn btn-primary fa fa-file-pdf-o" onclick="PrintHrClaimsXsl()" />
-                    @*<input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o" />*@
-
-
-                </div>
-            </div>
+            @if (fullcontroll || Create)
+            {
+                @Html.ActionLink("Staff Report ", "StaffConsumption", null, htmlAttributes: new { @class = "btn action-btn", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || edit)
+            {
+                @Html.ActionLink(" Consumption", "ConsumptionHR", null, htmlAttributes: new { @class = "btn action-btn", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || delete)
+            {
+                @Html.ActionLink(" Online Claims", "HrClaims", null, htmlAttributes: new { @class = "btn action-btn active", @style = " text-transform: none" })
+            }
+        </p>
+    </div>
+    @if (fullcontroll || view)
+    {
+<div class="portlet box  green">
+    <div class="row bg-overlay portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <i class="fa-solid fa-home me-1"></i>Print Claims
         </div>
     </div>
-
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Claims
+    <div class="portlet-body">
+        <div class="container mx-auto  row row-cols-sm-2 row-cols-lg-3 row-gap-2 mt-4">
+            <div class="forLabel px-2 border-0 rounded-2 form-group ">
+                <input id="From" type="text" class=" border-2 sios-form-control w-100 form-control " placeholder="" />
+                <span class="start-0">From</span>
             </div>
+            <div class="forLabel px-2 border-0 rounded-2 form-group ">
+                <input id="To" type="text" class=" border-2 sios-form-control w-100 form-control " placeholder="" />
+                <span class="start-0">To</span>
 
+            </div>
+            <div class="forLabel px-2 border-0 rounded-2 form-group ">
+                <input id="PharmacyApprovalNo" type="text" class=" border-2 sios-form-control w-100 form-control " placeholder="" />
+                <span class="start-0">ApprovalNo</span>
+
+            </div>
+            <div class="forLabel px-2 border-0 rounded-2 form-group ">
+                <input id="PharmacyCardId" type="text" class=" border-2 sios-form-control w-100 form-control " placeholder="" />
+                <span class="start-0">Card ID</span>
+
+            </div>
+            <div class="forLabel px-2 border-0 rounded-2 form-group " data-step="6" data-intro="Select Type">
+                <select id="ClaimType" class="border-2 sios-form-control w-100 form-control">
+                    <option value="0">All</option>
+                    <option value="1">Pharmacy</option>
+                    <option value="2">Lab</option>
+                    <option value="3">Ray</option>
+                </select>
+                <span class="start-0">Select Type</span>
+
+            </div>
+            @if (User.IsInRole("HR_Admin"))
+            {
+                <div class="forLabel px-2 border-0 rounded-2 form-group ">
+                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, new { @class = "border-2 sios-form-control w-100 form-control", id = "CopmanyNumber" })
+                    <span class="start-0"></span>
+
+
+                </div>
+                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                <script>
+                    $(document).ready(function () {
+                        $('#CopmanyNumber').select2();
+                    });
+                </script>
+            }
+            else
+            {
+                <div class="forLabel px-2 border-0 rounded-2 form-group " hidden>
+                    <input id="CopmanyNumber" type="number" class=" border-2 sios-form-control w-100 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+                    <span class="start-0">CompNum</span>
+
+
+                </div>
+            }
         </div>
-        <br />
-        <div class="portlet-body">
+        <div class="row" >
+            <div class="forLabel px-2 border-0 rounded-2 form-group " id="divPharmacyType" data-step="6" data-intro="Select Preception type Default is Daily" hidden>
+                <select id="ddlType" class="border-2 sios-form-control w-100 form-control">
+                    <option value="">Select Type</option>
+                    <option value="Daily">Daily</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>
+                </select>
+                <span class="start-0"></span>
+
+            </div>
+        </div>
+         
+        <div class="container d-flex justify-content-center gap-2 justify-content-sm-end px-4 mt-3 mb-4">
+            <input id="PharmacyResetSearch" type="button" value="Reset" onclick="ClearPharmacySearchData();" class="btn fw-bold rounded-3 " />
+            <input id="PharmacyAdminSearch" type="button" value="Search" class="btn fw-bold rounded-3  " />
+            <input id="Print" type="button" value="Print" class="btn fw-bold rounded-3  " onclick="PrintHrClaimsXsl()" />
+            @*<input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o" />*@ 
+        </div>
+    </div>
+</div>
+
+<div class="portlet box  green">
+    <div class="row bg-overlay portlet-title mb-4">
+        <div class="m-3 fs-3 text-white caption">
+            <i class="fa fa-"></i>Claims
+        </div>
+
+    </div>
+    <div class=" container mx-auto px-4 my-4 pb-5">
+        <div class="table-responsive portlet-body">
 
             <table class="ui celled table" id="Index" width="100%">
                 <thead>
@@ -174,39 +186,80 @@
             </table>
         </div>
     </div>
+</div>
 
-}
+    }
+ </div>
+    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
-<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+    <script>
+        $(function () {
+            $('#From').datepicker({
+                maxDate: 0
+            });
+            $('#To').datepicker({ maxDate: 0 });
+            $("#ClaimType").change(function () {
+                if ($("#ClaimType").val() == "1")
+                    $("#divPharmacyType").attr("hidden", false);
+                else
+                    $("#divPharmacyType").attr("hidden", true);
 
-<script>
-    $(function () {
-        $('#From').datepicker({
-            maxDate: 0
-        });
-        $('#To').datepicker({ maxDate: 0 });
-        $("#ClaimType").change(function () {
-            if ($("#ClaimType").val() == "1")
-                $("#divPharmacyType").attr("hidden", false);
-            else
-                $("#divPharmacyType").attr("hidden", true);
+            });
+            $("#ClaimType").map(function () {
+                if ($("#ClaimType").val() == "1")
+                    $("#divPharmacyType").attr("hidden", false);
+                else
+                    $("#divPharmacyType").attr("hidden", true);
 
-        });
-        $("#ClaimType").map(function () {
-            if ($("#ClaimType").val() == "1")
-                $("#divPharmacyType").attr("hidden", false);
-            else
-                $("#divPharmacyType").attr("hidden", true);
+            });
+            $('#PharmacyAdminSearch').click(function () {
+                var result = ValidPharmacySearchRequest();
+                if (result.valid) {
+                    var compnumber = $("#CopmanyNumber").val();
+                    var CardID = $("#PharmacyCardId").val();
+                    if (CardID != "" && CardID != null && CardID != undefined) {
+                        if (CardID.split("-")[0] != compnumber)
+                            toastr.error("you soud enter valid card");
+                        else {
+                            $('#Index').dataTable().fnDestroy();
+                            $("#Index").DataTable({
+                                "sAjaxSource": '/Reports/PreseptionList?CompanyNumber=' + compnumber + '&&ApprovalNo=' + $("#PharmacyApprovalNo").val() +
+                                    '&&ClaimType=' + $('#ClaimType').val() + '&&CardId=' + $("#PharmacyCardId").val()
+                                    + '&&Type=' + $("#ddlType").val() + '&&From=' + $("#From").val() + '&&To=' + $("#To").val(),
+                                "bServerSide": true,
+                                "processing": true,
+                                "bFilter": true,
+                                "bSort": false,
+                                "pageLength": 10,
+                                "bInfo": true,
+                                "columns": [
+                                    { "data": "Oracle_Id", "name": "Oracle_Id" },
+                                    { "data": "CardId", "name": "Card Id" },
+                                    { "data": "CompanyPercent", "name": "Company Percent" },
+                                    { "data": "TotalValue", "name": "Total Value" },
+                                    { "data": "Manager", "name": "Manager" },
+                                    { "data": "CreatedBy", "name": "CreatedBy" },
+                                    {
+                                        "data": "CreatedDate",
+                                        "name": "Created Date",
+                                        "mRender": function (data) {
+                                            var value = new Date(parseFloat(data.replace(/(^.*\()|([+-].*$)/g, '')));
+                                            var date = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                                            return date;
+                                        }
+                                    },
+                                    {
+                                        "data": "Oracle_Id",
+                                        "mRender": function (data) {
+                                            return '<button type="button" class="btn btn-default" data-id=' + data + ' onclick="Print(this);"> Print</button>';
+                                        }
+                                    }
 
-        });
-        $('#PharmacyAdminSearch').click(function () {
-            var result = ValidPharmacySearchRequest();
-            if (result.valid) {
-                var compnumber = $("#CopmanyNumber").val();
-                var CardID = $("#PharmacyCardId").val();
-                if (CardID != "" && CardID != null && CardID != undefined) {
-                    if (CardID.split("-")[0] != compnumber)
-                        toastr.error("you soud enter valid card");
+
+                                ]
+                            });
+                        }
+                    }
                     else {
                         $('#Index').dataTable().fnDestroy();
                         $("#Index").DataTable({
@@ -241,83 +294,43 @@
                                         return '<button type="button" class="btn btn-default" data-id=' + data + ' onclick="Print(this);"> Print</button>';
                                     }
                                 }
-
-
                             ]
                         });
                     }
                 }
-                else {
-                    $('#Index').dataTable().fnDestroy();
-                    $("#Index").DataTable({
-                        "sAjaxSource": '/Reports/PreseptionList?CompanyNumber=' + compnumber + '&&ApprovalNo=' + $("#PharmacyApprovalNo").val() +
-                            '&&ClaimType=' + $('#ClaimType').val() + '&&CardId=' + $("#PharmacyCardId").val()
-                            + '&&Type=' + $("#ddlType").val() + '&&From=' + $("#From").val() + '&&To=' + $("#To").val(),
-                        "bServerSide": true,
-                        "processing": true,
-                        "bFilter": true,
-                        "bSort": false,
-                        "pageLength": 10,
-                        "bInfo": true,
-                        "columns": [
-                            { "data": "Oracle_Id", "name": "Oracle_Id" },
-                            { "data": "CardId", "name": "Card Id" },
-                            { "data": "CompanyPercent", "name": "Company Percent" },
-                            { "data": "TotalValue", "name": "Total Value" },
-                            { "data": "Manager", "name": "Manager" },
-                            { "data": "CreatedBy", "name": "CreatedBy" },
-                            {
-                                "data": "CreatedDate",
-                                "name": "Created Date",
-                                "mRender": function (data) {
-                                    var value = new Date(parseFloat(data.replace(/(^.*\()|([+-].*$)/g, '')));
-                                    var date = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                                    return date;
-                                }
-                            },
-                            {
-                                "data": "Oracle_Id",
-                                "mRender": function (data) {
-                                    return '<button type="button" class="btn btn-default" data-id=' + data + ' onclick="Print(this);"> Print</button>';
-                                }
-                            }
-                        ]
-                    });
-                }
-            }
+            });
         });
-    });
-    function ValidPharmacySearchRequest() {
-        $.validity.setup({ outputMode: 'label' });
-        $.validity.start();
-        if ($("#From").val() == "") { toastr.error("Please,select From Date."); return { valid: false }; }
-        if ($("#To").val() == "") { toastr.error("Please,select To date."); return { valid: false }; }
-        return $.validity.end();
-    }
-    function ClearPharmacySearchData() {
-        $("#From").val("");
-        $("#To").val("");
-        $("#ddlType").val("");
-        $("#ClaimType").val("0");
-        $("#PharmacyApprovalNo").val("");
-        $("#PharmacyCardId").val("");
-        $("#PharmacyddlType").val('').trigger("change");
-        $('#Index').dataTable().fnDestroy();
-    }
-    function Print(button) {
-        var id = $(button).data('id');
-        window.open('/Reports/ControlPenelReport?id=' + id);
-    }
+        function ValidPharmacySearchRequest() {
+            $.validity.setup({ outputMode: 'label' });
+            $.validity.start();
+            if ($("#From").val() == "") { toastr.error("Please,select From Date."); return { valid: false }; }
+            if ($("#To").val() == "") { toastr.error("Please,select To date."); return { valid: false }; }
+            return $.validity.end();
+        }
+        function ClearPharmacySearchData() {
+            $("#From").val("");
+            $("#To").val("");
+            $("#ddlType").val("");
+            $("#ClaimType").val("0");
+            $("#PharmacyApprovalNo").val("");
+            $("#PharmacyCardId").val("");
+            $("#PharmacyddlType").val('').trigger("change");
+            $('#Index').dataTable().fnDestroy();
+        }
+        function Print(button) {
+            var id = $(button).data('id');
+            window.open('/Reports/ControlPenelReport?id=' + id);
+        }
 
-    function PrintHrClaimsXsl() {
+        function PrintHrClaimsXsl() {
 
-        window.open('/Reports/PrintHrClaimXsl?From=' + $("#From").val() +
-            '&&To=' + $("#To").val() + '&&ApprovalNo=' + $("#PharmacyApprovalNo").val() +
-            '&&CardId=' + $("#PharmacyCardId").val() + '&&TypePrint=' + $("#ClaimType").val() +
-            '&&CompanyNumber=' + $("#CopmanyNumber").val());
-    }
-
+            window.open('/Reports/PrintHrClaimXsl?From=' + $("#From").val() +
+                '&&To=' + $("#To").val() + '&&ApprovalNo=' + $("#PharmacyApprovalNo").val() +
+                '&&CardId=' + $("#PharmacyCardId").val() + '&&TypePrint=' + $("#ClaimType").val() +
+                '&&CompanyNumber=' + $("#CopmanyNumber").val());
+        }
 
 
 
-</script>
+
+    </script>
