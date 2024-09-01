@@ -56,7 +56,7 @@ namespace DMS_Authontication1.Controllers
                 COMP_ID = c.C_COMP_ID,
                 Name = c.C_ANAME + " || " + c.C_COMP_ID
 
-            }).ToList();
+            }).OrderBy(c => c.COMP_ID).ToList();
             SelectList companylist = new SelectList(companyname, "COMP_ID", "Name");
             ViewBag.company = companylist;
 
@@ -65,12 +65,20 @@ namespace DMS_Authontication1.Controllers
 
         public JsonResult getInformation(Int32 CompId)
         {
-            int maxContract = int.Parse(dbOra.RunReader(@"SELECT NVL(MAX(CONTRACT_NO), 0) FROM DMS_TEST.CONTRACT_DATA WHERE C_COMP_ID = '" + CompId + "'").Rows[0][0].ToString());
+            int maxContract = 0, countClass = 0, countEmp = 0;
+            if (CompId == 1 || CompId == 2 || CompId == 3 || CompId == 4)
+            {
+                countClass = CompId;
+                maxContract = 1;
+            }
+            else
+            {
+                maxContract = int.Parse(dbOra.RunReader(@"SELECT NVL(MAX(CONTRACT_NO), 0) FROM DMS_TEST.CONTRACT_DATA WHERE C_COMP_ID = '" + CompId + "'").Rows[0][0].ToString());
 
-            int countClass = int.Parse(dbOra.RunReader(@"SELECT NVL(COUNT (DISTINCT CLASS_CODE), 0) FROM DMS_TEST.COMP_CONTRACT_CLASS WHERE C_COMP_ID = '" + CompId +"' AND CONTRACT_NO = '" + maxContract +"'").Rows[0][0].ToString());
+                countClass = int.Parse(dbOra.RunReader(@"SELECT NVL(COUNT (DISTINCT CLASS_CODE), 0) FROM DMS_TEST.COMP_CONTRACT_CLASS WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + maxContract + "'").Rows[0][0].ToString());
 
-            int countEmp = int.Parse(dbOra.RunReader(@"SELECT NVL(COUNT (DISTINCT CARD_ID),0) FROM DMS_TEST.COMP_EMPLOYEES WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + maxContract + "' AND NVL(TERMINATE_FLAG, 'N') != 'Y'").Rows[0][0].ToString());
-            
+                countEmp = int.Parse(dbOra.RunReader(@"SELECT NVL(COUNT (DISTINCT CARD_ID),0) FROM DMS_TEST.COMP_EMPLOYEES WHERE C_COMP_ID = '" + CompId + "' AND CONTRACT_NO = '" + maxContract + "' AND NVL(TERMINATE_FLAG, 'N') != 'Y'").Rows[0][0].ToString());
+            }
             //int maxContract = db.Contract_Data
             //        .Where(c => c.C_COMP_ID == CompId)
             //        .Max(c => c.CONTRACT_NO);
