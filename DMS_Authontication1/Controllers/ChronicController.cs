@@ -246,7 +246,7 @@ namespace DMS_TEST.Controllers
         {
             int MedicinePrice = Convert.ToInt32(Price);
             var group = db.MedicineDatas.Where(x => x.ACTIVE == "Y").Where(m => m.M_CODE == id).FirstOrDefault();
-            List<ChronicViewModel> Alternativies = db.MedicineDatas.Where(x => x.ACTIVE == "Y").Where(d => d.MED_GROUP == group.MED_GROUP && d.PACK_PRICE >= (MedicinePrice - 10) && d.PACK_PRICE <= (MedicinePrice + 10))
+            List<ChronicViewModel> Alternativies = db.MedicineDatas.Where(x => x.ACTIVE == "Y").Where(d => d.MED_GROUP == group.MED_GROUP && /*d.PACK_PRICE >= (MedicinePrice - 10) &&*/ d.PACK_PRICE <= (MedicinePrice + 10))
                .Select(d => new ChronicViewModel
                {
 

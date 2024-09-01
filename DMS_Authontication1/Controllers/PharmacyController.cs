@@ -4315,7 +4315,7 @@ namespace DMS_TEST.Controllers
                 string accptionlistString = "";
                 var DataService1 = new Comp_Customized_D_D();
                 var med_card = new Med_Card();
-                int? NoOver = 0, NoPay = 0;
+                int? NoOver = 0, NoPay = 0, AcceptionId=0;
                 double CellingPert;
                 var DataService = db.Comp_Customized_D_D_Emp.Where(c => c.C_COMP_ID == patient.C_COMP_ID && c.CONTRACT_NO == patient.CONTRACT_NO && c.SER_SERV == data.RoshetaType && c.CARD_ID == patient.CARD_ID).FirstOrDefault();
                 if (DataService == null)
@@ -4326,6 +4326,7 @@ namespace DMS_TEST.Controllers
                 if (_RoshitaAcception != null)
                 {
                     var acception = db.Acceptions.Where(x => x.Id == _RoshitaAcception.AcceptionId).FirstOrDefault();
+                    AcceptionId = _RoshitaAcception.AcceptionId;
                     if (acception != null && acception.ApprovalType == "Vip")
                     {
                         accptionlistString = "Vip";
@@ -4422,7 +4423,7 @@ namespace DMS_TEST.Controllers
                 {
                     CellingPert = 100;
                 }
-
+                rd.SetParameterValue("hasApprovalCode", AcceptionId);
                 rd.SetParameterValue("pay", NoPay);
                 rd.SetParameterValue("over", NoOver);
                 rd.SetParameterValue("perc", CellingPert);
