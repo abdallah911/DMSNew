@@ -21,8 +21,8 @@ namespace DMS_Authontication1.ViewModel
         [Range(0, double.MaxValue, ErrorMessage = "Hospitals Residence Service Limit must be between 0 and the maximum value.")]
         public decimal? HospitalsResidenceServiceLimit { get; set; }
 
-        //[ConditionalRequired(nameof(HospitalsResidenceServicePercentageoption), true, ErrorMessage = "Hospitals Residence Service Percentage is required.")]
-        //[Range(0, 100, ErrorMessage = "Hospitals Residence Service Percentage must be between 0 and 100.")]
+        [ConditionalRequired(nameof(HospitalsResidenceServicePercentageoption), true, ErrorMessage = "Hospitals Residence Service Percentage is required.")]
+        [Range(0, 100, ErrorMessage = "Hospitals Residence Service Percentage must be between 0 and 100.")]
         public decimal? HospitalsResidenceServicePercentage { get; set; }
         [Required(ErrorMessage = "Please provide a value for Outside Clinics Limit Option.")]
         public bool OutsideClinicsLimitOption { get; set; }
