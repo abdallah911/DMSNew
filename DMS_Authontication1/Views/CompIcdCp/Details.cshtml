@@ -1,0 +1,120 @@
+﻿@model DMS_Authontication1.Models.CompIcdCpt
+@{
+    ViewBag.Title = "Claim details";
+}
+
+<!--Card Id Row-->
+<div class="portlet box  green">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i>Claim
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div hidden>
+            <input id="Id" name="Id" value="@Model.Id" />
+        </div>
+        <div class="panel panel-info">
+            <h2 class="panel-heading" style="margin:1px;">Details</h2>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            @Html.Label("Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.Label("Card Id", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.CARD_NO, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.Label("Claim No", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.CLAIM_NO, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.Label("Class Code", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.CLASS_CODE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.Label("Takhasos", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.TAKHASOS, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.Label("Provider Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.PRV_NAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-sm-2">
+                        @Html.Label("Provider Name", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.PRV_NAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.Label("Service Name", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.SERV_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.Label("Group Name", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.GROUP_ENAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.Label("Claim Date", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.CLAIM_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                    </div>
+                    <div class="col-sm-2" data-step="4" data-intro="Enter Clame Number">
+                        @Html.Label("CPT", htmlAttributes: new { @class = "control-label" })
+                        @Html.Editor("CPT", new { htmlAttributes = new { @class = "form-control", @id = "CPT", @required = "required" } })
+                    </div>
+                    <div class="col-sm-2" data-step="4" data-intro="Enter Clame Number">
+                        @Html.Label("ICD", htmlAttributes: new { @class = "control-label" })
+                        @Html.Editor("ICD", new { htmlAttributes = new { @class = "form-control", @id = "ICD", @required = "required" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Save-->
+        <div class="panel-footer" style="text-align:right;">
+            <input id="submit" type="button" value="Save" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/js/intro.js"></script>
+<script>
+    $(function () {
+        $('#submit').click(function () {
+            if ($('#ICD').val() == "" )
+            {
+                bootbox.alert("Enter ICD and CPT");
+            }
+            else if ($('#CPT').val() == "")
+            {
+                bootbox.alert("Enter CPT");
+            }
+            else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/CompIcdCp/Save/',
+                    dataType: 'Json',
+                    data: {
+                        ICD: $('#ICD').val(), CPT: $('#CPT').val(), Id: $('#Id').val()
+                    },
+                    success: function (data) {
+                        if (data == "True") {
+                            toastr.success('Added successfully ');
+                        }
+                        else {
+                            toastr.error("this ICD and CPT dosn't match ");
+                        }
+                    },
+                    error: function (err) {
+                        bootbox.alert("Error saving ,please check your internet connection");
+                    }
+                });
+            }
+        });
+    });
+</script>

@@ -836,6 +836,29 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="CompIcdCpt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CLAIM_NO" Type="float" />
+          <Property Name="CREATED_DATE" Type="date" />
+          <Property Name="CLAIM_DATE" Type="date" />
+          <Property Name="CARD_NO" Type="nvarchar" MaxLength="255" />
+          <Property Name="COMP_ID" Type="bigint" />
+          <Property Name="CLASS_CODE" Type="nvarchar" MaxLength="255" />
+          <Property Name="EMP_CODE" Type="int" />
+          <Property Name="EMP_ANAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="TAKHASOS" Type="nvarchar" MaxLength="255" />
+          <Property Name="PRV_NO" Type="int" />
+          <Property Name="PRV_NAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="SERV_CODE" Type="float" />
+          <Property Name="SERV_ANAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="GROUP_NO" Type="int" />
+          <Property Name="GROUP_ENAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="ICD" Type="nvarchar" MaxLength="255" />
+          <Property Name="CPT" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="CompStatement">
           <Key>
             <PropertyRef Name="Id" />
@@ -962,6 +985,13 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ArName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CptData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CPT" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="CriticalReason">
           <Key>
@@ -1464,6 +1494,13 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PageName" Type="nvarchar(max)" />
           <Property Name="Type" Type="int" />
+        </EntityType>
+        <EntityType Name="IcdData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ICD" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Indemnity">
           <Key>
@@ -3835,12 +3872,14 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="CompContractClass" EntityType="Self.CompContractClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompContractClassEmp" EntityType="Self.CompContractClassEmp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompHolder" EntityType="Self.CompHolder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompIcdCpt" EntityType="Self.CompIcdCpt" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompStatement" EntityType="Self.CompStatement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONSUMPTION_POOL" EntityType="Self.CONSUMPTION_POOL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactUs" EntityType="Self.ContactUs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contract_Comp" EntityType="Self.Contract_Comp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contract_Data" EntityType="Self.Contract_Data" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CptData" EntityType="Self.CptData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CriticalReason" EntityType="Self.CriticalReason" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CronaEmergancy" EntityType="Self.CronaEmergancy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DailyPermissions" EntityType="Self.DailyPermissions" Schema="dbo" store:Type="Tables" />
@@ -3873,6 +3912,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="HospitalServices" EntityType="Self.HospitalServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HrAdminCompanies" EntityType="Self.HrAdminCompanies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HrUserPages" EntityType="Self.HrUserPages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IcdData" EntityType="Self.IcdData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Indemnity" EntityType="Self.Indemnity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IndemnityCardsServices" EntityType="Self.IndemnityCardsServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IndemnityMaster" EntityType="Self.IndemnityMaster" Schema="dbo" store:Type="Tables" />
@@ -5805,6 +5845,9 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="OutsideNetworkInpatientResaons" EntityType="DB_A45413_DMSERPModel.OutsideNetworkInpatientResaon" />
           <EntitySet Name="OutsideNetworkOutpatientResaons" EntityType="DB_A45413_DMSERPModel.OutsideNetworkOutpatientResaon" />
           <EntitySet Name="PreXChronicReasons" EntityType="DB_A45413_DMSERPModel.PreXChronicReason" />
+          <EntitySet Name="CptDatas" EntityType="DB_A45413_DMSERPModel.CptData" />
+          <EntitySet Name="IcdDatas" EntityType="DB_A45413_DMSERPModel.IcdData" />
+          <EntitySet Name="CompIcdCpts" EntityType="DB_A45413_DMSERPModel.CompIcdCpt" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -8409,6 +8452,43 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CptData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CPT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="IcdData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ICD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CompIcdCpt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CLAIM_NO" Type="Double" />
+          <Property Name="CREATED_DATE" Type="DateTime" Precision="0" />
+          <Property Name="CLAIM_DATE" Type="DateTime" Precision="0" />
+          <Property Name="CARD_NO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="COMP_ID" Type="Int64" />
+          <Property Name="CLASS_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EMP_CODE" Type="Int32" />
+          <Property Name="EMP_ANAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TAKHASOS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PRV_NO" Type="Int32" />
+          <Property Name="PRV_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SERV_CODE" Type="Double" />
+          <Property Name="SERV_ANAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="GROUP_NO" Type="Int32" />
+          <Property Name="GROUP_ENAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ICD" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CPT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -11680,6 +11760,46 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PreXChronicReason">
               <MappingFragment StoreEntitySet="PreXChronicReason">
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CptDatas">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CptData">
+              <MappingFragment StoreEntitySet="CptData">
+                <ScalarProperty Name="CPT" ColumnName="CPT" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IcdDatas">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.IcdData">
+              <MappingFragment StoreEntitySet="IcdData">
+                <ScalarProperty Name="ICD" ColumnName="ICD" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompIcdCpts">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompIcdCpt">
+              <MappingFragment StoreEntitySet="CompIcdCpt">
+                <ScalarProperty Name="CPT" ColumnName="CPT" />
+                <ScalarProperty Name="ICD" ColumnName="ICD" />
+                <ScalarProperty Name="GROUP_ENAME" ColumnName="GROUP_ENAME" />
+                <ScalarProperty Name="GROUP_NO" ColumnName="GROUP_NO" />
+                <ScalarProperty Name="SERV_ANAME" ColumnName="SERV_ANAME" />
+                <ScalarProperty Name="SERV_CODE" ColumnName="SERV_CODE" />
+                <ScalarProperty Name="PRV_NAME" ColumnName="PRV_NAME" />
+                <ScalarProperty Name="PRV_NO" ColumnName="PRV_NO" />
+                <ScalarProperty Name="TAKHASOS" ColumnName="TAKHASOS" />
+                <ScalarProperty Name="EMP_ANAME" ColumnName="EMP_ANAME" />
+                <ScalarProperty Name="EMP_CODE" ColumnName="EMP_CODE" />
+                <ScalarProperty Name="CLASS_CODE" ColumnName="CLASS_CODE" />
+                <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
+                <ScalarProperty Name="CARD_NO" ColumnName="CARD_NO" />
+                <ScalarProperty Name="CLAIM_DATE" ColumnName="CLAIM_DATE" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="CLAIM_NO" ColumnName="CLAIM_NO" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

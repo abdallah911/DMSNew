@@ -200,6 +200,9 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.OutsideNetworkInpatientResaon" Width="1.5" PointX="43.375" PointY="0.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.OutsideNetworkOutpatientResaon" Width="1.5" PointX="44.375" PointY="13.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PreXChronicReason" Width="1.5" PointX="29.375" PointY="44.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CptData" Width="1.5" PointX="37.375" PointY="44.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.IcdData" Width="1.5" PointX="39.375" PointY="44.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompIcdCpt" Width="1.5" PointX="45.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

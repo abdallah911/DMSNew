@@ -1,0 +1,134 @@
+﻿@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    var Create = false;
+    var modellist = new List<ModulesPagesViewModel>();
+    var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+    if (claim != null)
+    {
+        modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+        if (modellist != null)
+        {
+            var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 12 && (x.FullControl || x.EditPermission
+                                          || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+            if (obj != null)
+            {
+                edit = obj.EditPermission;
+                delete = obj.ActivationControl;
+                view = obj.Preview;
+                fullcontroll = obj.FullControl;
+                Create = obj.AddPermission;
+
+            }
+        }
+    }
+}
+
+<br />
+
+<div style="margin-top:40px">
+    @if (!User.IsInRole("Admin"))
+    {
+        <p>
+            @if (fullcontroll || view)
+            {
+                @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || Create)
+            {
+                @Html.ActionLink(" Create Request", "EditRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-pencil", @style = " text-transform: none" })
+            }
+        </p>
+    }
+</div>
+@if (fullcontroll || view)
+{
+    <div class="portlet box  green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i>Operation
+            </div>
+
+        </div>
+        <br />
+        <div class="portlet-body">
+
+            <table class="ui celled table" id="Index" width="100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Card Id
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Claim No
+                        </th>
+                        <th>
+                            Claim Date
+                        </th>
+                        <th></th>
+                        @*<th></th>
+                            <th></th>
+                            <th></th>*@
+                    </tr>
+                </thead>
+                <tbody></tbody>
+
+            </table>
+        </div>
+    </div>
+}
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script>
+    $(function () {
+        $("#Index").DataTable({
+            "sAjaxSource": '/CompIcdCp/RequestList',
+            "bServerSide": true,
+            "processing": true,
+            "bFilter": true,
+            "bSort": false,
+            "pageLength": 10,
+            "bInfo": true,
+            "lengthChange": false,
+
+            "columns": [
+                { "data": "CARD_NO", "name": "Card Id" },
+                { "data": "EMP_ANAME", "name": "Name" },
+                { "data": "CLAIM_NO", "name": "Claim No" },
+
+                {
+                    "data": "CLAIM_DATE",
+                    "name": "Claim Date",
+                    "mRender": function (data) {
+                        var value = new Date(parseFloat(data.replace(/(^.*\()|([+-].*$)/g, '')));
+                        var date = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
+                        return date;
+                    }
+                },
+                {
+                    "data": "Id",
+                    "mRender": function (data) {
+                        if ("@fullcontroll" == "True" || "@view" == "True") {
+                            return '<a class="btn btn-primary fa fa-list" href="/CompIcdCp/Details/' + data + '"> Details </a>';
+                        }
+                        else
+                            return '<input  data-id=' + data + '  hidden  /> ';
+                    }
+                },
+
+
+            ]
+        });
+    })
+</script>

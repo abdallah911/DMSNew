@@ -2852,7 +2852,7 @@ namespace DMS_TEST.Controllers
         //Age Validation
         public JsonResult AgeValidation(string CardId, string MedicineCode, string Id)
         {
-            var EmpBithdate = db.Comp_Employees.Where(x => x.CARD_ID == CardId).FirstOrDefault().BIRTH_DATE;
+            var EmpBithdate = db.Comp_Employees.Where(x => x.CARD_ID == CardId).OrderByDescending(x=>x.CONTRACT_NO).FirstOrDefault().BIRTH_DATE;
             var today = DateTime.Today;
             var age = today.Year - (EmpBithdate == null ? today.Year : EmpBithdate.Value.Year);
             string Adaltation = "Child";
