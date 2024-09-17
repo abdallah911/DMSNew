@@ -206,11 +206,15 @@ div#btnUp:hover {
     box-shadow: inset #2e066236 0px 0px 60px -12px !important;
 }
 /* ==================services=================== */
-
+.navbar-brand {
+    background: white;
+    padding: 8px;
+    border-radius: 8px;
+}
 .card {
-  cursor: pointer;
-  transition: all 0.5s;
-  /* height: 380px; */
+    cursor: pointer;
+    transition: all 0.5s;
+    /* height: 380px; */
 }
 
 .card:hover {
