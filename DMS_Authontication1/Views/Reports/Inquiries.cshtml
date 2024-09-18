@@ -3,7 +3,7 @@
 @using Newtonsoft.Json;
 @{
     ViewBag.Title = "Inquiries";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardHR.cshtml";
     var edit = false;
     var delete = false;
     var view = false;
@@ -31,151 +31,103 @@
     }
 }
 
-<br />
-<div style="margin-top:40px">
-    <p>
-        @if (fullcontroll || view)
-        {
-            @Html.ActionLink(" Inquiries About An Invoice", "Inquiries", null, htmlAttributes: new { @class = "btn btn-secondary-outline ", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || Create)
-        {
-            @Html.ActionLink("Staff Report ", "StaffConsumption", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || edit)
-        {
-            @Html.ActionLink(" Consumption", "ConsumptionHR", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || delete)
-        {
-            @Html.ActionLink(" Online Claims", "HrClaims", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
-        }
-    </p>
-</div>
-@if (fullcontroll || view)
-{
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Inquiries about an invoice
-            </div>
+
+<div class="sios-container">
+    <div class="">
+        <p class="mx-4 my-0 py-3 d-flex flex-wrap no-wrap gap-2">
+            @if (fullcontroll || view)
+            {
+                @Html.ActionLink(" Inquiries About An Invoice", "Inquiries", null, htmlAttributes: new { @class = "btn action-btn active", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || Create)
+            {
+                @Html.ActionLink("Staff Report ", "StaffConsumption", null, htmlAttributes: new { @class = "btn action-btn", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || edit)
+            {
+                @Html.ActionLink(" Consumption", "ConsumptionHR", null, htmlAttributes: new { @class = "btn action-btn", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || delete)
+            {
+                @Html.ActionLink(" Online Claims", "HrClaims", null, htmlAttributes: new { @class = "btn action-btn", @style = " text-transform: none" })
+            }
+        </p>
+    </div>
+    @if (fullcontroll || view)
+    {
+<div class="portlet box  green">
+    <div class="row bg-overlay portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <i class="fa-solid fa-home me-1"></i>Inquiries about an invoice
         </div>
-        <div class="portlet-body">
-            <div class="row ">
-                <div class="col-md-12">
-                    <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
-                        <!-- BEGIN PAGE HEADER-->
-                        <!-- BEGIN THEME PANEL -->
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN THEME PANEL -->
 
-                        <div class="form-wizard">
-                            <div class="form-body">
-                                <div class="tab-content">
-                                    <div asp-validation-summary="All" class="text-danger"></div>
-
-                                    <div class="row">
-                                        @*Date of Registration*@
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Date of Registration :
-
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <label class="control-label sbold col-md-3">
-                                                        From
-
-                                                    </label>
-                                                    <div class="col-md-9">
-                                                        <input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="From" />
-                                                    </div>
-                                                </div>
-                                                <br />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="control-label sbold col-md-2">
-                                                TO
+                    <div class="form-wizard">
+                        <div class="form-body">
+                            <div class="tab-content">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                @*Date of Registration*@
+                                <div class="  row row-cols-md-2  row-gap-2 container my-4 mx-auto">
+                                    <div class="  d-flex flex-column gap-2">
+                                        <div class="d-flex align-items-center sios-form-control w-100 form-group" style="padding: 0 10px !important;">
+                                            <label class="control-label sbold col-md-3">
+                                                Date of Registration
 
                                             </label>
-                                            <div class="col-md-10">
-                                                <input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                                            <div class="col-8   d-flex align-items-baseline  position-relative">
+                                                <input type="text" id="RegistrationFrom" style="outline:none;box-shadow:none!important;" class="date-input border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="From"><i class="fa-solid fa-calendar-days opacity-75 me-2 hr-color"></i>
+                                                <div style="width: 1px; height: 20px;  right: 49%;" class="line position-absolute top-50  translate-middle-y opacity-75  "></div>
+                                                <input type="text" id="RegistrationTo" style="outline:none;box-shadow:none!important;" class="date-input outli border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="to"><i class="fa-solid fa-calendar-days opacity-75 hr-color"></i>
                                             </div>
                                         </div>
 
                                         @*Date of Service*@
 
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Date of Service :
+                                        <div class="d-flex align-items-center sios-form-control w-100 form-group" style="padding: 0 10px !important;">
 
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <label class="control-label sbold col-md-3">
-                                                        From
-
-                                                    </label>
-                                                    <div class="col-md-9">
-                                                        <input id="ServiceFrom" type="text" class="col-md-2 form-control " placeholder="From" />
-                                                    </div>
-                                                </div>
-                                                <br />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="control-label sbold col-md-2">
-                                                TO
+                                            <label class="control-label sbold col-md-3">
+                                                Date of Service
 
                                             </label>
-                                            <div class="col-md-10">
-                                                <input id="ServiceTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                                            <div class="col-8   d-flex align-items-baseline  position-relative">
+                                                <input type="text" id="ServiceFrom" style="outline:none;box-shadow:none!important;" class="date-input border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="From"><i class="fa-solid fa-calendar-days opacity-75 me-2 hr-color"></i>
+                                                <div style="width: 1px; height: 20px;  right: 49%;" class="line position-absolute top-50  translate-middle-y opacity-75  "></div>
+                                                <input type="text" id="ServiceTo" style="outline:none;box-shadow:none!important;" class="date-input outli border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="to"><i class="fa-solid fa-calendar-days opacity-75 hr-color"></i>
                                             </div>
                                         </div>
 
                                         @* Claim Number *@
+                                        <div class="d-flex align-items-center sios-form-control w-100 form-group" style="padding: 0 10px !important;">
 
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Claim Number :
-
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <label class="control-label sbold col-md-3">
-                                                        From
-
-                                                    </label>
-                                                    <div class="col-md-9">
-                                                        <input id="ClaimFrom" type="number" class="col-md-2 form-control " placeholder="From" min="0" step="1" />
-                                                    </div>
-                                                </div>
-                                                <br />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="control-label sbold col-md-2">
-                                                TO
+                                            <label class="control-label sbold col-md-3">
+                                                Claim Number
 
                                             </label>
-                                            <div class="col-md-10">
-                                                <input id="ClaimTo" type="number" class="col-md-2 form-control " placeholder="To" min="0" step="1" />
+                                            <div class="col-8   d-flex align-items-baseline  position-relative">
+                                                <input type="text" id="ClaimFrom" style="outline:none;box-shadow:none!important;" class="date-input border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="From"><i class="fa-solid fa-calendar-days opacity-75 me-2 hr-color"></i>
+                                                <div style="width: 1px; height: 20px;  right: 49%;" class="line position-absolute top-50  translate-middle-y opacity-75  "></div>
+                                                <input type="text" id="ClaimTo" style="outline:none;box-shadow:none!important;" class="date-input outli border-0 w-100 h-100 p-2 bg-transparent text-center hr-color" name="end-date" required="" placeholder="to"><i class="fa-solid fa-calendar-days opacity-75 hr-color"></i>
                                             </div>
                                         </div>
 
                                         @* Copmany Number *@
+                                        <div class="d-flex align-items-center sios-form-control w-100 form-group" style="padding: 0 10px !important;">
 
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Copmany Number :
-                                                </label>
-
+                                            <label class="control-label sbold col-md-3">
+                                                Copmany Number
+                                            </label>
+                                            <div class="col-8 ms-auto p-1 row-cols-2  d-flex align-items-baseline select2-no-border position-relative">
                                                 @if (User.IsInRole("HR_Admin"))
                                                 {
-                                                    <div class="col-md-6">
-                                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", id = "CopmanyNumber" })
+                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", id = "CopmanyNumber" })
 
-                                                    </div>
+
                                                     <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
                                                     <script>
                                                         $(document).ready(function () {
@@ -185,105 +137,99 @@
                                                 }
                                                 else
                                                 {
-                                                    <div class="col-md-6">
-                                                        <input id="CopmanyNumber" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-
-                                                    </div>
+                                                    <input id="CopmanyNumber" type="number" class="col-md-2 h-100 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
                                                 }
-                                                <br />
                                             </div>
                                         </div>
-                                        <br />
+
 
                                         @* Service provider number *@
 
-                                        <div class="col-md-8">
-                                            <div class="form-group">
+                                        <div class="  d-flex flex-column gap-2 ">
+                                            <div class="d-flex align-items-center sios-form-control w-100 form-group mx-0" style="padding: 0 10px !important;">
                                                 <label class="control-label sbold col-md-4">
-                                                    Service Provider Number :
-
+                                                    Service Provider Number
                                                 </label>
-                                                <div class="col-md-5">
-                                                    <input id="SerProvNumber" type="number" class="col-md-2 form-control " min="0" />
-
+                                                <div class="col-8 p-1 row-cols-2 select2-no-border d-flex align-items-baseline  position-relative">
+                                                    <input id="SerProvNumber" type="number" class="col-md-2 h-100 form-control " min="0" />
                                                 </div>
-                                                <br />
+
                                             </div>
                                         </div>
-                                        <br />
 
+                                    </div>
                                         @*Print Type*@
+                                        <div class="d-flex flex-column gap-2 justify-content-end align-items-start  no-wrap">
 
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Print Type :
-                                                </label>
-                                                <div class="col-md-2">
-                                                    <div class="checkbox-inline">
-                                                        <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
-                                                        <label for="pdf">
-                                                            PDF
-                                                        </label>
-                                                    </div>
-                                                </div>
 
-                                                @*<div class="col-md-2">
-                                                    <div class="checkbox-inline">
-                                                        <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
-                                                        <label for="excel">
-                                                            EXCEL
-                                                        </label>
-                                                    </div>
-                                                </div>*@
-                                                <br />
-                                            </div>
-                                        </div>
-                                        <br />
-
-                                        @* For Buttons *@
-
-                                        <div class="col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px">
-
-                                            <div class="col-sm-4" id="div_of_serv">
+                                            <div class=" " id="div_of_serv">
                                                 <button id="MedicalServices" type="button" class="btn btn-primary" onclick="PrintMedicalServices('MedicalServices')">
                                                     <span class="fa fa-save"></span> Medical Services
                                                 </button>
 
                                             </div>
 
-                                            <div class="col-sm-4" id="div_of_serv">
+                                            <div class=" " id="div_of_serv">
                                                 <button id="OtherServices" type="button" class="btn btn-primary" onclick="PrintMedicalServices('OtherServices')">
                                                     <span class="fa fa-save"></span> Other Services
                                                 </button>
 
                                             </div>
 
-                                            <div class="col-sm-4" id="div_of_serv">
+                                            <div class=" " id="div_of_serv">
                                                 <button id="SerOutMediAuth" type="button" class="btn btn-primary" onclick="PrintMedicalServices('SerOutMediAuth')">
                                                     <span class="fa fa-save"></span> Services Outside the Medical Authority
                                                 </button>
 
                                             </div>
+                                            <div class="w-100 d-flex gap-3 justify-content-start px-0 border-0 form-group">
+                                                <div class="w-100 d-flex align-items-center gap-3 justify-content-start px-0 border-0 form-group">
+                                                    <label class="control-label sbold col-md-3">
+                                                        Print Type
+                                                    </label>
+                                                    <div class="d-flex   flex-column  ">
+                                                        <div class="checkbox-inline">
+                                                            <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
+                                                            <label for="pdf">
+                                                                PDF
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    @*  <div class="checkbox-inline">
+                                            <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
+                                            <label for="excel">
+                                                EXCEL
+                                            </label>
+                                        </div>*@
+                                                </div>
+                                            </div>
+
+
+                                            @* For Buttons *@
+
+
 
                                         </div>
-                                    </div>
+                                
                                 </div>
                             </div>
                         </div>
                         @*<div class="panel-footer" style="text-align:right;">
-                                <input data-step="9" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearSaveRequest();" class="btn btn-warning" />
-                                <input type="submit" id="submit" value="Create" class="btn btn-success" style="text-transform: none" />
+                             <input data-step="9" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearSaveRequest();" class="btn btn-warning" />
+                             <input type="submit" id="submit" value="Create" class="btn btn-success" style="text-transform: none" />
+                       
+                         </div>*@
+                    </div>
 
-                            </div>*@
-                    </form>
-                </div>
+                </form>
             </div>
-
         </div>
 
     </div>
-}
+
+</div>
+    }
+</div>
 
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 

@@ -76,7 +76,7 @@
 
                                 <div class=" row row-gap-2 justify-content-start container mx-auto my-4 no-wrap">
 
-                                    <div class="col-md-9 d-flex flex-column gap-2 ">
+                                    <div class="col-md-9 d-flex flex-column gap-2">
                                         @*Date of Registration*@
                                         <div class="d-flex align-items-center sios-form-control w-100 form-group" style="padding: 0 10px !important;">
 
@@ -230,31 +230,31 @@
 
                                     </div>
                                     <div class="w-100 d-flex align-items-center justify-content-start gap-2 flex-wrap">
-                                        <div class=" col-md-6 d-flex flex-column gap-2 " >
+                                        <div class=" col-md-6 d-flex flex-column gap-2 ">
                                             <div class="d-flex align-items-center sios-form-control w-100 form-group mx-0" style="padding: 0 10px !important;">
                                                 <label class="control-label hr-color col-md-4">
                                                     Service Provider Number :
-                                          
+
                                                 </label>
                                                 <div class="col-8 row-cols-2 select2-no-border d-flex align-items-baseline  position-relative">
-                                          
+
                                                     <select id="ProviderName" name="ProviderName" class="border-0 w-100 h-100 p-2 bg-transparent text-center hr-color form-control form-control js-data-example-ajax" style="width: 100%"></select>
                                                     @*<input id="SerProvNumber" type="number" class="col-md-2 form-control " min="0" />*@
-                                          
+
                                                 </div>
-                                          
+
                                             </div>
-                                          
-                                          
+
+
                                             @* Repot Type *@
-                                          
+
                                             <div class="d-flex align-items-center sios-form-control w-100 form-group mx-0" style="padding: 0 10px !important;">
                                                 <label class="control-label hr-color col-md-3">
                                                     Repot Type :
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-8 row-cols-2 select2-no-border d-flex align-items-baseline  position-relative">
-                                          
+
                                                     @if (User.Identity.Name == "sofico-hr")
                                                     {
                                                         <select id="RepotType" class="border-0 w-100 h-100 p-2 bg-transparent text-center hr-color form-control">
@@ -285,7 +285,7 @@
                                         </div>
                                         <div class="d-flex gap-3 align-items-center px-2">
                                             <div class="d-flex align-items-center gap-3 justify-content-start px-0 border-0 form-group">
-                                                <label class="control-label fw-bold  "style="height: fit-content;">
+                                                <label class="control-label fw-bold  " style="height: fit-content;">
                                                     Print Type :
                                                 </label>
                                                 <div class="d-flex   flex-column  ">
@@ -294,7 +294,7 @@
                                                         <label for="pdf">
                                                             PDF
                                                         </label>
-                                                    </div> 
+                                                    </div>
                                                     <div class="checkbox-inline">
                                                         <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
                                                         <label for="excel">
@@ -320,20 +320,22 @@
                                     </div>
 
 
+
                                     @*Print Type*@
 
-                                
+
                                 </div>
-                                </div>
-                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
+        </div>
 
     </div>
 
-</div>
+
     }
     </div>
     <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
