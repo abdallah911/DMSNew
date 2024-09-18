@@ -16,6 +16,66 @@ body {
   background-size: 100% 100%;
   width: 100%;
 }
+p{
+    margin:0;
+}
+/*==========================forLabel==================================================*/
+.forLabel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 2px solid white
+}
+.forLabel input {
+    height:50px;
+    background: transparent;
+    border:none;
+    color:white;
+    padding-left:15px;
+    font-weight:500;
+}
+    .forLabel > span:not(.select2-container), .select {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        /* left: 10px; */
+        color: white;
+        font-weight: bold;
+        font-size: 12px;
+        padding-left: 15px;
+        width: max-content;
+        pointer-events: none;
+        transition: all 0.2s ease-in-out;
+    }
+    .forLabel input:valid ~ span,
+    .forLabel input:disabled ~ span:last-of-type,
+    .forLabel input:focus ~ span {
+        pointer-events: none;
+        font-size: 10px;
+        transform: translateY(-110%);
+        color: white;
+        transition: all 0.2s ease-in-out;
+    }
+    .forLabel input:focus  {
+        outline: none;
+        /* border: 2px solid #566084; */ 
+        padding: 14px 15px 0 !important;
+        transition: all 0.2s ease-in;
+        font-weight: 700;
+        color: white;
+        border: 2px solid var(--color-secondary);
+    }
+
+    .forLabel input:valid {
+        outline: none;
+        transition: all 0.2s ease-in;
+        font-weight: 500;
+        color: white;
+        font-size: 14px;
+        padding-top: 13px;
+    }
+/*==========================forLabel==================================================*/
 
 .layer {
   width: 100% !important;
@@ -23,39 +83,30 @@ body {
   background: rgba(243, 240, 238, 0.527);
 }
 .container {
-  position: relative;
-  background-color: rgb(29, 58, 100);
-  width: 450px;
-  height: 440px;
-  overflow: hidden;
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important; */
-  box-shadow: 0 0 5px #45f3ff3d, 0 0 25px #45f3ff3d, 0 0 50px #45f3ff3d,
-    0 0 200px #45f3ff3d !important;
+    position: relative;
+    background: linear-gradient(45deg, #4d3c9d, #5b0d72);
+    width: 450px;
+    height: 440px;
+    overflow: hidden;
+    box-shadow: 0 0 5px #c045ff3d, 0 0 25px #c045ff33, 0 0 50px #c045ff2b, 0 0 200px #c045ff3d !important;
 }
 
 .container form {
   z-index: 2;
 }
 
-.container::before {
-  position: absolute;
-  width: 550px;
-  height: 540px;
-  content: "";
-  top: 0%;
-  left: -50%;
-  background: linear-gradient(
-    0deg,
-    transparent,
-    transparent,
-    #45f3ff3d,
-    #45f3ff3d,
-    #45f3ff
-  );
-  z-index: 1;
-  animation: animate 5s linear infinite;
-  transform-origin: bottom right;
-}
+    .container::before {
+        position: absolute;
+        width: 550px;
+        height: 540px;
+        content: "";
+        top: 0%;
+        left: -50%;
+        background: linear-gradient(0deg, transparent, transparent, #bb45ff3d, #b545ff3d, #ab45ff);
+        z-index: 1;
+        animation: animate 5s linear infinite;
+        transform-origin: bottom right;
+    }
 
 @keyframes animate {
   0% {
@@ -119,9 +170,9 @@ body {
 }
 
 .layer {
-  background-color: rgba(0, 0, 0, 0.7);
-  width: 100%;
-  height: 100%;
+    background-color: #000b1fb3;
+    width: 100%;
+    height: 100%;
 }
 
 .categories {

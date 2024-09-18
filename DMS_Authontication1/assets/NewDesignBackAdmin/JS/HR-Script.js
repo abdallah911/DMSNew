@@ -19,4 +19,6 @@ $(document).ready(function () {
     $(".btn-tog-parent").children(".profile-collapse").removeClass("show");
     $(this).siblings(".profile-collapse").addClass("show");
   });
+    $('.hr-footer-parent').insertAfter('.sios-container');
+
 });

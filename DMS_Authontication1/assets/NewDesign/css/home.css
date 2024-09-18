@@ -136,12 +136,12 @@ a {
 }
 
 .login-btn {
-  background-color: #3e63c99a !important;
+  background-color: #3e63c99a ;
   margin-left: 20px;
   padding: 10px !important;
 }
 .login-btn:hover {
-    background-color: #3e63c9a3 !important;
+  box-shadow: inset #18121230 0px 0px 60px -12px;
 }
 
 .btn1 {
@@ -202,12 +202,19 @@ a {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
 }
 
+div#btnUp:hover {
+    box-shadow: inset #2e066236 0px 0px 60px -12px !important;
+}
 /* ==================services=================== */
-
+.navbar-brand {
+    background: white;
+    padding: 8px;
+    border-radius: 8px;
+}
 .card {
-  cursor: pointer;
-  transition: all 0.5s;
-  /* height: 380px; */
+    cursor: pointer;
+    transition: all 0.5s;
+    /* height: 380px; */
 }
 
 .card:hover {
@@ -507,8 +514,7 @@ a {
     padding: 0;
     width: 300px;
     height: 300px;
-    border-radius: 20px;
-    ;
+    border-radius: 20px; 
 }
 
 .product-card:hover {
@@ -595,13 +601,13 @@ product-card {
 }
 
 ::-webkit-scrollbar-track {
-    background: #c8cbdb;
+    background: #d2c8db;
     border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #9195a7;
-    border: 4px solid #c8cbdb;
+    background: #9e91a7;
+    border: 4px solid #d2c8db;
     width: 24px;
     border-radius: 15px;
 }

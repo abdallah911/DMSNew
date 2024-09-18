@@ -25,26 +25,25 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="inputBtn my-4">
-                        @Html.EditorFor(m => m.UserName)
+                    <div class="forLabel my-4">
+                        @Html.EditorFor(m => m.UserName )
 
                         @*<input type="text" required="required" />*@
-                        <span>User Name</span>
-                        <i></i>
+                        <span><i class="fa-solid fa-user me-1"></i>User Name</span>
                         @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                     </div>
-                    <div class="inputBtn mt-4">
-                        @Html.PasswordFor(m => m.Password)
-                        <span>Password</span>
-                        <i></i>
+                    <div class="forLabel mt-4">
+                        @Html.PasswordFor(m => m.Password, new { @required = "True" })
+                        <span><i class="fa-solid fa-lock me-1"></i>Password</span>
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         @*<input type="password" required="required" />*@
 
                     </div>
 
-                     @*<input type="submit" value="Login" class="button button_1 intro_button trans_200" />*@
+                    @*<input type="submit" value="Login" class="button button_1 intro_button trans_200" />*@
                     <input type="submit"
-                           class="btn btn-outline-primary shadow w-50 rounded-4 mt-3 text-white fw-bold fs-4"
+                           class="btn   shadow w-50 rounded-4 mt-3 text-white fw-bold fs-4"
+                           style="background: linear-gradient(45deg, #4556ac, #8742d1);"
                            value="Login" />
                 }
 
@@ -70,9 +69,15 @@
             </div>
         </div>
     </div>
-
+    
     <script src="~/assets/NewDesign/js/bootstrap.bundle.min.js"></script>
     <script src="~/assets/NewDesign/js/bootstrap.min.js"></script>
     <script src="~/assets/NewDesign/js/jquery-3.6.3.min.js"></script>
+    <script src="~/assets/NewDesign/js/index.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#UserName').prop('required', true);
+        });
+    </script>
 </body>
 </html>

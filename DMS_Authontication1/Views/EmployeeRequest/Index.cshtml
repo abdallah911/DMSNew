@@ -3,8 +3,8 @@
 @using Newtonsoft.Json;
 @{
     ViewBag.Title = "Index";
-    
-    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
+
+    Layout = "~/Views/Shared/_Layout_DashboardHR.cshtml";
 
     var edit = false;
     var delete = false;
@@ -33,69 +33,66 @@
     }
 }
 
-
-
-<div  >
+<div>
     @if (!User.IsInRole("Admin"))
     {
-        <p>
+        <p class="  my-4 mx-auto ms-sm-4">
             @if (fullcontroll || view)
             {
-                @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search", @style = " text-transform: none" })
+                @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn action-btn rounded-3 text-white fw-bold me-2 active", @style = " text-transform: none" })
             }
             @if (fullcontroll || Create)
             {
-                @Html.ActionLink(" Create Request", "EditRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-pencil", @style = " text-transform: none" })
+                @Html.ActionLink(" Create Request", "EditRequest", null, htmlAttributes: new { @class = "btn action-btn rounded-3 text-white fw-bold", @style = " text-transform: none" })
             }
         </p>
     }
 </div>
 @if (fullcontroll || view)
 {
-<div class=" sios-container editeRquest fw-bold pt-4 mb-4 portlet box  green">
-    <div class="row bg-overlay portlet-title">
-        <div class="m-3 fs-3 text-white caption">
-            <i class="fa fa-gift me-3"></i>Operation
+    <div class="   sios-container editeRquest fw-bold  portlet box  green">
+        <div class="row bg-overlay portlet-title">
+            <div class="m-3 fs-3 text-white caption">
+                <i class="fa fa-gift me-1"></i>Operation
+            </div> 
         </div>
+        <div class=" w-100 m-auto px-4 mt-4 pb-4">
+            <div class="table-responsive portlet-body">
 
-    </div>
-    <div class="cs-bg w-100 m-auto px-4 mt-4 pb-4">
-        <div class="table-responsive portlet-body">
+                <table class="table table-striped mt-3 text-center ui celled table" id="Index" width="100%">
+                    <thead>
+                        <tr>
 
-            <table class="table table-striped mt-3 text-center ui celled table" id="Index" width="100%">
-                <thead>
-                    <tr>
-
-                        <th>
-                            Id
-                        </th>
-                        <th>
-                            Card Id
-                        </th>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Request Type
-                        </th>
-                        <th>
-                            status
-                        </th>
-                        <th>
-                            CreatedDate
-                        </th>
-                        <th></th>
-                        @*<th></th>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Card Id
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Request Type
+                            </th>
+                            <th>
+                                status
+                            </th>
+                            <th>
+                                CreatedDate
+                            </th>
                             <th></th>
-                            <th></th>*@
-                    </tr>
-                </thead>
-                <tbody></tbody>
+                            @*<th></th>
+                                <th></th>
+                                <th></th>*@
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
 
-            </table>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 }
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
@@ -156,7 +153,7 @@
                         return date;
                     }
                 },
-                {  
+                {
                     "data": "REQUEST_CODE",
                     "mRender": function (data) {
                         if ("@fullcontroll" == "True" || "@view" == "True") {

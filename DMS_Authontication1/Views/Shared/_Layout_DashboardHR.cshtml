@@ -8,7 +8,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIOS - @ViewBag.Title</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
@@ -16,33 +15,31 @@
     <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/bootstrap.min.css" />
     <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/jquery-ui.min.css" />
     <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/select2.min.css" />
-    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/admin.css" />  <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/HomeTemplete/Content/toastr.min.css" />
     <link href="~/assets/global/plugins/jquery-validity/css/jquery.validity.css" rel="stylesheet" />
     <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-
-
+    <link rel="stylesheet" href="~/assets/NewDesignBackAdmin/CSS/admin.css" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-227248876-1"></script>
-    
+
 
 </head>
-<body >
+<body class="hr-page">
 
-   
-    <div class="page---container">
+
+    <div class="page--container">
 
         <!-- Main Menu -->
-        <nav style="white-space:nowrap;" class="navbar navbar-expand-lg bg-body-tertiary Admin-navbar">
+        <nav style="white-space:nowrap;" class="navbar hr-nav-bar navbar-expand-md bg-body-tertiary Admin-navbar">
             <div class="container-fluid" style="justify-content: space-between">
                 <div class="d-flex align-items-center">
-                    <a class="nav-link mb-2 mt-1"
-                       style="font-size: 16px; color: #fafcff"
+                    <a class="nav-link mb-2 mt-1 rounded-4 p-2"
+                       style="width: 100px; background: #ebe7f4; "
                        href="~/Home/Index"
                        role="button"
                        aria-expanded="false">
-                        <i class="fas fa-home"></i>
-                        Home
+                        <img class="w-100 h-100 " src="~/assets/NewDesignBackAdmin/Img/logo-subtitle.png" alt="dms logo" />
                     </a>
                 </div>
                 <button class="navbar-toggler me-4"
@@ -56,19 +53,23 @@
                     <i class="fa-solid fa-bars" style="color: white"></i>
                 </button>
                 @*@if ((User.IsInRole("Admin") || User.IsInRole("AdminHelth") || User.IsInRole("Doctor")) && User.Identity.IsAuthenticated)
-                    {*@
-                <div class="collapse navbar-collapse justify-content-between align-items-center mt-0"
-                     id="navbarSupportedContent">
-                    <div class="d-flex flex-column mx-auto flex-lg-row mb-3 mb-lg-0 ps-4 ">
-                        <ul class="ps-0 hosp-main-ul nav navbar-nav nav-admin-cus" style="color: #000">
-                            <li><a href="/Hospital">Hospital</a></li>
-                            <li><a href="/Hospital/Claims">Claims</a></li>
-                            <li><a href="/Hospital/AddApproval">Add Approval</a></li>
-                            <li><a href="/Hospital/AprovalsEdit">Approvals Edit</a></li>
+                    {*@    <div class="collapse navbar-collapse justify-content-between align-items-center mt-0"
+                                id="navbarSupportedContent">
+                    <div class="d-flex flex-column mx-auto flex-lg-row mb-3 mb-md-0 ps-4 ">
+                        <ul class="ps-0 pharm-main-ul nav navbar-nav nav-admin-cus" style="color: #000;white-space:nowrap">
+                            <li><a href="/EmployeeRequest/index" class="link-cus">Operation</a></li>
+                            <li><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
+                            <li><a href="/MedicalNetwork/Search" class="link-cus">Medical Network</a></li>
+                            <li><a href="/MedicalApproval/Search2" class="link-cus">Medical Approval</a></li>
+                            <li><a href="/HrChronic/InquiryAboutCard" class="link-cus">Medication</a></li>
+                            <li><a href="/Contractors/Index" class="link-cus">Contracts</a></li>
+                            <li><a href="/Reports/Index" class="link-cus">Reports</a></li>
+                            <li><a href="/ConsumptionAdmin/HrConsumptionReports" class="link-cus">Reports Details</a></li>
+
                         </ul>
                     </div>
-                    <div class="d-flex">
-                        <ul class="ps-0 Admin-main-ul mb-0">
+                    <div class="d-flex align-items-center">
+                        <ul class="ps-0 pharm-main-ul mb-0">
                             <li class="nav-item dropdown" style="list-style-type: none">
                                 <a class="nav-link"
                                    href="#"
@@ -89,7 +90,7 @@
                             </li>
                         </ul>
                         <ul class="ps-0 Admin-main-ul mb-0">
-                            <li class="nav-item dropdown mt-2" style="list-style-type: none">
+                            <li class="nav-item dropdown " style="list-style-type: none">
                                 <a class="nav-link"
                                    href="#"
                                    role="button"
@@ -121,8 +122,8 @@
 
     @RenderBody()
     <!-- .site-footer -->
-    <footer style="margin-top: auto">
-        <div class="footer pb-3">
+    <footer class="hr-footer-parent" style="margin-top: auto">
+        <div class="footer hr-footer pb-3">
             <div class="container-fluid pt-5">
                 <div class="row m-auto d-flex justify-content-center">
                     <div class="col-md-3 me-4">
@@ -163,8 +164,8 @@
             </div>
         </div>
     </footer>
- 
-
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
     <!-- Include jQuery first -->
     <script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
 
@@ -179,16 +180,14 @@
     <!-- Followed by DataTables scripts -->
     <script src="~/assets/NewDesignBackAdmin/JS/jquery.dataTables.min.js"></script>
     <script src="~/assets/NewDesignBackAdmin/JS/dataTables.bootstrap5.min.js"></script>
-
-    <!-- Followed by SELECT2 scripts -->
     <script src="~/assets/NewDesignBackAdmin/JS/select2.min.js"></script>
-    <script src="~/assets/HomeTemplete/js/intro.js"></script>
-    <script src="~/Scripts/DMS/HospitalSystem/Hospital.js?V=4.1"></script>
+    <!-- Followed by SELECT2 scripts -->
     <!-- Finally, include your main.js -->
     @*<script src="~/Scripts/moment.min.js"></script>*@
     @*<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>*@
     @*<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>*@
-
+    <script src="~/Scripts/DMS/HR/EditRequest.js?V=1.2"></script>
+    <script src="~/assets/NewDesignBackAdmin/JS/HR-Script.js"></script>
 
 
 </body>

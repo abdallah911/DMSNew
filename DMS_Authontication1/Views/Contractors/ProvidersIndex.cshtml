@@ -3,7 +3,7 @@
 @using Newtonsoft.Json;
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardHR.cshtml";
 
     var edit = false;
     var delete = false;
@@ -32,82 +32,89 @@
     }
 }
 
-<br />
 
-<div style="margin-top:40px">
-    <p>
-        @if (fullcontroll || view)
-        {
-            @Html.ActionLink(" Company Contracts", "Index", null, htmlAttributes: new { @class = "btn btn-info fa fa-search", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || Create)
-        {
-            @Html.ActionLink(" Providers Contracts", "ProvidersIndex", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search ", @style = " text-transform: none" })
-        }
-    </p>
-</div>
-@if (fullcontroll || view)
-{
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i> Search
-            </div>
-        </div>
-        <div class="portlet-body">
-            <input id="compname" type="text" value="@ViewBag.CompName" hidden="hidden" />
-            <div class="row" style="padding-bottom: 15px;">
-                <div class="col-sm-2" data-step="6" data-intro="Select Contract type Default is Contract">
-                    @Html.DropDownList("Provider Type", ViewBag.provider as SelectList, "Select Provider Type", new { @class = "form-control", @id = "ProviderType" })
-                </div>
-                <div class="col-sm-2" data-step="6" data-intro="Select Contract type Default is Contract">
-                    @Html.DropDownList("Provider", new SelectList(""), " Select Provider Name", new
-               {
-                   @class = "form-control",
-                        @id = "Provider"
-               })
-                </div>
-                <div class="col-sm-2" data-step="6" data-intro="Select Contract type Default is Contract">
-                    <select id="ddlType" class="form-control">
-                        <option value="">Select Type</option>
-                        <option value="Contract">Contract</option>
-                        <option value="Endorsement">Endorsement </option>
-                    </select>
-                </div>
-            </div>
-            <div style=" text-align:right">
-                <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
-                <input id="Print" type="button" value="Print" class="btn btn-primary fa fa-search" />
-                @*<input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />*@
-            </div>
-        </div>
+<div class="sios-container">
+    <div class="">
+        <p class="mx-4 my-0 py-3 d-flex gap-2">
+            @if (fullcontroll || view)
+            {
+                @Html.ActionLink(" Company Contracts", "Index", null, htmlAttributes: new { @class = "btn action-btn  ", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || Create)
+            {
+                @Html.ActionLink(" Providers Contracts", "ProvidersIndex", null, htmlAttributes: new { @class = "btn action-btn active ", @style = " text-transform: none" })
+            }
+        </p>
     </div>
+    @if (fullcontroll || view)
+    {
+        <div class="portlet box  green">
+           <div class="row bg-overlay portlet-title">
+            <div class="m-3 fs-3 text-white caption">
+                    <i class="fa-solid fa-home me-1"></i> Search
+                </div>
+            </div>
+           <div class="portlet-body">
+               <input id="compname" type="text" value="@ViewBag.CompName" hidden="hidden" />
+               <div class="container mx-auto row row-cols-sm-2 row-cols-lg-3 row-gap-2 mt-4"  >
+                   <div class="forLabel px-2 border-0 form-group" data-step="6" data-intro="Select Contract type Default is Contract">
+                       @Html.DropDownList("Provider Type", ViewBag.provider as SelectList, "Select Provider Type", new { @class = "border-2 sios-form-control w-100 form-control", @id = "ProviderType" })
+                       <span class="start-0"></span>
 
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Company Contract
+                   </div>
+                   <div class="forLabel px-2 border-0 form-group" data-step="6" data-intro="Select Contract type Default is Contract">
+                       @Html.DropDownList("Provider", new SelectList(""), " Select Provider Name", new
+                  {
+                      @class = "border-2 sios-form-control w-100 form-control",
+                           @id = "Provider"
+                  })
+                       <span class="start-0"></span>
+
+                   </div>
+                   <div class="forLabel px-2 border-0 form-group" data-step="6" data-intro="Select Contract type Default is Contract">
+                       <select id="ddlType" class="border-2 sios-form-control w-100 form-control">
+                           <option value="">Select Type</option>
+                           <option value="Contract">Contract</option>
+                           <option value="Endorsement">Endorsement </option>
+                       </select>
+                       <span class="start-0"></span>
+
+                   </div>
+               </div>
+               <div class="container d-flex gap-2 justify-content-center justify-content-sm-end px-4 mt-3 mb-4">
+                   <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn " />
+                   <input id="Print" type="button" value="Print" class="btn  " />
+                   @*<input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />*@
+               </div>
+           </div>
+        </div>
+
+        <div class="portlet box  green">
+            <div class="row bg-overlay portlet-title">
+                <div class="m-3 fs-3 text-white caption">
+                    <i class=" "></i>Company Contract
+                </div>
+
             </div>
 
-        </div>
-        <br />
-        <div class="portlet-body">
+            <div class="portlet-body">
 
-            <table class="ui celled table" id="Index" width="100%">
-                <thead>
-                    <tr>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="contractImage"></tbody>
+                <table class="ui celled table" id="Index" width="100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="contractImage"></tbody>
 
-            </table>
+                </table>
+            </div>
         </div>
+    }
     </div>
-}
-<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
-<script>
+    <script>
     $(function () {
         $("#ProviderType").change(function () {// class levels
             $.get("/Contractors/GetAproveder",
@@ -192,4 +199,4 @@
 
         });
     })
-</script>
+    </script>

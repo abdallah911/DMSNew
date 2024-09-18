@@ -190,9 +190,13 @@ $(function () {
  
   $(document).ready(function () {
    
-    $("#example").DataTable();
+      $("#example").DataTable();
+      $("#index").DataTable();
+      
   });
-
+$(document).ready(function () {
+          $(".select2").select2();
+      });
   
  
 
@@ -259,9 +263,9 @@ $(document).ready(function () {
 //==========================doctor daily===================================
 
 $(document).ready(function () { 
-    $('#diagnoisesExpand').on('click', function () {
+    $('#expandVertical').on('click', function () {
         $(this).addClass('d-none');
-        $('#diagnoisesMinus').removeClass('d-none');
+        $('#expandHorisontal').removeClass('d-none');
         $('.ddlDiagnoises ul#select2-ddlDiagnoises-container')
             .css({
                 'overflow-y': 'scroll',
@@ -270,9 +274,9 @@ $(document).ready(function () {
                 ' height': '45px !important',
             }); 
     });
-    $('#diagnoisesMinus').on('click', function () {
+    $('#expandHorisontal').on('click', function () {
         $(this).addClass('d-none');
-        $('#diagnoisesExpand').removeClass('d-none');
+        $('#expandVertical').removeClass('d-none');
         $('.ddlDiagnoises ul#select2-ddlDiagnoises-container')
             .css({
                 'overflow-y': 'hidden',

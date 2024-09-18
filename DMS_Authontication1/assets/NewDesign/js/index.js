@@ -57,6 +57,8 @@ $(window).on("scroll", function () {
       $(".navbar").css("box-shadow","0px 1px 10px 2px #2006222b");
       $(".navbar").css("height", "70px");
       $("a.nav-link").css("color", "#4e2e69");
+      $(".login-btn").css("background-color", "var(--main-color) ");
+
     // $(".card").css("transform", "translateX(0%)");
 
     // $(".card").addClass("cardmove");
@@ -68,7 +70,7 @@ $(window).on("scroll", function () {
     $(".navbar").css("height", "");
       $("#btnUp").hide(100);
       $("a.nav-link").css("color", "#fff");
-
+      $(".login-btn").css("background-color", "#3e63c99a ");
 
     // $(".card").css("transform", "translateX(-380%)");
 

@@ -1,4 +1,10 @@
 ﻿
+$(document).ready(function () {
+
+    $("#example").DataTable();
+    $("#index").DataTable();
+
+});
 $(function () {
     // bootbox.alert("نحيط علم سيادتكم بان سيكون هناك بعد التحديثات ع الصفحه من الساعه الثالثه مساءا الى الساعه الرابعه مساءا ");
     var id;
@@ -40,6 +46,7 @@ $(function () {
     else {
         IndexDatatableAdmin();
     }
+
     $('#adminSearch').click(function () {
         var result = ValidSearchRequest();
         var edit = $('#edit').val();

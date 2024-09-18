@@ -1,192 +1,188 @@
 ﻿@{
     ViewBag.Title = "Search";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardHR.cshtml";
 }
 @*<h2>Index</h2>*@
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 <input type="text" id="compname" value="@ViewBag.CompName" hidden="hidden" />
-<br />
-<div style="margin-top:40px">
-    <p>
-        @Html.ActionLink(" Approvals", "Search2", null, htmlAttributes: new { @class = "btn btn-info fa fa-search ", @style = " text-transform: none" })
-        @Html.ActionLink(" Search", "Search", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-search", @style = " text-transform: none" })
-        @Html.ActionLink(" Create Request ", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus ", @style = " text-transform: none" })
-    </p>
-</div>
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Approval Search
-        </div>
+
+<div class="sios-container">
+    <div class="">
+        <p class="mx-4 my-0 py-3 d-flex gap-2">
+            @Html.ActionLink(" Approvals", "Search2", null, htmlAttributes: new { @class = "btn action-btn", @style = " text-transform: none" })
+            @Html.ActionLink(" Search", "Search", null, htmlAttributes: new { @class = "btn action-btn active", @style = " text-transform: none" })
+            @Html.ActionLink(" Create Request ", "CreateRequest", null, htmlAttributes: new { @class = "btn action-btn", @style = " text-transform: none" })
+        </p>
     </div>
-    <div class="portlet-body">
-        <div class="row ">
-            <div class="col-md-12">
-                <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
-                    <!-- BEGIN PAGE HEADER-->
-                    <!-- BEGIN THEME PANEL -->
+    <div class="portlet box  green">
+        <div class="row bg-overlay portlet-title">
+            <div class="m-3 fs-3 text-white caption">
+                <i class="fa fa-home me-1"></i>Approval Search
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row ">
+                <div class="col-md-12">
+                    <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+                        <!-- BEGIN PAGE HEADER-->
+                        <!-- BEGIN THEME PANEL -->
+                        <div class="form-wizard">
+                            <div class="form-body">
+                                <div class="tab-content">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
 
-                    <div class="form-wizard">
-                        <div class="form-body">
-                            <div class="tab-content">
-                                <div asp-validation-summary="All" class="text-danger"></div>
+                                    <div class="row row-cols-sm-2 row-cols-lg-4 container mx-auto row-gap-2 mt-4"> 
+                                       @if (User.IsInRole("HR_Admin"))
+                                       {
+                                           <div class="col-md-4">
 
-                                <div class="row">
+                                               <div class="form-group" id="Company_Number">
+                                                   <div class="col-sm-6">
 
-                                </div>
+                                                       @Html.Label("Company Number", htmlAttributes: new { @class = "control-label" })
+                                                   </div>
+                                                   <div class=" col-md-6">
+                                                       @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
 
-                                <div class="row" style="padding-bottom: 15px;">
-                                    @if (User.IsInRole("HR_Admin"))
-                                    {
-                                        <div class="col-md-4">
+                                                   </div>
+                                               </div>
 
-                                            <div class="form-group" id="Company_Number">
-                                                <div class="col-sm-6">
-
-                                                    @Html.Label("Company Number", htmlAttributes: new { @class = "control-label" })
-                                                </div>
-                                                <div class=" col-md-6">
-                                                    @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
-
-                                                </div>
-                                            </div>
+                                           </div>
+                                           <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                           <script>
+                                               $(document).ready(function () {
+                                                   $("#CompanyNumber").select2();
+                                               });
+                                           </script>
+                                       } 
+                                        <div class=" forLabel px-2 border-0 rounded-2">
+                                            <input id="RegistrationFrom" type="text" class="border-2 sios-form-control w-100 form-control form-control " placeholder="" required />
+                                            <span class="start-0">Registration From</span>
+                                            @*<input id="RegistrationFrom" type="text" class="border-2 sios-form-control w-100 form-control form-control " placeholder="From" />*@
 
                                         </div>
-                                        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                                        <script>
-                                            $(document).ready(function () {
-                                                $("#CompanyNumber").select2();
-                                            });
-                                        </script>
-                                    }
+                                        <div class=" forLabel px-2 border-0 rounded-2">
+                                            <input id="txtSearchCard" type="text" class="border-2 sios-form-control w-100 form-control form-control " placeholder="" required />
+                                            <span class="start-0">Card ID</span>
 
-                                </div>
-                                <div class="row" style="padding-bottom: 15px;">
-                                    <div class="col-md-2">
-                                        <input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="Registration From" />
-                                        @*<input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="From" />*@
+                                            @*<input class="form-control col-md-6" id="txtSearchCard" type="text" placeholder="search  card ..." />*@
 
+                                        </div>
+                                        <div class=" forLabel px-2 border-0 rounded-2">
+                                            <input id="RegistrationTo" type="text" class="border-2 sios-form-control w-100 form-control form-control " placeholder="" required />
+                                            <span class="start-0">Registration To</span>
+
+                                            @*<input id="RegistrationTo" type="text" class="border-2 sios-form-control w-100 form-control form-control " placeholder="To" />*@
+
+                                        </div>
+                                        <div class=" forLabel px-2 border-0 rounded-2">
+                                            @*<input class="form-control col-md-6" id="txtSearchCode" type="text" placeholder="search  code..." />*@
+
+                                            <input id="txtSearchCode" type="text" class="border-2 sios-form-control w-100 form-control form-control " placeholder="" required />
+                                            <span class="start-0">Code</span>
+
+                                        </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <input id="txtSearchCard" type="text" class="col-md-2 form-control " placeholder="Card ID" />
-                                        @*<input class="form-control col-md-6" id="txtSearchCard" type="text" placeholder="search  card ..." />*@
-
-                                    </div>
-
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="Registration To" />
-                                        @*<input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="To" />*@
-
-                                    </div>
-                                    <div class="col-md-2">
-                                        @*<input class="form-control col-md-6" id="txtSearchCode" type="text" placeholder="search  code..." />*@
-
-                                        <input id="txtSearchCode" type="text" class="col-md-2 form-control " placeholder="Code" />
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+            </div>
+            <div class="container text-center text-sm-end px-4 mt-3 mb-4">
+                <button id="new" type="button" class="btn me-2" onclick="NewRequest()"><span class="fa fa-refresh"></span> Reset</button>
+                <button id="Search" type="button" class="btn  " onclick="SearchProvider()"><span class="glyphicon glyphicon-search"></span> Search</button>
+
+                @*<input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
+        <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />*@
+
             </div>
         </div>
-        <div style=" text-align:right">
-            <button id="new" type="button" class="btn btn-secondary-outline" onclick="NewRequest()"><span class="fa fa-refresh"></span> Reset</button>
-            <button id="Search" type="button" class="btn btn-success" onclick="SearchProvider()"><span class="glyphicon glyphicon-search"></span> Search</button>
-
-            @*<input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
-                <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />*@
-
-        </div>
     </div>
-</div>
 
 
 
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Approvals
+    <div class="portlet box  green">
+        <div class="row bg-overlay portlet-title">
+            <div class="m-3 fs-3 text-white caption">
+                <i class="fa "></i>Approvals
+            </div>
         </div>
-    </div>
-    <div class="portlet-body">
-        <div class="row ">
-            <div class="col-md-12">
-                <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
-                    <!-- BEGIN PAGE HEADER-->
-                    <!-- BEGIN THEME PANEL -->
+        <div class="portlet-body">
+            <div class="row ">
+                <div class="col-md-12">
+                    <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+                        <!-- BEGIN PAGE HEADER-->
+                        <!-- BEGIN THEME PANEL -->
 
-                    <div class="form-wizard">
-                        <div class="form-body">
-                            <div class="tab-content">
-                                <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-wizard">
+                            <div class="form-body">
+                                <div class="tab-content">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
 
-                                <div class="row">
-                                    <div class="col-md-12" style="width:100%;" id="list_div">
+                                    <div class="row">
+                                        <div class="col-md-12" style="width:100%;" id="list_div">
+                                            <div class="container mx-auto my-4 table-responsive"> 
+                                                    <table class="table" id="AproveList">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    @Html.DisplayName("الكود")
+                                                                </th>
+                                                                <th>
+                                                                    @Html.DisplayName("النوع")
+                                                                </th>
+                                                                <th>
+                                                                    @Html.DisplayName("رقم الكارت")
+                                                                </th>
+                                                                <th>
+                                                                    @Html.DisplayName("نوع مقدم الخدمة")
+                                                                </th>
+                                                                <th>
+                                                                    @Html.DisplayName("مقدم الخدمة")
+                                                                </th>
+                                                                <th>
+                                                                    @Html.DisplayName("تاريخ التسجيل")
+                                                                </th>
+                                                                <th>
+                                                                    @Html.DisplayName("لاسم")
+                                                                </th>
+                                                                <th>
+                                                                    @Html.DisplayName("ملاحظات")
+                                                                </th>
 
-                                        <table class="table" id="AproveList">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        @Html.DisplayName("الكود")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("النوع")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("رقم الكارت")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("نوع مقدم الخدمة")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("مقدم الخدمة")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("تاريخ التسجيل")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("لاسم")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("ملاحظات")
-                                                    </th>
+                                                                <th>
+                                                                    @Html.DisplayName("الرد")
+                                                                </th>
+                                                                <th>
+                                                                    @Html.DisplayName("الحالة")
 
-                                                    <th>
-                                                        @Html.DisplayName("الرد")
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("الحالة")
+                                                                </th>
+                                                                <th>
+                                                                    @Html.DisplayName("نوع الطلب")
+                                                                </th>
+                                                                <th></th>
 
-                                                    </th>
-                                                    <th>
-                                                        @Html.DisplayName("نوع الطلب")
-                                                    </th>
-                                                    <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="AproveListBody"></tbody>
+                                                    </table>
+                                            </div>
 
-                                                </tr>
-                                            </thead>
-                                            <tbody id="AproveListBody"></tbody>
-                                        </table>
-                                    </div>
-                                    <br />
 
+                                        </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
+
         </div>
 
     </div>
-
 </div>
 
 
@@ -204,7 +200,7 @@
             $("#compname").val(compNu);
         });
 
-
+        $('.hr-footer-parent').insertAfter('.sios-container');
 
     });
 </script>

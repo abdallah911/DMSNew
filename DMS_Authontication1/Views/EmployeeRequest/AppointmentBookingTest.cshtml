@@ -1,0 +1,37 @@
+﻿@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "Index";
+
+    Layout = "~/Views/Shared/_Layout_DashboardHR.cshtml";
+
+   
+}
+
+<div class="   sios-container editeRquest  portlet box  green">
+    <div class="my-4 sios-container editeRquest d-flex justify-content-center align-items-center portlet box  green">
+        <div class="row gap-2 container col-8 rounded-5 p-5 mb-5" style=" background: #e1dddc; ">
+            <div class=" forLabel px-2   border-0 d-flex justify-content-between align-items-center  rounded-2 form-group   ">
+                <select class="border-2 sios-form-control select2 w-100 h-100  rounded-2 p-1 pt-4 fw-bold text-dark-emphasis  shadow-sm  form-control" required=""></select>
+                <span class="start-0 ">Speciality</span>
+            </div>
+            <div class=" forLabel px-2   border-0 d-flex justify-content-between align-items-center  rounded-2 form-group   ">
+                <select class="border-2 sios-form-control select2 w-100 h-100  rounded-2 p-1 pt-4 fw-bold text-dark-emphasis  shadow-sm  form-control" required=""></select>
+                <span class="start-0 ">Doctor</span>
+            </div>
+            <div class=" forLabel px-2   border-0 d-flex justify-content-between align-items-center  rounded-2 form-group   ">
+                <select class="border-2 sios-form-control select2 w-100 h-100  rounded-2 p-1 pt-4 fw-bold text-dark-emphasis  shadow-sm  form-control" required=""></select>
+                <span class="start-0 ">day</span>
+            </div>
+            <input type="submit" id="submit" value="Save" class="btn hr-btn w-auto mx-auto me-sm-2 ">
+        </div>
+    </div>
+</div> 
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".select2").select2();
+    });
+</script>

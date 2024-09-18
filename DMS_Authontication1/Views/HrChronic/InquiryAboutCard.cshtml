@@ -3,7 +3,7 @@
 @using Newtonsoft.Json;
 @{
     ViewBag.Title = "Inquiries";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardHR.cshtml";
 
     var edit = false;
     var delete = false;
@@ -48,112 +48,97 @@
         }
     }
 }
-<br />
-<div style="margin-top:40px">
-    <p>
-        @if (fullcontroll || view)
-        {
-            @Html.ActionLink(" Search ", "InquiryAboutCard", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-question", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || Create)
-        {
-            @Html.ActionLink(" Create Request", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus", @style = " text-transform: none" })
-        }
-    </p>
-</div>
-@if (fullcontroll || view)
-{
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Inquiries about an invoice
-            </div>
+<div class="sios-container">
+    <div class="">
+        <p class="mx-4 my-0 py-3 d-flex gap-2">
+            @if (fullcontroll || view)
+            {
+                @Html.ActionLink(" Search ", "InquiryAboutCard", null, htmlAttributes: new { @class = "btn action-btn active", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || Create)
+            {
+                @Html.ActionLink(" Create Request", "CreateRequest", null, htmlAttributes: new { @class = "btn action-btn", @style = " text-transform: none" })
+            }
+        </p>
+    </div>
+    @if (fullcontroll || view)
+    {
+<div class="portlet box  green">
+    <div class="row bg-overlay portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <i class="fa-solid fa-home me-1"></i>Inquiries about an invoice
         </div>
-        <div class="portlet-body">
-            <div class="row ">
-                <div class="col-md-12">
-                    <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+    </div>
+    <div class=" my-4 no-wrap portlet-body ">
+        <div class="row ">
+            <div class="col-md-12">
+                <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data"> 
+                    <div class="form-wizard">
+                        <div class="form-body">
+                            <div class="tab-content">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <input type="hidden" id="CompaName" value="@ViewBag.compnum" />
+                                <div class="row container mx-auto ">
+                                    @* Search Element and buttons *@
+                                    <div class=" row row-cols-sm-2 row-gap-2 " style="white-space:nowrap">
+                                        @if (User.IsInRole("HR_Admin"))
+                                        {
+                                            <div class="forLabel px-2 border-0 form-group">
+                                                @Html.DropDownList("CompanyId", ViewBag.company as SelectList, "Select Company", new { @class = "border-2 sios-form-control w-100 form-control", @id = "CompanyId", @required = "True" })
+                                                <span class="start-0"style=" transform: translateY(-6px); ">
+                                                    <label class="control-label sbold col-md-5">
+                                                        Copmany Number :
+                                                    </label>
+                                                </span>
+                                            </div>
+                                            <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                            <script>
+                                                $(function () {
+                                                    $("#CompanyId").select2();
+                                                });
+                                            </script>
+                                        }
+                                        else
+                                        {
+                                            <div class="forLabel px-2 border-0 form-group">
+                                                <input id="CopmanyNumber" type="number" class="border-2 sios-form-control w-100 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+                                                <span class="start-0"style=" transform: translateY(-6px); ">
+                                                    <label class="control-label sbold col-md-5">
+                                                        Copmany Number :
+                                                    </label>
+                                                </span>
+                                            </div>
+                                        }
+                                        <div class="forLabel px-2 border-0 form-group">
 
-                        <div class="form-wizard">
-                            <div class="form-body">
-                                <div class="tab-content">
-                                    <div asp-validation-summary="All" class="text-danger"></div>
-                                    <input type="hidden" id="CompaName" value="@ViewBag.compnum" />
-                                    <div class="row">
-                                        @* Search Element and buttons *@
-                                        <div class="col-md-12">
-                                            @if (User.IsInRole("HR_Admin"))
+                                            @if (User.IsInRole("HR") || User.IsInRole("HR_Admin"))
                                             {
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="control-label sbold col-md-5">
-                                                            Copmany Number :
-                                                        </label>
-                                                        <div class="col-md-7">
-                                                            @Html.DropDownList("CompanyId", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompanyId", @required = "True" })
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                                                <script>
-                                                    $(function () {
-                                                        $("#CompanyId").select2();
-                                                    });
-                                                </script>
+                                                <select id="CardNumber" class="js-data-example-ajax" style="width: 100%"></select>
                                             }
                                             else
                                             {
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="control-label sbold col-md-5">
-                                                            Copmany Number :
-                                                        </label>
-                                                        <div class="col-md-7">
-                                                            <input id="CopmanyNumber" type="number" class="form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                @Html.DropDownList("CardNumber2", ViewBag.Cardslist as SelectList, new { @class = "border-2 sios-form-control w-100 form-control", @id = "CardNumber2", @required = "True" })
                                             }
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label sbold col-md-4">
-                                                        Card Number :
-                                                    </label>
-                                                    @if (User.IsInRole("HR") || User.IsInRole("HR_Admin"))
-                                                    {
-                                                        <div class="col-md-8">
-                                                            <select id="CardNumber" class="js-data-example-ajax" style="width: 100%"></select>
-                                                        </div>
-                                                        <br />
-                                                    }
-                                                    else
-                                                    {
-                                                        <div class="col-md-8">
-                                                            @Html.DropDownList("CardNumber2", ViewBag.Cardslist as SelectList, new { @class = "form-control", @id = "CardNumber2", @required = "True" })
-                                                        </div>
-                                                        <br />
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="col-md-6">
-                                                    <button id="Search" type="button" class="btn btn-success" onclick="SearchEmployee()">
-                                                        <span class="glyphicon glyphicon-search"></span> Search
-                                                    </button>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <button id="new" type="button" class="btn btn-secondary-outline" onclick="NewRequest()">
-                                                        <span class="fa fa-reply"></span> New
-                                                    </button>
-
-                                                </div>
-                                            </div>
+                                            <span class="start-0">
+                                                <label class="control-label sbold col-md-4">
+                                                    Card Number :
+                                                </label>
+                                            </span>
                                         </div>
 
+                                    </div>
+                                    <div class=" text-center text-sm-end px-4 mt-3 mb-4">
+                                        <button id="Search" type="button" class="btn me-2 " onclick="SearchEmployee()">
+                                            <span class="glyphicon glyphicon-search"></span> Search
+                                        </button>
+                                        <button id="new" type="button" class="btn  " onclick="NewRequest()">
+                                            <span class="fa fa-reply"></span> New
+                                        </button>
+                                    </div>
 
-                                        @*Data Table for result employee data*@
-                                        <div class="col-md-offset-1 col-md-10" style="margin-top:30px" id="Employe_Data">
+                                    @*Data Table for result employee data*@
+                                    <div class="col-md-offset-1 " id="Employe_Data">
+                                        <div class=" mx-auto my-4 table-responsive">
 
                                             <table class="table" id="EmployeeDataList">
                                                 <thead>
@@ -184,9 +169,11 @@
                                                 <tbody id="ProviderListBody"></tbody>
                                             </table>
                                         </div>
+                                    </div>
 
-                                        @*Data Table for result Medicine data*@
-                                        <div class="col-md-offset-1 col-md-10" style="margin-top:80px;margin-bottom:30px" id="listMedicine_div">
+                                    @*Data Table for result Medicine data*@
+                                    <div class="col-md-offset-1  " id="listMedicine_div">
+                                        <div class=" mx-auto my-4 table-responsive">
 
                                             <table class="table" id="MedicineDataList">
                                                 <thead>
@@ -223,62 +210,59 @@
                                                 <tbody id="ProviderListBody"></tbody>
                                             </table>
                                         </div>
-
-                                        @*Footer*@
-                                        <div class="col-md-12" id="details">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label sbold col-md-5">
-                                                        Last Exchange  Date  :
-                                                    </label>
-                                                    <div class="col-md-7">
-                                                        <input id="ExchangeDate" type="text" class="form-control " readonly="readonly" />
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label sbold col-md-5">
-                                                        Pharmacy Name  :
-                                                    </label>
-                                                    <div class="col-md-7">
-                                                        <input id="PharmacyName" type="text" class="form-control " readonly="readonly" />
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label sbold col-md-4">
-                                                        Branch Name  :
-                                                    </label>
-                                                    <div class="col-md-8">
-                                                        <input id="BranchName" type="text" class="form-control " readonly="readonly" />
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
                                     </div>
+
+                                    @*Footer*@
+                                    <div class="row row-cols-sm-2 row-cols-lg-3 row-gap-2"  id="details"> 
+                                        <div class="forLabel px-2 border-0 form-group">
+
+                                            <input id="ExchangeDate" type="text" class="border-2 sios-form-control w-100 form-control " readonly="readonly" />
+                                            <span class="start-0">
+                                                <label class="control-label sbold col-md-5">
+                                                    Last Exchange  Date  :
+                                                </label>
+                                            </span>
+
+                                        </div>  
+                                        <div class="forLabel px-2 border-0 form-group">
+
+                                            <input id="PharmacyName" type="text" class="border-2 sios-form-control w-100 form-control " readonly="readonly" />
+                                            <span class="start-0">
+                                                <label class="control-label sbold col-md-5">
+                                                    Pharmacy Name  :
+                                                </label>
+                                            </span>
+
+                                        </div>  
+                                        <div class="forLabel px-2 border-0 form-group">
+
+                                            <input id="BranchName" type="text" class="border-2 sios-form-control w-100 form-control " readonly="readonly" />
+                                            <span class="start-0">
+                                                <label class="control-label sbold col-md-4">
+                                                    Branch Name  :
+                                                </label>
+                                            </span>
+
+                                        </div> 
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
-
         </div>
+
     </div>
+</div>
 
-}
-<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+    }
+    </div>
+    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
-<script>
+    <script>
     $(function () {
         $('#Employe_Data').hide();
         $('#listMedicine_div').hide();
@@ -430,4 +414,4 @@
 
     }
 
-</script>
+    </script>
