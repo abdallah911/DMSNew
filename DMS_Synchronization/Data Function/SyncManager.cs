@@ -423,8 +423,8 @@ namespace DMS_Synchronization
                 SyncToSqlTable<PollData>(StringHelper.GetQyertPOLL_DATA, StringHelper.GetTableNamePOLL_DATA);
 
 
-                //PushMedicineData();
-                //UpdatePushMedicineData();
+                PushMedicineData();
+                UpdatePushMedicineData();
                 PushMedicineGroup();
                 #region DMS_Test
                 //PushSqlTables<MEDICINE_DATA>(StringHelper.GetQyertMedicineData, StringHelper.GetTableNameMedicineData);
@@ -3965,9 +3965,9 @@ namespace DMS_Synchronization
 
             }
 
-            //string UpdateMedCardQuery = "UPDATE MedicineData SET IsSync=1,SyncBy='SQLTEST',SyncDate=GETDATE() " +
-            //   " WHERE IsSync=0 OR IsSync IS NULL ";
-            //var resultmessage = ExecuteNonQueryCommand(UpdateMedCardQuery, _connectionSettings.SQlConnection);
+            string UpdateMedCardQuery = "UPDATE MedicineData SET IsSync=1,SyncBy='SQLTEST',SyncDate=GETDATE() " +
+               " WHERE IsSync=0 OR IsSync IS NULL ";
+            var resultmessage = ExecuteNonQueryCommand(UpdateMedCardQuery, _connectionSettings.SQlConnection);
 
         }
 
@@ -4067,9 +4067,9 @@ namespace DMS_Synchronization
 
             }
 
-            //string UpdateMedCardQuery = "UPDATE MedicineData SET IsSync=1,SyncBy='SQLTEST',SyncDate=GETDATE() " +
-            //   " WHERE IsSync=0 OR IsSync IS NULL ";
-            //var resultmessage = ExecuteNonQueryCommand(UpdateMedCardQuery, _connectionSettings.SQlConnection);
+            string UpdateMedCardQuery = "UPDATE MedicineData SET IsSync=1,SyncBy='SQLTEST',SyncDate=GETDATE() " +
+               " WHERE IsSync=0 OR IsSync IS NULL ";
+            var resultmessage = ExecuteNonQueryCommand(UpdateMedCardQuery, _connectionSettings.SQlConnection);
 
         }
 

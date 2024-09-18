@@ -305,12 +305,13 @@
         $('#Index').dataTable().fnDestroy();
     }
     function Print(button) {
+        debugger;
         var id = $(button).data('id');
         window.open('/Reports/ControlPenelReport?id=' + id);
     }
 
     function PrintHrClaimsXsl() {
-
+        debugger;
         window.open('/Reports/PrintHrClaimXsl?From=' + $("#From").val() +
             '&&To=' + $("#To").val() + '&&ApprovalNo=' + $("#PharmacyApprovalNo").val() +
             '&&CardId=' + $("#PharmacyCardId").val() + '&&TypePrint=' + $("#ClaimType").val() +

@@ -34,7 +34,7 @@
 
 <br />
 
-<div style="margin-top:40px">
+@*<div style="margin-top:40px">
     @if (!User.IsInRole("Admin"))
     {
         <p>
@@ -48,13 +48,13 @@
             }
         </p>
     }
-</div>
+</div>*@
 @if (fullcontroll || view)
 {
-    <div class="portlet box  green">
+    <div class="portlet box  green" style="margin-top:40px">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-gift"></i>Operation
+                <i class="fa fa-gift"></i>Claims
             </div>
 
         </div>
