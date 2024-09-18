@@ -7321,7 +7321,6 @@
     <Content Include="assets\NewDesignBackAdmin\Img\SL-122222-54830-26 [Converted]  é-01 %281%29.png" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1  2-01.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1  2-02.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1 22-01.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1-01.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1-02.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-2-01.png" />
@@ -7403,10 +7402,6 @@
     <Content Include="assets\NewDesign\css\owl.theme.default.min.css" />
     <Content Include="assets\NewDesign\css\owl.theme.green.min.css" />
     <Content Include="assets\NewDesign\css\style2.css" />
-    <Content Include="assets\NewDesign\img\about.jpeg" />
-    <Content Include="assets\NewDesign\img\adminProfil\1.png" />
-    <Content Include="assets\NewDesign\img\adminProfil\2.png" />
-    <Content Include="assets\NewDesign\img\adminProfil\3.png" />
     <Content Include="assets\NewDesign\img\adminProfil\self adminProfile.jpg" />
     <Content Include="assets\NewDesign\img\application\app-profile-2.png" />
     <Content Include="assets\NewDesign\img\application\app-profile.jpg" />
