@@ -4422,13 +4422,54 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
         box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
         border-radius: 6px;
     }
-.hr-page .sios-form-control:focus,
-.hr-page select:focus,
-.hr-page input:focus {
-    border-color: var(--color-hr-btn) !important;
-    box-shadow: 0 0 5px #7c5684b5 !important;
-}
-    /* ====================footer========================================== */
+    .hr-page .sios-form-control:focus,
+    .hr-page select:focus,
+    .hr-page input:focus {
+        border-color: var(--color-hr-btn) !important;
+        box-shadow: 0 0 5px #7c5684b5 !important;
+    }
+    /*=========================Home-page-card================================================*/
+    .home-page-box {
+        grid-template-columns: 225px 225px; 
+    }
+    @media (max-width:576px){
+        .home-page-box {
+            grid-template-columns: 300px ;
+        }
+    }
+    .home-page-card {
+        background: white;
+        color: var(--color-hr-btn);
+        font-weight: 700;
+        border-radius: 14px;
+        box-shadow: 0 0 4px 2px #4f326569;
+        font-size: 20px;
+        /*transition: all ease-in 0.2s;*/
+    }
+    .home-page-card.active {
+        background: var(--color-hr-btn); 
+    } 
+    .home-page-card.active .white-icon,
+    .home-page-card .colorize-icon {
+        display: unset;
+    }
+    .home-page-card .white-icon,
+    .home-page-card.active .colorize-icon {
+        display:none;
+    }
+    .home-page-card a {
+        color:var(--color-hr-btn);
+        padding: 16px;
+        display:block;
+    }
+    .home-page-card.active a {
+    color:white;
+    }
+    .home-page-card img{
+        color:var(--color-hr-btn);
+        width:20px;
+    }    
+/* ====================footer========================================== */
     .footer {
         background: var(--color-gradient);
         color: white;

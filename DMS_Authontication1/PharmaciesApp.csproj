@@ -9282,6 +9282,7 @@
     <Content Include="Views\Shared\_Layout_DashboardPharmacy.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardHR.cshtml" />
     <Content Include="Views\EmployeeRequest\AppointmentBookingTest.cshtml" />
+    <Content Include="Views\EmployeeRequest\HomePageTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
