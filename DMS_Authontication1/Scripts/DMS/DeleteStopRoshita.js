@@ -66,7 +66,7 @@ $(function () {
                         "data": "Id",
                         "mRender": function (data) {
                             if (view == "True" || fullcontroll == "True") {
-                                return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Details/' + data + '">Details</a>';
+                                return '<a class="text-light btn"  href="/Pharmacy/Details/' + data + '">Details</a>';
                             }
                             else
                                 return '<input  data-id=' + data + '  hidden  /> ';
@@ -76,7 +76,7 @@ $(function () {
                     {
                         "data": "Oracle_Id",
                         "mRender": function (data) {
-                            return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Print(this);"> Print</button>';
+                            return '<button type="button" class="text-light btn"  data-id=' + data + ' onclick="Print(this);"> Print</button>';
                         }
                     }
 
@@ -142,13 +142,13 @@ function IndexDatatable() {
             {
                 "data": "Id",
                 "mRender": function (data) {
-                    return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Details/' + data + '">Details</a>';
+                    return '<a class="text-light btn"  href="/Pharmacy/Details/' + data + '">Details</a>';
                 }
             },
             {
                 "data": "Oracle_Id",
                 "mRender": function (data) {
-                    return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Print(this);"> Print</button>';
+                    return '<button type="button" class="text-light btn"  data-id=' + data + ' onclick="Print(this);"> Print</button>';
                 }
             }
 

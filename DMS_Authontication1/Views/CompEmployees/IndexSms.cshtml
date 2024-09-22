@@ -8,71 +8,71 @@
         text-align: center;
     }
 </style>
+<div class="sios-container">
+    <!-- start section -->
+    <div class="sios-overlay container-fluid mt-4">
+        <div class="container">
+            <i class="fa-solid fa-house"></i>
+            <h3>Admin Search</h3>
+        </div>
+    </div>
 
-<!-- start section -->
-<div class="sios-overlay container-fluid mt-4">
-    <div class="container">
-        <i class="fa-solid fa-house"></i>
-        <h3>Admin Search</h3>
+    <section class="   mt-4">
+        <form class="mb-0" name="formValidation" id="formValidation" action="">
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="row  row-cols-sm-2 col-md-8  row-gap-2  m-auto m-sm-0">
+                        <div class="forLabel">
+                            <input class="admin-form-control ps-3" type="text" name="CardId" id="CardId" required="required" />
+                            <span for="CardId">Card ID</span>
+                        </div>
+                        <div class="forLabel">
+                            <input class="admin-form-control ps-3" type="text" name="Company" id="Company" required="required" />
+                            <span for="company">Company</span>
+                        </div>
+                    </div>
+                    <div class="print-claims-btns mt-3 mt-md-0 col-md-4 d-flex gap-2  justify-content-center  ">
+                        <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3" style="height: fit-content;" />
+                        <input id="SendAllSms" type="button" value="Send All Sms" onclick="SendAll();" class="btn d-none fw-bold text-white rounded-3" style="height: fit-content;" disabled />
+                        <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3" style="height: fit-content;" />
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </section>
+    <div style="display: flex; flex-direction: column">
+        <section style="display: flex;flex-direction: column;flex-grow: 1;">
+            <div class="sios-overlay container-fluid mt-4">
+                <div class="container">
+                    <i class="fa-solid fa-house"></i>
+                    <h3 class="">Employees</h3>
+                </div>
+            </div>
+            <div class="cs-bg claims-section mb-4 container-fluid">
+                <div class="table-responsive">
+                    <table id="Employees" class="table table-striped mt-3 text-center">
+                        <thead>
+                            <tr>
+                                <th>Card ID</th>
+                                <th>Name</th>
+                                <th>Contract</th>
+                                <th>National ID</th>
+                                <th>Phone Number</th>
+                                <th>Sms Code</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </section>
     </div>
 </div>
-
-<section class="   mt-4">
-    <form class="mb-0" name="formValidation" id="formValidation" action="">
-        <div class="container">
-            <div class="row mt-3">
-                <div class="row  row-cols-sm-2 col-md-8  row-gap-2  m-auto m-sm-0">
-                    <div class="forLabel">
-                        <input class="admin-form-control ps-3" type="text" name="CardId" id="CardId" required="required" />
-                        <span for="CardId">Card ID</span>
-                    </div>
-                    <div class="forLabel">
-                        <input class="admin-form-control ps-3" type="text" name="Company" id="Company" required="required" />
-                        <span for="company">Company</span>
-                    </div>
-                </div>
-                <div class="print-claims-btns mt-3 mt-md-0 col-md-4 d-flex gap-2  justify-content-center  ">
-                    <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3" style="height: fit-content;" />
-                    <input id="SendAllSms" type="button" value="Send All Sms" onclick="SendAll();" class="btn d-none fw-bold text-white rounded-3" style="height: fit-content;" disabled />
-                    <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3" style="height: fit-content;" />
-                </div>
-            </div>
-           
-        </div>
-    </form>
-</section>
-<div style="display: flex; flex-direction: column">
-    <section style="display: flex;flex-direction: column;flex-grow: 1;">
-        <div class="sios-overlay container-fluid mt-4">
-            <div class="container">
-                <i class="fa-solid fa-house"></i>
-                <h3 class="">Employees</h3>
-            </div>
-        </div>
-        <div class="cs-bg claims-section mb-2 container-fluid">
-            <div class="table-responsive">
-                <table id="Employees" class="table table-striped mt-3 text-center">
-                    <thead>
-                        <tr>
-                            <th>Card ID</th>
-                            <th>Name</th>
-                            <th>Contract</th>
-                            <th>National ID</th>
-                            <th>Phone Number</th>
-                            <th>Sms Code</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-      
-        </div>
-
-    </section>
-</div>
-
 <script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
 <script>
     $(function () {
@@ -99,14 +99,14 @@
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            return '<a class="text-light btn" style="background-color: #717382" style = " text-transform: none" href="/CompEmployees/Edit/' + data + '">Edit</a>';
+                            return '<a class="text-light btn"  style = " text-transform: none" href="/CompEmployees/Edit/' + data + '">Edit</a>';
 
                         }
                     },
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="SMSCode(this);"> SMS Code</button>';
+                            return '<button type="button" class="text-light btn"  data-id=' + data + ' onclick="SMSCode(this);"> SMS Code</button>';
 
                         }
                     }

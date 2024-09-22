@@ -5,60 +5,68 @@
     Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 
 }
-<div style="padding-left: 93px;">
-    <h2>Details</h2>
+<div class="sios-container pt-4">
+    <div class="row bg-overlay  editeRquest fw-bold mb-4 portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <h3> <i class="fa-solid fa-home me-1 me-1"></i> Details</h3>
+        </div>
+    </div>
 
-    <p>
-        <a id="Backbutton" href="/Rays/index"><i class=" btn btn-primary glyphicon glyphicon-arrow-left">  Back</i> </a>
-    </p>
-    <table class="table">
-        <tr>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Roshita.CardId)
-                </th>*@
-            <th>
-                 Code
-            </th>
-            <th>
-                Ray Name
-            </th>
+    <div class="sios-bg claims-section container-fluid my-4">
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.Roshita.CardId)
+                        </th>*@
+                    <th>
+                        Code
+                    </th>
+                    <th>
+                        Ray Name
+                    </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PaymentGroup)
-            </th>
-            @*<th></th>*@
-        </tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Amount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PaymentGroup)
+                    </th>
+                    @*<th></th>*@
+                </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Roshita.CardId)
-                    </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.MedicienCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MedicienName)
-                </td>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Roshita.CardId)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MedicienCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MedicienName)
+                        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
-                </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Amount)
+                        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.PaymentGroup)
-                </td>
-                @*<td>
-                    <a id="Edit" class="btn btn-warning">Edit</a>|
-                        @Html.ActionLink("Delete", "MedDelete", new { id=item.Id }, htmlAttributes: new { @class = "btn btn-danger", @id = "Delete" })
-                    </td>*@
-            </tr>
-        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PaymentGroup)
+                        </td>
+                        @*<td>
+                            <a id="Edit" class="btn btn-warning">Edit</a>|
+                                @Html.ActionLink("Delete", "MedDelete", new { id=item.Id }, htmlAttributes: new { @class = "btn btn-danger", @id = "Delete" })
+                            </td>*@
+                    </tr>
+                }
 
-    </table>
+            </table>
+        </div>
+    </div>
+    <div class=" d-flex justify-content-center justify-content-sm-end gap-2 mt-3 mb-4 px-2">
+        <a id="Backbutton" href="/Rays/index"><i class="btn fw-bold text-white rounded-3 ">  Back</i> </a>
+    </div>
 </div>
 

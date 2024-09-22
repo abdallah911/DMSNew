@@ -4,101 +4,99 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
-
-<section class="container-fluid mt-4">
-    <!--  New request -->
-    <div class="row bg-overlay">
-        <div style="position: relative"
-             class="editeRquest fw-bold text-light">
-            <div class="m-3 fs-3">
-                <i class="fa fa-home me-3"></i>
-                User List
-            </div>
-            <div style=" position: absolute;right: 1%;top: 50%;transform: translateY(-50%);">
-                <a href="/Account/Register"
-                   class="btn fw-bold text-white rounded-3"
-                   >
-                    <i class="fas fa-plus"></i>
-                    Create User
-                </a>
-                <a href="/Role/Index" class="btn fw-bold text-white rounded-3"
-                   >
-                    <i class="h-100 fa  fa-list"></i> Roles
-                </a>
+<div class="sios-container">
+    <section class="container-fluid mt-4">
+        <!--  New request -->
+        <div class="row bg-overlay">
+            <div style="position: relative"
+                 class="editeRquest fw-bold text-light">
+                <div class="m-3 fs-3">
+                    <i class="fa-solid fa-home me-1 me-3"></i>
+                    User List
+                </div>
+                <div style=" position: absolute;right: 1%;top: 50%;transform: translateY(-50%);">
+                    <a href="/Account/Register"
+                       class="btn fw-bold text-white rounded-3">
+                        <i class="fas fa-plus"></i>
+                        Create User
+                    </a>
+                    <a href="/Role/Index" class="btn fw-bold text-white rounded-3">
+                        <i class="h-100 fa  fa-list"></i> Roles
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<div class="sios-bg w-100 m-auto px-4 my-4 pb-5">
-    <div class="table-responsive">
-        <table id="Users" class="table table-striped mt-3 text-center">
-            <thead>
-                <tr>
-                    <th>User Name</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Type</th>
-                    <th>Provider</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+    <div class="sios-bg w-100 m-auto px-4 my-4 pb-5">
+        <div class="table-responsive">
+            <table id="Users" class="table table-striped mt-3 text-center">
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Type</th>
+                        <th>Provider</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 </div>
 
+    <script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
 
-<script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
+    <script>
 
-<script>
-
-    $(function () {
-        //$("#example").DataTable();
-        //  $(document).ready(function () {
-        $("#Users").DataTable({
-            "sAjaxSource": '/User/UserList',
-            "bServerSide": true,
-            "processing": true,
-            "bFilter": true,
-            "bSort": false,
-            "pageLength": 10,
-            "bInfo": true,
-            "columns": [
-                { "data": "UserName", "name": "UserName" },
-                { "data": "FName", "name": "FName" },
-                { "data": "LName", "name": "LName" },
-                { "data": "Email", "name": "Email" },
-                { "data": "Provider", "name": "Provider" },
-                { "data": "Type", "name": "Type" },
-                {
-                    "data": "Id",
-                    "mRender": function (data) {
-                        return '<a class="btn fw-bold text-white rounded-3 ;"  href="/User/AdminResetPassword/?UserId=' + data + '">Change Password</a>';
+        $(function () {
+            //$("#example").DataTable();
+            //  $(document).ready(function () {
+            $("#Users").DataTable({
+                "sAjaxSource": '/User/UserList',
+                "bServerSide": true,
+                "processing": true,
+                "bFilter": true,
+                "bSort": false,
+                "pageLength": 10,
+                "bInfo": true,
+                "columns": [
+                    { "data": "UserName", "name": "UserName" },
+                    { "data": "FName", "name": "FName" },
+                    { "data": "LName", "name": "LName" },
+                    { "data": "Email", "name": "Email" },
+                    { "data": "Provider", "name": "Provider" },
+                    { "data": "Type", "name": "Type" },
+                    {
+                        "data": "Id",
+                        "mRender": function (data) {
+                            return '<a class="btn fw-bold text-white rounded-3 ;"  href="/User/AdminResetPassword/?UserId=' + data + '">Change Password</a>';
+                        }
+                    },
+                    {
+                        "data": "Id",
+                        "mRender": function (data) {
+                            return '<a class="btn fw-bold text-white rounded-3; "  href="/User/UserPermision/?UserId=' + data + '"> Permisions</a>'
+                        }
                     }
-                },
-                {
-                    "data": "Id",
-                    "mRender": function (data) {
-                        return '<a class="btn fw-bold text-white rounded-3; "  href="/User/UserPermision/?UserId=' + data + '"> Permisions</a>'
-                    }
-                }
-                //{
-                //    "data": "UserName",
-                //    "mRender": function (data) {
-                //        return '<a class="btn btn-danger" href="/User/Delete/' + data + '"> Delete</button>';
+                    //{
+                    //    "data": "UserName",
+                    //    "mRender": function (data) {
+                    //        return '<a class="btn btn-danger" href="/User/Delete/' + data + '"> Delete</button>';
 
-                //    }
-                //}
+                    //    }
+                    //}
 
-            ]
+                ]
+
+            });
+
+
+            $("#Users").DataTable();
 
         });
-
-
-        $("#Users").DataTable();
-
-    });
-</script>
+    </script>

@@ -4,72 +4,71 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
-
-<section class="container-fluid mt-4">
-    <!--  New request -->
-    <div class="row bg-overlay">
-        <div style="position: relative"
-             class="editeRquest fw-bold text-light">
-            <div class="m-3 fs-3">
-                <i class="fa fa-home me-3"></i>
-                Medicines
-            </div>
-            <div style=" position: absolute;right: 1%;top: 50%;transform: translateY(-50%);">
-                <a id="Create" href="/Medicines/Create" class="btn fw-bold text-white rounded-3" style="cursor: pointer;padding: 7.2px;">
-                    <i class="fas fa-plus"></i> Create
-                </a>
+<div class="sios-container">
+    <section class="container-fluid mt-4">
+        <!--  New request -->
+        <div class="row bg-overlay">
+            <div style="position: relative"
+                 class="editeRquest fw-bold text-light">
+                <div class="m-3 fw-bold fs-3">
+                    <h3> <i class="fa-solid fa-home me-1"></i>  Medicines</h3>
+                </div>
+                <div style=" position: absolute;right: 1%;top: 50%;transform: translateY(-50%);">
+                    <a id="Create" href="/Medicines/Create" class="btn fw-bold text-white rounded-3" style="cursor: pointer;padding: 7.2px;">
+                        <i class="fas fa-plus"></i> Create
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<div class="sios-bg w-100 m-auto px-4 my-4 pb-5">
-    <div class="table-responsive">
-        <table style="white-space:nowrap;" id="Mediciness" class="table table-striped mt-3 text-center">
-            <thead>
-                <tr>
+    <div class="sios-bg w-100 m-auto px-4 my-4 pb-5">
+        <div class="table-responsive">
+            <table style="white-space:nowrap;" id="Mediciness" class="table table-striped mt-3 text-center">
+                <thead>
+                    <tr>
 
-                    <th>
-                        Medicien Code
-                    </th>
-                    <th>
-                        Medicien Name
-                    </th>
-                    <th>
-                        Dosage Form
-                    </th>
-                    <th>
-                        Package Price
-                    </th>
-                    <th>
-                        Package size
-                    </th>
-                    <th>
-                        Units Numbers
-                    </th>
+                        <th>
+                            Medicien Code
+                        </th>
+                        <th>
+                            Medicien Name
+                        </th>
+                        <th>
+                            Dosage Form
+                        </th>
+                        <th>
+                            Package Price
+                        </th>
+                        <th>
+                            Package size
+                        </th>
+                        <th>
+                            Units Numbers
+                        </th>
 
-                    <th>
-                        Unit Price
-                    </th>
-                    <th>
-                        Group
-                    </th>
-                    <th>
-                        license Type
-                    </th>
-                    <th>
-                        ACTIVE
-                    </th>
+                        <th>
+                            Unit Price
+                        </th>
+                        <th>
+                            Group
+                        </th>
+                        <th>
+                            license Type
+                        </th>
+                        <th>
+                            ACTIVE
+                        </th>
 
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 </div>
-
 
 <script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
 <script>

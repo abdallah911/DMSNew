@@ -22,23 +22,17 @@
 <div class="sios-container editeRquest fw-bold pt-4 portlet box  green">
     <div class="row bg-overlay  portlet-title">
         <div class="m-3 fs-3 text-white caption">
-            <i class="fa fa-gift"></i>Chronic Management
+            <i class="fa-solid fa-home me-1"></i>Chronic Management
         </div>
     </div>
-    <div class="portlet-body"> 
-        <ul class="nav nav-tabs">
-            <li><a href="#CompaniesTab" data-toggle="tab">Companies</a></li>
-            <li class="active"><a href="#IndividualTab" data-toggle="tab">Individual</a></li>
-        </ul>
-        <div class="tab-content" style="padding-left:15px">
+    <div class="portlet-body">  
+        <div class="tab-content"  >
             <div id="CompaniesTab" class="tab-pane fade ">
                 <div class="form-horizontal">
                     <div class="row">
-                        <div class="form-group">
+                        <div class="form-group d-flex gap-3">
                             <div class="col-sm-3">
                                 <input id="txtSearchCompany" type="text" placeholder="search for company..." class="form-control" />
-                            </div>
-                            <div class="col-sm-3"> 
                             </div> 
                         </div> 
                     </div>
@@ -92,9 +86,9 @@
                 </div> 
             </div>
             <div id="IndividualTab" class="tab-pane fade  in active">
-                <div class="form-horizontal">
+                <div class="form-horizontal my-4">
                     <div class="row">
-                        <div class="form-group">
+                        <div class="form-group d-flex gap-3 mb-3 ms-sm-4 mx-auto">
                             <div class="col-sm-3">
                                 <input id="AddCardTxt" type="text" placeholder="Add Card" class="form-control" />
                             </div>
@@ -106,7 +100,7 @@
                             </div> 
                         </div>
                     </div>
-                    <div class="table-responsive" style="HEIGHT: 300px;position:relative">
+                    <div class="sios-bg table-responsive">
                         <table class="table table-fixed" id="Cards">
                             <thead>
                                 <tr>
@@ -134,73 +128,77 @@
                             <tbody></tbody> 
                         </table>
                     </div> 
-                    <input id="ShowDetailsCard" type="button" value="Show more details" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowDetailsCard($('#AddCardTxt').val())" />
-                    <br /><br />
+                    <input id="ShowDetailsCard" type="button" value="Show more details" class="btn text-white fw-bold rounded-3 mt-3 mb-4 ms-sm-4 mx-auto" onclick="ShowDetailsCard($('#AddCardTxt').val())" />
+                    
                     <div class="panel panel-info">
-                        <h2 class="panel-heading" style="margin:1px;">Medicines</h2>
-                        <div class="panel-body">
-                            <!--Search Medicine-->
-                            @*<div class="row">
-                    <div class="col-sm-12" data-step="9" data-intro="Select Medicines to Despense">
-                        <select id="AddMedicine" multiple="multiple" style="width:100%">
-                            <option value="0">select medicine</option>
-                        </select>
-                    </div>
-                </div>*@
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <button id="AddMedicien" class=" btn btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#exampleModal"> Add Medicine</button>
+                        <div class="row bg-overlay  portlet-title">
+                            <div class="m-3 fs-3 text-white caption">
+                                <h3 class="panel-heading fw-bold">Medicines</h3>
                                 </div>
-                                <div class="col-md-3" style="margin-left:180px">
-                                    <button id="ActiveMedicine" class=" btn btn-info glyphicon glyphicon-eye-open" onclick="ActiveOrNotActiveMedicine();">Active</button>
-                                </div>
-                                <div class="col-md-3">
-                                    <button id="EmployeeData" class=" btn btn-primary" data-toggle="modal" data-target="#EmplyeeModal" @*onclick="EmployeeData();"*@><i class="fa fa-info-circle" aria-hidden="true"></i>Employee Data</button>
-                                </div>
-                            </div> 
-                            <div class="container-fluid" style="margin-top:40px">
-                                @*<div class="master"></div>*@
-                                <div class="table-responsive">
-                                    <table class="table" id="CardMedicines">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Medicien Code</th>
-                                                <th scope="col" align="center">Name</th>
-                                                <th scope="col">Dosage</th>
-                                                <th scope="col">Package Size</th>
-                                                <th scope="col">Package Price</th>
-                                                <th scope="col">Unit Number</th>
-                                                <th scope="col">Unit Price</th>
-                                                <th scope="col">Dose</th>
-                                                <th scope="col">Duration</th>
-                                                <th scope="col">Dose Duration</th>
-                                                <th scope="col">Total Units</th>
-                                                <th scope="col">Excess</th>
-                                                <th scope="col">Amount</th>
-                                                <th scope="col">Medicines Type</th>
-                                                <th scope="col">Months</th>
-                                                <th scope="col">stop Month</th>
-                                                <th scope="col">Active</th>
-                                                <th scope="col">Company Pay</th>
-                                                <th scope="col">Start Date</th>
-                                                <th scope="col">Pool Type</th>
-                                                <th scope="col"> </th>
-                                                <th scope="col"> </th>
-                                            </tr> 
-                                        </thead>
-                                        <tbody></tbody> 
-                                    </table> 
-                                </div>
-                            </div> 
+                            </div>
+                                <div class="panel-body">
+                                    <!--Search Medicine-->
+                                    @*<div class="row">
+                        <div class="col-sm-12" data-step="9" data-intro="Select Medicines to Despense">
+                            <select id="AddMedicine" multiple="multiple" style="width:100%">
+                                <option value="0">select medicine</option>
+                            </select>
                         </div>
-                        <!--Save-->
-                        <div class="panel-footer" style="text-align:right;">
-                            <a id="LastApproval" class=" btn btn-default glyphicon glyphicon-eye-open" style="float:left"> Last Approval</a>
-                            <input id="SubmetChronic" type="button" value="Save mediciens" class="btn btn-success glyphicon glyphicon-save">
+                    </div>*@
+                                    <div class="row row-cols-3 row-gap-2 mx-auto  mt-4">
+                                        <div class=" text-center">
+                                            <button id="AddMedicien" class=" btn text-white fw-bold rounded-3" data-toggle="modal" data-target="#exampleModal"> Add Medicine</button>
+                                        </div>
+                                        <div class=" text-center" >
+                                            <button id="ActiveMedicine" class=" btn text-white fw-bold rounded-3" onclick="ActiveOrNotActiveMedicine();">Active</button>
+                                        </div>
+                                        <div class=" text-center">
+                                            <button id="EmployeeData" class=" btn text-white fw-bold rounded-3" data-toggle="modal" data-target="#EmplyeeModal" @*onclick="EmployeeData();"*@><i class="fa fa-info-circle" aria-hidden="true"></i>Employee Data</button>
+                                        </div>
+                                    </div>
+                                    <div class="sios-bg container-fluid my-3"  >
+                                        @*<div class="master"></div>*@
+                                        <div class="table-responsive">
+                                            <table class="table" id="CardMedicines">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Medicien Code</th>
+                                                        <th scope="col" align="center">Name</th>
+                                                        <th scope="col">Dosage</th>
+                                                        <th scope="col">Package Size</th>
+                                                        <th scope="col">Package Price</th>
+                                                        <th scope="col">Unit Number</th>
+                                                        <th scope="col">Unit Price</th>
+                                                        <th scope="col">Dose</th>
+                                                        <th scope="col">Duration</th>
+                                                        <th scope="col">Dose Duration</th>
+                                                        <th scope="col">Total Units</th>
+                                                        <th scope="col">Excess</th>
+                                                        <th scope="col">Amount</th>
+                                                        <th scope="col">Medicines Type</th>
+                                                        <th scope="col">Months</th>
+                                                        <th scope="col">stop Month</th>
+                                                        <th scope="col">Active</th>
+                                                        <th scope="col">Company Pay</th>
+                                                        <th scope="col">Start Date</th>
+                                                        <th scope="col">Pool Type</th>
+                                                        <th scope="col"> </th>
+                                                        <th scope="col"> </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Save-->
+                                <div class="panel-footer text-center text-sm-start ms-sm-4 "  >
+                                    <a id="LastApproval" class=" btn text-white fw-bold rounded-3" > Last Approval</a>
+                                    <input id="SubmetChronic" type="button" value="Save mediciens" class="btn text-white fw-bold rounded-3 ms-2">
+                                </div>
+                            </div>
                         </div>
                     </div> 
-                </div> 
-            </div> 
         </div> 
     </div> 
 </div> 

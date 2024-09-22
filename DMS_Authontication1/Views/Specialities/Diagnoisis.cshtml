@@ -6,31 +6,33 @@
     Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
 <!-- start section -->
-<div class="sios-overlay container-fluid mt-4">
-    <div class="container">
-        <i class="fa-solid fa-house"></i>
-        <h3>New Dosage Form</h3>
+<div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+    <div class="m-3 fs-3 text-white caption">
+        <h3 class=" fw-bold">
+            <i class="fa-solid fa-house me-1"></i>
+            New Dosage Form
+        </h3>
     </div>
 </div>
 
-<section class="print-claim-section mt-5">
+<section class="print-claim-section mt-4">
 
     @using (Html.BeginForm("Diagnoisis", "Specialities", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        <div class="container col-10 px-0 mt-4">
+        <div class="container col-10 px-0">
             <div style="white-space: nowrap" class="row row-cols-sm-2 row-gap-3 mx-auto">
                 <div class="flex-column gap-2 d-flex ">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="forLabel admin-form-control border-0 px-2">
                         @*@Html.LabelFor(model => model.DIAG_ANAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })*@
-                        @Html.EditorFor(model => model.DIAG_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100" } })
+                        @Html.EditorFor(model => model.DIAG_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100", @required = "True" } })
                         @Html.ValidationMessageFor(model => model.DIAG_ANAME, "", new { @class = "text-danger" })
                         <span>DIAG ANAME</span>
                     </div>
                     <div class="forLabel admin-form-control border-0 px-2">
                         @*@Html.LabelFor(model => model.DIAG_ENAME, htmlAttributes: new { @class = "sios-color col-4 fs-5 fw-bold mx-auto mb-3 mb-sm-2 my-auto ps-2" })*@
-                        @Html.EditorFor(model => model.DIAG_ENAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100" } })
+                        @Html.EditorFor(model => model.DIAG_ENAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100", @required = "True" } })
                         @Html.ValidationMessageFor(model => model.DIAG_ENAME, "", new { @class = "text-danger" })
                         <span>DIAG ENAME</span>
                     </div>
@@ -45,10 +47,9 @@
 </section>
 <div style="display: flex; flex-direction: column">
     <section  >
-        <div class="sios-overlay container-fluid mt-4">
-            <div class="container">
-                <i class="fa-solid fa-house"></i>
-                <h3 class="">Diagnoisis List</h3>
+        <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+            <div class="m-3 fs-3 text-white caption">
+                <h3 class=" fw-bold">Diagnoisis List</h3>
             </div>
         </div>
         <div class="sios-bg claims-section container-fluid mb-4">
