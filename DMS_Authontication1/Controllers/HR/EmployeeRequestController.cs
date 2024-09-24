@@ -43,6 +43,10 @@ namespace DMS_Authontication1.Controllers.HR
 
             return View();
         }
+        public ActionResult MNLandingPage()
+        { 
+            return View();
+        }
         public ActionResult AppointmentBookingTest()
         {
 

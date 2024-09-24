@@ -65,7 +65,7 @@
                         </div>
                         <div class="reports-field home-2-field">
                             <h6>رقم الشركة</h6>
-                            <div class="reports-input-parent">
+                            <div class="reports-select2-parent">
                                 @*<select style="border: none;"
                 class="reports-select home-2-field    "
                 name=""
@@ -78,11 +78,14 @@
                 id="">
             <option value="">الى</option>
         </select>*@
+                                <div>
 
-                                @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select home-2-field ", id = "CopmanyNumberFrom" })
+                                    @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select home-2-field ", id = "CopmanyNumberFrom" })
+                                </div>
+                                <div>
 
-                                @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "reports-select home-2-field ", id = "CopmanyNumberTo" })
-
+                                    @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "reports-select home-2-field ", id = "CopmanyNumberTo" })
+                                </div>
 
                             </div>
                         </div>
@@ -97,36 +100,48 @@
 
                         <div class="reports-field home-2-field">
                             <h6>رقم الكارت</h6>
-                            <div class="reports-input-parent">
-                                <select style="border: none;"
-                                        class="reports-select home-2-field    "
-                                        name=""
-                                        id="CardIdFrom">
-                                    <option value="">من</option>
-                                </select>
-                                <select style="border: none;"
-                                        class="reports-select home-2-field    "
-                                        name=""
-                                        id="CardIdTo">
-                                    <option value="">الى</option>
-                                </select>
+                            <div class="reports-select2-parent">
+                                <div>
+                                    <select style="border: none;"
+                                            class="reports-select home-2-field    "
+                                            name=""
+                                            id="CardIdFrom">
+                                        <option value="">من</option>
+                                    </select>
+                                </div>
+
+                                <div>
+
+                                    <select style="border: none;"
+                                            class="reports-select home-2-field    "
+                                            name=""
+                                            id="CardIdTo">
+                                        <option value="">الى</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="reports-field home-2-field">
                             <h6>كود مقدم الخدمة</h6>
-                            <div class="reports-input-parent">
-                                <select style="border: none;"
-                                        class="reports-select home-2-field    "
-                                        name=""
-                                        id="ProviderNameFrom">
-                                    <option value="">من</option>
-                                </select>
-                                <select style="border: none;"
-                                        class="reports-select home-2-field    "
-                                        name=""
-                                        id="ProviderNameTo">
-                                    <option value="">الى</option>
-                                </select>
+                            <div class="reports-select2-parent">
+                                <div>
+
+                                    <select style="border: none;"
+                                            class="reports-select home-2-field    "
+                                            name=""
+                                            id="ProviderNameFrom">
+                                        <option value="">من</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <select style="border: none;"
+                                            class="reports-select home-2-field    "
+                                            name=""
+                                            id="ProviderNameTo">
+                                        <option value="">الى</option>
+                                    </select>
+                                </div>
+
                             </div>
                         </div>
                         <div class="reports-field">

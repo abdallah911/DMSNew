@@ -40,12 +40,13 @@
                 </div>
                 <div class="operation-reports-field reports-field">
                     <h6>الشركة</h6>
-                    <div class="reports-select-parent">
-
-                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "select2 reports-select", id = "CopmanyNameReportsFrom" })
-
-                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "select2 reports-select", id = "CopmanyNameReportsTo" })
-
+                    <div class="reports-select2-parent">
+                        <div class=" ">
+                            @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "select2 reports-select px-2", id = "CopmanyNameReportsFrom" })
+                        </div> 
+                        <div class=" ">
+                            @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "select2 reports-select px-2", id = "CopmanyNameReportsTo" })
+                        </div>
                     </div>
                 </div>
                 <div class="operation-reports-field reports-field">

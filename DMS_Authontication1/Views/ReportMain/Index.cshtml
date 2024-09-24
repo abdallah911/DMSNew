@@ -14,348 +14,251 @@
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 
-<div class="sios-container panel panel-info">
-    
+<div class="sios-container pt-4 panel panel-info">
+
     <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
         <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
     </div>
 
     <div class="portlet box blue">
-        <div class="row bg-overlay editeRquest fw-bold my-4 portlet-title">
+        <div class="row bg-overlay editeRquest fw-bold mb-4 portlet-title">
             <div class="m-3 fs-3 text-white caption">
-                <i class="fa fa-gift me-3"></i> Pharmacy Report
+                <i class="fa-solid fa-home me-1"></i> Pharmacy Report
             </div>
         </div>
         <div class=" container portlet-body">
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#ReportTab" data-toggle="tab">Reports</a></li>
-                <li><a href="#ChronicParmacyTab" data-toggle="tab">Chronic Parmacy</a></li>
+            <ul class="nav nav-tabs ps-4">
+                <li class="active"><a class="report-tog-btn rounded-end-0" href="#ReportTab" data-toggle="tab" aria-expanded="true">Reports</a></li>
+                <li><a class="report-tog-btn rounded-start-0" href="#ChronicParmacyTab" data-toggle="tab">Chronic Parmacy</a></li>
             </ul>
 
             <div class="tab-content" style="padding-left:15px">
                 <div id="ReportTab" class="tab-pane fade  in active">
 
                     <div class="form-horizontal">
-
-                        <div class="form-wizard">
-                            <div class="form-body">
-                                <div class="tab-content">
-                                    <div asp-validation-summary="All" class="text-danger"></div>
-
-                                    <div class="row">
-                                        @*Date of Registration*@
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Record Date :
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <label class="control-label sbold col-md-3">
-                                                        From
-
+                        <form>
+                            <div class="form-wizard">
+                                <div class="form-body">
+                                    <div class="tab-content">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                        <div class=" row row-cols-md-2 row-gap-2 container mx-auto">
+                                            <div class="d-flex flex-column gap-2 my-4 no-wrap px-0">
+                                                @*Date of Registration*@
+                                                <div class="d-flex align-items-center sios-form-control w-100 form-group rounded" style="padding: 0 12px 0 0px !important; ">
+                                                    <label class="col-4 hr-color ps-2 control-label fw-bold ">
+                                                        Record Date
                                                     </label>
-                                                    <div class="col-md-9">
-                                                        <input id="RegistrationFrom" type="text" class="admin-form-control ps-2 col-md-2 form-control " placeholder="From" />
+                                                    <div class="col-8   d-flex align-items-baseline  position-relative">
+                                                        <input type="text" id="RegistrationFrom" style="outline:none;box-shadow:none!important;" class="date-input border-0 w-100 h-100 p-2 bg-transparent shadow-none border-0 text-center hr-color" name="end-date" required="" placeholder="From"><i class="fa-solid fa-calendar-days opacity-75 me-2 hr-color"></i>
+                                                        <div style="width: 1px; height: 20px;  right: 49%;" class="line position-absolute top-50  translate-middle-y opacity-75  "></div>
+                                                        <input type="text" id="RegistrationTo" style="outline:none;box-shadow:none!important;" class="date-input outli border-0 w-100 h-100 p-2 bg-transparent shadow-none border-0 text-center hr-color" name="end-date" required="" placeholder="to"><i class="fa-solid fa-calendar-days opacity-75 hr-color"></i>
                                                     </div>
                                                 </div>
-                                               
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="control-label sbold col-md-2">
-                                                TO
+                                                @* Company Number *@
+                                                <div class="">
+                                                    <div class="form-group forLabel">
 
-                                            </label>
-                                            <div class="col-md-10">
-                                                <input id="RegistrationTo" type="text" class="col-md-2 form-control "    placeholder="To" />
-                                            </div>
-                                        </div>
-
-                                        @* Company Number *@
-
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Company Number :
-
-                                                </label>
-                                                <div class="col-md-6">
-                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = " hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  col-md-2 js-data-example-ajax", style = "width: 100%", id = "CompNo" })
-
+                                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = " hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded  col-md-2 border-2 sios-form-control w-100 bg-transparent shadow-none border-0 js-data-example-ajax", @required = "true", @style = "width: 100%", id = "CompNo" })
+                                                        <span style="padding-left:10px" class="control-label fw-bold  ">
+                                                            Company Number
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                               
-                                            </div>
-                                        </div>
-                                       
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Card Number :
 
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <select id="CardNo" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded col-md-2 js-data-example-ajax" style="width: 100%">
+                                                <div class="form-group forLabel">
+
+                                                    <select id="CardNo" class=" hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded col-md-2 border-2 sios-form-control w-100 bg-transparent shadow-none border-0 js-data-example-ajax" required style="width: 100%">
                                                         <option value="">select Card</option>
                                                     </select>
-
+                                                    <span style="padding-left:10px" class="control-label fw-bold  ">
+                                                        Card Number
+                                                    </span>
                                                 </div>
-                                               
-                                            </div>
-                                        </div>
-                                       
-                                        @* User Name *@
 
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    User Name:
+                                                @* User Name *@
 
-                                                </label>
-                                                <div class="col-md-6">
-                                                    @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = " hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded col-md-2 js-data-example-ajax", style = "width: 100%", @id = "userName" })
+                                                <div class="form-group forLabel">
+                                                    @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = " hr-form-control h-100 w-100 fw-bold p-3 pb-1 w-100 rounded col-md-2 border-2 sios-form-control w-100 bg-transparent shadow-none border-0 js-data-example-ajax", @required = "true", style = "width: 100%", @id = "userName" })
+
+                                                    <span style="padding-left:10px" class="control-label fw-bold  ">
+                                                        User Name
+                                                    </span>
                                                 </div>
-                                               
-                                            </div>
-                                        </div>
-                                       
 
-                                        @* Service provider number *@
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Manager :
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <select id="TypeManager" class="form-control">
+                                                @* Service provider number *@
+                                                <div class="form-group forLabel sios-form-control rounded">
+                                                    <select id="TypeManager" class="form-control bg-transparent shadow-none border-0">
                                                         <option value="All">All</option>
                                                         <option value="Daily">Daily</option>
                                                         <option value="Monthly">Monthly</option>
                                                         <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>
                                                         <option value="Pharmacy_Doctor">Pharmacy_Doctor</option>
-
-
                                                     </select>
+                                                    <span style="padding-left:10px" class="control-label fw-bold  ">
+                                                        Manager
+                                                    </span>
                                                 </div>
-                                               
-                                            </div>
-                                        </div>
-                                       
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Med Code:
+                                                <div class="form-group forLabel">
 
-                                                </label>
-                                                <div class="col-md-6">
                                                     @*@Html.DropDownList("MedicationAll", ViewBag.medall as SelectList, "Select Medication", new { @class = "form-control", @id = "MedicienCode" })*@
-                                                    <select id="AddMedicine" style="width:100%">
+                                                    <select id="AddMedicine" style="width:100%" required>
                                                         <option value="">select medicine</option>
                                                     </select>
-                                                    @*   <select id="MedCode" class="col-md-2 form-control js-data-example-ajax" style="width: 100%"></select>*@
-                                                    @*<input id="SerProvNumber" type="number" class="col-md-2 form-control " min="0" />*@
+                                                    @*   <select id="MedCode" class="col-md-2 border-2 sios-form-control w-100 bg-transparent shadow-none border-0 form-control js-data-example-ajax" style="width: 100%"></select>*@
+                                                    @*<input id="SerProvNumber" type="number" class="col-md-2 border-2 sios-form-control w-100 bg-transparent shadow-none border-0 form-control " min="0" />*@
 
+                                                    <span style="padding-left:10px" class="control-label fw-bold  ">
+                                                        Med Code:
+
+                                                    </span>
                                                 </div>
-                                               
-                                            </div>
-                                        </div>
-                                       
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Type State:
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <select id="Type" class="form-control">
+
+                                                <div class="form-group forLabel sios-form-control rounded">
+
+                                                    <select id="Type" class="form-control bg-transparent shadow-none border-0">
                                                         <option value="All">All</option>
                                                         <option value="New">New</option>/option>
                                                         <option value="Edit">Edit</option>
                                                     </select>
+                                                    <span style="padding-left:10px" class="control-label fw-bold  ">
+                                                        Type State
+                                                    </span>
                                                 </div>
-                                               
-                                            </div>
-                                        </div>
-                                       
-                                        @* Repot Type *@
 
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Repot Type :
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <select id="RepotType" class="form-control">
+                                                @* Repot Type *@
+
+                                                <div class="form-group forLabel sios-form-control rounded">
+                                                    <select id="RepotType" class="form-control bg-transparent shadow-none border-0">
                                                         <option value="1">Report Edit Medicine Monthly</option>
                                                         <option value="2">Medication dispensing details</option>/option>
                                                         <option value="3">Online medication dispensing per card</option>
                                                         <option value="4">Repeat Dispensing Medicine</option>
 
                                                         @*<option value="903">Top 20 employees in terms of Usage (903)</option>
-                                                <option value="904">Consumption per Provider with the highest according to values(904)</option>
-                                                <option value="905">Consumption per Provider with the highest according to Usage (905)</option>
-                                                <option value="907">Consumption per type of service provider according to Usage (907)</option>
-                                                <option value="915">Consumption per Card (915)</option>
-                                                <option value="916">Consumption per Card according to service Type (916)</option>*@
+                    <option value="904">Consumption per Provider with the highest according to values(904)</option>
+                    <option value="905">Consumption per Provider with the highest according to Usage (905)</option>
+                    <option value="907">Consumption per type of service provider according to Usage (907)</option>
+                    <option value="915">Consumption per Card (915)</option>
+                    <option value="916">Consumption per Card according to service Type (916)</option>*@
                                                     </select>
-                                                </div>
-                                               
+                                                    <span style="padding-left:10px" class="control-label fw-bold  ">
+                                                        Repot Type 
+                                                        <span style="padding-left:10px" class="required">* </span>
+                                                    </span>
+                                                </div> 
                                             </div>
-                                        </div>
-                                       
 
+                                            @*Print Type*@
 
-                                        @*Print Type*@
-
-                                        <div class="col-md-8">
-                                            <div class="form-group d-flex gap-2">
-                                                <label class="control-label sbold col-md-3">
-                                                    Print Type :
-                                                </label>
-                                                <div class="col-md-2">
+                                            <div class="form-group forLabel d-flex gap-2 justify-content-end">
+                                            
+                                            
+                                            
+                                            
+                                                @* For Buttons *@
+                                            
+                                                <div class="d-flex gap-2 mt-3 mb-4">
+                                            
+                                                    <div class=" " id="div_of_serv">
+                                                        <button id="Consumption" type="button" class="btn " onclick="ClearAll()">
+                                                            <span style="padding-left:10px" class="fa fa-save"></span> New
+                                                        </button>
+                                            
+                                                    </div>
+                                            
+                                                    <div class=" " id="div_of_serv">
+                                                        <button id="Consumption" type="button" class="btn " onclick="PrintReport()">
+                                                            <span style="padding-left:10px" class="fa fa-save"></span> Print
+                                                        </button>
+                                            
+                                                    </div>
+                                            
+                                                </div>
+                                                <div class="no-wrap d-flex align-items-center gap-3">
+                                                    <label class="control-label fw-bold mb-1">
+                                                        Print Type :
+                                                    </label>
+                                                    
                                                     <div class="checkbox-inline">
                                                         <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
                                                         <label for="pdf">
                                                             PDF
                                                         </label>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-2">
+                                                    </div>  
                                                     <div class="checkbox-inline">
                                                         <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
                                                         <label for="excel">
                                                             EXCEL
                                                         </label>
-                                                    </div>
+                                                    </div> 
                                                 </div>
-                                               
                                             </div>
-                                        </div>
-                                       
-
-                                        @* For Buttons *@
-
-                                        <div class="d-flex gap-2 mt-3 mb-4"  >
-
-                                            <div class="col-sm-4" id="div_of_serv">
-                                                <button id="Consumption" type="button" class="btn btn-warning" onclick="ClearAll()">
-                                                    <span class="fa fa-save"></span> New
-                                                </button>
-
-                                            </div>
-
-                                            <div class="col-sm-4" id="div_of_serv">
-                                                <button id="Consumption" type="button" class="btn btn-primary" onclick="PrintReport()">
-                                                    <span class="fa fa-save"></span> Print
-                                                </button>
-
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </form>
                     </div>
                 </div>
 
 
-                <div id="ChronicParmacyTab" class="tab-pane fade ">
-
+                <div id="ChronicParmacyTab" class="tab-pane fade "> 
                     <div class="form-horizontal">
-
-                        <div class="form-wizard">
-                            <div class="form-body">
-                                <div class="tab-content">
-                                    <div asp-validation-summary="All" class="text-danger"></div>
-
-                                    <div class="row">
-
-                                        @* Company Number *@
-
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Company Number:
-
-                                                </label>
-                                                <div class="col-md-6">
-                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 js-data-example-ajax", style = "width: 100%", id = "CopmanyNumber2" })
+                        <form>
+                            <div class="form-wizard">
+                                <div class="form-body">
+                                    <div class="tab-content">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                        <div class=" row row-cols-md-2 row-gap-2 container mx-auto"> 
+                                            <div class="d-flex flex-column gap-2 justify-content-end align-items-start mt-4 no-wrap px-0">
+                                        
+                                                @* Company Number *@
+                                        
+                                                <div class="form-group forLabel w-100">
+                                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 border-2 sios-form-control w-100 bg-transparent shadow-none border-0 js-data-example-ajax",@required="true", style = "width: 100%", id = "CopmanyNumber2" })
+                                        
+                                                    <span style="padding-left:10px" class="control-label fw-bold  ">
+                                                        Company Number
+                                                    </span>
                                                 </div>
-                                               
-                                            </div>
-                                        </div>
-                                       
-
-                                        @* Month *@
-
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Month:
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <input id="Date" type="text" class="col-md-2 js-data-example-ajax" style="width: 100%" placeholder="Select Month" />
+                                        
+                                                @* Month *@
+                                        
+                                                <div class="form-group forLabel w-100 sios-form-control rounded">
+                                                    <input id="Date" type="text" class="col-md-2 border-2 sios-form-control w-100 bg-transparent ps-2 shadow-none border-0 js-data-example-ajax"required style="width: 100%"   />
+                                                    <span style="padding-left: 10px; " class="control-label fw-bold  ">
+                                                        Month:
+                                                    </span>
                                                 </div>
-                                               
-                                            </div>
-                                        </div>
-                                       
-
-                                        @* Group *@
-
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Group:
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <select id="ddlGroups" style="width:100%">
+                                                @* Group *@
+                                                <div class="form-group forLabel w-100 rounded">
+                                                    <select id="ddlGroups"required style="width:100%">
                                                         <option value="">Select Group</option>
                                                     </select>
+                                                    <span style="padding-left:10px" class="control-label fw-bold  ">
+                                                        Card Id *
+                                                    </span>
                                                 </div>
-                                               
-                                            </div>
-                                        </div>
-                                       
-
-                                        @* Card Id *@
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-3">
-                                                    Card Number:
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <select id="CardNo2" class="col-md-2 js-data-example-ajax" style="width: 100%">
+                                                
+                                                <div class="form-group forLabel w-100">
+                                                    <select id="CardNo2" class="col-md-2 border-2 sios-form-control w-100 bg-transparent shadow-none border-0 border-2 sios-form-control w-100 bg-transparent shadow-none border-0 js-data-example-ajax"required style="width: 100%">
                                                         <option value="">select Card</option>
                                                     </select>
-
+                                                    <span style="padding-left:10px" class="control-label fw-bold  ">
+                                                        Card Number
+                                                    </span>
                                                 </div>
-                                               
                                             </div>
-                                        </div>
-                                       
-
-                                        <div class="row" style=" text-align:center">
-                                            <div class="d-flex gap-2">
-                                                <input id="New" type="button" value="New" onclick="ClearAll3();" class="btn " />
-                                                <input id="Print" type="button" value="Print" onclick="PrintReport3();" class="btn " />
-                                            </div>
-                                        </div>
+                                         </div> 
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </form>
                     </div>
-                </div>
-
-            </div>
-
+                </div> 
             </div>
         </div>
+    </div>
 </div>
 
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>

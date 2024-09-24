@@ -13,16 +13,16 @@
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 
-<div class="sios-container panel panel-info">
+<div class="sios-container pt-4 panel panel-info">
 
     <div id="wait" style="display:none;width:69px;height:89px;position:absolute;top:50%;left:50%;padding:2px;z-index:100000;">
         <img src='/Content/images/demo_wait.gif' width="64" height="64" /><br>Loading...
     </div>
 
     <div class="portlet box blue">
-        <div class="row bg-overlay  editeRquest fw-bold  my-4 portlet-title">
+        <div class="row bg-overlay  editeRquest fw-bold portlet-title">
             <div class="m-3 fs-3 text-white caption">
-                <i class="fa fa-gift"></i> Print Card
+                <i class="fa-solid fa-home me-1"></i> Print Card
             </div>
         </div>
         <div class="container portlet-body">
@@ -35,69 +35,75 @@
                                 <div class="tab-content">
                                     <div asp-validation-summary="All" class="text-danger"></div>
 
-                                    <div class="row container">
+                                    <div class=" row row-cols-md-2 row-gap-2 container mx-auto">
 
-                                    @* Company Number *@ 
-                                    <div class="forLabel admin-form-control border-0 px-2 mb-2 form-group">
-                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "admin-form-control w-100 h-100 form-control", id = "CompNoPrint" })
-                                        <span class="sios-color control-label sbold col-md-3">
-                                            Company Number 
-                                        </span>
-                                    </div>
-                                    <div class="forLabel admin-form-control border-0 px-2 form-group">
-                                       <select id="ContractNo" class=" admin-form-control w-100 h-100  form-control" style="width: 100%">
-                                           <option value="">Select Contract</option>
-                                       </select>  
-                                        <span class=" control-label ">
-                                           Contract Number 
-                                       </span>
-                                    </div>
-                                        <div class=" editeRquest    " style="white-space:nowrap;">
-                                            <div class="my-3 d-flex  fs-6 text-white  form-group">
-                                                <label class="sios-color control-label sios-color fw-bold sbold col-md-3">
-                                                    Type Print :
-                                                </label>
+                                        <div class=" d-flex flex-column gap-2 my-4 no-wrap">
 
-                                                @*<label>@Html.RadioButton("LargeRadio", "True")Large</label>
-        <label>@Html.RadioButton("MediumRadio", "False")Medium</label>
-        <label>@Html.RadioButton("SmallRadio", "False")Small</label>
-        <label>@Html.RadioButton("MiniRadio", "False")Mini</label>*@
-
-                                        <div class="d-flex align-items-center gap-2 me-2">
-                                            <label class=" control-label text-dark-emphasis "><input class="me-2" data-val="true" id="Large" name="TypePrint" type="radio" value="Large">Large</label>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2 me-2">
-                                            <label class=" control-label text-dark-emphasis "><input class="me-2" data-val="true" id="Medium" name="TypePrint" type="radio" value="Medium">Medium</label>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2 me-2">
-                                            <label class=" control-label text-dark-emphasis "><input class="me-2" data-val="true" id="Small" name="TypePrint" type="radio" value="Small">Small</label>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2 ">
-                                            <label class=" control-label text-dark-emphasis "><input class="me-2" data-val="true" id="Mini" name="TypePrint" type="radio" value="Mini">Mini</label>
-                                        </div>
-
-                                                
+                                            @* Company Number *@
+                                            <div class="forLabel admin-form-control border-0 px-2 mb-2 form-group">
+                                                @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "admin-form-control w-100 h-100 form-control", required = "true", id = "CompNoPrint" })
+                                                <span style="padding-left:10px" class="sios-color control-label sbold col-md-3">
+                                                    Company Number
+                                                </span>
+                                            </div>
+                                            <div class="forLabel admin-form-control border-0 px-2 form-group">
+                                                <select id="ContractNo" class=" admin-form-control w-100 h-100  form-control" style="width: 100%">
+                                                    <option value="">Select Contract</option>
+                                                </select>
+                                                <span style="padding-left:10px" class=" control-label ">
+                                                    Contract Number
+                                                </span>
                                             </div>
                                         </div>
+                                        <div class=" d-flex flex-column gap-2 my-4 no-wrap">
 
-                                        @* For Buttons *@
+                                            <div class=" editeRquest    " style="white-space:nowrap;">
+                                                <div class="my-3 d-flex  fs-6 text-white  form-group">
+                                                    <label class="sios-color control-label sios-color fw-bold sbold col-md-3">
+                                                        Type Print :
+                                                    </label>
 
-                                        <div class="d-flex gap-2 " style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
+                                                    @*<label>@Html.RadioButton("LargeRadio", "True")Large</label>
+                        <label>@Html.RadioButton("MediumRadio", "False")Medium</label>
+                        <label>@Html.RadioButton("SmallRadio", "False")Small</label>
+                        <label>@Html.RadioButton("MiniRadio", "False")Mini</label>*@
 
-                                            <div class=" " id="div_of_serv">
-                                                <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3 " onclick="ClearAllPrint()">
-                                                    <span class="fa fa-save"></span> New
-                                                </button>
+                                                    <div class="d-flex align-items-center gap-2 me-2">
+                                                        <label class=" control-label text-dark-emphasis "><input style="transform: translateY(2px);" class="me-2" data-val="true" id="Large" name="TypePrint" type="radio" value="Large">Large</label>
+                                                    </div>
+                                                    <div class="d-flex align-items-center gap-2 me-2">
+                                                        <label class=" control-label text-dark-emphasis "><input style="transform: translateY(2px);" class="me-2" data-val="true" id="Medium" name="TypePrint" type="radio" value="Medium">Medium</label>
+                                                    </div>
+                                                    <div class="d-flex align-items-center gap-2 me-2">
+                                                        <label class=" control-label text-dark-emphasis "><input style="transform: translateY(2px);" class="me-2" data-val="true" id="Small" name="TypePrint" type="radio" value="Small">Small</label>
+                                                    </div>
+                                                    <div class="d-flex align-items-center gap-2 ">
+                                                        <label class=" control-label text-dark-emphasis "><input style="transform: translateY(2px);" class="me-2" data-val="true" id="Mini" name="TypePrint" type="radio" value="Mini">Mini</label>
+                                                    </div>
 
+
+                                                </div>
                                             </div>
 
-                                            <div class=" " id="div_of_serv">
-                                                <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3   " onclick="PrintReportPrint()">
-                                                    <span class="fa fa-save"></span> Print
-                                                </button>
+                                            @* For Buttons *@
+
+                                            <div class="d-flex gap-2 justify-content-end gap-2 my-4 no-wrap " >
+
+                                                <div class=" " id="div_of_serv">
+                                                    <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3 " onclick="ClearAllPrint()">
+                                                        <span style="padding-left:10px" class="fa fa-save"></span> New
+                                                    </button>
+
+                                                </div>
+
+                                                <div class=" " id="div_of_serv">
+                                                    <button id="Consumption" type="button" class="btn fw-bold text-white rounded-3   " onclick="PrintReportPrint()">
+                                                        <span style="padding-left:10px" class="fa fa-save"></span> Print
+                                                    </button>
+
+                                                </div>
 
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>

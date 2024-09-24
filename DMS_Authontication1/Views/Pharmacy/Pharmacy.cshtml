@@ -90,17 +90,17 @@
                     <div class="mx-auto row row-cols-sm-2 row-cols-lg-3 row-gap-2 form-group">
                         <div class="forLabel admin-form-control border-0 px-2">
                             @*@Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })*@
-                            @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm", @ReadOnly = "true" } })
+                            @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm",@required="true", @ReadOnly = "true" } })
                             <span style="padding-left:12px;">Name</span>
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2">
                             @*@Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })*@
-                            @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm", @ReadOnly = "true" } })
+                            @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm",@required="true", @ReadOnly = "true" } })
                             <span style="padding-left:12px;">Start Date</span>
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2">
                             @*@Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })*@
-                            @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm", @ReadOnly = "true" } })
+                            @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm",@required="true", @ReadOnly = "true" } })
                             <span style="padding-left:12px;">End Date</span>
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2" data-step="4" data-intro="Enter Clame Number">
@@ -115,12 +115,12 @@
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2">
                             @*@Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })*@
-                            @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm", @ReadOnly = "true" } })
+                            @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm",@required="true", @ReadOnly = "true" } })
                             <span style="padding-left:12px;">Birth Date</span>
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2" hidden>
 
-                            @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm", @ReadOnly = "true" } })
+                            @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm",@required="true", @ReadOnly = "true" } })
                             <span style="padding-left:12px;">@Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })</span>
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2">
@@ -151,7 +151,7 @@
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2">
                             @*@Html.LabelFor(model => model.compEmp.CompHolderName, htmlAttributes: new { @class = "control-label" })*@
-                            @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm", @ReadOnly = "true" } })
+                            @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm", @required = "true", @ReadOnly = "true" } })
                             <span style="padding-left:12px;">Comp Name</span>
                         </div>
                         <!--<div class="  forLabel select2-60 ddlDiagnoises admin-form-control   border-0 px-2  " style="height:80px">-->
