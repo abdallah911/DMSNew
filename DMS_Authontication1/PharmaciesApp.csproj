@@ -9286,7 +9286,7 @@
     <Content Include="Views\Shared\_Layout_DashboardHR.cshtml" />
     <Content Include="Views\EmployeeRequest\AppointmentBookingTest.cshtml" />
     <Content Include="Views\EmployeeRequest\HomePageTest.cshtml" />
-    <Content Include="Views\EmployeeRequest\MNLandingPage.cshtml" />
+    <Content Include="Views\HomeNetwork\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardAdminNew - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
