@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0e09e86cc06b4364aa9c6bf3a398f095" Name="Diagram1" ZoomLevel="68">
+      <Diagram DiagramId="0e09e86cc06b4364aa9c6bf3a398f095" Name="Diagram1" ZoomLevel="51">
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.Acception" Width="1.5" PointX="9.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.AcceptionReason" Width="1.5" PointX="0.5" PointY="14.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CardAcceptionReason" Width="1.5" PointX="4" PointY="14.375" IsExpanded="true" />
@@ -186,7 +186,7 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.BasicDentalService" Width="1.5" PointX="37.375" PointY="31.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.DentalService" Width="1.5" PointX="39.375" PointY="31.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PoolService" Width="1.5" PointX="28.375" PointY="41.75" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalBasicData" Width="1.5" PointX="43.625" PointY="30.5" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalBasicData" Width="1.5" PointX="45.125" PointY="31.5" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalBasicData_RenewalMains" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalServicePool" Width="1.5" PointX="45.875" PointY="35.875" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalServicePol_PoolService" />
@@ -196,6 +196,10 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalOtsideAdvanceDental" Width="1.5" PointX="23.375" PointY="42.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalOtsideBasicDental" Width="1.5" PointX="25.375" PointY="42.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ClaimPhoto" Width="1.5" PointX="27.375" PointY="44.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CriticalReason" Width="1.5" PointX="42.375" PointY="13.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.OutsideNetworkInpatientResaon" Width="1.5" PointX="43.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.OutsideNetworkOutpatientResaon" Width="1.5" PointX="44.375" PointY="13.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PreXChronicReason" Width="1.5" PointX="29.375" PointY="44.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

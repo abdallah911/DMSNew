@@ -14,7 +14,7 @@ namespace DMS_Authontication1.Data_Function
                                             (HOST=196.221.203.129)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDECATED)
                                             (SERVICE_NAME=ora11g)));User Id=app;Password=12369";
 
-
+        //196.221.203.129
         //connection
         OracleConnection conn = new OracleConnection(connectionStr);
         //queries

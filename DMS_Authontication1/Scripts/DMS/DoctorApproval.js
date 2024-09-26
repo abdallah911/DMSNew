@@ -51,7 +51,7 @@ $(function () {
                                 parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
                             );
                         var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
-                         dat2 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
+                        dat2 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
                     }
                     else {
                         dat1 = null;
@@ -101,144 +101,144 @@ $(function () {
                     }
 
                     var date = new Date(newDate);
-                     today = mm + '/' + dd + '/' + yyyy;
+                    today = mm + '/' + dd + '/' + yyyy;
 
                     if (date > CurrentDate || newDate == "null") {
-                    $('#txtSearchCard').val(CardId);
-                    $('#compEmp_EMP_ANAME').val(ArName);
-                    $('#compEmp_INS_END_DATE').val(EndDate);
+                        $('#txtSearchCard').val(CardId);
+                        $('#compEmp_EMP_ANAME').val(ArName);
+                        $('#compEmp_INS_END_DATE').val(EndDate);
 
-                    $('#CardsModal').modal('hide');
-                    //var url = "/Doctor/Doctor/" + CardId;
-                    //$('#Doctor').attr("disabled", false).attr("href", url);
-                    $.ajax({
-                        type: "POST",
-                        dataType: "json",
-                        url: '/Pharmacy/GetCompName',
-                        data: { id: CardId },
+                        $('#CardsModal').modal('hide');
+                        //var url = "/Doctor/Doctor/" + CardId;
+                        //$('#Doctor').attr("disabled", false).attr("href", url);
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: '/Pharmacy/GetCompName',
+                            data: { id: CardId },
 
-                        success: function (returndata) {
-                            if (returndata.ok) {
+                            success: function (returndata) {
+                                if (returndata.ok) {
 
-                                $("#contractComp_C_ANAME").val(returndata.data.C_ANAME);
-
-                            }
-                            else {
-                                window.alert(' No Company Data ');
-
-                            }
-                        }
-                    });
-                    //GetLimit
-                    //$.ajax({
-                    //    type: "POST",
-                    //    dataType: "json",
-                    //    url: '/Pharmacy/GetLimit',
-                    //    data: { id: CardId },
-                    //    success: function (returndata) {
-                    //        if (returndata.ok) {
-                    //            $("#insurance_LIVEL").val(returndata.limit.INSURANCE_DAY);
-                    //        }
-                    //        else {
-                    //            bootbox.alert('No Limit Amount ');
-                    //        }
-                    //    }
-                    //});
-                    //CellingAmount
-                    $.ajax({
-                        type: "POST",
-                        dataType: "json",
-                        url: '/Pharmacy/CellingAmount',
-                        data: {
-                            id: CardId,
-                            ServiceCode: '11601'
-                        },
-                        success: function (r) {
-                            if (r.Validation == false) {
-                                toastr.info(r.Message);
-                                ClearCardData();
-                            } else {
-                                $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
-                                AnuualLimit = r.Limit;
-                                if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
-                                    $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
-                                } else {
-                                    alert(" لقد تم استهلاك العدد المحدد للروشتات وسوف تكون خارج التغطه ");
-                                    $("#insurance_LIVEL").val("0.001");
-
-                                    $('#ddEmp_CEILING_PERT').val("0");
-                                }
-                            }
-                        },
-                        error: function (err) {
-                            alert("Company Annual Amount");
-                            location.reload();
-                        }
-                    });
-
-                    $.ajax({
-                        type: "POST",
-                        dataType: "json",
-                        url: '/DoctorApprovals/History',
-                        data: { id: CardId },
-                        success: function (r) {
-                            $('#From').attr("disabled", false);
-                            $('#To').attr("disabled", false);
-                            $('#History').dataTable().fnDestroy();
-                            var setData = $("#History Tbody");
-                            setData.empty();
-                            var dat;
-                            for (var i = 0; i < r.length; i++) {
-                                if (r[i].CreatedDate != null) {
-                                    var MyDate_String_Value = r[i].CreatedDate;
-                                    var value = new Date
-                                        (
-                                            parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
-                                        );
-                                    dat = (value.getMonth() + 1) + "/" + value.getDate() + "/" + value.getFullYear();
+                                    $("#contractComp_C_ANAME").val(returndata.data.C_ANAME);
 
                                 }
                                 else {
-                                    dat = null;
+                                    window.alert(' No Company Data ');
 
                                 }
-                                if (i == 0) {
-                                    $('#From').val(dat);
-                                }
-                                if (i == r.length - 1) {
-                                    $('#To').val(dat);
-                                }
-                                debugger;
-                                var data = "<tr >" +
-                                    //"<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectHistory(this);'></Button>" + "</td>" +
-                                    "<td>" + r[i].MedicienCode + "</td>" +
-                                    "<td>" + r[i].MedicienName + "</td>" +
-                                    "<td>" + r[i].DOSAGE_FORM + "</td>" +
-                                    "<td>" + r[i].Dose + "</td>" +
-                                    "<td>" + r[i].Duration + "</td>" +
-                                    "<td>" + r[i].TotalDuration + "</td>" +
-                                    "<td>" + r[i].TotalUnits + "</td>" +
-                                    "<td>" + r[i].Amount + "</td>" +
-                                    "<td>" + r[i].M_TYPE + "</td>" +
-                                    "<td>" + dat + "</td>" +
-                                    "<td>" + r[i].CreatedBy + "</td>";
-                                if (r[i].IsDealed == false) {
-                                    data += "<td><button type='button' class='btn btn - danger' data-id=" + r[i].Id + " data-roshitaid=" + r[i].RoshitaID + " onclick='Delete(this);' style='color: white;'> Delete</button></td>" +
-                                        "</tr>";
-                                }
-                                else
-                                    data += "</tr>";
+                            }
+                        });
+                        //GetLimit
+                        //$.ajax({
+                        //    type: "POST",
+                        //    dataType: "json",
+                        //    url: '/Pharmacy/GetLimit',
+                        //    data: { id: CardId },
+                        //    success: function (returndata) {
+                        //        if (returndata.ok) {
+                        //            $("#insurance_LIVEL").val(returndata.limit.INSURANCE_DAY);
+                        //        }
+                        //        else {
+                        //            bootbox.alert('No Limit Amount ');
+                        //        }
+                        //    }
+                        //});
+                        //CellingAmount
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: '/Pharmacy/CellingAmount',
+                            data: {
+                                id: CardId,
+                                ServiceCode: '11601'
+                            },
+                            success: function (r) {
+                                if (r.Validation == false) {
+                                    toastr.info(r.Message);
+                                    ClearCardData();
+                                } else {
+                                    $('#ddEmp_CEILING_PERT').val(r.CeilingPert);
+                                    AnuualLimit = r.Limit;
+                                    if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
+                                        $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
+                                    } else {
+                                        alert(" لقد تم استهلاك العدد المحدد للروشتات وسوف تكون خارج التغطه ");
+                                        $("#insurance_LIVEL").val("0.001");
 
-                                setData.append(data);
+                                        $('#ddEmp_CEILING_PERT').val("0");
+                                    }
+                                }
+                            },
+                            error: function (err) {
+                                alert("Company Annual Amount");
+                                location.reload();
+                            }
+                        });
+
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: '/DoctorApprovals/History',
+                            data: { id: CardId },
+                            success: function (r) {
+                                $('#From').attr("disabled", false);
+                                $('#To').attr("disabled", false);
+                                $('#History').dataTable().fnDestroy();
+                                var setData = $("#History Tbody");
+                                setData.empty();
+                                var dat;
+                                for (var i = 0; i < r.length; i++) {
+                                    if (r[i].CreatedDate != null) {
+                                        var MyDate_String_Value = r[i].CreatedDate;
+                                        var value = new Date
+                                            (
+                                                parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                            );
+                                        dat = (value.getMonth() + 1) + "/" + value.getDate() + "/" + value.getFullYear();
+
+                                    }
+                                    else {
+                                        dat = null;
+
+                                    }
+                                    if (i == 0) {
+                                        $('#From').val(dat);
+                                    }
+                                    if (i == r.length - 1) {
+                                        $('#To').val(dat);
+                                    }
+                                    debugger;
+                                    var data = "<tr >" +
+                                        //"<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectHistory(this);'></Button>" + "</td>" +
+                                        "<td>" + r[i].MedicienCode + "</td>" +
+                                        "<td>" + r[i].MedicienName + "</td>" +
+                                        "<td>" + r[i].DOSAGE_FORM + "</td>" +
+                                        "<td>" + r[i].Dose + "</td>" +
+                                        "<td>" + r[i].Duration + "</td>" +
+                                        "<td>" + r[i].TotalDuration + "</td>" +
+                                        "<td>" + r[i].TotalUnits + "</td>" +
+                                        "<td>" + r[i].Amount + "</td>" +
+                                        "<td>" + r[i].M_TYPE + "</td>" +
+                                        "<td>" + dat + "</td>" +
+                                        "<td>" + r[i].CreatedBy + "</td>";
+                                    if (r[i].IsDealed == false) {
+                                        data += "<td><button type='button' class='btn btn - danger' data-id=" + r[i].Id + " data-roshitaid=" + r[i].RoshitaID + " onclick='Delete(this);' style='color: white;'> Delete</button></td>" +
+                                            "</tr>";
+                                    }
+                                    else
+                                        data += "</tr>";
+
+                                    setData.append(data);
+
+                                }
+                                $('#History').DataTable();
+                            },
+                            error: function (ex) {
+                                alert("Error History");
 
                             }
-                            $('#History').DataTable();
-                        },
-                        error: function (ex) {
-                            alert("Error History");
-
-                        }
-                    });
+                        });
                     }
                     else {
                         bootbox.dialog({
@@ -942,8 +942,11 @@ function SelectMedicien(event) {
                                 GenderValidation = true;
                             }
                             else {
-                                RemoveSelection(Code);
-                                toastr.error("You can't dispense this medicine , Gender Validation");
+                                //RemoveSelection(Code);
+                                //toastr.error("You can't dispense this medicine , Gender Validation");
+                                //$("#wait").css("display", "none");
+                                toastr.error("برجاء العلم ان هذا الدواء غير متاح صرفة لهذا الجنس");
+                                GenderValidation = true;
                                 $("#wait").css("display", "none");
 
                             }
@@ -965,8 +968,10 @@ function SelectMedicien(event) {
                                 }
                                 else {
                                     if (GenderValidation = true) {
-                                        RemoveSelection(Code);
-                                        toastr.error("You can't dispense this medicine , Age Validation");
+                                        //RemoveSelection(Code);
+                                        //toastr.error("You can't dispense this medicine , Age Validation");
+                                        toastr.error("برجاء العلم ان هذا الدواء غير متاح صرفة لهذا السن");
+                                        AgeValiation = true;
                                         $("#wait").css("display", "none");
                                     }
                                 }
@@ -983,8 +988,10 @@ function SelectMedicien(event) {
                                 success: function (r) {
                                     if (r == true) {
                                         if (AgeValiation = true) {
-                                            RemoveSelection(Code);
-                                            toastr.error("You can't dispense this medicine , Medicines Group Valiadtion");//same Group
+                                            //RemoveSelection(Code);
+                                            //toastr.error("You can't dispense this medicine , Medicines Group Valiadtion");//same Group
+                                            toastr.error("برجاء العلم ان هذا الدواء غير متاح صرفة لهذا السن");
+
                                             $("#wait").css("display", "none");
                                         }
                                         samegroup = true;

@@ -17,9 +17,5 @@ namespace DMS_Authontication1.Models
         public int Id { get; set; }
         public Nullable<int> MainId { get; set; }
         public Nullable<int> ServiceId { get; set; }
-
-        //public virtual DentalService DentalService { get; set; }
-        //public virtual RenewalInsideMedicalAuthority RenewalInsideMedicalAuthority { get; set; }
-
     }
 }

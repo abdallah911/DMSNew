@@ -914,7 +914,10 @@ option {
   }
 }
 
-
+select:disabled,
+input:disabled {
+    background: #fbfbfb4d !important;
+}
 
 
 

@@ -317,6 +317,7 @@
     <Compile Include="Controllers\BrokerController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\ControlPanal\ClaimController.cs" />
+    <Compile Include="Controllers\NetworkMedicalController.cs" />
     <Compile Include="Controllers\MobileApi\AccountMobileController.cs" />
     <Compile Include="Controllers\NewReportsController.cs" />
     <Compile Include="Controllers\ProposalMainController.cs" />
@@ -588,6 +589,9 @@
     <Compile Include="Models\Co_Insurance_01.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CriticalReason.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CronaEmergancy.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -827,6 +831,12 @@
     <Compile Include="Models\Notification.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OutsideNetworkInpatientResaon.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OutsideNetworkOutpatientResaon.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Patch.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -846,6 +856,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PrescriptionRoshitaDignosi.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PreXChronicReason.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PricesOutsideMedicalAuthority.cs" />
@@ -1367,6 +1380,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RoshitaReportAfterBefore.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\RoshitaReportNew.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RoshitaReportNew.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Startup.cs" />
@@ -7303,9 +7322,9 @@
     <Content Include="assets\NewDesignBackAdmin\Img\SL-122222-54830-26 [Converted]  é-01 %281%29.png" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1  2-01.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1  2-02.jpg" />
-    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1 22-01.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1-01.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1-02.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-122-01.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-2-01.png" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-2-02.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S  77-01.jpg" />
@@ -7322,6 +7341,8 @@
     <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-05.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-06.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-07.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\WELCOME.png" />
+    <Content Include="assets\NewDesignBackAdmin\Img\xcbf.jpg" />
     <Content Include="assets\NewDesignBackAdmin\JS\Admin-Script.js" />
     <Content Include="assets\NewDesignBackAdmin\JS\bootstrap.bundle.min.js" />
     <Content Include="assets\NewDesignBackAdmin\JS\dataTables.bootstrap5.min.js" />
@@ -9645,6 +9666,10 @@
     <EmbeddedResource Include="Reports\RoshitaReportAfterBefore.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RoshitaReportAfterBefore.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RoshitaReportNew.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RoshitaReportNew.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

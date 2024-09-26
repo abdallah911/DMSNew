@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-group row col-md-6">
                     <label for="PackagePrice" class="col-form-label">Package Price</label>
-                    <input type="text" id="PackagePrice" class="Package_price form-control" ReadOnly="readonly" />
+                    <input type="text" id="PackagePrice" class="Package_price form-control" />
                 </div>
                 <div class="form-group row col-md-6">
                     <label for="UnitNumber" class="col-form-label">Unit number</label>
@@ -199,7 +199,7 @@
             TotUnits = Math.ceil(TotUnits);
             $('.modal-body #TotalUnits').val(TotUnits);
             //Amount value
-            var Amount = parseFloat($('.modal-body #PackagePrice').val()) * parseFloat($('.modal-body #TotalUnits').val());
+            var Amount = parseFloat($('.modal-body #PackagePrice').val()) / parseFloat($('.modal-body #UnitNumber').val()) * parseFloat($('.modal-body #TotalUnits').val());
             $('.modal-body #Amount').val(Amount);
 
             Dose = parseInt(Dose);
@@ -208,10 +208,10 @@
             UnitNumber = parseInt(UnitNumber);
             
        
-            BasicAmount = parseFloat(BasicAmount);
-            BasicDose = parseInt(BasicDose);
-            BasicDuration = parseInt(BasicDuration);
-            BasicTotalUnits = parseInt(BasicTotalUnits);
+            //BasicAmount = parseFloat(BasicAmount);
+            //BasicDose = parseInt(BasicDose);
+            //BasicDuration = parseInt(BasicDuration);
+            //BasicTotalUnits = parseInt(BasicTotalUnits);
             if (Alternative == true) {
                 if (BasicAmount < Amount) {
                     $('.modal-body #Amount').val(AlternativeAmount);
@@ -221,22 +221,22 @@
                     alert("Invalid Amount");
                 }
             }
-            else{
-            if (BasicDose < Dose) {
-                $('.modal-body #Dose').val(BasicDose);
-               alert("Invalid Dose");
-            }
-            if (BasicDuration< Duration) {
-                $('.modal-body #Duration').val(BasicDuration);
-               alert("Invalid Duration");
-            }
-            if (BasicTotalUnits < TotUnits) {
-                $('.modal-body #TotalUnits').val(BasicTotalUnits);
-            }
-            if (BasicAmount < Amount) {
-                $('.modal-body #Amount').val(BasicAmount);
-            }
-            }
+            //else{
+            //if (BasicDose < Dose) {
+            //    $('.modal-body #Dose').val(BasicDose);
+            //   alert("Invalid Dose");
+            //}
+            //if (BasicDuration< Duration) {
+            //    $('.modal-body #Duration').val(BasicDuration);
+            //   alert("Invalid Duration");
+            //}
+            //if (BasicTotalUnits < TotUnits) {
+            //    $('.modal-body #TotalUnits').val(BasicTotalUnits);
+            //}
+            //if (BasicAmount < Amount) {
+            //    $('.modal-body #Amount').val(BasicAmount);
+            //}
+            //}
             
 
         });
@@ -259,15 +259,69 @@
             //    }
             //}
             //else { }
-                if (parseInt(BasicTotalUnits.trim()) < TotUnits) {
-                    $('.modal-body #TotalUnits').val(parseInt(BasicTotalUnits));
-                     }
+                //if (parseInt(BasicTotalUnits.trim()) < TotUnits) {
+                //    $('.modal-body #TotalUnits').val(parseInt(BasicTotalUnits));
+                //     }
              
-                if (parseFloat(BasicAmount) < Amount) {
-                    $('.modal-body #Amount').val(parseFloat(BasicAmount));
-                }
+                //if (parseFloat(BasicAmount) < Amount) {
+                //    $('.modal-body #Amount').val(parseFloat(BasicAmount));
+                //}
             
         })
-       
+
+
+        $('#PackagePrice').keyup(function () {
+
+            var PackSize = $('.modal-body #PackageSize').val();
+            var UnitNumber = $('.modal-body #UnitNumber').val();
+            var Dose = $('.modal-body #Dose').val();
+            var Duration = $('.modal-body #Duration').val();
+            var TotUnits = (Dose * Duration) / (PackSize / UnitNumber);
+            TotUnits = Math.ceil(TotUnits);
+            $('.modal-body #TotalUnits').val(TotUnits);
+            //Amount value
+
+            var Amount = parseFloat($('.modal-body #PackagePrice').val()) / parseFloat($('.modal-body #UnitNumber').val()) * parseFloat($('.modal-body #TotalUnits').val());
+            $('.modal-body #Amount').val(Amount);
+
+            Dose = parseInt(Dose);
+            Duration = parseInt(Duration);
+            PackSize = parseInt(PackSize);
+            UnitNumber = parseInt(UnitNumber);
+
+
+            //BasicAmount = parseFloat(BasicAmount);
+            //BasicDose = parseInt(BasicDose);
+            //BasicDuration = parseInt(BasicDuration);
+            //BasicTotalUnits = parseInt(BasicTotalUnits);
+            //if (Alternative == true) {
+            //    if (BasicAmount < Amount) {
+            //        $('.modal-body #Amount').val(AlternativeAmount);
+            //        $('.modal-body #Dose').val("");
+            //        $('.modal-body #Duration').val("");
+            //        $('.modal-body #TotalUnits').val(1);
+            //        alert("Invalid Amount");
+            //    }
+            //}
+            //else {
+            //    if (BasicDose < Dose) {
+            //        $('.modal-body #Dose').val(BasicDose);
+            //        alert("Invalid Dose");
+            //    }
+            //    if (BasicDuration < Duration) {
+            //        $('.modal-body #Duration').val(BasicDuration);
+            //        alert("Invalid Duration");
+            //    }
+            //    if (BasicTotalUnits < TotUnits) {
+            //        $('.modal-body #TotalUnits').val(BasicTotalUnits);
+            //    }
+            //    if (BasicAmount < Amount) {
+            //        $('.modal-body #Amount').val(BasicAmount);
+            //    }
+            //}
+
+
+        });
+
     });
 </script>

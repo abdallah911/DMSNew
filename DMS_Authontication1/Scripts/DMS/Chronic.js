@@ -737,6 +737,7 @@ function Edit(button) {
 
 }
 function FirstCalculation() {
+    debugger;
     sumNoPay = 0;
     sum = 0;
     $('#First TBODY TR').each(function () {
