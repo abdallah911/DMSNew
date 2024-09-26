@@ -4490,14 +4490,25 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
         color:var(--color-secondary);
         width:20px;
     }
+.home-page .table-responsive label {
+    background: #15569e;
+}
+.home-page .table-responsive .paginate_button.next a, .table-responsive .paginate_button.previous a {
+    background: #15569e;
+}
+.home-page .table-responsive {
+    border-bottom: #487aaf 5px solid;
+}
 /* ====================Video========================================== */
 button.vjs-big-play-button {
-    background: #4f3265d4 !important;
+    background: #323c65d4 !important;
     border: none !important;
 }
 .vjs-control-bar {
     border-radius: 0 0 1rem 1rem;
 }
+
+
 /* ====================footer========================================== */
     .footer {
         background: var(--color-gradient);

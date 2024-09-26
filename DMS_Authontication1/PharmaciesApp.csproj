@@ -6557,6 +6557,7 @@
     <Content Include="assets\HomeTemplete\fonts\fontawesome-webfont.svg" />
     <Content Include="assets\HomeTemplete\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="assets\HomeTemplete\fonts\themify.svg" />
+    <Content Include="assets\HomeTemplete\img\2DMS_Logo.png" />
     <Content Include="assets\HomeTemplete\img\background\bg1.jpg" />
     <Content Include="assets\HomeTemplete\img\background\bg_1.png" />
     <Content Include="assets\HomeTemplete\img\background\bg_2.png" />
@@ -6690,6 +6691,7 @@
     <Content Include="assets\HomeTemplete\img\team\2.jpg" />
     <Content Include="assets\HomeTemplete\img\team\3.jpg" />
     <Content Include="assets\HomeTemplete\img\video-1.jpg" />
+    <Content Include="assets\HomeTemplete\img\_DMS_Logo.png" />
     <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-de.js" />
     <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-es.js" />
     <Content Include="assets\HomeTemplete\jsgrid-1.5.3\i18n\jsgrid-fr.js" />
@@ -9318,6 +9320,7 @@
     <Content Include="Views\HomeNetwork\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardAdminNew.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardAdminNewWelcome.cshtml" />
+    <Content Include="Views\NetworkMedical\NetworkMedical.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
