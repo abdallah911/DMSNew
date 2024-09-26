@@ -317,6 +317,7 @@
     <Compile Include="Controllers\BrokerController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\ControlPanal\ClaimController.cs" />
+    <Compile Include="Controllers\NetworkMedicalController.cs" />
     <Compile Include="Controllers\MobileApi\AccountMobileController.cs" />
     <Compile Include="Controllers\NewReportsController.cs" />
     <Compile Include="Controllers\ProposalMainController.cs" />
@@ -7323,6 +7324,7 @@
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1  2-02.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1-01.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1-02.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\Untitled-122-01.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-2-01.png" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-2-02.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S  77-01.jpg" />
@@ -7339,6 +7341,8 @@
     <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-05.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-06.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\website  S I O S-07.jpg" />
+    <Content Include="assets\NewDesignBackAdmin\Img\WELCOME.png" />
+    <Content Include="assets\NewDesignBackAdmin\Img\xcbf.jpg" />
     <Content Include="assets\NewDesignBackAdmin\JS\Admin-Script.js" />
     <Content Include="assets\NewDesignBackAdmin\JS\bootstrap.bundle.min.js" />
     <Content Include="assets\NewDesignBackAdmin\JS\dataTables.bootstrap5.min.js" />
@@ -7402,7 +7406,13 @@
     <Content Include="assets\NewDesign\css\owl.theme.default.min.css" />
     <Content Include="assets\NewDesign\css\owl.theme.green.min.css" />
     <Content Include="assets\NewDesign\css\style2.css" />
+    <Content Include="assets\NewDesign\css\video-js.css" />
+    <Content Include="assets\NewDesign\img\about.jpeg" />
+    <Content Include="assets\NewDesign\img\adminProfil\1.png" />
+    <Content Include="assets\NewDesign\img\adminProfil\2.png" />
+    <Content Include="assets\NewDesign\img\adminProfil\3.png" />
     <Content Include="assets\NewDesign\img\adminProfil\self adminProfile.jpg" />
+    <Content Include="assets\NewDesign\img\Animation\Dms-Video.mp4" />
     <Content Include="assets\NewDesign\img\application\app-profile-2.png" />
     <Content Include="assets\NewDesign\img\application\app-profile.jpg" />
     <Content Include="assets\NewDesign\img\background  22-01.jpg" />
@@ -7473,6 +7483,7 @@
     <Content Include="assets\NewDesign\js\owl.carousel.js" />
     <Content Include="assets\NewDesign\js\owl.carousel.min.js" />
     <Content Include="assets\NewDesign\js\particles.js" />
+    <Content Include="assets\NewDesign\js\video.min.js" />
     <Content Include="assets\NewDesign\js\wow.min.js" />
     <Content Include="assets\NewDesign\newcss\all.min.css" />
     <Content Include="assets\NewDesign\newcss\bootstrap.min.css" />
@@ -9133,7 +9144,7 @@
     <Content Include="Views\Roshitas\Details.cshtml" />
     <Content Include="Views\Roshitas\Edit.cshtml" />
     <Content Include="Views\Roshitas\Index.cshtml" />
-    <Content Include="Views\Shared\_Layout_DashboardAdminNew.cshtml" />
+    <Content Include="Views\Shared\_Layout_DashboardHomePage.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardNew.cshtml" />
     <Content Include="Views\Shared\_Layout_Proposal.cshtml" />
     <Content Include="Views\Shared\_Reports.cshtml" />
@@ -9295,6 +9306,9 @@
     <Content Include="Views\Shared\_Layout_DashboardPharmacy.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardHR.cshtml" />
     <Content Include="Views\EmployeeRequest\AppointmentBookingTest.cshtml" />
+    <Content Include="Views\EmployeeRequest\HomePageTest.cshtml" />
+    <Content Include="Views\NetworkMedical\NetworkMedical.cshtml" />
+    <Content Include="Views\Shared\_Layout_DashboardAdminNew.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

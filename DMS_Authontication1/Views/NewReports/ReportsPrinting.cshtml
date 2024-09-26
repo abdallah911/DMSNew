@@ -42,24 +42,27 @@
                        
                         <div class="reports-field w-75 m-auto home-2-field mt-3" >
                             <h6>الشركة</h6>
-                            <div class="reports-input-parent">
+                            <div class="reports-select2-parent gap-1">
                                 @*<select style="border: none;"
-                        class="reports-select     "
-                        name=""
-                        id="">
-                    <option value="">من</option>
-                </select>
-                <select style="border: none;"
-                        class="reports-select     "
-                        name=""
-                        id="">
-                    <option value="">الى</option>
-                </select>*@
+                                          class="reports-select     "
+                                          name=""
+                                          id="">
+                                      <option value="">من</option>
+                                  </select>
+                                  <select style="border: none;"
+                                          class="reports-select     "
+                                          name=""
+                                          id="">
+                                      <option value="">الى</option>
+                                  </select>*@
+                                <div>
 
-                                @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select home-2-field ", id = "CompFromPrint" })
+                                    @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select home-2-field ", id = "CompFromPrint" })
+                                </div>
+                                <div>
 
                                 @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "reports-select home-2-field ", id = "CompToPrint" })
-
+                            </div>
                             </div>
                         </div>
                         <div class="reports-field w-75 m-auto  home-2-field mt-3">

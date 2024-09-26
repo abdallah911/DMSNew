@@ -38,6 +38,11 @@ namespace DMS_Authontication1.Controllers.HR
 
         #region Actions
         // GET: EmployeeRequest
+        public ActionResult HomePageTest()
+        {
+
+            return View();
+        } 
         public ActionResult AppointmentBookingTest()
         {
 

@@ -38,10 +38,9 @@
 
 @if (!User.IsInRole("Admin"))
 {
-    <div class="sios-overlay container-fluid mt-4">
-        <div class="container">
-            <i class="fa-solid fa-house"></i>
-            <h3>Print Claims</h3>
+    <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <h3> <i class="fa-solid fa-home"></i> Print Claims </h3>
         </div>
     </div>
 
@@ -51,27 +50,27 @@
               action="Pharmacy_claims.html">
             <div class="container">
                 <div class="row">
-                    <div class="row row-cols-sm-3 m-auto m-sm-0">
+                    <div class="row row-cols-sm-3 row-gap-2 m-auto m-sm-0">
                         <div class="forLabel">
-                            <input class="admin-form-control mb-3 ps-3" type="date" name="From" id="From" required="required" />
+                            <input class="admin-form-control ps-3" type="date" name="From" id="From" required="required" />
                             <span for="From">From</span>
                         </div>
                         <div class="forLabel">
-                            <input class="admin-form-control mb-3 ps-3" type="date" name="To" id="To" required="required" />
+                            <input class="admin-form-control ps-3" type="date" name="To" id="To" required="required" />
                             <span for="To">To</span>
                         </div>
                         <div class="forLabel">
-                            <input class="admin-form-control mb-3 ps-3" type="Number" name="RaysApprovalNo" id="RaysApprovalNo" required="required" />
+                            <input class="admin-form-control ps-3" type="Number" name="RaysApprovalNo" id="RaysApprovalNo" required="required" />
                             <span for="RaysApprovalNo">ApprovalNo.</span>
                         </div>
                         <div class="forLabel">
-                            <input class="admin-form-control mb-3 ps-3" type="text" id="RaysCardId" name="RaysCardId" required="required" />
+                            <input class="admin-form-control ps-3" type="text" id="RaysCardId" name="RaysCardId" required="required" />
                             <span for="RaysCardId">Card ID</span>
                         </div>
                         @if (User.IsInRole("Rays_Admin"))
                         {
                             <div class="forLabel">
-                                @Html.DropDownList("ddlUsers", null, "All", htmlAttributes: new { @class = "admin-form-control mb-3 ps-3", @id = "ddlUsers" })
+                                @Html.DropDownList("ddlUsers", null, "All", htmlAttributes: new { @class = "admin-form-control ps-3", @id = "ddlUsers" })
 
                                 <span for="Select Group">Select User</span>
                             </div>
@@ -80,8 +79,8 @@
                 </div>
             </div>
         </form>
-</section>
-     
+    </section>
+
 }
 @if (User.IsInRole("Admin") && (edit || delete || view || fullcontroll))
 {
@@ -89,10 +88,9 @@
     <input id="delete" value="@delete.ToString()" hidden />
     <input id="view" value="@view.ToString()" hidden />
     <input id="fullcontroll" value="@fullcontroll.ToString()" hidden />
-    <div class="sios-overlay container-fluid mt-4">
-        <div class="container">
-            <i class="fa-solid fa-house"></i>
-            <h3>Admin Search</h3>
+    <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+        <div class="m-3 fs-3 text-white text-bold caption">
+            <h3> <i class="fa-solid fa-home me-1"></i>  Admin Search</h3>
         </div>
     </div>
 
@@ -102,38 +100,38 @@
               action="Pharmacy_claims.html">
             <div class="container">
                 <div class="row">
-                    <div class="row row-cols-sm-3 m-auto m-sm-0">
+                    <div class="row row-cols-sm-3 row-gap-2 m-auto m-sm-0">
                         <div class="forLabel">
-                            <input class="admin-form-control mb-3 ps-3" type="text" name="AdminFrom" id="AdminFrom" required="required" />
+                            <input class="admin-form-control ps-3" type="text" name="AdminFrom" id="AdminFrom" required="required" />
                             <span for="From">From</span>
                         </div>
                         <div class="forLabel">
-                            <input class="admin-form-control mb-3 ps-3" type="text" name="AdminTo" id="AdminTo" required="required" />
+                            <input class="admin-form-control ps-3" type="text" name="AdminTo" id="AdminTo" required="required" />
                             <span for="To">To</span>
                         </div>
                         <div class="forLabel">
-                            <input class="admin-form-control mb-3 ps-3" type="text" name="Provider" id="Provider" required="required" />
+                            <input class="admin-form-control ps-3" type="text" name="Provider" id="Provider" required="required" />
                             <span for="provider">Provider</span>
                         </div>
                         <div class="forLabel">
-                            <input class="admin-form-control mb-3 ps-3" type="text" name="Company" id="Company" required="required" />
+                            <input class="admin-form-control ps-3" type="text" name="Company" id="Company" required="required" />
                             <span for="company">Company</span>
                         </div>
                         <div class="forLabel">
-                            <input class="admin-form-control mb-3 ps-3" type="Number" name="ApprovalNo" id="ApprovalNo" required="required" />
+                            <input class="admin-form-control ps-3" type="Number" name="ApprovalNo" id="ApprovalNo" required="required" />
                             <span for="ApprovalNo">ApprovalNo.</span>
                         </div>
                         <div class="forLabel">
-                            <input class="admin-form-control mb-3 ps-3" type="text" name="Branch" id="Branch" required="required" />
+                            <input class="admin-form-control ps-3" type="text" name="Branch" id="Branch" required="required" />
                             <span for="branch">Branch</span>
                         </div>
                         <div class="forLabel">
-                            <input class="admin-form-control mb-3 ps-3" type="text" name="CardId" id="CardId" required="required" />
+                            <input class="admin-form-control ps-3" type="text" name="CardId" id="CardId" required="required" />
                             <span for="CardID">Card ID</span>
                         </div>
                     </div>
                 </div>
-                <div class="print-claims-btns d-flex gap-2 mt-5">
+                <div class="print-claims-btns d-flex gap-2 mt-3 px-2">
                     <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3 " />
                     <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3  " />
 
@@ -145,11 +143,11 @@
 <div class="portlet box  green mb-4">
     <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
         <div class="m-3 fs-3 text-white caption">
-            <i class="fa fa-gift me-3"></i>Claims
+            <h3 class="fw-bold mb-0"> Claims</h3>
         </div>
 
     </div>
-    
+
     <div class="sios-bg  container-fluid w-100  portlet-body">
         <div class="table-responsive">
             <table class="table table-striped mt-3 text-center ui celled table" id="Index" width="100%">
@@ -192,70 +190,70 @@
     </div>
 </div>
 @if (User.IsInRole("Admin") && fullcontroll)
-{ 
-<div class=" portlet box  green mb-4">
-    <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
-        <div class="m-3 fs-3 text-white caption">
-            <i class="fa fa-gift me-3"></i>Admin Count
+{
+    <div class=" portlet box  green mb-4">
+        <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+            <div class="m-3 fs-3 text-white caption">
+                <i class=" "></i>Admin Count
+            </div>
+        </div>
+        <div class=" portlet-body ">
+            <div class="sios-bg container-fluid w-100  ">
+                <table class="mb-4 ui celled table" id="Counts" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Count
+                            </th>
+                            <th>
+                                Total Value
+                            </th>
+                            <th>
+                                Company Payment
+                            </th>
+                            <th>
+                                Person Payment
+                            </th>
+                            <th>
+                                Cash
+                            </th>
+
+                            <th>
+                                Over Insurance
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                0
+                            </td>
+
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
         </div>
     </div>
-    <div class=" portlet-body ">
-        <div class="sios-bg container-fluid w-100  ">
-            <table class="mb-4 ui celled table" id="Counts" width="100%">
-                <thead>
-                    <tr>
-                        <th>
-                            Count
-                        </th>
-                        <th>
-                            Total Value
-                        </th>
-                        <th>
-                            Company Payment
-                        </th>
-                        <th>
-                            Person Payment
-                        </th>
-                        <th>
-                            Cash
-                        </th>
 
-                        <th>
-                            Over Insurance
-                        </th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            0
-                        </td>
-
-                    </tr>
-                </tbody>
-
-            </table>
-        </div>
-
-    </div>
-</div>
-
-        }
-        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-        <script src="~/Scripts/DMS/Ray/RayIndex.js?V=1.1"></script>
+}
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/DMS/Ray/RayIndex.js?V=1.1"></script>

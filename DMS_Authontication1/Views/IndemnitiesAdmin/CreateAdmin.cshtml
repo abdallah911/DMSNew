@@ -16,7 +16,7 @@
 <div class="portlet box  green" style="margin-top:40px">
     <div class="row bg-overlay portlet-title">
         <div class="m-3 fs-3 text-white caption">
-            <i class="fa fa-gift"></i>New Request
+            <i class="fa-solid fa-home me-1"></i>New Request
         </div>
     </div>
     <div class="portlet-body">
@@ -192,7 +192,7 @@
         <div class="portlet box  green">
             <div class="row bg-overlay portlet-title">
                 <div class="m-3 fs-3 text-white caption">
-                    <i class="fa fa-gift"></i>Add Cards
+                    <i class="fa-solid fa-home me-1"></i>Add Cards
                 </div>
             </div>
             <div class="portlet-body">
@@ -209,7 +209,7 @@
                     <div class="portlet box  green">
                         <div class="row bg-overlay portlet-title">
                             <div class="m-3 fs-3 text-white caption">
-                                <i class="fa fa-gift"></i>Card Services
+                                <i class="fa-solid fa-home me-1"></i>Card Services
                             </div>
 
                         </div>
@@ -246,7 +246,7 @@
         <div class="portlet box  green">
             <div class="row bg-overlay portlet-title">
                 <div class="m-3 fs-3 text-white caption">
-                    <i class="fa fa-gift"></i>Add services
+                    <i class="fa-solid fa-home me-1"></i>Add services
                 </div>
             </div>
             <div class="portlet-body">
@@ -254,14 +254,14 @@
                     <div class="container mx-auto row row-cols-sm-2 row-cols-md-3 row-gap-2 my-4" style="white-space:nowrap">
 
                         <div class="forLabel px-2   border-0  form-group ">
-                            @Html.DropDownList("Specialist", ViewBag.SpecialistId as SelectList, "--Select--", new { @class = "border-2 sios-form-control w-100 form-control", @style = "background:#aa98ae;color:var(--color-hr-btn) ", id = "Specialist", @required = "True" })
+                            @Html.DropDownList("Specialist", ViewBag.SpecialistId as SelectList, "--Select--", new { @class = "border-2 sios-form-control w-100 form-control", @style = "background:#aa98ae;color:var(--color-secondary) ", id = "Specialist", @required = "True" })
                             <span class="start-0 text-white" style=" transform: translateY(-6px); ">@Html.Label("Specialist", htmlAttributes: new { @class = "control -label " })</span>
                         </div>
 
 
                         <div class="forLabel px-2   border-0  form-group ">
 
-                            @Html.DropDownList("Service", ViewBag.ServiceId as SelectList, "--Select--", new { @class = "border-2 sios-form-control w-100 form-control", @style = "background:#aa98ae;color:var(--color-hr-btn) ", id = "Services", @required = "True" })
+                            @Html.DropDownList("Service", ViewBag.ServiceId as SelectList, "--Select--", new { @class = "border-2 sios-form-control w-100 form-control", @style = "background:#aa98ae;color:var(--color-secondary) ", id = "Services", @required = "True" })
                             <span class="start-0 text-white" style=" transform: translateY(-6px); ">   @Html.Label("Service", htmlAttributes: new { @class = "control-label " })</span>
 
 
@@ -269,7 +269,7 @@
 
                         <div class="forLabel px-2   border-0  form-group ">
 
-                            @Html.Editor("ValueTest", new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @style = "background:#aa98ae;color:var(--color-hr-btn) ", @required = "True", @min = 1, @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                            @Html.Editor("ValueTest", new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @style = "background:#aa98ae;color:var(--color-secondary) ", @required = "True", @min = 1, @onkeypress = "return /[0-9]/i.test(event.key)" } })
                             @Html.ValidationMessage("ValueTest", "", new { @class = "text-danger" })
                             <span class="start-0 text-white">    @Html.Label("Value", htmlAttributes: new { @class = "control-label col-md-4" })</span>
 
@@ -277,7 +277,7 @@
 
                         <div class="forLabel px-2   border-0  form-group ">
 
-                            @Html.Editor("ServiceDateTest", new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @style = "background:#aa98ae;color:var(--color-hr-btn) ", @required = "True" } })
+                            @Html.Editor("ServiceDateTest", new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @style = "background:#aa98ae;color:var(--color-secondary) ", @required = "True" } })
                             @Html.ValidationMessage("ServiceDateTest", "", new { @class = "text-danger" })
                             <span class="start-0 text-white">    @Html.Label("Service Date", htmlAttributes: new { @class = "control-label " })</span>
 
@@ -292,7 +292,7 @@
                     <div class=" portlet box  green">
                         <div class="row bg-overlay portlet-title">
                             <div class="m-3 fs-3 text-white caption">
-                                <i class="fa fa-gift"></i>Services
+                                <i class="fa-solid fa-home me-1"></i>Services
                             </div>
 
                         </div>

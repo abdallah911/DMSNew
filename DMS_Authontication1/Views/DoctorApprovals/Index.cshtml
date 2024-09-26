@@ -14,9 +14,9 @@
 </div>
 
 <div class="sios-container editeRquest fw-bold portlet box  green">
-    <div class="sios-overlay container-fluid mt-4 portlet-title">
-        <div class="container ms-0 fs-3 text-white caption">
-            <i class="fa-solid fa-house"></i>Doctor Daily
+    <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <i class="fa-solid fa-house me-1"></i>Doctor Daily
 
         </div>
 
@@ -42,10 +42,9 @@
 
 
 
-    <div class="sios-overlay  container-fluid mt-4 panel panel-info">
-        <div class="container ms-0 fs-3 text-white">
-            <i class="fa-solid fa-house "></i>
-            <h2 class="mb-0 panel-heading">Card ID</h2>
+    <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <h3 class="mb-0 panel-heading">Card ID</h3>
         </div>
     </div>
     <div class="row container mx-auto">
@@ -71,24 +70,22 @@
                 </span>
             </div>
 
-
             <div class="  forLabel admin-form-control   border-0 px-2  ">
                 @*@Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })*@
                 @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "admin-form-control w-100 h-100  ", @id = "ddlSpeciality" })
                 <span>Speciality</span>
             </div>
 
-            <div class="forLabel select2-60  admin-form-control  border-0 px-2">
-                @*@Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })*@
-                @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   rounded-3", @ReadOnly = "true" } })
-                <span>Limit</span>
-            </div>
             <div class="forLabel  admin-form-control  border-0 px-2">
                 @*@Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })*@
                 @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   rounded-3", @ReadOnly = "true" } })
                 <span>Company Percent</span>
             </div>
-
+            <div class="forLabel select2-60  admin-form-control  border-0 px-2">
+                @*@Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })*@
+                @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   rounded-3", @ReadOnly = "true" } })
+                <span>Limit</span>
+            </div>
             <div class="  forLabel select2-60 ddlDiagnoises admin-form-control   border-0 px-2  " style="height:80px">
                 @*@Html.Label("Diagnoise", new { @class = "control-label" })*@
                 <div id="expandVertical" class="btn d-flex justify-content-center align-items-center  ms-1 ,b-1 text-white rounded-circle position-apsolute start-0 top-0 translate-middle-y   z-2" style="width:20px; height:20px; padding:12px;margin-bottom:20px;">
@@ -97,9 +94,12 @@
                 <div id="expandHorisontal" class="btn d-flex d-none justify-content-center align-items-center   ms-1 ,b-1 text-white rounded-circle position-apsolute start-0 top-0 translate-middle-y   z-2" style="width:20px; height:20px; padding:12px;margin-bottom:20px;">
                     <i class="fa fa-minus " style="font-size:16px;"></i>
                 </div>
+
                 <select id="ddlDiagnoises" class="admin-form-control border-2 ps-3" style="width:100%" multiple></select>
                 <span style="right: 20px !important; padding-left: 0; top: 14px; color: var(--color-secondary) !important; font-size: 11px;">Diagnoise</span>
             </div>
+
+
 
         </div>
     </div>
@@ -107,10 +107,10 @@
 
     @*//History*@
 
-    <div class="row bg-overlay p-3 my-4 editeRquest fw-bold "> 
-            <div class="  m-3 fs-3 text-white panel panel-info">
-                <h2 class="panel-heading mb-0">History</h2>
-            </div> 
+    <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <h2 class="panel-heading mb-0">History</h2>
+        </div>
     </div>
 
 
@@ -173,8 +173,8 @@
     </div>
 
 
-    <div class="sios-overlay container-fluid mt-4 panel panel-info">
-        <div class="m-3 fs-3 text-white">
+    <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+        <div class="m-3 fs-3 text-white caption">
             <h2 class="panel-heading mb-0">Medicines</h2>
         </div>
 

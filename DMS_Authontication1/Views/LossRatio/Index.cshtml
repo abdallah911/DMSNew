@@ -33,14 +33,14 @@
                 <div class="row row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-gap-2 form-group">
 
                     <div class="forLabel admin-form-control border-0 px-2 ">
-                        @*@Html.LabelFor(model => model.CompId, htmlAttributes: new { @class = "control-label" })*@
+                     
                         @Html.DropDownList("CompName", ViewBag.company as SelectList, "Select Company", new { @class = " w-100 h-100   admin-form-control form-control", @id = "CompName" })
-                        <span>Company ID </span>
+                        <span class="ps-3">   @Html.LabelFor(model => model.CompId, htmlAttributes: new { @class = "control-label" })</span>
                     </div>
                     <div class="forLabel admin-form-control border-0 px-2 ">
-                        @*@Html.LabelFor(model => model.ContractNo, htmlAttributes: new { @class = "control-label" })*@
+                       
                         <select id="ContractNo" class=" w-100 h-100   admin-form-control form-control " placeholder="ContractNo" readonly="readonly"></select>
-                        <span>Contract No </span>
+                        <span class="ps-3"> @Html.LabelFor(model => model.ContractNo, htmlAttributes: new { @class = "control-label" })</span>
                     </div>
                     <div class="forLabel admin-form-control border-0 px-2 " data-step="4" data-intro="click Search">
                         
@@ -51,37 +51,36 @@
 
 
                     <div class="forLabel admin-form-control border-0 px-2 ">
-                        @*@Html.LabelFor(model => model.ServiceDate, htmlAttributes: new { @class = "control-label" })*@
+                       
                         @Html.EditorFor(model => model.ServiceDate, new { htmlAttributes = new { @class = " w-100 h-100   admin-form-control form-control", @ReadOnly = "true" } })
-                        <span>Service Date </span>
+                        <span class="ps-3">  @Html.LabelFor(model => model.ServiceDate, htmlAttributes: new { @class = "control-label" })</span>
                     </div>
                     <div class="forLabel admin-form-control border-0 px-2 ">
-                        @*@Html.LabelFor(model => model.ClaimCreatedDate, htmlAttributes: new { @class = "control-label" })*@
+                        
                         @Html.EditorFor(model => model.ClaimCreatedDate, new { htmlAttributes = new { @class = " w-100 h-100   admin-form-control form-control", @ReadOnly = "true" } })
-                        <span>Created Date  </span>
+                        <span class="ps-3"> @Html.LabelFor(model => model.ClaimCreatedDate, htmlAttributes: new { @class = "control-label" })</span>
                     </div>
                     <div class="forLabel admin-form-control border-0 px-2 ">
-                        @*@Html.LabelFor(model => model.ReviewDate, htmlAttributes: new { @class = "control-label" })*@
+                       
                         @Html.EditorFor(model => model.ReviewDate, new { htmlAttributes = new { @class = " w-100 h-100   admin-form-control form-control", @ReadOnly = "true" } })
-                        <span>Review Date </span>
+                        <span class="ps-3">  @Html.LabelFor(model => model.ReviewDate, htmlAttributes: new { @class = "control-label" }) </span>
                     </div>
 
                     <div class="forLabel admin-form-control border-0 px-2 ">
-                        @*@Html.LabelFor(model => model.LossRatio, htmlAttributes: new { @class = "control-label" })*@
+                     
                         @Html.EditorFor(model => model.LossRatio, new { htmlAttributes = new { @class = " w-100 h-100   admin-form-control form-control" } })
-                        <span>Loss Ratio</span>
+                        <span class="ps-3">    @Html.LabelFor(model => model.LossRatio, htmlAttributes: new { @class = "control-label" })</span>
                     </div>
 
                     <div class="forLabel admin-form-control border-0 px-2 ">
-                        @*@Html.LabelFor(model => model.PoolPercent, htmlAttributes: new { @class = "control-label" })*@
+                     
                         @Html.EditorFor(model => model.PoolPercent, new { htmlAttributes = new { @class = " w-100 h-100   admin-form-control form-control" } })
-                        <span>Pool Value </span>
+                        <span class="ps-3">    @Html.LabelFor(model => model.PoolPercent, htmlAttributes: new { @class = "control-label" })</span>
                     </div>
 
-                    <div class="forLabel admin-form-control border-0 px-2 ">
-                        @*@Html.LabelFor(model => model.PoolValue, htmlAttributes: new { @class = "control-label" })*@
+                    <div class="forLabel admin-form-control border-0 px-2 "> 
                         @Html.EditorFor(model => model.PoolValue, new { htmlAttributes = new { @class = " w-100 h-100   admin-form-control form-control" } })
-                        <span>Company ID </span>
+                        <span class="ps-3">   @Html.LabelFor(model => model.PoolValue, htmlAttributes: new { @class = "control-label" }) </span>
                     </div>
 
                     <div class=" d-flex gap-2 align-items-center border-0 px-2   px-2 ">

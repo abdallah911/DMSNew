@@ -3,95 +3,99 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
-<br />
-<br />
 
-<!-- start section -->
-<div class="sios-overlay container-fluid mt-4">
-    <div class="container">
-        <i class="fa-solid fa-house"></i>
-        <h3>Companies</h3>
+
+<div class="sios-container pt-4">
+
+    <!-- start section -->
+    <div class="sios-overlay container-fluid mb-4">
+        <div class="container">
+            <i class="fa-solid fa-house"></i>
+            <h3>Companies</h3>
+        </div>
     </div>
-</div>
-<section class="print-claim-section mt-5">
-    @*<form name="formValidation" id="formValidation" action="">*@
-    <div class="container">
-        <div class="row mt-3">
-            <div class="row row-cols-sm-3 m-auto m-sm-0">
-                <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 w-100">
-                   <input style="font-size: 16px" class="admin-form-control" type="text" name="txtSearchCompany" id="txtSearchCompany" />
-                   <span class="fw-bold" style="left:3px" for="">Search for Company:</span>
+    <section class="print-claim-section my-4">
+        @*<form name="formValidation" id="formValidation" action="">*@
+        <div class="row row-cols-sm-3 row-gap-2 container mx-auto">
+            <div class="row  ">
+                <div class="row row-cols-sm-3 m-auto m-sm-0">
+                    <div class="forLabel d-flex justify-content-start flex-column flex-md-row gap-md-5 w-100">
+                        <input style="font-size: 16px" class="admin-form-control" type="text" name="txtSearchCompany" id="txtSearchCompany" />
+                        <span class="fw-bold" style="left:3px" for="">Search for Company:</span>
+                    </div>
+                </div>
+            </div>
+            <div class="" data-step="2" data-intro="click Search" hidden>
+                <button id="Search" type="button" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-search"></i> Search
+                </button>
+            </div>
+            <div class="print-claims-btns d-flex  justify-content-end">
+                <button type="button" id="plus" value="Search" class="btn fw-bold text-white rounded-3 disabled" data-toggle="modal" data-target="#exampleModal" disabled>
+                    <i class="fas fa-plus"></i>
+                    Add
+                </button>
+            </div>
+            @Html.Partial("_Companies")
+
+        </div>
+        @*</form>*@
+    </section>
+    <div style="display: flex; flex-direction: column">
+        <section >
+            <div class="sios-bg claims-section container-fluid">
+                <div class="table-responsive">
+                    <table id="Sites" class="table table-striped mt-3 text-center">
+                        <thead>
+                            <tr>
+                                <th>Site Code</th>
+                                <th>Site Name</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="me-5 print-claims-btns d-flex mt-5 justify-content-end">
+                    <input id="submit" type="button" value="Save" class="btn fw-bold text-white rounded-3" />
+
+                    @*<button type="button"
+                                value="Search"
+                                class="claims-search-btn ms-2 rounded-3; fs-5"
+                                >
+                            Save
+                        </button>*@
+                </div>
+                <div class="my-4 m-auto border-bottom border-2"></div>
+            </div>
+        </section>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Site</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="Add" type="button" class="btn btn-primary">Add</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-2" data-step="2" data-intro="click Search" hidden>
-            <button id="Search" type="button" class="btn btn-primary">
-                <i class="glyphicon glyphicon-search"></i> Search
-            </button>
-        </div>
-        <div class="print-claims-btns d-flex my-3 justify-content-end">
-            <button type="button" id="plus" value="Search" class="btn fw-bold text-white rounded-3" data-toggle="modal" data-target="#exampleModal" disabled>
-                <i class="fas fa-plus"></i>
-                Add
-            </button>
-        </div>
-        @Html.Partial("_Companies")
-
-    </div>
-    @*</form>*@
-</section>
-<div style="display: flex; flex-direction: column">
-    <section style=" min-height: 80vh;display: flex;flex-direction: column;flex-grow: 1;">
-        <div class="sios-bg claims-section container-fluid">
-            <div class="table-responsive">
-                <table id="Sites" class="table table-striped mt-3 text-center">
-                    <thead>
-                        <tr>
-                            <th>Site Code</th>
-                            <th>Site Name</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <div class="me-5 print-claims-btns d-flex mt-5 justify-content-end">
-                <input id="submit" type="button" value="Save" class="btn fw-bold text-white rounded-3"  />
-
-                @*<button type="button"
-                            value="Search"
-                            class="claims-search-btn ms-2 rounded-3; fs-5"
-                            style="background-color: #717382">
-                        Save
-                    </button>*@
-            </div>
-            <div class="my-4 m-auto border-bottom border-2"></div>
-        </div>
-    </section>
-</div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Site</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="name" class="col-form-label">Name:</label>
-                        <input type="text" class="form-control" id="name">
-                    </div>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id="Add" type="button" class="btn btn-primary">Add</button>
-            </div>
-        </div>
     </div>
 </div>
-<script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
-<script src="~/Scripts/DMS/CompanyGroup.js?V=1.1"></script>
+    <script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
+    <script src="~/Scripts/DMS/CompanyGroup.js?V=1.1"></script>

@@ -33,30 +33,36 @@
                                 </div>*@
                             <div class="reports-field">
                                 <h6>رقم الشركة</h6>
-                                <div class="reports-input-parent">
+                                <div class="reports-select2-parent" style="width:70%">
                                     @*<select class="reports-select w-100 " name="" id="">
-                                            <option value=""></option>
-                                        </select>*@
-                                    @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "Select Company", new { @class = "reports-select w-100", id = "CompNo" })
+            <option value=""></option>
+        </select>*@
+                                    <div class="w-100">
 
+                                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "Select Company", new { @class = "reports-select w-100", id = "CompNo" })
+                                    </div>
                                 </div>
                             </div>
                             <div class="reports-field">
                                 <h6>رقم الكارت</h6>
-                                <div class="reports-input-parent">
-                                    <select class="reports-select w-100" id="CardNo">
-                                        <option value=""></option>
-                                    </select>
+                                <div class="reports-select2-parent" style="width:70%">
+                                    <div class="w-100">
+
+                                        <select class="reports-select w-100" id="CardNo">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="reports-field">
                                 <h6>اسم المستخدم</h6>
-                                <div class="reports-input-parent">
+                                <div class="reports-select2-parent" style="width:70%">
                                     @*<select class="reports-select w-100 " name="" id="">
-                                            <option value=""></option>
-                                        </select>*@
-                                    @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = "reports-select w-100", @id = "userName" })
-
+            <option value=""></option>
+        </select>*@
+                                    <div class="w-100">
+                                        @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = "reports-select w-100", @id = "userName" })
+                                    </div>
                                 </div>
                             </div>
                             <div class="reports-field">
@@ -78,13 +84,15 @@
                             </div>
                             <div class="reports-field">
                                 <h6>كود الدواء</h6>
-                                <div class="reports-input-parent">
+                                <div class="reports-select2-parent" style="width:70%">
                                     @*<select class="reports-select w-100 " name="" id="">
-                                            <option value=""></option>
-                                        </select>*@
-                                    <select id="AddMedicine" class="reports-select w-100">
-                                        <option value="">select medicine</option>
-                                    </select>
+            <option value=""></option>
+        </select>*@
+                                    <div class="w-100">
+                                        <select id="AddMedicine" class="reports-select w-100">
+                                            <option value="">select medicine</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="reports-field">
@@ -159,21 +167,23 @@
                             </div>
                             <div class="reports-field">
                                 <h6>رقم الشركة</h6>
-                                <div class="reports-input-parent">
+                                <div class="reports-select2-parent" style="width:70%">
                                     @*<select class="reports-select w-100 " name="" id="">
-                                            <option value=""></option>
-                                        </select>*@
-                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "أختر الشركة", new { @class = "reports-select w-100", id = "CompNoMed" })
-
+            <option value=""></option>
+        </select>*@
+                                    <div class="w-100">
+                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "أختر الشركة", new { @class = "reports-select w-100", id = "CompNoMed" })
+                                    </div>
                                 </div>
                             </div>
                             <div class="reports-field">
                                 <h6>رقم الكارت</h6>
-                                <div class="reports-input-parent">
-                                    <select class="reports-select w-100 " name="" id="CardNoMed">
-                                        <option value=""></option>
-                                    </select>
-
+                                <div class="reports-select2-parent" style="width:70%">
+                                    <div class="w-100">
+                                        <select class="reports-select w-100 " name="" id="CardNoMed">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="reports-field">
@@ -222,10 +232,12 @@
 
                             <div class="reports-field">
                                 <h6>رقم الشركة</h6>
-                                <div class="reports-input-parent ">
+                                <div class="reports-select2-parent" style="width:70%">
                                     @*<input type="text" class="reports-inp w-100" placeholder="من">*@
-                                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "أختر الشركة", new { @class = "reports-inp w-100", style = "width: 100%", id = "CopmanyNumber2" })
 
+                                    <div class="w-100">
+                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "أختر الشركة", new { @class = "reports-inp w-100", style = "width: 100%", id = "CopmanyNumber2" })
+                                    </div>
                                 </div>
                             </div>
                             <div class="reports-field">
@@ -236,21 +248,25 @@
                             </div>
                             <div class="reports-field">
                                 <h6>Group</h6>
-                                <div class="reports-input-parent">
-                                    <select class="reports-select w-100 " name="" id="ddlGroups">
-                                        <option value="">Select Group</option>
-                                    </select>
+                                <div class="reports-select2-parent" style="width:70%">
+                                    <div class="w-100">
+                                        <select class="reports-select w-100 " name="" id="ddlGroups">
+                                            <option value="">Select Group</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="reports-field">
                                 <h6>رقم الكارت</h6>
-                                <div class="reports-input-parent">
+                                <div class="reports-select2-parent" style="width:70%">
                                     @*<select class="reports-select w-100 " name="" id="">
-                                            <option value=""></option>
-                                        </select>*@
-                                    <select id="CardNo2" class="reports-select w-100" style="width: 100%">
-                                        <option value="">select Card</option>
-                                    </select>
+            <option value=""></option>
+        </select>*@
+                                    <div class="w-100">
+                                        <select id="CardNo2" class="reports-select w-100" style="width: 100%">
+                                            <option value="">select Card</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="reports-field">

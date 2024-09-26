@@ -4,14 +4,13 @@
     Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 }
 <!-- start section -->
-<div class="sios-overlay container-fluid mt-4">
-    <div class="container">
-        <i class="fa-solid fa-house"></i>
-        <h3>New Dosage Form</h3>
+<div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+    <div class="m-3 fs-3 text-white caption">
+        <h3 class=" fw-bold"> <i class="fa-solid fa-home me-1me-1"></i> New Dosage Form </h3>
     </div>
 </div>
 
-<section class="print-claim-section mb-4">
+<section class="print-claim-section mt-4">
     @using (Html.BeginForm("MedicineDosageForm", "Medicines", FormMethod.Post))
     {
         <div class="container">
@@ -23,8 +22,8 @@
                             @*@Html.LabelFor(model => model.DosageFormName, htmlAttributes: new { @class = "sios-color fw-bold" })*@
                         </div>
                         <div class="forLabel row col-12 col-md-6">
-                            @Html.EditorFor(model => model.DosageFormName, new { htmlAttributes = new { @class = "admin-form-control" } })
-                            @Html.ValidationMessageFor(model => model.DosageFormName, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.DosageFormName, new { htmlAttributes = new { @class = "admin-form-control", @required = "True" } })
+                            @Html.ValidationMessageFor(model => model.DosageFormName, "", new { @class = "text-danger d-flex justify-content-end w-100" })
                             <span style="left:3px">Dosage Form Name</span>
                         </div>
                     </div>
@@ -33,16 +32,15 @@
                     </div>
                 </div>
             </div>
-          
+
         </div>
     }
 </section>
 <div style="display: flex; flex-direction: column">
-    <section >
-        <div class="sios-overlay container-fluid  ">
-            <div class="container">
-                <i class="fa-solid fa-house"></i>
-                <h3 class="">Dosage Form List</h3>
+    <section>
+        <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+            <div class="m-3 fs-3 text-white caption">
+                <h3 class=" fw-bold"> Dosage Form List </h3>
             </div>
         </div>
         <div class="sios-bg claims-section mb-4 container-fluid">

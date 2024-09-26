@@ -77,7 +77,7 @@ $(function () {
                         "data": "Id",
                         "mRender": function (data) {
                             if (edit == "True" || fullcontroll == "True") {
-                                return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Edit/' + data + '">Edit</a>';
+                                return '<a class="text-light btn"  href="/Pharmacy/Edit/' + data + '">Edit</a>';
                             }
                             else
                                 return '<input  data-id=' + data + '  hidden  /> ';
@@ -87,7 +87,7 @@ $(function () {
                         "data": "Id",
                         "mRender": function (data) {
                             if (view == "True" || fullcontroll == "True") {
-                                return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Details/' + data + '">Details</a>';
+                                return '<a class="text-light btn"  href="/Pharmacy/Details/' + data + '">Details</a>';
                             }
                             else
                                 return '<input  data-id=' + data + '  hidden  /> ';
@@ -98,7 +98,7 @@ $(function () {
                         "data": "Id",
                         "mRender": function (data) {
                             if (deleterosita == "True" || fullcontroll == "True") {
-                                return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+                                return '<button type="button" class="text-light btn"  data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
 
                             }
                             else
@@ -108,7 +108,7 @@ $(function () {
                     {
                         "data": "Oracle_Id",
                         "mRender": function (data) {
-                            return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Print(this);"> Print</button>';
+                            return '<button type="button" class="text-light btn"  data-id=' + data + ' onclick="Print(this);"> Print</button>';
                         }
                     }
 
@@ -185,27 +185,27 @@ $(function () {
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            return '<a class="text-light btn" style="background-color: #717382" disabled href="/Pharmacy/Edit/' + data + '">Edit</a>';
+                            return '<a class="text-light btn"  disabled href="/Pharmacy/Edit/' + data + '">Edit</a>';
                         }
                     },
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Details/' + data + '">Details</a>';
+                            return '<a class="text-light btn"  href="/Pharmacy/Details/' + data + '">Details</a>';
                         }
                     }
                     ,
                     {
                         "data": "Id",
                         "mRender": function (data) {
-                            return '<button type="button" disabled class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+                            return '<button type="button" disabled class="text-light btn"  data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
 
                         }
                     },
                     {
                         "data": "Oracle_Id",
                         "mRender": function (data) {
-                            return '<button type="button" class="text-light btn" style="background-color: #717382"data-id=' + data + ' onclick="Print(this);"> Print</button>';
+                            return '<button type="button" class="text-light btn" data-id=' + data + ' onclick="Print(this);"> Print</button>';
                         }
                     }
 
@@ -311,27 +311,27 @@ function IndexDatatable() {
             {
                 "data": "Id",
                 "mRender": function (data) {
-                    return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Edit/' + data + '">Edit</a>';
+                    return '<a class="text-light btn"  href="/Pharmacy/Edit/' + data + '">Edit</a>';
                 }
             },
             {
                 "data": "Id",
                 "mRender": function (data) {
-                    return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Details/' + data + '">Details</a>';
+                    return '<a class="text-light btn"  href="/Pharmacy/Details/' + data + '">Details</a>';
                 }
             }
             ,
             {
                 "data": "Id",
                 "mRender": function (data) {
-                    return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+                    return '<button type="button" class="text-light btn"  data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
 
                 }
             },
             {
                 "data": "Oracle_Id",
                 "mRender": function (data) {
-                    return '<button type="button" class="text-light btn" style="background-color: #717382"data-id=' + data + ' onclick="Print(this);"> Print</button>';
+                    return '<button type="button" class="text-light btn" data-id=' + data + ' onclick="Print(this);"> Print</button>';
                 }
             }
 
@@ -376,7 +376,7 @@ function IndexDatatableAdmin() {
                     "data": "Id",
                     "mRender": function (data) {
                         if (edit == "True" || fullcontroll == "True") {
-                            return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Edit/' + data + '">Edit</a>';
+                            return '<a class="text-light btn"  href="/Pharmacy/Edit/' + data + '">Edit</a>';
                         }
                         else
                             return '<input  data-id=' + data + '  hidden  /> ';
@@ -386,7 +386,7 @@ function IndexDatatableAdmin() {
                     "data": "Id",
                     "mRender": function (data) {
                         if (view == "True" || fullcontroll == "True") {
-                            return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Details/' + data + '">Details</a>';
+                            return '<a class="text-light btn"  href="/Pharmacy/Details/' + data + '">Details</a>';
                         }
                         else
                             return '<input  data-id=' + data + '  hidden  /> ';
@@ -397,7 +397,7 @@ function IndexDatatableAdmin() {
                     "data": "Id",
                     "mRender": function (data) {
                         if (deleterosita == "True" || fullcontroll == "True") {
-                            return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+                            return '<button type="button" class="text-light btn"  data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
 
                         }
                         else
@@ -407,7 +407,7 @@ function IndexDatatableAdmin() {
                 {
                     "data": "Oracle_Id",
                     "mRender": function (data) {
-                        return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Print(this);"> Print</button>';
+                        return '<button type="button" class="text-light btn"  data-id=' + data + ' onclick="Print(this);"> Print</button>';
                     }
                 }
 
@@ -480,27 +480,27 @@ function IndexDatatableAdmin() {
                 {
                     "data": "Id",
                     "mRender": function (data) {
-                        return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Edit/' + data + '">Edit</a>';
+                        return '<a class="text-light btn"  href="/Pharmacy/Edit/' + data + '">Edit</a>';
                     }
                 },
                 {
                     "data": "Id",
                     "mRender": function (data) {
-                        return '<a class="text-light btn" style="background-color: #717382" href="/Pharmacy/Details/' + data + '">Details</a>';
+                        return '<a class="text-light btn"  href="/Pharmacy/Details/' + data + '">Details</a>';
                     }
                 }
                 ,
                 {
                     "data": "Id",
                     "mRender": function (data) {
-                        return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
+                        return '<button type="button" class="text-light btn"  data-id=' + data + ' onclick="Delete(this);"> Delete</button>';
 
                     }
                 },
                 {
                     "data": "Oracle_Id",
                     "mRender": function (data) {
-                        return '<button type="button" class="text-light btn" style="background-color: #717382" data-id=' + data + ' onclick="Print(this);"> Print</button>';
+                        return '<button type="button" class="text-light btn"  data-id=' + data + ' onclick="Print(this);"> Print</button>';
                     }
                 }
 

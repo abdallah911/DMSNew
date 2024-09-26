@@ -7,6 +7,8 @@
 }
 :root {
     /* color */
+    --color-gradient: linear-gradient(45deg, #703a96 0%, #c48cc3 50%, #703a96 100%);
+    --color-secondary: #4f3265;
     --color-primary: #778183;
     --color-light: #bdbdbd;
     --color-text: #1b1b1b;
@@ -15,15 +17,14 @@
     --color-table-text: #373236;
     --color-text-sec: white;
     --color-active: #9dc19b;
-    --color-btn: #3c7fb9;
+    --color-btn: #734992;
     --color-btn-sec: #336da0;
-    --color-secondary: #17609b;
-    --color-gradient: linear-gradient( 45deg, #07386e 0%, #17609b 18%, rgb(65 134 193) 50%, #17609b 75%, #07386e 100% );
     /* Font */
-    --font-family: "Almarai", sans-serif;
+    /*--font-family: "Almarai", sans-serif;*/
+    --font-family: "Lato", sans-serif;
+
     --font-bold: 700;
     --font-light: 400;
-
 }
 .page-container {
   background-image: url(../Images/background-22-01.jpg);
@@ -40,9 +41,8 @@
   flex-grow: 1;
 }
 body {
-  font-family: "Almarai", sans-serif;
-
-  scroll-behavior: smooth;
+    font-family: "Lato", sans-serif;
+    scroll-behavior: smooth;
 }
 p {
   padding-bottom: 0%;
@@ -535,9 +535,8 @@ div.hide-pseudo::before {
 }
 
 .action-btns .action-btn:hover {
-  background: #696e9a;
-  color: white;
-  box-shadow: 0 0 2px 1px #07061b22;
+    box-shadow: inset #2303231c 0px 0px 60px -12px;
+    color: white; 
 }
 .action-btns .action-btn:focus {
   background: #ffffff;
@@ -556,14 +555,26 @@ div.hide-pseudo::before {
     justify-content: end;
   }
 }
-.operation-reports-field.reports-inp,
-.operation-reports-field.reports-select {
-  height: 45px;
+.reports-select2-parent {
+    display: flex;
+    width: 80%;
+    gap: 10px;
+    justify-content: end;
 }
+    .reports-select2-parent > div {
+        display: flex;
+        width: 50%;
+        padding-left: 10px;
+    }
+    .operation-reports-field.reports-inp,
+    .operation-reports-field.reports-select {
+        height: 45px;
+    }
 
 .select2-container {
   height: 40px;
   direction: rtl;
+  width:100% !important;
 }
 .select2-container--default .select2-selection--single {
   height: 100%;
@@ -580,12 +591,13 @@ div.hide-pseudo::before {
   font-size: 14px;
 }
 .select2-selection--single .select2-selection__arrow {
-  top: 15% !important;
-  right: 95% !important;
+    top: 15% !important;
+    right: unset !important;
+    left: 10px;
 }
 /* footer */
 .footer {
-    background: linear-gradient( 45deg, #07386e 0%, #17609b 18%, rgb(65 134 193) 50%, #17609b 75%, #07386e 100% );
+    background: var(--color-gradient);
     color: white;
 }
 

@@ -1,7 +1,7 @@
 :root {
     /* color */
-    --color-hr: linear-gradient(45deg, #703a96 0%, #c48cc3 50%, #703a96 100%);
-    --color-hr-btn: #4f3265;
+    --color-gradient: linear-gradient(45deg, #703a96 0%, #c48cc3 50%, #703a96 100%);
+    --color-secondary: #4f3265;
     --color-primary: #778183;
     --color-text: #1b1b1b;
     --color-table: linear-gradient(45deg, #cad4e6, #e9eef8);
@@ -9,12 +9,9 @@
     --color-table-text: #373236;
     --color-text-sec: white;
     --color-active: #9dc19b;
-    --color-btn: #3c7fb9;
-    --color-btn-sec: #336da0;
-    --color-secondary: #17609b;
-    --color-gradient: linear-gradient( 45deg, #07386e 0%, #17609b 18%, rgb(65 134 193) 50%, #17609b 75%, #07386e 100% );
+    --color-btn: #734992;
+    --color-btn-sec: #734992;
     /* Font */
-    --font-family: "Almarai", sans-serif;
     --font-bold: 700;
     --font-light: 400;
 }
@@ -23,13 +20,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Baloo Bhaijaan 2", sans-serif;
+    /*font-family: "Baloo Bhaijaan 2", sans-serif;*/
+    font-family: "Lato", sans-serif;
 }
 a{
     text-decoration:none;
 }
 body {
-    background: url(../Img/Untitled-122-01.jpg);
+    /*background: url(../Img/Untitled-122-01.jpg);*/
     background-blend-mode: multiply;
     background-size: contain;
     background-attachment: fixed;
@@ -76,13 +74,13 @@ body.hr-page {
     white-space:nowrap;
 }
 .hr-color{
-    color:var(--color-hr-btn);
+    color:var(--color-secondary);
 }
 .hr-bg {
-    background: var(--color-hr-btn);
+    background: var(--color-secondary);
 }
 .hr-color::placeholder{
-    color:var(--color-hr-btn);
+    color:var(--color-secondary);
     font-weight:700;
 }
 /* start sidebar */
@@ -195,7 +193,7 @@ body.hr-page {
     }
 .hr-page .forLabel > span:not(.select2-container),
 .select {
-    color: var(--color-hr-btn);
+    color: var(--color-secondary);
 }
 
 .contracts-page-container .forLabel span,
@@ -310,7 +308,7 @@ span.select2-selection.select2-selection--single {
     border: 2px solid #9689a3 ;
 }
 .hr-page span.select2-selection.select2-selection--single:focus {
-    border-color: var(--color-hr-btn);
+    border-color: var(--color-secondary);
 }
 span#select2-CompNo-container,
 span#select2-CompNoPrint-container,
@@ -700,10 +698,10 @@ table,
     color: white;
 }
 .hr-page .table > tbody > tr > td {
-    color: var(--color-hr-btn);
+    color: var(--color-secondary);
 }
 .hr-page td.dataTables_empty {
-    color: var(--color-hr-btn);
+    color: var(--color-secondary);
 }
 
 .dataTables_filter {
@@ -758,7 +756,7 @@ table,
     width: fit-content;
 }
 .hr-page .dataTables_wrapper > div:last-of-type div {
-    color: var(--color-hr-btn);
+    color: var(--color-secondary);
 }
 
 ul.pagination {
@@ -825,11 +823,11 @@ ul.pagination {
 }
     .table-responsive .paginate_button.next a:hover,
     .table-responsive .paginate_button.previous a:hover {
-        background-color: var(--color-btn-sec) !important;
+        box-shadow: inset #18121840 0px 0px 60px -12px;
     }
 .hr-page .table-responsive .paginate_button.next a,
 .hr-page .table-responsive .paginate_button.previous a {
-    background-color: var(--color-hr-btn);
+    background-color: var(--color-secondary);
 }
 
     .hr-page .table-responsive .paginate_button.next a:hover,
@@ -838,7 +836,7 @@ ul.pagination {
     }
 
 .table-responsive .paginate_button.active a {
-    background-color: #17609b;
+    background-color: #8b60ab;
     width: 35px;
 }
 
@@ -847,7 +845,7 @@ ul.pagination {
     color:white
 }
 .hr-page .page-item:not(:first-child) .page-link {
-    color:var(--color-hr-btn);
+    color:var(--color-secondary);
 }
     .table-responsive .paginate_button.active a:hover {
         background-color: #17609bdf;
@@ -870,12 +868,12 @@ ul.pagination {
 }
 
     .table-responsive label:hover {
-        background-color: var(--color-btn-sec);
+        box-shadow: inset #18121840 0px 0px 60px -12px;
     }
 .hr-page .table-responsive label {
     display: flex;
     align-items: center;
-    background-color: var(--color-hr-btn);
+    background-color: var(--color-secondary);
     gap: 10px;
     border-radius: 15px;
     padding: 10px;
@@ -937,12 +935,16 @@ select.form-select.form-select-sm {
         }
 
 .table > thead {
-    vertical-align: bottom;
-    background: #86aef770;
+    vertical-align: bottom; 
+    background: var(--color-gradient);
+}
+.home-page-table.table > thead {
+    background: linear-gradient(45deg, #998bb047, #ddc5f240, #998bb047);
+    border-radius: 20px !important;
 }
 .hr-page .table > thead {
     vertical-align: bottom;
-    background: var(--color-hr);
+    background: var(--color-gradient);
 }
 .activation-page-table table th {
     color: var(--color-secondary);
@@ -1066,42 +1068,25 @@ textarea {
     background-color: var(--color-btn);
     border-radius: 12px;
     font-size: 14px !important;
-    color: white
+    color: white;
+    border: 2px solid var(--color-btn);
 }
 
     .btn:hover {
-        background-color: var(--color-btn-sec);
+        background-color: var(--color-btn);
+        box-shadow: inset #18121840 0px 0px 60px -12px;
+        color:white;
     }
 
-    .btn.active,
-    .btn.chicked,
-    .btn:focus {
-        background-color: white !important;
-        color: var(--color-btn) !important;
-        border: 2px solid var(--color-btn);
-    }
-.hr-page .btn {
-    background-color: var(--color-hr-btn);
-    border-radius: 12px;
-    font-size: 14px !important;
-    color: white ;
-    border: 2px solid var(--color-hr-btn);
-}
+.btn.active,
+.btn.chicked,
+.btn:focus {
+    background-color: white !important;
+    color: var(--color-btn) !important; 
+}  
 
-    .hr-page .btn:hover {
-        background-color: #402653;
-        box-shadow: 0 0 2px 1px #1c072b6b;
-    }
-
-    .hr-page .btn.active,
-    .hr-page .btn.chicked,
-    .hr-page .btn:focus {
-        background-color: white !important;
-        color: var(--color-hr-btn) !important;
-        border: 2px solid var(--color-hr-btn);
-    }
-.hr-page .action-btn {
-    background: var(--color-hr);
+.action-btn {
+    background: var(--color-gradient);
     border-radius: 12px;
     font-size: 14px !important;
     color: white;
@@ -1109,19 +1094,30 @@ textarea {
     box-shadow: 0px 1PX 2px 1px #2c0b405e;
 }
 
-    .hr-page .action-btn:hover {
-        background: linear-gradient(135deg, #703a96 0%, #c48cc3 50%, #703a96 100%);
-        box-shadow: 0px 2PX 2px 1px #2c0b404a;
-    }
+.action-btn:hover {
+    background: linear-gradient(135deg, #703a96 0%, #c48cc3 50%, #703a96 100%);
+    box-shadow: 0px 2PX 2px 1px #2c0b404a;
+}
 
-    .hr-page .action-btn.active,
-    .hr-page .action-btn.chicked,
-    .hr-page .action-btn:focus {
-        background: white !important;
-        color: var(--color-hr-btn) !important;
-        border: 2px solid var(--color-hr-btn);
-    }
+.action-btn.active,
+.action-btn.chicked,
+.action-btn:focus {
+    background: white !important;
+    color: var(--color-secondary) !important;
+    border: 2px solid var(--color-secondary);
+} 
 
+.btn[disabled],
+.btn.disabled {
+    background: #8a709d ;
+    border-color: #8a709d;
+    opacity:1;
+}
+a.login-home-page{
+    background:var(--color-gradient);
+    border:none;
+    font-size:16px !important;
+}
 .cs-btn {
     background: linear-gradient( 45deg, #7a8185 0%, #91999e 18%, #c7c9cc 50%, #91999e 75%, #6a7277 100% );
     color: var(--color-btn);
@@ -1257,13 +1253,16 @@ button.bootbox-close-button.close {
     outline: none;
     caret-color: var(--color-secondary);
 }
-.admin-form-control[readonly="readonly"],
-.admin-form-control[readonly="true"],
-.admin-form-control[disabled] {
-    cursor: no-drop;
-    background: gainsboro;
-    border-color: #28689bbf;
+input.admin-form-control {
+    padding: 20px 10px 5px;
 }
+    .admin-form-control[readonly="readonly"],
+    .admin-form-control[readonly="true"],
+    .admin-form-control[disabled] {
+        cursor: no-drop;
+        background: gainsboro;
+        border-color: var(--color-secondary);
+    }
 .hr-page input[readonly="readonly"],
 .hr-page input[readonly="true"],
 .hr-page input[disabled],
@@ -1315,10 +1314,11 @@ button.bootbox-close-button.close {
     font-size: 10px;
     font-weight: 600;
 }
-
-.cs-bg th {
-    font-size: 12px;
-}
+    .sios-bg th,
+    .cs-bg th {
+        font-size: 12px;
+        color: white;
+    }
 
 p.count-p {
     white-space: nowrap;
@@ -1337,7 +1337,7 @@ p.count-p {
     /* height: 90px; */
 }
      .Admin-navbar.hr-nav-bar {
-        background: var(--color-hr) !important;
+        background: var(--color-gradient) !important;
     }
 .hr-page .Admin-navbar.hr-nav-bar {
     background: url(../Img/navbar-bg.jpg) !important;
@@ -1387,7 +1387,7 @@ p.count-p {
     color: #17609b !important;
 }
 .hr-page .dropdown-item {
-    color: var(--color-hr-btn) !important;
+    color: var(--color-secondary) !important;
 }
 
 .dropdown-item:focus,
@@ -1397,7 +1397,7 @@ p.count-p {
 }
 .hr-page .dropdown-item:focus, .hr-page .dropdown-item:hover {
     color: #fff !important;
-    background: var(--color-hr) !important;
+    background: var(--color-gradient) !important;
 }
 .cs-div .dropdown-item {
     color: #005aa3 !important;
@@ -1538,7 +1538,7 @@ font-size: 12px;
     background: var(--color-gradient);
 }
 .hr-page .bg-overlay {
-    background: var(--color-hr);
+    background: var(--color-gradient);
 }
 .search-data,
 .operation-requ-sec {
@@ -3072,13 +3072,14 @@ td button:hover {
 .page-link {
     position: relative;
     display: block;
-    color: #17609b;
+    color: var(--color-btn);
     text-decoration: none;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-
-    .active > .page-link,
-    .page-link.active {
+.page-link:hover {
+    color:var(--color-btn)
+}
+    .active > .page-link, .page-link.active {
         z-index: 3;
         color: #fff;
         background-color: #83439b;
@@ -3098,7 +3099,7 @@ td button:hover {
 
     .table-responsive .paginate_button.next a:hover,
     .table-responsive .paginate_button.previous a:hover {
-        background-color: var(--color-btn-sec) !important;
+        box-shadow: inset #18121840 0px 0px 60px -12px;
     }
 
 
@@ -4227,11 +4228,11 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
     }
 .hr-page .pharm-main-ul a:hover {
     background: white;
-    color: var(--color-hr-btn);
+    color: var(--color-secondary);
 }
 .hr-page .pharm-main-ul a:focus {
     background: white;
-    color: var(--color-hr-btn);
+    color: var(--color-secondary);
 }
 @media  (min-width:1601px) {
     .hr-page .pharm-main-ul {
@@ -4306,8 +4307,8 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
     }
 
     .pharm-main-ul:not(.nav-admin-cus) a.nav-link {
-        color: var(--color-hr-btn);
-        border: 2px solid var(--color-hr-btn);
+        color: var(--color-secondary);
+        border: 2px solid var(--color-secondary);
     }
 
         .hosp-main-ul:not(.nav-admin-cus) a.nav-link:hover,
@@ -4318,11 +4319,11 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
         }
 
     .hr-page .pharm-main-ul:not(.nav-admin-cus) a.nav-link:hover {
-        background: var(--color-hr);
+        background: var(--color-gradient);
     }
 
     .hr-page .pharm-main-ul:not(.nav-admin-cus) a.nav-link:focus {
-        background: var(--color-hr);
+        background: var(--color-gradient);
         color: white;
         border-color: white;
     }
@@ -4334,7 +4335,7 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
 
     .hr-page .hosp-main-ul:not(.nav-admin-cus) i,
     .hr-page .pharm-main-ul:not(.nav-admin-cus) i {
-        color: var(--color-hr-btn);
+        color: var(--color-secondary);
     }
 
     .hosp-main-ul:not(.nav-admin-cus) a.nav-link:hover i,
@@ -4390,7 +4391,7 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
 
         .hr-nav-tabs li a {
             font-size: 16px;
-            color: var(--color-hr-btn);
+            color: var(--color-secondary);
             font-weight: bold;
             padding: 10px;
             border-radius: 14px;
@@ -4398,13 +4399,13 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
         }
 
             .hr-nav-tabs li a:hover {
-                background: var(--color-hr);
+                background: var(--color-gradient);
                 color: white;
                 transition: 0.2s all ease-in
             }
 
         .hr-nav-tabs li.active a {
-            background: var(--color-hr);
+            background: var(--color-gradient);
             color: white;
         }
 
@@ -4417,25 +4418,93 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
         color: #495057;
         outline: none;
         padding: 12px 10px 5px !important;
-        caret-color: var(--color-hr-btn);
+        caret-color: var(--color-secondary);
         font-weight: bold;
         box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
         border-radius: 6px;
     }
-.hr-page .sios-form-control:focus,
-.hr-page select:focus,
-.hr-page input:focus {
-    border-color: var(--color-hr-btn) !important;
-    box-shadow: 0 0 5px #7c5684b5 !important;
+    .hr-page .sios-form-control:focus,
+    .hr-page select:focus,
+    .hr-page input:focus {
+        border-color: var(--color-secondary) !important;
+        box-shadow: 0 0 5px #7c5684b5 !important;
+    }
+.report-tog-btn {
+    background: var(--color-secondary);
+    padding: 10px;
+    border-radius: 4px;
+    border:2px solid var(--color-secondary);
+    font-weight:700;
+    color: white;
 }
-    /* ====================footer========================================== */
+.report-tog-btn:hover {
+    box-shadow: inset #2303231c 0px 0px 60px -12px;
+}
+.report-tog-btn:focus {
+    background: white;
+    color: var(--color-secondary);
+}
+    .report-tog-btn[aria-expanded="true"] {
+        background: white;
+        color: var(--color-secondary);
+    }
+    /*=========================Home-page-card================================================*/
+    .home-page-box {
+        grid-template-columns: 225px 225px;
+    }
+    @media (max-width:576px){
+        .home-page-box {
+            grid-template-columns: 300px ;
+        }
+    }
+    .home-page-card {
+        background: white;
+        color: var(--color-secondary);
+        font-weight: 700;
+        border-radius: 14px;
+        box-shadow: 0 0 4px 2px #4f326569;
+        font-size: 20px;
+        /*transition: all ease-in 0.2s;*/
+    }
+    .home-page-card.active {
+        background: var(--color-secondary); 
+    } 
+    .home-page-card.active .white-icon,
+    .home-page-card .colorize-icon {
+        display: unset;
+    }
+    .home-page-card .white-icon,
+    .home-page-card.active .colorize-icon {
+        display:none;
+    }
+    .home-page-card a {
+        color:var(--color-secondary);
+        padding: 16px;
+        display:block;
+    }
+    .home-page-card.active a {
+    color:white;
+    }
+    .home-page-card img{
+        color:var(--color-secondary);
+        width:20px;
+    }
+/* ====================Video========================================== */
+button.vjs-big-play-button {
+    background: #4f3265d4 !important;
+    border: none !important;
+}
+.vjs-control-bar {
+    border-radius: 0 0 1rem 1rem;
+}
+/* ====================footer========================================== */
     .footer {
         background: var(--color-gradient);
         color: white;
     }
 
     .hr-footer {
-        background: var(--color-hr);
+        background: var(--color-gradient);
     }
 
     .footer h5 {
