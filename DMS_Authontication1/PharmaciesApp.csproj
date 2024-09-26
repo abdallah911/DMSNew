@@ -7415,6 +7415,12 @@
     <Content Include="assets\NewDesign\img\Home.jpg" />
     <Content Include="assets\NewDesign\img\Hr\HR SOFTWARE DEVELOPMENT.jpg" />
     <Content Include="assets\NewDesign\img\Hr\hrProduct.jpg" />
+    <Content Include="assets\NewDesign\img\medical-record-2.svg" />
+    <Content Include="assets\NewDesign\img\medical-record.svg" />
+    <Content Include="assets\NewDesign\img\medicine-2.svg" />
+    <Content Include="assets\NewDesign\img\medicine.svg" />
+    <Content Include="assets\NewDesign\img\report-2.svg" />
+    <Content Include="assets\NewDesign\img\report.svg" />
     <Content Include="assets\NewDesign\img\reports\background-22-01.jpg" />
     <Content Include="assets\NewDesign\img\reports\logo-dms-white2.png" />
     <Content Include="assets\NewDesign\img\reports\Untitled-1  2-02.jpg" />
@@ -7442,6 +7448,8 @@
     <Content Include="assets\NewDesign\img\services\Software Product Design.jpg" />
     <Content Include="assets\NewDesign\img\services\Web Development Services.jpg" />
     <Content Include="assets\NewDesign\img\Untitled-222222-01-removebg-preview.png" />
+    <Content Include="assets\NewDesign\img\writing-2.svg" />
+    <Content Include="assets\NewDesign\img\writing.svg" />
     <Content Include="assets\NewDesign\js\animated.js" />
     <Content Include="assets\NewDesign\js\app.js" />
     <Content Include="assets\NewDesign\js\bootstrap.bundle.min.js" />
@@ -9287,7 +9295,8 @@
     <Content Include="Views\EmployeeRequest\AppointmentBookingTest.cshtml" />
     <Content Include="Views\EmployeeRequest\HomePageTest.cshtml" />
     <Content Include="Views\HomeNetwork\Index.cshtml" />
-    <Content Include="Views\Shared\_Layout_DashboardAdminNew - Copy.cshtml" />
+    <Content Include="Views\Shared\_Layout_DashboardAdminNew.cshtml" />
+    <Content Include="Views\Shared\_Layout_DashboardAdminNewWelcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

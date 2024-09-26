@@ -90,12 +90,15 @@
                     <div class="row">
                         <div class="form-group d-flex gap-3 mb-3 ms-sm-4 mx-auto">
                             <div class="col-sm-3">
-                                <input id="AddCardTxt" type="text" placeholder="Add Card" class="form-control" />
+                                <input id="AddCardTxt" type="text" placeholder="Add Card" class="admin-form-control py-2 form-control" />
                             </div>
                             <div class="col-sm-3">
                                 @*<button id="AddCard" class=" btn btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#exampleModal"> Add</button>*@
                                 <button id="AddCard" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                    <i class="glyphicon glyphicon-search"></i> Search
+                                    <i class="glyphicon glyphicon-search"></i>
+                                    <i class="fa-solid fa-magnifying-glass me-1"></i>
+
+                                    Search
                                 </button>
                             </div> 
                         </div>
@@ -128,8 +131,11 @@
                             <tbody></tbody> 
                         </table>
                     </div> 
-                    <input id="ShowDetailsCard" type="button" value="Show more details" class="btn text-white fw-bold rounded-3 mt-3 mb-4 ms-sm-4 mx-auto" onclick="ShowDetailsCard($('#AddCardTxt').val())" />
-                    
+                    <div class="position-relative mt-3 mb-4 ms-sm-4 mx-auto">
+                        <i class="fa-solid fa-circle-info position-absolute start-0 top-50 translate-middle text-white ms-3 "></i>
+
+                        <input id="ShowDetailsCard" type="button" value="Show more details" class="btn text-white fw-bold rounded-3 ps-4" onclick="ShowDetailsCard($('#AddCardTxt').val())" />
+                    </div>
                     <div class="panel panel-info">
                         <div class="row bg-overlay  portlet-title">
                             <div class="m-3 fs-3 text-white caption">
@@ -145,60 +151,63 @@
                             </select>
                         </div>
                     </div>*@
-                                    <div class="row row-cols-3 row-gap-2 mx-auto  mt-4">
-                                        <div class=" text-center">
-                                            <button id="AddMedicien" class=" btn text-white fw-bold rounded-3" data-toggle="modal" data-target="#exampleModal"> Add Medicine</button>
-                                        </div>
-                                        <div class=" text-center" >
-                                            <button id="ActiveMedicine" class=" btn text-white fw-bold rounded-3" onclick="ActiveOrNotActiveMedicine();">Active</button>
-                                        </div>
-                                        <div class=" text-center">
-                                            <button id="EmployeeData" class=" btn text-white fw-bold rounded-3" data-toggle="modal" data-target="#EmplyeeModal" @*onclick="EmployeeData();"*@><i class="fa fa-info-circle" aria-hidden="true"></i>Employee Data</button>
-                                        </div>
-                                    </div>
-                                    <div class="sios-bg container-fluid my-3"  >
-                                        @*<div class="master"></div>*@
-                                        <div class="table-responsive">
-                                            <table class="table" id="CardMedicines">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Medicien Code</th>
-                                                        <th scope="col" align="center">Name</th>
-                                                        <th scope="col">Dosage</th>
-                                                        <th scope="col">Package Size</th>
-                                                        <th scope="col">Package Price</th>
-                                                        <th scope="col">Unit Number</th>
-                                                        <th scope="col">Unit Price</th>
-                                                        <th scope="col">Dose</th>
-                                                        <th scope="col">Duration</th>
-                                                        <th scope="col">Dose Duration</th>
-                                                        <th scope="col">Total Units</th>
-                                                        <th scope="col">Excess</th>
-                                                        <th scope="col">Amount</th>
-                                                        <th scope="col">Medicines Type</th>
-                                                        <th scope="col">Months</th>
-                                                        <th scope="col">stop Month</th>
-                                                        <th scope="col">Active</th>
-                                                        <th scope="col">Company Pay</th>
-                                                        <th scope="col">Start Date</th>
-                                                        <th scope="col">Pool Type</th>
-                                                        <th scope="col"> </th>
-                                                        <th scope="col"> </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody></tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                            <div class="row row-cols-3 row-gap-2 mx-auto  mt-4">
+                                <div class=" text-center">
+                                    <button id="AddMedicien" class=" btn text-white fw-bold rounded-3" data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-plus me-1"></i> Add Medicine</button>
                                 </div>
-                                <!--Save-->
-                                <div class="panel-footer text-center text-sm-start ms-sm-4 "  >
-                                    <a id="LastApproval" class=" btn text-white fw-bold rounded-3" > Last Approval</a>
-                                    <input id="SubmetChronic" type="button" value="Save mediciens" class="btn text-white fw-bold rounded-3 ms-2">
+                                <div class=" text-center" >
+                                    <button id="ActiveMedicine" class=" btn text-white fw-bold rounded-3" onclick="ActiveOrNotActiveMedicine();"><i class="fa-solid fa-activ"></i>Active</button>
+                                </div>
+                                <div class=" text-center">
+                                    <button id="EmployeeData" class=" btn text-white fw-bold rounded-3" data-toggle="modal" data-target="#EmplyeeModal" @*onclick="EmployeeData();"*@><i class="fa-solid fa-database me-1" aria-hidden="true"></i>Employee Data</button>
+                                </div>
+                            </div>
+                            <div class="sios-bg container-fluid my-3"  >
+                                @*<div class="master"></div>*@
+                                <div class="table-responsive">
+                                    <table class="table" id="CardMedicines">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Medicien Code</th>
+                                                <th scope="col" align="center">Name</th>
+                                                <th scope="col">Dosage</th>
+                                                <th scope="col">Package Size</th>
+                                                <th scope="col">Package Price</th>
+                                                <th scope="col">Unit Number</th>
+                                                <th scope="col">Unit Price</th>
+                                                <th scope="col">Dose</th>
+                                                <th scope="col">Duration</th>
+                                                <th scope="col">Dose Duration</th>
+                                                <th scope="col">Total Units</th>
+                                                <th scope="col">Excess</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Medicines Type</th>
+                                                <th scope="col">Months</th>
+                                                <th scope="col">stop Month</th>
+                                                <th scope="col">Active</th>
+                                                <th scope="col">Company Pay</th>
+                                                <th scope="col">Start Date</th>
+                                                <th scope="col">Pool Type</th>
+                                                <th scope="col"> </th>
+                                                <th scope="col"> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                        <!--Save-->
+                        <div class="panel-footer d-flex gap-2 text-center text-sm-start ms-sm-4 "> 
+                            <a id="LastApproval" class=" btn text-white fw-bold rounded-3"><img style="width:15px"  src="~/assets/NewDesign/img/report-2.svg" class="me-1" /> Last Approval</a>
+                            <div class="position-relative">
+                                <i class="fa-solid fa-floppy-disk position-absolute start-0 top-50 translate-middle text-white ms-3 "></i>
+                                <input  id="SubmetChronic" type="button" value="Save mediciens" class="btn h-100 text-white fw-bold rounded-3 ps-4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
         </div> 
     </div> 
 </div> 

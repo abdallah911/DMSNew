@@ -26,14 +26,14 @@
 
             <div class="col-8  col-lg-4 form-group">
                 <div class="w -100">
-                    <input id="txtSearchCard" type="text" placeholder="search for card..." class="w-100 admin-form-control w-100   rounded-3  ps-3 rounded-3" />
+                    <input id="txtSearchCard" type="text" placeholder="search for card..." class="w-100 admin-form-control w-100   rounded-3  ps-3 rounded-3 py-2" />
 
 
                 </div>
             </div>
             <div class="col-4 ">
-                <button id="S earch" type="button" class="btn btn-primary">
-                    <span cla ss="glyphicon glyphicon-search"></span> Search
+                <button id="S earch" type="button" class="btn btn-primary fw-bold">
+                    <i class="fa-solid fa-magnifying-glass me-1"></i> Search
                 </button>
             </div>
         </div>
@@ -51,43 +51,45 @@
         <div class=" row row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-gap-3  m-auto m-sm-0 text-center form-group">
 
             <div class="  forLabel admin-form-control   border-0 px-2  ">
-                @*@Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })*@
-                @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3 ", @ReadOnly = "true" } })
+
+                @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3 ", @required = "required", @ReadOnly = "true" } })
                 <span>
-                    Company Name
+                    @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })
                 </span>
             </div>
             <div class="  forLabel admin-form-control   border-0 px-2  ">
-                @*@Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })*@
-                @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3 ", @ReadOnly = "true" } })
-                <span>Name</span>
+
+                @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3 ", @required = "required", @ReadOnly = "true" } })
+                <span>@Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })</span>
             </div>
             <div class="  forLabel admin-form-control   border-0 px-2  ">
-                @*@Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })*@
-                @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3 ", @ReadOnly = "true" } })
+                @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3 ", @required = "required", @ReadOnly = "true" } })
                 <span>
-                    End Date
+                    @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
+
                 </span>
             </div>
 
             <div class="  forLabel admin-form-control   border-0 px-2  ">
-                @*@Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })*@
-                @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "admin-form-control w-100 h-100  ", @id = "ddlSpeciality" })
-                <span>Speciality</span>
+                @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "admin-form-control w-100 h-100  ", @required = "required", @id = "ddlSpeciality" })
+                <span>
+                    @Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })
+                </span>
             </div>
 
             <div class="forLabel  admin-form-control  border-0 px-2">
-                @*@Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })*@
-                @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   rounded-3", @ReadOnly = "true" } })
-                <span>Company Percent</span>
+                @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   rounded-3", @required = "required", @ReadOnly = "true" } })
+                <span>
+                    @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
+                </span>
             </div>
             <div class="forLabel select2-60  admin-form-control  border-0 px-2">
-                @*@Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })*@
-                @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   rounded-3", @ReadOnly = "true" } })
-                <span>Limit</span>
+                @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   rounded-3", @required = "required", @ReadOnly = "true" } })
+                <span>
+                    @Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })
+                </span>
             </div>
             <div class="  forLabel select2-60 ddlDiagnoises admin-form-control   border-0 px-2  " style="height:80px">
-                @*@Html.Label("Diagnoise", new { @class = "control-label" })*@
                 <div id="expandVertical" class="btn d-flex justify-content-center align-items-center  ms-1 ,b-1 text-white rounded-circle position-apsolute start-0 top-0 translate-middle-y   z-2" style="width:20px; height:20px; padding:12px;margin-bottom:20px;">
                     <i class="fa fa-plus " style="font-size:16px;"></i>
                 </div>
@@ -96,7 +98,9 @@
                 </div>
 
                 <select id="ddlDiagnoises" class="admin-form-control border-2 ps-3" style="width:100%" multiple></select>
-                <span style="right: 20px !important; padding-left: 0; top: 14px; color: var(--color-secondary) !important; font-size: 11px;">Diagnoise</span>
+                <span style="right: 20px !important; padding-left: 0; top: 14px; color: var(--color-secondary) !important; font-size: 11px;">
+                    @Html.Label("Diagnoise", new { @class = "control-label" })
+                </span>
             </div>
 
 
@@ -161,10 +165,10 @@
 
 
         <div class="  forLabel   admin-form-control border-0 px-2     ">
-            <input id="PharmacyTxt" type="text" class="admin-form-control h-100 w-100" />
+            <input id="PharmacyTxt" type="text" class="admin-form-control h-100 w-100" reqired/>
             <span>Pharmacy</span>
         </div>    <div class="  forLabel admin-form-control border-0 px-2     ">
-            <input id="BranchTxt" type="text" style="padding-right: 2rem !important; border: 2px solid var(--color-secondary) ;"
+            <input id="BranchTxt" type="text" style="padding-right: 2rem !important; border: 2px solid var(--color-secondary) ;"reqired
                    class="admin-form-control h-100 w-100" />
             <span>Branch</span>
 
@@ -251,8 +255,15 @@
                 <span class="control-label">Total cash</span>
             </div>
             <div class="d-flex justify-content-center gap-2 mx-auto" style="padding:10px 0; text-align:right">
-                <input id="reset" type="button" value="Reset" onclick="ClearCardData();ClearMedicineData();" class="btn fw-bold text-white rounded-3 " />
-                <input id="submit" type="button" value="Save" class="btn fw-bold text-white rounded-3 " />
+                <div class="position-relative  ">
+                    <i class="fa-solid fa-rotate position-absolute start-0 top-50 translate-middle text-white ms-3 "></i>
+                    <input id="reset" type="button" value="Reset" onclick="ClearCardData();ClearMedicineData();" class="btn ps-4 fw-bold text-white rounded-3 " />
+                </div> 
+                <div class="position-relative">
+                    <i class="fa-solid fa-floppy-disk position-absolute start-0 top-50 translate-middle text-white ms-3 "></i>
+
+                    <input id="submit" type="button" value="Save" class="btn fw-bold text-white rounded-3 ps-4 " />
+                </div>
             </div>
 
 

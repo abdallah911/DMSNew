@@ -2,25 +2,33 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
+    Layout = "~/Views/Shared/_Layout_DashboardAdminNewWelcome.cshtml";
 }
 
 <div class="d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 259.5px); overflow:hidden;">
-    <div class="Admin-container d-flex gap-5 flex-column my-4 m-auto align-items-center justify-content-center my-0"  >
+    <div class="Admin-container d-flex gap-5 flex-column my-4 m-auto align-items-center justify-content-center my-0">
         <div class="w-100 text-center ">
-            <img style="width: 20%"
-                 class="m-auto"
-                 src="~/assets/NewDesignBackAdmin/img/WELCOME.png"
+            <img style="width: 35%"
+                 class="m-auto "
+                 id="welcomePageLogo"
+                 src="~/assets/NewDesignBackAdmin/img/logo D M S 4-04.png"
                  alt="" />
         </div>
         <div class="w-100 text-center  ">
-            <img style="width: 25%"
-                 class="m-auto   opacity-50 "
-                 src="~/assets/NewDesignBackAdmin/Img/new-dms-logo.png"
+            <img style="width: 54%"
+                 class="m-auto "
+                 id="welcomePageImg"
+                 src="~/assets/NewDesignBackAdmin/Img/SL-122222-54830.png"
                  alt="" />
         </div>
-    </div> 
+    </div>
 </div>
+<script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
+<script>
+    $(".navbar").css("background", "linear-gradient( 45deg, #07386e 0%, #17609b 18%, rgb(65 134 193) 50%, #17609b 75%, #07386e 100% );");
+    $(".footer").css("background", "linear-gradient( 45deg, #07386e 0%, #17609b 18%, rgb(65 134 193) 50%, #17609b 75%, #07386e 100% );");
+
+</script>
 
 
 

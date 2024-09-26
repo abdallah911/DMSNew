@@ -1070,6 +1070,7 @@ textarea {
     font-size: 14px !important;
     color: white;
     border: 2px solid var(--color-btn);
+    padding-bottom: 8px;
 }
 
     .btn:hover {
@@ -1193,7 +1194,7 @@ a.login-home-page{
 
 .bootbox-body {
     font-size: 16px;
-    direction: rtl !important;
+    direction: ltr !important;
     font-weight: 700;
 }
 .modal-footer {
@@ -1383,8 +1384,8 @@ p.count-p {
 .hr-page .Admin-main-ul .dropdown-menu {
     top: 130%;
 }
-    .dropdown-item {
-    color: #17609b !important;
+.dropdown-item {
+    color: var(--color-secondary) !important;
 }
 .hr-page .dropdown-item {
     color: var(--color-secondary) !important;
