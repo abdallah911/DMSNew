@@ -2262,7 +2262,7 @@ namespace DMS_TEST.Controllers
                 }
 
             }
-            var date = DateTime.Now.AddDays(-14);
+            var date = DateTime.Now.AddDays(-28);
             var createdDate2 = db.Roshitas.Where(r => r.CardId == id && r.Manager.Contains("Doctor_Daily") && r.CreatedDate >= date && !r.Manager.Contains("Stop"))
                 .Join(db.RoshitaDetails, x => x.Id, d => d.RoshitaID, (x, d) => new { x, d })
               .Where(z => z.d.MedicienCode == code && z.d.PaymentGroup != "Cash" && z.d.IsDealed == false)

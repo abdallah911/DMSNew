@@ -2247,8 +2247,8 @@ $(function () {
     //}
 
     function changeTotalDuration(button) {
-        var MinDay = ($('#ddlType').val() == "11601") ? 5 : 1;
-        var MaxDay = ($('#ddlType').val() == "11601") ? 14 : 28;
+        var MinDay = /*($('#ddlType').val() == "11601") ? 5 :*/ 1;
+        var MaxDay = /*($('#ddlType').val() == "11601") ? 14 :*/ 28;
         //var companid = $('#txtSearchCard').val().split('-')[0];
         if (companid == "888") {
             MinDay = 1;
