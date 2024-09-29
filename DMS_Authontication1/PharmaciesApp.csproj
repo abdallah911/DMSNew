@@ -7321,7 +7321,6 @@
     <Content Include="assets\NewDesignBackAdmin\Img\logo-subtitle.png" />
     <Content Include="assets\NewDesignBackAdmin\Img\navbar-bg.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\new-dms-logo.png" />
-    <Content Include="assets\NewDesignBackAdmin\Img\SL-122222-54830-26 [Converted]  é-01 %281%29.png" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1  2-01.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1  2-02.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1-01.jpg" />
@@ -7409,10 +7408,6 @@
     <Content Include="assets\NewDesign\css\owl.theme.green.min.css" />
     <Content Include="assets\NewDesign\css\style2.css" />
     <Content Include="assets\NewDesign\css\video-js.css" />
-    <Content Include="assets\NewDesign\img\about.jpeg" />
-    <Content Include="assets\NewDesign\img\adminProfil\1.png" />
-    <Content Include="assets\NewDesign\img\adminProfil\2.png" />
-    <Content Include="assets\NewDesign\img\adminProfil\3.png" />
     <Content Include="assets\NewDesign\img\adminProfil\self adminProfile.jpg" />
     <Content Include="assets\NewDesign\img\Animation\Dms-Video.mp4" />
     <Content Include="assets\NewDesign\img\application\app-profile-2.png" />
@@ -9317,7 +9312,6 @@
     <Content Include="Views\Shared\_Layout_DashboardHR.cshtml" />
     <Content Include="Views\EmployeeRequest\AppointmentBookingTest.cshtml" />
     <Content Include="Views\EmployeeRequest\HomePageTest.cshtml" />
-    <Content Include="Views\HomeNetwork\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardAdminNew.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardAdminNewWelcome.cshtml" />
     <Content Include="Views\NetworkMedical\NetworkMedical.cshtml" />
