@@ -1,4 +1,5 @@
-﻿using DMS_Authontication1.Models;
+﻿using DMS_Authontication1.Data_Function;
+using DMS_Authontication1.Models;
 using DMS_Authontication1.ViewModel;
 using Microsoft.AspNet.Identity;
 using System;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-
+using System.Data;
 namespace DMS_Authontication1.Controllers.HR
 {
     [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -16,15 +17,34 @@ namespace DMS_Authontication1.Controllers.HR
     {
         private DMS_TESTEntities db = new DMS_TESTEntities();
         ApplicationDbContext myEntities = new ApplicationDbContext();
+        DBApproval dbData = new DBApproval();
 
         [HttpGet]
         public ActionResult NetworkMedical(string cardId)
         {
             if (!string.IsNullOrEmpty(cardId))
-                ViewBag.CardId = cardId; 
-            
+            {
+                
 
-                var provider = db.ProviderTypeNews.ToList();
+                DataTable dtcrd = new DataTable();
+
+                dtcrd = dbData.RunReader(@" SELECT e.EMP_ANAME_ST || ' ' || e.EMP_ANAME_SC || ' ' || e.EMP_ANAME_TH NAME, q.Notes  
+                                            FROM    DMS_TEST.COMP_EMPLOYEES e
+                                            LEFT OUTER JOIN APP.CARD_QR q ON  e.C_COMP_ID = q.COMP_ID AND e.CARD_ID = q.CARD_ID
+                                            WHERE q.CARD_ID = '" + cardId + "'");
+
+
+                if(dtcrd.Rows.Count > 0)
+                {
+                    ViewBag.CardId = cardId;
+                    ViewBag.Name = dtcrd.Rows[0][0].ToString();
+                    ViewBag.Notes = dtcrd.Rows[0][1].ToString();
+
+                    ViewBag.Notes = ViewBag.Notes.Replace("\n", "<br>");
+                }
+            }
+            
+            var provider = db.ProviderTypeNews.ToList();
             SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
             ViewBag.provider = Providerlist;
 
