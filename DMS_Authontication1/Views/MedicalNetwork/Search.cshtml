@@ -103,29 +103,29 @@
                                                         <i class="fa fa-search me-1"></i>Search
                                                     </div>
                                                     <div class="col-sm-9 d-flex flex-column row-gap-2 form-group">
-                                                        <div class="forLabel px-2 border-0 form-group">
-                                                            @Html.DropDownList("Provider_Type", ViewBag.provider as SelectList, "Select Provider", new { @class = "border-2 sios-form-control w-100 form-control", id = "provider_Type" })
-                                                            <span class="start-0 text-white">
+                                                        <div class="forLabel border-0 bg-white rounded form-group">
+                                                            @Html.DropDownList("Provider_Type", ViewBag.provider as SelectList, "Select Provider", new { @class = "border-2 sios-form-control w-100 bg-white form-control", id = "provider_Type" })
+                                                            <span class="start-0 " style="padding-left:10px ;">
                                                                 @Html.Label("Provider Type", htmlAttributes: new { @class = "control-label" })
                                                             </span>
                                                         </div>
 
-                                                        <div class="forLabel px-2 border-0 form-group" id="SpecialistDiv" style="display:none">
-                                                            @Html.DropDownList("Specialist", new SelectList(""), new { @class = "border-2 sios-form-control w-100 form-control", id = "SpecialistId" })
-                                                            <span class="start-0 text-white">
+                                                        <div class="forLabel border-0 bg-white rounded form-group" id="SpecialistDiv" style="display:none">
+                                                            @Html.DropDownList("Specialist", new SelectList(""), new { @class = "border-2 sios-form-control w-100 bg-white form-control", id = "SpecialistId" })
+                                                            <span class="start-0 " style="padding-left:10px ;">
                                                                 @Html.Label("Specialist", htmlAttributes: new { @class = "control-label" })
                                                             </span>
                                                         </div>
 
-                                                        <div class="forLabel px-2 border-0 form-group">
-                                                            @Html.DropDownList("Country", ViewBag.address as SelectList, "Select Governorate", new { @class = "border-2 sios-form-control w-100 form-control", id = "Country_select" })
-                                                            <span class="start-0 text-white">
+                                                        <div class="forLabel border-0 bg-white rounded form-group">
+                                                            @Html.DropDownList("Country", ViewBag.address as SelectList, "Select Governorate", new { @class = "border-2 sios-form-control w-100 bg-white form-control", id = "Country_select" })
+                                                            <span class="start-0 " style="padding-left:10px ;">
                                                                 @Html.Label("Governorate", htmlAttributes: new { @class = "control-label" })
                                                             </span>
                                                         </div>
-                                                        <div class="forLabel px-2 border-0 form-group">
-                                                            @Html.DropDownList("Region", new SelectList(""), new { @class = "border-2 sios-form-control w-100 form-control", id = "Region_select" })
-                                                            <span class="start-0 text-white">
+                                                        <div class="forLabel border-0 bg-white rounded form-group">
+                                                            @Html.DropDownList("Region", new SelectList(""), new { @class = "border-2 sios-form-control w-100 bg-white form-control", id = "Region_select" })
+                                                            <span class="start-0 " style="padding-left:10px ;">
                                                                 @Html.Label("Region", htmlAttributes: new { @class = "control-label" })
                                                             </span>
                                                         </div>
