@@ -20,45 +20,68 @@
     </div>
     <div class="container mx-auto">
         <div class=" col-md-4  forLabel px-2 border-0 mt-4 mb-3">
-            <input type="text"  value="@ViewBag.CardId" class="border-2 admin-form-control w-100" style="border-color: #07386e !important;" readonly />
-            <span class="start-0 sios-color" >Card Number</span>
+            <input type="text" id="txtCardId" value="@ViewBag.CardId" class="border-2 admin-form-control w-100" style="border-color: #07386e !important;" readonly />
+            <span class="start-0 sios-color">Card Number</span>
+        </div>
+        <div class=" col-md-4  forLabel px-2 border-0 mt-4 mb-3">
+            <input type="text" id="txtName" value="@ViewBag.Name" class="border-2 admin-form-control w-100" style="border-color: #07386e !important;" readonly />
+            <span class="start-0 sios-color">Name</span>
         </div>
     </div>
     <div class="container mx-auto row row-cols-sm-2 row-cols-md-3 row-gap-2 ">
         <div class="forLabel px-2 border-0 ">
-            @Html.DropDownList("Provider_Type", ViewBag.provider as SelectList, "Select Provider", new { @class = "border-2 ps-3  admin-form-control w-100", @style = "padding-left:10px !important; border-color:#07386e !important;", id = "provider_Type" })
+            @Html.DropDownList("provider_Type", ViewBag.provider as SelectList, "Select Provider", new { @class = "select2 border-2 ps-3  admin-form-control w-100", @style = "padding-left:10px !important; border-color:#07386e !important;", id = "provider_Type" })
             <span class="start-0" style="color:#07386e;">
                 @Html.Label("Provider Type", htmlAttributes: new { @class = "control-label" })
             </span>
         </div>
 
         <div class="forLabel px-2 border-0 ">
-            @Html.DropDownList("Country", ViewBag.address as SelectList, "Select Governorate", new { @class = "border-2 ps-3  admin-form-control w-100", @style = "padding-left:10px !important; border-color:#07386e !important;", id = "Country_select" })
+            @Html.DropDownList("Country", ViewBag.address as SelectList, "Select Governorate", new { @class = "select2 border-2 ps-3  admin-form-control w-100", @style = "padding-left:10px !important; border-color:#07386e !important;", id = "Country_select" })
             <span class="start-0" style="color:#07386e;">
                 @Html.Label("Governorate", htmlAttributes: new { @class = "control-label" })
             </span>
         </div>
 
         <div class="forLabel px-2 border-0 ">
-            @Html.DropDownList("Region", new SelectList(""), new { @class = "border-2 ps-3  admin-form-control w-100 form-control", @style = "padding-left:10px !important; border-color:#07386e !important;", required = "required", id = "Region_select" })
+            @Html.DropDownList("Region", new SelectList(""), new { @class = "select2 border-2 ps-3  admin-form-control w-100 form-control", @style = "padding-left:10px !important; border-color:#07386e !important;", required = "required", id = "Region_select" })
             <span class="start-0" style="color:#07386e;">
                 @Html.Label("Region", htmlAttributes: new { @class = "control-label" })
             </span>
+        </div>
+        <div class="d-flex gap-2 mt-3">
+            <div class=" ">
+                <button id="Search" type="button" class="btn rounded-3" style="background: linear-gradient( 45deg, #07386e 0%, #17609b 18%, rgb(65 134 193) 50%, #17609b 75%, #07386e 100% );" onclick="SearchProvider()">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                </button>
+            </div>            
         </div>
 
     </div>
     @*Date of Service*@
     <div class=" container home-page m-auto px-4 my-4">
         <div class=" mx-auto my-4 table-responsive" id="">
-            <table class="table home-page-table border-1" id="homePage">
+            <table class="table home-page-table border-1" id="ProviderList">
                 <thead class="rounded">
                     <tr>
-                        <th>Pre Name</th>
-                        <th>Address</th>
-                        <th>Address</th>
-                        <th>Tel</th>
-                        <th>Tel</th>
-                        <th>Specialist</th>
+                        <th>
+                            @Html.DisplayName("PRENAME")
+                        </th>
+                        <th>
+                            @Html.DisplayName("ADDRESS 1")
+                        </th>
+                        <th>
+                            @Html.DisplayName("ADDRESS 2")
+                        </th>
+                        <th>
+                            @Html.DisplayName("TEL 1")
+                        </th>
+                        <th>
+                            @Html.DisplayName("TEL 2")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Specialist")
+                        </th>
                     </tr>
                 </thead>
                 <tbody id="ProviderListBody"></tbody>
@@ -67,23 +90,30 @@
     </div>
     <div class="container mx-auto row row-cols-md-2 mb-4">
         <div style="height:420px" class="sios-bg border-0 rounded-4 p-4">
-            <video class="w-100 h-100 rounded-4 video-js" controls="controls"  preload="auto" data-setup="{}" >
+            <video class="w-100 h-100 rounded-4 video-js" controls="controls" preload="auto" data-setup="{}">
                 <source src="~/assets/NewDesign/img/Animation/Dms-Video.mp4" type="video/mp4" />
             </video>
         </div>
-        <h3 class=" my-auto fw-medium" style="color: #07386e;">DMS Description</h3>
+        @*<h3 class=" my-auto fw-medium" style="color: #07386e;">DMS Description</h3>*@
+        <div class=" col-md-4  forLabel px-2 border-0 mt-4 mb-3 mx-auto" dir="rtl">
+            <p class="fs-5">@Html.Raw(ViewBag.Notes)</p>
+            @*<input type="text" id="txtDescription" value="@ViewBag.Notes" class="border-2 admin-form-control w-100" style="border-color: #07386e !important;" readonly />
+            <span class="start-0 sios-color">Description</span>*@
+        </div>
     </div>
 </div>
-<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script> 
+<script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
+<script src="~/assets/NewDesign/js/jquery.min.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 <script src="~/assets/NewDesign/js/video.min.js"></script>
 <script>
-
+    
     $(document).ready(function () {
-        $("#homePage").DataTable();
+        $(".select2").select2();
 
 
-        $("#Country_select").change(function () {//address
-            $.get("/MedicalNetwork/GetStateList",
+        $("#Country_select").change(function () {
+            $.get("/NetworkMedical/GetRegion",
                 { id: $("#Country_select").val() }, function (data) {
                     $("#Region_select").empty();
                     $.each(data, function (index, row) {
@@ -91,5 +121,81 @@
                     });
                 });
         });
+
+
     });
+    function SearchProvider() {
+        debugger;
+        if ($("#txtCardId").val() != "") {
+            var cardNum = $("#txtCardId").val();
+               var arra = cardNum.split("-");
+                // chick card id is correct or not
+                if (arra.length == 4 && arra[3] != "") {
+
+                    compname = arra[0];
+                        if ($("#provider_Type").val() == "") {
+                            alert("Please select Provider ...");
+                        }
+                        if ($("#Country_select").val() == "") {
+                            alert("Please select Country ...");
+                        }
+                        else {
+
+                            $.ajax({
+                                url: '/NetworkMedical/GetProviders/',
+                                data: {
+                                    cardId: cardNum, compId: compname, country: $("#Country_select").val(),
+                                    region: $("#Region_select").val(), providerId: $("#provider_Type").val()
+                                },
+                                dataType: 'Json',
+                                success: function (r) {
+                                    $('#ProviderList').dataTable().fnDestroy();
+                                    if (r.msg == "ok") {
+                                        var setData = $("#ProviderList Tbody");
+                                        setData.empty();
+                                        for (var i = 0; i < r.providerslist.length; i++) {
+                                            var data = "<tr >" +
+                                                "<td>" + r.providerslist[i].PR_ANAME + "</td>";
+                                            if (r.providerslist[i].ADDRESS1 == null)
+                                                data += "<td>--</td>";
+                                            else
+                                                data += "<td>" + r.providerslist[i].ADDRESS1 + "</td>";
+                                            if (r.providerslist[i].ADDRESS2 == null)
+                                                data += "<td>--</td>";
+                                            else
+                                                data += "<td>" + r.providerslist[i].ADDRESS2 + "</td>";
+                                            if (r.providerslist[i].TEL1 == null)
+                                                data += "<td>--</td>";
+                                            else
+                                                data += "<td>" + r.providerslist[i].TEL1 + "</td>";
+                                            if (r.providerslist[i].TEL2 == null)
+                                                data += "<td>--</td>";
+                                            else
+                                                data += "<td>" + r.providerslist[i].TEL2 + "</td>";
+                                            if (r.providerslist[i].PR_DESC == null)
+                                                data += "<td>--</td>";
+                                            else
+                                                data += "<td>" + r.providerslist[i].PR_DESC + "</td>" +
+                                                    "</tr>";
+                                            setData.append(data);
+                                        }
+                                        $('#ProviderList').DataTable();
+                                        $('#list_div').show();
+                                    }
+                                    else {
+                                        alert(r.msg);
+                                    }
+
+                                },
+                                error: function () {
+                                    alert("Invalid Card ID ");
+                                }
+                            });
+                        }
+                }
+                else {
+                    alert("Please enter correct card ... ");
+            }
+        }
+    }
 </script>
