@@ -282,8 +282,12 @@ input {
     height: 40px !important;
     width: 100% !important;
 }
-
-
+.ar-page span.select2.select2-container.select2-container--default {
+    direction: rtl;
+}
+.ar-page .select2-container--default .select2-selection--single .select2-selection__rendered {
+    padding: 0 10px;
+}
     span.select2.select2-container.select2-container--default.select2-container--below {
         width: 100% !important;
         height: 100%;
@@ -328,6 +332,10 @@ span.select2-selection__arrow {
     top: 50% !important;
     right: 10px !important;
     transform: translateY(-50%);
+}
+.ar-page span.select2-selection__arrow {
+    left: 10px;
+    right: unset !important;
 }
 
  .select2-container.select2-container--open {
@@ -2916,17 +2924,7 @@ td button:hover {
         width: 100%;
         filter: invert(1);
     }
-
-.logo-white {
-    width: 100px;
-    background-image: url("./../Images/logo-dms-white.png");
-    background-size: contain;
-    margin-right: 3rem;
-    opacity: 0.8;
-    background-repeat: no-repeat;
-    transition: all 0.2s ease-in-out;
-}
-
+     
 /* ====================Ahmed================================================================================= */
 /* Buttons Format */
 
@@ -4490,7 +4488,7 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
         color:var(--color-secondary);
         width:20px;
     }
-.home-page .table-responsive label {
+/*.home-page .table-responsive label {
     background: #15569e;
 }
 .home-page .table-responsive .paginate_button.next a, .table-responsive .paginate_button.previous a {
@@ -4498,13 +4496,13 @@ div.ui-datepicker-title select.ui-datepicker-year:focus {
 }
 .home-page .table-responsive {
     border-bottom: #487aaf 5px solid;
-}
+}*/
 .home-page span.select2-selection.select2-selection--single {
     border:2px solid #07386e !important;
 }
 /* ====================Video========================================== */
 button.vjs-big-play-button {
-    background: #323c65d4 !important;
+    background: #573265d4 !important;
     border: none !important;
 }
 .vjs-control-bar {
@@ -4573,16 +4571,16 @@ button.vjs-big-play-button {
         border-radius: 10px;
     }
 
-    .logo-white {
-        width: 140px;
-        margin-top: 10px;
-        background-image: url(../Img/logo-dms-white2.png);
-        background-size: contain;
-        margin-right: 3rem;
-        opacity: 0.8;
-        background-repeat: no-repeat;
-        transition: all 0.2s ease-in-out;
-    }
+.logo-white {
+    width: 140px;
+    margin-top: 10px;
+    background-image: url(../../NewDesignBackAdmin/Img/logo-subtitle-silver.png);
+    background-size: contain;
+    margin-right: 3rem;
+    opacity: 0.8;
+    background-repeat: no-repeat;
+    transition: all 0.2s ease-in-out;
+}
 
         .logo-white:hover {
             opacity: 1;
