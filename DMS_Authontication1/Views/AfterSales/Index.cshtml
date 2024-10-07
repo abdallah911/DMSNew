@@ -18,41 +18,47 @@
             </div>
         </div>
         <div class="portlet-body">
-            <div class="row container mx-auto col-sm-8">
+            <div class="row container mx-auto col-sm-10">
                 <div class="   pe-0 row row-cols-xl-4  row-cols-sm-2 row-gap-2 ">
-                    <div class="">
-                        <input id="From" type="text" class="date-input admin-form-control form-control " placeholder="From" />
+                    <div class="forLabel px-2">
+                        <input id="From" type="text" class="date-input admin-form-control form-control "required placeholder="" />
+                        <span class="" style="">From</span>
                     </div>
-                    <div class="">
-                        <input id="To" type="text" class="date-input admin-form-control form-control " placeholder="To" />
+                    <div class="forLabel px-2">
+                        <input id="To" type="text" class="date-input admin-form-control form-control "required placeholder="" />
+                        <span class="" style="">To</span> 
                     </div>
-                    <div class="">
-                        @Html.DropDownList("CompName", ViewBag.company as SelectList, "Select Company", new { @class = "admin-form-control form-control", @id = "CompName" })
+                    <div class="forLabel px-2">
+                        @Html.DropDownList("CompName", ViewBag.company as SelectList, "", new { @class = "admin-form-control form-control",@required="true", @id = "CompName" })
+
+                        <span class="" style="">Select Company</span>
 
                         @*<input id="CompName" type="text" class=" admin-form-control form-control " placeholder="Company Name" />*@
                     </div>
                     @if (User.IsInRole("Admin"))
                     {
-                        <div class="">
-                            @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = "admin-form-control form-control", @id = "userName" })
+                        <div class="forLabel px-2">
+                            @Html.DropDownList("userName", ViewBag.users as SelectList, "", new { @class = "admin-form-control form-control",@required="true", @id = "userName" })
+                            <span class="" style="">Select User</span>
+
                             @*<input id="userName" type="text" class=" admin-form-control form-control " placeholder="User Name" />*@
                         </div>
                     }
                     <!--<div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
-                <select id="PharmacyddlType" class="admin-form-control form-control">
-                    <option value="">Select Type</option>
-                    <option value="Daily">Daily</option>
-                    <option value="Monthly">Monthly</option>
-                    <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>-->
+    <select id="PharmacyddlType" class="admin-form-control form-control">
+        <option value="">Select Type</option>
+        <option value="Daily">Daily</option>
+        <option value="Monthly">Monthly</option>
+        <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>-->
                     @*<option value="11604">Doctor</option>*@
                     <!--</select>
-            </div>-->
+    </div>-->
                 </div>
             </div>
-            <div class="row text-center text-sm-end mt-3 me-sm-3">
+            <div class="row text-center text-sm-end mt-3 container mx-auto col-sm-10">
                 <div class=" d-flex justify-content-center justify-content-sm-end gap-2" >
                     <div class="btn fw-bold text-white rounded-3 ">
-
+                        <i class="fa-solid fa-rotate me-1"></i> 
                         <input id="ResetSearch" type="button" value="Reset" onclick="ClearAfterSalesSearchData();" class="bg-transparent  border-0 text-white " />
                     </div>
                     <div class="btn fw-bold text-white rounded-3 ">

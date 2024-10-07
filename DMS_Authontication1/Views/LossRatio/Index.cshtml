@@ -33,60 +33,62 @@
                 <div class="row row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-gap-2 form-group">
 
                     <div class="forLabel admin-form-control border-0 px-2 ">
-                     
+
                         @Html.DropDownList("CompName", ViewBag.company as SelectList, "Select Company", new { @class = " w-100 h-100   admin-form-control form-control", @id = "CompName" })
                         <span class="ps-3">   @Html.LabelFor(model => model.CompId, htmlAttributes: new { @class = "control-label" })</span>
                     </div>
                     <div class="forLabel admin-form-control border-0 px-2 ">
-                       
+
                         <select id="ContractNo" class=" w-100 h-100   admin-form-control form-control " placeholder="ContractNo" readonly="readonly"></select>
                         <span class="ps-3"> @Html.LabelFor(model => model.ContractNo, htmlAttributes: new { @class = "control-label" })</span>
                     </div>
                     <div class="forLabel admin-form-control border-0 px-2 " data-step="4" data-intro="click Search">
-                        
-                        <button id="SearchRelation" style=" width: 80px;" type="button" class="btn fw-bold text-white rounded-3 btn-primary" >
-                            <i class="glyphicon glyphicon-search"></i> Search
+
+                        <button id="SearchRelation" style=" width: fit-content;" type="button" class="btn fw-bold text-white rounded-3 btn-primary d-flex align-items-center">
+                            <i class="glyphicon glyphicon-search"></i>
+                            <i class="fa-solid fa-magnifying-glass me-1"></i>
+                            Search
                         </button>
                     </div>
 
 
                     <div class="forLabel admin-form-control border-0 px-2 ">
-                       
+
                         @Html.EditorFor(model => model.ServiceDate, new { htmlAttributes = new { @class = " w-100 h-100   admin-form-control form-control", @ReadOnly = "true" } })
                         <span class="ps-3">  @Html.LabelFor(model => model.ServiceDate, htmlAttributes: new { @class = "control-label" })</span>
                     </div>
                     <div class="forLabel admin-form-control border-0 px-2 ">
-                        
+
                         @Html.EditorFor(model => model.ClaimCreatedDate, new { htmlAttributes = new { @class = " w-100 h-100   admin-form-control form-control", @ReadOnly = "true" } })
                         <span class="ps-3"> @Html.LabelFor(model => model.ClaimCreatedDate, htmlAttributes: new { @class = "control-label" })</span>
                     </div>
                     <div class="forLabel admin-form-control border-0 px-2 ">
-                       
+
                         @Html.EditorFor(model => model.ReviewDate, new { htmlAttributes = new { @class = " w-100 h-100   admin-form-control form-control", @ReadOnly = "true" } })
                         <span class="ps-3">  @Html.LabelFor(model => model.ReviewDate, htmlAttributes: new { @class = "control-label" }) </span>
                     </div>
 
                     <div class="forLabel admin-form-control border-0 px-2 ">
-                     
-                        @Html.EditorFor(model => model.LossRatio, new { htmlAttributes = new { @class = " w-100 h-100   admin-form-control form-control" } })
+
+                        @Html.EditorFor(model => model.LossRatio, new { htmlAttributes = new { @class = " w-100 h-100   admin-form-control form-control", @required = "true" } })
                         <span class="ps-3">    @Html.LabelFor(model => model.LossRatio, htmlAttributes: new { @class = "control-label" })</span>
                     </div>
 
                     <div class="forLabel admin-form-control border-0 px-2 ">
-                     
-                        @Html.EditorFor(model => model.PoolPercent, new { htmlAttributes = new { @class = " w-100 h-100   admin-form-control form-control" } })
+
+                        @Html.EditorFor(model => model.PoolPercent, new { htmlAttributes = new { @class = " w-100 h-100   admin-form-control form-control", @required = "true" } })
                         <span class="ps-3">    @Html.LabelFor(model => model.PoolPercent, htmlAttributes: new { @class = "control-label" })</span>
                     </div>
 
-                    <div class="forLabel admin-form-control border-0 px-2 "> 
-                        @Html.EditorFor(model => model.PoolValue, new { htmlAttributes = new { @class = " w-100 h-100   admin-form-control form-control" } })
+                    <div class="forLabel admin-form-control border-0 px-2 ">
+                        @Html.EditorFor(model => model.PoolValue, new { htmlAttributes = new { @class = " w-100 h-100   admin-form-control form-control", @required = "true" } })
                         <span class="ps-3">   @Html.LabelFor(model => model.PoolValue, htmlAttributes: new { @class = "control-label" }) </span>
                     </div>
 
                     <div class=" d-flex gap-2 align-items-center border-0 px-2   px-2 ">
                         @Html.LabelFor(model => model.PoolState, htmlAttributes: new { @class = "sios-color fw-bold control-label" })
-                        @Html.CheckBoxFor(model => model.PoolState, new { @class = " form-check  cus-rem-input", @style="width: 20px;" })
-                        
+                        @Html.CheckBoxFor(model => model.PoolState, new { @class = " form-check  cus-rem-input", @style = "width: 20px;" })
+
                     </div>
 
                 </div>

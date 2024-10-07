@@ -268,14 +268,22 @@
                         <div style="width:250px;" class="col-lg-3" data-step="7" data-intro="Select speciality">
                             @Html.TextAreaFor(model => model.Status, new { htmlAttributes = new { @class = "admin-form-control ps-3 pt-2 form-control", @style = "height: 40px !important; border-radius: 10px" } })
                         </div>
-                    </div>  
+                    </div>
                     <!--Save-->
-                    <div class="col-md-4 d-flex gap-2 justify-content-center mt-2 panel-footer" style="text-align:right;">
+                    <div class="col-md-4 d-flex gap-2 justify-content-center mt-2 ">
+                        <div class="position-relative" style="height:fit-content;">
+                            <i class="fa-solid fa-chevron-left position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                            @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3 ps-4", @style = "width: fit-content; height: fit-content" })
+                        </div>
+                        <div class="position-relative" style="height:fit-content;">
+                            <i class="fa-solid fa-save position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                            <input data-step="12" data-intro="Update Status" id="submit" type="button" value="Update" class="btn fw-bold text-white rounded-3 ps-4" style="height:fit-content;" />
+                        </div>
+                    </div>
+                    <div class="panel-footer" style="text-align:right;">
                         @*<input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
                         @*<input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn btn-warning" />*@
-                        @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3", @style = "width: fit-content; height: fit-content" })
-                        <input data-step="12" data-intro="Update Status" id="submit" type="button" value="Update" class="btn fw-bold text-white rounded-3" style="height:fit-content;"/>
-                    </div>
+                        </div>
                 </div>
             </div>
 

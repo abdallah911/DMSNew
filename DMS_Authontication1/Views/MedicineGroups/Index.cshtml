@@ -22,7 +22,6 @@
         </div>
     </div>
 </section>
-
 <div class="sios-bg w-100 m-auto px-4 my-4 pb-5">
     <div class="table-responsive">
         <table id="Index" class="table table-striped mt-3 text-center">
@@ -54,8 +53,15 @@
                             @Html.DisplayFor(modelItem => item.GroupType)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.GroupId }, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3", })
-                            @*|@Html.ActionLink("Delete", "Delete", new { id = item.GroupId }, htmlAttributes: new { @class = "btn btn-danger" })*@
+                            <div class="col-md-4 d-flex  gap-2 justify-content-center  mt-3 mt-sm-auto ">
+                                <div class="position-relative ">
+                                    <i class="fa-solid fa-pen-square position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.GroupId }, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3 ps-4", })
+                                    @*|@Html.ActionLink("Delete", "Delete", new { id = item.GroupId }, htmlAttributes: new { @class = "btn btn-danger" })*@   
+                                </div> 
+                            </div> 
+
+                      
                         </td>
                     </tr>
                 }

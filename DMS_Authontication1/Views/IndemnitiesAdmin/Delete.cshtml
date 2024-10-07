@@ -6,232 +6,244 @@
     Layout = "~/Views/Shared/_Layout_DashboardAdminNew.cshtml";
 
 }
-<div class="sios-overlay container-fluid mt-4 mb-4 portlet-title">
-    <div class="container ms-0 text-white fs-3 caption">
-        <h2>Delete Indemnity</h2>
-    </div>
-</div>
-<h3 class="m-3">Are you sure you want to delete this?</h3>
-<div>
-
-    <dl class="sios-bg dl-horizontal">
-
-        <dr class="sios-table-dr  row">
-            <dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.CardId)
-            </dt>
-
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.CardId)
-            </dd>
-        </dr>
-
-        <dr class="sios-table-dr  row">
-            <dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-        </dr>
-
-
-
-        <dr class="sios-table-dr  row">
-            <dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.NationalID)
-            </dt>
-
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.NationalID)
-            </dd>
-        </dr>
-
-
-
-        <dr class="sios-table-dr  row">
-            <dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.CompanyName)
-            </dt>
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.CompanyName)
-            </dd>
-        </dr>
-        @* <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.BankName)
-            </dt>
-
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.BankName)
-            </dd></dr>
-
-             <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.BankBranch)
-            </dt>
-
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.BankBranch)
-            </dd></dr>
-
-             <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.BankAccount)
-            </dt>
-
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.BankAccount)
-            </dd></dr>*@
-
-        @* <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.Type)
-            </dt>
-
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.Type)
-            </dd></dr>*@
-
-
-
-        <dr class="sios-table-dr  row">
-            <dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </dt>
-
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.CreatedDate)
-            </dd>
-        </dr>
-
-        <dr class="sios-table-dr  row">
-            <dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </dt>
-
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.CreatedBy)
-            </dd>
-        </dr>
-
-        @* <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.UpdateDate)
-            </dt>
-
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.UpdateDate)
-            </dd></dr>
-
-             <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.UpdateBy)
-            </dt>
-
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.UpdateBy)
-            </dd></dr>
-
-             <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.DeletedBy)
-            </dt>
-
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.DeletedBy)
-            </dd></dr>
-
-             <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.DeletedDate)
-            </dt>
-
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.DeletedDate)
-            </dd></dr>
-
-             <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </dt>
-
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.IsDeleted)
-            </dd></dr>
-
-             <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.Status)
-            </dt>
-
-            <dd class="sios-table-dd col">
-                @Html.DisplayFor(model => model.Status)
-            </dd></dr>*@
-
-
-
-        <dd class="sios-table-dd col">
-            <table id="Index" class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            CardId
-                        </th>
-                        <th>
-                            Specialist Name
-                        </th>
-                        <th>
-                            Service Name
-                        </th>
-                        <th>
-                            Value
-                        </th>
-                        <th>
-                            ServiceDate
-                        </th>
-                        <th>
-                            Attachments
-                        </th>
-                </thead>
-
-                @foreach (var item in Model.IndemnityServiceMasters)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ServiceCard)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Specialities1.SPEC_ANAME)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Service.NameAr)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Value)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ServiceDate)
-                        </td>
-                        <td>
-                            @Html.ActionLink(" Download", "Download", new { id = item.Id }, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3", @style = " text-transform: none" })
-
-                        </td>
-
-
-                    </tr>
-                }
-            </table>
-        </dd>
-        @* <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
-                @Html.DisplayNameFor(model => model.AttachPDF)
-            </dt>
-
-            <dd class="sios-table-dd col">
-
-                @Html.ActionLink(" Download", "Download", new { id = Model.BatchID }, htmlAttributes: new { @class = "btn btn-info fa fa-download", @style = " text-transform: none" })
-            </dd></dr>*@
-    </dl>
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions d-flex gap-2 m-4 no-color">
-            @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3", @style = " text-transform: none" })
-            <input type="submit" value="Delete" class="btn fw-bold text-white rounded-3" />
-
+<div class="sios-container pt-4">
+    <div class="sios-overlay container-fluid mb-4 portlet-title">
+        <div class="container ms-0 text-white fs-3 caption">
+            <h2>Delete Indemnity</h2>
         </div>
-    }
+    </div>
+    <h3 class="m-3 sios-color">Are you sure you want to delete this?</h3>
+    <div>
+
+        <dl class="sios-bg dl-horizontal">
+
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.CardId)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.CardId)
+                </dd>
+            </dr>
+
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+            </dr>
+
+
+
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.NationalID)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.NationalID)
+                </dd>
+            </dr>
+
+
+
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.CompanyName)
+                </dt>
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.CompanyName)
+                </dd>
+            </dr>
+            @* <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.BankName)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.BankName)
+                </dd></dr>
+
+                 <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.BankBranch)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.BankBranch)
+                </dd></dr>
+
+                 <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.BankAccount)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.BankAccount)
+                </dd></dr>*@
+
+            @* <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.Type)
+                </dd></dr>*@
+
+
+
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.CreatedDate)
+                </dd>
+            </dr>
+
+            <dr class="sios-table-dr  row">
+                <dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.CreatedBy)
+                </dd>
+            </dr>
+
+            @* <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.UpdateDate)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.UpdateDate)
+                </dd></dr>
+
+                 <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.UpdateBy)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.UpdateBy)
+                </dd></dr>
+
+                 <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.DeletedBy)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.DeletedBy)
+                </dd></dr>
+
+                 <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.DeletedDate)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.DeletedDate)
+                </dd></dr>
+
+                 <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.IsDeleted)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.IsDeleted)
+                </dd></dr>
+
+                 <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+
+                <dd class="sios-table-dd col">
+                    @Html.DisplayFor(model => model.Status)
+                </dd></dr>*@
+
+
+
+            <dd class="sios-table-dd col">
+                <table id="Index" class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                CardId
+                            </th>
+                            <th>
+                                Specialist Name
+                            </th>
+                            <th>
+                                Service Name
+                            </th>
+                            <th>
+                                Value
+                            </th>
+                            <th>
+                                ServiceDate
+                            </th>
+                            <th>
+                                Attachments
+                            </th>
+                    </thead>
+
+                    @foreach (var item in Model.IndemnityServiceMasters)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ServiceCard)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Specialities1.SPEC_ANAME)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Service.NameAr)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Value)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ServiceDate)
+                            </td>
+                            <td>
+                                <div class="   ">
+                                    <div class="position-relative mx-auto " style="width:fit-content">
+                                        <i class="fa-solid fa-download position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                                        @Html.ActionLink(" Download", "Download", new { id = item.Id }, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3 ps-4", @style = " text-transform: none" })
+                                    </div>
+                                </div>
+
+                            </td>
+
+
+                        </tr>
+                    }
+                </table>
+            </dd>
+            @* <dr class="sios-table-dr  row"><dt class="sios-table-dt col ">
+                    @Html.DisplayNameFor(model => model.AttachPDF)
+                </dt>
+
+                <dd class="sios-table-dd col">
+
+                    @Html.ActionLink(" Download", "Download", new { id = Model.BatchID }, htmlAttributes: new { @class = "btn btn-info fa fa-download", @style = " text-transform: none" })
+                </dd></dr>*@
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="container   d-flex  gap-2 justify-content-center justify-content-sm-start  mt-3 mb-4 mt-sm-auto ">
+                <div class="position-relative ">
+                    <i class="fa-solid fa-chevron-left position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                    @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn fw-bold text-white rounded-3 ps-4", @style = " text-transform: none" })
+                </div>
+                <div class="position-relative ">
+                    <i class="fa-solid fa-save position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                    <input type="submit" value="Delete" class="btn fw-bold text-white rounded-3 ps-4" />
+                </div>
+            </div>
+        }
+    </div>
 </div>

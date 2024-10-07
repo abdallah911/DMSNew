@@ -73,12 +73,13 @@
             <div class="row "> 
                 <div data-step="1" data-hint='Step one!' data-intro="Enter Card ID" class="col-sm-3">
                     <div class="w-100 h-100">
-                        <input id="txtSearchCard" type="text" placeholder="search for card..." class="w-100 admin-admin-form-control w-100 h-100 rounded-3  form-control w-100   rounded-3  ps-3 rounded-3 admin-form-control w-100 h-100 rounded-3  form-control" />
+                        <input id="txtSearchCard" type="text" placeholder="search for card..." class="admin-form-control w-100 rounded-3 py-2 form-control" />
                     </div>
                 </div>
                 <div class="col-4 " data-step="2" data-intro="click Search">
                     <button id="Search" type="button" class="btn fw-bold text-white rounded-3">
-                        <i class="glyphicon glyphicon-search"></i> Search
+                        <i class="glyphicon glyphicon-search"></i>
+                        <i class="fa-solid fa-magnifying-glass me-1 "></i>Search
                     </button>
                 </div> 
             </div>
@@ -98,21 +99,21 @@
                     <div class=" row row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-gap-3  m-auto m-sm-0 text-center form-group">
                         <div class="  forLabel admin-form-control   border-0 px-2  ">
                             @Html.EditorFor(model => model.contractComp.C_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3  form-control", @ReadOnly = "true" } })
-                            <span>  @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })</span>
+                            <span class="fw-bold">  @Html.LabelFor(model => model.contractComp.C_ANAME, htmlAttributes: new { @class = "control-label" })</span>
                         </div>
                         <div class="  forLabel admin-form-control   border-0 px-2  ">
                             @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3  form-control", @ReadOnly = "true" } })
-                            <span>   @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })</span>
+                            <span class="fw-bold">   @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })</span>
                         </div>
                         <div class="  forLabel admin-form-control   border-0 px-2  ">
 
                             @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3  form-control", @ReadOnly = "true" } })
-                            <span> @Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })</span>
+                            <span class="fw-bold"> @Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })</span>
                         </div>
                         <div class="  forLabel admin-form-control   border-0 px-2  ">
 
                             @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3  form-control", @ReadOnly = "true" } })
-                            <span>@Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })</span>
+                            <span class="fw-bold">@Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })</span>
                         </div>
                         <div class="  forLabel admin-form-control   border-0 px-2  " data-step="3" data-intro="Select speciality">
                             <select id="main_services" class="admin-form-control w-100 h-100 rounded-3  form-control">
@@ -166,7 +167,7 @@
                                 <option value="0"> اختر نوع الخدمه المطلوبه </option>
 
                             </select>
-                            <span> @Html.Label("Service", new { @class = "control-label" })</span>
+                            <span class="fw-bold"> @Html.Label("Service", new { @class = "control-label" })</span>
                         </div>
                         <div id="SpecialityDiv" class="forLabel admin-form-control   border-0 px-2" data-step="5" data-intro="Select Diagnoises"  style="display:none;">
 
@@ -175,14 +176,14 @@
                                 <option value="0"> اختر نوع الخدمه المطلوبه </option>
 
                                 </select>*@
-                            <span>@Html.Label("Speciality", new { @class = "control-label" })</span>
+                            <span class="fw-bold">@Html.Label("Speciality", new { @class = "control-label" })</span>
                         </div>
 
                         <div id="divNotes" class="  forLabel admin-form-control   border-0 px-2  "  style="display:none;" @*data-step="5" data-intro="Select Diagnoises"*@>
 
                             <textarea id="Notetext" @*style="width:100%" multiple="multiple"*@>
                             </textarea>
-                            <span>@Html.Label("Notes", new { @class = "control-label" })</span>
+                            <span class="fw-bold">@Html.Label("Notes", new { @class = "control-label" })</span>
                         </div>
 
                         @*<div id="DoctortDegree" class="  forLabel admin-form-control   border-0 px-2  "  style="display:none;" >
@@ -196,16 +197,16 @@
 
                             <select id="doctorNameSelect" style="width:100%" multiple="multiple">
                             </select>
-                            <span>    @Html.Label("Doctor Name", new { @class = "control-label" })</span>
+                            <span class="fw-bold">    @Html.Label("Doctor Name", new { @class = "control-label" })</span>
                         </div>
                         <div id="DoctortNameEmergancydiv" class="forLabel admin-form-control   border-0 px-2"  style="display:none;" @*data-step="5" data-intro="Select Diagnoises"*@>
 
                             @Html.Editor("DoctortNameEmergancy", new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3  form-control", @id = "DoctortNameEmergancy", @name = "DoctortNameEmergancy" } })
-                            <span>@Html.Label("Doctor Name", new { @class = "control-label" })</span>
+                            <span class="fw-bold">@Html.Label("Doctor Name", new { @class = "control-label" })</span>
                         </div>
                         <div class="  forLabel admin-form-control   border-0 px-2 other-data " data-step="6" data-intro="Enter Phone Number">
                             @Html.Editor("PhoneNumber", new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3  form-control", @onkeypress = "return /[0-9]/i.test(event.key)", @required = "true" } })
-                            <span> @Html.Label("Phone Number", htmlAttributes: new { @class = "control-label" })</span>
+                            <span class="fw-bold"> @Html.Label("Phone Number", htmlAttributes: new { @class = "control-label" })</span>
                         </div>
                         @*<div class="  forLabel admin-form-control   border-0 px-2  " data-step="7" data-intro="Enter Claim Number">
                             @Html.Label("Claim Number", htmlAttributes: new { @class = "control-label" })
@@ -214,25 +215,25 @@
                         <div class="  forLabel admin-form-control   border-0 px-2 other-data " data-step="8" data-intro="National Id">
                             @Html.Editor("NationalId", new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3  form-control", @maxlength = "14", @minlength = "14", @required = "true" } })
                             @Html.ValidationMessage("NationalId", "", new { @class = "text-danger" })
-                            <span>@Html.Label("National Id", htmlAttributes: new { @class = "control-label " })</span>
+                            <span class="fw-bold">@Html.Label("National Id", htmlAttributes: new { @class = "control-label " })</span>
                         </div>
                         <div class="  forLabel admin-form-control   border-0 px-2 total_id " data-step="9" data-intro="Total Value">
-                            <input id="txtTotal" type="text" class="admin-form-control w-100 h-100 rounded-3  form-control" onkeyup="PersonPayments()" onkeypress="return /[0-9 .]/i.test(event.key)" />
+                            <input required id="txtTotal" type="text" class="admin-form-control w-100 h-100 rounded-3  form-control" onkeyup="PersonPayments()" onkeypress="return /[0-9 .]/i.test(event.key)" />
                             <span class="control-label">Total Value </span>
                         </div>
 
                         <div class="  forLabel admin-form-control   border-0 px-2 total_id ">
                             @Html.Editor("CompanyPayment", new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3  form-control", @onkeypress = "return /[0-9]/i.test(event.key)", @ReadOnly = "readonly" } })
-                            <span> @Html.Label("Company Payment", htmlAttributes: new { @class = "control-label" })</span>
+                            <span class="fw-bold"> @Html.Label("Company Payment", htmlAttributes: new { @class = "control-label" })</span>
                         </div>
                         <div class="  forLabel admin-form-control   border-0 px-2 total_id ">
                             @Html.Editor("PatientCoPayment", new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3  form-control", @onkeypress = "return /[0-9]/i.test(event.key)", @ReadOnly = "readonly" } })
-                            <span> @Html.Label("Patient Co-Payment", htmlAttributes: new { @class = "control-label" })</span>
+                            <span class="fw-bold"> @Html.Label("Patient Co-Payment", htmlAttributes: new { @class = "control-label" })</span>
                         </div>
                         <div class="  forLabel admin-form-control   border-0 px-2 total_id ">
                             @Html.Editor("OverInsurance", new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 rounded-3  form-control", @onkeypress = "return /[0-9]/i.test(event.key)", @ReadOnly = "readonly" } })
                             @Html.ValidationMessage("OverInsurance", "", new { @class = "text-danger" })
-                            <span> @Html.Label("Over Insurance", htmlAttributes: new { @class = "control-label" })</span>
+                            <span class="fw-bold"> @Html.Label("Over Insurance", htmlAttributes: new { @class = "control-label" })</span>
                         </div>
                         <div class="  forLabel admin-form-control   border-0 px-2 total_id ">
                             <input id="txtTotalCopayment" type="text" class="admin-form-control w-100 h-100 rounded-3  form-control" ReadOnly="readonly" />
@@ -249,9 +250,22 @@
         <div class="container panel panel-info">
             <!--Save-->
             <div class="px-3 mb-4 mt-3 panel-footer" style="text-align:right;">
-                <input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn fw-bold text-white rounded-3" />
-                <input data-step="11" data-intro="Reset " id="reset" type="button" value="Reset" onclick="ClearHospitalData();" class="btn fw-bold text-white rounded-3" />
-                <input data-step="12" data-intro="Save Claim" id="submit" type="button" value="Save" class="btn fw-bold text-white rounded-3" onclick="Submit_Save()" />
+                <div class="px-3 mb-4 mt-3 panel-footer" style="text-align:right;">
+                    <div class="  d-flex  gap-2 justify-content-center  mt-3 mt-sm-auto ">
+                        <div class="position-relative ">
+                            <i class="fa-solid fa-circle-info position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                            <input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn fw-bold text-white rounded-3 ps-4" />
+                        </div>
+                        <div class="position-relative ">
+                            <i class="fa-solid fa-rotate position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                            <input data-step="11" data-intro="Reset " id="reset" type="button" value="Reset" onclick="ClearHospitalData();" class="btn fw-bold text-white rounded-3 ps-4" />
+                        </div>
+                        <div class="position-relative ">
+                            <i class="fa-solid fa-save position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                            <input data-step="12" data-intro="Save Claim" id="submit" type="button" value="Save" class="btn fw-bold text-white rounded-3 ps-4" onclick="Submit_Save()" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

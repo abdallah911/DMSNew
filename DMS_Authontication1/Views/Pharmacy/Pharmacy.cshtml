@@ -43,11 +43,13 @@
             <div class="row row-gap-2">
 
                 <div   data-step="1" data-hint='Step one!' data-intro="Enter Card ID"  style="width: 250px; height: 45px;" class="col-md-3">
-                    <input id="txtSearchCard" type="text" placeholder="search for card..." style="" class="w-100 admin-form-control w-100 h-100 form-control shadow-sm rounded-3" />
+                    <input id="txtSearchCard" type="text" placeholder="search for card..." style="padding-left:100px" class="w-100 admin-form-control w-100 h-100 form-control shadow-sm rounded-3 py-2" />
                 </div>
                 <div style="height:45px;width:fit-content;" class="position-absolute col-md-2" data-step="2" data-intro="click Search">
-                    <button id="Search" type="button" class="h-100 btn btn-primary rounded-3">
-                        <i class="glyphicon glyphicon-search"></i> Search
+                    <button id="Search" type="button" class="h-100 btn btn-primary rounded-3 fw-bold">
+                        <i class="glyphicon glyphicon-search"></i> 
+                        <i class="fa-solid fa-magnifying-glass me-1"></i>
+                        Search
                     </button>
                 </div>
                 <div class=" col-md-2 btn-group" data-toggle="buttons">
@@ -89,34 +91,39 @@
                 <div class="row container mx-auto">
                     <div class="mx-auto row row-cols-sm-2 row-cols-lg-3 row-gap-2 form-group">
                         <div class="forLabel admin-form-control border-0 px-2">
-                            @*@Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })*@
-                            @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm",@required="true", @ReadOnly = "true" } })
-                            <span style="padding-left:12px;">Name</span>
+                          @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm",@required="true", @ReadOnly = "true" } })
+                            <span style="padding-left:12px;"> @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
+                            </span>
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2">
-                            @*@Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })*@
                             @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm",@required="true", @ReadOnly = "true" } })
-                            <span style="padding-left:12px;">Start Date</span>
+                            <span style="padding-left:12px;">
+                                @Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })
+                            </span>
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2">
-                            @*@Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })*@
                             @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm",@required="true", @ReadOnly = "true" } })
-                            <span style="padding-left:12px;">End Date</span>
+                            <span style="padding-left:12px;">
+                                @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
+                            </span>
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2" data-step="4" data-intro="Enter Clame Number">
-                            @*@Html.Label("Claim Number", htmlAttributes: new { @class = "control-label" })*@
                             @Html.Editor("ClaimNumber", new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm ", @id = "ClaimNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
-                            <span style="padding-left:12px;">Claim Number</span>
+                            <span style="padding-left:12px;">
+                                @Html.Label("Claim Number", htmlAttributes: new { @class = "control-label" })
+                            </span>
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2" data-step="7" data-intro="Select speciality">
-                            @*@Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })*@
                             @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "admin-form-control w-100 h-100 form-control shadow-sm", @id = "ddlSpeciality" })
-                            <span style="padding-left:12px;">Speciality</span>
+                            <span style="padding-left:12px;">
+                                @Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })
+                            </span>
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2">
-                            @*@Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })*@
                             @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm",@required="true", @ReadOnly = "true" } })
-                            <span style="padding-left:12px;">Birth Date</span>
+                            <span style="padding-left:12px;">
+                                @Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })
+                            </span>
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2" hidden>
 
@@ -129,17 +136,18 @@
                             <span style="padding-left:12px;"> @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })</span>
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2" data-step="3" data-intro="Enter Preception Date">
-                            @*@Html.Label("Prescription Date", htmlAttributes: new { @class = "control-label", @title = "لابد ان يكون ف اخر 7 ايام " })*@
-                            @Html.Editor("PrescriptionDate", new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm", @ReadOnly = "true", @title = "لابد ان يكون ف اخر 7 ايام " } })
-                            <span style="padding-left:12px;">Prescription Date</span>
+                            @Html.Editor("PrescriptionDate", new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm ", @ReadOnly = "true", @required = "true", @title = "لابد ان يكون ف اخر 7 ايام " } })
+                            <span style="padding-left:12px;"class="sios-color">
+                                @Html.Label("Prescription Date", htmlAttributes: new { @class = "control-label", @title = "لابد ان يكون ف اخر 7 ايام " })
+                            </span>
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2" data-step="5" data-intro="Enter Phone with 11 Number " id="phone">
-                            @*@Html.Label("Phone Number", htmlAttributes: new { @class = "control-label" })*@
                             @Html.Editor("PhoneNumber", new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm", @id = "PhoneNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
-                            <span style="padding-left:12px;">Phone Number</span>
+                            <span style="padding-left:12px;">
+                                @Html.Label("Phone Number", htmlAttributes: new { @class = "control-label" })
+                            </span>
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2" data-step="6" data-intro="Select Preception type Default is Daily">
-                            @*@Html.Label("Type", htmlAttributes: new { @class = "control-label" })*@
                             <select id="ddlType" class="admin-form-control w-100 h-100 form-control shadow-sm">
                                 <option value="0">Select Preception type</option>
                                 <option value="11601">Daily</option>
@@ -147,12 +155,15 @@
                                 <option value="11602">Chronic</option>
                                 <option value="11604">Doctor</option>
                             </select>
-                            <span style="padding-left:12px;">Type</span>
+                            <span style="padding-left:12px;">
+                                @Html.Label("Type", htmlAttributes: new { @class = "control-label" })
+                            </span>
                         </div>
                         <div class="forLabel admin-form-control border-0 px-2">
-                            @*@Html.LabelFor(model => model.compEmp.CompHolderName, htmlAttributes: new { @class = "control-label" })*@
                             @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100 form-control shadow-sm", @required = "true", @ReadOnly = "true" } })
-                            <span style="padding-left:12px;">Comp Name</span>
+                            <span style="padding-left:12px;">
+                                @Html.LabelFor(model => model.compEmp.CompHolderName, htmlAttributes: new { @class = "control-label" })
+                            </span>
                         </div>
                         <!--<div class="  forLabel select2-60 ddlDiagnoises admin-form-control   border-0 px-2  " style="height:80px">-->
                             @*@Html.Label("Diagnoise", new { @class = "control-label" })*@
@@ -166,7 +177,6 @@
                             <span style="right: 20px !important; padding-left: 0; top: 14px; color: var(--color-secondary) !important; font-size: 11px;">Diagnoise</span>
                         </div>-->
                         <div class=" forLabel select2-60 ddlDiagnoises admin-form-control   border-0 px-2  " data-step="8" data-intro="Select Diagnoises">
-                            @*@Html.Label("Diagnoise", new { @class = "control-label" })*@
                             <div id="expandVertical" class="btn d-flex justify-content-center align-items-center  ms-1 ,b-1 text-white rounded-circle position-apsolute start-0 top-0 translate-middle-y   z-2" style="width:20px; height:20px; padding:12px;margin-bottom:20px;">
                                 <i class="fa fa-plus " style="font-size:16px;"></i>
                             </div>
@@ -174,7 +184,9 @@
                                 <i class="fa fa-minus " style="font-size:16px;"></i>
                             </div>
                             <select id="ddlDiagnoises" class="admin-form-control border-2 ps-3" style="width:100%" multiple></select>
-                            <span style="padding-left:35px;">Diagnoise</span>
+                            <span style="padding-left:35px;">
+                                @Html.Label("Diagnoise", new { @class = "control-label" })
+                            </span>
                         </div>
                     </div>
                 </div> 
@@ -268,6 +280,7 @@
 
             <!--Save-->
             <div class="container mt-3 mb-4 panel-footer" style="text-align:right;">
+
                 <input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn fw-bold text-white rounded-3  " />
                 <a data-step="11" style="float: left; margin-left:40px;" class="btn fw-bold text-white rounded-3 ms-2 " href="@Url.Action("GetFile","Pharmacy",new { fileName = "Pharmacy" })" download="PharmacyManual.pdf"><i class="fa-solid fa-download"></i> Manual</a>
                 @*<input data-step="11" data-intro="Help" style="float: left;" id="Manual" type="button" value="Manual" class="btn btn-info" />*@

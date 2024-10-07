@@ -27,8 +27,13 @@
                             <span style="left:3px">Dosage Form Name</span>
                         </div>
                     </div>
+                    <div class="col-md-4 "> 
+                        <div class="position-relative ">
+                            <i class="fa-solid fa-save position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                            <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3 ps-4" />
+                        </div>
+                    </div>
                     <div class="col-md-4 d-flex justify-content-center">
-                        <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3" />
                     </div>
                 </div>
             </div>
@@ -38,7 +43,7 @@
 </section>
 <div style="display: flex; flex-direction: column">
     <section>
-        <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+        <div class="row bg-overlay  editeRquest fw-bold my-4 mt-2 portlet-title">
             <div class="m-3 fs-3 text-white caption">
                 <h3 class=" fw-bold"> Dosage Form List </h3>
             </div>
@@ -62,7 +67,7 @@
                                 </td>
 
                                 <td>
-                                    <button type="button" class="btn fw-bold text-white rounded-3" data-id=@item.Id onclick="Delete(this);"> Delete</button>
+                                    <button type="button" class="btn fw-bold text-white rounded-3" data-id=@item.Id onclick="Delete(this);"><i class="fa-solid fa-trash me-1"></i> Delete</button>
                                 </td>
 
                             </tr>
