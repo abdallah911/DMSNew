@@ -81,11 +81,21 @@
                             @Html.DropDownList("ddlUsers", null, "All", htmlAttributes: new { @class = "form-control", @id = "ddlUsers" })
                         </div>
                     }
-                    <div style=" text-align:right">
-                        <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3" />
-                        <input id="PrintExcel" type="button" value="Excel" class="btn fw-bold text-white rounded-3 fa-file-excel-o " />
-                        <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3 " />
+                <div class="d-flex gap-2 justify-content-center justify-content-sm-end">
+                    <div class="position-relative ">
+                        <i class="fa-solid fa-rotate position-absolute start-0 top-50 translate-middle text-white ms-3 pb-1 "></i>
+                        <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" style="padding: 7px 10px;" class="btn fw-bold text-white rounded-3 ps-4" />
                     </div>
+                    <div class="position-relative ">
+                        <i class="fa-solid fa-file-excel position-absolute start-0 top-50 translate-middle text-white ms-3 pb-1 "></i>
+                        <input id="PrintExcel" type="button" value="Excel" style="padding: 7px 10px;" class="btn fw-bold text-white rounded-3  ps-4 " />
+                    </div>
+                    <div class="position-relative ">
+                        <i class="fa-solid fa-magnifying-glass position-absolute start-0 top-50 translate-middle text-white ms-3 pb-1 "></i>
+                        <input id="adminSearch" type="button" value="Search" style="padding: 7px 10px;" class="btn fw-bold text-white rounded-3  ps-4" />
+                    </div>
+
+                </div>
                 </div>
 
               
@@ -146,10 +156,20 @@
                         </select>
                         <span style="padding-left:12px;">Select Type</span>
                     </div>
-                    <div style=" text-align:right">
-                        <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3" />
-                        <input id="PrintExcel" type="button" value="Excel" class="btn fw-bold text-white rounded-3 fa-file-excel-o " />
-                        <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3 " />
+                    <div class="d-flex gap-2 justify-content-center justify-content-sm-end ">
+                        <div class="position-relative ">
+                            <i class="fa-solid fa-rotate position-absolute start-0 top-50 translate-middle text-white ms-3 pb-1 "></i>
+                            <input id="resetSearch" type="button" value="Reset" style="padding: 7px 10px;"class="btn fw-bold text-white rounded-3 ps-4" />
+                        </div>
+                        <div class="position-relative ">
+                            <i class="fa-solid fa-file-excel position-absolute start-0 top-50 translate-middle text-white ms-3 pb-1 "></i>
+                            <input id="PrintExcel" type="button" value="Excel" style="padding: 7px 10px;"class="btn fw-bold text-white rounded-3  ps-4 " />
+                        </div>
+                        <div class="position-relative ">
+                            <i class="fa-solid fa-magnifying-glass position-absolute start-0 top-50 translate-middle text-white ms-3 pb-1 "></i>
+                            <input id="adminSearch" type="button" value="Search" style="padding: 7px 10px;"class="btn fw-bold text-white rounded-3  ps-4" />
+                        </div>
+
                     </div>
                 </div>
 

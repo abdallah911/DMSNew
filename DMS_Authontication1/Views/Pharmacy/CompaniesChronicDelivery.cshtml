@@ -20,27 +20,35 @@
             <div class="row row-cols-sm-2 row-cols-lg-3 row-gap-2">
                 <div class="admin-form-control border-0 px-2 ">
                     @Html.DropDownList("ddlCompanies", null, "Select Company", htmlAttributes: new { @class = "admin-form-control w-100 h-100 rounded-2 form-control", @id = "ddlCompanies" })
-                </div> 
+                </div>
                 <div class="forLabel admin-form-control border-0 px-2  ">
                     <input id="Date" type="text" class="admin-form-control w-100 h-100 rounded-2   form-control " placeholder="" required="" />
                     <span style="padding-left:12px;">Select Month</span>
                 </div>
                 <div class="forLabel select-group-none admin-form-control border-0 px-2" data-step="6" data-intro="Select Preception type Default is Daily">
-                    <select id="ddlGroups" class="admin-form-control w-100 h-100 rounded-2 form-control"required="">
+                    <select id="ddlGroups" class="admin-form-control w-100 h-100 rounded-2 form-control" required="">
                     </select>
                     <span style="padding-left:12px;">Select Group</span>
                 </div>
                 <div class="forLabel admin-form-control border-0 px-2  ">
-                    <input id="CardId" type="text" class="admin-form-control w-100 h-100 rounded-2 form-control " placeholder=""  required=""/>
+                    <input id="CardId" type="text" class="admin-form-control w-100 h-100 rounded-2 form-control " placeholder="" required="" />
                     <span style="padding-left:12px;">Card ID</span>
                 </div>
-                <div class="mx-auto me-lg-0">
-                    <div class="d-flex gap-2 justify-content-center justify-content-lg-end ">
-                        <input id="ResetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn text-white fw-bold rounded-3 " />
-                        <input id="Print" type="button" value="Print" class="btn text-white fw-bold rounded-3  " />
-                        <input id="Search" type="button" value="Search" class="btn text-white fw-bold rounded-3 " />
+                <div class="d-flex gap-2 justify-content-center justify-content-sm-end ">
+                    <div class="position-relative ">
+                        <i class="fa-solid fa-rotate position-absolute start-0 top-50 translate-middle text-white ms-3 pb-1"></i>
+                        <input id="ResetSearch" type="button" value="Reset" class="btn text-white fw-bold rounded-3 ps-4 " />
                     </div>
-                </div>
+                    <div class="position-relative ">
+                        <i class="fa-solid fa-floppy-disk position-absolute start-0 top-50 translate-middle text-white ms-3 pb-1"></i>
+                        <input id="Print" type="button" value="Print" class="btn text-white fw-bold rounded-3 ps-4  " />
+                           </div>
+                    <div class="position-relative ">
+                        <i class="fa-solid fa-magnifying-glass position-absolute start-0 top-50 translate-middle text-white ms-3 pb-1"></i>
+                        <input id="Search" type="button" value="Search" class="btn text-white fw-bold rounded-3 ps-4 " />
+                    </div>
+
+                </div> 
             </div>
             
         

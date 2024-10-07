@@ -20,7 +20,8 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <div class="container col-sm-8 col-lg-6  px-0 my-4">
+    <div class="row my-4">
+        <div class="container mx-auto col-sm-8 col-lg-6  px-0">
             <div style="white-space: nowrap" class="employee-form">
                 <div class="flex-column d-flex gap-2  ">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -45,13 +46,23 @@
 
                     </div>
                 </div>
-                <div class="col-md-4 mt-3 d-flex justify-content-center">
-                    <input id="Back" type="button" value="Back" onclick="window.location.replace('/Specialities/index');" class="btn fw-bold text-white rounded-3" />
-                    <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3" />
-                </div>
+
             </div>
         </div>
-    }</div>
+        <div class=" col-md-4 d-flex gap-2 justify-content-center mt-3 mt-md-auto ">
+            <div class="position-relative ">
+                <i class="fa-solid fa-chevron-left position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                <input id="Back" type="button" value="Back" class="btn fw-bold text-white rounded-3 ps-4"
+                       style="text-decoration: none;  " />
+            </div>
+            <div class="position-relative ">
+                <i class="fa-solid fa-save position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3 ps-4" />
+            </div>
+        </div>
+    </div>
+    }
+</div>
 </div>
 
 

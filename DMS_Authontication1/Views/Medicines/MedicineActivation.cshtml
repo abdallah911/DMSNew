@@ -207,8 +207,18 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-            <input id="Back" type="button" value="Back" onclick="window.location.replace('/Medicines/index');" class="btn fw-bold text-white rounded-3" />
-            <input id="submit" type="submit" value="Change activation" class="btn fw-bold text-white rounded-3" />
+            <div class="d-flex gap-2 justify-content-center  ">
+                <div class="position-relative ">
+                    <i class="fa-solid fa-chevron-left position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                    <input id="Back" type="button" value="Back" onclick="window.location.replace('/Medicines/index');" class="btn fw-bold text-white rounded-3 ps-4" />
+                </div>
+                <div class="position-relative ">
+                    <i class="fa-solid fa-save position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                    <input id="submit" type="submit" value="Change activation" class="btn fw-bold text-white rounded-3 ps-4" />
+                </div>  
+            </div>
+         
+            
         }
     </div>
 </div>

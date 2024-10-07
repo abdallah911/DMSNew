@@ -10,10 +10,10 @@
 </style>
 <div class="sios-container">
     <!-- start section -->
-    <div class="sios-overlay container-fluid mt-4">
-        <div class="container">
-            <i class="fa-solid fa-house"></i>
-            <h3>Admin Search</h3>
+    <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+         
+            <h3>   <i class="fa-solid fa-house me-1"></i>Admin Search</h3>
         </div>
     </div>
 
@@ -31,10 +31,20 @@
                             <span for="company">Company</span>
                         </div>
                     </div>
-                    <div class="print-claims-btns mt-3 mt-md-0 col-md-4 d-flex gap-2  justify-content-center  ">
-                        <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3" style="height: fit-content;" />
-                        <input id="SendAllSms" type="button" value="Send All Sms" onclick="SendAll();" class="btn d-none fw-bold text-white rounded-3" style="height: fit-content;" disabled />
-                        <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3" style="height: fit-content;" />
+                    <div class="d-flex gap-2 justify-content-center justify-content-sm-end ">
+                        <div class="position-relative ">
+                            <i class="fa-solid fa-rotate position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                            <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3 ps-4" style="height: fit-content;" />
+                        </div>
+                        <div class="position-relative ">
+                            <i class="fa-solid fa-share position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                            <input id="SendAllSms" type="button" value="Send All Sms" onclick="SendAll();" class="btn d-none fw-bold text-white rounded-3 ps-4" style="height: fit-content;" disabled />
+                        </div>
+                        <div class="position-relative ">
+                            <i class="fa-solid fa-magnifying-glass position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                            <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3 ps-4" style="height: fit-content;" />
+                        </div>
+
                     </div>
                 </div>
 
@@ -43,10 +53,10 @@
     </section>
     <div style="display: flex; flex-direction: column">
         <section style="display: flex;flex-direction: column;flex-grow: 1;">
-            <div class="sios-overlay container-fluid mt-4">
-                <div class="container">
-                    <i class="fa-solid fa-house"></i>
-                    <h3 class="">Employees</h3>
+            <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+                <div class="m-3 fs-3 text-white caption">
+             
+                    <h3 class=""> Employees</h3>
                 </div>
             </div>
             <div class="cs-bg claims-section mb-4 container-fluid">

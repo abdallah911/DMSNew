@@ -39,9 +39,9 @@
     @if (!User.IsInRole("Admin"))
     {
 
-        <div class="sios-overlay container-fluid mt-4">
-            <div class="container">
-                <i class="fa-solid fa-house"></i>
+        <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+            <div class="m-3 fs-3 text-white caption">
+                <i class="fa-solid fa-house me-1"></i>
                 <h3>Print Claims</h3>
             </div>
         </div>
@@ -89,9 +89,9 @@
         <input id="delete" value="@delete.ToString()" hidden />
         <input id="view" value="@view.ToString()" hidden />
         <input id="fullcontroll" value="@fullcontroll.ToString()" hidden />
-        <div class="sios-overlay container-fluid mt-4">
-            <div class="m-3 fs-3 d-flex gap-1 text-white">
-                <i class="fa-solid fa-house"></i>
+        <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+            <div class="m-3 fs-3 text-white caption">
+                <i class="fa-solid fa-house me-1"></i>
                 <h3>Admin Search</h3>
             </div>
         </div>
@@ -133,9 +133,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="print-claims-btns d-flex gap-2 mt-3 ">
-                        <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn fw-bold text-white rounded-3" />
-                        <input id="adminSearch" type="button" value="Search" class="btn fw-bold text-white rounded-3 " />
+                    <div class="d-flex gap-2 justify-content-center justify-content-sm-start mt-3 ms-sm-3 ">
+                        <div class="position-relative ">
+                            <i class="fa-solid fa-rotate position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                            <input id="ResetSearch" type="button" value="Reset" class="btn text-white fw-bold rounded-3 ps-4 " />
+                        </div>
+                        <div class="position-relative ">
+                            <i class="fa-solid fa-magnifying-glass position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                            <input id="adminSearch" type="button" value="Search" class="btn text-white fw-bold rounded-3 ps-4 " />
+                        </div>
 
                     </div>
                 </div>
@@ -143,9 +149,9 @@
         </section>
     }
     <div class="portlet box  green">
-        <div class="sios-overlay container-fluid mt-4 portlet-title">
+        <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
             <div class="m-3 fs-3 text-white caption">
-                <i class="fa-solid fa-home me-1"></i>Claims
+                Claims
             </div>
 
         </div>
@@ -194,9 +200,9 @@
     @if (User.IsInRole("Admin") && fullcontroll)
     {
         <div class="portlet box  green">
-            <div class="sios-overlay container-fluid my-4 portlet-title">
+            <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
                 <div class="m-3 fs-3 text-white caption">
-                    <i class="fa-solid fa-home me-1"></i>Admin Count
+                    Admin Count
                 </div>
             </div>
             <div class="sios-bg container-fluid my-4">

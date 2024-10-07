@@ -7,12 +7,13 @@
 @Html.Partial("_Diagnoise")
 <div class="sios-container panel panel-info">
 
-    <div class="row bg-overlay  editeRquest fw-bold my-4 ">
-        <div class="m-3 fs-3 text-white ">
-            <h2 class="panel-heading"  >Create Medicine</h2>
+    <div class="row bg-overlay  editeRquest fw-bold my-4 portlet-title">
+        <div class="m-3 fs-3 text-white caption">
+            <h2 class="panel-heading">
+            Create Medicine</h2>
         </div>
     </div>
-    
+
     <div class="row container row-cols-md-2 mb-4 panel-body">
         <div class="row row-cols-sm-2 col-md-8  mx-auto row-gap-2 m-sm-0 justify-content-center form-horizontal " style="padding-left: 93px;">
 
@@ -25,7 +26,7 @@
                     @Html.EditorFor(model => model.M_CODE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   form-control", id = "M_CODE" } })
                     @Html.ValidationMessageFor(model => model.M_CODE, "", new { @class = "text-danger" })
 
-                    <span>
+                    <span style="padding-left: 10px;">
                         Medicine Code
                     </span>
                 </div>
@@ -37,7 +38,7 @@
                     @Html.DropDownList("LIC_TYPE", ViewBag.LicenceType as SelectList, new { @class = "admin-form-control w-100 h-100   form-control", id = "LIC_TYPE" })
 
                     @Html.ValidationMessageFor(model => model.LIC_TYPE, "", new { @class = "text-danger" })
-                    <span>License Type</span>
+                    <span style="padding-left: 10px;">License Type</span>
                 </div>
             </div>
 
@@ -46,7 +47,7 @@
                 <div class="forLabel py-0 admin-form-control   form-control border-0 px-2 ">
                     @Html.DropDownList("MED_GROUP", ViewBag.MedicineGroup as SelectList, new { @class = "admin-form-control w-100 h-100   form-control", id = "MED_GROUP" })
                     @Html.ValidationMessageFor(model => model.MED_GROUP, "", new { @class = "text-danger" })
-                    <span>Medicine Group</span>
+                    <span style="padding-left: 10px;">Medicine Group</span>
                 </div>
             </div>
 
@@ -55,7 +56,7 @@
                 <div class="forLabel py-0 admin-form-control  form-control border-0 px-2 ">
                     @Html.EditorFor(model => model.TRADE_NAME, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   form-control", id = "TRADE_NAME" } })
                     @Html.ValidationMessageFor(model => model.TRADE_NAME, "", new { @class = "text-danger" })
-                    <span>Medicine Name</span>
+                    <span style="padding-left: 10px;">Medicine Name</span>
                 </div>
             </div>
 
@@ -64,7 +65,7 @@
                 <div class="forLabel py-0 admin-form-control  form-control border-0 px-2 ">
                     @Html.DropDownList("DOSAGE_FORM", ViewBag.DosageForm as SelectList, new { @class = "admin-form-control w-100 h-100   form-control", id = "DOSAGE_FORM" })
                     @Html.ValidationMessageFor(model => model.DOSAGE_FORM, "", new { @class = "text-danger" })
-                    <span>Dosage Form</span>
+                    <span style="padding-left: 10px;">Dosage Form</span>
                 </div>
             </div>
 
@@ -73,7 +74,7 @@
                 <div class="forLabel py-0 admin-form-control   form-control border-0 px-2 ">
                     @Html.EditorFor(model => model.PACK_SIZE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   form-control", id = "PACK_SIZE", @onkeypress = "return /[0-9]/i.test(event.key)" } })
                     @Html.ValidationMessageFor(model => model.PACK_SIZE, "", new { @class = "text-danger" })
-                    <span>Package Size</span>
+                    <span style="padding-left: 10px;">Package Size</span>
                 </div>
             </div>
 
@@ -82,7 +83,7 @@
                 <div class="forLabel py-0 admin-form-control    form-control border-0 px-2 ">
                     @Html.EditorFor(model => model.PACK_PRICE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   form-control", id = "PACK_PRICE" } })
                     @Html.ValidationMessageFor(model => model.PACK_PRICE, "", new { @class = "text-danger" })
-                    <span>Package Price</span>
+                    <span style="padding-left: 10px;">Package Price</span>
                 </div>
             </div>
 
@@ -91,7 +92,7 @@
                 <div class="forLabel py-0 admin-form-control   form-control border-0 px-2 ">
                     @Html.DropDownList("M_TYPE", ViewBag.MedicineType as SelectList, new { @class = "admin-form-control w-100 h-100   form-control", id = "M_TYPE" })
                     @Html.ValidationMessageFor(model => model.M_TYPE, "", new { @class = "text-danger" })
-                    <span>Medicine Type</span>
+                    <span style="padding-left: 10px;">Medicine Type</span>
                 </div>
             </div>
 
@@ -100,7 +101,7 @@
                 <div class="forLabel py-0 admin-form-control  form-control border-0 px-2 ">
                     @Html.EditorFor(model => model.UNIT_NO, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   form-control", id = "UNIT_NO" } })
                     @Html.ValidationMessageFor(model => model.UNIT_NO, "", new { @class = "text-danger" })
-                    <span>Unit Number</span>
+                    <span style="padding-left: 10px;">Unit Number</span>
                 </div>
             </div>
 
@@ -109,7 +110,7 @@
                 <div class="forLabel py-0 admin-form-control   form-control border-0 px-2 ">
                     @Html.EditorFor(model => model.UNIT_PRICE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   form-control", id = "UNIT_PRICE" } })
                     @Html.ValidationMessageFor(model => model.UNIT_PRICE, "", new { @class = "text-danger" })
-                    <span>Unit Price</span>
+                    <span style="padding-left: 10px;">Unit Price</span>
                 </div>
             </div>
 
@@ -123,7 +124,7 @@
 
                }, new { @class = "admin-form-control w-100 h-100   form-control", id = "DiagnoiseGender" })
                     @Html.ValidationMessageFor(model => model.DiagnoiseGender, "", new { @class = "text-danger" })
-                    <span>Gender</span>
+                    <span style="padding-left: 10px;">Gender</span>
                 </div>
             </div>
             <div class="form-group">
@@ -137,7 +138,7 @@
 
                }, new { @class = "admin-form-control w-100 h-100   form-control", id = "DiagnoiseAge" })
                     @Html.ValidationMessageFor(model => model.DiagnoiseAge, "", new { @class = "text-danger" })
-                    <span>Age</span>
+                    <span style="padding-left: 10px;">Age</span>
                 </div>
             </div>
             <div class="w-100  row row-cols-sm-2 row-gap-2 px-0">
@@ -151,7 +152,7 @@
 
                        }, new { @class = "admin-form-control w-100 h-100   form-control", id = "IsCovered" })
                             @Html.ValidationMessageFor(model => model.IsCovered, "", new { @class = "text-danger" })
-                            <span>Is Covered</span>
+                            <span style="padding-left: 10px;">Is Covered</span>
                         </div>
                     </div>
 
@@ -161,7 +162,7 @@
                         <div class="forLabel py-0 admin-form-control border-0 px-2 ">
                             @Html.EditorFor(model => model.GRN_CODE, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   form-control", id = "GRN_CODE" } })
                             @Html.ValidationMessageFor(model => model.GRN_CODE, "", new { @class = "text-danger" })
-                            <span>International Code</span>
+                            <span style="padding-left: 10px;">International Code</span>
                         </div>
                     </div>
                 </div>
@@ -178,7 +179,7 @@
                                 </a>
                             </div>
                             <textarea id="Diagnoise" type="text" class="admin-form-control w-100 h-100   form-control " name="Diagnoise" placeholder="" value="" disabled></textarea>
-                            <span>diagnosis</span>
+                            <span style="padding-left: 10px;">diagnosis</span>
                         </div>
                     </div>
                 </div>
@@ -187,13 +188,18 @@
         </div>
 
 
-        <div class="d-flex col-md-4 gap-2  justify-content-center  mt-4 mt-md-0 me-md-4 mx-auto  panel-footer" style="text-align:right;">
-            <input id="Back" type="button" value="Back" onclick="window.location.replace('/Medicines/index');" class="btn fw-bold text-white rounded-3" />
-            <input id="submit" type="submit" value="Create" class="btn fw-bold text-white rounded-3" />
+        <div class="col-md-4 d-flex  gap-2 justify-content-center  mt-3 mt-sm-auto ">
+            <div class="position-relative ">
+                <i class="fa-solid fa-chevron-left position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                <input id="Back" type="button" value="Back" onclick="window.location.replace('/Medicines/index');" class="btn fw-bold text-white rounded-3 ps-4" />
+            </div>
+            <div class="position-relative ">
+                <i class="fa-solid fa-save position-absolute start-0 top-50 translate-middle text-white ms-3"></i>
+                <input id="submit" type="submit" value="Update" class="btn fw-bold text-white rounded-3 ps-4" />
+            </div>
         </div>
     </div>
 </div>
-
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
 <script>
     $(function () {
