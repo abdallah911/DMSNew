@@ -1389,6 +1389,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\EmployeeDataViewModel.cs" />
     <Compile Include="ViewModel\BrokerViewModel.cs" />
     <Compile Include="ViewModel\CategoriesPricingViewModel.cs" />
     <Compile Include="ViewModel\ClaimPhotoesViewModel.cs" />

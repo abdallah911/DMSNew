@@ -22,42 +22,55 @@ namespace DMS_Authontication1.Controllers.HR
         [HttpGet]
         public ActionResult NetworkMedical(string cardId)
         {
+            EmployeeDataViewModel mod = new EmployeeDataViewModel();
+
             if (!string.IsNullOrEmpty(cardId))
             {
-                
-
                 DataTable dtcrd = new DataTable();
-
-                dtcrd = dbData.RunReader(@" SELECT e.EMP_ANAME_ST || ' ' || e.EMP_ANAME_SC || ' ' || e.EMP_ANAME_TH NAME, q.Notes  
+                
+                dtcrd = dbData.RunReader(@" SELECT e.EMP_ANAME_ST || ' ' || e.EMP_ANAME_SC || ' ' || e.EMP_ANAME_TH NAME, e.INS_START_DATE, e.INS_END_DATE, q.NOTES  
                                             FROM    DMS_TEST.COMP_EMPLOYEES e
                                             LEFT OUTER JOIN APP.CARD_QR q ON  e.C_COMP_ID = q.COMP_ID AND e.CARD_ID = q.CARD_ID
                                             WHERE q.CARD_ID = '" + cardId + "'");
 
 
-                if(dtcrd.Rows.Count > 0)
-                {
-                    ViewBag.CardId = cardId;
-                    ViewBag.Name = dtcrd.Rows[0][0].ToString();
-                    ViewBag.Notes = dtcrd.Rows[0][1].ToString();
+                //if(dtcrd.Rows.Count > 0)
+                //{
+                //    ViewBag.CardId = cardId;
+                //    ViewBag.Name = dtcrd.Rows[0][0].ToString();
+                //    ViewBag.Notes = dtcrd.Rows[0][1].ToString();
 
-                    ViewBag.Notes = ViewBag.Notes.Replace("\n", "<br>");
+                //    ViewBag.Notes = ViewBag.Notes.Replace("\n", "<br>");
+                //}
+
+                if (dtcrd.Rows.Count > 0)
+                {
+                    mod.CardId = cardId;
+                    mod.EmpName = dtcrd.Rows[0]["NAME"].ToString();
+                    mod.StartDate = dtcrd.Rows[0]["INS_START_DATE"].ToString();
+                    mod.EndDate = dtcrd.Rows[0]["INS_END_DATE"].ToString();
+                    mod.Notes = dtcrd.Rows[0]["NOTES"].ToString();
+
+                    mod.Notes = mod.Notes.Replace("\n", "<br>");
                 }
+
+                var provider = db.ProviderTypeNews.ToList();
+                SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
+                ViewBag.provider = Providerlist;
+
+                //var address = db.Basic_Data.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+                ////var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+                //SelectList addresslist = new SelectList(address, "BS_ENAME", "BS_ANAME");
+                //ViewBag.address = addresslist;
+
+                var address = db.Basic_Data.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+                //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+                SelectList addresslist = new SelectList(address, "BS_CODE", "BS_ANAME");
+                ViewBag.address = addresslist;
+
+                return View(mod);
             }
             
-            var provider = db.ProviderTypeNews.ToList();
-            SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
-            ViewBag.provider = Providerlist;
-
-            //var address = db.Basic_Data.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-            ////var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-            //SelectList addresslist = new SelectList(address, "BS_ENAME", "BS_ANAME");
-            //ViewBag.address = addresslist;
-
-            var address = db.Basic_Data.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-            //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-            SelectList addresslist = new SelectList(address, "BS_CODE", "BS_ANAME");
-            ViewBag.address = addresslist;
-
             return View();
         }
         public JsonResult GetRegion(string id)
