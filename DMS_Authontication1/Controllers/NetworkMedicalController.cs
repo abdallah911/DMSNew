@@ -28,7 +28,7 @@ namespace DMS_Authontication1.Controllers.HR
             {
                 DataTable dtcrd = new DataTable();
                 
-                dtcrd = dbData.RunReader(@" SELECT e.EMP_ANAME_ST || ' ' || e.EMP_ANAME_SC || ' ' || e.EMP_ANAME_TH NAME, e.INS_START_DATE, e.INS_END_DATE, q.NOTES  
+                dtcrd = dbData.RunReader(@" SELECT e.EMP_ANAME_ST || ' ' || e.EMP_ANAME_SC || ' ' || e.EMP_ANAME_TH NAME, TO_CHAR(e.INS_START_DATE,'DD-MM-YYYY') INS_START_DATE, TO_CHAR(e.INS_END_DATE,'DD-MM-YYYY') INS_END_DATE, q.NOTES  
                                             FROM    DMS_TEST.COMP_EMPLOYEES e
                                             LEFT OUTER JOIN APP.CARD_QR q ON  e.C_COMP_ID = q.COMP_ID AND e.CARD_ID = q.CARD_ID
                                             WHERE q.CARD_ID = '" + cardId + "'");
