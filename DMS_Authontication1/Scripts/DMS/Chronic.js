@@ -76,7 +76,7 @@ $(function () {
                             },
                             success: function (r) {
                                 if (r.Validation == false) {
-                                    alert("برجاء دخول الكود المرسل لسيادتكم علي رقم الهاتف المسجل لدي الشركة وللحصول علي الكود برجاء الاتصال علي الرقم التالي (26390990) الرقم الداخلي 110");
+                                    alert("برجاء إدخال الكود المرسل لسيادتكم علي رقم الهاتف المسجل لدي الشركة وللحصول علي الكود برجاء الاتصال علي الرقم التالي (26390990) الرقم الداخلي 110");
                                     location.reload();
                                 } else {
                                     toastr.success(r.Message);
@@ -84,7 +84,7 @@ $(function () {
                                 }
                             },
                             error: function (err) {
-                                alert("VerificationCode,please check your internet connection1");
+                                alert("VerificationCode,please check your internet connection");
                                 location.reload();
                             }
                         });
