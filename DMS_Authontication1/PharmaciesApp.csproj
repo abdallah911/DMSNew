@@ -502,6 +502,9 @@
     <Compile Include="Models\ClaimPhoto.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClaimPhotoDiagnoise.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CompanyContractPhoto.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

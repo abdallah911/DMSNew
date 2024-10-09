@@ -98,11 +98,11 @@
                             @Html.Label("Claim Number", htmlAttributes: new { @class = "control-label" })
                             @Html.Editor("ClaimNumber", new { htmlAttributes = new { @class = "form-control", @id = "ClaimNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
                         </div>
-                        <div class="col-sm-2" data-step="7" data-intro="Select speciality">
+                        <div class="col-sm-2" data-step="7" data-intro="Select speciality" id="divSpeciality">
                             @Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })
                             @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "form-control", @id = "ddlSpeciality" })
                         </div>
-                        <div class="col-sm-2" data-step="8" data-intro="Select Diagnoises">
+                        <div class="col-sm-2" data-step="8" data-intro="Select Diagnoises" id="divDiagnoises">
                             @Html.Label("Diagnoise", new { @class = "control-label" })
                             <select id="ddlDiagnoises" style="width:100%" multiple></select>
                         </div>

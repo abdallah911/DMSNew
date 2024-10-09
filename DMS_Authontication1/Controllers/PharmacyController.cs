@@ -516,31 +516,45 @@ namespace DMS_TEST.Controllers
                 if (type == "Pharm")
                 {
                     var claim = db.ClaimPhotoes.Where(r => r.CardId == id && r.ClaimNumber == claimnum && r.IsDispense == false
-                    && r.IsDespensePharm == false && r.IsDeleted == false).FirstOrDefault();
+                    && r.IsDespensePharm == false && r.IsDeleted == false).Include(x => x.ClaimPhotoDiagnoises).FirstOrDefault();
                     if (claim != null)
                     {
-
-                        return Json(new { ok = true, Id = claim.Id, message = "Ok" }, JsonRequestBehavior.AllowGet);
+                        var DiagnoiseList = new List<string>();
+                        foreach (var item in claim.ClaimPhotoDiagnoises)
+                        {
+                            DiagnoiseList.Add(item.DiagnoiseName);
+                        }
+                        return Json(new { ok = true, Id = claim.Id, speciality = claim.Speciality, message = "Ok", diagnoisesList = DiagnoiseList }, JsonRequestBehavior.AllowGet);
                     }
                 }
                 else if (type == "Lab")
                 {
                     var claim = db.ClaimPhotoes.Where(r => r.CardId == id && r.ClaimNumber == claimnum && r.IsDispense == false
-                    && r.IsDespenseLab == false && r.IsDeleted == false).FirstOrDefault();
+                    && r.IsDespenseLab == false && r.IsDeleted == false).Include(x=>x.ClaimPhotoDiagnoises).FirstOrDefault();
                     if (claim != null)
                     {
+                        var DiagnoiseList = new List<string>();
+                        foreach (var item in claim.ClaimPhotoDiagnoises)
+                        {
+                            DiagnoiseList.Add(item.DiagnoiseName);
+                        }
 
-                        return Json(new { ok = true, Id = claim.Id, message = "Ok" }, JsonRequestBehavior.AllowGet);
+                        return Json(new { ok = true, Id = claim.Id, speciality = claim.Speciality, message = "Ok", diagnoisesList = DiagnoiseList }, JsonRequestBehavior.AllowGet);
                     }
                 }
                 else if (type == "Ray")
                 {
                     var claim = db.ClaimPhotoes.Where(r => r.CardId == id && r.ClaimNumber == claimnum && r.IsDispense == false
-                    && r.IsDespenseRay == false && r.IsDeleted == false).FirstOrDefault();
+                    && r.IsDespenseRay == false && r.IsDeleted == false).Include(x => x.ClaimPhotoDiagnoises).FirstOrDefault();
                     if (claim != null)
                     {
+                        var DiagnoiseList = new List<string>();
+                        foreach (var item in claim.ClaimPhotoDiagnoises)
+                        {
+                            DiagnoiseList.Add(item.DiagnoiseName);
+                        }
 
-                        return Json(new { ok = true, Id = claim.Id, message = "Ok" }, JsonRequestBehavior.AllowGet);
+                        return Json(new { ok = true, Id = claim.Id, speciality = claim.Speciality, message = "Ok", diagnoisesList = DiagnoiseList }, JsonRequestBehavior.AllowGet);
                     }
                 }
                 return Json(new { ok = false, message = "No" }, JsonRequestBehavior.AllowGet);

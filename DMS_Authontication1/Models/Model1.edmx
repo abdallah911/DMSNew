@@ -249,6 +249,15 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="IsDeleted" Type="bit" />
           <Property Name="DeletedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="DeletedDate" Type="datetime" />
+          <Property Name="Speciality" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ClaimPhotoDiagnoise">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DiagnoiseName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClaimPhotoId" Type="int" />
         </EntityType>
         <EntityType Name="Co_Insurance_01">
           <Key>
@@ -2991,6 +3000,18 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ClaimPhotoDiagnoise_ClaimPhoto">
+          <End Role="ClaimPhoto" Type="Self.ClaimPhoto" Multiplicity="0..1" />
+          <End Role="ClaimPhotoDiagnoise" Type="Self.ClaimPhotoDiagnoise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClaimPhoto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClaimPhotoDiagnoise">
+              <PropertyRef Name="ClaimPhotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DeliveryRequest_Country">
           <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
           <End Role="DeliveryRequest" Type="Self.DeliveryRequest" Multiplicity="*" />
@@ -3859,6 +3880,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="CardsSms" EntityType="Self.CardsSms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardUsed" EntityType="Self.CardUsed" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClaimPhoto" EntityType="Self.ClaimPhoto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClaimPhotoDiagnoise" EntityType="Self.ClaimPhotoDiagnoise" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Co_Insurance_01" EntityType="Self.Co_Insurance_01" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COMP_CUSTOMIZED_D" EntityType="Self.COMP_CUSTOMIZED_D" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comp_Customized_D_D" EntityType="Self.Comp_Customized_D_D" Schema="dbo" store:Type="Tables" />
@@ -4015,6 +4037,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <AssociationSet Name="FK_CardAcceptionReasons_AcceptionReasons" Association="Self.FK_CardAcceptionReasons_AcceptionReasons">
             <End Role="AcceptionReasons" EntitySet="AcceptionReasons" />
             <End Role="CardAcceptionReasons" EntitySet="CardAcceptionReasons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClaimPhotoDiagnoise_ClaimPhoto" Association="Self.FK_ClaimPhotoDiagnoise_ClaimPhoto">
+            <End Role="ClaimPhoto" EntitySet="ClaimPhoto" />
+            <End Role="ClaimPhotoDiagnoise" EntitySet="ClaimPhotoDiagnoise" />
           </AssociationSet>
           <AssociationSet Name="FK_DeliveryRequest_Country" Association="Self.FK_DeliveryRequest_Country">
             <End Role="Country" EntitySet="Country" />
@@ -5848,6 +5874,11 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="CptDatas" EntityType="DB_A45413_DMSERPModel.CptData" />
           <EntitySet Name="IcdDatas" EntityType="DB_A45413_DMSERPModel.IcdData" />
           <EntitySet Name="CompIcdCpts" EntityType="DB_A45413_DMSERPModel.CompIcdCpt" />
+          <EntitySet Name="ClaimPhotoDiagnoises" EntityType="DB_A45413_DMSERPModel.ClaimPhotoDiagnoise" />
+          <AssociationSet Name="FK_ClaimPhotoDiagnoise_ClaimPhoto" Association="DB_A45413_DMSERPModel.FK_ClaimPhotoDiagnoise_ClaimPhoto">
+            <End Role="ClaimPhoto" EntitySet="ClaimPhotoes" />
+            <End Role="ClaimPhotoDiagnoise" EntitySet="ClaimPhotoDiagnoises" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -8424,6 +8455,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="DeletedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="Speciality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ClaimPhotoDiagnoises" Relationship="DB_A45413_DMSERPModel.FK_ClaimPhotoDiagnoise_ClaimPhoto" FromRole="ClaimPhoto" ToRole="ClaimPhotoDiagnoise" />
         </EntityType>
         <EntityType Name="CriticalReason">
           <Key>
@@ -8490,6 +8523,27 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="ICD" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CPT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="ClaimPhotoDiagnoise">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DiagnoiseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimPhotoId" Type="Int32" />
+          <NavigationProperty Name="ClaimPhoto" Relationship="DB_A45413_DMSERPModel.FK_ClaimPhotoDiagnoise_ClaimPhoto" FromRole="ClaimPhotoDiagnoise" ToRole="ClaimPhoto" />
+        </EntityType>
+        <Association Name="FK_ClaimPhotoDiagnoise_ClaimPhoto">
+          <End Type="DB_A45413_DMSERPModel.ClaimPhoto" Role="ClaimPhoto" Multiplicity="0..1" />
+          <End Type="DB_A45413_DMSERPModel.ClaimPhotoDiagnoise" Role="ClaimPhotoDiagnoise" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClaimPhoto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClaimPhotoDiagnoise">
+              <PropertyRef Name="ClaimPhotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -11714,6 +11768,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="ClaimPhotoes">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ClaimPhoto">
               <MappingFragment StoreEntitySet="ClaimPhoto">
+                <ScalarProperty Name="Speciality" ColumnName="Speciality" />
                 <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
                 <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
@@ -11800,6 +11855,15 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="CLAIM_DATE" ColumnName="CLAIM_DATE" />
                 <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
                 <ScalarProperty Name="CLAIM_NO" ColumnName="CLAIM_NO" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClaimPhotoDiagnoises">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ClaimPhotoDiagnoise">
+              <MappingFragment StoreEntitySet="ClaimPhotoDiagnoise">
+                <ScalarProperty Name="ClaimPhotoId" ColumnName="ClaimPhotoId" />
+                <ScalarProperty Name="DiagnoiseName" ColumnName="DiagnoiseName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

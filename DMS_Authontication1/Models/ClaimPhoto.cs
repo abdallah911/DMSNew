@@ -14,6 +14,12 @@ namespace DMS_Authontication1.Models
     
     public partial class ClaimPhoto
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ClaimPhoto()
+        {
+            this.ClaimPhotoDiagnoises = new HashSet<ClaimPhotoDiagnoise>();
+        }
+    
         public int Id { get; set; }
         public string CardId { get; set; }
         public long ClaimNumber { get; set; }
@@ -29,5 +35,9 @@ namespace DMS_Authontication1.Models
         public Nullable<bool> IsDeleted { get; set; }
         public string DeletedBy { get; set; }
         public Nullable<System.DateTime> DeletedDate { get; set; }
+        public string Speciality { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClaimPhotoDiagnoise> ClaimPhotoDiagnoises { get; set; }
     }
 }
