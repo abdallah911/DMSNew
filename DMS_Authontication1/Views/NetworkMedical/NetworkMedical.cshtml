@@ -55,7 +55,14 @@
     </h4>-->
         @*<p class="h4 ontainer mx-auto sios-color mb-4 fw-bold" dir="rtl" style="line-height: 2;">@Html.Raw(ViewBag.Notes)</p>*@
 
-        <p class="h4 ontainer mx-auto sios-color mb-4 fw-bold" dir="rtl" style="line-height: 2;">@Html.Raw(@Model.Notes)</p>
+        @*  <p class="h4 ontainer mx-auto sios-color mb-4 fw-bold" dir="rtl" style="line-height: 2;">@Html.Raw(@Model.Notes)</p>*@
+
+        <ul class="h5 container mx-auto sios-color mb-4 fw-bold" dir="rtl" style="line-height: 2;">
+            @foreach (var note in @Model.Notes)
+            {
+                <li>@note</li>
+            }
+        </ul>
 
     </div>
     <div class="row bg-overlay mb-4 portlet-title">

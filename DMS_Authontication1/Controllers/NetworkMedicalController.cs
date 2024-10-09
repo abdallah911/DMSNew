@@ -27,13 +27,39 @@ namespace DMS_Authontication1.Controllers.HR
             if (!string.IsNullOrEmpty(cardId))
             {
                 DataTable dtcrd = new DataTable();
-                
-                dtcrd = dbData.RunReader(@" SELECT e.EMP_ANAME_ST || ' ' || e.EMP_ANAME_SC || ' ' || e.EMP_ANAME_TH NAME, TO_CHAR(e.INS_START_DATE,'DD-MM-YYYY') INS_START_DATE, TO_CHAR(e.INS_END_DATE,'DD-MM-YYYY') INS_END_DATE, q.NOTES  
-                                            FROM    DMS_TEST.COMP_EMPLOYEES e
-                                            LEFT OUTER JOIN APP.CARD_QR q ON  e.C_COMP_ID = q.COMP_ID AND e.CARD_ID = q.CARD_ID
-                                            WHERE q.CARD_ID = '" + cardId + "'");
+                DataTable dtNotes = new DataTable();
+
+                //dtcrd = dbData.RunReader(@" SELECT e.EMP_ANAME_ST || ' ' || e.EMP_ANAME_SC || ' ' || e.EMP_ANAME_TH NAME, TO_CHAR(e.INS_START_DATE,'DD-MM-YYYY') INS_START_DATE, TO_CHAR(e.INS_END_DATE,'DD-MM-YYYY') INS_END_DATE, q.NOTES  
+                //                            FROM    DMS_TEST.COMP_EMPLOYEES e
+                //                            LEFT OUTER JOIN APP.CARD_QR q ON  e.C_COMP_ID = q.COMP_ID AND e.CARD_ID = q.CARD_ID
+                //                            WHERE q.CARD_ID = '" + cardId + "'");
+                dtcrd = dbData.RunReader(@" SELECT e.C_COMP_ID, e.CONTRACT_NO, e.CLASS_CODE, e.EMP_ANAME_ST || ' ' || e.EMP_ANAME_SC || ' ' || e.EMP_ANAME_TH NAME, TO_CHAR(e.INS_START_DATE,'DD-MM-YYYY') INS_START_DATE, TO_CHAR(e.INS_END_DATE,'DD-MM-YYYY') INS_END_DATE  
+                                            FROM   DMS_TEST.COMP_EMPLOYEES e                                           
+                                            WHERE  e.CARD_ID = '" + cardId + "' ORDER BY e.CONTRACT_NO DESC --AND TRUNC(TO_DATE(SYSDATE)) BETWEEN TRUNC(TO_DATE(e.INS_START_DATE)) AND TRUNC(TO_DATE(e.INS_END_DATE))");
 
 
+
+                if (dtcrd.Rows.Count > 0)
+                {
+                    string comp = dtcrd.Rows[0]["C_COMP_ID"].ToString(), contr = dtcrd.Rows[0]["CONTRACT_NO"].ToString(), cls = dtcrd.Rows[0]["CLASS_CODE"].ToString();
+                    string notes = "";
+                    dtNotes = dbData.RunReader(@" SELECT NOTES FROM COMP_NOTES WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'AND CARD_ID = '" + cardId + "'");
+
+                    if (dtNotes.Rows.Count == 0)
+                        dtNotes =  dbData.RunReader(@" SELECT NOTES FROM COMP_NOTES WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'");
+
+                    if (dtNotes.Rows.Count > 0)
+                        notes = dtNotes.Rows[0]["NOTES"].ToString();
+
+                    mod.CardId = cardId;
+                    mod.EmpName = dtcrd.Rows[0]["NAME"].ToString();
+                    mod.StartDate = dtcrd.Rows[0]["INS_START_DATE"].ToString();
+                    mod.EndDate = dtcrd.Rows[0]["INS_END_DATE"].ToString();
+                    //mod.Notes = notes;
+
+                    //mod.Notes = mod.Notes.Replace("\n", "<br>");
+                    mod.Notes = notes.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                }
                 //if(dtcrd.Rows.Count > 0)
                 //{
                 //    ViewBag.CardId = cardId;
@@ -42,17 +68,6 @@ namespace DMS_Authontication1.Controllers.HR
 
                 //    ViewBag.Notes = ViewBag.Notes.Replace("\n", "<br>");
                 //}
-
-                if (dtcrd.Rows.Count > 0)
-                {
-                    mod.CardId = cardId;
-                    mod.EmpName = dtcrd.Rows[0]["NAME"].ToString();
-                    mod.StartDate = dtcrd.Rows[0]["INS_START_DATE"].ToString();
-                    mod.EndDate = dtcrd.Rows[0]["INS_END_DATE"].ToString();
-                    mod.Notes = dtcrd.Rows[0]["NOTES"].ToString();
-
-                    mod.Notes = mod.Notes.Replace("\n", "<br>");
-                }
 
                 var provider = db.ProviderTypeNews.ToList();
                 SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
