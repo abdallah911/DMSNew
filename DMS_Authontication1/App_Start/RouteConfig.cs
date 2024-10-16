@@ -23,7 +23,7 @@ namespace DMS_Authontication1
             name: "NetworkMedical",
             url: "NetworkMedical/{action}/{cardId}",
             defaults: new { controller = "NetworkMedical", action = "NetworkMedical", cardId = UrlParameter.Optional }
-        );
+        );          
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

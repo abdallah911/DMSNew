@@ -52,7 +52,7 @@
         <!--<h4 class="container mx-auto sios-color mb-4 fw-bold">-->
         @*Lorem Ipsum هو ببساطة نص شكلي غير رسمي يستخدم في صناعة الطباعة والتنضيد. وقد ظل نص لوريم إيبسوم النص الشكلي القياسي في هذه الصناعة منذ القرن السادس عشر، عندما قام طابع مجهول بأخذ مجموعة من الحروف وخلطها لعمل كتاب عينات الحروف ...*@
         <!--@ViewBag.Notes
-    </h4>-->
+        </h4>-->
         @*<p class="h4 ontainer mx-auto sios-color mb-4 fw-bold" dir="rtl" style="line-height: 2;">@Html.Raw(ViewBag.Notes)</p>*@
 
         @*  <p class="h4 ontainer mx-auto sios-color mb-4 fw-bold" dir="rtl" style="line-height: 2;">@Html.Raw(@Model.Notes)</p>*@
@@ -157,6 +157,12 @@
             <span class="sios-color" style="right:20px;">Description</span>*@
         <!--</div>-->
     </div>
+
+
+    <div id="loading" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); z-index:9999;">
+        <img src="~/assets/NewDesign/img/loading.gif" alt="Loading..." style="width:250px; height:250px;">
+    </div>
+
 </div>
 <script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
 <script src="~/assets/NewDesign/js/jquery.min.js"></script>
@@ -168,16 +174,37 @@
         $(".select2").select2();
 
 
+        //$("#Country_select").change(function () {
+        //    $.get("/NetworkMedical/GetRegion",
+        //        { id: $("#Country_select").val() }, function (data) {
+        //            $("#Region_select").empty();
+        //            $.each(data, function (index, row) {
+        //                $("#Region_select").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+        //            });
+        //        });
+        //});
         $("#Country_select").change(function () {
-            $.get("/NetworkMedical/GetRegion",
-                { id: $("#Country_select").val() }, function (data) {
-                    $("#Region_select").empty();
-                    $.each(data, function (index, row) {
-                        $("#Region_select").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
-                    });
-                });
-        });
+            // Show loading image
+            $("#loading").show();
 
+            $.get("/NetworkMedical/GetRegion",
+                { id: $("#Country_select").val() },
+                function (data) {
+                    $("#Region_select").empty();
+                    $("#Region_select").append("<option value='0'>أختر المنطقة</option>");
+                    $.each(data, function (index, row) {
+                        $("#Region_select").append("<option value='" + row.Value + "'>" + row.Text + "</option>");
+                    });
+
+                    // Hide loading image after data is loaded
+                    $("#loading").hide();
+                }
+            ).fail(function () {
+                // In case of failure, hide the loading image
+                $("#loading").hide();
+                alert("Failed to load regions. Please try again.");
+            });
+        });
 
     });
     function SearchProvider() {
@@ -196,6 +223,8 @@
                     alert("Please select Country ...");
                 }
                 else {
+                    
+                    $("#loading").show();
 
                     $.ajax({
                         url: '/NetworkMedical/GetProviders/',
@@ -245,6 +274,9 @@
                         },
                         error: function () {
                             alert("Invalid Card ID ");
+                        },
+                        complete: function () {
+                            $("#loading").hide();
                         }
                     });
                 }
