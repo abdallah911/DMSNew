@@ -4,9 +4,9 @@
 <div class="contact-page-short-boxes">
     <div class="container">
         <div class="row">
-            <div class="col-12 col-md-4">
+            <div class="contact-card-box col-12 col-md-4">
                 <div class="contact-info h-100">
-                    <h2 class="d-flex align-items-center">Contact Info</h2>
+                    <h2 class="d-flex align-items-center"><i class="fa-solid fa-phone me-1"></i>Contact Info</h2>
 
                     <ul class="p-0 m-0">
                         <li style="font-size:13px"><span>Address:</span>12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>
@@ -17,18 +17,18 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-12 col-md-4 mt-5 mt-lg-0">
+            <div class="contact-card-box col-12 col-md-4 mt-5 mt-lg-0">
                 <div class="opening-hours h-100">
-                    <h2 class="d-flex align-items-center">Opening Hours</h2>
+                    <h2 class="d-flex align-items-center"><i class="fa-solid fa-clock me-1"></i>Opening Hours</h2>
 
                     <ul class="p-0 m-0">
                         <li>Sunday - Thursday <span>8:30 - 17:00</span></li>
                     </ul>
                 </div>
             </div>
-            <div class="col-12 col-md-4 mt-5 mt-lg-0">
+            <div class="contact-card-box col-12 col-md-4 mt-5 mt-lg-0">
                 <div class="emergency-box h-100">
-                    <h2 class="d-flex align-items-center">Emergency</h2>
+                    <h2 class="d-flex align-items-center"><i class="fa-solid fa-circle-h me-1"></i>Emergency</h2>
 
                     <div class="call-btn text-center">
                         <a class="d-flex justify-content-center align-items-center button gradient-bg" href="#"><img src="~/assets/global/plugins/design/images/emergency-call.png">  02 26371716</a>
@@ -44,43 +44,44 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2>Get in Touch</h2>
+                <h2 style="color:var(--color-primary); font-weight:bold;">Get in Touch</h2>
             </div>
-            <div class="col-12">
+            <div class="col-12 row row-cols-sm-2">
                 <form name="htmlform" method="post" action="@Url.Action("ContactUs", "Home" )">
 
                     <div class="col-12">
-                        <input type="text" name="name" placeholder="Name" value="" required />
+                        <input style=" border-radius: 6px;" class="mt-3" type="text" name="name" placeholder="Name" value="" required />
                     </div><!-- col-4 -->
 
                     <div class="col-12">
-                        <input type="email" name="email" placeholder="E-mail" value="" required />
+                        <input style=" border-radius: 6px;" class="mt-3" type="email" name="email" placeholder="E-mail" value="" required />
                     </div><!-- col-6 -->
 
                     <div class="col-12">
-                        <input type="text" name="telephone" placeholder="Phone" value="" required />
+                        <input style=" border-radius: 6px;" class="mt-3" type="text" name="telephone" placeholder="Phone" value="" required />
                     </div>
 
                     <div class="col-12">
-                        <textarea name="comments" rows="12" cols="80" placeholder="Comments" required></textarea>
+                        <textarea style=" border-radius: 6px;" class="mt-3" name="comments" rows="12" cols="80" placeholder="Comments" required></textarea>
                     </div>
 
                     <div class="col-12">
-                        <input type="submit" name="" value="Send Message" class="button gradient-bg">
+                        <input type="submit" name="" value="Send Message" class="button gradient-bg fw-bold p-4 rounded" style=" border-radius: 10px !important;" >
                     </div>
                 </form>
+                <div class="col-sm-5 ms-auto">
+                    <div class="row ">
+                        <div class="col-12 ">
+                            <div class="contact-page-map ">
+                                <iframe id="gmap_canvas" class="p-5" style="height: 450px; border-radius: 12px; background: #dfdfdf; " src="https://maps.google.com/maps?q=12 Abd El-Azeem Awad Allah Al Matar El Nozha&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                @*<iframe id="gmap_canvas" src="https://maps.google.com/maps?q=24 El-Montaza El-Nozha El Nozha&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>*@
+                            </div><!-- map -->
+                        </div>
+                    </div>
+                </div>
             </div>
         </div><!-- row -->
     </div>
 </div><!-- contact-form -->
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="contact-page-map">
-                <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=12 Abd El-Azeem Awad Allah Al Matar El Nozha&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-                @*<iframe id="gmap_canvas" src="https://maps.google.com/maps?q=24 El-Montaza El-Nozha El Nozha&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>*@
-            </div><!-- map -->
-        </div>
-    </div>
-</div>
+
 

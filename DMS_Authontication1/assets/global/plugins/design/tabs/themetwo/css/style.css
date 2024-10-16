@@ -8604,21 +8604,22 @@ h1, h2, h3, h4, h5,
       margin-bottom: 0; }
 
     .ftco-departments .nav-pills .nav-link {
-      padding: 35px 30px !important;
-      border-radius: 0;
-      margin-bottom: 0;
-      color: #000000;
-      font-size: 22px;
-      font-weight: 600;
-      position: relative;
-      display: inline-block;
-      border: 1px solid transparent;
-      background: rgba(0, 0, 0, 0.05);
-      width: 20%;
-      -webkit-border-radius: 0;
-      -moz-border-radius: 0;
-      -ms-border-radius: 0;
-      border-radius: 0; }
+        padding: 5px 30px !important;
+        border-radius: 0;
+        margin-bottom: 0;
+        color: #000000;
+        font-size: 22px;
+        font-weight: 600;
+        position: relative;
+        display: inline-block;
+        border: 1px solid transparent;
+        background: rgba(0, 0, 0, 0.05);
+        width: 20%;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        -ms-border-radius: 0;
+        border-radius: 0;
+    }
 
     .ftco-departments .nav-pills  .four-section {
         width: 25%;
@@ -8626,11 +8627,11 @@ h1, h2, h3, h4, h5,
 
 
     .ftco-departments .nav-pills .three-section {
-        width: 33.33333%;
+        width: 40%;
     }
 
 
-        .ftco-departments .nav-pills .nav-link:after {
+/*        .ftco-departments .nav-pills .nav-link:after {
         position: absolute;
         bottom: -10px;
         left: 0;
@@ -8642,7 +8643,7 @@ h1, h2, h3, h4, h5,
         border-style: solid;
         border-width: 10px 10px 0 10px;
         border-color: #2f89fc transparent transparent transparent;
-        opacity: 0; }
+        opacity: 0; }*/
 		
       .ftco-departments .nav-pills .nav-link span {
         display: block;
@@ -8669,17 +8670,18 @@ h1, h2, h3, h4, h5,
 		  
 		  
       .ftco-departments .nav-pills .nav-link:hover {
-        background: #167bfc;
+        background: var(--color-secondary);
         color: #fff; }
-      .ftco-departments .nav-pills .nav-link.active {
-        color: #fff;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        transition: all 0.3s ease;
-        border: 1px solid transparent;
-        background: #2f89fc; }
+.ftco-departments .nav-pills .nav-link.active {
+    color: #fff;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    background: var(--color-primary);
+}
         .ftco-departments .nav-pills .nav-link.active:after {
           opacity: 1; }
         @media (max-width: 767.98px) {

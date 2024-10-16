@@ -62,14 +62,14 @@ ul
 }
 p
 {
-	font-family: 'Montserrat', sans-serif;
+	/*font-family: 'Montserrat', sans-serif;
 	font-size: 14px;
 	line-height: 2.14;
 	font-weight: 500;
 	color: #828282;
 	-webkit-font-smoothing: antialiased;
 	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
-	text-shadow: rgba(0,0,0,.01) 0 0 1px;
+	text-shadow: rgba(0,0,0,.01) 0 0 1px;*/
 }
     p a {
         display: inline;
@@ -133,14 +133,14 @@ h4{font-size: 24px;}
 h5{font-size: 18px;}
 h1, h2, h3, h4, h5, h6
 {
-	font-family: 'Montserrat', sans-serif;
+/*	font-family: 'Montserrat', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	line-height: 1.2;
 	color: #404040;
 	    font-size: 38px;
-    font-weight: 500;
+    font-weight: 500;*/
 }
 h1::selection, 
 h2::selection, 
@@ -266,32 +266,31 @@ section
 .button
 {
 	height: 46px;
-	border-radius: 20px;
+	/*border-radius: 20px;*/
 }
 .button a
 {
-	display: block;
+/*	display: block;
 	padding-left: 40px;
 	padding-right: 36px;
 	line-height: 42px;
 	font-size: 14px;
 	text-transform: uppercase;
-	font-weight: 600;
+	font-weight: 600;*/
 }
-.button_1
-{
-	background: #fd556d;
+.button_1 {
+	background: #8f58a7;
 	border: solid 2px transparent;
+	height: 60px;
 }
 .button_1 a
 {
 	color: #FFFFFF;
 }
-.button_1:hover
-{
-	background: transparent;
-	border: solid 2px #fd556d;
-}
+	.button_1:hover {
+		background: #7c4693;
+		border-color: #7c4693;
+	}
 .button_1:hover a
 {
 	color: #fd556d;
@@ -363,15 +362,12 @@ section
 	line-height: 1.5;
 	margin-top: 5px;
 }
-.intro_form_container
-{
+.intro_form_container {
 	width: 100%;
-	background: #FFFFFF;
-	padding-left: 33px;
-	padding-right: 34px;
-	padding-bottom: 63px;
-	padding-top: 136px;
-	box-shadow: 0px 25px 38px rgba(0,0,0,0.2);
+	background: linear-gradient(45deg, #1b0e2524 0%, #00000008 100%);
+	padding: 70px 75px;
+	box-shadow: 0px 10px 25px 0px #00000024;
+	border-radius: 10px;
 }
 .intro_form_title
 {
@@ -391,23 +387,41 @@ section
 {
 	width: 100%;
 }
-.intro_input {
-    /*width: calc((100% - 15px) / 2);*/
-    height: 62px;
-    background: transparent;
-    border: solid 2px #e6ebf1;
-    margin-bottom: 18px;
-    padding-left: 25px;
-    outline: none;
-    font-size: 15px;
-    color: #404040;
-    font-weight: 500;
-    -webkit-transition: all 200ms ease;
-    -moz-transition: all 200ms ease;
-    -ms-transition: all 200ms ease;
-    -o-transition: all 200ms ease;
-    transition: all 200ms ease;
+.login-input-box{
+	position:relative;
+	width:100%
 }
+	.login-input-box i {
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: #ddd;
+		padding: 8px;
+		font-size: 20px;
+		color: #535353;
+		height: 65px;
+		width: 60px;
+		display: flex !important;
+		justify-content: center;
+		align-items: center;
+	}
+	.intro_input {
+		/*width: calc((100% - 15px) / 2); */
+		height: 65px !important;
+		background: transparent;
+		border: solid 2px #e6ebf1;
+		margin-bottom: 20px;
+		padding-left: 70px;
+		outline: none;
+		font-size: 15px;
+		color: #404040;
+		font-weight: 500;
+		-webkit-transition: all 200ms ease;
+		-moz-transition: all 200ms ease;
+		-ms-transition: all 200ms ease;
+		-o-transition: all 200ms ease;
+		transition: all 200ms ease;
+	}
 .intro_select
 {
 	-webkit-appearance: none;
@@ -435,9 +449,8 @@ section
 	color: #404040;
 }
 .intro_input:focus,
-.intro_input:hover
-{
-	border: solid 2px #57ccc3;
+.intro_input:hover {
+	border: solid 2px #8f58a770;
 }
 .intro_input::-webkit-input-placeholder
 {
@@ -476,7 +489,7 @@ section
 }
 .intro_button {
     width: 100%;
-    font-size: 14px;
+    font-size: 22px;
     font-weight: 700;
     color: #FFFFFF;
     text-transform: uppercase;
@@ -484,13 +497,12 @@ section
     cursor: pointer;
     line-height: 0;
     text-transform: capitalize;
+	transition:.2s all ease-in;
 }
-.intro_button:hover
-{
-	background: transparent;
-	border: solid 2px #fd556d;
-	color: #fd556d;
-}
+	.intro_button:hover {
+		background: #7c4693;
+		border-color: #7c4693;
+	}
 
 
 
