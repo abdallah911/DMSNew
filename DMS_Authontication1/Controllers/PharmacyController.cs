@@ -2847,7 +2847,9 @@ namespace DMS_TEST.Controllers
         //Gender Validation
         public JsonResult GenderValidation(string CardId, string MedicineCode, string Id)
         {
-            var EmpGender = db.Comp_Employees.Where(x => x.CARD_ID == CardId).FirstOrDefault().GENDER;
+            DateTime datenow = DateTime.Now.Date;
+            var EmpGender = db.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= datenow
+            && x.INS_END_DATE >= datenow).OrderByDescending(x=>x.CONTRACT_NO).FirstOrDefault().GENDER;
             var MedicineGender = db.MedicineDatas.Where(x => x.M_CODE == MedicineCode).FirstOrDefault().DiagnoiseGender;
             if (Id == "1")
             {
@@ -2866,7 +2868,9 @@ namespace DMS_TEST.Controllers
         //Age Validation
         public JsonResult AgeValidation(string CardId, string MedicineCode, string Id)
         {
-            var EmpBithdate = db.Comp_Employees.Where(x => x.CARD_ID == CardId).OrderByDescending(x=>x.CONTRACT_NO).FirstOrDefault().BIRTH_DATE;
+            DateTime datenow = DateTime.Now.Date;
+            var EmpBithdate = db.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= datenow
+            && x.INS_END_DATE >= datenow).OrderByDescending(x=>x.CONTRACT_NO).FirstOrDefault().BIRTH_DATE;
             var today = DateTime.Today;
             var age = today.Year - (EmpBithdate == null ? today.Year : EmpBithdate.Value.Year);
             string Adaltation = "Child";
@@ -2894,7 +2898,9 @@ namespace DMS_TEST.Controllers
         //Gender Validation
         public JsonResult GenderValidationDiagnoses(string CardId, string DiagnosesCode, string Id)
         {
-            var EmpGender = db.Comp_Employees.Where(x => x.CARD_ID == CardId).FirstOrDefault().GENDER;
+            DateTime datenow = DateTime.Now.Date;
+            var EmpGender = db.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= datenow
+            && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().GENDER;
             var Gender = db.Diagnosis.Where(x => x.DIAG_CODE == DiagnosesCode).FirstOrDefault().Gender;
             if (Id == "1")
             {
@@ -2913,7 +2919,9 @@ namespace DMS_TEST.Controllers
         //Age Validation
         public JsonResult AgeValidationDiagnoses(string CardId, string AgeCode, string Id)
         {
-            var EmpBithdate = db.Comp_Employees.Where(x => x.CARD_ID == CardId).FirstOrDefault().BIRTH_DATE;
+            DateTime datenow = DateTime.Now.Date;
+            var EmpBithdate = db.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= datenow
+            && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().BIRTH_DATE;
             var today = DateTime.Today;
             var age = today.Year - (EmpBithdate == null ? today.Year : EmpBithdate.Value.Year);
             string Adaltation = "Child";

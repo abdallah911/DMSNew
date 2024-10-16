@@ -493,7 +493,8 @@ namespace DMS_TEST.Controllers
                 {
                     try
                     {
-                        PostSMSData("Your medication card has been dispensed . If it is not used, please call 0226390390", modelSms.Phone);
+                        PostSMSData("Your medication card has been dispensed . If it is not used, please call 0226390390 \n download claim :" +
+                            "https://sios-eg.com/NetworkMedical/PrintRoshita/" + roshita.Id, modelSms.Phone);
 
                     }
                     catch (Exception)
