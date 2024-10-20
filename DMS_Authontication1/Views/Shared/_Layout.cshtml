@@ -184,7 +184,8 @@
                                             </li>
                                             @*<li><a href="@Url.Action("CompanyProfile", "Home")">Patient Services</a></li>*@
                                             <li><a href="@Url.Action("Search", "Home")" class="link-item" id="ourNetwork">Our Network</a></li>
-                                            <li><a href="@Url.Action("CompanyProfile", "Home")" class="link-item" id="profile">Profile</a></li>
+                                            <li>@*<a href="@Url.Action("CompanyProfile", "Home")" class="link-item" id="profile">Profile</a>*@</li>
+                                            <li><a href="@Url.Action("index", "home")#companyProfile" class="link-item" id="profile">Profile</a></li>
                                             <li><a href="@Url.Action("Clients", "Home")" class="link-item" id="ourClients">Our Clients</a></li>
                                             @*<li><a href="@Url.Action("OnlineSystem", "Home")class="link-item" id="onlineSystem">Online System</a></li>*@
                                             <li><a href="@Url.Action("Services", "Home")" class="link-item" id="dMSServices">DMS Services</a></li>
@@ -372,6 +373,7 @@
     <script src="~/assets/global/plugins/design/tabs/themetwo/js/main.js"></script>
     <!--Tabs Two End-->
     <script src="~/assets/HomeTemplete/js/intro.js"></script>
+
     <script>
         $(document).ready(function () {
 
