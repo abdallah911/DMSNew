@@ -150,7 +150,7 @@
 <body>
 
     <header class="site-header">
-        <div class="nav-bar position-fixed bg-white">
+        <div class="nav-bar ">
             <div class="container">
                 <div class="row">
                     <nav class="col-12 d-flex flex-wrap justify-content-between align-items-center">
@@ -375,8 +375,32 @@
     <script src="~/assets/HomeTemplete/js/intro.js"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function () { 
+            // Get the section position (change the ID to your section)
+            //var sectionTop = $('#section2').offset().top;
+         
+            // Listen for scroll events
+            $(window).on('scroll', function () {
+                // Check how far you've scrolled
+                var scrollPosition = $(window).scrollTop();
+         
+                // If the scroll position is greater than or equal to the top of the section, change style
+                if (scrollPosition >= 100) {
+                    $('.nav-bar').css({
+                        'position': 'fixed',  // New style
+                        'background-color': 'white',
+                        'box-shadow': '0 0 7px 3px #210d203d'
+                    });
+                } else {
+                    // Revert to the original style when not in the section
+                    $('.nav-bar').css({
+                        'position': 'unset',  // New style
+                        'background-color': 'transparent',
+                        'box-shadow': 'none'
 
+                    });
+                }
+            }); 
             $(function () {
                 $(".date-input").datepicker();
             });
