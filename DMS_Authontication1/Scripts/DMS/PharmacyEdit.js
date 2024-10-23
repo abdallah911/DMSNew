@@ -1397,8 +1397,8 @@ function changeTable(button) {
     Calculation();
 }
 function changeTotalDuration(button) {
-    var MinDay = (ServiceCode == "11601") ? 5 : 1;
-    var MaxDay = (ServiceCode == "11601") ? 14 : 28;
+    var MinDay = /*(ServiceCode == "11601") ? 5 :*/ 1;
+    var MaxDay = /*(ServiceCode == "11601") ? 14 :*/ 28;
     if (CompId == "888") {
         MinDay = 1;
         MaxDay = 28;
@@ -1409,7 +1409,7 @@ function changeTotalDuration(button) {
     Duration = isNaN(Duration) ? 1 : (MaxDay > Duration) ? Duration : MaxDay;
     TotalDuration = isNaN(TotalDuration) || TotalDuration < MinDay || TotalDuration < Duration ?
         ((Duration < MinDay) ? MinDay : Duration)
-        : ((TotalDuration > MaxDay) ? MaxDay : TotalDuration);
+        : ((TotalDuration > MaxDay) ? MaxDay : TotalDuration > Duration ? Duration : TotalDuration);
     $("TD", row).find(".Duration").val(Duration);
     $("TD", row).find(".TotalDuration").val(TotalDuration);
     if (!(CardId.split('-')[0].includes("500"))) {

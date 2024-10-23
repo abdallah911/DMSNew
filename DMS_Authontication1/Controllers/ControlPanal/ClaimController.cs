@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using DMS_Authontication1.Models;
 using DMS_Authontication1.ViewModel;
+using Newtonsoft.Json;
 
 namespace DMS_Authontication1.Controllers
 {
@@ -80,6 +81,7 @@ namespace DMS_Authontication1.Controllers
         // GET: Specialities/Create
         public ActionResult Create()
         {
+            ViewBag.ddlSpeciality = new SelectList(db.Specialities1, "SPEC_ID", "SPEC_ANAME");
             return View();
         }
 
@@ -95,9 +97,12 @@ namespace DMS_Authontication1.Controllers
                     ViewBag.error = "yes";
                     return View(model);
                 }
+
+                var DiagnoisesList = JsonConvert.DeserializeObject<List<string>>(model.DiagnoisesJson);
                 var entity = new ClaimPhoto();
                 entity.ClaimNumber = model.ClaimNumber;
                 entity.CardId = model.CardId;
+                entity.Speciality = model.Speciality;
                 entity.IsDispense = false;
                 entity.IsDespenseLab = false;
                 entity.IsDespenseRay = false;
@@ -112,11 +117,19 @@ namespace DMS_Authontication1.Controllers
                     model.ImageFile.SaveAs(Server.MapPath("/Content/Claims/" + fileName /*ImageFile.FileName*/));
                     entity.Url = "~/Content/Claims/" + fileName;
                 }
+                foreach (var item in DiagnoisesList)
+                {
+                    entity.ClaimPhotoDiagnoises.Add(new ClaimPhotoDiagnoise
+                    {
+                        DiagnoiseName = item,
+                    });
+                }
                 db.ClaimPhotoes.Add(entity);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.error = "yes";
+            ViewBag.ddlSpeciality = new SelectList(db.Specialities1, "SPEC_ID", "SPEC_ANAME");
             return View(model);
         }
 

@@ -1256,7 +1256,52 @@ $(function () {
             url: '/Pharmacy/HaveClaimPhoto',
             data: { id: CardId, claimnum: $("#ClaimNumber").val(), type: 'Pharm' },
             success: function (returndata) {
+                debugger;
                 if (returndata.ok) {
+                    if (returndata.diagnoisesList.length > 0) {
+                        $("#divSpeciality").hide();
+                        $("#divDiagnoises").hide();
+
+                        let $element = $('#ddlSpeciality');
+                        var tVal = $element.find("option:contains('" + returndata.speciality + "')").val();
+                        $element.val(tVal).trigger('change.select2');
+                        $.ajax({
+                            type: 'POST',
+                            url: '/Pharmacy/getDiag/',
+                            dataType: 'json',
+                            data: { id: $("#ddlSpeciality").val() },
+                            success: function (r) {
+                                $('#ddlDiagnoises').empty();
+                                var result = [];
+                                for (var i = 0; i < r.length; i++) {
+                                    var current = {};
+                                    current.id = r[i].Code;
+                                    current.text = r[i].Name;
+                                    result.push(current);
+                                }
+                                $('#ddlDiagnoises').select2({
+                                    data: result
+                                });
+                                let $element2 = $('#ddlDiagnoises');
+                                var stVal = new Array();
+                                for (var i = 0; i < returndata.diagnoisesList.length; i++) {
+                                    stVal[i] = $element2.find("option:contains('" + returndata.diagnoisesList[i] + "')").val();
+                                    console.log(returndata.diagnoisesList[i]);
+                                }
+                                $element2.val(stVal).trigger('change.select2');
+
+
+                            },
+                            error: function (ex) {
+                                bootbox.alert('Failed to retrieve Diagnoses , please check your internet connection');
+                                $("#wait").css("display", "none");
+
+                            }
+
+                        });
+                        
+                    }
+                    
                     bootbox.dialog({
                         closeButton: false,
                         title: 'Claim Photo',
@@ -1283,6 +1328,8 @@ $(function () {
                     });
                 }
                 else {
+                    $("#divSpeciality").show();
+                    $("#divDiagnoises").show();
                     //bootbox.alert(' No Company Name ');
                 }
             }

@@ -17,6 +17,10 @@ namespace DMS_Authontication1.ViewModel
         public string Url { get; set; }
         public bool? IsDispense { get; set; }
         public HttpPostedFileBase ImageFile { get; set; }
+        public string Speciality { get; set; }
+        public string DiagnoisesJson { get; set; }
+
+        public virtual ICollection<ClaimPhotoDiagnoise> ClaimPhotoDiagnoises { get; set; }
 
     }
 }
