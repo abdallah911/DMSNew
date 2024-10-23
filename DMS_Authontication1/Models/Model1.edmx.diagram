@@ -203,6 +203,8 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CptData" Width="1.5" PointX="37.375" PointY="44.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.IcdData" Width="1.5" PointX="39.375" PointY="44.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompIcdCpt" Width="1.5" PointX="45.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ClaimPhotoDiagnoise" Width="1.5" PointX="29.625" PointY="47" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_ClaimPhotoDiagnoise_ClaimPhoto" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

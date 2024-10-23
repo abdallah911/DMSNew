@@ -109,7 +109,7 @@
                                 @Html.EditorFor(modelItem => item.Dose, new { htmlAttributes = new { @class = "form-control Dose", @onkeyup = "changeTable(this);", id = "Dosee", @type = "text" } })
                             </td>
                             <td>
-                                @Html.EditorFor(modelItem => item.Duration, new { htmlAttributes = new { @class = "form-control Duration", @onkeyup = "changeTable(this);", id = "Durationn", @type = "text" } })
+                                @Html.EditorFor(modelItem => item.Duration, new { htmlAttributes = new { @class = "form-control Duration", @onkeyup = "changeTotalDuration(this);changeTable(this);", id = "Durationn", @type = "text" } })
                             </td>
                             <td>
                                 @Html.EditorFor(modelItem => item.TotalDuration, new { htmlAttributes = new { @class = "form-control TotalDuration", onfocusout = "changeTotalDuration(this);", id = "TotalDuration", @type = "text" } })
