@@ -493,7 +493,7 @@ namespace DMS_TEST.Controllers
                 {
                     try
                     {
-                        PostSMSData("Your medication card has been dispensed . If it is not used, please call 0226390390 \n download claim :" +
+                        PostSMSData("تم صرف العلاج الخاص بكم للاطلاع على التفاصيل اضغط على اللينك:" +
                             "https://sios-eg.com/NetworkMedical/PrintRoshita/" + roshita.Id, modelSms.Phone);
 
                     }
@@ -548,7 +548,7 @@ namespace DMS_TEST.Controllers
                 "</SubmitSMSRequest>";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://e3len.vodafone.com.eg/web2sms/sms/submit/");
             byte[] bytes;
-            bytes = System.Text.Encoding.ASCII.GetBytes(requestXml);
+            bytes = System.Text.Encoding.UTF8.GetBytes(requestXml);
             request.ContentType = "application/xml; encoding='utf-8'";
             request.ContentLength = bytes.Length;
             request.Method = "POST";

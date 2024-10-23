@@ -54,6 +54,12 @@ namespace DMS_TEST.Controllers
             return View();
         }
         [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
+        public ActionResult Send()
+        {
+            PostSMSData("test", "01114105427");
+            return View();
+        }
+        [Authorize(Roles = "Admin,Pharmacy,Pharmacy_Admin")]
         public ActionResult CardCode()
         {
             return View();
@@ -530,7 +536,7 @@ namespace DMS_TEST.Controllers
                 else if (type == "Lab")
                 {
                     var claim = db.ClaimPhotoes.Where(r => r.CardId == id && r.ClaimNumber == claimnum && r.IsDispense == false
-                    && r.IsDespenseLab == false && r.IsDeleted == false).Include(x=>x.ClaimPhotoDiagnoises).FirstOrDefault();
+                    && r.IsDespenseLab == false && r.IsDeleted == false).Include(x => x.ClaimPhotoDiagnoises).FirstOrDefault();
                     if (claim != null)
                     {
                         var DiagnoiseList = new List<string>();
@@ -2762,7 +2768,7 @@ namespace DMS_TEST.Controllers
                 "</SubmitSMSRequest>";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://e3len.vodafone.com.eg/web2sms/sms/submit/");
             byte[] bytes;
-            bytes = System.Text.Encoding.ASCII.GetBytes(requestXml);
+            bytes = System.Text.Encoding.UTF8.GetBytes(requestXml);
             request.ContentType = "application/xml; encoding='utf-8'";
             request.ContentLength = bytes.Length;
             request.Method = "POST";
@@ -2849,7 +2855,7 @@ namespace DMS_TEST.Controllers
         {
             DateTime datenow = DateTime.Now.Date;
             var EmpGender = db.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= datenow
-            && x.INS_END_DATE >= datenow).OrderByDescending(x=>x.CONTRACT_NO).FirstOrDefault().GENDER;
+            && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().GENDER;
             var MedicineGender = db.MedicineDatas.Where(x => x.M_CODE == MedicineCode).FirstOrDefault().DiagnoiseGender;
             if (Id == "1")
             {
@@ -2870,7 +2876,7 @@ namespace DMS_TEST.Controllers
         {
             DateTime datenow = DateTime.Now.Date;
             var EmpBithdate = db.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= datenow
-            && x.INS_END_DATE >= datenow).OrderByDescending(x=>x.CONTRACT_NO).FirstOrDefault().BIRTH_DATE;
+            && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().BIRTH_DATE;
             var today = DateTime.Today;
             var age = today.Year - (EmpBithdate == null ? today.Year : EmpBithdate.Value.Year);
             string Adaltation = "Child";
@@ -4137,7 +4143,15 @@ namespace DMS_TEST.Controllers
                 {
                     try
                     {
-                        PostSMSData("Your medication card has been dispensed . If it is not used, please call 0226390390", model.Phone);
+                        if (roshita1.Manager == "Pharmacy_Chronic")
+                        {
+                            PostSMSData("تم صرف العلاج الخاص بكم للاطلاع على التفاصيل اضغط على اللينك:" +
+                            "https://sios-eg.com/NetworkMedical/PrintRoshita/" + roshita1.Id, model.Phone);
+                        }
+                        else
+                        {
+                            PostSMSData("Your medication card has been dispensed . If it is not used, please call 0226390390", model.Phone);
+                        }
 
                     }
                     catch (Exception)
@@ -4337,7 +4351,7 @@ namespace DMS_TEST.Controllers
                 string accptionlistString = "";
                 var DataService1 = new Comp_Customized_D_D();
                 var med_card = new Med_Card();
-                int? NoOver = 0, NoPay = 0, AcceptionId=0;
+                int? NoOver = 0, NoPay = 0, AcceptionId = 0;
                 double CellingPert;
                 var DataService = db.Comp_Customized_D_D_Emp.Where(c => c.C_COMP_ID == patient.C_COMP_ID && c.CONTRACT_NO == patient.CONTRACT_NO && c.SER_SERV == data.RoshetaType && c.CARD_ID == patient.CARD_ID).FirstOrDefault();
                 if (DataService == null)

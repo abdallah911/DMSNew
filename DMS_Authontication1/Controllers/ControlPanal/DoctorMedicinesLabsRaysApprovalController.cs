@@ -220,7 +220,7 @@ namespace DMS_Authontication1.Controllers.ControlPanal
                 "</SubmitSMSRequest>";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://e3len.vodafone.com.eg/web2sms/sms/submit/");
             byte[] bytes;
-            bytes = System.Text.Encoding.ASCII.GetBytes(requestXml);
+            bytes = System.Text.Encoding.UTF8.GetBytes(requestXml);
             request.ContentType = "application/xml; encoding='utf-8'";
             request.ContentLength = bytes.Length;
             request.Method = "POST";
