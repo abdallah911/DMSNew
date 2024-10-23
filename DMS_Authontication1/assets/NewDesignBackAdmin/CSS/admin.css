@@ -241,13 +241,13 @@ input {
 }
 
 ::-webkit-scrollbar-track {
-    background: #c8cbdb;
-    border-radius: 20px;
+    background: #d3c8db;
+    border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #9195a7;
-    border: 4px solid #c8cbdb;
+    background: #9b91a7;
+    border: 4px solid #d3c8db;
     width: 24px;
     border-radius: 15px;
 }
@@ -384,6 +384,7 @@ div.select2-60 {
 }
 .select2-60 span.select2-selection.select2-selection--multiple {
     height: 60px;
+    padding-right:0;
 }
 .select2-60 textarea.select2-search__field {
     width: 100% !important;
@@ -614,14 +615,29 @@ span.select2.select2-container.select2-container--default {
 }
 /* ====================permission Table=========================================== */
 .jsgrid-header-row > .jsgrid-header-cell {
-    background-color: #86aef770 !important;
+    background-color: #67259570 !important;
     font-weight: 700 !important;
     font-size: 12px;
 }
-.jsgrid-row td.jsgrid-cell {
-    background-color: #0000000d !important;
-
+.jsgrid-header-sort {
+    position: relative;
 }
+.jsgrid-header-sort:before,
+.jsgrid-header-sort-asc:before {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 4px;
+}
+    .jsgrid-header-sort:before {
+        border-color: #ffffff transparent transparent !important;
+    }
+    .jsgrid-header-sort-asc:before {
+        border-color: transparent transparent #ffffff !important;
+    }
+    .jsgrid-row td.jsgrid-cell {
+        background-color: #0000000d !important;
+    }
 td.jsgrid-cell {
     border-color: #ebe9e9;
     background-color: transparent !important;
@@ -1419,12 +1435,45 @@ p.count-p {
     }
 
 
-  .nav-link:focus, .nav-link:hover {
-    color: #c8bec8;
+.nav-link:focus, .nav-link:hover {
+    color: #e7e7e7;
     border: none;
 }
+.nav-link:focus, .nav-link:hover i{
+    color: #e7e7e7; 
+}
 nav > div > div .nav-link:hover {
-    box-shadow: inset #2303231c 0px 0px 60px -12px;
+    /*box-shadow: inset #2303231c 0px 0px 60px -12px;*/
+}
+@media (max-width:991px){
+    nav > div > div .nav-link{ 
+        padding: 10px;
+        border-radius:12px;
+    }
+    nav > div > div .nav-link:hover {
+        background: white;
+        color: var(--color-secondary);
+        transition: 0.2s all ease-in;
+    }
+  
+    nav > div > div .nav-link:hover i {
+        color: var(--color-secondary);
+        transition: 0.2s all ease-in;
+    }
+    nav > div > div .nav-link:focus {
+        background: white;
+        color: var(--color-secondary);
+        transition: 0.2s all ease-in;
+    }
+
+    nav > div > div .nav-link:focus i {
+        color: var(--color-secondary);
+        transition: 0.2s all ease-in;
+    }
+   .Admin-main-ul .dropdown-menu {
+       top: 120%; 
+   }
+
 }
 .Admin-main-ul:not(:first-child) {
     margin-left: 15px;
@@ -4575,7 +4624,7 @@ button.vjs-big-play-button {
 .logo-white {
     width: 140px;
     margin-top: 10px;
-    background-image: url(../../NewDesignBackAdmin/Img/logo-subtitle-silver.png);
+    background-image: url(../../NewDesignBackAdmin/Img/logo.png);
     background-size: contain;
     margin-right: 3rem;
     opacity: 0.8;

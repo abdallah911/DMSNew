@@ -41,6 +41,30 @@ function setInputFilter(textbox, inputFilter) {
         });
     });
 }
+$(document).ready(function () {
+    $('#expandVertical').on('click', function () {
+        $(this).addClass('d-none');
+        $('#expandHorisontal').removeClass('d-none');
+        $('.ddlDiagnoises ul#select2-ddlDiagnoises-container')
+            .css({
+                'overflow-y': 'scroll',
+                'overflow-x': 'hidden',
+                'flex-wrap': 'wrap',
+                ' height': '45px !important',
+            });
+    });
+    $('#expandHorisontal').on('click', function () {
+        $(this).addClass('d-none');
+        $('#expandVertical').removeClass('d-none');
+        $('.ddlDiagnoises ul#select2-ddlDiagnoises-container')
+            .css({
+                'overflow-y': 'hidden',
+                'overflow-x': 'scroll',
+                'flex-wrap': 'nowrap',
+                ' height': 'unset',
+            });
+    });
+});
 var exceptionHospital = null;
 var exceptionLabRay = null;
 $(function () {

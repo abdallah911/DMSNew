@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="col-4 ">
-                <button id="S earch" type="button" class="btn btn-primary fw-bold">
+                <button id="S earch" type="button" class="btn fw-bold">
                     <i class="fa-solid fa-magnifying-glass me-1"></i> Search
                 </button>
             </div>
@@ -47,8 +47,8 @@
             <h3 class="mb-0 panel-heading">Card ID</h3>
         </div>
     </div>
-    <div class="row container mx-auto">
-        <div class=" row row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-gap-3  m-auto m-sm-0 text-center form-group">
+    <div class="row row-cols-sm-2  row-gap-2 container mx-auto">
+        <div class=" row row-cols-md-3 row-cols-xl-5 row-gap-2 col-md-12 col-lg-6 col-xl-12 px-0 m-auto m-sm-0 text-center form-group">
 
             <div class="  forLabel admin-form-control   border-0 px-2  ">
 
@@ -82,7 +82,9 @@
                 <span>
                     @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
                 </span>
-            </div>
+            </div> 
+        </div>
+        <div class="row row-cols-md-3 row-cols-lg-2 row-cols-xl-5 row-gap-2 col-md-12 col-lg-6 col-xl-12 px-0 m-auto m-sm-0 text-center" style="height:fit-content;">
             <div class="forLabel select2-60  admin-form-control  border-0 px-2">
                 @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "admin-form-control w-100 h-100   rounded-3", @required = "required", @ReadOnly = "true" } })
                 <span>
@@ -102,9 +104,6 @@
                     @Html.Label("Diagnoise", new { @class = "control-label" })
                 </span>
             </div>
-
-
-
         </div>
     </div>
 
@@ -148,7 +147,7 @@
 
 
 
-    <div class=" row row-cols-sm-2 row row-cols-sm-2 row-gap-3 d-flex flex-wrap flex-md-nowrap justify-content-center m-3 mt-4 mt-4">
+    <div class=" row row-cols-sm-2 row row-cols-sm-2 row-gap-2 d-flex flex-wrap flex-md-nowrap justify-content-center mx-4 mt-4">
         <div class="  forLabel  admin-form-control border-0 px-2     ">
 
             <input type="text" class="admin-form-control h-100 w-100" disabled />
@@ -161,7 +160,7 @@
         </div>
     </div>
 
-    <div class="row row-cols-sm-2 d-flex flex-wrap row-gap-3 flex-md-nowrap justify-content-center m-3 mt-4">
+    <div class="row row-cols-sm-2 d-flex flex-wrap row-gap-2 flex-md-nowrap justify-content-center mx-4 mt-2">
 
 
         <div class="  forLabel   admin-form-control border-0 px-2     ">
@@ -223,7 +222,7 @@
         <!--Caculation-->
     </div>
     <div class="row container mx-auto row">
-        <div class=" row row-cols-sm-2 row-cols-lg-3 row-gap-2 mb-4 form-group">
+        <div class=" row row-cols-sm-2 row-cols-lg-3 row-gap-2 mx-auto mb-4 form-group">
             <div class="forLabel admin-form-control border-0 px-2">
 
                 <input id="txtTotalInvoice" type="text" class="admin-form-control w-100 h-100   rounded-3" ReadOnly="readonly" />
