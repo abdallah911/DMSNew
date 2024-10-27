@@ -47,6 +47,7 @@
 
     <link href="~/assets/admindashdoardmenu/sidebarmenu.css" rel="stylesheet" type="text/css" />
     <style>
+
         .market {
             padding: 20px;
             font-size: 20px !important;
@@ -113,8 +114,117 @@
             opacity: 0.5;
             filter: alpha(opacity=50);
         }
-    </style>
 
+    </style>
+    <style>
+        /*==============================Abdulrahman================================================================*/
+
+        /* ====================footer========================================== */
+        footer div.footer {
+            background: transparent;
+            padding: 30px;
+        }
+
+        .footer h5 {
+            font-weight: bolder !important;
+        }
+
+        .footerP2 {
+            position: relative;
+            margin-left: 50px;
+        }
+
+            .footerP2::before {
+                content: "";
+                position: absolute;
+                width: 3px;
+                height: 90px;
+                margin-right: 20px;
+                border-radius: 50% !important;
+                top: 10%;
+                background-color: #4f4f4f;
+                left: -50px;
+            }
+
+        .footerP3 {
+            position: relative;
+            margin-left: 50px;
+        }
+
+            .footerP3::before {
+                content: "";
+                position: absolute;
+                width: 3px;
+                height: 90px;
+                margin-right: 20px;
+                border-radius: 50% !important;
+                top: 10%;
+                background-color: #4f4f4f;
+                left: -50px;
+            }
+
+        .footerP1 p {
+            letter-spacing: 1px;
+        }
+
+        .line {
+            background-color: white;
+            height: 5px;
+            width: 95px;
+            margin-left: 10px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+
+        .logo-white {
+            width: 140px;
+            margin-top: 10px;
+            background-image: url(../../../HomeTemplete/img/DMS_Logo.png);
+            background-size: contain;
+            margin-right: 3rem;
+            opacity: 0.8;
+            background-repeat: no-repeat;
+            transition: all 0.2s ease-in-out;
+        }
+
+            .logo-white:hover {
+                opacity: 1;
+            }
+
+        .footer-contacts-icon {
+            background: #ffffff;
+            -webkit-border-radius: 100%;
+            -moz-border-radius: 100%;
+            -ms-border-radius: 100%;
+            border-radius: 100%;
+            height: 20px;
+            width: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .footer-contacts-icon i {
+                line-height: 58px;
+                color: #72369a;
+                font-size: 10px;
+            }
+
+        .footer-contacts-text li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+            .footer-contacts-text li h6 {
+                margin-bottom: 0;
+                font-weight: bold;
+            }
+        .footer-contacts-text h6{
+            white-space:normal;
+        }
+    </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-227248876-1"></script>
     <script>
@@ -161,11 +271,11 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
 
-                <a href="~/Home/Index"><img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="width: 75px;height:50px;" /></a>
+                <a href="~/Home/Index"><img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="width: 90px;margin-top: 10px;" /></a>
 
                 <ul class="nav navbar-nav nav-admin-cus" style="color: #000">
                     @{
-                        if ((User.IsInRole("Admin")||User.IsInRole("AdminHelth")) && User.Identity.IsAuthenticated)
+                        if ((User.IsInRole("Admin") || User.IsInRole("AdminHelth")) && User.Identity.IsAuthenticated)
                         {
                             <li>
                                 <a><span class="collaps"><i class="fa fa-lg fa-times" aria-hidden="true"></i></span></a>
@@ -173,9 +283,9 @@
                         }
                     }
                     @{
-                        if ((User.IsInRole("Admin") || User.IsInRole("Pharmacy")|| User.IsInRole("AdminHelth") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
+                        if ((User.IsInRole("Admin") || User.IsInRole("Pharmacy") || User.IsInRole("AdminHelth") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
                         {
-                            if (User.IsInRole("Admin")||User.IsInRole("AdminHelth"))
+                            if (User.IsInRole("Admin") || User.IsInRole("AdminHelth"))
                             {
                                 if (modellist != null)
                                 {
@@ -204,9 +314,9 @@
                         }
                     }
                     @{
-                        if (User.IsInRole("Admin") ||User.IsInRole("AdminHelth") || User.IsInRole("Rays") || User.IsInRole("Rays_Admin"))
+                        if (User.IsInRole("Admin") || User.IsInRole("AdminHelth") || User.IsInRole("Rays") || User.IsInRole("Rays_Admin"))
                         {
-                            if (User.IsInRole("Admin")||User.IsInRole("AdminHelth"))
+                            if (User.IsInRole("Admin") || User.IsInRole("AdminHelth"))
                             {
                                 if (modellist != null)
                                 {
@@ -236,9 +346,9 @@
                         }
                     }
                     @{
-                        if (User.IsInRole("Admin") ||User.IsInRole("AdminHelth") || User.IsInRole("Lab") || User.IsInRole("Lab_Admin"))
+                        if (User.IsInRole("Admin") || User.IsInRole("AdminHelth") || User.IsInRole("Lab") || User.IsInRole("Lab_Admin"))
                         {
-                            if (User.IsInRole("Admin")||User.IsInRole("AdminHelth"))
+                            if (User.IsInRole("Admin") || User.IsInRole("AdminHelth"))
                             {
                                 if (modellist != null)
                                 {
@@ -430,7 +540,7 @@
     </div>
     @* container *@
     @{
-        if (User.IsInRole("Admin") ||User.IsInRole("AdminHelth") || User.IsInRole("Doctor"))
+        if (User.IsInRole("Admin") || User.IsInRole("AdminHelth") || User.IsInRole("Doctor"))
         {
             <div class="wrap">
                 <aside id="side-menu" class="aside" role="navigation">
@@ -730,50 +840,103 @@
                             <span class='burger_inside' id='bgrThree'></span>
                         </a>
                     </div>
-                    <section class="content-inner">
+                    <section class="content-inner" style="padding-left:0;">
                         @RenderBody()
                         <div>
-                            <footer class="site-footer">
-                                <div class="footer-widgets">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-12 col-md-6 col-lg-4">
+                            <footer style="background: var(--color-gradient); ">
+                                <div class="footer ">
+                                    <div class="container-fluid ">
+                                        <div class="row m-auto d-flex justify-content-center">
+                                            <div class="col-md-3 me-4">
                                                 <div class="foot-about">
-                                                    <div class="img d-flex align-self-stretch" style="width: 75px;height:50px;">
+                                                    <div class="img d-flex align-self-stretch">
                                                         <a href="#"></a>
-                                                        <img src="~/assets/HomeTemplete/img/DMS_Logo.png" />
+                                                        <img class="logo-white"
+                                                             src="~/assets/HomeTemplete/img/DMS_Logo.png"
+                                                             alt="" />
                                                     </div>
-                                                    <p>Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.</p>
-                                                    <p class="copyright">
-                                                    <p>&copy; @DateTime.Now.Year - DMS Application</p>
-                                                    </p>
-                                                </div><!-- .foot-about -->
+                                                </div>
                                             </div>
-                                            <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
-                                                <div class="foot-contact">
-                                                    <h2>Contact</h2>
-                                                    <ul class="p-0 m-0">
-                                                        <li><span>Address:</span>12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>
+                                            <div class="col-md-4">
+                                                <div class="footerP2">
+                                                    <h2 class="mb-1 text-white fw-bold" style="font-size:24px;">Contact</h2>
+                                                    <div class="line ms-0 mb-3" style="width:95px"></div>
+                                                    <ul class="p-0 m-0 mt-1 footer-contacts-text" style="white-space:nowrap">
+                                                        <li>
+                                                            <div class="footer-contacts-icon"><i class="fas fa-map"></i></div>
+                                                            <h6>   12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</h6>
+
+                                                        </li>
                                                         @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
-                                                        <li><span>Phone:</span>+ 0226390390</li>
-                                                        <li><span>Email:</span>Contact@dms-eg.com</li>
+                                                        <li>
+                                                            <div class="footer-contacts-icon"><i class="fas fa-phone fa-rotate-90 "></i></div>
+                                                            <h6> + 0226390390</h6>
+                                                        </li>
+                                                        <li>
+                                                            <div class="footer-contacts-icon"><i class="fas fa-paper-plane "></i></div>
+                                                            <h6> Contact@dms-eg.com</h6>
+
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
-                                            @*<div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
-                                                    <div class="foot-links">
-                                                        <h2>Get DMS For Mobile</h2>
-                                                        <ul class="p-0 m-0">
-                                                            <li><a href="https://play.google.com/store/apps/details?id=com.dmsegypt.dms"> <img src="~/assets/HomeTemplete/img/elements/iconfinder_android-app-on-google-play_720092.png" alt="HTML tutorial" style="width:180px;height:180px;border:0; position:relative;top:-63px;"></a></li>
-                                                            <li class="appstoreicon"><a href="https://apps.apple.com/eg/app/dms-egypt/id1440027807"><img src="~/assets/HomeTemplete/img/elements/appstore.png" alt="HTML tutorial" style="width:180px;height:55px;border:0;"></a></li>
+                                            <div class="col-md-4 ms-lg-4">
+                                                <div class="footerP3">
+                                                    <p style=" font-size: 14px; line-height: 2;">
+                                                        Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.
+                                                        <br />
+                                                        <i class="copyright mt-0">
+                                                            <span>&copy; @DateTime.Now.Year - DMS Application</span>
+                                                        </i>
+                                                    </p>
 
-                                                        </ul>
-                                                    </div>
-                                                </div>*@<!-- .col -->
-                                        </div><!-- .row -->
-                                    </div><!-- .container -->
-                                </div><!-- .footer-widgets -->
-                            </footer><!-- .site-footer -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </footer>
+                            <!--<footer class="site-footer">
+        <div class="footer-widgets">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="foot-about">
+                            <div class="img d-flex align-self-stretch" style="width: 75px;height:50px;">
+                                <a href="#"></a>
+                                <img src="~/assets/HomeTemplete/img/DMS_Logo.png" />
+                            </div>
+                            <p>Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.</p>
+                            <p class="copyright">
+                            <p>&copy; @DateTime.Now.Year - DMS Application</p>
+                            </p>
+                        </div><!-- .foot-about -->
+                            <!--</div>
+    <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+        <div class="foot-contact">
+            <h2>Contact</h2>
+            <ul class="p-0 m-0">
+                <li><span>Address:</span>12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>-->
+                            @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
+                            <!--<li><span>Phone:</span>+ 0226390390</li>
+                <li><span>Email:</span>Contact@dms-eg.com</li>
+            </ul>
+        </div>
+    </div>-->
+                            @*<div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+            <div class="foot-links">
+                <h2>Get DMS For Mobile</h2>
+                <ul class="p-0 m-0">
+                    <li><a href="https://play.google.com/store/apps/details?id=com.dmsegypt.dms"> <img src="~/assets/HomeTemplete/img/elements/iconfinder_android-app-on-google-play_720092.png" alt="HTML tutorial" style="width:180px;height:180px;border:0; position:relative;top:-63px;"></a></li>
+                    <li class="appstoreicon"><a href="https://apps.apple.com/eg/app/dms-egypt/id1440027807"><img src="~/assets/HomeTemplete/img/elements/appstore.png" alt="HTML tutorial" style="width:180px;height:55px;border:0;"></a></li>
+
+                </ul>
+            </div>
+        </div>*@<!-- .col -->
+                            <!--</div>--><!-- .row -->
+                            <!--</div>--><!-- .container -->
+                            <!--</div>--><!-- .footer-widgets -->
+                            <!--</footer>--><!-- .site-footer -->
                         </div>
                     </section>
                 </div>
@@ -787,46 +950,58 @@
                 </div>
             </div>
             <!-- .site-footer -->
-            <footer class="site-footer">
-                <div class="footer-widgets">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12 col-md-6 col-lg-4">
+            <footer style="background: var(--color-gradient); ">
+                <div class="footer ">
+                    <div class="container-fluid ">
+                        <div class="row m-auto d-flex justify-content-center">
+                            <div class="col-md-3 me-4">
                                 <div class="foot-about">
-                                    <div class="img d-flex align-self-stretch" style="width: 75px;height:50px;background-image: url(/assets/HomeTemplete/img/DMS_Logo.png);">
+                                    <div class="img d-flex align-self-stretch">
                                         <a href="#"></a>
-                                        <img src="~/assets/HomeTemplete/img/DMS_Logo.png" />
+                                        <img class="logo-white"
+                                             src="~/assets/HomeTemplete/img/DMS_Logo.png"
+                                             alt="" />
                                     </div>
-                                    <p>Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.</p>
-                                    <p class="copyright">
-                                    <p>&copy; @DateTime.Now.Year - DMS Application</p>
-                                    </p>
-                                </div><!-- .foot-about -->
+                                </div>
                             </div>
-                            <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
-                                <div class="foot-contact">
-                                    <h2>Contact</h2>
-                                    <ul class="p-0 m-0">
-                                        <li><span>Address:</span> 12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>
+                            <div class="col-md-4">
+                                <div class="footerP2">
+                                    <h2 class="mb-1 text-white fw-bold" style="font-size:24px;">Contact</h2>
+                                    <div class="line ms-0 mb-3" style="width:95px"></div>
+                                    <ul class="p-0 m-0 mt-1 footer-contacts-text" style="white-space:nowrap">
+                                        <li>
+                                            <div class="footer-contacts-icon"><i class="fas fa-map"></i></div>
+                                            <h6>   12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</h6>
+
+                                        </li>
                                         @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
-                                        <li><span>Phone:</span>+ 0226390390</li>
-                                        <li><span>Email:</span>Contact@dms-eg.com</li>
+                                        <li>
+                                            <div class="footer-contacts-icon"><i class="fas fa-phone fa-rotate-90 "></i></div>
+                                            <h6> + 0226390390</h6>
+                                        </li>
+                                        <li>
+                                            <div class="footer-contacts-icon"><i class="fas fa-paper-plane "></i></div>
+                                            <h6> Contact@dms-eg.com</h6>
+
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
-                            <!--<div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
-                                <div class="foot-links">
-                                    <h2>Get DMS For Mobile</h2>
-                                    <ul class="p-0 m-0">
-                                        <li><a href="https://play.google.com/store/apps/details?id=com.dmsegypt.dms"> <img src="~/assets/HomeTemplete/img/elements/iconfinder_android-app-on-google-play_720092.png" alt="HTML tutorial" style="width:180px;height:180px;border:0; position:relative;top:-63px;"></a></li>
-                                        <li class="appstoreicon"><a href="https://apps.apple.com/eg/app/dms-egypt/id1440027807"><img src="~/assets/HomeTemplete/img/elements/appstore.png" alt="HTML tutorial" style="width:180px;height:55px;border:0;"></a></li>
-                                    </ul>
-                                </div>-->
-                            <!-- .foot-links -->
-                            <!--</div>--><!-- .col -->
-                        </div><!-- .row -->
-                    </div><!-- .container -->
-                </div><!-- .footer-widgets -->
+                            <div class="col-md-4 ms-lg-4">
+                                <div class="footerP3">
+                                    <p style=" font-size: 14px; line-height: 2;">
+                                        Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.
+                                        <br />
+                                        <i class="copyright mt-0">
+                                            <span>&copy; @DateTime.Now.Year - DMS Application</span>
+                                        </i>
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </footer>
         }
     }
@@ -918,6 +1093,14 @@
                 }
             });
         }
+
+
+
+
+        //==========================================
+        //$(document).ready(function () { 
+        //    $('footer').insertAfter($('.body-content'));
+        //});
     </script>
 
 </body>

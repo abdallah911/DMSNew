@@ -8494,11 +8494,11 @@ h1, h2, h3, h4, h5,
         color: #fff;
     }
 
-.btn.btn-secondary:hover, .btn.btn-secondary:focus, .btn.btn-secondary:active {
-    background: linear-gradient(90deg, #703a96 0%, #c48cc3 50%, #703a96 100%);
-    border:none;
-    color: #fff;
-}
+        .btn.btn-secondary:hover, .btn.btn-secondary:focus, .btn.btn-secondary:active {
+            background: linear-gradient(90deg,#471f5d 0%, #8346accc 50%, #471f5d 100%);
+            border: none;
+            color: #fff;
+        }
 
 .btn-custom {
   font-weight: 500;

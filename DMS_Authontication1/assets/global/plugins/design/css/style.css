@@ -1,7 +1,7 @@
 :root {
-    --color-primary: #471f5c;
-    --color-secondary: #7e63a4;
-    --color-gradient: linear-gradient(45deg, #703a96 0%, #c48cc3 50%, #703a96 100%);
+    --color-primary: #471f5d;
+    --color-secondary: #72369a;
+    --color-gradient: linear-gradient(45deg, #471f5d 0%, #8346accc 50%, #471f5d 100%);
 }
 ::selection {
     background: #744e8b !important;
@@ -373,7 +373,7 @@ input {
     margin-bottom: 0;
     width: 100%;
     height: 100%;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     display: flex;
     justify-content: center;
@@ -484,6 +484,14 @@ p:last-of-type {
 }
 .departments-page.ftco-departments .nav-pills .three-section {
     width: calc(100% / 3) !important;
+}
+.departments-page.ftco-departments .nav-pills .w-100.three-section {
+    width: 100% !important;
+    text-align: start;
+    padding: 5px 20px !important;
+}
+.tab-content > div.show:not(.active.in) {
+    display: none !important;
 }
 .nav-bar {
     height: 80px;

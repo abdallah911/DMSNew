@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700');
 :root {
-    --color-gradient: linear-gradient(45deg, #703a96 0%, #c48cc3 50%, #703a96 100%);
+    --color-gradient: linear-gradient(45deg, #471f5d 0%, #8346accc 50%, #471f5d 100%);
 }
 
 body {
@@ -363,7 +363,8 @@ a:hover, a:active {
 
 .menu .button:hover {
     background: rgb(50,200,250);
-    background: linear-gradient(90deg, #703a96 0%, #c48cc3 50%, #703a96 100%);
+    background: linear-gradient(90deg, #471f5d 0%, #8346accc 50%, #471f5d 100%);
+;
 }
     /*
 # Accordion

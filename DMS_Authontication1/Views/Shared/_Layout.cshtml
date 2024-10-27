@@ -183,13 +183,13 @@
                                                 </div>
                                             </li>
                                             @*<li><a href="@Url.Action("CompanyProfile", "Home")">Patient Services</a></li>*@
-                                            <li><a href="@Url.Action("Search", "Home")" class="link-item" id="ourNetwork">Our Network</a></li>
-                                            <li>@*<a href="@Url.Action("CompanyProfile", "Home")" class="link-item" id="profile">Profile</a>*@</li>
+                                            <li><a href="@Url.Action("Search", "Home")" class="link-item" id="medicalNetworkCore">Medical Network Core</a></li>
+                                            @*<li><a href="@Url.Action("CompanyProfile", "Home")" class="link-item" id="profile">Profile</a></li>*@
                                             <li><a href="@Url.Action("index", "home")#companyProfile" class="link-item" id="profile">Profile</a></li>
-                                            <li><a href="@Url.Action("Clients", "Home")" class="link-item" id="ourClients">Our Clients</a></li>
+                                            <li><a href="@Url.Action("Clients", "Home")" class="link-item" id="ourClients">Success Partners</a></li>
                                             @*<li><a href="@Url.Action("OnlineSystem", "Home")class="link-item" id="onlineSystem">Online System</a></li>*@
                                             <li><a href="@Url.Action("Services", "Home")" class="link-item" id="dMSServices">DMS Services</a></li>
-                                            <li><a data-position='right' href="@Url.Action("Department", "Home")" class="link-item" id="departments">Departments</a></li>
+                                            <li><a data-position='right' href="@Url.Action("Department", "Home")" class="link-item" id="benefits">Our Benefits</a></li>
                                             <li class="link-item">@Html.ActionLink("Contact Us", "ContactUs", "Home", null, new { id = "contactUs" })</li>
                                             @*<li><a data-step="1" data-hint='Step one!' data-intro="Provider Login at Internet Explorer" target="_blank" href="http://195.154.167.181:9001/forms/frmservlet?config=jpi&form=C:%5CFUTSHER%5CMS%5CIT%5CIT_AR%5CLogin_dms.fmx&userid=&otherparams=useSDI=yes&lookAndFeel=generic&colorScheme=blue">oracle Login</a></li>*@
                                             @*<li>@Html.ActionLink("Register", "Register", "Employee", null, null)</li>*@
@@ -410,7 +410,7 @@
             var currentPath = window.location.pathname; 
             // Check if the URL matches 'Home/Services'
             if (currentPath.includes('Home/Search')) { 
-                $('#ourNetwork').addClass('active');
+                $('#medicalNetworkCore').addClass('active');
             } else if (currentPath.includes('Home/CompanyProfile')) {
                 $('#profile').addClass('active');
             } else if (currentPath.includes('Home/Clients')) {
@@ -418,7 +418,7 @@
             } else if (currentPath.includes('Home/Services')) {
                 $('#dMSServices').addClass('active');
             } else if (currentPath.includes('Home/Department')) {
-                $('#departments').addClass('active');
+                $('#benefits').addClass('active');
             } else if (currentPath.includes('Home/ContactUs')) {
                 $('#contactUs').addClass('active');
             }
