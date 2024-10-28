@@ -506,7 +506,7 @@ p:last-of-type {
 
 ::-webkit-scrollbar-track {
     background: #d6c8db;
-    border-radius: 20px;
+    /*border-radius: 20px;*/
 }
 
 ::-webkit-scrollbar-thumb {
