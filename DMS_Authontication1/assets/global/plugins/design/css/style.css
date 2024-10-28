@@ -484,6 +484,7 @@ p:last-of-type {
 }
 .departments-page.ftco-departments .nav-pills .three-section {
     width: calc(100% / 3) !important;
+    background: #dbd2db;
 }
 .departments-page.ftco-departments .nav-pills .w-100.three-section {
     width: 100% !important;
@@ -620,3 +621,9 @@ footer div.footer {
    margin-bottom:0;
    font-weight:bold;
 }
+
+
+
+
+
+
