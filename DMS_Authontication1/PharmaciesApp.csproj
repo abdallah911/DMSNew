@@ -8659,6 +8659,7 @@
     <Content Include="Views\CompIcdCp\Index.cshtml" />
     <Content Include="Views\CompIcdCp\Details.cshtml" />
     <Content Include="Views\Pharmacy\Send.cshtml" />
+    <Content Include="Views\AfterSales\HRData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

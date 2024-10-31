@@ -28,8 +28,11 @@
     <link href="~/assets/global/plugins/jquery-validity/css/jquery.validity.css" rel="stylesheet" />
     <!-- Add By Mohamed Yasser //END-->
     <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/HomeTemplete/Content/css/all.min.css" rel="stylesheet" />   <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
     <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    @*-- bootstrap5 --*@
+    <!--<link href="~/assets/HomeTemplete/Content/css/bootstrap.min.css" rel="stylesheet" />-->
 
     <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
@@ -46,6 +49,8 @@
     @Scripts.Render("~/bundles/modernizr")
 
     <link href="~/assets/admindashdoardmenu/sidebarmenu.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/assets/global/plugins/design/css/style.css" rel="stylesheet" />
     <style>
 
         .market {
@@ -114,15 +119,14 @@
             opacity: 0.5;
             filter: alpha(opacity=50);
         }
-
     </style>
     <style>
         /*==============================Abdulrahman================================================================*/
 
         /* ====================footer========================================== */
         footer div.footer {
-            background: transparent;
-            padding: 30px;
+            background: #e9e9e9;
+            padding: 20px;
         }
 
         .footer h5 {
@@ -142,7 +146,7 @@
                 margin-right: 20px;
                 border-radius: 50% !important;
                 top: 10%;
-                background-color: #4f4f4f;
+                background-color: #afafaf;
                 left: -50px;
             }
 
@@ -169,7 +173,7 @@
 
         .line {
             background-color: white;
-            height: 5px;
+            height: 3px;
             width: 95px;
             margin-left: 10px;
             margin-bottom: 15px;
@@ -178,7 +182,7 @@
 
         .logo-white {
             width: 140px;
-            margin-top: 10px;
+            margin-top: 30px;
             background-image: url(../../../HomeTemplete/img/DMS_Logo.png);
             background-size: contain;
             margin-right: 3rem;
@@ -192,7 +196,7 @@
             }
 
         .footer-contacts-icon {
-            background: #ffffff;
+            background: #9b9b9b;
             -webkit-border-radius: 100%;
             -moz-border-radius: 100%;
             -ms-border-radius: 100%;
@@ -206,7 +210,7 @@
 
             .footer-contacts-icon i {
                 line-height: 58px;
-                color: #72369a;
+                color: #fff;
                 font-size: 10px;
             }
 
@@ -220,9 +224,11 @@
             .footer-contacts-text li h6 {
                 margin-bottom: 0;
                 font-weight: bold;
+                color: #72369a;
             }
-        .footer-contacts-text h6{
-            white-space:normal;
+
+        .footer-contacts-text h6 {
+            white-space: normal;
         }
     </style>
     <!-- Google tag (gtag.js) -->
@@ -487,6 +493,7 @@
                         if (User.IsInRole("AfterSale"))
                         {
                             <li><a href="/AfterSales/Index" class="link-cus">Visits</a></li>
+                            <li><a href="/AfterSales/HRData" class="link-cus">HRData</a></li>
 
                         }
                     }
@@ -543,7 +550,7 @@
         if (User.IsInRole("Admin") || User.IsInRole("AdminHelth") || User.IsInRole("Doctor"))
         {
             <div class="wrap">
-                <aside id="side-menu" class="aside" role="navigation">
+                <aside id="side-menu" style="background: #e0f5fb;height:100%" class="aside h-100" role="navigation">
                     <ul class="nav nav-list accordion">
                         @{
                             if (modellist != null)
@@ -800,6 +807,7 @@
                                     <div class="link"><i class="fa fa-lg fa-shopping-basket"></i>After Sales<i class="fa fa-chevron-down"></i></div>
                                     <ul class="submenu">
                                         <li><a href="/AfterSales/Index">Visits</a></li>
+                                        <li><a href="/AfterSales/HRData">HRData</a></li>
                                     </ul>
                                 </li>
                             }
@@ -846,7 +854,7 @@
                             <footer style="background: var(--color-gradient); ">
                                 <div class="footer ">
                                     <div class="container-fluid ">
-                                        <div class="row m-auto d-flex justify-content-center">
+                                        <div class="row m-auto" style="display:flex;justify-content:center">
                                             <div class="col-md-3 me-4">
                                                 <div class="foot-about">
                                                     <div class="img d-flex align-self-stretch">
@@ -859,17 +867,13 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="footerP2">
-                                                    <h2 class="mb-1 text-white fw-bold" style="font-size:24px;">Contact</h2>
-                                                    <div class="line ms-0 mb-3" style="width:95px"></div>
+                                                    <h2 class="mb-1 text-white fw-bold" style="font-size:24px;font-weight: 500;color: #474747;">Contact</h2>
+                                                    <div class="line ms-0 mb-3" style="width:95px;margin-left: 0;background:#72369ab0;"></div>
                                                     <ul class="p-0 m-0 mt-1 footer-contacts-text" style="white-space:nowrap">
-                                                        <li>
-                                                            <div class="footer-contacts-icon"><i class="fas fa-map"></i></div>
-                                                            <h6>   12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</h6>
 
-                                                        </li>
                                                         @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
                                                         <li>
-                                                            <div class="footer-contacts-icon"><i class="fas fa-phone fa-rotate-90 "></i></div>
+                                                            <div class="footer-contacts-icon"><i class="fas fa-phone "></i></div>
                                                             <h6> + 0226390390</h6>
                                                         </li>
                                                         <li>
@@ -881,15 +885,16 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4 ms-lg-4">
-                                                <div class="footerP3">
-                                                    <p style=" font-size: 14px; line-height: 2;">
-                                                        Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.
-                                                        <br />
-                                                        <i class="copyright mt-0">
-                                                            <span>&copy; @DateTime.Now.Year - DMS Application</span>
-                                                        </i>
-                                                    </p>
+                                                <div class="footerP2">
+                                                    <h2 class="mb-1 text-white fw-bold" style="font-size:24px;font-weight: 500;color: #474747;">Address</h2>
+                                                    <div class="line ms-0 mb-3" style="width:95px;margin-left: 0;background:#72369ab0;"></div>
+                                                    <ul class="p-0 m-0 mt-1 footer-contacts-text" style="white-space:nowrap">
+                                                        <li>
+                                                            <div class="footer-contacts-icon"><i class="fas fa-map"></i></div>
+                                                            <h6>   12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</h6>
 
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>

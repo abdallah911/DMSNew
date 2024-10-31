@@ -25,6 +25,11 @@ namespace DMS_Authontication1.Controllers.AfterSales
         #region Actions
 
         // GET: AfterSales
+
+        public ActionResult HRData()
+        {
+            return View();
+        }
         public ActionResult Index()
         {
             var companyname = db.Contract_Comp.Select(c => new
@@ -53,6 +58,7 @@ namespace DMS_Authontication1.Controllers.AfterSales
             return View();
         }
 
+       
         // GET: AfterSale/Create
         public ActionResult Create()
         {

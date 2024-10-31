@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/icomoon.css">
     <link rel="stylesheet" href="~/assets/global/plugins/design/homecontent/css/style.css">
 
-  
+
     <section class="home-slider owl-carousel px-5">
         <div class="slider-item p-4" style="background-image:url(/assets/global/img/bg_1.jpg); border-radius:30px;">
             <div class="overlay"></div>
@@ -178,9 +178,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>     
+                    </div>
                     <div id="companyProfile"></div>
-                </div> 
+                </div>
             </div>
         </div>
     </section>
@@ -236,7 +236,7 @@
         </div>
     </section>
     <section>
-        <div class="container mx-auto mb-5"> 
+        <div class="container mx-auto mb-5">
             <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center mx-auto" style="gap:20px 0">
                 <div class="opjectives-card-box px-3 ">
                     <div class="pb-4 h-100">
@@ -356,300 +356,150 @@
                         <script src="~/assets/global/plugins/design/homecontent/js/main.js"></script>
                     }
                     else if (User.IsInRole("Admin"))
-                    {
-                        <h1>DMS Dashboard</h1>
+                    { <div style="min-height: calc(100vh - 258px); ">
+                            <h1>DMS Dashboard</h1>
 
-                        <!-- Styles -->
-                        <style>
-                            #ProviderClamesChartDiv {
-                                width: 100%;
-                                height: 7000px;
-                            }
-                        </style>
+                            <!-- Styles -->
+                            <style>
+                                #ProviderClamesChartDiv {
+                                    width: 100%;
+                                    height: 7000px;
+                                }
+                            </style>
 
-                        <!-- Resources -->
-                        <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-                        <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-                        <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
-                        <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-
-                        <!-- Chart code -->
-                        <script> 
-
-                            am4core.ready(function () {
-                                //User Chart
-                                // Create chart instance
-                                var chart = am4core.create("UserChartDiv", am4charts.PieChart);
-                                // Add and configure Series
-                                var pieSeries = chart.series.push(new am4charts.PieSeries());
-                                pieSeries.dataFields.value = "litres";
-                                pieSeries.dataFields.category = "User";
-
-                                // Let's cut a hole in our Pie chart the size of 30% the radius
-                                chart.innerRadius = am4core.percent(50);
-
-                                // Put a thick white border around each Slice
-                                pieSeries.slices.template.stroke = am4core.color("#fff");
-                                pieSeries.slices.template.strokeWidth = 2;
-                                pieSeries.slices.template.strokeOpacity = 1;
-                                pieSeries.slices.template
-                                    // change the cursor on hover to make it apparent the object can be interacted with
-                                    .cursorOverStyle = [
-                                        {
-                                            "property": "cursor",
-                                            "value": "pointer"
-                                        }
-                                    ];
-
-                                pieSeries.alignLabels = false;
-                                pieSeries.labels.template.bent = true;
-                                pieSeries.labels.template.radius = 3;
-                                pieSeries.labels.template.padding(0, 0, 0, 0);
-
-                                pieSeries.ticks.template.disabled = true;
-
-                                // Create a base filter effect (as if it's not there) for the hover to return to
-                                var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
-                                shadow.opacity = 0;
-
-                                // Create hover state
-                                var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
-
-                                // Slightly shift the shadow and make it more prominent on hover
-                                var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
-                                hoverShadow.opacity = 0.7;
-                                hoverShadow.blur = 5;
-
-                                // Add a legend
-                                chart.legend = new am4charts.Legend();
-                                //Clams Chart
-                                var Clameschart = am4core.create("ClamesChartDiv", am4charts.PieChart);
-                                // Add and configure Series
-                                var ClamespieSeries = Clameschart.series.push(new am4charts.PieSeries());
-                                ClamespieSeries.dataFields.value = "litres";
-                                ClamespieSeries.dataFields.category = "Clames";
-
-                                // Let's cut a hole in our Pie chart the size of 30% the radius
-                                Clameschart.innerRadius = am4core.percent(30);
-
-                                // Put a thick white border around each Slice
-                                ClamespieSeries.slices.template.stroke = am4core.color("#fff");
-                                ClamespieSeries.slices.template.strokeWidth = 2;
-                                ClamespieSeries.slices.template.strokeOpacity = 1;
-                                ClamespieSeries.slices.template
-                                    // change the cursor on hover to make it apparent the object can be interacted with
-                                    .cursorOverStyle = [
-                                        {
-                                            "property": "cursor",
-                                            "value": "pointer"
-                                        }
-                                    ];
-
-                                ClamespieSeries.alignLabels = false;
-                                ClamespieSeries.labels.template.bent = true;
-                                ClamespieSeries.labels.template.radius = 3;
-                                ClamespieSeries.labels.template.padding(0, 0, 0, 0);
-
-                                ClamespieSeries.ticks.template.disabled = true;
-
-                                // Create a base filter effect (as if it's not there) for the hover to return to
-                                var shadow = ClamespieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
-                                shadow.opacity = 0;
-
-                                // Create hover state
-                                var hoverState = ClamespieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
-
-                                // Slightly shift the shadow and make it more prominent on hover
-                                var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
-                                hoverShadow.opacity = 0.7;
-                                hoverShadow.blur = 5;
-                                Clameschart.legend = new am4charts.Legend();
-                                //Ajax
-                                $.ajax({
-                                    type: 'POST',
-                                    url: '/Home/getUser/',
-                                    dataType: 'json',
-                                    data: { id: 1 },
-                                    success: function (result) {
-                                        // Add data
-                                        chart.data = [{
-                                            "User": "Oracle",
-                                            "litres": result.OracleUserCount
-                                        }, {
-                                            "User": "SQL",
-                                            "litres": result.SqlUserCount
-                                        }
-                                        ];
-                                        Clameschart.data = [{
-                                            "Clames": "Oracle",
-                                            "litres": result.OracleClamesCount
-                                        }, {
-                                            "Clames": "SQL",
-                                            "litres": result.SqlClamesCount
-                                        }
-                                        ];
-
-                                    },
-                                    error: function (ex) {
-                                        bootbox.alert('Failed to retrieve counts.');
-                                    }
-
-                                });
-
-                            }); // end am4core.ready()
-                        </script>
-
-                        //All Pharmacies Names
-                        <script>
-                            am4core.ready(function () {
-
-                                // Themes begin
-                                am4core.useTheme(am4themes_animated);
-                                // Themes end
-
-                                var chart = am4core.create("ProviderClamesChartDiv", am4charts.XYChart);
-                                chart.padding(40, 40, 40, 40);
-
-                                var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
-                                categoryAxis.renderer.grid.template.location = 0;
-                                categoryAxis.dataFields.category = "provider";
-                                categoryAxis.renderer.minGridDistance = 1;
-                                categoryAxis.renderer.inversed = true;
-                                categoryAxis.renderer.grid.template.disabled = true;
-
-                                var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
-                                valueAxis.min = 0;
-
-                                var series = chart.series.push(new am4charts.ColumnSeries());
-                                series.dataFields.categoryY = "provider";
-                                series.dataFields.valueX = "clames";
-                                series.tooltipText = "{valueX.value}"
-                                series.columns.template.strokeOpacity = 0;
-                                series.columns.template.column.cornerRadiusBottomRight = 5;
-                                series.columns.template.column.cornerRadiusTopRight = 5;
-
-                                var labelBullet = series.bullets.push(new am4charts.LabelBullet())
-                                labelBullet.label.horizontalCenter = "left";
-                                labelBullet.label.dx = 10;
-                                labelBullet.label.text = "{values.valueX.workingValue.formatNumber('#')}";
-                                labelBullet.locationX = 1;
-
-                                // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-                                series.columns.template.adapter.add("fill", function (fill, target) {
-                                    return chart.colors.getIndex(target.dataItem.index);
-                                });
-
-                                categoryAxis.sortBySeries = series;
-
-                                //Ajax
-                                $.ajax({
-                                    type: 'POST',
-                                    url: '/Home/getProviderClames/',
-                                    dataType: 'json',
-                                    data: { id: 1 },
-                                    success: function (result) {
-                                        // Add data
-                                        chart.data = result.PharmacyClames;
-
-
-                                    },
-                                    error: function (ex) {
-                                        bootbox.alert('Failed to retrieve counts.');
-                                    }
-
-                                });
-
-
-
-                            }); // end am4core.ready()
-                        </script>
-                        //Manger Clames
-                        <script>
-                            am4core.ready(function () {
-
-                                // Themes begin
-                                am4core.useTheme(am4themes_animated);
-                                // Themes end
-
-                                var chart = am4core.create("MangerClamesChartDiv", am4charts.XYChart);
-                                chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-                                //Ajax
-                                $.ajax({
-                                    type: 'POST',
-                                    url: '/Home/getMangerClames/',
-                                    dataType: 'json',
-                                    data: { id: 1 },
-                                    success: function (result) {
-                                        debugger;
-                                        // Add data
-                                        chart.data = result.MangerClames;
-
-
-                                    },
-                                    error: function (ex) {
-                                        bootbox.alert('Failed to retrieve counts.');
-                                    }
-
-                                });
-
-
-                                var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-                                categoryAxis.renderer.grid.template.location = 0;
-                                categoryAxis.dataFields.category = "manger";
-                                categoryAxis.renderer.minGridDistance = 40;
-                                categoryAxis.fontSize = 11;
-                                categoryAxis.renderer.labels.template.dy = 5;
-
-                                var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-                                valueAxis.min = 0;
-                                valueAxis.renderer.minGridDistance = 30;
-                                valueAxis.renderer.baseGrid.disabled = true;
-
-
-                                var series = chart.series.push(new am4charts.ColumnSeries());
-                                series.dataFields.categoryX = "manger";
-                                series.dataFields.valueY = "clames";
-                                series.columns.template.tooltipText = "{valueY.value}";
-                                series.columns.template.tooltipY = 0;
-                                series.columns.template.strokeOpacity = 0;
-
-                                // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-                                series.columns.template.adapter.add("fill", function (fill, target) {
-                                    return chart.colors.getIndex(target.dataItem.index);
-                                });
-
-                            }); // end am4core.ready()
-                        </script>
-                        <!-- HTML -->
-
-                        <h3 class="col-md-6">Users/Month</h3>
-                        <h3 class="col-md-6">Claims/Month</h3>
-                        <div class="col-md-6 chartdiv" id="UserChartDiv"></div>
-                        <div class="col-md-6 chartdiv" id="ClamesChartDiv"></div>
-                        <h3 class="col-md-12">Manger Claims/Month</h3>
-                        <div style="overflow: auto;width: 100%;" class="col-md-12">
-                            <div class="col-md-12 chartdiv" id="MangerClamesChartDiv" style="width: 150%;"></div>
-                        </div>
-                        <h3 class="col-md-12">Pharmacies Claims/Month</h3>
-
-                        <div style="overflow: auto;height: 300px;" class="col-md-12">
-                            <div class="col-md-12 chartdiv" id="ProviderClamesChartDiv"></div>
-                        </div>
-
-                    }
-                    else
-                    {
-                        <div style="padding-left: 93px;">
                             <!-- Resources -->
                             <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
                             <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
                             <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
                             <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 
-                            <h1>Your Dashboard</h1>
-                            <h3 class="col-md-12">Claims/Month</h3>
-                            <div class="col-md-9 chartdiv" id="ProviderClamesChartDiv"></div>
+                            <!-- Chart code -->
+                            <script>
 
+                                am4core.ready(function () {
+                                    //User Chart
+                                    // Create chart instance
+                                    var chart = am4core.create("UserChartDiv", am4charts.PieChart);
+                                    // Add and configure Series
+                                    var pieSeries = chart.series.push(new am4charts.PieSeries());
+                                    pieSeries.dataFields.value = "litres";
+                                    pieSeries.dataFields.category = "User";
+
+                                    // Let's cut a hole in our Pie chart the size of 30% the radius
+                                    chart.innerRadius = am4core.percent(50);
+
+                                    // Put a thick white border around each Slice
+                                    pieSeries.slices.template.stroke = am4core.color("#fff");
+                                    pieSeries.slices.template.strokeWidth = 2;
+                                    pieSeries.slices.template.strokeOpacity = 1;
+                                    pieSeries.slices.template
+                                        // change the cursor on hover to make it apparent the object can be interacted with
+                                        .cursorOverStyle = [
+                                            {
+                                                "property": "cursor",
+                                                "value": "pointer"
+                                            }
+                                        ];
+
+                                    pieSeries.alignLabels = false;
+                                    pieSeries.labels.template.bent = true;
+                                    pieSeries.labels.template.radius = 3;
+                                    pieSeries.labels.template.padding(0, 0, 0, 0);
+
+                                    pieSeries.ticks.template.disabled = true;
+
+                                    // Create a base filter effect (as if it's not there) for the hover to return to
+                                    var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+                                    shadow.opacity = 0;
+
+                                    // Create hover state
+                                    var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+
+                                    // Slightly shift the shadow and make it more prominent on hover
+                                    var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+                                    hoverShadow.opacity = 0.7;
+                                    hoverShadow.blur = 5;
+
+                                    // Add a legend
+                                    chart.legend = new am4charts.Legend();
+                                    //Clams Chart
+                                    var Clameschart = am4core.create("ClamesChartDiv", am4charts.PieChart);
+                                    // Add and configure Series
+                                    var ClamespieSeries = Clameschart.series.push(new am4charts.PieSeries());
+                                    ClamespieSeries.dataFields.value = "litres";
+                                    ClamespieSeries.dataFields.category = "Clames";
+
+                                    // Let's cut a hole in our Pie chart the size of 30% the radius
+                                    Clameschart.innerRadius = am4core.percent(30);
+
+                                    // Put a thick white border around each Slice
+                                    ClamespieSeries.slices.template.stroke = am4core.color("#fff");
+                                    ClamespieSeries.slices.template.strokeWidth = 2;
+                                    ClamespieSeries.slices.template.strokeOpacity = 1;
+                                    ClamespieSeries.slices.template
+                                        // change the cursor on hover to make it apparent the object can be interacted with
+                                        .cursorOverStyle = [
+                                            {
+                                                "property": "cursor",
+                                                "value": "pointer"
+                                            }
+                                        ];
+
+                                    ClamespieSeries.alignLabels = false;
+                                    ClamespieSeries.labels.template.bent = true;
+                                    ClamespieSeries.labels.template.radius = 3;
+                                    ClamespieSeries.labels.template.padding(0, 0, 0, 0);
+
+                                    ClamespieSeries.ticks.template.disabled = true;
+
+                                    // Create a base filter effect (as if it's not there) for the hover to return to
+                                    var shadow = ClamespieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+                                    shadow.opacity = 0;
+
+                                    // Create hover state
+                                    var hoverState = ClamespieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+
+                                    // Slightly shift the shadow and make it more prominent on hover
+                                    var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+                                    hoverShadow.opacity = 0.7;
+                                    hoverShadow.blur = 5;
+                                    Clameschart.legend = new am4charts.Legend();
+                                    //Ajax
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '/Home/getUser/',
+                                        dataType: 'json',
+                                        data: { id: 1 },
+                                        success: function (result) {
+                                            // Add data
+                                            chart.data = [{
+                                                "User": "Oracle",
+                                                "litres": result.OracleUserCount
+                                            }, {
+                                                "User": "SQL",
+                                                "litres": result.SqlUserCount
+                                            }
+                                            ];
+                                            Clameschart.data = [{
+                                                "Clames": "Oracle",
+                                                "litres": result.OracleClamesCount
+                                            }, {
+                                                "Clames": "SQL",
+                                                "litres": result.SqlClamesCount
+                                            }
+                                            ];
+
+                                        },
+                                        error: function (ex) {
+                                            bootbox.alert('Failed to retrieve counts.');
+                                        }
+
+                                    });
+
+                                }); // end am4core.ready()
+                            </script>
+
+                            //All Pharmacies Names
                             <script>
                                 am4core.ready(function () {
 
@@ -658,17 +508,81 @@
                                     // Themes end
 
                                     var chart = am4core.create("ProviderClamesChartDiv", am4charts.XYChart);
+                                    chart.padding(40, 40, 40, 40);
+
+                                    var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+                                    categoryAxis.renderer.grid.template.location = 0;
+                                    categoryAxis.dataFields.category = "provider";
+                                    categoryAxis.renderer.minGridDistance = 1;
+                                    categoryAxis.renderer.inversed = true;
+                                    categoryAxis.renderer.grid.template.disabled = true;
+
+                                    var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+                                    valueAxis.min = 0;
+
+                                    var series = chart.series.push(new am4charts.ColumnSeries());
+                                    series.dataFields.categoryY = "provider";
+                                    series.dataFields.valueX = "clames";
+                                    series.tooltipText = "{valueX.value}"
+                                    series.columns.template.strokeOpacity = 0;
+                                    series.columns.template.column.cornerRadiusBottomRight = 5;
+                                    series.columns.template.column.cornerRadiusTopRight = 5;
+
+                                    var labelBullet = series.bullets.push(new am4charts.LabelBullet())
+                                    labelBullet.label.horizontalCenter = "left";
+                                    labelBullet.label.dx = 10;
+                                    labelBullet.label.text = "{values.valueX.workingValue.formatNumber('#')}";
+                                    labelBullet.locationX = 1;
+
+                                    // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+                                    series.columns.template.adapter.add("fill", function (fill, target) {
+                                        return chart.colors.getIndex(target.dataItem.index);
+                                    });
+
+                                    categoryAxis.sortBySeries = series;
+
+                                    //Ajax
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '/Home/getProviderClames/',
+                                        dataType: 'json',
+                                        data: { id: 1 },
+                                        success: function (result) {
+                                            // Add data
+                                            chart.data = result.PharmacyClames;
+
+
+                                        },
+                                        error: function (ex) {
+                                            bootbox.alert('Failed to retrieve counts.');
+                                        }
+
+                                    });
+
+
+
+                                }); // end am4core.ready()
+                            </script>
+                            //Manger Clames
+                            <script>
+                                am4core.ready(function () {
+
+                                    // Themes begin
+                                    am4core.useTheme(am4themes_animated);
+                                    // Themes end
+
+                                    var chart = am4core.create("MangerClamesChartDiv", am4charts.XYChart);
                                     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
                                     //Ajax
                                     $.ajax({
                                         type: 'POST',
-                                        url: '/Home/getCurrentProviderClames/',
+                                        url: '/Home/getMangerClames/',
                                         dataType: 'json',
                                         data: { id: 1 },
                                         success: function (result) {
                                             debugger;
                                             // Add data
-                                            chart.data = result.UserClames;
+                                            chart.data = result.MangerClames;
 
 
                                         },
@@ -706,13 +620,103 @@
 
                                 }); // end am4core.ready()
                             </script>
+                            <!-- HTML -->
+
+                            <h3 class="col-md-6">Users/Month</h3>
+                            <h3 class="col-md-6">Claims/Month</h3>
+                            <div class="col-md-6 chartdiv" id="UserChartDiv"></div>
+                            <div class="col-md-6 chartdiv" id="ClamesChartDiv"></div>
+                            <h3 class="col-md-12">Manger Claims/Month</h3>
+                            <div style="overflow: auto;width: 100%;" class="col-md-12">
+                                <div class="col-md-12 chartdiv" id="MangerClamesChartDiv" style="width: 150%;"></div>
+                            </div>
+                            <h3 class="col-md-12">Pharmacies Claims/Month</h3>
+
+                            <div style="overflow: auto;height: 300px;" class="col-md-12">
+                                <div class="col-md-12 chartdiv" id="ProviderClamesChartDiv"></div>
+                            </div>
+
                         </div>
+                    }
+                    else
+                    {   
+                        @*<div style="min-height: calc(100vh - 258px); ">*@
+
+                            <div style="padding-left: 93px;">
+                                <!-- Resources -->
+                                <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+                                <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+                                <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+                                <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+                        
+                                <h1>Your Dashboard</h1>
+                                <h3 class="col-md-12">Claims/Month</h3>
+                                <div class="col-md-9 chartdiv" id="ProviderClamesChartDiv"></div>
+                        
+                                <script>
+                                    am4core.ready(function () {
+                        
+                                        // Themes begin
+                                        am4core.useTheme(am4themes_animated);
+                                        // Themes end
+                        
+                                        var chart = am4core.create("ProviderClamesChartDiv", am4charts.XYChart);
+                                        chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+                                        //Ajax
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: '/Home/getCurrentProviderClames/',
+                                            dataType: 'json',
+                                            data: { id: 1 },
+                                            success: function (result) {
+                                                debugger;
+                                                // Add data
+                                                chart.data = result.UserClames;
+                        
+                        
+                                            },
+                                            error: function (ex) {
+                                                bootbox.alert('Failed to retrieve counts.');
+                                            }
+                        
+                                        });
+                        
+                        
+                                        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+                                        categoryAxis.renderer.grid.template.location = 0;
+                                        categoryAxis.dataFields.category = "manger";
+                                        categoryAxis.renderer.minGridDistance = 40;
+                                        categoryAxis.fontSize = 11;
+                                        categoryAxis.renderer.labels.template.dy = 5;
+                        
+                                        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+                                        valueAxis.min = 0;
+                                        valueAxis.renderer.minGridDistance = 30;
+                                        valueAxis.renderer.baseGrid.disabled = true;
+                        
+                        
+                                        var series = chart.series.push(new am4charts.ColumnSeries());
+                                        series.dataFields.categoryX = "manger";
+                                        series.dataFields.valueY = "clames";
+                                        series.columns.template.tooltipText = "{valueY.value}";
+                                        series.columns.template.tooltipY = 0;
+                                        series.columns.template.strokeOpacity = 0;
+                        
+                                        // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+                                        series.columns.template.adapter.add("fill", function (fill, target) {
+                                            return chart.colors.getIndex(target.dataItem.index);
+                                        });
+                        
+                                    }); // end am4core.ready()
+                                </script>
+                            </div>
+                        @*</div>*@
                     }
 
 
 
-@*<script>
-        $(function () {
-            introJs().start();
-        })
-    </script>*@
+                                @*<script>
+                                        $(function () {
+                                            introJs().start();
+                                        })
+                                    </script>*@
