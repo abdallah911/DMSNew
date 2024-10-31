@@ -6,6 +6,9 @@
 ::selection {
     background: #744e8b !important;
 }
+body{
+    overflow-x:hidden;
+}
 #topheader {
    
     background: #fafafa;
@@ -276,6 +279,20 @@ input {
     outline:none;
     outline-style:none;
 }
+.dms-container .btn {
+    background: #337ab7;
+    color: white;
+    border-radius: 6px !important;
+    border:2px solid #337ab7;
+}
+    .dms-container .btn:hover {
+        box-shadow: inset 0 0 15px 8px #0000002b !important; color: white !important;
+    }
+    .dms-container .btn:focus {
+        background: white;
+        color:   #337ab7;
+        border: 2px solid #337ab7;
+    } 
 .contact-card-box > div {
     position: relative;
     padding: 48px 32px 1px 32px;
@@ -478,6 +495,35 @@ span.point-mark i {
     padding: 10px;
     margin: 20px;
 }
+.co-data-box > div {
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+}
+@media (min-width:1444px){
+    .co-data-box > div {
+        width:calc(100% / 3)
+    }
+}
+.co-data-box span {
+    background: #e0dbe2;
+    width: 100%;
+    display: inline-block;
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px 4px 0 0;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+.co-data-box select, .co-data-box input {
+    background: #efefef;
+    width: 100%;
+    display: inline-block;
+    padding: 10px;
+    text-align: center;
+    border-radius: 0 0 4px 4px;
+    border: 0;
+}
 /*===============================styles=========================================*/
 .no-wrap {
     white-space: nowrap;
@@ -516,6 +562,9 @@ p:last-of-type {
 .title-bg i {
     color: white !important; 
     margin-top:1 !important;
+}
+.portlet{
+    box-shadow:none;
 }
 /* ====================Scroll bar=========================================== */
 ::-webkit-scrollbar {

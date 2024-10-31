@@ -8660,6 +8660,7 @@
     <Content Include="Views\CompIcdCp\Details.cshtml" />
     <Content Include="Views\Pharmacy\Send.cshtml" />
     <Content Include="Views\AfterSales\HRData.cshtml" />
+    <Content Include="Views\AfterSales\HRCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

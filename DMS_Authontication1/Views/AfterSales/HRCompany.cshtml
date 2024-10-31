@@ -1,0 +1,118 @@
+﻿@model IEnumerable<DMS_Authontication1.Models.AfterSale>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+
+<div class="dms-container portlet box">
+    <div class="portlet-title title-bg">
+        <div class="caption">
+            <i class="fa fa-home text-light me-1"></i>Company Data
+        </div>
+    </div>
+    <div class="row portlet-body">
+        <div class="col-sm-5 col-md-4 col-lg-3 gap-2 "style="margin-bottom:16px">
+            <div class="forLabel w-100 mb-2">
+                <input type="text" class="w-100 form-control " required />
+                <span>Company Selection</span>
+            </div>
+        </div>
+        <div class="col-sm-7 col-md-8 row co-data-box no-wrap">
+            <div class="col-md-6  mb-2">
+                <span>Network Type</span>
+                <select class="w-100 form-control" disabled required><option></option></select>
+            </div>
+            <div class="col-md-6  mb-2">
+                <span>Contract Number Display</span>
+                <input type="number" class="w-100 form-control " disabled required />
+            </div>
+            <div class="col-md-6 ">
+                <span>Number of Active Employees</span>
+                <input type="number" class="w-100 form-control " disabled required />
+            </div>
+            <div class="col-md-6  mb-2">
+                <span>Region</span>
+                <select class="w-100 form-control" disabled required><option></option></select>
+            </div>
+            <div class="col-md-6  mb-2">
+                <span>Start Date</span>
+                <input type="text" class="date-input w-100 form-control " disabled required />
+            </div>
+            <div class="col-md-6 ">
+                <span>End Date</span>
+                <input type="text" class="date-input w-100 form-control "disabled  required />
+            </div>
+        </div>
+    </div>
+    <div class="portlet-title title-bg">
+        <div class="caption">
+            <i class="fa fa-home text-light me-1"></i>Enter Data
+        </div>
+    </div> 
+        <div class="col-md-10 row gap-2 " style="margin:16px 0px">
+            <div class="forLabel col-sm-6 col-lg-3 mb-2">
+                <input type="text" class="w-100 form-control " required />
+                <span>Company</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3 mb-2">
+                <input type="text" class="w-100 form-control " required />
+                <span>DMS Account Excutive</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3 mb-2">
+                <input type="text" class="w-100 form-control " required />
+                <span>Sales Excutive</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3 mb-2">
+                <input type="text" class="w-100 form-control " required />
+                <span>Bank Tran</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3">
+                <input type="text" class="w-100 form-control " required />
+                <span>Broker PERC</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3">
+                <input type="text" class="w-100 form-control " required />
+                <span>Broker or Direct</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3">
+                <input type="text" class="w-100 form-control " required />
+                <span>Insurance Policies</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3">
+                <input type="text" class="w-100 form-control " required />
+                <span>Sales Excutive</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3">
+                <input type="text" class="w-100 form-control " required />
+                <span>LR</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3">
+                <select class="w-100 form-control" required><option></option></select>
+                <span>Business Field</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3">
+                <input type="text" class="w-100 form-control " required />
+                <span>Increase</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3">
+                <input type="text" class="w-100 form-control " required />
+                <span>Date of Invoice</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3">
+                <input type="text" class="w-100 form-control " required />
+                <span>Doctor on sit</span>
+            </div>
+        </div>
+        <div style="margin-left:20px;display:inline-block; width:100%" class="row">
+            <button type="button" class="btn">Save</button>
+            <button type="button" class="btn">New</button>
+        </div> 
+</div>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
