@@ -585,7 +585,7 @@ p:last-of-type {
     .after-sales-create .tab-content > .active {
         display: grid !important;
         grid-template-columns: 50% 50%;
-        column-gap: 40px;
+        column-gap: 50px;
     }
 }
 /* ====================Scroll bar=========================================== */
