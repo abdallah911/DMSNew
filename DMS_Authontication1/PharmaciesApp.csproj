@@ -8476,7 +8476,7 @@
     <Content Include="Views\User\AdminResetPassword.cshtml" />
     <Content Include="Views\User\ChangeSuccess.cshtml" />
     <Content Include="Views\Reports\ConsumptionPremium.cshtml" />
-    <Content Include="Views\AfterSales\Create.cshtml" />
+    <Content Include="Views\AfterSales\FeedBack-Created.cshtml" />
     <Content Include="Views\AfterSales\Details.cshtml" />
     <Content Include="Views\AfterSales\Edit.cshtml" />
     <Content Include="Views\AfterSales\Delete.cshtml" />
@@ -8661,6 +8661,7 @@
     <Content Include="Views\Pharmacy\Send.cshtml" />
     <Content Include="Views\AfterSales\HRData.cshtml" />
     <Content Include="Views\AfterSales\HRCompany.cshtml" />
+    <Content Include="Views\AfterSales\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

@@ -52,7 +52,80 @@
 
     <link href="~/assets/global/plugins/design/css/style.css" rel="stylesheet" />
     <style>
-
+        input,
+        select,
+        textarea {
+            border: 2px solid #538eb6 !important;
+        }
+        .forLabel > span:not(.select2-container), .select {
+            padding-top: 0;
+        }
+        .forLabel {
+            height:45px;
+        }
+        .forLabel input,
+        .forLabel select,
+        .forLabel textarea {
+            height:100%;
+        }
+            .forLabel > span:not(.select2-container), .select {
+                color: #337ab7;
+            }
+        .padding-top span.select2-selection.select2-selection--single {
+            padding: 14px 12px;
+        }
+        .select2-container--default .select2-selection--multiple {
+            border: 2px solid #337ab7;
+            padding-top:20px;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+            overflow: auto;
+            white-space: nowrap;
+            flex-wrap: nowrap;
+            display: flex;
+            align-items: center;
+        }
+        input.select2-search__field {
+            border: none !important;
+        }
+        .nav-pills .nav-link:focus {
+            text-decoration: none;
+        }
+        .nav-pills .nav-link.active {
+            color: #fff;
+            -moz-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            background: #337ab7;
+        }
+        .nav-pills .nav-link {
+            padding: 5px 30px !important;
+            border-radius: 0;
+            margin-bottom: 0;
+            color: #000000;
+            font-size: 22px;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+            border: 1px solid transparent;
+            background: rgba(0, 0, 0, 0.05); 
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            -ms-border-radius: 0;
+            border-radius: 0;
+            white-space:nowrap;
+        }
+        .nav-pills .nav-link:hover {
+            box-shadow: inset 0 0 26px 5px #00000012;
+            background: #efefefb5;
+            text-decoration:none;
+        }
+        .nav-pills .nav-link.active:hover { 
+            background: #337ab7;
+        }
         .market {
             padding: 20px;
             font-size: 20px !important;
@@ -902,42 +975,42 @@
                                 </div>
                             </footer>
                             <!--<footer class="site-footer">
-        <div class="footer-widgets">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="foot-about">
-                            <div class="img d-flex align-self-stretch" style="width: 75px;height:50px;">
-                                <a href="#"></a>
-                                <img src="~/assets/HomeTemplete/img/DMS_Logo.png" />
-                            </div>
-                            <p>Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.</p>
-                            <p class="copyright">
-                            <p>&copy; @DateTime.Now.Year - DMS Application</p>
-                            </p>
-                        </div><!-- .foot-about -->
-                            <!--</div>
-    <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
-        <div class="foot-contact">
-            <h2>Contact</h2>
-            <ul class="p-0 m-0">
-                <li><span>Address:</span>12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>-->
-                            @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
-                            <!--<li><span>Phone:</span>+ 0226390390</li>
-                <li><span>Email:</span>Contact@dms-eg.com</li>
-            </ul>
-        </div>
-    </div>-->
-                            @*<div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
-            <div class="foot-links">
-                <h2>Get DMS For Mobile</h2>
-                <ul class="p-0 m-0">
-                    <li><a href="https://play.google.com/store/apps/details?id=com.dmsegypt.dms"> <img src="~/assets/HomeTemplete/img/elements/iconfinder_android-app-on-google-play_720092.png" alt="HTML tutorial" style="width:180px;height:180px;border:0; position:relative;top:-63px;"></a></li>
-                    <li class="appstoreicon"><a href="https://apps.apple.com/eg/app/dms-egypt/id1440027807"><img src="~/assets/HomeTemplete/img/elements/appstore.png" alt="HTML tutorial" style="width:180px;height:55px;border:0;"></a></li>
-
-                </ul>
-            </div>
-        </div>*@<!-- .col -->
+                                    <div class="footer-widgets">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-12 col-md-6 col-lg-4">
+                                                    <div class="foot-about">
+                                                        <div class="img d-flex align-self-stretch" style="width: 75px;height:50px;">
+                                                            <a href="#"></a>
+                                                            <img src="~/assets/HomeTemplete/img/DMS_Logo.png" />
+                                                        </div>
+                                                        <p>Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.</p>
+                                                        <p class="copyright">
+                                                        <p>&copy; @DateTime.Now.Year - DMS Application</p>
+                                                        </p>
+                                                    </div><!-- .foot-about -->
+                                                        <!--</div>
+                                <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                                    <div class="foot-contact">
+                                        <h2>Contact</h2>
+                                        <ul class="p-0 m-0">
+                                            <li><span>Address:</span>12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>-->
+                                                        @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
+                                                        <!--<li><span>Phone:</span>+ 0226390390</li>
+                                            <li><span>Email:</span>Contact@dms-eg.com</li>
+                                        </ul>
+                                    </div>
+                                </div>-->
+                                                        @*<div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                                        <div class="foot-links">
+                                            <h2>Get DMS For Mobile</h2>
+                                            <ul class="p-0 m-0">
+                                                <li><a href="https://play.google.com/store/apps/details?id=com.dmsegypt.dms"> <img src="~/assets/HomeTemplete/img/elements/iconfinder_android-app-on-google-play_720092.png" alt="HTML tutorial" style="width:180px;height:180px;border:0; position:relative;top:-63px;"></a></li>
+                                                <li class="appstoreicon"><a href="https://apps.apple.com/eg/app/dms-egypt/id1440027807"><img src="~/assets/HomeTemplete/img/elements/appstore.png" alt="HTML tutorial" style="width:180px;height:55px;border:0;"></a></li>
+                                
+                                            </ul>
+                                        </div>
+                                    </div>*@<!-- .col -->
                             <!--</div>--><!-- .row -->
                             <!--</div>--><!-- .container -->
                             <!--</div>--><!-- .footer-widgets -->
@@ -1103,7 +1176,14 @@
         }
 
 
-
+        $(document).ready(function () {
+            $('.nav-link').on('click', function () {
+                // Remove the 'active' class from all .nav-link elements
+                $('.nav-link').removeClass('active');
+                // Add the 'active' class to the clicked element
+                $(this).addClass('active');
+            });
+        });
 
         //==========================================
         //$(document).ready(function () { 
