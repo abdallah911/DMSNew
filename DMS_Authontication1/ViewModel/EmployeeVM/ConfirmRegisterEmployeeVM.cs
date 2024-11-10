@@ -19,7 +19,7 @@ namespace DMS_Authontication1.ViewModel.EmployeeVM
 
         public string FullName { get; set; }
 
-        [Required]
+        //[Required]
         [EmailAddress]
         [Display(Name = " Email ")]
         public string Email { get; set; }
@@ -40,5 +40,13 @@ namespace DMS_Authontication1.ViewModel.EmployeeVM
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "National Id")]
+        public string NationalId { get; set; }
+        [Required]
+        [Display(Name = "Phone")]
+        public string Phone { get; set; }
+
     }
 }

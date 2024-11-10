@@ -57,13 +57,22 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label sbold col-md-4">
-                                                @Html.DisplayNameFor(model => model.Email) :
+                                                @Html.DisplayNameFor(model => model.Phone) :
                                                 <span class="required"> * </span>
                                             </label>
                                             <div class="col-md-8">
-                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control ", @required = "true", @data_step = "7", @data_intro = "Your Real Access Email " } })
-                                                @*<input type="text" class="form-control" id="Phone" value="" onkeypress="return /[0-9]/i.test(event.key)" />*@
-                                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @id = "Phone", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                                                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label sbold col-md-4">
+                                                @Html.DisplayNameFor(model => model.NationalId) :
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.NationalId, new { htmlAttributes = new { @class = "form-control", @id = "NationalId", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                                                @Html.ValidationMessageFor(model => model.NationalId, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +107,7 @@
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-7">
-                                                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", @required = "true",@autocomplete = "false" })
+                                                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", @required = "true", @autocomplete = "false" })
                                                     @*<textarea type="text" class="form-control" id="ComplaintDescription"></textarea>*@
                                                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                                                 </div>
@@ -170,12 +179,70 @@
             var Employeename = $("#FullName").val().split(" ");
             if (Employeename.length >= 3) {
                 valid = true;
-                $("#target").submit();
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: '/Employee/SendValidateOtp',
+                    data: { Phone: $("#Phone").val() },
+                    success: function (returndata) {
+                        if (returndata.ok) {
+                            debugger;
+                            bootbox.prompt({
+                                title: 'ادخل الرمز المرسل الي هاتفك!',
+                                inputType: 'number',
+                                callback: function (result) {
+                                    if (result != returndata.otp) {
+                                        alert("ادخل رمز التحقق الصحيح")
+                                        return false;
+                                    }
+                                    else {
+                                        $("#target").submit();
+
+                                    }
+                                }
+                            });
+                            //bootbox.dialog({
+                            //    closeButton: false,
+                            //    title: 'OTP',
+                            //    message: "ادخل الرمز المرسل الي هاتفك !",
+                            //    inputType: 'number',
+                            //    buttons: {
+                            //        Print: {
+                            //            label: "Yes",
+                            //            className: 'btn-info',
+                            //            callback: function () {
+                            //                window.location.replace("/Chronic/Chronic?id=" + CardId + "&&NationalId=" + NationalId);
+                            //            }
+                            //        },
+                            //        New: {
+                            //            label: "No",
+                            //            className: 'btn-danger',
+                            //            callback: function () {
+
+                            //            }
+                            //        }
+
+                            //    }
+                            //});
+                        }
+                        else {
+                            //bootbox.alert(' No Company Name ');
+                        }
+                    }
+                });
 
             }
             else {
                 bootbox.alert("Please enter Full Name not less that three names ' First,Second and Third Name' ... ");
                 valid = false;
+            }
+            if ($("#Phone").val() == "" && $("#Phone").val().length != 11) {
+                toastr.error("Please insert Vaild Phone number");
+                isValid = false;
+            }
+            if ($("#NationalId").val() == "" && $("#NationalId").val().length != 14) {
+                toastr.error("Please insert Vaild National Id number");
+                isValid = false;
             }
         }
         else {

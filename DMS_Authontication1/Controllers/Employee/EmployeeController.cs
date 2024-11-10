@@ -19,6 +19,8 @@ using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -112,7 +114,7 @@ namespace DMS_Authontication1.Controllers.Employee
             var user = db.PETROTRADE_EMPLOYEES.Where(e => e.EMP_CODE == model.UserName).FirstOrDefault();
             if (user != null)
             {
-                
+
                 return RedirectToAction("UpdateData", "Employee", new { Code = model.UserName });
 
             }
@@ -125,7 +127,7 @@ namespace DMS_Authontication1.Controllers.Employee
 
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult UpdateData(string Code,int? Save)
+        public ActionResult UpdateData(string Code, int? Save)
         {
             var data = db.PETROTRADE_EMPLOYEES.Where(x => x.EMP_CODE == Code).ToList();
             var cards = data.Select(c => new
@@ -148,11 +150,11 @@ namespace DMS_Authontication1.Controllers.Employee
             int intype = int.Parse(CardId.Split('-')[3]);
             string fileName = Path.GetFileNameWithoutExtension(ImageFile.FileName);
             string extension = Path.GetExtension(ImageFile.FileName);
-            fileName = Code.ToString()+"-"+ intype.ToString() /*+ "_" + DateTime.Now.ToString("ss")*/ + extension;
+            fileName = Code.ToString() + "-" + intype.ToString() /*+ "_" + DateTime.Now.ToString("ss")*/ + extension;
             // model.APPROVAL_IMAGE = "~/Content/EmployeesRequestsImage/" + fileName;
             ImageFile.SaveAs(Server.MapPath("/Content/PETROTRADE_EMPLOYEES/" + fileName));
 
-            return RedirectToAction("UpdateData", "Employee", new { Code = Code,Save=1 });
+            return RedirectToAction("UpdateData", "Employee", new { Code = Code, Save = 1 });
         }
 
 
@@ -828,6 +830,7 @@ namespace DMS_Authontication1.Controllers.Employee
             return View(model);
         }
 
+
         // POST: /Account/ConfirmRegister
         [HttpPost]
         [AllowAnonymous]
@@ -848,14 +851,14 @@ namespace DMS_Authontication1.Controllers.Employee
                     ViewBag.Error = "This User Name had been Registered Before";
                     return View(model);
                 }
-                var emailchick = applicationDb.Users.Where(u => u.Email == model.Email).FirstOrDefault();
-                if (emailchick != null)
-                {
-                    ViewBag.Error = "This Email had been Registered Before";
-                    return View(model);
-                }
-                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                //var compId = model.CardId.Split('-');
+                //var emailchick = applicationDb.Users.Where(u => u.Email == model.Email).FirstOrDefault();
+                //if (emailchick != null)
+                //{
+                //    ViewBag.Error = "This Email had been Registered Before";
+                //    return View(model);
+                //}
+                ////var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                ////var compId = model.CardId.Split('-');
 
 
 
@@ -871,12 +874,13 @@ namespace DMS_Authontication1.Controllers.Employee
                 {
                     TypeId = "0",
                     UserName = model.UserName,
-                    Email = model.Email,
+                    //Email = model.Email,
                     FName = fullName[0],
                     LName = fullName[2],
                     Type = "User",
                     Provider = "0",
                     EmailConfirmed = true,
+                    PhoneNumber = model.Phone,
 
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -907,7 +911,7 @@ namespace DMS_Authontication1.Controllers.Employee
                         CardId = model.CardId,
                         UserId = user.Id,
                         BirthDate = DateTime.Now,
-                        NationalId = "Empty",
+                        NationalId = model.NationalId,
                         CreatedDate = DateTime.Now,
                         IsActive = false,
                     };
@@ -956,11 +960,11 @@ namespace DMS_Authontication1.Controllers.Employee
 
                     Session["IsIndemnity"] = foundUser;
                     Session["IsNetwork"] = foundNetworkUser;
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    //Send an email with this link
-                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    //// For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    ////Send an email with this link
+                    //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     var employeeActive = db.Comp_Employees.Where(e => e.CARD_ID == model.CardId && e.INS_START_DATE <= DateTime.Now && e.INS_END_DATE >= DateTime.Now)
                         .OrderByDescending(o => o.CONTRACT_NO).FirstOrDefault();
@@ -1358,6 +1362,20 @@ namespace DMS_Authontication1.Controllers.Employee
             return File(archive, "application/zip", "archive.zip");
         }
 
+        // GET: /Account/Register
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult SendValidateOtp(string Phone)
+        {
+            int _min = 1000;
+            int _max = 9999;
+            Random _rdm = new Random();
+            var gotp = _rdm.Next(_min, _max);
+            PostSMSData(":رمز التحقق هو " + gotp, Phone);
+            var result = new { ok = true, otp = gotp };
+            return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
         public JsonResult ChickServiceDate(string id, string servdate)
         {
             DateTime date = DateTime.Parse(servdate);
@@ -1519,6 +1537,56 @@ namespace DMS_Authontication1.Controllers.Employee
         #endregion
 
         #region Help Functions
+
+        private string SecretHashMethod(string Message, string PhoneNumber)
+        {
+            string secret = "B88551A75DC04D78BB92ABAD298BB19F";
+            StringBuilder SecretHash = new StringBuilder();
+
+            //var encoding = new System.Text.ASCIIEncoding();
+            byte[] keyByte = System.Text.Encoding.UTF8.GetBytes(secret);
+            byte[] messageBytes = System.Text.Encoding.UTF8.GetBytes("AccountId=200001555&Password=Vodafone.1&SenderName=DIAMOND MED&ReceiverMSISDN=" + PhoneNumber + "&SMSText=" + Message);
+            //byte[] messageBytes = encoding.GetBytes("AccountId=200001555&Password=Vodafone.1&SenderName=DIAMOND MED&ReceiverMSISDN=01028599477&SMSText=Hello World");
+            using (var hmacsha256 = new HMACSHA256(keyByte))
+            {
+                byte[] hashmessage = hmacsha256.ComputeHash(messageBytes);
+                foreach (Byte b in hashmessage)
+                    SecretHash.Append(b.ToString("x2"));
+                return SecretHash.ToString().ToUpper();
+            }
+        }
+        public string PostSMSData(string Message, string PhoneNumber)
+        {
+            string requestXml =
+                "<SubmitSMSRequest xmlns='http://www.edafa.com/web2sms/sms/model/'>" +
+                "<AccountId>200001555</AccountId>" +
+                "<Password>Vodafone.1</Password>" +
+                "<SecureHash>" + SecretHashMethod(Message, PhoneNumber) + "</SecureHash>" +
+                "<SMSList>" +
+                "<SenderName>DIAMOND MED</SenderName>" +
+                "<ReceiverMSISDN>" + PhoneNumber + "</ReceiverMSISDN>" +
+                "<SMSText>" + Message + "</SMSText>" +
+                "</SMSList>" +
+                "</SubmitSMSRequest>";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://e3len.vodafone.com.eg/web2sms/sms/submit/");
+            byte[] bytes;
+            bytes = System.Text.Encoding.UTF8.GetBytes(requestXml);
+            request.ContentType = "application/xml; encoding='utf-8'";
+            request.ContentLength = bytes.Length;
+            request.Method = "POST";
+            Stream requestStream = request.GetRequestStream();
+            requestStream.Write(bytes, 0, bytes.Length);
+            requestStream.Close();
+            HttpWebResponse response;
+            response = (HttpWebResponse)request.GetResponse();
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Stream responseStream = response.GetResponseStream();
+                string responseStr = new StreamReader(responseStream).ReadToEnd();
+                return responseStr;
+            }
+            return null;
+        }
 
         public JsonResult ChangeStatus(int Id, string status)
         {
