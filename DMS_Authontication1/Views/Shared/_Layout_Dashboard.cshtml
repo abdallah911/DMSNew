@@ -76,7 +76,7 @@
         }
         .select2-container--default .select2-selection--multiple {
             border: 2px solid #337ab7;
-            padding-top:20px;
+            padding-top:16px;
         }
         .select2-container--default .select2-selection--multiple .select2-selection__rendered {
             overflow: auto;
@@ -350,14 +350,14 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
 
-                <a href="~/Home/Index"><img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="width: 90px;margin-top: 10px;" /></a>
+                <a href="~/Home/Index"><img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" /></a>
 
-                <ul class="nav navbar-nav nav-admin-cus" style="color: #000">
+                <ul class="nav navbar-nav nav-admin-cus" style="color: #000; margin-top: 3px;">
                     @{
                         if ((User.IsInRole("Admin") || User.IsInRole("AdminHelth")) && User.Identity.IsAuthenticated)
                         {
                             <li>
-                                <a><span class="collaps"><i class="fa fa-lg fa-times" aria-hidden="true"></i></span></a>
+                                <a style=" margin-left: 20px;"><span class="collaps"><i class="fa fa-lg fa-times" aria-hidden="true"></i></span></a>
                             </li>
                         }
                     }
