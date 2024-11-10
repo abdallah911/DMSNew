@@ -25,10 +25,10 @@
 
 @Html.Partial("_Cards")
 <!--Card Id Row-->
-<div class="portlet box  green"style="min-height: calc(100vh - 264px); ">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Pharmacies
+<div class="portlet box dms-container">
+    <div class="portlet-title title-bg">
+        <div class="caption text-white fw-bold">
+            <i class="fa-solid fa-home me-1"></i>Pharmacies
         </div>
         <div class="actions">
             <a id="Pending" href="javascript:;" class="btn btn-primary  btn-sm" disabled>
@@ -152,7 +152,7 @@
             <div class="panel-body">
                 <!--Search Medicine-->
                 <div class="row">
-                    <div class="col-sm-12" data-step="9" data-intro="Select Medicines to Despense">
+                    <div class="col-sm-12 select2-no-overflow" data-step="9" data-intro="Select Medicines to Despense">
                         <select id="AddMedicine" multiple="multiple" style="width:100%">
                             <option value="0">select medicine</option>
                         </select>

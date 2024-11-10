@@ -100,7 +100,7 @@ body{
 /*=========================Home Page Edits================================================*/
 /*=========================Select-2=======================================================*/
 span.select2.select2-container.select2-container--default {
-    height:34px ;
+    /*height:34px ;*/
     width: 100% !important;
 }
 .forLabel span.select2.select2-container.select2-container--default {
@@ -110,7 +110,7 @@ span.select2-selection.select2-selection--single {
     height: 100%;
 }
 span.select2-selection.select2-selection--single {
-    border: 2px solid #538eb6;
+    /*border: 2px solid #538eb6;*/
 }
 /*=========================forLabel=======================================================*/
 .forLabel {

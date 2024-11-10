@@ -55,7 +55,7 @@
         input,
         select,
         textarea {
-            border: 2px solid #538eb6 !important;
+            /*border: 2px solid #538eb6 !important;*/
         }
         .forLabel > span:not(.select2-container), .select {
             padding-top: 0;
@@ -75,8 +75,8 @@
             padding: 14px 12px;
         }
         .select2-container--default .select2-selection--multiple {
-            border: 2px solid #337ab7;
-            padding-top:16px;
+            /*border: 2px solid #337ab7;*/
+            /*padding-top:16px;*/
         }
         .select2-container--default .select2-selection--multiple .select2-selection__rendered {
             overflow: auto;
@@ -84,6 +84,9 @@
             flex-wrap: nowrap;
             display: flex;
             align-items: center;
+        }
+        .select2-no-overflow .select2-container--default .select2-selection--multiple .select2-selection__rendered{
+            overflow:hidden;
         }
         input.select2-search__field {
             border: none !important;
