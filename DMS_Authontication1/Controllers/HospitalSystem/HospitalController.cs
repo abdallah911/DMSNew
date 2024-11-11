@@ -327,11 +327,33 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 if (exception != 0)
                 {
                     string message = "ok";
-                    var result1 = new { Success = "True", Data = EmployeeVM, Exceptions = exception, messages = message };
+                    var result1 = new { Success = "True", Data = EmployeeVM, Exceptions = exception, messages = message, messageblackwhite = "ok" };
                     return new JsonResult { Data = result1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
                 }
-                var result = new { Success = "True", Data = EmployeeVM, Exceptions = exception, messages = "no" };
+                var BlackWhite = db.CompContractClassProviders.Where(c => c.COMP_ID == compID && c.CONTRACT_NO == employe.CONTRACT_NO
+                    && c.CLASS_CODE == employe.CLASS_CODE && c.PR_CODE == provider).FirstOrDefault();
+                if (BlackWhite != null)
+                {
+                    if (BlackWhite.ACTIVE == "Y")
+                    {
+                        if (BlackWhite.TYPE == "Black")
+                        {
+                            string messageblackwhite = "no";
+                            string message = "no";
+                            var result1 = new { Success = "True", Data = EmployeeVM, Exceptions = exception, messages = message, messageblackwhite = messageblackwhite };
+                            return new JsonResult { Data = result1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        }
+                        else
+                        {
+                            string messageblackwhite = "ok";
+                            string message = "ok";
+                            var result1 = new { Success = "True", Data = EmployeeVM, Exceptions = exception, messages = message, messageblackwhite = messageblackwhite };
+                            return new JsonResult { Data = result1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        }
+                    }
+                }
+                var result = new { Success = "True", Data = EmployeeVM, Exceptions = exception, messages = "no", messageblackwhite = "ok" };
                 return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
 
@@ -938,7 +960,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             , string Comp_Payment, string TotalValue, string OverInsurance, string Cash, string ServType, string NATIONAL_ID,
             string Phone, string COMP_PERC, string Notes, int? HospitalException, int? ExceptionLabRayDoctor
             , int? SpecalistID, string DoctorName, string IsFamily, string IsPool)
-        {                                          
+        {
             string codeRequestDate;
             long len = db.HospitalClaims.DefaultIfEmpty().Max(r => r == null ? 0 : r.ID) + 1;
             string tim = DateTime.Now.Date.ToString("ddMMyyyy");
@@ -1382,7 +1404,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 double MaxServiceAmount = 0;
                 double CeilingPert;
                 double MaxSubServiceAmount;
-                bool type = false;
+                //bool type = false;
                 string isfamily = "";
                 string ispool = "";
                 var remainingconsumption = db.RemainConsumptions.Where(x => x.CARD_ID == id && x.CONTRACT_NO == emp.CONTRACT_NO).FirstOrDefault();
@@ -1391,7 +1413,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                     if (remainingconsumption.REMAINING >= 0)
                     {
                         CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value;
-                        type = true;
+                        //type = true;
                     }
                     else
                     {
@@ -1404,7 +1426,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                         if (reasons != null)
                         {
                             CompContractClassMAX_AMOUNT = remainingconsumption.REMAINING.Value;
-                            type = true;
+                            //type = true;
                         }
                         else
                         {
@@ -1424,7 +1446,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                     CompContractClassMAX_AMOUNT = Convert.ToDouble(CompContractClassEmp.MAX_AMOUNT * 0.85);
                     isfamily = CompContractClassEmp.FOR_FAMILY;
                 }
-                type = false;
+                //type = false;
 
                 var DataService1 = new Comp_Customized_D_D();
                 var DataService = db.Comp_Customized_D_D_Emp.Where(c => c.C_COMP_ID == emp.C_COMP_ID && c.CONTRACT_NO == emp.CONTRACT_NO && c.SER_SERV == ServiceCode && c.CARD_ID == id).FirstOrDefault();
@@ -1490,7 +1512,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                     AcumlatorAmount += item.CompanyPayment;
                 }
                 Available = Convert.ToDouble(CompContractClassMAX_AMOUNT) - AcumlatorAmount;
-               
+
                 //Service consumption
                 List<Roshita> AcumlatorServiceList = AcumlatorList.Where(r => r.RoshetaType.Contains(MainService)).ToList();
                 double AcumlatorServiceAmount = 0;
