@@ -3,73 +3,73 @@
     ViewBag.Title = "Create";
 }
 
-<h2>@ViewBag.Title.</h2>
+@*<h2>@ViewBag.Title.</h2>*@
+<div class="dms-container">
 
+    @using (Html.BeginForm("Create", "Claim", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "createForm", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div hidden>
+            <input id="Speciality" name="Speciality" value="" />
+            <input id="DiagnoisesJson" name="DiagnoisesJson" value="" />
+        </div>
+        <div class="panel panel-info">
+            <h2 class="panel-heading title-bg text-white fw-bold" style="margin:1px;">Create Claim</h2>
+            <div class="panel-body">
+                @if (ViewBag.error != null)
+                {
+                    <h4 style="color:red;"> Claim added befor for this card</h4>
+                }
+                <div class="form-horizontal" style="padding-left: 93px;">
+                    <hr />
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
 
-@using (Html.BeginForm("Create", "Claim", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "createForm", enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    <div hidden>
-        <input id="Speciality" name="Speciality" value="" />
-        <input id="DiagnoisesJson" name="DiagnoisesJson" value="" />
-    </div>
-    <div class="panel panel-info">
-        <h2 class="panel-heading" style="margin:1px;">Create Claim</h2>
-        <div class="panel-body">
-            @if (ViewBag.error != null)
-            {
-                <h4 style="color:red;"> Claim added befor for this card</h4>
-            }
-            <div class="form-horizontal" style="padding-left: 93px;">
-                <hr />
-                @Html.ValidationSummary("", new { @class = "text-danger" })
-
-                <div class="form-group">
-                    @Html.LabelFor(m => m.CardId, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-6">
-                        @Html.TextBoxFor(m => m.CardId, new { @class = "form-control", @required = "true" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.CardId, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.CardId, new { @class = "form-control", @required = "true" })
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.ClaimNumber, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-6">
-                        @Html.TextBoxFor(m => m.ClaimNumber, new { @class = "form-control", @id = "ClaimNumber", @required = "true" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ClaimNumber, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(m => m.ClaimNumber, new { @class = "form-control", @id = "ClaimNumber", @required = "true" })
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Speciality, htmlAttributes: new { @class = "col-md-2 control-label" })
-                    <div class="col-md-6">
-                        @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "form-control", @id = "ddlSpeciality", @required = "true" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Speciality, htmlAttributes: new { @class = "col-md-2 control-label" })
+                        <div class="col-md-6">
+                            @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "form-control", @id = "ddlSpeciality", @required = "true" })
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    @Html.Label("Diagnoise", new { @class = "col-md-2 control-label" })
-                    <div class="col-md-6">
-                        <select id="ddlDiagnoises" style="width:100%" multiple required></select>
+                    <div class="form-group">
+                        @Html.Label("Diagnoise", new { @class = "col-md-2 control-label" })
+                        <div class="col-md-6">
+                            <select id="ddlDiagnoises" style="width:100%" multiple required></select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    @Html.Label("Claim Photo", new { @class = "col-md-2 control-label" })
-                    <div class="col-md-6">
-                        @*<input type="file" id="wizard-picture" name="MainFileFile" accept="application/pdf" />*@
-                        <input class="form-control text-box single-line" id="ImageFile" name="ImageFile" required accept="image/*" type="File" value="">
+                    <div class="form-group">
+                        @Html.Label("Claim Photo", new { @class = "col-md-2 control-label" })
+                        <div class="col-md-6">
+                            @*<input type="file" id="wizard-picture" name="MainFileFile" accept="application/pdf" />*@
+                            <input class="form-control text-box single-line" id="ImageFile" name="ImageFile" required accept="image/*" type="File" value="">
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="panel-footer" style="text-align:right;">
+                <input id="Back" type="button" value="Back" onclick="window.location.replace('/Claim/index');" class="btn btn-warning" />
+                @*<input id="New" type="reset" value="Reset" class="btn btn-primary" />*@
+                <input id="submit" type="submit" value="Save" onclick="Submitform();" class="btn btn-success" />
+            </div>
         </div>
-        <div class="panel-footer" style="text-align:right;">
-            <input id="Back" type="button" value="Back" onclick="window.location.replace('/Claim/index');" class="btn btn-warning" />
-            @*<input id="New" type="reset" value="Reset" class="btn btn-primary" />*@
-            <input id="submit" type="submit" value="Save" onclick="Submitform();" class="btn btn-success" />
-        </div>
-    </div>
-}
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
-
+    }
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</div>
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
 @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
 <script>

@@ -53,119 +53,118 @@
         }
     }
 }
-
-<br />
-<div style="margin-top:40px">
-    <p>
-        @if (!User.IsInRole("Admin"))
-        {
-            if (fullcontroll || Create)
+<div class="dms-container">
+    <div>
+        <p>
+            @if (!User.IsInRole("Admin"))
             {
-                @Html.ActionLink(" New Request", "CreateAdmin", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus", @style = " text-transform: none" })
-            }
-        }
-    </p>
-</div>
-@if (!User.IsInRole("Admin") || fullcontroll || view)
-{
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Requests
-            </div>
-
-        </div>
-        <br />
-        <div class="portlet-body">
-            <table id="Index" class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Id)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.CompanyName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Status)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.NationalID)
-                        </th>
-                        @*<th>
-                            @Html.DisplayNameFor(model => model.BankName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.BankAccount)
-                        </th>*@
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <th>
-                                @Html.DisplayNameFor(model => model.CreatedBy)
-
-                            </th>
-                        }
-
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                @foreach (var item in Model)
+                if (fullcontroll || Create)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CompanyName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Status)
-
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NationalID)
-                        </td>
-                        @*<td>
-                            @Html.DisplayFor(modelItem => item.BankName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BankAccount)
-                        </td>*@
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CreatedBy)
-                            </td>
-                        }
-                        @if (!User.IsInRole("Admin") || fullcontroll || view)
-                        {
-                            <td>
-                                @Html.ActionLink(" Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary fa fa-list", @style = " text-transform: none" })
-                            </td>
-                        }
-                        @if (!User.IsInRole("Admin") || fullcontroll || delete)
-                        {
-                            <td>
-                                @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger fa fa-remove", @style = " text-transform: none" })
-                            </td>
-                        }
-                    </tr>
+                    @Html.ActionLink(" New Request", "CreateAdmin", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus", @style = " text-transform: none" })
                 }
-
-            </table>
-        </div>
+            }
+        </p>
     </div>
+    @if (!User.IsInRole("Admin") || fullcontroll || view)
+    {
+        <div class="portlet box ">
+            <div class="portlet-title title-bg text-white fw-bold">
+                <div class="caption">
+                    <i class="fa-solid fa-home"></i>Requests
+                </div>
 
-}
-<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+            </div>
+            <br />
+            <div class="portlet-body">
+                <table id="Index" class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CompanyName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NationalID)
+                            </th>
+                            @*<th>
+                                    @Html.DisplayNameFor(model => model.BankName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BankAccount)
+                                </th>*@
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CreatedBy)
+
+                                </th>
+                            }
+
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CompanyName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NationalID)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.BankName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BankAccount)
+                                </td>*@
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                                </td>
+                            }
+                            @if (!User.IsInRole("Admin") || fullcontroll || view)
+                            {
+                                <td>
+                                    @Html.ActionLink(" Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary fa fa-list", @style = " text-transform: none" })
+                                </td>
+                            }
+                            @if (!User.IsInRole("Admin") || fullcontroll || delete)
+                            {
+                                <td>
+                                    @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger fa fa-remove", @style = " text-transform: none" })
+                                </td>
+                            }
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+
+    }
+</div><script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>
     $(function () {

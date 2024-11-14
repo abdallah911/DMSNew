@@ -4,75 +4,75 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
 }
+<div class="dms-container">
+    <div class="portlet box ">
+        <div class="portlet-title title-bg text-white fw-bold">
+            <div class="caption">
+                <i class="fa-solid fa-home"></i>Admin Search
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row" style="padding-bottom: 15px;">
 
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Admin Search
+                <div class="col-md-3">
+                    <input id="CardId" type="text" class="col-md-2 form-control " placeholder="Card ID" />
+                </div>
+                <div class="col-md-3">
+                    <input id="Company" type="text" class="col-md-2 form-control " placeholder="Company" />
+                </div>
+
+            </div>
+            <br />
+            <div style=" text-align:right">
+                <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
+                <input id="SendAllSms" type="button" value="Send All Sms" onclick="SendAll();" class="btn btn-success fa-file-excel-o " disabled />
+                <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />
+            </div>
         </div>
     </div>
-    <div class="portlet-body">
-        <div class="row" style="padding-bottom: 15px;">
-
-            <div class="col-md-3">
-                <input id="CardId" type="text" class="col-md-2 form-control " placeholder="Card ID" />
+    <div class="portlet box ">
+        <div class="portlet-title title-bg text-white fw-bold">
+            <div class="caption">
+                <i class="fa-solid fa-"></i>Employees
             </div>
-            <div class="col-md-3">
-                <input id="Company" type="text" class="col-md-2 form-control " placeholder="Company" />
-            </div>
-
         </div>
         <br />
-        <div style=" text-align:right">
-            <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
-            <input id="SendAllSms" type="button" value="Send All Sms" onclick="SendAll();" class="btn btn-success fa-file-excel-o " disabled />
-            <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />
+        <div class="portlet-body">
+            <table class="ui celled table" id="Employees" style="width:100%">
+                <thead>
+                    <tr>
+
+                        <th>
+                            Card ID
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Contract
+                        </th>
+                        <th>
+                            National Id
+                        </th>
+                        <th>
+                            Phone Number
+                        </th>
+
+                        <th>
+                            Sms Code
+                        </th>
+                        <th></th>
+                        <th></th>
+                        @* <th></th>*@
+                    </tr>
+                </thead>
+                <tbody></tbody>
+
+            </table>
         </div>
     </div>
-</div>
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Employees
-        </div>
-    </div>
-    <br />
-    <div class="portlet-body">
-        <table class="ui celled table" id="Employees" style="width:100%">
-            <thead>
-                <tr>
-
-                    <th>
-                        Card ID
-                    </th>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Contract
-                    </th>
-                    <th>
-                        National Id
-                    </th>
-                    <th>
-                        Phone Number
-                    </th>
-
-                    <th>
-                        Sms Code
-                    </th>
-                    <th></th>
-                    <th></th>
-                    @* <th></th>*@
-                </tr>
-            </thead>
-            <tbody></tbody>
-
-        </table>
-    </div>
-</div>
-
-
+</div> 
+<br /> 
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
 <script>
     $(function () {

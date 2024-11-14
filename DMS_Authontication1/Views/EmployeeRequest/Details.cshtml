@@ -4,648 +4,649 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
 }
+<div class="dms-container">
+    <h2 class=" title-bg text-white fw-bold" style="padding:10px 16px;color:#fff;">Details</h2>
+
+    <div>
+        @if (Model.TYPE == 1)
+        {
+            <h4>Create Employee</h4>
+            <hr />
+            <dl class="dl-horizontal">
+
+
+                <dt>
+                    @Html.DisplayName("First ENAME")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ENAME_ST)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Second EName")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ENAME_SC)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Third EName")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ENAME_TH)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Fourth EName")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ENAME_FR)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("First AName")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ANAME_ST)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Second AName")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ANAME_SC)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Third AName")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ANAME_TH)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Fourth AName")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ANAME_FR)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("National Id")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NATIONAL_ID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Birth Date")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BIRTHDATE)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Gender ")
+                </dt>
+
+                <dd>
+                    @if (Model.GENDER == 1)
+                    {
+                        @Html.DisplayName("Male")
+                    }
+                    @if (Model.GENDER == 2)
+                    {
+                        @Html.DisplayName("Female")
+                    }
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Mobile ")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MOBILE)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Email ")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMAIL)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Start Date")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.START_DATE)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Relation ")
+                </dt>
+
+                <dd>
+                    @if (Model.EMP_RELATION == "1")
+                    {
+                        @Html.DisplayName("Employee")
+                    }
+                    @if (Model.EMP_RELATION == "2")
+                    {
+                        @Html.DisplayName("Husband / Wife")
+                    }
+                    @if (Model.EMP_RELATION == "3")
+                    {
+                        @Html.DisplayName("Son / Daughter")
+                    }
+                    @if (Model.EMP_RELATION == "4")
+                    {
+                        @Html.DisplayName("Father / Mother")
+                    }
+                </dd>
 
-<h2>Details</h2>
-
-<div>
-    @if (Model.TYPE == 1)
-    {
-        <h4>Create Employee</h4>
-        <hr />
-        <dl class="dl-horizontal">
-
-
-            <dt>
-                @Html.DisplayName("First ENAME")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_ST)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Second EName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_SC)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Third EName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_TH)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Fourth EName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_FR)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("First AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_ST)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Second AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_SC)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Third AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_TH)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Fourth AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_FR)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("National Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.NATIONAL_ID)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Birth Date")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.BIRTHDATE)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Gender ")
-            </dt>
-
-            <dd>
-                @if (Model.GENDER == 1)
-                {
-                    @Html.DisplayName("Male")
-                }
-                @if (Model.GENDER == 2)
-                {
-                    @Html.DisplayName("Female")
-                }
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Mobile ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.MOBILE)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Email ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMAIL)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Start Date")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.START_DATE)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Relation ")
-            </dt>
-
-            <dd>
-                @if (Model.EMP_RELATION == "1")
-                {
-                    @Html.DisplayName("Employee")
-                }
-                @if (Model.EMP_RELATION == "2")
-                {
-                    @Html.DisplayName("Husband / Wife")
-                }
-                @if (Model.EMP_RELATION == "3")
-                {
-                    @Html.DisplayName("Son / Daughter")
-                }
-                @if (Model.EMP_RELATION == "4")
-                {
-                    @Html.DisplayName("Father / Mother")
-                }
-            </dd>
 
+                <dt>
+                    @Html.DisplayName("Address ")
+                </dt>
 
-            <dt>
-                @Html.DisplayName("Address ")
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ADDRESS)
+                </dd>
+                <dt>
+                    @Html.DisplayName("Branch ")
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.ADDRESS)
-            </dd>
-            <dt>
-                @Html.DisplayName("Branch ")
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.BRANCH)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.BRANCH)
-            </dd>
 
+                <dt>
+                    @Html.DisplayName("Employee Class")
+                </dt>
 
-            <dt>
-                @Html.DisplayName("Employee Class")
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_CLASS)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.EMP_CLASS)
-            </dd>
 
 
+                <dt>
+                    @Html.DisplayName("Request Code")
+                </dt>
 
-            <dt>
-                @Html.DisplayName("Request Code")
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.REQUEST_CODE)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.REQUEST_CODE)
-            </dd>
 
 
 
+                <dt>
+                    @Html.DisplayName("Company Id")
+                </dt>
 
-            <dt>
-                @Html.DisplayName("Company Id")
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.COMP_ID)
+                </dd>
+                <dt>
+                    @Html.DisplayName("Status ")
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.COMP_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Status ")
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.APPROVE_FLAG)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.APPROVE_FLAG)
-            </dd>
 
+                <dt>
+                    @Html.DisplayName("Employee Image ")
+                </dt>
 
-            <dt>
-                @Html.DisplayName("Employee Image ")
-            </dt>
+                <dd>
+                    @Html.ActionLink(" Download", "DownloadAttachment", new { FileName = Model.EMP_IMG }, htmlAttributes: new { @class = "btn btn-info fa fa-download", @style = " text-transform: none" })
+                </dd>
+            </dl>
+        }
+        @if (Model.TYPE == 2)
+        {
+            <h4> Edit Level </h4>
+            <hr />
 
-            <dd>
-                @Html.ActionLink(" Download", "DownloadAttachment", new { FileName = Model.EMP_IMG }, htmlAttributes: new { @class = "btn btn-info fa fa-download", @style = " text-transform: none" })
-            </dd>
-        </dl>
-    }
-    @if (Model.TYPE == 2)
-    {
-        <h4> Edit Level </h4>
-        <hr />
+            <dl class="dl-horizontal">
 
-        <dl class="dl-horizontal">
 
+                <dt>
+                    @Html.DisplayName("Card Id")
+                </dt>
 
-            <dt>
-                @Html.DisplayName("Card Id")
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CARD_ID)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.CARD_ID)
-            </dd>
+                <dt>
+                    @Html.DisplayName("Mobile ")
+                </dt>
 
-            <dt>
-                @Html.DisplayName("Mobile ")
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.MOBILE)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.MOBILE)
-            </dd>
 
+                <dt>
+                    @Html.DisplayName("Start Date")
+                </dt>
 
-            <dt>
-                @Html.DisplayName("Start Date")
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.START_DATE)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.START_DATE)
-            </dd>
+                <dt>
+                    @Html.DisplayName("Reason ")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.RESON)
+                </dd>
 
-            <dt>
-                @Html.DisplayName("Reason ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.RESON)
-            </dd>
+                <dt>
+                    @Html.DisplayName("Employee Class")
+                </dt>
 
-            <dt>
-                @Html.DisplayName("Employee Class")
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_CLASS)
+                </dd>
+
+
+
+                <dt>
+                    @Html.DisplayName("Request Code")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.REQUEST_CODE)
+                </dd>
+
 
-            <dd>
-                @Html.DisplayFor(model => model.EMP_CLASS)
-            </dd>
-
-
-
-            <dt>
-                @Html.DisplayName("Request Code")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.REQUEST_CODE)
-            </dd>
-
 
-
-
-            <dt>
-                @Html.DisplayName("Company Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.COMP_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Status ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.APPROVE_FLAG)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Employee Image ")
-            </dt>
-
-            <dd>
-                @Html.ActionLink(" Download", "DownloadAttachment", new { FileName = Model.TYP_EMP_UPDATE }, htmlAttributes: new { @class = "btn btn-info fa fa-download", @style = " text-transform: none" })
-            </dd>
-        </dl>
-    }
-    @if (Model.TYPE == 5)
-    {
-        <h4>Reopen</h4>
-        <hr />
-        <dl class="dl-horizontal">
-
-
-            <dt>
-                @Html.DisplayName("Card Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CARD_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Reopen Date")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.REOPEN_DATE)
-            </dd>
-
-
-            <dt>
-                @Html.DisplayName("Request Code")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.REQUEST_CODE)
-            </dd>
-            <dt>
-                @Html.DisplayName("Company Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.COMP_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Status ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.APPROVE_FLAG)
-            </dd>
-        </dl>
-    }
-    @if (Model.TYPE == 4)
-    {
-        <h4>RePrint</h4>
-        <hr />
-        <dl class="dl-horizontal">
-
-
-            <dt>
-                @Html.DisplayName("Card Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CARD_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("RePrint Reason")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.PRINT_REASON)
-            </dd>
-
-
-            <dt>
-                @Html.DisplayName("Request Code")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.REQUEST_CODE)
-            </dd>
-            <dt>
-                @Html.DisplayName("Company Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.COMP_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Status ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.APPROVE_FLAG)
-            </dd>
-        </dl>
-    }
-    @if (Model.TYPE == 6)
-    {
-        <h4>RePrint</h4>
-        <hr />
-        <dl class="dl-horizontal">
-
-
-            <dt>
-                @Html.DisplayName("Card Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CARD_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("New Card Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.NEW_CARD_ID)
-            </dd>
-
-
-            <dt>
-                @Html.DisplayName("Request Code")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.REQUEST_CODE)
-            </dd>
-            <dt>
-                @Html.DisplayName("Company Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.COMP_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Status ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.APPROVE_FLAG)
-            </dd>
-        </dl>
-    }
-    @if (Model.TYPE == 7)
-    {
-        <h4>RePrint</h4>
-        <hr />
-        <dl class="dl-horizontal">
-
-
-            <dt>
-                @Html.DisplayName("Card Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CARD_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("First ENAME")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_ST)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Second EName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_SC)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Third EName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_TH)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Fourth EName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ENAME_FR)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("First AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_ST)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Second AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_SC)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Third AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_TH)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Fourth AName")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.EMP_ANAME_FR)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Request Code")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.REQUEST_CODE)
-            </dd>
-            <dt>
-                @Html.DisplayName("Company Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.COMP_ID)
-            </dd>
-
-            <dt>
-                @Html.DisplayName("Status ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.APPROVE_FLAG)
-            </dd>
-        </dl>
-    }
-    @if (Model.TYPE == 3)
-    {
-        <h4>Termination Request</h4>
-        <hr />
-        <dl class="dl-horizontal">
-
-
-            <dt>
-                @Html.DisplayName("Card Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CARD_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Termination Date")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.TERMINATE_DATE)
-            </dd>
-
-
-            <dt>
-                @Html.DisplayName("Do you take Card?")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DELIVER_CARD_FLAG)
-            </dd>
-
-            <dt>
-                @Html.DisplayName(" Take Card Date")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DELIVER_CARD_DATE)
-            </dd>
-            <dt>
-                @Html.DisplayName("Request Code")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.REQUEST_CODE)
-            </dd>
-            <dt>
-                @Html.DisplayName("Company Id")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.COMP_ID)
-            </dd>
-            <dt>
-                @Html.DisplayName("Status ")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.APPROVE_FLAG)
-            </dd>
-        </dl>
-    }
-</div>
-<p>
-    @if (!User.IsInRole("Admin"))
-    {
-        @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary fa fa-backward", @style = " text-transform: none" })
-    }
-    else
-    {
-        <div class="portlet-body">
-
-            <div class="panel panel-info">
-                <h2 class="panel-heading" style="margin:1px;">Update Status</h2>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="form-group">
-                            <input type="text" id="id" value="@Model.REQUEST_CODE" hidden />
-                            <div class="col-lg-3">
-                                <h4>@Html.Label("Update Status :", htmlAttributes: new { @class = "control-label" })</h4>
-
-                            </div>
-                            <div class="col-lg-3" data-step="7" data-intro="Select speciality">
-                                @Html.TextAreaFor(model => model.APPROVE_FLAG, new { htmlAttributes = new { @class = "form-control" } })
+
+                <dt>
+                    @Html.DisplayName("Company Id")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.COMP_ID)
+                </dd>
+                <dt>
+                    @Html.DisplayName("Status ")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.APPROVE_FLAG)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Employee Image ")
+                </dt>
+
+                <dd>
+                    @Html.ActionLink(" Download", "DownloadAttachment", new { FileName = Model.TYP_EMP_UPDATE }, htmlAttributes: new { @class = "btn btn-info fa fa-download", @style = " text-transform: none" })
+                </dd>
+            </dl>
+        }
+        @if (Model.TYPE == 5)
+        {
+            <h4>Reopen</h4>
+            <hr />
+            <dl class="dl-horizontal">
+
+
+                <dt>
+                    @Html.DisplayName("Card Id")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CARD_ID)
+                </dd>
+                <dt>
+                    @Html.DisplayName("Reopen Date")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.REOPEN_DATE)
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayName("Request Code")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.REQUEST_CODE)
+                </dd>
+                <dt>
+                    @Html.DisplayName("Company Id")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.COMP_ID)
+                </dd>
+                <dt>
+                    @Html.DisplayName("Status ")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.APPROVE_FLAG)
+                </dd>
+            </dl>
+        }
+        @if (Model.TYPE == 4)
+        {
+            <h4>RePrint</h4>
+            <hr />
+            <dl class="dl-horizontal">
+
+
+                <dt>
+                    @Html.DisplayName("Card Id")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CARD_ID)
+                </dd>
+                <dt>
+                    @Html.DisplayName("RePrint Reason")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PRINT_REASON)
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayName("Request Code")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.REQUEST_CODE)
+                </dd>
+                <dt>
+                    @Html.DisplayName("Company Id")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.COMP_ID)
+                </dd>
+                <dt>
+                    @Html.DisplayName("Status ")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.APPROVE_FLAG)
+                </dd>
+            </dl>
+        }
+        @if (Model.TYPE == 6)
+        {
+            <h4>RePrint</h4>
+            <hr />
+            <dl class="dl-horizontal">
+
+
+                <dt>
+                    @Html.DisplayName("Card Id")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CARD_ID)
+                </dd>
+                <dt>
+                    @Html.DisplayName("New Card Id")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NEW_CARD_ID)
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayName("Request Code")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.REQUEST_CODE)
+                </dd>
+                <dt>
+                    @Html.DisplayName("Company Id")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.COMP_ID)
+                </dd>
+                <dt>
+                    @Html.DisplayName("Status ")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.APPROVE_FLAG)
+                </dd>
+            </dl>
+        }
+        @if (Model.TYPE == 7)
+        {
+            <h4>RePrint</h4>
+            <hr />
+            <dl class="dl-horizontal">
+
+
+                <dt>
+                    @Html.DisplayName("Card Id")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CARD_ID)
+                </dd>
+                <dt>
+                    @Html.DisplayName("First ENAME")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ENAME_ST)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Second EName")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ENAME_SC)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Third EName")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ENAME_TH)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Fourth EName")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ENAME_FR)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("First AName")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ANAME_ST)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Second AName")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ANAME_SC)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Third AName")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ANAME_TH)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Fourth AName")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMP_ANAME_FR)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Request Code")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.REQUEST_CODE)
+                </dd>
+                <dt>
+                    @Html.DisplayName("Company Id")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.COMP_ID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName("Status ")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.APPROVE_FLAG)
+                </dd>
+            </dl>
+        }
+        @if (Model.TYPE == 3)
+        {
+            <h4>Termination Request</h4>
+            <hr />
+            <dl class="dl-horizontal">
+
+
+                <dt>
+                    @Html.DisplayName("Card Id")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CARD_ID)
+                </dd>
+                <dt>
+                    @Html.DisplayName("Termination Date")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TERMINATE_DATE)
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayName("Do you take Card?")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DELIVER_CARD_FLAG)
+                </dd>
+
+                <dt>
+                    @Html.DisplayName(" Take Card Date")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DELIVER_CARD_DATE)
+                </dd>
+                <dt>
+                    @Html.DisplayName("Request Code")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.REQUEST_CODE)
+                </dd>
+                <dt>
+                    @Html.DisplayName("Company Id")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.COMP_ID)
+                </dd>
+                <dt>
+                    @Html.DisplayName("Status ")
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.APPROVE_FLAG)
+                </dd>
+            </dl>
+        }
+    </div>
+    <p>
+        @if (!User.IsInRole("Admin"))
+        {
+            @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary fa fa-backward", @style = " text-transform: none" })
+        }
+        else
+        {
+            <div class="portlet-body">
+
+                <div class="panel panel-info">
+                    <h2 class="panel-heading" style="margin:1px;">Update Status</h2>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="form-group">
+                                <input type="text" id="id" value="@Model.REQUEST_CODE" hidden />
+                                <div class="col-lg-3">
+                                    <h4>@Html.Label("Update Status :", htmlAttributes: new { @class = "control-label" })</h4>
+
+                                </div>
+                                <div class="col-lg-3" data-step="7" data-intro="Select speciality">
+                                    @Html.TextAreaFor(model => model.APPROVE_FLAG, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!--Save-->
-                <div class="panel-footer" style="text-align:right;">
-                    @*<input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
-                    @*<input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn btn-warning" />*@
-                    @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary fa fa-backward", @style = " text-transform: none" })
-                    <input data-step="12" data-intro="Update Status" id="submit" type="button" value="Update" class="btn btn-success fa fa-check" />
-                </div>
+                    <!--Save-->
+                    <div class="panel-footer" style="text-align:right;">
+                        @*<input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />*@
+                        @*<input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn btn-warning" />*@
+                        @Html.ActionLink(" Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary fa fa-backward", @style = " text-transform: none" })
+                        <input data-step="12" data-intro="Update Status" id="submit" type="button" value="Update" class="btn btn-success fa fa-check" />
+                    </div>
 
+                </div>
             </div>
-        </div>
-    }
-</p>
+        }
+    </p>
+</div>
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
 <script src="~/assets/HomeTemplete/js/intro.js"></script>
 <script src="~/Scripts/DMS/HR/UpdateRequestStatus.js?V=1.1"></script>

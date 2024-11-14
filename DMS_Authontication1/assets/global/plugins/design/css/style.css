@@ -306,7 +306,29 @@ input {
         background: white;
         color:   #337ab7;
         border: 2px solid #337ab7;
+    }
+.dms-container .btn-danger { 
+    background: #ed6b75;
+    border-color: #ed6b75; 
+} 
+.dms-container .btn-danger:focus { 
+    border-color: #ed6b75; 
+}
+.dms-container .btn-info {
+    background: #659be0;
+    border-color: #659be0;
+}
+    .dms-container .btn-info:focus {
+        border-color: #659be0;
     } 
+.dms-container .btn-warning { 
+    background: #f1c40f;
+    border-color: #f1c40f; 
+} 
+.dms-container .btn-warning:focus { 
+    border-color: #f1c40f; 
+} 
+
 .contact-card-box > div {
     position: relative;
     padding: 48px 32px 1px 32px;

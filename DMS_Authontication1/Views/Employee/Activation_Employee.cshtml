@@ -4,60 +4,60 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
 }
+<div class="dms-container">
+    <div class="portlet box ">
+        <div class="portlet-title title-bg text-white fw-bold">
+            <div class="caption">
+                <i class="fa-solid fa-home"></i>Employee Not Active
+            </div>
 
-<br />
-
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Employee Not Active
         </div>
+        <br />
+        <div class="portlet-body">
 
-    </div>
-    <br />
-    <div class="portlet-body">
+            <table class="ui celled table" id="Index" width="100%">
+                <thead>
+                    <tr>
 
-        <table class="ui celled table" id="Index" width="100%">
-            <thead>
-                <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Full Name
+                        </th>
+                        <th>
+                            Card Id
+                        </th>
+                        <th>
+                            National Id
+                        </th>
+                        <th>
+                            Birth Date
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Created Date
+                        </th>
+                        <th>
+                            Attachment
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                        @*<th></th>
+                            <th></th>
+                            <th></th>*@
+                    </tr>
+                </thead>
+                <tbody></tbody>
 
-                    <th>
-                        Id
-                    </th>
-                    <th>
-                        Full Name
-                    </th>
-                    <th>
-                        Card Id
-                    </th>
-                    <th>
-                        National Id
-                    </th>
-                    <th>
-                        Birth Date
-                    </th>
-                    <th>
-                        Status
-                    </th>
-                    <th>
-                        Created Date
-                    </th>
-                    <th>
-                        Attachment
-                    </th>
-                    <th>
-                        Action
-                    </th>
-                    @*<th></th>
-                        <th></th>
-                        <th></th>*@
-                </tr>
-            </thead>
-            <tbody></tbody>
-
-        </table>
+            </table>
+        </div>
     </div>
 </div>
+<br />
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>
