@@ -152,7 +152,8 @@ $(function () {
                                 data: { id: CompId, CardId: $('#txtSearchCard').val() },
                                 success: function (returndata) {
                                     if (returndata.ok) {
-                                        if (r.Data[0].HOSPITAL_DEGREE <= r.Data[0].Provider_Level || r.messages == "ok") {
+                                        if ((r.Data[0].HOSPITAL_DEGREE <= r.Data[0].Provider_Level || r.messages == "ok") && r.messageblackwhite == "ok")
+                                        {
                                             if (r.Data[0].TERMINATE_FLAG == 'N' || r.Data[0].TERMINATE_FLAG == null) {
                                                 if (r.Data[0].INS_END_DATE != null) {
                                                     //end date
