@@ -596,10 +596,10 @@ p:last-of-type {
     display:flex;
     align-items:center;
 }*/
-.title-bg i {
-    color: white !important; 
-    margin-top:1 !important;
-}
+    .title-bg i {
+        color: #337ab7 !important;
+        margin-top: 1 !important;
+    }
 .portlet{
     box-shadow:none;
 }
