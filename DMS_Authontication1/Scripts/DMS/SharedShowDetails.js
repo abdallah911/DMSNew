@@ -10,8 +10,7 @@
 
 
 function getData(crd) {
-    //debugger;
-    $("#wait").css("display", "block");
+    $("#loading").show();
     $.ajax({
 
         type: "POST",
@@ -37,13 +36,14 @@ function getData(crd) {
                 getConsumption(crd);
             }
         }
+
     });
-    $("#wait").css("display", "none");
+    
 }
 
 
 function getConsumption(crd) {
-    
+    $("#loading").show();
     $.ajax({
         type: "POST",
         dataType: "json",
@@ -60,6 +60,9 @@ function getConsumption(crd) {
                 $('#Remaining').val(cardDetails[0].Remaining);
                 $('#Percent').val(cardDetails[0].Percent);
             }
+        },
+        complete: function () {
+            $("#loading").hide();
         }
     });
 }

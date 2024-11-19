@@ -1749,6 +1749,7 @@
     <Content Include="assets\global\img\loading-spinner-default.gif" />
     <Content Include="assets\global\img\loading-spinner-grey.gif" />
     <Content Include="assets\global\img\loading.gif" />
+    <Content Include="assets\global\img\newloading.gif" />
     <Content Include="assets\global\img\overlay-icon.png" />
     <Content Include="assets\global\img\portfolio\1200x900\01.jpg" />
     <Content Include="assets\global\img\portfolio\1200x900\02.jpg" />
