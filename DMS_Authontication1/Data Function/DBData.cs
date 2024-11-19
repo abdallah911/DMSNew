@@ -238,7 +238,55 @@ namespace DMS_Authontication1.Data_Function
                 }
             }
         }
+        public DataTable getData(string crd)
+        {
+            OracleConnection con = new OracleConnection(connectionStr);
+            OracleCommand cmd = new OracleCommand();
+            OracleDataAdapter da;
+            DataTable dd = new DataTable();
+            try
+            {
 
+                //cmd = new OracleCommand(@" SELECT e.C_COMP_ID, e.CONTRACT_NO, e.CLASS_CODE, e.EMP_ANAME_ST || ' ' || e.EMP_ANAME_SC || ' ' || e.EMP_ANAME_TH NAME, TO_CHAR(e.INS_START_DATE,'DD-MM-YYYY') INS_START_DATE, TO_CHAR(e.INS_END_DATE,'DD-MM-YYYY') INS_END_DATE  
+                //                            FROM   DMS_TEST.COMP_EMPLOYEES e                                           
+                //                            WHERE  e.CARD_ID = :crd AND TRUNC(TO_DATE(SYSDATE)) BETWEEN TRUNC(TO_DATE(e.INS_START_DATE)) AND TRUNC(TO_DATE(e.INS_END_DATE))", con);
+
+                cmd = new OracleCommand(@" SELECT to_char(e.BIRTH_DATE,'DD-MM-YYYY'), e.C_COMP_ID, e.CLASS_CODE, TO_CHAR(e.INS_START_DATE,'DD-MM-YYYY') INS_START_DATE, TO_CHAR(e.INS_END_DATE,'DD-MM-YYYY') INS_END_DATE, e.TERMINATE_FLAG, e.EMP_ANAME_ST || ' ' || e.EMP_ANAME_SC || ' ' || e.EMP_ANAME_TH NAME, to_char(e.TERMINATE_DATE,'DD-MM-YYYY') TERMINATE_DATE, e.CONTRACT_NO, e.TEL1, e.TEL2, e.EMP_ID,  DECODE (e.GENDER, 1, 'Male', 2, 'Female')  Gender  
+                                            FROM   DMS_TEST.COMP_EMPLOYEES e                                           
+                                            WHERE  e.CARD_ID = :crd AND TRUNC(TO_DATE(SYSDATE)) BETWEEN TRUNC(TO_DATE(e.INS_START_DATE)) AND TRUNC(TO_DATE(e.INS_END_DATE))", con);
+
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(":crd", OracleType.VarChar).Value = crd;
+
+                da = new OracleDataAdapter(cmd);
+
+                da.Fill(dd);
+                con.Dispose();
+                con.Close();
+
+                OracleConnection.ClearAllPools();
+
+                return dd;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);                
+                return dd;
+            }
+
+            finally
+            {
+                if (con.State != ConnectionState.Closed)
+                {
+                    con.Dispose();
+                    con.Close();
+
+                    OracleConnection.ClearAllPools();
+                }
+            }
+        }
 
     }
 

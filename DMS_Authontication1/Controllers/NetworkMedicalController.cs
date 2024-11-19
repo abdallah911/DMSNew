@@ -12,6 +12,8 @@ using System.Web.Mvc;
 using System.Data;
 using CrystalDecisions.CrystalReports.Engine;
 using System.IO;
+using System.Globalization;
+using System.Threading;
 
 namespace DMS_Authontication1.Controllers
 {
@@ -20,10 +22,15 @@ namespace DMS_Authontication1.Controllers
         private DMS_TESTEntities db = new DMS_TESTEntities();
         ApplicationDbContext myEntities = new ApplicationDbContext();
         DBApproval dbData = new DBApproval();
+        DBData dbData2 = new DBData();
 
         [HttpGet]
         public ActionResult NetworkMedical(string cardId)
         {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
             EmployeeDataViewModel mod = new EmployeeDataViewModel();
 
             if (!string.IsNullOrEmpty(cardId))
@@ -35,53 +42,57 @@ namespace DMS_Authontication1.Controllers
                 //                            FROM    DMS_TEST.COMP_EMPLOYEES e
                 //                            LEFT OUTER JOIN APP.CARD_QR q ON  e.C_COMP_ID = q.COMP_ID AND e.CARD_ID = q.CARD_ID
                 //                            WHERE q.CARD_ID = '" + cardId + "'");
-                dtcrd = dbData.RunReader(@" SELECT e.C_COMP_ID, e.CONTRACT_NO, e.CLASS_CODE, e.EMP_ANAME_ST || ' ' || e.EMP_ANAME_SC || ' ' || e.EMP_ANAME_TH NAME, TO_CHAR(e.INS_START_DATE,'DD-MM-YYYY') INS_START_DATE, TO_CHAR(e.INS_END_DATE,'DD-MM-YYYY') INS_END_DATE  
-                                            FROM   DMS_TEST.COMP_EMPLOYEES e                                           
-                                            WHERE  e.CARD_ID = '" + cardId + "' ORDER BY e.CONTRACT_NO DESC --AND TRUNC(TO_DATE(SYSDATE)) BETWEEN TRUNC(TO_DATE(e.INS_START_DATE)) AND TRUNC(TO_DATE(e.INS_END_DATE))");
+                dtcrd = dbData2.getData(cardId);
 
-
-
-                if (dtcrd.Rows.Count > 0)
+                if (dtcrd.Rows.Count != 0)
                 {
-                    string comp = dtcrd.Rows[0]["C_COMP_ID"].ToString(), contr = dtcrd.Rows[0]["CONTRACT_NO"].ToString(), cls = dtcrd.Rows[0]["CLASS_CODE"].ToString();
-                    string notes = "";
-                    dtNotes = dbData.RunReader(@" SELECT NOTES FROM COMP_NOTES WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'AND CARD_ID = '" + cardId + "'");
+                    if (dtcrd.Rows.Count > 0 && dtcrd.Rows[0]["TERMINATE_FLAG"].ToString() == "Y" && Convert.ToDateTime(dtcrd.Rows[0]["TERMINATE_DATE"]).Date < DateTime.Now.Date)
+                    {
+                        mod.Mesage = "تم إغلاق هذا الكارت بتاريخ " + dtcrd.Rows[0]["TERMINATE_DATE"].ToString() + "\n";
 
-                    if (dtNotes.Rows.Count == 0)
-                        dtNotes =  dbData.RunReader(@" SELECT NOTES FROM COMP_NOTES WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'");
+                        DataTable dtdelcrd = dbData.RunReader(@"SELECT CARD_ID, to_char(WITHDRAW_CARD_DATE, 'DD-MM-YYYY') FROM DMS_TEST.CLOSE_EMP_DATA WHERE WITHDRAW_CARD_DATE IS NOT NULL AND CARD_ID = '" + cardId + "'");
 
-                    if (dtNotes.Rows.Count > 0)
-                        notes = dtNotes.Rows[0]["NOTES"].ToString();
+                        if (dtdelcrd.Rows.Count > 0)
+                            mod.Mesage += " وتم استلام الكارت بتاريخ " + dtdelcrd.Rows[0][1].ToString();
+                        else
+                            mod.Mesage += " ولم يتم إستلام الكارت بعد ";
+                    }
+                    else if (dtcrd.Rows.Count > 0 && Convert.ToDateTime(dtcrd.Rows[0]["INS_END_DATE"]).Date < DateTime.Now.Date)
+                    {
+                        mod.Mesage = " أنتهى التعاقد مع هذا الموظف بتاريخ " + dtcrd.Rows[0]["INS_END_DATE"].ToString();
+                    }
+                    else
+                    {
+                        mod.Mesage = "";
+                        string comp = dtcrd.Rows[0]["C_COMP_ID"].ToString(), contr = dtcrd.Rows[0]["CONTRACT_NO"].ToString(), cls = dtcrd.Rows[0]["CLASS_CODE"].ToString();
+                        string notes = "";
+                        dtNotes = dbData.RunReader(@" SELECT NOTES FROM COMP_NOTES WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'AND CARD_ID = '" + cardId + "'");
 
-                    mod.CardId = cardId;
-                    mod.EmpName = dtcrd.Rows[0]["NAME"].ToString();
-                    mod.StartDate = dtcrd.Rows[0]["INS_START_DATE"].ToString();
-                    mod.EndDate = dtcrd.Rows[0]["INS_END_DATE"].ToString();
-                    //mod.Notes = notes;
+                        if (dtNotes.Rows.Count == 0)
+                            dtNotes = dbData.RunReader(@" SELECT NOTES FROM COMP_NOTES WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'");
 
-                    //mod.Notes = mod.Notes.Replace("\n", "<br>");
-                    mod.Notes = notes.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                        if (dtNotes.Rows.Count > 0)
+                            notes = dtNotes.Rows[0]["NOTES"].ToString();
+
+                        mod.CardId = cardId;
+                        mod.EmpName = dtcrd.Rows[0]["NAME"].ToString();
+                        mod.StartDate = dtcrd.Rows[0]["INS_START_DATE"].ToString();
+                        mod.EndDate = dtcrd.Rows[0]["INS_END_DATE"].ToString();
+                        //mod.Notes = notes;
+
+                        //mod.Notes = mod.Notes.Replace("\n", "<br>");
+                        mod.Notes = notes.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                    }                                      
                 }
-                //if(dtcrd.Rows.Count > 0)
-                //{
-                //    ViewBag.CardId = cardId;
-                //    ViewBag.Name = dtcrd.Rows[0][0].ToString();
-                //    ViewBag.Notes = dtcrd.Rows[0][1].ToString();
-
-                //    ViewBag.Notes = ViewBag.Notes.Replace("\n", "<br>");
-                //}
-
+                else                
+                    mod.Mesage += "لا توجد بيانات للكارت الرجاء التأكد من رقم الكارت المدخل وحاول ثانية";
+                
                 var provider = db.ProviderTypeNews.ToList();
                 SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
                 ViewBag.provider = Providerlist;
 
-                //var address = db.Basic_Data.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-                ////var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-                //SelectList addresslist = new SelectList(address, "BS_ENAME", "BS_ANAME");
-                //ViewBag.address = addresslist;
-
                 var address = db.Basic_Data.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
-                //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+
                 SelectList addresslist = new SelectList(address, "BS_CODE", "BS_ANAME");
                 ViewBag.address = addresslist;
 

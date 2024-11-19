@@ -43,7 +43,7 @@ function getData(crd) {
 
 
 function getConsumption(crd) {
-    
+    $("#loading").show();
     $.ajax({
         type: "POST",
         dataType: "json",
@@ -61,7 +61,12 @@ function getConsumption(crd) {
                 $('#Percent').val(cardDetails[0].Percent);
             }
         }
+        ,
+        complete: function () {
+            $("#loading").hide();
+        }
     });
+
 }
 
 function clearAll() {
