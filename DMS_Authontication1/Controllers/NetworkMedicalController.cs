@@ -65,14 +65,30 @@ namespace DMS_Authontication1.Controllers
                     {
                         mod.Mesage = "";
                         string comp = dtcrd.Rows[0]["C_COMP_ID"].ToString(), contr = dtcrd.Rows[0]["CONTRACT_NO"].ToString(), cls = dtcrd.Rows[0]["CLASS_CODE"].ToString();
-                        string notes = "";
-                        dtNotes = dbData.RunReader(@" SELECT NOTES FROM COMP_NOTES WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'AND CARD_ID = '" + cardId + "'");
+
+                        //dtNotes = dbData.RunReader(@" SELECT NOTES FROM COMP_NOTES WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'AND CARD_ID = '" + cardId + "'");
+
+                        //if (dtNotes.Rows.Count == 0)
+                        //    dtNotes = dbData.RunReader(@" SELECT NOTES FROM COMP_NOTES WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'");
+
+                        //if (dtNotes.Rows.Count > 0)
+                        //    notes = dtNotes.Rows[0]["NOTES"].ToString();
+                      
+
+
+                        
+                        dtNotes = dbData.RunReader(@" SELECT * FROM COMP_INSTRUCTIONS WHERE ACTIVE = 'Y' AND COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'AND CARD_ID = '" + cardId + "' ORDER BY CODE_NOTES");
 
                         if (dtNotes.Rows.Count == 0)
-                            dtNotes = dbData.RunReader(@" SELECT NOTES FROM COMP_NOTES WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'");
+                            dtNotes = dbData.RunReader(@" SELECT * FROM COMP_INSTRUCTIONS WHERE ACTIVE = 'Y' AND COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "' ORDER BY CODE_NOTES");
 
                         if (dtNotes.Rows.Count > 0)
-                            notes = dtNotes.Rows[0]["NOTES"].ToString();
+                            mod.Notes = dtNotes.AsEnumerable().Select(row => row["NOTES"]?.ToString()).ToArray();
+
+                        //mod.Notes = dtNotes.AsEnumerable()
+                        //                                .SelectMany(row => row.ItemArray.Select(field => field.ToString()))
+                        //                                .ToArray();
+
 
                         mod.CardId = cardId;
                         mod.EmpName = dtcrd.Rows[0]["NAME"].ToString();
@@ -81,7 +97,7 @@ namespace DMS_Authontication1.Controllers
                         //mod.Notes = notes;
 
                         //mod.Notes = mod.Notes.Replace("\n", "<br>");
-                        mod.Notes = notes.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                        //mod.Notes = notes.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                     }                                      
                 }
                 else                

@@ -62,10 +62,14 @@
                 <ul class="h5 container mx-auto sios-color mb-4 fw-bold" dir="rtl" style="line-height: 2;">
                     @if (string.IsNullOrEmpty(@Model.Mesage))
                     {
-                        foreach (var note in @Model.Notes)
+                        if (@Model.Notes != null)
                         {
+                            foreach (var note in @Model.Notes)
+                            {
                             <li>@note</li>
+                            }
                         }
+
                     }
                     else
                     {
