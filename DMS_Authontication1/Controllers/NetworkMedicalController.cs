@@ -77,10 +77,10 @@ namespace DMS_Authontication1.Controllers
 
 
                         
-                        dtNotes = dbData.RunReader(@" SELECT * FROM COMP_INSTRUCTIONS WHERE ACTIVE = 'Y' AND COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'AND CARD_ID = '" + cardId + "' ORDER BY CODE_NOTES");
+                        dtNotes = dbData.RunReader(@" SELECT * FROM COMP_INSTRUCTIONS WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'AND CARD_ID = '" + cardId + "' AND ACTIVE = 'Y' ORDER BY CODE_NOTES");
 
                         if (dtNotes.Rows.Count == 0)
-                            dtNotes = dbData.RunReader(@" SELECT * FROM COMP_INSTRUCTIONS WHERE ACTIVE = 'Y' AND COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "' ORDER BY CODE_NOTES");
+                            dtNotes = dbData.RunReader(@" SELECT * FROM COMP_INSTRUCTIONS WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "' AND ACTIVE = 'Y' AND CARD_ID IS NULL ORDER BY CODE_NOTES");
 
                         if (dtNotes.Rows.Count > 0)
                             mod.Notes = dtNotes.AsEnumerable().Select(row => row["NOTES"]?.ToString()).ToArray();
