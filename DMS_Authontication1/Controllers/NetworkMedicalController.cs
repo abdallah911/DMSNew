@@ -61,6 +61,10 @@ namespace DMS_Authontication1.Controllers
                     {
                         mod.Mesage = " أنتهى التعاقد مع هذا الموظف بتاريخ " + dtcrd.Rows[0]["INS_END_DATE"].ToString();
                     }
+                    else if (dtcrd.Rows.Count > 0 && dtcrd.Rows[0]["TERMINATE_FLAG"].ToString() == "H")
+                    {
+                        mod.Mesage = "تم إغلاق الكارت بسبب تعديه الحد الأقصى";
+                    }
                     else
                     {
                         mod.Mesage = "";
