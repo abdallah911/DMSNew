@@ -4,7 +4,7 @@
     --color-gradient: linear-gradient(45deg, #471f5d 0%, #8346accc 50%, #471f5d 100%);
 }
 ::selection {
-    background: #744e8b !important;
+    background: #97d1df !important;
 }
 body{
     overflow-x:hidden;
@@ -610,25 +610,29 @@ p:last-of-type {
         column-gap: 50px;
     }
 }
+.portlet.box > .portlet-body {
+    border: 1px solid #5cd1db;
+    border-top: 0;
+}
 /* ====================Scroll bar=========================================== */
 ::-webkit-scrollbar {
     border-radius: 20px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #d6c8db;
+    background: #c8d6db;
     /*border-radius: 20px;*/
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #9b91a7;
-    border: 4px solid #d6c8db;
+    background: #91a3a7;
+    border: 4px solid #c8d6db;
     width: 24px;
     border-radius: 15px;
 }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: #857993;
+        background: #788e93;
     }
 /*================================Bootstrap5=========================================*/
 .rounded {
