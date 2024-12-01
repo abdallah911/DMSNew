@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DMS_Authontication1.Models.AfterSale>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+<link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
+<link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
+
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+
+<div class="dms-container portlet box">
+    <div class="portlet-title title-bg">
+        <div class="caption">
+            <i class="fa fa-home text-light me-1"></i>HR Data
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row gap-2 ">
+            <div class="forLabel col-sm-6 col-lg-3 mb-2">
+                <select class="w-100 form-control" required><option></option></select>
+                <span>Company</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3 mb-2">
+                <input type="text" class="w-100 form-control " required />
+                <span>HR Name</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3 mb-2">
+                <select class="w-100 form-control" required><option></option></select>
+                <span>HR Type</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3 mb-2">
+                <input type="tel" class="w-100 form-control " required "  />
+                <span>Mobile</span>
+            </div>
+            <div class="forLabel col-sm-6 col-lg-3">
+                <input id="To" type="email" class="w-100 form-control " required "  />
+                <span>Email</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>

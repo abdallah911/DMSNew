@@ -3,51 +3,52 @@
     ViewBag.Title = "MedicineLicenseType";
 }
 
-@using (Html.BeginForm("MedicineLicenseType", "Medicines", FormMethod.Post))
-{
-    <div class="panel panel-primary">
-        <h2 class="panel-heading" style="margin:1px;">New License Type</h2>
-        <div class="panel-body">
-            <div class="form-horizontal">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.licType, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.licType, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.licType, "", new { @class = "text-danger" })
+<div class="dms-container">
+    @using (Html.BeginForm("MedicineLicenseType", "Medicines", FormMethod.Post))
+    {
+        <div class="panel panel-primary">
+            <h2 class="panel-heading title-bg text-white fw-bold" style="margin:1px;">New License Type</h2>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.licType, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.licType, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.licType, "", new { @class = "text-danger" })
+                        </div>
                     </div>
+                    @*@if (ViewBag.Error == "done")
+                        {
+                            <div class="error">This Value is Duplicated</div>
+                        }*@
+                    @*<div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>*@
                 </div>
-                @*@if (ViewBag.Error == "done")
-                {
-                    <div class="error">This Value is Duplicated</div>
-                }*@
-                @*<div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
-                </div>*@
+            </div>
+            <div class="panel-footer" style="text-align:right;">
+                <input id="submit" type="submit" value="Create" class="btn btn-success" />
             </div>
         </div>
-        <div class="panel-footer" style="text-align:right;">
-            <input id="submit" type="submit" value="Create" class="btn btn-success" />
+    }
+    <div class="portlet box ">
+        <div class="portlet-title title-bg text-white fw-bold">
+            <div class="caption">
+                <i class="fa fa-"></i>Medicine License List
+            </div>
         </div>
-    </div>
-}
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Medicine License List
+
+        <div class="portlet-body">
+
+            @Html.Partial("_MedicineLicenseList")
+
         </div>
-    </div>
-    <br />
-    <div class="portlet-body">
-
-        @Html.Partial("_MedicineLicenseList")
-
     </div>
 </div>
-
-
+<br />
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

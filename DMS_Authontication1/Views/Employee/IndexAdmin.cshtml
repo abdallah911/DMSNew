@@ -4,56 +4,55 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
 }
+<div style="min-height: calc(100vh - 264.1px);">
 
-<br />
-
-<div style="margin-top:40px">
-    <p>
-        @Html.ActionLink(" Last Request", "IndexAdmin", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search", @style = " text-transform: none" })
-        @Html.ActionLink(" Old Request", "OldRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-pencil", @style = " text-transform: none" })
-        @*@Html.ActionLink(" New Operation", "Create", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus", @style = " text-transform: none" })*@
-        @*@Html.ActionLink(" Edit Operation", "EditRequest", null, htmlAttributes: new { @class = "btn btn-warning fa fa-pencil", @style = " text-transform: none" })
+    <div @*style="margin-top:40px"*@>
+        <p style="padding-left:20px"> 
+            @Html.ActionLink(" Last Request", "IndexAdmin", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search", @style = " text-transform: none" })
+            @Html.ActionLink(" Old Request", "OldRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-pencil", @style = " text-transform: none" })
+            @*@Html.ActionLink(" New Operation", "Create", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus", @style = " text-transform: none" })*@
+            @*@Html.ActionLink(" Edit Operation", "EditRequest", null, htmlAttributes: new { @class = "btn btn-warning fa fa-pencil", @style = " text-transform: none" })
             @Html.ActionLink(" Termination Operation", "Termination", null, htmlAttributes: new { @class = "btn btn-danger fa fa-remove", @style = " text-transform: none" })*@
-    </p>
-</div>
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Last Request
-        </div>
-
+        </p>
     </div>
-    <br />
-    <div class="portlet-body">
+    <div class="portlet box  ">
+        <div class="portlet-title title-bg text-white fw-bold">
+            <div class="caption">
+                <i class="fa-solid fa-home"></i>Last Request
+            </div>
 
-        <table class="ui celled table" id="Index" width="100%">
-            <thead>
-                <tr>
+        </div> 
+        <div class="portlet-body">
 
-                    <th>
-                        Id
-                    </th>
-                    <th>
-                        Card Id
-                    </th>
-                    <th>
-                        Phone
-                    </th>
-                    <th>
-                        Time
-                    </th>
-                    <th>
-                        Created Date
-                    </th>
-                    <th></th>
-                    @*<th></th>
+            <table class="ui celled table" id="Index" width="100%">
+                <thead>
+                    <tr>
+
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Card Id
+                        </th>
+                        <th>
+                            Phone
+                        </th>
+                        <th>
+                            Time
+                        </th>
+                        <th>
+                            Created Date
+                        </th>
                         <th></th>
-                        <th></th>*@
-                </tr>
-            </thead>
-            <tbody></tbody>
+                        @*<th></th>
+                            <th></th>
+                            <th></th>*@
+                    </tr>
+                </thead>
+                <tbody></tbody>
 
-        </table>
+            </table>
+        </div>
     </div>
 </div>
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>

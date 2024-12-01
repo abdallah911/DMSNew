@@ -4,96 +4,96 @@
     ViewBag.Title = "SpecilityDiagnoisis";
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
 }
+<div class="dms-container">
+    @using (Html.BeginForm("Diagnoisis", "Specialities", FormMethod.Post))
+    {
+        <div class="panel panel-primary">
+            <h2 class="panel-heading title-bg text-white fw-bold" style="margin:1px;">New Diagnoisis</h2>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    @*@Html.HiddenFor(model => model.SPEC_ID)*@
 
-@using (Html.BeginForm("Diagnoisis", "Specialities", FormMethod.Post))
-{
-    <div class="panel panel-primary">
-        <h2 class="panel-heading" style="margin:1px;">New Diagnoisis</h2>
-        <div class="panel-body">
-            <div class="form-horizontal">
-                @*@Html.HiddenFor(model => model.SPEC_ID)*@
-
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DIAG_ANAME, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.DIAG_ANAME, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.DIAG_ANAME, "", new { @class = "text-danger" })
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DIAG_ANAME, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.DIAG_ANAME, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DIAG_ANAME, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DIAG_ENAME, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.DIAG_ENAME, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.DIAG_ENAME, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DIAG_ENAME, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.DIAG_ENAME, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DIAG_ENAME, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
+                </div>
+            </div>
+            <div class="panel-footer" style="text-align:right;">
+                <input id="submit" type="submit" value="Create" class="btn btn-success" />
             </div>
         </div>
-        <div class="panel-footer" style="text-align:right;">
-            <input id="submit" type="submit" value="Create" class="btn btn-success" />
-        </div>
-    </div>
-}
+    }
 
-<div class="portlet box  green">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Diagnoisis List
+    <div class="portlet box ">
+        <div class="portlet-title title-bg text-white fw-bold">
+            <div class="caption">
+                <i class="fa-solid fa-home"></i>Diagnoisis List
+            </div>
         </div>
-    </div>
-    <br />
-    <div class="portlet-body">
-        <table class="table" @*style="margin-left: 78px;"*@>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.SPEC_ID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DIAG_ANAME)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DIAG_ENAME)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ACTIVE)
-                </th>
-                <th>Actions</th>
-            </tr>
-            @foreach (var item in Model.DiagnosisList)
-            {
-                string Activation = item.ACTIVE == "1" ? "Deactivate" : "activate";
-                var btnClass = item.ACTIVE == "1" ? "btn btn-warning" : "btn btn-info";
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SPEC_ID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DIAG_ANAME)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DIAG_ENAME)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ACTIVE)
-                </td>
-                <td>
-                    <button type="button" class="@btnClass" data-id=@item.Id onclick="Activation(this);">@Activation</button>
-                </td>
-            </tr>
-            }
 
-        </table>
+        <div class="portlet-body">
+            <table class="table" @*style="margin-left: 78px;"*@>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SPEC_ID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DIAG_ANAME)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DIAG_ENAME)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ACTIVE)
+                    </th>
+                    <th>Actions</th>
+                </tr>
+                @foreach (var item in Model.DiagnosisList)
+                {
+                    string Activation = item.ACTIVE == "1" ? "Deactivate" : "activate";
+                    var btnClass = item.ACTIVE == "1" ? "btn btn-warning" : "btn btn-info";
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SPEC_ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DIAG_ANAME)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DIAG_ENAME)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ACTIVE)
+                        </td>
+                        <td>
+                            <button type="button" class="@btnClass" data-id=@item.Id onclick="Activation(this);">@Activation</button>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
     </div>
 </div>
-
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

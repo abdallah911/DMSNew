@@ -6,105 +6,107 @@
 <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs.css" rel="stylesheet" />
 <link href="~/assets/HomeTemplete/css/introjs-modern.css" rel="stylesheet" />
-
+@*<link href="~/assets/HomeTemplete/Content/css/bootstrap.min.css" rel="stylesheet" />*@
 <script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
-
-<div class="portlet box  red-pink">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i>Search  Visits
+<div class=" dms-container">
+    <div class="portlet box mb-0">
+        <div class="portlet-title font-weight-bold title-bg ">
+            <div class="caption">
+                Search Visit
+            </div>
         </div>
-    </div>
-    <div class="portlet-body">
-        <div class="row">
-            <div class="col-md-2">
-                <input id="From" type="text" class="col-md-2 form-control " placeholder="From" />
-            </div>
-            <div class="col-md-2">
-                <input id="To" type="text" class="col-md-2 form-control " placeholder="To" />
-            </div>
-            <div class="col-md-2">
-                @Html.DropDownList("CompName", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompName" })
+        <div class="row portlet-body">
+            <div class="row gap-2 col-md-6 col-lg-8 mt-3">
+                <div class="col-lg-3 col-sm-6">
+                    @Html.DropDownList("CompName", ViewBag.company as SelectList, "Select Company", new { @class = "w-100 form-control", @id = "CompName" })
 
-                @*<input id="CompName" type="text" class="col-md-2 form-control " placeholder="Company Name" />*@
-            </div>
-            @if (User.IsInRole("Admin"))
-            {
-                <div class="col-md-2">
-                    @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = "form-control", @id = "userName" })
-                    @*<input id="userName" type="text" class="col-md-2 form-control " placeholder="User Name" />*@
+                    @*<input id="CompName" type="text" class="col-md-2 form-control " placeholder="Company Name" />*@
+                </div> 
+                <div class="col-lg-3 col-sm-6">
+                    <input id="From" type="text" class="w-100 form-control " placeholder="From" />
                 </div>
-            }
-            <!--<div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
-                <select id="PharmacyddlType" class="form-control">
-                    <option value="">Select Type</option>
-                    <option value="Daily">Daily</option>
-                    <option value="Monthly">Monthly</option>
-                    <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>-->
-            @*<option value="11604">Doctor</option>*@
-            <!--</select>
-            </div>-->
-        </div>
-        <br />
-        <div class="row" style=" text-align:right">
-            <div class="col-md-12">
-                <input id="ResetSearch" type="button" value="Reset" onclick="ClearAfterSalesSearchData();" class="btn btn-warning" />
-                <input id="Print" type="button" value="Pdf" class="btn btn-primary fa fa-file-pdf-o" />
-                <input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o " />
-                <input id="AfterSalesSearch" type="button" value="Search" class="btn btn-default  fa fa-search" />
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="col-lg-3 col-sm-6">
+                        @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = "w-100 form-control", @id = "userName" })
+                        @*<input id="userName" type="text" class="col-md-2 form-control " placeholder="User Name" />*@
+                    </div>
+                }
+                <!--<div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
+            <select id="PharmacyddlType" class="form-control">
+                <option value="">Select Type</option>
+                <option value="Daily">Daily</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>-->
+                @*<option value="11604">Doctor</option>*@
+                <!--</select>
+    </div>-->
 
+                <div class="col-lg-3 col-sm-6">
+                    <input id="To" type="text" class="w-100 form-control " placeholder="To" />
+                </div>
+
+            </div> 
+            <div class="row mx-auto col-md-6 col-lg-4" style=" text-align:right">
+                <div class="col-md-12 d-flex justify-content-center gap-2 no-wrap">
+                    <input id="ResetSearch" type="button" value="Reset" onclick="ClearAfterSalesSearchData();" class="btn rounded border-0" />
+                    <input id="Print" type="button" value="Pdf" class="btn rounded border-0" style="background: #ed4238;" />
+                    <input id="PrintExcel" type="button" value="Excel" class="btn rounded border-0 " style="background: #36b34b;" />
+                    <input id="AfterSalesSearch" type="button" value="Search" class="btn rounded border-0 text-dark" style="background:#eee;" />
+
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="portlet box  red-pink">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-gift"></i> Visits
-        </div>
-        <div class="actions">
-            <a id="Create" href="/AfterSales/Create" style=" text-transform: none" class="btn btn-primary  btn-sm">
-                <i class="fa fa-plus"></i> New Visit
-            </a>
+    <div class="portlet box">
+        <div class="portlet-title title-bg">
+            <div class="caption fw-bold">
+                Visits
+            </div>
+            <div class="actions">
+                <a id="Create" href="/AfterSales/Create" style=" color: #337ab7 !important;  text-transform: none" class="btn bg-white">
+                    <i class="fa fa-plus" style="color: #337ab7 !important;"></i> New Visit
+                </a>
+            </div>
+        </div> 
+        <div class="portlet-body">
+
+            <table class="ui celled table" id="Index" width="100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Visit Id
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CompanyName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BranchName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.VisitReason)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.VisitDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PersonName)
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+
+            </table>
         </div>
     </div>
-    <br />
-    <div class="portlet-body">
-
-        <table class="ui celled table" id="Index" width="100%">
-            <thead>
-                <tr>
-                    <th>
-                        Visit Id
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CompanyName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.BranchName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.VisitReason)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.VisitDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.PersonName)
-                    </th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-
-        </table>
-    </div>
 </div>
+<br />
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 <script>
 
