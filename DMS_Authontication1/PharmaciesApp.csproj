@@ -8666,6 +8666,7 @@
     <Content Include="Views\AfterSales\HRData.cshtml" />
     <Content Include="Views\AfterSales\HRCompany.cshtml" />
     <Content Include="Views\AfterSales\Create.cshtml" />
+    <Content Include="Views\EmployeeRequest\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
@@ -8694,6 +8695,7 @@
     <Folder Include="ProviderContractsPDF\PolyClinic\Endorsement\" />
     <Folder Include="ProviderContractsPDF\Ray\Contracts\" />
     <Folder Include="ProviderContractsPDF\Ray\Endorsement\" />
+    <Folder Include="Views\ClaimsReview\" />
     <Folder Include="Views\ProposalBasicData\" />
   </ItemGroup>
   <ItemGroup>
