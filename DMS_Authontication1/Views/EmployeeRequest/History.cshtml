@@ -30,7 +30,7 @@
             }
         }
     }
-} 
+}
 <div class="dms-container">
     <div>
         @if (!User.IsInRole("Admin"))
@@ -47,57 +47,238 @@
             </p>
         }
     </div>
-
-    @if (fullcontroll || view)
-    {
-        <div class="portlet box">
-            <div class="portlet-title title-bg text-white fw-bold">
-                <div class="caption">
-                    <i class="fa-solid fa-home"></i>Operation
-                </div>
-
+    <div class="portlet box">
+        <div class="portlet-title title-bg text-white fw-bold">
+            <div class="caption">
+                <i class="fa-solid fa-home"></i>Operation
             </div>
-            <br />
-            <div class="portlet-body">
+        </div>
+        <div class="w-100 mx-auto row portlet-body">
+            <div class="row col-md-8">
+                <div class="sec-field-labeled col-md-6 px-2 mb-2 ">
+                    <input type="text" class="w-100 h-100 " placeholder="Company Number" />
+                </div>
+                <div class="col-md-6 px-2">
+                    <div class="w-100 px-2 field-labeled mb-2">
+                        <label>Service date</label>
+                        <div>
+                            <input id="From" type="text" class="col-md-2 form-control " placeholder="From" />
+                            <input id="To" type="text" class="col-md-2 form-control " placeholder="To" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 px-2">
+                    <div class="w-100 px-2 field-labeled mb-2">
+                        <label>Registration date</label>
+                        <div>
+                            <input id="From" type="text" class="col-md-2 form-control " placeholder="From" />
+                            <input id="To" type="text" class="col-md-2 form-control " placeholder="To" />
+                        </div>
+                    </div>
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="PharmacyApprovalNo" type="text" class="w-100 h-100  form-control " placeholder="Approval Number" />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="PharmacyCardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input type="text" class="w-100 h-100 " placeholder="Invoice Number" />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input type="text" class="w-100 h-100 " placeholder="Batch Number" />
+                </div>
+            </div>
+            <div class="col-md-4" style=" text-align:right">
+                <input type="button" value="Export" class="btn" />
+                <input type="button" value="New" onclick="ClearSearchData();" class="btn " />
+                <input id="adminSearch" type="button" value="Search" class="btn " />
+            </div>
 
-                <table class="ui celled table" id="Index" width="100%">
+        </div>
+    </div>
+    <div class="portlet box">
+        <div class="portlet-title title-bg text-white fw-bold">
+            <div class="caption">
+                <i class="fa-solid fa-home"></i>Operation
+            </div>
+        </div>
+        <div class="portlet-body">
+
+            <table class="ui celled table" id="Index" width="100%">
+                <thead>
+                    <tr>
+
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Card Id
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Request Type
+                        </th>
+                        <th>
+                            status
+                        </th>
+                        <th>
+                            CreatedDate
+                        </th>
+                        <th></th>
+                        @*<th></th>
+                            <th></th>
+                            <th></th>*@
+                    </tr>
+                </thead>
+                <tbody></tbody>
+
+            </table>
+        </div>
+    </div>
+    <div class="portlet box">
+        <div class="portlet-title title-bg text-white fw-bold">
+            <div class="caption">
+                <i class="fa-solid fa-home"></i>Operation
+            </div>
+        </div>
+        <div class="portlet-body">
+
+            <table class="ui celled table" id="Index" width="100%">
+                <thead>
+                    <tr>
+
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Card Id
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Request Type
+                        </th>
+                        <th>
+                            status
+                        </th>
+                        <th>
+                            CreatedDate
+                        </th>
+                        <th></th>
+                        @*<th></th>
+                            <th></th>
+                            <th></th>*@
+                    </tr>
+                </thead>
+                <tbody></tbody>
+
+            </table>
+        </div>
+    </div>
+    <div class="row" style=" text-align:right">
+        <div class="col-md-12">
+            <input id="ResetSearch" type="button" value="New" onclick="ClearAll();" class="btn btn-warning" />
+            <input id="ShowInformation" type="button" value="Show Information" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowInformationCard()" />
+            @*<input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o " />
+                <input id="AfterSalesSearch" type="button" value="Search" class="btn btn-default  fa fa-search" />*@
+
+        </div>
+    </div>
+    <div class="panel panel-info" id="CardInformationDetails" hidden="hidden">
+        <h2 class="panel-heading" style="margin:1px;">Card Information</h2>
+        <div class="row" style=" text-align:left">
+            <div class="col-md-12">
+                <input id="ShowConsumption" type="button" value="Show Consumption" onclick="ShowAllConsmptionDetails()" class="btn btn-primary" />
+                <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalConsmptionDetails()" />
+                <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsConsmptionDetails()" />
+                <input id="ShowIndemnity" type="button" value="Indemnity" class="btn btn-success  fa fa-search" onclick="ShowIndemnityConsmptionDetails()" />
+                <input id="ShowMonthly" type="button" value="Monthly treatment" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMonthlyConsmptionDetails()" />
+                <input id="ShowLive" type="button" value="Online Live" class="btn btn-success fa-file-excel-o " onclick="ShowLiveConsmptionDetails()" />
+                <input id="ShowMedicalNetwork" type="button" value="Medical Network" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMedicalNetworkScreen()" />
+                <input id="ShowCardDesgin" type="button" value="Card Desgin" class="btn btn-success fa-file-excel-o " onclick="ShowCardDesignPrint()" />
+            </div>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="form-group" id="ConsumptionScreen">
+                <table class="ui celled table" id="ApprovalsDetails">
                     <thead>
                         <tr>
-
-                            <th>
-                                Id
-                            </th>
-                            <th>
-                                Card Id
-                            </th>
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                Request Type
-                            </th>
-                            <th>
-                                status
-                            </th>
-                            <th>
-                                CreatedDate
-                            </th>
-                            <th></th>
-                            @*<th></th>
-                                <th></th>
-                                <th></th>*@
+                            <th scope="col" align="center">Approval No</th>
+                            <th scope="col" align="center">Approval Type</th>
+                            <th scope="col" align="center">Reply</th>
+                            <th scope="col" align="center">Approval Amount</th>
+                            <th scope="col" align="center">Medical Reply</th>
+                            <th scope="col" align="center">Created By</th>
+                            <th scope="col" align="center">Created Date</th>
+                            <th scope="col" align="center"></th>
                         </tr>
                     </thead>
                     <tbody></tbody>
-
                 </table>
             </div>
+            <div class="col-md-12" style="width:100%;" id="ApprovalsScreen">
+                <table class="ui celled table" id="ApprovalsDetails">
+                    <thead>
+                        <tr>
+                            <th scope="col" align="center">Approval No</th>
+                            <th scope="col" align="center">Approval Type</th>
+                            <th scope="col" align="center">Reply</th>
+                            <th scope="col" align="center">Approval Amount</th>
+                            <th scope="col" align="center">Medical Reply</th>
+                            <th scope="col" align="center">Created By</th>
+                            <th scope="col" align="center">Created Date</th>
+                            <th scope="col" align="center"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table> 
+            </div>
+            <div class="table-responsive" id="ClaimsScreen">  
+                <div class="col-sm-6">
+                    <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreClaimsDetailsEvent();" class="btn btn-primary" />
+                </div>
+
+            </div>
+
+            <div class="table-responsive" id="IndemnityScreen"> 
+                <div class="col-sm-6">
+                    <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreIndemnityDetailsEvent();" class="btn btn-primary" />
+                </div> 
+            </div>
+
+            <div class="table-responsive" id="MonthlyScreen">
+                <table class="table table-fixed" id="MonthlyDetails">
+                    <thead>
+                        <tr>
+                            <th scope="col" align="center">Created Date</th>
+                            <th scope="col" align="center">Provider Code</th>
+                            <th scope="col" align="center">User N</th>
+                            <th scope="col" align="center">Group Name</th>
+                            <th scope="col" align="center"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table> 
+            </div>
+
+            <div class="table-responsive" id="LiveScreen">
+                <div class="col-sm-6">
+                    <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreLiveDetailsEvent();" class="btn btn-primary" />
+                </div> 
+            </div>
         </div>
-    }
+    </div>
 </div>
+
 <br />
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-
+<script src="~/Scripts/DMS/CustomerService/CustomerService.js?V=3.2"></script>
 <script>
     $(function () {
         $("#Index").DataTable({

@@ -8446,7 +8446,7 @@
     <Content Include="Views\EmployeeRequest\Delete.cshtml" />
     <Content Include="Views\EmployeeRequest\Details.cshtml" />
     <Content Include="Views\EmployeeRequest\Edit.cshtml" />
-    <Content Include="Views\EmployeeRequest\Index.cshtml" />
+    <Content Include="Views\EmployeeRequest\IHistory.cshtml" />
     <Content Include="Views\EmployeeRequest\Termination.cshtml" />
     <Content Include="Views\EmployeeRequest\EditRequest.cshtml" />
     <Content Include="Views\MedicalNetwork\Index.cshtml" />
@@ -8667,6 +8667,7 @@
     <Content Include="Views\AfterSales\HRCompany.cshtml" />
     <Content Include="Views\AfterSales\Create.cshtml" />
     <Content Include="Views\EmployeeRequest\History.cshtml" />
+    <Content Include="Views\EmployeeRequest\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
