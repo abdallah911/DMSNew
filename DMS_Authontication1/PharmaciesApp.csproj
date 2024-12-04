@@ -8449,7 +8449,6 @@
     <Content Include="Views\EmployeeRequest\Delete.cshtml" />
     <Content Include="Views\EmployeeRequest\Details.cshtml" />
     <Content Include="Views\EmployeeRequest\Edit.cshtml" />
-    <Content Include="Views\EmployeeRequest\IHistory.cshtml" />
     <Content Include="Views\EmployeeRequest\Termination.cshtml" />
     <Content Include="Views\EmployeeRequest\EditRequest.cshtml" />
     <Content Include="Views\MedicalNetwork\Index.cshtml" />
