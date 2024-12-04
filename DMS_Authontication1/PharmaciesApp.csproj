@@ -325,6 +325,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ControlPanal\ClaimController.cs" />
     <Compile Include="Controllers\HR\CompIcdCpController.cs" />
+    <Compile Include="Controllers\HR\ReviewClaimsController.cs" />
     <Compile Include="Controllers\MobileApi\AccountMobileController.cs" />
     <Compile Include="Controllers\ReportMain\ReportMainController.cs" />
     <Compile Include="Controllers\LossRatio\LossRatioController.cs" />
@@ -1403,6 +1404,8 @@
     <Compile Include="ViewModel\EmployeeVM\DeliveryRequestVm.cs" />
     <Compile Include="ViewModel\EmployeeVM\ConfirmRegisterEmployeeVM.cs" />
     <Compile Include="ViewModel\HospitalVM\ApprovalComp.cs" />
+    <Compile Include="ViewModel\HR\ClaimDetailsViewModel.cs" />
+    <Compile Include="ViewModel\HR\ClaimsViewModel.cs" />
     <Compile Include="ViewModel\ModulesPagesViewModel.cs" />
     <Compile Include="ViewModel\ChronicViewModel.cs" />
     <Compile Include="ViewModel\CompEmployees.cs" />
@@ -8666,7 +8669,7 @@
     <Content Include="Views\AfterSales\HRData.cshtml" />
     <Content Include="Views\AfterSales\HRCompany.cshtml" />
     <Content Include="Views\AfterSales\Create.cshtml" />
-    <Content Include="Views\EmployeeRequest\History.cshtml" />
+    <Content Include="Views\ReviewClaims\History.cshtml" />
     <Content Include="Views\EmployeeRequest\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -8696,7 +8699,6 @@
     <Folder Include="ProviderContractsPDF\PolyClinic\Endorsement\" />
     <Folder Include="ProviderContractsPDF\Ray\Contracts\" />
     <Folder Include="ProviderContractsPDF\Ray\Endorsement\" />
-    <Folder Include="Views\ClaimsReview\" />
     <Folder Include="Views\ProposalBasicData\" />
   </ItemGroup>
   <ItemGroup>

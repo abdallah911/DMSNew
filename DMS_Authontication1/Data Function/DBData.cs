@@ -239,6 +239,131 @@ namespace DMS_Authontication1.Data_Function
             }
         }
 
+        public DataTable getClaims(int cmp, DateTime serv1, DateTime serv2, DateTime reg1, DateTime reg2, 
+                                   Int64 aprov1, Int64 aprov2, string crd, Int64 invoc1, Int64 invoc2, Int64 batch1, Int64 batch2) 
+        {
+            OracleConnection con = new OracleConnection(connectionStr);
+            OracleCommand cmd = new OracleCommand();
+            OracleDataAdapter da;
+            DataTable dd = new DataTable();
+            try
+            {
+                if(string.IsNullOrEmpty(crd) == false)
+                    cmd = new OracleCommand(@" SELECT  DISTINCT CLAIM_NO, TO_CHAR(CREATED_DATE,'DD-MM-YYYY') CREATED_DATE, TO_CHAR(CLAIM_DATE,'DD-MM-YYYY') CLAIM_DATE,
+                                                       CARD_NO, EMP_ANAME EMP_NAME, PRV_NAME, PROVIDER_TYPE, TAKHASOS DIAGNOSIS, SERV_TYPE
+                                                FROM    APP.REVIEW_CLAIMS 
+                                                WHERE       COMP_ID = :cmp 
+                                                      AND   CARD_NO = :crd
+                                                      AND TRUNC(TO_DATE(CREATED_DATE)) BETWEEN TRUNC(TO_DATE(:reg1)) AND TRUNC(TO_DATE(:reg2))
+                                                      AND TRUNC(TO_DATE(CLAIM_DATE)) BETWEEN TRUNC(TO_DATE(:serv1)) AND TRUNC(TO_DATE(:serv2))
+                                                      AND CLAIM_NO BETWEEN :aprov1 AND :aprov2
+                                                      AND NVL(INVOICE_NO, 0) BETWEEN :invoc1 AND :invoc2
+                                                      AND NVL(BATCH_NO, 0) BETWEEN :batch1 AND :batch2", con);
+                else
+                    cmd = new OracleCommand(@" SELECT  DISTINCT CLAIM_NO, TO_CHAR(CREATED_DATE,'DD-MM-YYYY') CREATED_DATE, TO_CHAR(CLAIM_DATE,'DD-MM-YYYY') CLAIM_DATE,
+                                                       CARD_NO, EMP_ANAME EMP_NAME, PRV_NAME, PROVIDER_TYPE, TAKHASOS DIAGNOSIS, SERV_TYPE
+                                                FROM    APP.REVIEW_CLAIMS 
+                                                WHERE       COMP_ID = :cmp 
+                                                      AND TRUNC(TO_DATE(CREATED_DATE)) BETWEEN TRUNC(TO_DATE(:reg1)) AND TRUNC(TO_DATE(:reg2))
+                                                      AND TRUNC(TO_DATE(CLAIM_DATE)) BETWEEN TRUNC(TO_DATE(:serv1)) AND TRUNC(TO_DATE(:serv2))
+                                                      AND CLAIM_NO BETWEEN :aprov1 AND :aprov2
+                                                      AND NVL(INVOICE_NO, 0) BETWEEN :invoc1 AND :invoc2
+                                                      AND NVL(BATCH_NO, 0) BETWEEN :batch1 AND :batch2", con);
+
+
+
+                cmd.Parameters.Clear();
+
+
+                cmd.Parameters.Add(":cmp", OracleType.Number).Value = cmp;
+
+                cmd.Parameters.Add(":serv1", OracleType.DateTime).Value = serv1;
+                cmd.Parameters.Add(":serv2", OracleType.DateTime).Value = serv2;
+                cmd.Parameters.Add(":reg1", OracleType.DateTime).Value = reg1;
+                cmd.Parameters.Add(":reg2", OracleType.DateTime).Value = reg2;
+                cmd.Parameters.Add(":aprov1", OracleType.Number).Value = aprov1;
+                cmd.Parameters.Add(":aprov2", OracleType.Number).Value = aprov2;
+                cmd.Parameters.Add(":invoc1", OracleType.Number).Value = invoc1;
+                cmd.Parameters.Add(":invoc2", OracleType.Number).Value = invoc2;
+                cmd.Parameters.Add(":batch1", OracleType.Number).Value = batch1;
+                cmd.Parameters.Add(":batch2", OracleType.Number).Value = batch2;
+
+                if (string.IsNullOrEmpty(crd) == false)
+                    cmd.Parameters.Add(":crd", OracleType.VarChar).Value = crd;
+
+
+                da = new OracleDataAdapter(cmd);
+
+                da.Fill(dd);
+                con.Dispose();
+                con.Close();
+
+                OracleConnection.ClearAllPools();
+
+                return dd;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);                
+                return dd;
+            }
+
+            finally
+            {
+                if (con.State != ConnectionState.Closed)
+                {
+                    con.Dispose();
+                    con.Close();
+
+                    OracleConnection.ClearAllPools();
+                }
+            }
+        }
+        public DataTable getClaimDetails(Int64 clm)
+        {
+            OracleConnection con = new OracleConnection(connectionStr);
+            OracleCommand cmd = new OracleCommand();
+            OracleDataAdapter da;
+            DataTable dd = new DataTable();
+            try
+            {
+                    cmd = new OracleCommand(@"  SELECT      SERVICES, SERCV_NAME, CLAIM_SUBMITTED, OVER_INSURANCE, DISCOUNT, APPROV_AMOUNT, COPAY_AMT, AFTER_COPAY, 
+                                                            LOCAL_AMOUNT, IMPORT_AMOUNT, LOCAL_DISC, IMPORT_DISC, TOTAL_DISCOUNT, NET
+                                                FROM    APP.REVIEW_CLAIMS 
+                                                WHERE   CLAIM_NO = :clm
+                                                ORDER BY NET NULLS LAST", con);
+             
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(":clm", OracleType.Number).Value = clm;
+
+                da = new OracleDataAdapter(cmd);
+
+                da.Fill(dd);
+                con.Dispose();
+                con.Close();
+
+                OracleConnection.ClearAllPools();
+
+                return dd;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);                
+                return dd;
+            }
+
+            finally
+            {
+                if (con.State != ConnectionState.Closed)
+                {
+                    con.Dispose();
+                    con.Close();
+
+                    OracleConnection.ClearAllPools();
+                }
+            }
+        }
 
     }
 
