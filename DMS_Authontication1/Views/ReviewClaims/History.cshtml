@@ -111,7 +111,7 @@
             <div class="col-md-4" style=" text-align:right">
                 <input id="adminSearch" type="button" value="Search" class="btn " onclick="GetClaim();" />
                 <input type="button" value="New" onclick="ClearSearchData();" class="btn " />
-                <input type="button" value="Export" class="btn" />
+                <input type="button" value="Export" class="btn" onclick="PrintAllClaims();" />
             </div>
 
         </div>
@@ -369,6 +369,14 @@
     }
 
     function GetClaim() {
+        var table = $('#ClaimsData').DataTable();
+        table.clear().draw();
+        table.destroy();
+
+        var table2 = $('#ClaimDetails').DataTable();
+        table2.clear().draw();
+        table2.destroy();
+
         $('#list_div').hide();
         if ($("#CompNum").val() != "") {
             var compId = $("#CompNum").val();
@@ -457,8 +465,6 @@
         else
             alert("Comp Id is empty");
     }
-
-
 
     function GetClaimDetails(clm) {
         debugger;
@@ -566,6 +572,32 @@
         }
         else
             alert("Comp Id is empty");
+    }
+
+    function PrintAllClaims() {
+        if ($("#CompNum").val() != "") {
+
+            var compId = $("#CompNum").val();
+            var servFrom = $("#ServDateFrom").val();
+            var servTo = $("#ServDateTo").val();
+            var regFrom = $("#RegDateFrom").val();
+            var regTo = $("#RegDateTo").val();
+            var aprovNo = $("#ApprovalNo").val();
+            var cardId = $("#CardId").val();
+            var invocNo = $("#InvoicNo").val();
+            var batchNo = $("#BatchNo").val();
+
+            $("#loading").show();
+
+            window.open('/ReviewClaims/PrintAllClaims?compId=' + compId +
+                '&&cardId=' + cardId + '&&servFrom=' + servFrom + '&&servTo=' +
+                servTo + '&&regFrom=' + regFrom + '&&regTo=' + regTo +
+                '&&aprovNo=' + aprovNo + '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
+
+            $("#loading").hide();
+        }
+        else
+            alert('Comp Id is empty')
     }
 </script>
 
