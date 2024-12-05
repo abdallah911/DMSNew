@@ -258,8 +258,7 @@ namespace DMS_Authontication1.Data_Function
                                                       AND TRUNC(TO_DATE(CLAIM_DATE)) BETWEEN TRUNC(TO_DATE(:serv1)) AND TRUNC(TO_DATE(:serv2))
                                                       AND CLAIM_NO BETWEEN :aprov1 AND :aprov2
                                                       AND NVL(INVOICE_NO, 0) BETWEEN :invoc1 AND :invoc2
-                                                      AND NVL(BATCH_NO, 0) BETWEEN :batch1 AND :batch2
-                                                      AND ROWNUM <100", con);
+                                                      AND NVL(BATCH_NO, 0) BETWEEN :batch1 AND :batch2", con);
                 else
                     cmd = new OracleCommand(@" SELECT  DISTINCT CLAIM_NO, TO_CHAR(CREATED_DATE,'DD-MM-YYYY') CREATED_DATE, TO_CHAR(CLAIM_DATE,'DD-MM-YYYY') CLAIM_DATE,
                                                        CARD_NO, EMP_ANAME EMP_NAME, PRV_NAME, PROVIDER_TYPE, TAKHASOS DIAGNOSIS, SERV_TYPE
@@ -269,8 +268,7 @@ namespace DMS_Authontication1.Data_Function
                                                       AND TRUNC(TO_DATE(CLAIM_DATE)) BETWEEN TRUNC(TO_DATE(:serv1)) AND TRUNC(TO_DATE(:serv2))
                                                       AND CLAIM_NO BETWEEN :aprov1 AND :aprov2
                                                       AND NVL(INVOICE_NO, 0) BETWEEN :invoc1 AND :invoc2
-                                                      AND NVL(BATCH_NO, 0) BETWEEN :batch1 AND :batch2
-                                                      AND ROWNUM <100", con);
+                                                      AND NVL(BATCH_NO, 0) BETWEEN :batch1 AND :batch2", con);
 
 
 
