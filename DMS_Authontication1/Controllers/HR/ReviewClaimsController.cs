@@ -25,7 +25,7 @@ namespace DMS_Authontication1.Controllers.HR
     {
         DMS_TESTEntities db;
         ApplicationDbContext myEntities;
-        DBData dbData;
+        DB106 dbData;
 
         private ApplicationUserManager _userManager;
 
@@ -45,7 +45,7 @@ namespace DMS_Authontication1.Controllers.HR
         {
             db = new DMS_TESTEntities();
             myEntities = new ApplicationDbContext();
-            dbData = new DBData();
+            dbData = new DB106();
         }
         public ActionResult History()
         {
