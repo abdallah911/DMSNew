@@ -302,7 +302,7 @@
         </div>*@
 
     </div>
-        <div id="loading" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; background: #e3e3e347; position:fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
+        <div id="loading" style="display: none; justify-content: center; align-items: center; width: 100%; height: 100%; background: #e3e3e347; position:fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
             <img src="~/assets/global/img/newloading.gif" alt="Loading..." style="width:250px; height:250px;">
         </div>
 </div>
@@ -413,7 +413,7 @@
             var invocNo = $("#InvoicNo").val();
             var batchNo = $("#BatchNo").val();
 
-            $("#loading").show();
+            $("#loading").css("display", "flex");
 
             $.ajax({
                 url: '/ReviewClaims/GetClaims/',
@@ -500,7 +500,7 @@
         if (clm != "") {
 
 
-            $("#loading").show();
+            $("#loading").css("display", "flex");
 
             $.ajax({
                 url: '/ReviewClaims/GetClaimDetails/',
@@ -619,7 +619,7 @@
             var invocNo = $("#InvoicNo").val();
             var batchNo = $("#BatchNo").val();
 
-            $("#loading").show();
+            $("#loading").css("display", "flex");
 
             window.open('/ReviewClaims/PrintAllClaims?compId=' + compId +
                 '&&cardId=' + cardId + '&&servFrom=' + servFrom + '&&servTo=' +
