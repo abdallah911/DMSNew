@@ -116,13 +116,13 @@
 
         </div>
     </div>
-    <div class="portlet box">
+    <div class="portlet box" id="MainScreenClaims">
         <div class="portlet-title title-bg text-white fw-bold">
             <div class="caption">
                 <i class="fa-solid fa-home"></i>Claims
             </div>
         </div>
-        <div class="portlet-body no-wrap" id="list_div">
+        <div class="portlet-body" id="list_div">
             <div class="table-responsive">
                 <table class="table" id="ClaimsData">
                     <thead>
@@ -173,7 +173,7 @@
                 <i class="fa-solid fa-home"></i>Claims Details
             </div>
         </div>
-        <div class="portlet-body no-wrap" id="list_div2">
+        <div class="portlet-body" id="list_div2">
             <div class="table-responsive">
                 <table class="table" id="ClaimDetails">
                     <thead>
@@ -311,8 +311,7 @@
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 <script src="~/Scripts/DMS/CustomerService/CustomerService.js?V=3.2"></script>
 <script>
-    $(document).ready(function () { 
-    });
+   
     $(function () {
         $('#CardId').select2({
             placeholder: 'Search for a card',
@@ -371,15 +370,15 @@
 
         $('#CardInformationDetails').hide();
 
-        var table = $('#ClaimsData').DataTable({
-            "pageLength": 5
-        });
+        //var table = $('#ClaimsData').DataTable({
+        //    "pageLength": 5
+        //});
+
+        var table = $('#ClaimsData').DataTable();
         table.clear().draw();
         table.destroy();
 
-        var table2 = $('#ClaimDetails').DataTable({
-            "pageLength": 5
-        });
+        var table2 = $('#ClaimDetails').DataTable();
         table2.clear().draw();
         table2.destroy();
 
@@ -389,15 +388,11 @@
 
         $('#CardInformationDetails').hide();
 
-        var table = $('#ClaimsData').DataTable({
-            "pageLength": 5
-        });
+        var table = $('#ClaimsData').DataTable();
         table.clear().draw();
         table.destroy();
 
-        var table2 = $('#ClaimDetails').DataTable({
-            "pageLength": 5
-        });
+        var table2 = $('#ClaimDetails').DataTable();
         table2.clear().draw();
         table2.destroy();
 
@@ -440,11 +435,7 @@
                                 data += "<td>--</td>";
                             else
                                 data += "<td>" + r.claimslist[i].ClaimDate + "</td>";
-                            //if (r.claimslist[i].ClaimDate == null)
-                            //    data += "<td>--</td>";
-                            //else
-                            //    data += "<td>" + r.claimslist[i].ClaimDate + "</td>";
-
+                           
                             if (r.claimslist[i].CardNo == null)
                                 data += "<td>--</td>";
                             else
@@ -481,7 +472,7 @@
 
                          
                         $('html, body').animate({
-                            scrollTop: $('#ClaimsData').offset().top
+                            scrollTop: $('#MainScreenClaims').offset().top
                         }, 'slow');
                     }
                     else {
@@ -513,9 +504,7 @@
                 },
                 dataType: 'Json',
                 success: function (r) {
-                    $('#ClaimDetails').dataTable({
-                        "pageLength": 5
-                    }).fnDestroy();
+                    $('#ClaimDetails').dataTable().fnDestroy();
                     if (r.msg == "ok") {
                         var setData = $("#ClaimDetails Tbody");
                         setData.empty();
@@ -590,9 +579,7 @@
                                     "</tr>";
                             setData.append(data);
                         }
-                        $('#ClaimDetails').DataTable({
-                            "pageLength": 5
-                        });
+                        $('#ClaimDetails').DataTable();
                         $('#list_div2').show();
 
                     }
