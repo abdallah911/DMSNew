@@ -122,7 +122,7 @@
                 <i class="fa-solid fa-home"></i>Claims
             </div>
         </div>
-        <div class="portlet-body" id="list_div">
+        <div class="portlet-body no-wrap" id="list_div">
             <div class="table-responsive">
                 <table class="table" id="ClaimsData">
                     <thead>
@@ -173,7 +173,7 @@
                 <i class="fa-solid fa-home"></i>Claims Details
             </div>
         </div>
-        <div class="portlet-body" id="list_div2">
+        <div class="portlet-body no-wrap" id="list_div2">
             <div class="table-responsive">
                 <table class="table" id="ClaimDetails">
                     <thead>
@@ -479,6 +479,10 @@
                         });
                         $('#list_div').show();
 
+                         
+                        $('html, body').animate({
+                            scrollTop: $('#ClaimsData').offset().top
+                        }, 'slow');
                     }
                     else {
                         alert(r.msg);
