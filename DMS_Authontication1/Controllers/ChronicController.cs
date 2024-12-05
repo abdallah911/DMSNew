@@ -35,9 +35,28 @@ namespace DMS_TEST.Controllers
             //}
             DateTime datenow = DateTime.Now.Date;
             //var datenowvalue = new DateTime(datenow.Year, datenow.Month, datenow.Day);
+            int CompId = Convert.ToInt32(id.Split('-')[0].ToString());
+            var CompContractData = db.Contract_Data.Where(x => x.C_COMP_ID == CompId && x.DATE_FROM <= datenow && x.DATE_TO >= datenow && x.ACTIVE == "Y").OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+            if (CompContractData == null)
+            {
+                ViewBag.Message = "Company is not existed";
+                return View(data);
+            }
+            string compardatestr = "20/" + ((DateTime.Now.Day <= 20) ? DateTime.Now.ToString("MM/yyyy") : DateTime.Now.AddMonths(+1).ToString("MM/yyyy")).ToString();
+            //string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
+            //string compardatestr = "05/" + DateTime.Now.ToString("MM/yyyy").ToString();
+            DateTime compardate = DateTime.ParseExact(compardatestr, "dd/MM/yyyy", null);
+            if (CompContractData.DATE_TO < compardate)
+            {
+                var CompContractDataNext = db.Contract_Data.Where(x => x.C_COMP_ID == CompId && x.ACTIVE == "Y").OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                if (CompContractDataNext.CONTRACT_NO <= CompContractData.CONTRACT_NO)
+                {
+                    ViewBag.Message = "Company is not existed";
+                    return View(data);
+                }
+            }
             var empCardTerminationFlag = db.Comp_Employees.Where(x => x.CARD_ID == id && x.INS_START_DATE <= datenow
             && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
-            int CompId = Convert.ToInt32(id.Split('-')[0].ToString());
             if (!string.IsNullOrEmpty(empCardTerminationFlag.FAX))
             {
                 if (empCardTerminationFlag.FAX == "0")

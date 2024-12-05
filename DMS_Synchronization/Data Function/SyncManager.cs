@@ -1203,7 +1203,7 @@ namespace DMS_Synchronization
             {
                 conn = _connectionSettings.OrcaleConnectionApp;
             }
-            else if (tableName == "APP.APPROVAL_BAD" || tableName == "APP.SER_PROV_DISC_SQL")
+            else if (tableName == "APP.APPROVAL_BAD" || tableName == "APP.SER_PROV_DISC")
             {
                 conn = _connectionSettings.OrcaleConnectionApp129;
             }

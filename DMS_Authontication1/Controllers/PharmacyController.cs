@@ -400,6 +400,11 @@ namespace DMS_TEST.Controllers
                     return Json(new { ok = false, data = "Expire", message = "Company is not existed" }, JsonRequestBehavior.AllowGet);
                 }
                 var CurrentDate = DateTime.Now.Date;
+                var CompContractData = db.Contract_Data.Where(x => x.C_COMP_ID == CompId && x.DATE_FROM <= CurrentDate && x.DATE_TO >= CurrentDate && x.ACTIVE == "Y").OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+                if (CompContractData == null)
+                {
+                    return Json(new { ok = false, data = "Expire", message = "Company is not existed" }, JsonRequestBehavior.AllowGet);
+                }
                 var empCardTerminationFlag = db.Comp_Employees.Where(x => x.CARD_ID == CardId && x.INS_START_DATE <= CurrentDate && x.INS_END_DATE >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
 
                 if (empCardTerminationFlag != null)

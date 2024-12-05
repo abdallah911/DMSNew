@@ -56,8 +56,8 @@ namespace DMS_Synchronization.ViewModels
         public static string GetQyertSERVICES = "select * from (select m.*, rownum r from  APP.SERVICES m WHERE IS_SYNC=0 OR IS_SYNC IS NULL) WHERE r > {0} and r<= {1} ";
         public static string GetTableNameSERVICES = "APP.SERVICES";
 
-        public static string GetQyertSER_PROV_DISC = "select * from (select m.*, rownum r from  APP.SER_PROV_DISC_SQL m WHERE IS_SYNC=0 OR IS_SYNC IS NULL) WHERE r > {0} and r<= {1} ";
-        public static string GetTableNameSER_PROV_DISC = "APP.SER_PROV_DISC_SQL";
+        public static string GetQyertSER_PROV_DISC = "select * from (select m.*, rownum r from  SH_01.SER_PROV_DISC m WHERE IS_SYNC=0 OR IS_SYNC IS NULL) WHERE r > {0} and r<= {1} ";
+        public static string GetTableNameSER_PROV_DISC = "SH_01.SER_PROV_DISC";
         public static string GetQyertCO_INSURANCE_01 = "select * from (select m.*, rownum r from  SH_01.CO_INSURANCE_01 m WHERE IS_SYNC=0 OR IS_SYNC IS NULL) WHERE r > {0} and r<= {1} ";
         public static string GetTableNameCO_INSURANCE_01 = "SH_01.CO_INSURANCE_01";
 
