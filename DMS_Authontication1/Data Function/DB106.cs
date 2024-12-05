@@ -8,10 +8,10 @@ using System.Data.OracleClient;
 namespace DMS_Authontication1.Data_Function
 {/*196.221.203.129*/
     /*171.0.1.96*/
-    public class DBData
+    public class DB106
     {
          public static string connectionStr = @"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)
-                                            (HOST=196.221.203.129)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)
+                                            (HOST=72.52.116.106)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)
                                             (SERVICE_NAME=ora11g)));User Id=app;Password=12369";
 
        

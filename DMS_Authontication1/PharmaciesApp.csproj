@@ -325,6 +325,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ControlPanal\ClaimController.cs" />
     <Compile Include="Controllers\HR\CompIcdCpController.cs" />
+    <Compile Include="Controllers\HR\ReviewClaimsController.cs" />
     <Compile Include="Controllers\MobileApi\AccountMobileController.cs" />
     <Compile Include="Controllers\ReportMain\ReportMainController.cs" />
     <Compile Include="Controllers\LossRatio\LossRatioController.cs" />
@@ -378,6 +379,7 @@
     <Compile Include="Controllers\SyncController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data Function\DBApproval106.cs" />
+    <Compile Include="Data Function\DB106.cs" />
     <Compile Include="Data Function\DBData106.cs" />
     <Compile Include="Data Function\DBData.cs" />
     <Compile Include="Data Function\DBApproval.cs" />
@@ -1403,6 +1405,8 @@
     <Compile Include="ViewModel\EmployeeVM\DeliveryRequestVm.cs" />
     <Compile Include="ViewModel\EmployeeVM\ConfirmRegisterEmployeeVM.cs" />
     <Compile Include="ViewModel\HospitalVM\ApprovalComp.cs" />
+    <Compile Include="ViewModel\HR\ClaimDetailsViewModel.cs" />
+    <Compile Include="ViewModel\HR\ClaimsViewModel.cs" />
     <Compile Include="ViewModel\ModulesPagesViewModel.cs" />
     <Compile Include="ViewModel\ChronicViewModel.cs" />
     <Compile Include="ViewModel\CompEmployees.cs" />
@@ -1783,6 +1787,7 @@
     <Content Include="assets\global\img\loading-spinner-default.gif" />
     <Content Include="assets\global\img\loading-spinner-grey.gif" />
     <Content Include="assets\global\img\loading.gif" />
+    <Content Include="assets\global\img\newloading.gif" />
     <Content Include="assets\global\img\login-bg.png" />
     <Content Include="assets\global\img\overlay-icon.png" />
     <Content Include="assets\global\img\portfolio\1200x900\01.jpg" />
@@ -8445,7 +8450,6 @@
     <Content Include="Views\EmployeeRequest\Delete.cshtml" />
     <Content Include="Views\EmployeeRequest\Details.cshtml" />
     <Content Include="Views\EmployeeRequest\Edit.cshtml" />
-    <Content Include="Views\EmployeeRequest\IHistory.cshtml" />
     <Content Include="Views\EmployeeRequest\Termination.cshtml" />
     <Content Include="Views\EmployeeRequest\EditRequest.cshtml" />
     <Content Include="Views\MedicalNetwork\Index.cshtml" />
@@ -8665,7 +8669,9 @@
     <Content Include="Views\AfterSales\HRData.cshtml" />
     <Content Include="Views\AfterSales\HRCompany.cshtml" />
     <Content Include="Views\AfterSales\Create.cshtml" />
+    <Content Include="Views\ReviewClaims\History.cshtml" />
     <Content Include="Views\EmployeeRequest\Index.cshtml" />
+    <Content Include="Reports\HR\ReviewClaimsReport.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
