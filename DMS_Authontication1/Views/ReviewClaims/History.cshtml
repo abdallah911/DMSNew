@@ -205,27 +205,35 @@
         <div class="col-md-12">
             <input id="ResetSearch" type="button" value="New" onclick="ClearAll();" class="btn btn-warning" />
             <input id="ShowInformation" type="button" value="Show Information" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowInformationCard()" />-->
-            @*<input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o " />
-                <input id="AfterSalesSearch" type="button" value="Search" class="btn btn-default  fa fa-search" />*@
+            <!--<input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o " />
+                <input id="AfterSalesSearch" type="button" value="Search" class="btn btn-default  fa fa-search" />
 
-        <!--</div>
-    </div>
-    <div class="panel panel-info" id="CardInformationDetails" hidden="hidden">
-        <h2 class="panel-heading" style="margin:1px;">Card Information</h2>
-        <div class="row" style=" text-align:left">
-            <div class="col-md-12">
-                <input id="ShowConsumption" type="button" value="Show Consumption" onclick="ShowAllConsmptionDetails()" class="btn btn-primary" />
-                <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalConsmptionDetails()" />
-                <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsConsmptionDetails()" />
-                <input id="ShowIndemnity" type="button" value="Indemnity" class="btn btn-success  fa fa-search" onclick="ShowIndemnityConsmptionDetails()" />
-                <input id="ShowMonthly" type="button" value="Monthly treatment" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMonthlyConsmptionDetails()" />
-                <input id="ShowLive" type="button" value="Online Live" class="btn btn-success fa-file-excel-o " onclick="ShowLiveConsmptionDetails()" />
-                <input id="ShowMedicalNetwork" type="button" value="Medical Network" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMedicalNetworkScreen()" />
-                <input id="ShowCardDesgin" type="button" value="Card Desgin" class="btn btn-success fa-file-excel-o " onclick="ShowCardDesignPrint()" />
-            </div>
         </div>
+    </div>-->
+<div class="portlet box" id="CardInformationDetails" hidden>
+    <div class="portlet-title title-bg text-white fw-bold">
+        <div class="caption">
+            <i class="fa-solid fa-home"></i>Card Information
+        </div>
+    </div>
+    <br/>   
+    <div class="col-md-12">
 
-        <div class="panel-body">
+        <input id="ShowConsumption" type="button" value="Personal Data" class="btn btn-primary" />
+        <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" />
+        <input id="ShowClaims" type="button" value="Chronic" class="btn btn-primary" />
+        @*<input id="ShowConsumption" type="button" value="Show Consumption" onclick="ShowAllConsmptionDetails()" class="btn btn-primary" />
+            <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalConsmptionDetails()" />
+            <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsConsmptionDetails()" />
+            <input id="ShowIndemnity" type="button" value="Indemnity" class="btn btn-success  fa fa-search" onclick="ShowIndemnityConsmptionDetails()" />
+            <input id="ShowMonthly" type="button" value="Monthly treatment" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMonthlyConsmptionDetails()" />
+            <input id="ShowLive" type="button" value="Online Live" class="btn btn-success fa-file-excel-o " onclick="ShowLiveConsmptionDetails()" />
+            <input id="ShowMedicalNetwork" type="button" value="Medical Network" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMedicalNetworkScreen()" />
+            <input id="ShowCardDesgin" type="button" value="Card Desgin" class="btn btn-success fa-file-excel-o " onclick="ShowCardDesignPrint()" />*@
+    </div>
+</div>
+
+        @*<div class="panel-body">
 
             <div class="form-group" id="ConsumptionScreen">
                 <table class="ui celled table" id="ApprovalsDetails">
@@ -294,8 +302,8 @@
                     <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreLiveDetailsEvent();" class="btn btn-primary" />
                 </div>
             </div>
-        </div>
-    </div>-->
+        </div>*@
+    </div>
 
     <div id="loading" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); z-index:9999;">
         <img src="~/assets/global/img/newloading.gif" alt="Loading..." style="width:250px; height:250px;">
@@ -347,6 +355,7 @@
         var claimNo = $(this).find('td').eq(0).text();
         GetClaimDetails(claimNo)
         //alert('Selected Claim No:' + claimNo);
+        $('#CardInformationDetails').show();
 
     });
     
@@ -361,6 +370,8 @@
         $("#InvoicNo").val("");
         $("#BatchNo").val("");
 
+        $('#CardInformationDetails').hide();
+
         var table = $('#ClaimsData').DataTable();
         table.clear().draw();
         table.destroy();
@@ -372,6 +383,9 @@
     }
 
     function GetClaim() {
+
+        $('#CardInformationDetails').hide();
+
         var table = $('#ClaimsData').DataTable();
         table.clear().draw();
         table.destroy();
@@ -470,7 +484,7 @@
     }
 
     function GetClaimDetails(clm) {
-        debugger;
+
         $('#list_div2').hide();
         if (clm != "") {
             
