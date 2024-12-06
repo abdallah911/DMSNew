@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.OracleClient;
+using System.IO;
+using System.Web.Hosting;
+
 namespace DMS_Authontication1.Data_Function
 {/*196.221.203.129*/
     /*171.0.1.96*/
@@ -298,13 +301,18 @@ namespace DMS_Authontication1.Data_Function
                 con.Dispose();
                 con.Close();
 
-                OracleConnection.ClearAllPools();
-
+                
                 return dd;
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message);                
+                //MessageBox.Show(ex.Message);  
+                string logFilePath = HostingEnvironment.MapPath("~/Reports/HR/logs.txt");
+                using (StreamWriter writer = new StreamWriter(logFilePath, true))
+                {
+                    writer.WriteLine(ex.Message.ToString());
+                }
+
                 return dd;
             }
 
