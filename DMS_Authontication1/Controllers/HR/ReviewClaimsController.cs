@@ -26,7 +26,8 @@ namespace DMS_Authontication1.Controllers.HR
         DMS_TESTEntities db;
         ApplicationDbContext myEntities;
         DB106 dbData;
-
+        DBApproval106 dbOra;
+        DBData dbApproval;
         private ApplicationUserManager _userManager;
 
         public ApplicationUserManager UserManager
@@ -46,6 +47,8 @@ namespace DMS_Authontication1.Controllers.HR
             db = new DMS_TESTEntities();
             myEntities = new ApplicationDbContext();
             dbData = new DB106();
+            dbOra = new DBApproval106();
+            dbApproval = new DBData();
         }
         public ActionResult History()
         {
@@ -251,5 +254,137 @@ namespace DMS_Authontication1.Controllers.HR
                 throw ex;
             }
         }
+
+        string getncardapproval(string crd)
+        {
+            string ncrd = "";
+
+            System.Data.DataTable dtoldcrdaprov = new System.Data.DataTable();
+            dtoldcrdaprov = dbOra.RunReader(@"SELECT CLOSE_EMP_DATA.CARD_ID FROM DMS_TEST.CLOSE_EMP_DATA WHERE (CLOSE_EMP_DATA.TRANS_TYP = 'D' OR CLOSE_EMP_DATA.TRANS_TYP = 'L') AND CLOSE_EMP_DATA.N_CARD = '" + crd + "'");
+
+            if (dtoldcrdaprov.Rows.Count > 0 && dtoldcrdaprov.Rows[0][0].ToString() != string.Empty)
+                ncrd = dtoldcrdaprov.Rows[0][0].ToString();
+            else
+                ncrd = "";
+
+            return ncrd;
+        }
+        string getMaxAmountForCard(string cmp, string contr, string cls, string crd)
+        {
+            string maxAmount = "";
+            DataTable dtmxamt = new DataTable();
+
+            dtmxamt = dbOra.RunReader("SELECT MAX_AMOUNT FROM DMS_TEST.COMP_CONTRACT_CLASS_EMP WHERE C_COMP_ID = '" + cmp + "' and CONTRACT_NO = '" + contr + "' and CLASS_CODE = '" + cls + "' AND CARD_ID = '" + crd + "'");
+
+            if (dtmxamt.Rows.Count > 0 && dtmxamt.Rows[0][0].ToString() != string.Empty)
+                maxAmount = dtmxamt.Rows[0][0].ToString();
+            else
+            {
+                dtmxamt = dbOra.RunReader("SELECT MAX_AMOUNT FROM DMS_TEST.COMP_CONTRACT_CLASS WHERE C_COMP_ID = '" + cmp + "' and CONTRACT_NO = '" + contr + "' and CLASS_CODE = '" + cls + "'");
+
+                maxAmount = dtmxamt.Rows[0][0].ToString();
+            }
+
+            return maxAmount;
+        }
+        string getColorCardApproval(string crd, string crdold)
+        {
+            string crdcolr = "";
+
+            System.Data.DataTable dtColorCard = new System.Data.DataTable();
+            dtColorCard = dbOra.RunReader(@"SELECT CARD_ID, COLOR_NAME, PRINT_DATE FROM CARD_PRINT_HISTORY 
+                                         WHERE (CARD_ID = '" + crd + "' OR CARD_ID = '" + crdold + "') ORDER BY PRINT_DATE desc");
+
+            if (dtColorCard.Rows.Count > 0)
+                crdcolr = dtColorCard.Rows[0][1].ToString();
+
+            return crdcolr;
+        }
+        public JsonResult getData(string CardId)
+        {          
+            DataTable dtcrd = new DataTable();
+
+            dtcrd = dbOra.RunReader("select  to_char(BIRTH_DATE,'DD-MM-YYYY'),C_COMP_ID,CLASS_CODE,NVL(to_char(SPECIFIC_DATE,'DD-MM-YYYY'),to_char(INS_START_DATE,'DD-MM-YYYY')),to_char(INS_END_DATE,'DD-MM-YYYY'),TERMINATE_FLAG ,EMP_ANAME_ST ,EMP_ANAME_SC,EMP_ANAME_TH ,EMP_ENAME_ST ,EMP_ENAME_SC,EMP_ENAME_TH, to_char(INS_START_DATE,'DD-MM-YYYY'), to_char(TERMINATE_DATE,'DD-MM-YYYY') ,CONTRACT_NO, TEL1, TEL2, EMP_ID,  DECODE (GENDER, 1, 'Male', 2, 'Female')  Gender  from dms_test.COMP_EMPLOYEES where CARD_ID='" + CardId + "' order by ins_start_date DESC");
+
+            List<CardInformationViewModel> dtDetails = new List<CardInformationViewModel>();
+
+            if (dtcrd.Rows.Count != 0)
+            {
+                string nopay = "", nover = "", oldcrd = "";
+
+                    DataTable dtpo = dbOra.RunReader(@"SELECT decode(NVL(NO_PAY,0), 1, 'Yes', 'No') no_pay, decode(NO_OVER, 1, 'Yes', 'No') no_over FROM MED_CARD_NEW WHERE CARD_NO = '" + CardId + "'");
+
+                    if (dtpo.Rows.Count > 0)
+                    {
+                        nopay = dtpo.Rows[0][0].ToString();
+                        nover = dtpo.Rows[0][1].ToString();
+                    }
+
+                    oldcrd = getncardapproval(CardId);
+
+                    string oldcrd2 = oldcrd != "" ? oldcrd : CardId;
+
+                    dtDetails.Add(new CardInformationViewModel
+                    {                       
+                        EmployeeName = dtcrd.Rows[0][6].ToString() + " " + dtcrd.Rows[0][7].ToString() + " " + dtcrd.Rows[0][8].ToString(),
+                        BirthDate = dtcrd.Rows[0][0].ToString(),
+                        Age = (DateTime.Now.Year - Convert.ToDateTime(dtcrd.Rows[0][0]).Year).ToString(),
+                        SpecificDate = dtcrd.Rows[0][3].ToString(),
+                        StartDate = dtcrd.Rows[0][12].ToString(),
+                        EndDate = dtcrd.Rows[0][4].ToString(),
+                        MaxAmount = getMaxAmountForCard(dtcrd.Rows[0][1].ToString(), dtcrd.Rows[0][14].ToString(), dtcrd.Rows[0][2].ToString(), CardId),
+                        ClassName = dbOra.RunReader("select CLASS_ENAME from V_CLASS_NAME where CLASS_CODE ='" + dtcrd.Rows[0][2].ToString() + "'").Rows[0][0].ToString(),
+                        HospitalDegree = dbOra.RunReader(@"SELECT HOSPITAL_DEGREE, BS_ANAME  FROM dms_test.COMP_CONTRACT_CLASS, dms_test.BASIC_DATA WHERE SOURCE_MOD = 'ACCDEG' AND BS_CODE = HOSPITAL_DEGREE AND C_COMP_ID= '" + dtcrd.Rows[0][1].ToString() + "' AND CONTRACT_NO = '" + dtcrd.Rows[0][14].ToString() + "' AND CLASS_CODE = '" + dtcrd.Rows[0][2].ToString() + "'").Rows[0][1].ToString(),
+                        MedicalNetwork = dbOra.RunReader(@"SELECT COVER_RELATION, BS_ANAME  FROM dms_test.COMP_CONTRACT_CLASS, dms_test.BASIC_DATA WHERE SOURCE_MOD = 'PRDEG' AND BS_CODE = COVER_RELATION AND C_COMP_ID= '" + dtcrd.Rows[0][1].ToString() + "' AND CONTRACT_NO = '" + dtcrd.Rows[0][14].ToString() + "' AND CLASS_CODE = '" + dtcrd.Rows[0][2].ToString() + "'").Rows[0][1].ToString(),
+                        ExceptionPayment = nopay,
+                        ExceptionOver = nover,
+                        NationalId = dtcrd.Rows[0]["EMP_ID"].ToString(),
+                        Mobile1 = dtcrd.Rows[0]["TEL1"].ToString(),
+                        Mobile2 = dtcrd.Rows[0]["TEL2"].ToString(),
+                        Gender = dtcrd.Rows[0]["Gender"].ToString(),
+                        CardColor = getColorCardApproval(CardId, oldcrd),
+                        OldCard = oldcrd                       
+                    });
+                }
+                return new JsonResult { Data = new { dtDetails }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            
+        }
+        public JsonResult getAprovalData(string CardId)
+        {            
+            DataTable dt = new DataTable();
+
+            string oldcrd = getncardapproval(CardId);
+
+            oldcrd = oldcrd != "" ? oldcrd : CardId;
+
+
+            dt = dbApproval.getApproval(CardId, oldcrd);
+
+            
+            List<MedicalApprovalViewModel> approval = new List<MedicalApprovalViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {              
+                foreach (DataRow row in dt.Rows)
+                {
+                    approval.Add(new MedicalApprovalViewModel
+                    {
+                        ApprovalNo = row["APPROV_NO"].ToString(),
+                        ApprovalType = row["SERVECE_TYP"].ToString(),
+                        Reply = row["REPLY"].ToString(),
+                        ApprovalAmount = row["APPROV_AMOUNT"].ToString(),
+                        MedicalReply = row["MEDICAL_REPLAY"].ToString(),
+                        CreatedBy = row["CREATED_BY"].ToString(),
+                        CreatedDate = row["CREATED_DATE"].ToString(),
+                    });
+                }
+                return new JsonResult { Data = new { approval }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            else
+                return new JsonResult { Data = new { approval }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+
     }
 }

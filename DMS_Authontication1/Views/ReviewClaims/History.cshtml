@@ -217,9 +217,9 @@
         <br />
         <div class="col-md-12">
 
-            <input id="ShowConsumption" type="button" value="Personal Data" class="btn btn-primary" />
-            <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" />
-            <input id="ShowClaims" type="button" value="Chronic" class="btn btn-primary" />
+            <input id="ShowConsumption" type="button" value="Personal Data" class="btn btn-primary" onclick="ShowCardInformation()"/>
+            <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalDetails()"/>
+            <input id="ShowClaims" type="button" value="Chronic" class="btn btn-primary" onclick="ShowChronicDetails()"/>
             @*<input id="ShowConsumption" type="button" value="Show Consumption" onclick="ShowAllConsmptionDetails()" class="btn btn-primary" />
             <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalConsmptionDetails()" />
             <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsConsmptionDetails()" />
@@ -230,9 +230,82 @@
             <input id="ShowCardDesgin" type="button" value="Card Desgin" class="btn btn-success fa-file-excel-o " onclick="ShowCardDesignPrint()" />*@
         </div>
 
-        @*<div class="panel-body">
+        <div class="panel-body">
 
-            <div class="form-group" id="ConsumptionScreen">
+            <div class="col-md-12" style="width:100%;" id="InformationScreen" hidden>
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <label for="CardID" class="control-label">Card ID</label>
+                        <input id="CardID" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="EmployeeName" class="control-label">Employee Name</label>
+                        <input id="EmployeeName" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="BirthDate" class="control-label">Birth Date</label>
+                        <input id="BirthDate" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="Age" class="control-label">Age</label>
+                        <input id="Age" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="StartDate" class="control-label">Start Date</label>
+                        <input id="StartDate" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="EndDate" class="control-label">End Date</label>
+                        <input id="EndDate" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="MaxAmount" class="control-label">Max Amount</label>
+                        <input id="MaxAmount" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="ClassName" class="control-label">Class Name</label>
+                        <input id="ClassName" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="HospitalDegree" class="control-label">Hospital Degree</label>
+                        <input id="HospitalDegree" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="MedicalNetwork" class="control-label">Medical Network</label>
+                        <input id="MedicalNetwork" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="ExceptionPayment" class="control-label">Exception Payment</label>
+                        <input id="ExceptionPayment" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="ExceptionOver" class="control-label">Exception Over</label>
+                        <input id="ExceptionOver" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="NationalId" class="control-label">National ID</label>
+                        <input id="NationalId" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="CardColor" class="control-label">Card Color</label>
+                        <input id="CardColor" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="Mobile1" class="control-label">Mobile 1</label>
+                        <input id="Mobile1" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="Mobile2" class="control-label">Mobile 2</label>
+                        <input id="Mobile2" class="form-control" type="text" readonly />
+                    </div>
+                    <div class="col-sm-2" id="OldCardScreen" hidden="hidden">
+                        <label for="OldCard" class="control-label">Old Card</label>
+                        <input id="OldCard" class="form-control" type="text" readonly />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12" style="width:100%;" id="ApprovalsScreen" hidden>
                 <table class="ui celled table" id="ApprovalsDetails">
                     <thead>
                         <tr>
@@ -249,38 +322,9 @@
                     <tbody></tbody>
                 </table>
             </div>
-            <div class="col-md-12" style="width:100%;" id="ApprovalsScreen">
-                <table class="ui celled table" id="ApprovalsDetails">
-                    <thead>
-                        <tr>
-                            <th scope="col" align="center">Approval No</th>
-                            <th scope="col" align="center">Approval Type</th>
-                            <th scope="col" align="center">Reply</th>
-                            <th scope="col" align="center">Approval Amount</th>
-                            <th scope="col" align="center">Medical Reply</th>
-                            <th scope="col" align="center">Created By</th>
-                            <th scope="col" align="center">Created Date</th>
-                            <th scope="col" align="center"></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <div class="table-responsive" id="ClaimsScreen">
-                <div class="col-sm-6">
-                    <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreClaimsDetailsEvent();" class="btn btn-primary" />
-                </div>
 
-            </div>
-
-            <div class="table-responsive" id="IndemnityScreen">
-                <div class="col-sm-6">
-                    <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreIndemnityDetailsEvent();" class="btn btn-primary" />
-                </div>
-            </div>
-
-            <div class="table-responsive" id="MonthlyScreen">
-                <table class="table table-fixed" id="MonthlyDetails">
+            <div class="col-md-12" style="width:100%;" id="ChronicScreen" hidden>
+                <table class="ui celled table" id="MonthlyDetails">
                     <thead>
                         <tr>
                             <th scope="col" align="center">Created Date</th>
@@ -294,12 +338,8 @@
                 </table>
             </div>
 
-            <div class="table-responsive" id="LiveScreen">
-                <div class="col-sm-6">
-                    <input style="display: flex; justify-content: flex-end; margin-left: auto; margin-right: 0;" id="moreClaimsDetails" type="button" value="More" onclick="moreLiveDetailsEvent();" class="btn btn-primary" />
-                </div>
-            </div>
-        </div>*@
+
+        </div>
 
     </div>
         <div id="loading" style="display: none; justify-content: center; align-items: center; width: 100%; height: 100%; background: #e3e3e347; position:fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
@@ -309,7 +349,7 @@
 
 <br />
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-<script src="~/Scripts/DMS/CustomerService/CustomerService.js?V=3.2"></script>
+@*<script src="~/Scripts/DMS/CustomerService/CustomerService.js?V=3.2"></script>*@
 <script>
    
     $(function () {
@@ -351,7 +391,8 @@
         $(this).addClass('selected');
 
         var claimNo = $(this).find('td').eq(0).text();
-        GetClaimDetails(claimNo)
+        GetClaimDetails(claimNo);
+        $('#CardID').val($(this).find('td').eq(3).text());
         //alert('Selected Claim No:' + claimNo);
         $('#CardInformationDetails').show();
 
@@ -367,6 +408,25 @@
         $('#CardId').val(null).trigger('change');
         $("#InvoicNo").val("");
         $("#BatchNo").val("");
+
+        $('#CardID').val("");
+        $('#EmployeeName').val("");
+        $('#BirthDate').val("");
+        $('#Age').val("");
+        $('#StartDate').val("");
+        $('#EndDate').val("");
+        $('#MaxAmount').val("");
+        $('#ClassName').val("");
+        $('#HospitalDegree').val("");
+        $('#MedicalNetwork').val("");
+        $('#ExceptionPayment').val("");
+        $('#ExceptionOver').val("");
+        $('#NationalId').val("");
+        $('#Mobile1').val("");
+        $('#Mobile2').val("");
+        $('#CardColor').val("");
+        $('#OldCard').val("");
+
 
         $('#CardInformationDetails').hide();
 
@@ -623,7 +683,128 @@
             alert('Comp Id is empty')
     }
 
-   
+
+    function ShowApprovalDetails() {
+
+        $('#InformationScreen').hide();
+        $('#ApprovalsScreen').hide();       
+        $('#ChronicScreen').hide();
+      
+        $('#ApprovalsScreen').show();
+
+        if ($('#CardID').val() != "")
+            getApprovalData($('#CardID').val());
+    }
+    function ShowCardInformation() {
+
+        $('#InformationScreen').hide();
+        $('#ApprovalsScreen').hide();
+        $('#ChronicScreen').hide();
+
+        $('#InformationScreen').show();
+        if ($('#CardID').val() != "")
+            getData($('#CardID').val());
+    }
+    function ShowChronicDetails() {
+
+        $('#InformationScreen').hide();
+        $('#ApprovalsScreen').hide();
+        $('#ChronicScreen').hide();
+
+        $('#ChronicScreen').show();
+    }
+    function getApprovalData(crd) {
+        if ($('#CardID').val() != "") {            
+            $("#loading").css("display", "flex");
+            $.ajax({
+                type: "POST",
+                url: '/ReviewClaims/getAprovalData',
+                data: { CardId: $('#CardID').val()},
+                success: function (apprs) {
+
+                    if (apprs.approval.length > 0) {
+
+                        $('#ApprovalsDetails').dataTable().fnDestroy();
+
+                        var setData = $("#ApprovalsDetails Tbody");
+                        setData.empty();
+
+                        for (var i = 0; i < apprs.approval.length; i++) {
+                            var data = "<tr >" +
+
+                                "<td>" + apprs.approval[i].ApprovalNo + "</td>" +
+                                "<td>" + apprs.approval[i].ApprovalType + "</td>" +
+                                "<td>" + apprs.approval[i].Reply + "</td>" +
+                                "<td>" + apprs.approval[i].ApprovalAmount + "</td>" +
+                                "<td>" + apprs.approval[i].MedicalReply + "</td>" +
+                                "<td>" + apprs.approval[i].CreatedBy + "</td>" +
+                                "<td>" + apprs.approval[i].CreatedDate + "</td>" +
+                                "<td >" + "<Button  class='btn btn-Primary ' onclick='PrintApproval(\"" + apprs.approval[i].ApprovalNo + "\");'>Print</Button>" + "</td>" +
+                                "</tr>";
+                            setData.append(data);
+                        }
+                        
+                        $("#ApprovalsDetails").DataTable();
+                    }                    
+                },
+                complete: function () {
+                    $("#loading").hide();
+
+                }
+            });
+        }
+    }
+
+    function getData(crd) {
+        debugger;
+        $("#loading").css("display", "flex");
+        $.ajax({
+
+            type: "POST",
+            dataType: "json",
+            url: '/ReviewClaims/getData/',
+            data: { CardId: crd },
+
+            success: function (cardDetails) {
+
+                $('#EmployeeName').val(cardDetails.dtDetails[0].EmployeeName);
+                $('#BirthDate').val(cardDetails.dtDetails[0].BirthDate);
+                $('#Age').val(cardDetails.dtDetails[0].Age);
+                $('#StartDate').val(cardDetails.dtDetails[0].StartDate);
+
+                $('#EndDate').val(cardDetails.dtDetails[0].EndDate);
+                $('#MaxAmount').val(cardDetails.dtDetails[0].MaxAmount);
+                $('#ClassName').val(cardDetails.dtDetails[0].ClassName);
+                $('#HospitalDegree').val(cardDetails.dtDetails[0].HospitalDegree);
+                $('#MedicalNetwork').val(cardDetails.dtDetails[0].MedicalNetwork);
+
+                $('#ExceptionPayment').val(cardDetails.dtDetails[0].ExceptionPayment);
+                $('#ExceptionOver').val(cardDetails.dtDetails[0].ExceptionOver);
+                $('#NationalId').val(cardDetails.dtDetails[0].NationalId);
+                $('#Mobile1').val(cardDetails.dtDetails[0].Mobile1);
+                $('#Mobile2').val(cardDetails.dtDetails[0].Mobile2);
+
+                $('#CardColor').val(cardDetails.dtDetails[0].CardColor);
+                $('#OldCard').val(cardDetails.dtDetails[0].OldCard);
+            },
+            complete: function () {
+                $("#loading").hide();
+            }
+              
+        });
+        
+        if ($('#OldCard').val() != "")
+            $('#OldCardScreen').show;
+        else
+            $('#OldCardScreen').hide;
+    }
+
+    function PrintApproval(AppCode) {
+        debugger;
+        var x = String(AppCode);
+        //  window.location.reload();
+        window.open('/CustomerService/PrintApproval?ApprovalCode=' + AppCode);
+    }
 </script>
 
 <style>

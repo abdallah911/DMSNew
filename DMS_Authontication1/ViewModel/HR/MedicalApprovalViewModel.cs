@@ -5,11 +5,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace DMS_Authontication1.ViewModel.CustomerService
+namespace DMS_Authontication1.ViewModel.HR
 {
-    public class ApprovalCustomerServiceViewModel
-    {
-       
+    public class MedicalApprovalViewModel
+    {      
         public string ApprovalNo { get; set; }
         public string ApprovalType { get; set; }
         public string Reply { get; set; }

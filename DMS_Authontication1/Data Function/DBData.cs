@@ -365,6 +365,57 @@ namespace DMS_Authontication1.Data_Function
             }
         }
 
+
+        public DataTable getApproval(string crd, string ncrd)
+        {
+            OracleConnection con = new OracleConnection(connectionStr);
+            OracleCommand cmd = new OracleCommand();
+            OracleDataAdapter da;
+            DataTable dd = new DataTable();
+            try
+            {
+
+                cmd = new OracleCommand(@"              SELECT    CODE APPROV_NO, COMPANY_ID COMP_ID, CARD_NO CARD_NO, EMP_ENAME NAME, TO_CHAR(RECIV_DATE,'DD-MM-YYYY') RECIV_DATE, TO_CHAR(SEND_DATE,'DD-MM-YYYY') SEND_DATE, 
+                                                                  SERVECE_TYP SERVECE_TYP, REPLAY REPLY, VALUE_AFTER APPROV_AMOUNT, MEDICAL_REPLAY MEDICAL_REPLAY, 
+                                                                  CREATED_BY CREATED_BY, TO_CHAR(CREATED_DATE,'DD-MM-YYYY') CREATED_DATE, TO_DATE(CREATED_DATE,'DD-MM-YYYY') CREATED_DATE1
+                                                        FROM      MEDICAL_APPROVALS 
+                                                        WHERE     (CARD_NO = :crd OR CARD_NO = :ncrd) AND active = 'Y' order by CREATED_DATE1 desc", con);
+
+
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(":crd", OracleType.VarChar).Value = crd;
+                cmd.Parameters.Add(":ncrd", OracleType.VarChar).Value = ncrd;
+
+                da = new OracleDataAdapter(cmd);
+
+                da.Fill(dd);
+                con.Dispose();
+                con.Close();
+
+                OracleConnection.ClearAllPools();
+
+                return dd;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);                
+                return dd;
+            }
+
+            finally
+            {
+                if (con.State != ConnectionState.Closed)
+                {
+                    con.Dispose();
+                    con.Close();
+
+                    OracleConnection.ClearAllPools();
+                }
+            }
+        }
+
     }
 
 }
