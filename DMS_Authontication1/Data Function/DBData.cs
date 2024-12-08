@@ -377,9 +377,9 @@ namespace DMS_Authontication1.Data_Function
 
                 cmd = new OracleCommand(@"              SELECT    CODE APPROV_NO, COMPANY_ID COMP_ID, CARD_NO CARD_NO, EMP_ENAME NAME, TO_CHAR(RECIV_DATE,'DD-MM-YYYY') RECIV_DATE, TO_CHAR(SEND_DATE,'DD-MM-YYYY') SEND_DATE, 
                                                                   SERVECE_TYP SERVECE_TYP, REPLAY REPLY, VALUE_AFTER APPROV_AMOUNT, MEDICAL_REPLAY MEDICAL_REPLAY, 
-                                                                  CREATED_BY CREATED_BY, TO_CHAR(CREATED_DATE,'DD-MM-YYYY') CREATED_DATE, TO_DATE(CREATED_DATE,'DD-MM-YYYY') CREATED_DATE1
+                                                                  CREATED_BY CREATED_BY, TO_CHAR(TRUNC(TO_DATE(CREATED_DATE)),'DD-MM-YYYY') CREATED_DATE, TO_CHAR(TO_DATE(CREATED_DATE), 'YYYY-MM-DD') CREATED_DATE1
                                                         FROM      MEDICAL_APPROVALS 
-                                                        WHERE     (CARD_NO = :crd OR CARD_NO = :ncrd) AND active = 'Y' order by CREATED_DATE1 desc", con);
+                                                        WHERE     (CARD_NO = :crd OR CARD_NO = :ncrd) AND active = 'Y'", con);
 
 
 

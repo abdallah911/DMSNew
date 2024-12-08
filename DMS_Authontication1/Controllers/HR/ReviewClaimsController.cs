@@ -254,7 +254,6 @@ namespace DMS_Authontication1.Controllers.HR
                 throw ex;
             }
         }
-
         string getncardapproval(string crd)
         {
             string ncrd = "";
@@ -304,7 +303,7 @@ namespace DMS_Authontication1.Controllers.HR
         {          
             DataTable dtcrd = new DataTable();
 
-            dtcrd = dbOra.RunReader("select  to_char(BIRTH_DATE,'DD-MM-YYYY'),C_COMP_ID,CLASS_CODE,NVL(to_char(SPECIFIC_DATE,'DD-MM-YYYY'),to_char(INS_START_DATE,'DD-MM-YYYY')),to_char(INS_END_DATE,'DD-MM-YYYY'),TERMINATE_FLAG ,EMP_ANAME_ST ,EMP_ANAME_SC,EMP_ANAME_TH ,EMP_ENAME_ST ,EMP_ENAME_SC,EMP_ENAME_TH, to_char(INS_START_DATE,'DD-MM-YYYY'), to_char(TERMINATE_DATE,'DD-MM-YYYY') ,CONTRACT_NO, TEL1, TEL2, EMP_ID,  DECODE (GENDER, 1, 'Male', 2, 'Female')  Gender, FLOOR(MONTHS_BETWEEN(TRUNC(TO_DATE(SYSDATE)), TRUNC(TO_DATE(NVL(BIRTH_DATE, SYSDATE)))) / 12) AS AGE  from dms_test.COMP_EMPLOYEES where CARD_ID='" + CardId + "' order by ins_start_date DESC");
+            dtcrd = dbOra.RunReader("select  to_char(BIRTH_DATE,'DD-MM-YYYY'),C_COMP_ID,CLASS_CODE,NVL(to_char(SPECIFIC_DATE,'DD-MM-YYYY'),to_char(INS_START_DATE,'DD-MM-YYYY')),to_char(INS_END_DATE,'DD-MM-YYYY'),TERMINATE_FLAG ,EMP_ANAME_ST ,EMP_ANAME_SC,EMP_ANAME_TH ,EMP_ENAME_ST ,EMP_ENAME_SC,EMP_ENAME_TH, to_char(INS_START_DATE,'DD-MM-YYYY'), to_char(TERMINATE_DATE,'DD-MM-YYYY') ,CONTRACT_NO, TEL1, TEL2, EMP_ID,  DECODE (GENDER, 1, 'Male', 2, 'Female')  Gender, extract(year from numtoyminterval(months_between(trunc(sysdate),TRUNC(NVL(BIRTH_DATE, sysdate))),'month')) AS AGE  from dms_test.COMP_EMPLOYEES where CARD_ID='" + CardId + "' order by ins_start_date DESC");
 
             List<CardInformationViewModel> dtDetails = new List<CardInformationViewModel>();
 
@@ -375,7 +374,8 @@ namespace DMS_Authontication1.Controllers.HR
                         ApprovalAmount = row["APPROV_AMOUNT"].ToString(),
                         MedicalReply = row["MEDICAL_REPLAY"].ToString(),
                         CreatedBy = row["CREATED_BY"].ToString(),
-                        CreatedDate = row["CREATED_DATE"].ToString(),
+                        CreatedDate = row["CREATED_DATE"].ToString(), 
+                        CreatedDate1 = row["CREATED_DATE1"].ToString()
                     });
                 }
                 return new JsonResult { Data = new { approval }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -420,6 +420,146 @@ namespace DMS_Authontication1.Controllers.HR
             else
                 return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
+        }
+        public ActionResult PrintPdf(string compId, string servFrom, string servTo, string regFrom, string regTo,
+                                     string aprovNo, string cardId, string invocNo, string batchNo)
+        {
+            Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
+
+            DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
+
+            string cardStart, cardEnd;
+
+            regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
+            regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
+            servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
+            servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
+
+
+            aprovNoFrom = string.IsNullOrEmpty(aprovNo) ? 0 : Convert.ToInt64(aprovNo);
+            aprovNoTo = string.IsNullOrEmpty(aprovNo) ? 999999999999999999 : Convert.ToInt64(aprovNo);
+            invocNoFrom = string.IsNullOrEmpty(invocNo) ? 0 : Convert.ToInt64(invocNo);
+            invocNoTo = string.IsNullOrEmpty(invocNo) ? 999999999999999999 : Convert.ToInt64(invocNo);
+            batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
+            batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
+
+            cardStart = string.IsNullOrEmpty(cardId) || cardId == "null" ? " " : cardId;
+            cardEnd = string.IsNullOrEmpty(cardId) || cardId == "null" ? "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" : cardId;
+
+            int comp = Convert.ToInt32(compId);
+
+            ReportDocument rd = new ReportDocument();
+
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReviewCliamsReportSummary.rpt"));
+
+            rd.SetDatabaseLogon("APP", "12369");
+
+
+            rd.SetParameterValue("reg1", regDateFrom);
+            rd.SetParameterValue("reg2", regDateTo);
+            rd.SetParameterValue("serv1", servDateFrom);
+            rd.SetParameterValue("serv2", servDateTo);
+
+
+            rd.SetParameterValue("cmp", comp);
+            rd.SetParameterValue("crd1", cardStart);
+            rd.SetParameterValue("crd2", cardEnd);
+
+            rd.SetParameterValue("aprov1", aprovNoFrom);
+            rd.SetParameterValue("aprov2", aprovNoTo);
+            rd.SetParameterValue("invoc1", invocNoFrom);
+            rd.SetParameterValue("invoc2", invocNoTo);
+
+            rd.SetParameterValue("batch1", batchNoFrom);
+            rd.SetParameterValue("batch2", batchNoTo);
+                       
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pdf", compId + "AllClaimsSummary" + DateTime.Now.ToString("ddMMyyyy") + ".pdf");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public ActionResult PrintExcel(string compId, string servFrom, string servTo, string regFrom, string regTo,
+                                       string aprovNo, string cardId, string invocNo, string batchNo)
+        {
+            Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
+
+            DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
+
+            string cardStart, cardEnd;
+
+            regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
+            regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
+            servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
+            servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
+
+
+            aprovNoFrom = string.IsNullOrEmpty(aprovNo) ? 0 : Convert.ToInt64(aprovNo);
+            aprovNoTo = string.IsNullOrEmpty(aprovNo) ? 999999999999999999 : Convert.ToInt64(aprovNo);
+            invocNoFrom = string.IsNullOrEmpty(invocNo) ? 0 : Convert.ToInt64(invocNo);
+            invocNoTo = string.IsNullOrEmpty(invocNo) ? 999999999999999999 : Convert.ToInt64(invocNo);
+            batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
+            batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
+
+            cardStart = string.IsNullOrEmpty(cardId) || cardId == "null" ? " " : cardId;
+            cardEnd = string.IsNullOrEmpty(cardId) || cardId == "null" ? "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" : cardId;
+
+            int comp = Convert.ToInt32(compId);
+
+            ReportDocument rd = new ReportDocument();
+
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReviewCliamsReportSummary.rpt"));
+
+            rd.SetDatabaseLogon("APP", "12369");
+
+
+            rd.SetParameterValue("reg1", regDateFrom);
+            rd.SetParameterValue("reg2", regDateTo);
+            rd.SetParameterValue("serv1", servDateFrom);
+            rd.SetParameterValue("serv2", servDateTo);
+
+
+            rd.SetParameterValue("cmp", comp);
+            rd.SetParameterValue("crd1", cardStart);
+            rd.SetParameterValue("crd2", cardEnd);
+
+            rd.SetParameterValue("aprov1", aprovNoFrom);
+            rd.SetParameterValue("aprov2", aprovNoTo);
+            rd.SetParameterValue("invoc1", invocNoFrom);
+            rd.SetParameterValue("invoc2", invocNoTo);
+
+            rd.SetParameterValue("batch1", batchNoFrom);
+            rd.SetParameterValue("batch2", batchNoTo);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/xls", compId + "AllClaimsSummary" + DateTime.Now.ToString("ddMMyyyy") + ".xls");
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
     }

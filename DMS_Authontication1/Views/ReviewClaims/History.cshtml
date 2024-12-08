@@ -117,11 +117,11 @@
             <div class="col-md-4 text-center">
                 <div class="sammary-box">
                     <label class="sammar-label">Sammary</label>
-                    <input type="button" value="Print" class="btn my-3" />
+                    <input type="button" value="Print" class="btn my-3" onclick="PrintSummary()"/>
                     <div class="d-flex gap-2 justify-content-center align-items-center">
                         <div class="d-flex align-items-center gap-2">
                             <label class="mb-0 fw-bold" for="DF">PDF</label>
-                            <input class="mt-0" type="radio" id="PDF" />
+                            <input class="mt-0" type="radio" id="pdf" />
                         </div>
                         <div class="d-flex align-items-center gap-2">
                             <label class="mb-0 fw-bold" for="excel">Excel</label>
@@ -332,6 +332,7 @@
                             <th scope="col" align="center">Medical Reply</th>
                             <th scope="col" align="center">Created By</th>
                             <th scope="col" align="center">Created Date</th>
+                            <th scope="col" align="center" hidden>Created Date1</th>  .
                             <th scope="col" align="center"></th>
                         </tr>
                     </thead>
@@ -458,6 +459,17 @@
         var table2 = $('#ClaimDetails').DataTable();
         table2.clear().draw();
         table2.destroy();
+
+        var table3 = $('#ApprovalsDetails').DataTable();
+        table3.clear().draw();
+        table3.destroy();
+
+        var table4 = $('#ChronicDetails').DataTable();
+        table4.clear().draw();
+        table4.destroy();
+
+        $("#pdf").prop("checked", false);
+        $("#excel").prop("checked", false);
 
     }
 
@@ -734,7 +746,12 @@
             getChronicData($('#CardID').val());
     }
     function getApprovalData(crd) {
-        if ($('#CardID').val() != "") {            
+
+        var table = $('#ApprovalsDetails').DataTable();
+        table.clear().draw();
+        table.destroy();
+
+        if ($('#CardID').val() != "") {
             $("#loading").css("display", "flex");
             $.ajax({
                 type: "POST",
@@ -750,6 +767,7 @@
                         setData.empty();
 
                         for (var i = 0; i < apprs.approval.length; i++) {
+
                             var data = "<tr >" +
 
                                 "<td>" + apprs.approval[i].ApprovalNo + "</td>" +
@@ -759,12 +777,22 @@
                                 "<td>" + apprs.approval[i].MedicalReply + "</td>" +
                                 "<td>" + apprs.approval[i].CreatedBy + "</td>" +
                                 "<td>" + apprs.approval[i].CreatedDate + "</td>" +
+                                "<td>" + apprs.approval[i].CreatedDate1 + "</td>" +
                                 "<td >" + "<Button  class='btn btn-Primary ' onclick='PrintApproval(\"" + apprs.approval[i].ApprovalNo + "\");'>Print</Button>" + "</td>" +
                                 "</tr>";
                             setData.append(data);
                         }
                         
-                        $("#ApprovalsDetails").DataTable();
+                        $("#ApprovalsDetails").DataTable({
+                            "ordering": true,
+                            "order": [[7, "desc"]],
+                            "columnDefs": [
+                                {
+                                    targets: [7],  // Column index to hide (8th column, index 7)
+                                    "visible": false  // Hide the column
+                                }
+                            ]
+                        });
                     }                    
                 },
                 complete: function () {
@@ -775,6 +803,11 @@
         }
     }
     function getChronicData(crd) {
+
+        var table = $('#ChronicDetails').DataTable();
+        table.clear().draw();
+        table.destroy();
+
         if ($('#CardID').val() != "") {
             $("#loading").css("display", "flex");
             $.ajax({
@@ -814,7 +847,22 @@
         }
     }
     function getData(crd) {
-        debugger;
+        $('#EmployeeName').val("");
+        $('#BirthDate').val("");
+        $('#Age').val("");
+        $('#StartDate').val("");
+        $('#EndDate').val("");
+        $('#MaxAmount').val("");
+        $('#ClassName').val("");
+        $('#HospitalDegree').val("");
+        $('#MedicalNetwork').val("");
+        $('#ExceptionPayment').val("");
+        $('#ExceptionOver').val("");
+        $('#NationalId').val("");
+        $('#Mobile1').val("");
+        $('#Mobile2').val("");
+        $('#CardColor').val("");
+        $('#OldCard').val("");
         $("#loading").css("display", "flex");
         $.ajax({
 
@@ -862,7 +910,88 @@
         var x = String(AppCode);
         //  window.location.reload();
         window.open('/CustomerService/PrintApproval?ApprovalCode=' + AppCode);
+    }  
+
+    function PrintSummary() {
+
+        if ($("#CompNum").val() != "") {
+
+            var compId = $("#CompNum").val();
+            var servFrom = $("#ServDateFrom").val();
+            var servTo = $("#ServDateTo").val();
+            var regFrom = $("#RegDateFrom").val();
+            var regTo = $("#RegDateTo").val();
+            var aprovNo = $("#ApprovalNo").val();
+            var cardId = $("#CardId").val();
+            var invocNo = $("#InvoicNo").val();
+            var batchNo = $("#BatchNo").val();
+
+            if ($("#excel").is(":checked"))              
+                window.open('/ReviewClaims/PrintExcel?compId=' + compId +
+                    '&&servFrom=' + servFrom + '&&servTo=' + servTo +
+                    '&&regFrom=' + regFrom + '&&regTo=' + regTo +
+                    '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
+                    '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
+            else
+                window.open('/ReviewClaims/PrintPdf?compId=' + compId +
+                    '&&servFrom=' + servFrom + '&&servTo=' + servTo +
+                    '&&regFrom=' + regFrom + '&&regTo=' + regTo +
+                    '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
+                    '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
+        }
+        else
+            alert("Comp Id is empty");
+
+
+        if (RegistrationFrom != "" && RegistrationTo != "") {
+
+
+
+            //chick if not search with card number
+            if ($("#excel").is(":checked")) {
+                // do something if the excel is  checked
+                if ($("#pdf").is(":checked")) {
+                    // do something if the pdf is  checked
+                    // Print PDF and EXCEL
+                    window.open('/ReportMain/PrintReportsMedPdf?Regfrom=' + RegistrationFrom +
+                        '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
+                        '&&usernam=' + usernam + '&&medcod=' + medcod +
+                        '&&type=' + type + '&&RepotType=' + RepotType +
+                        '&&crd=' + crd + '&&typmngr=' + typmngr);
+
+                    window.open('/ReportMain/PrintReportsMedExcel?Regfrom=' + RegistrationFrom +
+                        '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
+                        '&&usernam=' + usernam + '&&medcod=' + medcod +
+                        '&&type=' + type + '&&RepotType=' + RepotType +
+                        '&&crd=' + crd + '&&typmngr=' + typmngr);
+                }
+                else {
+                    // Print EXCEL Only
+                    window.open('/ReportMain/PrintReportsMedExcel?Regfrom=' + RegistrationFrom +
+                        '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
+                        '&&usernam=' + usernam + '&&medcod=' + medcod +
+                        '&&type=' + type + '&&RepotType=' + RepotType +
+                        '&&crd=' + crd + '&&typmngr=' + typmngr);
+                }
+
+            }
+            else {
+                // Print PDF as Default
+                window.open('/ReportMain/PrintReportsMedPdf?Regfrom=' + RegistrationFrom +
+                    '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
+                    '&&usernam=' + usernam + '&&medcod=' + medcod +
+                    '&&type=' + type + '&&RepotType=' + RepotType +
+                    '&&crd=' + crd + '&&typmngr=' + typmngr);
+            }
+
+        }
+        else {
+            toastr.info('select date " From " and " TO " of Registration date first');
+        }
+
+
     }
+
 </script>
 
 <style>

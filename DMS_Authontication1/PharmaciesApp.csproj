@@ -8674,7 +8674,8 @@
     <Content Include="Views\AfterSales\Create.cshtml" />
     <Content Include="Views\ReviewClaims\History.cshtml" />
     <Content Include="Views\EmployeeRequest\Index.cshtml" />
-    <Content Include="Reports\HR\ReviewClaimsReport.rpt" />
+    <Content Include="Reports\HR\ReviewCliamsReport.rpt" />
+    <Content Include="Reports\HR\ReviewCliamsReportSummary.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
