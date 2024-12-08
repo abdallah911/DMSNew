@@ -108,12 +108,28 @@
                     <input id="BatchNo" type="text" class="w-100 h-100 " placeholder="Batch Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
                 </div>
             </div>
-            <div class="col-md-4" style=" text-align:right">
+            <div class="col-md-4 text-center">
                 <input id="adminSearch" type="button" value="Search" class="btn " onclick="GetClaim();" />
                 <input type="button" value="New" onclick="ClearSearchData();" class="btn " />
                 <input type="button" value="Export" class="btn" onclick="PrintAllClaims();" />
-            </div>
 
+            </div> 
+            <div class="col-md-4 text-center">
+                <div class="sammary-box">
+                    <label class="sammar-label">Sammary</label>
+                    <input type="button" value="Print" class="btn my-3" />
+                    <div class="d-flex gap-2 justify-content-center align-items-center">
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="mb-0 fw-bold" for="DF">PDF</label>
+                            <input class="mt-0" type="radio" id="PDF" />
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="mb-0 fw-bold" for="excel">Excel</label>
+                            <input class="mt-0" type="radio" id="excel" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="portlet box" id="MainScreenClaims">

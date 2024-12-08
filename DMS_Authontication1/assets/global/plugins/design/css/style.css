@@ -513,6 +513,24 @@ div.field-labeled div {
     color: #999999;
     font-size:14px;
 }
+.sammary-box {
+    border: 2px solid #99b6cf;
+    border-radius: 8px;
+    padding: 12px; 
+    position: relative;
+    width: fit-content;
+    text-align: center;
+    margin: 16px auto 0;
+}
+.sammar-label {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    font-weight: 700;
+    background: white;
+    color: #337ab7;
+    padding: 0 5px;
+}
     /*===============================Slider=========================================*/
 .slider-parent {
     display: flex;
@@ -714,6 +732,10 @@ p:last-of-type {
  }
 .gap-2 {
     gap:8px;
+}
+.my-3{
+    margin-top:12px;
+    margin-bottom:12px;
 }
 .mb-0{
     margin-bottom:0;
