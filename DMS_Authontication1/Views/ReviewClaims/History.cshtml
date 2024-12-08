@@ -323,22 +323,23 @@
                 </table>
             </div>
 
-            <div class="col-md-12" style="width:100%;" id="ChronicScreen" hidden>
-                <table class="ui celled table" id="MonthlyDetails">
+
+            <div class="col-md-12" style="margin-top:80px;margin-bottom:100px" id="ChronicScreen" hidden>
+                <table class="table" id="ChronicDetails">
                     <thead>
                         <tr>
-                            <th scope="col" align="center">Created Date</th>
-                            <th scope="col" align="center">Provider Code</th>
-                            <th scope="col" align="center">User N</th>
-                            <th scope="col" align="center">Group Name</th>
-                            <th scope="col" align="center"></th>
+                            <th scope="col" align="center">MED CODE</th>
+                            <th scope="col" align="center">MED NAME</th>
+                            <th scope="col" align="center">DOSE</th>
+                            <th scope="col" align="center">MED DURATION</th>
+                            <th scope="col" align="center">UNIT NO</th>
+                            <th scope="col" align="center">DOSAGE FORM</th>
+                            <th scope="col" align="center">MONTH DATE STOP</th>                          
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody id="MonthlyDetailsBody"></tbody>
                 </table>
             </div>
-
-
         </div>
 
     </div>
@@ -712,6 +713,9 @@
         $('#ChronicScreen').hide();
 
         $('#ChronicScreen').show();
+
+        if ($('#CardID').val() != "")
+            getChronicData($('#CardID').val());
     }
     function getApprovalData(crd) {
         if ($('#CardID').val() != "") {            
@@ -754,7 +758,45 @@
             });
         }
     }
+    function getChronicData(crd) {
+        if ($('#CardID').val() != "") {
+            $("#loading").css("display", "flex");
+            $.ajax({
+                type: "POST",
+                url: '/ReviewClaims/getChornicData',
+                data: { CardId: $('#CardID').val() },
+                success: function (apprs) {
 
+                    if (apprs.clmD.length > 0) {
+
+                        $('#ChronicDetails').dataTable().fnDestroy();
+
+                        var setData = $("#ChronicDetails Tbody");
+                        setData.empty();
+
+                        for (var i = 0; i < apprs.clmD.length; i++) {
+                            var data = "<tr >" +
+                                "<td>" + apprs.clmD[i].MED_CODE + "</td>" +
+                                "<td>" + apprs.clmD[i].MED_NAME + "</td>" +
+                                "<td>" + apprs.clmD[i].DOSE + "</td>" +
+                                "<td>" + apprs.clmD[i].MED_DURATION + "</td>" +
+                                "<td>" + apprs.clmD[i].UNIT_NO + "</td>" +
+                                "<td>" + apprs.clmD[i].DOSAGE_FORM + "</td>" +
+                                "<td>" + apprs.clmD[i].MONTH_DATE_STOP + "</td>" +
+                                "</tr>";
+                            setData.append(data);                            
+                        }
+
+                        $("#ChronicDetails").DataTable();
+                    }
+                },
+                complete: function () {
+                    $("#loading").hide();
+
+                }
+            });
+        }
+    }
     function getData(crd) {
         debugger;
         $("#loading").css("display", "flex");

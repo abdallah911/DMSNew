@@ -1405,6 +1405,7 @@
     <Compile Include="ViewModel\EmployeeVM\DeliveryRequestVm.cs" />
     <Compile Include="ViewModel\EmployeeVM\ConfirmRegisterEmployeeVM.cs" />
     <Compile Include="ViewModel\HospitalVM\ApprovalComp.cs" />
+    <Compile Include="ViewModel\HR\ChronicDetailsViewModel.cs" />
     <Compile Include="ViewModel\HR\MedicalApprovalViewModel.cs" />
     <Compile Include="ViewModel\HR\ClaimDetailsViewModel.cs" />
     <Compile Include="ViewModel\HR\ClaimsViewModel.cs" />

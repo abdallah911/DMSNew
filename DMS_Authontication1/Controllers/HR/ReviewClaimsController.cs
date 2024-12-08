@@ -304,7 +304,7 @@ namespace DMS_Authontication1.Controllers.HR
         {          
             DataTable dtcrd = new DataTable();
 
-            dtcrd = dbOra.RunReader("select  to_char(BIRTH_DATE,'DD-MM-YYYY'),C_COMP_ID,CLASS_CODE,NVL(to_char(SPECIFIC_DATE,'DD-MM-YYYY'),to_char(INS_START_DATE,'DD-MM-YYYY')),to_char(INS_END_DATE,'DD-MM-YYYY'),TERMINATE_FLAG ,EMP_ANAME_ST ,EMP_ANAME_SC,EMP_ANAME_TH ,EMP_ENAME_ST ,EMP_ENAME_SC,EMP_ENAME_TH, to_char(INS_START_DATE,'DD-MM-YYYY'), to_char(TERMINATE_DATE,'DD-MM-YYYY') ,CONTRACT_NO, TEL1, TEL2, EMP_ID,  DECODE (GENDER, 1, 'Male', 2, 'Female')  Gender  from dms_test.COMP_EMPLOYEES where CARD_ID='" + CardId + "' order by ins_start_date DESC");
+            dtcrd = dbOra.RunReader("select  to_char(BIRTH_DATE,'DD-MM-YYYY'),C_COMP_ID,CLASS_CODE,NVL(to_char(SPECIFIC_DATE,'DD-MM-YYYY'),to_char(INS_START_DATE,'DD-MM-YYYY')),to_char(INS_END_DATE,'DD-MM-YYYY'),TERMINATE_FLAG ,EMP_ANAME_ST ,EMP_ANAME_SC,EMP_ANAME_TH ,EMP_ENAME_ST ,EMP_ENAME_SC,EMP_ENAME_TH, to_char(INS_START_DATE,'DD-MM-YYYY'), to_char(TERMINATE_DATE,'DD-MM-YYYY') ,CONTRACT_NO, TEL1, TEL2, EMP_ID,  DECODE (GENDER, 1, 'Male', 2, 'Female')  Gender, FLOOR(MONTHS_BETWEEN(TRUNC(TO_DATE(SYSDATE)), TRUNC(TO_DATE(NVL(BIRTH_DATE, SYSDATE)))) / 12) AS AGE  from dms_test.COMP_EMPLOYEES where CARD_ID='" + CardId + "' order by ins_start_date DESC");
 
             List<CardInformationViewModel> dtDetails = new List<CardInformationViewModel>();
 
@@ -328,7 +328,7 @@ namespace DMS_Authontication1.Controllers.HR
                     {                       
                         EmployeeName = dtcrd.Rows[0][6].ToString() + " " + dtcrd.Rows[0][7].ToString() + " " + dtcrd.Rows[0][8].ToString(),
                         BirthDate = dtcrd.Rows[0][0].ToString(),
-                        Age = (DateTime.Now.Year - Convert.ToDateTime(dtcrd.Rows[0][0]).Year).ToString(),
+                        Age = dtcrd.Rows[0]["AGE"].ToString(),
                         SpecificDate = dtcrd.Rows[0][3].ToString(),
                         StartDate = dtcrd.Rows[0][12].ToString(),
                         EndDate = dtcrd.Rows[0][4].ToString(),
@@ -383,6 +383,42 @@ namespace DMS_Authontication1.Controllers.HR
             }
             else
                 return new JsonResult { Data = new { approval }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+        public JsonResult getChornicData(string CardId)
+        {
+            DataTable dt = new DataTable();
+            
+            List<ChronicDetailsViewModel> clmD = new List<ChronicDetailsViewModel>();
+
+            var medicin = (from md in db.Med_Card
+                           join m in db.Med_Medicine
+                           on md.CARD_NO equals m.CARD_NO
+                           where m.ACTIVE == "Y" &&
+                                 md.LOOK_01 == 0 &&
+                                    m.CARD_NO == CardId
+                           orderby m.CREATED_DATE ?? m.UPDATE_DATE descending
+                           select m).ToList();
+
+            if (medicin != null && medicin.Count > 0)
+            {
+                foreach (var med in medicin)
+                {
+                    clmD.Add(new ChronicDetailsViewModel
+                    {
+                        MED_CODE = med.MED_CODE,
+                        MED_NAME = med.MED_NAME,
+                        DOSE = med.DOSE.ToString(),
+                        MED_DURATION = med.MED_DURATION.ToString(),
+                        UNIT_NO = med.UNIT_NO.ToString(),
+                        DOSAGE_FORM = med.DOSAGE_FORM.ToString(),
+                        MONTH_DATE_STOP = med.MONTH_DATE_STOP.ToString()
+                    });
+                }
+                return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+                return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
 
