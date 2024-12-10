@@ -502,6 +502,7 @@ div.field-labeled div {
 }
 .field-labeled input {
     height: 28px;
+    height: 28px;
 }
 .sec-field-labeled input {
     height: 34px;
@@ -509,7 +510,8 @@ div.field-labeled div {
     border-radius: 4px;
     padding:5px 10px;
 }
-.sec-field-labeled input::placeholder {
+.sec-field-labeled input::placeholder ,
+.sec-field-labeled select {
     color: #999999;
     font-size:14px;
 }
@@ -726,10 +728,7 @@ p:last-of-type {
 }
 .d-flex {
     display: flex;
-}
-.justify-content-center {
-    justify-content:center;
- }
+} 
 .gap-2 {
     gap:8px;
 }
@@ -798,6 +797,29 @@ p:last-of-type {
 .justify-content-start {
     justify-content:start;
 }
+.text-end{
+    text-align:end;
+}
+.text-start{
+    text-align:start;
+}
+/* ====================test========================================== */
+
+@media (max-width:1460px) {
+    a.link-cus {
+        font-size: 12px;
+        padding: 18px 5px !important;
+    }
+    button.dropbtn-cus {
+        padding: 10px !important;
+        font-size: 12px;
+    }
+    span.test1.d-flex.justify-content-center.align-content-center {
+        padding: 0px !important;
+        height: 18px !important;
+    }
+}
+
 /* ====================footer========================================== */
 footer div.footer {
     background: var(--color-gradient);

@@ -49,87 +49,47 @@
         </div>*@
     <br />
     <br />
-    <div class="portlet box">
+    <div class="portlet box" style="margin-top: 17px;">
         <div class="portlet-title title-bg text-white fw-bold">
             <div class="caption">
                 <i class="fa-solid fa-home"></i>Data
             </div>
         </div>
         <div class="w-100 mx-auto row portlet-body">
-            <div class="row col-md-8">
-                <div class="sec-field-labeled col-md-6 px-2 mb-2 ">
-                    @*<input type="text" class="w-100 h-100 " placeholder="Company Number" />*@
-                    @if (User.IsInRole("HR_Admin"))
-                    {
-                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Company Number", new { @class = "col-md-2 form-control", id = "CompNum" })
-                        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                        <script>
-                            $(document).ready(function () {
-                                $('#CompNum').select2();
-                            });
-                        </script>
-
-                    }
-                    else
-                    {
-                        <input id="CompNum" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-
-                    }
-                </div>
-                <div class="col-md-6 px-2">
-                    <div class="w-100 px-2 field-labeled mb-2">
-                        <label>Service date</label>
-                        <div>
-                            <input id="ServDateFrom" type="text" class="date-input col-md-2 form-control " placeholder="From" />
-                            <input id="ServDateTo" type="text" class="date-input col-md-2 form-control " placeholder="To" />
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 px-2">
-                    <div class="w-100 px-2 field-labeled mb-2">
-                        <label>Registration date</label>
-                        <div>
-                            <input id="RegDateFrom" type="text" class="date-input col-md-2 form-control " placeholder="From" />
-                            <input id="RegDateTo" type="text" class="date-input col-md-2 form-control " placeholder="To" />
-                        </div>
-                    </div>
+            <div class="row  col-md-9">
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="BatchNo" type="text" class="w-100 h-100 " placeholder="Batch Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
-                    <input id="ApprovalNo" type="text" class="w-100 h-100  form-control " placeholder="Approval Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+                    <input id="InvoicNo" type="text" class="w-100 h-100 " placeholder="Invoice Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="" type="number" class="w-100 h-100 " placeholder="Provider Number" />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="" type="text" class="w-100 h-100 " placeholder="Provider Name" />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    @*<input id="CardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />*@
+                    <input id="" type="number" class="w-100 h-100 " placeholder="Comp ID" disabled />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    @*<input id="CardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />*@
+                    <input id="" type="number" class="w-100 h-100 " placeholder="Comp Name" disabled />
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
                     @*<input id="CardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />*@
                     <select id="CardId" class="w-100 h-100 form-control "></select>
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
-                    <input id="InvoicNo" type="text" class="w-100 h-100 " placeholder="Invoice Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
-                </div>
-                <div class="sec-field-labeled col-md-6 px-2  mb-2">
-                    <input id="BatchNo" type="text" class="w-100 h-100 " placeholder="Batch Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+                    <input id="ApprovalNo" type="text" class="w-100 h-100  form-control " placeholder="Approval Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
                 </div>
             </div>
-            <div class="col-md-4 text-center">
+            <div class="col-md-3 text-end">
                 <input id="adminSearch" type="button" value="Search" class="btn " onclick="GetClaim();" />
                 <input type="button" value="New" onclick="ClearSearchData();" class="btn " />
-                <input type="button" value="Export" class="btn" onclick="PrintAllClaims();" />
-
-            </div> 
-            <div class="col-md-4 text-center">
-                <div class="sammary-box">
-                    <label class="sammar-label">Sammary</label>
-                    <input type="button" value="Print" class="btn my-3" onclick="PrintSummary()"/>
-                    <div class="d-flex gap-2 justify-content-center align-items-center">
-                        <div class="d-flex align-items-center gap-2">
-                            <label class="mb-0 fw-bold" for="DF">PDF</label>
-                            <input class="mt-0" type="radio" id="pdf" />
-                        </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <label class="mb-0 fw-bold" for="excel">Excel</label>
-                            <input class="mt-0" type="radio" id="excel" />
-                        </div>
-                    </div>
-                </div>
             </div>
+
         </div>
     </div>
     <div class="portlet box" id="MainScreenClaims">
@@ -138,20 +98,33 @@
                 <i class="fa-solid fa-home"></i>Claims
             </div>
         </div>
-        <div class="portlet-body" id="list_div">
+        <div class="d-flex justify-content-end gap-2 container text-center">
+            <input type="button" value="Print" class="btn my-3" onclick="PrintSummary()" />
+            <div class="d-flex gap-2 justify-content-center align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <label class="mb-0 fw-bold" for="pdf">PDF</label>
+                    <input class="mt-0" name="file-type" type="radio" id="pdf" />
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <label class="mb-0 fw-bold" for="excel">Excel</label>
+                    <input class="mt-0" name="file-type" type="radio" id="excel" />
+                </div>
+            </div>
+        </div>
+        <div class="portlet-body no-wrap" id="list_div">
             <div class="table-responsive">
                 <table class="table" id="ClaimsData">
                     <thead>
                         <tr>
-                            <th scope="col" align="center">Claim No</th>
-                            <th scope="col" align="center">Created Date</th>
-                            <th scope="col" align="center">Service Date</th>
-                            <th scope="col" align="center">Card No</th>
-                            <th scope="col" align="center">Employee Name</th>
-                            <th scope="col" align="center">Provider Name</th>
-                            <th scope="col" align="center">Provider Type</th>
-                            <th scope="col" align="center">Diagnosis</th>
-                            <th scope="col" align="center">Service Type</th>
+                            <th scope="col" align="center">Comp ID</th>
+                            <th scope="col" align="center">Comp Name</th>
+                            <th scope="col" align="center">Start Date</th>
+                            <th scope="col" align="center">End Date</th>
+                            <th scope="col" align="center">Claim Number</th>
+                            <th scope="col" align="center">Gross</th>
+                            <th scope="col" align="center">Net</th>
+                            <th scope="col" align="center">Invoice Date</th>
+                            <th scope="col" align="center">Invoice Number</th>
                         </tr>
                     </thead>
                     <tbody id="ClaimsBody"></tbody>
@@ -183,10 +156,23 @@
 
         </div>*@
 
-    <div class="portlet box">
+    <div class="portlet box no-wrap">
         <div class="portlet-title title-bg text-white fw-bold">
             <div class="caption">
                 <i class="fa-solid fa-home"></i>Claims Details
+            </div>
+        </div>
+        <div class="d-flex justify-content-end gap-2 container text-center">
+            <input type="button" value="Print" class="btn my-3" onclick="PrintSummary()" />
+            <div class="d-flex gap-2 justify-content-center align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <label class="mb-0 fw-bold" for="pdf2">PDF</label>
+                    <input class="mt-0" name="file-type-2" type="radio" id="pdf2" />
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <label class="mb-0 fw-bold" for="excel2">Excel</label>
+                    <input class="mt-0" name="file-type-2" type="radio" id="excel2" />
+                </div>
             </div>
         </div>
         <div class="portlet-body" id="list_div2">
@@ -194,19 +180,12 @@
                 <table class="table" id="ClaimDetails">
                     <thead>
                         <tr>
-                            <th scope="col" align="center">Services</th>
-                            <th scope="col" align="center">Sercv Name</th>
-                            <th scope="col" align="center">Claim Submitted</th>
-                            <th scope="col" align="center">Over Insurance</th>
-                            <th scope="col" align="center">Discount</th>
-                            <th scope="col" align="center">Approv Amount</th>
-                            <th scope="col" align="center">Copay Amt</th>
-                            <th scope="col" align="center">After Copay</th>
-                            <th scope="col" align="center">Local Amount</th>
-                            <th scope="col" align="center">Import Amount</th>
-                            <th scope="col" align="center">Local Disc</th>
-                            <th scope="col" align="center">Import Disc</th>
-                            <th scope="col" align="center">Total Discount</th>
+                            <th scope="col" align="center">Batch Number</th>
+                            <th scope="col" align="center">Provider ID</th>
+                            <th scope="col" align="center">Provider Name</th>
+                            <th scope="col" align="center">Provider Type</th>
+                            <th scope="col" align="center">Claim Number</th>
+                            <th scope="col" align="center">Gross</th>
                             <th scope="col" align="center">Net</th>
                         </tr>
                     </thead>
@@ -233,17 +212,17 @@
         <br />
         <div class="col-md-12">
 
-            <input id="ShowConsumption" type="button" value="Personal Data" class="btn btn-primary" onclick="ShowCardInformation()"/>
-            <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalDetails()"/>
-            <input id="ShowClaims" type="button" value="Chronic" class="btn btn-primary" onclick="ShowChronicDetails()"/>
+            <input id="ShowConsumption" type="button" value="Personal Data" class="btn btn-primary" onclick="ShowCardInformation()" />
+            <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalDetails()" />
+            <input id="ShowClaims" type="button" value="Chronic" class="btn btn-primary" onclick="ShowChronicDetails()" />
             @*<input id="ShowConsumption" type="button" value="Show Consumption" onclick="ShowAllConsmptionDetails()" class="btn btn-primary" />
-            <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalConsmptionDetails()" />
-            <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsConsmptionDetails()" />
-            <input id="ShowIndemnity" type="button" value="Indemnity" class="btn btn-success  fa fa-search" onclick="ShowIndemnityConsmptionDetails()" />
-            <input id="ShowMonthly" type="button" value="Monthly treatment" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMonthlyConsmptionDetails()" />
-            <input id="ShowLive" type="button" value="Online Live" class="btn btn-success fa-file-excel-o " onclick="ShowLiveConsmptionDetails()" />
-            <input id="ShowMedicalNetwork" type="button" value="Medical Network" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMedicalNetworkScreen()" />
-            <input id="ShowCardDesgin" type="button" value="Card Desgin" class="btn btn-success fa-file-excel-o " onclick="ShowCardDesignPrint()" />*@
+                <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalConsmptionDetails()" />
+                <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsConsmptionDetails()" />
+                <input id="ShowIndemnity" type="button" value="Indemnity" class="btn btn-success  fa fa-search" onclick="ShowIndemnityConsmptionDetails()" />
+                <input id="ShowMonthly" type="button" value="Monthly treatment" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMonthlyConsmptionDetails()" />
+                <input id="ShowLive" type="button" value="Online Live" class="btn btn-success fa-file-excel-o " onclick="ShowLiveConsmptionDetails()" />
+                <input id="ShowMedicalNetwork" type="button" value="Medical Network" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMedicalNetworkScreen()" />
+                <input id="ShowCardDesgin" type="button" value="Card Desgin" class="btn btn-success fa-file-excel-o " onclick="ShowCardDesignPrint()" />*@
         </div>
 
         <div class="panel-body">
@@ -351,7 +330,7 @@
                             <th scope="col" align="center">MED DURATION</th>
                             <th scope="col" align="center">UNIT NO</th>
                             <th scope="col" align="center">DOSAGE FORM</th>
-                            <th scope="col" align="center">MONTH DATE STOP</th>                          
+                            <th scope="col" align="center">MONTH DATE STOP</th>
                         </tr>
                     </thead>
                     <tbody id="MonthlyDetailsBody"></tbody>
@@ -360,16 +339,18 @@
         </div>
 
     </div>
-        <div id="loading" style="display: none; justify-content: center; align-items: center; width: 100%; height: 100%; background: #e3e3e347; position:fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
-            <img src="~/assets/global/img/newloading.gif" alt="Loading..." style="width:250px; height:250px;">
-        </div>
+    <div id="loading" style="display: none; justify-content: center; align-items: center; width: 100%; height: 100%; background: #e3e3e347; position:fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
+        <img src="~/assets/global/img/newloading.gif" alt="Loading..." style="width:250px; height:250px;">
+    </div>
 </div>
 
+<br />
+<br />
 <br />
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 @*<script src="~/Scripts/DMS/CustomerService/CustomerService.js?V=3.2"></script>*@
 <script>
-   
+
     $(function () {
         $('#CardId').select2({
             placeholder: 'Search for a card',
@@ -524,7 +505,7 @@
                                 data += "<td>--</td>";
                             else
                                 data += "<td>" + r.claimslist[i].ClaimDate + "</td>";
-                           
+
                             if (r.claimslist[i].CardNo == null)
                                 data += "<td>--</td>";
                             else
@@ -559,7 +540,7 @@
                         });
                         $('#list_div').show();
 
-                         
+
                         $('html, body').animate({
                             scrollTop: $('#MainScreenClaims').offset().top
                         }, 'slow');
@@ -716,9 +697,9 @@
     function ShowApprovalDetails() {
 
         $('#InformationScreen').hide();
-        $('#ApprovalsScreen').hide();       
+        $('#ApprovalsScreen').hide();
         $('#ChronicScreen').hide();
-      
+
         $('#ApprovalsScreen').show();
 
         if ($('#CardID').val() != "")
@@ -756,7 +737,7 @@
             $.ajax({
                 type: "POST",
                 url: '/ReviewClaims/getAprovalData',
-                data: { CardId: $('#CardID').val()},
+                data: { CardId: $('#CardID').val() },
                 success: function (apprs) {
 
                     if (apprs.approval.length > 0) {
@@ -782,7 +763,7 @@
                                 "</tr>";
                             setData.append(data);
                         }
-                        
+
                         $("#ApprovalsDetails").DataTable({
                             "ordering": true,
                             "order": [[7, "desc"]],
@@ -793,7 +774,7 @@
                                 }
                             ]
                         });
-                    }                    
+                    }
                 },
                 complete: function () {
                     $("#loading").hide();
@@ -833,7 +814,7 @@
                                 "<td>" + apprs.clmD[i].DOSAGE_FORM + "</td>" +
                                 "<td>" + apprs.clmD[i].MONTH_DATE_STOP + "</td>" +
                                 "</tr>";
-                            setData.append(data);                            
+                            setData.append(data);
                         }
 
                         $("#ChronicDetails").DataTable();
@@ -896,9 +877,9 @@
             complete: function () {
                 $("#loading").hide();
             }
-              
+
         });
-        
+
         if ($('#OldCard').val() != "")
             $('#OldCardScreen').show;
         else
@@ -910,7 +891,7 @@
         var x = String(AppCode);
         //  window.location.reload();
         window.open('/CustomerService/PrintApproval?ApprovalCode=' + AppCode);
-    }  
+    }
 
     function PrintSummary() {
 
@@ -926,7 +907,7 @@
             var invocNo = $("#InvoicNo").val();
             var batchNo = $("#BatchNo").val();
 
-            if ($("#excel").is(":checked"))              
+            if ($("#excel").is(":checked"))
                 window.open('/ReviewClaims/PrintExcel?compId=' + compId +
                     '&&servFrom=' + servFrom + '&&servTo=' + servTo +
                     '&&regFrom=' + regFrom + '&&regTo=' + regTo +
