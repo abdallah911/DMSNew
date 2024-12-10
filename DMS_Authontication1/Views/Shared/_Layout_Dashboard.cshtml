@@ -91,6 +91,10 @@
         input.select2-search__field {
             border: none !important;
         }
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 32px;
+        }
         .nav-pills .nav-link:focus {
             text-decoration: none;
         }
@@ -254,7 +258,7 @@
                 margin-right: 20px;
                 border-radius: 50% !important;
                 top: 10%;
-                background-color: #4f4f4f;
+                background-color: #afafaf;
                 left: -50px;
             }
 
@@ -263,14 +267,19 @@
         }
 
         .line {
-            background-color: white;
+            background-color: #72369a;
             height: 3px;
             width: 95px;
-            margin-left: 10px;
+            margin-left:0;
             margin-bottom: 15px;
             border-radius: 10px;
         }
-
+        footer h2 {
+            color: #4f4f4f;
+        }
+        footer p {
+            color: #72369a;
+        }
         .logo-white {
             width: 140px;
             margin-top: 30px;
@@ -964,7 +973,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="footerP2">
-                                                    <h2 class="mb-1 text-white fw-bold" style="font-size:24px;font-weight: 500;color: #474747;">Contact</h2>
+                                                    <h2 class="mb-1 text-dark fw-bold" style="font-size:24px;font-weight: 500;color: #474747;">Contact</h2>
                                                     <div class="line ms-0 mb-3" style="width:95px;margin-left: 0;background:#72369ab0;"></div>
                                                     <ul class="p-0 m-0 mt-1 footer-contacts-text" style="white-space:nowrap">
 
@@ -983,7 +992,7 @@
                                             </div>
                                             <div class="col-md-4 ms-lg-4">
                                                 <div class="footerP2">
-                                                    <h2 class="mb-1 text-white fw-bold" style="font-size:24px;font-weight: 500;color: #474747;">Address</h2>
+                                                    <h2 class="mb-1 text-dark fw-bold" style="font-size:24px;font-weight: 500;color: #474747;">Address</h2>
                                                     <div class="line ms-0 mb-3" style="width:95px;margin-left: 0;background:#72369ab0;"></div>
                                                     <ul class="p-0 m-0 mt-1 footer-contacts-text" style="white-space:nowrap">
                                                         <li>
@@ -1046,7 +1055,7 @@
         }
         else
         {
-            <div class="body-content body-cus">
+            <div class="body-content ">
                 <div>
                     @RenderBody()
                 </div>
