@@ -31,84 +31,85 @@
         }
     }
 }
-
-<br />
-
-<div style="margin-top:40px">
-    <p>
-        @if (fullcontroll || view)
-        {
-            @Html.ActionLink(" Company Contracts", "Index", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || Create)
-        {
-            @Html.ActionLink(" Providers Contracts", "ProvidersIndex", null, htmlAttributes: new { @class = "btn btn-info fa fa-search", @style = " text-transform: none" })
-        }
-    </p>
-</div>
-@if (fullcontroll || view)
-{
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i> Search
-            </div>
-        </div>
-        <div class="portlet-body">
-            <input id="compname" type="text" value="@ViewBag.CompName" hidden="hidden" />
-            <div class="row" style="padding-bottom: 15px;">
-                @if (User.IsInRole("HR_Admin"))
-                {
-
-                    <div class="col-sm-2" data-step="6" data-intro="Select Contract type Default is Contract">
-                        @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
-
-                    </div>
-
-                    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                    <script>
-                        $(document).ready(function () {
-                            $("#CompanyNumber").select2();
-                        });
-                    </script>
-                }
-                <div class="col-sm-2" data-step="6" data-intro="Select Contract type Default is Contract">
-                    <select id="ddlType" class="form-control">
-                        <option value="">Select Type</option>
-                        <option value="Contract">Contract</option>
-                        <option value="Endorsement ">Endorsement </option>
-                    </select>
+ 
+<div class="dms-container">
+    <div>
+        <p>
+            @if (fullcontroll || view)
+            {
+                @Html.ActionLink(" Company Contracts", "Index", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || Create)
+            {
+                @Html.ActionLink(" Providers Contracts", "ProvidersIndex", null, htmlAttributes: new { @class = "btn btn-info fa fa-search", @style = " text-transform: none" })
+            }
+        </p>
+    </div>
+    @if (fullcontroll || view)
+    {
+        <div class="portlet box  green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i> Search
                 </div>
             </div>
-            <div style=" text-align:right">
-                <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
-                <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />
+            <div class="portlet-body">
+                <input id="compname" type="text" value="@ViewBag.CompName" hidden="hidden" />
+                <div class="row" style="padding-bottom: 15px;">
+                    @if (User.IsInRole("HR_Admin"))
+                    {
+
+                        <div class="col-sm-2" data-step="6" data-intro="Select Contract type Default is Contract">
+                            @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
+
+                        </div>
+
+                        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                $("#CompanyNumber").select2();
+                            });
+                        </script>
+                    }
+                    <div class="col-sm-2" data-step="6" data-intro="Select Contract type Default is Contract">
+                        <select id="ddlType" class="form-control">
+                            <option value="">Select Type</option>
+                            <option value="Contract">Contract</option>
+                            <option value="Endorsement ">Endorsement </option>
+                        </select>
+                    </div>
+                </div>
+                <div style=" text-align:right">
+                    <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
+                    <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Company Contract
+        <div class="portlet box  green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Company Contract
+                </div>
+
             </div>
+            <br />
+            <div class="portlet-body">
 
+                <table class="ui celled table" id="Index" width="100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="contractImage"></tbody>
+
+                </table>
+            </div>
         </div>
-        <br />
-        <div class="portlet-body">
 
-            <table class="ui celled table" id="Index" width="100%">
-                <thead>
-                    <tr>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="contractImage"></tbody>
-
-            </table>
-        </div>
-    </div>
-}
+    }
+</div>
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>

@@ -803,9 +803,16 @@ p:last-of-type {
 .text-start{
     text-align:start;
 }
+/* ====================media========================================== */
+/*@media (max-width:776px){
+
+    .navbar {
+        HEIGHT: unset !important;
+    }
+}*/
 /* ====================test========================================== */
 
-@media (max-width:1460px) {
+/*@media (max-width:1460px) {
     a.link-cus {
         font-size: 12px;
         padding: 18px 5px !important;
@@ -819,7 +826,7 @@ p:last-of-type {
         height: 18px !important;
     }
 }
-
+*/
 /* ====================footer========================================== */
 footer div.footer {
     background: var(--color-gradient);

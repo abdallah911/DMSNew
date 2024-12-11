@@ -53,6 +53,36 @@
     <link href="~/assets/global/plugins/design/css/style.css" rel="stylesheet" />
 
     <style>
+       .navbar {
+            display:contents;
+        }
+        .nav-admin-cus {
+            white-space: nowrap;
+            display: flex;
+        }
+        ul.navbar-nav.navbar-right {
+            margin-top: 10px;
+        }
+        /*  
+        .dms-container {
+            padding-top: 60px;
+        }
+        .navbar-nav > li {
+            height:fit-content;
+        }
+        ul.nav.navbar-nav.nav-admin-cus {
+            display: flex;
+        }
+        ul.navbar-nav.navbar-right {
+            display: flex;
+            margin:auto;
+        }
+        div#navbar {
+            display: flex !important;
+            gap: 10px;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+        }*/
         input,
         select,
         textarea {
@@ -400,8 +430,8 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
+         
             <div id="navbar" class="navbar-collapse collapse">
-
                 <a href="~/Home/Index"><img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" /></a>
 
                 <ul class="nav navbar-nav nav-admin-cus" style="color: #000; margin-top: 3px;">
@@ -582,7 +612,7 @@
                                     //                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                     //{
 
-                                        <li><a href="/ReviewClaims/History" class="link-cus">Review Claims</a></li>
+                                    <li><a href="/ReviewClaims/History" class="link-cus">Review Claims</a></li>
                                     //}
                                 }
                             }
