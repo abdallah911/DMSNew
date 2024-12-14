@@ -1406,6 +1406,7 @@
     <Compile Include="ViewModel\EmployeeVM\ConfirmRegisterEmployeeVM.cs" />
     <Compile Include="ViewModel\HospitalVM\ApprovalComp.cs" />
     <Compile Include="ViewModel\HR\ChronicDetailsViewModel.cs" />
+    <Compile Include="ViewModel\HR\InvoiceViewModel.cs" />
     <Compile Include="ViewModel\HR\MedicalApprovalViewModel.cs" />
     <Compile Include="ViewModel\HR\ClaimDetailsViewModel.cs" />
     <Compile Include="ViewModel\HR\ClaimsViewModel.cs" />
@@ -8679,6 +8680,7 @@
     <Content Include="Views\ReviewClaims\History - Copy.cshtml" />
     <Content Include="Views\ReviewClaims\CompanyInvoice.cshtml" />
     <Content Include="Views\ReviewClaims\BatchInvoice.cshtml" />
+    <Content Include="Views\ReviewClaims\BatchReview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

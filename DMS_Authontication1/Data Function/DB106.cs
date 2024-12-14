@@ -241,7 +241,72 @@ namespace DMS_Authontication1.Data_Function
                 }
             }
         }
+        public DataTable getInvoices(Int64 comp1, Int64 comp2, DateTime serv1, DateTime serv2, DateTime reg1, DateTime reg2,
+                                       Int64 invoc1, Int64 invoc2, Int64 batch1, Int64 batch2)
+        {
+            OracleConnection con = new OracleConnection(connectionStr);
+            OracleCommand cmd = new OracleCommand();
+            OracleDataAdapter da;
+            DataTable dd = new DataTable();
+            try
+            {
+                    cmd = new OracleCommand(@"SELECT t1.COMP_ID, t2.C_ANAME, TO_CHAR(t2.START_DATE,'DD-MM-YYYY') START_DATE, TO_CHAR(t2.END_DATE,'DD-MM-YYYY') END_DATE, t1.COUNT_CLAIM, t1.GROSS, t1.NET, t1.INVOICE_NO
+                                              FROM  (   SELECT  COMP_ID, INVOICE_NO, COUNT(CLAIM_NO) COUNT_CLAIM, SUM(CLAIM_SUBMITTED) GROSS, SUM(NET) NET
+                                                        FROM    APP.REVIEW_CLAIMS
+                                                        WHERE     COMP_ID BETWEEN :comp1 AND :comp2                                                      
+                                                              AND TRUNC(TO_DATE(CREATED_DATE)) BETWEEN TRUNC(TO_DATE(:reg1)) AND TRUNC(TO_DATE(:reg2))
+                                                              AND TRUNC(TO_DATE(CLAIM_DATE)) BETWEEN TRUNC(TO_DATE(:serv1)) AND TRUNC(TO_DATE(:serv2))
+                                                              AND NVL(INVOICE_NO, 0) BETWEEN :invoc1 AND :invoc2
+                                                              AND NVL(BATCH_NO, 0) BETWEEN :batch1 AND :batch2
+                                                        GROUP BY COMP_ID, INVOICE_NO) t1, APP.DIS_COMP t2
+                                              WHERE     t1.COMP_ID = t2.C_COMP_ID", con);
+            
+                cmd.Parameters.Clear();
 
+
+                cmd.Parameters.Add(":comp1", OracleType.Number).Value = comp1;
+                cmd.Parameters.Add(":comp2", OracleType.Number).Value = comp2;
+                cmd.Parameters.Add(":serv1", OracleType.DateTime).Value = serv1;
+                cmd.Parameters.Add(":serv2", OracleType.DateTime).Value = serv2;
+                cmd.Parameters.Add(":reg1", OracleType.DateTime).Value = reg1;
+                cmd.Parameters.Add(":reg2", OracleType.DateTime).Value = reg2;               
+                cmd.Parameters.Add(":invoc1", OracleType.Number).Value = invoc1;
+                cmd.Parameters.Add(":invoc2", OracleType.Number).Value = invoc2;
+                cmd.Parameters.Add(":batch1", OracleType.Number).Value = batch1;
+                cmd.Parameters.Add(":batch2", OracleType.Number).Value = batch2;
+                
+                da = new OracleDataAdapter(cmd);
+
+                da.Fill(dd);
+                con.Dispose();
+                con.Close();
+
+
+                return dd;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);  
+                string logFilePath = HostingEnvironment.MapPath("~/Reports/HR/logs.txt");
+                using (StreamWriter writer = new StreamWriter(logFilePath, true))
+                {
+                    writer.WriteLine(ex.Message.ToString());
+                }
+
+                return dd;
+            }
+
+            finally
+            {
+                if (con.State != ConnectionState.Closed)
+                {
+                    con.Dispose();
+                    con.Close();
+
+                    OracleConnection.ClearAllPools();
+                }
+            }
+        }
         public DataTable getClaims(int cmp, DateTime serv1, DateTime serv2, DateTime reg1, DateTime reg2, 
                                    Int64 aprov1, Int64 aprov2, string crd, Int64 invoc1, Int64 invoc2, Int64 batch1, Int64 batch2) 
         {

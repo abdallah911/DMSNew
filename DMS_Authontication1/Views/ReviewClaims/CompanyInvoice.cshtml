@@ -58,8 +58,14 @@
         <div class="w-100 mx-auto row portlet-body">
             <div class="row  col-md-9">
 
-                <div class="sec-field-labeled col-md-6 px-2 mb-2 ">
-                    <select class="px-2 col-md-2 form-control"><option class="w-100">Card Number</option></select>
+                <div class="col-md-6 px-2">
+                    <div class="w-100 px-2 field-labeled mb-2">
+                        <label>Registration date</label>
+                        <div>
+                            <input id="RegDateFrom" type="text" class="date-input col-md-2 form-control " placeholder="From" />
+                            <input id="RegDateTo" type="text" class="date-input col-md-2 form-control " placeholder="To" />
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6 px-2">
                     <div class="w-100 px-2 field-labeled mb-2">
@@ -70,29 +76,50 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 px-2">
-                    <div class="w-100 px-2 field-labeled mb-2">
-                        <label>Registration date</label>
-                        <div>
-                            <input id="RegDateFrom" type="text" class="date-input col-md-2 form-control " placeholder="From" />
-                            <input id="RegDateTo" type="text" class="date-input col-md-2 form-control " placeholder="To" />
-                        </div>
-                    </div>
+
+                <div class="sec-field-labeled col-md-6 px-2 mb-2 ">
+                    @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Company Number", new { @class = "col-md-2 form-control", id = "CompNum" })
+
+                    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                    <script>
+                        $(document).ready(function () {
+                            $('#CompNum').select2();
+                        });
+                    </script>
+
+                    @*@if (User.IsInRole("HR_Admin"))
+            {
+                @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Company Number", new { @class = "col-md-2 form-control", id = "CompNum" })
+                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                <script>
+                    $(document).ready(function () {
+                        $('#CompNum').select2();
+                    });
+                </script>
+
+            }
+            else
+            {
+                <input id="CompNum" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+
+            }*@
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="InvoicNo" type="text" class="w-100 h-100 " placeholder="Invoice Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
                     <input id="BatchNo" type="text" class="w-100 h-100 " placeholder="Batch Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
                 </div>
-                <div class="sec-field-labeled col-md-6 px-2  mb-2">
-                    @*<input id="CardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />*@
-                    <select id="CardId" class="w-100 h-100 form-control "></select>
-                </div>
+                <!--<div class="sec-field-labeled col-md-6 px-2  mb-2">-->
+                @*<input id="CardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />*@
+                <!--<select id="CardId" class="w-100 h-100 form-control "></select>
+    </div>-->
 
-                <div class="sec-field-labeled col-md-6 px-2  mb-2">
-                    <input id="InvoicNo" type="text" class="w-100 h-100 " placeholder="Invoice Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
-                </div>
             </div>
+           
+            
             <div class="col-md-3 text-end">
-                <input id="adminSearch" type="button" value="Search" class="btn " onclick="GetClaim();" />
+                <input id="adminSearch" type="button" value="Search" class="btn " onclick="GetCompanyInvoices();" />
                 <input type="button" value="New" onclick="ClearSearchData();" class="btn " />
             </div>
 
@@ -119,7 +146,7 @@
         </div>
         <div class="portlet-body no-wrap" id="list_div">
             <div class="table-responsive">
-                <table class="table" id="ClaimsData">
+                <table class="table" id="InvoiceData">
                     <thead>
                         <tr>
                             <th scope="col" align="center">Comp ID</th>
@@ -129,38 +156,16 @@
                             <th scope="col" align="center">Claim Number</th>
                             <th scope="col" align="center">Gross</th>
                             <th scope="col" align="center">Net</th>
-                            <th scope="col" align="center">Invoice Date</th>
+                            @*<th scope="col" align="center">Invoice Date</th>*@
                             <th scope="col" align="center">Invoice Number</th>
                         </tr>
                     </thead>
-                    <tbody id="ClaimsBody"></tbody>
+                    <tbody id="InvoiceBody"></tbody>
                 </table>
             </div>
 
         </div>
     </div>
-
-    @*<div class="form-group row col-xl-12">
-            <div class="col-md-12" style="margin-top:80px;margin-bottom:100px" id="list_div">
-                <table class="table" id="ClaimsData">
-                    <thead>
-                        <tr>
-                            <th scope="col" align="center">Claim No</th>
-                            <th scope="col" align="center">Created Date</th>
-                            <th scope="col" align="center">Service Date</th>
-                            <th scope="col" align="center">Card No</th>
-                            <th scope="col" align="center">Employee Name</th>
-                            <th scope="col" align="center">Provider Name</th>
-                            <th scope="col" align="center">Provider Type</th>
-                            <th scope="col" align="center">Diagnosis</th>
-                            <th scope="col" align="center">Service Type</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ClaimsBody"></tbody>
-                </table>
-            </div>
-
-        </div>*@
 
     <div class="portlet box no-wrap">
         <div class="portlet-title title-bg text-white fw-bold">
@@ -183,7 +188,7 @@
         </div>
         <div class="portlet-body" id="list_div2">
             <div class="table-responsive">
-                <table class="table" id="ClaimDetails">
+                <table class="table" id="BatchDetails">
                     <thead>
                         <tr>
                             <th scope="col" align="center">Batch Number</th>
@@ -195,7 +200,7 @@
                             <th scope="col" align="center">Net</th>
                         </tr>
                     </thead>
-                    <tbody id="ClaimDetailsBody"></tbody>
+                    <tbody id="BatchDetailsBody"></tbody>
                 </table>
             </div>
         </div>
@@ -209,142 +214,7 @@
 
         </div>
     </div>-->
-    <div class="portlet box" id="CardInformationDetails" hidden>
-        <div class="portlet-title title-bg text-white fw-bold">
-            <div class="caption">
-                <i class="fa-solid fa-home"></i>Card Information
-            </div>
-        </div>
-        <br />
-        <div class="col-md-12">
-
-            <input id="ShowConsumption" type="button" value="Personal Data" class="btn btn-primary" onclick="ShowCardInformation()" />
-            <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalDetails()" />
-            <input id="ShowClaims" type="button" value="Chronic" class="btn btn-primary" onclick="ShowChronicDetails()" />
-            @*<input id="ShowConsumption" type="button" value="Show Consumption" onclick="ShowAllConsmptionDetails()" class="btn btn-primary" />
-                <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalConsmptionDetails()" />
-                <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsConsmptionDetails()" />
-                <input id="ShowIndemnity" type="button" value="Indemnity" class="btn btn-success  fa fa-search" onclick="ShowIndemnityConsmptionDetails()" />
-                <input id="ShowMonthly" type="button" value="Monthly treatment" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMonthlyConsmptionDetails()" />
-                <input id="ShowLive" type="button" value="Online Live" class="btn btn-success fa-file-excel-o " onclick="ShowLiveConsmptionDetails()" />
-                <input id="ShowMedicalNetwork" type="button" value="Medical Network" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMedicalNetworkScreen()" />
-                <input id="ShowCardDesgin" type="button" value="Card Desgin" class="btn btn-success fa-file-excel-o " onclick="ShowCardDesignPrint()" />*@
-        </div>
-
-        <div class="panel-body">
-
-            <div class="col-md-12" style="width:100%;" id="InformationScreen" hidden>
-                <div class="form-group">
-                    <div class="col-sm-4">
-                        <label for="CardID" class="control-label">Card ID</label>
-                        <input id="CardID" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-4">
-                        <label for="EmployeeName" class="control-label">Employee Name</label>
-                        <input id="EmployeeName" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="BirthDate" class="control-label">Birth Date</label>
-                        <input id="BirthDate" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="Age" class="control-label">Age</label>
-                        <input id="Age" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="StartDate" class="control-label">Start Date</label>
-                        <input id="StartDate" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="EndDate" class="control-label">End Date</label>
-                        <input id="EndDate" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="MaxAmount" class="control-label">Max Amount</label>
-                        <input id="MaxAmount" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="ClassName" class="control-label">Class Name</label>
-                        <input id="ClassName" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="HospitalDegree" class="control-label">Hospital Degree</label>
-                        <input id="HospitalDegree" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="MedicalNetwork" class="control-label">Medical Network</label>
-                        <input id="MedicalNetwork" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="ExceptionPayment" class="control-label">Exception Payment</label>
-                        <input id="ExceptionPayment" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="ExceptionOver" class="control-label">Exception Over</label>
-                        <input id="ExceptionOver" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="NationalId" class="control-label">National ID</label>
-                        <input id="NationalId" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="CardColor" class="control-label">Card Color</label>
-                        <input id="CardColor" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="Mobile1" class="control-label">Mobile 1</label>
-                        <input id="Mobile1" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-2">
-                        <label for="Mobile2" class="control-label">Mobile 2</label>
-                        <input id="Mobile2" class="form-control" type="text" readonly />
-                    </div>
-                    <div class="col-sm-2" id="OldCardScreen" hidden="hidden">
-                        <label for="OldCard" class="control-label">Old Card</label>
-                        <input id="OldCard" class="form-control" type="text" readonly />
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-12" style="width:100%;" id="ApprovalsScreen" hidden>
-                <table class="ui celled table" id="ApprovalsDetails">
-                    <thead>
-                        <tr>
-                            <th scope="col" align="center">Approval No</th>
-                            <th scope="col" align="center">Approval Type</th>
-                            <th scope="col" align="center">Reply</th>
-                            <th scope="col" align="center">Approval Amount</th>
-                            <th scope="col" align="center">Medical Reply</th>
-                            <th scope="col" align="center">Created By</th>
-                            <th scope="col" align="center">Created Date</th>
-                            <th scope="col" align="center" hidden>Created Date1</th>  .
-                            <th scope="col" align="center"></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-
-
-            <div class="col-md-12" style="margin-top:80px;margin-bottom:100px" id="ChronicScreen" hidden>
-                <table class="table" id="ChronicDetails">
-                    <thead>
-                        <tr>
-                            <th scope="col" align="center">MED CODE</th>
-                            <th scope="col" align="center">MED NAME</th>
-                            <th scope="col" align="center">DOSE</th>
-                            <th scope="col" align="center">MED DURATION</th>
-                            <th scope="col" align="center">UNIT NO</th>
-                            <th scope="col" align="center">DOSAGE FORM</th>
-                            <th scope="col" align="center">MONTH DATE STOP</th>
-                        </tr>
-                    </thead>
-                    <tbody id="MonthlyDetailsBody"></tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
+   
     <div id="loading" style="display: none; justify-content: center; align-items: center; width: 100%; height: 100%; background: #e3e3e347; position:fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
         <img src="~/assets/global/img/newloading.gif" alt="Loading..." style="width:250px; height:250px;">
     </div>
@@ -391,15 +261,15 @@
 
     })
 
-    $('#ClaimsData tbody').on('click', 'tr', function () {
-        $('#ClaimsData tbody tr').removeClass('selected');
+    $('#InvoiceData tbody').on('click', 'tr', function () {
+        $('#InvoiceData tbody tr').removeClass('selected');
         $(this).addClass('selected');
 
-        var claimNo = $(this).find('td').eq(0).text();
-        GetClaimDetails(claimNo);
-        $('#CardID').val($(this).find('td').eq(3).text());
-        //alert('Selected Claim No:' + claimNo);
-        $('#CardInformationDetails').show();
+        var compNo = $(this).find('td').eq(0).text();
+        var invocNo = $(this).find('td').eq(7).text();
+
+        GetBatchDetails(compNo, invocNo);
+     
 
     });
 
@@ -460,88 +330,68 @@
 
     }
 
-    function GetClaim() {
+    function GetCompanyInvoices() {
 
-        $('#CardInformationDetails').hide();
-
-        var table = $('#ClaimsData').DataTable();
+        var table = $('#InvoiceData').DataTable();
         table.clear().draw();
         table.destroy();
 
-        var table2 = $('#ClaimDetails').DataTable();
+        var table2 = $('#BatchDetails').DataTable();
         table2.clear().draw();
         table2.destroy();
 
         $('#list_div').hide();
-        if ($("#CompNum").val() != "") {
+
+       
             var compId = $("#CompNum").val();
             var servFrom = $("#ServDateFrom").val();
             var servTo = $("#ServDateTo").val();
             var regFrom = $("#RegDateFrom").val();
             var regTo = $("#RegDateTo").val();
-            var aprovNo = $("#ApprovalNo").val();
-            var cardId = $("#CardId").val();
             var invocNo = $("#InvoicNo").val();
             var batchNo = $("#BatchNo").val();
 
             $("#loading").css("display", "flex");
 
             $.ajax({
-                url: '/ReviewClaims/GetClaims/',
+                url: '/ReviewClaims/GetCompanyInvoice/',
                 data: {
                     compId: compId, servFrom: servFrom, servTo: servTo, regFrom: regFrom, regTo: regTo,
-                    aprovNo: aprovNo, cardId: cardId, invocNo: invocNo, batchNo: batchNo
+                    invocNo: invocNo, batchNo: batchNo
                 },
                 dataType: 'Json',
                 success: function (r) {
-                    $('#ClaimsData').dataTable({
+                    $('#InvoiceData').dataTable({
                         "pageLength": 5
                     }).fnDestroy();
                     if (r.msg == "ok") {
-                        var setData = $("#ClaimsData Tbody");
+                        var setData = $("#InvoiceData Tbody");
                         setData.empty();
-                        for (var i = 0; i < r.claimslist.length; i++) {
-                            var data = "<tr >" +
-                                "<td>" + r.claimslist[i].ClaimNo + "</td>";
-                            if (r.claimslist[i].CreatedDate == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].CreatedDate + "</td>";
-                            if (r.claimslist[i].ClaimDate == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ClaimDate + "</td>";
-
-                            if (r.claimslist[i].CardNo == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].CardNo + "</td>";
-                            if (r.claimslist[i].EmpName == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].EmpName + "</td>";
-
-                            if (r.claimslist[i].ProvName == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ProvName + "</td>";
-
-                            if (r.claimslist[i].ProvType == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ProvType + "</td>";
-                            if (r.claimslist[i].Diagnosis == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].Diagnosis + "</td>";
-                            if (r.claimslist[i].ServType == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ServType + "</td>" +
-                                    "</tr>";
+                        for (var i = 0; i < r.invoicelist.length; i++) {
+                            //var data = "<tr>" +
+                            //    "<td>" + (r.invoicelist[i].CompId || "--") + "</td>" +
+                            //    "<td>" + (r.invoicelist[i].CompName || "--") + "</td>" +
+                            //    "<td>" + (r.invoicelist[i].StartDate || "--") + "</td>" +
+                            //    "<td>" + (r.invoicelist[i].EndDate || "--") + "</td>" +
+                            //    "<td>" + (r.invoicelist[i].CountOfClaim || "--") + "</td>" +
+                            //    "<td>" + (r.invoicelist[i].Gross || "--") + "</td>" +
+                            //    "<td>" + (r.invoicelist[i].Net || "--") + "</td>" +
+                            //    "<td>" + (r.invoicelist[i].InvoiceNo || "--") + "</td>" +
+                            //    "</tr>";
+                            var data = `
+                                    <tr>
+                                        <td class="text-center">${r.invoicelist[i].CompId || "--"}</td>
+                                        <td class="text-center">${r.invoicelist[i].CompName || "--"}</td>
+                                        <td class="text-center">${r.invoicelist[i].StartDate || "--"}</td>
+                                        <td class="text-center">${r.invoicelist[i].EndDate || "--"}</td>
+                                        <td class="text-center">${r.invoicelist[i].CountOfClaim || "--"}</td>
+                                        <td class="text-center">${r.invoicelist[i].Gross || "--"}</td>
+                                        <td class="text-center">${r.invoicelist[i].Net || "--"}</td>
+                                        <td class="text-center">${r.invoicelist[i].InvoiceNo || "--"}</td>
+                                    </tr>`;
                             setData.append(data);
                         }
-                        $('#ClaimsData').DataTable({
+                        $('#InvoiceData').DataTable({
                             "pageLength": 5
                         });
                         $('#list_div').show();
@@ -559,16 +409,13 @@
                 complete: function () {
                     $("#loading").hide();
                 }
-            });
-        }
-        else
-            alert("Comp Id is empty");
+            });       
     }
 
-    function GetClaimDetails(clm) {
+    function GetBatchDetails(compNo, invocNo) {
 
         $('#list_div2').hide();
-        if (clm != "") {
+        if (compNo != "" && invocNo != "") {
 
 
             $("#loading").css("display", "flex");
@@ -986,7 +833,7 @@
         background-color: #f0f8ff !important;
     }
 
-    #ClaimsData tbody tr:hover {
+    #InvoiceData tbody tr:hover {
         cursor: pointer;
         background-color: #e0e0e0;
     }

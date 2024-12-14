@@ -50,49 +50,164 @@ namespace DMS_Authontication1.Controllers.HR
             dbOra = new DBApproval106();
             dbApproval = new DBData();
         }
-        public ActionResult History()
+        //public ActionResult History()
+        //{
+        //    if (User.IsInRole("HR_Admin"))
+        //    {
+        //        var userid = User.Identity.GetUserId();
+        //        var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+        //        if (compines[0] == "All")
+        //        {
+        //            var companyname = db.Contract_Comp
+        //                .Select(l => new
+        //                {
+        //                    Code = l.C_COMP_ID,
+        //                    Name = l.C_ENAME + " || " + l.C_COMP_ID
+
+        //                }).ToList();
+        //            SelectList companylist = new SelectList(companyname, "Code", "Name");
+        //            ViewBag.company = companylist;
+        //        }
+        //        else
+        //        {
+        //            var companyname = (from comp in compines
+        //                               join contCo in db.Contract_Comp
+        //                               on int.Parse(comp) equals contCo.C_COMP_ID
+        //                               select new
+        //                               {
+        //                                   Code = contCo.C_COMP_ID,
+        //                                   Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+        //                               }).ToList();
+        //            SelectList companylist = new SelectList(companyname, "Code", "Name");
+        //            ViewBag.company = companylist;
+        //        }
+
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        var HrUserNamre = User.Identity.GetUserName();
+        //        string compa = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
+        //        ViewBag.compnum = compa;
+        //        return View();
+        //    }
+        //}
+
+        #region CompanyInvoice
+        public ActionResult CompanyInvoice()
         {
-            if (User.IsInRole("HR_Admin"))
-            {
-                var userid = User.Identity.GetUserId();
-                var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
-                if (compines[0] == "All")
-                {
-                    var companyname = db.Contract_Comp
-                        .Select(l => new
-                        {
-                            Code = l.C_COMP_ID,
-                            Name = l.C_ENAME + " || " + l.C_COMP_ID
+            DataTable companyAll = dbOra.RunReader(@"SELECT DISTINCT R.COMP_ID, C.C_ANAME
+                                                     FROM   APP.REVIEW_CLAIMS R, DMS_TEST.CONTRACT_COMP C
+                                                     WHERE  R.COMP_ID = C.C_COMP_ID");
 
-                        }).ToList();
-                    SelectList companylist = new SelectList(companyname, "Code", "Name");
-                    ViewBag.company = companylist;
-                }
-                else
+            var companyList = companyAll.AsEnumerable()
+                .Select(row => new
                 {
-                    var companyname = (from comp in compines
-                                       join contCo in db.Contract_Comp
-                                       on int.Parse(comp) equals contCo.C_COMP_ID
-                                       select new
-                                       {
-                                           Code = contCo.C_COMP_ID,
-                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-                                       }).ToList();
-                    SelectList companylist = new SelectList(companyname, "Code", "Name");
-                    ViewBag.company = companylist;
-                }
+                    Code = row["COMP_ID"].ToString(),
+                    Name = row["C_ANAME"].ToString() + " || " + row["COMP_ID"].ToString()
+                }).ToList();
 
-                return View();
-            }
-            else
-            {
-                var HrUserNamre = User.Identity.GetUserName();
-                string compa = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
-                ViewBag.compnum = compa;
-                return View();
-            }
+            SelectList companylist = new SelectList(companyList, "Code", "Name");
+            ViewBag.company = companylist;
+
+            return View();
+
+            //if (User.IsInRole("HR_Admin"))
+            //{
+            //    var userid = User.Identity.GetUserId();
+            //    var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+            //    if (compines[0] == "All")
+            //    {
+            //        var companyname = db.Contract_Comp
+            //            .Select(l => new
+            //            {
+            //                Code = l.C_COMP_ID,
+            //                Name = l.C_ENAME + " || " + l.C_COMP_ID
+
+            //            }).ToList();
+            //        SelectList companylist = new SelectList(companyname, "Code", "Name");
+            //        ViewBag.company = companylist;
+            //    }
+            //    else
+            //    {
+            //        var companyname = (from comp in compines
+            //                           join contCo in db.Contract_Comp
+            //                           on int.Parse(comp) equals contCo.C_COMP_ID
+            //                           select new
+            //                           {
+            //                               Code = contCo.C_COMP_ID,
+            //                               Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+            //                           }).ToList();
+            //        SelectList companylist = new SelectList(companyname, "Code", "Name");
+            //        ViewBag.company = companylist;
+            //    }
+
+            //    return View();
+            //}
+            //else
+            //{
+            //    var HrUserNamre = User.Identity.GetUserName();
+            //    string compa = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
+            //    ViewBag.compnum = compa;
+            //    return View();
+            //}
+
         }
 
+        public JsonResult GetCompanyInvoice(string compId, string servFrom, string servTo, string regFrom, string regTo,
+                                            string invocNo, string batchNo)
+        {
+            //string compId, string servFrom, string servTo, string regFrom, string regTo,
+            //                        string aprovNo, string cardId, string invocNo, string batchNo
+
+            Int64 invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, comp1, comp2;
+
+            DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
+
+            regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
+            regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
+            servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
+            servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
+
+            comp1 = string.IsNullOrEmpty(compId) ? 0 : Convert.ToInt64(compId);
+            comp2 = string.IsNullOrEmpty(compId) ? 999999999999999999 : Convert.ToInt64(compId);
+           
+            invocNoFrom = string.IsNullOrEmpty(invocNo) ? 0 : Convert.ToInt64(invocNo);
+            invocNoTo = string.IsNullOrEmpty(invocNo) ? 999999999999999999 : Convert.ToInt64(invocNo);
+            batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
+            batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
+
+            DataTable dt = new DataTable();
+
+            dt = dbData.getInvoices(comp1, comp2, servDateFrom, servDateTo, regDateFrom, regDateTo,
+                                    invocNoFrom, invocNoTo, batchNoFrom, batchNoTo);
+
+            List<InvoiceViewModel> invo = new List<InvoiceViewModel>();
+      
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    invo.Add(new InvoiceViewModel
+                    {
+                        CompId = row["COMP_ID"].ToString(),
+                        CompName = row["C_ANAME"].ToString(),
+                        StartDate = row["START_DATE"].ToString(),
+                        EndDate = row["END_DATE"].ToString(),
+                        CountOfClaim = row["COUNT_CLAIM"].ToString(),
+                        Gross = row["GROSS"].ToString(),
+                        Net = row["NET"].ToString(),
+                        InvoiceNo = row["INVOICE_NO"].ToString()
+                    });
+                }
+                return new JsonResult { Data = new { invoicelist = invo, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+            }
+            else
+                return new JsonResult { Data = new { invoicelist = invo, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+        }
+        #endregion
+
+        #region BatchReview
         public JsonResult GetClaims(string compId, string servFrom, string servTo, string regFrom, string regTo,
                                     string aprovNo, string cardId, string invocNo, string batchNo)
         {
@@ -561,6 +676,11 @@ namespace DMS_Authontication1.Controllers.HR
                 throw ex;
             }
         }
+
+
+
+        #endregion
+
 
     }
 }
