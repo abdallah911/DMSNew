@@ -46,10 +46,8 @@
                     }
                 </p>
             }
-        </div>*@
-
-
-    <div class="portlet box">
+        </div>*@ 
+    <div class="portlet box" >
         <div class="portlet-title title-bg text-white fw-bold">
             <div class="caption">
                 <i class="fa-solid fa-home"></i>Data
@@ -188,6 +186,10 @@
         </div>
         <div class="portlet-body" id="list_div2">
             <div class="table-responsive">
+                <input id="CompNumber" class="form-control" type="text" style="display:none;" />
+                <input id="CompName" class="form-control" type="text" style="display:none;" />
+                <input id="InvoicNumber" class="form-control" type="text" style="display:none;" />
+
                 <table class="table" id="BatchDetails">
                     <thead>
                         <tr>
@@ -219,14 +221,10 @@
     <div id="loading" style="display: none; justify-content: center; align-items: center; width: 100%; height: 100%; background: #e3e3e347; position:fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
         <img src="~/assets/global/img/newloading.gif" alt="Loading..." style="width:250px; height:250px;">
     </div>
-</div>
-
-    <br />
-    <br />
-    <br />
-    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-    @*<script src="~/Scripts/DMS/CustomerService/CustomerService.js?V=3.2"></script>*@
-    <script>
+</div> 
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+@*<script src="~/Scripts/DMS/CustomerService/CustomerService.js?V=3.2"></script>*@
+<script>
 
         $(function () {
             $('#CardId').select2({
@@ -266,9 +264,18 @@
             $('#InvoiceData tbody tr').removeClass('selected');
             $(this).addClass('selected');
 
+            $('#InvoicNumber').val("");
+            $('#CompNumber').val("");
+            $('#CompName').val("");
+
             var compNo = $(this).find('td').eq(0).text();
+            var compName = $(this).find('td').eq(1).text();
             var invocNo = $(this).find('td').eq(7).text();
-            debugger;
+
+            $('#InvoicNumber').val(invocNo);
+            $('#CompNumber').val(compNo);
+            $('#CompName').val(compName);
+
             GetAllBatch(compNo, invocNo);
 
 
@@ -285,49 +292,21 @@
             $("#InvoicNo").val("");
             $("#BatchNo").val("");
 
-            $('#CardID').val("");
-            $('#EmployeeName').val("");
-            $('#BirthDate').val("");
-            $('#Age').val("");
-            $('#StartDate').val("");
-            $('#EndDate').val("");
-            $('#MaxAmount').val("");
-            $('#ClassName').val("");
-            $('#HospitalDegree').val("");
-            $('#MedicalNetwork').val("");
-            $('#ExceptionPayment').val("");
-            $('#ExceptionOver').val("");
-            $('#NationalId').val("");
-            $('#Mobile1').val("");
-            $('#Mobile2').val("");
-            $('#CardColor').val("");
-            $('#OldCard').val("");
+            $('#InvoicNumber').val("");
+            $('#CompNumber').val("");
+            $('#CompName').val("");
 
-
-            $('#CardInformationDetails').hide();
-
-            //var table = $('#ClaimsData').DataTable({
-            //    "pageLength": 5
-            //});
-
-            var table = $('#ClaimsData').DataTable();
+            var table = $('#InvoiceData').DataTable();
             table.clear().draw();
             table.destroy();
 
-            var table2 = $('#ClaimDetails').DataTable();
+            var table2 = $('#BatchDetails').DataTable();
             table2.clear().draw();
             table2.destroy();
 
-            var table3 = $('#ApprovalsDetails').DataTable();
-            table3.clear().draw();
-            table3.destroy();
-
-            var table4 = $('#ChronicDetails').DataTable();
-            table4.clear().draw();
-            table4.destroy();
-
             $("#pdf").prop("checked", false);
             $("#excel").prop("checked", false);
+
 
         }
 
@@ -443,10 +422,12 @@
                                             <td class="text-center">${r.batchlist[i].Gross || "--"}</td>
                                             <td class="text-center">${r.batchlist[i].Net || "--"}</td>
                                             <td class="text-center">
-                                                <button class="btn btn-primary" onclick="GoToClaimsScreen('${r.batchlist[i].BatchNumber}')">
-                                                      View Claims
-                                                 </button>
-                                             </td>
+                                                 <button class="btn btn-primary"
+                                                    onclick="GoToClaimsScreen('${r.batchlist[i].BatchNumber}', '${r.batchlist[i].ProviderID}', '${r.batchlist[i].ProviderName}',
+                                                    '${$('#InvoicNumber').val()}', '${$('#CompNumber').val()}', '${$('#CompName').val()}')">
+                    View Claims
+                </button>
+            </td>
                                         </tr>`;
                                 setData.append(data);
                             }
@@ -465,10 +446,103 @@
                 });
             }
             else
-                alert("Comp Id is empty");
-        }
+                alert("Comp Id Or Invoice no is empty");
+    }
 
-        function PrintAllClaims() {
+
+    //function GoToClaimsScreen(batchNumber, providerId, providerName, invoiceNumber, compNumber, compName) {
+
+
+    //    // Build the URL with batchNumber in the path and others as query string
+    //    var url = '/ReviewClaims/BatchReview/?batchNumber=' + encodeURIComponent(batchNumber)
+    //        + '&providerId=' + encodeURIComponent(providerId)
+    //        + '&providerName=' + encodeURIComponent(providerName)
+    //        + '&invoiceNumber=' + encodeURIComponent(invoiceNumber)
+    //        + '&compNumber=' + encodeURIComponent(compNumber)
+    //        + '&compName=' + encodeURIComponent(compName);
+
+    //    // Open the URL in a new tab
+    //    window.open(url, '_blank');
+    //}
+    //function GoToClaimsScreen(batchNumber, providerId, providerName, invoiceNumber, compNumber, compName) {
+    //    // Construct the URL with batchNumber in the path and the rest as query parameters
+    //    var url = `/ReviewClaims/BatchReview/${batchNumber}?providerId=${encodeURIComponent(providerId)}&providerName=${encodeURIComponent(providerName)}&invoiceNumber=${encodeURIComponent(invoiceNumber)}&compNumber=${encodeURIComponent(compNumber)}&compName=${encodeURIComponent(compName)}`;
+
+    //    // Open the URL in a new tab
+    //    window.open(url, '_blank');
+    //}
+
+    //function GoToClaimsScreen(batchNumber, providerId, providerName, invoiceNumber, compNumber, compName) {
+    //    $.ajax({
+    //        url: '/ReviewClaims/RedirectToBatchReview', // Controller action that will handle the request
+    //        method: 'POST',
+    //        data: {
+    //            batchNumber: batchNumber,
+    //            providerId: providerId,
+    //            providerName: providerName,
+    //            invoiceNumber: invoiceNumber,
+    //            compNumber: compNumber,
+    //            compName: compName
+    //        },
+    //        success: function (response) {
+    //             Once the server responds with the redirect URL, open the URL in a new tab
+    //            if (response.redirectUrl) {
+    //                window.open(response.redirectUrl, '_blank');
+    //            }
+    //        },
+    //        error: function (xhr, status, error) {
+    //            console.log('Error:', error);
+    //        }
+    //    });
+    //}
+    function GoToClaimsScreen(batchNumber, providerID, providerName, invoiceNumber, compNumber, compName) {
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '@Url.Action("BatchReview", "ReviewClaims")';  // Specify your controller and action
+
+        // Add hidden inputs for each parameter
+        var batchNumberInput = document.createElement('input');
+        batchNumberInput.type = 'hidden';
+        batchNumberInput.name = 'batchNumber';
+        batchNumberInput.value = batchNumber;
+        form.appendChild(batchNumberInput);
+
+        var providerIDInput = document.createElement('input');
+        providerIDInput.type = 'hidden';
+        providerIDInput.name = 'providerID';
+        providerIDInput.value = providerID;
+        form.appendChild(providerIDInput);
+
+        var providerNameInput = document.createElement('input');
+        providerNameInput.type = 'hidden';
+        providerNameInput.name = 'providerName';
+        providerNameInput.value = providerName;
+        form.appendChild(providerNameInput);
+
+        var invoiceNumberInput = document.createElement('input');
+        invoiceNumberInput.type = 'hidden';
+        invoiceNumberInput.name = 'invoiceNumber';
+        invoiceNumberInput.value = invoiceNumber;
+        form.appendChild(invoiceNumberInput);
+
+        var compNumberInput = document.createElement('input');
+        compNumberInput.type = 'hidden';
+        compNumberInput.name = 'compNumber';
+        compNumberInput.value = compNumber;
+        form.appendChild(compNumberInput);
+
+        var compNameInput = document.createElement('input');
+        compNameInput.type = 'hidden';
+        compNameInput.name = 'compName';
+        compNameInput.value = compName;
+        form.appendChild(compNameInput);
+
+        // Append the form to the body and submit it to open in a new tab
+        document.body.appendChild(form);
+        form.target = '_blank';  // This ensures the form is submitted in a new tab
+        form.submit();
+    }
+    function PrintAllClaims() {
             if ($("#CompNum").val() != "") {
 
                 var compId = $("#CompNum").val();
@@ -774,7 +848,7 @@
 
         }
 
-    </script>
+</script>
 
     <style>
         .selected {

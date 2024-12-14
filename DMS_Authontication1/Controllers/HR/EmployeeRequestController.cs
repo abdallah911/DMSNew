@@ -424,7 +424,6 @@ namespace DMS_Authontication1.Controllers.HR
             }
 
         }
-
         public JsonResult GetInActiveEmployess(string search, int page)
         {
 

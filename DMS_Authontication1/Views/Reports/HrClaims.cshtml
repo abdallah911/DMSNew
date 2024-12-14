@@ -30,153 +30,154 @@
         }
     }
 }
-<br />
-<div style="margin-top:40px">
-    <p>
-        @if (User.Identity.Name != "sofico-hr")
-        {
-            if (fullcontroll || view)
+<div class="dms-container">
+
+    <div>
+        <p>
+            @if (User.Identity.Name != "sofico-hr")
             {
-                @Html.ActionLink(" Inquiries About An Invoice", "Inquiries", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+                if (fullcontroll || view)
+                {
+                    @Html.ActionLink(" Inquiries About An Invoice", "Inquiries", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+                }
             }
-        }
-        @if (fullcontroll || Create)
-        {
-            @Html.ActionLink("Staff Report ", "StaffConsumption", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || edit)
-        {
-            @Html.ActionLink(" Consumption", "ConsumptionHR", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
-        }
-        @if (fullcontroll || delete)
-        {
-            @Html.ActionLink(" Online Claims", "HrClaims", null, htmlAttributes: new { @class = "btn btn-secondary-outline ", @style = " text-transform: none" })
-        }
-    </p>
-</div>
-@if (fullcontroll || view)
-{
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Print Claims
+            @if (fullcontroll || Create)
+            {
+                @Html.ActionLink("Staff Report ", "StaffConsumption", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || edit)
+            {
+                @Html.ActionLink(" Consumption", "ConsumptionHR", null, htmlAttributes: new { @class = "btn btn-info ", @style = " text-transform: none" })
+            }
+            @if (fullcontroll || delete)
+            {
+                @Html.ActionLink(" Online Claims", "HrClaims", null, htmlAttributes: new { @class = "btn btn-secondary-outline ", @style = " text-transform: none" })
+            }
+        </p>
+    </div>
+    @if (fullcontroll || view)
+    {
+        <div class="portlet box  green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Print Claims
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <input id="From" type="text" class="col-md-2 form-control " placeholder="From" />
+                    </div>
+                    <div class="col-md-2">
+                        <input id="To" type="text" class="col-md-2 form-control " placeholder="To" />
+                    </div>
+                    <div class="col-md-2">
+                        <input id="PharmacyApprovalNo" type="text" class="col-md-2 form-control " placeholder="ApprovalNo" />
+                    </div>
+                    <div class="col-md-2">
+                        <input id="PharmacyCardId" type="text" class="col-md-2 form-control " placeholder="Card ID" />
+                    </div>
+                    <div class="col-sm-2" data-step="6" data-intro="Select Type">
+                        <select id="ClaimType" class="form-control">
+                            <option value="0">All</option>
+                            <option value="1">Pharmacy</option>
+                            <option value="2">Lab</option>
+                            <option value="3">Ray</option>
+                        </select>
+                    </div>
+                    @if (User.IsInRole("HR_Admin"))
+                    {
+                        <div class="col-md-2">
+                            @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CopmanyNumber" })
+
+                        </div>
+                        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CopmanyNumber').select2();
+                            });
+                        </script>
+                    }
+                    else
+                    {
+                        <div class="col-md-6" hidden>
+                            <input id="CopmanyNumber" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+
+                        </div>
+                    }
+                </div>
+                <div class="row" style="margin-top:40px;">
+                    <div class="col-sm-2" id="divPharmacyType" data-step="6" data-intro="Select Preception type Default is Daily" hidden>
+                        <select id="ddlType" class="form-control">
+                            <option value="">Select Type</option>
+                            <option value="Daily">Daily</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row" style=" text-align:right">
+                    <div class="col-md-12">
+                        <input id="PharmacyResetSearch" type="button" value="Reset" onclick="ClearPharmacySearchData();" class="btn btn-warning" />
+                        <input id="PharmacyAdminSearch" type="button" value="Search" class="btn btn-default  fa fa-search" />
+                        <input id="Print" type="button" value="Print" class="btn btn-primary fa fa-file-pdf-o" onclick="PrintHrClaimsXsl()" />
+                        @*<input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o" />*@
+
+
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="portlet-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <input id="From" type="text" class="col-md-2 form-control " placeholder="From" />
-                </div>
-                <div class="col-md-2">
-                    <input id="To" type="text" class="col-md-2 form-control " placeholder="To" />
-                </div>
-                <div class="col-md-2">
-                    <input id="PharmacyApprovalNo" type="text" class="col-md-2 form-control " placeholder="ApprovalNo" />
-                </div>
-                <div class="col-md-2">
-                    <input id="PharmacyCardId" type="text" class="col-md-2 form-control " placeholder="Card ID" />
-                </div>
-                <div class="col-sm-2" data-step="6" data-intro="Select Type">
-                    <select id="ClaimType" class="form-control">
-                        <option value="0">All</option>
-                        <option value="1">Pharmacy</option>
-                        <option value="2">Lab</option>
-                        <option value="3">Ray</option>
-                    </select>
-                </div>
-                @if (User.IsInRole("HR_Admin"))
-                {
-                    <div class="col-md-2">
-                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CopmanyNumber" })
 
-                    </div>
-                    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                    <script>
-                        $(document).ready(function () {
-                            $('#CopmanyNumber').select2();
-                        });
-                    </script>
-                }
-                else
-                {
-                    <div class="col-md-6" hidden>
-                        <input id="CopmanyNumber" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-
-                    </div>
-                }
-            </div>
-            <div class="row" style="margin-top:40px;">
-                <div class="col-sm-2" id="divPharmacyType" data-step="6" data-intro="Select Preception type Default is Daily" hidden>
-                    <select id="ddlType" class="form-control">
-                        <option value="">Select Type</option>
-                        <option value="Daily">Daily</option>
-                        <option value="Monthly">Monthly</option>
-                        <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>
-                    </select>
+        <div class="portlet box  green">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Claims
                 </div>
+
             </div>
             <br />
-            <div class="row" style=" text-align:right">
-                <div class="col-md-12">
-                    <input id="PharmacyResetSearch" type="button" value="Reset" onclick="ClearPharmacySearchData();" class="btn btn-warning" />
-                    <input id="PharmacyAdminSearch" type="button" value="Search" class="btn btn-default  fa fa-search" />
-                    <input id="Print" type="button" value="Print" class="btn btn-primary fa fa-file-pdf-o" onclick="PrintHrClaimsXsl()" />
-                    @*<input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o" />*@
+            <div class="portlet-body">
 
+                <table class="ui celled table" id="Index" width="100%">
+                    <thead>
+                        <tr>
 
-                </div>
+                            <th>
+                                Approval No
+                            </th>
+                            <th>
+                                Card Id
+                            </th>
+                            <th>
+                                Company Percent
+                            </th>
+                            <th>
+                                Total Value
+                            </th>
+                            <th>
+                                Manager
+                            </th>
+
+                            <th>
+                                CreatedBy
+                            </th>
+
+                            <th>
+                                CreatedDate
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
             </div>
         </div>
-    </div>
 
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Claims
-            </div>
-
-        </div>
-        <br />
-        <div class="portlet-body">
-
-            <table class="ui celled table" id="Index" width="100%">
-                <thead>
-                    <tr>
-
-                        <th>
-                            Approval No
-                        </th>
-                        <th>
-                            Card Id
-                        </th>
-                        <th>
-                            Company Percent
-                        </th>
-                        <th>
-                            Total Value
-                        </th>
-                        <th>
-                            Manager
-                        </th>
-
-                        <th>
-                            CreatedBy
-                        </th>
-
-                        <th>
-                            CreatedDate
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-
-            </table>
-        </div>
-    </div>
-
-}
-
+    }
+</div>
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>
