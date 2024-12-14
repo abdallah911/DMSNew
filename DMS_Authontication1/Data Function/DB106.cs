@@ -307,6 +307,51 @@ namespace DMS_Authontication1.Data_Function
                 }
             }
         }
+        public DataTable getBatch(Int64 cmp, Int64 invoc)
+        {
+            OracleConnection con = new OracleConnection(connectionStr);
+            OracleCommand cmd = new OracleCommand();
+            OracleDataAdapter da;
+            DataTable dd = new DataTable();
+            try
+            {
+                cmd = new OracleCommand(@"  SELECT  BATCH_NO, PRV_NO, PRV_NAME, PROVIDER_TYPE, COUNT(CLAIM_NO) COUNT_CLAIM, SUM(CLAIM_SUBMITTED) GROSS, SUM(NET) NET
+                                            FROM    APP.REVIEW_CLAIMS
+                                            WHERE   COMP_ID = :cmp AND INVOICE_NO = :invoc                                                                
+                                            GROUP BY BATCH_NO, PRV_NO, PRV_NAME, PROVIDER_TYPE ", con);
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(":cmp", OracleType.Number).Value = cmp;
+                cmd.Parameters.Add(":invoc", OracleType.Number).Value = invoc;
+
+                da = new OracleDataAdapter(cmd);
+
+                da.Fill(dd);
+                con.Dispose();
+                con.Close();
+
+                OracleConnection.ClearAllPools();
+
+                return dd;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);                
+                return dd;
+            }
+
+            finally
+            {
+                if (con.State != ConnectionState.Closed)
+                {
+                    con.Dispose();
+                    con.Close();
+
+                    OracleConnection.ClearAllPools();
+                }
+            }
+        }
         public DataTable getClaims(int cmp, DateTime serv1, DateTime serv2, DateTime reg1, DateTime reg2, 
                                    Int64 aprov1, Int64 aprov2, string crd, Int64 invoc1, Int64 invoc2, Int64 batch1, Int64 batch2) 
         {

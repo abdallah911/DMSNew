@@ -153,7 +153,7 @@
                             <th scope="col" align="center">Comp Name</th>
                             <th scope="col" align="center">Start Date</th>
                             <th scope="col" align="center">End Date</th>
-                            <th scope="col" align="center">Claim Number</th>
+                            <th scope="col" align="center">Count of Claim</th>
                             <th scope="col" align="center">Gross</th>
                             <th scope="col" align="center">Net</th>
                             @*<th scope="col" align="center">Invoice Date</th>*@
@@ -195,9 +195,10 @@
                             <th scope="col" align="center">Provider ID</th>
                             <th scope="col" align="center">Provider Name</th>
                             <th scope="col" align="center">Provider Type</th>
-                            <th scope="col" align="center">Claim Number</th>
+                            <th scope="col" align="center">Count of Claim</th>
                             <th scope="col" align="center">Gross</th>
                             <th scope="col" align="center">Net</th>
+                            <th scope="col" align="center"></th>
                         </tr>
                     </thead>
                     <tbody id="BatchDetailsBody"></tbody>
@@ -267,8 +268,8 @@
 
         var compNo = $(this).find('td').eq(0).text();
         var invocNo = $(this).find('td').eq(7).text();
-
-        GetBatchDetails(compNo, invocNo);
+        debugger;
+        GetAllBatch(compNo, invocNo);
      
 
     });
@@ -412,7 +413,7 @@
             });       
     }
 
-    function GetBatchDetails(compNo, invocNo) {
+    function GetAllBatch(compNo, invocNo) {
 
         $('#list_div2').hide();
         if (compNo != "" && invocNo != "") {
@@ -421,88 +422,35 @@
             $("#loading").css("display", "flex");
 
             $.ajax({
-                url: '/ReviewClaims/GetClaimDetails/',
+                url: '/ReviewClaims/GetBatchDetails/',
                 data: {
-                    claimNo: clm
+                    compNo: compNo, invocNo: invocNo
                 },
                 dataType: 'Json',
                 success: function (r) {
-                    $('#ClaimDetails').dataTable().fnDestroy();
+                    $('#BatchDetails').dataTable().fnDestroy();
                     if (r.msg == "ok") {
-                        var setData = $("#ClaimDetails Tbody");
+                        var setData = $("#BatchDetails Tbody");
                         setData.empty();
-                        for (var i = 0; i < r.claimslist.length; i++) {
-                            var data = "<tr >" +
-                                "<td>" + r.claimslist[i].Services + "</td>";
-
-                            if (r.claimslist[i].SercvName == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].SercvName + "</td>";
-
-                            if (r.claimslist[i].ClaimSubmitted == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ClaimSubmitted + "</td>";
-
-                            if (r.claimslist[i].OverInsurance == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].OverInsurance + "</td>";
-
-                            if (r.claimslist[i].Discount == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].Discount + "</td>";
-
-                            if (r.claimslist[i].ApprovAmount == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ApprovAmount + "</td>";
-
-                            if (r.claimslist[i].CopayAmt == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].CopayAmt + "</td>";
-
-                            if (r.claimslist[i].AfterCopay == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].AfterCopay + "</td>";
-
-                            if (r.claimslist[i].LocalAmount == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].LocalAmount + "</td>";
-
-                            if (r.claimslist[i].ImportAmount == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ImportAmount + "</td>";
-
-                            if (r.claimslist[i].LocalDisc == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].LocalDisc + "</td>";
-
-                            if (r.claimslist[i].ImportDisc == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ImportDisc + "</td>";
-
-                            if (r.claimslist[i].TotalDiscount == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].TotalDiscount + "</td>";
-
-                            if (r.claimslist[i].Net == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].Net + "</td>" +
-                                    "</tr>";
+                        for (var i = 0; i < r.batchlist.length; i++) {                            
+                            var data = `
+                                    <tr>
+                                        <td class="text-center">${r.batchlist[i].BatchNumber || "--"}</td>
+                                        <td class="text-center">${r.batchlist[i].ProviderID || "--"}</td>
+                                        <td class="text-center">${r.batchlist[i].ProviderName || "--"}</td>
+                                        <td class="text-center">${r.batchlist[i].ProviderType || "--"}</td>
+                                        <td class="text-center">${r.batchlist[i].CountOfClaim || "--"}</td>
+                                        <td class="text-center">${r.batchlist[i].Gross || "--"}</td>
+                                        <td class="text-center">${r.batchlist[i].Net || "--"}</td>
+                                        <td class="text-center">
+                                            <button class="btn btn-primary" onclick="GoToClaimsScreen('${r.batchlist[i].BatchNumber}')">
+                                                  View Claims
+                                             </button>
+                                         </td>
+                                    </tr>`;
                             setData.append(data);
                         }
-                        $('#ClaimDetails').DataTable();
+                        $('#BatchDetails').DataTable();
                         $('#list_div2').show();
 
                     }

@@ -205,6 +205,36 @@ namespace DMS_Authontication1.Controllers.HR
             else
                 return new JsonResult { Data = new { invoicelist = invo, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
         }
+
+        public JsonResult GetBatchDetails(string compNo, string invocNo)
+        {
+            DataTable dt = new DataTable();
+
+            dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo));
+
+            List<BatchViewModel> clms = new List<BatchViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    clms.Add(new BatchViewModel
+                    {
+                        BatchNumber = row["BATCH_NO"].ToString(),
+                        ProviderID = row["PRV_NO"].ToString(),
+                        ProviderName = row["PRV_NAME"].ToString(),
+                        ProviderType = row["PROVIDER_TYPE"].ToString(),
+                        CountOfClaim = row["COUNT_CLAIM"].ToString(),
+                        Gross = row["GROSS"].ToString(),
+                        Net = row["NET"].ToString()
+                    });
+                }
+                return new JsonResult { Data = new { batchlist = clms, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+            }
+            else
+                return new JsonResult { Data = new { batchlist = clms, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+        }
+
         #endregion
 
         #region BatchReview
@@ -262,7 +292,6 @@ namespace DMS_Authontication1.Controllers.HR
             else
                 return new JsonResult { Data = new { claimslist = clms, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
         }
-
         public JsonResult GetClaimDetails(string claimNo)
         {           
             DataTable dt = new DataTable();
