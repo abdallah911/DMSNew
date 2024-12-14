@@ -47,9 +47,9 @@
                 </p>
             }
         </div>*@
-    <br />
-    <br />
-    <div class="portlet box" style="margin-top: 17px;">
+
+
+    <div class="portlet box">
         <div class="portlet-title title-bg text-white fw-bold">
             <div class="caption">
                 <i class="fa-solid fa-home"></i>Data
@@ -88,21 +88,21 @@
                     </script>
 
                     @*@if (User.IsInRole("HR_Admin"))
-            {
-                @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Company Number", new { @class = "col-md-2 form-control", id = "CompNum" })
-                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                <script>
-                    $(document).ready(function () {
-                        $('#CompNum').select2();
-                    });
-                </script>
+                        {
+                            @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Company Number", new { @class = "col-md-2 form-control", id = "CompNum" })
+                            <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                            <script>
+                                $(document).ready(function () {
+                                    $('#CompNum').select2();
+                                });
+                            </script>
 
-            }
-            else
-            {
-                <input id="CompNum" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+                        }
+                        else
+                        {
+                            <input id="CompNum" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
 
-            }*@
+                        }*@
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
                     <input id="InvoicNo" type="text" class="w-100 h-100 " placeholder="Invoice Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
@@ -113,11 +113,11 @@
                 <!--<div class="sec-field-labeled col-md-6 px-2  mb-2">-->
                 @*<input id="CardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />*@
                 <!--<select id="CardId" class="w-100 h-100 form-control "></select>
-    </div>-->
+                </div>-->
 
             </div>
-           
-            
+
+
             <div class="col-md-3 text-end">
                 <input id="adminSearch" type="button" value="Search" class="btn " onclick="GetCompanyInvoices();" />
                 <input type="button" value="New" onclick="ClearSearchData();" class="btn " />
@@ -215,135 +215,135 @@
 
         </div>
     </div>-->
-   
+
     <div id="loading" style="display: none; justify-content: center; align-items: center; width: 100%; height: 100%; background: #e3e3e347; position:fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
         <img src="~/assets/global/img/newloading.gif" alt="Loading..." style="width:250px; height:250px;">
     </div>
 </div>
 
-<br />
-<br />
-<br />
-<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-@*<script src="~/Scripts/DMS/CustomerService/CustomerService.js?V=3.2"></script>*@
-<script>
+    <br />
+    <br />
+    <br />
+    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+    @*<script src="~/Scripts/DMS/CustomerService/CustomerService.js?V=3.2"></script>*@
+    <script>
 
-    $(function () {
-        $('#CardId').select2({
-            placeholder: 'Search for a card',
-            minimumInputLength: 5,
-            ajax: {
-                url: '/EmployeeRequest/GetActiveEmployess/',
-                delay: 250,
-                dataType: 'json',
-                data: function (params) {
-                    var query = {
-                        search: params.term,
-                        page: params.page || 1
-                    }
-                    return query;
-                },
-                processResults: function (data, params) {
-                    params.page = params.page || 1;
-                    var obj = {};
-                    data.push(obj)
-                    return {
-                        results: data,//.results,
-                        pagination: {
-                            more: (params.page * 10) < data.count_filtered
+        $(function () {
+            $('#CardId').select2({
+                placeholder: 'Search for a card',
+                minimumInputLength: 5,
+                ajax: {
+                    url: '/EmployeeRequest/GetActiveEmployess/',
+                    delay: 250,
+                    dataType: 'json',
+                    data: function (params) {
+                        var query = {
+                            search: params.term,
+                            page: params.page || 1
                         }
-                    };
-                }
-                // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+                        return query;
+                    },
+                    processResults: function (data, params) {
+                        params.page = params.page || 1;
+                        var obj = {};
+                        data.push(obj)
+                        return {
+                            results: data,//.results,
+                            pagination: {
+                                more: (params.page * 10) < data.count_filtered
+                            }
+                        };
+                    }
+                    // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
 
-            }
+                }
+            });
+
+
+        })
+
+        $('#InvoiceData tbody').on('click', 'tr', function () {
+            $('#InvoiceData tbody tr').removeClass('selected');
+            $(this).addClass('selected');
+
+            var compNo = $(this).find('td').eq(0).text();
+            var invocNo = $(this).find('td').eq(7).text();
+            debugger;
+            GetAllBatch(compNo, invocNo);
+
+
         });
 
 
-    })
+        function ClearSearchData() {
+            $("#ServDateFrom").val("");
+            $("#ServDateTo").val("");
+            $("#RegDateFrom").val("");
+            $("#RegDateTo").val("");
+            $("#ApprovalNo").val("");
+            $('#CardId').val(null).trigger('change');
+            $("#InvoicNo").val("");
+            $("#BatchNo").val("");
 
-    $('#InvoiceData tbody').on('click', 'tr', function () {
-        $('#InvoiceData tbody tr').removeClass('selected');
-        $(this).addClass('selected');
-
-        var compNo = $(this).find('td').eq(0).text();
-        var invocNo = $(this).find('td').eq(7).text();
-        debugger;
-        GetAllBatch(compNo, invocNo);
-     
-
-    });
-
-
-    function ClearSearchData() {
-        $("#ServDateFrom").val("");
-        $("#ServDateTo").val("");
-        $("#RegDateFrom").val("");
-        $("#RegDateTo").val("");
-        $("#ApprovalNo").val("");
-        $('#CardId').val(null).trigger('change');
-        $("#InvoicNo").val("");
-        $("#BatchNo").val("");
-
-        $('#CardID').val("");
-        $('#EmployeeName').val("");
-        $('#BirthDate').val("");
-        $('#Age').val("");
-        $('#StartDate').val("");
-        $('#EndDate').val("");
-        $('#MaxAmount').val("");
-        $('#ClassName').val("");
-        $('#HospitalDegree').val("");
-        $('#MedicalNetwork').val("");
-        $('#ExceptionPayment').val("");
-        $('#ExceptionOver').val("");
-        $('#NationalId').val("");
-        $('#Mobile1').val("");
-        $('#Mobile2').val("");
-        $('#CardColor').val("");
-        $('#OldCard').val("");
+            $('#CardID').val("");
+            $('#EmployeeName').val("");
+            $('#BirthDate').val("");
+            $('#Age').val("");
+            $('#StartDate').val("");
+            $('#EndDate').val("");
+            $('#MaxAmount').val("");
+            $('#ClassName').val("");
+            $('#HospitalDegree').val("");
+            $('#MedicalNetwork').val("");
+            $('#ExceptionPayment').val("");
+            $('#ExceptionOver').val("");
+            $('#NationalId').val("");
+            $('#Mobile1').val("");
+            $('#Mobile2').val("");
+            $('#CardColor').val("");
+            $('#OldCard').val("");
 
 
-        $('#CardInformationDetails').hide();
+            $('#CardInformationDetails').hide();
 
-        //var table = $('#ClaimsData').DataTable({
-        //    "pageLength": 5
-        //});
+            //var table = $('#ClaimsData').DataTable({
+            //    "pageLength": 5
+            //});
 
-        var table = $('#ClaimsData').DataTable();
-        table.clear().draw();
-        table.destroy();
+            var table = $('#ClaimsData').DataTable();
+            table.clear().draw();
+            table.destroy();
 
-        var table2 = $('#ClaimDetails').DataTable();
-        table2.clear().draw();
-        table2.destroy();
+            var table2 = $('#ClaimDetails').DataTable();
+            table2.clear().draw();
+            table2.destroy();
 
-        var table3 = $('#ApprovalsDetails').DataTable();
-        table3.clear().draw();
-        table3.destroy();
+            var table3 = $('#ApprovalsDetails').DataTable();
+            table3.clear().draw();
+            table3.destroy();
 
-        var table4 = $('#ChronicDetails').DataTable();
-        table4.clear().draw();
-        table4.destroy();
+            var table4 = $('#ChronicDetails').DataTable();
+            table4.clear().draw();
+            table4.destroy();
 
-        $("#pdf").prop("checked", false);
-        $("#excel").prop("checked", false);
+            $("#pdf").prop("checked", false);
+            $("#excel").prop("checked", false);
 
-    }
+        }
 
-    function GetCompanyInvoices() {
+        function GetCompanyInvoices() {
 
-        var table = $('#InvoiceData').DataTable();
-        table.clear().draw();
-        table.destroy();
+            var table = $('#InvoiceData').DataTable();
+            table.clear().draw();
+            table.destroy();
 
-        var table2 = $('#BatchDetails').DataTable();
-        table2.clear().draw();
-        table2.destroy();
+            var table2 = $('#BatchDetails').DataTable();
+            table2.clear().draw();
+            table2.destroy();
 
-        $('#list_div').hide();
+            $('#list_div').hide();
 
-       
+
             var compId = $("#CompNum").val();
             var servFrom = $("#ServDateFrom").val();
             var servTo = $("#ServDateTo").val();
@@ -380,16 +380,16 @@
                             //    "<td>" + (r.invoicelist[i].InvoiceNo || "--") + "</td>" +
                             //    "</tr>";
                             var data = `
-                                    <tr>
-                                        <td class="text-center">${r.invoicelist[i].CompId || "--"}</td>
-                                        <td class="text-center">${r.invoicelist[i].CompName || "--"}</td>
-                                        <td class="text-center">${r.invoicelist[i].StartDate || "--"}</td>
-                                        <td class="text-center">${r.invoicelist[i].EndDate || "--"}</td>
-                                        <td class="text-center">${r.invoicelist[i].CountOfClaim || "--"}</td>
-                                        <td class="text-center">${r.invoicelist[i].Gross || "--"}</td>
-                                        <td class="text-center">${r.invoicelist[i].Net || "--"}</td>
-                                        <td class="text-center">${r.invoicelist[i].InvoiceNo || "--"}</td>
-                                    </tr>`;
+                                        <tr>
+                                            <td class="text-center">${r.invoicelist[i].CompId || "--"}</td>
+                                            <td class="text-center">${r.invoicelist[i].CompName || "--"}</td>
+                                            <td class="text-center">${r.invoicelist[i].StartDate || "--"}</td>
+                                            <td class="text-center">${r.invoicelist[i].EndDate || "--"}</td>
+                                            <td class="text-center">${r.invoicelist[i].CountOfClaim || "--"}</td>
+                                            <td class="text-center">${r.invoicelist[i].Gross || "--"}</td>
+                                            <td class="text-center">${r.invoicelist[i].Net || "--"}</td>
+                                            <td class="text-center">${r.invoicelist[i].InvoiceNo || "--"}</td>
+                                        </tr>`;
                             setData.append(data);
                         }
                         $('#InvoiceData').DataTable({
@@ -410,346 +410,356 @@
                 complete: function () {
                     $("#loading").hide();
                 }
-            });       
-    }
-
-    function GetAllBatch(compNo, invocNo) {
-
-        $('#list_div2').hide();
-        if (compNo != "" && invocNo != "") {
-
-
-            $("#loading").css("display", "flex");
-
-            $.ajax({
-                url: '/ReviewClaims/GetBatchDetails/',
-                data: {
-                    compNo: compNo, invocNo: invocNo
-                },
-                dataType: 'Json',
-                success: function (r) {
-                    $('#BatchDetails').dataTable().fnDestroy();
-                    if (r.msg == "ok") {
-                        var setData = $("#BatchDetails Tbody");
-                        setData.empty();
-                        for (var i = 0; i < r.batchlist.length; i++) {                            
-                            var data = `
-                                    <tr>
-                                        <td class="text-center">${r.batchlist[i].BatchNumber || "--"}</td>
-                                        <td class="text-center">${r.batchlist[i].ProviderID || "--"}</td>
-                                        <td class="text-center">${r.batchlist[i].ProviderName || "--"}</td>
-                                        <td class="text-center">${r.batchlist[i].ProviderType || "--"}</td>
-                                        <td class="text-center">${r.batchlist[i].CountOfClaim || "--"}</td>
-                                        <td class="text-center">${r.batchlist[i].Gross || "--"}</td>
-                                        <td class="text-center">${r.batchlist[i].Net || "--"}</td>
-                                        <td class="text-center">
-                                            <button class="btn btn-primary" onclick="GoToClaimsScreen('${r.batchlist[i].BatchNumber}')">
-                                                  View Claims
-                                             </button>
-                                         </td>
-                                    </tr>`;
-                            setData.append(data);
-                        }
-                        $('#BatchDetails').DataTable();
-                        $('#list_div2').show();
-
-                    }
-                    else {
-                        alert(r.msg);
-                    }
-
-                },
-                complete: function () {
-                    $("#loading").hide();
-                }
             });
         }
-        else
-            alert("Comp Id is empty");
-    }
 
-    function PrintAllClaims() {
-        if ($("#CompNum").val() != "") {
+        function GetAllBatch(compNo, invocNo) {
 
-            var compId = $("#CompNum").val();
-            var servFrom = $("#ServDateFrom").val();
-            var servTo = $("#ServDateTo").val();
-            var regFrom = $("#RegDateFrom").val();
-            var regTo = $("#RegDateTo").val();
-            var aprovNo = $("#ApprovalNo").val();
-            var cardId = $("#CardId").val();
-            var invocNo = $("#InvoicNo").val();
-            var batchNo = $("#BatchNo").val();
-
-            $("#loading").css("display", "flex");
-
-            window.open('/ReviewClaims/PrintAllClaims?compId=' + compId +
-                '&&cardId=' + cardId + '&&servFrom=' + servFrom + '&&servTo=' +
-                servTo + '&&regFrom=' + regFrom + '&&regTo=' + regTo +
-                '&&aprovNo=' + aprovNo + '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
-
-            $("#loading").hide();
-        }
-        else
-            alert('Comp Id is empty')
-    }
+            $('#list_div2').hide();
+            if (compNo != "" && invocNo != "") {
 
 
-    function ShowApprovalDetails() {
+                $("#loading").css("display", "flex");
 
-        $('#InformationScreen').hide();
-        $('#ApprovalsScreen').hide();
-        $('#ChronicScreen').hide();
+                $.ajax({
+                    url: '/ReviewClaims/GetBatchDetails/',
+                    data: {
+                        compNo: compNo, invocNo: invocNo
+                    },
+                    dataType: 'Json',
+                    success: function (r) {
+                        $('#BatchDetails').dataTable().fnDestroy();
+                        if (r.msg == "ok") {
+                            var setData = $("#BatchDetails Tbody");
+                            setData.empty();
+                            for (var i = 0; i < r.batchlist.length; i++) {
+                                var data = `
+                                        <tr>
+                                            <td class="text-center">${r.batchlist[i].BatchNumber || "--"}</td>
+                                            <td class="text-center">${r.batchlist[i].ProviderID || "--"}</td>
+                                            <td class="text-center">${r.batchlist[i].ProviderName || "--"}</td>
+                                            <td class="text-center">${r.batchlist[i].ProviderType || "--"}</td>
+                                            <td class="text-center">${r.batchlist[i].CountOfClaim || "--"}</td>
+                                            <td class="text-center">${r.batchlist[i].Gross || "--"}</td>
+                                            <td class="text-center">${r.batchlist[i].Net || "--"}</td>
+                                            <td class="text-center">
+                                                <button class="btn btn-primary" onclick="GoToClaimsScreen('${r.batchlist[i].BatchNumber}')">
+                                                      View Claims
+                                                 </button>
+                                             </td>
+                                        </tr>`;
+                                setData.append(data);
+                            }
+                            $('#BatchDetails').DataTable();
+                            $('#list_div2').show();
 
-        $('#ApprovalsScreen').show();
-
-        if ($('#CardID').val() != "")
-            getApprovalData($('#CardID').val());
-    }
-    function ShowCardInformation() {
-
-        $('#InformationScreen').hide();
-        $('#ApprovalsScreen').hide();
-        $('#ChronicScreen').hide();
-
-        $('#InformationScreen').show();
-        if ($('#CardID').val() != "")
-            getData($('#CardID').val());
-    }
-    function ShowChronicDetails() {
-
-        $('#InformationScreen').hide();
-        $('#ApprovalsScreen').hide();
-        $('#ChronicScreen').hide();
-
-        $('#ChronicScreen').show();
-
-        if ($('#CardID').val() != "")
-            getChronicData($('#CardID').val());
-    }
-    function getApprovalData(crd) {
-
-        var table = $('#ApprovalsDetails').DataTable();
-        table.clear().draw();
-        table.destroy();
-
-        if ($('#CardID').val() != "") {
-            $("#loading").css("display", "flex");
-            $.ajax({
-                type: "POST",
-                url: '/ReviewClaims/getAprovalData',
-                data: { CardId: $('#CardID').val() },
-                success: function (apprs) {
-
-                    if (apprs.approval.length > 0) {
-
-                        $('#ApprovalsDetails').dataTable().fnDestroy();
-
-                        var setData = $("#ApprovalsDetails Tbody");
-                        setData.empty();
-
-                        for (var i = 0; i < apprs.approval.length; i++) {
-
-                            var data = "<tr >" +
-
-                                "<td>" + apprs.approval[i].ApprovalNo + "</td>" +
-                                "<td>" + apprs.approval[i].ApprovalType + "</td>" +
-                                "<td>" + apprs.approval[i].Reply + "</td>" +
-                                "<td>" + apprs.approval[i].ApprovalAmount + "</td>" +
-                                "<td>" + apprs.approval[i].MedicalReply + "</td>" +
-                                "<td>" + apprs.approval[i].CreatedBy + "</td>" +
-                                "<td>" + apprs.approval[i].CreatedDate + "</td>" +
-                                "<td>" + apprs.approval[i].CreatedDate1 + "</td>" +
-                                "<td >" + "<Button  class='btn btn-Primary ' onclick='PrintApproval(\"" + apprs.approval[i].ApprovalNo + "\");'>Print</Button>" + "</td>" +
-                                "</tr>";
-                            setData.append(data);
+                        }
+                        else {
+                            alert(r.msg);
                         }
 
-                        $("#ApprovalsDetails").DataTable({
-                            "ordering": true,
-                            "order": [[7, "desc"]],
-                            "columnDefs": [
-                                {
-                                    targets: [7],  // Column index to hide (8th column, index 7)
-                                    "visible": false  // Hide the column
-                                }
-                            ]
-                        });
+                    },
+                    complete: function () {
+                        $("#loading").hide();
                     }
-                },
-                complete: function () {
-                    $("#loading").hide();
-
-                }
-            });
+                });
+            }
+            else
+                alert("Comp Id is empty");
         }
-    }
-    function getChronicData(crd) {
 
-        var table = $('#ChronicDetails').DataTable();
-        table.clear().draw();
-        table.destroy();
+        function PrintAllClaims() {
+            if ($("#CompNum").val() != "") {
 
-        if ($('#CardID').val() != "") {
-            $("#loading").css("display", "flex");
-            $.ajax({
-                type: "POST",
-                url: '/ReviewClaims/getChornicData',
-                data: { CardId: $('#CardID').val() },
-                success: function (apprs) {
+                var compId = $("#CompNum").val();
+                var servFrom = $("#ServDateFrom").val();
+                var servTo = $("#ServDateTo").val();
+                var regFrom = $("#RegDateFrom").val();
+                var regTo = $("#RegDateTo").val();
+                var aprovNo = $("#ApprovalNo").val();
+                var cardId = $("#CardId").val();
+                var invocNo = $("#InvoicNo").val();
+                var batchNo = $("#BatchNo").val();
 
-                    if (apprs.clmD.length > 0) {
+                $("#loading").css("display", "flex");
 
-                        $('#ChronicDetails').dataTable().fnDestroy();
+                window.open('/ReviewClaims/PrintAllClaims?compId=' + compId +
+                    '&&cardId=' + cardId + '&&servFrom=' + servFrom + '&&servTo=' +
+                    servTo + '&&regFrom=' + regFrom + '&&regTo=' + regTo +
+                    '&&aprovNo=' + aprovNo + '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
 
-                        var setData = $("#ChronicDetails Tbody");
-                        setData.empty();
-
-                        for (var i = 0; i < apprs.clmD.length; i++) {
-                            var data = "<tr >" +
-                                "<td>" + apprs.clmD[i].MED_CODE + "</td>" +
-                                "<td>" + apprs.clmD[i].MED_NAME + "</td>" +
-                                "<td>" + apprs.clmD[i].DOSE + "</td>" +
-                                "<td>" + apprs.clmD[i].MED_DURATION + "</td>" +
-                                "<td>" + apprs.clmD[i].UNIT_NO + "</td>" +
-                                "<td>" + apprs.clmD[i].DOSAGE_FORM + "</td>" +
-                                "<td>" + apprs.clmD[i].MONTH_DATE_STOP + "</td>" +
-                                "</tr>";
-                            setData.append(data);
-                        }
-
-                        $("#ChronicDetails").DataTable();
-                    }
-                },
-                complete: function () {
-                    $("#loading").hide();
-
-                }
-            });
-        }
-    }
-    function getData(crd) {
-        $('#EmployeeName').val("");
-        $('#BirthDate').val("");
-        $('#Age').val("");
-        $('#StartDate').val("");
-        $('#EndDate').val("");
-        $('#MaxAmount').val("");
-        $('#ClassName').val("");
-        $('#HospitalDegree').val("");
-        $('#MedicalNetwork').val("");
-        $('#ExceptionPayment').val("");
-        $('#ExceptionOver').val("");
-        $('#NationalId').val("");
-        $('#Mobile1').val("");
-        $('#Mobile2').val("");
-        $('#CardColor').val("");
-        $('#OldCard').val("");
-        $("#loading").css("display", "flex");
-        $.ajax({
-
-            type: "POST",
-            dataType: "json",
-            url: '/ReviewClaims/getData/',
-            data: { CardId: crd },
-
-            success: function (cardDetails) {
-
-                $('#EmployeeName').val(cardDetails.dtDetails[0].EmployeeName);
-                $('#BirthDate').val(cardDetails.dtDetails[0].BirthDate);
-                $('#Age').val(cardDetails.dtDetails[0].Age);
-                $('#StartDate').val(cardDetails.dtDetails[0].StartDate);
-
-                $('#EndDate').val(cardDetails.dtDetails[0].EndDate);
-                $('#MaxAmount').val(cardDetails.dtDetails[0].MaxAmount);
-                $('#ClassName').val(cardDetails.dtDetails[0].ClassName);
-                $('#HospitalDegree').val(cardDetails.dtDetails[0].HospitalDegree);
-                $('#MedicalNetwork').val(cardDetails.dtDetails[0].MedicalNetwork);
-
-                $('#ExceptionPayment').val(cardDetails.dtDetails[0].ExceptionPayment);
-                $('#ExceptionOver').val(cardDetails.dtDetails[0].ExceptionOver);
-                $('#NationalId').val(cardDetails.dtDetails[0].NationalId);
-                $('#Mobile1').val(cardDetails.dtDetails[0].Mobile1);
-                $('#Mobile2').val(cardDetails.dtDetails[0].Mobile2);
-
-                $('#CardColor').val(cardDetails.dtDetails[0].CardColor);
-                $('#OldCard').val(cardDetails.dtDetails[0].OldCard);
-            },
-            complete: function () {
                 $("#loading").hide();
             }
-
-        });
-
-        if ($('#OldCard').val() != "")
-            $('#OldCardScreen').show;
-        else
-            $('#OldCardScreen').hide;
-    }
-
-    function PrintApproval(AppCode) {
-        debugger;
-        var x = String(AppCode);
-        //  window.location.reload();
-        window.open('/CustomerService/PrintApproval?ApprovalCode=' + AppCode);
-    }
-
-    function PrintSummary() {
-
-        if ($("#CompNum").val() != "") {
-
-            var compId = $("#CompNum").val();
-            var servFrom = $("#ServDateFrom").val();
-            var servTo = $("#ServDateTo").val();
-            var regFrom = $("#RegDateFrom").val();
-            var regTo = $("#RegDateTo").val();
-            var aprovNo = $("#ApprovalNo").val();
-            var cardId = $("#CardId").val();
-            var invocNo = $("#InvoicNo").val();
-            var batchNo = $("#BatchNo").val();
-
-            if ($("#excel").is(":checked"))
-                window.open('/ReviewClaims/PrintExcel?compId=' + compId +
-                    '&&servFrom=' + servFrom + '&&servTo=' + servTo +
-                    '&&regFrom=' + regFrom + '&&regTo=' + regTo +
-                    '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
-                    '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
             else
-                window.open('/ReviewClaims/PrintPdf?compId=' + compId +
-                    '&&servFrom=' + servFrom + '&&servTo=' + servTo +
-                    '&&regFrom=' + regFrom + '&&regTo=' + regTo +
-                    '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
-                    '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
+                alert('Comp Id is empty')
         }
-        else
-            alert("Comp Id is empty");
 
 
-        if (RegistrationFrom != "" && RegistrationTo != "") {
+        function ShowApprovalDetails() {
+
+            $('#InformationScreen').hide();
+            $('#ApprovalsScreen').hide();
+            $('#ChronicScreen').hide();
+
+            $('#ApprovalsScreen').show();
+
+            if ($('#CardID').val() != "")
+                getApprovalData($('#CardID').val());
+        }
+        function ShowCardInformation() {
+
+            $('#InformationScreen').hide();
+            $('#ApprovalsScreen').hide();
+            $('#ChronicScreen').hide();
+
+            $('#InformationScreen').show();
+            if ($('#CardID').val() != "")
+                getData($('#CardID').val());
+        }
+        function ShowChronicDetails() {
+
+            $('#InformationScreen').hide();
+            $('#ApprovalsScreen').hide();
+            $('#ChronicScreen').hide();
+
+            $('#ChronicScreen').show();
+
+            if ($('#CardID').val() != "")
+                getChronicData($('#CardID').val());
+        }
+        function getApprovalData(crd) {
+
+            var table = $('#ApprovalsDetails').DataTable();
+            table.clear().draw();
+            table.destroy();
+
+            if ($('#CardID').val() != "") {
+                $("#loading").css("display", "flex");
+                $.ajax({
+                    type: "POST",
+                    url: '/ReviewClaims/getAprovalData',
+                    data: { CardId: $('#CardID').val() },
+                    success: function (apprs) {
+
+                        if (apprs.approval.length > 0) {
+
+                            $('#ApprovalsDetails').dataTable().fnDestroy();
+
+                            var setData = $("#ApprovalsDetails Tbody");
+                            setData.empty();
+
+                            for (var i = 0; i < apprs.approval.length; i++) {
+
+                                var data = "<tr >" +
+
+                                    "<td>" + apprs.approval[i].ApprovalNo + "</td>" +
+                                    "<td>" + apprs.approval[i].ApprovalType + "</td>" +
+                                    "<td>" + apprs.approval[i].Reply + "</td>" +
+                                    "<td>" + apprs.approval[i].ApprovalAmount + "</td>" +
+                                    "<td>" + apprs.approval[i].MedicalReply + "</td>" +
+                                    "<td>" + apprs.approval[i].CreatedBy + "</td>" +
+                                    "<td>" + apprs.approval[i].CreatedDate + "</td>" +
+                                    "<td>" + apprs.approval[i].CreatedDate1 + "</td>" +
+                                    "<td >" + "<Button  class='btn btn-Primary ' onclick='PrintApproval(\"" + apprs.approval[i].ApprovalNo + "\");'>Print</Button>" + "</td>" +
+                                    "</tr>";
+                                setData.append(data);
+                            }
+
+                            $("#ApprovalsDetails").DataTable({
+                                "ordering": true,
+                                "order": [[7, "desc"]],
+                                "columnDefs": [
+                                    {
+                                        targets: [7],  // Column index to hide (8th column, index 7)
+                                        "visible": false  // Hide the column
+                                    }
+                                ]
+                            });
+                        }
+                    },
+                    complete: function () {
+                        $("#loading").hide();
+
+                    }
+                });
+            }
+        }
+        function getChronicData(crd) {
+
+            var table = $('#ChronicDetails').DataTable();
+            table.clear().draw();
+            table.destroy();
+
+            if ($('#CardID').val() != "") {
+                $("#loading").css("display", "flex");
+                $.ajax({
+                    type: "POST",
+                    url: '/ReviewClaims/getChornicData',
+                    data: { CardId: $('#CardID').val() },
+                    success: function (apprs) {
+
+                        if (apprs.clmD.length > 0) {
+
+                            $('#ChronicDetails').dataTable().fnDestroy();
+
+                            var setData = $("#ChronicDetails Tbody");
+                            setData.empty();
+
+                            for (var i = 0; i < apprs.clmD.length; i++) {
+                                var data = "<tr >" +
+                                    "<td>" + apprs.clmD[i].MED_CODE + "</td>" +
+                                    "<td>" + apprs.clmD[i].MED_NAME + "</td>" +
+                                    "<td>" + apprs.clmD[i].DOSE + "</td>" +
+                                    "<td>" + apprs.clmD[i].MED_DURATION + "</td>" +
+                                    "<td>" + apprs.clmD[i].UNIT_NO + "</td>" +
+                                    "<td>" + apprs.clmD[i].DOSAGE_FORM + "</td>" +
+                                    "<td>" + apprs.clmD[i].MONTH_DATE_STOP + "</td>" +
+                                    "</tr>";
+                                setData.append(data);
+                            }
+
+                            $("#ChronicDetails").DataTable();
+                        }
+                    },
+                    complete: function () {
+                        $("#loading").hide();
+
+                    }
+                });
+            }
+        }
+        function getData(crd) {
+            $('#EmployeeName').val("");
+            $('#BirthDate').val("");
+            $('#Age').val("");
+            $('#StartDate').val("");
+            $('#EndDate').val("");
+            $('#MaxAmount').val("");
+            $('#ClassName').val("");
+            $('#HospitalDegree').val("");
+            $('#MedicalNetwork').val("");
+            $('#ExceptionPayment').val("");
+            $('#ExceptionOver').val("");
+            $('#NationalId').val("");
+            $('#Mobile1').val("");
+            $('#Mobile2').val("");
+            $('#CardColor').val("");
+            $('#OldCard').val("");
+            $("#loading").css("display", "flex");
+            $.ajax({
+
+                type: "POST",
+                dataType: "json",
+                url: '/ReviewClaims/getData/',
+                data: { CardId: crd },
+
+                success: function (cardDetails) {
+
+                    $('#EmployeeName').val(cardDetails.dtDetails[0].EmployeeName);
+                    $('#BirthDate').val(cardDetails.dtDetails[0].BirthDate);
+                    $('#Age').val(cardDetails.dtDetails[0].Age);
+                    $('#StartDate').val(cardDetails.dtDetails[0].StartDate);
+
+                    $('#EndDate').val(cardDetails.dtDetails[0].EndDate);
+                    $('#MaxAmount').val(cardDetails.dtDetails[0].MaxAmount);
+                    $('#ClassName').val(cardDetails.dtDetails[0].ClassName);
+                    $('#HospitalDegree').val(cardDetails.dtDetails[0].HospitalDegree);
+                    $('#MedicalNetwork').val(cardDetails.dtDetails[0].MedicalNetwork);
+
+                    $('#ExceptionPayment').val(cardDetails.dtDetails[0].ExceptionPayment);
+                    $('#ExceptionOver').val(cardDetails.dtDetails[0].ExceptionOver);
+                    $('#NationalId').val(cardDetails.dtDetails[0].NationalId);
+                    $('#Mobile1').val(cardDetails.dtDetails[0].Mobile1);
+                    $('#Mobile2').val(cardDetails.dtDetails[0].Mobile2);
+
+                    $('#CardColor').val(cardDetails.dtDetails[0].CardColor);
+                    $('#OldCard').val(cardDetails.dtDetails[0].OldCard);
+                },
+                complete: function () {
+                    $("#loading").hide();
+                }
+
+            });
+
+            if ($('#OldCard').val() != "")
+                $('#OldCardScreen').show;
+            else
+                $('#OldCardScreen').hide;
+        }
+
+        function PrintApproval(AppCode) {
+            debugger;
+            var x = String(AppCode);
+            //  window.location.reload();
+            window.open('/CustomerService/PrintApproval?ApprovalCode=' + AppCode);
+        }
+
+        function PrintSummary() {
+
+            if ($("#CompNum").val() != "") {
+
+                var compId = $("#CompNum").val();
+                var servFrom = $("#ServDateFrom").val();
+                var servTo = $("#ServDateTo").val();
+                var regFrom = $("#RegDateFrom").val();
+                var regTo = $("#RegDateTo").val();
+                var aprovNo = $("#ApprovalNo").val();
+                var cardId = $("#CardId").val();
+                var invocNo = $("#InvoicNo").val();
+                var batchNo = $("#BatchNo").val();
+
+                if ($("#excel").is(":checked"))
+                    window.open('/ReviewClaims/PrintExcel?compId=' + compId +
+                        '&&servFrom=' + servFrom + '&&servTo=' + servTo +
+                        '&&regFrom=' + regFrom + '&&regTo=' + regTo +
+                        '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
+                        '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
+                else
+                    window.open('/ReviewClaims/PrintPdf?compId=' + compId +
+                        '&&servFrom=' + servFrom + '&&servTo=' + servTo +
+                        '&&regFrom=' + regFrom + '&&regTo=' + regTo +
+                        '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
+                        '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
+            }
+            else
+                alert("Comp Id is empty");
+
+
+            if (RegistrationFrom != "" && RegistrationTo != "") {
 
 
 
-            //chick if not search with card number
-            if ($("#excel").is(":checked")) {
-                // do something if the excel is  checked
-                if ($("#pdf").is(":checked")) {
-                    // do something if the pdf is  checked
-                    // Print PDF and EXCEL
-                    window.open('/ReportMain/PrintReportsMedPdf?Regfrom=' + RegistrationFrom +
-                        '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
-                        '&&usernam=' + usernam + '&&medcod=' + medcod +
-                        '&&type=' + type + '&&RepotType=' + RepotType +
-                        '&&crd=' + crd + '&&typmngr=' + typmngr);
+                //chick if not search with card number
+                if ($("#excel").is(":checked")) {
+                    // do something if the excel is  checked
+                    if ($("#pdf").is(":checked")) {
+                        // do something if the pdf is  checked
+                        // Print PDF and EXCEL
+                        window.open('/ReportMain/PrintReportsMedPdf?Regfrom=' + RegistrationFrom +
+                            '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
+                            '&&usernam=' + usernam + '&&medcod=' + medcod +
+                            '&&type=' + type + '&&RepotType=' + RepotType +
+                            '&&crd=' + crd + '&&typmngr=' + typmngr);
 
-                    window.open('/ReportMain/PrintReportsMedExcel?Regfrom=' + RegistrationFrom +
-                        '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
-                        '&&usernam=' + usernam + '&&medcod=' + medcod +
-                        '&&type=' + type + '&&RepotType=' + RepotType +
-                        '&&crd=' + crd + '&&typmngr=' + typmngr);
+                        window.open('/ReportMain/PrintReportsMedExcel?Regfrom=' + RegistrationFrom +
+                            '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
+                            '&&usernam=' + usernam + '&&medcod=' + medcod +
+                            '&&type=' + type + '&&RepotType=' + RepotType +
+                            '&&crd=' + crd + '&&typmngr=' + typmngr);
+                    }
+                    else {
+                        // Print EXCEL Only
+                        window.open('/ReportMain/PrintReportsMedExcel?Regfrom=' + RegistrationFrom +
+                            '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
+                            '&&usernam=' + usernam + '&&medcod=' + medcod +
+                            '&&type=' + type + '&&RepotType=' + RepotType +
+                            '&&crd=' + crd + '&&typmngr=' + typmngr);
+                    }
+
                 }
                 else {
-                    // Print EXCEL Only
-                    window.open('/ReportMain/PrintReportsMedExcel?Regfrom=' + RegistrationFrom +
+                    // Print PDF as Default
+                    window.open('/ReportMain/PrintReportsMedPdf?Regfrom=' + RegistrationFrom +
                         '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
                         '&&usernam=' + usernam + '&&medcod=' + medcod +
                         '&&type=' + type + '&&RepotType=' + RepotType +
@@ -758,31 +768,21 @@
 
             }
             else {
-                // Print PDF as Default
-                window.open('/ReportMain/PrintReportsMedPdf?Regfrom=' + RegistrationFrom +
-                    '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
-                    '&&usernam=' + usernam + '&&medcod=' + medcod +
-                    '&&type=' + type + '&&RepotType=' + RepotType +
-                    '&&crd=' + crd + '&&typmngr=' + typmngr);
+                toastr.info('select date " From " and " TO " of Registration date first');
             }
 
-        }
-        else {
-            toastr.info('select date " From " and " TO " of Registration date first');
+
         }
 
+    </script>
 
-    }
+    <style>
+        .selected {
+            background-color: #f0f8ff !important;
+        }
 
-</script>
-
-<style>
-    .selected {
-        background-color: #f0f8ff !important;
-    }
-
-    #InvoiceData tbody tr:hover {
-        cursor: pointer;
-        background-color: #e0e0e0;
-    }
-</style>
+        #InvoiceData tbody tr:hover {
+            cursor: pointer;
+            background-color: #e0e0e0;
+        }
+    </style>
