@@ -8682,6 +8682,7 @@
     <Content Include="Views\ReviewClaims\CompanyInvoice.cshtml" />
     <Content Include="Views\ReviewClaims\BatchInvoice.cshtml" />
     <Content Include="Views\ReviewClaims\BatchReview.cshtml" />
+    <Content Include="Reports\HR\CompanyInvoiceReport.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

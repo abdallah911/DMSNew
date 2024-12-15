@@ -194,6 +194,7 @@ namespace DMS_Authontication1.Controllers.HR
                         CompName = row["C_ANAME"].ToString(),
                         StartDate = row["START_DATE"].ToString(),
                         EndDate = row["END_DATE"].ToString(),
+                        CountOfBatch = row["COUNT_BATCH"].ToString(),
                         CountOfClaim = row["COUNT_CLAIM"].ToString(),
                         Gross = row["GROSS"].ToString(),
                         Net = row["NET"].ToString(),
@@ -847,8 +848,6 @@ namespace DMS_Authontication1.Controllers.HR
                 throw ex;
             }
         }
-
-
 
         #endregion
 

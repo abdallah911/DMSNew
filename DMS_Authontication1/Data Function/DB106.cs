@@ -250,8 +250,8 @@ namespace DMS_Authontication1.Data_Function
             DataTable dd = new DataTable();
             try
             {
-                    cmd = new OracleCommand(@"SELECT t1.COMP_ID, t2.C_ANAME, TO_CHAR(t2.START_DATE,'DD-MM-YYYY') START_DATE, TO_CHAR(t2.END_DATE,'DD-MM-YYYY') END_DATE, t1.COUNT_CLAIM, t1.GROSS, t1.NET, t1.INVOICE_NO
-                                              FROM  (   SELECT  COMP_ID, INVOICE_NO, COUNT(DISTINCT CLAIM_NO) COUNT_CLAIM, SUM(CLAIM_SUBMITTED) GROSS, SUM(NET) NET
+                    cmd = new OracleCommand(@"SELECT t1.COMP_ID, t2.C_ANAME, TO_CHAR(t2.START_DATE,'DD-MM-YYYY') START_DATE, TO_CHAR(t2.END_DATE,'DD-MM-YYYY') END_DATE, t1.COUNT_BATCH, t1.COUNT_CLAIM, t1.GROSS, t1.NET, t1.INVOICE_NO
+                                              FROM  (   SELECT  COMP_ID, INVOICE_NO, COUNT(DISTINCT BATCH_NO) COUNT_BATCH, COUNT(DISTINCT CLAIM_NO) COUNT_CLAIM, SUM(CLAIM_SUBMITTED) GROSS, SUM(NET) NET
                                                         FROM    APP.REVIEW_CLAIMS
                                                         WHERE     COMP_ID BETWEEN :comp1 AND :comp2                                                      
                                                               AND TRUNC(TO_DATE(CREATED_DATE)) BETWEEN TRUNC(TO_DATE(:reg1)) AND TRUNC(TO_DATE(:reg2))

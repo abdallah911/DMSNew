@@ -151,6 +151,7 @@
                             <th scope="col" align="center">Comp Name</th>
                             <th scope="col" align="center">Start Date</th>
                             <th scope="col" align="center">End Date</th>
+                            <th scope="col" align="center">Count of Batch</th>
                             <th scope="col" align="center">Count of Claim</th>
                             <th scope="col" align="center">Gross</th>
                             <th scope="col" align="center">Net</th>
@@ -270,7 +271,7 @@
 
             var compNo = $(this).find('td').eq(0).text();
             var compName = $(this).find('td').eq(1).text();
-            var invocNo = $(this).find('td').eq(7).text();
+            var invocNo = $(this).find('td').eq(8).text();
 
             $('#InvoicNumber').val(invocNo);
             $('#CompNumber').val(compNo);
@@ -364,6 +365,7 @@
                                             <td class="text-center">${r.invoicelist[i].CompName || "--"}</td>
                                             <td class="text-center">${r.invoicelist[i].StartDate || "--"}</td>
                                             <td class="text-center">${r.invoicelist[i].EndDate || "--"}</td>
+                                            <td class="text-center">${r.invoicelist[i].CountOfBatch || "--"}</td>
                                             <td class="text-center">${r.invoicelist[i].CountOfClaim || "--"}</td>
                                             <td class="text-center">${r.invoicelist[i].Gross || "--"}</td>
                                             <td class="text-center">${r.invoicelist[i].Net || "--"}</td>
