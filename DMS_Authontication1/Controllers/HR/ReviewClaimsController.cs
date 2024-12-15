@@ -236,6 +236,149 @@ namespace DMS_Authontication1.Controllers.HR
                 return new JsonResult { Data = new { batchlist = clms, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
         }
 
+        public ActionResult PrintCompanyInvoiceReport(string compId, string servFrom, string servTo, string regFrom, string regTo,
+                                                      string invocNo, string batchNo, int typ)
+        {
+            Int64 invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, comp1, comp2;
+
+            DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
+
+            regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
+            regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
+            servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
+            servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
+
+            comp1 = string.IsNullOrEmpty(compId) ? 0 : Convert.ToInt64(compId);
+            comp2 = string.IsNullOrEmpty(compId) ? 999999999999999999 : Convert.ToInt64(compId);
+
+            invocNoFrom = string.IsNullOrEmpty(invocNo) ? 0 : Convert.ToInt64(invocNo);
+            invocNoTo = string.IsNullOrEmpty(invocNo) ? 999999999999999999 : Convert.ToInt64(invocNo);
+            batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
+            batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
+
+            DataTable dt = new DataTable();
+
+            dt = dbData.getInvoices(comp1, comp2, servDateFrom, servDateTo, regDateFrom, regDateTo,
+                                    invocNoFrom, invocNoTo, batchNoFrom, batchNoTo);
+
+            List<InvoiceViewModel> invo = new List<InvoiceViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    invo.Add(new InvoiceViewModel
+                    {
+                        CompId = row["COMP_ID"].ToString(),
+                        CompName = row["C_ANAME"].ToString(),
+                        StartDate = row["START_DATE"].ToString(),
+                        EndDate = row["END_DATE"].ToString(),
+                        CountOfBatch = row["COUNT_BATCH"].ToString(),
+                        CountOfClaim = row["COUNT_CLAIM"].ToString(),
+                        Gross = row["GROSS"].ToString(),
+                        Net = row["NET"].ToString(),
+                        InvoiceNo = row["INVOICE_NO"].ToString()
+                    });
+                }              
+            }
+
+            ReportDocument rd = new ReportDocument();
+
+
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "CompanyInvoiceReport.rpt"));
+            rd.SetDataSource(invo);
+            
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+             
+            try
+            {
+                if (typ == 1)
+                {
+                    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    rd.Close();
+                    rd.Dispose();
+                    GC.Collect();
+                    return File(stream, "application/pdf", "CompanyInvoiceReport-" + DateTime.Now.ToString("ddMMyyyy") + ".pdf");
+                }
+                else
+                {
+                    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    rd.Close();
+                    rd.Dispose();
+                    GC.Collect();
+                    return File(stream, "application/xls", "CompanyInvoiceReport-" + DateTime.Now.ToString("ddMMyyyy") + ".xls");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public ActionResult PrintBatchReviewReport(string compNo, string invocNo, int typ)
+        {
+            DataTable dt = new DataTable();
+
+            dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo));
+
+            List<BatchViewModel> clms = new List<BatchViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    clms.Add(new BatchViewModel
+                    {
+                        BatchNumber = row["BATCH_NO"].ToString(),
+                        ProviderID = row["PRV_NO"].ToString(),
+                        ProviderName = row["PRV_NAME"].ToString(),
+                        ProviderType = row["PROVIDER_TYPE"].ToString(),
+                        CountOfClaim = row["COUNT_CLAIM"].ToString(),
+                        Gross = row["GROSS"].ToString(),
+                        Net = row["NET"].ToString()
+                    });
+                }
+            }
+
+            ReportDocument rd = new ReportDocument();
+
+
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "CompanyBatchReport.rpt"));
+            rd.SetDataSource(clms);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                if (typ == 1)
+                {
+                    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    rd.Close();
+                    rd.Dispose();
+                    GC.Collect();
+                    return File(stream, "application/pdf", "BatchReviewReport-" + DateTime.Now.ToString("ddMMyyyy") + ".pdf");
+                }
+                else
+                {
+                    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    rd.Close();
+                    rd.Dispose();
+                    GC.Collect();
+                    return File(stream, "application/xls", "BatchReviewReport-" + DateTime.Now.ToString("ddMMyyyy") + ".xls");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #endregion
 
         #region BatchReview
