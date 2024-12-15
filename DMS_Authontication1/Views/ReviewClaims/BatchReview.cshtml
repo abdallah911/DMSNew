@@ -822,80 +822,23 @@
 
         if ($("#CompNum").val() != "") {
 
-            var compId = $("#CompNum").val();
-            var servFrom = $("#ServDateFrom").val();
-            var servTo = $("#ServDateTo").val();
-            var regFrom = $("#RegDateFrom").val();
-            var regTo = $("#RegDateTo").val();
+            var compId = $("#CompNum").val();          
             var aprovNo = $("#ApprovalNo").val();
             var cardId = $("#CardId").val();
             var invocNo = $("#InvoicNo").val();
             var batchNo = $("#BatchNo").val();
 
             if ($("#excel").is(":checked"))
-                window.open('/ReviewClaims/PrintExcel?compId=' + compId +
-                    '&&servFrom=' + servFrom + '&&servTo=' + servTo +
-                    '&&regFrom=' + regFrom + '&&regTo=' + regTo +
+                window.open('/ReviewClaims/PrintExcel?compId=' + compId +                   
                     '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
                     '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
             else
-                window.open('/ReviewClaims/PrintPdf?compId=' + compId +
-                    '&&servFrom=' + servFrom + '&&servTo=' + servTo +
-                    '&&regFrom=' + regFrom + '&&regTo=' + regTo +
+                window.open('/ReviewClaims/PrintPdf?compId=' + compId +                   
                     '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
                     '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
         }
         else
             alert("Comp Id is empty");
-
-
-        if (RegistrationFrom != "" && RegistrationTo != "") {
-
-
-
-            //chick if not search with card number
-            if ($("#excel").is(":checked")) {
-                // do something if the excel is  checked
-                if ($("#pdf").is(":checked")) {
-                    // do something if the pdf is  checked
-                    // Print PDF and EXCEL
-                    window.open('/ReportMain/PrintReportsMedPdf?Regfrom=' + RegistrationFrom +
-                        '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
-                        '&&usernam=' + usernam + '&&medcod=' + medcod +
-                        '&&type=' + type + '&&RepotType=' + RepotType +
-                        '&&crd=' + crd + '&&typmngr=' + typmngr);
-
-                    window.open('/ReportMain/PrintReportsMedExcel?Regfrom=' + RegistrationFrom +
-                        '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
-                        '&&usernam=' + usernam + '&&medcod=' + medcod +
-                        '&&type=' + type + '&&RepotType=' + RepotType +
-                        '&&crd=' + crd + '&&typmngr=' + typmngr);
-                }
-                else {
-                    // Print EXCEL Only
-                    window.open('/ReportMain/PrintReportsMedExcel?Regfrom=' + RegistrationFrom +
-                        '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
-                        '&&usernam=' + usernam + '&&medcod=' + medcod +
-                        '&&type=' + type + '&&RepotType=' + RepotType +
-                        '&&crd=' + crd + '&&typmngr=' + typmngr);
-                }
-
-            }
-            else {
-                // Print PDF as Default
-                window.open('/ReportMain/PrintReportsMedPdf?Regfrom=' + RegistrationFrom +
-                    '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
-                    '&&usernam=' + usernam + '&&medcod=' + medcod +
-                    '&&type=' + type + '&&RepotType=' + RepotType +
-                    '&&crd=' + crd + '&&typmngr=' + typmngr);
-            }
-
-        }
-        else {
-            toastr.info('select date " From " and " TO " of Registration date first');
-        }
-
-
     }
 
 </script>

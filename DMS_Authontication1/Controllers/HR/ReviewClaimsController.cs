@@ -710,8 +710,7 @@ namespace DMS_Authontication1.Controllers.HR
                 return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
-        public ActionResult PrintPdf(string compId, string servFrom, string servTo, string regFrom, string regTo,
-                                     string aprovNo, string cardId, string invocNo, string batchNo)
+        public ActionResult PrintPdf(string compId, string aprovNo, string cardId, string invocNo, string batchNo)
         {
             Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
 
@@ -719,10 +718,10 @@ namespace DMS_Authontication1.Controllers.HR
 
             string cardStart, cardEnd;
 
-            regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
-            regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
-            servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
-            servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
+            regDateFrom = new DateTime(2020, 1, 1);
+            regDateTo = DateTime.Now.Date;
+            servDateFrom = new DateTime(2017, 1, 1) ;
+            servDateTo = DateTime.Now.Date;
 
 
             aprovNoFrom = string.IsNullOrEmpty(aprovNo) ? 0 : Convert.ToInt64(aprovNo);
@@ -780,8 +779,7 @@ namespace DMS_Authontication1.Controllers.HR
                 throw ex;
             }
         }
-        public ActionResult PrintExcel(string compId, string servFrom, string servTo, string regFrom, string regTo,
-                                       string aprovNo, string cardId, string invocNo, string batchNo)
+        public ActionResult PrintExcel(string compId, string aprovNo, string cardId, string invocNo, string batchNo)
         {
             Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
 
@@ -789,11 +787,10 @@ namespace DMS_Authontication1.Controllers.HR
 
             string cardStart, cardEnd;
 
-            regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
-            regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
-            servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
-            servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
-
+            regDateFrom = new DateTime(2020, 1, 1);
+            regDateTo = DateTime.Now.Date;
+            servDateFrom = new DateTime(2017, 1, 1);
+            servDateTo = DateTime.Now.Date;
 
             aprovNoFrom = string.IsNullOrEmpty(aprovNo) ? 0 : Convert.ToInt64(aprovNo);
             aprovNoTo = string.IsNullOrEmpty(aprovNo) ? 999999999999999999 : Convert.ToInt64(aprovNo);
