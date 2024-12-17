@@ -33,8 +33,8 @@
         }
     }
 }
-<div style="margin-top:150px">
-    <p>
+<div class="dms-container">
+    <p class="ms-4">
         @if (fullcontroll || view)
         {
             @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn btn-info fa fa-search", @style = " text-transform: none" })
@@ -44,8 +44,8 @@
             @Html.ActionLink(" Create Request", "EditRequest", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-pencil", @style = " text-transform: none" })
         }
     </p>
-    <div class="portlet box  green">
-        <div class="portlet-title">
+    <div class="portlet box  ">
+        <div class="portlet-title title-bg">
             <div class="caption">
                 <i class="fa fa-gift"></i>Edit Request
             </div>

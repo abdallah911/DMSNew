@@ -5,15 +5,14 @@
     Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
 }
 <input type="text" id="UserCompId" value="@ViewBag.UserCompId" hidden="hidden" />
-
-<br />
+ 
 @using (Html.BeginForm("CreateAdmin", "IndemnitiesAdmin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal createInde-form", role = "form" }))
 {
     <input type="hidden" id="CompanyName" name="CompanyName" value="@ViewBag.CompName" />
 
     @Html.AntiForgeryToken()
-    <div class="portlet box  green" style="margin-top:40px">
-        <div class="portlet-title">
+    <div class="portlet box  "  >
+        <div class="portlet-title title-bg">
             <div class="caption">
                 <i class="fa fa-gift"></i>New Request
             </div>

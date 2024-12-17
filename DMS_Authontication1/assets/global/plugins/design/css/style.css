@@ -99,6 +99,9 @@ body{
 }
 /*=========================Home Page Edits================================================*/
 /*=========================Select-2=======================================================*/
+.height-34 span.select2.select2-container.select2-container--default {
+    height: 34px;
+}
 span.select2.select2-container.select2-container--default {
     /*height:34px ;*/
     width: 100% !important;
@@ -679,6 +682,9 @@ p:last-of-type {
 .hr-table thead tr th { 
     text-align: center;
 }
+.wrap {
+    margin-top:0;
+}
 /* ====================Scroll bar=========================================== */
 ::-webkit-scrollbar {
     border-radius: 20px;
@@ -742,6 +748,7 @@ p:last-of-type {
 .mb-2{
     margin-bottom:4px;
 }
+
  .mt-0{
     margin-top:0 !important;
 }
@@ -750,6 +757,9 @@ p:last-of-type {
  }
  .mt-3{
      margin-top:8px;
+ }
+ .ms-4 {
+     margin-left:16px;
  }
  .px-0{
      padding-left:0;

@@ -32,140 +32,142 @@
         }
     }
 }
-<br />
-@*<div style="margin-top:40px">
-        <p>
-            @if (fullcontroll || view)
-            {
-                @Html.ActionLink(" Search ", "InquiryAboutCard", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-question", @style = " text-transform: none" })
-            }
-            @if (fullcontroll || Create)
-            {
-                @Html.ActionLink(" Create Request", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus", @style = " text-transform: none" })
-            }
-        </p>
-    </div>*@
-@if (fullcontroll || view)
-{
-    <div class="portlet box  green">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-gift"></i>Print Medical Report
+<div class="dms-container">
+
+    @*<div style="margin-top:40px">
+            <p>
+                @if (fullcontroll || view)
+                {
+                    @Html.ActionLink(" Search ", "InquiryAboutCard", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-question", @style = " text-transform: none" })
+                }
+                @if (fullcontroll || Create)
+                {
+                    @Html.ActionLink(" Create Request", "CreateRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-plus", @style = " text-transform: none" })
+                }
+            </p>
+        </div>*@
+    @if (fullcontroll || view)
+    {
+        <div class="portlet box   ">
+            <div class="portlet-title title-bg">
+                <div class="caption">
+                    <i class="fa fa-gift"></i>Print Medical Report
+                </div>
             </div>
-        </div>
-        <div class="portlet-body">
-            <div class="row ">
-                <div class="col-md-12">
-                    <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+            <div class="portlet-body">
+                <div class="row ">
+                    <div class="col-md-12">
+                        <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
 
-                        <div class="form-wizard">
-                            <div class="form-body">
-                                <div class="tab-content">
-                                    <div asp-validation-summary="All" class="text-danger"></div>
-                                    <input type="hidden" id="CompaName" value="@ViewBag.compnum" />
-                                    <div class="row">
-                                        @* Search Element and buttons *@
-                                        <div class="col-md-6">
-                                            @if (User.IsInRole("HR_Admin"))
-                                            {
-                                                <div class="form-group">
-                                                    <label class="control-label sbold col-md-4">
-                                                        Copmany Number :
-                                                    </label>
-                                                    <div class="col-md-8">
-                                                        @Html.DropDownList("CompanyId", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompanyId", @required = "True" })
-                                                    </div>
-                                                </div>
-                                                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                                                <script>
-                                                    $(function () {
-                                                        $("#CompanyId").select2();
-                                                    });
-                                                </script>
-                                            }
-                                            else
-                                            {
-                                                <div class="form-group">
-                                                    <label class="control-label sbold col-md-4">
-                                                        Copmany Number :
-                                                    </label>
-                                                    <div class="col-md-8">
-                                                        <input id="CopmanyNumber" type="number" class="form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-
-                                                    </div>
-                                                </div>
-                                            }
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-4">
-                                                    @Html.DisplayName("Provider Type") :
-                                                </label>
-                                                <div class="col-md-8">
-                                                    @Html.DropDownList("TYP_ANAME", ViewBag.provider as SelectList, "Select Provider Type", new { @class = "form-control" })
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-4">
-                                                    @Html.DisplayName("Speciality") :
-                                                </label>
-                                                <div class="col-md-8">
-                                                    @Html.DropDownList("Speciality", ViewBag.ddlSpeciality as SelectList, "Select Speciality ", new { @class = "form-control" })
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-4">
-                                                    Card Number :
-                                                </label>
-                                                @if (User.IsInRole("HR") || User.IsInRole("HR_Admin"))
+                            <div class="form-wizard">
+                                <div class="form-body">
+                                    <div class="tab-content">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                        <input type="hidden" id="CompaName" value="@ViewBag.compnum" />
+                                        <div class="row">
+                                            @* Search Element and buttons *@
+                                            <div class="col-md-6">
+                                                @if (User.IsInRole("HR_Admin"))
                                                 {
-                                                    <div class="col-md-8">
-                                                        <select id="CardNumber" class="js-data-example-ajax" style="width: 100%"></select>
+                                                    <div class="form-group">
+                                                        <label class="control-label sbold col-md-4">
+                                                            Copmany Number :
+                                                        </label>
+                                                        <div class="col-md-8">
+                                                            @Html.DropDownList("CompanyId", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompanyId", @required = "True" })
+                                                        </div>
                                                     </div>
-                                                    <br />
+                                                    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                    <script>
+                                                        $(function () {
+                                                            $("#CompanyId").select2();
+                                                        });
+                                                    </script>
                                                 }
                                                 else
                                                 {
-                                                    <div class="col-md-8">
-                                                        @Html.DropDownList("CardNumber2", ViewBag.Cardslist as SelectList, new { @class = "form-control", @id = "CardNumber2", @required = "True" })
+                                                    <div class="form-group">
+                                                        <label class="control-label sbold col-md-4">
+                                                            Copmany Number :
+                                                        </label>
+                                                        <div class="col-md-8">
+                                                            <input id="CopmanyNumber" type="number" class="form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+
+                                                        </div>
                                                     </div>
-                                                    <br />
                                                 }
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayName("Provider Type") :
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownList("TYP_ANAME", ViewBag.provider as SelectList, "Select Provider Type", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayName("Speciality") :
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownList("Speciality", ViewBag.ddlSpeciality as SelectList, "Select Speciality ", new { @class = "form-control" })
+                                                    </div>
+                                                </div>
 
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-4">
-                                                    @Html.DisplayName("Provider Name") :
-                                                </label>
-                                                <div class="col-md-8">
-                                                    @Html.DropDownList("PR_ENAME", new SelectList(""), " Select Provider Name", new
-                                               {
-                                                   @class = "form-control"
-                                               })
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-4">
+                                                        Card Number :
+                                                    </label>
+                                                    @if (User.IsInRole("HR") || User.IsInRole("HR_Admin"))
+                                                    {
+                                                        <div class="col-md-8">
+                                                            <select id="CardNumber" class="js-data-example-ajax" style="width: 100%"></select>
+                                                        </div>
+                                                        <br />
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="col-md-8">
+                                                            @Html.DropDownList("CardNumber2", ViewBag.Cardslist as SelectList, new { @class = "form-control", @id = "CardNumber2", @required = "True" })
+                                                        </div>
+                                                        <br />
+                                                    }
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayName("Provider Name") :
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownList("PR_ENAME", new SelectList(""), " Select Provider Name", new
+                                                   {
+                                                       @class = "form-control"
+                                                   })
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
+                                        </div>
                                     </div>
                                 </div>
+
+                                <div style=" text-align:right">
+                                    <input id="new" type="button" value="Reset" onclick="NewRequest();" class="btn btn-secondary-outline fa fa-refresh" />
+                                    <input id="Print" type="button" value="Print" class="btn btn-success" onclick="SearchEmployee()" />
+
+                                </div>
+
                             </div>
-
-                            <div style=" text-align:right">
-                                <input id="new" type="button" value="Reset" onclick="NewRequest();" class="btn btn-secondary-outline fa fa-refresh" />
-                                <input id="Print" type="button" value="Print" class="btn btn-success" onclick="SearchEmployee()" />
-
-                            </div>
-
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
 
-}
+    }
+</div>
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>

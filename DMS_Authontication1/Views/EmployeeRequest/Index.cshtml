@@ -35,7 +35,7 @@
     <div>
         @if (!User.IsInRole("Admin"))
         {
-            <p>
+            <p class="ms-4">
                 @if (fullcontroll || view)
                 {
                     @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search", @style = " text-transform: none" })
@@ -94,8 +94,7 @@
             </div>
         </div>
     }
-</div>
-<br />
+</div> 
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
 
 <script>
