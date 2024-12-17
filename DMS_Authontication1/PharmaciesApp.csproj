@@ -8686,7 +8686,6 @@
     <Content Include="Reports\HR\ReviewCliamsReportSummary.rpt" />
     <Content Include="Views\ReviewClaims\History - Copy.cshtml" />
     <Content Include="Views\ReviewClaims\CompanyInvoice.cshtml" />
-    <Content Include="Views\ReviewClaims\BatchInvoice.cshtml" />
     <Content Include="Views\ReviewClaims\BatchReview.cshtml" />
     <Content Include="Reports\HR\CompanyInvoiceReport.rpt" />
     <Content Include="Reports\HR\OneClaimReport.rpt" />
