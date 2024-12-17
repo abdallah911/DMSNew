@@ -381,77 +381,7 @@ namespace DMS_Authontication1.Controllers.HR
         }
         #endregion
 
-        #region BatchReview
-        public JsonResult GetActiveEmployess(string search, int page)
-        {
-            ApplicationDbContext users = new ApplicationDbContext();
-            var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
-            if (User.IsInRole("HR_Admin"))
-            {
-                var companyId = db.HrAdminCompanies.Where(c => c.UserId == CurrentUser.Id).Select(c => c.CompId).ToList();
-                if (companyId[0] == "All")
-                {
-                    int compId = int.Parse(search.Split('-')[0]);
-                    int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == compId).Max(x => x.CONTRACT_NO);
-                    var Employees = db.fn_GetEmployessForCompany(compId, maxcontract, "N", search)
-                                     .Select(c => new
-                                     {
-                                         id = c.id,
-                                         text = c.text
-                                     }).ToList();
-                    return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                }
-                else
-                {
-                    if (companyId.Contains(search.Split('-')[0]))
-                    {
-                        int compId = int.Parse(search.Split('-')[0]);
-                        int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == compId).Max(x => x.CONTRACT_NO);
-                        var Employees = db.fn_GetEmployessForCompany(compId, maxcontract, "N", search)
-                                         .Select(c => new
-                                         {
-                                             id = c.id,
-                                             text = c.text
-                                         }).ToList();
-                        return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                    }
-                    return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
-                }
-
-            }
-
-            else if (User.IsInRole("Admin"))
-            {
-                int compId = int.Parse(search.Split('-')[0]);
-                int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == compId).Max(x => x.CONTRACT_NO);
-                var Employees = db.fn_GetEmployessForCompany(compId, maxcontract, "N", search)
-                                 .Select(c => new
-                                 {
-                                     id = c.id,
-                                     text = c.text
-                                 }).ToList();
-
-
-                return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
-            }
-            else
-            {
-                int Provider = Convert.ToInt32(CurrentUser.Provider);
-                int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == Provider).Max(x => x.CONTRACT_NO);
-                var Employees = db.fn_GetEmployessForCompany(Provider, maxcontract, "N", search)
-                   .Select(c => new
-                   {
-                       id = c.id,
-                       text = c.text
-                   }).ToList();
-
-                return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
-            }
-
-        }
+        #region BatchReview       
         [HttpPost]
         public ActionResult BatchReview(string batchNumber, string providerID, string providerName,
                                        string invoiceNumber, string compNumber, string compName)
@@ -464,25 +394,7 @@ namespace DMS_Authontication1.Controllers.HR
             ViewBag.CompName = compName;
 
             return View();
-        }
-
-        //[HttpPost]
-        //public ActionResult RedirectToBatchReview(string batchNumber, string providerId, string providerName, string invoiceNumber, string compNumber, string compName)
-        //{
-        //    // Construct the URL dynamically based on parameters
-        //    var redirectUrl = Url.Action("BatchReview", "ReviewClaims", new
-        //    {
-        //        batchNumber = batchNumber,
-        //        providerId = providerId,
-        //        providerName = providerName,
-        //        invoiceNumber = invoiceNumber,
-        //        compNumber = compNumber,
-        //        compName = compName
-        //    });
-
-        //    // Return the redirect URL as part of the response
-        //    return Json(new { redirectUrl = redirectUrl });
-        //}
+        }              
         public JsonResult GetClaims(string compId, string aprovNo, string cardId, string invocNo, string batchNo)
         {
             //string compId, string servFrom, string servTo, string regFrom, string regTo,
@@ -562,61 +474,76 @@ namespace DMS_Authontication1.Controllers.HR
             else
                 return new JsonResult { Data = new { claimslist = clms, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
         }
-        //public JsonResult GetClaims(string compId, string servFrom, string servTo, string regFrom, string regTo,
-        //                            string aprovNo, string cardId, string invocNo, string batchNo)
-        //{
-        //    //string compId, string servFrom, string servTo, string regFrom, string regTo,
-        //    //                        string aprovNo, string cardId, string invocNo, string batchNo
+        public JsonResult GetActiveEmployess(string search, int page)
+        {
+            ApplicationDbContext users = new ApplicationDbContext();
+            var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+            if (User.IsInRole("HR_Admin"))
+            {
+                var companyId = db.HrAdminCompanies.Where(c => c.UserId == CurrentUser.Id).Select(c => c.CompId).ToList();
+                if (companyId[0] == "All")
+                {
+                    int compId = int.Parse(search.Split('-')[0]);
+                    int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == compId).Max(x => x.CONTRACT_NO);
+                    var Employees = db.fn_GetEmployessForCompany(compId, maxcontract, "N", search)
+                                     .Select(c => new
+                                     {
+                                         id = c.id,
+                                         text = c.text
+                                     }).ToList();
+                    return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                else
+                {
+                    if (companyId.Contains(search.Split('-')[0]))
+                    {
+                        int compId = int.Parse(search.Split('-')[0]);
+                        int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == compId).Max(x => x.CONTRACT_NO);
+                        var Employees = db.fn_GetEmployessForCompany(compId, maxcontract, "N", search)
+                                         .Select(c => new
+                                         {
+                                             id = c.id,
+                                             text = c.text
+                                         }).ToList();
+                        return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
+                    return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
-        //    Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
+                }
 
-        //    DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
+            }
 
-        //    regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
-        //    regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
-        //    servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
-        //    servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
+            else if (User.IsInRole("Admin"))
+            {
+                int compId = int.Parse(search.Split('-')[0]);
+                int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == compId).Max(x => x.CONTRACT_NO);
+                var Employees = db.fn_GetEmployessForCompany(compId, maxcontract, "N", search)
+                                 .Select(c => new
+                                 {
+                                     id = c.id,
+                                     text = c.text
+                                 }).ToList();
 
 
-        //    aprovNoFrom = string.IsNullOrEmpty(aprovNo) ? 0 : Convert.ToInt64(aprovNo);
-        //    aprovNoTo = string.IsNullOrEmpty(aprovNo) ? 999999999999999999 : Convert.ToInt64(aprovNo);
-        //    invocNoFrom = string.IsNullOrEmpty(invocNo) ? 0 : Convert.ToInt64(invocNo);
-        //    invocNoTo = string.IsNullOrEmpty(invocNo) ? 999999999999999999 : Convert.ToInt64(invocNo);
-        //    batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
-        //    batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
+                return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
-        //    int comp = Convert.ToInt32(compId);
+            }
+            else
+            {
+                int Provider = Convert.ToInt32(CurrentUser.Provider);
+                int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == Provider).Max(x => x.CONTRACT_NO);
+                var Employees = db.fn_GetEmployessForCompany(Provider, maxcontract, "N", search)
+                   .Select(c => new
+                   {
+                       id = c.id,
+                       text = c.text
+                   }).ToList();
 
-        //    DataTable dt = new DataTable();
+                return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
-        //        dt = dbData.getClaims(comp, servDateFrom, servDateTo, regDateFrom, regDateTo, aprovNoFrom, aprovNoTo, 
-        //                              cardId, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo);
+            }
 
-        //    List<ClaimsViewModel> clms = new List<ClaimsViewModel>();
-
-        //    if (dt.Rows.Count != 0)
-        //    {
-        //        foreach (DataRow row in dt.Rows)
-        //        {
-        //            clms.Add(new ClaimsViewModel
-        //            {
-        //                ClaimNo = row["CLAIM_NO"].ToString(),
-        //                CreatedDate = row["CREATED_DATE"].ToString(),
-        //                ClaimDate = row["CLAIM_DATE"].ToString(),
-        //                CardNo = row["CARD_NO"].ToString(),
-        //                EmpName = row["EMP_NAME"].ToString(),
-        //                ProvName = row["PRV_NAME"].ToString(),
-        //                ProvType = row["PROVIDER_TYPE"].ToString(),
-        //                Diagnosis = row["DIAGNOSIS"].ToString(),
-        //                ServType = row["SERV_TYPE"].ToString()                        
-        //            });
-        //        }
-        //        return new JsonResult { Data = new { claimslist = clms, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
-        //    }
-        //    else
-        //        return new JsonResult { Data = new { claimslist = clms, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
-        //}
-
+        }
         public ActionResult PrintAllClaims(string compId, string servFrom, string servTo, string regFrom, string regTo,
                                             string aprovNo, string cardId, string invocNo, string batchNo)
         {
@@ -991,6 +918,121 @@ namespace DMS_Authontication1.Controllers.HR
                 throw ex;
             }
         }
+        public ActionResult PrintRoshita(string claimNo)
+        {
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "OneClaimReport.rpt"));
+
+            rd.SetDatabaseLogon("APP", "12369");
+
+            rd.SetParameterValue("clm", claimNo);
+            
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pdf", DateTime.Now.ToString("ddMMyyyy") + "-Roshita.pdf");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public ActionResult DownloadClaim(string claimNo)
+        {
+            string fileName = claimNo + ".pdf";
+            string filePath = Server.MapPath("~/Reports/HR/File/" + fileName);
+
+            if (!System.IO.File.Exists(filePath))
+            {
+                return Json(new { success = false, message = "File not found" }, JsonRequestBehavior.AllowGet);
+            }
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            string contentType = MimeMapping.GetMimeMapping(fileName); 
+
+            return File(fileBytes, contentType, fileName);
+        }
+
+        //[HttpPost]
+        //public ActionResult RedirectToBatchReview(string batchNumber, string providerId, string providerName, string invoiceNumber, string compNumber, string compName)
+        //{
+        //    // Construct the URL dynamically based on parameters
+        //    var redirectUrl = Url.Action("BatchReview", "ReviewClaims", new
+        //    {
+        //        batchNumber = batchNumber,
+        //        providerId = providerId,
+        //        providerName = providerName,
+        //        invoiceNumber = invoiceNumber,
+        //        compNumber = compNumber,
+        //        compName = compName
+        //    });
+
+        //    // Return the redirect URL as part of the response
+        //    return Json(new { redirectUrl = redirectUrl });
+        //}
+
+        //public JsonResult GetClaims(string compId, string servFrom, string servTo, string regFrom, string regTo,
+        //                            string aprovNo, string cardId, string invocNo, string batchNo)
+        //{
+        //    //string compId, string servFrom, string servTo, string regFrom, string regTo,
+        //    //                        string aprovNo, string cardId, string invocNo, string batchNo
+
+        //    Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
+
+        //    DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
+
+        //    regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
+        //    regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
+        //    servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
+        //    servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
+
+
+        //    aprovNoFrom = string.IsNullOrEmpty(aprovNo) ? 0 : Convert.ToInt64(aprovNo);
+        //    aprovNoTo = string.IsNullOrEmpty(aprovNo) ? 999999999999999999 : Convert.ToInt64(aprovNo);
+        //    invocNoFrom = string.IsNullOrEmpty(invocNo) ? 0 : Convert.ToInt64(invocNo);
+        //    invocNoTo = string.IsNullOrEmpty(invocNo) ? 999999999999999999 : Convert.ToInt64(invocNo);
+        //    batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
+        //    batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
+
+        //    int comp = Convert.ToInt32(compId);
+
+        //    DataTable dt = new DataTable();
+
+        //        dt = dbData.getClaims(comp, servDateFrom, servDateTo, regDateFrom, regDateTo, aprovNoFrom, aprovNoTo, 
+        //                              cardId, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo);
+
+        //    List<ClaimsViewModel> clms = new List<ClaimsViewModel>();
+
+        //    if (dt.Rows.Count != 0)
+        //    {
+        //        foreach (DataRow row in dt.Rows)
+        //        {
+        //            clms.Add(new ClaimsViewModel
+        //            {
+        //                ClaimNo = row["CLAIM_NO"].ToString(),
+        //                CreatedDate = row["CREATED_DATE"].ToString(),
+        //                ClaimDate = row["CLAIM_DATE"].ToString(),
+        //                CardNo = row["CARD_NO"].ToString(),
+        //                EmpName = row["EMP_NAME"].ToString(),
+        //                ProvName = row["PRV_NAME"].ToString(),
+        //                ProvType = row["PROVIDER_TYPE"].ToString(),
+        //                Diagnosis = row["DIAGNOSIS"].ToString(),
+        //                ServType = row["SERV_TYPE"].ToString()                        
+        //            });
+        //        }
+        //        return new JsonResult { Data = new { claimslist = clms, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+        //    }
+        //    else
+        //        return new JsonResult { Data = new { claimslist = clms, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+        //}
 
         #endregion
 

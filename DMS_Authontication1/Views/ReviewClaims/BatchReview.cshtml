@@ -100,16 +100,19 @@
             <input type="button" value="Print" class="btn my-3" onclick="PrintSummary()" />
             <div class="d-flex gap-2 justify-content-center align-items-center">
                 <div class="d-flex align-items-center gap-2">
-                    <label class="mb-0 fw-bold" for="pdf">PDF</label>
-                    <input class="mt-0" name="file-type" type="radio" id="pdf" />
+                    <label class="mb-0 fw-bold" for="pdf2">PDF</label>
+                    <input class="mt-0" name="file-type-2" type="radio" id="pdf" />
                 </div>
                 <div class="d-flex align-items-center gap-2">
-                    <label class="mb-0 fw-bold" for="excel">Excel</label>
-                    <input class="mt-0" name="file-type" type="radio" id="excel" />
+                    <label class="mb-0 fw-bold" for="excel2">Excel</label>
+                    <input class="mt-0" name="file-type-2" type="radio" id="excel" />
                 </div>
             </div>
         </div>
+
+       
         <div class="portlet-body" id="list_div">
+
             <div class="table-responsive">
                 <table class="table" id="ClaimsData">
                     <thead>
@@ -123,7 +126,7 @@
                             <th scope="col" align="center">Service Type</th>
                             <th scope="col" align="center">Gross</th>
                             <th scope="col" align="center">Net</th>
-                            <th scope="col" align="center"></th>
+                            @*<th scope="col" align="center"></th>*@
                         </tr>
                     </thead>
                     <tbody id="ClaimsBody"></tbody>
@@ -155,51 +158,44 @@
 
         </div>*@
 
-    <div class="portlet box no-wrap">
-        <div class="portlet-title title-bg text-white fw-bold">
-            <div class="caption">
-                <i class="fa-solid fa-home"></i>Claims Details
-            </div>
-        </div>
-        <div class="d-flex justify-content-end gap-2 container text-center">
-            <input type="button" value="Print" class="btn my-3" onclick="PrintSummary()" />
-            <div class="d-flex gap-2 justify-content-center align-items-center">
-                <div class="d-flex align-items-center gap-2">
-                    <label class="mb-0 fw-bold" for="pdf2">PDF</label>
-                    <input class="mt-0" name="file-type-2" type="radio" id="pdf2" />
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                    <label class="mb-0 fw-bold" for="excel2">Excel</label>
-                    <input class="mt-0" name="file-type-2" type="radio" id="excel2" />
-                </div>
-            </div>
-        </div>
-        <div class="portlet-body" id="list_div2">
-            <div class="table-responsive">
-                <table class="table" id="ClaimDetails">
-                    <thead>
-                        <tr>
-                            <th scope="col" align="center">Services</th>
-                            <th scope="col" align="center">Sercv Name</th>
-                            <th scope="col" align="center">Claim Submitted</th>
-                            <th scope="col" align="center">Over Insurance</th>
-                            <th scope="col" align="center">Discount</th>
-                            <th scope="col" align="center">Approv Amount</th>
-                            <th scope="col" align="center">Copay Amt</th>
-                            <th scope="col" align="center">After Copay</th>
-                            <th scope="col" align="center">Local Amount</th>
-                            <th scope="col" align="center">Import Amount</th>
-                            <th scope="col" align="center">Local Disc</th>
-                            <th scope="col" align="center">Import Disc</th>
-                            <th scope="col" align="center">Total Discount</th>
-                            <th scope="col" align="center">Net</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ClaimDetailsBody"></tbody>
-                </table>
-            </div>
+<div class="portlet box no-wrap">
+    <div class="portlet-title title-bg text-white fw-bold">
+        <div class="caption">
+            <i class="fa-solid fa-home"></i>Claims Details
         </div>
     </div>
+    <div class="d-flex justify-content-end gap-2 container text-center">
+        <input type="button" value="Print" class="btn my-3" onclick="PrintRoshita()" id="PrintOneClaim" style="display:none;"/>
+        <input type="button" value="Download" class="btn my-3" onclick="DownloadClaim()" id="DownloadOneClaim" style="display:none;" />
+    </div>
+    <div class="portlet-body" id="list_div2">
+        <div class="table-responsive">
+            <input id="ClaimNumber" class="form-control" type="text" style="display:none;" />
+
+            <table class="table" id="ClaimDetails">
+                <thead>
+                    <tr>
+                        <th scope="col" align="center">Services</th>
+                        <th scope="col" align="center">Sercv Name</th>
+                        <th scope="col" align="center">Claim Submitted</th>
+                        <th scope="col" align="center">Over Insurance</th>
+                        <th scope="col" align="center">Discount</th>
+                        <th scope="col" align="center">Approv Amount</th>
+                        <th scope="col" align="center">Copay Amt</th>
+                        <th scope="col" align="center">After Copay</th>
+                        <th scope="col" align="center">Local Amount</th>
+                        <th scope="col" align="center">Import Amount</th>
+                        <th scope="col" align="center">Local Disc</th>
+                        <th scope="col" align="center">Import Disc</th>
+                        <th scope="col" align="center">Total Discount</th>
+                        <th scope="col" align="center">Net</th>
+                    </tr>
+                </thead>
+                <tbody id="ClaimDetailsBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
     <!--<div class="row" style=" text-align:right">
         <div class="col-md-12">
             <input id="ResetSearch" type="button" value="New" onclick="ClearAll();" class="btn btn-warning" />
@@ -394,9 +390,27 @@
     $('#ClaimsData tbody').on('click', 'tr', function () {
         $('#ClaimsData tbody tr').removeClass('selected');
         $(this).addClass('selected');
+        $('#ClaimNumber').val("");
 
         var claimNo = $(this).find('td').eq(0).text();
         GetClaimDetails(claimNo);
+
+        $('#ClaimNumber').val(claimNo);        
+
+        var servNam = $(this).find('td').eq(6).text();
+        if (servNam == 'MEDICATION' || servNam == 'ادوية' || servNam == 'تحاليل طبية' || servNam == 'أشعات') {
+            $('#PrintOneClaim').show();
+            $('#DownloadOneClaim').hide();
+        }
+        else if (servNam == 'خدمات داخل المستشفيات' || servNam == 'عمليات جراحية') {
+            $('#PrintOneClaim').hide();
+            $('#DownloadOneClaim').show();
+        }
+        else {
+            $('#PrintOneClaim').hide();
+            $('#DownloadOneClaim').hide();
+        }
+        
         $('#CardID').val($(this).find('td').eq(3).text());
         //alert('Selected Claim No:' + claimNo);
         $('#CardInformationDetails').show();
@@ -426,10 +440,11 @@
         $('#Mobile2').val("");
         $('#CardColor').val("");
         $('#OldCard').val("");
-
+        $('#ClaimNumber').val("");
 
         $('#CardInformationDetails').hide();
-
+        $('#PrintOneClaim').show();
+        $('#DownloadOneClaim').hide();
         //var table = $('#ClaimsData').DataTable({
         //    "pageLength": 5
         //});
@@ -501,11 +516,11 @@
                                 "<td>" + (r.claimslist[i].ServType || "--") + "</td>" +
                                 "<td>" + (r.claimslist[i].Gross || "--") + "</td>" +
                                 "<td>" + (r.claimslist[i].Net || "--") + "</td>" +
-                                "<td class='text-center'>" +
-                                        "<button class='btn btn-primary' onclick=\"PrintRoshita('" + r.claimslist[i].ClaimNo + "')\">" +
-                                                "Print" +
-                                        "</button>" +
-                                "</td>" +
+                                //"<td class='text-center'>" +
+                                //        "<button class='btn btn-primary' onclick=\"PrintRoshita('" + r.claimslist[i].ClaimNo + "')\">" +
+                                //                "Print" +
+                                //        "</button>" +
+                                //"</td>" +
                                 "</tr>";
                             setData.append(data);
                         }
@@ -815,9 +830,29 @@
         window.open('/CustomerService/PrintApproval?ApprovalCode=' + AppCode);
     }
     function PrintRoshita(clm) {
-        alert(clm);
-        window.open('/CustomerService/PrintApproval?ApprovalCode=' + AppCode);
+        var clm = $('#ClaimNumber').val();
+        window.open('/ReviewClaims/PrintRoshita?claimNo=' + clm);
     }
+    function DownloadClaim() {
+        var clm = $('#ClaimNumber').val();
+        $.ajax({
+            url: '/ReviewClaims/DownloadClaim', 
+            type: 'GET',
+            data: { claimNo: clm }, 
+            success: function (response) {
+                if (response.success === false) {
+                    alert(response.message);
+                } else {                    
+                    var fileUrl = '/ReviewClaims/DownloadClaim?claimNo=' + encodeURIComponent(clm);
+                    window.open(fileUrl, '_blank');
+                }
+            },
+            error: function () {
+                alert("An error occurred while trying to download the file.");
+            }
+        });
+    }
+
     function PrintSummary() {
 
         if ($("#CompNum").val() != "") {

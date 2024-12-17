@@ -8689,6 +8689,11 @@
     <Content Include="Views\ReviewClaims\BatchInvoice.cshtml" />
     <Content Include="Views\ReviewClaims\BatchReview.cshtml" />
     <Content Include="Reports\HR\CompanyInvoiceReport.rpt" />
+    <Content Include="Reports\HR\OneClaimReport.rpt" />
+    <Content Include="Reports\HR\File\3040924684898.pdf" />
+    <Content Include="Reports\HR\File\3091024700345.pdf" />
+    <Content Include="Reports\HR\File\3241124705958.pdf" />
+    <Content Include="Reports\HR\File\3311024694755.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
