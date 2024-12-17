@@ -955,10 +955,12 @@ namespace DMS_Authontication1.Controllers.HR
                 return Json(new { success = false, message = "File not found" }, JsonRequestBehavior.AllowGet);
             }
 
-            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
-            string contentType = MimeMapping.GetMimeMapping(fileName); 
+            return File(filePath, "application/pdf", fileName);
 
-            return File(fileBytes, contentType, fileName);
+            //byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            //string contentType = MimeMapping.GetMimeMapping(fileName); 
+
+            //return File(fileBytes, contentType, fileName);
         }
 
         //[HttpPost]
