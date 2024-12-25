@@ -13,6 +13,7 @@ namespace DMS_Authontication1.ViewModel.HR
         public string CompName { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
+        public string CountOfBatch { get; set; }
         public string CountOfClaim { get; set; }
         public string Gross { get; set; }
         public string Net { get; set; }

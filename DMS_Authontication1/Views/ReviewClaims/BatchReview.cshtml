@@ -47,9 +47,7 @@
                 </p>
             }
         </div>*@
-    <br />
-    <br />
-    <div class="portlet box" style="margin-top: 17px;">
+    <div class="portlet box">
         <div class="portlet-title title-bg text-white fw-bold">
             <div class="caption">
                 <i class="fa-solid fa-home"></i>Data
@@ -58,24 +56,24 @@
         <div class="w-100 mx-auto row portlet-body">
             <div class="row  col-md-9">
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
-                    <input id="BatchNo" type="text" class="w-100 h-100 " placeholder="Batch Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+                    <input id="BatchNo" type="text" class="w-100 h-100 " placeholder="Batch Number" value="@ViewBag.BatchNumber" oninput="this.value = this.value.replace(/[^0-9]/g, '')" readonly/>
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
-                    <input id="InvoicNo" type="text" class="w-100 h-100 " placeholder="Invoice Number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+                    <input id="InvoicNo" type="text" class="w-100 h-100 " placeholder="Invoice Number" value="@ViewBag.InvoiceNumber" oninput="this.value = this.value.replace(/[^0-9]/g, '')" readonly/>
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
-                    <input id="" type="number" class="w-100 h-100 " placeholder="Provider Number" />
+                    <input id="" type="number" class="w-100 h-100 " value="@ViewBag.ProviderID" placeholder="Provider Number" readonly/>
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
-                    <input id="" type="text" class="w-100 h-100 " placeholder="Provider Name" />
-                </div>
-                <div class="sec-field-labeled col-md-6 px-2  mb-2">
-                    @*<input id="CardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />*@
-                    <input id="" type="number" class="w-100 h-100 " placeholder="Comp ID" disabled />
+                    <input id="" type="text" class="w-100 h-100 " value="@ViewBag.ProviderName" placeholder="Provider Name" readonly/>
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
                     @*<input id="CardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />*@
-                    <input id="" type="number" class="w-100 h-100 " placeholder="Comp Name" disabled />
+                    <input id="CompNum" type="number" class="w-100 h-100 " placeholder="Comp ID" value="@ViewBag.CompNumber" readonly />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    @*<input id="CardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />*@
+                    <input id="" class="w-100 h-100 " placeholder="Comp Name" value="@ViewBag.CompName" readonly />
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
                     @*<input id="CardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />*@
@@ -102,29 +100,33 @@
             <input type="button" value="Print" class="btn my-3" onclick="PrintSummary()" />
             <div class="d-flex gap-2 justify-content-center align-items-center">
                 <div class="d-flex align-items-center gap-2">
-                    <label class="mb-0 fw-bold" for="pdf">PDF</label>
-                    <input class="mt-0" name="file-type" type="radio" id="pdf" />
+                    <label class="mb-0 fw-bold" for="pdf2">PDF</label>
+                    <input class="mt-0" name="file-type-2" type="radio" id="pdf" />
                 </div>
                 <div class="d-flex align-items-center gap-2">
-                    <label class="mb-0 fw-bold" for="excel">Excel</label>
-                    <input class="mt-0" name="file-type" type="radio" id="excel" />
+                    <label class="mb-0 fw-bold" for="excel2">Excel</label>
+                    <input class="mt-0" name="file-type-2" type="radio" id="excel" />
                 </div>
             </div>
         </div>
-        <div class="portlet-body no-wrap" id="list_div">
+
+       
+        <div class="portlet-body" id="list_div">
+
             <div class="table-responsive">
                 <table class="table" id="ClaimsData">
                     <thead>
                         <tr>
-                            <th scope="col" align="center">Comp ID</th>
-                            <th scope="col" align="center">Comp Name</th>
-                            <th scope="col" align="center">Start Date</th>
-                            <th scope="col" align="center">End Date</th>
-                            <th scope="col" align="center">Claim Number</th>
+                            <th scope="col" align="center">Claim No</th>
+                            <th scope="col" align="center">Created Date</th>
+                            <th scope="col" align="center">Service Date</th>
+                            <th scope="col" align="center">Card No</th>
+                            <th scope="col" align="center">Employee Name</th>
+                            <th scope="col" align="center">Diagnosis</th>
+                            <th scope="col" align="center">Service Type</th>
                             <th scope="col" align="center">Gross</th>
                             <th scope="col" align="center">Net</th>
-                            <th scope="col" align="center">Invoice Date</th>
-                            <th scope="col" align="center">Invoice Number</th>
+                            @*<th scope="col" align="center"></th>*@
                         </tr>
                     </thead>
                     <tbody id="ClaimsBody"></tbody>
@@ -156,44 +158,44 @@
 
         </div>*@
 
-    <div class="portlet box no-wrap">
-        <div class="portlet-title title-bg text-white fw-bold">
-            <div class="caption">
-                <i class="fa-solid fa-home"></i>Claims Details
-            </div>
-        </div>
-        <div class="d-flex justify-content-end gap-2 container text-center">
-            <input type="button" value="Print" class="btn my-3" onclick="PrintSummary()" />
-            <div class="d-flex gap-2 justify-content-center align-items-center">
-                <div class="d-flex align-items-center gap-2">
-                    <label class="mb-0 fw-bold" for="pdf2">PDF</label>
-                    <input class="mt-0" name="file-type-2" type="radio" id="pdf2" />
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                    <label class="mb-0 fw-bold" for="excel2">Excel</label>
-                    <input class="mt-0" name="file-type-2" type="radio" id="excel2" />
-                </div>
-            </div>
-        </div>
-        <div class="portlet-body" id="list_div2">
-            <div class="table-responsive">
-                <table class="table" id="ClaimDetails">
-                    <thead>
-                        <tr>
-                            <th scope="col" align="center">Batch Number</th>
-                            <th scope="col" align="center">Provider ID</th>
-                            <th scope="col" align="center">Provider Name</th>
-                            <th scope="col" align="center">Provider Type</th>
-                            <th scope="col" align="center">Claim Number</th>
-                            <th scope="col" align="center">Gross</th>
-                            <th scope="col" align="center">Net</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ClaimDetailsBody"></tbody>
-                </table>
-            </div>
+<div class="portlet box no-wrap">
+    <div class="portlet-title title-bg text-white fw-bold">
+        <div class="caption">
+            <i class="fa-solid fa-home"></i>Claims Details
         </div>
     </div>
+    <div class="d-flex justify-content-end gap-2 container text-center">
+        <input type="button" value="Print" class="btn my-3" onclick="PrintRoshita()" id="PrintOneClaim" style="display:none;"/>
+        <input type="button" value="Download" class="btn my-3" onclick="DownloadClaim()" id="DownloadOneClaim" style="display:none;" />
+    </div>
+    <div class="portlet-body" id="list_div2">
+        <div class="table-responsive">
+            <input id="ClaimNumber" class="form-control" type="text" style="display:none;" />
+
+            <table class="table" id="ClaimDetails">
+                <thead>
+                    <tr>
+                        <th scope="col" align="center">Services</th>
+                        <th scope="col" align="center">Sercv Name</th>
+                        <th scope="col" align="center">Claim Submitted</th>
+                        <th scope="col" align="center">Over Insurance</th>
+                        <th scope="col" align="center">Discount</th>
+                        <th scope="col" align="center">Approv Amount</th>
+                        <th scope="col" align="center">Copay Amt</th>
+                        <th scope="col" align="center">After Copay</th>
+                        <th scope="col" align="center">Local Amount</th>
+                        <th scope="col" align="center">Import Amount</th>
+                        <th scope="col" align="center">Local Disc</th>
+                        <th scope="col" align="center">Import Disc</th>
+                        <th scope="col" align="center">Total Discount</th>
+                        <th scope="col" align="center">Net</th>
+                    </tr>
+                </thead>
+                <tbody id="ClaimDetailsBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
     <!--<div class="row" style=" text-align:right">
         <div class="col-md-12">
             <input id="ResetSearch" type="button" value="New" onclick="ClearAll();" class="btn btn-warning" />
@@ -382,15 +384,33 @@
             }
         });
 
-
+        GetClaim();
     })
 
     $('#ClaimsData tbody').on('click', 'tr', function () {
         $('#ClaimsData tbody tr').removeClass('selected');
         $(this).addClass('selected');
+        $('#ClaimNumber').val("");
 
         var claimNo = $(this).find('td').eq(0).text();
         GetClaimDetails(claimNo);
+
+        $('#ClaimNumber').val(claimNo);        
+
+        var servNam = $(this).find('td').eq(6).text();
+        if (servNam == 'MEDICATION' || servNam == 'ادوية' || servNam == 'تحاليل طبية' || servNam == 'أشعات') {
+            $('#PrintOneClaim').show();
+            $('#DownloadOneClaim').hide();
+        }
+        else if (servNam == 'خدمات داخل المستشفيات' || servNam == 'عمليات جراحية') {
+            $('#PrintOneClaim').hide();
+            $('#DownloadOneClaim').show();
+        }
+        else {
+            $('#PrintOneClaim').hide();
+            $('#DownloadOneClaim').hide();
+        }
+        
         $('#CardID').val($(this).find('td').eq(3).text());
         //alert('Selected Claim No:' + claimNo);
         $('#CardInformationDetails').show();
@@ -399,15 +419,10 @@
 
 
     function ClearSearchData() {
-        $("#ServDateFrom").val("");
-        $("#ServDateTo").val("");
-        $("#RegDateFrom").val("");
-        $("#RegDateTo").val("");
+        
         $("#ApprovalNo").val("");
         $('#CardId').val(null).trigger('change');
-        $("#InvoicNo").val("");
-        $("#BatchNo").val("");
-
+        
         $('#CardID').val("");
         $('#EmployeeName').val("");
         $('#BirthDate').val("");
@@ -425,10 +440,11 @@
         $('#Mobile2').val("");
         $('#CardColor').val("");
         $('#OldCard').val("");
-
+        $('#ClaimNumber').val("");
 
         $('#CardInformationDetails').hide();
-
+        $('#PrintOneClaim').show();
+        $('#DownloadOneClaim').hide();
         //var table = $('#ClaimsData').DataTable({
         //    "pageLength": 5
         //});
@@ -468,11 +484,7 @@
 
         $('#list_div').hide();
         if ($("#CompNum").val() != "") {
-            var compId = $("#CompNum").val();
-            var servFrom = $("#ServDateFrom").val();
-            var servTo = $("#ServDateTo").val();
-            var regFrom = $("#RegDateFrom").val();
-            var regTo = $("#RegDateTo").val();
+            var compId = $("#CompNum").val();            
             var aprovNo = $("#ApprovalNo").val();
             var cardId = $("#CardId").val();
             var invocNo = $("#InvoicNo").val();
@@ -483,8 +495,7 @@
             $.ajax({
                 url: '/ReviewClaims/GetClaims/',
                 data: {
-                    compId: compId, servFrom: servFrom, servTo: servTo, regFrom: regFrom, regTo: regTo,
-                    aprovNo: aprovNo, cardId: cardId, invocNo: invocNo, batchNo: batchNo
+                    compId: compId, aprovNo: aprovNo, cardId: cardId, invocNo: invocNo, batchNo: batchNo
                 },
                 dataType: 'Json',
                 success: function (r) {
@@ -495,44 +506,22 @@
                         var setData = $("#ClaimsData Tbody");
                         setData.empty();
                         for (var i = 0; i < r.claimslist.length; i++) {
-                            var data = "<tr >" +
-                                "<td>" + r.claimslist[i].ClaimNo + "</td>";
-                            if (r.claimslist[i].CreatedDate == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].CreatedDate + "</td>";
-                            if (r.claimslist[i].ClaimDate == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ClaimDate + "</td>";
-
-                            if (r.claimslist[i].CardNo == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].CardNo + "</td>";
-                            if (r.claimslist[i].EmpName == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].EmpName + "</td>";
-
-                            if (r.claimslist[i].ProvName == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ProvName + "</td>";
-
-                            if (r.claimslist[i].ProvType == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ProvType + "</td>";
-                            if (r.claimslist[i].Diagnosis == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].Diagnosis + "</td>";
-                            if (r.claimslist[i].ServType == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ServType + "</td>" +
-                                    "</tr>";
+                            var data = "<tr>" +
+                                "<td>" + (r.claimslist[i].ClaimNo || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].CreatedDate || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].ClaimDate || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].CardNo || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].EmpName || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].Diagnosis || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].ServType || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].Gross || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].Net || "--") + "</td>" +
+                                //"<td class='text-center'>" +
+                                //        "<button class='btn btn-primary' onclick=\"PrintRoshita('" + r.claimslist[i].ClaimNo + "')\">" +
+                                //                "Print" +
+                                //        "</button>" +
+                                //"</td>" +
+                                "</tr>";
                             setData.append(data);
                         }
                         $('#ClaimsData').DataTable({
@@ -579,74 +568,22 @@
                         var setData = $("#ClaimDetails Tbody");
                         setData.empty();
                         for (var i = 0; i < r.claimslist.length; i++) {
-                            var data = "<tr >" +
-                                "<td>" + r.claimslist[i].Services + "</td>";
-
-                            if (r.claimslist[i].SercvName == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].SercvName + "</td>";
-
-                            if (r.claimslist[i].ClaimSubmitted == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ClaimSubmitted + "</td>";
-
-                            if (r.claimslist[i].OverInsurance == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].OverInsurance + "</td>";
-
-                            if (r.claimslist[i].Discount == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].Discount + "</td>";
-
-                            if (r.claimslist[i].ApprovAmount == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ApprovAmount + "</td>";
-
-                            if (r.claimslist[i].CopayAmt == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].CopayAmt + "</td>";
-
-                            if (r.claimslist[i].AfterCopay == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].AfterCopay + "</td>";
-
-                            if (r.claimslist[i].LocalAmount == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].LocalAmount + "</td>";
-
-                            if (r.claimslist[i].ImportAmount == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ImportAmount + "</td>";
-
-                            if (r.claimslist[i].LocalDisc == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].LocalDisc + "</td>";
-
-                            if (r.claimslist[i].ImportDisc == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].ImportDisc + "</td>";
-
-                            if (r.claimslist[i].TotalDiscount == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].TotalDiscount + "</td>";
-
-                            if (r.claimslist[i].Net == null)
-                                data += "<td>--</td>";
-                            else
-                                data += "<td>" + r.claimslist[i].Net + "</td>" +
-                                    "</tr>";
+                            var data = "<tr>" +
+                                "<td>" + (r.claimslist[i].Services || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].SercvName || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].ClaimSubmitted || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].OverInsurance || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].Discount || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].ApprovAmount || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].CopayAmt || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].AfterCopay || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].LocalAmount || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].ImportAmount || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].LocalDisc || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].ImportDisc || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].TotalDiscount || "--") + "</td>" +
+                                "<td>" + (r.claimslist[i].Net || "--") + "</td>" +
+                                "</tr>";
                             setData.append(data);
                         }
                         $('#ClaimDetails').DataTable();
@@ -892,85 +829,51 @@
         //  window.location.reload();
         window.open('/CustomerService/PrintApproval?ApprovalCode=' + AppCode);
     }
+    function PrintRoshita(clm) {
+        var clm = $('#ClaimNumber').val();
+        window.open('/ReviewClaims/PrintRoshita?claimNo=' + clm);
+    }
+    function DownloadClaim() {
+        var clm = $('#ClaimNumber').val();
+        $.ajax({
+            url: '/ReviewClaims/DownloadClaim', 
+            type: 'GET',
+            data: { claimNo: clm }, 
+            success: function (response) {
+                if (response.success === false) {
+                    alert(response.message);
+                } else {                    
+                    var fileUrl = '/ReviewClaims/DownloadClaim?claimNo=' + encodeURIComponent(clm);
+                    window.open(fileUrl, '_blank');
+                }
+            },
+            error: function () {
+                alert("An error occurred while trying to download the file.");
+            }
+        });
+    }
 
     function PrintSummary() {
 
         if ($("#CompNum").val() != "") {
 
-            var compId = $("#CompNum").val();
-            var servFrom = $("#ServDateFrom").val();
-            var servTo = $("#ServDateTo").val();
-            var regFrom = $("#RegDateFrom").val();
-            var regTo = $("#RegDateTo").val();
+            var compId = $("#CompNum").val();          
             var aprovNo = $("#ApprovalNo").val();
             var cardId = $("#CardId").val();
             var invocNo = $("#InvoicNo").val();
             var batchNo = $("#BatchNo").val();
 
             if ($("#excel").is(":checked"))
-                window.open('/ReviewClaims/PrintExcel?compId=' + compId +
-                    '&&servFrom=' + servFrom + '&&servTo=' + servTo +
-                    '&&regFrom=' + regFrom + '&&regTo=' + regTo +
+                window.open('/ReviewClaims/PrintExcel?compId=' + compId +                   
                     '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
                     '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
             else
-                window.open('/ReviewClaims/PrintPdf?compId=' + compId +
-                    '&&servFrom=' + servFrom + '&&servTo=' + servTo +
-                    '&&regFrom=' + regFrom + '&&regTo=' + regTo +
+                window.open('/ReviewClaims/PrintPdf?compId=' + compId +                   
                     '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
                     '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
         }
         else
             alert("Comp Id is empty");
-
-
-        if (RegistrationFrom != "" && RegistrationTo != "") {
-
-
-
-            //chick if not search with card number
-            if ($("#excel").is(":checked")) {
-                // do something if the excel is  checked
-                if ($("#pdf").is(":checked")) {
-                    // do something if the pdf is  checked
-                    // Print PDF and EXCEL
-                    window.open('/ReportMain/PrintReportsMedPdf?Regfrom=' + RegistrationFrom +
-                        '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
-                        '&&usernam=' + usernam + '&&medcod=' + medcod +
-                        '&&type=' + type + '&&RepotType=' + RepotType +
-                        '&&crd=' + crd + '&&typmngr=' + typmngr);
-
-                    window.open('/ReportMain/PrintReportsMedExcel?Regfrom=' + RegistrationFrom +
-                        '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
-                        '&&usernam=' + usernam + '&&medcod=' + medcod +
-                        '&&type=' + type + '&&RepotType=' + RepotType +
-                        '&&crd=' + crd + '&&typmngr=' + typmngr);
-                }
-                else {
-                    // Print EXCEL Only
-                    window.open('/ReportMain/PrintReportsMedExcel?Regfrom=' + RegistrationFrom +
-                        '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
-                        '&&usernam=' + usernam + '&&medcod=' + medcod +
-                        '&&type=' + type + '&&RepotType=' + RepotType +
-                        '&&crd=' + crd + '&&typmngr=' + typmngr);
-                }
-
-            }
-            else {
-                // Print PDF as Default
-                window.open('/ReportMain/PrintReportsMedPdf?Regfrom=' + RegistrationFrom +
-                    '&&Regto=' + RegistrationTo + '&&CopmanyNumber=' + CopmanyNumber +
-                    '&&usernam=' + usernam + '&&medcod=' + medcod +
-                    '&&type=' + type + '&&RepotType=' + RepotType +
-                    '&&crd=' + crd + '&&typmngr=' + typmngr);
-            }
-
-        }
-        else {
-            toastr.info('select date " From " and " TO " of Registration date first');
-        }
-
-
     }
 
 </script>

@@ -1074,6 +1074,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Reports\HR\CompanyBatchReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CompanyBatchReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\HR\LetterTransfer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1406,6 +1412,7 @@
     <Compile Include="ViewModel\EmployeeVM\ConfirmRegisterEmployeeVM.cs" />
     <Compile Include="ViewModel\HospitalVM\ApprovalComp.cs" />
     <Compile Include="ViewModel\HR\ChronicDetailsViewModel.cs" />
+    <Compile Include="ViewModel\HR\BatchViewModel.cs" />
     <Compile Include="ViewModel\HR\InvoiceViewModel.cs" />
     <Compile Include="ViewModel\HR\MedicalApprovalViewModel.cs" />
     <Compile Include="ViewModel\HR\ClaimDetailsViewModel.cs" />
@@ -8679,8 +8686,13 @@
     <Content Include="Reports\HR\ReviewCliamsReportSummary.rpt" />
     <Content Include="Views\ReviewClaims\History - Copy.cshtml" />
     <Content Include="Views\ReviewClaims\CompanyInvoice.cshtml" />
-    <Content Include="Views\ReviewClaims\BatchInvoice.cshtml" />
     <Content Include="Views\ReviewClaims\BatchReview.cshtml" />
+    <Content Include="Reports\HR\CompanyInvoiceReport.rpt" />
+    <Content Include="Reports\HR\OneClaimReport.rpt" />
+    <Content Include="Reports\HR\File\3040924684898.pdf" />
+    <Content Include="Reports\HR\File\3091024700345.pdf" />
+    <Content Include="Reports\HR\File\3241124705958.pdf" />
+    <Content Include="Reports\HR\File\3311024694755.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
@@ -8944,6 +8956,10 @@
     <EmbeddedResource Include="Reports\AllClaimsReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>AllClaimsReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\HR\CompanyBatchReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CompanyBatchReport.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\HR\LetterTransfer.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

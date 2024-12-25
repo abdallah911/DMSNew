@@ -250,8 +250,8 @@ namespace DMS_Authontication1.Data_Function
             DataTable dd = new DataTable();
             try
             {
-                    cmd = new OracleCommand(@"SELECT t1.COMP_ID, t2.C_ANAME, TO_CHAR(t2.START_DATE,'DD-MM-YYYY') START_DATE, TO_CHAR(t2.END_DATE,'DD-MM-YYYY') END_DATE, t1.COUNT_CLAIM, t1.GROSS, t1.NET, t1.INVOICE_NO
-                                              FROM  (   SELECT  COMP_ID, INVOICE_NO, COUNT(CLAIM_NO) COUNT_CLAIM, SUM(CLAIM_SUBMITTED) GROSS, SUM(NET) NET
+                    cmd = new OracleCommand(@"SELECT t1.COMP_ID, t2.C_ANAME, TO_CHAR(t2.START_DATE,'DD-MM-YYYY') START_DATE, TO_CHAR(t2.END_DATE,'DD-MM-YYYY') END_DATE, t1.COUNT_BATCH, t1.COUNT_CLAIM, t1.GROSS, t1.NET, t1.INVOICE_NO
+                                              FROM  (   SELECT  COMP_ID, INVOICE_NO, COUNT(DISTINCT BATCH_NO) COUNT_BATCH, COUNT(DISTINCT CLAIM_NO) COUNT_CLAIM, SUM(CLAIM_SUBMITTED) GROSS, SUM(NET) NET
                                                         FROM    APP.REVIEW_CLAIMS
                                                         WHERE     COMP_ID BETWEEN :comp1 AND :comp2                                                      
                                                               AND TRUNC(TO_DATE(CREATED_DATE)) BETWEEN TRUNC(TO_DATE(:reg1)) AND TRUNC(TO_DATE(:reg2))
@@ -275,6 +275,130 @@ namespace DMS_Authontication1.Data_Function
                 cmd.Parameters.Add(":batch1", OracleType.Number).Value = batch1;
                 cmd.Parameters.Add(":batch2", OracleType.Number).Value = batch2;
                 
+                da = new OracleDataAdapter(cmd);
+
+                da.Fill(dd);
+                con.Dispose();
+                con.Close();
+
+
+                return dd;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);  
+                string logFilePath = HostingEnvironment.MapPath("~/Reports/HR/logs.txt");
+                using (StreamWriter writer = new StreamWriter(logFilePath, true))
+                {
+                    writer.WriteLine(ex.Message.ToString());
+                }
+
+                return dd;
+            }
+
+            finally
+            {
+                if (con.State != ConnectionState.Closed)
+                {
+                    con.Dispose();
+                    con.Close();
+
+                    OracleConnection.ClearAllPools();
+                }
+            }
+        }
+        public DataTable getBatch(Int64 cmp, Int64 invoc)
+        {
+            OracleConnection con = new OracleConnection(connectionStr);
+            OracleCommand cmd = new OracleCommand();
+            OracleDataAdapter da;
+            DataTable dd = new DataTable();
+            try
+            {
+                cmd = new OracleCommand(@"  SELECT  BATCH_NO, PRV_NO, PRV_NAME, PROVIDER_TYPE, COUNT(DISTINCT CLAIM_NO) COUNT_CLAIM, SUM(CLAIM_SUBMITTED) GROSS, SUM(NET) NET
+                                            FROM    APP.REVIEW_CLAIMS
+                                            WHERE   COMP_ID = :cmp AND INVOICE_NO = :invoc                                                                
+                                            GROUP BY BATCH_NO, PRV_NO, PRV_NAME, PROVIDER_TYPE ", con);
+
+                cmd.Parameters.Clear();
+
+                cmd.Parameters.Add(":cmp", OracleType.Number).Value = cmp;
+                cmd.Parameters.Add(":invoc", OracleType.Number).Value = invoc;
+
+                da = new OracleDataAdapter(cmd);
+
+                da.Fill(dd);
+                con.Dispose();
+                con.Close();
+
+                OracleConnection.ClearAllPools();
+
+                return dd;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);                
+                return dd;
+            }
+
+            finally
+            {
+                if (con.State != ConnectionState.Closed)
+                {
+                    con.Dispose();
+                    con.Close();
+
+                    OracleConnection.ClearAllPools();
+                }
+            }
+        }
+        public DataTable getClaims(int cmp, Int64 aprov1, Int64 aprov2, string crd, Int64 invoc1, Int64 invoc2, 
+                                   Int64 batch1, Int64 batch2)
+        {
+            OracleConnection con = new OracleConnection(connectionStr);
+            OracleCommand cmd = new OracleCommand();
+            OracleDataAdapter da;
+            DataTable dd = new DataTable();
+            try
+            {
+                if (string.IsNullOrEmpty(crd) == false)
+                    cmd = new OracleCommand(@" SELECT  DISTINCT CLAIM_NO, TO_CHAR(CREATED_DATE,'DD-MM-YYYY') CREATED_DATE, TO_CHAR(CLAIM_DATE,'DD-MM-YYYY') CLAIM_DATE,
+                                                       CARD_NO, EMP_ANAME EMP_NAME, CLAIM_SUBMITTED GROSS, NET, TAKHASOS DIAGNOSIS, SERV_TYPE
+                                                FROM    APP.REVIEW_CLAIMS 
+                                                WHERE       COMP_ID = :cmp 
+                                                      AND   CARD_NO = :crd                                                     
+                                                      AND CLAIM_NO BETWEEN :aprov1 AND :aprov2
+                                                      AND NVL(INVOICE_NO, 0) BETWEEN :invoc1 AND :invoc2
+                                                      AND NVL(BATCH_NO, 0) BETWEEN :batch1 AND :batch2
+                                                      AND NET IS NOT NULL", con);
+                else
+                    cmd = new OracleCommand(@" SELECT  DISTINCT CLAIM_NO, TO_CHAR(CREATED_DATE,'DD-MM-YYYY') CREATED_DATE, TO_CHAR(CLAIM_DATE,'DD-MM-YYYY') CLAIM_DATE,
+                                                       CARD_NO, EMP_ANAME EMP_NAME, CLAIM_SUBMITTED GROSS, NET, TAKHASOS DIAGNOSIS, SERV_TYPE
+                                                FROM    APP.REVIEW_CLAIMS 
+                                                WHERE       COMP_ID = :cmp                                                     
+                                                      AND CLAIM_NO BETWEEN :aprov1 AND :aprov2
+                                                      AND NVL(INVOICE_NO, 0) BETWEEN :invoc1 AND :invoc2
+                                                      AND NVL(BATCH_NO, 0) BETWEEN :batch1 AND :batch2
+                                                      AND NET IS NOT NULL", con);
+
+
+
+                cmd.Parameters.Clear();
+
+
+                cmd.Parameters.Add(":cmp", OracleType.Number).Value = cmp;
+
+                cmd.Parameters.Add(":aprov1", OracleType.Number).Value = aprov1;
+                cmd.Parameters.Add(":aprov2", OracleType.Number).Value = aprov2;
+                cmd.Parameters.Add(":invoc1", OracleType.Number).Value = invoc1;
+                cmd.Parameters.Add(":invoc2", OracleType.Number).Value = invoc2;
+                cmd.Parameters.Add(":batch1", OracleType.Number).Value = batch1;
+                cmd.Parameters.Add(":batch2", OracleType.Number).Value = batch2;
+
+                if (string.IsNullOrEmpty(crd) == false)
+                    cmd.Parameters.Add(":crd", OracleType.VarChar).Value = crd;
+
+
                 da = new OracleDataAdapter(cmd);
 
                 da.Fill(dd);

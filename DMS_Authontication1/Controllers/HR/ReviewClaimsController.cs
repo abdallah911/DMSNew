@@ -194,6 +194,7 @@ namespace DMS_Authontication1.Controllers.HR
                         CompName = row["C_ANAME"].ToString(),
                         StartDate = row["START_DATE"].ToString(),
                         EndDate = row["END_DATE"].ToString(),
+                        CountOfBatch = row["COUNT_BATCH"].ToString(),
                         CountOfClaim = row["COUNT_CLAIM"].ToString(),
                         Gross = row["GROSS"].ToString(),
                         Net = row["NET"].ToString(),
@@ -205,17 +206,41 @@ namespace DMS_Authontication1.Controllers.HR
             else
                 return new JsonResult { Data = new { invoicelist = invo, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
         }
-        #endregion
 
-        #region BatchReview
-        public JsonResult GetClaims(string compId, string servFrom, string servTo, string regFrom, string regTo,
-                                    string aprovNo, string cardId, string invocNo, string batchNo)
+        public JsonResult GetBatchDetails(string compNo, string invocNo)
         {
-            //string compId, string servFrom, string servTo, string regFrom, string regTo,
-            //                        string aprovNo, string cardId, string invocNo, string batchNo
+            DataTable dt = new DataTable();
 
-            Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
-           
+            dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo));
+
+            List<BatchViewModel> clms = new List<BatchViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    clms.Add(new BatchViewModel
+                    {
+                        BatchNumber = row["BATCH_NO"].ToString(),
+                        ProviderID = row["PRV_NO"].ToString(),
+                        ProviderName = row["PRV_NAME"].ToString(),
+                        ProviderType = row["PROVIDER_TYPE"].ToString(),
+                        CountOfClaim = row["COUNT_CLAIM"].ToString(),
+                        Gross = row["GROSS"].ToString(),
+                        Net = row["NET"].ToString()
+                    });
+                }
+                return new JsonResult { Data = new { batchlist = clms, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+            }
+            else
+                return new JsonResult { Data = new { batchlist = clms, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+        }
+
+        public ActionResult PrintCompanyInvoiceReport(string compId, string servFrom, string servTo, string regFrom, string regTo,
+                                                      string invocNo, string batchNo, int typ)
+        {
+            Int64 invocNoFrom, invocNoTo, batchNoFrom, batchNoTo, comp1, comp2;
+
             DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
 
             regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
@@ -223,6 +248,159 @@ namespace DMS_Authontication1.Controllers.HR
             servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
             servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
 
+            comp1 = string.IsNullOrEmpty(compId) ? 0 : Convert.ToInt64(compId);
+            comp2 = string.IsNullOrEmpty(compId) ? 999999999999999999 : Convert.ToInt64(compId);
+
+            invocNoFrom = string.IsNullOrEmpty(invocNo) ? 0 : Convert.ToInt64(invocNo);
+            invocNoTo = string.IsNullOrEmpty(invocNo) ? 999999999999999999 : Convert.ToInt64(invocNo);
+            batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
+            batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
+
+            DataTable dt = new DataTable();
+
+            dt = dbData.getInvoices(comp1, comp2, servDateFrom, servDateTo, regDateFrom, regDateTo,
+                                    invocNoFrom, invocNoTo, batchNoFrom, batchNoTo);
+
+            List<InvoiceViewModel> invo = new List<InvoiceViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    invo.Add(new InvoiceViewModel
+                    {
+                        CompId = row["COMP_ID"].ToString(),
+                        CompName = row["C_ANAME"].ToString(),
+                        StartDate = row["START_DATE"].ToString(),
+                        EndDate = row["END_DATE"].ToString(),
+                        CountOfBatch = row["COUNT_BATCH"].ToString(),
+                        CountOfClaim = row["COUNT_CLAIM"].ToString(),
+                        Gross = row["GROSS"].ToString(),
+                        Net = row["NET"].ToString(),
+                        InvoiceNo = row["INVOICE_NO"].ToString()
+                    });
+                }              
+            }
+
+            ReportDocument rd = new ReportDocument();
+
+
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "CompanyInvoiceReport.rpt"));
+            rd.SetDataSource(invo);
+            
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+             
+            try
+            {
+                if (typ == 1)
+                {
+                    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    rd.Close();
+                    rd.Dispose();
+                    GC.Collect();
+                    return File(stream, "application/pdf", "CompanyInvoiceReport-" + DateTime.Now.ToString("ddMMyyyy") + ".pdf");
+                }
+                else
+                {
+                    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    rd.Close();
+                    rd.Dispose();
+                    GC.Collect();
+                    return File(stream, "application/xls", "CompanyInvoiceReport-" + DateTime.Now.ToString("ddMMyyyy") + ".xls");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public ActionResult PrintBatchReviewReport(string compNo, string invocNo, int typ)
+        {
+            DataTable dt = new DataTable();
+
+            dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo));
+
+            List<BatchViewModel> clms = new List<BatchViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    clms.Add(new BatchViewModel
+                    {
+                        BatchNumber = row["BATCH_NO"].ToString(),
+                        ProviderID = row["PRV_NO"].ToString(),
+                        ProviderName = row["PRV_NAME"].ToString(),
+                        ProviderType = row["PROVIDER_TYPE"].ToString(),
+                        CountOfClaim = row["COUNT_CLAIM"].ToString(),
+                        Gross = row["GROSS"].ToString(),
+                        Net = row["NET"].ToString()
+                    });
+                }
+            }
+
+            ReportDocument rd = new ReportDocument();
+
+
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "CompanyBatchReport.rpt"));
+            rd.SetDataSource(clms);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                if (typ == 1)
+                {
+                    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    rd.Close();
+                    rd.Dispose();
+                    GC.Collect();
+                    return File(stream, "application/pdf", "BatchReviewReport-" + DateTime.Now.ToString("ddMMyyyy") + ".pdf");
+                }
+                else
+                {
+                    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.ExcelRecord);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    rd.Close();
+                    rd.Dispose();
+                    GC.Collect();
+                    return File(stream, "application/xls", "BatchReviewReport-" + DateTime.Now.ToString("ddMMyyyy") + ".xls");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region BatchReview       
+        [HttpPost]
+        public ActionResult BatchReview(string batchNumber, string providerID, string providerName,
+                                       string invoiceNumber, string compNumber, string compName)
+        {
+            ViewBag.BatchNumber = batchNumber;
+            ViewBag.ProviderID = providerID;
+            ViewBag.ProviderName = providerName;
+            ViewBag.InvoiceNumber = invoiceNumber;
+            ViewBag.CompNumber = compNumber;
+            ViewBag.CompName = compName;
+
+            return View();
+        }              
+        public JsonResult GetClaims(string compId, string aprovNo, string cardId, string invocNo, string batchNo)
+        {
+            //string compId, string servFrom, string servTo, string regFrom, string regTo,
+            //                        string aprovNo, string cardId, string invocNo, string batchNo
+
+            Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
 
             aprovNoFrom = string.IsNullOrEmpty(aprovNo) ? 0 : Convert.ToInt64(aprovNo);
             aprovNoTo = string.IsNullOrEmpty(aprovNo) ? 999999999999999999 : Convert.ToInt64(aprovNo);
@@ -230,14 +408,13 @@ namespace DMS_Authontication1.Controllers.HR
             invocNoTo = string.IsNullOrEmpty(invocNo) ? 999999999999999999 : Convert.ToInt64(invocNo);
             batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
             batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
-            
+
             int comp = Convert.ToInt32(compId);
 
             DataTable dt = new DataTable();
 
-                dt = dbData.getClaims(comp, servDateFrom, servDateTo, regDateFrom, regDateTo, aprovNoFrom, aprovNoTo, 
-                                      cardId, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo);
-           
+            dt = dbData.getClaims(comp, aprovNoFrom, aprovNoTo, cardId, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo);
+
             List<ClaimsViewModel> clms = new List<ClaimsViewModel>();
 
             if (dt.Rows.Count != 0)
@@ -251,10 +428,10 @@ namespace DMS_Authontication1.Controllers.HR
                         ClaimDate = row["CLAIM_DATE"].ToString(),
                         CardNo = row["CARD_NO"].ToString(),
                         EmpName = row["EMP_NAME"].ToString(),
-                        ProvName = row["PRV_NAME"].ToString(),
-                        ProvType = row["PROVIDER_TYPE"].ToString(),
                         Diagnosis = row["DIAGNOSIS"].ToString(),
-                        ServType = row["SERV_TYPE"].ToString()                        
+                        ServType = row["SERV_TYPE"].ToString(),
+                        Gross = row["GROSS"].ToString(),
+                        Net = row["NET"].ToString()                       
                     });
                 }
                 return new JsonResult { Data = new { claimslist = clms, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
@@ -262,9 +439,8 @@ namespace DMS_Authontication1.Controllers.HR
             else
                 return new JsonResult { Data = new { claimslist = clms, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
         }
-
         public JsonResult GetClaimDetails(string claimNo)
-        {           
+        {
             DataTable dt = new DataTable();
 
             dt = dbData.getClaimDetails(Int64.Parse(claimNo));
@@ -298,7 +474,76 @@ namespace DMS_Authontication1.Controllers.HR
             else
                 return new JsonResult { Data = new { claimslist = clms, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
         }
+        public JsonResult GetActiveEmployess(string search, int page)
+        {
+            ApplicationDbContext users = new ApplicationDbContext();
+            var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+            if (User.IsInRole("HR_Admin"))
+            {
+                var companyId = db.HrAdminCompanies.Where(c => c.UserId == CurrentUser.Id).Select(c => c.CompId).ToList();
+                if (companyId[0] == "All")
+                {
+                    int compId = int.Parse(search.Split('-')[0]);
+                    int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == compId).Max(x => x.CONTRACT_NO);
+                    var Employees = db.fn_GetEmployessForCompany(compId, maxcontract, "N", search)
+                                     .Select(c => new
+                                     {
+                                         id = c.id,
+                                         text = c.text
+                                     }).ToList();
+                    return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                else
+                {
+                    if (companyId.Contains(search.Split('-')[0]))
+                    {
+                        int compId = int.Parse(search.Split('-')[0]);
+                        int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == compId).Max(x => x.CONTRACT_NO);
+                        var Employees = db.fn_GetEmployessForCompany(compId, maxcontract, "N", search)
+                                         .Select(c => new
+                                         {
+                                             id = c.id,
+                                             text = c.text
+                                         }).ToList();
+                        return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
+                    return new JsonResult { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
+                }
+
+            }
+
+            else if (User.IsInRole("Admin"))
+            {
+                int compId = int.Parse(search.Split('-')[0]);
+                int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == compId).Max(x => x.CONTRACT_NO);
+                var Employees = db.fn_GetEmployessForCompany(compId, maxcontract, "N", search)
+                                 .Select(c => new
+                                 {
+                                     id = c.id,
+                                     text = c.text
+                                 }).ToList();
+
+
+                return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            else
+            {
+                int Provider = Convert.ToInt32(CurrentUser.Provider);
+                int maxcontract = db.Contract_Data.Where(x => x.C_COMP_ID == Provider).Max(x => x.CONTRACT_NO);
+                var Employees = db.fn_GetEmployessForCompany(Provider, maxcontract, "N", search)
+                   .Select(c => new
+                   {
+                       id = c.id,
+                       text = c.text
+                   }).ToList();
+
+                return new JsonResult { Data = Employees, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+
+        }
         public ActionResult PrintAllClaims(string compId, string servFrom, string servTo, string regFrom, string regTo,
                                             string aprovNo, string cardId, string invocNo, string batchNo)
         {
@@ -536,8 +781,7 @@ namespace DMS_Authontication1.Controllers.HR
                 return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
-        public ActionResult PrintPdf(string compId, string servFrom, string servTo, string regFrom, string regTo,
-                                     string aprovNo, string cardId, string invocNo, string batchNo)
+        public ActionResult PrintPdf(string compId, string aprovNo, string cardId, string invocNo, string batchNo)
         {
             Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
 
@@ -545,10 +789,10 @@ namespace DMS_Authontication1.Controllers.HR
 
             string cardStart, cardEnd;
 
-            regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
-            regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
-            servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
-            servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
+            regDateFrom = new DateTime(2020, 1, 1);
+            regDateTo = DateTime.Now.Date;
+            servDateFrom = new DateTime(2017, 1, 1) ;
+            servDateTo = DateTime.Now.Date;
 
 
             aprovNoFrom = string.IsNullOrEmpty(aprovNo) ? 0 : Convert.ToInt64(aprovNo);
@@ -606,8 +850,7 @@ namespace DMS_Authontication1.Controllers.HR
                 throw ex;
             }
         }
-        public ActionResult PrintExcel(string compId, string servFrom, string servTo, string regFrom, string regTo,
-                                       string aprovNo, string cardId, string invocNo, string batchNo)
+        public ActionResult PrintExcel(string compId, string aprovNo, string cardId, string invocNo, string batchNo)
         {
             Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
 
@@ -615,11 +858,10 @@ namespace DMS_Authontication1.Controllers.HR
 
             string cardStart, cardEnd;
 
-            regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
-            regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
-            servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
-            servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
-
+            regDateFrom = new DateTime(2020, 1, 1);
+            regDateTo = DateTime.Now.Date;
+            servDateFrom = new DateTime(2017, 1, 1);
+            servDateTo = DateTime.Now.Date;
 
             aprovNoFrom = string.IsNullOrEmpty(aprovNo) ? 0 : Convert.ToInt64(aprovNo);
             aprovNoTo = string.IsNullOrEmpty(aprovNo) ? 999999999999999999 : Convert.ToInt64(aprovNo);
@@ -676,8 +918,123 @@ namespace DMS_Authontication1.Controllers.HR
                 throw ex;
             }
         }
+        public ActionResult PrintRoshita(string claimNo)
+        {
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "OneClaimReport.rpt"));
+
+            rd.SetDatabaseLogon("APP", "12369");
+
+            rd.SetParameterValue("clm", claimNo);
+            
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+
+                rd.Dispose();
+                GC.Collect();
+                return File(stream, "application/pdf", DateTime.Now.ToString("ddMMyyyy") + "-Roshita.pdf");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public ActionResult DownloadClaim(string claimNo)
+        {
+            string fileName = claimNo + ".pdf";
+            string filePath = Server.MapPath("~/Reports/HR/File/" + fileName);
+
+            if (!System.IO.File.Exists(filePath))
+            {
+                return Json(new { success = false, message = "File not found" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return File(filePath, "application/pdf", fileName);
+
+            //byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            //string contentType = MimeMapping.GetMimeMapping(fileName); 
+
+            //return File(fileBytes, contentType, fileName);
+        }
+
+        //[HttpPost]
+        //public ActionResult RedirectToBatchReview(string batchNumber, string providerId, string providerName, string invoiceNumber, string compNumber, string compName)
+        //{
+        //    // Construct the URL dynamically based on parameters
+        //    var redirectUrl = Url.Action("BatchReview", "ReviewClaims", new
+        //    {
+        //        batchNumber = batchNumber,
+        //        providerId = providerId,
+        //        providerName = providerName,
+        //        invoiceNumber = invoiceNumber,
+        //        compNumber = compNumber,
+        //        compName = compName
+        //    });
+
+        //    // Return the redirect URL as part of the response
+        //    return Json(new { redirectUrl = redirectUrl });
+        //}
+
+        //public JsonResult GetClaims(string compId, string servFrom, string servTo, string regFrom, string regTo,
+        //                            string aprovNo, string cardId, string invocNo, string batchNo)
+        //{
+        //    //string compId, string servFrom, string servTo, string regFrom, string regTo,
+        //    //                        string aprovNo, string cardId, string invocNo, string batchNo
+
+        //    Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
+
+        //    DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
+
+        //    regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
+        //    regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
+        //    servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
+        //    servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
 
 
+        //    aprovNoFrom = string.IsNullOrEmpty(aprovNo) ? 0 : Convert.ToInt64(aprovNo);
+        //    aprovNoTo = string.IsNullOrEmpty(aprovNo) ? 999999999999999999 : Convert.ToInt64(aprovNo);
+        //    invocNoFrom = string.IsNullOrEmpty(invocNo) ? 0 : Convert.ToInt64(invocNo);
+        //    invocNoTo = string.IsNullOrEmpty(invocNo) ? 999999999999999999 : Convert.ToInt64(invocNo);
+        //    batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
+        //    batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
+
+        //    int comp = Convert.ToInt32(compId);
+
+        //    DataTable dt = new DataTable();
+
+        //        dt = dbData.getClaims(comp, servDateFrom, servDateTo, regDateFrom, regDateTo, aprovNoFrom, aprovNoTo, 
+        //                              cardId, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo);
+
+        //    List<ClaimsViewModel> clms = new List<ClaimsViewModel>();
+
+        //    if (dt.Rows.Count != 0)
+        //    {
+        //        foreach (DataRow row in dt.Rows)
+        //        {
+        //            clms.Add(new ClaimsViewModel
+        //            {
+        //                ClaimNo = row["CLAIM_NO"].ToString(),
+        //                CreatedDate = row["CREATED_DATE"].ToString(),
+        //                ClaimDate = row["CLAIM_DATE"].ToString(),
+        //                CardNo = row["CARD_NO"].ToString(),
+        //                EmpName = row["EMP_NAME"].ToString(),
+        //                ProvName = row["PRV_NAME"].ToString(),
+        //                ProvType = row["PROVIDER_TYPE"].ToString(),
+        //                Diagnosis = row["DIAGNOSIS"].ToString(),
+        //                ServType = row["SERV_TYPE"].ToString()                        
+        //            });
+        //        }
+        //        return new JsonResult { Data = new { claimslist = clms, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+        //    }
+        //    else
+        //        return new JsonResult { Data = new { claimslist = clms, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
+        //}
 
         #endregion
 

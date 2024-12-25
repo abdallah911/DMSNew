@@ -14,9 +14,11 @@ namespace DMS_Authontication1.ViewModel.HR
         public string ClaimDate { get; set; }
         public string CardNo { get; set; }
         public string EmpName { get; set; }
-        public string ProvName { get; set; }
-        public string ProvType { get; set; }
+        //public string ProvName { get; set; }
+        //public string ProvType { get; set; }
         public string Diagnosis { get; set; }
         public string ServType { get; set; }
+        public string Gross { get; set; }
+        public string Net { get; set; }
     }
 }
