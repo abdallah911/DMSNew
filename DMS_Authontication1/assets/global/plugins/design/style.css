@@ -190,7 +190,19 @@ a:hover, a:active {
     font-weight: 600;
     color: #fff !important;
 }
-
+@media (min-width: 992px) and (max-width: 1112px) {
+    .site-navigation ul li a {
+        font-size: 12px;
+    } 
+}
+@media (min-width: 992px) and (max-width: 1150px) { 
+    ul#loginBtn {
+        padding-left: 0 !important;
+    }
+    ul#loginBtn > li  {
+        margin-left: 0 !important;
+    }
+}
 @media screen and (min-width: 992px) {
     .site-navigation ul {
         position: relative;
