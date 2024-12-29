@@ -584,7 +584,7 @@ $(function () {
                                             Cash: $('#txtValueCash').val(),
                                             PhoneNumber: $('#PhoneNumber').val(),
                                             ClaimNumber: $('#ClaimNumber').val(),
-                                            Diagnose1: $('#Comments').val(),
+                                            //Diagnose1: $('#Comments').val(),
                                             Diagnose2: NationalId,
                                             createdby: $('#ddlUsers').val() == undefined ? null : $('#ddlUsers :selected').val(),
                                             IsFamily: $('#IsFamily').val() == '' ? null : $('#IsFamily').val(),
@@ -1166,7 +1166,7 @@ function ClearCardData() {
     $('#Co_insurance_INSURANCE_DAY_LAB').val('');
     //$('#Co_insurance_INSURANCE_MONTH_LAB').val('');
     $('#ddEmp_CEILING_PERT').val('');
-    $('#Comments').val('');
+    //$('#Comments').val('');
     $("#submit").attr("disabled", false);
 }
 function ClearLabData() {
