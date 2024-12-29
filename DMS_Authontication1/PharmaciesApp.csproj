@@ -1545,6 +1545,8 @@
     <Content Include="assets\global\img\clients\لوجو-مكتبة-الإسكندرية.png" />
     <Content Include="assets\global\img\clients\وزارة_الطيران_المدني.png" />
     <Content Include="assets\global\img\datatable-row-openclose.png" />
+    <Content Include="assets\global\img\Events\logo-new-year.png" />
+    <Content Include="assets\global\img\Events\welcome-new-year-2025.png" />
     <Content Include="assets\global\img\flags\ad.png" />
     <Content Include="assets\global\img\flags\ae.png" />
     <Content Include="assets\global\img\flags\af.png" />
@@ -8693,6 +8695,7 @@
     <Content Include="Reports\HR\File\3091024700345.pdf" />
     <Content Include="Reports\HR\File\3241124705958.pdf" />
     <Content Include="Reports\HR\File\3311024694755.pdf" />
+    <Content Include="Views\Abuse\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

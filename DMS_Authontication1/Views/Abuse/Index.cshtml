@@ -1,0 +1,140 @@
+﻿@model IEnumerable<DMS_Authontication1.ViewModel.ApprovalComp>
+@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    var Create = false;
+    var modellist = new List<ModulesPagesViewModel>();
+    var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+    if (claim != null)
+    {
+        modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+        if (modellist != null)
+        {
+            var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 15 && (x.FullControl || x.EditPermission
+                                          || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+            if (obj != null)
+            {
+                edit = obj.EditPermission;
+                delete = obj.ActivationControl;
+                view = obj.Preview;
+                fullcontroll = obj.FullControl;
+                Create = obj.AddPermission;
+
+            }
+        }
+    }
+}
+@*<h2>Index</h2>*@
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+<input type="text" id="compname" value="@ViewBag.CompId" hidden="hidden" />
+<div class="dms-container">
+
+    @if (fullcontroll || view)
+    {
+        <div class="portlet box  ">
+            <div class="portlet-title title-bg">
+                <div class="caption">
+                    <i class="fa-solid fa-home"></i>Activation of Company Contract
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row ">
+                    <div class="col-md-12">
+                        <form class="form-horizontal" action="/add/Employees/New" method="POST" enctype="multipart/form-data">
+                            <!-- BEGIN PAGE HEADER-->
+                            <!-- BEGIN THEME PANEL -->
+
+                            <div class="form-wizard">
+                                <div class="form-body">
+                                    <div class="tab-content">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                                        <div class="row">
+
+                                        </div>
+
+
+                                        <div class="row" style="padding-bottom: 15px;">
+                                            <div class="col-md-2 mb-3">
+                                                <select class="form-control"><option>Company Number</option></select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <select class="form-control"><option>Contract Number</option></select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div style=" text-align:right">
+                    <button id="new" type="button" class="btn btn-secondary-outline" onclick="ResetSearch()"><span class="fa fa-refresh"></span> Reset</button>
+                    @* <button id="Search" type="button" class="btn btn-success" onclick="SearchProvider()"><span class="glyphicon glyphicon-search"></span> Search</button>*@
+                    <input id="Print" type="button" value="Print" class="btn btn-primary fa fa-file-pdf-o" onclick="PrintApprovalXsl()" />
+                    <input id="activate" type="button" value="Activate" class="btn btn-primary fa fa-file-pdf-o" />
+
+                    @*<input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
+                        <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />*@
+
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script>
+    //$(document).ready(function () {
+    //    $('#RegistrationFrom').datepicker({});
+    //    $('#RegistrationTo').datepicker({});
+    //    $('#AproveList').DataTable();
+
+    //    //$("#CopmanyNumber").change(function () {// class levels
+    //    //    var compNu = $("#CopmanyNumber").val();
+    //    //    $("#compname").val(compNu);
+    //    //});
+
+    //    //$("#CopmanyNumber").map(function () {// class levels
+    //    //    var compNu = $("#CopmanyNumber").val();
+    //    //    $("#compname").val(compNu);
+    //    //});
+    //});
+    //$(function () {
+    //    $("#CompanyId").change(function () {//address
+    //        window.location.replace('/MedicalApproval/Search2?CompId=' + $("#CompanyId").val());
+    //    });
+    //});
+    //function Print(AppCode) {
+    //    var x = String(AppCode);
+    //    //  window.location.reload();
+    //    window.open('/Hospital/Print?ApprovalCode=' + AppCode);
+    //}
+
+    //function ResetSearch() {
+
+    //    $("#RegistrationFrom").val("");
+    //    $('#RegistrationTo').val("");
+    //    $('#txtSearchCard').val("");
+    //    $('#txtSearchCode').val("");
+
+    //}
+    ////Print Approval xls
+    //function PrintApprovalXsl() {
+
+    //    window.open('/MedicalApproval/PrintApprovalXsl/?DateFrom=' + $("#RegistrationFrom").val() +
+    //        '&&DateTo=' + $("#RegistrationTo").val() + '&&ApprovalCode=' + $("#txtSearchCode").val() +
+    //        '&&CardId=' + $("#txtSearchCard").val() + '&&CopmanyNumber=' + $("#CopmanyNumber").val());
+    //}
+</script>

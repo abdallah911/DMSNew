@@ -685,6 +685,27 @@ p:last-of-type {
 .wrap {
     margin-top:0;
 }
+.celebrate-gif {
+    position: absolute;
+    top: -30px;
+    left: 30px;
+    width: 100%;
+    height: 100%;
+}
+.dms-celebrate-gif{
+    position:relative;
+}
+.dms-celebrate-gif .celebrate-gif {
+    top: -13px;
+    left: 43px;
+    width: 80%;
+}
+
+.dms-celebrate-gif .imgmenu { 
+    width: 80px;
+    left: 20px;
+    top: 2px; 
+}
 /* ====================Scroll bar=========================================== */
 ::-webkit-scrollbar {
     border-radius: 20px;

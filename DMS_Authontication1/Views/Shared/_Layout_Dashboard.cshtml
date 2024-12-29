@@ -53,6 +53,7 @@
     <link href="~/assets/global/plugins/design/css/style.css" rel="stylesheet" />
 
     <style>
+
        .navbar {
             display:contents;
         }
@@ -436,7 +437,19 @@
                 </div>
 
                 <div id="navbar" class="navbar-collapse collapse">
-                    <a href="~/Home/Index"><img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" /></a>
+                    <a href="~/Home/Index">
+                        <div style="width: 100px; border-radius: 16px;" class="dms-celebrate-gif img d-flex align-self-stretch">
+                            <div class="celebrate-gif">
+                                <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
+                            </div>
+                            <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" /> 
+
+                        </div>
+                        @*<div class="celebrate-gif">
+              <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
+          </div>
+        <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
+                    </a>
 
                     <ul class="nav navbar-nav nav-admin-cus" style="color: #000; margin-top: 7px;">
                         @{
