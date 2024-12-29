@@ -88,10 +88,30 @@ namespace DMS_Authontication1.Controllers
         public ActionResult Login(string returnUrl)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
+            
             if (user != null)
                 return RedirectToAction("Main", "ControlPanel");
+            
+            var dayy = DateTime.Now.Date;
+
+            //var evnt = tESTEntities.CompanyEvents.Where(e => DateTime.Now >= e.DateFrom && DateTime.Now <= e.DateTo
+            //         && e.Active == true).ToList();
+            var evnt = tESTEntities.CompanyEvents
+                                   .Where(e => System.Data.Entity.DbFunctions.TruncateTime(e.DateFrom) <= dayy
+                                             && System.Data.Entity.DbFunctions.TruncateTime(e.DateTo) >= dayy
+                                             && e.Active == true)
+                                   .ToList();
+
+
+            if (evnt.Count > 0)
+                ViewBag.evnt = 1;
+            else
+                ViewBag.evnt = 0;
+
             ViewBag.ReturnUrl = returnUrl;
+
             return View();
+
         }
         //
         // POST: /Account/Login

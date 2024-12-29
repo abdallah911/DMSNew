@@ -535,6 +535,9 @@
     <Compile Include="Models\CompanyContractPhoto.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CompanyEvent.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Company_Cost_Center.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

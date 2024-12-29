@@ -52,5 +52,9 @@ namespace DMS_Authontication1.Models
         public string SyncBy { get; set; }
         public string POLL_CONSUMPTION { get; set; }
         public Nullable<int> CEILING_PERT_ONEC { get; set; }
+        public string LAB_RAY_HOS { get; set; }
+        public Nullable<int> NUMBER_VISIT { get; set; }
+        public string CORONA { get; set; }
+        public Nullable<int> LAB_RAY_HOS_TYP { get; set; }
     }
 }
