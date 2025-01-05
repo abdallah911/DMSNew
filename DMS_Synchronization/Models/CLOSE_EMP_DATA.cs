@@ -14,4 +14,13 @@ namespace DMS_Synchronization.Models
 
 
     }
+    public class COMP_EMPLOYEES_D /*: BaseEntityDB*/
+    {
+        public string CARD_ID { get; set; }
+
+        public string OLD_CARD_ID { get; set; }
+        public decimal? CONTRACT_NO { get; set; }
+
+
+    }
 }
