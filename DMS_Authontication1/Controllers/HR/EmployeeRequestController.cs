@@ -765,39 +765,46 @@ namespace DMS_Authontication1.Controllers.HR
 
         public JsonResult SaveTerminationRequest(Employee_Request data)
         {
-            ApplicationDbContext users = new ApplicationDbContext();
-            var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+            DateTime datenow = DateTime.Now.Date;
+          
+            var Employee = db.Comp_Employees.Where(x=>x.CARD_ID==data.CARD_ID && x.INS_START_DATE <= datenow && x.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+            Employee.TERMINATE_FLAG = "Y";
+            Employee.TERMINATE_DATE = DateTime.Now;
+            db.Entry(Employee).State = EntityState.Modified;
+            db.SaveChanges();
+            //ApplicationDbContext users = new ApplicationDbContext();
+            //var CurrentUser = users.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
 
-            data.CREATED_BY = User.Identity.Name;
-            data.CREATED_DATE = DateTime.Now;
-            data.TYPE = 3;//Termination request
-            data.APPROVE_FLAG = "Pending";//Pending
-            data.COMP_ID = Convert.ToInt32(CurrentUser.Provider);
+            //data.CREATED_BY = User.Identity.Name;
+            //data.CREATED_DATE = DateTime.Now;
+            //data.TYPE = 3;//Termination request
+            //data.APPROVE_FLAG = "Pending";//Pending
+            //data.COMP_ID = Convert.ToInt32(CurrentUser.Provider);
 
-            db.Employee_Request.Add(data);
+            //db.Employee_Request.Add(data);
 
-            int result = db.SaveChanges();
+            //int result = db.SaveChanges();
 
-            var userid = User.Identity.GetUserId();
-            var Hospitalprovider = UserManager.FindById(userid);
+            //var userid = User.Identity.GetUserId();
+            //var Hospitalprovider = UserManager.FindById(userid);
 
-            string sub = @"Request Employee From " + Hospitalprovider.FName + " " + Hospitalprovider.LName + "  Code : " + Hospitalprovider.Provider;
-            string msg = @"<h3>  Request Code: </h3> " + data.REQUEST_CODE + " <br/> " +
-                "<h3>  Request Type: </h3> Termination Request <br/> " +
-                "<h4> Card Id: </h4>" + data.CARD_ID + "<br/>" +
-                "<h4> Terminate Date  : </h4>" + data.TERMINATE_DATE + "<br/>" +
-                "<h4> Is Received Card ??!! : </h4>" + data.DELIVER_CARD_FLAG + "<br/>" +
-                "<h4> Received Date : </h4>" + data.DELIVER_CARD_DATE + "<br/>";
+            //string sub = @"Request Employee From " + Hospitalprovider.FName + " " + Hospitalprovider.LName + "  Code : " + Hospitalprovider.Provider;
+            //string msg = @"<h3>  Request Code: </h3> " + data.REQUEST_CODE + " <br/> " +
+            //    "<h3>  Request Type: </h3> Termination Request <br/> " +
+            //    "<h4> Card Id: </h4>" + data.CARD_ID + "<br/>" +
+            //    "<h4> Terminate Date  : </h4>" + data.TERMINATE_DATE + "<br/>" +
+            //    "<h4> Is Received Card ??!! : </h4>" + data.DELIVER_CARD_FLAG + "<br/>" +
+            //    "<h4> Received Date : </h4>" + data.DELIVER_CARD_DATE + "<br/>";
 
-            AlternateView altView = AlternateView.CreateAlternateViewFromString(msg, null, MediaTypeNames.Text.Html);
+            //AlternateView altView = AlternateView.CreateAlternateViewFromString(msg, null, MediaTypeNames.Text.Html);
 
-            SendMail("Operation@dms-eg.com", sub, msg, altView/*, Hospitalprovider*/);
-            SendMail("Operation.aso@dms-eg.com", sub, msg, altView/*, Hospitalprovider*/);
-            SendMail("marian@dms-eg.com", sub, msg, altView/*, Hospitalprovider*/);
+            //SendMail("Operation@dms-eg.com", sub, msg, altView/*, Hospitalprovider*/);
+            //SendMail("Operation.aso@dms-eg.com", sub, msg, altView/*, Hospitalprovider*/);
+            //SendMail("marian@dms-eg.com", sub, msg, altView/*, Hospitalprovider*/);
             //SendMail("dms.medical1@gmail.com", sub, msg, altView/*, Hospitalprovider*/);
             //SendMail("dms.medical2@gmail.com", sub, msg, altView/*, Hospitalprovider*/);
 
-            return Json(data.REQUEST_CODE);
+            return Json("Save Success");
         }
 
         protected override void Dispose(bool disposing)
