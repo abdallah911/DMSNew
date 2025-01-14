@@ -721,7 +721,11 @@ namespace DMS_Synchronization
                     {
                         var message = ex.Message;
                     }
-
+ 
+                    if (dataTable.Columns.Contains("Oracle_Id_Top"))
+                    {
+                        dataTable.Columns.Remove("Oracle_Id_Top");
+                    }
                     var options = GetDefaultSyncOptions();
                     if (keepIdentity)
                     {

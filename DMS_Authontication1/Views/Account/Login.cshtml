@@ -161,9 +161,14 @@
                 </div>-->
                 <!-- Intro Form -->
                 <div class="col-11 col-sm-10 mx-auto ml-lg-0 col-lg-6 intro_col " id="loginForm">
-                    <div class="event-welcome d-none" style="width: 70%; margin: auto; padding-bottom: 30px;">
-                        <img src="~/assets/global/img/Events/welcome-new-year-2025.png" />
-                    </div>
+                    
+                    @if (ViewBag.evnt == 1)
+                    {
+                        <div class="event-welcome" style="width: 80%; margin: auto; padding-bottom: 30px;">
+                            <img src="~/assets/global/img/Events/welcome-event.png" />
+                        </div>
+                    }
+
                     <div class="intro_form_container">
                         @*<div class="intro_form_title">Login</div>*@
 

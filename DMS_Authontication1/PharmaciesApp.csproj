@@ -535,6 +535,9 @@
     <Compile Include="Models\CompanyContractPhoto.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CompanyEvent.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Company_Cost_Center.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1545,8 +1548,9 @@
     <Content Include="assets\global\img\clients\لوجو-مكتبة-الإسكندرية.png" />
     <Content Include="assets\global\img\clients\وزارة_الطيران_المدني.png" />
     <Content Include="assets\global\img\datatable-row-openclose.png" />
-    <Content Include="assets\global\img\Events\logo-new-year.png" />
-    <Content Include="assets\global\img\Events\welcome-new-year-2025.png" />
+    <Content Include="assets\global\img\Events\1.gif" />
+    <Content Include="assets\global\img\Events\event-logo.png" />
+    <Content Include="assets\global\img\Events\welcome-event.png" />
     <Content Include="assets\global\img\flags\ad.png" />
     <Content Include="assets\global\img\flags\ae.png" />
     <Content Include="assets\global\img\flags\af.png" />

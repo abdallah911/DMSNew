@@ -446,18 +446,22 @@
 
                 <div id="navbar" class="navbar-collapse collapse">
                     <a href="~/Home/Index">
-                        <div style="width: 100px; border-radius: 16px;" class="dms-celebrate-gif img d-flex align-self-stretch">
-                            <div class="celebrate-gif">
-                                <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
-                            </div>
-                            <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" /> 
+                      
+                            <div id="EventLogoDms" style="width: 100px; border-radius: 16px; display: none;" class="dms-celebrate-gif img d-flex align-self-stretch" hidden>
+                                <div class="celebrate-gif">
+                                    <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
+                                </div>
+                                <img class="imgmenu" src="~/assets/global/img/Events/event-logo.png" style="margin-top: 10px;" />
 
-                        </div>
-                        @*<div class="celebrate-gif">
-              <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
-          </div>
-        <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
-                    </a>
+                            </div>
+                       
+                            <img id="LogoDmsTop" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" />
+                        
+                            @*<div class="celebrate-gif">
+                  <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
+              </div>
+            <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
+                        </a>
 
                     <ul class="nav navbar-nav nav-admin-cus" style="color: #000; margin-top: 7px;">
                         @{
@@ -637,7 +641,7 @@
                                         //                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         //{
 
-                                        <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
+                                        @*<li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>*@
                                         //}
                                     }
                                 }
@@ -1296,8 +1300,33 @@
                 $('.nav-link').removeClass('active');
                 // Add the 'active' class to the clicked element
                 $(this).addClass('active');
+
+                
             });
+
+            checkEvent();
         });
+
+        function checkEvent() {
+            $.ajax({
+                url: '/Home/getEventState',
+
+          success: function (result) {
+                    //debugger;
+                    $('#LogoDmsTop').hide();
+                    $('#EventLogoDms').hide();
+
+                    if (result.evntStat == 1) {
+                        $('#EventLogoDms').show();
+                    }
+                    else {
+                        $('#LogoDmsTop').show();
+                    }
+                }
+            });
+        }
+            
+        
 
         //==========================================
         //$(document).ready(function () { 

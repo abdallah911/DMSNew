@@ -76,8 +76,24 @@ namespace DMS_Authontication1.Controllers
         }
         public ActionResult Index()
         {
-
             return View();
+        }
+        public JsonResult getEventState()
+        {
+            var dayy = DateTime.Now.Date;
+            int evntStat = 0;
+            //var evnt = tESTEntities.CompanyEvents.Where(e => DateTime.Now >= e.DateFrom && DateTime.Now <= e.DateTo
+            //         && e.Active == true).ToList();
+            var evnt = db.CompanyEvents
+                                   .Where(e => System.Data.Entity.DbFunctions.TruncateTime(e.DateFrom) <= dayy
+                                             && System.Data.Entity.DbFunctions.TruncateTime(e.DateTo) >= dayy
+                                             && e.Active == true)
+                                   .ToList();
+
+            if (evnt.Count > 0)
+                evntStat = 1;         
+            
+            return Json(new { evntStat }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Search()
