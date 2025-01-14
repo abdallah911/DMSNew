@@ -90,9 +90,11 @@
         input,
         select,
         textarea {
-            /*border: 2px solid #538eb6 !important;*/
+            border: 1px solid #c2cad8 !important; 
         }
-
+        .dms-color {
+            color: #337ab7;
+        }
         .forLabel > span:not(.select2-container), .select {
             padding-top: 0;
         }
@@ -131,7 +133,13 @@
         .select2-no-overflow .select2-container--default .select2-selection--multiple .select2-selection__rendered {
             overflow: hidden;
         }
-
+        .select2-container--default .select2-selection--single { 
+            border: 1px solid #c2cad8; 
+        }
+            .select2-container--default .select2-selection--single .select2-selection__arrow { 
+                top: 50%;
+                transform: translateY(-50%); 
+            }
         input.select2-search__field {
             border: none !important;
         }
