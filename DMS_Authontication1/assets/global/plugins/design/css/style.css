@@ -732,6 +732,12 @@ p:last-of-type {
     left: 20px;
     top: 2px; 
 }
+.table thead {
+    background: #337ab7;
+}
+.table th {
+    color: white;
+}
 /* ====================Scroll bar=========================================== */
 ::-webkit-scrollbar {
     border-radius: 20px;
@@ -818,7 +824,7 @@ p:last-of-type {
      margin-bottom:16px;
  }
  .mt-3{
-     margin-top:8px;
+     margin-top:8px !important;
  }
  .mt-4{
      margin-top:16px;
@@ -905,6 +911,9 @@ p:last-of-type {
 .outline-0 {
     outline:none !important;
 }
+.flex-column{
+    flex-direction:column !important;
+}
 /* ====================media========================================== */
 /*@media (max-width:776px){
 
@@ -913,7 +922,6 @@ p:last-of-type {
     }
 }*/
 /* ====================test========================================== */
-
 /*@media (max-width:1460px) {
     a.link-cus {
         font-size: 12px;

@@ -8697,6 +8697,7 @@
     <Content Include="Reports\HR\File\3311024694755.pdf" />
     <Content Include="Views\Abuse\Index.cshtml" />
     <Content Include="Views\BasicCimpanyContract\Index.cshtml" />
+    <Content Include="Views\BasicData\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
