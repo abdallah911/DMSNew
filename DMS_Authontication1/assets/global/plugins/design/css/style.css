@@ -737,6 +737,10 @@ p:last-of-type {
 }
 .table th {
     color: white;
+    text-align:center
+}
+.table td { 
+    text-align:center
 }
 /* ====================Scroll bar=========================================== */
 ::-webkit-scrollbar {
@@ -913,6 +917,12 @@ p:last-of-type {
 }
 .flex-column{
     flex-direction:column !important;
+}
+.position-relative{
+    position:relative;
+}
+.position-absolute{
+    position:absolute;
 }
 /* ====================media========================================== */
 /*@media (max-width:776px){

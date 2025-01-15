@@ -1,0 +1,122 @@
+﻿@model IEnumerable<DMS_Authontication1.ViewModel.ApprovalComp>
+@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    var Create = false;
+    var modellist = new List<ModulesPagesViewModel>();
+    var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+    if (claim != null)
+    {
+        modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+        if (modellist != null)
+        {
+            var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 15 && (x.FullControl || x.EditPermission
+                                          || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+            if (obj != null)
+            {
+                edit = obj.EditPermission;
+                delete = obj.ActivationControl;
+                view = obj.Preview;
+                fullcontroll = obj.FullControl;
+                Create = obj.AddPermission;
+
+            }
+        }
+    }
+}
+@*<h2>Index</h2>*@
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+<input type="text" id="compname" value="@ViewBag.CompId" hidden="hidden" />
+<style>
+    .select2-container--default .select2-selection--single .select2-selection__arrow { 
+        left: 10px;
+    }
+    ::placeholder {
+        color: #337ab7 !important;
+        font-weight:700;
+    }
+    hr {
+        border-color: #337ab7;
+        margin:30px 0;
+    }
+   
+</style>
+<div class="dms-container">
+     
+    <div class="portlet box"> 
+        <div class="portlet-body">
+            <div class="portlet-body d-flex flex-column" style="direction:rtl">
+                <div class="position-relative  mb-2 "style="width:250px; height:fit-content">
+                    <i class="fa fa-search position-absolute" style="cursor:pointer ;left: 10px; color: #337ab7; top:50%; transform: translateY(-50%)"></i>
+                    <input type="search" class="sec-field-labeled date-input rounded w-100 px-3" style="height:40px" placeholder="بحث" />
+                </div>
+                <hr />
+                <div class="row px-3 w-100 mx-auto">
+                    <div class="table-responsive no-wrap" style="display:contents;">
+                        <table class="table text-center" id="table">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>رقم الكارت</th>
+                                    <th>اسم المريض</th> 
+                                    <th>رقم الموبايل</th>
+                                    <th>رقم الحجز</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr> 
+                                    <td>00</td>
+                                    <td>00</td>
+                                    <td>00</td>
+                                    <td>00</td> 
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> <hr />
+                <div class="row px-3 w-100 mx-auto">
+                    <div class="table-responsive no-wrap" style="display:contents;">
+                        <table class="table text-center" id="table">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>رقم الكارت</th>
+                                    <th>اسم الطبيب</th> 
+                                    <th>التخصص</th>
+                                    <th>عدد الإستشارات</th>
+                                    <th>اليوم</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr> 
+                                    <td>00</td>
+                                    <td>00</td>
+                                    <td>00</td>
+                                    <td>00</td>
+                                    <td>00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.select2').select2();
+        $('.table').DataTable();
+
+    });
+
+</script>
