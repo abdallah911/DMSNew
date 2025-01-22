@@ -855,6 +855,36 @@ namespace DMS_Authontication1.Controllers.HR
                 return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
+        public JsonResult getClaimsCardData(string CardId)
+        {
+            DataTable dt = new DataTable();
+
+            List<ClaimsCardDetails> clmD = new List<ClaimsCardDetails>();
+
+            dt = dbOra.RunReader(@"SELECT CLAIM_NO,  to_char(CLAIM_DATE,'DD-MM-YYYY') CLAIM_DATE, BATCH_NO, PRV_NAME, SERV_NAME, GROSS, NET FROM APP.REVIEW_CLAIMS_NEW WHERE CARD_NO = '" + CardId + "'");
+
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    clmD.Add(new ClaimsCardDetails
+                    {
+                        Claim_No = row["CLAIM_NO"].ToString(),
+                        Claim_Date = row["CLAIM_DATE"].ToString(),
+                        Batch_No = row["BATCH_NO"].ToString(),
+                        Provider_Name = row["PRV_NAME"].ToString(),
+                        Serv_Name = row["SERV_NAME"].ToString(),
+                        Gross = row["GROSS"].ToString(),
+                        Net = row["NET"].ToString()
+                    });
+                }
+                return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            else
+                return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
         public ActionResult PrintReviewClaimsNew(string compId, string aprovNo, string cardId, string invocNo, string batchNo, int typ)
         {
             Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
