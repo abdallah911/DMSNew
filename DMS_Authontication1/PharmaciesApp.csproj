@@ -8705,6 +8705,7 @@
     <Content Include="Views\BasicData\Index - Copy.cshtml" />
     <Content Include="Views\Booking\Index.cshtml" />
     <Content Include="Views\Booking\Index-copy.cshtml" />
+    <Content Include="Reports\HR\ReviewCliamsNew.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
@@ -8733,6 +8734,7 @@
     <Folder Include="ProviderContractsPDF\PolyClinic\Endorsement\" />
     <Folder Include="ProviderContractsPDF\Ray\Contracts\" />
     <Folder Include="ProviderContractsPDF\Ray\Endorsement\" />
+    <Folder Include="Reports\HR\File\Batch\" />
     <Folder Include="Views\ProposalBasicData\" />
   </ItemGroup>
   <ItemGroup>
