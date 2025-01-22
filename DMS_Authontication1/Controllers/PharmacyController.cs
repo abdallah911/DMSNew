@@ -2556,6 +2556,8 @@ namespace DMS_TEST.Controllers
         {
             var username = User.Identity.Name;
             var carduse = db.CardUseds.Where(c => c.CardId == data.CardId && c.CreatedBy == username).FirstOrDefault();
+            DateTime datenow = DateTime.Now.Date;
+            var employee = db.Comp_Employees.Where(c => c.CARD_ID == data.CardId && c.INS_START_DATE <= datenow && c.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
             if (carduse == null)
             {
                 return Json("Failed");
@@ -2599,6 +2601,7 @@ namespace DMS_TEST.Controllers
                 SyncBy = null,
                 IsFamily = data.IsFamily,
                 IsPool = data.IsPool,
+                CompHolderCode = employee.COMP_ID,
             };
 
             db.Roshitas.Add(roshita);
@@ -2648,8 +2651,7 @@ namespace DMS_TEST.Controllers
             //SaveDealApproval
             if (data.hasApproval)
             {
-                int EmpId = db.Comp_Employees.Where(c => c.CARD_ID == roshita.CardId && c.INS_START_DATE <= DateTime.Now && c.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
-                var accptionlist = db.Acceptions.Where(x => x.CompEmployeesId == EmpId && x.AcceptionFlag == true).ToList();
+                var accptionlist = db.Acceptions.Where(x => x.CompEmployeesId == employee.Id && x.AcceptionFlag == true).ToList();
                 foreach (var item in accptionlist)
                 {
                     if (item.ApprovalType != "Vip")
@@ -3414,6 +3416,7 @@ namespace DMS_TEST.Controllers
                 var CurrentUser = context.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
                 ViewBag.ddlUsers = new SelectList(context.Users.Where(x => x.Provider == CurrentUser.Provider).ToList(), "UserName", "UserName", User.Identity.Name);
             }
+            ViewBag.comphoder = new SelectList(db.CompHolders.ToList(), "CompHolderCode", "CompHolderName");
             return View();
         }
 
@@ -3490,7 +3493,9 @@ namespace DMS_TEST.Controllers
 
         }
 
-        public JsonResult PreseptionList(int sEcho, int iDisplayStart, int iDisplayLength, string sSearch = "", string Company = "", string Provider = "", string From = "", string To = "", string CardId = "", string Branch = "", string ApprovalNo = "", string Type = "")
+        public JsonResult PreseptionList(int sEcho, int iDisplayStart, int iDisplayLength, string sSearch = "", string Company = "",
+            string Provider = "", string From = "", string To = "", string CardId = "", string Branch = "", string ApprovalNo = "",
+            string Type = "", int CompHoder = 1)
         {
             //long lgSearch;
             //long.TryParse(sSearch, out lgSearch);
@@ -3515,7 +3520,7 @@ namespace DMS_TEST.Controllers
                 var PharmacyResult = new
                 {
                     sEcho = sEcho,
-                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).OrderByDescending(m => m.Id)
+                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).OrderByDescending(m => m.Id)
                .Select(l => new
                {
                    Id = l.Id,
@@ -3528,8 +3533,8 @@ namespace DMS_TEST.Controllers
                    CreatedBy = l.CreatedBy
                }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count(),
-                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count()
+                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).Count(),
+                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).Count()
                 };
                 return new JsonResult { Data = PharmacyResult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -3547,7 +3552,7 @@ namespace DMS_TEST.Controllers
                 var Adminresult = new
                 {
                     sEcho = sEcho,
-                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).OrderByDescending(m => m.Id)
+                    aaData = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).OrderByDescending(m => m.Id)
                .Select(l => new
                {
                    Id = l.Id,
@@ -3560,8 +3565,8 @@ namespace DMS_TEST.Controllers
                    CreatedBy = l.CreatedBy
                }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count(),
-                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).Count()
+                    iTotalRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).Count(),
+                    iTotalDisplayRecords = db.fn_AdminClamsList(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).Count()
                 };
                 return new JsonResult { Data = Adminresult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -3570,7 +3575,8 @@ namespace DMS_TEST.Controllers
             var result = new
             {
                 sEcho = sEcho,
-                aaData = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray") && !x.Manager.Contains("Stop")).AsEnumerable()
+                aaData = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray") &&
+                !x.Manager.Contains("Stop")&&x.CompHolderCode==CompHoder).AsEnumerable()
                 .Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Where(x => x.CreatedDate.Value.AddDays(7).Date > DateTime.Now.Date).OrderByDescending(m => m.Id)
                 .Select(l => new Roshita
                 {
@@ -3585,9 +3591,11 @@ namespace DMS_TEST.Controllers
                     CreatedBy = l.CreatedBy
                 }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
-                iTotalRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray") && !x.Manager.Contains("Stop")).OrderBy(m => m.Id).AsEnumerable()
+                iTotalRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray")
+                && !x.Manager.Contains("Stop") && x.CompHolderCode == CompHoder).OrderBy(m => m.Id).AsEnumerable()
                 .Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Count(),
-                iTotalDisplayRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray") && !x.Manager.Contains("Stop")).OrderBy(m => m.Id).AsEnumerable()
+                iTotalDisplayRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && 
+                !x.Manager.Contains("Ray") && !x.Manager.Contains("Stop") && x.CompHolderCode == CompHoder).OrderBy(m => m.Id).AsEnumerable()
                 .Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Where(x => x.CreatedDate.Value.AddDays(7).Date > DateTime.Now.Date).Count()
             };
             return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -3597,7 +3605,8 @@ namespace DMS_TEST.Controllers
 
 
         }
-        public JsonResult PreseptionAdminCount(string Company = "", string Provider = "", string From = "", string To = "", string CardId = "", string Branch = "", string ApprovalNo = "", string Type = "")
+        public JsonResult PreseptionAdminCount(string Company = "", string Provider = "", string From = "", string To = "", string CardId = "",
+            string Branch = "", string ApprovalNo = "", string Type = "", int CompHoder = 1)
         {
 
 
@@ -3606,7 +3615,7 @@ namespace DMS_TEST.Controllers
                 DateTime T = Convert.ToDateTime(To).AddSeconds(86399);
                 To = T.ToString();
             }
-            var Adminresult = db.fn_AdminClamsCounts(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type).FirstOrDefault();
+            var Adminresult = db.fn_AdminClamsCounts(From, To, Company, Provider, Branch, ApprovalNo, CardId, Type, CompHoder).FirstOrDefault();
 
             return new JsonResult { Data = Adminresult, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -3905,6 +3914,7 @@ namespace DMS_TEST.Controllers
             roshita1.PatchId = data.PatchId;
             roshita1.IsFamily = data.IsFamily;
             roshita1.IsPool = data.IsPool;
+            roshita1.CompHolderCode = roshita.CompHolderCode;
 
             roshita.Manager = "Stop-ED";
             roshita.SyncBy = "Update";
@@ -4464,6 +4474,7 @@ namespace DMS_TEST.Controllers
                 {
                     CellingPert = 100;
                 }
+                rd.SetParameterValue("CompType", patient.COMP_ID);
                 rd.SetParameterValue("hasApprovalCode", AcceptionId);
                 rd.SetParameterValue("pay", NoPay);
                 rd.SetParameterValue("over", NoOver);
@@ -4682,6 +4693,7 @@ namespace DMS_TEST.Controllers
                     CellingPert = 100;
                 }
 
+                rd.SetParameterValue("CompType", patient.COMP_ID);
                 rd.SetParameterValue("hasApprovalCode", AcceptionId);
                 rd.SetParameterValue("pay", NoPay);
                 rd.SetParameterValue("over", NoOver);
@@ -4727,7 +4739,7 @@ namespace DMS_TEST.Controllers
             }
         }
 
-        public ActionResult PrintClams(string From, string To, string Branch = "")
+        public ActionResult PrintClams(string From, string To, string Branch = "", int CompHoder = 1)
         {
             try
             {
@@ -4754,7 +4766,7 @@ namespace DMS_TEST.Controllers
                 int ProviderId = Convert.ToInt32(CurrentUser.Provider);
                 var sericeProviderDiscounts = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).FirstOrDefault();
 
-                List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, Branch)//.AsEnumerable()
+                List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, Branch, CompHoder)//.AsEnumerable()
                     .Select(d => new RoshitaCompEmolyessReportViewModel
                     {
                         //Id = d.Oracle_Id==null?0: d.Oracle_Id.Value,
@@ -4802,7 +4814,7 @@ namespace DMS_TEST.Controllers
         }
 
         public ActionResult PrintNewXlxClams(string From, string To, string Branch, string Provider
-            , string Company, string ApprovalNo, string CardId, string ddlType)
+            , string Company, string ApprovalNo, string CardId, string ddlType, int CompHoder = 1)
         {
             try
             {
@@ -4868,7 +4880,7 @@ namespace DMS_TEST.Controllers
                 var sericeProviderDiscounts = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).FirstOrDefault();
 
 
-                List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, User.Identity.Name)//.AsEnumerable()
+                List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, User.Identity.Name, 1)//.AsEnumerable()
                 .Select(d => new RoshitaCompEmolyessReportViewModel
                 {
                     Id = d.Id.Value,

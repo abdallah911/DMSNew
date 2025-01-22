@@ -156,7 +156,8 @@
                 delay: 250,
                 data: function (Params) {
                     return {
-                        SearchTerm: Params.term
+                        SearchTerm: Params.term,
+                        CardId: $("#txtSearchCard").val()
                     };
                 },
                 processResults: function (data, Params) {

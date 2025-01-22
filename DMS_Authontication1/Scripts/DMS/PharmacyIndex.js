@@ -4,6 +4,7 @@ $(function () {
     var id;
     var role = $("#role").val();
     $('#ddlUsers').select2();
+    $('#comphoder').select2();
     $('#From').datepicker({
         maxDate: 0
     });
@@ -14,20 +15,19 @@ $(function () {
         var From = $('#From').val();
         var To = $('#To').val();
         if (From != "" && To != "") {
-            window.open('/Pharmacy/PrintClams?from=' + From + '&&to=' + To + '&&Branch=' + $('#ddlUsers').val());
+            window.open('/Pharmacy/PrintClams?from=' + From + '&&to=' + To + '&&Branch=' + $('#ddlUsers').val() + '&&CompHoder=' + $('#comphoder').val());
         } else {
             toastr.info('select date first')
         }
 
     });
     $('#PrintExcel').click(function () {
-        debugger;
         var From = $('#AdminFrom').val();
         var To = $('#AdminTo').val();
         if (From != "" && To != "") {
             window.open('/Pharmacy/PrintNewXlxClams?from=' + From + '&&to=' + To + '&&Branch=' + $('#Branch').val()
                 + '&&Provider=' + $('#Provider').val() + '&&Company=' + $('#Company').val() + '&&ApprovalNo=' + $('#ApprovalNo').val()
-                + '&&CardId=' + $('#CardId').val() + '&&ddlType=' + $('#ddlType').val());
+                + '&&CardId=' + $('#CardId').val() + '&&ddlType=' + $('#ddlType').val() );
             //window.open('/Pharmacy/PrintXlxClams?from=' + From + '&&to=' + To);
         } else {
             toastr.info('select date first')
@@ -49,7 +49,9 @@ $(function () {
         if (result.valid) {
             $('#Index').dataTable().fnDestroy();
             $("#Index").DataTable({
-                "sAjaxSource": '/Pharmacy/PreseptionList?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() + '&&ApprovalNo=' + $("#ApprovalNo").val() + '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val() + '&&Type=' + $("#ddlType").val() + '&&From=' + $("#AdminFrom").val() + '&&To=' + $("#AdminTo").val(),
+                "sAjaxSource": '/Pharmacy/PreseptionList?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() + '&&ApprovalNo=' + $("#ApprovalNo").val()
+                    + '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val() + '&&Type=' + $("#ddlType").val() + '&&From=' + $("#AdminFrom").val()
+                    + '&&To=' + $("#AdminTo").val() + '&&CompHoder=' + $('#comphoder').val(),
                 "bServerSide": true,
                 "processing": true,
                 "bFilter": true,
@@ -119,7 +121,9 @@ $(function () {
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url: '/Pharmacy/PreseptionAdminCount?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() + '&&ApprovalNo=' + $("#ApprovalNo").val() + '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val() + '&&Type=' + $("#ddlType").val() + '&&From=' + $("#AdminFrom").val() + '&&To=' + $("#AdminTo").val(),
+                    url: '/Pharmacy/PreseptionAdminCount?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() + '&&ApprovalNo=' + $("#ApprovalNo").val()
+                        + '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val() + '&&Type=' + $("#ddlType").val() + '&&From=' + $("#AdminFrom").val()
+                        + '&&To=' + $("#AdminTo").val() + '&&CompHoder=' + $('#comphoder').val(),
                     success: function (returndata) {
                         if (returndata.Count != 0) {
                             var setData = $("#Counts Tbody");
@@ -159,7 +163,8 @@ $(function () {
         if (result.valid) {
             $('#Index').dataTable().fnDestroy();
             $("#Index").DataTable({
-                "sAjaxSource": '/Pharmacy/PreseptionList?Provider=&&Company=&&ApprovalNo=' + $("#PharmacyApprovalNo").val() + '&&Branch=' + $('#ddlUsers').val() + '&&CardId=' + $("#PharmacyCardId").val() + '&&Type=' + $("#PharmacyddlType").val() + '&&From=' + $("#From").val() + '&&To=' + $("#To").val(),
+                "sAjaxSource": '/Pharmacy/PreseptionList?Provider=&&Company=&&ApprovalNo=' + $("#PharmacyApprovalNo").val() + '&&Branch=' + $('#ddlUsers').val() +
+                    '&&CardId=' + $("#PharmacyCardId").val() + '&&Type=' + $("#PharmacyddlType").val() + '&&From=' + $("#From").val() + '&&To=' + $("#To").val() + '&&CompHoder=' + $('#comphoder').val(),
                 "bServerSide": true,
                 "processing": true,
                 "bFilter": true,
@@ -350,7 +355,9 @@ function IndexDatatableAdmin() {
     if (result.valid) {
         $('#Index').dataTable().fnDestroy();
         $("#Index").DataTable({
-            "sAjaxSource": '/Pharmacy/PreseptionList?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() + '&&ApprovalNo=' + $("#ApprovalNo").val() + '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val() + '&&Type=' + $("#ddlType").val() + '&&From=' + $("#AdminFrom").val() + '&&To=' + $("#AdminTo").val(),
+            "sAjaxSource": '/Pharmacy/PreseptionList?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() + '&&ApprovalNo=' + $("#ApprovalNo").val()
+                + '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val() + '&&Type=' + $("#ddlType").val() + '&&From=' + $("#AdminFrom").val() +
+                '&&To=' + $("#AdminTo").val() + '&&CompHoder=' + $('#comphoder').val(),
             "bServerSide": true,
             "processing": true,
             "bFilter": true,
@@ -420,7 +427,9 @@ function IndexDatatableAdmin() {
             $.ajax({
                 type: "POST",
                 dataType: "json",
-                url: '/Pharmacy/PreseptionAdminCount?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() + '&&ApprovalNo=' + $("#ApprovalNo").val() + '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val() + '&&Type=' + $("#ddlType").val() + '&&From=' + $("#AdminFrom").val() + '&&To=' + $("#AdminTo").val(),
+                url: '/Pharmacy/PreseptionAdminCount?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() + '&&ApprovalNo=' + $("#ApprovalNo").val() +
+                    '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val() + '&&Type=' + $("#ddlType").val() + '&&From=' + $("#AdminFrom").val() +
+                    '&&To=' + $("#AdminTo").val() + '&&CompHoder=' + $('#comphoder').val(),
                 success: function (returndata) {
                     if (returndata.Count != 0) {
                         var setData = $("#Counts Tbody");

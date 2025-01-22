@@ -16,13 +16,22 @@ namespace DMS_Authontication1.Controllers
         {
             db = new DMS_TESTEntities();
         }
-        public JsonResult GetReasons(string searchterm)
+        public JsonResult GetReasons(string searchterm, string CardId)
         {
             var datalist = db.AcceptionReasons.ToList();
 
             if (searchterm != null)
             {
-                datalist = db.AcceptionReasons.Where(x => x.Name.Contains(searchterm)).ToList();
+                //bool IsNoPayNoOverEdit = id.Split('-')[0].StartsWith("500") ? true : User.Identity.Name == "GodaKotb" ? true : false;
+
+                if (!CardId.Split('-')[0].StartsWith("500") && !(User.Identity.Name == "GodaKotb"))
+                {
+                    datalist = db.AcceptionReasons.Where(x => x.Name.Contains(searchterm)&&x.Id!=1).ToList();
+                }
+                else
+                {
+                    datalist = db.AcceptionReasons.Where(x => x.Name.Contains(searchterm)).ToList();
+                }
             }
             var modifieddate = datalist.Select(x => new
             {

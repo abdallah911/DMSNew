@@ -10,7 +10,7 @@ $(function () {
         var From = $('#From').val();
         var To = $('#To').val();
         if (From != "" && To != "") {
-            window.open('/Rays/PrintClams?from=' + From + '&&to=' + To + '&&Branch=' + $('#ddlUsers').val());
+            window.open('/Rays/PrintClams?from=' + From + '&&to=' + To + '&&Branch=' + $('#ddlUsers').val() + '&&CompHoder=' + $('#comphoder').val());
         } else {
             toastr.info('select date first')
         }
@@ -27,7 +27,9 @@ $(function () {
         if (result.valid) {
             $('#Index').dataTable().fnDestroy();
             $("#Index").DataTable({
-                "sAjaxSource": '/Rays/PreseptionList?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() + '&&ApprovalNo=' + $("#ApprovalNo").val() + '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val() + '&&From=' + $("#AdminFrom").val() + '&&To=' + $("#AdminTo").val(),
+                "sAjaxSource": '/Rays/PreseptionList?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() +
+                    '&&ApprovalNo=' + $("#ApprovalNo").val() + '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val() +
+                    '&&From=' + $("#AdminFrom").val() + '&&To=' + $("#AdminTo").val() + '&&CompHoder=' + $('#comphoder').val(),
                 "bServerSide": true,
                 "processing": true,
                 "bFilter": true,
@@ -95,7 +97,9 @@ $(function () {
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url: '/Rays/PreseptionAdminCount?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() + '&&ApprovalNo=' + $("#ApprovalNo").val() + '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val() + '&&From=' + $("#AdminFrom").val() + '&&To=' + $("#AdminTo").val(),
+                    url: '/Rays/PreseptionAdminCount?Provider=' + $("#Provider").val() + '&&Company=' + $("#Company").val() + '&&ApprovalNo=' +
+                        $("#ApprovalNo").val() + '&&Branch=' + $("#Branch").val() + '&&CardId=' + $("#CardId").val() + '&&From=' + $("#AdminFrom").val() +
+                        '&&To=' + $("#AdminTo").val() + '&&CompHoder=' + $('#comphoder').val(),
                     success: function (returndata) {
                         if (returndata.Count != 0) {
                             var setData = $("#Counts Tbody");
@@ -136,7 +140,8 @@ $(function () {
 
             $('#Index').dataTable().fnDestroy();
             $("#Index").DataTable({
-                "sAjaxSource": '/Rays/PreseptionList?Provider=&&Company=&&ApprovalNo=' + $("#RaysApprovalNo").val() + '&&Branch=' + $('#ddlUsers').val() + '&&CardId=' + $("#RaysCardId").val() + '&&From=' + $("#From").val() + '&&To=' + $("#To").val(),
+                "sAjaxSource": '/Rays/PreseptionList?Provider=&&Company=&&ApprovalNo=' + $("#RaysApprovalNo").val() + '&&Branch=' + $('#ddlUsers').val() +
+                    '&&CardId=' + $("#RaysCardId").val() + '&&From=' + $("#From").val() + '&&To=' + $("#To").val() + '&&CompHoder=' + $('#comphoder').val(),
                 "bServerSide": true,
                 "processing": true,
                 "bFilter": true,

@@ -57,6 +57,9 @@
                     <div class="col-md-2">
                         <input id="RaysCardId" type="text" class="col-md-2 form-control " placeholder="Card ID" />
                     </div>
+                    <div class="col-md-2">
+                        @Html.DropDownList("comphoder", null, htmlAttributes: new { @class = "form-control", @id = "comphoder" })
+                    </div>
                     @if (User.IsInRole("Rays_Admin"))
                     {
                         <div class="col-md-2">
@@ -114,6 +117,9 @@
                     </div>
                     <div class="col-md-2">
                         <input id="CardId" type="text" class="col-md-2 form-control " placeholder="Card ID" />
+                    </div>
+                    <div class="col-md-2">
+                        @Html.DropDownList("comphoder", null, htmlAttributes: new { @class = "form-control", @id = "comphoder" })
                     </div>
                 </div>
                 <div style=" text-align:right">
