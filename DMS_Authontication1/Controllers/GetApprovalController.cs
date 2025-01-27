@@ -19,19 +19,14 @@ namespace DMS_Authontication1.Controllers
         public JsonResult GetReasons(string searchterm, string CardId)
         {
             var datalist = db.AcceptionReasons.ToList();
-
+            if (!CardId.Split('-')[0].StartsWith("500") && !(User.Identity.Name == "GodaKotb"))
+            {
+                datalist = db.AcceptionReasons.Where(x => x.Id != 1).ToList();
+            }
             if (searchterm != null)
             {
-                //bool IsNoPayNoOverEdit = id.Split('-')[0].StartsWith("500") ? true : User.Identity.Name == "GodaKotb" ? true : false;
+                datalist = db.AcceptionReasons.Where(x => x.Name.Contains(searchterm)).ToList();
 
-                if (!CardId.Split('-')[0].StartsWith("500") && !(User.Identity.Name == "GodaKotb"))
-                {
-                    datalist = db.AcceptionReasons.Where(x => x.Name.Contains(searchterm)&&x.Id!=1).ToList();
-                }
-                else
-                {
-                    datalist = db.AcceptionReasons.Where(x => x.Name.Contains(searchterm)).ToList();
-                }
             }
             var modifieddate = datalist.Select(x => new
             {

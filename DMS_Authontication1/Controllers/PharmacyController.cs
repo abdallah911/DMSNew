@@ -2246,6 +2246,8 @@ namespace DMS_TEST.Controllers
                 Group_Type = l.g.GroupType,
                 IsCovered = l.d.IsCovered,
                 M_TYPE = l.d.M_TYPE,
+                MedicineGroup = l.d.GroupType,
+
             }).FirstOrDefault(x => x.M_CODE == code);
 
             return new JsonResult { Data = Data, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -3495,7 +3497,7 @@ namespace DMS_TEST.Controllers
 
         public JsonResult PreseptionList(int sEcho, int iDisplayStart, int iDisplayLength, string sSearch = "", string Company = "",
             string Provider = "", string From = "", string To = "", string CardId = "", string Branch = "", string ApprovalNo = "",
-            string Type = "", int CompHoder = 1)
+            string Type = "", int CompHoder = 0)
         {
             //long lgSearch;
             //long.TryParse(sSearch, out lgSearch);
@@ -3576,7 +3578,7 @@ namespace DMS_TEST.Controllers
             {
                 sEcho = sEcho,
                 aaData = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray") &&
-                !x.Manager.Contains("Stop")&&x.CompHolderCode==CompHoder).AsEnumerable()
+                !x.Manager.Contains("Stop") && (CompHoder != 0 ? x.CompHolderCode == CompHoder : true)).AsEnumerable()
                 .Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Where(x => x.CreatedDate.Value.AddDays(7).Date > DateTime.Now.Date).OrderByDescending(m => m.Id)
                 .Select(l => new Roshita
                 {
@@ -3592,10 +3594,10 @@ namespace DMS_TEST.Controllers
                 }).Skip(iDisplayStart).Take(iDisplayLength).ToList(),
 
                 iTotalRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && !x.Manager.Contains("Ray")
-                && !x.Manager.Contains("Stop") && x.CompHolderCode == CompHoder).OrderBy(m => m.Id).AsEnumerable()
+                && !x.Manager.Contains("Stop") && (CompHoder != 0 ? x.CompHolderCode == CompHoder : true)).OrderBy(m => m.Id).AsEnumerable()
                 .Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Count(),
-                iTotalDisplayRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") && 
-                !x.Manager.Contains("Ray") && !x.Manager.Contains("Stop") && x.CompHolderCode == CompHoder).OrderBy(m => m.Id).AsEnumerable()
+                iTotalDisplayRecords = db.Roshitas.Where(x => x.CreatedBy == User.Identity.Name && !x.Manager.Contains("Lab") &&
+                !x.Manager.Contains("Ray") && !x.Manager.Contains("Stop") && (CompHoder != 0 ? x.CompHolderCode == CompHoder : true)).OrderBy(m => m.Id).AsEnumerable()
                 .Where(r => sSearch != "" ? r.CardId.Contains(sSearch) || r.Manager.Contains(sSearch) || ((r.Oracle_Id == null || r.Oracle_Id == 0) ? Convert.ToString("2" + r.CreatedDate.Value.ToString("ddMMyy") + r.Id) : Convert.ToString(r.Oracle_Id)).Contains(sSearch) : true).Where(x => x.CreatedDate.Value.AddDays(7).Date > DateTime.Now.Date).Count()
             };
             return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -3606,7 +3608,7 @@ namespace DMS_TEST.Controllers
 
         }
         public JsonResult PreseptionAdminCount(string Company = "", string Provider = "", string From = "", string To = "", string CardId = "",
-            string Branch = "", string ApprovalNo = "", string Type = "", int CompHoder = 1)
+            string Branch = "", string ApprovalNo = "", string Type = "", int CompHoder = 0)
         {
 
 
@@ -4739,7 +4741,7 @@ namespace DMS_TEST.Controllers
             }
         }
 
-        public ActionResult PrintClams(string From, string To, string Branch = "", int CompHoder = 1)
+        public ActionResult PrintClams(string From, string To, string Branch = "", int CompHoder = 0)
         {
             try
             {
@@ -4814,7 +4816,7 @@ namespace DMS_TEST.Controllers
         }
 
         public ActionResult PrintNewXlxClams(string From, string To, string Branch, string Provider
-            , string Company, string ApprovalNo, string CardId, string ddlType, int CompHoder = 1)
+            , string Company, string ApprovalNo, string CardId, string ddlType, int CompHoder = 0)
         {
             try
             {

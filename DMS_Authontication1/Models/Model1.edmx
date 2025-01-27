@@ -1789,6 +1789,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="GroupType" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="MedicineGroup">
           <Key>
@@ -3860,8 +3861,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <CollectionType>
               <RowType>
                 <Property Name="CARD_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
-                <Property Name="EMP_ANAME" Type="nvarchar" MaxLength="403" />
-                <Property Name="EMP_ENAME" Type="nvarchar" MaxLength="403" />
+                <Property Name="EMP_ANAME" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ENAME" Type="nvarchar" MaxLength="100" />
                 <Property Name="INS_START_DATE" Type="date" />
                 <Property Name="SPECIFIC_DATE" Type="date" />
                 <Property Name="BIRTH_DATE" Type="date" />
@@ -4997,6 +4998,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <NavigationProperty Name="MedicineData1" Relationship="Self.FK_MedicineData_MedicineData" FromRole="MedicineData" ToRole="MedicineData1" />
           <NavigationProperty Name="MedicineData2" Relationship="Self.FK_MedicineData_MedicineData" FromRole="MedicineData1" ToRole="MedicineData" />
           <NavigationProperty Name="MedicinesDiagnosis" Relationship="Self.FK_MedicinesDiagnosis_MedicineData" FromRole="MedicineData" ToRole="MedicinesDiagnosis" />
+          <Property Name="GroupType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MedicineGroup">
           <Key>
@@ -9359,6 +9361,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="MedicineDatas">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.MedicineData">
               <MappingFragment StoreEntitySet="MedicineData">
+                <ScalarProperty Name="GroupType" ColumnName="GroupType" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
