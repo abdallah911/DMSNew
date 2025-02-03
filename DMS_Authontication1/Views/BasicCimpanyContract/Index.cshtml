@@ -1,0 +1,404 @@
+﻿@model IEnumerable<DMS_Authontication1.ViewModel.ApprovalComp>
+@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    var Create = false;
+    var modellist = new List<ModulesPagesViewModel>();
+    var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+    if (claim != null)
+    {
+        modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+        if (modellist != null)
+        {
+            var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 15 && (x.FullControl || x.EditPermission
+                                          || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+            if (obj != null)
+            {
+                edit = obj.EditPermission;
+                delete = obj.ActivationControl;
+                view = obj.Preview;
+                fullcontroll = obj.FullControl;
+                Create = obj.AddPermission;
+
+            }
+        }
+    }
+}
+@*<h2>Index</h2>*@
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+<style>
+    .forLabel span.select2.select2-container.select2-container--default {
+        height: 100%;
+    }
+</style>
+<input type="text" id="compname" value="@ViewBag.CompId" hidden="hidden" />
+<div class="dms-container">
+    <div class="portlet box">
+        <div class="portlet-title title-bg text-white fw-bold">
+            <div class="caption">
+                <i class="fa-solid fa-home"></i>Basic Company Contract Data
+            </div>
+        </div>
+        @*<div class="search-box mt-4">
+                <input type="search" class="w-100 h-100 " placeholder="Search" />
+            </div>*@
+        <div class="row no-wrap mt-4 mx-auto col-md-12">
+            <div class="d-flex col-md-6 align-items-center gap-4 mb-3" style="min-height: 34px;">
+                <div class="d-flex align-items-center gap-4">
+                    <label class="mb-0 dms-color fw-bold">Independent</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="Independent" id="yesRadio" />
+                            <label class="mb-0" for="yesRadio">Yes</label>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="Independent" id="noRadio" />
+                            <label class="mb-0" for="noRadio">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="compName-field d-none forLabel sec-field-labeled w-50 px-2  " style="height:34px">
+                    <select class="compName w-100 h-100 " required><option></option></select>
+                    <span>Company Name</span>
+                </div>
+            </div>
+            <div class="d-flex col-md-6 align-items-center gap-4 mb-3">
+                <div class="forLabel sec-field-labeled w-50 px-2" style="height:34px">
+                    <select class="select2 w-100 h-100 rounded" style="padding:8px 10px !important" required>
+                        <option>Premium</option>
+                        <option>ASO</option>
+                        <option>TPA</option>
+                        <option>Individual</option>
+                    </select>
+                    <span>Contract Type</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <input type="checkbox" id="justFmily" />
+                    <label class="mb-0 dms-color fw-bold" for="justFmily">justFmily</label>
+                </div>
+                <div class="forLabel sec-field-labeled w-50 px-2" style="height:34px">
+                    <select class="select2 w-100 h-100 rounded" style="padding:8px 10px !important" required>
+                        <option>Outomatic</option>
+                        <option>Entered</option>
+                    </select>
+                    <span>Employee Code</span>
+                </div>
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2 mb-2 ">
+                <input type="number" class="w-100 h-100 " placeholder="Code" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2  mb-2">
+                <input type="number" class="w-100 h-100 " placeholder="Contract Number" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2  mb-2">
+                <input type="text" class="date-input w-100 h-100 " placeholder="Contact Date" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2  mb-2">
+                <input type="text" class="date-input w-100 h-100 " placeholder="End Date" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2 mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="Name (Arabic)" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2 mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="Name (English)" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2 mb-2 ">
+                <input type="email" class="w-100 h-100 " placeholder="Email" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2  mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="Fax" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2 mb-2 ">
+                <input type="text" class="w-100 h-100 " placeholder="Job Title" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2  mb-2">
+                <input type="text" class="date-input w-100 h-100 " placeholder="Print Date" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2 mb-2 ">
+                <input type="text" class="w-100 h-100 " placeholder="Mobile 1" />
+            </div>
+            <div class="sec-field-labeled col-md-3 px-2 mb-2 ">
+                <input type="text" class="w-100 h-100 " placeholder="Mobile 2" />
+            </div>
+        </div>
+        <div class="row no-wrap mt-4 mx-auto col-md-12">
+            <div class="sec-field-labeled col-md-4 px-2 mb-2 ">
+                <textarea class="w-100 rounded px-3 py-3" style="resize:vertical" rows="6" placeholder="Notes"></textarea>
+            </div>
+            <div class="sec-field-labeled col-md-4 px-2 mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="Address" />
+            </div>
+            <div class="sec-field-labeled col-md-4 px-2 mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="Governorate" />
+            </div>
+            <div class="sec-field-labeled col-md-4 px-2 mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="Region" />
+            </div>
+            <div class="sec-field-labeled col-md-4 px-2 mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="Company Representative" />
+            </div>
+            <div class="sec-field-labeled col-md-4 px-2 mb-2">
+                <input type="text" class="w-100 h-100 " placeholder="Company Specialization" />
+            </div>
+            <div class="forLabel sec-field-labeled col-md-4 px-2 mb-2" style="height:34px">
+                <select class="select2 w-100 h-100 " required>
+                    <option>Active</option>
+                    <option>Not Active</option>
+                    <option>Hold</option>
+                </select>
+                <span>Contract Status</span>
+            </div>
+            <div class="d-flex align-items-center sec-field-labeled col-md-8 px-2 mb-2">
+                <div class="w-50" style="padding-right:4px;">
+                    <div class="w-100 d-flex rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                        <div class="d-flex align-items-center gap-2 " style="margin-right:20px;">
+                            <input type="checkbox" id="insurance" class="" />
+                            <label class="mb-0" for="insurance">Insured Before</label>
+                        </div>
+                        <div class="d-flex d-none align-items-center gap-4 px-3 rounded" id="formerClient">
+                            <label class="mb-0 dms-color fw-bold">Former client</label>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="radio" name="formerclient" id="yesRadio2" />
+                                    <label class="mb-0" for="yesRadio2">Yes</label>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="radio" name="formerclient" id="noRadio2" />
+                                    <label class="mb-0" for="noRadio2">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="formerClientCompName" class="forLabel d-none sec-field-labeled w-50 px-2  " style="height: 34px;padding-right:0 !important;">
+                    <select class="select2 w-100 h-100 " required><option></option></select>
+                    <span>Company Name</span>
+                </div>
+                <div id="clientCompName" class="sec-field-labeled d-none w-50 px-2 " style="height:34px ;padding-right:0 !important;">
+                    <input type="text" class="w-100 h-100 " placeholder="Company Name" />
+                </div>
+            </div>
+        </div>
+        <div class="row  mt-4 mx-auto col-md-12">
+            <div class="d-flex justify-content-center justify-content-md-end me-4 gap-2 ">
+                <input type="button" class="btn" value="New" />
+                <input type="button" class="btn" value="Edit" />
+                <input type="button" class="btn" value="Print" />
+            </div>
+        </div>
+
+        <div class="row  mt-4 mx-auto col-md-12">
+            <div class="table-responsive no-wrap">
+                <table class="table" id="table">
+                    <thead>
+                        <tr>
+                            <th>Arabic Name</th>
+                            <th>English Name</th>
+                            <th>Address</th>
+                            <th>Address 2</th>
+                            <th>Mobile</th>
+                            <th>Fax</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Notes</th>
+                            <th>Employee Code</th>
+                            <th>Contract Type</th>
+                            <th>Vice Company</th>
+                            <th>Job Title</th>
+                            <th>Contract Number</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Speciality</th>
+                            <th>parent Company</th>
+                            <th>Indpendent</th>
+                            <th>Insured</th>
+                            <th>Former Client</th>
+                            <th>Old Company ID</th>
+                            <th>Company Name Ather</th>
+                            <th>Print Date</th>
+                            <th>Just Family</th>
+                            <th>insurance Company Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @*<tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>*@
+                    </tbody>
+                </table>
+            </div>
+            <div class="row  mt-4 mx-auto col-md-12">
+                <div class="d-flex justify-content-center justify-content-md-end me-4 gap-2 ">
+                    <input type="button" class="btn" value="Copy" />
+                    <input type="button" class="btn" value="extension" />
+                    <input type="button" class="btn" value="Renew" />
+                </div>
+            </div>
+            <div class="portlet-body">
+                <input type="text" id="compname" value="@ViewBag.CompName" hidden="hidden" />
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#costCenter" data-toggle="tab">Cost Center</a></li>
+                    <li @*class="active"*@><a href="#departments" data-toggle="tab">Departments</a></li>
+                    <li><a href="#persons" data-toggle="tab">Persons</a></li>
+                    <li><a href="#addDelConditions" data-toggle="tab">Add-Del Conditions</a></li>
+                    <li><a href="#stopSequence" data-toggle="tab">Stop Sequence</a></li>
+                    <li><a href="#addGroup" data-toggle="tab">Add Group</a></li>
+                    <li><a href="#paymentMethod" data-toggle="tab">Payment Method</a></li>
+                    <li><a href="#addCheckUp" data-toggle="tab">Add Check Up</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="costCenter" class="tab-pane fade in active">
+                        <div class="row no-wrap mt-4 mx-auto col-md-12">
+                            <div class="w-50 mb-2" style="padding-right:4px;">
+                                <div class="w-100 d-flex align-items-center py-0 rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                                    <label class="mb-0 w-25">Indemnity</label>
+                                    <div class="sec-field-labeled w-50 px-2 ">
+                                        <input type="number" class="w-100 h-100 bg-transparent text-center outline-0" style="border:none !important;" placeholder="000" />
+                                    </div>
+                                    <label class="mb-0 w-25 text-center">Day</label>
+                                </div>
+                            </div>
+                            <div class="w-50 mb-2" style="padding-right:4px;">
+                                <div class="w-100 d-flex align-items-center py-0 rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                                    <label class="mb-0 w-25">Approvals</label>
+                                    <div class="sec-field-labeled w-50 px-2 ">
+                                        <input type="number" class="w-100 h-100 bg-transparent text-center outline-0" style="border:none !important;" placeholder="000" />
+                                    </div>
+                                    <label class="mb-0 w-25 text-center">Day</label>
+                                </div>
+                            </div>
+                            <div class="w-50 mb-2" style="padding-right:4px;">
+                                <div class="w-100 d-flex align-items-center py-0 rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                                    <label class="mb-0 w-25">Operation</label>
+                                    <div class="sec-field-labeled w-50 px-2 ">
+                                        <input type="number" class="w-100 h-100 bg-transparent text-center outline-0" style="border:none !important;" placeholder="000" />
+                                    </div>
+                                    <label class="mb-0 w-25 text-center">Day</label>
+                                </div>
+                            </div>
+                            <div class="w-50 mb-2" style="padding-right:4px;">
+                                <div class="w-100 d-flex align-items-center py-0 rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                                    <label class="mb-0 w-25">Claims</label>
+                                    <div class="sec-field-labeled w-50 px-2 ">
+                                        <input type="number" class="w-100 h-100 bg-transparent text-center outline-0" style="border:none !important;" placeholder="000" />
+                                    </div>
+                                    <label class="mb-0 w-25 text-center">Day</label>
+                                </div>
+                            </div>
+                            <div class="w-50 mb-2" style="padding-right:4px;">
+                                <div class="w-100 d-flex align-items-center py-0 rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                                    <label class="mb-0 w-25">Issue Card</label>
+                                    <div class="sec-field-labeled w-50 px-2 ">
+                                        <input type="number" class="w-100 h-100 bg-transparent text-center outline-0" style="border:none !important;" placeholder="000" />
+                                    </div>
+                                    <label class="mb-0 w-25 text-center">Day</label>
+                                </div>
+                            </div>
+                            <div class="w-50 mb-2" style="padding-right:4px;">
+                                <div class="w-100 d-flex align-items-center py-0 rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                                    <label class="mb-0 w-25">Stop Loss</label>
+                                    <div class="sec-field-labeled w-50 px-2 ">
+                                        <input type="number" class="w-100 h-100 bg-transparent text-center outline-0" style="border:none !important;" placeholder="000" />
+                                    </div>
+                                    <label class="mb-0 w-25 text-center">%</label>
+                                </div>
+                            </div>
+                            <div class="w-50 mb-2" style="padding-right:4px;">
+                                <div class="w-100 d-flex align-items-center py-0 rounded" style="border: 1px solid #c2cad8; height: 34px; padding: 4px 10px;">
+                                    <label class="mb-0 w-25">Net Premium</label>
+                                    <div class="sec-field-labeled w-50 px-2 ">
+                                        <input type="number" class="w-100 h-100 bg-transparent text-center outline-0" style="border:none !important;" placeholder="000" />
+                                    </div>
+                                    <label class="mb-0 w-25 text-center">EGP</label>
+                                </div>
+                            </div>
+                            <div class="sec-field-labeled w-50 mb-2 " style="padding-right:4px;">
+                                <textarea class="w-100 rounded px-3 py-3" style="resize:vertical" rows="6" placeholder="Notes"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="departments" class="tab-pane fade ">
+                    </div>
+                    <div id="persons" class="tab-pane fade">
+                    </div>
+                    <div id="addDelConditions" class="tab-pane fade ">
+                    </div>
+                    <div id="stopSequence" class="tab-pane fade">
+                    </div>
+                    <div id="addGroup" class="tab-pane fade ">
+                    </div>
+                    <div id="paymentMethod" class="tab-pane fade">
+                    </div>
+                    <div id="addCheckUp" class="tab-pane fade ">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.select2').select2();
+        $('#table').DataTable();
+
+    });
+    $(document).ready(function () {
+        $('input[name="Independent"]').on('change', function () {
+            if ($('#noRadio').is(':checked')) {
+                $('.compName-field').show();
+                $('.compName').select2();
+
+            } else {
+                $('.compName-field').hide();
+            }
+        });
+    });
+    $(document).ready(function () {
+        $('input[name="formerclient"]').on('change', function () {
+            if ($('#yesRadio2').is(':checked')) {
+                $('#clientCompName').hide();
+                $('#formerClientCompName').show();
+            } else if ($('#noRadio2').is(':checked')) {
+                $('#formerClientCompName').hide();
+                $('#clientCompName').show();
+            } else {
+                $('#formerClientCompName').hide();
+                $('#clientCompName').hide();
+            }
+        });
+    });
+    $('#insurance').on('change', function () {
+        if ($(this).is(':checked')) {
+            $('#formerClient').css('display', 'flex');
+        } else {
+            $('#formerClientCompName').hide();
+            $('#clientCompName').hide();
+            $('#formerClient').hide();
+        }
+    });
+</script>

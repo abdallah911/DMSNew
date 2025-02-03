@@ -1414,6 +1414,7 @@
     <Compile Include="ViewModel\EmployeeVM\DeliveryRequestVm.cs" />
     <Compile Include="ViewModel\EmployeeVM\ConfirmRegisterEmployeeVM.cs" />
     <Compile Include="ViewModel\HospitalVM\ApprovalComp.cs" />
+    <Compile Include="ViewModel\HR\ClaimsCardDetailsViewModel.cs" />
     <Compile Include="ViewModel\HR\ChronicDetailsViewModel.cs" />
     <Compile Include="ViewModel\HR\BatchViewModel.cs" />
     <Compile Include="ViewModel\HR\InvoiceViewModel.cs" />
@@ -8700,6 +8701,11 @@
     <Content Include="Reports\HR\File\3241124705958.pdf" />
     <Content Include="Reports\HR\File\3311024694755.pdf" />
     <Content Include="Views\Abuse\Index.cshtml" />
+    <Content Include="Views\BasicCimpanyContract\Index.cshtml" />
+    <Content Include="Views\BasicData\Index.cshtml" />
+    <Content Include="Views\Booking\Index.cshtml" />
+    <Content Include="Views\Booking\Index-copy.cshtml" />
+    <Content Include="Reports\HR\ReviewCliamsNew.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
@@ -8728,6 +8734,7 @@
     <Folder Include="ProviderContractsPDF\PolyClinic\Endorsement\" />
     <Folder Include="ProviderContractsPDF\Ray\Contracts\" />
     <Folder Include="ProviderContractsPDF\Ray\Endorsement\" />
+    <Folder Include="Reports\HR\File\Batch\" />
     <Folder Include="Views\ProposalBasicData\" />
   </ItemGroup>
   <ItemGroup>
