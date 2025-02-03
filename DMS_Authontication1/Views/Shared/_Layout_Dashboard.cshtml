@@ -67,6 +67,15 @@
         .dms-container {
             min-height: calc(100vh - 300.1px);
         }
+        i.fa-minus,
+        i.fa-plus {
+            padding: 5px;
+            border-radius: 50%;
+            background: transparent;
+            border: 2px solid #337ab7;
+            color: #337ab7;
+            cursor: pointer;
+        }
         /*  
         .dms-container {
             padding-top: 60px;
@@ -92,6 +101,9 @@
         textarea {
             border: 1px solid #c2cad8 !important; 
         }
+        input:focus-visible, select:focus-visible, textarea:focus-visible {
+            outline: 2px solid #337ab7;
+        }
         .dms-color {
             color: #337ab7;
         }
@@ -108,7 +120,9 @@
             .forLabel textarea {
                 height: 100%;
             }
-
+                .forLabel select:valid, .forLabel input:valid, .forLabel textarea:valid, .forLabel select:focus, .forLabel input:focus, .forLabel textarea:focus {
+                    padding: 6px !important;
+                }
             .forLabel > span:not(.select2-container), .select {
                 color: #337ab7;
             }
@@ -447,13 +461,13 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <a href="~/Home/Index">
                       
-                            <div id="EventLogoDms" style="width: 100px; border-radius: 16px; display: none;" class="dms-celebrate-gif img d-flex align-self-stretch" hidden>
+                            @*<div id="EventLogoDms" style="width: 100px; border-radius: 16px; display: none;" class="dms-celebrate-gif img d-flex align-self-stretch" hidden>
                                 <div class="celebrate-gif">
                                     <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
                                 </div>
                                 <img class="imgmenu" src="~/assets/global/img/Events/event-logo.png" style="margin-top: 10px;" />
 
-                            </div>
+                            </div>*@
                        
                             <img id="LogoDmsTop" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" />
                         
@@ -1162,7 +1176,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="footerP2">
-                                    <h2 class="mb-1 text-white fw-bold" style="font-size:24px;">Contact</h2>
+                                    <h2 class="mb-1  fw-bold" style="font-size:24px;">Contact</h2>
                                     <div class="line ms-0 mb-3" style="width:95px"></div>
                                     <ul class="p-0 m-0 mt-1 footer-contacts-text" style="white-space:nowrap">
                                         <li>
