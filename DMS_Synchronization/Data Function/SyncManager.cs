@@ -399,7 +399,7 @@ namespace DMS_Synchronization
                 SyncToSqlTable<CONSUMPTION_POOL>(StringHelper.GetQyertCONSUMPTION_POOL, StringHelper.GetTableNameCONSUMPTION_POOL);
                 SyncToSqlTable<REMAIN_CONSUMATION>(StringHelper.GetQyertREMAIN_CONSUMATION, StringHelper.GetTableNameREMAIN_CONSUMATION);
                 CLOSE_EMP_DATASyncToSqlTable();
-                COMP_EMPLOYEES_DSyncToSqlTable();
+                //COMP_EMPLOYEES_DSyncToSqlTable();
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED);
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED_EMP>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED_EMP, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED_EMP);
 
@@ -723,10 +723,10 @@ namespace DMS_Synchronization
                         var message = ex.Message;
                     }
  
-                    if (dataTable.Columns.Contains("Oracle_Id_Top"))
-                    {
-                        dataTable.Columns.Remove("Oracle_Id_Top");
-                    }
+                    //if (dataTable.Columns.Contains("Oracle_Id_Top"))
+                    //{
+                    //    dataTable.Columns.Remove("Oracle_Id_Top");
+                    //}
                     var options = GetDefaultSyncOptions();
                     if (keepIdentity)
                     {
@@ -739,6 +739,15 @@ namespace DMS_Synchronization
                             sqlBulk.BatchSize = _batchSize.Value;
                         }
                         sqlBulk.DestinationTableName = tableName;
+                        
+                        foreach (DataColumn column in dataTable.Columns)
+                        {
+                            if (column.ColumnName != "Oracle_Id_Top")  
+                            {
+                                sqlBulk.ColumnMappings.Add(column.ColumnName, column.ColumnName);
+                            }
+                        }
+
                         sqlBulk.WriteToServer(dataTable);
 
 
