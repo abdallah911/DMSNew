@@ -1550,6 +1550,7 @@
     <Content Include="assets\global\img\clients\وزارة_الطيران_المدني.png" />
     <Content Include="assets\global\img\datatable-row-openclose.png" />
     <Content Include="assets\global\img\Events\1.gif" />
+    <Content Include="assets\global\img\Events\canon.gif" />
     <Content Include="assets\global\img\Events\event-logo.png" />
     <Content Include="assets\global\img\Events\welcome-event.png" />
     <Content Include="assets\global\img\flags\ad.png" />
@@ -6557,6 +6558,7 @@
     <Content Include="assets\HomeTemplete\img\brand\3.png" />
     <Content Include="assets\HomeTemplete\img\brand\4.png" />
     <Content Include="assets\HomeTemplete\img\brand\5.png" />
+    <Content Include="assets\HomeTemplete\img\canon.gif" />
     <Content Include="assets\HomeTemplete\img\dms-silver-logo.png" />
     <Content Include="assets\HomeTemplete\img\DMS_Logo.png" />
     <Content Include="assets\HomeTemplete\img\elements\a.jpg" />

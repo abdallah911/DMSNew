@@ -6,6 +6,9 @@
 ::selection {
     background: #97d1df !important;
 }
+a{
+    text-decoration:none;
+}
 body{
     overflow-x:hidden;
 }
