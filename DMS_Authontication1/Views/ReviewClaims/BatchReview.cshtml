@@ -97,6 +97,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-end gap-2 container text-center">
+            <input type="button" value="Download" class="btn my-3" onclick="DownloadBatch()" id="DownloadBatch" />
             <input type="button" value="Print" class="btn my-3" onclick="PrintSummary()" />
             <div class="d-flex gap-2 justify-content-center align-items-center">
                 <div class="d-flex align-items-center gap-2">
@@ -216,15 +217,17 @@
 
             <input id="ShowConsumption" type="button" value="Personal Data" class="btn btn-primary" onclick="ShowCardInformation()" />
             <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalDetails()" />
-            <input id="ShowClaims" type="button" value="Chronic" class="btn btn-primary" onclick="ShowChronicDetails()" />
+            <input id="ShowChronic" type="button" value="Chronic" class="btn btn-primary" onclick="ShowChronicDetails()" />
+            <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsDetails()" />
+
             @*<input id="ShowConsumption" type="button" value="Show Consumption" onclick="ShowAllConsmptionDetails()" class="btn btn-primary" />
-                <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalConsmptionDetails()" />
-                <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsConsmptionDetails()" />
-                <input id="ShowIndemnity" type="button" value="Indemnity" class="btn btn-success  fa fa-search" onclick="ShowIndemnityConsmptionDetails()" />
-                <input id="ShowMonthly" type="button" value="Monthly treatment" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMonthlyConsmptionDetails()" />
-                <input id="ShowLive" type="button" value="Online Live" class="btn btn-success fa-file-excel-o " onclick="ShowLiveConsmptionDetails()" />
-                <input id="ShowMedicalNetwork" type="button" value="Medical Network" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMedicalNetworkScreen()" />
-                <input id="ShowCardDesgin" type="button" value="Card Desgin" class="btn btn-success fa-file-excel-o " onclick="ShowCardDesignPrint()" />*@
+        <input id="ShowApproval" type="button" value="Approval" class="btn btn-success" onclick="ShowApprovalConsmptionDetails()" />
+        <input id="ShowClaims" type="button" value="Claims" class="btn btn-primary" onclick="ShowClaimsConsmptionDetails()" />
+        <input id="ShowIndemnity" type="button" value="Indemnity" class="btn btn-success  fa fa-search" onclick="ShowIndemnityConsmptionDetails()" />
+        <input id="ShowMonthly" type="button" value="Monthly treatment" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMonthlyConsmptionDetails()" />
+        <input id="ShowLive" type="button" value="Online Live" class="btn btn-success fa-file-excel-o " onclick="ShowLiveConsmptionDetails()" />
+        <input id="ShowMedicalNetwork" type="button" value="Medical Network" class="btn btn-primary fa fa-file-pdf-o" onclick="ShowMedicalNetworkScreen()" />
+        <input id="ShowCardDesgin" type="button" value="Card Desgin" class="btn btn-success fa-file-excel-o " onclick="ShowCardDesignPrint()" />*@
         </div>
 
         <div class="panel-body">
@@ -336,6 +339,23 @@
                         </tr>
                     </thead>
                     <tbody id="MonthlyDetailsBody"></tbody>
+                </table>
+            </div>
+
+            <div class="col-md-12" style="margin-top:80px;margin-bottom:100px" id="ClaimsCardScreen" hidden>
+                <table class="table" id="ClaimsCardDetails">
+                    <thead>
+                        <tr>
+                            <th scope="col" align="center">Claim No</th>
+                            <th scope="col" align="center">Claim Date</th>
+                            <th scope="col" align="center">Batch No</th>
+                            <th scope="col" align="center">Provider Name</th>   
+                            <th scope="col" align="center">Serv Name</th>                            
+                            <th scope="col" align="center">Gross</th>
+                            <th scope="col" align="center">Net</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ClaimsCardDetailsBody"></tbody>
                 </table>
             </div>
         </div>
@@ -462,6 +482,10 @@
         table3.destroy();
 
         var table4 = $('#ChronicDetails').DataTable();
+        table4.clear().draw();
+        table4.destroy();
+
+        var table4 = $('#ClaimsCardDetails').DataTable();
         table4.clear().draw();
         table4.destroy();
 
@@ -636,7 +660,8 @@
         $('#InformationScreen').hide();
         $('#ApprovalsScreen').hide();
         $('#ChronicScreen').hide();
-
+        $('#ClaimsCardScreen').hide();
+        
         $('#ApprovalsScreen').show();
 
         if ($('#CardID').val() != "")
@@ -647,6 +672,7 @@
         $('#InformationScreen').hide();
         $('#ApprovalsScreen').hide();
         $('#ChronicScreen').hide();
+        $('#ClaimsCardScreen').hide();
 
         $('#InformationScreen').show();
         if ($('#CardID').val() != "")
@@ -657,12 +683,27 @@
         $('#InformationScreen').hide();
         $('#ApprovalsScreen').hide();
         $('#ChronicScreen').hide();
+        $('#ClaimsCardScreen').hide();
 
         $('#ChronicScreen').show();
 
         if ($('#CardID').val() != "")
             getChronicData($('#CardID').val());
     }
+
+    function ShowClaimsDetails() {
+
+        $('#InformationScreen').hide();
+        $('#ApprovalsScreen').hide();
+        $('#ChronicScreen').hide();
+        $('#ClaimsCardScreen').hide();
+
+        $('#ClaimsCardScreen').show();
+
+        if ($('#CardID').val() != "")
+            getClaimsCardData($('#CardID').val());
+    }
+
     function getApprovalData(crd) {
 
         var table = $('#ApprovalsDetails').DataTable();
@@ -764,7 +805,54 @@
             });
         }
     }
+
+    function getClaimsCardData(crd) {
+
+        var table = $('#ClaimsCardDetails').DataTable();
+        table.clear().draw();
+        table.destroy();
+
+        if ($('#CardID').val() != "") {
+            $("#loading").css("display", "flex");
+            $.ajax({
+                type: "POST",
+                url: '/ReviewClaims/getClaimsCardData',
+                data: { CardId: $('#CardID').val() },
+                success: function (apprs) {
+
+                    if (apprs.clmD.length > 0) {
+
+                        $('#ClaimsCardDetails').dataTable().fnDestroy();
+
+                        var setData = $("#ClaimsCardDetails Tbody");
+                        setData.empty();
+
+                        for (var i = 0; i < apprs.clmD.length; i++) {
+                            var data = "<tr >" +
+                                "<td>" + apprs.clmD[i].Claim_No + "</td>" +
+                                "<td>" + apprs.clmD[i].Claim_Date + "</td>" +
+                                "<td>" + apprs.clmD[i].Batch_No + "</td>" +
+                                "<td>" + apprs.clmD[i].Provider_Name + "</td>" +
+                                "<td>" + apprs.clmD[i].Serv_Name + "</td>" +
+                                "<td>" + apprs.clmD[i].Gross + "</td>" +
+                                "<td>" + apprs.clmD[i].Net + "</td>" +
+                                "</tr>";
+                            setData.append(data);
+                        }
+
+                        $("#ClaimsCardDetails").DataTable();
+                    }
+                },
+                complete: function () {
+                    $("#loading").hide();
+
+                }
+            });
+        }
+    }
+
     function getData(crd) {
+        debugger;
         $('#EmployeeName').val("");
         $('#BirthDate').val("");
         $('#Age').val("");
@@ -853,29 +941,69 @@
         });
     }
 
+    function DownloadBatch() {
+        var btch = $('#BatchNo').val();
+        $.ajax({
+            url: '/ReviewClaims/DownloadBatch',
+            type: 'GET',
+            data: { batchNo: btch },
+            success: function (response) {
+                if (response.success === false) {
+                    alert(response.message);
+                } else {
+                    var fileUrl = '/ReviewClaims/DownloadBatch?batchNo=' + encodeURIComponent(btch);
+                    window.open(fileUrl, '_blank');
+                }
+            },
+            error: function () {
+                alert("An error occurred while trying to download the file.");
+            }
+        });
+    }
+    //function PrintSummary() {
+
+    //    if ($("#CompNum").val() != "") {
+
+    //        var compId = $("#CompNum").val();          
+    //        var aprovNo = $("#ApprovalNo").val();
+    //        var cardId = $("#CardId").val();
+    //        var invocNo = $("#InvoicNo").val();
+    //        var batchNo = $("#BatchNo").val();
+
+    //        if ($("#excel").is(":checked"))
+    //            window.open('/ReviewClaims/PrintExcel?compId=' + compId +                   
+    //                '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
+    //                '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
+    //        else
+    //            window.open('/ReviewClaims/PrintPdf?compId=' + compId +                   
+    //                '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
+    //                '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
+    //    }
+    //    else
+    //        alert("Comp Id is empty");
+    //}
     function PrintSummary() {
 
         if ($("#CompNum").val() != "") {
 
-            var compId = $("#CompNum").val();          
+            var compId = $("#CompNum").val();
             var aprovNo = $("#ApprovalNo").val();
             var cardId = $("#CardId").val();
             var invocNo = $("#InvoicNo").val();
             var batchNo = $("#BatchNo").val();
+            var typ = 1;
 
             if ($("#excel").is(":checked"))
-                window.open('/ReviewClaims/PrintExcel?compId=' + compId +                   
+                typ = 2;
+               
+            
+                window.open('/ReviewClaims/PrintReviewClaimsNew?compId=' + compId +
                     '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
-                    '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
-            else
-                window.open('/ReviewClaims/PrintPdf?compId=' + compId +                   
-                    '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
-                    '&&invocNo=' + invocNo + '&&batchNo=' + batchNo);
+                    '&&invocNo=' + invocNo + '&&batchNo=' + batchNo + '&&typ=' + typ);
         }
         else
             alert("Comp Id is empty");
     }
-
 </script>
 
 <style>
