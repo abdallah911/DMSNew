@@ -24,14 +24,14 @@ $(function () {
                                 var MyDate_String_Value = r[i].INS_START_DATE;
                                 var value = new Date
                                     (
-                                    parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
+                                        parseInt(MyDate_String_Value.replace(/(^.*\()|([+-].*$)/g, ''))
                                     );
                                 var dat = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
                                 //end date
                                 var MyDate_String_Value1 = r[i].INS_END_DATE;
                                 var value1 = new Date
                                     (
-                                    parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
+                                        parseInt(MyDate_String_Value1.replace(/(^.*\()|([+-].*$)/g, ''))
                                     );
                                 var dat1 = value1.getDate() + "/" + (value1.getMonth() + 1) + "/" + value1.getFullYear();
                             }
@@ -42,11 +42,11 @@ $(function () {
                             var data = "<tr >" +
                                 "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='SelectApprovalSearchCards(this);'></Button>" + "</td>" +
                                 "<td>" + r[i].CARD_ID + "</td>" +
-                                "<td>" + r[i].EMP_ANAME + "</td>" +
-                                "<td>" + r[i].EMP_ENAME + "</td>" +
-                                "<td>" + dat + "</td>" +
-                                "<td>" + dat1 + "</td>" +
-                                "</tr>"
+                                "<td>" + r[i].EMP_ANAME_ST + " " + r[i].EMP_ANAME_SC + " " + r[i].EMP_ANAME_TH + "</td>" +
+                                "<td>" + r[i].EMP_ENAME_ST + " " + r[i].EMP_ENAME_SC + " " + r[i].EMP_ENAME_TH + "</td>" +
+                                    "<td>" + dat + "</td>" +
+                                    "<td>" + dat1 + "</td>" +
+                                    "</tr>"
                             setData.append(data);
 
                         }
@@ -66,13 +66,13 @@ $(function () {
         else {
             bootbox.alert("Please insert Card ID")
         }
-      
+
     });
 
 });
 function Select(button) {
-    
-  
+
+
     var row = $(button).closest("TR");
     var ApprovalId = $("TD", row).eq(1).html();
     ApprovalId = parseInt(ApprovalId);
@@ -86,7 +86,7 @@ function Select(button) {
         },
         dataType: 'Json',
         success: function (r) {
-            
+
             if ($(button).val() != "N") {
                 $("TD", row).eq(6).html($(button).val());
                 toastr.success($(button).val());

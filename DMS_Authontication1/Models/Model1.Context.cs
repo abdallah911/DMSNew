@@ -606,5 +606,15 @@ namespace DMS_Authontication1.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateMedMedicicen", medicineCodeParameter, statusParameter, userNameParameter);
         }
+    
+        [DbFunction("DMS_TESTEntities", "fn_searchCompEmployeesFullName")]
+        public virtual IQueryable<fn_searchCompEmployeesFullName_Result> fn_searchCompEmployeesFullName(string search)
+        {
+            var searchParameter = search != null ?
+                new ObjectParameter("search", search) :
+                new ObjectParameter("search", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_searchCompEmployeesFullName_Result>("[DMS_TESTEntities].[fn_searchCompEmployeesFullName](@search)", searchParameter);
+        }
     }
 }

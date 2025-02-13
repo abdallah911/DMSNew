@@ -3895,6 +3895,32 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </CollectionType>
           </ReturnType>
         </Function>
+        <Function Name="fn_searchCompEmployeesFullName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="search" Type="varchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="CARD_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="EMP_ANAME_ST" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ANAME_SC" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ANAME_TH" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ANAME_FR" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ENAME_ST" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ENAME_SC" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ENAME_TH" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ENAME_FR" Type="nvarchar" MaxLength="100" />
+                <Property Name="INS_START_DATE" Type="date" />
+                <Property Name="SPECIFIC_DATE" Type="date" />
+                <Property Name="BIRTH_DATE" Type="date" />
+                <Property Name="INS_END_DATE" Type="date" />
+                <Property Name="TERMINATE_DATE" Type="date" />
+                <Property Name="CONTRACT_NO" Type="int" />
+                <Property Name="Now" Type="datetime" Nullable="false" />
+                <Property Name="CompHolderName" Type="nvarchar" MaxLength="150" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <Function Name="fn_StopEditAdminClamsList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FROM" Type="nvarchar" Mode="In" />
           <Parameter Name="TO" Type="nvarchar" Mode="In" />
@@ -5965,6 +5991,9 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           </AssociationSet>
           <EntitySet Name="CompContractClassProviders" EntityType="DB_A45413_DMSERPModel.CompContractClassProvider" />
           <EntitySet Name="CompanyEvents" EntityType="DB_A45413_DMSERPModel.CompanyEvent" />
+          <FunctionImport Name="fn_searchCompEmployeesFullName" IsComposable="true" ReturnType="Collection(DB_A45413_DMSERPModel.fn_searchCompEmployeesFullName_Result)">
+            <Parameter Name="search" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -8670,6 +8699,25 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" />
         </EntityType>
+        <ComplexType Name="fn_searchCompEmployeesFullName_Result">
+          <Property Type="String" Name="CARD_ID" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="EMP_ANAME_ST" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EMP_ANAME_SC" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EMP_ANAME_TH" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EMP_ANAME_FR" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EMP_ENAME_ST" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EMP_ENAME_SC" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EMP_ENAME_TH" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EMP_ENAME_FR" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="INS_START_DATE" Nullable="true" Precision="10" />
+          <Property Type="DateTime" Name="SPECIFIC_DATE" Nullable="true" Precision="10" />
+          <Property Type="DateTime" Name="BIRTH_DATE" Nullable="true" Precision="10" />
+          <Property Type="DateTime" Name="INS_END_DATE" Nullable="true" Precision="10" />
+          <Property Type="DateTime" Name="TERMINATE_DATE" Nullable="true" Precision="10" />
+          <Property Type="Int32" Name="CONTRACT_NO" Nullable="true" />
+          <Property Type="DateTime" Name="Now" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CompHolderName" Nullable="false" MaxLength="150" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12050,6 +12098,29 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="fn_searchCompEmployeesFullName" FunctionName="DB_A45413_DMSERPModel.Store.fn_searchCompEmployeesFullName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A45413_DMSERPModel.fn_searchCompEmployeesFullName_Result">
+                <ScalarProperty Name="CARD_ID" ColumnName="CARD_ID" />
+                <ScalarProperty Name="EMP_ANAME_ST" ColumnName="EMP_ANAME_ST" />
+                <ScalarProperty Name="EMP_ANAME_SC" ColumnName="EMP_ANAME_SC" />
+                <ScalarProperty Name="EMP_ANAME_TH" ColumnName="EMP_ANAME_TH" />
+                <ScalarProperty Name="EMP_ANAME_FR" ColumnName="EMP_ANAME_FR" />
+                <ScalarProperty Name="EMP_ENAME_ST" ColumnName="EMP_ENAME_ST" />
+                <ScalarProperty Name="EMP_ENAME_SC" ColumnName="EMP_ENAME_SC" />
+                <ScalarProperty Name="EMP_ENAME_TH" ColumnName="EMP_ENAME_TH" />
+                <ScalarProperty Name="EMP_ENAME_FR" ColumnName="EMP_ENAME_FR" />
+                <ScalarProperty Name="INS_START_DATE" ColumnName="INS_START_DATE" />
+                <ScalarProperty Name="SPECIFIC_DATE" ColumnName="SPECIFIC_DATE" />
+                <ScalarProperty Name="BIRTH_DATE" ColumnName="BIRTH_DATE" />
+                <ScalarProperty Name="INS_END_DATE" ColumnName="INS_END_DATE" />
+                <ScalarProperty Name="TERMINATE_DATE" ColumnName="TERMINATE_DATE" />
+                <ScalarProperty Name="CONTRACT_NO" ColumnName="CONTRACT_NO" />
+                <ScalarProperty Name="Now" ColumnName="Now" />
+                <ScalarProperty Name="CompHolderName" ColumnName="CompHolderName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

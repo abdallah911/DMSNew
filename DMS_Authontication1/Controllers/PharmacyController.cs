@@ -152,14 +152,14 @@ namespace DMS_TEST.Controllers
             var isPermission = db.UserCompanyPermissions.Where(u => u.UserId == userID && u.IsActive != false).Select(c => c.CompId).ToList();
             if (isPermission == null || isPermission.Count == 0)
             {
-                var emp = db.fn_searchCompEmployees(id).ToList();
+                var emp = db.fn_searchCompEmployeesFullName(id).ToList();
                 return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
             else
             {
                 if (isPermission.Contains(company))
                 {
-                    var emp = db.fn_searchCompEmployees(id).ToList();
+                    var emp = db.fn_searchCompEmployeesFullName(id).ToList();
                     return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
                 return new JsonResult { Data = "null", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -187,14 +187,14 @@ namespace DMS_TEST.Controllers
             var isPermission = db.UserCompanyPermissions.Where(u => u.UserId == userID && u.IsActive != false).Select(c => c.CompId).ToList();
             if (isPermission == null || isPermission.Count == 0)
             {
-                var emp = db.fn_searchCompEmployees(id).ToList();
+                var emp = db.fn_searchCompEmployeesFullName(id).ToList();
                 return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
             else
             {
                 if (isPermission.Contains(company))
                 {
-                    var emp = db.fn_searchCompEmployees(id).ToList();
+                    var emp = db.fn_searchCompEmployeesFullName(id).ToList();
                     return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
                 return new JsonResult { Data = "null", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -4635,12 +4635,12 @@ namespace DMS_TEST.Controllers
                     }
                     else
                     {
-                        rd.SetParameterValue("PatientName", patient.EMP_ANAME);
+                        rd.SetParameterValue("PatientName", patient.EMP_ANAME_ST+" "+ patient.EMP_ANAME_SC + " "+ patient.EMP_ANAME_TH);
                     }
                 }
                 else
                 {
-                    rd.SetParameterValue("PatientName", patient.EMP_ENAME);
+                    rd.SetParameterValue("PatientName", patient.EMP_ENAME_ST + " " + patient.EMP_ENAME_SC + " " + patient.EMP_ENAME_TH);
                 }
                 if (data.RoshetaType == "11601")
                 {

@@ -632,8 +632,21 @@
                                         //if (modellist.Where(x => x.PageId == 57 && (x.FullControl || x.EditPermission
                                         //                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         //{
+                                        var misrUsers = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+                                                        {
+                                            "hr.misr.insurance", "Yasmen.misr.insurance", "Ahmed.misr.insurance",
+                                            "Hussien.misr.insurance", "Sherif.misr.insurance", "Doaa.misr.insurance",
+                                            "Hassan.misr.insurance", "Awatef.misr.insurance", "Eslam.misr.insurance"
+                                        };
 
-                                        @*<li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>*@
+                                        if (misrUsers.Contains(User.Identity.GetUserName().Trim()))
+                                        {
+                                            <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
+                                        }
+                                        @*if (User.Identity.GetUserName() == "hr.misr.insurance")
+                        {
+                            <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
+                        }*@
                                         //}
                                     }
                                 }

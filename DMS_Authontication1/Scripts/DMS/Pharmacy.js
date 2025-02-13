@@ -162,7 +162,7 @@ $(function () {
                         $('#Approval').attr('disabled', false);
                         CardId = r[0].CARD_ID;
                         $('#txtSearchCard').val(CardId);
-                        var ArName = r[0].EMP_ENAME;
+                        var ArName = r[0].EMP_ANAME_ST + " " + r[0].EMP_ANAME_SC + " " + r[0].EMP_ANAME_TH;
                         var CompHolderName = r[0].CompHolderName;
                         firstDate = new Date(parseFloat(r[0].INS_END_DATE.replace(/(^.*\()|([+-].*$)/g, '')));
                         diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));

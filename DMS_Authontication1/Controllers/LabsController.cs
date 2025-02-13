@@ -194,9 +194,9 @@ namespace DMS_Authontication1.Controllers
             {
                 data.CreatedBy = User.Identity.Name;
             }
+            data.UpdatedBy = User.Identity.Name;
             data.CreatedDate = DateTime.Now;
             data.CompHolderCode = employee.COMP_ID;
-            db.Roshitas.Add(data);
             data.Manager = "Lab";
             data.RoshetaType = "11206";
             try
@@ -253,17 +253,87 @@ namespace DMS_Authontication1.Controllers
 
                     }
                 }
+                bool oneNotification = false;
+
+                foreach (RoshitaDetail Medicien in data.RoshitaDetails)
+                {
+                    //Medicien.RoshitaID = Convert.ToInt64(Session["id"]);
+                    Medicien.Dose = 0;
+                    Medicien.Duration = 0;
+                    Medicien.TotalDuration = 7;
+                    Medicien.TotalUnits = 1;
+                    if (Medicien.PaymentGroup == "Pending")
+                    {
+                        //if (oneNotification == false)
+                        //{
+                        //    //string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
+                        //    NotificationHub objNotifHub = new NotificationHub();
+                        //    Notification notification = new Notification();
+                        //    notification.SentTo = data.CardId.Split('-')[0] == "888" ? "AdminHelth" : "Admin";
+                        //    notification.CreatedBy = User.Identity.Name;
+                        //    notification.CreatedDate = DateTime.Now;
+                        //    notification.Type = 1;//pending
+                        //    notification.TypeNmae = "Lab";//pending
+                        //    notification.Details = data.CardId;
+                        //    notification.RoshitaId = Medicien.RoshitaID;
+                        //    notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
+                        //    notification.Title = "Pending";
+                        //    db.Notifications.Add(notification);
+                        //    objNotifHub.SendMessages();
+                        //    oneNotification = true;
+                        //}
+                        Medicien.IsDealed = false;
+                    }
+                    else
+                    {
+                        Medicien.IsDealed = true;
+                    }
+                    //db.RoshitaDetails.Add(Medicien);
+                }
+                db.Roshitas.Add(data);
+
                 int result = db.SaveChanges();
-                Session["id"] = data.Id;
-                //data.CreatedDate.ToString();
-                return Json("2" + data.CreatedDate.Value.ToString("ddMMyy") + data.Id);
+                if (result > 0)
+                {
+                    foreach (RoshitaDetail Medicien in data.RoshitaDetails)
+                    {
+                        if (Medicien.PaymentGroup == "Pending")
+                        {
+                            if (oneNotification == false)
+                            {
+                                //string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
+                                NotificationHub objNotifHub = new NotificationHub();
+                                Notification notification = new Notification();
+                                notification.SentTo = data.CardId.Split('-')[0] == "888" ? "AdminHelth" : "Admin";
+                                notification.CreatedBy = User.Identity.Name;
+                                notification.CreatedDate = DateTime.Now;
+                                notification.Type = 1;//pending
+                                notification.TypeNmae = "Lab";//pending
+                                notification.Details = data.CardId;
+                                notification.RoshitaId = data.Id;
+                                notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
+                                notification.Title = "Pending";
+                                db.Notifications.Add(notification);
+                                db.SaveChanges();
+                                objNotifHub.SendMessages();
+                                oneNotification = true;
+                            }
+                        }
+                    }
+
+                    return Json("2" + data.CreatedDate.Value.ToString("ddMMyy") + data.Id);
+                }
+                return Json("Failed");
+
             }
             catch (Exception ex)
             {
 
                 var e = ex.InnerException;
+                return Json("Failed to Save Prescription");
+
             }
-            return Json("2" + data.CreatedDate.Value.ToString("ddMMyy") + data.Id);
+            //return Json("2" + data.CreatedDate.Value.ToString("ddMMyy") + data.Id);
 
         }
         [Authorize(Roles = "Admin,Lab,Lab_Admin")]

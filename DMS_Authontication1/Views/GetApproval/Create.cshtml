@@ -235,7 +235,7 @@
                         var data = "<tr >" +
                             "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Select(this);'></Button>" + "</td>" +
                             "<td>" + r[i].CARD_ID + "</td>" +
-                            "<td>" + r[i].EMP_ANAME + "</td>" +
+                            "<td>" + r[i].EMP_ANAME_ST + " " + r[i].EMP_ANAME_SC + " " + r[i].EMP_ANAME_TH + "</td>" +
                             "<td>" + r[i].EMP_ENAME + "</td>" +
                             "<td>" + StartDate + "</td>" +
                             "<td>" + dat1 + "</td>" +
@@ -253,7 +253,7 @@
                         $('#txtSearchCard').val(CardId);
                         var ArName;
                         for (var i = 0; i < r.length; i++) {
-                            ArName = r[i].EMP_ANAME;
+                            ArName = r[0].EMP_ANAME_ST + " " + r[0].EMP_ANAME_SC + " " + r[0].EMP_ANAME_TH;
                         }
 
                         var EndDate = dat1;
