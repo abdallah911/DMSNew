@@ -9,7 +9,7 @@
 
 <!-- Start Section -->
 <form style="direction: rtl;" class="reports-form overflow-hidden " action="Reports.html">
-    <div class="container">
+    <div class="container dms-container">
         <div class="row col-sm-10 col-md-10 ms-sm-auto">
             <div class="Pharmacy-form-parent  col-10 m-auto ms-sm-auto me-sm-0 col-sm-10  col-lg-6">
                 <div class="Pharmacy-form">
@@ -18,9 +18,9 @@
                             <h3 class="me-3 fw-bold">أدوية مزمنة</h3>
                             <div class="reports-field">
                                 <h6>تاريخ التسجيل</h6>
-                                <div class="reports-input-parent">
-                                    <input type="text" class="date-input reports-inp" placeholder="من" id="RegistrationFrom">
-                                    <input type="text" class="date-input reports-inp" placeholder="الى" id="RegistrationTo">
+                                <div class="reports-input-parent gap-2">
+                                    <input type="text" class="date-input reports-inp ms-0" placeholder="من" id="RegistrationFrom">
+                                    <input type="text" class="date-input reports-inp ms-0" placeholder="الى" id="RegistrationTo">
                                 </div>
                             </div>
                             @*<div class="reports-field">
@@ -35,9 +35,9 @@
                                 <h6>رقم الشركة</h6>
                                 <div class="reports-select2-parent" style="width:70%">
                                     @*<select class="reports-select w-100 " name="" id="">
-            <option value=""></option>
-        </select>*@
-                                    <div class="w-100">
+                                        <option value=""></option>
+                                    </select>*@
+                                    <div class="w-100 ps-0">
 
                                         @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "Select Company", new { @class = "reports-select w-100", id = "CompNo" })
                                     </div>
@@ -46,7 +46,7 @@
                             <div class="reports-field">
                                 <h6>رقم الكارت</h6>
                                 <div class="reports-select2-parent" style="width:70%">
-                                    <div class="w-100">
+                                    <div class="w-100 ps-0">
 
                                         <select class="reports-select w-100" id="CardNo">
                                             <option value=""></option>
@@ -60,7 +60,7 @@
                                     @*<select class="reports-select w-100 " name="" id="">
             <option value=""></option>
         </select>*@
-                                    <div class="w-100">
+                                    <div class="w-100 ps-0">
                                         @Html.DropDownList("userName", ViewBag.users as SelectList, "Select User", new { @class = "reports-select w-100", @id = "userName" })
                                     </div>
                                 </div>
@@ -88,7 +88,7 @@
                                     @*<select class="reports-select w-100 " name="" id="">
             <option value=""></option>
         </select>*@
-                                    <div class="w-100">
+                                    <div class="w-100 ps-0">
                                         <select id="AddMedicine" class="reports-select w-100">
                                             <option value="">select medicine</option>
                                         </select>
@@ -126,7 +126,7 @@
                             <div class="reports-field">
                                 <h6>نوع الطباعة</h6>
                                 <div class="reports-input-parent  ">
-                                    <div style="    width: 100%; margin-left: 10px !important;" class="reports-select  d-flex align-items-center justify-content-center ">
+                                    <div style="    width: 100%;  !important;" class="reports-select ms-0 d-flex align-items-center justify-content-center ">
                                         <div class="d-flex ms-4">
                                             <input class="ms-2" id="excel" name="radio1" type="radio">
                                             <label for="excel">Excel</label>
@@ -138,12 +138,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="action-btns-sec m-auto ms-0 col-6">
-                                <div style="grid-template-columns: repeat(3, auto);" class="action-btns  ">
-                                    <button type="button" class="action-btn fw-bold" onclick="ClearAll()">
+                            <div class="action-btn btns-sec m-auto ms-0 col-6">
+                                <div style="grid-template-columns: repeat(3, auto);" class="action-btn btns  ">
+                                    <button type="button" class="action-btn btn fw-bold" onclick="ClearAll()">
                                         جديد
                                     </button>
-                                    <button type="button" class=" d-flex align-items-center action-btn fw-bold" onclick="PrintReport()">
+                                    <button type="button" class=" d-flex align-items-center action-btn btn fw-bold" onclick="PrintReport()">
                                         طباعة
                                         <i class="fa-solid fa-print me-2"></i>
                                     </button>
@@ -160,9 +160,9 @@
                             <h3 class="me-3 fw-bold">مراجعة الأدوية</h3>
                             <div class="reports-field">
                                 <h6>تاريخ التسجيل</h6>
-                                <div class="reports-input-parent">
-                                    <input type="text" class="date-input reports-inp" placeholder="من" id="RegistrationFromMed">
-                                    <input type="text" class="date-input reports-inp" placeholder="الى" id="RegistrationToMed">
+                                <div class="reports-input-parent gap-2">
+                                    <input type="text" class="date-input reports-inp ms-0" placeholder="من" id="RegistrationFromMed">
+                                    <input type="text" class="date-input reports-inp ms-0" placeholder="الى" id="RegistrationToMed">
                                 </div>
                             </div>
                             <div class="reports-field">
@@ -171,7 +171,7 @@
                                     @*<select class="reports-select w-100 " name="" id="">
             <option value=""></option>
         </select>*@
-                                    <div class="w-100">
+                                    <div class="w-100 ps-0">
                                         @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "أختر الشركة", new { @class = "reports-select w-100", id = "CompNoMed" })
                                     </div>
                                 </div>
@@ -179,7 +179,7 @@
                             <div class="reports-field">
                                 <h6>رقم الكارت</h6>
                                 <div class="reports-select2-parent" style="width:70%">
-                                    <div class="w-100">
+                                    <div class="w-100 ps-0">
                                         <select class="reports-select w-100 " name="" id="CardNoMed">
                                             <option value=""></option>
                                         </select>
@@ -199,7 +199,7 @@
                             <div class="reports-field">
                                 <h6>نوع الطباعة</h6>
                                 <div class="reports-input-parent  ">
-                                    <div style="    width: 100%; margin-left: 10px !important;" class="reports-select  d-flex align-items-center justify-content-center ">
+                                    <div style="    width: 100%;  !important;" class="reports-select ms-0 d-flex align-items-center justify-content-center ">
                                         <div class="d-flex ms-4">
                                             <input class="ms-2" id="excelMed" name="radio2" type="radio">
                                             <label for="excelMed">Excel</label>
@@ -211,12 +211,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="action-btns-sec m-auto ms-0 col-6">
-                                <div style="grid-template-columns: repeat(3, auto);" class="action-btns  ">
-                                    <button type="button" class="action-btn fw-bold" onclick="ClearAllMed()">
+                            <div class="action-btn btns-sec m-auto ms-0 col-6">
+                                <div style="grid-template-columns: repeat(3, auto);" class="action-btn btns  ">
+                                    <button type="button" class="action-btn btn fw-bold" onclick="ClearAllMed()">
                                         جديد
                                     </button>
-                                    <button type="button" class=" d-flex align-items-center action-btn fw-bold" onclick="PrintReportMed()">
+                                    <button type="button" class=" d-flex align-items-center action-btn btn fw-bold" onclick="PrintReportMed()">
                                         طباعة
                                         <i class="fa-solid fa-print me-2"></i>
                                     </button>
@@ -235,21 +235,21 @@
                                 <div class="reports-select2-parent" style="width:70%">
                                     @*<input type="text" class="reports-inp w-100" placeholder="من">*@
 
-                                    <div class="w-100">
-                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "أختر الشركة", new { @class = "reports-inp w-100", style = "width: 100%", id = "CopmanyNumber2" })
+                                    <div class="w-100 ps-0">
+                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "أختر الشركة", new { @class = "ms-0 reports-inp w-100", style = "width: 100%", id = "CopmanyNumber2" })
                                     </div>
                                 </div>
                             </div>
                             <div class="reports-field">
                                 <h6>الشهر</h6>
-                                <div class="reports-input-parent ">
-                                    <input type="text" class="reports-inp w-100" placeholder="من" id="Date">
+                                <div class="reports-input-parent ms-0">
+                                    <input type="text" class="reports-inp ms-0 w-100" placeholder="من" id="Date">
                                 </div>
                             </div>
                             <div class="reports-field">
                                 <h6>Group</h6>
                                 <div class="reports-select2-parent" style="width:70%">
-                                    <div class="w-100">
+                                    <div class="w-100 ps-0">
                                         <select class="reports-select w-100 " name="" id="ddlGroups">
                                             <option value="">Select Group</option>
                                         </select>
@@ -262,17 +262,17 @@
                                     @*<select class="reports-select w-100 " name="" id="">
             <option value=""></option>
         </select>*@
-                                    <div class="w-100">
+                                    <div class="w-100 ps-0">
                                         <select id="CardNo2" class="reports-select w-100" style="width: 100%">
                                             <option value="">select Card</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="reports-field">
+                            <div class="reports-field ">
                                 <h6>نوع الطباعة</h6>
                                 <div class="reports-input-parent  ">
-                                    <div style="    width: 100%; margin-left: 10px !important;" class="reports-select  d-flex align-items-center justify-content-center ">
+                                    <div style="    width: 100%;  !important;" class="reports-select ms-0 d-flex align-items-center justify-content-center ">
                                         <div class="d-flex ms-4">
                                             <input class="ms-2" id="radio3-1" name="radio3" type="radio">
                                             <label for="radio3-1">Excel</label>
@@ -284,12 +284,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="action-btns-sec m-auto ms-0 col-6">
-                                <div style="grid-template-columns: repeat(3, auto);" class="action-btns  ">
-                                    <button type="button" class="action-btn fw-bold" onclick="ClearAll3()">
+                            <div class="action-btn btns-sec m-auto ms-0 col-6">
+                                <div style="grid-template-columns: repeat(3, auto);" class="action-btn btns  ">
+                                    <button type="button" class="action-btn btn fw-bold" onclick="ClearAll3()">
                                         جديد
                                     </button>
-                                    <button type="button" onclick="PrintReport3()" class=" d-flex align-items-center action-btn fw-bold">
+                                    <button type="button" onclick="PrintReport3()" class=" d-flex align-items-center action-btn btn fw-bold">
                                         طباعة
                                         <i class="fa-solid fa-print me-2"></i>
                                     </button>
@@ -303,7 +303,4 @@
     </div>
 </form>
 <!-- End Section -->
-<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-@*<script src="~/Scripts/DMS/NewReport.js?V=3.2"></script>*@
-
-<script src="~/Scripts/DMS/ReportMain/ReportMain.js?V=3.2"></script>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script> 

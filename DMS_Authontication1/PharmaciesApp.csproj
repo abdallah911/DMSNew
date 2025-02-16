@@ -4870,11 +4870,18 @@
     <Content Include="assets\global\plugins\design\homecontent\js\scrollax.min.js" />
     <Content Include="assets\global\plugins\design\images\emergency-call.png" />
     <Content Include="assets\global\plugins\design\images\user_img.jpg" />
+    <Content Include="assets\global\plugins\design\js\bootstrap.bundle.min.js" />
     <Content Include="assets\global\plugins\design\js\bootstrap.min.js" />
     <Content Include="assets\global\plugins\design\js\circle-progress.min.js" />
     <Content Include="assets\global\plugins\design\js\custom.js" />
+    <Content Include="assets\global\plugins\design\js\jquery-3.6.0.js" />
+    <Content Include="assets\global\plugins\design\js\jquery-ui.js" />
     <Content Include="assets\global\plugins\design\js\jquery.barfiller.js" />
     <Content Include="assets\global\plugins\design\js\jquery.collapsible.min.js" />
+    <Content Include="assets\global\plugins\design\js\jquery.min.js" />
+    <Content Include="assets\global\plugins\design\js\main-reports.js" />
+    <Content Include="assets\global\plugins\design\js\popper.min.js" />
+    <Content Include="assets\global\plugins\design\js\select2.min.js" />
     <Content Include="assets\global\plugins\design\js\swiper.js" />
     <Content Include="assets\global\plugins\design\js\swiper.min.js" />
     <Content Include="assets\global\plugins\design\login\js\about.js" />
@@ -6274,6 +6281,8 @@
     <Content Include="assets\HomeTemplete\Content\bootstrap-theme.min.css" />
     <Content Include="assets\HomeTemplete\Content\bootstrap.css" />
     <Content Include="assets\HomeTemplete\Content\bootstrap.min.css" />
+    <Content Include="assets\HomeTemplete\Content\css\bootstrap.min.css" />
+    <Content Include="assets\HomeTemplete\Content\css\jquery.dataTables.min.css" />
     <Content Include="assets\HomeTemplete\Content\css\select2.css" />
     <Content Include="assets\HomeTemplete\Content\css\select2.min.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\autoFill.bootstrap.css" />
@@ -8777,6 +8786,7 @@
     <Content Include="Views\NewReports\ReportsPharmacy.cshtml" />
     <Content Include="Views\NewReports\ReportsPrinting.cshtml" />
     <Content Include="Views\Shared\_Reports.cshtml" />
+    <Content Include="Views\NewReports\ApprovalReports - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
