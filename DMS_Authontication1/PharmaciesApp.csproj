@@ -8786,7 +8786,6 @@
     <Content Include="Views\NewReports\ReportsPharmacy.cshtml" />
     <Content Include="Views\NewReports\ReportsPrinting.cshtml" />
     <Content Include="Views\Shared\_Reports.cshtml" />
-    <Content Include="Views\NewReports\ApprovalReports - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
