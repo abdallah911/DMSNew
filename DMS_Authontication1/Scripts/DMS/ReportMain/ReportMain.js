@@ -3,7 +3,7 @@
     $('#userName').select2();
     $('#AddMedicine').select2();
     $('#CardNo').select2();
-
+    /*$('#CompNoMed').select2();*/
     $('#RegistrationFrom').datepicker({});
     $('#RegistrationTo').datepicker({});
 

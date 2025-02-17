@@ -228,7 +228,8 @@
                                                     <option value=""></option>
                                                 </select>*@
                                             <div class="w-100 ps-0">
-                                                @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "أختر الشركة", new { @class = "reports-select w-100", id = "CompNoMed" })
+                                                @*@Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "أختر الشركة", new { @class = "reports-select w-100", id = "CompNoMed" })*@
+                                                @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "أختر الشركة", new { @class = "reports-select w-100", id = "CompNo" })
                                             </div>
                                         </div>
                                     </div>
@@ -236,10 +237,11 @@
                                         <h6>رقم الكارت</h6>
                                         <div class="reports-select2-parent" style="width:70%">
                                             <div class="w-100 ps-0">
-                                                <select class="reports-select w-100 " name="" id="CardNoMed">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
+                                                @*<select class="reports-select w-100 " name="" id="CardNoMed">*@
+                                                    <select class="reports-select w-100 " name="" id="CardNo">
+                                                        <option value=""></option>
+                                                    </select>
+</div>
                                         </div>
                                     </div>
                                     <div class="reports-field">
@@ -372,4 +374,6 @@
 <script src="~/assets/global/plugins/design/js/popper.min.js"></script>
 <script src="~/assets/global/plugins/design/js/bootstrap.bundle.min.js"></script>
 <script src="~/assets/global/plugins/design/js/bootstrap.min.js"></script>
-<script src="~/Scripts/DMS/NewReport.js?V=3.2"></script>
+@*<script src="~/Scripts/DMS/NewReport.js?V=3.2"></script>*@
+
+<script src="~/Scripts/DMS/ReportMain/ReportMain.js?V=3.2"></script>
