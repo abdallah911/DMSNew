@@ -1558,7 +1558,7 @@ div.hide-pseudo::before {
 .sideBar {
     width: fit-content;
     /*border-bottom: 1px solid #c4c4c4 !important;*/
-    padding: 30px 8px 0;
+    padding: 30px 60px 0;
 }
 .operation-btns {
     display: flex;
@@ -1630,6 +1630,9 @@ div.hide-pseudo::before {
 .nav-link {
     border-bottom: 1px solid #c4c4c4 !important;
     border: none !important;
+}
+label { 
+    margin-bottom: 0px;
 }
 /* ====================footer========================================== */
 footer div.footer {
