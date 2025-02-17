@@ -334,8 +334,8 @@ function PrintReportConsumApproval() {
     debugger;
     var CopmanyFrom = $('#CompFromApproval1').val();
     var CopmanyTo = $('#CompToApproval1').val();
-    //var DateFrom = $('#RegistrationFrom').val();
-    //var DateTo = $('#RegistrationTo').val();
+    var DateFrom = $('#RegistrationFromApproval').val();
+    var DateTo = $('#RegistrationToApproval').val();
 
     var DateFrom ="";
     var DateTo = "";
@@ -343,6 +343,7 @@ function PrintReportConsumApproval() {
     var CardFrom = $('#CardFromApproval').val();
     var CardTo = $('#CardToApproval').val();
     var TypeReport = $('#TypeRepotApproval1').val();
+    var ProvNo = $('#ProviderApproval').val();
     var ProvNo = $('#ProviderApproval').val();
     var ClassApproval = $('#ClassApproval').val();
     //var smal = $('#LessThanApproval').val();

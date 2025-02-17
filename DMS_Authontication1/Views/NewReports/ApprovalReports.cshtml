@@ -115,37 +115,49 @@
                                 </div>
 
                                 @*<div class="reports-box-field reports-field  m-auto rounded-0 ">
-                                        <h6>القيمة</h6>
-                                        <div class="reports-input-parent ">
-                                            <input type="text" />
-                                            <div class="radio">
-                                                <div>
-                                                    <input name="value" type="radio" id="LessThanApproval" />
-                                                    <label for="value1">اصغر من</label>
-                                                </div>
-                                                <div>
-                                                    <input name="value" type="radio" id="LargeThanApproval" />
-                                                    <label for="value2">اكبر من</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>*@
+                <h6>القيمة</h6>
+                <div class="reports-input-parent ">
+                    <input type="text" />
+                    <div class="radio">
+                        <div>
+                            <input name="value" type="radio" id="LessThanApproval" />
+                            <label for="value1">اصغر من</label>
+                        </div>
+                        <div>
+                            <input name="value" type="radio" id="LargeThanApproval" />
+                            <label for="value2">اكبر من</label>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+                            </div>
+                            <div class="reports-field">
+                                <h6>تاريخ التسجيل</h6>
+                                <div class="reports-input-parent">
+
+                                    <input type="text"
+                                           class="date-input reports-inp"
+                                           placeholder="من" id="RegistrationFromApproval" />
+                                    <input type="text"
+                                           class="date-input reports-inp"
+                                           placeholder="الى" id="RegistrationToApproval" />
+                                </div>
                             </div>
                             <div class="reports-field">
                                 <h6>الشركة</h6>
                                 <div class="reports-select2-parent">
                                     @*<select style="border: none;"
-                                                class="reports-select home-2-field    "
-                                                name=""
-                                                id="">
-                                            <option value="">من</option>
-                                        </select>
-                                        <select style="border: none;"
-                                                class="reports-select home-2-field    "
-                                                name=""
-                                                id="">
-                                            <option value="">الى</option>
-                                        </select>*@
+                        class="reports-select home-2-field    "
+                        name=""
+                        id="">
+                    <option value="">من</option>
+                </select>
+                <select style="border: none;"
+                        class="reports-select home-2-field    "
+                        name=""
+                        id="">
+                    <option value="">الى</option>
+                </select>*@
                                     <div>
                                         @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select home-2-field ", id = "CompFromApproval1" })
                                     </div>
