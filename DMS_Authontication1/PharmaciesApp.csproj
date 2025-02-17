@@ -8728,7 +8728,6 @@
     <Content Include="Views\NewReports\ReportsPharmacy.cshtml" />
     <Content Include="Views\NewReports\ReportsPrinting.cshtml" />
     <Content Include="Views\Shared\_Reports.cshtml" />
-    <Content Include="Views\NewReports\ApprovalReports - Copy.cshtml" />
     <Content Include="Reports\ContractReports\ReportEndComp11.rpt" />
     <Content Include="Reports\ContractReports\ReportEndCompBefore1.rpt" />
     <Content Include="Reports\CustomerServicesReports\ReportMonitor.rpt" />
