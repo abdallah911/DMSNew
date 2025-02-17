@@ -1419,8 +1419,8 @@ div.hide-pseudo::before {
     align-items: center;
     direction: rtl;
     color: #337ab7 !important;
-    font-weight:700;
-    box-shadow: 1px 1px 3px 1px #0000000f;
+    font-weight: 700;
+    box-shadow: 1px 1px 3px 1px #00000014;
     padding: 10px;
 }
 .reports-field h6 { 
