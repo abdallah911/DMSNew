@@ -2,6 +2,7 @@
 using DMS_Authontication1.Models;
 using DMS_Authontication1.ViewModel;
 using DMS_TEST.ViewModel;
+using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -194,7 +195,7 @@ namespace DMS_Authontication1.Controllers
             {
                 data.CreatedBy = User.Identity.Name;
             }
-            data.UpdatedBy = User.Identity.Name;
+            data.UpdatedBy = User.Identity.GetUserId();
             data.CreatedDate = DateTime.Now;
             data.CompHolderCode = employee.COMP_ID;
             data.Manager = "Lab";
