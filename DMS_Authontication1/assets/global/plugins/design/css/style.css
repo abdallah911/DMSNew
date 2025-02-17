@@ -1594,7 +1594,7 @@ div.hide-pseudo::before {
     border: none !important;
     border-bottom: 1px solid #c4c4c4  !important;
     width: 100%;
-    padding: 6px 8px;
+    padding:  8px;
     font-size: 14px;
     font-weight: 500;
     /* box-shadow: 0 0 1px #14061b4d; */
@@ -1611,7 +1611,7 @@ div.hide-pseudo::before {
 
 .sideBar button.active {
     /* background: linear-gradient(45deg, #256ba7 0%, #5889b4c2 50%, #256ba7 100%); */
-    /* color: white; */
+    color: #888888;
     border: 1px solid #cfcfcf !important;
     border-bottom: none !important;
 }
@@ -1625,6 +1625,7 @@ div.hide-pseudo::before {
 .nav-link.active {
     border: 1px solid #c4c4c4 !important;
     border-bottom: none !important;
+    color: #888888;
 }
 .nav-link {
     border-bottom: 1px solid #c4c4c4 !important;
