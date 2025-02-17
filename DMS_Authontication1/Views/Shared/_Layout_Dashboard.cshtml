@@ -67,6 +67,10 @@
         .dms-container {
             min-height: calc(100vh - 300.1px);
         }
+        .reports-container {
+            min-height: calc(100vh - 280px);
+            direction:rtl;
+        }
         i.fa-minus,
         i.fa-plus {
             padding: 5px;
@@ -1389,7 +1393,46 @@
         //$(document).ready(function () { 
         //    $('footer').insertAfter($('.body-content'));
         //});
+
+
+        //=============start Reports=============================
+
+        $(document).ready(function () {
+            // Get current URL path
+            var currentPath = window.location.pathname;
+
+            // Check if the URL matches the desired path
+            if (currentPath === "/NewReports/OperationReport") {
+                $(".sidebar-item").removeClass("active"); // Remove active class from all buttons
+                $("#reportsOperation").addClass("active"); // Add active class to the specific button
+                console.log("its work")
+            } else if (currentPath === "/NewReports/ApprovalReports") {
+                $(".sidebar-item").removeClass("active");
+                $("#reportsApproval").addClass("active");
+            } else if (currentPath === "/NewReports/ReportsPrinting") {
+                $(".sidebar-item").removeClass("active");
+                $("#reportsPrinting").addClass("active");
+            } else if (currentPath === "/NewReports/ConsumptionReport") {
+                $(".sidebar-item").removeClass("active");
+                $("#reportsConsumption").addClass("active");
+            } else if (currentPath === "/NewReports/ReportsLoseRatio") {
+                $(".sidebar-item").removeClass("active");
+                $("#reportsLoseRatio").addClass("active");
+            } else if (currentPath === "/NewReports/ReportsCustomerServices") {
+                $(".sidebar-item").removeClass("active");
+                $("#reportsCustomerServices").addClass("active");
+            } else if (currentPath === "/NewReports/ReportsContract") {
+                $(".sidebar-item").removeClass("active");
+                $("#reportsContract").addClass("active");
+            } else if (currentPath === "/NewReports/ReportsPharmacy") {
+                $(".sidebar-item").removeClass("active");
+                $("#reportsPharmacy").addClass("active");
+            }
+        });
+
+
     </script>
+
 
 </body>
 

@@ -1,7 +1,7 @@
 ﻿@model List<DMS_Authontication1.Models.NewReport>
 
 @{
-    Layout = "~/Views/Shared/_Reports.cshtml";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
 }
 
 
@@ -12,101 +12,151 @@
 <script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 
-<!-- Start Section -->
-<form class="reports-form" action="Home.html">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 m-auto">
-                <div>
-                    <div class="reports-select-parent w-100 ">
-                        <select class="first-reports-field " name="" id="TypeReport">
-                            <option value="">انواع التقارير</option>
-                            <option value="1-1">401 - 1 - إضافات</option>
-                            <option value="1-2">401 - 2 - إلغاءات</option>
-                            <option value="1-3">401 - 3 - تغير فئة</option>
-                            <option value="1-4">401 - 4 - إعادة تفعيل</option>
-                            <option value="1-5">401 - 5 - تغير اسم</option>
-                            <option value="1-6">401 - 6 - Missing</option>
-                            <option value="1-7">401 - 7 - بدل فاقد</option>
-                            <option value="1-8">401 - 8 - تغير صورة</option>
-                            <option value="1-9">401 - 9 - تغير فرع</option>
-                            <option value="1-10">401 - 10 -تغير كود</option>
-                            <option value="1-11">401 - 11 -تغير الكود والفئة</option>
-                            <option value="2-1">402 - 1 - قائمة الموظفين المفعلين</option>
-                            <option value="2-2">402 - 2 - قائمة الموظفين الموقوفين</option>
-                            <option value="2-3">402 - 3 - قائمة الموظفين الموقوفين حد اقصى</option>
-                            <option value="2-4">402 - 4 - قائمة الموظفين المفعلين شركة منتهية</option>
-                            <option value="2-5">402 - 5 - قائمة الموظفين الموقوفين شركة منتهية</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="reports-field">
-                    <h6>الشركة</h6>
-                    <div class="reports-select-parent d-flex" align-items-center>
 
-                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select", id = "CopmanyNameReportsFrom" })
-
-                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "reports-select", id = "CopmanyNameReportsTo" })
-
-                    </div>
-                </div>
-                <div class="reports-field">
-                    <h6>تاريخ التسجيل</h6>
-                    <div class="reports-input-parent">
-                        <input id="RegistrationFrom" type="text"
-                               class="date-input reports-inp"
-                               placeholder="من" />
-                        <input id="RegistrationTo" type="text"
-                               class="date-input reports-inp"
-                               placeholder="الى" />
-                    </div>
-                </div>
-                <div class="reports-field">
-                    <h6>تاريخ التفعيل</h6>
-                    <div class="reports-input-parent">
-                        <input id="ActivationFrom" type="text"
-                               class="date-input reports-inp"
-                               placeholder="من" />
-                        <input id="ActivationTo" type="text"
-                               class="date-input reports-inp"
-                               placeholder="الى" />
-                    </div>
-                </div>
-            </div>
-            <div class="action-btns-sec col-3">
-                <div class="action-btns  ">
-                    <button type="button" class="action-btn">transaction</button>
-                    <button id="PrintReportsNew" type="button" class="action-btn" onclick="PrintReport()">طباعة</button>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <label class="control-label sbold col-md-3">
-                        Print Type :
-                    </label>
-                    <div class="col-md-2">
-                        <div class="checkbox-inline">
-                            <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
-                            <label for="pdf">
-                                PDF
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2">
-                        <div class="checkbox-inline">
-                            <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
-                            <label for="excel">
-                                EXCEL
-                            </label>
-                        </div>
-                    </div>
-                </div>
+<div class="reports-container">
+    <div class="sidebar-parent">
+        <div class="sideBar">
+            <div class="operation-btns">
+                <a href="/NewReports/OperationReport">
+                    <button class="sidebar-item " id="reportsOperation">
+                        Operation
+                    </button>
+                </a>
                 <br />
+                <a href="/NewReports/ApprovalReports">
+                    <button class="sidebar-item" id="reportsApproval">
+                        Medical Approval
+                    </button>
+                </a>
+                <a href="/NewReports/ReportsPrinting">
+                    <button class="sidebar-item" id="reportsPrinting">
+                        Printing
+                    </button>
+                </a>
+                <br />
+                <a href="/NewReports/ConsumptionReport">
+                    <button class="sidebar-item" id="reportsConsumption">
+                        Consumption
+                    </button>
+                </a>
+                <a href="/NewReports/ReportsLoseRatio">
+                    <button class="sidebar-item" id="reportsLoseRatio">
+                        Lose Ratio
+                    </button>
+                </a>
+                <a href="/NewReports/ReportsCustomerServices">
+                    <button class="sidebar-item" id="reportsCustomerServices">
+                        Customer Services
+                    </button>
+                </a>
+                <a href="/NewReports/ReportsContract">
+                    <button class="sidebar-item" id="reportsContract">
+                        Contract
+                    </button>
+                </a>
+                <a href="/NewReports/ReportsPharmacy">
+                    <button class="sidebar-item" id="reportsPharmacy">
+                        Pharmacy
+                    </button>
+                </a>
             </div>
         </div>
     </div>
-    </div>
+    <!-- Start Section -->
+    <form class="reports-form  " action="Home.html">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 m-auto">
+                    <div>
+                        <div class="reports-select-parent w-100 ">
+                            <select class="first-reports-field " name="" id="TypeReport">
+                                <option value="">انواع التقارير</option>
+                                <option value="1-1">401 - 1 - إضافات</option>
+                                <option value="1-2">401 - 2 - إلغاءات</option>
+                                <option value="1-3">401 - 3 - تغير فئة</option>
+                                <option value="1-4">401 - 4 - إعادة تفعيل</option>
+                                <option value="1-5">401 - 5 - تغير اسم</option>
+                                <option value="1-6">401 - 6 - Missing</option>
+                                <option value="1-7">401 - 7 - بدل فاقد</option>
+                                <option value="1-8">401 - 8 - تغير صورة</option>
+                                <option value="1-9">401 - 9 - تغير فرع</option>
+                                <option value="1-10">401 - 10 -تغير كود</option>
+                                <option value="1-11">401 - 11 -تغير الكود والفئة</option>
+                                <option value="2-1">402 - 1 - قائمة الموظفين المفعلين</option>
+                                <option value="2-2">402 - 2 - قائمة الموظفين الموقوفين</option>
+                                <option value="2-3">402 - 3 - قائمة الموظفين الموقوفين حد اقصى</option>
+                                <option value="2-4">402 - 4 - قائمة الموظفين المفعلين شركة منتهية</option>
+                                <option value="2-5">402 - 5 - قائمة الموظفين الموقوفين شركة منتهية</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="reports-field">
+                        <h6>الشركة</h6>
+                        <div class="reports-select-parent d-flex" align-items-center>
+
+                            @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select", id = "CopmanyNameReportsFrom" })
+
+                            @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "reports-select", id = "CopmanyNameReportsTo" })
+
+                        </div>
+                    </div>
+                    <div class="reports-field">
+                        <h6>تاريخ التسجيل</h6>
+                        <div class="reports-input-parent">
+                            <input id="RegistrationFrom" type="text"
+                                   class="date-input reports-inp"
+                                   placeholder="من" />
+                            <input id="RegistrationTo" type="text"
+                                   class="date-input reports-inp"
+                                   placeholder="الى" />
+                        </div>
+                    </div>
+                    <div class="reports-field">
+                        <h6>تاريخ التفعيل</h6>
+                        <div class="reports-input-parent">
+                            <input id="ActivationFrom" type="text"
+                                   class="date-input reports-inp"
+                                   placeholder="من" />
+                            <input id="ActivationTo" type="text"
+                                   class="date-input reports-inp"
+                                   placeholder="الى" />
+                        </div>
+                    </div>
+                </div>
+                <div class="action-btns-sec col-3">
+                    <div class="action-btns  ">
+                        <button type="button" class="action-btn">transaction</button>
+                        <button id="PrintReportsNew" type="button" class="action-btn" onclick="PrintReport()">طباعة</button>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label class="control-label sbold col-md-3">
+                            Print Type :
+                        </label>
+                        <div class="col-md-2">
+                            <div class="checkbox-inline">
+                                <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
+                                <label for="pdf">
+                                    PDF
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="checkbox-inline">
+                                <input type="checkbox" id="excel" name="excel" value="excel" data-name="excel">
+                                <label for="excel">
+                                    EXCEL
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+        </div>
+</div>
 </form>
-<!-- End Section -->
+</div><!-- End Section -->
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script> 

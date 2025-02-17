@@ -817,6 +817,9 @@ p:last-of-type {
 .mb-2{
     margin-bottom:4px;
 }
+.mt-2{
+    margin-top:6px !important;
+}
 
  .mt-0{
     margin-top:0 !important;
@@ -834,7 +837,7 @@ p:last-of-type {
      margin-bottom:16px;
  }
  .mt-3{
-     margin-top:8px !important;
+     margin-top:12px !important;
  }
  .mt-4{
      margin-top:16px;
@@ -882,6 +885,33 @@ p:last-of-type {
      padding-top:16px !important;
      padding-bottom:16px !important;
  }
+.ms-2 {
+    margin-left: 8px !important;
+}
+.ms-auto {
+    margin-left: auto !important;
+}
+.me-auto {
+    margin-right: auto !important;
+}
+.ms-0 {
+    margin-left: 0 !important;
+}
+.me-0 {
+    margin-right: 0 !important;
+}
+.ps-0 {
+    padding-left: 0 !important;
+}
+.pe-0 {
+    padding-right: 0 !important;
+}
+.me-3 {
+    margin-right: 16px !important;
+}
+.ms-3 {
+    margin-left: 16px !important;
+}
  .fw-bold{
      font-weight:bold;
  }
@@ -891,14 +921,14 @@ p:last-of-type {
 .flex-column {
     flex-direction:column;
 }
-.w-100{
-    width:100%;
+.w-100 {
+    width: 100% !important;
 }
 .w-50 {
-    width:50%;
+    width:50% !important;
 }
 .w-25 {
-    width:25%;
+    width:25% !important;
 }
 .h-100{
     height:100%;
@@ -1205,7 +1235,7 @@ div.hide-pseudo::before {
 }
 
 .consumption-reports-box {
-    padding: 80px 0 80px 80px;
+    padding: 20px;
 }
 
 .reports-box > h6 {
@@ -1389,8 +1419,8 @@ div.hide-pseudo::before {
     align-items: center;
     direction: rtl;
     color: #337ab7 !important;
-    font-weight:700;
-    box-shadow: 1px 1px 3px 1px #0000000f;
+    font-weight: 700;
+    box-shadow: 1px 1px 3px 1px #00000014;
     padding: 10px;
 }
 .reports-field h6 { 
@@ -1416,7 +1446,9 @@ div.hide-pseudo::before {
 .action-btns {
     display: flex;
     gap: 12px;
-    margin: 10px 0 20px 20%;
+    /*margin: 10px 0 20px 20%;*/
+    margin: 0 auto 0 0;
+    justify-content: end;
 }
 
 .action-btns .action-btn {
@@ -1511,6 +1543,8 @@ div.hide-pseudo::before {
 .action-btn.btns {
     display: flex;
     gap: 8px;
+    justify-content: end;
+    padding: 0 0 8px 20px;
 }
 
 
@@ -1522,11 +1556,9 @@ div.hide-pseudo::before {
 }
 
 .sideBar {
-    background-color: #dddddd;
-    border-radius: 7px;
-    padding: 20px 15px;
-    box-shadow: 0 0 2px #14061b33;
     width: fit-content;
+    /*border-bottom: 1px solid #c4c4c4 !important;*/
+    padding: 30px 8px 0;
 }
 .operation-btns {
     display: flex;
@@ -1534,7 +1566,7 @@ div.hide-pseudo::before {
     flex-direction: row-reverse;
 }
 .operation-btns a {
-    margin: 0 4px;
+    /*margin: 0 4px;*/
 }
 @media (max-width: 576px) {
     .sideBar {
@@ -1558,14 +1590,15 @@ div.hide-pseudo::before {
 }
 
 .sideBar button {
-    background-color: rgba(67, 68, 68, 0.267);
     color: #337ab7;
-    border: none;
+    border: none !important;
+    border-bottom: 1px solid #c4c4c4  !important;
     width: 100%;
-    padding: 6px 8px;
+    padding:  8px;
     font-size: 14px;
-    font-weight: 700;
-    box-shadow: 0 0 1px #14061b4d;
+    font-weight: 500;
+    /* box-shadow: 0 0 1px #14061b4d; */
+    background: transparent;
 }
 
 .sideBar a:last-of-type button {
@@ -1573,13 +1606,14 @@ div.hide-pseudo::before {
 }
 
 .sideBar button:hover {
-    background: linear-gradient(90deg, #256ba7 0%, #5889b4c2 50%, #256ba7 100%);
-    color: white;
+    background: #d8d8d8;
 }
 
 .sideBar button.active {
-    background: linear-gradient(45deg, #256ba7 0%, #5889b4c2 50%, #256ba7 100%);
-    color: white;
+    /* background: linear-gradient(45deg, #256ba7 0%, #5889b4c2 50%, #256ba7 100%); */
+    color: #888888;
+    border: 1px solid #cfcfcf !important;
+    border-bottom: none !important;
 }
 
 .sideBar button a {
@@ -1588,7 +1622,15 @@ div.hide-pseudo::before {
 }
 /* end sidebar */
 
-
+.nav-link.active {
+    border: 1px solid #c4c4c4 !important;
+    border-bottom: none !important;
+    color: #888888;
+}
+.nav-link {
+    border-bottom: 1px solid #c4c4c4 !important;
+    border: none !important;
+}
 /* ====================footer========================================== */
 footer div.footer {
     background: var(--color-gradient);
