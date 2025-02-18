@@ -1503,6 +1503,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompHolderCode" Type="int" />
         </EntityType>
         <EntityType Name="HospitalDoctors">
           <Key>
@@ -5992,7 +5993,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="CompContractClassProviders" EntityType="DB_A45413_DMSERPModel.CompContractClassProvider" />
           <EntitySet Name="CompanyEvents" EntityType="DB_A45413_DMSERPModel.CompanyEvent" />
           <FunctionImport Name="fn_searchCompEmployeesFullName" IsComposable="true" ReturnType="Collection(DB_A45413_DMSERPModel.fn_searchCompEmployeesFullName_Result)">
-            <Parameter Name="search" Mode="In" Type="String" />
+          <Parameter Name="search" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
@@ -7475,6 +7476,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CompHolderCode" Type="Int32" />
         </EntityType>
         <EntityType Name="DeliveryRequestDetail">
           <Key>
@@ -11038,6 +11040,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="HospitalClaims">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.HospitalClaim">
               <MappingFragment StoreEntitySet="HospitalClaims">
+                <ScalarProperty Name="CompHolderCode" ColumnName="CompHolderCode" />
                 <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
                 <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />

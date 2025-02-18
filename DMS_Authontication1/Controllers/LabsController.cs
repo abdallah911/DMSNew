@@ -195,9 +195,11 @@ namespace DMS_Authontication1.Controllers
             {
                 data.CreatedBy = User.Identity.Name;
             }
-            data.UpdatedBy = User.Identity.GetUserId();
+            var compholder = db.Contract_Data.Where(c => c.C_COMP_ID == employee.C_COMP_ID).OrderByDescending(c => c.CONTRACT_NO).Select(c => c.COMP_ID).First();
+
+            //data.UpdatedBy = User.Identity.GetUserId();
             data.CreatedDate = DateTime.Now;
-            data.CompHolderCode = employee.COMP_ID;
+            data.CompHolderCode =compholder;
             data.Manager = "Lab";
             data.RoshetaType = "11206";
             try
@@ -1318,20 +1320,20 @@ namespace DMS_Authontication1.Controllers
                  PaymentGroup = d.PaymentGroup
              }).ToList();
             rd.SetDataSource(y);
-            if (string.IsNullOrEmpty(patient.EMP_ENAME) || patient.EMP_ENAME == "NULL")
+            if (string.IsNullOrEmpty(patient.EMP_ENAME_ST) || patient.EMP_ENAME_ST == "NULL")
             {
-                if (string.IsNullOrEmpty(patient.EMP_ANAME) || patient.EMP_ANAME == "NULL")
+                if (string.IsNullOrEmpty(patient.EMP_ANAME_ST) || patient.EMP_ANAME_ST == "NULL")
                 {
                     rd.SetParameterValue("PatientName", "Unnamed");
                 }
                 else
                 {
-                    rd.SetParameterValue("PatientName", patient.EMP_ANAME);
+                    rd.SetParameterValue("PatientName", patient.EMP_ANAME_ST + " " + patient.EMP_ANAME_SC + " " + patient.EMP_ANAME_TH);
                 }
             }
             else
             {
-                rd.SetParameterValue("PatientName", patient.EMP_ENAME);
+                rd.SetParameterValue("PatientName", patient.EMP_ENAME_ST + " " + patient.EMP_ENAME_SC + " " + patient.EMP_ENAME_TH);
             }
             data.RoshetaType = "Lab";
 

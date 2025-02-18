@@ -1060,7 +1060,7 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Reports\Hospital\HospitalClaimReport.cs">
+    <Compile Include="Reports\Hospital\HospitalClaimReport1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HospitalClaimReport.rpt</DependentUpon>
@@ -8966,6 +8966,10 @@
     <EmbeddedResource Include="Reports\AllClaimsReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>AllClaimsReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Hospital\HospitalClaimReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>HospitalClaimReport1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\HR\CompanyBatchReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -166,10 +166,12 @@ namespace DMS_Authontication1.Controllers
             {
                 data.CreatedBy = User.Identity.Name;
             }
+            var compholder = db.Contract_Data.Where(c => c.C_COMP_ID == employee.C_COMP_ID).OrderByDescending(c => c.CONTRACT_NO).Select(c => c.COMP_ID).First();
+
             data.CreatedDate = DateTime.Now;
             data.Manager = "Ray";
             data.RoshetaType = "11204";
-            data.CompHolderCode = employee.COMP_ID;
+            data.CompHolderCode =compholder;
             db.Roshitas.Add(data);
             if (data.CompanyPayment > 0)
             {
@@ -1197,20 +1199,20 @@ namespace DMS_Authontication1.Controllers
                  PaymentGroup = d.PaymentGroup
              }).ToList();
             rd.SetDataSource(y);
-            if (string.IsNullOrEmpty(patient.EMP_ENAME) || patient.EMP_ENAME == "NULL")
+            if (string.IsNullOrEmpty(patient.EMP_ENAME_ST) || patient.EMP_ENAME_ST == "NULL")
             {
-                if (string.IsNullOrEmpty(patient.EMP_ANAME) || patient.EMP_ANAME == "NULL")
+                if (string.IsNullOrEmpty(patient.EMP_ANAME_ST) || patient.EMP_ANAME_ST == "NULL")
                 {
                     rd.SetParameterValue("PatientName", "Unnamed");
                 }
                 else
                 {
-                    rd.SetParameterValue("PatientName", patient.EMP_ANAME);
+                    rd.SetParameterValue("PatientName", patient.EMP_ANAME_ST + " " + patient.EMP_ANAME_SC + " " + patient.EMP_ANAME_TH);
                 }
             }
             else
             {
-                rd.SetParameterValue("PatientName", patient.EMP_ENAME);
+                rd.SetParameterValue("PatientName", patient.EMP_ENAME_ST + " " + patient.EMP_ENAME_SC + " " + patient.EMP_ENAME_TH);
             }
             data.RoshetaType = "Ray";
             rd.SetParameterValue("CompType", patient.COMP_ID);

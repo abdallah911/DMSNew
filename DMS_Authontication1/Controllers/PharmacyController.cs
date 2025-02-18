@@ -2578,6 +2578,7 @@ namespace DMS_TEST.Controllers
                 modelcode.IsUsed = true;
                 db.Entry(modelcode).State = EntityState.Modified;
             }
+            var compholder = db.Contract_Data.Where(c => c.C_COMP_ID == employee.C_COMP_ID).OrderByDescending(c => c.CONTRACT_NO).Select(c => c.COMP_ID).First();
             //Roshita
             Roshita roshita = new Roshita()
             {
@@ -2603,7 +2604,7 @@ namespace DMS_TEST.Controllers
                 SyncBy = null,
                 IsFamily = data.IsFamily,
                 IsPool = data.IsPool,
-                CompHolderCode = employee.COMP_ID,
+                CompHolderCode = compholder,
             };
 
             db.Roshitas.Add(roshita);
@@ -4627,15 +4628,15 @@ namespace DMS_TEST.Controllers
 
                 }
                 rd.SetDataSource(y);
-                if (string.IsNullOrEmpty(patient.EMP_ENAME) || patient.EMP_ENAME == "NULL")
+                if (string.IsNullOrEmpty(patient.EMP_ENAME_ST) || patient.EMP_ENAME_ST == "NULL")
                 {
-                    if (string.IsNullOrEmpty(patient.EMP_ANAME) || patient.EMP_ANAME == "NULL")
+                    if (string.IsNullOrEmpty(patient.EMP_ANAME_ST) || patient.EMP_ANAME_ST == "NULL")
                     {
                         rd.SetParameterValue("PatientName", "Unnamed");
                     }
                     else
                     {
-                        rd.SetParameterValue("PatientName", patient.EMP_ANAME_ST+" "+ patient.EMP_ANAME_SC + " "+ patient.EMP_ANAME_TH);
+                        rd.SetParameterValue("PatientName", patient.EMP_ANAME_ST + " " + patient.EMP_ANAME_SC + " " + patient.EMP_ANAME_TH);
                     }
                 }
                 else
