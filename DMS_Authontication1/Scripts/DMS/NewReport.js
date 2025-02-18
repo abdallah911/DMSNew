@@ -332,13 +332,11 @@ function PrintReportTransaction() {
 
 function PrintReportConsumApproval() {
     debugger;
+
     var CopmanyFrom = $('#CompFromApproval1').val();
     var CopmanyTo = $('#CompToApproval1').val();
     var DateFrom = $('#RegistrationFromApproval').val();
-    var DateTo = $('#RegistrationToApproval').val();
-
-    var DateFrom ="";
-    var DateTo = "";
+    var DateTo = $('#RegistrationToApproval').val();      
 
     var CardFrom = $('#CardFromApproval').val();
     var CardTo = $('#CardToApproval').val();
