@@ -1162,8 +1162,8 @@ namespace DMS_Authontication1.Controllers
             rd.SetParameterValue("dat1", dat1);
             rd.SetParameterValue("dat2", dat2);
             rd.SetParameterValue("usr", null);
-            rd.SetParameterValue("crd1", crd1);
-            rd.SetParameterValue("crd2", crd2);
+            rd.SetParameterValue("crd", null);
+            //rd.SetParameterValue("crd2", crd2);
 
             Response.Buffer = false;
             Response.ClearContent();
