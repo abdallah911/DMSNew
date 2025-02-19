@@ -1,0 +1,236 @@
+﻿@*@model List<DMS_Authontication1.Models.NewReport>*@
+
+@{
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+}
+
+
+<div class="reports-container">
+    <div class="sidebar-parent">
+        <div class="sideBar">
+            <div class="operation-btns">
+                <a href="/NewReports/OperationReport">
+                    <button class="sidebar-item " id="reportsOperation">
+                        Operation
+                    </button>
+                </a>
+                <br />
+                <a href="/NewReports/ApprovalReports">
+                    <button class="sidebar-item" id="reportsApproval">
+                        Medical Approval
+                    </button>
+                </a>
+                <a href="/NewReports/ReportsPrinting">
+                    <button class="sidebar-item" id="reportsPrinting">
+                        Printing
+                    </button>
+                </a>
+                <br />
+                <a href="/NewReports/ConsumptionReport">
+                    <button class="sidebar-item" id="reportsConsumption">
+                        Consumption
+                    </button>
+                </a>
+                <a href="/NewReports/ReportsLoseRatio">
+                    <button class="sidebar-item" id="reportsLoseRatio">
+                        Lose Ratio
+                    </button>
+                </a>
+                <a href="/NewReports/ReportsCustomerServices">
+                    <button class="sidebar-item" id="reportsCustomerServices">
+                        Customer Services
+                    </button>
+                </a>
+                <a href="/NewReports/ReportsContract">
+                    <button class="sidebar-item" id="reportsContract">
+                        Contract
+                    </button>
+                </a>
+                <a href="/NewReports/ReportsPharmacy">
+                    <button class="sidebar-item" id="reportsPharmacy">
+                        Pharmacy
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Start Section -->
+    <form class="reports-form overflow-x-hidden" action="Reports.html">
+        <div class="row ">
+            <div class="Consumption-sec-parent  d-flex justify-content-start container-fluid ">
+                <div class="Consumption-sec col-10 col-sm-8 col-lg-10 d-flex">
+                    <div class=" m-auto col-12"style="width:85%">
+                        <div style="margin-right:70px ;"
+                             class="consumption-reports-box w-100 bg-secondary pb-1 pt-4 pe-3  rounded-2">
+                            <div class="   m-auto rounded-1">
+                                <select style="border: none;"
+                                        class="reports-box-field reports-field home-2-field w-50 ms-auto "
+                                        id="RepotTypeConsum">
+                                    <option value="">نوع التقارير</option>
+                                    <option value="901">Report Details 901</option>
+                                    <option value="9011">Report Claim 901-1</option>
+                                    <option value="902">Top 20 employees in terms of Values (902)  </option>
+                                    <option value="903">Top 20 employees in terms of Usage (903)</option>
+                                    <option value="904">consumption per Provider with the highest according to values (904)</option>
+                                    <option value="905">consumption per Provider with the highest according to Usage (905)</option>
+                                    <option value="906">consumption per type of service according to values (906)</option>
+                                    <option value="907">Consumption per type of service provider according to Usage (907)</option>
+                                    <option value="908">Consumption per type of service according to values (908)</option>
+                                    <option value="909">Consumption per type of service according to Usage (909)</option>
+                                    <option value="910">Consumption per service according to values (910)</option>
+                                    <option value="911">Consumption per service according to Usage (911)</option>
+                                    <option value="912">Consumption according to the type of medical card (912) </option>
+                                    <option value="913">Consumption according to the Month of service (913)</option>
+                                    <option value="914">onsumption according to the Month of service  and type of service (914)</option>
+                                    <option value="915">Consumption per Card (915)</option>
+                                    <option value="916">Consumption per Card according to service Type (916)</option>
+                                    <option value="917">Consumption per Card and type of service provider(917)</option>
+                                    <option value="918">Consumption per Card and service (918)</option>
+                                </select>
+                            </div>
+                            <div class="reports-field home-2-field">
+                                <h6>تاريخ التسجيل</h6>
+                                <div class="reports-input-parent">
+                                    <input type="text"
+                                           class="date-input reports-inp"
+                                           placeholder="من" id="RegistrationFromConsum" />
+                                    <input type="text"
+                                           class="date-input reports-inp"
+                                           placeholder="الى" id="RegistrationToConsum" />
+                                </div>
+                            </div>
+                            <div class="reports-field home-2-field">
+                                <h6>تاريخ الخدمة</h6>
+                                <div class="reports-input-parent">
+                                    <input type="text"
+                                           class="date-input reports-inp"
+                                           placeholder="من" id="ServiceFrom" />
+                                    <input type="text"
+                                           class="date-input reports-inp"
+                                           placeholder="الى" id="ServiceTo" />
+                                </div>
+                            </div>
+                            <div class="reports-field home-2-field">
+                                <h6>رقم الشركة</h6>
+                                <div class="reports-select2-parent">
+                                    @*<select style="border: none;"
+                                                class="reports-select home-2-field    "
+                                                name=""
+                                                id="">
+                                            <option value="">من</option>
+                                        </select>
+                                        <select style="border: none;"
+                                                class="reports-select home-2-field    "
+                                                name=""
+                                                id="">
+                                            <option value="">الى</option>
+                                        </select>*@
+                                    <div>
+
+                                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "من", new { @class = "reports-select home-2-field ", id = "CopmanyNumberFrom" })
+                                    </div>
+                                    <div>
+
+                                        @Html.DropDownList("CopmanyName", ViewBag.company as SelectList, "الى", new { @class = "reports-select home-2-field ", id = "CopmanyNumberTo" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="reports-field home-2-field">
+                                <h6>كود الفئة</h6>
+                                <div class="reports-input-parent">
+                                    <select class="reports-inp w-100" name="" id="ClassCodeConsum">
+                                        <option value="">Select Class</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="reports-field home-2-field">
+                                <h6>رقم الكارت</h6>
+                                <div class="reports-select2-parent">
+                                    <div>
+                                        <select style="border: none;"
+                                                class="reports-select home-2-field    "
+                                                name=""
+                                                id="CardIdFrom">
+                                            <option value="">من</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+
+                                        <select style="border: none;"
+                                                class="reports-select home-2-field    "
+                                                name=""
+                                                id="CardIdTo">
+                                            <option value="">الى</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reports-field home-2-field">
+                                <h6>كود مقدم الخدمة</h6>
+                                <div class="reports-select2-parent">
+                                    <div>
+
+                                        <select style="border: none;"
+                                                class="reports-select home-2-field    "
+                                                name=""
+                                                id="ProviderNameFrom">
+                                            <option value="">من</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <select style="border: none;"
+                                                class="reports-select home-2-field    "
+                                                name=""
+                                                id="ProviderNameTo">
+                                            <option value="">الى</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="reports-field">
+                                <h6>نوع الطباعة</h6>
+                                <div class="reports-input-parent  ">
+                                    <div style="    width: 100%; margin-left: 10px !important;"
+                                         class="reports-select  d-flex align-items-center justify-content-center ">
+                                        <div class="d-flex ms-4">
+                                            <input class="ms-2"
+                                                   id="excelConsum"
+                                                   name="radio1"
+                                                   type="radio" />
+                                            <label for="excelConsum">Excel</label>
+                                        </div>
+                                        <div class="d-flex ">
+                                            <input class="ms-2"
+                                                   id="PdfConsum"
+                                                   name="radio1"
+                                                   type="radio" />
+                                            <label for="PdfConsum">pdf</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="action-btns-sec col-3">
+                                <div class="action-btns  ">
+                                    <button type="button" class="action-btn fw-bold" onclick="ConsumptionNew()">
+                                        جديد
+                                    </button>
+                                    <button type="button" class="action-btn fw-bold" onclick="ConsumptionPrint()">
+                                        طباعة
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- End Section -->
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script> 
+
+<script src="~/Scripts/DMS/NewReport.js?V=3.2"></script>
