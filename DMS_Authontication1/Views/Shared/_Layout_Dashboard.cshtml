@@ -412,6 +412,26 @@
         .footer-contacts-text h6 {
             white-space: normal;
         }
+        /*=======Event-Edits===============================*/
+        div#navbar {
+            /*    height: 90px !important;        */
+            position: relative !important;
+        }
+
+        img.canon-gif {
+            width: 110px;
+            position: absolute;
+            bottom: 6px;
+            margin-left: 10px;
+        }
+
+        audio.ramadan-audio {
+            position: absolute;
+            bottom: 5px;
+            left: 280px;
+            width: 400px !important;
+            height: 38px !important;
+        }
     </style>
     <style>
        
@@ -464,27 +484,30 @@
                     </button>
                 </div>
 
-                <div id="navbar" class="navbar-collapse collapse">
-                    <a href="~/Home/Index">
-                      
-                            @*<div id="EventLogoDms" style="width: 100px; border-radius: 16px; display: none;" class="dms-celebrate-gif img d-flex align-self-stretch" hidden>
-                                <div class="celebrate-gif">
-                                    <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
-                                </div>
-                                <img class="imgmenu" src="~/assets/global/img/Events/event-logo.png" style="margin-top: 10px;" />
-
-                            </div>*@
-                       
-                            <img id="LogoDmsTop" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" />
-                        
+                <div id="navbar" class="navbar-collapse collapse" style="height: 100px !important">
+                    <a href="~/Home/Index"> 
+                        <div id="LogoDmsTop" style="width: 100px; border-radius: 16px; display: none;" class="dms-celebrate-gif img d-flex align-self-stretch" hidden>
                             @*<div class="celebrate-gif">
-                  <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
-              </div>
-            <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
-                        </a>
-
+                                <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
+                            </div>*@
+                            <img class="imgmenu" src="~/assets/global/img/Events/Ramadan-logo.gif" style="margin-top: 5px;" />
+                        </div>
+                        
+                        <img id="EventLogoDms" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" />
+                        
+                        @*<div class="celebrate-gif">
+                            <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
+                        </div>
+                        <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
+                         </a> 
                     <ul class="nav navbar-nav nav-admin-cus" style="color: #000; margin-top: 7px;">
+                        <img class="canon-gif" src="~/assets/global/img/Events/canon-gif.gif" style="margin-top: 5px;" />
+                        
+                        <audio class="ramadan-audio" controls style="width: 500px; height: 50px">
+                            <source src="~/assets/global/img/Events/Ramdan_Gana.mp3" type="audio/mp3" />
+                        </audio>
                         @{
+
                             if ((User.IsInRole("Admin") || User.IsInRole("AdminHelth")) && User.Identity.IsAuthenticated)
                             {
                                 <li>
@@ -662,7 +685,7 @@
                                         //{
                                         //
                                         var misrUsers = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                                                        {
+                                                                                                                        {
                                             "hr.misr.insurance", "Yasmen.misr.insurance", "Ahmed.misr.insurance",
                                             "Hussien.misr.insurance", "Sherif.misr.insurance", "Doaa.misr.insurance",
                                             "Hassan.misr.insurance", "Awatef.misr.insurance", "Eslam.misr.insurance", 
@@ -676,7 +699,7 @@
 
 
                                         var reportHighLevel = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                                                        {
+                                                                                                                        {
                                             "dr.mohsen", "it.admin"
                                         };
 
