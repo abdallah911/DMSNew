@@ -221,9 +221,13 @@ namespace DMS_Authontication1.Controllers
 
             // Read the file into a byte array
             var fileBytes = System.IO.File.ReadAllBytes(filePath);
-
+            if (filePath.ToLower().Contains(".pdf"))
+            {
+                return File(fileBytes, "application/pfd", "Claim " + id.ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf");
+            }
+            string exten = fileName.Split('.')[1];
             // Return the file as a response
-            return File(fileBytes, "image/jpeg", fileName);
+            return File(fileBytes, "image/"+ exten, fileName);
         }
 
         protected override void Dispose(bool disposing)
