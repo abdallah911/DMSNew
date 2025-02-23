@@ -6282,6 +6282,7 @@
     <Content Include="assets\HomeTemplete\Content\bootstrap-theme.min.css" />
     <Content Include="assets\HomeTemplete\Content\bootstrap.css" />
     <Content Include="assets\HomeTemplete\Content\bootstrap.min.css" />
+    <Content Include="assets\HomeTemplete\Content\css\all.min.css" />
     <Content Include="assets\HomeTemplete\Content\css\bootstrap.min.css" />
     <Content Include="assets\HomeTemplete\Content\css\jquery.dataTables.min.css" />
     <Content Include="assets\HomeTemplete\Content\css\select2.css" />
@@ -8832,6 +8833,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
+    <Folder Include="assets\UpdatedDesign\" />
     <Folder Include="Content\AddApprovalFiles\" />
     <Folder Include="Content\Claims\" />
     <Folder Include="Content\DoctorImages\" />

@@ -12,15 +12,17 @@
     <!-- main css -->
     <link rel="stylesheet" href="~/assets/HomeTemplete/css/style.css">
     <link rel="stylesheet" href="~/assets/HomeTemplete/css/responsive.css">
-    <link href="~/assets/HomeTemplete/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/Site.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Scripts/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/DataTables/css/jquery.dataTables.min" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/DataTables/css/responsive.dataTables.min.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/css/select2.min.css" rel="stylesheet" />
-    <link href="~/assets/HomeTemplete/Content/font-awesome.min.css" rel="stylesheet" />
+    @* --Font awesome5.2 *@
+    @*<link href="~/assets/HomeTemplete/Content/font-awesome.min.css" rel="stylesheet" />*@
+    @* --Font awesome 6.7.2 *@
+    <link href="~/assets/HomeTemplete/Content/css/all.min.css" rel="stylesheet" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
     <!-- Add By Mohamed Yasser //START-->
@@ -30,9 +32,10 @@
     <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="~/assets/HomeTemplete/Content/css/all.min.css" rel="stylesheet" />   <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    @*-- bootstrap4 --*@
+    @*<link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />*@
     @*-- bootstrap5 --*@
-    @*<link href="~/assets/HomeTemplete/Content/css/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/assets/HomeTemplete/Content/css/bootstrap.min.css" rel="stylesheet" />
 
     <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
@@ -54,23 +57,28 @@
 
     <style>
 
-       .navbar {
-            display:contents;
+        .navbar {
+            display: contents;
         }
+
         .nav-admin-cus {
             white-space: nowrap;
             display: flex;
         }
+
         ul.navbar-nav.navbar-right {
             margin-top: 10px;
         }
+
         .dms-container {
             min-height: calc(100vh - 300.1px);
         }
+
         .reports-container {
             min-height: calc(100vh - 280px);
             /*direction:rtl;*/
         }
+
         i.fa-minus,
         i.fa-plus {
             padding: 5px;
@@ -80,7 +88,7 @@
             color: #337ab7;
             cursor: pointer;
         }
-        /*  
+        /*
         .dms-container {
             padding-top: 60px;
         }
@@ -103,14 +111,17 @@
         input,
         select,
         textarea {
-            border: 1px solid #c2cad8 !important; 
+            border: 1px solid #c2cad8 !important;
         }
-        input:focus-visible, select:focus-visible, textarea:focus-visible {
-            outline: 2px solid #337ab7;
-        }
+
+            input:focus-visible, select:focus-visible, textarea:focus-visible {
+                outline: 2px solid #337ab7;
+            }
+
         .dms-color {
             color: #337ab7;
         }
+
         .forLabel > span:not(.select2-container), .select {
             padding-top: 0;
         }
@@ -124,9 +135,11 @@
             .forLabel textarea {
                 height: 100%;
             }
+
                 .forLabel select:valid, .forLabel input:valid, .forLabel textarea:valid, .forLabel select:focus, .forLabel input:focus, .forLabel textarea:focus {
                     padding: 6px !important;
                 }
+
             .forLabel > span:not(.select2-container), .select {
                 color: #337ab7;
             }
@@ -151,13 +164,16 @@
         .select2-no-overflow .select2-container--default .select2-selection--multiple .select2-selection__rendered {
             overflow: hidden;
         }
-        .select2-container--default .select2-selection--single { 
-            border: 1px solid #c2cad8; 
+
+        .select2-container--default .select2-selection--single {
+            border: 1px solid #c2cad8;
         }
-            .select2-container--default .select2-selection--single .select2-selection__arrow { 
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow {
                 top: 50%;
-                transform: translateY(-50%); 
+                transform: translateY(-50%);
             }
+
         input.select2-search__field {
             border: none !important;
         }
@@ -414,7 +430,6 @@
         }
     </style>
     <style>
-       
     </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-227248876-1"></script>
@@ -465,23 +480,22 @@
                 </div>
 
                 <div id="navbar" class="navbar-collapse collapse">
-                    <a href="~/Home/Index">
-                      
-                            @*<div id="EventLogoDms" style="width: 100px; border-radius: 16px; display: none;" class="dms-celebrate-gif img d-flex align-self-stretch" hidden>
-                                <div class="celebrate-gif">
-                                    <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
-                                </div>
-                                <img class="imgmenu" src="~/assets/global/img/Events/event-logo.png" style="margin-top: 10px;" />
-
-                            </div>*@
-                       
-                            <img id="LogoDmsTop" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" />
-                        
+                    <a href="~/Home/Index"> 
+                        <div id="EventLogoDms" style="width: 100px; border-radius: 16px; display: none;" class="dms-celebrate-gif img d-flex align-self-stretch" hidden>
                             @*<div class="celebrate-gif">
-                  <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
-              </div>
-            <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
-                        </a>
+                                <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
+                            </div>*@
+                            <img class="imgmenu" src="~/assets/global/img/Events/Ramadan-logo.gif" style="margin-top: 10px;" />
+                   
+                        </div>
+                   
+                        @*<img id="LogoDmsTop" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" />*@
+                    
+                        @*<div class="celebrate-gif">
+                            <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
+                        </div>
+                        <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
+                    </a>
 
                     <ul class="nav navbar-nav nav-admin-cus" style="color: #000; margin-top: 7px;">
                         @{
