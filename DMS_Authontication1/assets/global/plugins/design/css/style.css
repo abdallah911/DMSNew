@@ -661,7 +661,7 @@ p:last-of-type {
     display: none !important;
 }
 .nav-bar {
-    height: 80px;
+    /*height: 80px;*/
     position:unset ;
     transition:.2s linear all ease-in ;
 }
