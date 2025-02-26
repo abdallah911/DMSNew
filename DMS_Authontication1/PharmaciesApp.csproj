@@ -1552,8 +1552,11 @@
     <Content Include="assets\global\img\clients\وزارة_الطيران_المدني.png" />
     <Content Include="assets\global\img\datatable-row-openclose.png" />
     <Content Include="assets\global\img\Events\1.gif" />
+    <Content Include="assets\global\img\Events\Canon-gif.gif" />
     <Content Include="assets\global\img\Events\event-logo.png" />
     <Content Include="assets\global\img\Events\ramadan-card.jpeg" />
+    <Content Include="assets\global\img\Events\Ramadan-logo.gif" />
+    <Content Include="assets\global\img\Events\ramadan-pattern-2.jpg" />
     <Content Include="assets\global\img\Events\ramadan-pattern.jpg" />
     <Content Include="assets\global\img\Events\welcome-event.png" />
     <Content Include="assets\global\img\flags\ad.png" />
