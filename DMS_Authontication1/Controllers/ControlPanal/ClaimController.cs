@@ -94,6 +94,7 @@ namespace DMS_Authontication1.Controllers
             {
                 if (db.ClaimPhotoes.Where(c => c.ClaimNumber == model.ClaimNumber).FirstOrDefault() != null)
                 {
+                    ViewBag.ddlSpeciality = new SelectList(db.Specialities1, "SPEC_ID", "SPEC_ANAME");
                     ViewBag.error = "yes";
                     return View(model);
                 }
