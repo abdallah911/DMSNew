@@ -399,6 +399,7 @@ namespace DMS_Synchronization
                 SyncToSqlTable<CONSUMPTION_POOL>(StringHelper.GetQyertCONSUMPTION_POOL, StringHelper.GetTableNameCONSUMPTION_POOL);
                 SyncToSqlTable<REMAIN_CONSUMATION>(StringHelper.GetQyertREMAIN_CONSUMATION, StringHelper.GetTableNameREMAIN_CONSUMATION);
                 CLOSE_EMP_DATASyncToSqlTable();
+                COMP_EMPLOYEES_DSyncToSqlTable();
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED);
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED_EMP>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED_EMP, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED_EMP);
 
@@ -8370,6 +8371,235 @@ namespace DMS_Synchronization
 
             string OracleQuery = "UPDATE DMS_TEST.CLOSE_EMP_DATA SET IS_SYNC = 1,SYNC_DATE=SYSDATE,SYNC_BY = 'Admin' WHERE IS_SYNC=0 OR IS_SYNC IS NULL";
             ExecuteOracleQuery(OracleQuery, _connectionSettings.OrcaleConnection);
+
+
+        }
+        
+        private static void COMP_EMPLOYEES_DSyncToSqlTable()
+        {
+            var query = "select * from (select m.*, rownum r from  APP.COMP_EMPLOYEES_D m WHERE  OLD_CARD_ID IS NOT NULL) WHERE r > {0} and r<= {1} ";
+
+            double count = double.Parse(GetOracleDataTable("select  COUNT(*) from APP.COMP_EMPLOYEES_D m WHERE  OLD_CARD_ID IS NOT NULL ", _connectionSettings.OrcaleConnectionApp).Rows[0][0].ToString());
+
+            //double count = GetCount(tableName, _connectionSettings.OrcaleConnection);
+            var maxiteration = Math.Ceiling(count / 1000);
+            var tableName = "COMP_EMPLOYEES_D";
+            
+            for (int i = 0; i < maxiteration; i = i)
+            {
+                List<Med_Card> MedCard = new List<Med_Card>();
+                List<Med_Medicine> medMedicines = new List<Med_Medicine>();
+                List<Roshita> roshitas = new List<Roshita>();
+                List<RoshitaDetail> roshitasDetail = new List<RoshitaDetail>();
+                try
+                {
+                    var data = GetOracleTable<COMP_EMPLOYEES_D>(string.Format(query, (i * 1000), ((++i) * 1000)), _connectionSettings.OrcaleConnectionApp);
+                    _result.Logs.Add(new ViewModels.Log
+                    {
+                        Order = GetLogOrder(),
+                        Action = SyncAction.Get.ToString(),
+                        Database = GetDatabaseName(_connectionSettings.OrcaleConnectionApp),
+                        Server = GetServerName(_connectionSettings.OrcaleConnectionApp),
+                        Table = tableName,
+                        Note = "All",
+                        AffectedRows = data.Count
+                    });
+
+                    try
+                    {
+                        foreach (var item in data)
+                        {
+                            string Querymedcard = "SELECT * FROM Med_Card " +
+                                                    " WHERE CARD_NO='" + item.OLD_CARD_ID + "';";
+                            var cardmed = GetSqlDataTable(Querymedcard, _connectionSettings.SQlConnection);
+                            if (cardmed.Rows.Count > 0)
+                            {
+                                MedCard.Add(new Med_Card
+                                {
+                                    CARD_NO = item.CARD_ID,
+                                    PROVIDER_CODE = cardmed.Rows[0][2].ToString() != string.Empty ? long.Parse(cardmed.Rows[0][2].ToString()) : 0,
+                                    C_COMP_ID = cardmed.Rows[0][3].ToString() != string.Empty ? long.Parse(cardmed.Rows[0][3].ToString()) : 0,
+                                    NOTES = cardmed.Rows[0][4].ToString() != string.Empty ? cardmed.Rows[0][4].ToString() : null,
+                                    CREATED_BY = cardmed.Rows[0][5].ToString() != string.Empty ? cardmed.Rows[0][5].ToString() : null,
+                                    CREATED_DATE = cardmed.Rows[0][6].ToString() != string.Empty ? DateTime.Parse(cardmed.Rows[0][6].ToString()) : (DateTime?)null,
+                                    UPDATE_BY = cardmed.Rows[0][7].ToString() != string.Empty ? cardmed.Rows[0][7].ToString() : null,
+                                    UPDATE_DATE = cardmed.Rows[0][8].ToString() != string.Empty ? DateTime.Parse(cardmed.Rows[0][8].ToString()) : (DateTime?)null,
+                                    MONTH_START_DATE = cardmed.Rows[0][9].ToString() != string.Empty ? DateTime.Parse(cardmed.Rows[0][9].ToString()) : (DateTime?)null,
+                                    MONTH_END_DATE = cardmed.Rows[0][10].ToString() != string.Empty ? DateTime.Parse(cardmed.Rows[0][10].ToString()) : (DateTime?)null,
+                                    GROUP_ID = cardmed.Rows[0][11].ToString() != string.Empty ? long.Parse(cardmed.Rows[0][11].ToString()) : 0,
+                                    GROUP_NAME = cardmed.Rows[0][12].ToString() != string.Empty ? cardmed.Rows[0][12].ToString() : null,
+                                    LOOK_01 = cardmed.Rows[0][13].ToString() != string.Empty ? Int16.Parse(cardmed.Rows[0][13].ToString()) : Int16.Parse(null),
+                                    SEQ = cardmed.Rows[0][14].ToString() != string.Empty ? decimal.Parse(cardmed.Rows[0][14].ToString()) : 0,
+                                    PROVIDER_CODE_OLD = cardmed.Rows[0][15].ToString() != string.Empty ? long.Parse(cardmed.Rows[0][15].ToString()) : 0,
+                                    TASHKHES_01 = cardmed.Rows[0][16].ToString() != string.Empty ? cardmed.Rows[0][16].ToString() : null,
+                                    NO_PAY = cardmed.Rows[0][17].ToString() != string.Empty ? byte.Parse(cardmed.Rows[0][17].ToString()) : byte.Parse(null),
+                                    NO_OVER = cardmed.Rows[0][18].ToString() != string.Empty ? byte.Parse(cardmed.Rows[0][18].ToString()) : byte.Parse(null),
+                                    ST_DAY = cardmed.Rows[0][19].ToString() != string.Empty ? Int16.Parse(cardmed.Rows[0][19].ToString()) : Int16.Parse(null),
+                                    PhoneNumber = cardmed.Rows[0][20].ToString() != string.Empty ? cardmed.Rows[0][20].ToString() : null,
+                                    NationalId = cardmed.Rows[0][21].ToString() != string.Empty ? cardmed.Rows[0][21].ToString() : null,
+                                    IsSync = true,
+                                    SyncDate = DateTime.Now,
+                                    SyncBy = "Aya",
+                                    ExceptionType = cardmed.Rows[0][25].ToString() != string.Empty ? cardmed.Rows[0][25].ToString() : null,
+
+                                });
+                                roshitas.Add(new Roshita
+                                {
+                                    Oracle_Id = 0,
+                                    CardId = item.CARD_ID,
+                                    Speciality = "Empty",
+                                    Diagnose1 = cardmed.Rows[0][16].ToString() != string.Empty ? cardmed.Rows[0][16].ToString() : null,
+                                    RoshetaType = "11602",
+                                    Limit = 0,
+                                    CompanyPayment = 0,
+                                    OverInsurance = 0,
+                                    TotalValue = 0,
+                                    CompanyPercent = 0,
+                                    PersonPayment = 0,
+                                    Cash = 0,
+                                    Manager = "Doctor_Chronic",
+                                    CreatedBy = cardmed.Rows[0][5].ToString() != string.Empty ? cardmed.Rows[0][5].ToString() : "Admin",
+                                    CreatedDate = cardmed.Rows[0][6].ToString() != string.Empty ? DateTime.Parse(cardmed.Rows[0][6].ToString()) : (DateTime?)null,
+                                    IsSync = true,
+                                    SyncBy = "Aya",
+                                    SyncDate = DateTime.Now,
+                                    Diagnose2 = "Empty",
+                                    diagnose3 = "Empty",
+                                    PhoneNumber = "Empty",
+
+                                });
+                            }
+
+                            string Querymedmedicine = "SELECT * FROM Med_Medicine " +
+                                                    " WHERE CARD_NO='" + item.OLD_CARD_ID + "';";
+                            var cardmedicne = GetSqlDataTable(Querymedmedicine, _connectionSettings.SQlConnection);
+                            if (cardmedicne.Rows.Count > 0)
+                            {
+                                for (int k = 0; k < cardmedicne.Rows.Count; k++)
+                                {
+                                    medMedicines.Add(new Med_Medicine
+                                    {
+                                        CARD_NO = item.CARD_ID,
+                                        MED_CODE = cardmedicne.Rows[k][1].ToString() != string.Empty ? cardmedicne.Rows[k][1].ToString() : null,
+                                        RDATE = cardmedicne.Rows[k][3].ToString() != string.Empty ? DateTime.Parse(cardmedicne.Rows[k][3].ToString()) : (DateTime?)null,
+                                        MED_TYP = cardmedicne.Rows[k][4].ToString() != string.Empty ? decimal.Parse(cardmedicne.Rows[k][4].ToString()) : (decimal?)null,
+                                        DOSE = cardmedicne.Rows[k][5].ToString() != string.Empty ? decimal.Parse(cardmedicne.Rows[k][5].ToString()) : (decimal?)null,
+                                        NO_OF_UINT = cardmedicne.Rows[k][6].ToString() != string.Empty ? decimal.Parse(cardmedicne.Rows[k][6].ToString()) : (decimal?)null,
+                                        TOTAL_AMT = cardmedicne.Rows[k][7].ToString() != string.Empty ? decimal.Parse(cardmedicne.Rows[k][7].ToString()) : (decimal?)null,
+                                        MED_DURATION = cardmedicne.Rows[k][8].ToString() != string.Empty ? decimal.Parse(cardmedicne.Rows[k][8].ToString()) : (decimal?)null,
+                                        TOT_DUR = cardmedicne.Rows[k][9].ToString() != string.Empty ? cardmedicne.Rows[k][9].ToString() : null,
+                                        DOS_DUR = cardmedicne.Rows[k][10].ToString() != string.Empty ? decimal.Parse(cardmedicne.Rows[k][10].ToString()) : (decimal?)null,
+                                        EXCESS = cardmedicne.Rows[k][11].ToString() != string.Empty ? decimal.Parse(cardmedicne.Rows[k][11].ToString()) : (decimal?)null,
+                                        PACK_SIZE = cardmedicne.Rows[k][12].ToString() != string.Empty ? decimal.Parse(cardmedicne.Rows[k][12].ToString()) : (decimal?)null,
+                                        PACK_PRICE = cardmedicne.Rows[k][13].ToString() != string.Empty ? decimal.Parse(cardmedicne.Rows[k][13].ToString()) : (decimal?)null,
+                                        CON_MED = cardmedicne.Rows[k][14].ToString() != string.Empty ? cardmedicne.Rows[k][14].ToString() : null,
+                                        UNIT_NO = cardmedicne.Rows[k][15].ToString() != string.Empty ? decimal.Parse(cardmedicne.Rows[k][15].ToString()) : (decimal?)null,
+                                        UNIT_PRICE = cardmedicne.Rows[k][16].ToString() != string.Empty ? decimal.Parse(cardmedicne.Rows[k][16].ToString()) : (decimal?)null,
+                                        MED_NAME = cardmedicne.Rows[k][17].ToString() != string.Empty ? cardmedicne.Rows[k][17].ToString() : null,
+                                        DOSAGE_FORM = cardmedicne.Rows[k][18].ToString() != string.Empty ? cardmedicne.Rows[k][18].ToString() : null,
+                                        NOTES = cardmedicne.Rows[k][19].ToString() != string.Empty ? cardmedicne.Rows[k][19].ToString() : null,
+                                        ACTIVE = cardmedicne.Rows[k][20].ToString() != string.Empty ? cardmedicne.Rows[k][20].ToString() : null,
+                                        CREATED_BY = cardmedicne.Rows[k][21].ToString() != string.Empty ? cardmedicne.Rows[k][21].ToString() : null,
+                                        CREATED_DATE = cardmedicne.Rows[k][22].ToString() != string.Empty ? DateTime.Parse(cardmedicne.Rows[k][22].ToString()) : (DateTime?)null,
+                                        UPDATE_BY = cardmedicne.Rows[k][23].ToString() != string.Empty ? cardmedicne.Rows[k][23].ToString() : null,
+                                        UPDATE_DATE = cardmedicne.Rows[k][24].ToString() != string.Empty ? DateTime.Parse(cardmedicne.Rows[k][24].ToString()) : (DateTime?)null,
+                                        ACT_MONTH = cardmedicne.Rows[k][25].ToString() != string.Empty ? cardmedicne.Rows[k][25].ToString() : null,
+                                        LFT_MONTH = cardmedicne.Rows[k][26].ToString() != string.Empty ? decimal.Parse(cardmedicne.Rows[k][26].ToString()) : (decimal?)null,
+                                        MONTH_DATE_STOP = cardmedicne.Rows[k][27].ToString() != string.Empty ? DateTime.Parse(cardmedicne.Rows[k][27].ToString()) : (DateTime?)null,
+                                        IsSync = true,
+                                        SyncDate = DateTime.Now,
+                                        SyncBy = "Aya",
+
+                                    });
+                                }
+
+                            }
+                        }
+                        AddNewEntities(MedCard, "Med_Card", false, _connectionSettings.SQlConnection);
+                        AddNewEntities(medMedicines, "Med_Medicine", false, _connectionSettings.SQlConnection);
+                        AddNewEntities(roshitas, "Roshita", false, _connectionSettings.SQlConnection);
+
+                        foreach (var item in data)
+                        {
+                            string QueryRoshitaDetails = "SELECT * FROM RoshitaDetails " +
+                                                    " WHERE RoshitaID IN( SELECT Id FROM Roshita WHERE CardId=" +
+                                                    "'" + item.CARD_ID + "' AND Manager='Doctor_Chronic')";
+                            long roshitaId;
+                            var rosh = GetSqlDataTable("SELECT Id FROM Roshita WHERE CardId='" + item.CARD_ID + "' AND Manager = 'Doctor_Chronic'"
+                                , _connectionSettings.SQlConnection);
+                            if (rosh.Rows.Count > 0)
+                            {
+                                roshitaId = long.Parse(rosh.Rows[0][0].ToString());
+
+                                var RoshitaDetail = GetSqlDataTable(QueryRoshitaDetails, _connectionSettings.SQlConnection);
+                                if (RoshitaDetail.Rows.Count > 0)
+                                {
+                                    for (int a = 0; a < RoshitaDetail.Rows.Count; a++)
+                                    {
+                                        roshitasDetail.Add(new RoshitaDetail
+                                        {
+                                            MedicienCode = RoshitaDetail.Rows[a][1].ToString() != string.Empty ? RoshitaDetail.Rows[a][1].ToString() : null,
+                                            MedicienName = RoshitaDetail.Rows[a][2].ToString() != string.Empty ? RoshitaDetail.Rows[a][2].ToString() : null,
+                                            Dose = RoshitaDetail.Rows[a][3].ToString() != string.Empty ? int.Parse(RoshitaDetail.Rows[a][3].ToString()) : int.Parse(null),
+                                            Duration = RoshitaDetail.Rows[a][4].ToString() != string.Empty ? int.Parse(RoshitaDetail.Rows[a][4].ToString()) : int.Parse(null),
+                                            TotalDuration = RoshitaDetail.Rows[a][5].ToString() != string.Empty ? int.Parse(RoshitaDetail.Rows[a][5].ToString()) : int.Parse(null),
+                                            TotalUnits = RoshitaDetail.Rows[a][6].ToString() != string.Empty ? int.Parse(RoshitaDetail.Rows[a][6].ToString()) : int.Parse(null),
+                                            Amount = RoshitaDetail.Rows[a][7].ToString() != string.Empty ? double.Parse(RoshitaDetail.Rows[a][7].ToString()) : (double?)null,
+                                            IsDealed = RoshitaDetail.Rows[a][8].ToString() != string.Empty ? bool.Parse(RoshitaDetail.Rows[a][8].ToString()) : bool.Parse(null),
+                                            PaymentGroup = RoshitaDetail.Rows[a][10].ToString() != string.Empty ? RoshitaDetail.Rows[a][10].ToString() : null,
+                                            RoshitaID = roshitaId,
+                                            IsSync = true,
+                                            SyncDate = DateTime.Now,
+                                            SyncBy = "Aya",
+
+                                        });
+                                    }
+                                }
+                            }
+                        }
+
+                        AddNewEntities(roshitasDetail, "RoshitaDetails", false, _connectionSettings.SQlConnection);
+
+                        _result.Logs.Add(new ViewModels.Log
+                        {
+                            Order = GetLogOrder(),
+                            Action = SyncAction.Insert.ToString(),
+                            Database = GetDatabaseName(),
+                            Server = GetServerName(),
+                            Table = tableName,
+                            AffectedRows = data.Count
+                        });
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        _result.Errors.Add(new Error()
+                        {
+                            Action = SyncAction.Insert.ToString(),
+                            Database = GetDatabaseName(),
+                            Server = GetServerName(),
+                            Table = tableName,
+                            Exception = ex,
+                        });
+                    }
+                }
+                catch (Exception e)
+                {
+                    _result.Errors.Add(new Error()
+                    {
+                        Action = SyncAction.Get.ToString(),
+                        Database = GetDatabaseName(_connectionSettings.OrcaleConnection),
+                        Server = GetServerName(_connectionSettings.OrcaleConnection),
+                        Table = tableName,
+                        Exception = e,
+                    });
+                }
+            }
+
+
+            string OracleQuery = "UPDATE APP.COMP_EMPLOYEES_D IS_SYNC = 1,SYNC_DATE=SYSDATE,SYNC_BY = 'Admin' WHERE IS_SYNC=0 OR IS_SYNC IS NULL";
+            ExecuteOracleQuery(OracleQuery, _connectionSettings.OrcaleConnectionApp);
 
 
         }
