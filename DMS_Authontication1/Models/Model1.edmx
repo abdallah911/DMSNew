@@ -256,7 +256,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DiagnoiseName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiagnoiseName" Type="nvarchar(max)" />
           <Property Name="ClaimPhotoId" Type="int" />
         </EntityType>
         <EntityType Name="Co_Insurance_01">
@@ -8647,7 +8647,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DiagnoiseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiagnoiseName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimPhotoId" Type="Int32" />
           <NavigationProperty Name="ClaimPhoto" Relationship="DB_A45413_DMSERPModel.FK_ClaimPhotoDiagnoise_ClaimPhoto" FromRole="ClaimPhotoDiagnoise" ToRole="ClaimPhoto" />
         </EntityType>
