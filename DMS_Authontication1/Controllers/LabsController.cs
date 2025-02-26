@@ -173,6 +173,7 @@ namespace DMS_Authontication1.Controllers
 
             }
         }
+        [Authorize(Roles = "Admin,Lab,Lab_Admin,Rays,Rays_Admin")]
         public JsonResult Save(Roshita data)
         {
             var companyId = data.CardId.Split('-')[0];
@@ -340,7 +341,7 @@ namespace DMS_Authontication1.Controllers
 
         }
         [Authorize(Roles = "Admin,Lab,Lab_Admin")]
-
+        [Authorize(Roles = "Admin,Lab,Lab_Admin,Rays,Rays_Admin")]
         public JsonResult SaveMediciens(List<RoshitaDetail> Medciens)
         {
             bool oneNotification = false;
