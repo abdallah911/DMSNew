@@ -1,0 +1,597 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reports</title>
+     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+
+    @*<link rel="stylesheet" href="~/assets/ReportDesign/CSS/all.min.css" />
+        <link rel="stylesheet" href="~/assets/ReportDesign/CSS/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/assets/ReportDesign/CSS/jquery-ui.min.css" />
+        <link rel="stylesheet" href="~/assets/ReportDesign/CSS/select2.min.css" />
+        <link rel="stylesheet" href="~/assets/ReportDesign/CSS/main-reports.css" />*@
+
+    <link href="~/assets/HomeTemplete/Scripts/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/css/jquery.dataTables.min.css" rel="stylesheet" /> 
+    <link href="~/assets/HomeTemplete/Content/DataTables/css/responsive.dataTables.min.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/css/all.min.css" rel="stylesheet" />   <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="~/assets/HomeTemplete/Content/css/select2.min.css" rel="stylesheet" />
+    @*-- bootstrap5 --*@
+    <link href="~/assets/HomeTemplete/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/design/css/style.css" rel="stylesheet" />
+</head>
+<style>
+    .dms-container {
+        min-height: calc(100vh - 279.1px);
+    }
+    .dms-container .btn {
+        background: white;
+        border: 2px solid white;
+        color: #337ab7;
+    }
+    
+    .dms-container .btn:hover {
+        box-shadow: inset 0 0 15px 8px #0000002b !important;
+        color: white !important;
+    }
+  
+    .dms-container .btn:focus {
+        background: white;
+        color: #337ab7;
+        border: 2px solid #337ab7;
+    }
+     
+    /*===========Footer==================*/
+    footer div.footer {
+        background: white;
+        padding: 20px;
+    }
+
+    .footer h5 {
+        font-weight: bolder !important;
+    }
+
+    .footerP2 {
+        position: relative;
+        margin-left: 50px;
+    }
+
+        .footerP2::before {
+            content: "";
+            position: absolute;
+            width: 3px;
+            height: 90px;
+            margin-right: 20px;
+            border-radius: 50% !important;
+            top: 10%;
+            background-color: #afafaf;
+            left: -50px;
+        }
+
+    .footerP3 {
+        position: relative;
+        margin-left: 50px;
+    }
+
+        .footerP3::before {
+            content: "";
+            position: absolute;
+            width: 3px;
+            height: 90px;
+            margin-right: 20px;
+            border-radius: 50% !important;
+            top: 10%;
+            background-color: #afafaf;
+            left: -50px;
+        }
+
+    .footerP1 p {
+        letter-spacing: 1px;
+    }
+
+    .line {
+        background-color: #72369a;
+        height: 3px;
+        width: 95px;
+        margin-left: 0;
+        margin-bottom: 15px;
+        border-radius: 10px;
+    }
+
+    footer h2 {
+        color: #4f4f4f;
+    }
+
+    footer p {
+        color: #72369a;
+    }
+
+    .logo-white {
+        width: 140px;
+        margin-top: 30px;
+        background-image: url(../../../HomeTemplete/img/DMS_Logo.png);
+        background-size: contain;
+        margin-right: 3rem;
+        opacity: 0.8;
+        background-repeat: no-repeat;
+        transition: all 0.2s ease-in-out;
+    }
+
+        .logo-white:hover {
+            opacity: 1;
+        }
+
+    .footer-contacts-icon {
+        background: #9b9b9b;
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        -ms-border-radius: 100%;
+        border-radius: 100%;
+        height: 20px;
+        width: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .footer-contacts-icon i {
+            line-height: 58px;
+            color: #fff;
+            font-size: 10px;
+        }
+
+    .footer-contacts-text li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+        .footer-contacts-text li h6 {
+            margin-bottom: 0;
+            font-weight: bold;
+            color: #72369a;
+        }
+
+    .footer-contacts-text h6 {
+        white-space: normal;
+    }
+</style>
+<body>
+    <!-- Main Menu -->
+    <div class="page--container  ">
+        <div class="content-container flex-grow-1 ">
+            <nav class="navbar navbar-expand-md navbar-light bg-light">
+                <div class="container d-flex justify-content-between">
+                    <a class="navbar-brand" href="~/Home/Index">
+                        <img src="~/assets/HomeTemplete/img/DMS_Logo.png" style=" width: 120px;" alt="sios-logo" />
+                    </a>
+
+                    <div class="sios-hr-parent d-flex align-items-center">
+                        <div class="sios-hr-btn dropdown">
+                            <button type="button"
+                                    class="btn  dropdown-toggle"
+                                    data-bs-toggle="dropdown">
+                                @*Hello User*@
+                                Hello  @User.Identity.GetUserName() !
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Manager Account</a></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                            </ul>
+                        </div>
+                        <div class="not-drop  text-center ">
+                            <button type="button"
+                                    class="bell-dropdown btn dropdown-toggle"
+                                    data-bs-toggle="dropdown">
+                                <i class="not-icon fa-regular fa-bell fa-2xl ms-2 ms-md-3"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Link 1</a></li>
+                                <li><a class="dropdown-item" href="#">Link 2</a></li>
+                                <li><a class="dropdown-item" href="#">Link 3</a></li>
+                            </ul>
+
+                            <div class="rounded-circle  bell-num"><p>2</p></div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- end menu -->
+            <div class="dms-container">
+                <!-- start sidebar -->
+                <div class="sidebar-parent">
+                    <div class="sideBar">
+                        <div class="operation-btns">
+                            <a href="/NewReports/OperationReport">
+                                <button class="sidebar-item " id="reportsOperation">
+                                    Operation
+                                </button>
+                            </a>
+                            <br />
+                            <a href="/NewReports/ApprovalReports">
+                                <button class="sidebar-item" id="reportsApproval">
+                                    Medical Approval
+                                </button>
+                            </a>
+                            <a href="/NewReports/ReportsPrinting">
+                                <button class="sidebar-item" id="reportsPrinting">
+                                    Printing
+                                </button>
+                            </a>
+                            <br />
+                            <a href="/NewReports/ConsumptionReport">
+                                <button class="sidebar-item" id="reportsConsumption">
+                                    Consumption
+                                </button>
+                            </a>
+                            <a href="/NewReports/ReportsLoseRatio">
+                                <button class="sidebar-item" id="reportsLoseRatio">
+                                    Lose Ratio
+                                </button>
+                            </a>
+                            <a href="/NewReports/ReportsCustomerServices">
+                                <button class="sidebar-item" id="reportsCustomerServices">
+                                    Customer Services
+                                </button>
+                            </a>
+                            <a href="/NewReports/ReportsContract">
+                                <button class="sidebar-item" id="reportsContract">
+                                    Contract
+                                </button>
+                            </a>
+                            <a href="/NewReports/ReportsPharmacy">
+                                <button class="sidebar-item" id="reportsPharmacy">
+                                    Pharmacy
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+        <!-- Start Footer -->
+        <footer>
+            <div class="footer bg-transparent">
+                <div class="container-fluid ">
+                    <div class="row m-auto d-flex justify-content-center">
+                        <div class="col-md-3 me-4">
+                            <div class="foot-about">
+                                <div class="img d-flex align-self-stretch">
+                                    <a href="#"></a>
+                                    <img class="logo-white"
+                                         src="~/assets/HomeTemplete/img/DMS_Logo.png"
+                                         alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="footerP2">
+                                <h2 class="mb-1  fw-bold" style="font-size:24px;">Contact</h2>
+                                <div class="line ms-0 mb-3" style="width:95px"></div>
+                                <ul class="p-0 m-0 mt-1 footer-contacts-text" style="white-space:nowrap">
+                                    <li>
+                                        <div class="footer-contacts-icon"><i class="fas fa-map"></i></div>
+                                        <h6>   12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</h6>
+
+                                    </li>
+                                    @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
+                                    <li>
+                                        <div class="footer-contacts-icon"><i class="fas fa-phone fa-rotate-90 "></i></div>
+                                        <h6> + 0226390390</h6>
+                                    </li>
+                                    <li>
+                                        <div class="footer-contacts-icon"><i class="fas fa-paper-plane "></i></div>
+                                        <h6> Contact@dms-eg.com</h6>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4 ms-lg-4">
+                            <div class="footerP3">
+                                <p style=" font-size: 14px; line-height: 2;">
+                                    Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.
+                                    <br />
+                                    <i class="copyright mt-0">
+                                        <span>&copy; @DateTime.Now.Year - DMS Application</span>
+                                    </i>
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        @*<footer>
+                <div class="footer bg-transparent pb-3">
+                    <div class="container-fluid pt-5">
+                        <div class="row m-auto d-flex justify-content-center">
+                            <div class="col-md-3 me-4">
+                                <div class="footerP1">
+                                    <h1 class="mb-1">
+                                        <img class="logo-white"
+                                             src="~/assets/ReportDesign/Images/logo D M S 4-04.png"
+                                             alt="" />
+                                    </h1>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="footerP2">
+                                    <h5>Address</h5>
+                                    <div class="line ms-0 mb-1"></div>
+                                    <h6 class="mt-3">
+                                        <p>12 Abdelazim Awadallah St., Heliopolis, Cairo</p>
+                                    </h6>
+                                    <i class="fa-brands fa-facebook fs-4 ms-1 me-3"></i>
+                                    <i class="fa-brands fa-instagram fs-4 me-3"></i>
+                                    <i class="fa-brands fa-linkedin fs-4"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 ms-lg-4">
+                                <div class="footerP3">
+                                    <h5>Contact</h5>
+                                    <div class="line ms-0"></div>
+                                    <p><i class="fa-regular fa-envelope"></i> DMS@gmail.com</p>
+                                    <p>
+                                        <i class="fa-solid fa-phone"></i> 01032274222 – 01026006177
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>*@
+        <!-- End Footer -->
+    </div>
+    <script src="~/global/plugins/design/js/jquery.min.js"></script>
+    <script src="~/assets/global/plugins/design/js/popper.min.js"></script>
+    <script src="~/assets/global/plugins/design/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/global/plugins/design/js/bootstrap.min.js"></script>
+
+
+    <script src="~/global/plugins/design/js/jquery-3.6.0.js"></script>
+    <script src="~/global/plugins/design/js/jquery-ui.js"></script>
+    <script src="~/global/plugins/design/js/select2.min.js"></script>
+    <script src="~/global/plugins/design/js/main-reports.js"></script>
+
+
+    <script>
+        var notification = 0;
+        $(document).ready(function () {
+            // Declare a proxy to reference the hub.
+            var notifications = $.connection.notificationHub;
+            // Create a function that the hub can call to broadcast messages.
+            notifications.client.updateMessages = function () {
+                getAllMessages()
+            };
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                console.log("connection started")
+                //notifications.onconn();
+                getAllMessages();
+            }).fail(function (e) {
+                console.log("Could not Connect!");
+                alert(e);
+            });
+
+            $("#btnClaim").click(function () {
+                window.location.replace('/Pharmacy/index?id=undefined');
+            });
+            $(".collaps").click(function () {
+                //alert("The paragraph was clicked.");
+                if ($("#side-menu").hasClass("activeblock")) {
+                    console.log("Inside Ifff");
+                    $("#side-menu").removeClass("activeblock");
+                    $(".content").removeClass("fullWidth");
+                    $(".collaps i").addClass('fa-times');
+                    $(".collaps i").removeClass("fa-bars");
+                }
+                else {
+                    console.log("Inside ELSE Ifff");
+                    $("#side-menu").addClass("activeblock");
+                    $(".content").addClass("fullWidth");
+                    $(".collaps i").removeClass('fa-times');
+                    $(".collaps i").addClass("fa-bars");
+                }
+            });
+            $(".burger").click(function () {
+                if ($(window).width() <= 768) {
+                    console.log("Inside  Ifff WIDTH");
+                    $("#side-menu").removeClass("activeblock");
+                    $(".content").removeClass("fullWidth");
+                }
+            });
+        });
+
+        function getAllMessages() {
+            $.ajax({
+                url: '/Home/GetNotifications',
+                //contentType: 'application/html ; charset:utf-8',
+                //type: 'GET',
+                //dataType: 'html',
+                success: function (result) {
+                    //debugger;
+                    $('#notification').text(result.length);
+                    if (result.length > 0) {
+                        $(".test1").css("background-color", " rgb(245, 7, 7)");
+                        $(".test1").css("animation", " flash 1s linear infinite");
+                        $(".test1 i").css("color", "");
+                    }
+                    else {
+                        $(".test1").css("background-color", "");
+                        $(".test1").css("animation", "");
+                        $(".test1 i").css("color", "red");
+
+                    }
+                    $('#divNotificationValues').empty();
+                    $.each(result, function (key, value) {
+                        $('#divNotificationValues').append('<a href="' + value.DetailsURL + '?NotificationId=' + value.Id + '">' + value.TypeNmae + '-' + value.Details + '</a>');
+                    });
+                }
+            });
+        }
+
+        //===========================================================================
+
+
+        $(document).ready(function () {
+            $(document).ready(function () {
+                $("#").select2()(["multiple: true"]);
+            });
+            $(document).on('select2:open', () => {
+                document.querySelector('.select2-search__field').focus();
+            });
+
+
+            //$('#CardFromApproval').select2({
+            //    placeholder: 'Search for a card',
+            //    minimumInputLength: 5,
+            //    ajax: {
+            //        url: '/EmployeeRequest/GetActiveEmployess/',
+            //        delay: 250,
+            //        dataType: 'json',
+            //        data: function (params) {
+            //            var query = {
+            //                search: params.term,
+            //                page: params.page || 1
+            //            }
+            //            return query;
+            //        },
+            //        processResults: function (data, params) {
+            //            params.page = params.page || 1;
+            //            var obj = {};
+            //            data.push(obj)
+            //            return {
+            //                results: data,//.results,
+            //                pagination: {
+            //                    more: (params.page * 10) < data.count_filtered
+            //                }
+            //            };
+            //        }
+            //        // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+
+            //    }
+            //});
+
+
+            //$('#CompFromApproval1').select2();
+
+
+            //$(".sidebar-item").click(function () {
+            //    $(".sidebar-item").removeClass("active");
+            //    $(this).addClass("active");
+            //    localStorage.setItem("activeLink", $(this).attr("id"));
+            //});
+
+            //var activeLink = localStorage.getItem("activeLink");
+            //if (activeLink) {
+            //    $("#" + activeLink).addClass("active");
+            //}
+            //$(function () {
+            //    $(".date-input").datepicker();
+            //});
+
+            //$(".left-icon").click(function () {
+            //    $(".page-icon").children("div").removeClass("active");
+            //    $(this).addClass("active");
+            //    $(".sec-1").show();
+            //    $(".sec-2-parent").hide();
+            //    $(".sec-1").css("width", "100%");
+            //});
+            //$(".middle-icon").click(function () {
+            //    $(".page-icon").children("div").removeClass("active");
+            //    $(this).addClass("active");
+            //    $(".sec-2-parent").show();
+            //    $(".sec-1").show();
+
+            //    if ($(window).width() >= 992) {
+            //        $(".sec-2-parent").css("width", "41.667%");
+            //        $(".sec-1").css("width", "58.333%");
+            //    }
+            //    if ($(window).width() < 992) {
+            //        $(".sec-2-parent").css("width", "100%");
+            //        $(".sec-2").removeClass("hide-pseudo");
+            //        $(".sec-2").css("padding", " 60px 90px");
+            //        $(".sec-1").css("width", "100%");
+            //    }
+            //});
+            //$(".right-icon").click(function () {
+            //    $(".page-icon").children("div").removeClass("active");
+            //    $(this).addClass("active");
+            //    $(".sec-2-parent").show();
+            //    $(".sec-1").css("display", "none");
+            //    $(".sec-2-parent").css("width", "100%");
+
+            //    if ($(window).width() < 992) {
+            //        $(".sec-2").addClass("hide-pseudo");
+            //        $(".sec-2").css("padding", "20px 0 0");
+            //        $(".sec-2").addClass("padding-20");
+            //    }
+            //});
+        });
+        //var isScrolledIntoView = function (elem) {
+        //    var $elem = $(elem);
+        //    var $window = $(window);
+
+        //    var docViewTop = $window.scrollTop();
+        //    var docViewBottom = docViewTop + $window.height();
+
+        //    var elemTop = $elem.offset().top;
+        //    var elemBottom = elemTop + $elem.height();
+
+        //    return elemBottom <= docViewBottom && elemTop >= docViewTop;
+        //};
+
+        //$(window).on("scroll", function () {
+        //    $(".sideBar").toggle(!isScrolledIntoView(".footer"));
+        //});
+        $(document).ready(function () {
+            // Get current URL path
+            var currentPath = window.location.pathname;
+
+            // Check if the URL matches the desired path
+            if (currentPath === "/NewReports/OperationReport") {
+                $(".sidebar-item").removeClass("active"); // Remove active class from all buttons
+                $("#reportsOperation").addClass("active"); // Add active class to the specific button
+                console.log("its work")
+            } else if (currentPath === "/NewReports/ApprovalReports") {
+                $(".sidebar-item").removeClass("active");
+                $("#reportsApproval").addClass("active");
+            } else if (currentPath === "/NewReports/ReportsPrinting") {
+                $(".sidebar-item").removeClass("active");
+                $("#reportsPrinting").addClass("active");
+            } else if (currentPath === "/NewReports/ConsumptionReport") {
+                $(".sidebar-item").removeClass("active");
+                $("#reportsConsumption").addClass("active");
+            } else if (currentPath === "/NewReports/ReportsLoseRatio") {
+                $(".sidebar-item").removeClass("active");
+                $("#reportsLoseRatio").addClass("active");
+            } else if (currentPath === "/NewReports/ReportsCustomerServices") {
+                $(".sidebar-item").removeClass("active");
+                $("#reportsCustomerServices").addClass("active");
+            } else if (currentPath === "/NewReports/ReportsContract") {
+                $(".sidebar-item").removeClass("active");
+                $("#reportsContract").addClass("active");
+            } else if (currentPath === "/NewReports/ReportsPharmacy") {
+                $(".sidebar-item").removeClass("active");
+                $("#reportsPharmacy").addClass("active");
+            }
+        });
+
+    </script>
+</body>
+</html>

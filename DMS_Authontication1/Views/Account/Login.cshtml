@@ -8,11 +8,12 @@
     .body-content {
         overflow: hidden;
         min-height: calc(100vh - 283.1px);
-        height:unset !important ;
+        height: unset !important;
     }
-    .body-content > div {
-        height:100%;
-    }
+
+        .body-content > div {
+            height: 100%;
+        }
 </style>
 <!--
 <h2>@ViewBag.Title</h2>
@@ -98,19 +99,54 @@
         justify-content: center;
         align-items: center;
     }
-    .event-welcome  { 
-        display:grid;
-    }
-    .event-welcome img {
-        height: 150px;
-        margin: auto;
-    }
-</style>
-<div class="position-relative d-flex align-items-center h-100" style=" min-height: calc(100vh - 283.1px);">
-    <br />
-    <br />
 
-    <div class=" h-100 img img-2 d-none d-lg-inline-block position-absolute end-0 ps-5 login-img" >
+    .event-welcome {
+        display: grid;
+    }
+
+        .event-welcome img {
+            height: 150px;
+            margin: auto;
+        }
+        /*=======================*/
+    .ramadan-box {
+        position: absolute;
+        bottom: 6px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 20px;
+    }
+
+    .event-bg-box {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        opacity: 8%;
+    }
+
+    img.event-bg-img {
+        height: 100%;
+        width: 100%;
+    }
+    .intro {
+        background: transparent !important;
+    }
+    a.cus-forg-pass {
+        color: #636363 !important;
+        font-weight: 700;
+    }
+
+</style>
+<div class="event-bg-box">
+    <img class="event-bg-img" src="~/assets/global/img/Events/ramadan-pattern.jpg" />
+</div>
+<div class="position-relative d-flex align-items-center h-100" style=" min-height: calc(100vh - 283.1px);">
+
+
+
+    <div class=" h-100 img img-2 d-none d-lg-inline-block position-absolute end-0 ps-5 login-img">
         <img src="~/assets/global/img/login-bg.png" />
     </div>
 
@@ -161,17 +197,17 @@
                 </div>-->
                 <!-- Intro Form -->
                 <div class="col-11 col-sm-10 mx-auto ml-lg-0 col-lg-6 intro_col " id="loginForm">
-                    
+
                     @if (ViewBag.evnt == 1)
                     {
-                        <div class="event-welcome" style="width: 80%; margin: auto; padding-bottom: 30px;">
-                            <img src="~/assets/global/img/Events/welcome-event.png" />
+                        <div class="event-welcome" style="width: 60%; margin: auto; padding-bottom: 30px;">
+                            <img class="w-100" src="~/assets/global/img/Events/Ramadan-welcome-bg.png" />
                         </div>
                     }
 
                     <div class="intro_form_container">
                         @*<div class="intro_form_title">Login</div>*@
-
+                        <img src="~/assets/global/img/Events/Ramadan-welcome-bg.png" />
                         <section id="loginForm">
                             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal intro_form", @id = "intro_form", role = "form" }))
                             {
@@ -196,7 +232,7 @@
                                     </div>
                                     <div class="cus-ememberme">
                                         @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check cus-rem-input" })
-                                        @Html.LabelFor(m => m.RememberMe, new { @class = "cus-rem-label" })
+                                        @Html.LabelFor(m => m.RememberMe, new { @class = "cus-rem-label",@style= "color: #2d2d2d;" })
                                     </div>
 
 
@@ -244,6 +280,6 @@
     });
     $(document).ready(function () {
         $('.body-content').removeClass('page-container');
-        $('.body-content').css('height', 'calc(100vh - 203.1px)');  
+        $('.body-content').css('height', 'calc(100vh - 203.1px)');
     });
 </script>

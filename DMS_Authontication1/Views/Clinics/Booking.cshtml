@@ -1,0 +1,93 @@
+﻿@model IEnumerable<DMS_Authontication1.ViewModel.ApprovalComp>
+@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    var edit = false;
+    var delete = false;
+    var view = false;
+    var fullcontroll = false;
+    var Create = false;
+    var modellist = new List<ModulesPagesViewModel>();
+    var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+    if (claim != null)
+    {
+        modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+        if (modellist != null)
+        {
+            var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 15 && (x.FullControl || x.EditPermission
+                                          || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+            if (obj != null)
+            {
+                edit = obj.EditPermission;
+                delete = obj.ActivationControl;
+                view = obj.Preview;
+                fullcontroll = obj.FullControl;
+                Create = obj.AddPermission;
+
+            }
+        }
+    }
+}
+@*<h2>Index</h2>*@
+<script src="~/assets/HomeTemplete/scripts/jquery-3.0.0.js"></script>
+<script src="~/assets/HomeTemplete/Scripts/toastr.min.js"></script>
+<script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
+<input type="text" id="compname" value="@ViewBag.CompId" hidden="hidden" />
+<style>
+    .select2-container--default .select2-selection--single .select2-selection__arrow { 
+        left: 10px;
+    }
+    ::placeholder {
+        color: #337ab7 !important;
+        font-weight:700;
+    }
+</style>
+<div class="dms-container">
+     
+    <div class="portlet box">
+        <div class="portlet-title title-bg">
+            <div class="caption">
+                <i class="fa fa-gift"></i>Approval Search
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="portlet-body d-flex" style="direction:rtl">
+                <div class="row d-flex flex-column mb-2 no-wrap mx-auto col-md-12">
+                    <div class="forLabel sec-field-labeled col-md-6 px-2 mb-2" style="height:34px">
+                        <select class="select2 w-100 h-100 " required>  </select>
+                        <span style="right:14px">اليوم</span>
+                    </div>
+                    <div class="forLabel sec-field-labeled col-md-6 px-2 mb-2" style="height:34px">
+                        <select class="select2 w-100 h-100 " required>  </select>
+                        <span style="right:14px">التخصص</span>
+                    </div>
+                    <div class="forLabel sec-field-labeled col-md-6 px-2 mb-2" style="height:34px">
+                        <select class="select2 w-100 h-100 " required>  </select>
+                        <span style="right:14px">الطبيب</span>
+                    </div>
+                    <div class="sec-field-labeled col-md-6 px-2 mb-2">
+                        <input type="number" class="form-control" placeholder="رقم الهاتف" />
+                    </div>
+                    <div class="row mt-3 col-md-6">
+                        <div class="d-flex justify-content-center justify-content-md-end me-4 gap-2 ">
+                            <input type="button" class="btn" value="Save" />
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.select2').select2();
+        $('.table').DataTable();
+
+    });
+
+</script>
