@@ -399,7 +399,7 @@ namespace DMS_Synchronization
                 SyncToSqlTable<CONSUMPTION_POOL>(StringHelper.GetQyertCONSUMPTION_POOL, StringHelper.GetTableNameCONSUMPTION_POOL);
                 SyncToSqlTable<REMAIN_CONSUMATION>(StringHelper.GetQyertREMAIN_CONSUMATION, StringHelper.GetTableNameREMAIN_CONSUMATION);
                 CLOSE_EMP_DATASyncToSqlTable();
-                COMP_EMPLOYEES_DSyncToSqlTable();
+                //COMP_EMPLOYEES_DSyncToSqlTable();
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED);
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED_EMP>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED_EMP, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED_EMP);
 
