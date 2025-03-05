@@ -686,21 +686,31 @@
                                         //                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         //{
                                         var misrUsers = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                                                                                                                                        {
+                                                                        {
                                             "hr.misr.insurance", "Yasmen.misr.insurance", "Ahmed.misr.insurance",
                                             "Hussien.misr.insurance", "Sherif.misr.insurance", "Doaa.misr.insurance",
-                                            "Hassan.misr.insurance", "Awatef.misr.insurance", "Eslam.misr.insurance",
-                                            "it.admin", "Ahmed-selim"
+                                            "Hassan.misr.insurance", "Awatef.misr.insurance", "Eslam.misr.insurance", "it.admin"
                                         };
 
                                         if (misrUsers.Contains(User.Identity.GetUserName().Trim()))
                                         {
                                             <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
                                         }
-                                        @*if (User.Identity.GetUserName() == "hr.misr.insurance")
+
+
+                                        var reportHighLevel = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+                                                                        {
+                                            "dr.mohsen", "it.admin"
+                                        };
+
+                                        if (reportHighLevel.Contains(User.Identity.GetUserName().Trim()))
                                         {
-                                            <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
-                                        }*@
+                                            <li><a href="/NewReports/OperationReport" class="link-cus">Reports</a></li>
+                                        }
+                                        @*if (User.Identity.GetUserName() == "hr.misr.insurance")
+                        {
+                            <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
+                        }*@
                                         //}
                                     }
                                 }
