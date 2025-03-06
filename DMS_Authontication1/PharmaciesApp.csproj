@@ -6339,6 +6339,7 @@
     <Content Include="assets\HomeTemplete\Content\DataTables\css\dataTables.jqueryui.min.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\dataTables.material.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\dataTables.material.min.css" />
+    <Content Include="assets\HomeTemplete\Content\DataTables\css\datatables.min.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\dataTables.semanticui.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\dataTables.semanticui.min.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\dataTables.uikit.css" />
@@ -6442,6 +6443,7 @@
     <Content Include="assets\HomeTemplete\Content\DataTables\css\select.jqueryui.min.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\select.semanticui.css" />
     <Content Include="assets\HomeTemplete\Content\DataTables\css\select.semanticui.min.css" />
+    <Content Include="assets\HomeTemplete\Content\DataTables\dataTables.min.js" />
     <Content Include="assets\HomeTemplete\Content\DataTables\images\details_close.png" />
     <Content Include="assets\HomeTemplete\Content\DataTables\images\details_open.png" />
     <Content Include="assets\HomeTemplete\Content\DataTables\images\sort_asc.png" />
