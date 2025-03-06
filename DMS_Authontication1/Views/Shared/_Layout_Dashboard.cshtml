@@ -15,8 +15,8 @@
     <link href="~/assets/HomeTemplete/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/Site.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Scripts/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
-    <link href="~/assets/HomeTemplete/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" /> 
+    <link href="~/assets/HomeTemplete/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/DataTables/css/responsive.dataTables.min.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/css/select2.min.css" rel="stylesheet" />
@@ -418,12 +418,13 @@
             transform: translateX(-50%);
             display: flex;
             gap: 20px;
-        } 
+        }
 
         img.event-bg-img {
             height: 100%;
             width: 100%;
         }
+
         .event-bg-box {
             position: fixed;
             top: 0;
@@ -432,14 +433,17 @@
             opacity: 14%;
             z-index: 0;
         }
+
         .wrap {
             background: #f2fcff;
             /*height: 2000px;*/
         }
-        .wrap #side-menu {
-            z-index: 2 !important;
-            background:transparent;
-        }
+
+            .wrap #side-menu {
+                z-index: 2 !important;
+                background: transparent;
+            }
+
         section.content-inner {
             background-image: url(../../assets/global/img/Events/ramadan-pattern-14.png) !important;
             z-index: unset;
@@ -447,9 +451,11 @@
             background-position: center !important;
             background-size: cover !important;
         }
-        .portlet.box > .portlet-body{
-            background:transparent;
+
+        .portlet.box > .portlet-body {
+            background: transparent;
         }
+
         .panel {
             background: transparent;
         }
@@ -1056,12 +1062,12 @@
                             if (modellist.Where(x => x.ModuleName == "Hospital Management" && x.PageId == 20 && (x.FullControl || x.EditPermission
                                 || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                             {
-                    <li class="nav-header">
-                        <div class="link"><i class="fa fa-lg fa-hospital-o"></i>Hospital<i class="fa fa-chevron-down"></i></div>
-                        <ul class="submenu">
-                            <li><a href="/Hospital/index">Hospital</a></li>
-                        </ul>
-                    </li>
+                     <li class="nav-header">
+                         <div class="link"><i class="fa fa-lg fa-hospital-o"></i>Hospital<i class="fa fa-chevron-down"></i></div>
+                         <ul class="submenu">
+                             <li><a href="/Hospital/index">Hospital</a></li>
+                         </ul>
+                     </li>
                             }
                         }
 
@@ -1070,13 +1076,13 @@
                             if (modellist.Where(x => x.ModuleName == "AfterSales Management" && x.PageId == 32 && (x.FullControl || x.EditPermission
                                 || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                             {
-                    <li class="nav-header">
-                        <div class="link"><i class="fa fa-lg fa-shopping-basket"></i>After Sales<i class="fa fa-chevron-down"></i></div>
-                        <ul class="submenu">
-                            <li><a href="/AfterSales/Index">Visits</a></li>
-                            <li><a href="/AfterSales/HRData">HRData</a></li>
-                        </ul>
-                    </li>
+                     <li class="nav-header">
+                         <div class="link"><i class="fa fa-lg fa-shopping-basket"></i>After Sales<i class="fa fa-chevron-down"></i></div>
+                         <ul class="submenu">
+                             <li><a href="/AfterSales/Index">Visits</a></li>
+                             <li><a href="/AfterSales/HRData">HRData</a></li>
+                         </ul>
+                     </li>
                             }
                         }
 
