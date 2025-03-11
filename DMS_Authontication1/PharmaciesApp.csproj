@@ -1389,6 +1389,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\EmployeeDataViewModel.cs" />
     <Compile Include="ViewModel\BrokerViewModel.cs" />
     <Compile Include="ViewModel\CategoriesPricingViewModel.cs" />
     <Compile Include="ViewModel\ClaimPhotoesViewModel.cs" />
@@ -7318,9 +7319,11 @@
     <Content Include="assets\NewDesignBackAdmin\Img\Form-Bg.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\logo D M S 4-04.png" />
     <Content Include="assets\NewDesignBackAdmin\Img\logo-dms-white2.png" />
+    <Content Include="assets\NewDesignBackAdmin\Img\logo-subtitle-silver.png" />
     <Content Include="assets\NewDesignBackAdmin\Img\logo-subtitle.png" />
     <Content Include="assets\NewDesignBackAdmin\Img\navbar-bg.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\new-dms-logo.png" />
+    <Content Include="assets\NewDesignBackAdmin\Img\SL-122222-54830.png" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1  2-01.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1  2-02.jpg" />
     <Content Include="assets\NewDesignBackAdmin\Img\Untitled-1-01.jpg" />
@@ -7433,6 +7436,7 @@
     <Content Include="assets\NewDesign\img\Home.jpg" />
     <Content Include="assets\NewDesign\img\Hr\HR SOFTWARE DEVELOPMENT.jpg" />
     <Content Include="assets\NewDesign\img\Hr\hrProduct.jpg" />
+    <Content Include="assets\NewDesign\img\loading.gif" />
     <Content Include="assets\NewDesign\img\medical-record-2.svg" />
     <Content Include="assets\NewDesign\img\medical-record.svg" />
     <Content Include="assets\NewDesign\img\medicine-2.svg" />
@@ -9315,6 +9319,7 @@
     <Content Include="Views\Shared\_Layout_DashboardAdminNew.cshtml" />
     <Content Include="Views\Shared\_Layout_DashboardAdminNewWelcome.cshtml" />
     <Content Include="Views\NetworkMedical\NetworkMedical.cshtml" />
+    <Content Include="Reports\Roshita.rpt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

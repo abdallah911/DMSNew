@@ -1,6 +1,5 @@
-﻿@using System.Security.Claims;
-@using DMS_TEST.ViewModel;
-@using Newtonsoft.Json;
+﻿@model DMS_Authontication1.ViewModel.EmployeeDataViewModel
+
 @{
     ViewBag.Title = "Search";
     Layout = "~/Views/Shared/_Layout_DashboardHomePage.cshtml";
@@ -12,170 +11,222 @@
 <script src="~/assets/HomeTemplete/scripts/select2.min.js"></script>
 @*<input type="text" id="compname" value="@ViewBag.CompName" hidden="hidden" />*@
 
-<div style="min-height: calc(100vh - 275.9px); direction: rtl; " class="ar-page pb-4">
-    <div class="d-flex justify-content-between  bg-overlay mb-4 portlet-title">
-        <div class="mx-4 my-3 fs-3 fw-bold text-white caption">
-            البيانات الشخصية
-        </div>
-        <div style="max-width: 80px;max-height: 60px;" class="w-100 h-100 my-auto bg-dark-subtle d-flex flex-column gap-2  rounded-2 p-2 shadow-sm ms-4">
-            <span class=" sec-overlay-bg rounded mx-auto shadow">
-                <img id="logoPreview" class="logo-preview d-none w-100 h-100 p-3" src="#" alt="Logo Preview">
-                <i style="font-size:40px" class="fa-solid fa-image " id="iconCover"></i>
-            </span>
-        </div>
-    </div>
-    <div class="container mx-auto row row-cols-sm-2 row-cols-md-3 row-gap-2 my-4">
-        <div class="forLabel px-2 border-0 ">
-            <input type="text" id="txtCardId" value="@ViewBag.CardId" class="border-2 admin-form-control w-100" readonly />
-            <span class="sios-color" style="right:20px;">رقم الكارت</span>
-        </div>
-        <div class="forLabel px-2 border-0">
-            <input type="text" id="txtName" value="@ViewBag.Name" class="border-2 admin-form-control w-100" readonly />
-            <span class="sios-color" style="right:20px;">الإسم</span>
-        </div>
-        <div class="forLabel px-2 border-0">
-            <input type="text" id="startDate" class="date-input border-2 admin-form-control w-100" readonly />
-            <span class="sios-color" style="right:20px;">تاريخ البداية</span>
-        </div>
-        <div class="forLabel px-2 border-0">
-            <input type="text" id="endDate" class="date-input border-2 admin-form-control w-100" readonly />
-            <span class="sios-color" style="right:20px;">تاريخ النهاية</span>
-        </div>
-    </div>
-    <div class="row bg-overlay mb-4 portlet-title">
-        <div class="mx-4 my-2 fs-3 fw-bold text-white caption">
-            تعليمات التشغيل
-        </div>
-    </div>
-    <div class="container mx-auto">
-        <h4 class="container mx-auto sios-color mb-4 fw-bold">
-            Lorem Ipsum هو ببساطة نص شكلي غير رسمي يستخدم في صناعة الطباعة والتنضيد. وقد ظل نص لوريم إيبسوم النص الشكلي القياسي في هذه الصناعة منذ القرن السادس عشر، عندما قام طابع مجهول بأخذ مجموعة من الحروف وخلطها لعمل كتاب عينات الحروف ...
-        </h4>
-    </div>
-    <div class="row bg-overlay mb-4 portlet-title">
-        <div class="mx-4 my-2 fs-3 fw-bold text-white caption">
-            الشبكة الطبية
-        </div>
-    </div>
-    <div class="container mx-auto row row-cols-sm-2 row-cols-md-3 row-gap-2 ">
-        <div class="forLabel px-2 border-0 ">
-            @Html.DropDownList("provider_Type", ViewBag.provider as SelectList, "اختر مقدم الخدمة", new { @class = "select2 border-2 ps-3  admin-form-control w-100", @style = "padding-left:10px !important; ", id = "provider_Type" })
-            <span class="start-0" style="right:20px;">
-                @*@Html.Label("Provider Type", htmlAttributes: new { @class = "control-label" })*@
-                نوع المقدم
-            </span>
-        </div>
 
-        <div class="forLabel px-2 border-0 ">
-            @Html.DropDownList("Country", ViewBag.address as SelectList, "اختر المحافظة", new { @class = "select2 border-2 ps-3  admin-form-control w-100", @style = "padding-left:10px !important; ", id = "Country_select" })
-            <span class="start-0" style="right:20px;">
-                @*@Html.Label("Governorate", htmlAttributes: new { @class = "control-label" })*@
-                المحافظة
-            </span>
-        </div>
 
-        <div class="forLabel px-2 border-0 ">
-            @Html.DropDownList("Region", new SelectList(""), new { @class = "select2 border-2 ps-3  admin-form-control w-100 form-control", @style = "padding-left:10px !important; ", required = "required", id = "Region_select" })
-            <span class="start-0" style="right:20px;">
-                @*@Html.Label("Region", htmlAttributes: new { @class = "control-label" })*@
-                المنطقة
-            </span>
-        </div>
-        <div class="d-flex gap-2 mt-3">
-            <div class=" ">
-                <button id="Search" type="button" class="btn fw-bold rounded-3" onclick="SearchProvider()">
-                    <span class="glyphicon glyphicon-search"></span> بحث
-                </button>
+        <div style="min-height: calc(100vh - 275.9px); direction: rtl; " class="ar-page pb-4">
+            <div class="d-flex justify-content-between  bg-overlay mb-4 portlet-title">
+                <div class="mx-4 my-3 fs-3 fw-bold text-white caption">
+                    البيانات الشخصية
+                </div>
+                <div style="max-width: 80px;max-height: 60px;" class="w-100 h-100 my-auto bg-dark-subtle d-flex flex-column gap-2  rounded-2 p-2 shadow-sm ms-4">
+                    <span class=" sec-overlay-bg rounded mx-auto shadow">
+                        <img id="logoPreview" class="logo-preview d-none w-100 h-100 p-3" src="#" alt="Logo Preview">
+                        <i style="font-size:40px" class="fa-solid fa-image " id="iconCover"></i>
+                    </span>
+                </div>
             </div>
-        </div>
+            <div class="container mx-auto row row-cols-sm-2 row-cols-md-3 row-gap-2 my-4">
+                <div class="forLabel px-2 border-0 ">
+                    <input type="text" id="txtCardId" value="@Model.CardId" class="border-2 admin-form-control w-100" style="text-align: right;" dir="ltr" readonly />
+                    <span class="sios-color" style="right:20px;">رقم الكارت</span>
+                </div>
+                <div class="forLabel px-2 border-0">
+                    @*<input type="text" id="txtName" value="@ViewBag.Name" class="border-2 admin-form-control w-100" readonly />*@
+                    <input type="text" id="txtName" value="@Model.EmpName" class="border-2 admin-form-control w-100" readonly />
 
-    </div>
-    @*Date of Service*@
-    <div class=" container home-page m-auto px-4 my-4">
-        <div class=" mx-auto my-4 table-responsive" id="">
-            <table class="table home-page-table border-1" id="ProviderList">
-                <thead class="rounded">
-                    <tr>
-                        <th>
-                            PRONAME
-                            @*@Html.DisplayName("PRENAME")*@
-                        </th>
-                        <th>
-                            العنوان 1
-                            @*@Html.DisplayName("ADDRESS 1")*@
-                        </th>
-                        <th>
-                            العنوان 2
-                            @*@Html.DisplayName("ADDRESS 2")*@
-                        </th>
-                        <th>
-                            تليفون 1
-                            @*@Html.DisplayName("TEL 1")*@
-                        </th>
-                        <th>
-                            تليفون 2 
-                            @*@Html.DisplayName("TEL 2")*@
-                        </th>
-                        <th>
-                            الطبيب المتخصص
-                            @*@Html.DisplayName("Specialist")*@
-                        </th>
-                    </tr>
-                </thead>
-                <tbody id="ProviderListBody"></tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row bg-overlay mb-4 portlet-title">
-        <div class="mx-4 my-2 fs-3 fw-bold text-white caption">
-            كيفيه استخدام الخدمة
-        </div>
-    </div>
-    <div class="container mx-auto row row-cols-md-2">
-        <div style="height:420px" class="sios-bg border-0 rounded-4 p-4 mx-auto">
-            <video class="w-100 h-100 rounded-4 video-js" controls="controls" preload="auto" data-setup="{}">
-                <source src="~/assets/NewDesign/img/Animation/Dms-Video.mp4" type="video/mp4" />
-            </video>
-        </div>
-        @*<h3 class=" my-auto fw-medium" style="color: #07386e;">DMS Description</h3>*@
-        <!--<div class=" col-md-4  forLabel px-2 border-0 mt-4 mb-3 mx-auto" dir="rtl">
-            <p class="fs-5">@Html.Raw(ViewBag.Notes)</p>-->
-            @*<input type="text" id="txtDescription" value="@ViewBag.Notes" class="border-2 admin-form-control w-100"  readonly />
-                <span class="sios-color" style="right:20px;">Description</span>*@
-        <!--</div>-->
-    </div>
-</div>
-<script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
-<script src="~/assets/NewDesign/js/jquery.min.js"></script>
-<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-<script src="~/assets/NewDesign/js/video.min.js"></script>
-<script>
-    
-    $(document).ready(function () {
-        $(".select2").select2();
+                    <span class="sios-color" style="right:20px;">الإسم</span>
+                </div>
+                <div class="forLabel px-2 border-0">
+                    <input type="text" id="startDate" value="@Model.StartDate" class="date-input border-2 admin-form-control w-100" readonly />
+                    <span class="sios-color" style="right:20px;">تاريخ البداية</span>
+                </div>
+                <div class="forLabel px-2 border-0">
+                    <input type="text" id="endDate" value="@Model.EndDate" class="date-input border-2 admin-form-control w-100" readonly />
+                    <span class="sios-color" style="right:20px;">تاريخ النهاية</span>
+                </div>
+            </div>
+            <div class="row bg-overlay mb-4 portlet-title">
+                <div class="mx-4 my-2 fs-3 fw-bold text-white caption">
+                    تعليمات التشغيل
+                </div>
+            </div>
+            <div class="container mx-auto">
+                <!--<h4 class="container mx-auto sios-color mb-4 fw-bold">-->
+                @*Lorem Ipsum هو ببساطة نص شكلي غير رسمي يستخدم في صناعة الطباعة والتنضيد. وقد ظل نص لوريم إيبسوم النص الشكلي القياسي في هذه الصناعة منذ القرن السادس عشر، عندما قام طابع مجهول بأخذ مجموعة من الحروف وخلطها لعمل كتاب عينات الحروف ...*@
+                <!--@ViewBag.Notes
+                </h4>-->
+                @*<p class="h4 ontainer mx-auto sios-color mb-4 fw-bold" dir="rtl" style="line-height: 2;">@Html.Raw(ViewBag.Notes)</p>*@
+
+                @*  <p class="h4 ontainer mx-auto sios-color mb-4 fw-bold" dir="rtl" style="line-height: 2;">@Html.Raw(@Model.Notes)</p>*@
+
+                <ul class="h5 container mx-auto sios-color mb-4 fw-bold" dir="rtl" style="line-height: 2;">
+                    @if (string.IsNullOrEmpty(@Model.Mesage))
+                    {
+                        if (@Model.Notes != null)
+                        {
+                            foreach (var note in @Model.Notes)
+                            {
+                            <li>@note</li>
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        <script>
+                        var mesage = @Html.Raw(Json.Encode(@Model.Mesage));
+                        if (mesage)
+                                alert(mesage);
+                            </script>
+                        <p class="h3 ontainer mx-auto sios-color mb-4 fw-bold" dir="rtl" style="line-height: 2;">@Model.Mesage</p>
+                    }
+                </ul>
+
+            </div>
+            <div class="row bg-overlay mb-4 portlet-title">
+                <div class="mx-4 my-2 fs-3 fw-bold text-white caption">
+                    الشبكة الطبية
+                </div>
+            </div>
+            <div class="container mx-auto row row-cols-sm-2 row-cols-md-3 row-gap-2 ">
+                <div class="forLabel px-2 border-0 ">
+                    @Html.DropDownList("provider_Type", ViewBag.provider as SelectList, "اختر مقدم الخدمة", new { @class = "select2 border-2 ps-3  admin-form-control w-100", @style = "padding-left:10px !important; ", id = "provider_Type" })
+                    <span class="start-0" style="right:20px;">
+                        @*@Html.Label("Provider Type", htmlAttributes: new { @class = "control-label" })*@
+                        نوع المقدم
+                    </span>
+                </div>
+
+                <div class="forLabel px-2 border-0 ">
+                    @Html.DropDownList("Country", ViewBag.address as SelectList, "اختر المحافظة", new { @class = "select2 border-2 ps-3  admin-form-control w-100", @style = "padding-left:10px !important; ", id = "Country_select" })
+                    <span class="start-0" style="right:20px;">
+                        @*@Html.Label("Governorate", htmlAttributes: new { @class = "control-label" })*@
+                        المحافظة
+                    </span>
+                </div>
+
+                <div class="forLabel px-2 border-0 ">
+                    @Html.DropDownList("Region", new SelectList(""), new { @class = "select2 border-2 ps-3  admin-form-control w-100 form-control", @style = "padding-left:10px !important; ", required = "required", id = "Region_select" })
+                    <span class="start-0" style="right:20px;">
+                        @*@Html.Label("Region", htmlAttributes: new { @class = "control-label" })*@
+                        المنطقة
+                    </span>
+                </div>
+                <div class="d-flex gap-2 mt-3">
+                    <div class=" ">
+                        <button id="Search" type="button" class="btn fw-bold rounded-3" onclick="SearchProvider()">
+                            <span class="glyphicon glyphicon-search"></span> بحث
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            @*Date of Service*@
+            <div class=" container home-page m-auto px-4 my-4">
+                <div class=" mx-auto my-4 table-responsive" id="">
+                    <table class="table home-page-table border-1" id="ProviderList">
+                        <thead class="rounded">
+                            <tr>
+                                <th>
+                                    مقدم الخدمة
+                                    @*@Html.DisplayName("PRENAME")*@
+                                </th>
+                                <th>
+                                    العنوان 1
+                                    @*@Html.DisplayName("ADDRESS 1")*@
+                                </th>
+                                <th>
+                                    العنوان 2
+                                    @*@Html.DisplayName("ADDRESS 2")*@
+                                </th>
+                                <th>
+                                    تليفون 1
+                                    @*@Html.DisplayName("TEL 1")*@
+                                </th>
+                                <th>
+                                    تليفون 2
+                                    @*@Html.DisplayName("TEL 2")*@
+                                </th>
+                                <th>
+                                    الطبيب المتخصص
+                                    @*@Html.DisplayName("Specialist")*@
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="ProviderListBody"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row bg-overlay mb-4 portlet-title">
+                <div class="mx-4 my-2 fs-3 fw-bold text-white caption">
+                    كيفيه استخدام الخدمة
+                </div>
+            </div>
+            <div class="container mx-auto row row-cols-md-2">
+                <div style="height:420px" class="sios-bg border-0 rounded-4 p-4 mx-auto">
+                    <video class="w-100 h-100 rounded-4 video-js" controls="controls" preload="auto" data-setup="{}">
+                        <source src="~/assets/NewDesign/img/Animation/Dms-Video.mp4" type="video/mp4" />
+                    </video>
+                </div>
+                @*<h3 class=" my-auto fw-medium" style="color: #07386e;">DMS Description</h3>*@
+                <!--<div class=" col-md-4  forLabel px-2 border-0 mt-4 mb-3 mx-auto" dir="rtl">
+                    <p class="fs-5">@Html.Raw(ViewBag.Notes)</p>-->
+                @*<input type="text" id="txtDescription" value="@ViewBag.Notes" class="border-2 admin-form-control w-100"  readonly />
+                    <span class="sios-color" style="right:20px;">Description</span>*@
+                <!--</div>-->
+            </div>
 
 
-        $("#Country_select").change(function () {
-            $.get("/NetworkMedical/GetRegion",
-                { id: $("#Country_select").val() }, function (data) {
-                    $("#Region_select").empty();
-                    $.each(data, function (index, row) {
-                        $("#Region_select").append("<option value='" + row.Value + "'>" + row.Text + "</option>")
+            <div id="loading" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); z-index:9999;">
+                <img src="~/assets/NewDesign/img/loading.gif" alt="Loading..." style="width:250px; height:250px;">
+            </div>
+
+        </div>
+        <script src="~/assets/NewDesignBackAdmin/JS/jquery.min.js"></script>
+        <script src="~/assets/NewDesign/js/jquery.min.js"></script>
+        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+        <script src="~/assets/NewDesign/js/video.min.js"></script>
+        <script>
+
+            $(document).ready(function () {
+                $(".select2").select2();
+
+              
+               
+                $("#Country_select").change(function () {
+
+                    // Show loading image
+                    $("#loading").show();
+
+                    $.get("/NetworkMedical/GetRegion",
+                        { id: $("#Country_select").val() },
+                        function (data) {
+                            $("#Region_select").empty();
+                            $("#Region_select").append("<option value='0'>أختر المنطقة</option>");
+                            $.each(data, function (index, row) {
+                                $("#Region_select").append("<option value='" + row.Value + "'>" + row.Text + "</option>");
+                            });
+
+                            // Hide loading image after data is loaded
+                            $("#loading").hide();
+                        }
+                    ).fail(function () {
+                        // In case of failure, hide the loading image
+                        $("#loading").hide();
+                        alert("Failed to load regions. Please try again.");
                     });
                 });
-        });
 
+            });
+            function SearchProvider() {
+                debugger;
+                if ($("#txtCardId").val() != "") {
+                    var cardNum = $("#txtCardId").val();
+                    var arra = cardNum.split("-");
+                    // chick card id is correct or not
+                    if (arra.length == 4 && arra[3] != "") {
 
-    });
-    function SearchProvider() {
-        debugger;
-        if ($("#txtCardId").val() != "") {
-            var cardNum = $("#txtCardId").val();
-               var arra = cardNum.split("-");
-                // chick card id is correct or not
-                if (arra.length == 4 && arra[3] != "") {
-
-                    compname = arra[0];
+                        compname = arra[0];
                         if ($("#provider_Type").val() == "") {
                             alert("Please select Provider ...");
                         }
@@ -183,6 +234,8 @@
                             alert("Please select Country ...");
                         }
                         else {
+
+                            $("#loading").show();
 
                             $.ajax({
                                 url: '/NetworkMedical/GetProviders/',
@@ -197,7 +250,7 @@
                                         var setData = $("#ProviderList Tbody");
                                         setData.empty();
                                         for (var i = 0; i < r.providerslist.length; i++) {
-                                            var data = "<tr >" +
+                                            var data = "<tr>" +
                                                 "<td>" + r.providerslist[i].PR_ANAME + "</td>";
                                             if (r.providerslist[i].ADDRESS1 == null)
                                                 data += "<td>--</td>";
@@ -232,13 +285,16 @@
                                 },
                                 error: function () {
                                     alert("Invalid Card ID ");
+                                },
+                                complete: function () {
+                                    $("#loading").hide();
                                 }
                             });
                         }
+                    }
+                    else {
+                        alert("Please enter correct card ... ");
+                    }
                 }
-                else {
-                    alert("Please enter correct card ... ");
             }
-        }
-    }
-</script>
+        </script>

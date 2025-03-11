@@ -407,6 +407,18 @@ namespace DMS_Authontication1.Controllers.CustomerService
             }
 
         }
+        private string isFamilyComp(string cmp)
+        {
+            string flgcmpfamily = "N";
+            System.Data.DataTable chkIsFamily = new System.Data.DataTable();
+
+            chkIsFamily = dbData106.RunReader(@"SELECT IS_FAMILY FROM DMS_TEST.CONTRACT_COMP WHERE C_COMP_ID = '" + cmp + "'");
+
+            if (chkIsFamily.Rows.Count > 0 && chkIsFamily.Rows[0][0].ToString() == "Y")
+                flgcmpfamily = chkIsFamily.Rows[0][0].ToString();
+
+            return flgcmpfamily;
+        }
         public JsonResult getConsumption(string CardId, string dat1, string dat2, string oldcardd, string maxamt)
         {
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
@@ -440,11 +452,14 @@ namespace DMS_Authontication1.Controllers.CustomerService
             //dtcrd = dbData.RunReader("select  to_char(BIRTH_DATE,'DD-MM-YYYY'),C_COMP_ID,CLASS_CODE,NVL(to_char(SPECIFIC_DATE,'DD-MM-YYYY'),to_char(INS_START_DATE,'DD-MM-YYYY')),to_char(INS_END_DATE,'DD-MM-YYYY'),TERMINATE_FLAG ,EMP_ANAME_ST ,EMP_ANAME_SC,EMP_ANAME_TH ,EMP_ENAME_ST ,EMP_ENAME_SC,EMP_ENAME_TH, to_char(INS_START_DATE,'DD-MM-YYYY'), to_char(TERMINATE_DATE,'DD-MM-YYYY') ,CONTRACT_NO, TEL1, TEL2, EMP_ID  from dms_test.COMP_EMPLOYEES where CARD_ID='" + CardId + "' order by ins_start_date DESC");
 
             List<CustomerServiceViewModel> dtConsumption = new List<CustomerServiceViewModel>();
-            
-            string consmMedClaim = dbData1062.getConsumptionMedClaim(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd).Rows[0][0].ToString();
-            string consmMedOnline = dbData1062.getConsumptionMedOnline(CardId, Convert.ToDateTime(dat1), Convert.ToDateTime(dat2), oldcrd).Rows[0][0].ToString();
+
+            string compIsFamily = isFamilyComp(CardId.Substring(0, CardId.IndexOf('-')));
+
+
+            string consmMedClaim = dbData1062.getConsumptionMedClaim(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd, compIsFamily).Rows[0][0].ToString();
+            string consmMedOnline = dbData1062.getConsumptionMedOnline(CardId, Convert.ToDateTime(dat1), Convert.ToDateTime(dat2), oldcrd, compIsFamily).Rows[0][0].ToString();
             string consmMed = (double.Parse(consmMedClaim) + double.Parse(consmMedOnline)).ToString();
-            string consmOther = dbData1062.getConsumptionOther(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd).Rows[0][0].ToString();
+            string consmOther = dbData1062.getConsumptionOther(CardId, Convert.ToDateTime(dat1.ToString()), Convert.ToDateTime(dat2.ToString()), oldcrd, compIsFamily).Rows[0][0].ToString();
             string consmAll = (double.Parse(consmMedClaim) + double.Parse(consmMedOnline) + double.Parse(consmOther)).ToString();
             string remain = (double.Parse(maxamt) - double.Parse(consmAll)).ToString();
             double tm = Convert.ToDouble(consmAll) / Convert.ToDouble(maxamt) * 100;
