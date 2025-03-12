@@ -15,15 +15,12 @@
     <link href="~/assets/HomeTemplete/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/Site.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Scripts/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
-    <link href="~/assets/HomeTemplete/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" /> 
-    <link href="~/assets/HomeTemplete/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/assets/HomeTemplete/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/DataTables/css/responsive.dataTables.min.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/toastr.min.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/css/select2.min.css" rel="stylesheet" />
     <link href="~/assets/HomeTemplete/Content/font-awesome.min.css" rel="stylesheet" />
-
-    @*=========new data-tables============================*@
-    <link href="~/assets/HomeTemplete/Content/DataTables/css/datatables.min.css" rel="stylesheet" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
     <!-- Add By Mohamed Yasser //START-->
@@ -392,76 +389,6 @@
         .footer-contacts-text h6 {
             white-space: normal;
         }
-        /*=======Event-Edits===============================*/
-        div#navbar {
-            height: 84px !important;
-            position: relative !important;
-        }
-
-        img.canon-gif {
-            width: 110px;
-            /*position: absolute;*/
-            bottom: 6px;
-            margin-left: 10px;
-        }
-
-        audio.ramadan-audio {
-            /*position: absolute;*/
-            bottom: 5px;
-            left: 280px;
-            width: 400px !important;
-            height: 38px !important;
-            margin-top: auto
-        }
-
-        .ramadan-box {
-            position: absolute;
-            bottom: 6px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-        }
-
-        img.event-bg-img {
-            height: 100%;
-            width: 100%;
-        }
-
-        .event-bg-box {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            height: 100vh;
-            opacity: 14%;
-            z-index: 0;
-        }
-
-        .wrap {
-            background: #f2fcff;
-            /*height: 2000px;*/
-        }
-
-            .wrap #side-menu {
-                z-index: 2 !important;
-                background: transparent;
-            }
-
-        section.content-inner {
-            background-image: url(../../assets/global/img/Events/ramadan-pattern-14.png) !important;
-            z-index: unset;
-            background-repeat: no-repeat !important;
-            background-position: center !important;
-            background-size: cover !important;
-        }
-
-        .portlet.box > .portlet-body {
-            background: transparent;
-        }
-
-        .panel {
-            background: transparent;
-        }
     </style>
     <style>
     </style>
@@ -488,6 +415,7 @@
 
 </head>
 <body>
+
     @{
         var modellist = new List<ModulesPagesViewModel>();
         var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
@@ -497,12 +425,8 @@
         }
 
     }
-    <div class="event-bg-box">
-        <img class="event-bg-img" src="~/assets/global/img/Events/ramadan-pattern.jpg" />
-    </div>
     <div class="navbar navbar-inverse navbar-fixed-top " style="background-color:#09b4d0;border-color:#d9edf7">
-
-        <div style=" box-shadow: 0 3px 8px 0.5px #0000001f; z-index: 3; position: relative; ">
+        <div style=" box-shadow: 0 3px 8px 0.5px #0000001f; ">
             <div class="container" style="margin: 0 auto; max-width: 100%;  ">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed"
@@ -516,7 +440,7 @@
 
                 <div id="navbar" class="navbar-collapse collapse">
                     <a href="~/Home/Index">
-                        <div id="LogoDmsTop" style="width: 100px; border-radius: 16px; display: none;" class="dms-celebrate-gif img d-flex align-self-stretch">
+                        <div id="LogoDmsTop" style="width: 100px; border-radius: 16px; display: none;" class="dms-celebrate-gif img d-flex align-self-stretch" hidden>
                             @*<div class="celebrate-gif">
                                     <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
                                 </div>*@
@@ -731,9 +655,9 @@
                                             <li><a href="/NewReports/OperationReport" class="link-cus">Reports</a></li>
                                         }
                                         @*if (User.Identity.GetUserName() == "hr.misr.insurance")
-                        {
-                            <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
-                        }*@
+                                            {
+                                                <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
+                                            }*@
                                         //}
                                     }
                                 }
@@ -832,13 +756,10 @@
     @{
         if (User.IsInRole("Admin") || User.IsInRole("AdminHelth") || User.IsInRole("Doctor"))
         {
-        <div class="event-bg-box">
-            <img class="event-bg-img" src="~/assets/global/img/Events/ramadan-pattern.jpg" />
-        </div>
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
+            <div class="wrap">
+                <aside id="side-menu" style="background: #f2fcff; height: 100%" class="aside h-100" role="navigation">
+                    <ul class="nav nav-list accordion">
+                        @{
                             if (modellist != null)
                             {
                                 if (modellist.Where(x => x.ModuleName == "Doctors Department Management" && (x.PageId == 28 || x.PageId == 29 || x.PageId == 30 || x.PageId == 31)
@@ -851,19 +772,19 @@
                                         <ul class="submenu">
                                             @*<li><a href="/DoctorMedicinesLabsRaysApproval/Create">Create Approval</a></li>*@
                                             @if (modellist.Where(x => x.PageId == 30 && (x.FullControl || x.EditPermission
-                                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                             {
 
                                                 <li><a href="/DoctorMedicinesLabsRaysApproval/index2">Pending Requests</a></li>
                                             }
                                             @if (modellist.Where(x => x.PageId == 28 && (x.FullControl || x.EditPermission
-                                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                             {
 
                                                 <li><a href="/DoctorApprovals/index">Doctor Daily </a></li>
                                             }
                                             @if (modellist.Where(x => x.PageId == 29 && (x.FullControl || x.EditPermission
-                                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                             {
 
                                                 <li><a href="/DoctorApprovals/Monthly">Doctor Chronic </a></li>
@@ -871,13 +792,13 @@
                                             }
 
                                             @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
-                                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                             {
 
                                                 <li><a href="/GetApproval/Index">Permissions List</a></li>
                                             }
                                             @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
-                                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                             {
 
                                                 <li><a href="/GetApproval/Create">Permissions</a></li>
@@ -898,53 +819,53 @@
                                     <div class="link"><i class="fa fa-lg fa-lock"></i>Admin<i class="fa fa-chevron-down"></i></div>
                                     <ul class="submenu">
                                         @if (modellist.Where(x => x.ModuleName == "Account Management" && x.PageId == 2 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/User/index">Users</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 4 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Pharmacy/index">Pharmacy Clames</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 49 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Pharmacy/DeletedStopRoshita">Pharmacy Stop Edit Clames</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Rays Centers Management" && x.PageId == 10 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Rays/index">Rays Clames</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Labratories Management" && x.PageId == 8 && (x.FullControl || x.EditPermission
-                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Labs/index">Labs Clames</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 50 && (x.FullControl || x.EditPermission
-                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/ConsumptionAdmin/index">Total Consumption Admin</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 51 && (x.FullControl || x.EditPermission
-                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/ConsumptionAdmin/HighAdminConsumptionReports">Audit Consumption Report</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 53 && (x.FullControl || x.EditPermission
-                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/ConsumptionAdmin/NormalAdminConsumptionReports">Consumption Report</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 44 && (x.FullControl || x.EditPermission
-                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/ProviderServicesPermissions/index">Provider Services Permissions</a></li>
                                         }
 
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && /*x.PageId == 44 &&*/ (x.FullControl || x.EditPermission
-                                                       || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                           || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/LossRatio/index">Analysis Loss Ratio</a></li>
                                         }
@@ -965,53 +886,53 @@
                                     <div class="link"><i class="fa fa-archive"></i>Management<i class="fa fa-chevron-down"></i></div>
                                     <ul class="submenu">
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 35 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/CompEmployees/IndexSms">Employees Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 34 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/CompanyGroup/index">Companies Groups Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 36 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Medicines/index">Medicines Management</a></li>
 
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 37 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/MedicineGroups/index">Medicines Groups Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 38 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Medicines/MedicineLicenseType">License Type Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 39 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Medicines/MedicineType">Medicine Type Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 40 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Medicines/MedicineDosageForm">Dosage Form Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 41 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Specialities/index">Specilities and Diagnosis Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 46 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/LabsManagement/Index">Labs Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 47 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/RaysManagement/Index">Rays Management</a></li>
                                         }
@@ -1187,7 +1108,6 @@
                                     </div>
                                 </div>
                             </footer>
-
                             <!--<footer class="site-footer">
                                     <div class="footer-widgets">
                                         <div class="container">
@@ -1303,13 +1223,10 @@
     <script src="~/assets/admindashdoardmenu/sidebarmenu.js"></script>
     <script src="~/assets/admindashdoardmenu/CustomAfterSales/moment.min.js"></script>
     <script src="~/assets/admindashdoardmenu/CustomAfterSales/bootstrap-datetimepicker.min.js"></script>
-    @*=============New Scripts==============================*@
-    <script src="~/assets/HomeTemplete/Content/DataTables/dataTables.min.js"></script>
-
-
     @*<script src="~/Scripts/moment.min.js"></script>*@
     @*<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>*@
     @*<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>*@
+
     <script src="~/assets/HomeTemplete/Scripts/jquery.signalR-2.4.1.js"></script>
     <script src="~/signalr/hubs"></script>
 
@@ -1406,31 +1323,31 @@
             checkEvent();
         });
 
-                    //function checkEvent() {
-                    //    $.ajax({
-                    //        url: '/Home/getEventState',
+        function checkEvent() {
+            $.ajax({
+                url: '/Home/getEventState',
 
-                    //        success: function (result) {
-                    //            //debugger;
-                    //            $('#LogoDmsTop').hide();
-                    //            $('#EventLogoDms').hide();
+                success: function (result) {
+                    //debugger;
+                    $('#LogoDmsTop').hide();
+                    $('#EventLogoDms').hide();
 
-                    //            if (result.evntStat == 1) {
-                    //                $('#EventLogoDms').show();
-                    //            }
-                    //            else {
-                    //                $('#LogoDmsTop').show();
-                    //            }
-                    //        }
-                    //    });
-                    //}
+                    if (result.evntStat == 1) {
+                        $('#EventLogoDms').show();
+                    }
+                    else {
+                        $('#LogoDmsTop').show();
+                    }
+                }
+            });
+        }
 
 
 
-                                //==========================================
-                                //$(document).ready(function () {
-                                //    $('footer').insertAfter($('.body-content'));
-                                //});
+            //==========================================
+            //$(document).ready(function () {
+            //    $('footer').insertAfter($('.body-content'));
+            //});
     </script>
 
 </body>
