@@ -6520,6 +6520,7 @@
     <Content Include="assets\HomeTemplete\fonts\fontawesome-webfont.svg" />
     <Content Include="assets\HomeTemplete\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="assets\HomeTemplete\fonts\themify.svg" />
+    <Content Include="assets\HomeTemplete\img\Animation\Dms-Video.mp4" />
     <Content Include="assets\HomeTemplete\img\background\bg1.jpg" />
     <Content Include="assets\HomeTemplete\img\background\bg_1.png" />
     <Content Include="assets\HomeTemplete\img\background\bg_2.png" />
