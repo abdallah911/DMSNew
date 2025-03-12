@@ -10,5 +10,7 @@ namespace DMS_Authontication1.ViewModel
         public string[] Notes { get; set; }
         public string Status { get; set; }
         public string Mesage { get; set; }
+        public string ChronicCount { get; set; } = "0";
+        public string ApprovalCount { get; set; } = "0";
     }
 }

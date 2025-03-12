@@ -102,6 +102,27 @@ namespace DMS_Authontication1.Controllers
 
                         //mod.Notes = mod.Notes.Replace("\n", "<br>");
                         //mod.Notes = notes.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                        if(cardId.StartsWith("500172"))
+                        {
+                            var medicin = (from md in db.Med_Card
+                                           join m in db.Med_Medicine
+                                           on md.CARD_NO equals m.CARD_NO
+                                           where m.ACTIVE == "Y" &&
+                                                 md.LOOK_01 == 0 &&
+                                                    m.CARD_NO == cardId
+                                           orderby m.CREATED_DATE ?? m.UPDATE_DATE descending
+                                           select m).ToList();
+
+                            if (medicin != null && medicin.Count > 0)
+                                mod.ChronicCount = medicin.Count.ToString();
+
+                            var dt = dbData2.getApproval(cardId, cardId);
+
+                            if (dt != null && dt.Rows.Count > 0)
+                                mod.ApprovalCount = dt.Rows.Count.ToString();
+                        }
+
+
                     }                                      
                 }
                 else                
@@ -146,7 +167,24 @@ namespace DMS_Authontication1.Controllers
                 {
                     if (coverdRelation == 1 || coverdRelation == 4)
                     {
-                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                        var allowedProvCodes = new List<int?> { 14, 662, 665 };
+
+
+                        var providerList = (compId == "500172") ?
+                            db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && !allowedProvCodes.Contains(p.PR_CODE) && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                                            .Select(
+                                                  s => new
+                                                  {
+                                                      s.PR_ANAME,
+                                                      s.ADDRESS1,
+                                                      s.ADDRESS2,
+                                                      s.TEL1,
+                                                      s.TEL2,
+                                                      s.PR_DESC
+
+                                                  }).ToList()
+                        :
+                        db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.ADDRESS1.Contains(arbicReagonName)*/)
                                             .Select(
                                                   s => new
                                                   {
@@ -202,19 +240,37 @@ namespace DMS_Authontication1.Controllers
                 {
                     if (coverdRelation == 1 || coverdRelation == 4)
                     {
-                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.GOVERNMENT_CODE == country && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.ADDRESS1.Contains(arbicReagonName)*/)
-                                            .Select(
-                                                  s => new
-                                                  {
-                                                      s.PR_ANAME,
-                                                      s.ADDRESS1,
-                                                      s.ADDRESS2,
-                                                      s.TEL1,
-                                                      s.TEL2,
-                                                      s.PR_DESC
+                        var allowedProvCodes = new List<int?> { 14, 662, 665 };
+                       
 
-                                                  }).ToList();
+                        var providerList =  (compId == "500172") ?
+                        
+                            db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && !allowedProvCodes.Contains(p.PR_CODE) && p.GOVERNMENT_CODE == country && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                                        .Select(
+                                              s => new
+                                              {
+                                                  s.PR_ANAME,
+                                                  s.ADDRESS1,
+                                                  s.ADDRESS2,
+                                                  s.TEL1,
+                                                  s.TEL2,
+                                                  s.PR_DESC
 
+                                              }).ToList()
+                      :
+                         db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.GOVERNMENT_CODE == country && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                                              .Select(
+                                                    s => new
+                                                    {
+                                                        s.PR_ANAME,
+                                                        s.ADDRESS1,
+                                                        s.ADDRESS2,
+                                                        s.TEL1,
+                                                        s.TEL2,
+                                                        s.PR_DESC
+
+                                                    }).ToList();
+                        
                         return new JsonResult { Data = new { providerslist = providerList, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
                     }
 

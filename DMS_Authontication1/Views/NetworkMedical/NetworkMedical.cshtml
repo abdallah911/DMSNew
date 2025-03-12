@@ -117,8 +117,7 @@
             </div>
         </div>
 
-    </div>     
-    @*Date of Service*@
+    </div>
     <div class=" container home-page m-auto px-4 my-4">
         <div class=" mx-auto my-4 table-responsive" id="">
             <table class="table home-page-table border-1" id="ProviderList">
@@ -154,90 +153,97 @@
             </table>
         </div>
     </div>
-    <div class="row bg-overlay mb-4 portlet-title">
-        <div class="mx-4 my-2 fs-3 fw-bold text-white caption">
-            البيانات الطبية
-        </div>
-    </div>
-    <div class="container mx-auto row row-cols-md-2 row-gap-2 ">
-        <div class="px-2">
-            <div class="d-flex align-items-center justify-content-evenly p-2 border-2 admin-form-control">
-                <label class="fw-bold">عدد أدوية ال Chronic</label>
-                <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الأدوية" />
-                <input type="button" class="btn p-1" value="Show" />
+
+
+    @if (@Model.CardId.StartsWith("500172"))
+    {
+
+        <div class="row bg-overlay mb-4 portlet-title">
+            <div class="mx-4 my-2 fs-3 fw-bold text-white caption">
+                البيانات الطبية
             </div>
         </div>
-        <div class="px-2">
-            <div class="d-flex align-items-center justify-content-evenly p-2 border-2 admin-form-control">
-                <label class="fw-bold">عدد الموافقات الطبية</label>
-                <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الموافقات" />
-                <input type="button" class="btn p-1" value="Show" />
+
+        <div class="container mx-auto row row-cols-md-2 row-gap-2 ">
+            <div class="px-2">
+                <div class="d-flex align-items-center justify-content-evenly p-2 border-2 admin-form-control">
+                    <label class="fw-bold">عدد أدوية ال Chronic</label>
+                    <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الأدوية" value="@Model.ChronicCount" id="NumberChronic" readonly/>
+                    <input type="button" class="btn p-1" value="Show" />
+                </div>
+            </div>
+            <div class="px-2">
+                <div class="d-flex align-items-center justify-content-evenly p-2 border-2 admin-form-control">
+                    <label class="fw-bold">عدد الموافقات الطبية</label>
+                    <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الموافقات" value="@Model.ApprovalCount" id="NumberMedicalApproval" readonly/>
+                    <input type="button" class="btn p-1" value="Show" />
+                </div>
             </div>
         </div>
-    </div>
-    @*Date of Service*@
-    <div class=" container home-page m-auto px-4 my-4"style="direction:ltr">
-        <div class=" mx-auto my-4 table-responsive" id="">
-            <table class="table home-page-table border-1" id="ProviderList">
-                <thead class="rounded">
-                    <tr class="">
-                        <th>
-                            Approval No
-                        </th>
-                        <th>
-                            Approval Type
-                        </th>
-                        <th>
-                            Reply
-                        </th>
-                        <th>
-                            Approval Amount
-                        </th>
-                        <th>
-                            Medical Reply
-                        </th>
-                        <th>
-                            Created By
-                        </th>
-                        <th>
-                            Created Date
-                        </th>
-                    </tr>
-                </thead>
-                <tbody id=" "></tbody>
-            </table>
+        <div class=" container home-page m-auto px-4 my-4" style="direction:ltr">
+            <div class=" mx-auto my-4 table-responsive" id="" hidden>
+                <table class="table home-page-table border-1" id="MedicalList">
+                    <thead class="rounded">
+                        <tr class="">
+                            <th>
+                                Approval No
+                            </th>
+                            <th>
+                                Approval Type
+                            </th>
+                            <th>
+                                Reply
+                            </th>
+                            <th>
+                                Approval Amount
+                            </th>
+                            <th>
+                                Medical Reply
+                            </th>
+                            <th>
+                                Created By
+                            </th>
+                            <th>
+                                Created Date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id=" "></tbody>
+                </table>
+            </div>
+            <div class=" mx-auto my-4 table-responsive" id="" hidden>
+                <table class="table home-page-table border-1" id="ChronicList">
+                    <thead class="rounded">
+                        <tr>
+                            <th>
+                                Med Code
+                            </th>
+                            <th>
+                                Med Name
+                            </th>
+                            <th>
+                                Dose
+                            </th>
+                            <th>
+                                Med Duration
+                            </th>
+                            <th>
+                                Unit No
+                            </th>
+                            <th>
+                                Dosage Form
+                            </th>
+                            <th>
+                                Month Date Stop
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id=" "></tbody>
+                </table>
+            </div>
         </div>
-        <div class=" mx-auto my-4 table-responsive" id="">
-            <table class="table home-page-table border-1" id="ProviderList">
-                <thead class="rounded">
-                    <tr>
-                        <th>
-                            Med Code 
-                        </th>
-                        <th>
-                            Med Name 
-                        </th>
-                        <th>
-                            Dose 
-                        </th>
-                        <th>
-                            Med Duration 
-                        </th>
-                        <th>
-                            Unit No 
-                        </th>
-                        <th>
-                            Dosage Form 
-                        </th>
-                        <th>
-                            Month Date Stop 
-                        </th>
-                    </tr>
-                </thead>
-                <tbody id=" "></tbody>
-            </table>
-        </div>
-    </div>
+
+    }
     <div class="row bg-overlay mb-4 portlet-title">
         <div class="mx-4 my-2 fs-3 fw-bold text-white caption">
             كيفيه استخدام الخدمة
