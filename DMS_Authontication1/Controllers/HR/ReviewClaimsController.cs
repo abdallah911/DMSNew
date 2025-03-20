@@ -565,7 +565,7 @@ namespace DMS_Authontication1.Controllers.HR
         //    invocNoTo = string.IsNullOrEmpty(invocNo) ? 999999999999999999 : Convert.ToInt64(invocNo);
         //    batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
         //    batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
-            
+
         //    cardStart = string.IsNullOrEmpty(cardId) || cardId == "null" ? " " : cardId;
         //    cardEnd = string.IsNullOrEmpty(cardId) || cardId == "null" ? "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" : cardId;
 
@@ -575,7 +575,7 @@ namespace DMS_Authontication1.Controllers.HR
 
         //    rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReviewClaimsReport.rpt"));
 
-        //    rd.SetDatabaseLogon("APP", "12369");
+        //    rd.SetDatabaseLogon("APP", "15+08+2017");
 
 
         //    rd.SetParameterValue("reg1", regDateFrom);
@@ -647,7 +647,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReviewCliamsNew.rpt"));
 
-            rd.SetDatabaseLogon("APP", "12369");
+            rd.SetDatabaseLogon("APP", "15+08+2017");
 
 
             //rd.SetParameterValue("reg1", regDateFrom);
@@ -915,7 +915,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReviewCliamsNew.rpt"));
 
-            rd.SetDatabaseLogon("APP", "12369");
+            rd.SetDatabaseLogon("APP", "15+08+2017");
 
 
             rd.SetParameterValue("crd1", cardStart);
@@ -987,7 +987,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReviewCliamsReportSummary.rpt"));
 
-            rd.SetDatabaseLogon("APP", "12369");
+            rd.SetDatabaseLogon("APP", "15+08+2017");
 
 
             rd.SetParameterValue("reg1", regDateFrom);
@@ -1055,7 +1055,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "ReviewCliamsReportSummary.rpt"));
 
-            rd.SetDatabaseLogon("APP", "12369");
+            rd.SetDatabaseLogon("APP", "15+08+2017");
 
 
             rd.SetParameterValue("reg1", regDateFrom);
@@ -1099,7 +1099,7 @@ namespace DMS_Authontication1.Controllers.HR
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "OneClaimReport.rpt"));
 
-            rd.SetDatabaseLogon("APP", "12369");
+            rd.SetDatabaseLogon("APP", "15+08+2017");
 
             rd.SetParameterValue("clm", claimNo);
             

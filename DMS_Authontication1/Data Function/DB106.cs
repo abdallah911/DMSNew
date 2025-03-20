@@ -15,7 +15,7 @@ namespace DMS_Authontication1.Data_Function
     {
          public static string connectionStr = @"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)
                                             (HOST=72.52.116.106)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)
-                                            (SERVICE_NAME=ora11g)));User Id=app;Password=12369";
+                                            (SERVICE_NAME=ora11g)));User Id=app;Password=15+08+2017";
 
        
         //connection
