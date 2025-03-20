@@ -77,10 +77,7 @@ namespace DMS_Authontication1.Controllers
 
                         //if (dtNotes.Rows.Count > 0)
                         //    notes = dtNotes.Rows[0]["NOTES"].ToString();
-                      
-
-
-                        
+                                              
                         dtNotes = dbData.RunReader(@" SELECT * FROM COMP_INSTRUCTIONS WHERE COMP_ID = '" + comp + "' AND CONTRACT_NO = '" + contr + "' AND CLASS_CODE = '" + cls + "'AND CARD_ID = '" + cardId + "' AND ACTIVE = 'Y' ORDER BY CODE_NOTES");
 
                         if (dtNotes.Rows.Count == 0)
@@ -153,7 +150,7 @@ namespace DMS_Authontication1.Controllers
         public JsonResult GetProviders(string cardId, string compId, int country, int region, int providerId, string specialistid)
         {
             int Comp_ID = Convert.ToInt32(compId);
-            var cardExist = db.Comp_Employees.AsNoTracking().Where(c => c.CARD_ID == cardId).OrderByDescending(y => y.CONTRACT_NO).FirstOrDefault();
+            var cardExist = db.Comp_Employees.AsNoTracking().Where(c => c.CARD_ID == cardId && DateTime.Now >= c.INS_START_DATE && DateTime.Now <= c.INS_END_DATE).OrderByDescending(y => y.CONTRACT_NO).FirstOrDefault();
             if (cardExist == null)
             {
                 return new JsonResult { Data = new { providerslist = 0, msg = "Card Not Found ..." }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
