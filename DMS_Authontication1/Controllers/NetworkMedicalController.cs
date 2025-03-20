@@ -167,24 +167,12 @@ namespace DMS_Authontication1.Controllers
                 {
                     if (coverdRelation == 1 || coverdRelation == 4)
                     {
-                        var allowedProvCodes = new List<int?> { 14, 662, 665 };
+                        //var allowedProvCodes = new List<int?> { 14, 662, 665 };
 
-
-                        var providerList = (compId == "500172") ?
-                            db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && !allowedProvCodes.Contains(p.PR_CODE) && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.ADDRESS1.Contains(arbicReagonName)*/)
-                                            .Select(
-                                                  s => new
-                                                  {
-                                                      s.PR_ANAME,
-                                                      s.ADDRESS1,
-                                                      s.ADDRESS2,
-                                                      s.TEL1,
-                                                      s.TEL2,
-                                                      s.PR_DESC
-
-                                                  }).ToList()
-                        :
-                        db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y"
+                                                                    && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)
+                                                                    && !db.CompContractClassProviders.Any(b => b.COMP_ID == Comp_ID && b.CONTRACT_NO == cardExist.CONTRACT_NO
+                                                                    && b.CLASS_CODE == cardExist.CLASS_CODE && b.PRV_TYP == providerId && b.TYPE == "Black" && b.ACTIVE == "Y" && b.PR_CODE == p.PR_CODE))
                                             .Select(
                                                   s => new
                                                   {
@@ -197,12 +185,71 @@ namespace DMS_Authontication1.Controllers
 
                                                   }).ToList();
 
+                        var whiteList = db.CompContractClassProviders
+                            .Join(db.SERV_PROVIDERS_NEW,
+                             c => new { PR_CODE = c.PR_CODE, PRV_TYP = c.PRV_TYP },
+                             p => new { PR_CODE = p.PR_CODE, PRV_TYP = p.PRV_TYPE },
+                            (c, p) => new { c, p }) 
+                            .Where(x => x.p.PRV_TYPE == providerId
+                            && x.p.AREA_CODE == region
+                            && x.p.TERMINATE_FLAG != "Y"
+                            && x.c.COMP_ID == Comp_ID
+                            && x.c.CONTRACT_NO == cardExist.CONTRACT_NO
+                            && x.c.CLASS_CODE == cardExist.CLASS_CODE                            
+                            && x.c.TYPE == "White"
+                            && x.c.ACTIVE == "Y"
+                            && (string.IsNullOrEmpty(specialistid) || x.p.DOC_SPEC == specialistid))
+                            .Select(x => new
+                            {
+                                x.p.PR_ANAME,
+                                x.p.ADDRESS1,
+                                x.p.ADDRESS2,
+                                x.p.TEL1,
+                                x.p.TEL2,
+                                x.p.PR_DESC
+                            });
+
+
+                        providerList = providerList.Union(whiteList).ToList();
+
+                        //var providerList = (compId == "500172") ?
+                        //    db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && !allowedProvCodes.Contains(p.PR_CODE) && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                        //                    .Select(
+                        //                          s => new
+                        //                          {
+                        //                              s.PR_ANAME,
+                        //                              s.ADDRESS1,
+                        //                              s.ADDRESS2,
+                        //                              s.TEL1,
+                        //                              s.TEL2,
+                        //                              s.PR_DESC
+
+                        //                          }).ToList()
+                        //:
+                        //db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == region && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                        //                    .Select(
+                        //                          s => new
+                        //                          {
+                        //                              s.PR_ANAME,
+                        //                              s.ADDRESS1,
+                        //                              s.ADDRESS2,
+                        //                              s.TEL1,
+                        //                              s.TEL2,
+                        //                              s.PR_DESC
+
+                        //                          }).ToList();
+
                         return new JsonResult { Data = new { providerslist = providerList, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
                     }
 
                     else if (coverdRelation == 2)
                     {
-                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.TERMINATE_FLAG != "Y" && (p.PROV_DEGREE == coverdRelation.ToString() || p.PROV_DEGREE == "3") && p.AREA_CODE == region && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.PROV_DEGREE == "2" || p.PROV_DEGREE == "3"*/ /*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                        var providerList = 
+                            db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.TERMINATE_FLAG != "Y" 
+                                                    && (p.PROV_DEGREE == coverdRelation.ToString() || p.PROV_DEGREE == "3") 
+                                                    && p.AREA_CODE == region && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)
+                                                    && !db.CompContractClassProviders.Any(b => b.COMP_ID == Comp_ID && b.CONTRACT_NO == cardExist.CONTRACT_NO
+                                                                      && b.CLASS_CODE == cardExist.CLASS_CODE && b.PRV_TYP == providerId && b.TYPE == "Black" && b.ACTIVE == "Y" && b.PR_CODE == p.PR_CODE))
                                            .Select(
                                                   s => new
                                                   {
@@ -214,13 +261,45 @@ namespace DMS_Authontication1.Controllers
                                                       s.PR_DESC
 
                                                   }).ToList();
+
+                        var whiteList = db.CompContractClassProviders
+                          .Join(db.SERV_PROVIDERS_NEW,
+                           c => new { PR_CODE = c.PR_CODE, PRV_TYP = c.PRV_TYP },
+                           p => new { PR_CODE = p.PR_CODE, PRV_TYP = p.PRV_TYPE },
+                          (c, p) => new { c, p })
+                          .Where(x => x.p.PRV_TYPE == providerId
+                          && x.p.AREA_CODE == region
+                          && x.p.TERMINATE_FLAG != "Y"
+                          && x.c.COMP_ID == Comp_ID
+                          && x.c.CONTRACT_NO == cardExist.CONTRACT_NO
+                          && x.c.CLASS_CODE == cardExist.CLASS_CODE
+                          && x.c.TYPE == "White"
+                          && x.c.ACTIVE == "Y"
+                          && (string.IsNullOrEmpty(specialistid) || x.p.DOC_SPEC == specialistid))
+                          .Select(x => new
+                          {
+                              x.p.PR_ANAME,
+                              x.p.ADDRESS1,
+                              x.p.ADDRESS2,
+                              x.p.TEL1,
+                              x.p.TEL2,
+                              x.p.PR_DESC
+                          });
+
+
+                        providerList = providerList.Union(whiteList).ToList();
                         //var providerList = db.Serv_Providers1.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == bsCode && p.ADDRESS1.Contains(arbicReagonName) && p.PROV_DEGREE == "2" || p.PROV_DEGREE == "3").ToList();
                         return new JsonResult { Data = new { providerslist = providerList, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
                     }
 
                     else
                     {
-                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.TERMINATE_FLAG != "Y" && p.PROV_DEGREE == coverdRelation.ToString() && p.AREA_CODE == region && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid) /*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                        var providerList = 
+                            db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.TERMINATE_FLAG != "Y" 
+                                                     && p.PROV_DEGREE == coverdRelation.ToString() && p.AREA_CODE == region 
+                                                     && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)
+                                                     && !db.CompContractClassProviders.Any(b => b.COMP_ID == Comp_ID && b.CONTRACT_NO == cardExist.CONTRACT_NO
+                                                                      && b.CLASS_CODE == cardExist.CLASS_CODE && b.PRV_TYP == providerId && b.TYPE == "Black" && b.ACTIVE == "Y" && b.PR_CODE == p.PR_CODE))
                                             .Select(
                                                   s => new
                                                   {
@@ -232,6 +311,32 @@ namespace DMS_Authontication1.Controllers
                                                       s.PR_DESC
                                                   }).ToList();
 
+                        var whiteList = db.CompContractClassProviders
+                          .Join(db.SERV_PROVIDERS_NEW,
+                           c => new { PR_CODE = c.PR_CODE, PRV_TYP = c.PRV_TYP },
+                           p => new { PR_CODE = p.PR_CODE, PRV_TYP = p.PRV_TYPE },
+                          (c, p) => new { c, p })
+                          .Where(x => x.p.PRV_TYPE == providerId
+                          && x.p.AREA_CODE == region
+                          && x.p.TERMINATE_FLAG != "Y"
+                          && x.c.COMP_ID == Comp_ID
+                          && x.c.CONTRACT_NO == cardExist.CONTRACT_NO
+                          && x.c.CLASS_CODE == cardExist.CLASS_CODE
+                          && x.c.TYPE == "White"
+                          && x.c.ACTIVE == "Y"
+                          && (string.IsNullOrEmpty(specialistid) || x.p.DOC_SPEC == specialistid))
+                          .Select(x => new
+                          {
+                              x.p.PR_ANAME,
+                              x.p.ADDRESS1,
+                              x.p.ADDRESS2,
+                              x.p.TEL1,
+                              x.p.TEL2,
+                              x.p.PR_DESC
+                          });
+
+
+                        providerList = providerList.Union(whiteList).ToList();
                         //var providerList = db.Serv_Providers1.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == bsCode && p.ADDRESS1.Contains(arbicReagonName) && p.PROV_DEGREE == "3").ToList();
                         return new JsonResult { Data = new { providerslist = providerList, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
                     }
@@ -240,43 +345,63 @@ namespace DMS_Authontication1.Controllers
                 {
                     if (coverdRelation == 1 || coverdRelation == 4)
                     {
-                        var allowedProvCodes = new List<int?> { 14, 662, 665 };
-                       
+                        //var allowedProvCodes = new List<int?> { 14, 662, 665 };
 
-                        var providerList =  (compId == "500172") ?
-                        
-                            db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && !allowedProvCodes.Contains(p.PR_CODE) && p.GOVERNMENT_CODE == country && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.ADDRESS1.Contains(arbicReagonName)*/)
-                                        .Select(
-                                              s => new
-                                              {
-                                                  s.PR_ANAME,
-                                                  s.ADDRESS1,
-                                                  s.ADDRESS2,
-                                                  s.TEL1,
-                                                  s.TEL2,
-                                                  s.PR_DESC
 
-                                              }).ToList()
-                      :
-                         db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.GOVERNMENT_CODE == country && p.TERMINATE_FLAG != "Y" && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.ADDRESS1.Contains(arbicReagonName)*/)
-                                              .Select(
-                                                    s => new
-                                                    {
-                                                        s.PR_ANAME,
-                                                        s.ADDRESS1,
-                                                        s.ADDRESS2,
-                                                        s.TEL1,
-                                                        s.TEL2,
-                                                        s.PR_DESC
+                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.GOVERNMENT_CODE == country && p.TERMINATE_FLAG != "Y" 
+                                                                   && (string.IsNullOrEmpty(specialistid) || p.DOC_SPEC == specialistid)
+                                                                   && !db.CompContractClassProviders.Any(b => b.COMP_ID == Comp_ID && b.CONTRACT_NO == cardExist.CONTRACT_NO
+                                                                      && b.CLASS_CODE == cardExist.CLASS_CODE && b.PRV_TYP == providerId && b.TYPE == "Black" && b.ACTIVE == "Y" && b.PR_CODE == p.PR_CODE))
+                                                                                            .Select(
+                                                                                                  s => new
+                                                                                                  {
+                                                                                                      s.PR_ANAME,
+                                                                                                      s.ADDRESS1,
+                                                                                                      s.ADDRESS2,
+                                                                                                      s.TEL1,
+                                                                                                      s.TEL2,
+                                                                                                      s.PR_DESC
 
-                                                    }).ToList();
-                        
+                                                                                                  }).ToList();
+
+                        var whiteList = db.CompContractClassProviders
+                           .Join(db.SERV_PROVIDERS_NEW,
+                            c => new { PR_CODE = c.PR_CODE, PRV_TYP = c.PRV_TYP },
+                            p => new { PR_CODE = p.PR_CODE, PRV_TYP = p.PRV_TYPE },
+                           (c, p) => new { c, p })
+                           .Where(x => x.p.PRV_TYPE == providerId
+                           && x.p.GOVERNMENT_CODE == country
+                           && x.p.TERMINATE_FLAG != "Y"
+                           && x.c.COMP_ID == Comp_ID
+                           && x.c.CONTRACT_NO == cardExist.CONTRACT_NO
+                           && x.c.CLASS_CODE == cardExist.CLASS_CODE
+                           && x.c.TYPE == "White"
+                           && x.c.ACTIVE == "Y"
+                           && (string.IsNullOrEmpty(specialistid) || x.p.DOC_SPEC == specialistid))
+                           .Select(x => new
+                           {
+                               x.p.PR_ANAME,
+                               x.p.ADDRESS1,
+                               x.p.ADDRESS2,
+                               x.p.TEL1,
+                               x.p.TEL2,
+                               x.p.PR_DESC
+                           });
+
+
+                        providerList = providerList.Union(whiteList).ToList();
+                               
                         return new JsonResult { Data = new { providerslist = providerList, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
                     }
 
                     else if (coverdRelation == 2)
                     {
-                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.TERMINATE_FLAG != "Y" && (p.PROV_DEGREE == coverdRelation.ToString() || p.PROV_DEGREE == "3") && p.GOVERNMENT_CODE == country && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)/*&& p.PROV_DEGREE == "2" || p.PROV_DEGREE == "3"*/ /*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                        var providerList = 
+                            db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.TERMINATE_FLAG != "Y" 
+                                                     && (p.PROV_DEGREE == coverdRelation.ToString() || p.PROV_DEGREE == "3") 
+                                                     && p.GOVERNMENT_CODE == country && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)
+                                                     && !db.CompContractClassProviders.Any(b => b.COMP_ID == Comp_ID && b.CONTRACT_NO == cardExist.CONTRACT_NO
+                                                                      && b.CLASS_CODE == cardExist.CLASS_CODE && b.PRV_TYP == providerId && b.TYPE == "Black" && b.ACTIVE == "Y" && b.PR_CODE == p.PR_CODE))
                                            .Select(
                                                   s => new
                                                   {
@@ -288,13 +413,46 @@ namespace DMS_Authontication1.Controllers
                                                       s.PR_DESC
 
                                                   }).ToList();
+
+                        var whiteList = db.CompContractClassProviders
+                          .Join(db.SERV_PROVIDERS_NEW,
+                           c => new { PR_CODE = c.PR_CODE, PRV_TYP = c.PRV_TYP },
+                           p => new { PR_CODE = p.PR_CODE, PRV_TYP = p.PRV_TYPE },
+                          (c, p) => new { c, p })
+                          .Where(x => x.p.PRV_TYPE == providerId
+                          && x.p.GOVERNMENT_CODE == country
+                          && x.p.TERMINATE_FLAG != "Y"
+                          && x.c.COMP_ID == Comp_ID
+                          && x.c.CONTRACT_NO == cardExist.CONTRACT_NO
+                          && x.c.CLASS_CODE == cardExist.CLASS_CODE
+                          && x.c.TYPE == "White"
+                          && x.c.ACTIVE == "Y"
+                          && (string.IsNullOrEmpty(specialistid) || x.p.DOC_SPEC == specialistid))
+                          .Select(x => new
+                          {
+                              x.p.PR_ANAME,
+                              x.p.ADDRESS1,
+                              x.p.ADDRESS2,
+                              x.p.TEL1,
+                              x.p.TEL2,
+                              x.p.PR_DESC
+                          });
+
+
+                        providerList = providerList.Union(whiteList).ToList();
                         //var providerList = db.Serv_Providers1.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == bsCode && p.ADDRESS1.Contains(arbicReagonName) && p.PROV_DEGREE == "2" || p.PROV_DEGREE == "3").ToList();
                         return new JsonResult { Data = new { providerslist = providerList, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
                     }
 
                     else
                     {
-                        var providerList = db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.TERMINATE_FLAG != "Y" && p.PROV_DEGREE == coverdRelation.ToString() && p.GOVERNMENT_CODE == country && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid) /*&& p.ADDRESS1.Contains(arbicReagonName)*/)
+                        var providerList = 
+                            db.SERV_PROVIDERS_NEW.Where(p => p.PRV_TYPE == providerId && p.TERMINATE_FLAG != "Y" 
+                                                     && p.PROV_DEGREE == coverdRelation.ToString() && p.GOVERNMENT_CODE == country 
+                                                     && (string.IsNullOrEmpty(specialistid) ? true : p.DOC_SPEC == specialistid)
+                                                     && !db.CompContractClassProviders.Any(b => b.COMP_ID == Comp_ID && b.CONTRACT_NO == cardExist.CONTRACT_NO
+                                                                      && b.CLASS_CODE == cardExist.CLASS_CODE && b.PRV_TYP == providerId && b.TYPE == "Black" && b.ACTIVE == "Y" && b.PR_CODE == p.PR_CODE)
+                                                     )
                                             .Select(
                                                   s => new
                                                   {
@@ -305,6 +463,34 @@ namespace DMS_Authontication1.Controllers
                                                       s.TEL2,
                                                       s.PR_DESC
                                                   }).ToList();
+
+                        var whiteList = db.CompContractClassProviders
+                        .Join(db.SERV_PROVIDERS_NEW,
+                         c => new { PR_CODE = c.PR_CODE, PRV_TYP = c.PRV_TYP },
+                         p => new { PR_CODE = p.PR_CODE, PRV_TYP = p.PRV_TYPE },
+                        (c, p) => new { c, p })
+                        .Where(x => x.p.PRV_TYPE == providerId
+                        && x.p.GOVERNMENT_CODE == country
+                        && x.p.TERMINATE_FLAG != "Y"
+                        && x.c.COMP_ID == Comp_ID
+                        && x.c.CONTRACT_NO == cardExist.CONTRACT_NO
+                        && x.c.CLASS_CODE == cardExist.CLASS_CODE
+                        && x.c.TYPE == "White"
+                        && x.c.ACTIVE == "Y"
+                        && (string.IsNullOrEmpty(specialistid) || x.p.DOC_SPEC == specialistid))
+                        .Select(x => new
+                        {
+                            x.p.PR_ANAME,
+                            x.p.ADDRESS1,
+                            x.p.ADDRESS2,
+                            x.p.TEL1,
+                            x.p.TEL2,
+                            x.p.PR_DESC
+                        });
+
+
+                        providerList = providerList.Union(whiteList).ToList();
+
 
                         //var providerList = db.Serv_Providers1.Where(p => p.PRV_TYPE == providerId && p.AREA_CODE == bsCode && p.ADDRESS1.Contains(arbicReagonName) && p.PROV_DEGREE == "3").ToList();
                         return new JsonResult { Data = new { providerslist = providerList, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };

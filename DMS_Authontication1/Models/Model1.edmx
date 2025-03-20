@@ -249,6 +249,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="IsDeleted" Type="bit" />
           <Property Name="DeletedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="DeletedDate" Type="datetime" />
+          <Property Name="Speciality" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Co_Insurance_01">
           <Key>
@@ -316,6 +317,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
           <Property Name="POLL_CONSUMPTION" Type="nchar" MaxLength="1" />
+          <Property Name="LAB_RAY_HOS" Type="nchar" MaxLength="1" />
+          <Property Name="NUMBER_VISIT" Type="int" />
+          <Property Name="CORONA" Type="nchar" MaxLength="1" />
+          <Property Name="LAB_RAY_HOS_TYP" Type="int" />
         </EntityType>
         <EntityType Name="Comp_Customized_D_D">
           <Key>
@@ -359,6 +364,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
           <Property Name="POLL_CONSUMPTION" Type="nchar" MaxLength="1" />
           <Property Name="CEILING_PERT_ONEC" Type="int" />
+          <Property Name="LAB_RAY_HOS" Type="nchar" MaxLength="1" />
+          <Property Name="NUMBER_VISIT" Type="int" />
+          <Property Name="CORONA" Type="nchar" MaxLength="1" />
+          <Property Name="LAB_RAY_HOS_TYP" Type="int" />
         </EntityType>
         <EntityType Name="Comp_Customized_D_D_Emp">
           <Key>
@@ -530,6 +539,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
           <Property Name="POLL_CONSUMPTION" Type="nchar" MaxLength="1" />
+          <Property Name="LAB_RAY_HOS" Type="nchar" MaxLength="1" />
+          <Property Name="NUMBER_VISIT" Type="int" />
+          <Property Name="CORONA" Type="nchar" MaxLength="1" />
+          <Property Name="LAB_RAY_HOS_TYP" Type="int" />
         </EntityType>
         <EntityType Name="Comp_Employees">
           <Key>
@@ -824,6 +837,34 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar(max)" />
           <Property Name="FOR_FAMILY" Type="nchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="CompContractClassProvider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COMP_ID" Type="int" />
+          <Property Name="CONTRACT_NO" Type="int" />
+          <Property Name="CLASS_CODE" Type="nvarchar" MaxLength="50" />
+          <Property Name="PROV_DEGREE" Type="int" />
+          <Property Name="PRV_TYP" Type="int" />
+          <Property Name="PR_CODE" Type="int" />
+          <Property Name="SERV_CODE" Type="bigint" />
+          <Property Name="COPAY_AMT" Type="int" />
+          <Property Name="COPAY_PERC" Type="int" />
+          <Property Name="MAX_AMOUNT" Type="int" />
+          <Property Name="NOTES" Type="nvarchar(max)" />
+          <Property Name="ACTIVE" Type="nvarchar" MaxLength="3" />
+          <Property Name="CREATED_BY" Type="nvarchar" MaxLength="50" />
+          <Property Name="CREATED_DATE" Type="date" />
+          <Property Name="UPDATE_BY" Type="nvarchar" MaxLength="50" />
+          <Property Name="UPDATE_DATE" Type="date" />
+          <Property Name="TYPE" Type="nvarchar" MaxLength="50" />
+          <Property Name="PR_NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="RESIDENT_DEGREE" Type="nvarchar" MaxLength="300" />
+          <Property Name="IsSync" Type="bit" />
+          <Property Name="SyncDate" Type="datetime" />
+          <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="CompHolder">
           <Key>
@@ -1414,6 +1455,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompHolderCode" Type="int" />
         </EntityType>
         <EntityType Name="HospitalDoctors">
           <Key>
@@ -1661,6 +1703,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="MedicineNoPay" Type="nvarchar" MaxLength="10" />
           <Property Name="StartDate" Type="date" />
           <Property Name="PoolType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Note" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="MedicineData">
           <Key>
@@ -1692,6 +1735,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="GroupType" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="MedicineGroup">
           <Key>
@@ -2531,6 +2575,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
           <Property Name="IsFamily" Type="nvarchar" MaxLength="10" />
           <Property Name="IsPool" Type="nvarchar" MaxLength="10" />
+          <Property Name="Oracle_Id_Top" Type="bigint" StoreGeneratedPattern="Computed" />
+          <Property Name="CompHolderCode" Type="int" />
         </EntityType>
         <EntityType Name="RoshitaAcceptions">
           <Key>
@@ -2655,18 +2701,18 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LAB_CODE" Type="bigint" Nullable="false" />
           <Property Name="PR_CODE" Type="bigint" Nullable="false" />
-          <Property Name="PR_ANAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PR_ANAME" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DMS_CODE" Type="bigint" Nullable="false" />
           <Property Name="SERV_CODE" Type="bigint" Nullable="false" />
           <Property Name="SERV_AMOUNT" Type="float" Nullable="false" />
-          <Property Name="SERV_ANAME" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="GRUOP_TYPE" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="SERV_ANAME" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="GRUOP_TYPE" Type="nvarchar(max)" Nullable="false" />
           <Property Name="LOOK" Type="smallint" Nullable="false" />
           <Property Name="GRUOP_ID" Type="bigint" Nullable="false" />
-          <Property Name="GRUOP_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GRUOP_NAME" Type="nvarchar(max)" Nullable="false" />
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
-          <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="SyncBy" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="SERV_PROVIDERS_NEW">
           <Key>
@@ -3491,6 +3537,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Parameter Name="ApprovalNo" Type="nvarchar" Mode="In" />
           <Parameter Name="CardId" Type="nvarchar" Mode="In" />
           <Parameter Name="TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="CompHoder" Type="int" Mode="In" />
           <ReturnType>
             <CollectionType>
               <RowType>
@@ -3513,6 +3560,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Parameter Name="ApprovalNo" Type="nvarchar" Mode="In" />
           <Parameter Name="CardId" Type="nvarchar" Mode="In" />
           <Parameter Name="TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="CompHoder" Type="int" Mode="In" />
           <ReturnType>
             <CollectionType>
               <RowType>
@@ -3537,6 +3585,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Parameter Name="ApprovalNo" Type="nvarchar" Mode="In" />
           <Parameter Name="CardId" Type="nvarchar" Mode="In" />
           <Parameter Name="TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="CompHoder" Type="int" Mode="In" />
           <ReturnType>
             <CollectionType>
               <RowType>
@@ -3559,6 +3608,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Parameter Name="ApprovalNo" Type="nvarchar" Mode="In" />
           <Parameter Name="CardId" Type="nvarchar" Mode="In" />
           <Parameter Name="TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="CompHoder" Type="int" Mode="In" />
           <ReturnType>
             <CollectionType>
               <RowType>
@@ -3583,6 +3633,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Parameter Name="ApprovalNo" Type="nvarchar" Mode="In" />
           <Parameter Name="CardId" Type="nvarchar" Mode="In" />
           <Parameter Name="TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="CompHoder" Type="int" Mode="In" />
           <ReturnType>
             <CollectionType>
               <RowType>
@@ -3605,6 +3656,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Parameter Name="ApprovalNo" Type="nvarchar" Mode="In" />
           <Parameter Name="CardId" Type="nvarchar" Mode="In" />
           <Parameter Name="TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="CompHoder" Type="int" Mode="In" />
           <ReturnType>
             <CollectionType>
               <RowType>
@@ -3624,6 +3676,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Parameter Name="from" Type="nvarchar" Mode="In" />
           <Parameter Name="to" Type="nvarchar" Mode="In" />
           <Parameter Name="provider" Type="nvarchar" Mode="In" />
+          <Parameter Name="CompHoder" Type="int" Mode="In" />
           <ReturnType>
             <CollectionType>
               <RowType>
@@ -3834,6 +3887,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="CompanyContractPhoto" EntityType="Self.CompanyContractPhoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompContractClass" EntityType="Self.CompContractClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompContractClassEmp" EntityType="Self.CompContractClassEmp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompContractClassProvider" EntityType="Self.CompContractClassProvider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompHolder" EntityType="Self.CompHolder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompStatement" EntityType="Self.CompStatement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONSUMPTION_POOL" EntityType="Self.CONSUMPTION_POOL" Schema="dbo" store:Type="Tables" />
@@ -4248,6 +4302,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="POLL_CONSUMPTION" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="LAB_RAY_HOS" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="NUMBER_VISIT" Type="Int32" />
+          <Property Name="CORONA" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="LAB_RAY_HOS_TYP" Type="Int32" />
         </EntityType>
         <EntityType Name="Comp_Customized_D_D">
           <Key>
@@ -4291,6 +4349,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="POLL_CONSUMPTION" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="CEILING_PERT_ONEC" Type="Int32" />
+          <Property Name="LAB_RAY_HOS" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="NUMBER_VISIT" Type="Int32" />
+          <Property Name="CORONA" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="LAB_RAY_HOS_TYP" Type="Int32" />
         </EntityType>
         <EntityType Name="Comp_Customized_D_D_Emp">
           <Key>
@@ -4377,6 +4439,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="POLL_CONSUMPTION" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="LAB_RAY_HOS" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="NUMBER_VISIT" Type="Int32" />
+          <Property Name="CORONA" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="LAB_RAY_HOS_TYP" Type="Int32" />
         </EntityType>
         <EntityType Name="Comp_Employees">
           <Key>
@@ -4822,6 +4888,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="MedicineNoPay" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="StartDate" Type="DateTime" Precision="0" />
           <Property Name="PoolType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MedicineData">
           <Key>
@@ -4856,6 +4923,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <NavigationProperty Name="MedicineData1" Relationship="Self.FK_MedicineData_MedicineData" FromRole="MedicineData" ToRole="MedicineData1" />
           <NavigationProperty Name="MedicineData2" Relationship="Self.FK_MedicineData_MedicineData" FromRole="MedicineData1" ToRole="MedicineData" />
           <NavigationProperty Name="MedicinesDiagnosis" Relationship="Self.FK_MedicinesDiagnosis_MedicineData" FromRole="MedicineData" ToRole="MedicinesDiagnosis" />
+          <Property Name="GroupType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MedicineGroup">
           <Key>
@@ -5470,6 +5538,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <Parameter Name="ApprovalNo" Mode="In" Type="String" />
             <Parameter Name="CardId" Mode="In" Type="String" />
             <Parameter Name="TYPE" Mode="In" Type="String" />
+            <Parameter Name="CompHoder" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="fn_MedicalApprovalSearsh" IsComposable="true" ReturnType="Collection(DB_A45413_DMSERPModel.fn_MedicalApprovalSearsh_Result)">
             <Parameter Name="CardId" Mode="In" Type="String" />
@@ -5486,11 +5555,13 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <Parameter Name="ApprovalNo" Mode="In" Type="String" />
             <Parameter Name="CardId" Mode="In" Type="String" />
             <Parameter Name="TYPE" Mode="In" Type="String" />
+            <Parameter Name="CompHoder" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="fn_ClaimsReport" IsComposable="true" ReturnType="Collection(DB_A45413_DMSERPModel.fn_ClaimsReport_Result3)">
             <Parameter Name="from" Mode="In" Type="String" />
             <Parameter Name="to" Mode="In" Type="String" />
             <Parameter Name="provider" Mode="In" Type="String" />
+            <Parameter Name="CompHoder" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="AfterSales" EntityType="DB_A45413_DMSERPModel.AfterSale" />
           <EntitySet Name="EmployeePersonalDatas" EntityType="DB_A45413_DMSERPModel.EmployeePersonalData" />
@@ -5511,6 +5582,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <Parameter Name="ApprovalNo" Mode="In" Type="String" />
             <Parameter Name="CardId" Mode="In" Type="String" />
             <Parameter Name="TYPE" Mode="In" Type="String" />
+            <Parameter Name="CompHoder" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="fn_AdminLabClamsList" IsComposable="true" ReturnType="Collection(DB_A45413_DMSERPModel.fn_AdminLabClamsList_Result)">
             <Parameter Name="FROM" Mode="In" Type="String" />
@@ -5521,6 +5593,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <Parameter Name="ApprovalNo" Mode="In" Type="String" />
             <Parameter Name="CardId" Mode="In" Type="String" />
             <Parameter Name="TYPE" Mode="In" Type="String" />
+            <Parameter Name="CompHoder" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="fn_AdminRayClamsCounts" IsComposable="true" ReturnType="Collection(DB_A45413_DMSERPModel.fn_AdminRayClamsCounts_Result)">
             <Parameter Name="FROM" Mode="In" Type="String" />
@@ -5531,6 +5604,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <Parameter Name="ApprovalNo" Mode="In" Type="String" />
             <Parameter Name="CardId" Mode="In" Type="String" />
             <Parameter Name="TYPE" Mode="In" Type="String" />
+            <Parameter Name="CompHoder" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="fn_AdminRayClamsList" IsComposable="true" ReturnType="Collection(DB_A45413_DMSERPModel.fn_AdminRayClamsList_Result)">
             <Parameter Name="FROM" Mode="In" Type="String" />
@@ -5541,6 +5615,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <Parameter Name="ApprovalNo" Mode="In" Type="String" />
             <Parameter Name="CardId" Mode="In" Type="String" />
             <Parameter Name="TYPE" Mode="In" Type="String" />
+            <Parameter Name="CompHoder" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Group_Lab" EntityType="DB_A45413_DMSERPModel.Group_Lab" />
           <EntitySet Name="Group_Ray" EntityType="DB_A45413_DMSERPModel.Group_Ray" />
@@ -5805,6 +5880,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="OutsideNetworkInpatientResaons" EntityType="DB_A45413_DMSERPModel.OutsideNetworkInpatientResaon" />
           <EntitySet Name="OutsideNetworkOutpatientResaons" EntityType="DB_A45413_DMSERPModel.OutsideNetworkOutpatientResaon" />
           <EntitySet Name="PreXChronicReasons" EntityType="DB_A45413_DMSERPModel.PreXChronicReason" />
+          <EntitySet Name="CompContractClassProviders" EntityType="DB_A45413_DMSERPModel.CompContractClassProvider" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -6556,18 +6632,18 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LAB_CODE" Type="Int64" Nullable="false" />
           <Property Name="PR_CODE" Type="Int64" Nullable="false" />
-          <Property Name="PR_ANAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PR_ANAME" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DMS_CODE" Type="Int64" Nullable="false" />
           <Property Name="SERV_CODE" Type="Int64" Nullable="false" />
           <Property Name="SERV_AMOUNT" Type="Double" Nullable="false" />
-          <Property Name="SERV_ANAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GRUOP_TYPE" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="SERV_ANAME" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GRUOP_TYPE" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="LOOK" Type="Int16" Nullable="false" />
           <Property Name="GRUOP_ID" Type="Int64" Nullable="false" />
-          <Property Name="GRUOP_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GRUOP_NAME" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
-          <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SyncBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Serv_Ray">
           <Key>
@@ -6837,6 +6913,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <NavigationProperty Name="Notifications" Relationship="DB_A45413_DMSERPModel.FK_Notification_Roshita" FromRole="Roshita" ToRole="Notification" />
           <Property Name="IsFamily" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="IsPool" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Oracle_Id_Top" Type="Int64" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="CompHolderCode" Type="Int32" />
         </EntityType>
         <Association Name="FK_Roshita_Patchs">
           <End Type="DB_A45413_DMSERPModel.Patch" Role="Patch" Multiplicity="0..1" />
@@ -7284,6 +7362,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CompHolderCode" Type="Int32" />
         </EntityType>
         <EntityType Name="DeliveryRequestDetail">
           <Key>
@@ -8381,6 +8460,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="DeletedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="Speciality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="CriticalReason">
           <Key>
@@ -8409,6 +8489,34 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CompContractClassProvider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COMP_ID" Type="Int32" />
+          <Property Name="CONTRACT_NO" Type="Int32" />
+          <Property Name="CLASS_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PROV_DEGREE" Type="Int32" />
+          <Property Name="PRV_TYP" Type="Int32" />
+          <Property Name="PR_CODE" Type="Int32" />
+          <Property Name="SERV_CODE" Type="Int64" />
+          <Property Name="COPAY_AMT" Type="Int32" />
+          <Property Name="COPAY_PERC" Type="Int32" />
+          <Property Name="MAX_AMOUNT" Type="Int32" />
+          <Property Name="NOTES" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ACTIVE" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_DATE" Type="DateTime" Precision="0" />
+          <Property Name="UPDATE_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATE_DATE" Type="DateTime" Precision="0" />
+          <Property Name="TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PR_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RESIDENT_DEGREE" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="IsSync" Type="Boolean" />
+          <Property Name="SyncDate" Type="DateTime" Precision="3" />
+          <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -8460,6 +8568,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="COMP_CUSTOMIZED_D">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.COMP_CUSTOMIZED_D">
               <MappingFragment StoreEntitySet="COMP_CUSTOMIZED_D">
+                <ScalarProperty Name="LAB_RAY_HOS_TYP" ColumnName="LAB_RAY_HOS_TYP" />
+                <ScalarProperty Name="CORONA" ColumnName="CORONA" />
+                <ScalarProperty Name="NUMBER_VISIT" ColumnName="NUMBER_VISIT" />
+                <ScalarProperty Name="LAB_RAY_HOS" ColumnName="LAB_RAY_HOS" />
                 <ScalarProperty Name="POLL_CONSUMPTION" ColumnName="POLL_CONSUMPTION" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
@@ -8500,6 +8612,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="Comp_Customized_D_D">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Comp_Customized_D_D">
               <MappingFragment StoreEntitySet="Comp_Customized_D_D">
+                <ScalarProperty Name="LAB_RAY_HOS_TYP" ColumnName="LAB_RAY_HOS_TYP" />
+                <ScalarProperty Name="CORONA" ColumnName="CORONA" />
+                <ScalarProperty Name="NUMBER_VISIT" ColumnName="NUMBER_VISIT" />
+                <ScalarProperty Name="LAB_RAY_HOS" ColumnName="LAB_RAY_HOS" />
                 <ScalarProperty Name="CEILING_PERT_ONEC" ColumnName="CEILING_PERT_ONEC" />
                 <ScalarProperty Name="POLL_CONSUMPTION" ColumnName="POLL_CONSUMPTION" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -8590,6 +8706,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="COMP_CUSTOMIZED_D_EMP">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.COMP_CUSTOMIZED_D_EMP">
               <MappingFragment StoreEntitySet="COMP_CUSTOMIZED_D_EMP">
+                <ScalarProperty Name="LAB_RAY_HOS_TYP" ColumnName="LAB_RAY_HOS_TYP" />
+                <ScalarProperty Name="CORONA" ColumnName="CORONA" />
+                <ScalarProperty Name="NUMBER_VISIT" ColumnName="NUMBER_VISIT" />
+                <ScalarProperty Name="LAB_RAY_HOS" ColumnName="LAB_RAY_HOS" />
                 <ScalarProperty Name="POLL_CONSUMPTION" ColumnName="POLL_CONSUMPTION" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
@@ -9048,6 +9168,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="Med_Medicine">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Med_Medicine">
               <MappingFragment StoreEntitySet="Med_Medicine">
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="PoolType" ColumnName="PoolType" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="MedicineNoPay" ColumnName="MedicineNoPay" />
@@ -9088,6 +9209,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="MedicineDatas">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.MedicineData">
               <MappingFragment StoreEntitySet="MedicineData">
+                <ScalarProperty Name="GroupType" ColumnName="GroupType" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
@@ -10376,6 +10498,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="Roshitas">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.Roshita">
               <MappingFragment StoreEntitySet="Roshita">
+                <ScalarProperty Name="CompHolderCode" ColumnName="CompHolderCode" />
+                <ScalarProperty Name="Oracle_Id_Top" ColumnName="Oracle_Id_Top" />
                 <ScalarProperty Name="IsPool" ColumnName="IsPool" />
                 <ScalarProperty Name="IsFamily" ColumnName="IsFamily" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
@@ -10714,6 +10838,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="HospitalClaims">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.HospitalClaim">
               <MappingFragment StoreEntitySet="HospitalClaims">
+                <ScalarProperty Name="CompHolderCode" ColumnName="CompHolderCode" />
                 <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
                 <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
@@ -11634,6 +11759,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="ClaimPhotoes">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.ClaimPhoto">
               <MappingFragment StoreEntitySet="ClaimPhoto">
+                <ScalarProperty Name="Speciality" ColumnName="Speciality" />
                 <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
                 <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
@@ -11680,6 +11806,35 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.PreXChronicReason">
               <MappingFragment StoreEntitySet="PreXChronicReason">
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompContractClassProviders">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompContractClassProvider">
+              <MappingFragment StoreEntitySet="CompContractClassProvider">
+                <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
+                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="RESIDENT_DEGREE" ColumnName="RESIDENT_DEGREE" />
+                <ScalarProperty Name="PR_NAME" ColumnName="PR_NAME" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+                <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
+                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
+                <ScalarProperty Name="MAX_AMOUNT" ColumnName="MAX_AMOUNT" />
+                <ScalarProperty Name="COPAY_PERC" ColumnName="COPAY_PERC" />
+                <ScalarProperty Name="COPAY_AMT" ColumnName="COPAY_AMT" />
+                <ScalarProperty Name="SERV_CODE" ColumnName="SERV_CODE" />
+                <ScalarProperty Name="PR_CODE" ColumnName="PR_CODE" />
+                <ScalarProperty Name="PRV_TYP" ColumnName="PRV_TYP" />
+                <ScalarProperty Name="PROV_DEGREE" ColumnName="PROV_DEGREE" />
+                <ScalarProperty Name="CLASS_CODE" ColumnName="CLASS_CODE" />
+                <ScalarProperty Name="CONTRACT_NO" ColumnName="CONTRACT_NO" />
+                <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

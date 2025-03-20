@@ -29,5 +29,6 @@ namespace DMS_Authontication1.Models
         public Nullable<bool> IsDeleted { get; set; }
         public string DeletedBy { get; set; }
         public Nullable<System.DateTime> DeletedDate { get; set; }
+        public string Speciality { get; set; }
     }
 }

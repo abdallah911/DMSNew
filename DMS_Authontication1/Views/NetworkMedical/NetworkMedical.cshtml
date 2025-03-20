@@ -155,7 +155,7 @@
     </div>
 
 
-    @if (@Model.CardId.StartsWith("500172"))
+    @if (!string.IsNullOrEmpty(Model?.CardId) && Model.CardId.StartsWith("500172"))
     {
 
         <div class="row bg-overlay mb-4 portlet-title">
@@ -168,14 +168,14 @@
             <div class="px-2">
                 <div class="d-flex align-items-center justify-content-evenly p-2 border-2 admin-form-control">
                     <label class="fw-bold">عدد أدوية ال Chronic</label>
-                    <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الأدوية" value="@Model.ChronicCount" id="NumberChronic" readonly/>
+                    <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الأدوية" value="@Model.ChronicCount" id="NumberChronic" readonly />
                     <input type="button" class="btn p-1" value="Show" />
                 </div>
             </div>
             <div class="px-2">
                 <div class="d-flex align-items-center justify-content-evenly p-2 border-2 admin-form-control">
                     <label class="fw-bold">عدد الموافقات الطبية</label>
-                    <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الموافقات" value="@Model.ApprovalCount" id="NumberMedicalApproval" readonly/>
+                    <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الموافقات" value="@Model.ApprovalCount" id="NumberMedicalApproval" readonly />
                     <input type="button" class="btn p-1" value="Show" />
                 </div>
             </div>

@@ -544,6 +544,9 @@
     <Compile Include="Models\CompContractClassEmp.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CompContractClassProvider.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CompHolder.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
