@@ -179,8 +179,8 @@ namespace DMS_Authontication1.Models
         public virtual DbSet<IcdData> IcdDatas { get; set; }
         public virtual DbSet<CompIcdCpt> CompIcdCpts { get; set; }
         public virtual DbSet<ClaimPhotoDiagnoise> ClaimPhotoDiagnoises { get; set; }
-        public virtual DbSet<CompContractClassProvider> CompContractClassProviders { get; set; }
         public virtual DbSet<CompanyEvent> CompanyEvents { get; set; }
+        public virtual DbSet<CompContractClassProvider> CompContractClassProviders { get; set; }
     
         [DbFunction("DMS_TESTEntities", "fn_GetEmployessForCompany")]
         public virtual IQueryable<fn_GetEmployessForCompany_Result> fn_GetEmployessForCompany(Nullable<int> companyId, Nullable<int> maxContract, string tERMINATE_FLAG, string search)

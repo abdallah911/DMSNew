@@ -21,7 +21,7 @@ namespace DMS_Authontication1.Models
         public Nullable<int> PROV_DEGREE { get; set; }
         public Nullable<int> PRV_TYP { get; set; }
         public Nullable<int> PR_CODE { get; set; }
-        public Nullable<int> SERV_CODE { get; set; }
+        public Nullable<long> SERV_CODE { get; set; }
         public Nullable<int> COPAY_AMT { get; set; }
         public Nullable<int> COPAY_PERC { get; set; }
         public Nullable<int> MAX_AMOUNT { get; set; }

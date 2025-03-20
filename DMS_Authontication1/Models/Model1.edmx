@@ -867,7 +867,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="PROV_DEGREE" Type="int" />
           <Property Name="PRV_TYP" Type="int" />
           <Property Name="PR_CODE" Type="int" />
-          <Property Name="SERV_CODE" Type="int" />
+          <Property Name="SERV_CODE" Type="bigint" />
           <Property Name="COPAY_AMT" Type="int" />
           <Property Name="COPAY_PERC" Type="int" />
           <Property Name="MAX_AMOUNT" Type="int" />
@@ -5990,11 +5990,11 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <End Role="ClaimPhoto" EntitySet="ClaimPhotoes" />
             <End Role="ClaimPhotoDiagnoise" EntitySet="ClaimPhotoDiagnoises" />
           </AssociationSet>
-          <EntitySet Name="CompContractClassProviders" EntityType="DB_A45413_DMSERPModel.CompContractClassProvider" />
           <EntitySet Name="CompanyEvents" EntityType="DB_A45413_DMSERPModel.CompanyEvent" />
           <FunctionImport Name="fn_searchCompEmployeesFullName" IsComposable="true" ReturnType="Collection(DB_A45413_DMSERPModel.fn_searchCompEmployeesFullName_Result)">
           <Parameter Name="search" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="CompContractClassProviders" EntityType="DB_A45413_DMSERPModel.CompContractClassProvider" />
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -8663,34 +8663,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="CompContractClassProvider">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="COMP_ID" Type="Int32" />
-          <Property Name="CONTRACT_NO" Type="Int32" />
-          <Property Name="CLASS_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PROV_DEGREE" Type="Int32" />
-          <Property Name="PRV_TYP" Type="Int32" />
-          <Property Name="PR_CODE" Type="Int32" />
-          <Property Name="SERV_CODE" Type="Int32" />
-          <Property Name="COPAY_AMT" Type="Int32" />
-          <Property Name="COPAY_PERC" Type="Int32" />
-          <Property Name="MAX_AMOUNT" Type="Int32" />
-          <Property Name="NOTES" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ACTIVE" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="CREATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CREATED_DATE" Type="DateTime" Precision="0" />
-          <Property Name="UPDATE_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UPDATE_DATE" Type="DateTime" Precision="0" />
-          <Property Name="TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PR_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="RESIDENT_DEGREE" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="IsSync" Type="Boolean" />
-          <Property Name="SyncDate" Type="DateTime" Precision="3" />
-          <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="CompanyEvent">
           <Key>
             <PropertyRef Name="Id" />
@@ -8720,6 +8692,34 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Type="DateTime" Name="Now" Nullable="false" Precision="23" />
           <Property Type="String" Name="CompHolderName" Nullable="false" MaxLength="150" />
         </ComplexType>
+        <EntityType Name="CompContractClassProvider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COMP_ID" Type="Int32" />
+          <Property Name="CONTRACT_NO" Type="Int32" />
+          <Property Name="CLASS_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PROV_DEGREE" Type="Int32" />
+          <Property Name="PRV_TYP" Type="Int32" />
+          <Property Name="PR_CODE" Type="Int32" />
+          <Property Name="SERV_CODE" Type="Int64" />
+          <Property Name="COPAY_AMT" Type="Int32" />
+          <Property Name="COPAY_PERC" Type="Int32" />
+          <Property Name="MAX_AMOUNT" Type="Int32" />
+          <Property Name="NOTES" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ACTIVE" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_DATE" Type="DateTime" Precision="0" />
+          <Property Name="UPDATE_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATE_DATE" Type="DateTime" Precision="0" />
+          <Property Name="TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PR_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RESIDENT_DEGREE" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="IsSync" Type="Boolean" />
+          <Property Name="SyncDate" Type="DateTime" Precision="3" />
+          <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12061,35 +12061,6 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CompContractClassProviders">
-            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompContractClassProvider">
-              <MappingFragment StoreEntitySet="CompContractClassProvider">
-                <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
-                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="RESIDENT_DEGREE" ColumnName="RESIDENT_DEGREE" />
-                <ScalarProperty Name="PR_NAME" ColumnName="PR_NAME" />
-                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
-                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
-                <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
-                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
-                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
-                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
-                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
-                <ScalarProperty Name="MAX_AMOUNT" ColumnName="MAX_AMOUNT" />
-                <ScalarProperty Name="COPAY_PERC" ColumnName="COPAY_PERC" />
-                <ScalarProperty Name="COPAY_AMT" ColumnName="COPAY_AMT" />
-                <ScalarProperty Name="SERV_CODE" ColumnName="SERV_CODE" />
-                <ScalarProperty Name="PR_CODE" ColumnName="PR_CODE" />
-                <ScalarProperty Name="PRV_TYP" ColumnName="PRV_TYP" />
-                <ScalarProperty Name="PROV_DEGREE" ColumnName="PROV_DEGREE" />
-                <ScalarProperty Name="CLASS_CODE" ColumnName="CLASS_CODE" />
-                <ScalarProperty Name="CONTRACT_NO" ColumnName="CONTRACT_NO" />
-                <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CompanyEvents">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompanyEvent">
               <MappingFragment StoreEntitySet="CompanyEvent">
@@ -12124,6 +12095,35 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="CompContractClassProviders">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompContractClassProvider">
+              <MappingFragment StoreEntitySet="CompContractClassProvider">
+                <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
+                <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="RESIDENT_DEGREE" ColumnName="RESIDENT_DEGREE" />
+                <ScalarProperty Name="PR_NAME" ColumnName="PR_NAME" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+                <ScalarProperty Name="UPDATE_BY" ColumnName="UPDATE_BY" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
+                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
+                <ScalarProperty Name="MAX_AMOUNT" ColumnName="MAX_AMOUNT" />
+                <ScalarProperty Name="COPAY_PERC" ColumnName="COPAY_PERC" />
+                <ScalarProperty Name="COPAY_AMT" ColumnName="COPAY_AMT" />
+                <ScalarProperty Name="SERV_CODE" ColumnName="SERV_CODE" />
+                <ScalarProperty Name="PR_CODE" ColumnName="PR_CODE" />
+                <ScalarProperty Name="PRV_TYP" ColumnName="PRV_TYP" />
+                <ScalarProperty Name="PROV_DEGREE" ColumnName="PROV_DEGREE" />
+                <ScalarProperty Name="CLASS_CODE" ColumnName="CLASS_CODE" />
+                <ScalarProperty Name="CONTRACT_NO" ColumnName="CONTRACT_NO" />
+                <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

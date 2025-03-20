@@ -398,6 +398,7 @@ namespace DMS_Synchronization
 
                 SyncToSqlTable<CONSUMPTION_POOL>(StringHelper.GetQyertCONSUMPTION_POOL, StringHelper.GetTableNameCONSUMPTION_POOL);
                 SyncToSqlTable<REMAIN_CONSUMATION>(StringHelper.GetQyertREMAIN_CONSUMATION, StringHelper.GetTableNameREMAIN_CONSUMATION);
+                SyncToSqlTable<COMP_CONTRACT_CLASS_PROVIDER>(StringHelper.GetQyertCOMP_CONTRACT_CLASS_PROVIDER, StringHelper.GetTableNameCOMP_CONTRACT_CLASS_PROVIDER);
                 CLOSE_EMP_DATASyncToSqlTable();
                 //COMP_EMPLOYEES_DSyncToSqlTable();
                 SyncToSqlTable<COMP_CUSTOMIZED_D_D_MED>(StringHelper.GetQyertCOMP_CUSTOMIZED_D_D_MED, StringHelper.GetTableNameCOMP_CUSTOMIZED_D_D_MED);
@@ -423,10 +424,6 @@ namespace DMS_Synchronization
                 SyncToSqlTable<PollDataService>(StringHelper.GetQyertPOLL_DATA_SERVICE, StringHelper.GetTableNamePOLL_DATA_SERVICE);
                 SyncToSqlTable<PollData>(StringHelper.GetQyertPOLL_DATA, StringHelper.GetTableNamePOLL_DATA);
 
-
-                PushMedicineData();
-                UpdatePushMedicineData();
-                PushMedicineGroup();
                 #region DMS_Test
                 //PushSqlTables<MEDICINE_DATA>(StringHelper.GetQyertMedicineData, StringHelper.GetTableNameMedicineData);
                 //PushSqlTables<MedicineGroup>(StringHelper.GetQyertMedicineGroup, StringHelper.GetTableNameMedicineGroup);
@@ -486,6 +483,10 @@ namespace DMS_Synchronization
 
                 #endregion
 
+
+                PushMedicineData();
+                UpdatePushMedicineData();
+                PushMedicineGroup();
             }
 
             #endregion
@@ -1212,7 +1213,7 @@ namespace DMS_Synchronization
                 || tableName == "APP.POLL_DATA_SERVICE" || tableName == "APP.POLL_PERCENT"
                 || tableName == "APP.POLL_PERCENT_CARD" || tableName == "APP.POLL_AMOUNT" || tableName == "APP.POLL_AMOUNT_CARD"
                 || tableName == "APP.POLL_DATA_CHRONIC" || tableName == "APP.POLL_DATA_DIAG" || tableName == "APP.POLL_DATA_EXCEPTIONS"
-                || tableName == "APP.POLL_DATA_PREX" || tableName == "APP.COMP_CUSTOMIZED_D_D_MED_EMP"
+                || tableName == "APP.POLL_DATA_PREX" || tableName == "APP.COMP_CUSTOMIZED_D_D_MED_EMP"|| tableName == "APP.COMP_CONTRACT_CLASS_PROVIDER"
                 || tableName == "APP.COMP_CUSTOMIZED_D_D_MED" || tableName == "APP.REMAIN_CONSUMATION" || tableName == "APP.CONSUMPTION_POOL")
             {
                 conn = _connectionSettings.OrcaleConnectionApp;
@@ -1311,6 +1312,9 @@ namespace DMS_Synchronization
                                 break;
                             case "REMAIN_CONSUMATION":
                                 SqlTableName = "RemainConsumption";
+                                break;
+                            case "COMP_CONTRACT_CLASS_PROVIDER":
+                                SqlTableName = "CompContractClassProvider";
                                 break;
                             //case "DMS_02_EMP_D_ENT_MAN":
                             //    SqlTableName = "DMS_02_EMP_D_ENT_MAN3";
