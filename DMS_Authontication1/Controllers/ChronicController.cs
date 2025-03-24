@@ -294,6 +294,9 @@ namespace DMS_TEST.Controllers
         {
             var username = User.Identity.Name;
             var carduse = db.CardUseds.Where(c => c.CardId == data.CardId && c.CreatedBy == username).FirstOrDefault();
+            DateTime datenow = DateTime.Now.Date;
+            var employee = db.Comp_Employees.Where(c => c.CARD_ID == data.CardId && c.INS_START_DATE <= datenow && c.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
+
             if (carduse == null)
             {
                 return Json("Failed");
@@ -334,6 +337,8 @@ namespace DMS_TEST.Controllers
                 SyncBy = null,
                 IsFamily = data.IsFamily,
                 IsPool = data.IsPool,
+                CompHolderCode= employee.COMP_ID,
+
             };
             if (roshita.CompanyPayment > 0)
             {
@@ -378,7 +383,6 @@ namespace DMS_TEST.Controllers
             db.Roshitas.Add(roshita);
             db.CardUseds.Remove(carduse);
             db.SaveChanges();
-            DateTime datenow = DateTime.Now.Date;
             var date = new DateTime(datenow.Year, datenow.Month, datenow.Day);
             var med_card = db.Med_Card.Where(m => m.CARD_NO == data.CardId).FirstOrDefault();
             if (med_card.NO_PAY == 1 && (med_card.NoPayEndDate == null || med_card.NoPayEndDate > date))
@@ -455,8 +459,7 @@ namespace DMS_TEST.Controllers
 
             if (data.hasApproval)
             {
-                int EmpId = db.Comp_Employees.Where(c => c.CARD_ID == roshita.CardId && c.INS_START_DATE <= DateTime.Now && c.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
-                var accptionlist = db.Acceptions.Where(x => x.CompEmployeesId == EmpId && x.AcceptionFlag == true).ToList();
+                var accptionlist = db.Acceptions.Where(x => x.CompEmployeesId == employee.Id && x.AcceptionFlag == true).ToList();
                 foreach (var item in accptionlist)
                 {
                     if (item.ApprovalType != "Vip")

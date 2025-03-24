@@ -156,6 +156,7 @@ namespace DMS_TEST.Controllers
                 rd.SetParameterValue("PatientName", patient.EMP_ANAME);
             }
             data.RoshetaType = "Pharmacy_Doctor";
+            rd.SetParameterValue("CompType", patient.COMP_ID);
             rd.SetParameterValue("Type", data.RoshetaType);
             rd.SetParameterValue("Pharmacy", User.Identity.Name);
             rd.SetParameterValue("Approval", id);
@@ -270,6 +271,8 @@ namespace DMS_TEST.Controllers
             //{
             //    return Json("Failed to Save Prescription");
             //}
+            DateTime datenow = DateTime.Now.Date;
+            var EmpId = db.Comp_Employees.Where(c => c.CARD_ID == data.CardId && c.INS_START_DATE <= datenow  && c.INS_END_DATE >= datenow).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
             var DoctorDailyRosita = db.Roshitas.Where(r => r.CardId == data.CardId && r.Id == data.Id).Select(l => new
             {
                 l.CardId,
@@ -303,7 +306,8 @@ namespace DMS_TEST.Controllers
                 Manager = "Pharmacy_Doctor",
                 IsSync = null,
                 SyncDate = null,
-                SyncBy = null
+                SyncBy = null,
+                CompHolderCode=EmpId.COMP_ID,
             };
 
             db.Roshitas.Add(roshita);
@@ -333,8 +337,7 @@ namespace DMS_TEST.Controllers
             //SaveDealApproval
             if (data.hasApproval)
             {
-                int EmpId = db.Comp_Employees.Where(c => c.CARD_ID == roshita.CardId && c.INS_START_DATE <= DateTime.Now && c.INS_END_DATE >= DateTime.Now).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault().Id;
-                var accptionlist = db.Acceptions.Where(x => x.CompEmployeesId == EmpId && x.AcceptionFlag == true).ToList();
+                var accptionlist = db.Acceptions.Where(x => x.CompEmployeesId == EmpId.Id && x.AcceptionFlag == true).ToList();
                 foreach (var item in accptionlist)
                 {
                     if (item.ApprovalType != "Vip")

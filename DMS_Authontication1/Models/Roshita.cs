@@ -53,6 +53,7 @@ namespace DMS_Authontication1.Models
         public string IsFamily { get; set; }
         public string IsPool { get; set; }
         public Nullable<long> Oracle_Id_Top { get; set; }
+        public Nullable<int> CompHolderCode { get; set; }
     
         public virtual Patch Patch { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

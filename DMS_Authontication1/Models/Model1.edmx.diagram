@@ -205,8 +205,8 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompIcdCpt" Width="1.5" PointX="45.375" PointY="0.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ClaimPhotoDiagnoise" Width="1.5" PointX="29.625" PointY="47" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_ClaimPhotoDiagnoise_ClaimPhoto" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompContractClassProvider" Width="1.5" PointX="3.375" PointY="45.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompanyEvent" Width="1.5" PointX="10.375" PointY="45.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompContractClassProvider" Width="1.5" PointX="3.375" PointY="45.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

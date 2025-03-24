@@ -89,31 +89,32 @@
                     @Html.DropDownList("Diagnoise", new SelectList(string.Empty, "Value", "Text"), null, new { @class = "form-control", @multiple = "multiple", @style = "width:80%" })
                 </div>
 
+                <div id="NoPayNoOver">
 
+                    <div class="form-group row col-md-6">
+                        <label for="CompanyPaymentLimit" class="col-form-label">Company Paymen Exception</label>
+                        <select id="CompanyPaymentLimit" class="form-control">
+                            <option value="0">Off</option>
+                            <option value="1">On</option>
+                        </select>
 
-                <div class="form-group row col-md-6">
-                    <label for="CompanyPaymentLimit" class="col-form-label">Company Paymen Exception</label>
-                    <select id="CompanyPaymentLimit" class="form-control">
-                        <option value="0">Off</option>
-                        <option value="1">On</option>
-                    </select>
+                    </div>
+                    <div class="form-group row col-md-6" id="CompanyPaymentDatediv">
+                        <label for="CompanyPaymentDate" class="col-form-label">Company Payment Exception End Date</label>
+                        <input type="text" id="CompanyPaymentDate" class="Package_Size form-control" />
+                    </div>
+                    <div class="form-group row col-md-6">
+                        <label for="OverInsuranceLimit" class="col-form-label">OverInsurance Exception</label>
+                        <select id="OverInsuranceLimit" class="form-control">
+                            <option value="0">Off</option>
+                            <option value="1">On</option>
+                        </select>
 
-                </div>
-                <div class="form-group row col-md-6" id="CompanyPaymentDatediv">
-                    <label for="CompanyPaymentDate" class="col-form-label">Company Payment Exception End Date</label>
-                    <input type="text" id="CompanyPaymentDate" class="Package_Size form-control" />
-                </div>
-                <div class="form-group row col-md-6">
-                    <label for="OverInsuranceLimit" class="col-form-label">OverInsurance Exception</label>
-                    <select id="OverInsuranceLimit" class="form-control">
-                        <option value="0">Off</option>
-                        <option value="1">On</option>
-                    </select>
-
-                </div>
-                <div class="form-group row col-md-6" id="OverInsuranceDatediv">
-                    <label for="OverInsuranceDate" class="col-form-label"> OverInsurance Exception End Date</label>
-                    <input type="text" id="OverInsuranceDate" class="Package_Size form-control" />
+                    </div>
+                    <div class="form-group row col-md-6" id="OverInsuranceDatediv">
+                        <label for="OverInsuranceDate" class="col-form-label"> OverInsurance Exception End Date</label>
+                        <input type="text" id="OverInsuranceDate" class="Package_Size form-control" />
+                    </div>
                 </div>
                 <div class="form-group row col-md-6">
                     <label for="LockStatus" class="col-form-label">Active Status</label>

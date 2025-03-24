@@ -72,6 +72,7 @@
                     <select id="Lock" class="form-control">
                         <option value="Y">On</option>
                         <option value="N">Off</option>
+                        <option value="R">Reject</option>
                     </select>
                 </div>
                 <div class="form-group row col-md-6">
@@ -110,6 +111,12 @@
                         <option value="Critical Pool">Critical Pool</option>
                         <option value="Common Pool">Common Pool</option>
                     </select>
+                </div>
+                <div class="form-group row col-md-6">
+                    <label for="NOTESMedicien" class="col-form-label">Comment</label>
+                    <textarea id="NOTESMedicien" class="form-control" type="text" name="NOTES" placeholder="" value="">
+                    </textarea>
+
                 </div>
             </div>
             <div class="modal-footer">
@@ -203,6 +210,7 @@
             var MedGroup = $('.modal-body #MedGroup').val();
             var StartDateMedicine = $('.modal-body #StartDateMedicine').val();
             var PoolTypeMedicine = $('.modal-body #PoolTypeMedicine').val();
+            var NOTESMedicien = $('.modal-body #NOTESMedicien').val();
 
             var amount1 = (parseFloat($('.modal-body #UnitPrice').val()) * parseFloat(TotalUnits)).toFixed(2);
             $('.modal-body #Amount').val(amount1);
@@ -287,6 +295,7 @@
                                                                 $("TD", row).eq(17).html($('.modal-body #MedicineNoPay').val());
                                                                 $("TD", row).eq(18).html($('.modal-body #StartDateMedicine').val());
                                                                 $("TD", row).eq(19).html($('.modal-body #PoolTypeMedicine').val());
+                                                                $("TD", row).eq(20).html($('.modal-body #NOTESMedicien').val());
                                                                 edit = 1;
                                                                 $("#wait").css("display", "none");
                                                                 $("#AddApproval").attr("disabled", false);
@@ -354,6 +363,7 @@
                                                 $("TD", row).eq(17).html($('.modal-body #MedicineNoPay').val());
                                                 $("TD", row).eq(18).html($('.modal-body #StartDateMedicine').val());
                                                 $("TD", row).eq(19).html($('.modal-body #PoolTypeMedicine').val());
+                                                $("TD", row).eq(20).html($('.modal-body #NOTESMedicien').val());
                                                 edit = 1;
                                                 $("#wait").css("display", "none");
                                                 $("#AddApproval").attr("disabled", false);
@@ -412,6 +422,7 @@
                                     $("TD", row).eq(17).html($('.modal-body #MedicineNoPay').val());
                                     $("TD", row).eq(18).html($('.modal-body #StartDateMedicine').val());
                                     $("TD", row).eq(19).html($('.modal-body #PoolTypeMedicine').val());
+                                    $("TD", row).eq(20).html($('.modal-body #NOTESMedicien').val());
                                     edit = 1;
                                     $("#wait").css("display", "none");
                                     $("#AddApproval").attr("disabled", false);
@@ -463,6 +474,7 @@
                                 $("TD", row).eq(17).html($('.modal-body #MedicineNoPay').val());
                                 $("TD", row).eq(18).html($('.modal-body #StartDateMedicine').val());
                                 $("TD", row).eq(19).html($('.modal-body #PoolTypeMedicine').val());
+                                $("TD", row).eq(20).html($('.modal-body #NOTESMedicien').val());
                                 edit = 1;
                                 $("#wait").css("display", "none");
                                 $("#AddApproval").attr("disabled", false);
@@ -571,6 +583,8 @@
                                                         cell.html(StartDateMedicine);
                                                         cell = $(row.insertCell(-1));
                                                         cell.html(PoolTypeMedicine);
+                                                        cell = $(row.insertCell(-1));
+                                                        cell.html(NOTESMedicien);
                                                         //Edit button
                                                         cell = $(row.insertCell(-1));
                                                         var btnEdit = $("<a  />");
@@ -606,6 +620,7 @@
                                                         $('.modal-body #NOM').val(' ');
                                                         $('.modal-body #StartDateMedicine').val(' ');
                                                         $('.modal-body #PoolTypeMedicine').val('0');
+                                                        $('.modal-body #NOTESMedicien').val('');
                                                         $('#NOMD').attr("hidden", true);
                                                     }
                                                 }
@@ -673,6 +688,8 @@
                                         cell.html(StartDateMedicine);
                                         cell = $(row.insertCell(-1));
                                         cell.html(PoolTypeMedicine);
+                                        cell = $(row.insertCell(-1));
+                                        cell.html(NOTESMedicien);
                                         //Edit button
                                         cell = $(row.insertCell(-1));
                                         var btnEdit = $("<a  />");
@@ -691,6 +708,7 @@
                                         $('.modal-body #NOM').val('');
                                         $('.modal-body #StartDateMedicine').val('');
                                         $('.modal-body #PoolTypeMedicine').val('0');
+                                        $('.modal-body #NOTESMedicien').val('');
                                         $('#NOMD').attr("hidden", true);
                                     }
                                 },
@@ -758,6 +776,8 @@
                             cell.html(StartDateMedicine);
                             cell = $(row.insertCell(-1));
                             cell.html(PoolTypeMedicine);
+                            cell = $(row.insertCell(-1));
+                            cell.html(NOTESMedicien);
                             //Edit button
                             cell = $(row.insertCell(-1));
                             var btnEdit = $("<a  />");
@@ -776,6 +796,7 @@
                             $('.modal-body #NOM').val('');
                             $('.modal-body #StartDateMedicine').val('');
                             $('.modal-body #PoolTypeMedicine').val('');
+                            $('.modal-body #NOTESMedicien').val('');
                             $('#NOMD').attr("hidden", true);
 
                         }
@@ -814,6 +835,7 @@
             $('.modal-body #NOM').val(' ');
             $('.modal-body #StartDateMedicine').val(' ');
             $('.modal-body #PoolTypeMedicine').val('0');
+            $('.modal-body #NOTESMedicien').val(' ');
             $('#NOMD').attr("hidden", true);
         });
 

@@ -1016,10 +1016,13 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                 // Services = "كشف دكتور ";
                 else
                 {
-                    var x = db.HospitalClaims.Add(hospitalClaim);
-                    var xx = db.SaveChanges();
+                    var compholder = db.Contract_Data.Where(c => c.C_COMP_ID == C_Com_ID).OrderByDescending(c => c.CONTRACT_NO).Select(c => c.COMP_ID).First();
+                    hospitalClaim.CompHolderCode = compholder;
 
-                    if (xx > 0)
+                    db.HospitalClaims.Add(hospitalClaim);
+                    var result = db.SaveChanges();
+
+                    if (result > 0)
                         return new JsonResult { Data = new { result = "تم حفظ العملية بنجاح كود الموافقة  :" + codeRequestDate, ID = hospitalClaim.IdPrimary, msg = "OK" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                     else
                         return new JsonResult { Data = new { result = "Invalid Request", msg = "NO" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -1033,10 +1036,12 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
                 if (Services_ID == 11104)
                     Services = "Emergency_Service";
+                var compholder = db.Contract_Data.Where(c => c.C_COMP_ID == C_Com_ID).OrderByDescending(c => c.CONTRACT_NO).Select(c => c.COMP_ID).First();
+                hospitalClaim.CompHolderCode = compholder;
                 hospitalClaim.SERVICES = Services;
-                var x = db.HospitalClaims.Add(hospitalClaim);
-                var xx = db.SaveChanges();
-                if (xx > 0)
+                db.HospitalClaims.Add(hospitalClaim);
+                var result = db.SaveChanges();
+                if (result > 0)
                 {
                     if (HospitalException != 0 && HospitalException != null)
                     {
@@ -1119,15 +1124,19 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
             // for print report for doctor chick
             if (model.SpecialistId != null)
             {
+                var compholder = db.Contract_Data.Where(c => c.C_COMP_ID == model.C_COMP_ID).OrderByDescending(c => c.CONTRACT_NO).Select(c => c.COMP_ID).First();
                 rd.Load(Path.Combine(Server.MapPath("~/Reports/Hospital"), "HospitalClaimReport.rpt"));
                 rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
                 rd.SetParameterValue("@idd", model.IdPrimary);
+                rd.SetParameterValue("CompType", compholder);
             }
 
             // fro print report that belongs to rays and labs claim
             else
             {
+
                 rd.Load(Path.Combine(Server.MapPath("~/Reports/Hospital"), "PatientRequest.rpt"));
+
                 rd.SetDatabaseLogon("dms_report", "W?8Z?PA-C4dNvNe3");
                 rd.SetParameterValue("@COD", model.ID);
             }

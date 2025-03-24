@@ -70,6 +70,9 @@ namespace DMS_Synchronization.ViewModels
         public static string GetQyertREMAIN_CONSUMATION = "select * from (select m.*, rownum r from  APP.REMAIN_CONSUMATION m WHERE IS_SYNC=0 OR IS_SYNC IS NULL) WHERE r > {0} and r<= {1} ";
         public static string GetTableNameREMAIN_CONSUMATION = "APP.REMAIN_CONSUMATION";
         
+        public static string GetQyertCOMP_CONTRACT_CLASS_PROVIDER = "select * from (select m.*, rownum r from  APP.COMP_CONTRACT_CLASS_PROVIDER m WHERE IS_SYNC=0 OR IS_SYNC IS NULL) WHERE r > {0} and r<= {1} ";
+        public static string GetTableNameCOMP_CONTRACT_CLASS_PROVIDER = "APP.COMP_CONTRACT_CLASS_PROVIDER";
+        
         public static string GetQyertCONSUMPTION_POOL = "select * from (select m.*, rownum r from  APP.CONSUMPTION_POOL m WHERE IS_SYNC=0 OR IS_SYNC IS NULL) WHERE r > {0} and r<= {1} ";
         public static string GetTableNameCONSUMPTION_POOL = "APP.CONSUMPTION_POOL";
         

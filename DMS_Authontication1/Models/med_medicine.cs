@@ -48,5 +48,6 @@ namespace DMS_Authontication1.Models
         public string MedicineNoPay { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public string PoolType { get; set; }
+        public string Note { get; set; }
     }
 }
