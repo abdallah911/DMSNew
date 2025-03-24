@@ -28,6 +28,10 @@ $(function () {
     $('#Search').click(function () {
         if ($('#txtSearchCard').val() != "") {
             companid = $('#txtSearchCard').val().split('-')[0];
+            if (companid.startsWith("500") || companid == "10560") {
+                alert("هذا العميل لايحتاج موافقة علي الروشتات الخارجية علي ان يتم ادخال كافة البيانات والتحاليل علي السيستم");
+
+            }
             if (companid == "888") {
                 $('#phone').hide();
             }

@@ -63,14 +63,14 @@ namespace DMS_Synchronization
             //connectionSettings.SQlConnection = "data source=171.0.1.93;Database=DB_A45413_DMSERP;persist security info=True;user id=sa; password =123;MultipleActiveResultSets=True;App=EntityFramework";
             //connectionSettings.SQlConnection = "data source=72.52.116.106;Database=DMSERP_develop;persist security info=True;user id=sa;password=gouda2003;MultipleActiveResultSets=True;App=EntityFramework";
             //connectionSettings.SQlConnection = "data source=.\\;Database=TEST;persist security info=True;user id=sa;password=123;MultipleActiveResultSets=True;App=EntityFramework";
-            connectionSettings.OrcaleConnection = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = dms_test; Password = ***";
-            connectionSettings.OrcaleConnectionApp = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = APP; Password = 12369";
+            connectionSettings.OrcaleConnection = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = dms_test; Password = 15/08/2017";
+            connectionSettings.OrcaleConnectionApp = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = APP; Password = 15+08+2017";
             connectionSettings.OrcaleConnectionApp129 = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 196.221.203.129)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = APP; Password = 12369";
             connectionSettings.OrcaleConnectionSH = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 196.221.203.129)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = SH_01; Password = ***";
             connectionSettings.OrcaleConnectionTRN_SQL = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 196.221.203.129)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = TRN_SQL; Password = ***";
             //connectionSettings.OrcaleConnectionTRN_SQL = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = APP; Password = 12369";
             //connectionSettings.OrcaleConnectionSH65 = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 62.210.148.165)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = SH_01; Password = ***";
-            connectionSettings.OrcaleConnectionSH65 = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = SH_01; Password = ***";
+            connectionSettings.OrcaleConnectionSH65 = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST = 72.52.116.106)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDECATED)(SERVICE_NAME = ora11g))); User Id = SH_01; Password = 15/08/2017";
 
             if (connectionSettings.SQlConnection == null)
             {
