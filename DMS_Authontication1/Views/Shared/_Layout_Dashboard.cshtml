@@ -526,47 +526,38 @@
             modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
         }
 
-    }
-    <div class="event-bg-box">
-        <img class="event-bg-img" src="~/assets/global/img/Events/ramadan-pattern.jpg" />
-    </div>
-    <div class="navbar navbar-inverse navbar-fixed-top " style="background-color:#09b4d0;border-color:#d9edf7">
+    } 
+    <div class="navbar navbar-expand-lg navbar-light" style="background-color:#09b4d0;border-color:#d9edf7">
 
-        <div style=" box-shadow: 0 3px 8px 0.5px #0000001f; z-index: 3; position: relative; ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed"
-                            data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" style="background: black;!important: revert;">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-
-                <div id="navbar" class="navbar-collapse collapse">
-                    <a href="~/Home/Index"> 
-                        <div id="EventLogoDms" style="width: 100px; border-radius: 16px; display: none;" class="dms-celebrate-gif img d-flex align-self-stretch" hidden>
-                            @*<div class="celebrate-gif">
-                                <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
-                            </div>*@
-                            <img class="imgmenu" src="~/assets/global/img/Events/Ramadan-logo.gif" style="margin-top: 10px;" />
-                   
-                        </div>
-                   
-                        @*<img id="LogoDmsTop" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" />*@
-                    
+        <div class="container-fluid" style=" box-shadow: 0 3px 8px 0.5px #0000001f; z-index: 3; position: relative; ">
+            <div class="container d-flex justify-content-between" style="margin: 0 auto; max-width: 100%;  ">
+                <a class="navbar-brand" href="~/Home/Index">
+                    <div id="EventLogoDms" style="width: 100px; border-radius: 16px; display: none;" class="dms-celebrate-gif img d-flex align-self-stretch" hidden>
                         @*<div class="celebrate-gif">
-                            <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
-                        </div>
-                        <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
-                    </a>
+                    <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
+                </div>*@
+                        <img class="imgmenu" src="~/assets/global/img/Events/Ramadan-logo.gif" style="margin-top: 10px;" />
+
+                    </div>
+
+                    @*<img id="LogoDmsTop" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" />*@
+
+                    @*<div class="celebrate-gif">
+                <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
+            </div>
+            <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div id="navbar" class="collapse navbar-collapse">
 
                     <ul class="nav navbar-nav nav-admin-cus" style="color: #000; margin-top: 7px;">
                         @{
                             if ((User.IsInRole("Admin") || User.IsInRole("AdminHelth")) && User.Identity.IsAuthenticated)
                             {
-                                <li>
+                                <li class="nav-item">
                                     <a style=" margin-left: 20px;"><span class="collaps"><i class="fa fa-lg fa-times" aria-hidden="true"></i></span></a>
                                 </li>
                             }
@@ -581,7 +572,7 @@
                                         if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 6 && (x.FullControl || x.EditPermission
                                          || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
-                                            <li>@Html.ActionLink("Pharmacy", "Pharmacy", "Pharmacy", null, new { style = "color: #6c757d" })</li>
+                                            <li class="nav-item">@Html.ActionLink("Pharmacy", "Pharmacy", "Pharmacy", null, new { style = "color: #6c757d" ,@class="nav-link "})</li>
 
                                         }
                                     }
@@ -589,15 +580,15 @@
                                 else if (User.IsInRole("Pharmacy") || User.IsInRole("Pharmacy_Admin"))
                                 {
 
-                                    <li>@Html.ActionLink("Pharmacy", "Pharmacy", "Pharmacy", null, new { style = "color: #6c757d" })</li>
+                                    <li class="nav-item">@Html.ActionLink("Pharmacy", "Pharmacy", "Pharmacy", null, new { style = "color: #6c757d" ,@class="nav-link "})</li>
                                 }
                             }
                         }
                         @{
                             if ((User.IsInRole("Pharmacy") || User.IsInRole("Pharmacy_Admin")) && User.Identity.IsAuthenticated)
                             {
-                                <li>@Html.ActionLink("Claims", "index", "Pharmacy", null, new { style = "color: #6c757d" })</li>
-                                <li>@Html.ActionLink("Chronic Delivery", "CompaniesChronicDelivery", "Pharmacy", null, new { style = "color: #6c757d" })</li>
+                                <li class="nav-item">@Html.ActionLink("Claims", "index", "Pharmacy", null, new { style = "color: #6c757d" ,@class="nav-link "})</li>
+                                <li class="nav-item">@Html.ActionLink("Chronic Delivery", "CompaniesChronicDelivery", "Pharmacy", null, new { style = "color: #6c757d" ,@class="nav-link "})</li>
 
 
                             }
@@ -612,26 +603,26 @@
                                         if (modellist.Where(x => x.ModuleName == "Rays Centers Management" && x.PageId == 11 && (x.FullControl || x.EditPermission
                                          || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
-                                            <li>@Html.ActionLink("Radio Centers", "Ray", "Rays", null, new { style = "color: #6c757d" })</li>
+                                            <li class="nav-item">@Html.ActionLink("Radio Centers", "Ray", "Rays", null, new { style = "color: #6c757d" ,@class="nav-link "})</li>
                                         }
                                     }
                                 }
                                 else if (User.IsInRole("Rays") || User.IsInRole("Rays_Admin"))
                                 {
-                                    <li>@Html.ActionLink("Radio Centers", "Ray", "Rays", null, new { style = "color: #6c757d" })</li>
+                                    <li class="nav-item">@Html.ActionLink("Radio Centers", "Ray", "Rays", null, new { style = "color: #6c757d" ,@class="nav-link "})</li>
                                 }
                             }
                         }
                         @{
                             if ((User.IsInRole("Rays")) || User.IsInRole("Rays_Admin"))
                             {
-                                <li><a href="/Rays/index" class="link-cus">Claims</a></li>
+                                <li class="nav-item"><a href="/Rays/index" class="link-cus">Claims</a></li>
                             }
                         } @{
                             if (User.IsInRole("Rays_Admin"))
                             {
 
-                                <li><a href="/RaysManagement/Index" class="link-cus">Rays List</a></li>
+                                <li class="nav-item"><a href="/RaysManagement/Index" class="link-cus">Rays List</a></li>
                             }
                         }
                         @{
@@ -644,13 +635,13 @@
                                         if (modellist.Where(x => x.ModuleName == "Labratories Management" && x.PageId == 9 && (x.FullControl || x.EditPermission
                                          || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
-                                            <li>@Html.ActionLink("Labs", "Lab", "Labs", null, new { style = "color: #6c757d" })</li>
+                                            <li class="nav-item">@Html.ActionLink("Labs", "Lab", "Labs", null, new { style = "color: #6c757d" ,@class="nav-link "})</li>
                                         }
                                     }
                                 }
                                 else if (User.IsInRole("Lab") || User.IsInRole("Lab_Admin"))
                                 {
-                                    <li>@Html.ActionLink("Labs", "Lab", "Labs", null, new { style = "color: #6c757d" })</li>
+                                    <li class="nav-item">@Html.ActionLink("Labs", "Lab", "Labs", null, new { style = "color: #6c757d" ,@class="nav-link "})</li>
                                 }
                             }
                         }
@@ -658,13 +649,13 @@
                             if ((User.IsInRole("Lab")) || User.IsInRole("Lab_Admin"))
                             {
 
-                                <li><a href="/Labs/index" class="link-cus">Claims</a></li>
+                                <li class="nav-item"><a href="/Labs/index" class="link-cus">Claims</a></li>
                             }
                         }  @{
                             if (User.IsInRole("Lab_Admin"))
                             {
 
-                                <li><a href="/LabsManagement/Index" class="link-cus">Labs List</a></li>
+                                <li class="nav-item"><a href="/LabsManagement/Index" class="link-cus">Labs List</a></li>
                             }
                         }
                         @{
@@ -679,68 +670,68 @@
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
 
-                                            <li><a href="/EmployeeRequest/index" class="link-cus">Operation</a></li>
+                                            <li class="nav-item"><a href="/EmployeeRequest/index" class="link-cus">Operation</a></li>
                                         }
 
                                         if (modellist.Where(x => x.PageId == 13 && (x.FullControl || x.EditPermission
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
 
-                                            <li><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
+                                            <li class="nav-item"><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
                                         }
                                         if (modellist.Where(x => x.PageId == 14 && (x.FullControl || x.EditPermission
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
 
-                                            <li><a href="/MedicalNetwork/Search" class="link-cus">Medical Network</a></li>
+                                            <li class="nav-item"><a href="/MedicalNetwork/Search" class="link-cus">Medical Network</a></li>
                                         }
                                         if (modellist.Where(x => x.PageId == 15 && (x.FullControl || x.EditPermission
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
 
-                                            <li><a href="/MedicalApproval/Search2" class="link-cus">Medical Approval</a></li>
+                                            <li class="nav-item"><a href="/MedicalApproval/Search2" class="link-cus">Medical Approval</a></li>
                                         }
                                         if (modellist.Where(x => x.PageId == 16 && (x.FullControl || x.EditPermission
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
 
-                                            <li><a href="/HrChronic/InquiryAboutCard" class="link-cus">Medication</a></li>
+                                            <li class="nav-item"><a href="/HrChronic/InquiryAboutCard" class="link-cus">Medication</a></li>
                                         }
                                         if (modellist.Where(x => x.PageId == 48 && (x.FullControl || x.EditPermission
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
 
-                                            <li><a href="/Contractors/Index" class="link-cus">Contracts</a></li>
+                                            <li class="nav-item"><a href="/Contractors/Index" class="link-cus">Contracts</a></li>
                                         }
                                         if (modellist.Where(x => x.PageId == 17 && (x.FullControl || x.EditPermission
                                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
 
-                                            <li><a href="/Reports/Index" class="link-cus">Reports</a></li>
+                                            <li class="nav-item"><a href="/Reports/Index" class="link-cus">Reports</a></li>
                                         }
                                         if (modellist.Where(x => x.PageId == 55 && (x.FullControl || x.EditPermission
                                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
 
-                                            <li><a href="/HrChronic/PrintMedicalReport" class="link-cus">Medical Report</a></li>
+                                            <li class="nav-item"><a href="/HrChronic/PrintMedicalReport" class="link-cus">Medical Report</a></li>
                                         }
                                         if (modellist.Where(x => x.PageId == 54 && (x.FullControl || x.EditPermission
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
 
-                                            <li><a href="/ConsumptionAdmin/HrConsumptionReports" class="link-cus">Reports Details</a></li>
+                                            <li class="nav-item"><a href="/ConsumptionAdmin/HrConsumptionReports" class="link-cus">Reports Details</a></li>
                                         }
                                         if (modellist.Where(x => x.PageId == 56 && (x.FullControl || x.EditPermission
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
 
-                                            <li><a href="/CompIcdCp/Index" class="link-cus">Claims</a></li>
+                                            <li class="nav-item"><a href="/CompIcdCp/Index" class="link-cus">Claims</a></li>
                                         }
                                         //if (modellist.Where(x => x.PageId == 57 && (x.FullControl || x.EditPermission
                                         //                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         //{
                                         var misrUsers = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                                                                        {
+                                                                                                        {
                                             "hr.misr.insurance", "Yasmen.misr.insurance", "Ahmed.misr.insurance",
                                             "Hussien.misr.insurance", "Sherif.misr.insurance", "Doaa.misr.insurance",
                                             "Hassan.misr.insurance", "Awatef.misr.insurance", "Eslam.misr.insurance", "it.admin"
@@ -748,23 +739,23 @@
 
                                         if (misrUsers.Contains(User.Identity.GetUserName().Trim()))
                                         {
-                                            <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
+                                            <li class="nav-item"><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
                                         }
 
 
                                         var reportHighLevel = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                                                                        {
+                                                                                                        {
                                             "dr.mohsen", "it.admin"
                                         };
 
                                         if (reportHighLevel.Contains(User.Identity.GetUserName().Trim()))
                                         {
-                                            <li><a href="/NewReports/OperationReport" class="link-cus">Reports</a></li>
+                                            <li class="nav-item"><a href="/NewReports/OperationReport" class="link-cus">Reports</a></li>
                                         }
                                         @*if (User.Identity.GetUserName() == "hr.misr.insurance")
-                        {
-                            <li><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
-                        }*@
+                                {
+                                    <li class="nav-item"><a href="/ReviewClaims/CompanyInvoice" class="link-cus">Review Claims</a></li>
+                                }*@
                                         //}
                                     }
                                 }
@@ -783,30 +774,30 @@
                                     if (modellist.Where(x => x.ModuleName == "Hospital Management" && x.PageId == 20 && (x.FullControl || x.EditPermission
                                      || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                     {
-                                        <li>@Html.ActionLink("Hospital", "Index", "Hospital", null, new { style = "color: #6c757d" })</li>
+                                        <li class="nav-item">@Html.ActionLink("Hospital", "Index", "Hospital", null, new { style = "color: #6c757d" ,@class="nav-link "})</li>
                                     }
                                 }
                             }
                             else if (User.IsInRole("Hospital"))
                             {
-                                <li>@Html.ActionLink("Hospital", "Index", "Hospital", null, new { style = "color: #6c757d" })</li>
+                                <li class="nav-item">@Html.ActionLink("Hospital", "Index", "Hospital", null, new { style = "color: #6c757d" ,@class="nav-link "})</li>
                             }
                         }
                         @if (User.IsInRole("Hospital"))
                         {
-                            <li>@Html.ActionLink("Claims", "Claims", "Hospital", null, new { style = "color: #6c757d" })</li>
+                            <li class="nav-item">@Html.ActionLink("Claims", "Claims", "Hospital", null, new { style = "color: #6c757d" ,@class="nav-link "})</li>
                         }
                         @if (User.IsInRole("Hospital"))
                         {
-                            <li>@Html.ActionLink("Add Approval", "AddApproval", "Hospital", null, new { style = "color: #6c757d" })</li>
-                            <li>@Html.ActionLink("Approvals Edit", "AprovalsEdit", "Hospital", null, new { style = "color: #6c757d" })</li>
+                            <li class="nav-item">@Html.ActionLink("Add Approval", "AddApproval", "Hospital", null, new { style = "color: #6c757d" ,@class="nav-link "})</li>
+                            <li class="nav-item">@Html.ActionLink("Approvals Edit", "AprovalsEdit", "Hospital", null, new { style = "color: #6c757d" ,@class="nav-link "})</li>
                         }
 
                         @{
                             if (User.IsInRole("AfterSale"))
                             {
-                                <li><a href="/AfterSales/Index" class="link-cus">Visits</a></li>
-                                <li><a href="/AfterSales/HRData" class="link-cus">HRData</a></li>
+                                <li class="nav-item"><a href="/AfterSales/Index" class="link-cus">Visits</a></li>
+                                <li class="nav-item"><a href="/AfterSales/HRData" class="link-cus">HRData</a></li>
 
                             }
                         }
@@ -820,33 +811,33 @@
                                         if (modellist.Where(x => x.PageId == 21 && (x.FullControl || x.EditPermission
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
-                                            <li><a href="/Employee/AddEmployee" class="link-cus">Update Data</a></li>
+                                            <li class="nav-item"><a href="/Employee/AddEmployee" class="link-cus">Update Data</a></li>
                                         }
 
                                         if (modellist.Where(x => x.PageId == 22 && (x.FullControl || x.EditPermission
                                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
-                                            <li><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
+                                            <li class="nav-item"><a href="/IndemnitiesAdmin/index" class="link-cus">Indemnity</a></li>
                                         }
                                         if (modellist.Where(x => x.PageId == 23 && (x.FullControl || x.EditPermission
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
-                                            <li><a href="/Employee/MedicalNetwork" class="link-cus">Medical Network</a></li>
+                                            <li class="nav-item"><a href="/Employee/MedicalNetwork" class="link-cus">Medical Network</a></li>
                                         }
                                         if (modellist.Where(x => x.PageId == 25 && (x.FullControl || x.EditPermission
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
-                                            <li><a href="/HrChronic/InquiryAboutCard" class="link-cus">Medication</a></li>
+                                            <li class="nav-item"><a href="/HrChronic/InquiryAboutCard" class="link-cus">Medication</a></li>
                                         }
                                         if (modellist.Where(x => x.PageId == 26 && (x.FullControl || x.EditPermission
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
-                                            <li><a href="/Employee/DeliveryService2" class="link-cus">Medication Delievery</a></li>
+                                            <li class="nav-item"><a href="/Employee/DeliveryService2" class="link-cus">Medication Delievery</a></li>
                                         }
                                         if (modellist.Where(x => x.PageId == 24 && (x.FullControl || x.EditPermission
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
-                                            <li><a href="/Employee/Approvales" class="link-cus">Medical Approval</a></li>
+                                            <li class="nav-item"><a href="/Employee/Approvales" class="link-cus">Medical Approval</a></li>
                                         }
                                     }
                                 }
@@ -862,13 +853,10 @@
     @* container *@
     @{
         if (User.IsInRole("Admin") || User.IsInRole("AdminHelth") || User.IsInRole("Doctor"))
-        {
-        <div class="event-bg-box">
-            <img class="event-bg-img" src="~/assets/global/img/Events/ramadan-pattern.jpg" />
-        </div>
+        { 
         <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
+            <aside id="side-menu" style="max-width:294px; box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
+                <ul class="nav flex-column nav-list accordion">
                     @{
                             if (modellist != null)
                             {
@@ -1107,7 +1095,7 @@
                                 || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                             {
                     <li class="nav-header">
-                        <div class="link"><i class="fa fa-lg fa-hospital-o"></i>Hospital<i class="fa fa-chevron-down"></i></div>
+                        <div class="link"><i class="fa-solid fa-hospital"></i>Hospital<i class="fa fa-chevron-down"></i></div>
                         <ul class="submenu">
                             <li><a href="/Hospital/index">Hospital</a></li>
                         </ul>
@@ -1136,7 +1124,7 @@
                                 || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                             {*@
                     <li class="nav-header">
-                        <div class="link"><i class="fa fa-user-circle-o"></i>Customer Service<i class="fa fa-chevron-down"></i></div>
+                        <div class="link"><i class="fa-solid fa-user "></i>Customer Service<i class="fa fa-chevron-down"></i></div>
                         <ul class="submenu">
                             <li><a href="/CustomerService/Index">Customer Service</a></li>
                         </ul>
@@ -1145,7 +1133,7 @@
                         }*@
 
                     <li class="nav-header">
-                        <div class="link"><i class="fa fa-paper-plane-o"></i>Report<i class="fa fa-chevron-down"></i></div>
+                        <div class="link"><i class="fa fa-paper-plane"></i>Report<i class="fa fa-chevron-down"></i></div>
                         <ul class="submenu">
                             <li><a href="/ReportMain/Index" class="link-cus">Pharmacy Report</a></li>
 

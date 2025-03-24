@@ -922,7 +922,7 @@ p:last-of-type {
      color:white !important;
  }
 .flex-column {
-    flex-direction:column;
+    flex-direction:column !important;
 }
 .w-100 {
     width: 100% !important;
