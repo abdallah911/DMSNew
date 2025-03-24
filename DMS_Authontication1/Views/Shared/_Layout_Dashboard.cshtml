@@ -54,20 +54,23 @@
 
     <style>
 
-       .navbar {
-            display:contents;
+        .navbar {
+            display: contents;
         }
+
         .nav-admin-cus {
             white-space: nowrap;
             display: flex;
         }
+
         ul.navbar-nav.navbar-right {
             margin-top: 10px;
         }
+
         .dms-container {
             min-height: calc(100vh - 300.1px);
         }
-        /*  
+        /*
         .dms-container {
             padding-top: 60px;
         }
@@ -388,7 +391,10 @@
         }
     </style>
     <style>
-       
+        /*====================================*/
+        .navbar > div {
+            padding: 6px 0;
+        }
     </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-227248876-1"></script>
@@ -424,25 +430,7 @@
 
     }
     <div class="navbar navbar-inverse navbar-fixed-top " style="background-color:#09b4d0;border-color:#d9edf7">
-        <div  style=" box-shadow: 0 3px 8px 0.5px #0000001f; ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
-            <div class="container" style="margin: 0 auto; max-width: 100%;  ">
+        <div style=" box-shadow: 0 3px 8px 0.5px #0000001f; ">
             <div class="container" style="margin: 0 auto; max-width: 100%;  ">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed"
@@ -458,17 +446,17 @@
                     <a href="~/Home/Index">
                         <div id="LogoDmsTop" style="width: 100px; border-radius: 16px; display: none;" class="dms-celebrate-gif img d-flex align-self-stretch" hidden>
                             @*<div class="celebrate-gif">
-                <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
-            </div>*@
-                            <img class="imgmenu" src="~/assets/global/img/Events/Ramadan-logo.gif" style="margin-top: 5px;" />
+                                    <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
+                                </div>*@
+                            <img class="imgmenu" src="~/assets/global/img/Events/Eid-logo.gif" style="margin-top: 5px;" />
                         </div>
 
-                        <img id="EventLogoDms" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" hidden/>
+                        <img id="EventLogoDms" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" hidden />
 
                         @*<div class="celebrate-gif">
-            <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
-        </div>
-        <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
+                                <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
+                            </div>
+                            <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
                     </a>
 
                     <ul class="nav navbar-nav nav-admin-cus" style="color: #000; margin-top: 7px;">
@@ -649,7 +637,7 @@
                                         //                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         //{
                                         var misrUsers = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                                                        {
+                                                                        {
                                             "hr.misr.insurance", "Yasmen.misr.insurance", "Ahmed.misr.insurance",
                                             "Hussien.misr.insurance", "Sherif.misr.insurance", "Doaa.misr.insurance",
                                             "Hassan.misr.insurance", "Awatef.misr.insurance", "Eslam.misr.insurance", "it.admin"
@@ -662,7 +650,7 @@
 
 
                                         var reportHighLevel = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                                                        {
+                                                                        {
                                             "dr.mohsen", "it.admin"
                                         };
 
@@ -754,79 +742,28 @@
                                         }
                                         if (modellist.Where(x => x.PageId == 24 && (x.FullControl || x.EditPermission
                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
-        {        
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
-        <div class="wrap">
-            <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
-                <ul class="nav nav-list accordion">
-                    @{
+                                        {
+                                            <li><a href="/Employee/Approvales" class="link-cus">Medical Approval</a></li>
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+    </div>
+    @* container *@
+    @{
+        if (User.IsInRole("Admin") || User.IsInRole("AdminHelth") || User.IsInRole("Doctor"))
+        {
+            <div class="wrap">
+                <aside id="side-menu" style=" box-shadow: 3px 11px 4px 3px #0000001a; height: 100%" class="aside h-100" role="navigation">
+                    <ul class="nav nav-list accordion">
+                        @{
                             if (modellist != null)
                             {
                                 if (modellist.Where(x => x.ModuleName == "Doctors Department Management" && (x.PageId == 28 || x.PageId == 29 || x.PageId == 30 || x.PageId == 31)
@@ -839,19 +776,19 @@
                                         <ul class="submenu">
                                             @*<li><a href="/DoctorMedicinesLabsRaysApproval/Create">Create Approval</a></li>*@
                                             @if (modellist.Where(x => x.PageId == 30 && (x.FullControl || x.EditPermission
-                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                             {
 
                                                 <li><a href="/DoctorMedicinesLabsRaysApproval/index2">Pending Requests</a></li>
                                             }
                                             @if (modellist.Where(x => x.PageId == 28 && (x.FullControl || x.EditPermission
-                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                             {
 
                                                 <li><a href="/DoctorApprovals/index">Doctor Daily </a></li>
                                             }
                                             @if (modellist.Where(x => x.PageId == 29 && (x.FullControl || x.EditPermission
-                                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                             {
 
                                                 <li><a href="/DoctorApprovals/Monthly">Doctor Chronic </a></li>
@@ -859,13 +796,13 @@
                                             }
 
                                             @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
-                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                             {
 
                                                 <li><a href="/GetApproval/Index">Permissions List</a></li>
                                             }
                                             @if (modellist.Where(x => x.PageId == 31 && (x.FullControl || x.EditPermission
-                                                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                            || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                             {
 
                                                 <li><a href="/GetApproval/Create">Permissions</a></li>
@@ -886,53 +823,53 @@
                                     <div class="link"><i class="fa fa-lg fa-lock"></i>Admin<i class="fa fa-chevron-down"></i></div>
                                     <ul class="submenu">
                                         @if (modellist.Where(x => x.ModuleName == "Account Management" && x.PageId == 2 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/User/index">Users</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 4 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Pharmacy/index">Pharmacy Clames</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Pharmacies Management" && x.PageId == 49 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Pharmacy/DeletedStopRoshita">Pharmacy Stop Edit Clames</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Rays Centers Management" && x.PageId == 10 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Rays/index">Rays Clames</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Labratories Management" && x.PageId == 8 && (x.FullControl || x.EditPermission
-                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Labs/index">Labs Clames</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 50 && (x.FullControl || x.EditPermission
-                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/ConsumptionAdmin/index">Total Consumption Admin</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 51 && (x.FullControl || x.EditPermission
-                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/ConsumptionAdmin/HighAdminConsumptionReports">Audit Consumption Report</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 53 && (x.FullControl || x.EditPermission
-                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/ConsumptionAdmin/NormalAdminConsumptionReports">Consumption Report</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 44 && (x.FullControl || x.EditPermission
-                                             || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                         || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/ProviderServicesPermissions/index">Provider Services Permissions</a></li>
                                         }
 
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && /*x.PageId == 44 &&*/ (x.FullControl || x.EditPermission
-                                           || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                       || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/LossRatio/index">Analysis Loss Ratio</a></li>
                                         }
@@ -953,53 +890,53 @@
                                     <div class="link"><i class="fa fa-archive"></i>Management<i class="fa fa-chevron-down"></i></div>
                                     <ul class="submenu">
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 35 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/CompEmployees/IndexSms">Employees Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 34 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/CompanyGroup/index">Companies Groups Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 36 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Medicines/index">Medicines Management</a></li>
 
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 37 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/MedicineGroups/index">Medicines Groups Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 38 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Medicines/MedicineLicenseType">License Type Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 39 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Medicines/MedicineType">Medicine Type Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 40 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Medicines/MedicineDosageForm">Dosage Form Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 41 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/Specialities/index">Specilities and Diagnosis Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 46 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/LabsManagement/Index">Labs Management</a></li>
                                         }
                                         @if (modellist.Where(x => x.ModuleName == "Control Panel Management" && x.PageId == 47 && (x.FullControl || x.EditPermission
-                                        || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
+                                                    || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         {
                                             <li><a href="/RaysManagement/Index">Rays Management</a></li>
                                         }
@@ -1099,6 +1036,74 @@
                             </ul>
                         </li>
                         @*}
+                            }*@
+
+                        <li class="nav-header">
+                            <div class="link"><i class="fa fa-paper-plane-o"></i>Report<i class="fa fa-chevron-down"></i></div>
+                            <ul class="submenu">
+                                <li><a href="/ReportMain/Index" class="link-cus">Pharmacy Report</a></li>
+
+                                <li><a href="/ReportMain/ReportMed2" class="link-cus">Medicine Audit</a></li>
+
+                                <li><a href="/ReportMain/ReportPrint" class="link-cus">Print Report</a></li>
+                            </ul>
+
+                        </li>
+                    </ul>
+                </aside>
+                <div class="content">
+                    <div class="top-bar">
+                        <a href="#menu" class="side-menu-link burger">
+                            <span class='burger_inside' id='bgrOne'></span>
+                            <span class='burger_inside' id='bgrTwo'></span>
+                            <span class='burger_inside' id='bgrThree'></span>
+                        </a>
+                    </div>
+                    <section class="content-inner" style="padding-left:0;">
+                        @RenderBody()
+                        <div>
+                            <footer style="background: var(--color-gradient); ">
+                                <div class="footer ">
+                                    <div class="container-fluid ">
+                                        <div class="row m-auto" style="display:flex;justify-content:center">
+                                            <div class="col-md-3 me-4">
+                                                <div class="foot-about">
+                                                    <div class="img d-flex align-self-stretch">
+                                                        <a href="#"></a>
+                                                        <img class="logo-white"
+                                                             src="~/assets/HomeTemplete/img/DMS_Logo.png"
+                                                             alt="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="footerP2">
+                                                    <h2 class="mb-1 text-dark fw-bold" style="font-size:24px;font-weight: 500;color: #474747;">Contact</h2>
+                                                    <div class="line ms-0 mb-3" style="width:95px;margin-left: 0;background:#72369ab0;"></div>
+                                                    <ul class="p-0 m-0 mt-1 footer-contacts-text" style="white-space:nowrap">
+
+                                                        @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
+                                                        <li>
+                                                            <div class="footer-contacts-icon"><i class="fas fa-phone "></i></div>
+                                                            <h6> + 0226390390</h6>
+                                                        </li>
+                                                        <li>
+                                                            <div class="footer-contacts-icon"><i class="fas fa-paper-plane "></i></div>
+                                                            <h6> Contact@dms-eg.com</h6>
+
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 ms-lg-4">
+                                                <div class="footerP2">
+                                                    <h2 class="mb-1 text-dark fw-bold" style="font-size:24px;font-weight: 500;color: #474747;">Address</h2>
+                                                    <div class="line ms-0 mb-3" style="width:95px;margin-left: 0;background:#72369ab0;"></div>
+                                                    <ul class="p-0 m-0 mt-1 footer-contacts-text" style="white-space:nowrap">
+                                                        <li>
+                                                            <div class="footer-contacts-icon"><i class="fas fa-map"></i></div>
+                                                            <h6>   12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</h6>
+
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -1122,28 +1127,28 @@
                                                         <p>&copy; @DateTime.Now.Year - DMS Application</p>
                                                         </p>
                                                     </div><!-- .foot-about -->
-                                                        <!--</div>
-                                <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
-                                    <div class="foot-contact">
-                                        <h2>Contact</h2>
+                            <!--</div>
+                            <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                                <div class="foot-contact">
+                                    <h2>Contact</h2>
+                                    <ul class="p-0 m-0">
+                                        <li><span>Address:</span>12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>-->
+                            @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
+                            <!--<li><span>Phone:</span>+ 0226390390</li>
+                                        <li><span>Email:</span>Contact@dms-eg.com</li>
+                                    </ul>
+                                </div>
+                            </div>-->
+                            @*<div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                                    <div class="foot-links">
+                                        <h2>Get DMS For Mobile</h2>
                                         <ul class="p-0 m-0">
-                                            <li><span>Address:</span>12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>-->
-                                                        @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
-                                                        <!--<li><span>Phone:</span>+ 0226390390</li>
-                                            <li><span>Email:</span>Contact@dms-eg.com</li>
+                                            <li><a href="https://play.google.com/store/apps/details?id=com.dmsegypt.dms"> <img src="~/assets/HomeTemplete/img/elements/iconfinder_android-app-on-google-play_720092.png" alt="HTML tutorial" style="width:180px;height:180px;border:0; position:relative;top:-63px;"></a></li>
+                                            <li class="appstoreicon"><a href="https://apps.apple.com/eg/app/dms-egypt/id1440027807"><img src="~/assets/HomeTemplete/img/elements/appstore.png" alt="HTML tutorial" style="width:180px;height:55px;border:0;"></a></li>
+
                                         </ul>
                                     </div>
-                                </div>-->
-                                                        @*<div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
-                                        <div class="foot-links">
-                                            <h2>Get DMS For Mobile</h2>
-                                            <ul class="p-0 m-0">
-                                                <li><a href="https://play.google.com/store/apps/details?id=com.dmsegypt.dms"> <img src="~/assets/HomeTemplete/img/elements/iconfinder_android-app-on-google-play_720092.png" alt="HTML tutorial" style="width:180px;height:180px;border:0; position:relative;top:-63px;"></a></li>
-                                                <li class="appstoreicon"><a href="https://apps.apple.com/eg/app/dms-egypt/id1440027807"><img src="~/assets/HomeTemplete/img/elements/appstore.png" alt="HTML tutorial" style="width:180px;height:55px;border:0;"></a></li>
-                                
-                                            </ul>
-                                        </div>
-                                    </div>*@<!-- .col -->
+                                </div>*@<!-- .col -->
                             <!--</div>--><!-- .row -->
                             <!--</div>--><!-- .container -->
                             <!--</div>--><!-- .footer-widgets -->
@@ -1152,91 +1157,6 @@
                     </section>
                 </div>
             </div>
-                        <!--</footer>--><!-- .site-footer -->
-                    </div>
-                </section>
-            <div class="body-content ">
-                <div>
-                    @RenderBody()
-                </div>
-            </div>
-            <!-- .site-footer -->
-            <footer style="background: var(--color-gradient); ">
-                <div class="footer ">
-                    <div class="container-fluid ">
-                        <div class="row m-auto d-flex justify-content-center">
-                            <div class="col-md-3 me-4">
-                                <div class="foot-about">
-                                    <div class="img d-flex align-self-stretch">
-                                        <a href="#"></a>
-                                        <img class="logo-white"
-                                             src="~/assets/HomeTemplete/img/DMS_Logo.png"
-                                             alt="" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="footerP2">
-                                    <h2 class="mb-1 text-white fw-bold" style="font-size:24px;">Contact</h2>
-                                    <div class="line ms-0 mb-3" style="width:95px"></div>
-                                    <ul class="p-0 m-0 mt-1 footer-contacts-text" style="white-space:nowrap">
-                                        <li>
-                                            <div class="footer-contacts-icon"><i class="fas fa-map"></i></div>
-                                            <h6>   12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</h6>
-                    </div>
-                                        </li>
-                                        @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
-                                        <li>
-                                            <div class="footer-contacts-icon"><i class="fas fa-phone fa-rotate-90 "></i></div>
-                                            <h6> + 0226390390</h6>
-                                        </li>
-                                        <li>
-                                            <div class="footer-contacts-icon"><i class="fas fa-paper-plane "></i></div>
-                                            <h6> Contact@dms-eg.com</h6>
-                    </div>
-                </section>
-            </div>
-        </div>
-                        <!--</footer>--><!-- .site-footer -->
-                    </div>
-                </section>
-            </div>
-        </div>
-                        <!--</footer>--><!-- .site-footer -->
-                    </div>
-                </section>
-            </div>
-        </div>
-                        <!--</footer>--><!-- .site-footer -->
-                    </div>
-                </section>
-            </div>
-        </div>
-                        <!--</footer>--><!-- .site-footer -->
-                    </div>
-                </section>
-            </div>
-        </div>
-                        <!--</footer>--><!-- .site-footer -->
-                    </div>
-                </section>
-            </div>
-        </div>
-                        <!--</footer>--><!-- .site-footer -->
-                    </div>
-                </section>
-            </div>
-        </div>
-                        <!--</footer>--><!-- .site-footer -->
-                    </div>
-                </section>
-            </div>
-        </div>
-                        <!--</footer>--><!-- .site-footer -->
-                    </div>
-                </section>
-            </div>
-        </div>
         }
         else
         {
@@ -1326,11 +1246,96 @@
             notifications.client.updateMessages = function () {
                 getAllMessages()
             };
-          success: function (result) {
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                console.log("connection started")
+                //notifications.onconn();
+                getAllMessages();
+            }).fail(function (e) {
+                console.log("Could not Connect!");
+                alert(e);
+            });
+
+            $("#btnClaim").click(function () {
+                window.location.replace('/Pharmacy/index?id=undefined');
+            });
+            $(".collaps").click(function () {
+                //alert("The paragraph was clicked.");
+                if ($("#side-menu").hasClass("activeblock")) {
+                    console.log("Inside Ifff");
+                    $("#side-menu").removeClass("activeblock");
+                    $(".content").removeClass("fullWidth");
+                    $(".collaps i").addClass('fa-times');
+                    $(".collaps i").removeClass("fa-bars");
+                }
+                else {
+                    console.log("Inside ELSE Ifff");
+                    $("#side-menu").addClass("activeblock");
+                    $(".content").addClass("fullWidth");
+                    $(".collaps i").removeClass('fa-times');
+                    $(".collaps i").addClass("fa-bars");
+                }
+            });
+            $(".burger").click(function () {
+                if ($(window).width() <= 768) {
+                    console.log("Inside  Ifff WIDTH");
+                    $("#side-menu").removeClass("activeblock");
+                    $(".content").removeClass("fullWidth");
+                }
+            });
+        });
+
+        function getAllMessages() {
+            $.ajax({
+                url: '/Home/GetNotifications',
+                //contentType: 'application/html ; charset:utf-8',
+                //type: 'GET',
+                //dataType: 'html',
+                success: function (result) {
+                    //debugger;
+                    $('#notification').text(result.length);
+                    if (result.length > 0) {
+                        $(".test1").css("background-color", " rgb(245, 7, 7)");
+                        $(".test1").css("animation", " flash 1s linear infinite");
+                        $(".test1 i").css("color", "");
+                    }
+                    else {
+                        $(".test1").css("background-color", "");
+                        $(".test1").css("animation", "");
+                        $(".test1 i").css("color", "red");
+
+                    }
+                    $('#divNotificationValues').empty();
+                    $.each(result, function (key, value) {
+                        $('#divNotificationValues').append('<a href="' + value.DetailsURL + '?NotificationId=' + value.Id + '">' + value.TypeNmae + '-' + value.Details + '</a>');
+                    });
+                }
+            });
+        }
+
+
+        $(document).ready(function () {
+            $('.nav-link').on('click', function () {
+                // Remove the 'active' class from all .nav-link elements
+                $('.nav-link').removeClass('active');
+                // Add the 'active' class to the clicked element
+                $(this).addClass('active');
+
+
+            });
+
+            checkEvent();
+        });
+
+        function checkEvent() {
+            $.ajax({
+                url: '/Home/getEventState',
+
+                success: function (result) {
                     //debugger;
                     $('#LogoDmsTop').hide();
                     $('#EventLogoDms').hide();
-                getAllMessages();
+
                     if (result.evntStat == 1) {
                         $('#EventLogoDms').show();
                     }
@@ -1340,98 +1345,13 @@
                 }
             });
         }
-            
-        
-                //        }
-        //==========================================
-        //$(document).ready(function () { 
-        //    $('footer').insertAfter($('.body-content'));
-        //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
-                //        }
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
 
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
+
+
+            //==========================================
+            //$(document).ready(function () {
+            //    $('footer').insertAfter($('.body-content'));
+            //});
     </script>
 
 </body>
