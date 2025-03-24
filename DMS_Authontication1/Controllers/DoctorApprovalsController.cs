@@ -657,7 +657,8 @@ namespace DMS_Authontication1.Controllers
                     //add
                     Employee = db.Comp_Employees.Where(x => x.CARD_ID == id).FirstOrDefault();
                 }
-                var result = new { mED_CARD = mED_CARD, Employee = Employee };
+                bool IsNoPayNoOverEdit = id.Split('-')[0].StartsWith("500") ? true : User.Identity.Name == "GodaKotb" ? true : false;
+                var result = new { mED_CARD = mED_CARD, Employee = Employee, IsNoPayNoOverEdit = IsNoPayNoOverEdit };
                 return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
             catch (Exception ex)
@@ -936,6 +937,7 @@ namespace DMS_Authontication1.Controllers
                         update.StartDate = item.StartDate;
                         update.MedicineNoPay = item.MedicineNoPay;
                         update.PoolType = item.PoolType;
+                        update.Note = item.Note;
                         update.SyncBy = "Updated";
                         db.Entry(update).State = EntityState.Modified;
 
@@ -1031,6 +1033,8 @@ namespace DMS_Authontication1.Controllers
             if (newmedicine.StartDate != oldmedicine.StartDate)
                 return true;
             if (newmedicine.PoolType != oldmedicine.PoolType)
+                return true;
+            if (newmedicine.Note != oldmedicine.Note)
                 return true;
 
             return false;

@@ -26,6 +26,10 @@ $(function () {
     $('#Search').click(function () {
         if ($('#txtSearchCard').val() != "") {
             companid = $('#txtSearchCard').val().split('-')[0];
+            if (companid.startsWith("500") || companid == "10560") {
+                alert("هذا العميل لايحتاج موافقة علي الروشتات الخارجية علي ان يتم ادخال كافة البيانات والاشعة علي السيستم");
+
+            }
             if (companid == "888") {
                 $('#phone').hide();
             }
@@ -83,7 +87,7 @@ $(function () {
                         var data = "<tr >" +
                             "<td >" + "<Button  class='btn btn-Primary glyphicon glyphicon-ok' onclick='Select(this);'></Button>" + "</td>" +
                             "<td>" + r[i].CARD_ID + "</td>" +
-                            "<td>" + r[i].EMP_ANAME + "</td>" +
+                            "<td>" + r[i].EMP_ANAME_ST + " " + r[i].EMP_ANAME_SC + " " + r[i].EMP_ANAME_TH + "</td>" +
                             "<td>" + r[i].EMP_ENAME + "</td>" +
                             "<td>" + dat + "</td>" +
                             "<td>" + dat1 + "</td>" +
@@ -102,7 +106,7 @@ $(function () {
                         var ArName;
                         var CompHolderName;
                         for (var i = 0; i < r.length; i++) {
-                            ArName = r[i].EMP_ANAME;
+                            ArName = r[0].EMP_ANAME_ST + " " + r[0].EMP_ANAME_SC + " " + r[0].EMP_ANAME_TH;
                             CompHolderName = r[i].CompHolderName;
                         }
                         var EndDate = dat1;

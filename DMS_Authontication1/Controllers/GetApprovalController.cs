@@ -16,13 +16,17 @@ namespace DMS_Authontication1.Controllers
         {
             db = new DMS_TESTEntities();
         }
-        public JsonResult GetReasons(string searchterm)
+        public JsonResult GetReasons(string searchterm, string CardId)
         {
             var datalist = db.AcceptionReasons.ToList();
-
+            if (!CardId.Split('-')[0].StartsWith("500") && !(User.Identity.Name == "GodaKotb"))
+            {
+                datalist = db.AcceptionReasons.Where(x => x.Id != 1).ToList();
+            }
             if (searchterm != null)
             {
                 datalist = db.AcceptionReasons.Where(x => x.Name.Contains(searchterm)).ToList();
+
             }
             var modifieddate = datalist.Select(x => new
             {

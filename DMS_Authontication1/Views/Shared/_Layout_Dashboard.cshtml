@@ -54,23 +54,20 @@
 
     <style>
 
-        .navbar {
-            display: contents;
+       .navbar {
+            display:contents;
         }
-
         .nav-admin-cus {
             white-space: nowrap;
             display: flex;
         }
-
         ul.navbar-nav.navbar-right {
             margin-top: 10px;
         }
-
         .dms-container {
             min-height: calc(100vh - 300.1px);
         }
-        /*
+        /*  
         .dms-container {
             padding-top: 60px;
         }
@@ -389,72 +386,9 @@
         .footer-contacts-text h6 {
             white-space: normal;
         }
-        /*=======Event-Edits===============================*/
-        div#navbar {
-            height: 84px !important;
-            position: relative !important;
-        }
-
-        img.canon-gif {
-            width: 110px;
-            /*position: absolute;*/
-            bottom: 6px;
-            margin-left: 10px;
-        }
-
-        audio.ramadan-audio {
-            /*position: absolute;*/
-            bottom: 5px;
-            left: 280px;
-            width: 400px !important;
-            height: 38px !important;
-            margin-top: auto
-        }
-
-        .ramadan-box {
-            position: absolute;
-            bottom: 6px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-        } 
-
-        img.event-bg-img {
-            height: 100%;
-            width: 100%;
-        }
-        .event-bg-box {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            height: 100vh;
-            opacity: 14%;
-            z-index: 1;
-        }
-        .wrap {
-            background: #f2fcff;
-            /*height: 2000px;*/
-        }
-        .wrap #side-menu {
-            z-index: 2 !important;
-            background:transparent;
-        }
-        section.content-inner {
-            background-image: url(../../assets/global/img/Events/ramadan-pattern-14.png) !important;
-            z-index: 1;
-            background-repeat: no-repeat !important;
-            background-position: center !important;
-            background-size: cover !important;
-        }
-        .portlet.box > .portlet-body{
-            background:transparent;
-        }
-        .panel {
-            background: transparent;
-        }
     </style>
     <style>
+       
     </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-227248876-1"></script>
@@ -479,6 +413,7 @@
 
 </head>
 <body>
+
     @{
         var modellist = new List<ModulesPagesViewModel>();
         var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
@@ -488,12 +423,8 @@
         }
 
     }
-    <div class="event-bg-box">
-        <img class="event-bg-img" src="~/assets/global/img/Events/ramadan-pattern.jpg" />
-    </div>
     <div class="navbar navbar-inverse navbar-fixed-top " style="background-color:#09b4d0;border-color:#d9edf7">
-
-        <div style=" box-shadow: 0 3px 8px 0.5px #0000001f; z-index: 3; position: relative; ">
+        <div  style=" box-shadow: 0 3px 8px 0.5px #0000001f; ">
             <div class="container" style="margin: 0 auto; max-width: 100%;  ">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed"
@@ -507,19 +438,19 @@
 
                 <div id="navbar" class="navbar-collapse collapse">
                     <a href="~/Home/Index">
-                        <div id="LogoDmsTop" style="width: 100px; border-radius: 16px; display: none;" class="dms-celebrate-gif img d-flex align-self-stretch">
+                        <div id="LogoDmsTop" style="width: 100px; border-radius: 16px; display: none;" class="dms-celebrate-gif img d-flex align-self-stretch" hidden>
                             @*<div class="celebrate-gif">
-                                    <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
-                                </div>*@
+                <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
+            </div>*@
                             <img class="imgmenu" src="~/assets/global/img/Events/Ramadan-logo.gif" style="margin-top: 5px;" />
                         </div>
 
-                        <img id="EventLogoDms" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" hidden />
+                        <img id="EventLogoDms" class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;" hidden/>
 
                         @*<div class="celebrate-gif">
-                                <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
-                            </div>
-                            <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
+            <img src="~/assets/HomeTemplete/img/newyear.gif" alt="this slowpoke moves" width="250" />
+        </div>
+        <img class="imgmenu" src="~/assets/global/img/Events/logo-new-year.png" style="margin-top: 10px;" />*@
                     </a>
 
                     <ul class="nav navbar-nav nav-admin-cus" style="color: #000; margin-top: 7px;">
@@ -700,7 +631,7 @@
                                         //                || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault() != null)
                                         //{
                                         var misrUsers = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                                                                        {
+                                                        {
                                             "hr.misr.insurance", "Yasmen.misr.insurance", "Ahmed.misr.insurance",
                                             "Hussien.misr.insurance", "Sherif.misr.insurance", "Doaa.misr.insurance",
                                             "Hassan.misr.insurance", "Awatef.misr.insurance", "Eslam.misr.insurance", "it.admin"
@@ -713,7 +644,7 @@
 
 
                                         var reportHighLevel = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-                                                                        {
+                                                        {
                                             "dr.mohsen", "it.admin"
                                         };
 
@@ -1170,60 +1101,59 @@
                                                         <div class="footer-contacts-icon"><i class="fas fa-map"></i></div>
                                                         <h6>   12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</h6>
 
-                                                    </li>
-                                                </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </footer>
-
-                        <!--<footer class="site-footer">
-                                <div class="footer-widgets">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-12 col-md-6 col-lg-4">
-                                                <div class="foot-about">
-                                                    <div class="img d-flex align-self-stretch" style="width: 75px;height:50px;">
-                                                        <a href="#"></a>
-                                                        <img src="~/assets/HomeTemplete/img/DMS_Logo.png" />
-                                                    </div>
-                                                    <p>Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.</p>
-                                                    <p class="copyright">
-                                                    <p>&copy; @DateTime.Now.Year - DMS Application</p>
-                                                    </p>
-                                                </div><!-- .foot-about -->
-                        <!--</div>
-                        <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
-                            <div class="foot-contact">
-                                <h2>Contact</h2>
-                                <ul class="p-0 m-0">
-                                    <li><span>Address:</span>12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>-->
-                        @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
-                        <!--<li><span>Phone:</span>+ 0226390390</li>
-                                    <li><span>Email:</span>Contact@dms-eg.com</li>
-                                </ul>
-                            </div>
-                        </div>-->
-                        @*<div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
-                                <div class="foot-links">
-                                    <h2>Get DMS For Mobile</h2>
-                                    <ul class="p-0 m-0">
-                                        <li><a href="https://play.google.com/store/apps/details?id=com.dmsegypt.dms"> <img src="~/assets/HomeTemplete/img/elements/iconfinder_android-app-on-google-play_720092.png" alt="HTML tutorial" style="width:180px;height:180px;border:0; position:relative;top:-63px;"></a></li>
-                                        <li class="appstoreicon"><a href="https://apps.apple.com/eg/app/dms-egypt/id1440027807"><img src="~/assets/HomeTemplete/img/elements/appstore.png" alt="HTML tutorial" style="width:180px;height:55px;border:0;"></a></li>
-
-                                    </ul>
-                                </div>
-                            </div>*@<!-- .col -->
-                        <!--</div>--><!-- .row -->
-                        <!--</div>--><!-- .container -->
-                        <!--</div>--><!-- .footer-widgets -->
-                        <!--</footer>--><!-- .site-footer -->
-                    </div>
-                </section>
+                            </footer>
+                            <!--<footer class="site-footer">
+                                    <div class="footer-widgets">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-12 col-md-6 col-lg-4">
+                                                    <div class="foot-about">
+                                                        <div class="img d-flex align-self-stretch" style="width: 75px;height:50px;">
+                                                            <a href="#"></a>
+                                                            <img src="~/assets/HomeTemplete/img/DMS_Logo.png" />
+                                                        </div>
+                                                        <p>Since 2002 we have been providing tailor made Medical Health Care and employee benefit plans as we as high quality service to hundreds of thousands of plan members.</p>
+                                                        <p class="copyright">
+                                                        <p>&copy; @DateTime.Now.Year - DMS Application</p>
+                                                        </p>
+                                                    </div><!-- .foot-about -->
+                                                        <!--</div>
+                                <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                                    <div class="foot-contact">
+                                        <h2>Contact</h2>
+                                        <ul class="p-0 m-0">
+                                            <li><span>Address:</span>12 Abd El-Azeem Awad Allah St., Heliopolis, Cairo</li>-->
+                                                        @*<li><span>Address:</span> 24 El Montazah St., Heliopolis, Cairo</li>*@
+                                                        <!--<li><span>Phone:</span>+ 0226390390</li>
+                                            <li><span>Email:</span>Contact@dms-eg.com</li>
+                                        </ul>
+                                    </div>
+                                </div>-->
+                                                        @*<div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                                        <div class="foot-links">
+                                            <h2>Get DMS For Mobile</h2>
+                                            <ul class="p-0 m-0">
+                                                <li><a href="https://play.google.com/store/apps/details?id=com.dmsegypt.dms"> <img src="~/assets/HomeTemplete/img/elements/iconfinder_android-app-on-google-play_720092.png" alt="HTML tutorial" style="width:180px;height:180px;border:0; position:relative;top:-63px;"></a></li>
+                                                <li class="appstoreicon"><a href="https://apps.apple.com/eg/app/dms-egypt/id1440027807"><img src="~/assets/HomeTemplete/img/elements/appstore.png" alt="HTML tutorial" style="width:180px;height:55px;border:0;"></a></li>
+                                
+                                            </ul>
+                                        </div>
+                                    </div>*@<!-- .col -->
+                            <!--</div>--><!-- .row -->
+                            <!--</div>--><!-- .container -->
+                            <!--</div>--><!-- .footer-widgets -->
+                            <!--</footer>--><!-- .site-footer -->
+                        </div>
+                    </section>
+                </div>
             </div>
-        </div>
         }
         else
         {
@@ -1388,37 +1318,37 @@
                 // Add the 'active' class to the clicked element
                 $(this).addClass('active');
 
-
+                
             });
 
             checkEvent();
         });
 
-                //function checkEvent() {
-                //    $.ajax({
-                //        url: '/Home/getEventState',
+        function checkEvent() {
+            $.ajax({
+                url: '/Home/getEventState',
 
-                //        success: function (result) {
-                //            //debugger;
-                //            $('#LogoDmsTop').hide();
-                //            $('#EventLogoDms').hide();
+          success: function (result) {
+                    //debugger;
+                    $('#LogoDmsTop').hide();
+                    $('#EventLogoDms').hide();
 
-                //            if (result.evntStat == 1) {
-                //                $('#EventLogoDms').show();
-                //            }
-                //            else {
-                //                $('#LogoDmsTop').show();
-                //            }
-                //        }
-                //    });
-                //}
+                    if (result.evntStat == 1) {
+                        $('#EventLogoDms').show();
+                    }
+                    else {
+                        $('#LogoDmsTop').show();
+                    }
+                }
+            });
+        }
+            
+        
 
-
-
-                            //==========================================
-                            //$(document).ready(function () {
-                            //    $('footer').insertAfter($('.body-content'));
-                            //});
+        //==========================================
+        //$(document).ready(function () { 
+        //    $('footer').insertAfter($('.body-content'));
+        //});
     </script>
 
 </body>

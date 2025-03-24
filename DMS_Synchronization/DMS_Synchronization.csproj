@@ -151,6 +151,7 @@
     <Compile Include="Controllers\SyncController.cs" />
     <Compile Include="Models\CLOSE_EMP_DATA.cs" />
     <Compile Include="Models\CONSUMPTION_POOL.cs" />
+    <Compile Include="Models\COMP_CONTRACT_CLASS_PROVIDER.cs" />
     <Compile Include="Models\REMAIN_CONSUMATION.cs" />
     <Compile Include="Models\COMP_CUSTOMIZED_D_D_MED_EMP.cs" />
     <Compile Include="Data Function\SQLDBConnection.cs" />

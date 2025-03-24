@@ -40,6 +40,7 @@ namespace DMS_Authontication1.ViewModel
         public Nullable<bool> IsCovered { get; set; }
         public virtual string[] Diagnose { get; set; }
         public string Group_Type { get; set; }
+        public string MedicineGroup { get; set; }
 
        public virtual ICollection<MedicinesDiagnosi> MedicinesDiagnosis { get; set; }
     }
