@@ -1215,7 +1215,7 @@ namespace DMS_Authontication1.Controllers
                 rd.SetParameterValue("PatientName", patient.EMP_ENAME_ST + " " + patient.EMP_ENAME_SC + " " + patient.EMP_ENAME_TH);
             }
             data.RoshetaType = "Ray";
-            rd.SetParameterValue("CompType", patient.COMP_ID);
+            rd.SetParameterValue("CompType",data.CompHolderCode);
             rd.SetParameterValue("Type", data.RoshetaType);
             rd.SetParameterValue("Pharmacy", data.CreatedBy);
             rd.SetParameterValue("Approval", id);

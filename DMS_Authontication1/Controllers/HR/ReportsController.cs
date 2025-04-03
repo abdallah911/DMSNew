@@ -739,7 +739,7 @@ namespace DMS_Authontication1.Controllers.HR
                     }
                     data.RoshetaType = "Lab";
 
-                rd.SetParameterValue("CompType", patient.COMP_ID);
+                rd.SetParameterValue("CompType", data.CompHolderCode);
                     rd.SetParameterValue("Type", data.RoshetaType);
                     rd.SetParameterValue("Pharmacy", data.CreatedBy);
                     rd.SetParameterValue("Approval", id);
@@ -829,7 +829,7 @@ namespace DMS_Authontication1.Controllers.HR
                         rd.SetParameterValue("PatientName", patient.EMP_ENAME);
                     }
                     data.RoshetaType = "Ray";
-                rd.SetParameterValue("CompType", patient.COMP_ID);
+                rd.SetParameterValue("CompType",data.CompHolderCode);
                     rd.SetParameterValue("Type", data.RoshetaType);
                     rd.SetParameterValue("Pharmacy", data.CreatedBy);
                     rd.SetParameterValue("Approval", id);
@@ -996,7 +996,7 @@ namespace DMS_Authontication1.Controllers.HR
                     }
                     rd.SetParameterValue("hasApprovalCode", AcceptionId);
 
-                    rd.SetParameterValue("CompType", patient.COMP_ID);
+                    rd.SetParameterValue("CompType", data.CompHolderCode);
                     rd.SetParameterValue("pay", NoPay);
                     rd.SetParameterValue("over", NoOver);
                     rd.SetParameterValue("perc", CellingPert);
