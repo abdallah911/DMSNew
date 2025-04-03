@@ -40,15 +40,15 @@
         <div class="form-group">
             <div class="row">
 
-                <div data-step="1" data-hint='Step one!' data-intro="Enter Card ID" class="col-md-3">
+                <div data-step="1" data-hint='Step one!' data-intro="Enter Card ID" class=" ">
                     <input id="txtSearchCard" type="text" placeholder="search for card..." class="form-control" />
                 </div>
-                <div class="col-md-2" data-step="2" data-intro="click Search">
+                <div class=" " data-step="2" data-intro="click Search">
                     <button id="Search" type="button" class="btn btn-primary">
                         <i class="glyphicon glyphicon-search"></i> Search
                     </button>
                 </div>
-                <div class=" col-md-2 btn-group" data-toggle="buttons">
+                <div class=" btn-group" data-toggle="buttons">
                     <label id="Approval" class="btn btn-info" disabled>
                         <input id="HasApproval" type="checkbox" autocomplete="off">
                         <span class="glyphicon glyphicon-ok"></span> Has Approval
@@ -227,7 +227,7 @@
 
             </div>
             <!--Save-->
-            <div class="panel-footer" style="text-align:right;">
+            <div class="panel-footer my-3" style="text-align:right;">
                 <input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />
                 <a data-step="11" style="float: left; margin-left:40px;" class="btn btn-primary" href="@Url.Action("GetFile","Pharmacy",new { fileName = "Pharmacy" })" download="PharmacyManual.pdf"><i class="fa fa-download"></i> Manual</a>
                 @*<input data-step="11" data-intro="Help" style="float: left;" id="Manual" type="button" value="Manual" class="btn btn-info" />*@
