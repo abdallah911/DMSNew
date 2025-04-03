@@ -175,13 +175,13 @@
                     @if (ViewBag.evnt == 1)
                     {
                         <div class="event-welcome" style="width: 60%; margin: auto; padding-bottom: 30px;">
-                            <img class="w-100" src="~/assets/global/img/Events/Eid-Login-bg.png" />
+                            @*<img class="w-100" src="~/assets/global/img/Events/Eid-Login-bg.png" />*@
                         </div>
                     }
 
                     <div class="intro_form_container">
                         @*<div class="intro_form_title">Login</div>*@
-                        <img src="~/assets/global/img/Events/Eid-Login-bg.png" />
+                        @*<img src="~/assets/global/img/Events/Eid-Login-bg.png" />*@
                         <section id="loginForm">
                             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal intro_form", @id = "intro_form", role = "form" }))
                             {
