@@ -1338,7 +1338,7 @@ namespace DMS_Authontication1.Controllers
             }
             data.RoshetaType = "Lab";
 
-            rd.SetParameterValue("CompType", patient.COMP_ID);
+            rd.SetParameterValue("CompType",data.CompHolderCode);
             rd.SetParameterValue("Type", data.RoshetaType);
             rd.SetParameterValue("Pharmacy", data.CreatedBy);
             rd.SetParameterValue("Approval", id);

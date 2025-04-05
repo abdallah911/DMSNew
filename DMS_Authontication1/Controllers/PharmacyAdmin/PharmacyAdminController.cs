@@ -584,7 +584,7 @@ namespace DMS_TEST.Controllers
                     CellingPert = 100;
                 }
 
-                rd.SetParameterValue("CompType", patient.COMP_ID);
+                rd.SetParameterValue("CompType",data.CompHolderCode);
                 rd.SetParameterValue("pay", NoPay);
                 rd.SetParameterValue("over", NoOver);
                 rd.SetParameterValue("perc", CellingPert);
