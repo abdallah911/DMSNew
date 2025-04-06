@@ -1411,6 +1411,8 @@
     <Compile Include="ViewModel\EmployeeVM\DeliveryRequestVm.cs" />
     <Compile Include="ViewModel\EmployeeVM\ConfirmRegisterEmployeeVM.cs" />
     <Compile Include="ViewModel\HospitalVM\ApprovalComp.cs" />
+    <Compile Include="ViewModel\HR\ChronicDetailsViewModel.cs" />
+    <Compile Include="ViewModel\HR\MedicalApprovalViewModel.cs" />
     <Compile Include="ViewModel\ModulesPagesViewModel.cs" />
     <Compile Include="ViewModel\ChronicViewModel.cs" />
     <Compile Include="ViewModel\CompEmployees.cs" />

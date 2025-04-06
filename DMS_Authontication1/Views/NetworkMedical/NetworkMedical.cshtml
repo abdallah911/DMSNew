@@ -155,7 +155,7 @@
     </div>
 
 
-    @if (!string.IsNullOrEmpty(Model?.CardId) && Model.CardId.StartsWith("500172"))
+    @if (!string.IsNullOrEmpty(Model?.CardId) && (Model.CardId.StartsWith("500172") || Model.CardId.StartsWith("10000-VIP-100159-1")))
     {
 
         <div class="row bg-overlay mb-4 portlet-title">
@@ -169,76 +169,50 @@
                 <div class="d-flex align-items-center justify-content-evenly p-2 border-2 admin-form-control">
                     <label class="fw-bold">عدد أدوية ال Chronic</label>
                     <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الأدوية" value="@Model.ChronicCount" id="NumberChronic" readonly />
-                    <input type="button" class="btn p-1" value="Show" />
+                    <input type="button" class="btn p-1" value="Show"  onclick="ShowChronicDetails()"/>
                 </div>
             </div>
             <div class="px-2">
                 <div class="d-flex align-items-center justify-content-evenly p-2 border-2 admin-form-control">
                     <label class="fw-bold">عدد الموافقات الطبية</label>
                     <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الموافقات" value="@Model.ApprovalCount" id="NumberMedicalApproval" readonly />
-                    <input type="button" class="btn p-1" value="Show" />
+                    <input type="button" class="btn p-1" value="Show" onclick="ShowApprovalDetails()"/>
                 </div>
             </div>
         </div>
         <div class=" container home-page m-auto px-4 my-4" style="direction:ltr">
-            <div class=" mx-auto my-4 table-responsive" id="" hidden>
-                <table class="table home-page-table border-1" id="MedicalList">
-                    <thead class="rounded">
-                        <tr class="">
-                            <th>
-                                Approval No
-                            </th>
-                            <th>
-                                Approval Type
-                            </th>
-                            <th>
-                                Reply
-                            </th>
-                            <th>
-                                Approval Amount
-                            </th>
-                            <th>
-                                Medical Reply
-                            </th>
-                            <th>
-                                Created By
-                            </th>
-                            <th>
-                                Created Date
-                            </th>
+            <div class=" mx-auto my-4 table-responsive" id="ApprovalsScreen" hidden>
+                <table class="ui celled table" id="ApprovalsDetails">
+                    <thead>
+                        <tr>
+                            <th scope="col" align="center">Approval No</th>
+                            <th scope="col" align="center">Approval Type</th>
+                            <th scope="col" align="center">Reply</th>
+                            <th scope="col" align="center">Approval Amount</th>
+                            <th scope="col" align="center">Medical Reply</th>
+                            <th scope="col" align="center">Created By</th>
+                            <th scope="col" align="center">Created Date</th>
+                            <th scope="col" align="center" hidden>Created Date1</th>  .
+                            <th scope="col" align="center"></th>
                         </tr>
                     </thead>
-                    <tbody id=" "></tbody>
+                    <tbody></tbody>
                 </table>
             </div>
-            <div class=" mx-auto my-4 table-responsive" id="" hidden>
-                <table class="table home-page-table border-1" id="ChronicList">
-                    <thead class="rounded">
+            <div class=" mx-auto my-4 table-responsive" id="ChronicScreen" hidden>
+                <table class="table" id="ChronicDetails">
+                    <thead>
                         <tr>
-                            <th>
-                                Med Code
-                            </th>
-                            <th>
-                                Med Name
-                            </th>
-                            <th>
-                                Dose
-                            </th>
-                            <th>
-                                Med Duration
-                            </th>
-                            <th>
-                                Unit No
-                            </th>
-                            <th>
-                                Dosage Form
-                            </th>
-                            <th>
-                                Month Date Stop
-                            </th>
+                            <th scope="col" align="center">MED CODE</th>
+                            <th scope="col" align="center">MED NAME</th>
+                            <th scope="col" align="center">DOSE</th>
+                            <th scope="col" align="center">MED DURATION</th>
+                            <th scope="col" align="center">UNIT NO</th>
+                            <th scope="col" align="center">DOSAGE FORM</th>
+                            <th scope="col" align="center">MONTH DATE STOP</th>
                         </tr>
                     </thead>
-                    <tbody id=" "></tbody>
+                    <tbody id="MonthlyDetailsBody"></tbody>
                 </table>
             </div>
         </div>
@@ -384,4 +358,133 @@
                     }
                 }
             }
+
+
+            function ShowApprovalDetails() {
+                debugger;
+                $('#ApprovalsScreen').hide();
+                $('#ChronicScreen').hide();
+              
+                //$('#ApprovalsScreen').show();
+                $('#ApprovalsScreen').removeAttr('hidden').show();
+
+                if ($('#txtCardId').val() != "")
+                    getApprovalData($('#txtCardId').val());
+            }            
+            function ShowChronicDetails() {
+               
+                $('#ApprovalsScreen').hide();
+                $('#ChronicScreen').hide();
+                
+
+                //$('#ChronicScreen').show();
+                $('#ChronicScreen').removeAttr('hidden').show();
+
+                if ($('#txtCardId').val() != "")
+                    getChronicData($('#txtCardId').val());
+            }
+
+            function getApprovalData(crd) {
+
+                var table = $('#ApprovalsDetails').DataTable();
+                table.clear().draw();
+                table.destroy();
+
+                if (crd != "" && crd == "10000-VIP-100159-1") {
+                    $("#loading").css("display", "flex");
+                    $.ajax({
+                        type: "POST",
+                        url: '/NetworkMedical/getAprovalData',
+                        data: { CardId: crd },
+                        success: function (apprs) {
+
+                            if (apprs.approval.length > 0) {
+
+                                $('#ApprovalsDetails').dataTable().fnDestroy();
+
+                                var setData = $("#ApprovalsDetails Tbody");
+                                setData.empty();
+
+                                for (var i = 0; i < apprs.approval.length; i++) {
+
+                                    var data = "<tr >" +
+
+                                        "<td>" + apprs.approval[i].ApprovalNo + "</td>" +
+                                        "<td>" + apprs.approval[i].ApprovalType + "</td>" +
+                                        "<td>" + apprs.approval[i].Reply + "</td>" +
+                                        "<td>" + apprs.approval[i].ApprovalAmount + "</td>" +
+                                        "<td>" + apprs.approval[i].MedicalReply + "</td>" +
+                                        "<td>" + apprs.approval[i].CreatedBy + "</td>" +
+                                        "<td>" + apprs.approval[i].CreatedDate + "</td>" +
+                                        "<td>" + apprs.approval[i].CreatedDate1 + "</td>" +
+                                        "<td >" + "<Button  class='btn btn-Primary ' onclick='PrintApproval(\"" + apprs.approval[i].ApprovalNo + "\");'>Print</Button>" + "</td>" +
+                                        "</tr>";
+                                    setData.append(data);
+                                }
+
+                                $("#ApprovalsDetails").DataTable({
+                                    "ordering": true,
+                                    "order": [[7, "desc"]],
+                                    "columnDefs": [
+                                        {
+                                            targets: [7],  // Column index to hide (8th column, index 7)
+                                            "visible": false  // Hide the column
+                                        }
+                                    ]
+                                });
+                            }
+                        },
+                        complete: function () {
+                            $("#loading").hide();
+
+                        }
+                    });
+                }
+            }
+            function getChronicData(crd) {
+
+                var table = $('#ChronicDetails').DataTable();
+                table.clear().draw();
+                table.destroy();
+
+                if (crd != "" && crd == "10000-VIP-100159-1") {
+                    $("#loading").css("display", "flex");
+                    $.ajax({
+                        type: "POST",
+                        url: '/NetworkMedical/getChornicData',
+                        data: { CardId: crd },
+                        success: function (apprs) {
+
+                            if (apprs.clmD.length > 0) {
+
+                                $('#ChronicDetails').dataTable().fnDestroy();
+
+                                var setData = $("#ChronicDetails Tbody");
+                                setData.empty();
+
+                                for (var i = 0; i < apprs.clmD.length; i++) {
+                                    var data = "<tr >" +
+                                        "<td>" + apprs.clmD[i].MED_CODE + "</td>" +
+                                        "<td>" + apprs.clmD[i].MED_NAME + "</td>" +
+                                        "<td>" + apprs.clmD[i].DOSE + "</td>" +
+                                        "<td>" + apprs.clmD[i].MED_DURATION + "</td>" +
+                                        "<td>" + apprs.clmD[i].UNIT_NO + "</td>" +
+                                        "<td>" + apprs.clmD[i].DOSAGE_FORM + "</td>" +
+                                        "<td>" + apprs.clmD[i].MONTH_DATE_STOP + "</td>" +
+                                        "</tr>";
+                                    setData.append(data);
+                                }
+
+                                $("#ChronicDetails").DataTable();
+                            }
+                        },
+                        complete: function () {
+                            $("#loading").hide();
+                         
+                        }
+                    });
+                }
+            }
+
+
         </script>

@@ -14,6 +14,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using System.IO;
 using System.Globalization;
 using System.Threading;
+using DMS_Authontication1.ViewModel.HR;
 
 namespace DMS_Authontication1.Controllers
 {
@@ -99,7 +100,7 @@ namespace DMS_Authontication1.Controllers
 
                         //mod.Notes = mod.Notes.Replace("\n", "<br>");
                         //mod.Notes = notes.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-                        if(cardId.StartsWith("500172"))
+                        if(cardId.StartsWith("500172") || cardId.StartsWith("10000-VIP-100159-1"))
                         {
                             var medicin = (from md in db.Med_Card
                                            join m in db.Med_Medicine
@@ -496,7 +497,93 @@ namespace DMS_Authontication1.Controllers
             }
 
         }
+        string getncardapproval(string crd)
+        {
+            string ncrd = "";
 
+            System.Data.DataTable dtoldcrdaprov = new System.Data.DataTable();
+            dtoldcrdaprov = dbData.RunReader(@"SELECT CLOSE_EMP_DATA.CARD_ID FROM DMS_TEST.CLOSE_EMP_DATA WHERE (CLOSE_EMP_DATA.TRANS_TYP = 'D' OR CLOSE_EMP_DATA.TRANS_TYP = 'L') AND CLOSE_EMP_DATA.N_CARD = '" + crd + "'");
+
+            if (dtoldcrdaprov.Rows.Count > 0 && dtoldcrdaprov.Rows[0][0].ToString() != string.Empty)
+                ncrd = dtoldcrdaprov.Rows[0][0].ToString();
+            else
+                ncrd = "";
+
+            return ncrd;
+        }
+        public JsonResult getAprovalData(string CardId)
+        {
+            DataTable dt = new DataTable();
+
+            string oldcrd = getncardapproval(CardId);
+
+            oldcrd = oldcrd != "" ? oldcrd : CardId;
+
+
+            dt = dbData2.getApproval(CardId, oldcrd);
+
+
+            List<MedicalApprovalViewModel> approval = new List<MedicalApprovalViewModel>();
+
+            if (dt.Rows.Count != 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    approval.Add(new MedicalApprovalViewModel
+                    {
+                        ApprovalNo = row["APPROV_NO"].ToString(),
+                        ApprovalType = row["SERVECE_TYP"].ToString(),
+                        Reply = row["REPLY"].ToString(),
+                        ApprovalAmount = row["APPROV_AMOUNT"].ToString(),
+                        MedicalReply = row["MEDICAL_REPLAY"].ToString(),
+                        CreatedBy = row["CREATED_BY"].ToString(),
+                        CreatedDate = row["CREATED_DATE"].ToString(),
+                        CreatedDate1 = row["CREATED_DATE1"].ToString()
+                    });
+                }
+                return new JsonResult { Data = new { approval }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+            }
+            else
+                return new JsonResult { Data = new { approval }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+        public JsonResult getChornicData(string CardId)
+        {
+            DataTable dt = new DataTable();
+
+            List<ChronicDetailsViewModel> clmD = new List<ChronicDetailsViewModel>();
+
+            var medicin = (from md in db.Med_Card
+                           join m in db.Med_Medicine
+                           on md.CARD_NO equals m.CARD_NO
+                           where m.ACTIVE == "Y" &&
+                                 md.LOOK_01 == 0 &&
+                                    m.CARD_NO == CardId
+                           orderby m.CREATED_DATE ?? m.UPDATE_DATE descending
+                           select m).ToList();
+
+            if (medicin != null && medicin.Count > 0)
+            {
+                foreach (var med in medicin)
+                {
+                    clmD.Add(new ChronicDetailsViewModel
+                    {
+                        MED_CODE = med.MED_CODE,
+                        MED_NAME = med.MED_NAME,
+                        DOSE = med.DOSE.ToString(),
+                        MED_DURATION = med.MED_DURATION.ToString(),
+                        UNIT_NO = med.UNIT_NO.ToString(),
+                        DOSAGE_FORM = med.DOSAGE_FORM.ToString(),
+                        MONTH_DATE_STOP = med.MONTH_DATE_STOP.ToString()
+                    });
+                }
+                return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+                return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
         public ActionResult PrintRoshita(Int32 cardId)
         {
             string eror;
