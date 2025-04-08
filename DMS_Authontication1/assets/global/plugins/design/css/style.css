@@ -1645,6 +1645,18 @@ div.hide-pseudo::before {
 label { 
     margin-bottom: 0px;
 }
+/* ====================New========================================== */
+h2.panel-heading {
+    padding: 10px;
+    margin: 22px 0 !important;
+    background: #e8f0f1;
+    color: #2d9cbc;
+    font-weight: 500;
+}
+table {
+    white-space: nowrap;
+    margin-top:10px;
+}
 /* ====================footer========================================== */
 footer div.footer {
     background: var(--color-gradient);
