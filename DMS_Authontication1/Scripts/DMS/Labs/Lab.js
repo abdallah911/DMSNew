@@ -108,7 +108,7 @@ $(function () {
                         var ArName;
                         var CompHolderName;
                         for (var i = 0; i < r.length; i++) {
-                             ArName = r[0].EMP_ANAME_ST + " " + r[0].EMP_ANAME_SC + " " + r[0].EMP_ANAME_TH;
+                            ArName = r[0].EMP_ANAME_ST + " " + r[0].EMP_ANAME_SC + " " + r[0].EMP_ANAME_TH;
                             CompHolderName = r[i].CompHolderName;
                         }
                         var EndDate = dat1;
@@ -172,9 +172,19 @@ $(function () {
                                                                 AnuualLimit = r.Limit;
                                                                 $('#IsFamily').val(r.IsFamily);
                                                                 $('#IsPool').val(r.IsPool);
+
+                                                                if (r.LimitDailyPreceptionCount == true) {
+                                                                    $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
+                                                                } else {
+                                                                    alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
+                                                                    $("#Co_insurance_INSURANCE_DAY_LAB").val("0.001");
+
+                                                                    $('#ddEmp_CEILING_PERT').val("0");
+                                                                }
+
                                                                 //   $("#no_data_yet").val(100 - $("#ddEmp_CEILING_PERT").val());
                                                                 //limit_Daily = r.CoInsurancelimit.INSURANCE_DAY_LAB;
-                                                                $("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
+                                                                //$("#Co_insurance_INSURANCE_DAY_LAB").val(r.CoInsurancelimit.INSURANCE_DAY_LAB);
                                                                 Calculation();
                                                                 //Get ClaimNumber
 

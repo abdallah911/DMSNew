@@ -1449,6 +1449,7 @@ namespace DMS_Authontication1.Controllers
         {
             string Message = "";
             int _IntServiceCode = Convert.ToInt32(ServiceCode);
+            string roshitaType = ServiceCode == "11201" ? "11204" : "11206";
             string _CompId = id.Split('-')[0];
             string MainService = ServiceCode.Substring(0, 3);
             var CurrentDate = DateTime.Now.Date;
@@ -1614,7 +1615,7 @@ namespace DMS_Authontication1.Controllers
                 }
                 double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
                 //SubService consumption
-                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
+                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == roshitaType).ToList();
                 double AcumlatorSubServiceAmount = 0;
                 foreach (var item in AcumlatorSubServiceList)
                 {
@@ -1890,6 +1891,7 @@ namespace DMS_Authontication1.Controllers
             string Message = "";
             ServiceCode = ServiceCode == "11604" ? "11601" : ServiceCode;
             string MainService = ServiceCode.Substring(0, 3);
+            string roshitaType = ServiceCode == "11201" ? "11204" : "11206";
             var CurrentDate = DateTime.Now.Date;
             var emp = db.Comp_Employees.Where(c => c.CARD_ID == id && c.INS_START_DATE <= CurrentDate && c.INS_END_DATE >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
             //
@@ -2030,7 +2032,7 @@ namespace DMS_Authontication1.Controllers
                 }
                 double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
                 //SubService Concamution
-                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
+                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == roshitaType).ToList();
                 double AcumlatorSubServiceAmount = 0;
                 foreach (var item in AcumlatorSubServiceList)
                 {
