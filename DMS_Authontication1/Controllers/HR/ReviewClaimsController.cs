@@ -922,8 +922,8 @@ namespace DMS_Authontication1.Controllers.HR
             rd.SetParameterValue("crd2", cardEnd);
 
             rd.SetParameterValue("aprov1", aprovNoFrom);
-            rd.SetParameterValue("aprov2", aprovNoTo);           
-
+            rd.SetParameterValue("aprov2", aprovNoTo);
+            rd.SetParameterValue("cmp", comp);
             rd.SetParameterValue("btch", batchNoFrom);
 
             Response.Buffer = false;

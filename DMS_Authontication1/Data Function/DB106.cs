@@ -318,7 +318,8 @@ namespace DMS_Authontication1.Data_Function
                 cmd = new OracleCommand(@"  SELECT  BATCH_NO, PRV_NO, PRV_NAME, PROVIDER_TYPE, COUNT(DISTINCT CLAIM_NO) COUNT_CLAIM, SUM(CLAIM_SUBMITTED) GROSS, SUM(NET) NET
                                             FROM    APP.REVIEW_CLAIMS
                                             WHERE   COMP_ID = :cmp AND INVOICE_NO = :invoc                                                                
-                                            GROUP BY BATCH_NO, PRV_NO, PRV_NAME, PROVIDER_TYPE ", con);
+                                            GROUP BY BATCH_NO, PRV_NO, PRV_NAME, PROVIDER_TYPE
+                                            ORDER BY BATCH_NO", con);
 
                 cmd.Parameters.Clear();
 
