@@ -207,11 +207,24 @@ namespace DMS_Authontication1.Controllers.HR
                 return new JsonResult { Data = new { invoicelist = invo, msg = "empty" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet, MaxJsonLength = Int32.MaxValue };
         }
 
-        public JsonResult GetBatchDetails(string compNo, string invocNo)
+        public JsonResult GetBatchDetails(string compNo, string invocNo, string servFrom, string servTo, string regFrom, string regTo, string batchNo)
         {
             DataTable dt = new DataTable();
 
-            dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo));
+            Int64 batchNoFrom, batchNoTo;
+
+            DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
+
+            regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
+            regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
+            servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
+            servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
+
+            batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
+            batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
+
+
+            dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo), servDateFrom, servDateTo, regDateFrom, regDateTo, batchNoFrom, batchNoTo);
 
             List<BatchViewModel> clms = new List<BatchViewModel>();
 
@@ -318,11 +331,23 @@ namespace DMS_Authontication1.Controllers.HR
                 throw ex;
             }
         }
-        public ActionResult PrintBatchReviewReport(string compNo, string invocNo, int typ)
+        public ActionResult PrintBatchReviewReport(string compNo, string invocNo, string servFrom, string servTo, string regFrom, string regTo, string batchNo, int typ)
         {
             DataTable dt = new DataTable();
 
-            dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo));
+            Int64 batchNoFrom, batchNoTo;
+
+            DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
+
+            regDateFrom = string.IsNullOrEmpty(regFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(regFrom)).Date;
+            regDateTo = string.IsNullOrEmpty(regTo) ? DateTime.Now.Date : (Convert.ToDateTime(regTo)).Date;
+            servDateFrom = string.IsNullOrEmpty(servFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(servFrom)).Date;
+            servDateTo = string.IsNullOrEmpty(servTo) ? DateTime.Now.Date : (Convert.ToDateTime(servTo)).Date;
+
+            batchNoFrom = string.IsNullOrEmpty(batchNo) ? 0 : Convert.ToInt64(batchNo);
+            batchNoTo = string.IsNullOrEmpty(batchNo) ? 999999999999999999 : Convert.ToInt64(batchNo);
+
+            dt = dbData.getBatch(Int64.Parse(compNo), Int64.Parse(invocNo), servDateFrom, servDateTo, regDateFrom, regDateTo, batchNoFrom, batchNoTo);
 
             List<BatchViewModel> clms = new List<BatchViewModel>();
 

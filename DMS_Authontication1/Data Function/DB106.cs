@@ -307,7 +307,8 @@ namespace DMS_Authontication1.Data_Function
                 }
             }
         }
-        public DataTable getBatch(Int64 cmp, Int64 invoc)
+        public DataTable getBatch(Int64 cmp, Int64 invoc, DateTime serv1, DateTime serv2, DateTime reg1, DateTime reg2,
+                                  Int64 batch1, Int64 batch2)
         {
             OracleConnection con = new OracleConnection(connectionStr);
             OracleCommand cmd = new OracleCommand();
@@ -317,7 +318,10 @@ namespace DMS_Authontication1.Data_Function
             {
                 cmd = new OracleCommand(@"  SELECT  BATCH_NO, PRV_NO, PRV_NAME, PROVIDER_TYPE, COUNT(DISTINCT CLAIM_NO) COUNT_CLAIM, SUM(CLAIM_SUBMITTED) GROSS, SUM(NET) NET
                                             FROM    APP.REVIEW_CLAIMS
-                                            WHERE   COMP_ID = :cmp AND INVOICE_NO = :invoc                                                                
+                                            WHERE   COMP_ID = :cmp AND INVOICE_NO = :invoc     
+                                                AND TRUNC(TO_DATE(CREATED_DATE)) BETWEEN TRUNC(TO_DATE(:reg1)) AND TRUNC(TO_DATE(:reg2))
+                                                AND TRUNC(TO_DATE(CLAIM_DATE)) BETWEEN TRUNC(TO_DATE(:serv1)) AND TRUNC(TO_DATE(:serv2))
+                                                AND NVL(BATCH_NO, 0) BETWEEN :batch1 AND :batch2
                                             GROUP BY BATCH_NO, PRV_NO, PRV_NAME, PROVIDER_TYPE
                                             ORDER BY BATCH_NO", con);
 
@@ -325,6 +329,12 @@ namespace DMS_Authontication1.Data_Function
 
                 cmd.Parameters.Add(":cmp", OracleType.Number).Value = cmp;
                 cmd.Parameters.Add(":invoc", OracleType.Number).Value = invoc;
+                cmd.Parameters.Add(":serv1", OracleType.DateTime).Value = serv1;
+                cmd.Parameters.Add(":serv2", OracleType.DateTime).Value = serv2;
+                cmd.Parameters.Add(":reg1", OracleType.DateTime).Value = reg1;
+                cmd.Parameters.Add(":reg2", OracleType.DateTime).Value = reg2;                
+                cmd.Parameters.Add(":batch1", OracleType.Number).Value = batch1;
+                cmd.Parameters.Add(":batch2", OracleType.Number).Value = batch2;
 
                 da = new OracleDataAdapter(cmd);
 
