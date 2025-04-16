@@ -17,6 +17,9 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
+using QRCoder;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace DMS_Authontication1.Controllers.HospitalSystem
 {
@@ -928,8 +931,49 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
 
         }
 
+        private byte[] GenerateQrCode(Int64 id)
+        {
+            using (var qrGenerator = new QRCodeGenerator())
+            {
+                string site = "https://sios-eg.com/NetworkMedical/NetworkMedical/";
+                string data = "";
 
+                data = site + id;
 
+                QRCodeData qrCodeData = qrGenerator.CreateQrCode(data, QRCodeGenerator.ECCLevel.Q);
+                using (var qrCode = new QRCode(qrCodeData))
+                {
+                    using (Bitmap qrCodeImage = qrCode.GetGraphic(20))
+                    {
+                        // Convert Bitmap to Byte Array
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            qrCodeImage.Save(ms, ImageFormat.Png);
+                            return ms.ToArray(); // Return as byte array
+                        }
+                    }
+                }
+            }
+        }
+        void saveQrClaim(Int64 id)
+        {
+            try
+            {
+                byte[] qrCodeImageBytes = GenerateQrCode(id);
+
+                HospitalClaimQR hospitalClaimQR = new HospitalClaimQR
+                {
+                    ClaimId = id,
+                    ImageQR = qrCodeImageBytes
+                };
+
+                db.HospitalClaimQRs.Add(hospitalClaimQR);
+                db.SaveChanges();
+
+                //db2.SaveQrCode(CompNo.Text, CardNo.Text, qrCodeImageBytes) == 1
+            }
+            catch(Exception ex) { }
+        }
 
         /// <summary>
         /// 
@@ -1023,7 +1067,10 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                     var result = db.SaveChanges();
 
                     if (result > 0)
+                    {
+                        saveQrClaim(hospitalClaim.IdPrimary);
                         return new JsonResult { Data = new { result = "تم حفظ العملية بنجاح كود الموافقة  :" + codeRequestDate, ID = hospitalClaim.IdPrimary, msg = "OK" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
                     else
                         return new JsonResult { Data = new { result = "Invalid Request", msg = "NO" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
@@ -1058,6 +1105,9 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
                         db.Entry(exc).State = EntityState.Modified;
                         db.SaveChanges();
                     }
+
+                    saveQrClaim(hospitalClaim.IdPrimary);
+
                     return new JsonResult { Data = new { result = "تم حفظ العملية بنجاح كود الموافقة  :" + codeRequestDate, ID = hospitalClaim.IdPrimary + "\n", msg = "OK" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
                 else

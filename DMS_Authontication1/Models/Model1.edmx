@@ -1465,6 +1465,14 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="Group_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Group_Type" Type="nvarchar" MaxLength="3" Nullable="false" />
         </EntityType>
+        <EntityType Name="HospitalClaimQR">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClaimId" Type="bigint" />
+          <Property Name="ImageQR" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="HospitalClaims">
           <Key>
             <PropertyRef Name="IdPrimary" />
@@ -3211,6 +3219,18 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HospitalClaimQR_HospitalClaims">
+          <End Role="HospitalClaims" Type="Self.HospitalClaims" Multiplicity="0..1" />
+          <End Role="HospitalClaimQR" Type="Self.HospitalClaimQR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HospitalClaims">
+              <PropertyRef Name="IdPrimary" />
+            </Principal>
+            <Dependent Role="HospitalClaimQR">
+              <PropertyRef Name="ClaimId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_IndemnityCardsServices_Indemnity">
           <End Role="Indemnity" Type="Self.Indemnity" Multiplicity="1" />
           <End Role="IndemnityCardsServices" Type="Self.IndemnityCardsServices" Multiplicity="*" />
@@ -4019,6 +4039,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="Governates" EntityType="Self.Governates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Group_Lab" EntityType="Self.Group_Lab" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Group_Ray" EntityType="Self.Group_Ray" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HospitalClaimQR" EntityType="Self.HospitalClaimQR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HospitalClaims" EntityType="Self.HospitalClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HospitalDoctors" EntityType="Self.HospitalDoctors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HospitalServices" EntityType="Self.HospitalServices" Schema="dbo" store:Type="Tables" />
@@ -4179,6 +4200,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <AssociationSet Name="FK_ERPModulesPages_ERPModules" Association="Self.FK_ERPModulesPages_ERPModules">
             <End Role="ERPModules" EntitySet="ERPModules" />
             <End Role="ERPModulesPages" EntitySet="ERPModulesPages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HospitalClaimQR_HospitalClaims" Association="Self.FK_HospitalClaimQR_HospitalClaims">
+            <End Role="HospitalClaims" EntitySet="HospitalClaims" />
+            <End Role="HospitalClaimQR" EntitySet="HospitalClaimQR" />
           </AssociationSet>
           <AssociationSet Name="FK_IndemnityCardsServices_Indemnity" Association="Self.FK_IndemnityCardsServices_Indemnity">
             <End Role="Indemnity" EntitySet="Indemnity" />
@@ -5995,6 +6020,11 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Parameter Name="search" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="CompContractClassProviders" EntityType="DB_A45413_DMSERPModel.CompContractClassProvider" />
+          <EntitySet Name="HospitalClaimQRs" EntityType="DB_A45413_DMSERPModel.HospitalClaimQR" />
+          <AssociationSet Name="FK_HospitalClaimQR_HospitalClaims" Association="DB_A45413_DMSERPModel.FK_HospitalClaimQR_HospitalClaims">
+            <End Role="HospitalClaim" EntitySet="HospitalClaims" />
+            <End Role="HospitalClaimQR" EntitySet="HospitalClaimQRs" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7477,6 +7507,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CompHolderCode" Type="Int32" />
+          <NavigationProperty Name="HospitalClaimQRs" Relationship="DB_A45413_DMSERPModel.FK_HospitalClaimQR_HospitalClaims" FromRole="HospitalClaim" ToRole="HospitalClaimQR" />
         </EntityType>
         <EntityType Name="DeliveryRequestDetail">
           <Key>
@@ -8720,6 +8751,27 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="HospitalClaimQR">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="ClaimId" Type="Int64" />
+          <Property Name="ImageQR" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="HospitalClaim" Relationship="DB_A45413_DMSERPModel.FK_HospitalClaimQR_HospitalClaims" FromRole="HospitalClaimQR" ToRole="HospitalClaim" />
+        </EntityType>
+        <Association Name="FK_HospitalClaimQR_HospitalClaims">
+          <End Type="DB_A45413_DMSERPModel.HospitalClaim" Role="HospitalClaim" Multiplicity="0..1" />
+          <End Type="DB_A45413_DMSERPModel.HospitalClaimQR" Role="HospitalClaimQR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HospitalClaim">
+              <PropertyRef Name="IdPrimary" />
+            </Principal>
+            <Dependent Role="HospitalClaimQR">
+              <PropertyRef Name="ClaimId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -12120,6 +12172,15 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
                 <ScalarProperty Name="CLASS_CODE" ColumnName="CLASS_CODE" />
                 <ScalarProperty Name="CONTRACT_NO" ColumnName="CONTRACT_NO" />
                 <ScalarProperty Name="COMP_ID" ColumnName="COMP_ID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HospitalClaimQRs">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.HospitalClaimQR">
+              <MappingFragment StoreEntitySet="HospitalClaimQR">
+                <ScalarProperty Name="ImageQR" ColumnName="ImageQR" />
+                <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
