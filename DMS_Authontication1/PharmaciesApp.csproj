@@ -317,6 +317,7 @@
     <Compile Include="Controllers\BrokerController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\ControlPanal\ClaimController.cs" />
+    <Compile Include="Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\NetworkMedicalController.cs" />
     <Compile Include="Controllers\MobileApi\AccountMobileController.cs" />
     <Compile Include="Controllers\NewReportsController.cs" />
@@ -1392,10 +1393,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\ClaimPhotoesViewModel.cs" />
+    <Compile Include="ViewModel\HospitalClaimDataViewModel.cs" />
     <Compile Include="ViewModel\EmployeeDataViewModel.cs" />
     <Compile Include="ViewModel\BrokerViewModel.cs" />
     <Compile Include="ViewModel\CategoriesPricingViewModel.cs" />
-    <Compile Include="ViewModel\ClaimPhotoesViewModel.cs" />
+    <Compile Include="ViewModel\HospitalClaimPhotoesViewModel.cs" />
     <Compile Include="ViewModel\AcceptionViewModel.cs" />
     <Compile Include="ViewModel\AdminChangeUserPasswordNM.cs" />
     <Compile Include="ViewModel\CompanyViewModel.cs" />
@@ -9326,7 +9329,7 @@
     <Content Include="Views\NetworkMedical\NetworkMedical.cshtml" />
     <Content Include="Reports\Roshita.rpt" />
     <Content Include="Views\NetworkMedical\NetworkMedical - Copy.cshtml" />
-    <Content Include="Views\NetworkMedical\CreateClaim.cshtml" />
+    <Content Include="Views\Claims\UploadClaimPhoto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
