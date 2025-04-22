@@ -49,8 +49,6 @@ namespace DMS_Authontication1.Controllers
             ViewBag.stat = "NoData";
             return View();
         }
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(HospitalClaimPhotoesViewModel model)
