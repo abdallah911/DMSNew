@@ -43,12 +43,12 @@
                 <div data-step="1" data-hint='Step one!' data-intro="Enter Card ID" style="width:fit-content ">
                     <input id="txtSearchCard" type="text" placeholder="search for card..." class="form-control" />
                 </div>
-                <div class=" "style="width:fit-content " data-step="2" data-intro="click Search">
+                <div class=" " style="width:fit-content " data-step="2" data-intro="click Search">
                     <button id="Search" type="button" class="btn btn-primary">
                         <i class="glyphicon glyphicon-search"></i> Search
                     </button>
                 </div>
-                <div class=" btn-group"style="width:fit-content " data-toggle="buttons">
+                <div class=" btn-group" style="width:fit-content " data-toggle="buttons">
                     <label id="Approval" class="btn btn-info" disabled>
                         <input id="HasApproval" type="checkbox" autocomplete="off">
                         <span class="glyphicon glyphicon-ok"></span> Has Approval
@@ -61,8 +61,8 @@
                     <input id="AllLimit" name="AllLimit" value="" />
                 </div>
                 @*<div class="col-md-1">
-                        @Html.Label("Comment", htmlAttributes: new { @class = "control-label" })
-                    </div>*@
+                    @Html.Label("Comment", htmlAttributes: new { @class = "control-label" })
+                </div>*@
                 <div class="col-md-2">
                     <div class="form-group shadow-textarea" hidden>
                         <textarea id="Comments" placeholder="Notes" style="height: 33px;" type="text" class="form-control" name="Comments" maxlength="50" placeholder="" value=""></textarea>
@@ -80,72 +80,108 @@
         <div class="panel panel-info">
             <h2 class="panel-heading" style="margin:1px;">Card ID</h2>
             <div class="panel-body">
-                <div class="row">
-                    <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 form-group">
-                        <div class="">
-                            @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                <div class="p-2">
+                    <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 d-flex g-2 mx-auto mb-2 form-group">
+                        <div class="forLabel">
+                          @Html.EditorFor(model => model.compEmp.EMP_ANAME, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                            <span>
+                                @Html.LabelFor(model => model.compEmp.EMP_ANAME, htmlAttributes: new { @class = "control-label" })
+                            </span>
                         </div>
-                        <div class="">
-                            @Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        <div class="forLabel">
+                       @Html.EditorFor(model => model.compEmp.INS_START_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                            <span>
+                                @Html.LabelFor(model => model.compEmp.INS_START_DATE, htmlAttributes: new { @class = "control-label" })
+                            </span>
+
                         </div>
-                        <div class="">
-                            @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        <div class="forLabel">
+                         @Html.EditorFor(model => model.compEmp.INS_END_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                            <span>
+                                @Html.LabelFor(model => model.compEmp.INS_END_DATE, htmlAttributes: new { @class = "control-label" })
+                            </span>
+
                         </div>
-                        <div class="" data-step="4" data-intro="Enter Clame Number">
-                            @Html.Label("Claim Number", htmlAttributes: new { @class = "control-label" })
+                        <div class="forLabel" data-step="4" data-intro="Enter Clame Number">
                             @Html.Editor("ClaimNumber", new { htmlAttributes = new { @class = "form-control", @id = "ClaimNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                            <span>
+                                @Html.Label("Claim Number", htmlAttributes: new { @class = "control-label" })
+                            </span>
+
                         </div>
-                        <div class="" data-step="7" data-intro="Select speciality" id="divSpeciality">
-                            @Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })
+                        <div class="forLabel" data-step="7" data-intro="Select speciality" id="divSpeciality">
                             @Html.DropDownList("ddlSpeciality", null, htmlAttributes: new { @class = "form-control", @id = "ddlSpeciality" })
+                            <span>
+                                @Html.LabelFor(model => model.speciality.special_Aname, htmlAttributes: new { @class = "control-label" })
+                            </span>
+
                         </div>
-                        <div class="" data-step="8" data-intro="Select Diagnoises" id="divDiagnoises">
-                            @Html.Label("Diagnoise", new { @class = "control-label" })
-                            <select id="ddlDiagnoises" style="width:100%" multiple></select>
+                        <div class="forLabel" data-step="8" data-intro="Select Diagnoises" id="divDiagnoises">
+                           <select id="ddlDiagnoises"required style="width:100%" multiple></select>
+                           <span>
+                               @Html.Label("Diagnoise", new { @class = "control-label" })
+                           </span> 
                         </div>
 
-                        <div class="">
-                            @Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        <div class="forLabel">
+                             @Html.EditorFor(model => model.compEmp.BIRTH_DATE, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                            <span>
+                                @Html.LabelFor(model => model.compEmp.BIRTH_DATE, htmlAttributes: new { @class = "control-label" })
+                            </span>
+
                         </div>
-                        <div class="" hidden>
-                            @Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                        <div class="forLabel" hidden>
+                           @Html.EditorFor(model => model.insurance.LIVEL, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                            <span>
+                                @Html.LabelFor(model => model.insurance.LIVEL, htmlAttributes: new { @class = "control-label" })
+                            </span>
+
                         </div>
-                        <div class="">
-                            @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
+                        <div class="forLabel">
                             @Html.EditorFor(model => model.ddEmp.CEILING_PERT, new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true" } })
+                            <span>
+                                @Html.LabelFor(model => model.ddEmp.CEILING_PERT, htmlAttributes: new { @class = "control-label" })
+                            </span>
+
                         </div>
-                        <div class="" data-step="3" data-intro="Enter Preception Date">
-                            @Html.Label("Prescription Date", htmlAttributes: new { @class = "control-label", @title = "لابد ان يكون ف اخر 7 ايام " })
-                            @Html.Editor("PrescriptionDate", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true", @title = "لابد ان يكون ف اخر 7 ايام " } })
+                        <div class="forLabel" data-step="3" data-intro="Enter Preception Date">
+                           @Html.Editor("PrescriptionDate", new { htmlAttributes = new { @class = "form-control", @ReadOnly = "true", @title = "لابد ان يكون ف اخر 7 ايام " } })
+                            <span>
+                                @Html.Label("Prescription Date", htmlAttributes: new { @class = "control-label", @title = "لابد ان يكون ف اخر 7 ايام " })
+                            </span>
+
                         </div>
-                        <div class="" data-step="5" data-intro="Enter Phone with 11 Number " id="phone">
-                            @Html.Label("Phone Number", htmlAttributes: new { @class = "control-label" })
-                            @Html.Editor("PhoneNumber", new { htmlAttributes = new { @class = "form-control", @id = "PhoneNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                        <div class="forLabel" data-step="5" data-intro="Enter Phone with 11 Number " id="phone">
+                           @Html.Editor("PhoneNumber", new { htmlAttributes = new { @class = "form-control", @id = "PhoneNumber", @required = "required", @onkeypress = "return /[0-9]/i.test(event.key)" } })
+                            <span>
+                                @Html.Label("Phone Number", htmlAttributes: new { @class = "control-label" })
+                            </span>
+
                         </div>
-                        <div class="" data-step="6" data-intro="Select Preception type Default is Daily">
-                            @Html.Label("Type", htmlAttributes: new { @class = "control-label" })
-                            <select id="ddlType" class="form-control">
+                        <div class="forLabel" data-step="6" data-intro="Select Preception type Default is Daily">
+                           <select id="ddlType" class="form-control">
                                 <option value="0">Select Preception type</option>
                                 <option value="11601">Daily</option>
                                 <option value="11603">Monthly</option>
                                 <option value="11602">Chronic</option>
                                 <option value="11604">Doctor</option>
                             </select>
+                           <span>
+                               @Html.Label("Type", htmlAttributes: new { @class = "control-label" })
+                           </span> 
                         </div>
-                        <div class="">
-                            @Html.LabelFor(model => model.compEmp.CompHolderName, htmlAttributes: new { @class = "control-label" })
+                        <div class="forLabel">
                             @Html.EditorFor(model => model.compEmp.CompHolderName, new { htmlAttributes = new { @style = "border-color:red", @class = "fw-bold form-control", @ReadOnly = "true" } })
+                            <span>
+                                @Html.LabelFor(model => model.compEmp.CompHolderName, htmlAttributes: new { @class = "control-label" })
+                            </span>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="panel panel-info">
+        <div class="panel panel-info d-flex flex-column">
             <h2 class="panel-heading" style="margin:1px;">Medicines</h2>
             <div class="panel-body">
                 <!--Search Medicine-->
@@ -190,30 +226,48 @@
                         <!--Caculation-->
                         <div id="load">
                             <div class="row">
-                                <div class="row row-cols-sm-2 row-cols-lg-3 form-group">
-                                    <div class="">
-                                        <label class="control-label">Total</label>
+                                <div class="row row-cols-sm-2 row-cols-lg-3 d-flex g-2 mx-auto mt-3 form-group">
+                                    <div class="forLabel">
                                         <input id="txtTotalInvoice" type="text" class="form-control" ReadOnly="readonly" />
+                                        <span>
+                                            <label class="control-label">Total</label>
+                                        </span>
+
                                     </div>
-                                    <div class="">
-                                        <label class="control-label">co-Payment</label>
+                                    <div class="forLabel">
                                         <input id="txtTotalCopayment" type="text" class="form-control" ReadOnly="readonly" />
+                                        <span>
+                                            <label class="control-label">co-Payment</label>
+                                        </span>
+
                                     </div>
-                                    <div class="">
-                                        <label class="control-label">Value Credit</label>
+                                    <div class="forLabel">
                                         <input id="txtValueCredit" type="text" class="form-control" ReadOnly="readonly" />
+                                        <span>
+                                            <label class="control-label">Value Credit</label>
+                                        </span>
+
                                     </div>
-                                    <div class="">
-                                        <label class="control-label">Over Insurance</label>
+                                    <div class="forLabel">
                                         <input id="txtOverInsurance" type="text" class="form-control" ReadOnly="readonly" />
+                                        <span>
+                                            <label class="control-label">Over Insurance</label>
+                                        </span>
+
                                     </div>
-                                    <div class="">
-                                        <label class="control-label">Cash</label>
+                                    <div class="forLabel">
                                         <input id="txtCash" type="text" class="form-control" ReadOnly="readonly" />
+                                        <span>
+                                            <label class="control-label">Cash</label>
+                                        </span>
+
                                     </div>
-                                    <div class="">
-                                        <label class="control-label">Total cash</label>
+                                    <div class="forLabel">
                                         <input id="txtValueCash" type="text" class="form-control" ReadOnly="readonly" />
+                                        <span>
+                                            <label class="control-label">Total cash</label>
+                                        </span>
+
                                     </div>
                                 </div>
                             </div>
@@ -223,12 +277,16 @@
 
             </div>
             <!--Save-->
-            <div class="panel-footer my-3" style="text-align:right;">
-                <input data-step="10" data-intro="Help" style="float: left;" id="Help" type="button" value="Help" class="btn btn-info" />
-                <a data-step="11" style="float: left; margin-left:40px;" class="btn btn-primary" href="@Url.Action("GetFile","Pharmacy",new { fileName = "Pharmacy" })" download="PharmacyManual.pdf"><i class="fa fa-download"></i> Manual</a>
-                @*<input data-step="11" data-intro="Help" style="float: left;" id="Manual" type="button" value="Manual" class="btn btn-info" />*@
-                <input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn btn-warning" />
-                <input data-step="12" data-intro="Save Preception" id="submit" type="button" value="Dispense" class="btn btn-success" />
+            <div class="panel-footer d-flex justify-content-between my-3 px-3" style="text-align:right;">
+                <div class="d-flex gap-2">
+                    <input data-step="10" data-intro="Help" id="Help" type="button" value="Help" class="btn btn-info" />
+                    <a data-step="11" class="btn btn-primary" href="@Url.Action("GetFile","Pharmacy",new { fileName = "Pharmacy" })" download="PharmacyManual.pdf"><i class="fa fa-download"></i> Manual</a>
+                </div>
+               @*<input data-step="11" data-intro="Help" style="float: left;" id="Manual" type="button" value="Manual" class="btn btn-info" />*@
+                <div class="d-flex gap-2">
+                    <input data-step="11" data-intro="Reset Medicine" id="reset" type="button" value="Reset" onclick="ClearMedicineData();" class="btn btn-warning" />
+                    <input data-step="12" data-intro="Save Preception" id="submit" type="button" value="Dispense" class="btn btn-success" />
+                </div>
             </div>
         </div>
     </div>

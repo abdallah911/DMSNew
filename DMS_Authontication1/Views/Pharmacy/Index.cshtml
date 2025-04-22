@@ -45,48 +45,52 @@
                 </div>
             </div>
             <div class="portlet-body">
-                <div class="row">
-                    <div class="col-md-2">
-                        <input id="From" type="text" class="col-md-2 form-control " placeholder="From" />
+                <div class="row row-cols-sm-2 row-cols-lg-3 d-flex g-2 mx-auto mt-3 ">
+                    <div class="forLabel">
+                        <input id="From" type="text"required  class="form-control " placeholder="" />
+                        <span>From</span>
                     </div>
-                    <div class="col-md-2">
-                        <input id="To" type="text" class="col-md-2 form-control " placeholder="To" />
+                    <div class="forLabel">
+                        <input id="To" type="text" required class="form-control " placeholder="" />
+                        <span>To</span>
                     </div>
-                    <div class="col-md-2">
-                        <input id="PharmacyApprovalNo" type="text" class="col-md-2 form-control " placeholder="ApprovalNo" />
+                    <div class="forLabel">
+                        <input id="PharmacyApprovalNo"required  type="text" class="form-control " placeholder="" />
+                        <span>ApprovalNo</span>
                     </div>
-                    <div class="col-md-2">
-                        <input id="PharmacyCardId" type="text" class="col-md-2 form-control " placeholder="Card ID" />
+                    <div class="forLabel">
+                        <input id="PharmacyCardId"required  type="text" class="form-control " placeholder="" />
+                        <span>Card ID</span>
                     </div>
-                    <div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
-                        <select id="PharmacyddlType" class="form-control">
-                            <option value="">Select Type</option>
+                    <div class="forLabel" data-step="6" data-intro="Select Preception type Default is Daily">
+                        <select id="PharmacyddlType"required class="form-control">
+                            <option value=""></option>
                             <option value="Daily">Daily</option>
                             <option value="Monthly">Monthly</option>
                             <option value="Pharmacy_Chronic">Pharmacy_Chronic</option>
                             @*<option value="11604">Doctor</option>*@
                         </select>
+                        <span>Select Type</span>
                     </div>
-                    <div class="col-md-2">
-                        @Html.DropDownList("comphoder", null, htmlAttributes: new { @class = "form-control", @id = "comphoder" })
+                    <div class="forLabel">
+                        @Html.DropDownList("comphoder", null, htmlAttributes: new { @class = "form-control",@required="true", @id = "comphoder" })
+                        <span>All</span>
                     </div>
 
                     @if (User.IsInRole("Pharmacy_Admin"))
                     {
-                        <div class="col-md-2">
-                            @Html.DropDownList("ddlUsers", null, "All", htmlAttributes: new { @class = "form-control", @id = "ddlUsers" })
+                        <div class="forLabel">
+                            @Html.DropDownList("ddlUsers", null, "", htmlAttributes: new { @class = "form-control", @required="true", @id = "ddlUsers" })
+                            <span>All</span>
                         </div>
                     }
                 </div>
                 <br />
-                <div class="row" style=" text-align:right">
-                    <div class="col-md-12">
-                        <input id="PharmacyResetSearch" type="button" value="Reset" onclick="ClearPharmacySearchData();" class="btn btn-warning" />
-                        <input id="Print" type="button" value="Print" class="btn btn-primary fa fa-file-pdf-o" />
-                        @*<input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o " />*@
-                        <input id="PharmacyAdminSearch" type="button" value="Search" class="btn btn-default  fa fa-search" />
-
-                    </div>
+                <div class="panel-footer d-flex justify-content-between justify-content-center justify-content-sm-end my-3 px-3 gap-2" style="text-align:right;">
+                    <input id="PharmacyResetSearch" type="button" value="Reset" onclick="ClearPharmacySearchData();" class="btn btn-warning" />
+                    <input id="Print" type="button" value="Print" class="btn btn-primary " />
+                    @*<input id="PrintExcel" type="button" value="Excel" class="btn btn-success fa-file-excel-o " />*@
+                    <input id="PharmacyAdminSearch" type="button" value="Search" class="btn  " />
                 </div>
             </div>
         </div>
@@ -96,7 +100,7 @@
 
         <div class="portlet box ">
             <div class="portlet-title title-bg">
-                <div class="caption">
+                <div class="caption fw-bold">
                     <i class="fa fa-"></i>Admin Search
                 </div>
             </div>
@@ -106,34 +110,32 @@
                 <input id="view" value="@view.ToString()" hidden />
                 <input id="fullcontroll" value="@fullcontroll.ToString()" hidden />
 
-                <div class="row" style="padding-bottom: 15px;">
-                    <div class="col-md-2">
-                        <input id="AdminFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 d-flex row-gap-2 mx-auto mb-2 ">
+                    <div class="forLabel">
+                        <input id="AdminFrom" type="text" class="form-control " placeholder="From" />
                     </div>
-                    <div class="col-md-2">
-                        <input id="Provider" type="text" class="col-md-2 form-control " placeholder="Provider" />
+                    <div class="forLabel">
+                        <input id="Provider" type="text" class="form-control " placeholder="Provider" />
                     </div>
-                    <div class="col-md-2">
-                        <input id="Company" type="text" class="col-md-2 form-control " placeholder="Company" />
+                    <div class="forLabel">
+                        <input id="Company" type="text" class="form-control " placeholder="Company" />
                     </div>
-                    <div class="col-md-2">
-                        <input id="ApprovalNo" type="text" class="col-md-2 form-control " placeholder="ApprovalNo" />
+                    <div class="forLabel">
+                        <input id="ApprovalNo" type="text" class="form-control " placeholder="ApprovalNo" />
                     </div>
-                    <div class="col-md-2">
+                    <div class="forLabel">
                         @Html.DropDownList("comphoder", null, htmlAttributes: new { @class = "form-control", @id = "comphoder" })
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <input id="AdminTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                    <div class="forLabel">
+                        <input id="AdminTo" type="text" class="form-control " placeholder="To" />
                     </div>
-                    <div class="col-md-2">
-                        <input id="Branch" type="text" class="col-md-2 form-control " placeholder="Branch" />
+                    <div class="forLabel">
+                        <input id="Branch" type="text" class="form-control " placeholder="Branch" />
                     </div>
-                    <div class="col-md-2">
-                        <input id="CardId" type="text" class="col-md-2 form-control " placeholder="Card ID" />
+                    <div class="forLabel">
+                        <input id="CardId" type="text" class="form-control " placeholder="Card ID" />
                     </div>
-                    <div class="col-sm-2" data-step="6" data-intro="Select Preception type Default is Daily">
+                    <div class="forLabel" data-step="6" data-intro="Select Preception type Default is Daily">
                         <select id="ddlType" class="form-control">
                             <option value="">Select Type</option>
                             <option value="Daily">Daily</option>

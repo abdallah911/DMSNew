@@ -6452,6 +6452,9 @@
     <Content Include="assets\HomeTemplete\Content\DataTables\swf\flashExport.swf" />
     <Content Include="assets\HomeTemplete\Content\font-awesome.css" />
     <Content Include="assets\HomeTemplete\Content\font-awesome.min.css" />
+    <Content Include="assets\HomeTemplete\Content\JS\bootstrap.bundle.min.js" />
+    <Content Include="assets\HomeTemplete\Content\JS\bootstrap.min.js" />
+    <Content Include="assets\HomeTemplete\Content\JS\popper.min.js" />
     <Content Include="assets\HomeTemplete\Content\Site.css" />
     <Content Include="assets\HomeTemplete\Content\themes\base\accordion.css" />
     <Content Include="assets\HomeTemplete\Content\themes\base\all.css" />
@@ -6673,6 +6676,7 @@
     <Content Include="assets\HomeTemplete\jsgrid-1.5.3\jsgrid.js" />
     <Content Include="assets\HomeTemplete\jsgrid-1.5.3\jsgrid.min.css" />
     <Content Include="assets\HomeTemplete\jsgrid-1.5.3\jsgrid.min.js" />
+    <Content Include="assets\HomeTemplete\js\bootstrap.bundle.js" />
     <Content Include="assets\HomeTemplete\js\bootstrap.min.js" />
     <Content Include="assets\HomeTemplete\js\contact.js" />
     <Content Include="assets\HomeTemplete\js\custom.js" />
