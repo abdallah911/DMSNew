@@ -33,7 +33,7 @@
     }
 </style>
 @{
-    bool showSearch = ViewBag.stat.ToString() != "NoData";
+    bool showSearch = (ViewBag.stat?.ToString() ?? "") != "NoData";
 }
 <div style="min-height: calc(100vh - 275.9px); direction: rtl; " class="ar-page pb-4">
     @using (Html.BeginForm("UploadClaimPhoto", "Claims", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "createForm", enctype = "multipart/form-data" }))
@@ -45,7 +45,8 @@
             <div class="panel-body ">
                 @if (ViewBag.error != null)
                 {
-                    <h4 style="color:red;"> Claim added befor for this card</h4>
+                <h4 style="color:red;">@ViewBag.error</h4>
+                    @*<h4 style="color:red;">Claim added befor for this card</h4>*@
                 }
 
                 @*@if (ViewBag.stat != "NoData")
@@ -54,9 +55,10 @@
                     <div class="form-group">
                         <label>ادخل رقم النموذج</label>
                         <div class="admin-form-control">
-                            <input type="number" id="ClaimId" class="form-control" />
+                            <input type="number" id="ClaimId" class="form-control" onkeydown="if(event.key === 'Enter'){ event.preventDefault(); searchClaim(); }"/>
                         </div>
-                        <input id="searchClaim" type="button" value="Search" onclick="searchClaim();" class="btn btn-success" />
+
+                        <input id="search" type="button" value="Search" onclick="searchClaim();" class="btn btn-success" />
                     </div>
                 </div>
                 @* }*@
@@ -99,21 +101,54 @@
                     </div>
 
                     <div class="panel-footer col-md-6 mx-auto mt-3 text-center text-sm-end pe-sm-2" style="text-align:right;">
-                        <input id="Back" type="button" value="Back" onclick="window.location.replace('/Claim/index');" class="btn btn-warning" />
+                        <input id="Back" type="button" value="Back" onclick="window.location.replace('/Claims/UploadClaimPhoto');" class="btn btn-warning" />
                         @*<input id="New" type="reset" value="Reset" class="btn btn-primary" />*@
                         <input id="submit" type="submit" value="Save" onclick="Submitform();" class="btn btn-success" />
                     </div>
                 </div>
 
             </div>
+
         </div>
     }
+    <div id="loading" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); z-index:9999;">
+        <img src="~/assets/NewDesign/img/loading.gif" alt="Loading..." style="width:250px; height:250px;">
+    </div>
 </div>
 <script>
-    $(function () {
+    function searchClaim() {     
+        if ($('#ClaimId').val() != "" && !isNaN($('#ClaimId').val())) {
+            //$("#wait").css("display", "block");
+            $("#loading").show();
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '/Claims/getData',
+                data: { claimId: $('#ClaimId').val() },
+                success: function (data) {
 
+                    $("#loading").hide();
 
-    });
+                    if (data.success) {
+
+                        $('#CardId').val(data.data.CardId);
+                        $('#ClaimNumber').val(data.data.ClaimNumber);
+                        $('#Speciality').val(data.data.Speciality); 
+                                                
+                        $("#MainScreen").show();
+                    } else {
+                        alert(data.message);
+                    }
+                },               
+                error: function () {
+                    alert("error");
+                }
+            });
+        }
+        else
+            toastr.error("من فضلك إختر رقم الشركة أولا");
+    }
+
     function Submitform() {
         var SelectedDiagnosisList = $('#ddlDiagnoises').select2('data');
         var diagnose = [];
