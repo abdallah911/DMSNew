@@ -161,12 +161,13 @@ namespace DMS_Authontication1.Controllers
                         string fileName = "Claim " + model.ClaimNumber + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;                        
                         string fullPath = Path.Combine(folderPath, fileName);
                         model.ImageFile.SaveAs(fullPath);
-                        entity.Url = fullPath;
+                        entity.Url = "~/Content/Claims/" + fileName;
 
                         //model.ImageFile.SaveAs(Server.MapPath(@"C:\Domains\DMS_Providers\Content\Claims\" + fileName /*ImageFile.FileName*/));
                         //entity.Url = @"C:\Domains\DMS_Providers\Content\Claims\" + fileName;
+                        //entity.Url = fullPath;
                     }
-                  
+
                     db.ClaimPhotoes.Add(entity);
                     db.SaveChanges();
                     //return RedirectToAction("Index");
