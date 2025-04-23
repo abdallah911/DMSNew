@@ -149,16 +149,22 @@ namespace DMS_Authontication1.Controllers
                     entity.CreatedDate = DateTime.Now;
                     if (model.ImageFile != null)
                     {
-                        string folderPath = Server.MapPath("~/Content/Claims/");
+                        //string folderPath = Server.MapPath("~/Content/Claims/");
+                        //string folderPath = Server.MapPath(@"C:\Domains\DMS_Providers\Content\Claims\");
+                        string folderPath = @"C:\Domains\DMS_Providers\Content\Claims\";
                         if (!Directory.Exists(folderPath))
                         {
                             Directory.CreateDirectory(folderPath);
                         }
 
                         string extension = Path.GetExtension(model.ImageFile.FileName);
-                        string fileName = "Claim " + model.ClaimNumber + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
-                        model.ImageFile.SaveAs(Server.MapPath("/Content/Claims/" + fileName /*ImageFile.FileName*/));
-                        entity.Url = "~/Content/Claims/" + fileName;
+                        string fileName = "Claim " + model.ClaimNumber + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;                        
+                        string fullPath = Path.Combine(folderPath, fileName);
+                        model.ImageFile.SaveAs(fullPath);
+                        entity.Url = fullPath;
+
+                        //model.ImageFile.SaveAs(Server.MapPath(@"C:\Domains\DMS_Providers\Content\Claims\" + fileName /*ImageFile.FileName*/));
+                        //entity.Url = @"C:\Domains\DMS_Providers\Content\Claims\" + fileName;
                     }
                   
                     db.ClaimPhotoes.Add(entity);
