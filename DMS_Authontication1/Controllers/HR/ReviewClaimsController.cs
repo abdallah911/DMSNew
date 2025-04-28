@@ -96,62 +96,70 @@ namespace DMS_Authontication1.Controllers.HR
         #region CompanyInvoice
         public ActionResult CompanyInvoice()
         {
-            DataTable companyAll = dbOra.RunReader(@"SELECT DISTINCT R.COMP_ID, C.C_ANAME
-                                                     FROM   APP.REVIEW_CLAIMS R, DMS_TEST.CONTRACT_COMP C
-                                                     WHERE  R.COMP_ID = C.C_COMP_ID");
+            //DataTable companyAll = dbOra.RunReader(@"SELECT DISTINCT R.COMP_ID, C.C_ANAME
+            //                                         FROM   APP.REVIEW_CLAIMS R, DMS_TEST.CONTRACT_COMP C
+            //                                         WHERE  R.COMP_ID = C.C_COMP_ID");
 
-            var companyList = companyAll.AsEnumerable()
-                .Select(row => new
+            //var companyList = companyAll.AsEnumerable()
+            //    .Select(row => new
+            //    {
+            //        Code = row["COMP_ID"].ToString(),
+            //        Name = row["C_ANAME"].ToString() + " || " + row["COMP_ID"].ToString()
+            //    }).ToList();
+
+            //SelectList companylist = new SelectList(companyList, "Code", "Name");
+            //ViewBag.company = companylist;
+
+            if (User.IsInRole("HR_Admin"))
+            {
+                var userid = User.Identity.GetUserId();
+                var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+                if (compines[0] == "All")
                 {
-                    Code = row["COMP_ID"].ToString(),
-                    Name = row["C_ANAME"].ToString() + " || " + row["COMP_ID"].ToString()
-                }).ToList();
+                    var companyname = db.Contract_Comp
+                        .Select(l => new
+                        {
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
 
-            SelectList companylist = new SelectList(companyList, "Code", "Name");
-            ViewBag.company = companylist;
+                        }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+                else
+                {
+                    var companyname = (from comp in compines
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
 
-            return View();
+                return View();
+            }
+            else
+            {
+                var HrUserNamre = User.Identity.GetUserName();
+                int compa = int.Parse(myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider);
 
-            //if (User.IsInRole("HR_Admin"))
-            //{
-            //    var userid = User.Identity.GetUserId();
-            //    var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
-            //    if (compines[0] == "All")
-            //    {
-            //        var companyname = db.Contract_Comp
-            //            .Select(l => new
-            //            {
-            //                Code = l.C_COMP_ID,
-            //                Name = l.C_ENAME + " || " + l.C_COMP_ID
+                var Companies = db.Contract_Comp.Where(x => x.C_COMP_ID == compa)
+                    .Select(c => new
+                    {
+                        Code = c.C_COMP_ID,
+                        Name = c.C_ENAME + " || " + c.C_COMP_ID
+                    }).ToList(); ;
 
-            //            }).ToList();
-            //        SelectList companylist = new SelectList(companyname, "Code", "Name");
-            //        ViewBag.company = companylist;
-            //    }
-            //    else
-            //    {
-            //        var companyname = (from comp in compines
-            //                           join contCo in db.Contract_Comp
-            //                           on int.Parse(comp) equals contCo.C_COMP_ID
-            //                           select new
-            //                           {
-            //                               Code = contCo.C_COMP_ID,
-            //                               Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-            //                           }).ToList();
-            //        SelectList companylist = new SelectList(companyname, "Code", "Name");
-            //        ViewBag.company = companylist;
-            //    }
-
-            //    return View();
-            //}
-            //else
-            //{
-            //    var HrUserNamre = User.Identity.GetUserName();
-            //    string compa = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
-            //    ViewBag.compnum = compa;
-            //    return View();
-            //}
-
+                SelectList companylist = new SelectList(Companies, "Code", "Name");
+                ViewBag.company = companylist;
+                
+                return View();
+            }
+            //return View();
         }
 
         public JsonResult GetCompanyInvoice(string compId, string servFrom, string servTo, string regFrom, string regTo,
@@ -300,6 +308,8 @@ namespace DMS_Authontication1.Controllers.HR
 
             rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "CompanyInvoiceReport.rpt"));
             rd.SetDataSource(invo);
+            rd.SetParameterValue("comp", compId);
+            
             
             Response.Buffer = false;
             Response.ClearContent();
@@ -373,6 +383,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "CompanyBatchReport.rpt"));
             rd.SetDataSource(clms);
+            rd.SetParameterValue("comp", compNo);
 
             Response.Buffer = false;
             Response.ClearContent();
