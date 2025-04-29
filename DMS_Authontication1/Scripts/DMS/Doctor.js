@@ -18,6 +18,7 @@ var AnuualLimit;
 var companid = url.searchParams.get("id").split('-')[0];
 
 $(function () {
+    $.ajaxSetup({ async: false });
     ////add National Id
     //if (NationalId == "undefined" || NationalId == null) {
     //    bootbox.prompt({
@@ -576,6 +577,7 @@ function Add(button) {
     table.deleteRow(row[0].rowIndex);
     // $(this).parent().attr('disabled',true);
 
+    FirstCalculation();
     SecandCalculation();
 
 }
@@ -648,6 +650,7 @@ function Remove(button) {
             var table = $("#Secand")[0];
             table.deleteRow(row[0].rowIndex);
             //calculation
+            FirstCalculation();
             SecandCalculation();
 
         }
@@ -778,7 +781,7 @@ function FirstCalculation() {
     var sum = 0;
     $('#First TBODY TR').each(function () {
         var row = $(this);
-        sum += parseFloat(row.find("TD").eq(12).html());
+        sum += parseFloat(row.find("TD").eq(13).html());
     });
     $('#Total').val(sum.toFixed(2));
     $('#OverInsurance').val("0");
