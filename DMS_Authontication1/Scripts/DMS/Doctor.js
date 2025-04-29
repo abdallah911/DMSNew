@@ -18,6 +18,7 @@ var AnuualLimit;
 var companid = url.searchParams.get("id").split('-')[0];
 
 $(function () {
+    $.ajaxSetup({ async: false });
     ////add National Id
     //if (NationalId == "undefined" || NationalId == null) {
     //    bootbox.prompt({
@@ -576,6 +577,7 @@ function Add(button) {
     table.deleteRow(row[0].rowIndex);
     // $(this).parent().attr('disabled',true);
 
+    FirstCalculation();
     SecandCalculation();
 
 }
@@ -648,6 +650,7 @@ function Remove(button) {
             var table = $("#Secand")[0];
             table.deleteRow(row[0].rowIndex);
             //calculation
+            FirstCalculation();
             SecandCalculation();
 
         }
@@ -768,6 +771,46 @@ function SecandCalculation() {
     //}
     //$('#Cash2').val((parseFloat($('#CoPayment2').val()) + parseFloat($('#OverInsurance2').val())).toFixed(2));
 
+
+
+
+}
+function FirstCalculation() {
+    //Secend calculation
+    debugger;
+    var sum = 0;
+    $('#First TBODY TR').each(function () {
+        var row = $(this);
+        sum += parseFloat(row.find("TD").eq(13).html());
+    });
+    $('#Total').val(sum.toFixed(2));
+    $('#OverInsurance').val("0");
+    //var Limit = parseFloat(r.Limit);
+    var person = parseFloat(100 - co);
+    //total-cash
+    var total = sum;
+    var CurrentLimit = Limit;
+    if (CurrentLimit > AnuualLimit || CurrentLimit == 0) {
+        CurrentLimit = AnuualLimit;
+    }
+    if (CurrentLimit != 0) {
+        ValueCredit = (total * (co / 100)).toFixed(2);
+        if ((CurrentLimit * (co / 100)) <= (ValueCredit)) {
+            $('#CoPayment').val((CurrentLimit * (person / 100)).toFixed(2));
+            CurrentLimit = (CurrentLimit * (co / 100)).toFixed(2);
+            $('#Credit').val(CurrentLimit);
+            $('#OverInsurance').val((total - CurrentLimit - parseFloat($('#CoPayment').val())).toFixed(2));
+        }
+        else if ((CurrentLimit * (co / 100)) > (ValueCredit)) {
+            $('#Credit').val((total * (co / 100)).toFixed(2));
+            $('#CoPayment').val((total * (person / 100)).toFixed(2));
+        }
+    }
+    else {
+        $('#Credit').val(((total) * (co / 100)).toFixed(2));
+        $('#CoPayment').val(((total) * (person / 100)).toFixed(2));
+    }
+    $('#Cash').val((parseFloat($('#CoPayment').val()) + parseFloat($('#OverInsurance').val())).toFixed(2));
 
 
 
