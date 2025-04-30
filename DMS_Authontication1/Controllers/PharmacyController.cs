@@ -152,14 +152,14 @@ namespace DMS_TEST.Controllers
             var isPermission = db.UserCompanyPermissions.Where(u => u.UserId == userID && u.IsActive != false).Select(c => c.CompId).ToList();
             if (isPermission == null || isPermission.Count == 0)
             {
-                var emp = db.fn_searchCompEmployees(id).ToList();
+                var emp = db.fn_searchCompEmployeesFullName(id).ToList();
                 return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
             else
             {
                 if (isPermission.Contains(company))
                 {
-                    var emp = db.fn_searchCompEmployees(id).ToList();
+                    var emp = db.fn_searchCompEmployeesFullName(id).ToList();
                     return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
                 return new JsonResult { Data = "null", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -187,14 +187,14 @@ namespace DMS_TEST.Controllers
             var isPermission = db.UserCompanyPermissions.Where(u => u.UserId == userID && u.IsActive != false).Select(c => c.CompId).ToList();
             if (isPermission == null || isPermission.Count == 0)
             {
-                var emp = db.fn_searchCompEmployees(id).ToList();
+                var emp = db.fn_searchCompEmployeesFullName(id).ToList();
                 return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
             else
             {
                 if (isPermission.Contains(company))
                 {
-                    var emp = db.fn_searchCompEmployees(id).ToList();
+                    var emp = db.fn_searchCompEmployeesFullName(id).ToList();
                     return new JsonResult { Data = emp, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
                 return new JsonResult { Data = "null", JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -2578,6 +2578,7 @@ namespace DMS_TEST.Controllers
                 modelcode.IsUsed = true;
                 db.Entry(modelcode).State = EntityState.Modified;
             }
+            var compholder = db.Contract_Data.Where(c => c.C_COMP_ID == employee.C_COMP_ID).OrderByDescending(c => c.CONTRACT_NO).Select(c => c.COMP_ID).First();
             //Roshita
             Roshita roshita = new Roshita()
             {
@@ -2603,7 +2604,7 @@ namespace DMS_TEST.Controllers
                 SyncBy = null,
                 IsFamily = data.IsFamily,
                 IsPool = data.IsPool,
-                CompHolderCode = employee.COMP_ID,
+                CompHolderCode = compholder,
             };
 
             db.Roshitas.Add(roshita);
@@ -4476,7 +4477,7 @@ namespace DMS_TEST.Controllers
                 {
                     CellingPert = 100;
                 }
-                rd.SetParameterValue("CompType", patient.COMP_ID);
+                rd.SetParameterValue("CompType", data.CompHolderCode);
                 rd.SetParameterValue("hasApprovalCode", AcceptionId);
                 rd.SetParameterValue("pay", NoPay);
                 rd.SetParameterValue("over", NoOver);
@@ -4627,20 +4628,20 @@ namespace DMS_TEST.Controllers
 
                 }
                 rd.SetDataSource(y);
-                if (string.IsNullOrEmpty(patient.EMP_ENAME) || patient.EMP_ENAME == "NULL")
+                if (string.IsNullOrEmpty(patient.EMP_ENAME_ST) || patient.EMP_ENAME_ST == "NULL")
                 {
-                    if (string.IsNullOrEmpty(patient.EMP_ANAME) || patient.EMP_ANAME == "NULL")
+                    if (string.IsNullOrEmpty(patient.EMP_ANAME_ST) || patient.EMP_ANAME_ST == "NULL")
                     {
                         rd.SetParameterValue("PatientName", "Unnamed");
                     }
                     else
                     {
-                        rd.SetParameterValue("PatientName", patient.EMP_ANAME);
+                        rd.SetParameterValue("PatientName", patient.EMP_ANAME_ST + " " + patient.EMP_ANAME_SC + " " + patient.EMP_ANAME_TH);
                     }
                 }
                 else
                 {
-                    rd.SetParameterValue("PatientName", patient.EMP_ENAME);
+                    rd.SetParameterValue("PatientName", patient.EMP_ENAME_ST + " " + patient.EMP_ENAME_SC + " " + patient.EMP_ENAME_TH);
                 }
                 if (data.RoshetaType == "11601")
                 {
@@ -4695,7 +4696,7 @@ namespace DMS_TEST.Controllers
                     CellingPert = 100;
                 }
 
-                rd.SetParameterValue("CompType", patient.COMP_ID);
+                rd.SetParameterValue("CompType", data.CompHolderCode);
                 rd.SetParameterValue("hasApprovalCode", AcceptionId);
                 rd.SetParameterValue("pay", NoPay);
                 rd.SetParameterValue("over", NoOver);
@@ -4768,6 +4769,14 @@ namespace DMS_TEST.Controllers
                 int ProviderId = Convert.ToInt32(CurrentUser.Provider);
                 var sericeProviderDiscounts = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).FirstOrDefault();
 
+                var sericeProviderDiscountsCheck = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).ToList();
+                
+                if (sericeProviderDiscountsCheck != null && sericeProviderDiscountsCheck.Count > 1)
+                {
+                    @ViewBag.ErrorM = "يوجد خطأ في بيانات مقدم الخدمة برجاء الرجوع إلى إدارة التعاقدات";
+                    return View("~/Views/Shared/Error.cshtml");                  
+                }
+                
                 List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, Branch, CompHoder)//.AsEnumerable()
                     .Select(d => new RoshitaCompEmolyessReportViewModel
                     {
@@ -4881,6 +4890,13 @@ namespace DMS_TEST.Controllers
                 int ProviderId = Convert.ToInt32(CurrentUser.Provider);
                 var sericeProviderDiscounts = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).FirstOrDefault();
 
+                var sericeProviderDiscountsCheck = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).ToList();
+
+                if (sericeProviderDiscountsCheck != null && sericeProviderDiscountsCheck.Count > 1)
+                {
+                    @ViewBag.ErrorM = "يوجد خطأ في بيانات مقدم الخدمة برجاء الرجوع إلى إدارة التعاقدات";
+                    return View("~/Views/Shared/Error.cshtml");
+                }
 
                 List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, User.Identity.Name, 1)//.AsEnumerable()
                 .Select(d => new RoshitaCompEmolyessReportViewModel
@@ -5222,8 +5238,8 @@ namespace DMS_TEST.Controllers
             double PersonNoPay = 0;
             string Message = "";
             string StaticServiceCode = ServiceCode;
-            ServiceCode = ServiceCode == "11604" || ServiceCode == "11601" ? "11603" : ServiceCode;
             int _IntServiceCode = Convert.ToInt32(ServiceCode);
+            ServiceCode = ServiceCode == "11604" || ServiceCode == "11601" ? "11603" : ServiceCode;
             string _CompId = id.Split('-')[0];
             string MainService = ServiceCode.Substring(0, 3);
             var CurrentDate = DateTime.Now.Date;

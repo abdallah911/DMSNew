@@ -2,6 +2,7 @@
 using DMS_Authontication1.Models;
 using DMS_Authontication1.ViewModel;
 using DMS_TEST.ViewModel;
+using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -172,6 +173,7 @@ namespace DMS_Authontication1.Controllers
 
             }
         }
+        [Authorize(Roles = "Admin,Lab,Lab_Admin,Rays,Rays_Admin")]
         public JsonResult Save(Roshita data)
         {
             var companyId = data.CardId.Split('-')[0];
@@ -194,9 +196,11 @@ namespace DMS_Authontication1.Controllers
             {
                 data.CreatedBy = User.Identity.Name;
             }
+            var compholder = db.Contract_Data.Where(c => c.C_COMP_ID == employee.C_COMP_ID).OrderByDescending(c => c.CONTRACT_NO).Select(c => c.COMP_ID).First();
+
+            //data.UpdatedBy = User.Identity.GetUserId();
             data.CreatedDate = DateTime.Now;
-            data.CompHolderCode = employee.COMP_ID;
-            db.Roshitas.Add(data);
+            data.CompHolderCode =compholder;
             data.Manager = "Lab";
             data.RoshetaType = "11206";
             try
@@ -253,21 +257,91 @@ namespace DMS_Authontication1.Controllers
 
                     }
                 }
+                bool oneNotification = false;
+
+                foreach (RoshitaDetail Medicien in data.RoshitaDetails)
+                {
+                    //Medicien.RoshitaID = Convert.ToInt64(Session["id"]);
+                    Medicien.Dose = 0;
+                    Medicien.Duration = 0;
+                    Medicien.TotalDuration = 7;
+                    Medicien.TotalUnits = 1;
+                    if (Medicien.PaymentGroup == "Pending")
+                    {
+                        //if (oneNotification == false)
+                        //{
+                        //    //string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
+                        //    NotificationHub objNotifHub = new NotificationHub();
+                        //    Notification notification = new Notification();
+                        //    notification.SentTo = data.CardId.Split('-')[0] == "888" ? "AdminHelth" : "Admin";
+                        //    notification.CreatedBy = User.Identity.Name;
+                        //    notification.CreatedDate = DateTime.Now;
+                        //    notification.Type = 1;//pending
+                        //    notification.TypeNmae = "Lab";//pending
+                        //    notification.Details = data.CardId;
+                        //    notification.RoshitaId = Medicien.RoshitaID;
+                        //    notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
+                        //    notification.Title = "Pending";
+                        //    db.Notifications.Add(notification);
+                        //    objNotifHub.SendMessages();
+                        //    oneNotification = true;
+                        //}
+                        Medicien.IsDealed = false;
+                    }
+                    else
+                    {
+                        Medicien.IsDealed = true;
+                    }
+                    //db.RoshitaDetails.Add(Medicien);
+                }
+                db.Roshitas.Add(data);
+
                 int result = db.SaveChanges();
-                Session["id"] = data.Id;
-                //data.CreatedDate.ToString();
-                return Json("2" + data.CreatedDate.Value.ToString("ddMMyy") + data.Id);
+                if (result > 0)
+                {
+                    foreach (RoshitaDetail Medicien in data.RoshitaDetails)
+                    {
+                        if (Medicien.PaymentGroup == "Pending")
+                        {
+                            if (oneNotification == false)
+                            {
+                                //string CardId = db.Roshitas.Where(x => x.Id == Medicien.RoshitaID).FirstOrDefault().CardId;
+                                NotificationHub objNotifHub = new NotificationHub();
+                                Notification notification = new Notification();
+                                notification.SentTo = data.CardId.Split('-')[0] == "888" ? "AdminHelth" : "Admin";
+                                notification.CreatedBy = User.Identity.Name;
+                                notification.CreatedDate = DateTime.Now;
+                                notification.Type = 1;//pending
+                                notification.TypeNmae = "Lab";//pending
+                                notification.Details = data.CardId;
+                                notification.RoshitaId = data.Id;
+                                notification.DetailsURL = "/DoctorMedicinesLabsRaysApproval/index";
+                                notification.Title = "Pending";
+                                db.Notifications.Add(notification);
+                                db.SaveChanges();
+                                objNotifHub.SendMessages();
+                                oneNotification = true;
+                            }
+                        }
+                    }
+
+                    return Json("2" + data.CreatedDate.Value.ToString("ddMMyy") + data.Id);
+                }
+                return Json("Failed");
+
             }
             catch (Exception ex)
             {
 
                 var e = ex.InnerException;
+                return Json("Failed to Save Prescription");
+
             }
-            return Json("2" + data.CreatedDate.Value.ToString("ddMMyy") + data.Id);
+            //return Json("2" + data.CreatedDate.Value.ToString("ddMMyy") + data.Id);
 
         }
         [Authorize(Roles = "Admin,Lab,Lab_Admin")]
-
+        [Authorize(Roles = "Admin,Lab,Lab_Admin,Rays,Rays_Admin")]
         public JsonResult SaveMediciens(List<RoshitaDetail> Medciens)
         {
             bool oneNotification = false;
@@ -1247,24 +1321,24 @@ namespace DMS_Authontication1.Controllers
                  PaymentGroup = d.PaymentGroup
              }).ToList();
             rd.SetDataSource(y);
-            if (string.IsNullOrEmpty(patient.EMP_ENAME) || patient.EMP_ENAME == "NULL")
+            if (string.IsNullOrEmpty(patient.EMP_ENAME_ST) || patient.EMP_ENAME_ST == "NULL")
             {
-                if (string.IsNullOrEmpty(patient.EMP_ANAME) || patient.EMP_ANAME == "NULL")
+                if (string.IsNullOrEmpty(patient.EMP_ANAME_ST) || patient.EMP_ANAME_ST == "NULL")
                 {
                     rd.SetParameterValue("PatientName", "Unnamed");
                 }
                 else
                 {
-                    rd.SetParameterValue("PatientName", patient.EMP_ANAME);
+                    rd.SetParameterValue("PatientName", patient.EMP_ANAME_ST + " " + patient.EMP_ANAME_SC + " " + patient.EMP_ANAME_TH);
                 }
             }
             else
             {
-                rd.SetParameterValue("PatientName", patient.EMP_ENAME);
+                rd.SetParameterValue("PatientName", patient.EMP_ENAME_ST + " " + patient.EMP_ENAME_SC + " " + patient.EMP_ENAME_TH);
             }
             data.RoshetaType = "Lab";
 
-            rd.SetParameterValue("CompType", patient.COMP_ID);
+            rd.SetParameterValue("CompType",data.CompHolderCode);
             rd.SetParameterValue("Type", data.RoshetaType);
             rd.SetParameterValue("Pharmacy", data.CreatedBy);
             rd.SetParameterValue("Approval", id);
@@ -1375,6 +1449,7 @@ namespace DMS_Authontication1.Controllers
         {
             string Message = "";
             int _IntServiceCode = Convert.ToInt32(ServiceCode);
+            string roshitaType = ServiceCode == "11201" ? "11204" : "11206";
             string _CompId = id.Split('-')[0];
             string MainService = ServiceCode.Substring(0, 3);
             var CurrentDate = DateTime.Now.Date;
@@ -1540,7 +1615,7 @@ namespace DMS_Authontication1.Controllers
                 }
                 double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
                 //SubService consumption
-                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
+                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == roshitaType).ToList();
                 double AcumlatorSubServiceAmount = 0;
                 foreach (var item in AcumlatorSubServiceList)
                 {
@@ -1816,6 +1891,7 @@ namespace DMS_Authontication1.Controllers
             string Message = "";
             ServiceCode = ServiceCode == "11604" ? "11601" : ServiceCode;
             string MainService = ServiceCode.Substring(0, 3);
+            string roshitaType = ServiceCode == "11201" ? "11204" : "11206";
             var CurrentDate = DateTime.Now.Date;
             var emp = db.Comp_Employees.Where(c => c.CARD_ID == id && c.INS_START_DATE <= CurrentDate && c.INS_END_DATE >= CurrentDate).OrderByDescending(x => x.CONTRACT_NO).FirstOrDefault();
             //
@@ -1956,7 +2032,7 @@ namespace DMS_Authontication1.Controllers
                 }
                 double ServiceAvailable = (MaxServiceAmount - AcumlatorServiceAmount) < 0 ? 0 : MaxServiceAmount - AcumlatorServiceAmount;
                 //SubService Concamution
-                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == ServiceCode).ToList();
+                List<Roshita> AcumlatorSubServiceList = AcumlatorServiceList.Where(r => r.RoshetaType == roshitaType).ToList();
                 double AcumlatorSubServiceAmount = 0;
                 foreach (var item in AcumlatorSubServiceList)
                 {

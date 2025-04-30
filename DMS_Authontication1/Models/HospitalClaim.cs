@@ -14,6 +14,12 @@ namespace DMS_Authontication1.Models
     
     public partial class HospitalClaim
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public HospitalClaim()
+        {
+            this.HospitalClaimQRs = new HashSet<HospitalClaimQR>();
+        }
+    
         public long IdPrimary { get; set; }
         public long ID { get; set; }
         public Nullable<int> C_COMP_ID { get; set; }
@@ -48,5 +54,9 @@ namespace DMS_Authontication1.Models
         public Nullable<bool> IsSync { get; set; }
         public Nullable<System.DateTime> SyncDate { get; set; }
         public string SyncBy { get; set; }
+        public Nullable<int> CompHolderCode { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HospitalClaimQR> HospitalClaimQRs { get; set; }
     }
 }

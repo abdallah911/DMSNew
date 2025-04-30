@@ -92,41 +92,53 @@ namespace DMS_Authontication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (db.ClaimPhotoes.Where(c => c.ClaimNumber == model.ClaimNumber).FirstOrDefault() != null)
+                try
                 {
+                    if (db.ClaimPhotoes.Where(c => c.ClaimNumber == model.ClaimNumber).FirstOrDefault() != null)
+                    {
+                        ViewBag.ddlSpeciality = new SelectList(db.Specialities1, "SPEC_ID", "SPEC_ANAME");
+                        ViewBag.error = "yes";
+                        return View(model);
+                    }
+
+                    var DiagnoisesList = JsonConvert.DeserializeObject<List<string>>(model.DiagnoisesJson);
+                    var entity = new ClaimPhoto();
+                    entity.ClaimNumber = model.ClaimNumber;
+                    entity.CardId = model.CardId;
+                    entity.Speciality = model.Speciality;
+                    entity.IsDispense = false;
+                    entity.IsDespenseLab = false;
+                    entity.IsDespenseRay = false;
+                    entity.IsDespensePharm = false;
+                    entity.IsDeleted = false;
+                    entity.CreatedBy = User.Identity.Name;
+                    entity.CreatedDate = DateTime.Now;
+                    if (model.ImageFile != null)
+                    {
+                        string extension = Path.GetExtension(model.ImageFile.FileName);
+                        string fileName = "Claim " + model.ClaimNumber + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
+                        model.ImageFile.SaveAs(Server.MapPath("/Content/Claims/" + fileName /*ImageFile.FileName*/));
+                        entity.Url = "~/Content/Claims/" + fileName;
+                    }
+                    foreach (var item in DiagnoisesList)
+                    {
+                        entity.ClaimPhotoDiagnoises.Add(new ClaimPhotoDiagnoise
+                        {
+                            DiagnoiseName = item,
+                        });
+                    }
+                    db.ClaimPhotoes.Add(entity);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+
                     ViewBag.error = "yes";
+                    ViewBag.ddlSpeciality = new SelectList(db.Specialities1, "SPEC_ID", "SPEC_ANAME");
                     return View(model);
                 }
-
-                var DiagnoisesList = JsonConvert.DeserializeObject<List<string>>(model.DiagnoisesJson);
-                var entity = new ClaimPhoto();
-                entity.ClaimNumber = model.ClaimNumber;
-                entity.CardId = model.CardId;
-                entity.Speciality = model.Speciality;
-                entity.IsDispense = false;
-                entity.IsDespenseLab = false;
-                entity.IsDespenseRay = false;
-                entity.IsDespensePharm = false;
-                entity.IsDeleted = false;
-                entity.CreatedBy = User.Identity.Name;
-                entity.CreatedDate = DateTime.Now;
-                if (model.ImageFile != null)
-                {
-                    string extension = Path.GetExtension(model.ImageFile.FileName);
-                    string fileName = "Claim " + model.ClaimNumber + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
-                    model.ImageFile.SaveAs(Server.MapPath("/Content/Claims/" + fileName /*ImageFile.FileName*/));
-                    entity.Url = "~/Content/Claims/" + fileName;
-                }
-                foreach (var item in DiagnoisesList)
-                {
-                    entity.ClaimPhotoDiagnoises.Add(new ClaimPhotoDiagnoise
-                    {
-                        DiagnoiseName = item,
-                    });
-                }
-                db.ClaimPhotoes.Add(entity);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+               
             }
             ViewBag.error = "yes";
             ViewBag.ddlSpeciality = new SelectList(db.Specialities1, "SPEC_ID", "SPEC_ANAME");
@@ -221,9 +233,13 @@ namespace DMS_Authontication1.Controllers
 
             // Read the file into a byte array
             var fileBytes = System.IO.File.ReadAllBytes(filePath);
-
+            if (filePath.ToLower().Contains(".pdf"))
+            {
+                return File(fileBytes, "application/pfd", "Claim " + id.ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf");
+            }
+            string exten = fileName.Split('.')[1];
             // Return the file as a response
-            return File(fileBytes, "image/jpeg", fileName);
+            return File(fileBytes, "image/"+ exten, fileName);
         }
 
         protected override void Dispose(bool disposing)

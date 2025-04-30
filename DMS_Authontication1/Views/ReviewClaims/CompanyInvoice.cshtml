@@ -400,13 +400,20 @@
             $('#list_div2').hide();
             if (compNo != "" && invocNo != "") {
 
+               
+                var servFrom = $("#ServDateFrom").val();
+                var servTo = $("#ServDateTo").val();
+                var regFrom = $("#RegDateFrom").val();
+                var regTo = $("#RegDateTo").val();               
+                var batchNo = $("#BatchNo").val();
 
                 $("#loading").css("display", "flex");
 
                 $.ajax({
                     url: '/ReviewClaims/GetBatchDetails/',
                     data: {
-                        compNo: compNo, invocNo: invocNo
+                        compNo: compNo, invocNo: invocNo, servFrom: servFrom, servTo: servTo,
+                        regFrom: regFrom, regTo: regTo, batchNo: batchNo
                     },
                     dataType: 'Json',
                     success: function (r) {
@@ -602,13 +609,22 @@
 
         var invocNo = $('#InvoicNumber').val();
         var compNo = $('#CompNumber').val();
+
+        var servFrom = $("#ServDateFrom").val();
+        var servTo = $("#ServDateTo").val();
+        var regFrom = $("#RegDateFrom").val();
+        var regTo = $("#RegDateTo").val();
+        var batchNo = $("#BatchNo").val();
+
         var typ = 1;
         if (compNo != "" && invocNo != "") {
             if ($("#excel2").is(":checked"))
                 typ = 2;
 
             window.open('/ReviewClaims/PrintBatchReviewReport?compNo=' + compNo +
-                '&&invocNo=' + invocNo + '&&typ=' + typ);
+                '&&invocNo=' + invocNo + '&&servFrom=' + servFrom + '&&servTo=' + servTo +
+                '&&regFrom=' + regFrom + '&&regTo=' + regTo +
+                '&&batchNo=' + batchNo + '&&typ=' + typ);
         }
         else
             alert("Comp Id Or Invoice no is empty");

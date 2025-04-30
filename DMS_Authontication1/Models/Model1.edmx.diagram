@@ -188,7 +188,7 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.PoolService" Width="1.5" PointX="28.375" PointY="41.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalBasicData" Width="1.5" PointX="45.125" PointY="31.5" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalBasicData_RenewalMains" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalServicePool" Width="1.5" PointX="45.875" PointY="35.875" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalServicePool" Width="1.5" PointX="46.25" PointY="36.875" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalServicePol_PoolService" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_RenewalServicePol_RenewalBasicData" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.RenewalInsideAdvanceDental" Width="1.5" PointX="30.375" PointY="41.75" />
@@ -205,8 +205,10 @@
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompIcdCpt" Width="1.5" PointX="45.375" PointY="0.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.ClaimPhotoDiagnoise" Width="1.5" PointX="29.625" PointY="47" />
         <AssociationConnector Association="DB_A45413_DMSERPModel.FK_ClaimPhotoDiagnoise_ClaimPhoto" />
-        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompContractClassProvider" Width="1.5" PointX="3.375" PointY="45.75" />
         <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompanyEvent" Width="1.5" PointX="10.375" PointY="45.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.CompContractClassProvider" Width="1.5" PointX="3.375" PointY="45.75" />
+        <EntityTypeShape EntityType="DB_A45413_DMSERPModel.HospitalClaimQR" Width="1.5" PointX="34.625" PointY="45.875" />
+        <AssociationConnector Association="DB_A45413_DMSERPModel.FK_HospitalClaimQR_HospitalClaims" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

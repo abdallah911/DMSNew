@@ -584,7 +584,7 @@ namespace DMS_TEST.Controllers
                     CellingPert = 100;
                 }
 
-                rd.SetParameterValue("CompType", patient.COMP_ID);
+                rd.SetParameterValue("CompType",data.CompHolderCode);
                 rd.SetParameterValue("pay", NoPay);
                 rd.SetParameterValue("over", NoOver);
                 rd.SetParameterValue("perc", CellingPert);
@@ -656,6 +656,14 @@ namespace DMS_TEST.Controllers
                 int ProviderId = Convert.ToInt32(CurrentUser.Provider);
                 var sericeProviderDiscounts = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).FirstOrDefault();
 
+                var sericeProviderDiscountsCheck = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).ToList();
+
+                if (sericeProviderDiscountsCheck != null && sericeProviderDiscountsCheck.Count > 1)
+                {
+                    @ViewBag.ErrorM = "يوجد خطأ في بيانات مقدم الخدمة برجاء الرجوع إلى إدارة التعاقدات";
+                    return View("~/Views/Shared/Error.cshtml");
+                }
+
                 List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, Branch,1)//.AsEnumerable()
                     .Select(d => new RoshitaCompEmolyessReportViewModel
                     {
@@ -719,6 +727,13 @@ namespace DMS_TEST.Controllers
                 int ProviderId = Convert.ToInt32(CurrentUser.Provider);
                 var sericeProviderDiscounts = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).FirstOrDefault();
 
+                var sericeProviderDiscountsCheck = db.Ser_Prov_Disc.Where(x => x.PROV_ID == ProviderId).ToList();
+
+                if (sericeProviderDiscountsCheck != null && sericeProviderDiscountsCheck.Count > 1)
+                {
+                    @ViewBag.ErrorM = "يوجد خطأ في بيانات مقدم الخدمة برجاء الرجوع إلى إدارة التعاقدات";
+                    return View("~/Views/Shared/Error.cshtml");
+                }
 
                 List<RoshitaCompEmolyessReportViewModel> Data = db.fn_ClaimsReport(From, To, User.Identity.Name,1)//.AsEnumerable()
                 .Select(d => new RoshitaCompEmolyessReportViewModel

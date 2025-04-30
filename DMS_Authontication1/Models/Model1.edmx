@@ -256,7 +256,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DiagnoiseName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiagnoiseName" Type="nvarchar(max)" />
           <Property Name="ClaimPhotoId" Type="int" />
         </EntityType>
         <EntityType Name="Co_Insurance_01">
@@ -867,7 +867,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="PROV_DEGREE" Type="int" />
           <Property Name="PRV_TYP" Type="int" />
           <Property Name="PR_CODE" Type="int" />
-          <Property Name="SERV_CODE" Type="int" />
+          <Property Name="SERV_CODE" Type="bigint" />
           <Property Name="COPAY_AMT" Type="int" />
           <Property Name="COPAY_PERC" Type="int" />
           <Property Name="MAX_AMOUNT" Type="int" />
@@ -1465,6 +1465,14 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="Group_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Group_Type" Type="nvarchar" MaxLength="3" Nullable="false" />
         </EntityType>
+        <EntityType Name="HospitalClaimQR">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClaimId" Type="bigint" />
+          <Property Name="ImageQR" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="HospitalClaims">
           <Key>
             <PropertyRef Name="IdPrimary" />
@@ -1503,6 +1511,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.AlphabetLetters' does not hav
           <Property Name="IsSync" Type="bit" />
           <Property Name="SyncDate" Type="datetime" />
           <Property Name="SyncBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompHolderCode" Type="int" />
         </EntityType>
         <EntityType Name="HospitalDoctors">
           <Key>
@@ -3210,6 +3219,18 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HospitalClaimQR_HospitalClaims">
+          <End Role="HospitalClaims" Type="Self.HospitalClaims" Multiplicity="0..1" />
+          <End Role="HospitalClaimQR" Type="Self.HospitalClaimQR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HospitalClaims">
+              <PropertyRef Name="IdPrimary" />
+            </Principal>
+            <Dependent Role="HospitalClaimQR">
+              <PropertyRef Name="ClaimId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_IndemnityCardsServices_Indemnity">
           <End Role="Indemnity" Type="Self.Indemnity" Multiplicity="1" />
           <End Role="IndemnityCardsServices" Type="Self.IndemnityCardsServices" Multiplicity="*" />
@@ -3895,6 +3916,32 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </CollectionType>
           </ReturnType>
         </Function>
+        <Function Name="fn_searchCompEmployeesFullName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="search" Type="varchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="CARD_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="EMP_ANAME_ST" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ANAME_SC" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ANAME_TH" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ANAME_FR" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ENAME_ST" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ENAME_SC" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ENAME_TH" Type="nvarchar" MaxLength="100" />
+                <Property Name="EMP_ENAME_FR" Type="nvarchar" MaxLength="100" />
+                <Property Name="INS_START_DATE" Type="date" />
+                <Property Name="SPECIFIC_DATE" Type="date" />
+                <Property Name="BIRTH_DATE" Type="date" />
+                <Property Name="INS_END_DATE" Type="date" />
+                <Property Name="TERMINATE_DATE" Type="date" />
+                <Property Name="CONTRACT_NO" Type="int" />
+                <Property Name="Now" Type="datetime" Nullable="false" />
+                <Property Name="CompHolderName" Type="nvarchar" MaxLength="150" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <Function Name="fn_StopEditAdminClamsList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FROM" Type="nvarchar" Mode="In" />
           <Parameter Name="TO" Type="nvarchar" Mode="In" />
@@ -3992,6 +4039,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySet Name="Governates" EntityType="Self.Governates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Group_Lab" EntityType="Self.Group_Lab" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Group_Ray" EntityType="Self.Group_Ray" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HospitalClaimQR" EntityType="Self.HospitalClaimQR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HospitalClaims" EntityType="Self.HospitalClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HospitalDoctors" EntityType="Self.HospitalDoctors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HospitalServices" EntityType="Self.HospitalServices" Schema="dbo" store:Type="Tables" />
@@ -4152,6 +4200,10 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <AssociationSet Name="FK_ERPModulesPages_ERPModules" Association="Self.FK_ERPModulesPages_ERPModules">
             <End Role="ERPModules" EntitySet="ERPModules" />
             <End Role="ERPModulesPages" EntitySet="ERPModulesPages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HospitalClaimQR_HospitalClaims" Association="Self.FK_HospitalClaimQR_HospitalClaims">
+            <End Role="HospitalClaims" EntitySet="HospitalClaims" />
+            <End Role="HospitalClaimQR" EntitySet="HospitalClaimQR" />
           </AssociationSet>
           <AssociationSet Name="FK_IndemnityCardsServices_Indemnity" Association="Self.FK_IndemnityCardsServices_Indemnity">
             <End Role="Indemnity" EntitySet="Indemnity" />
@@ -5963,8 +6015,16 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <End Role="ClaimPhoto" EntitySet="ClaimPhotoes" />
             <End Role="ClaimPhotoDiagnoise" EntitySet="ClaimPhotoDiagnoises" />
           </AssociationSet>
-          <EntitySet Name="CompContractClassProviders" EntityType="DB_A45413_DMSERPModel.CompContractClassProvider" />
           <EntitySet Name="CompanyEvents" EntityType="DB_A45413_DMSERPModel.CompanyEvent" />
+          <FunctionImport Name="fn_searchCompEmployeesFullName" IsComposable="true" ReturnType="Collection(DB_A45413_DMSERPModel.fn_searchCompEmployeesFullName_Result)">
+          <Parameter Name="search" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="CompContractClassProviders" EntityType="DB_A45413_DMSERPModel.CompContractClassProvider" />
+          <EntitySet Name="HospitalClaimQRs" EntityType="DB_A45413_DMSERPModel.HospitalClaimQR" />
+          <AssociationSet Name="FK_HospitalClaimQR_HospitalClaims" Association="DB_A45413_DMSERPModel.FK_HospitalClaimQR_HospitalClaims">
+            <End Role="HospitalClaim" EntitySet="HospitalClaims" />
+            <End Role="HospitalClaimQR" EntitySet="HospitalClaimQRs" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="HrAdminCompany">
           <Key>
@@ -7446,6 +7506,8 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="IsSync" Type="Boolean" />
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CompHolderCode" Type="Int32" />
+          <NavigationProperty Name="HospitalClaimQRs" Relationship="DB_A45413_DMSERPModel.FK_HospitalClaimQR_HospitalClaims" FromRole="HospitalClaim" ToRole="HospitalClaimQR" />
         </EntityType>
         <EntityType Name="DeliveryRequestDetail">
           <Key>
@@ -8616,7 +8678,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DiagnoiseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiagnoiseName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimPhotoId" Type="Int32" />
           <NavigationProperty Name="ClaimPhoto" Relationship="DB_A45413_DMSERPModel.FK_ClaimPhotoDiagnoise_ClaimPhoto" FromRole="ClaimPhotoDiagnoise" ToRole="ClaimPhoto" />
         </EntityType>
@@ -8632,6 +8694,35 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CompanyEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateFrom" Type="DateTime" Precision="0" />
+          <Property Name="DateTo" Type="DateTime" Precision="0" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="fn_searchCompEmployeesFullName_Result">
+          <Property Type="String" Name="CARD_ID" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="EMP_ANAME_ST" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EMP_ANAME_SC" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EMP_ANAME_TH" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EMP_ANAME_FR" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EMP_ENAME_ST" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EMP_ENAME_SC" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EMP_ENAME_TH" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EMP_ENAME_FR" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="INS_START_DATE" Nullable="true" Precision="10" />
+          <Property Type="DateTime" Name="SPECIFIC_DATE" Nullable="true" Precision="10" />
+          <Property Type="DateTime" Name="BIRTH_DATE" Nullable="true" Precision="10" />
+          <Property Type="DateTime" Name="INS_END_DATE" Nullable="true" Precision="10" />
+          <Property Type="DateTime" Name="TERMINATE_DATE" Nullable="true" Precision="10" />
+          <Property Type="Int32" Name="CONTRACT_NO" Nullable="true" />
+          <Property Type="DateTime" Name="Now" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CompHolderName" Nullable="false" MaxLength="150" />
+        </ComplexType>
         <EntityType Name="CompContractClassProvider">
           <Key>
             <PropertyRef Name="Id" />
@@ -8643,7 +8734,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="PROV_DEGREE" Type="Int32" />
           <Property Name="PRV_TYP" Type="Int32" />
           <Property Name="PR_CODE" Type="Int32" />
-          <Property Name="SERV_CODE" Type="Int32" />
+          <Property Name="SERV_CODE" Type="Int64" />
           <Property Name="COPAY_AMT" Type="Int32" />
           <Property Name="COPAY_PERC" Type="Int32" />
           <Property Name="MAX_AMOUNT" Type="Int32" />
@@ -8660,16 +8751,27 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <Property Name="SyncDate" Type="DateTime" Precision="3" />
           <Property Name="SyncBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="CompanyEvent">
+        <EntityType Name="HospitalClaimQR">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DateFrom" Type="DateTime" Precision="0" />
-          <Property Name="DateTo" Type="DateTime" Precision="0" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Active" Type="Boolean" />
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="ClaimId" Type="Int64" />
+          <Property Name="ImageQR" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="HospitalClaim" Relationship="DB_A45413_DMSERPModel.FK_HospitalClaimQR_HospitalClaims" FromRole="HospitalClaimQR" ToRole="HospitalClaim" />
         </EntityType>
+        <Association Name="FK_HospitalClaimQR_HospitalClaims">
+          <End Type="DB_A45413_DMSERPModel.HospitalClaim" Role="HospitalClaim" Multiplicity="0..1" />
+          <End Type="DB_A45413_DMSERPModel.HospitalClaimQR" Role="HospitalClaimQR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HospitalClaim">
+              <PropertyRef Name="IdPrimary" />
+            </Principal>
+            <Dependent Role="HospitalClaimQR">
+              <PropertyRef Name="ClaimId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10990,6 +11092,7 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
           <EntitySetMapping Name="HospitalClaims">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.HospitalClaim">
               <MappingFragment StoreEntitySet="HospitalClaims">
+                <ScalarProperty Name="CompHolderCode" ColumnName="CompHolderCode" />
                 <ScalarProperty Name="SyncBy" ColumnName="SyncBy" />
                 <ScalarProperty Name="SyncDate" ColumnName="SyncDate" />
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
@@ -12010,6 +12113,40 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CompanyEvents">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompanyEvent">
+              <MappingFragment StoreEntitySet="CompanyEvent">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="DateTo" ColumnName="DateTo" />
+                <ScalarProperty Name="DateFrom" ColumnName="DateFrom" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="fn_searchCompEmployeesFullName" FunctionName="DB_A45413_DMSERPModel.Store.fn_searchCompEmployeesFullName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A45413_DMSERPModel.fn_searchCompEmployeesFullName_Result">
+                <ScalarProperty Name="CARD_ID" ColumnName="CARD_ID" />
+                <ScalarProperty Name="EMP_ANAME_ST" ColumnName="EMP_ANAME_ST" />
+                <ScalarProperty Name="EMP_ANAME_SC" ColumnName="EMP_ANAME_SC" />
+                <ScalarProperty Name="EMP_ANAME_TH" ColumnName="EMP_ANAME_TH" />
+                <ScalarProperty Name="EMP_ANAME_FR" ColumnName="EMP_ANAME_FR" />
+                <ScalarProperty Name="EMP_ENAME_ST" ColumnName="EMP_ENAME_ST" />
+                <ScalarProperty Name="EMP_ENAME_SC" ColumnName="EMP_ENAME_SC" />
+                <ScalarProperty Name="EMP_ENAME_TH" ColumnName="EMP_ENAME_TH" />
+                <ScalarProperty Name="EMP_ENAME_FR" ColumnName="EMP_ENAME_FR" />
+                <ScalarProperty Name="INS_START_DATE" ColumnName="INS_START_DATE" />
+                <ScalarProperty Name="SPECIFIC_DATE" ColumnName="SPECIFIC_DATE" />
+                <ScalarProperty Name="BIRTH_DATE" ColumnName="BIRTH_DATE" />
+                <ScalarProperty Name="INS_END_DATE" ColumnName="INS_END_DATE" />
+                <ScalarProperty Name="TERMINATE_DATE" ColumnName="TERMINATE_DATE" />
+                <ScalarProperty Name="CONTRACT_NO" ColumnName="CONTRACT_NO" />
+                <ScalarProperty Name="Now" ColumnName="Now" />
+                <ScalarProperty Name="CompHolderName" ColumnName="CompHolderName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <EntitySetMapping Name="CompContractClassProviders">
             <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompContractClassProvider">
               <MappingFragment StoreEntitySet="CompContractClassProvider">
@@ -12039,13 +12176,11 @@ warning 6002: The table/view 'DB_A45413_DMSERP.dbo.Swap' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CompanyEvents">
-            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.CompanyEvent">
-              <MappingFragment StoreEntitySet="CompanyEvent">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="DateTo" ColumnName="DateTo" />
-                <ScalarProperty Name="DateFrom" ColumnName="DateFrom" />
+          <EntitySetMapping Name="HospitalClaimQRs">
+            <EntityTypeMapping TypeName="DB_A45413_DMSERPModel.HospitalClaimQR">
+              <MappingFragment StoreEntitySet="HospitalClaimQR">
+                <ScalarProperty Name="ImageQR" ColumnName="ImageQR" />
+                <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

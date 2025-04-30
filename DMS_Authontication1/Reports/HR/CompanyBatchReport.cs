@@ -90,7 +90,7 @@ namespace DMS_Authontication1.Reports.HR {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_UserName {
+        public CrystalDecisions.Shared.IParameterField Parameter_comp {
             get {
                 return this.DataDefinition.ParameterFields[0];
             }

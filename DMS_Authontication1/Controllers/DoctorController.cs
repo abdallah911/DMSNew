@@ -156,7 +156,7 @@ namespace DMS_TEST.Controllers
                 rd.SetParameterValue("PatientName", patient.EMP_ANAME);
             }
             data.RoshetaType = "Pharmacy_Doctor";
-            rd.SetParameterValue("CompType", patient.COMP_ID);
+            rd.SetParameterValue("CompType", data.CompHolderCode);
             rd.SetParameterValue("Type", data.RoshetaType);
             rd.SetParameterValue("Pharmacy", User.Identity.Name);
             rd.SetParameterValue("Approval", id);

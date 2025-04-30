@@ -14,6 +14,7 @@ var NationalId;
 const secondDate = new Date();
 var diffDays;
 var haveClaim = 0;
+var DiscardRoshitaCount = 0;
 
 input.addEventListener("keyup", function (event) {
     event.preventDefault();
@@ -162,7 +163,7 @@ $(function () {
                         $('#Approval').attr('disabled', false);
                         CardId = r[0].CARD_ID;
                         $('#txtSearchCard').val(CardId);
-                        var ArName = r[0].EMP_ENAME;
+                        var ArName = r[0].EMP_ANAME_ST + " " + r[0].EMP_ANAME_SC + " " + r[0].EMP_ANAME_TH;
                         var CompHolderName = r[0].CompHolderName;
                         firstDate = new Date(parseFloat(r[0].INS_END_DATE.replace(/(^.*\()|([+-].*$)/g, '')));
                         diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
@@ -467,6 +468,7 @@ $(function () {
                                         var DisregardCeiling = false;
                                         var ExternalPrescription = false;
                                         var PrescriptionPerDay = false;
+                                        var PrescriptionCount = false;
                                         for (var i = 0; i < returndata.length; i++) {
                                             Copayment = Copayment == true ? true : returndata[i].includes("Cancel Co-Payment");
                                             Limit = Limit == true ? true : returndata[i].includes('Disregard OverInsurance');
@@ -477,7 +479,12 @@ $(function () {
                                             DisregardCeiling = DisregardCeiling == true ? true : returndata[i].includes("Disregard Ceiling");
                                             ExternalPrescription = ExternalPrescription == true ? true : returndata[i].includes("External Prescription");
                                             PrescriptionPerDay = PrescriptionPerDay == true ? true : returndata[i].includes("Unlimited Examination per day");
+                                            PrescriptionCount = PrescriptionCount == true ? true : returndata[i].includes("Ignore Prescription Count");
 
+                                        }
+                                        if (PrescriptionCount == true) {
+                                            // console.log("Age is checked");
+                                            DiscardRoshitaCount = 1;
                                         }
                                         if (Adult == true) {
                                             // console.log("Age is checked");
@@ -629,7 +636,8 @@ $(function () {
 
                                 }
                             });
-                        } else {
+                        }
+                        else {
                             bootbox.dialog({
                                 title: 'Alert!',
                                 message: ' you are Vip',
@@ -643,6 +651,7 @@ $(function () {
                                             $("#ddEmp_CEILING_PERT").val(100);
                                             $('#ClaimNumber').val(' ');
                                             AnuualLimit = 30000;
+                                            DiscardRoshitaCount = 1;
                                             Calculation();
                                             $("#PrescriptionDate").datepicker("option", {
                                                 minDate: null,
@@ -2531,13 +2540,25 @@ function GetLimit() {
                     $('#IsPool').val(r.IsPool);
                     $('#AllLimit').val(r.AnnualLimit);
                     if ($("#ddlType").val() == "11601") {
-                        if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
-                            $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
-                        } else {
-                            alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
-                            $("#insurance_LIVEL").val("0.001");
+                        if (DiscardRoshitaCount == 0) {
+                            if (r.LimitDailyPreceptionCount && r.CoInsurancelimit.INSURANCE_DAY >= 0) {
+                                $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
+                            } else {
+                                alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
+                                $("#insurance_LIVEL").val("0.001");
 
-                            $('#ddEmp_CEILING_PERT').val("0");
+                                $('#ddEmp_CEILING_PERT').val("0");
+                            }
+                        }
+                        else {
+                            if (r.CoInsurancelimit.INSURANCE_DAY >= 0) {
+                                $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_DAY);
+                            } else {
+                                alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
+                                $("#insurance_LIVEL").val("0.001");
+
+                                $('#ddEmp_CEILING_PERT').val("0");
+                            }
                         }
                     }
                     else if ($("#ddlType").val() == "11603") {
@@ -2546,15 +2567,26 @@ function GetLimit() {
                         //    alert("برجاء الرجوع للإداره الطبيه");
                         //    window.location.reload();
                         //} else {}
-                        if (r.LimitMonthlyPreceptionCount && r.CoInsurancelimit.INSURANCE_MONTH >= 0) {
-                            $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_MONTH);
+                        if (DiscardRoshitaCount == 0) {
+                            if (r.LimitMonthlyPreceptionCount && r.CoInsurancelimit.INSURANCE_MONTH >= 0) {
+                                $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_MONTH);
 
-                        } else {
-                            alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
-                            $("#insurance_LIVEL").val("0.001");
-                            $('#ddEmp_CEILING_PERT').val("0");
+                            } else {
+                                alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
+                                $("#insurance_LIVEL").val("0.001");
+                                $('#ddEmp_CEILING_PERT').val("0");
+                            }
                         }
+                        else {
+                            if (r.CoInsurancelimit.INSURANCE_MONTH >= 0) {
+                                $("#insurance_LIVEL").val(r.CoInsurancelimit.INSURANCE_MONTH);
 
+                            } else {
+                                alert(" تم استهلاك العدد المحدد للروشتات في الشهر وسوف يتحمل المريض المبلغ بالكامل نقدا");
+                                $("#insurance_LIVEL").val("0.001");
+                                $('#ddEmp_CEILING_PERT').val("0");
+                            }
+                        }
                     }
                     else if ($("#ddlType").val() == "11602") {
                         window.location.replace("/Chronic/Chronic?id=" + CardId + "&&NationalId=" + NationalId);
@@ -2629,6 +2661,7 @@ function ClearCardData() {
     $('#compEmp_BIRTH_DATE').val('');
     $('#insurance_LIVEL').val('');
     $('#ddEmp_CEILING_PERT').val('');
+    DiscardRoshitaCount = 0;
 }
 function ClearMedicineData() {
     $("#Pharmacy >tbody").empty();
