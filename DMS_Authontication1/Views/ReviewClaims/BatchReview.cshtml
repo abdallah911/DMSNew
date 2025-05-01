@@ -1011,6 +1011,11 @@
 
         if ($("#CompNum").val() != "") {
 
+            var RegFrom = $("#RegFrom").val();
+            var RegTo = $("#RegTo").val();
+            var ServFrom = $("#ServFrom").val();
+            var ServTo = $("#ServTo").val();
+
             var compId = $("#CompNum").val();
             var aprovNo = $("#ApprovalNo").val();
             var cardId = $("#CardId").val();
@@ -1020,11 +1025,11 @@
 
             if ($("#excel").is(":checked"))
                 typ = 2;
-               
             
-                window.open('/ReviewClaims/PrintReviewClaimsNew?compId=' + compId +
-                    '&&aprovNo=' + aprovNo + '&&cardId=' + cardId +
-                    '&&invocNo=' + invocNo + '&&batchNo=' + batchNo + '&&typ=' + typ);
+            window.open('/ReviewClaims/PrintReviewClaimsNew?RegFrom=' + RegFrom + '&&RegTo=' + RegTo +
+                '&&ServFrom=' + ServFrom + '&&ServTo=' + ServTo + '&&compId=' + compId +
+                '&&aprovNo=' + aprovNo + '&&cardId=' + cardId + '&&invocNo=' + invocNo +
+                '&&batchNo=' + batchNo + '&&typ=' + typ);
         }
         else
             alert("Comp Id is empty");

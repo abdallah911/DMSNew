@@ -933,19 +933,19 @@ namespace DMS_Authontication1.Controllers.HR
                 return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
-        public ActionResult PrintReviewClaimsNew(string compId, string aprovNo, string cardId, string invocNo, string batchNo, int typ)
+        public ActionResult PrintReviewClaimsNew(string RegFrom, string RegTo, string ServFrom, string ServTo, string compId, 
+                                                 string aprovNo, string cardId, string invocNo, string batchNo, int typ)
         {
             Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
 
             DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
 
             string cardStart, cardEnd;
-
-            regDateFrom = new DateTime(2020, 1, 1);
-            regDateTo = DateTime.Now.Date;
-            servDateFrom = new DateTime(2017, 1, 1);
-            servDateTo = DateTime.Now.Date;
-
+            
+            regDateFrom = string.IsNullOrEmpty(RegFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(RegFrom)).Date;
+            regDateTo = string.IsNullOrEmpty(RegTo) ? DateTime.Now.Date : (Convert.ToDateTime(RegTo)).Date;
+            servDateFrom = string.IsNullOrEmpty(ServFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(ServFrom)).Date;
+            servDateTo = string.IsNullOrEmpty(ServTo) ? DateTime.Now.Date : (Convert.ToDateTime(ServTo)).Date;
 
             aprovNoFrom = string.IsNullOrEmpty(aprovNo) ? 0 : Convert.ToInt64(aprovNo);
             aprovNoTo = string.IsNullOrEmpty(aprovNo) ? 999999999999999999 : Convert.ToInt64(aprovNo);
@@ -965,6 +965,11 @@ namespace DMS_Authontication1.Controllers.HR
 
             rd.SetDatabaseLogon("APP", "15+08+2017");
 
+            rd.SetParameterValue("reg1", regDateFrom);
+            rd.SetParameterValue("reg2", regDateTo);
+
+            rd.SetParameterValue("serv1", servDateFrom);
+            rd.SetParameterValue("serv2", servDateTo);
 
             rd.SetParameterValue("crd1", cardStart);
             rd.SetParameterValue("crd2", cardEnd);
