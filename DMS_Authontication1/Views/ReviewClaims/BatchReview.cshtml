@@ -55,17 +55,33 @@
         </div>
         <div class="w-100 mx-auto row portlet-body">
             <div class="row  col-md-9">
+                
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
-                    <input id="BatchNo" type="text" class="w-100 h-100 " placeholder="Batch Number" value="@ViewBag.BatchNumber" oninput="this.value = this.value.replace(/[^0-9]/g, '')" readonly/>
+                    <input id="RegFrom" type="text" class="w-100 h-100 " placeholder="Create Date From" value="@ViewBag.RegFrom" readonly />
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
-                    <input id="InvoicNo" type="text" class="w-100 h-100 " placeholder="Invoice Number" value="@ViewBag.InvoiceNumber" oninput="this.value = this.value.replace(/[^0-9]/g, '')" readonly/>
+                    <input id="RegTo" type="text" class="w-100 h-100 " placeholder="Create Date To" value="@ViewBag.RegTo" readonly />
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
-                    <input id="" type="number" class="w-100 h-100 " value="@ViewBag.ProviderID" placeholder="Provider Number" readonly/>
+                    <input id="ServFrom" type="text" class="w-100 h-100 " value="@ViewBag.ServFrom" placeholder="Service Date From" readonly />
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
-                    <input id="" type="text" class="w-100 h-100 " value="@ViewBag.ProviderName" placeholder="Provider Name" readonly/>
+                    <input id="ServTo" type="text" class="w-100 h-100 " value="@ViewBag.ServTo" placeholder="Service Date To" readonly />
+                </div>
+
+
+
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="BatchNo" type="text" class="w-100 h-100 " placeholder="Batch Number" value="@ViewBag.BatchNumber" oninput="this.value = this.value.replace(/[^0-9]/g, '')" readonly />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="InvoicNo" type="text" class="w-100 h-100 " placeholder="Invoice Number" value="@ViewBag.InvoiceNumber" oninput="this.value = this.value.replace(/[^0-9]/g, '')" readonly />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="" type="number" class="w-100 h-100 " value="@ViewBag.ProviderID" placeholder="Provider Number" readonly />
+                </div>
+                <div class="sec-field-labeled col-md-6 px-2  mb-2">
+                    <input id="" type="text" class="w-100 h-100 " value="@ViewBag.ProviderName" placeholder="Provider Name" readonly />
                 </div>
                 <div class="sec-field-labeled col-md-6 px-2  mb-2">
                     @*<input id="CardId" type="text" class="w-100 h-100 form-control " placeholder="Card Number" />*@
@@ -508,7 +524,15 @@
 
         $('#list_div').hide();
         if ($("#CompNum").val() != "") {
-            var compId = $("#CompNum").val();            
+
+
+            var RegFrom = $("#RegFrom").val();
+            var RegTo = $("#RegTo").val();
+            var ServFrom = $("#ServFrom").val();
+            var ServTo = $("#ServTo").val();
+
+
+            var compId = $("#CompNum").val();
             var aprovNo = $("#ApprovalNo").val();
             var cardId = $("#CardId").val();
             var invocNo = $("#InvoicNo").val();
@@ -519,6 +543,7 @@
             $.ajax({
                 url: '/ReviewClaims/GetClaims/',
                 data: {
+                    RegFrom: RegFrom, RegTo: RegTo, ServFrom: ServFrom, ServTo: ServTo,
                     compId: compId, aprovNo: aprovNo, cardId: cardId, invocNo: invocNo, batchNo: batchNo
                 },
                 dataType: 'Json',
@@ -816,7 +841,7 @@
             $("#loading").css("display", "flex");
             $.ajax({
                 type: "POST",
-                url: '/ReviewClaims/getClaimsCardData',
+                url: '/ReviewClaims/GetClaimsCardData',
                 data: { CardId: $('#CardID').val() },
                 success: function (apprs) {
 

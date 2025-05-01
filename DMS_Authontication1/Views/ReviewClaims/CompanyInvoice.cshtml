@@ -433,7 +433,8 @@
                                             <td class="text-center">${r.batchlist[i].Net || "--"}</td>
                                             <td class="text-center">
                                                  <button class="btn btn-primary"
-                                                    onclick="GoToClaimsScreen('${r.batchlist[i].BatchNumber}', '${r.batchlist[i].ProviderID}', '${r.batchlist[i].ProviderName}',
+                                                    onclick="GoToClaimsScreen('${$('#RegDateFrom').val()}', '${$('#RegDateTo').val()}', '${$('#ServDateFrom').val()}','${$('#ServDateTo').val()}',
+                                                    '${r.batchlist[i].BatchNumber}', '${r.batchlist[i].ProviderID}', '${r.batchlist[i].ProviderName}',
                                                     '${$('#InvoicNumber').val()}', '${$('#CompNumber').val()}', '${$('#CompName').val()}')">
                     View Claims
                 </button>
@@ -505,12 +506,36 @@
     //        }
     //    });
     //}
-    function GoToClaimsScreen(batchNumber, providerID, providerName, invoiceNumber, compNumber, compName) {
+    function GoToClaimsScreen(RegFrom, RegTo, ServFrom, ServTo, batchNumber, providerID, providerName, invoiceNumber, compNumber, compName) {
         var form = document.createElement('form');
         form.method = 'POST';
         form.action = '@Url.Action("BatchReview", "ReviewClaims")';  // Specify your controller and action
 
         // Add hidden inputs for each parameter
+        var RegFromInput = document.createElement('input');
+        RegFromInput.type = 'hidden';
+        RegFromInput.name = 'RegFrom';
+        RegFromInput.value = RegFrom;
+        form.appendChild(RegFromInput);
+
+        var RegToInput = document.createElement('input');
+        RegToInput.type = 'hidden';
+        RegToInput.name = 'RegTo';
+        RegToInput.value = RegTo;
+        form.appendChild(RegToInput);
+
+        var ServFromInput = document.createElement('input');
+        ServFromInput.type = 'hidden';
+        ServFromInput.name = 'ServFrom';
+        ServFromInput.value = ServFrom;
+        form.appendChild(ServFromInput);
+
+        var ServToInput = document.createElement('input');
+        ServToInput.type = 'hidden';
+        ServToInput.name = 'ServTo';
+        ServToInput.value = ServTo;
+        form.appendChild(ServToInput);
+
         var batchNumberInput = document.createElement('input');
         batchNumberInput.type = 'hidden';
         batchNumberInput.name = 'batchNumber';

@@ -363,7 +363,7 @@ namespace DMS_Authontication1.Data_Function
                 }
             }
         }
-        public DataTable getClaims(int cmp, Int64 aprov1, Int64 aprov2, string crd, Int64 invoc1, Int64 invoc2, 
+        public DataTable getClaims(DateTime reg1, DateTime reg2, DateTime serv1, DateTime serv2, int cmp, Int64 aprov1, Int64 aprov2, string crd, Int64 invoc1, Int64 invoc2, 
                                    Int64 batch1, Int64 batch2)
         {
             OracleConnection con = new OracleConnection(connectionStr);
@@ -377,7 +377,9 @@ namespace DMS_Authontication1.Data_Function
                                                        CARD_NO, EMP_ANAME EMP_NAME, CLAIM_SUBMITTED GROSS, NET, TAKHASOS DIAGNOSIS, SERV_TYPE
                                                 FROM    APP.REVIEW_CLAIMS 
                                                 WHERE       COMP_ID = :cmp 
-                                                      AND   CARD_NO = :crd                                                     
+                                                      AND   CARD_NO = :crd         
+                                                AND TRUNC(TO_DATE(CREATED_DATE)) BETWEEN TRUNC(TO_DATE(:reg1)) AND TRUNC(TO_DATE(:reg2))
+                                                AND TRUNC(TO_DATE(CLAIM_DATE)) BETWEEN TRUNC(TO_DATE(:serv1)) AND TRUNC(TO_DATE(:serv2))
                                                       AND CLAIM_NO BETWEEN :aprov1 AND :aprov2
                                                       AND NVL(INVOICE_NO, 0) BETWEEN :invoc1 AND :invoc2
                                                       AND NVL(BATCH_NO, 0) BETWEEN :batch1 AND :batch2
@@ -386,7 +388,9 @@ namespace DMS_Authontication1.Data_Function
                     cmd = new OracleCommand(@" SELECT  DISTINCT CLAIM_NO, TO_CHAR(CREATED_DATE,'DD-MM-YYYY') CREATED_DATE, TO_CHAR(CLAIM_DATE,'DD-MM-YYYY') CLAIM_DATE,
                                                        CARD_NO, EMP_ANAME EMP_NAME, CLAIM_SUBMITTED GROSS, NET, TAKHASOS DIAGNOSIS, SERV_TYPE
                                                 FROM    APP.REVIEW_CLAIMS 
-                                                WHERE       COMP_ID = :cmp                                                     
+                                                WHERE       COMP_ID = :cmp  
+                                                      AND TRUNC(TO_DATE(CREATED_DATE)) BETWEEN TRUNC(TO_DATE(:reg1)) AND TRUNC(TO_DATE(:reg2))
+                                                      AND TRUNC(TO_DATE(CLAIM_DATE)) BETWEEN TRUNC(TO_DATE(:serv1)) AND TRUNC(TO_DATE(:serv2))
                                                       AND CLAIM_NO BETWEEN :aprov1 AND :aprov2
                                                       AND NVL(INVOICE_NO, 0) BETWEEN :invoc1 AND :invoc2
                                                       AND NVL(BATCH_NO, 0) BETWEEN :batch1 AND :batch2
@@ -398,7 +402,11 @@ namespace DMS_Authontication1.Data_Function
 
 
                 cmd.Parameters.Add(":cmp", OracleType.Number).Value = cmp;
-
+                
+                cmd.Parameters.Add(":reg1", OracleType.DateTime).Value = reg1;
+                cmd.Parameters.Add(":reg2", OracleType.DateTime).Value = reg2;
+                cmd.Parameters.Add(":serv1", OracleType.DateTime).Value = serv1;
+                cmd.Parameters.Add(":serv2", OracleType.DateTime).Value = serv2;
                 cmd.Parameters.Add(":aprov1", OracleType.Number).Value = aprov1;
                 cmd.Parameters.Add(":aprov2", OracleType.Number).Value = aprov2;
                 cmd.Parameters.Add(":invoc1", OracleType.Number).Value = invoc1;
