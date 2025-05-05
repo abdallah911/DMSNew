@@ -114,7 +114,12 @@ namespace DMS_Authontication1.Controllers
                             if (medicin != null && medicin.Count > 0)
                                 mod.ChronicCount = medicin.Count.ToString();
 
-                            var dt = dbData2.getApproval(cardId, cardId);
+                            DateTime dat1, dat2;
+
+                            dat1 = string.IsNullOrEmpty(mod.StartDate) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(mod.StartDate)).Date;
+                            dat2 = string.IsNullOrEmpty(mod.EndDate) ? DateTime.Now.Date : (Convert.ToDateTime(mod.EndDate)).Date;
+
+                            var dt = dbData2.getApproval(cardId, dat1, dat2, cardId);
 
                             if (dt != null && dt.Rows.Count > 0)
                                 mod.ApprovalCount = dt.Rows.Count.ToString();
@@ -511,16 +516,24 @@ namespace DMS_Authontication1.Controllers
 
             return ncrd;
         }
-        public JsonResult getAprovalData(string CardId)
+        public JsonResult getAprovalData(string CardId, string startDate, string endDate)
         {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
             DataTable dt = new DataTable();
+
+            DateTime dat1, dat2;
 
             string oldcrd = getncardapproval(CardId);
 
             oldcrd = oldcrd != "" ? oldcrd : CardId;
 
+            dat1 = string.IsNullOrEmpty(startDate) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(startDate)).Date;
+            dat2 = string.IsNullOrEmpty(endDate) ? DateTime.Now.Date : (Convert.ToDateTime(endDate)).Date;
 
-            dt = dbData2.getApproval(CardId, oldcrd);
+            dt = dbData2.getApproval(CardId, dat1, dat2, oldcrd);
 
 
             List<MedicalApprovalViewModel> approval = new List<MedicalApprovalViewModel>();

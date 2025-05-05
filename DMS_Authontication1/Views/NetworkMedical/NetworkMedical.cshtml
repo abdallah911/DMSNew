@@ -169,6 +169,9 @@
                 <input id="Back" type="button" value="Upload Claim Photo" onclick="window.location.replace('/Claims/UploadClaimPhoto');" class="btn btn-warning" />
             </div>
         }
+        <br/>
+        <br/>
+        
         <div class="container mx-auto row row-cols-md-2 row-gap-2 ">
 
             <div class="px-2">
@@ -176,6 +179,7 @@
                     <label class="fw-bold">عدد أدوية ال Chronic</label>
                     <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الأدوية" value="@Model.ChronicCount" id="NumberChronic" readonly />
                     <input type="button" class="btn p-1" value="Show" onclick="ShowChronicDetails()" />
+                    <input type="button" class="btn p-1" value="Create Request" />
                 </div>
             </div>
             <div class="px-2">
@@ -183,6 +187,8 @@
                     <label class="fw-bold">عدد الموافقات الطبية</label>
                     <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الموافقات" value="@Model.ApprovalCount" id="NumberMedicalApproval" readonly />
                     <input type="button" class="btn p-1" value="Show" onclick="ShowApprovalDetails()" />
+                    <input type="button" class="btn p-1" value="Create Request" />
+
                 </div>
             </div>
 
@@ -402,7 +408,7 @@
                     $.ajax({
                         type: "POST",
                         url: '/NetworkMedical/getAprovalData',
-                        data: { CardId: crd },
+                        data: { CardId: crd, startDate: $('#startDate').val(), endDate: $('#endDate').val()  },
                         success: function (apprs) {
 
                             if (apprs.approval.length > 0) {
