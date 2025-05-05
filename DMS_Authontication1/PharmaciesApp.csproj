@@ -9330,6 +9330,8 @@
     <Content Include="Reports\Roshita.rpt" />
     <Content Include="Views\NetworkMedical\NetworkMedical - Copy.cshtml" />
     <Content Include="Views\Claims\UploadClaimPhoto.cshtml" />
+    <Content Include="Views\MedicalNetwork\page-1.cshtml" />
+    <Content Include="Views\MedicalNetwork\page-2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
