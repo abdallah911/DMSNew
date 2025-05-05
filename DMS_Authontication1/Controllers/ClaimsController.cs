@@ -122,70 +122,191 @@ namespace DMS_Authontication1.Controllers
             return Json(new { success = true, data = result }, JsonRequestBehavior.AllowGet);
           
         }
+
+        public bool IsRealImage(HttpPostedFileBase file)
+        {
+            try
+            {
+                using (var img = System.Drawing.Image.FromStream(file.InputStream))
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UploadClaimPhoto(HospitalClaimPhotoesViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                try
+                //ViewBag.error = "Please complete the data.";
+                ViewBag.error = "من فضلك ارفع الصورة";
+                return View(model);
+            }
+
+            try
+            {
+                var existingEntity = db.ClaimPhotoes.FirstOrDefault(c => c.ClaimNumber == model.ClaimNumber);
+                string folderPath = @"C:\Domains\DMS_Providers\Content\Claims\";
+
+                if (!Directory.Exists(folderPath))
+                    Directory.CreateDirectory(folderPath);
+
+                string fileName = null;
+                string fullPath = null;
+
+                if (model.ImageFile != null)
                 {
-                    if (db.ClaimPhotoes.Where(c => c.ClaimNumber == model.ClaimNumber).FirstOrDefault() != null)
+                    if (!IsRealImage(model.ImageFile))
                     {
-                        ViewBag.error = "Claim added befor for this card";
+                        //ViewBag.error = "Invalid image format.";
+                        ViewBag.error = "يوجد مشكلة في الصورة";
                         return View(model);
                     }
 
-                    var entity = new ClaimPhoto();
-                    entity.ClaimNumber = model.ClaimNumber;
-                    entity.CardId = model.CardId;
-                    entity.Speciality = model.Speciality;
-                    entity.IsDispense = false;
-                    entity.IsDespenseLab = false;
-                    entity.IsDespenseRay = false;
-                    entity.IsDespensePharm = false;
-                    entity.IsDeleted = false;
-                    entity.CreatedBy = User.Identity.Name;
-                    entity.CreatedDate = DateTime.Now;
-                    if (model.ImageFile != null)
-                    {
-                        //string folderPath = Server.MapPath("~/Content/Claims/");
-                        //string folderPath = Server.MapPath(@"C:\Domains\DMS_Providers\Content\Claims\");
-                        string folderPath = @"C:\Domains\DMS_Providers\Content\Claims\";
-                        if (!Directory.Exists(folderPath))
-                        {
-                            Directory.CreateDirectory(folderPath);
-                        }
+                    string extension = Path.GetExtension(model.ImageFile.FileName);
+                    fileName = "Claim_" + model.ClaimNumber + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
+                    fullPath = Path.Combine(folderPath, fileName);
 
-                        string extension = Path.GetExtension(model.ImageFile.FileName);
-                        string fileName = "Claim " + model.ClaimNumber + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;                        
-                        string fullPath = Path.Combine(folderPath, fileName);
-                        model.ImageFile.SaveAs(fullPath);
-                        entity.Url = "~/Content/Claims/" + fileName;
-
-                        //model.ImageFile.SaveAs(Server.MapPath(@"C:\Domains\DMS_Providers\Content\Claims\" + fileName /*ImageFile.FileName*/));
-                        //entity.Url = @"C:\Domains\DMS_Providers\Content\Claims\" + fileName;
-                        //entity.Url = fullPath;
-                    }
-
-                    db.ClaimPhotoes.Add(entity);
-                    db.SaveChanges();
-                    //return RedirectToAction("Index");
-                    ViewBag.error = "Saved successfully";
-                    return View();
-                   // return RedirectToAction("UploadClaimPhoto", "Claims");
-
+                    model.ImageFile.SaveAs(fullPath);
                 }
-                catch (Exception ex)
+
+                if (existingEntity != null)
                 {
+                   
+                    //if (model.ImageFile != null && !string.IsNullOrEmpty(existingEntity.Url))
+                    //{
+                    //    string oldImagePath = Path.Combine(folderPath, Path.GetFileName(existingEntity.Url.Replace("~", "")));
+                    //    if (System.IO.File.Exists(oldImagePath))
+                    //    {
+                    //        System.IO.File.Delete(oldImagePath);
+                    //    }
+                    //}
 
-                    ViewBag.error = "There was a problem saving.";
-                    return View(model);
+                    existingEntity.CardId = model.CardId;
+                    existingEntity.Speciality = model.Speciality;
+                    existingEntity.IsDispense = false;
+                    existingEntity.IsDespenseLab = false;
+                    existingEntity.IsDespenseRay = false;
+                    existingEntity.IsDespensePharm = false;
+                    existingEntity.IsDeleted = false;
+                    existingEntity.CreatedBy = User.Identity.Name;
+                    existingEntity.CreatedDate = DateTime.Now;
+
+                    if (fileName != null)
+                        existingEntity.Url = "~/Content/Claims/" + fileName;
+
+                    db.SaveChanges();
+                    ViewBag.error = "تم التعديل بنجاح يمكنك الان الحصول على الخدمة لدى كافة مقدمي الخدمة";
+                    return View();
                 }
+                else
+                {
+                    var newEntity = new ClaimPhoto
+                    {
+                        ClaimNumber = model.ClaimNumber,
+                        CardId = model.CardId,
+                        Speciality = model.Speciality,
+                        IsDispense = false,
+                        IsDespenseLab = false,
+                        IsDespenseRay = false,
+                        IsDespensePharm = false,
+                        IsDeleted = false,
+                        CreatedBy = User.Identity.Name,
+                        CreatedDate = DateTime.Now,
+                        Url = fileName != null ? "~/Content/Claims/" + fileName : null
+                    };
 
+                    db.ClaimPhotoes.Add(newEntity);
+                    db.SaveChanges();
+                    //ViewBag.error = "Saved successfully.";
+                    ViewBag.error = "تم الحفظ بنجاح يمكنك الان الحصول على الخدمة لدى كافة مقدمي الخدمة";
+
+                    return View();
+                }
             }
-            ViewBag.error = "Please Complete the data";         
-            return View(model);
+            catch (Exception ex)
+            {
+                //ViewBag.error = "There was a problem saving. " + ex.Message;
+                ViewBag.error = @"حدثت مشكلة اثناء الحفظ \n" + ex.Message;
+
+                return View(model);
+            }
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult UploadClaimPhoto(HospitalClaimPhotoesViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            if (db.ClaimPhotoes.Where(c => c.ClaimNumber == model.ClaimNumber).FirstOrDefault() != null)
+        //            {
+        //                ViewBag.error = "Claim added befor for this card";
+        //                return View(model);
+        //            }
+
+        //            var entity = new ClaimPhoto();
+        //            entity.ClaimNumber = model.ClaimNumber;
+        //            entity.CardId = model.CardId;
+        //            entity.Speciality = model.Speciality;
+        //            entity.IsDispense = false;
+        //            entity.IsDespenseLab = false;
+        //            entity.IsDespenseRay = false;
+        //            entity.IsDespensePharm = false;
+        //            entity.IsDeleted = false;
+        //            entity.CreatedBy = User.Identity.Name;
+        //            entity.CreatedDate = DateTime.Now;
+        //            if (model.ImageFile != null)
+        //            {
+        //                //string folderPath = Server.MapPath("~/Content/Claims/");
+        //                //string folderPath = Server.MapPath(@"C:\Domains\DMS_Providers\Content\Claims\");
+        //                string folderPath = @"C:\Domains\DMS_Providers\Content\Claims\";
+        //                if (!Directory.Exists(folderPath))
+        //                {
+        //                    Directory.CreateDirectory(folderPath);
+        //                }
+
+        //                string extension = Path.GetExtension(model.ImageFile.FileName);
+        //                string fileName = "Claim " + model.ClaimNumber + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + extension;                        
+        //                string fullPath = Path.Combine(folderPath, fileName);
+        //                model.ImageFile.SaveAs(fullPath);
+        //                entity.Url = "~/Content/Claims/" + fileName;
+
+        //                //model.ImageFile.SaveAs(Server.MapPath(@"C:\Domains\DMS_Providers\Content\Claims\" + fileName /*ImageFile.FileName*/));
+        //                //entity.Url = @"C:\Domains\DMS_Providers\Content\Claims\" + fileName;
+        //                //entity.Url = fullPath;
+        //            }
+
+        //            db.ClaimPhotoes.Add(entity);
+        //            db.SaveChanges();
+        //            //return RedirectToAction("Index");
+        //            ViewBag.error = "Saved successfully";
+        //            return View();
+        //           // return RedirectToAction("UploadClaimPhoto", "Claims");
+
+        //        }
+        //        catch (Exception ex)
+        //        {
+
+        //            ViewBag.error = "There was a problem saving.";
+        //            return View(model);
+        //        }
+
+        //    }
+        //    ViewBag.error = "Please Complete the data";         
+        //    return View(model);
+        //}
+
+
+
     }
 }
