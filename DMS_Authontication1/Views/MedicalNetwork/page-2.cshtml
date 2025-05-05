@@ -49,19 +49,7 @@
     }
 }
 
-<div class="sios-container">
-    <div class="">
-        <p class="mx-4 my-0 py-3 d-flex gap-2">
-            @if (fullcontroll || view)
-            {
-                @Html.ActionLink(" Search", "InquiryAboutCard", null, htmlAttributes: new { @class = "btn action-btn  ", @style = " text-transform: none" })
-            }
-            @if (fullcontroll || Create)
-            {
-                @Html.ActionLink(" Create Request ", "CreateRequest", null, htmlAttributes: new { @class = "btn action-btn active ", @style = " text-transform: none" })
-            }
-        </p>
-    </div>
+<div class="sios-container"> 
     @if (fullcontroll || Create)
     {
 <div class="portlet box green">
@@ -178,7 +166,7 @@
                                         </span>
                                     </div>
                                     <div class=" px-2">
-                                        <div class="labeled-file-box  ps-2 d-flex justify-content-between align-items-center  rounded-2 form-group " style="height:48px;">
+                                        <div class="labeled-file-box ps-2  d-flex justify-content-between align-items-center  rounded-2 form-group " style="height:48px;">
                                             <span>
                                                 <label class="control-label sbold col-md-4">
                                                     @Html.DisplayName("Upload Files") :
@@ -189,7 +177,7 @@
                                             @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
 
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
                             </div>
                             </div>

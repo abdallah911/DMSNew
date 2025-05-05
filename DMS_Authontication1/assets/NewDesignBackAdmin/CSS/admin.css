@@ -4558,8 +4558,13 @@ button.vjs-big-play-button {
 .vjs-control-bar {
     border-radius: 0 0 1rem 1rem;
 }
-
-
+/*=====================NEW==================================================*/
+.labeled-file-box {
+    height: 48px;
+    display: flex !important;
+    border: 2px solid #9689a3;
+    gap: 10px;
+}
 /* ====================footer========================================== */
     .footer {
         background: var(--color-gradient);
