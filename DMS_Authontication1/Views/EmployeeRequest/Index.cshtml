@@ -30,143 +30,392 @@
             }
         }
     }
-} 
-<div class="dms-container">
-    <div>
-        @if (!User.IsInRole("Admin"))
-        {
-            <p class="ms-4">
-                @if (fullcontroll || view)
-                {
-                    @Html.ActionLink(" Search", "Index", null, htmlAttributes: new { @class = "btn btn-info-outline fa fa-search", @style = " text-transform: none" })
-                }
-                @if (fullcontroll || Create)
-                {
-                    @Html.ActionLink(" Create Request", "EditRequest", null, htmlAttributes: new { @class = "btn btn-info fa fa-pencil", @style = " text-transform: none" })
-                }
-            </p>
-        }
-    </div>
-
-    @if (fullcontroll || view)
-    {
-        <div class="portlet box">
-            <div class="portlet-title title-bg text-white fw-bold">
-                <div class="caption">
-                    <i class="fa-solid fa-home"></i>Operation
-                </div>
-
-            </div>
-            <br />
-            <div class="portlet-body">
-
-                <table class="ui celled table" id="Index" width="100%">
-                    <thead>
-                        <tr>
-
-                            <th>
-                                Id
-                            </th>
-                            <th>
-                                Card Id
-                            </th>
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                Request Type
-                            </th>
-                            <th>
-                                status
-                            </th>
-                            <th>
-                                CreatedDate
-                            </th>
-                            <th></th>
-                            @*<th></th>
-                                <th></th>
-                                <th></th>*@
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-
-                </table>
-            </div>
-        </div>
+}
+<style>
+    .dashboard-body{
+        padding:20px;
     }
-</div> 
+    .doughnut-box {
+        height: 300px; 
+    }
+    .doughnut-box .box {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .doughnut-box .box div {
+        height: 100%; 
+    }
+    #doughnutChart {
+        height: 300px !important;
+    }
+</style>
+<div class="portlet box dms-container">
+    <div class="portlet-title title-bg text-white fw-bold">
+        <div class="caption">
+            <i class="fa-solid fa-home"></i>Operation
+        </div>
+
+    </div>
+    <div class="dashboard-box container pe-0 mx-auto row d-flex flex-wrap">
+        <div class="dashboard-categories col-sm-4">
+            <ul>
+                <li><a>Dashboard</a></li>
+                <li><a>Message</a></li>
+                <li><a>Leads</a></li>
+                <li><a>Tasks</a></li>
+                <li><a>Calender</a></li>
+                <li><a>Contact</a></li>
+            </ul>
+        </div>
+        <div class="dashboard-body col-sm-8">
+            <div class="col-sm-6">
+                <div class="w-100 mb-4">
+                    <div class="graph-box">
+                        <div class="box">
+                            <div>
+                                <canvas id="graphChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100">
+                    <div class="graph-box">
+                        <div class="box">
+                            <div>
+                                <canvas id="graphChartTwo"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-sm-6 ">
+                <div class="cards-box mb-4 w-100">
+                    <div class="card-body">
+                        <i class="fa fa-user"></i>
+                        <h4 class="card-number">43</h4>
+                        <h4 class="card-name">Employees</h4>
+                        <p class="ratio">23%</p>
+                    </div>
+                    <div class="card-body">
+                        <i class="fa fa-user"></i>
+                        <h4 class="card-number">43</h4>
+                        <h4 class="card-name">Employees</h4>
+                        <p class="ratio">23%</p>
+                    </div>
+                    <div class="card-body">
+                        <i class="fa fa-user"></i>
+                        <h4 class="card-number">43</h4>
+                        <h4 class="card-name">Employees</h4>
+                        <p class="ratio">23%</p>
+                    </div>
+                    <div class="card-body">
+                        <i class="fa fa-user"></i>
+                        <h4 class="card-number">43</h4>
+                        <h4 class="card-name">Employees</h4>
+                        <p class="ratio">23%</p>
+                    </div>
+                </div>
+                <div class="doughnut-box chart-card w-100">
+                    <div class="doughnut-box">
+                        <div class="box">
+                            <div>
+                                <canvas id="doughnutChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12"></div>
+        </div>
+    </div>
+</div>
 <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script> 
+<script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js""></script>
+
+<!-- Chart code -->
+<script>
+
+    //am4core.ready(function () {
+    //    //User Chart
+    //    // Create chart instance
+    //    var chart = am4core.create("doughnutChart", am4charts.PieChart);
+    //    // Add and configure Series
+    //    var pieSeries = chart.series.push(new am4charts.PieSeries());
+    //    pieSeries.dataFields.value = "litres";
+    //    pieSeries.dataFields.category = "User";
+
+    //    // Let's cut a hole in our Pie chart the size of 30% the radius
+    //    chart.innerRadius = am4core.percent(50);
+
+    //    // Put a thick white border around each Slice
+    //    pieSeries.slices.template.stroke = am4core.color("#fff");
+    //    pieSeries.slices.template.strokeWidth = 2;
+    //    pieSeries.slices.template.strokeOpacity = 1;
+    //    pieSeries.slices.template
+    //        // change the cursor on hover to make it apparent the object can be interacted with
+    //        .cursorOverStyle = [
+    //            {
+    //                "property": "cursor",
+    //                "value": "pointer"
+    //            }
+    //        ];
+
+    //    pieSeries.alignLabels = false;
+    //    pieSeries.labels.template.bent = true;
+    //    pieSeries.labels.template.radius = 3;
+    //    pieSeries.labels.template.padding(0, 0, 0, 0);
+
+    //    pieSeries.ticks.template.disabled = true;
+
+    //    // Create a base filter effect (as if it's not there) for the hover to return to
+    //    var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+    //    shadow.opacity = 0;
+
+    //    // Create hover state
+    //    var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+
+    //    // Slightly shift the shadow and make it more prominent on hover
+    //    var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+    //    hoverShadow.opacity = 0.7;
+    //    hoverShadow.blur = 5;
+
+    //    // Add a legend
+    //    chart.legend = new am4charts.Legend();
+    //    //Clams Chart
+    //    var Clameschart = am4core.create("ClamesChartDiv", am4charts.PieChart);
+    //    // Add and configure Series
+    //    var ClamespieSeries = Clameschart.series.push(new am4charts.PieSeries());
+    //    ClamespieSeries.dataFields.value = "litres";
+    //    ClamespieSeries.dataFields.category = "Clames";
+
+    //    // Let's cut a hole in our Pie chart the size of 30% the radius
+    //    Clameschart.innerRadius = am4core.percent(30);
+
+    //    // Put a thick white border around each Slice
+    //    ClamespieSeries.slices.template.stroke = am4core.color("#fff");
+    //    ClamespieSeries.slices.template.strokeWidth = 2;
+    //    ClamespieSeries.slices.template.strokeOpacity = 1;
+    //    ClamespieSeries.slices.template
+    //        // change the cursor on hover to make it apparent the object can be interacted with
+    //        .cursorOverStyle = [
+    //            {
+    //                "property": "cursor",
+    //                "value": "pointer"
+    //            }
+    //        ];
+
+    //    ClamespieSeries.alignLabels = false;
+    //    ClamespieSeries.labels.template.bent = true;
+    //    ClamespieSeries.labels.template.radius = 3;
+    //    ClamespieSeries.labels.template.padding(0, 0, 0, 0);
+
+    //    ClamespieSeries.ticks.template.disabled = true;
+
+    //    // Create a base filter effect (as if it's not there) for the hover to return to
+    //    var shadow = ClamespieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+    //    shadow.opacity = 0;
+
+    //    // Create hover state
+    //    var hoverState = ClamespieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+
+    //    // Slightly shift the shadow and make it more prominent on hover
+    //    var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+    //    hoverShadow.opacity = 0.7;
+    //    hoverShadow.blur = 5;
+    //    Clameschart.legend = new am4charts.Legend();
+    //    //Ajax
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: '/Home/getUser/',
+    //        dataType: 'json',
+    //        data: { id: 1 },
+    //        success: function (result) {
+    //            // Add data
+    //            chart.data = [{
+    //                "User": "Oracle",
+    //                "litres": result.OracleUserCount
+    //            }, {
+    //                "User": "SQL",
+    //                "litres": result.SqlUserCount
+    //            }
+    //            ];
+    //            Clameschart.data = [{
+    //                "Clames": "Oracle",
+    //                "litres": result.OracleClamesCount
+    //            }, {
+    //                "Clames": "SQL",
+    //                "litres": result.SqlClamesCount
+    //            }
+    //            ];
+
+    //        },
+    //        error: function (ex) {
+    //            bootbox.alert('Failed to retrieve counts.');
+    //        }
+
+    //    });
+
+    //}); // end am4core.ready()
+</script>
+<script>
+    //const config = {
+    //    type: 'doughnut',
+    //    data: data,
+    //};
+    //const data = {
+    //    labels: [
+    //        'Red',
+    //        'Blue',
+    //        'Yellow'
+    //    ],
+    //    datasets: [{
+    //        label: 'My First Dataset',
+    //        data: [300, 50, 100],
+    //        backgroundColor: [
+    //            'rgb(255, 99, 132)',
+    //            'rgb(54, 162, 235)',
+    //            'rgb(255, 205, 86)'
+    //        ],
+    //        hoverOffset: 4
+    //    }]
+    //};
+    //const doughnutChart = new Chart(document.getElementByID('doughnutChart'),
+    //    config
+    //);
+</script>
 
 <script>
-    $(function () {
-        $("#Index").DataTable({
-            "sAjaxSource": '/EmployeeRequest/RequestList',
-            "bServerSide": true,
-            "processing": true,
-            "bFilter": true,
-            "bSort": false,
-            "pageLength": 10,
-            "bInfo": true,
-            "lengthChange": false,
+    const ctx = document.getElementById('doughnutChart');
+    const ctxTwo = document.getElementById('graphChart');
+    const ctxThree = document.getElementById('graphChartTwo');
+    const ctxFour = document.getElementById('graphChartThree');
 
-            "columns": [
-                { "data": "REQUEST_CODE", "name": "REQUEST_CODE" },
-                { "data": "CARD_ID", "name": "Card Id" },
-                { "data": "CHANG_EMP_NAME", "name": "NAME" },
-                {
-                    "data": "TYPE",
-                    "name": "TYPE",
-                    "mRender": function (data) {
-                        if (data == "1") {
-                            return "Addition";
-
-                        } else if (data == "2") {
-                            return "Edit Level";
-
-                        } else if (data == "3") {
-                            return "Termination";
-
-                        } else if (data == "4") {
-                            return "Reprint";
-
-                        } else if (data == "5") {
-                            return "Reactivation";
-
-                        } else if (data == "6") {
-                            return "Change Employee Number";
-
-                        } else if (data == "7") {
-                            return "Change Name";
-
-                        }
-                        return "Other";
-
-                    }
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: [ 
+                'Blue',
+                'Dark Blue'
+            ],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [12, 19 ],
+                backgroundColor: [
+                    '#8389eb',
+                    '#de8383'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            }
+        }
+    });
+    new Chart(ctxTwo, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of employees',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [ 
+                    '#8389eb', 
+                    '#de8383'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    new Chart(ctxThree, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of employees',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [ 
+                    '#8389eb', 
+                    '#de8383'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            // Elements options apply to all of the options unless overridden in a dataset
+            // In this case, we are setting the border of each horizontal bar to be 2px wide
+            elements: {
+                bar: {
+                    borderWidth: 2,
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
                 },
-                { "data": "APPROVE_FLAG", "name": "APPROVE FLAG" },
-
-                {
-                    "data": "CREATED_DATE",
-                    "name": "Created Date",
-                    "mRender": function (data) {
-                        var value = new Date(parseFloat(data.replace(/(^.*\()|([+-].*$)/g, '')));
-                        var date = value.getDate() + "/" + (value.getMonth() + 1) + "/" + value.getFullYear();
-                        return date;
-                    }
+                title: {
+                    display: true,
+                    text: 'Chart.js Horizontal Bar Chart'
+                }
+            }
+        },
+    });
+    new Chart(ctxFour, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of employees',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [ 
+                    '#8389eb', 
+                    '#de8383'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            // Elements options apply to all of the options unless overridden in a dataset
+            // In this case, we are setting the border of each horizontal bar to be 2px wide
+            elements: {
+                bar: {
+                    borderWidth: 2,
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
                 },
-                {
-                    "data": "REQUEST_CODE",
-                    "mRender": function (data) {
-                        if ("@fullcontroll" == "True" || "@view" == "True") {
-                            return '<a class="btn btn-primary fa fa-list" href="/EmployeeRequest/Details/' + data + '"> Details </a>';
-                        }
-                        else
-                            return '<input  data-id=' + data + '  hidden  /> ';
-                    }
-                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Horizontal Bar Chart'
+                }
+            }
+        },
+    });
+
+ 
 
 
-            ]
-        });
-    })
+
 </script>
