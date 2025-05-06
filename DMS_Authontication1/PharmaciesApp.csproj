@@ -8726,7 +8726,7 @@
     <Content Include="Views\AfterSales\HRCompany.cshtml" />
     <Content Include="Views\AfterSales\Create.cshtml" />
     <Content Include="Views\ReviewClaims\History.cshtml" />
-    <Content Include="Views\EmployeeRequest\Index.cshtml" />
+    <Content Include="Views\EmployeeRequest\DashboardHR.cshtml" />
     <Content Include="Reports\HR\ReviewCliamsReport.rpt" />
     <Content Include="Reports\HR\ReviewCliamsReportSummary.rpt" />
     <Content Include="Views\ReviewClaims\History - Copy.cshtml" />
@@ -8854,6 +8854,8 @@
     <Content Include="Reports\ApprovalReports\ReportAprov6.rpt" />
     <Content Include="Reports\ApprovalReports\ReportAprov7.rpt" />
     <Content Include="Views\NetworkMedical\Index.cshtml" />
+    <Content Include="Views\EmployeeRequest\Index.cshtml" />
+    <Content Include="Views\EmployeeRequest\Index - Copy %282%29.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />

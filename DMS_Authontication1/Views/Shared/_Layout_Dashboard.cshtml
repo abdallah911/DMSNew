@@ -70,6 +70,9 @@
         .dms-container {
             min-height: calc(100vh - 300.1px);
         }
+        .reports .dms-container {
+            min-height: calc(100vh - 305.1px);
+        }
         /*
         .dms-container {
             padding-top: 60px;
@@ -93,7 +96,8 @@
         input,
         select,
         textarea {
-            /*border: 2px solid #538eb6 !important;*/
+            border: 2px solid #c2cad8 !important;
+            border-radius: 4px; 
         }
 
         .forLabel > span:not(.select2-container), .select {
@@ -101,13 +105,15 @@
         }
 
         .forLabel {
-            height: 45px;
+            height: 40px;
+            position: relative;
         }
 
             .forLabel input,
             .forLabel select,
             .forLabel textarea {
                 height: 100%;
+                width: 100%;
             }
 
             .forLabel > span:not(.select2-container), .select {
@@ -142,6 +148,7 @@
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             color: #444;
             line-height: 32px;
+            padding-left: 20px;
         }
 
         .nav-pills .nav-link:focus {
@@ -446,8 +453,8 @@
                     <a href="~/Home/Index">
                         <div id="LogoDmsTop" style="width: 100px; border-radius: 16px;  " class="dms-celebrate-gif img d-flex align-self-stretch">
                             @*<div class="celebrate-gif">
-           <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
-        </div>*@
+                                 <img src="~/assets/global/img/Events/1.gif" alt="this slowpoke moves" width="250" />
+                              </div>*@
                             @*<img class="imgmenu" src="~/assets/global/img/Events/Eid-logo.gif" style="margin-top: 5px;" />*@
                             <img class="imgmenu" src="~/assets/HomeTemplete/img/DMS_Logo.png" style="margin-top: 10px;"/>
                         </div>

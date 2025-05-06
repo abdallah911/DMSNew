@@ -105,7 +105,7 @@
                                         <div class="col-md-12" style="margin-bottom:50px">
                                             <div class="form-group">
                                                 <label class="control-label sbold col-md-2">
-                                                    @Html.DisplayName("Request Code ") :
+                                                    @Html.DisplayName("Request Code ")   
                                                 </label>
                                                 <div class="col-md-8">
                                                     <label class="control-label sbold col-md-4" id="RequestCode">
@@ -115,126 +115,130 @@
                                             </div>
                                         </div>
                                         <br />
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 d-flex flex-column row-gap-2">
 
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-4">
-                                                    @Html.DisplayNameFor(model => model.CompName) :
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                @if (User.IsInRole("HR_Admin"))
-                                                {
-                                                    <div class="col-md-8">
-                                                        @Html.DropDownListFor(model => model.CompName, ViewBag.company as SelectList, new { @class = "form-control", id = "CompName" })
+                                            <div class="labeled-file-box">
+                                                <div>
+                                                    <span>
+                                                        <label class="control-label sbold col-md-4">
+                                                            @Html.DisplayNameFor(model => model.CompName)   
+                                                            @*<span class="required"> * </span>*@
+                                                        </label>
+                                                    </span>
+                                                    @if (User.IsInRole("HR_Admin"))
+                                                    {
+                                                        @Html.DropDownListFor(model => model.CompName, ViewBag.company as SelectList, new { @class = "", @style = "padding-left:80pxpx", id = "CompName" })
 
-                                                    </div>
-                                                    <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                                                    <script>
-                                                        $(document).ready(function () {
-                                                            $('#CompName').select2();
-                                                        });
-                                                    </script>
-                                                }
-                                                else
-                                                {
-                                                    <div class="col-md-8">
-                                                        @Html.EditorFor(model => model.CompName, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
-                                                        @*<input type="text" class="form-control" asp-for="FirstName" />*@
+
+                                                        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                        <script>
+                                                            $(document).ready(function () {
+                                                                $('#CompName').select2();
+                                                            });
+                                                        </script>
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.EditorFor(model => model.CompName, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })
+                                                        @*<input type="text" class="" asp-for="FirstName" />*@
                                                         @Html.ValidationMessageFor(model => model.CompName, "", new { @class = "text-danger" })
-                                                    </div>
-                                                }
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-4">
-                                                    @Html.DisplayName("Governorate") :
-                                                </label>
-                                                <div class="col-md-8">
-
-                                                    @Html.DropDownList("Country", ViewBag.address as SelectList, "Select Governorate", new { @class = "form-control", id = "Country_select" })
-                                                    @*@Html.DropDownListFor(model => model.Country, ViewBag.address as SelectList, "Select Country", new { @class = "form-control", id = "Country" })*@
+                                                    }
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-4">
-                                                    @Html.DisplayNameFor(model => model.Region) :
-                                                </label>
-                                                <div class="col-md-8">
+                                            <div class="forLabel">
 
-                                                    @Html.DropDownList("Region", new SelectList(""), "Select Region", new { @class = "form-control", id = "Region_select" })
-                                                    @*@Html.DropDownListFor(model => model.Region, new SelectList(""), "Select Region", new { @class = "form-control", id = "Region" })*@
-                                                </div>
+
+                                                @Html.DropDownList("Country", ViewBag.address as SelectList, "", new { @required = "true", @class = "", id = "Country_select" })
+                                                @*@Html.DropDownListFor(model => model.Country, ViewBag.address as SelectList, "Select Country", new { @class = "", id = "Country" })*@
+                                                <span>
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayName("Governorate")   
+                                                    </label>
+                                                </span>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-4">
-                                                    @Html.DisplayNameFor(model => model.ProviderType) :
-                                                </label>
-                                                <div class="col-md-8">
-                                                    @Html.DropDownListFor(m => m.ProviderType, ViewBag.provider as SelectList, "Select Provider", new { @class = "form-control" })
-                                                </div>
+                                            <div class="forLabel">
+
+                                                @Html.DropDownList("Region", new SelectList(""), "", new { @required = "true", @class = "", id = "Region_select" })
+                                                @*@Html.DropDownListFor(model => model.Region, new SelectList(""), "Select Region", new { @class = "", id = "Region" })*@
+                                                <span>
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.Region)   
+                                                    </label>
+                                                </span>
+                                            </div>
+
+                                            <div class="forLabel">
+
+                                                @Html.DropDownListFor(m => m.ProviderType, ViewBag.provider as SelectList, "", new { @required = "true", @class = "" })
+                                                <span>
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.ProviderType)   
+                                                    </label>
+                                                </span>
                                             </div>
 
 
 
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-5">
-                                                    @Html.DisplayNameFor(model => model.NumberOfPeople) :
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-6">
-                                                    <input type="number" class="form-control" id="NumberOfPeople" min="0" step="1" onkeypress="return /[0-9]/i.test(event.key)" />
-                                                    @Html.ValidationMessageFor(model => model.NumberOfPeople, "", new { @class = "text-danger" })
-                                                </div>
+                                            <div class="forLabel">
+
+                                                <input type="number"required class="" id="NumberOfPeople" min="0" step="1" onkeypress="return /[0-9]/i.test(event.key)" />
+                                                @Html.ValidationMessageFor(model => model.NumberOfPeople, "", new { @class = "text-danger" })
+                                                <span>
+                                                    <label class="control-label sbold col-md-5">
+                                                        @Html.DisplayNameFor(model => model.NumberOfPeople)   
+                                                        @*<span class="required"> * </span>*@
+                                                    </label>
+                                                </span> 
+                                            </div>  
+                                        </div> 
+                                        <div class="col-md-6 d-flex flex-column row-gap-2">
+                                            <div class="forLabel">
+
+                                                <input type="text" required class="" value="" id="ServName" />
+                                                @Html.ValidationMessageFor(model => model.ServName, "", new { @class = "text-danger" })
+                                                <span>
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.ServName)   
+                                                        @*<span class="required"> * </span>*@
+                                                    </label>
+                                                </span>
                                             </div>
 
+                                            <div class="forLabel">
 
-                                        </div>
+                                                <input type="text" required class="" id="ServAddress" />
+                                                @Html.ValidationMessageFor(model => model.ServAddress, "", new { @class = "text-danger" })
+                                                <span>
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.ServAddress)   
+                                                        @*<span class="required"> * </span>*@
+                                                    </label>
+                                                </span>
+                                            </div>
+                                            <div class="forLabel">
 
-                                        <div class="col-md-6">
+                                                <input type="text" required class="" value="" id="ResponsableFor" />
+                                                <span>
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.ResponsableFor)   
 
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-4">
-                                                    @Html.DisplayNameFor(model => model.ServName) :
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" value="" id="ServName" />
-                                                    @Html.ValidationMessageFor(model => model.ServName, "", new { @class = "text-danger" })
-                                                </div>
+                                                    </label>
+                                                </span>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-4">
-                                                    @Html.DisplayNameFor(model => model.ServAddress) :
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" id="ServAddress" />
-                                                    @Html.ValidationMessageFor(model => model.ServAddress, "", new { @class = "text-danger" })
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-4">
-                                                    @Html.DisplayNameFor(model => model.ResponsableFor) :
+                                            <div class="forLabel">
 
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" value="" id="ResponsableFor" />
-                                                </div>
-                                            </div>
+                                                <input type="text" required class="" id="PhoneNumber" value="" onkeypress="return /[0-9]/i.test(event.key)" />
+                                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                                <span>
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.PhoneNumber)   
+                                                        @*<span class="required"> * </span>*@
 
-                                            <div class="form-group">
-                                                <label class="control-label sbold col-md-4">
-                                                    @Html.DisplayNameFor(model => model.PhoneNumber) :
-                                                    <span class="required"> * </span>
-
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" id="PhoneNumber" value="" onkeypress="return /[0-9]/i.test(event.key)" />
-                                                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-                                                </div>
+                                                    </label>
+                                                </span>
                                             </div>
 
 
@@ -249,12 +253,19 @@
 
                                             <div class="form-group">
 
-                                                <div class="col-md-offset-2" style="margin-top:20px">
-                                                    <label class="control-label sbold col-md-3">
-                                                        @Html.DisplayName("Response Status ") :
-                                                    </label>
-                                                    <div class="col-md-8">
-                                                        <textarea type="text" class="form-control" id="responsestatus" value="" disabled="disabled"></textarea>
+                                                <div class=" " > 
+                                                    <div class="col-md-6">
+                                                        <textarea type="text" class="w-100" id="responsestatus" rows="6" value="" placeholder="@Html.DisplayName("Response Status ")   " disabled="disabled"></textarea>
+                                                    </div>
+                                                    <div class="col-md-6  d-flex align-items-center">
+                                                        <div class="col-sm-6">
+                                                            <input id="txtSearchRequest" type="text" placeholder="search for Request ID..." class="w-100" />
+                                                        </div>
+                                                        <div class="">
+                                                            <button id="Search" type="button" class="btn btn-success" onclick="SearchRequest()">
+                                                                <span class="glyphicon glyphicon-search"></span> Search
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -267,14 +278,7 @@
                                                         <div class="col-md-offset-2">
                                                             <div class="form-group">
                                                                 <div class="row">
-                                                                    <div class="col-sm-3">
-                                                                        <input id="txtSearchRequest" type="text" placeholder="search for Request ID..." class="form-control" />
-                                                                    </div>
-                                                                    <div class="col-sm-3">
-                                                                        <button id="Search" type="button" class="btn btn-success" onclick="SearchRequest()">
-                                                                            <span class="glyphicon glyphicon-search"></span> Search
-                                                                        </button>
-                                                                    </div>
+                                                                   
                                                                     <div class="col-sm-2" id="div_of_serv">
                                                                         <button id="new" type="button" class="btn btn-secondary-outline" onclick="NewRequest()">
                                                                             <span class="fa fa-reply"></span> New

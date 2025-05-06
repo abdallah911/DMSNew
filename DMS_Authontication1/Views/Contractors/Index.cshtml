@@ -47,19 +47,19 @@
     </div>
     @if (fullcontroll || view)
     {
-        <div class="portlet box  green">
-            <div class="portlet-title">
+        <div class="portlet box  ">
+            <div class="portlet-title title-bg">
                 <div class="caption">
                     <i class="fa fa-gift"></i> Search
                 </div>
             </div>
-            <div class="portlet-body">
+            <div class="portlet-body row mx-auto">
                 <input id="compname" type="text" value="@ViewBag.CompName" hidden="hidden" />
-                <div class="row" style="padding-bottom: 15px;">
+                <div class="row col-sm-6" style="padding-bottom: 15px;">
                     @if (User.IsInRole("HR_Admin"))
                     {
 
-                        <div class="col-sm-2" data-step="6" data-intro="Select Contract type Default is Contract">
+                        <div class="w-100" data-step="6" data-intro="Select Contract type Default is Contract">
                             @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "form-control", id = "CompanyNumber" })
 
                         </div>
@@ -71,7 +71,7 @@
                             });
                         </script>
                     }
-                    <div class="col-sm-2" data-step="6" data-intro="Select Contract type Default is Contract">
+                    <div class="w-100" data-step="6" data-intro="Select Contract type Default is Contract">
                         <select id="ddlType" class="form-control">
                             <option value="">Select Type</option>
                             <option value="Contract">Contract</option>
@@ -79,7 +79,7 @@
                         </select>
                     </div>
                 </div>
-                <div style=" text-align:right">
+                <div style=" text-align:right" class="col-sm-6">
                     <input id="resetSearch" type="button" value="Reset" onclick="ClearSearchData();" class="btn btn-warning" />
                     <input id="adminSearch" type="button" value="Search" class="btn btn-primary fa fa-search" />
                 </div>

@@ -30,11 +30,11 @@
         }
     }
 }
-<div class="dms-container">
+<div class="dms-container reports">
 
     <div>
 
-        <p>
+        <p class="ms-4 mt-0 pt-4">
             @if (User.Identity.Name != "sofico-hr")
             {
                 if (fullcontroll || view)
@@ -59,8 +59,8 @@
 
     @if (fullcontroll || edit)
     {
-        <div class="portlet box  green">
-            <div class="portlet-title">
+        <div class="portlet box  ">
+            <div class="portlet-title title-bg">
                 <div class="caption">
                     <i class="fa fa-gift"></i>Consumption Details
                 </div>
@@ -75,266 +75,204 @@
                                     <div class="tab-content">
                                         <div asp-validation-summary="All" class="text-danger"></div>
 
-                                        <div class="row">
+                                        <div class="row d-flex flex-column row-gap-2 ">
                                             @*Date of Registration*@
-                                            <div class="col-md-8">
-                                                <div class="form-group">
+                                            <div class="labeled-file-box col-md-8">
+                                                <div>
                                                     @if (User.Identity.Name != "sofico-hr")
                                                     {
-                                                        <label class="control-label sbold col-md-3">
-                                                            Record Date :
+                                                        <span>
+                                                            <label class="control-label sbold col-md-3">
+                                                                Record Date
 
-                                                        </label>
+                                                            </label>
+                                                        </span>
+
                                                     }
                                                     else
                                                     {
-                                                        <label class="control-label sbold col-md-3">
-                                                            Date of Service :
+                                                <span>
+                                                    <label class="control-label sbold col-md-3">
+                                                        Date of Service
 
-                                                        </label>
+                                                    </label>
+                                                </span>
+                                                       
                                                     }
-                                                    <div class="col-md-6">
-                                                        <label class="control-label sbold col-md-3">
-                                                            From
-
-                                                        </label>
-                                                        <div class="col-md-9">
-                                                            <input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="From" />
-                                                        </div>
-                                                    </div>
-                                                    <br />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label class="control-label sbold col-md-2">
-                                                    TO
-
-                                                </label>
-                                                <div class="col-md-10">
+                                                <div class="selected-date"> 
+                                                    <input id="RegistrationFrom" type="text" class="col-md-2 form-control " placeholder="From" />
                                                     <input id="RegistrationTo" type="text" class="col-md-2 form-control " placeholder="To" />
+                                                 </div>
+                                                  
                                                 </div>
                                             </div>
+                                            
 
                                             @*Date of Service*@
                                             @if (User.Identity.Name != "sofico-hr")
                                             {
-                                                <div class="col-md-8">
-                                                    <div class="form-group">
-                                                        <label class="control-label sbold col-md-3">
-                                                            Date of Service :
-
-                                                        </label>
-                                                        <div class="col-md-6">
+                                                <div class="labeled-file-box col-md-8">
+                                                    <div>
+                                                        <span>
                                                             <label class="control-label sbold col-md-3">
-                                                                From
+                                                                Date of Service
 
                                                             </label>
-                                                            <div class="col-md-9">
-                                                                <input id="ServiceFrom" type="text" class="col-md-2 form-control " placeholder="From" />
-                                                            </div>
+                                                        </span>
+                                                        <div class="selected-date">
+                                                            <input id="ServiceFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                            <input id="ServiceTo" type="text" class="col-md-2 form-control " placeholder="To" />
                                                         </div>
-                                                        <br />
+                                                      
                                                     </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label class="control-label sbold col-md-2">
-                                                        TO
-
-                                                    </label>
-                                                    <div class="col-md-10">
-                                                        <input id="ServiceTo" type="text" class="col-md-2 form-control " placeholder="To" />
-                                                    </div>
-                                                </div>
+                                                </div> 
                                             }
                                             else
                                             {
-                                                <div class="col-md-8" hidden>
-                                                    <div class="form-group">
-                                                        <label class="control-label sbold col-md-3">
-                                                            Date of Service :
-
-                                                        </label>
-                                                        <div class="col-md-6">
+                                                <div class="labeled-file-box col-md-8" hidden>
+                                                    <div>
+                                                        <span>
                                                             <label class="control-label sbold col-md-3">
-                                                                From
+                                                                Date of Service
 
                                                             </label>
-                                                            <div class="col-md-9">
-                                                                <input id="ServiceFrom" type="text" class="col-md-2 form-control " placeholder="From" />
-                                                            </div>
+                                                        </span>
+                                                        <div class="selected-date">
+                                                            <input id="ServiceFrom" type="text" class="col-md-2 form-control " placeholder="From" />
+                                                            <input id="ServiceTo" type="text" class="col-md-2 form-control " placeholder="To" />
                                                         </div>
-                                                        <br />
+                                                      
                                                     </div>
-                                                </div>
-                                                <div class="col-md-4" hidden>
-                                                    <label class="control-label sbold col-md-2">
-                                                        TO
-
-                                                    </label>
-                                                    <div class="col-md-10">
-                                                        <input id="ServiceTo" type="text" class="col-md-2 form-control " placeholder="To" />
-                                                    </div>
-                                                </div>
+                                                </div> 
                                             }
                                             @* Company Number *@
 
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label class="control-label sbold col-md-3">
-                                                        Company Number :
-
-                                                    </label>
-                                                    <div class="col-md-6">
+                                            <div class="labeled-file-box col-md-8">
+                                                <div >
+                                                    <span>
                                                         <label class="control-label sbold col-md-3">
-                                                            From
+                                                            Company Number
 
                                                         </label>
-                                                        <div class="col-md-9">
-                                                            @if (User.IsInRole("HR_Admin"))
-                                                            {
-                                                                @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumberFrom" })
-                                                                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                                                                <script>
-                                                                    $(document).ready(function () {
-                                                                        $('#CopmanyNumberFrom').select2();
-                                                                    });
-                                                                </script>
-
-                                                            }
-                                                            else
-                                                            {
-                                                                <input id="CopmanyNumberFrom" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                    <br />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label class="control-label sbold col-md-2">
-                                                    TO
-
-                                                </label>
-                                                <div class="col-md-10">
-
-                                                    @if (User.IsInRole("HR_Admin"))
-                                                    {
-                                                        @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumberTo" })
-                                                        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
-                                                        <script>
-                                                            $(document).ready(function () {
-                                                                $('#CopmanyNumberTo').select2();
-                                                            });
-                                                        </script>
-
-                                                    }
-                                                    else
-                                                    {
-                                                        <input id="CopmanyNumberTo" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-
-                                                    }
-
-                                                </div>
-                                            </div>
-
-                                            @* Card Number *@
-
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label class="control-label sbold col-md-3">
-                                                        Card Number :
-
-                                                    </label>
-                                                    <div class="col-md-6">
-                                                        <label class="control-label sbold col-md-3">
-                                                            From
-
-                                                        </label>
-                                                        <div class="col-md-9">
-                                                            <select id="CardIdFrom" class="col-md-2 js-data-example-ajax" style="width: 100%"></select>
-                                                        </div>
-                                                    </div>
-                                                    <br />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label class="control-label sbold col-md-2">
-                                                    TO
-
-                                                </label>
-                                                <div class="col-md-10">
-                                                    <select id="CardIdTo" class="col-md-2 js-data-example-ajax" style="width: 100%"></select>
-                                                </div>
-                                            </div>
-
-                                            <br />
-
-                                            @* Service provider number *@
-
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label class="control-label sbold col-md-4">
-                                                        Service Provider Number :
-
-                                                    </label>
-                                                    <div class="col-md-5">
-                                                        <select id="ProviderName" name="ProviderName" class="col-md-2 form-control js-data-example-ajax" style="width: 100%"></select>
-                                                        @*<input id="SerProvNumber" type="number" class="col-md-2 form-control " min="0" />*@
-
-                                                    </div>
-                                                    <br />
-                                                </div>
-                                            </div>
-                                            <br />
-
-                                            @* Repot Type *@
-
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label class="control-label sbold col-md-3">
-                                                        Repot Type :
-                                                        <span class="required"> * </span>
-                                                    </label>
-                                                    <div class="col-md-6">
-                                                        @if (User.Identity.Name == "sofico-hr")
+                                                    </span>
+                                                    <div class="selected-date">
+                                                        @if (User.IsInRole("HR_Admin"))
                                                         {
-                                                            <select id="RepotType" class="form-control">
-                                                                <option value="920">Claims</option>
-                                                                <option value="921">Details</option>
-                                                            </select>
+                                                            @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumberFrom" })
+                                                            <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                            <script>
+                                                                $(document).ready(function () {
+                                                                    $('#CopmanyNumberFrom').select2();
+                                                                });
+                                                            </script>
+
                                                         }
                                                         else
                                                         {
-                                                            <select id="RepotType" class="form-control">
-                                                                @*<option value="901">Report Details 901</option>*@
-                                                                @*<option value="9011">Report Details 901-1</option>*@
-                                                                <option value="902">Top 20 employees in terms of Values (902)  </option>
-                                                                <option value="903">Top 20 employees in terms of Usage (903)</option>
-                                                                <option value="904">consumption per Provider with the highest according to values (904)</option>
-                                                                <option value="905">consumption per Provider with the highest according to Usage (905)</option>
-                                                                <option value="906">consumption per type of service according to values (906)</option>
-                                                                <option value="906">Distribution of consumption according to the type of service provider according to Usage (907)</option>
-                                                                <option value="908">Distribution of consumption according to the type of service and according to the values (908)</option>
-                                                                <option value="909">Distribution of consumption according to the type of service and according to values  (909)</option>
-                                                                <option value="912">Distribution of consumption according to the type of medical card (employee / family) (912)</option>
-                                                                <option value="915">Consumption per Card (915)</option>
-                                                                <option value="917">consumption for the type of service provider (917)</option>
-                                                            </select>
+                                                            <input id="CopmanyNumberFrom" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+
+                                                        } 
+                                                        @if (User.IsInRole("HR_Admin"))
+                                                        {
+                                                            @Html.DropDownList("CopmanyNumber", ViewBag.company as SelectList, "Select Company", new { @class = "col-md-2 form-control", id = "CopmanyNumberTo" })
+                                                            <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                            <script>
+                                                                $(document).ready(function () {
+                                                                    $('#CopmanyNumberTo').select2();
+                                                                });
+                                                            </script>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <input id="CopmanyNumberTo" type="number" class="col-md-2 form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
+
                                                         }
                                                     </div>
-                                                    <br />
+                                                  
                                                 </div>
+                                            </div>  
+                                            @* Card Number *@
+
+                                            <div class="labeled-file-box col-md-8">
+                                                <div>
+                                                    <span>
+                                                        <label class="control-label sbold col-md-3">
+                                                            Card Number
+
+                                                        </label>
+                                                    </span>
+                                                    <div class="selected-date">
+                                                        <select id="CardIdFrom" class="col-md-2 js-data-example-ajax" style="width: 100%"></select>
+                                                        <select id="CardIdTo" class="col-md-2 js-data-example-ajax" style="width: 100%"></select>
+                                                    </div>
+                                                  
+                                                </div>
+                                            </div> 
+                                          
+
+                                            @* Service provider number *@
+
+                                            <div class="forLabel col-md-8"> 
+                                                 <select id="ProviderName" name="ProviderName" class="col-md-2 form-control js-data-example-ajax" style="width: 100%"></select>
+                                                 @*<input id="SerProvNumber" type="number" class="col-md-2 form-control " min="0" />*@
+                                                 <span style="top: 26% !important">
+                                                     <label class="">
+                                                         Service Provider Number
+                                                
+                                                     </label>
+                                                 </span>
+                                                
                                             </div>
-                                            <br />
+                                          
+
+                                            @* Repot Type *@
+
+                                            <div class="forLabel col-md-8"> 
+                                                @if (User.Identity.Name == "sofico-hr")
+                                                {
+                                                    <select id="RepotType" class="form-control">
+                                                        <option value="920">Claims</option>
+                                                        <option value="921">Details</option>
+                                                    </select>
+                                                }
+                                                else
+                                                {
+                                                    <select id="RepotType" class="form-control">
+                                                        @*<option value="901">Report Details 901</option>*@
+                                                        @*<option value="9011">Report Details 901-1</option>*@
+                                                        <option value="902">Top 20 employees in terms of Values (902)  </option>
+                                                        <option value="903">Top 20 employees in terms of Usage (903)</option>
+                                                        <option value="904">consumption per Provider with the highest according to values (904)</option>
+                                                        <option value="905">consumption per Provider with the highest according to Usage (905)</option>
+                                                        <option value="906">consumption per type of service according to values (906)</option>
+                                                        <option value="906">Distribution of consumption according to the type of service provider according to Usage (907)</option>
+                                                        <option value="908">Distribution of consumption according to the type of service and according to the values (908)</option>
+                                                        <option value="909">Distribution of consumption according to the type of service and according to values  (909)</option>
+                                                        <option value="912">Distribution of consumption according to the type of medical card (employee / family) (912)</option>
+                                                        <option value="915">Consumption per Card (915)</option>
+                                                        <option value="917">consumption for the type of service provider (917)</option>
+                                                    </select>
+                                                }
+                                                <span>
+                                                    <label class="control-label sbold col-md-3">
+                                                        Repot Type
+                                                        @*<span class="required"> * </span>*@
+                                                    </label>
+                                                </span>
+                                               
+                                            </div>
+                                          
 
                                             @*Print Type*@
 
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label class="control-label sbold col-md-3">
-                                                        Print Type :
-                                                    </label>
+                                            <div class="labeled-file-box col-md-8">
+                                                <div>
+                                                    <span>
+                                                        <label class="control-label sbold col-md-3">
+                                                            Print Type
+                                                        </label>
+                                                    </span>
                                                     <div class="col-md-2">
                                                         <div class="checkbox-inline">
                                                             <input type="checkbox" id="pdf" name="pdf" value="pdf" data-name="pdf">
@@ -352,15 +290,15 @@
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    <br />
+                                                  
                                                 </div>
                                             </div>
-                                            <br />
+                                          
                                             @* For Buttons *@
 
-                                            <div class="col-md-12" style="margin-left:30px;margin-right:30px;margin-top:80px;margin-bottom:80px;text-align:right;">
+                                            <div class="col-md-12 mt-4" style="text-align:right;">
 
-                                                <div class="col-sm-4" id="div_of_serv">
+                                                <div class=" col-md-8 " style="ma" id="div_of_serv">
                                                     <button id="Consumption" type="button" class="btn btn-primary" onclick="ConsumptionPrint()">
                                                         <span class="fa fa-save"></span> Print
                                                     </button>
@@ -592,7 +530,7 @@
 
                         }
                         else {
-                            toastr.info("Please enter correct card that belongs to your company only start with : " + CompanyTo);
+                            toastr.info("Please enter correct card that belongs to your company only start with " + CompanyTo);
                         }
                     }
                     else {

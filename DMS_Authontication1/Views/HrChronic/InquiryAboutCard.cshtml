@@ -51,10 +51,10 @@
 <div class="dms-container">
 
     <div>
-        <p>
+        <p class="ms-4">
             @if (fullcontroll || view)
             {
-                @Html.ActionLink(" Search ", "InquiryAboutCard", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-question", @style = " text-transform: none" })
+                @Html.ActionLink(" Search ", "InquiryAboutCard", null, htmlAttributes: new { @class = "btn btn-secondary-outline fa fa-search  ", @style = " text-transform: none" })
             }
             @if (fullcontroll || Create)
             {
@@ -64,8 +64,8 @@
     </div>
     @if (fullcontroll || view)
     {
-        <div class="portlet box  green">
-            <div class="portlet-title">
+        <div class="portlet box  ">
+            <div class="portlet-title title-bg">
                 <div class="caption">
                     <i class="fa fa-gift"></i>Inquiries about an invoice
                 </div>
@@ -85,16 +85,16 @@
                                             <div class="col-md-12">
                                                 @if (User.IsInRole("HR_Admin"))
                                                 {
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label sbold col-md-5">
-                                                                Copmany Number :
+                                                <div class="labeled-file-box col-md-4">
+                                                    <div>
+                                                        <span>
+                                                            <label class="">
+                                                                Copmany Number
                                                             </label>
-                                                            <div class="col-md-7">
-                                                                @Html.DropDownList("CompanyId", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompanyId", @required = "True" })
-                                                            </div>
-                                                        </div>
+                                                        </span>
+                                                        @Html.DropDownList("CompanyId", ViewBag.company as SelectList, "Select Company", new { @class = "form-control", @id = "CompanyId", @required = "True" })
                                                     </div>
+                                                </div>
                                                     <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
                                                     <script>
                                                         $(function () {
@@ -104,38 +104,33 @@
                                                 }
                                                 else
                                                 {
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label sbold col-md-5">
-                                                                Copmany Number :
-                                                            </label>
-                                                            <div class="col-md-7">
-                                                                <input id="CopmanyNumber" type="number" class="form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
-
-                                                            </div>
+                                                    <div class="labeled-file-box col-md-4">
+                                                        <div>
+                                                            <span>
+                                                                <label class="">
+                                                                    Copmany Number
+                                                                </label>
+                                                            </span>
+                                                            <input id="CopmanyNumber" type="number" class="form-control " value="@ViewBag.compnum" min="0" readonly="readonly" />
                                                         </div>
                                                     </div>
                                                 }
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="control-label sbold col-md-4">
-                                                            Card Number :
+                                                <div class="forLabel col-md-4"> 
+                                                    @if (User.IsInRole("HR") || User.IsInRole("HR_Admin"))
+                                                    { 
+                                                        <select id="CardNumber" class="js-data-example-ajax" style="width: 100%"></select>
+                                                        <br />
+                                                    }
+                                                    else
+                                                    { 
+                                                         @Html.DropDownList("CardNumber2", ViewBag.Cardslist as SelectList, new { @class = "form-control", @id = "CardNumber2", @required = "True" })
+                                                       <br />
+                                                    }
+                                                    <span>
+                                                        <label class="">
+                                                            Card Number
                                                         </label>
-                                                        @if (User.IsInRole("HR") || User.IsInRole("HR_Admin"))
-                                                        {
-                                                            <div class="col-md-8">
-                                                                <select id="CardNumber" class="js-data-example-ajax" style="width: 100%"></select>
-                                                            </div>
-                                                            <br />
-                                                        }
-                                                        else
-                                                        {
-                                                            <div class="col-md-8">
-                                                                @Html.DropDownList("CardNumber2", ViewBag.Cardslist as SelectList, new { @class = "form-control", @id = "CardNumber2", @required = "True" })
-                                                            </div>
-                                                            <br />
-                                                        }
-                                                    </div>
+                                                    </span> 
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="col-md-6">
@@ -229,7 +224,7 @@
                                             <div class="col-md-12" id="details">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="control-label sbold col-md-5">
+                                                        <label class="sbold col-md-5">
                                                             Last Exchange  Date  :
                                                         </label>
                                                         <div class="col-md-7">
@@ -241,7 +236,7 @@
 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="control-label sbold col-md-5">
+                                                        <label class="sbold col-md-5">
                                                             Pharmacy Name  :
                                                         </label>
                                                         <div class="col-md-7">
@@ -253,7 +248,7 @@
 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="control-label sbold col-md-4">
+                                                        <label class="sbold col-md-4">
                                                             Branch Name  :
                                                         </label>
                                                         <div class="col-md-8">
