@@ -179,7 +179,7 @@
                     <label class="fw-bold">عدد أدوية ال Chronic</label>
                     <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الأدوية" value="@Model.ChronicCount" id="NumberChronic" readonly />
                     <input type="button" class="btn p-1" value="Show" onclick="ShowChronicDetails()" />
-                    <input type="button" class="btn p-1" value="Create Request" />
+                    <input type="button" class="btn p-1" value="Create Request" onclick="GoRequestChronic()"/>
                 </div>
             </div>
             <div class="px-2">
@@ -187,7 +187,7 @@
                     <label class="fw-bold">عدد الموافقات الطبية</label>
                     <input type="text" class="bg-dark-subtle border-0 rounded p-1 text-center" placeholder="عدد الموافقات" value="@Model.ApprovalCount" id="NumberMedicalApproval" readonly />
                     <input type="button" class="btn p-1" value="Show" onclick="ShowApprovalDetails()" />
-                    <input type="button" class="btn p-1" value="Create Request" />
+                    <input type="button" class="btn p-1" value="Create Request" onclick="GoRequestApproval()"/>
 
                 </div>
             </div>
@@ -265,8 +265,8 @@
             $(document).ready(function () {
                 $(".select2").select2();
 
-              
-               
+
+
                 $("#Country_select").change(function () {
 
                     // Show loading image
@@ -377,18 +377,18 @@
                 debugger;
                 $('#ApprovalsScreen').hide();
                 $('#ChronicScreen').hide();
-              
+
                 //$('#ApprovalsScreen').show();
                 $('#ApprovalsScreen').removeAttr('hidden').show();
 
                 if ($('#txtCardId').val() != "")
                     getApprovalData($('#txtCardId').val());
-            }            
+            }
             function ShowChronicDetails() {
-               
+
                 $('#ApprovalsScreen').hide();
                 $('#ChronicScreen').hide();
-                
+
 
                 //$('#ChronicScreen').show();
                 $('#ChronicScreen').removeAttr('hidden').show();
@@ -493,11 +493,17 @@
                         },
                         complete: function () {
                             $("#loading").hide();
-                         
+
                         }
                     });
                 }
             }
+            function GoRequestApproval() {
+                window.location.href = '@Url.Action("CreateRequestMedical", "NetworkMedical")';
 
+            }
+            function GoRequestChronic() {
+                window.location.href = '@Url.Action("CreateRequestChronic", "NetworkMedical")';
 
+            }
         </script>

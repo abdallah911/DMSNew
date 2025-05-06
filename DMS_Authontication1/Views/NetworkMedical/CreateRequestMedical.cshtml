@@ -1,0 +1,255 @@
+﻿@model DMS_Authontication1.ViewModel.Enum_RequestsViewModel
+
+@using System.Security.Claims;
+@using DMS_TEST.ViewModel;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "CreateRequest";
+    Layout = "~/Views/Shared/_Layout_DashboardHomePage.cshtml";
+
+}
+@*@{
+        ViewBag.Title = "CreateRequest";
+        Layout = "~/Views/Shared/_Layout_DashboardHR.cshtml";
+        var edit = false;
+        var delete = false;
+        var view = false;
+        var fullcontroll = false;
+        var Create = false;
+        var rolevalue = 1;
+        if (User.IsInRole("User"))
+        {
+            rolevalue = 2;
+        }
+        var modellist = new List<ModulesPagesViewModel>();
+        var claim = ((ClaimsIdentity)User.Identity).FindFirst("SomeClaimType");
+        if (claim != null)
+        {
+            modellist = JsonConvert.DeserializeObject<List<ModulesPagesViewModel>>(claim.Value);
+            if (modellist != null)
+            {
+                if (User.IsInRole("User"))
+                {
+                    var obj = modellist.Where(x => x.ModuleName == "Customers Management" && x.PageId == 24 && (x.FullControl || x.EditPermission
+                                                  || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+                    if (obj != null)
+                    {
+                        edit = obj.EditPermission;
+                        delete = obj.ActivationControl;
+                        view = obj.Preview;
+                        fullcontroll = obj.FullControl;
+                        Create = obj.AddPermission;
+
+                    }
+                }
+                else
+                {
+                    var obj = modellist.Where(x => x.ModuleName == "Company Human Resourses Management" && x.PageId == 15 && (x.FullControl || x.EditPermission
+                                      || x.AddPermission || x.ActivationControl || x.Preview)).FirstOrDefault();
+                    if (obj != null)
+                    {
+                        edit = obj.EditPermission;
+                        delete = obj.ActivationControl;
+                        view = obj.Preview;
+                        fullcontroll = obj.FullControl;
+                        Create = obj.AddPermission;
+
+                    }
+                }
+            }
+        }
+    }*@
+@*<input type="hidden" id="role" name="role" value="@rolevalue" />*@
+<div class="sios-container">
+
+    <div class="portlet box  green">
+        <div class="row bg-overlay portlet-title">
+            <div class="m-3 fs-3 text-white caption">
+                <i class="fa-solid fa-home me-1"></i>Create New Request
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row ">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("CreateRequest", "MedicalApproval", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                    {
+
+                        <div class="form-wizard">
+                            <div class="form-body">
+                                <div class="tab-content">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                                    @Html.HiddenFor(model => model.ID)
+                                    @Html.HiddenFor(model => model.CompName)
+                                    @*@Html.HiddenFor(model => model.TYPE)*@
+                                    <div class="row container mx-auto my-4" style="white-space:nowrap;">
+                                        <div class="col-md-6 d-flex flex-column gap-2">
+                                            @if (User.IsInRole("HR_Admin"))
+                                            {
+                                                <div class="forLabel px-2 border-0 form-group">
+
+                                                    @Html.DropDownList("CompanyNumber", ViewBag.company as SelectList, new { @class = "border-2 sios-form-control w-100 form-control", id = "CompanyNumber" })
+                                                    <span class="start-0" style="transform:translateY(-6px);">
+                                                        <label class="control-label sbold col-md-4">
+                                                            @Html.Label("Company Number", htmlAttributes: new { @class = "control-label" })
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                    </span>
+
+                                                </div>
+                                                <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                                                <script>
+                                                    $(document).ready(function () {
+                                                        $("#CompanyNumber").select2();
+                                                    });
+                                                </script>
+                                            }
+                                            else
+                                            {
+                                                <div class="forLabel px-2 border-0 form-group">
+
+                                                    @Html.EditorFor(model => model.CompName, new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", @disabled = "disabled" } })
+                                                    @Html.ValidationMessageFor(model => model.CompName, "", new { @class = "text-danger" })
+                                                    <span class="start-0" style="transform:translateY(-6px);">
+                                                        <label class="control-label sbold col-md-4">
+                                                            @Html.DisplayNameFor(model => model.CompName) :
+                                                            <span class="required"> * </span>
+                                                        </label>
+                                                    </span>
+
+                                                </div>
+                                            }
+                                            @if (User.IsInRole("User"))
+                                            {
+                                                <div class="forLabel px-2 border-0 form-group">
+
+                                                    @Html.DropDownList("CARD_ID", ViewBag.Cardslist as SelectList, new { @class = "border-2 sios-form-control w-100 form-control", @id = "CARD_ID", @required = "True" })
+                                                    <span class="start-0">
+                                                        <label class="control-label sbold col-md-4">
+                                                            @Html.DisplayNameFor(model => model.CARD_ID) :
+                                                        </label>
+                                                    </span>
+
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="forLabel px-2 border-0 form-group">
+
+                                                    @*<select id="CARD_ID" class="js-data-example-ajax" style="width: 100%"></select>*@
+
+                                                    @Html.DropDownListFor(model => model.CARD_ID, new List<SelectListItem>() {
+                                                     new SelectListItem() { Text = "", Value = "" } }, new { @class = "border-2 sios-form-control w-100 form-control", id = "CARD_ID" })
+                                                    <span class="start-0">
+                                                        <label class="control-label sbold col-md-4">
+                                                            @Html.DisplayNameFor(model => model.CARD_ID) :
+                                                        </label>
+                                                    </span>
+
+                                                </div>
+
+                                            }
+                                            <div class="forLabel px-2 border-0 form-group">
+
+                                                <select name="TYPE" id="TYPE" class="border-2 sios-form-control w-100 form-control">
+                                                    @*<option value="Medications outpatient">Medications outpatient</option>*@
+                                                    <option value="Inpatient">Inpatient</option>
+                                                    <option value="Radio">Radio</option>
+                                                    <option value="Physiotherapy ">Physiotherapy </option>
+                                                    <option value="Laboratory">Laboratory</option>
+                                                    @*<option value="Outpatient services">Outpatient services</option>*@
+                                                    <option value="Dental services outpatient">Dental services outpatient</option>
+                                                    <option value="Maternity">Maternity</option>
+                                                    <option value="Optical">Optical</option>
+                                                </select>
+                                                <span class="start-0">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.TYPE) :
+                                                    </label>
+                                                </span>
+
+                                            </div>
+                                            <div class="forLabel px-2 border-0 form-group">
+
+                                                @Html.DropDownListFor(m => m.TYP_ANAME, ViewBag.provider as SelectList, "Select Provider Type", new { @class = "border-2 sios-form-control w-100 form-control" })
+                                                <span class="start-0">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.TYP_ANAME) :
+                                                    </label>
+                                                </span>
+
+                                            </div>
+                                            <div class="forLabel px-2 border-0 form-group">
+
+                                                @Html.DropDownListFor(model => model.PR_ENAME, new SelectList(""), " Select Provider Name", new
+                                           {
+                                               @class = "border-2 sios-form-control w-100 form-control"
+                                           })
+                                                <span class="start-0">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.PR_ENAME) :
+                                                    </label>
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6 d-flex flex-column gap-2 ">
+
+                                            <div class="forLabel px-2 border-0 form-group">
+
+                                                @Html.EditorFor(model => model.NOTES, new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", required = "true" } })
+                                                @*<input type="text" class="border-2 sios-form-control w-100 form-control" id="NOTES" name="NOTES" />*@
+                                                @Html.ValidationMessageFor(model => model.NOTES, "", new { @class = "text-danger" })
+                                                <span class="start-0">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayNameFor(model => model.NOTES) :
+                                                    </label>
+                                                </span>
+
+                                            </div>
+
+                                            <div class="forLabel px-2 border-0 form-group">
+
+                                                @Html.EditorFor(model => model.MAIL_SEND, new { htmlAttributes = new { @class = "border-2 sios-form-control w-100 form-control", required = "true" } })
+                                                @*<input type="text" class="border-2 sios-form-control w-100 form-control" id="MAIL_SEND" name="MAIL_SEND" />*@
+                                                @Html.ValidationMessageFor(model => model.MAIL_SEND, "", new { @class = "text-danger" })
+                                                <span class="start-0">
+                                                    <label class="control-label sbold col-md-4">
+                                                        @Html.DisplayName("Contact Email :")
+                                                        <span class="required"> * </span>
+                                                    </label>
+                                                </span>
+
+                                            </div>
+
+
+                                            <div class="forLabel px-2 border-0 form-group">
+
+                                                <input name="ImageFile" id="ImageFile" type="file" class="border-2 sios-form-control w-100 form-control " multiple required />
+                                                @Html.ValidationMessageFor(model => model.ImageFile, "", new { @class = "text-danger" })
+                                                <span class="start-0" style="top:2px;font-size: 10px;transform: unset;"><label class="control-label ">@Html.DisplayName("Upload Files"):<span class="required"> * </span></label></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container text-center text-sm-end px-4 mt-3 mb-4">
+                                <input id="new" type="button" value="Reset" onclick="NewRequest();" class="btn me-2" />
+                                <input id="submit" type="submit" value="Save" class="btn " />
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<input type="text" id="imName" hidden="hidden" />
+
+<script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Scripts/DMS/HR/MedicalApprovalCreate.js?V=1"></script>

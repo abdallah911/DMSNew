@@ -626,5 +626,174 @@ namespace DMS_Authontication1.Controllers
             }
         }
 
+
+        public ActionResult CreateRequestMedical(int? id)
+        {
+            Enum_RequestsViewModel ENUM_REQUESTSViewModel = new Enum_RequestsViewModel();
+          
+            var provider = db.ProviderTypeNews.ToList();
+            SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
+            ViewBag.provider = Providerlist;
+            var datenow = DateTime.Now.Date;
+          
+            if (id != null)
+            {
+                var model = db.Enum_Requests.Find(id);
+                if (model == null)
+                {
+                    return View(ENUM_REQUESTSViewModel);
+                }
+                Enum_RequestsViewModel ViewModel = new Enum_RequestsViewModel();
+                ViewModel.ID = model.ID;
+                var comp_id = model.CARD_ID.Split('-')[0];
+                ViewModel.CompName = comp_id;
+                ViewModel.CARD_ID = model.CARD_ID;
+                ViewModel.TYPE = model.TYPE;
+                ViewModel.TYP_ANAME = model.TYP_ANAME;
+                ViewModel.PR_ENAME = model.PR_ENAME;
+                ViewModel.NOTES = model.NOTES;
+                ViewModel.MAIL_SEND = model.MAIL_SEND;
+                ViewModel.APPROVAL_IMAGE = model.APPROVAL_IMAGE;
+                return View(ViewModel);
+            }
+            return View(ENUM_REQUESTSViewModel);
+
+          //  return View();
+        }
+
+        public ActionResult CreateRequestChronic(int? id)
+        {
+            Enum_RequestsViewModel ENUM_REQUESTSViewModel = new Enum_RequestsViewModel();
+
+            var provider = db.ProviderTypeNews.ToList();
+            SelectList Providerlist = new SelectList(provider, "PrvType", "PrvAName");
+            ViewBag.provider = Providerlist;
+            var datenow = DateTime.Now.Date;
+
+            if (id != null)
+            {
+                var model = db.Enum_Requests.Find(id);
+                if (model == null)
+                {
+                    return View(ENUM_REQUESTSViewModel);
+                }
+                Enum_RequestsViewModel ViewModel = new Enum_RequestsViewModel();
+                ViewModel.ID = model.ID;
+                var comp_id = model.CARD_ID.Split('-')[0];
+                ViewModel.CompName = comp_id;
+                ViewModel.CARD_ID = model.CARD_ID;
+                ViewModel.TYPE = model.TYPE;
+                ViewModel.TYP_ANAME = model.TYP_ANAME;
+                ViewModel.PR_ENAME = model.PR_ENAME;
+                ViewModel.NOTES = model.NOTES;
+                ViewModel.MAIL_SEND = model.MAIL_SEND;
+                ViewModel.APPROVAL_IMAGE = model.APPROVAL_IMAGE;
+                return View(ViewModel);
+            }
+            return View(ENUM_REQUESTSViewModel);
+            //Enum_RequestsViewModel ENUM_REQUESTSViewModel = new Enum_RequestsViewModel();
+
+            //if (User.IsInRole("HR_Admin"))
+            //{
+            //    ViewBag.compnum = null;
+            //    var userid = User.Identity.GetUserId();
+            //    var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+            //    if (compines[0] == "All")
+            //    {
+            //        var companyname = db.Contract_Comp
+            //            .Select(l => new
+            //            {
+            //                Code = l.C_COMP_ID,
+            //                Name = l.C_ENAME + " || " + l.C_COMP_ID
+
+            //            }).ToList();
+            //        SelectList companylist = new SelectList(companyname, "Code", "Name");
+            //        ViewBag.company = companylist;
+            //    }
+            //    else
+            //    {
+            //        var companyname = (from comp in compines
+            //                           join contCo in db.Contract_Comp
+            //                           on int.Parse(comp) equals contCo.C_COMP_ID
+            //                           select new
+            //                           {
+            //                               Code = contCo.C_COMP_ID,
+            //                               Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+            //                           }).ToList();
+            //        SelectList companylist = new SelectList(companyname, "Code", "Name");
+            //        ViewBag.company = companylist;
+            //    }
+            //}
+            //else
+            //{
+            //    var HrUserNamre = User.Identity.GetUserName();
+            //    var comp_id = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
+            //    ENUM_REQUESTSViewModel.CompName = comp_id;
+
+
+            //    var comp = Convert.ToInt32(comp_id);
+            //    var datenow = DateTime.Now.Date;
+            //    var employees = db.Comp_Employees.Where(m => m.C_COMP_ID == comp && m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
+            //          .Select(l => new
+            //          {
+            //              CARD_ID = l.CARD_ID,
+            //              EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
+            //          }).ToList();
+            //    //var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+            //    SelectList addresslist = new SelectList(employees, "CARD_ID", "EMP_ANAME");
+            //    ViewBag.address = addresslist;
+            //    ViewBag.compnum = comp_id;
+            //    if (User.IsInRole("User"))
+            //    {
+            //        var usr = User.Identity.GetUserId();
+            //        var cardId = db.EmployeePersonalDatas.Where(e => e.UserId == usr).FirstOrDefault().CardId;
+            //        ENUM_REQUESTSViewModel.CARD_ID = cardId;
+            //        ENUM_REQUESTSViewModel.CompName = cardId.Split('-')[0];
+            //        var comp2 = int.Parse(ENUM_REQUESTSViewModel.CompName);
+            //        //var employees2 = db.Comp_Employees.Where(m => m.C_COMP_ID == comp2 && m.CARD_ID == cardId &&
+            //        //m.INS_START_DATE <= datenow && m.INS_END_DATE >= datenow && ((m.TERMINATE_FLAG == "N" || m.TERMINATE_FLAG == null) || (m.TERMINATE_FLAG == "Y" && m.TERMINATE_DATE >= datenow)))
+            //        //  .Select(l => new
+            //        //  {
+            //        //      CARD_ID = l.CARD_ID,
+            //        //      EMP_ANAME = l.CARD_ID + " | " + l.EMP_ANAME
+            //        //  }).ToList();
+            //        ////var address = myEntities.BASIC_DATA.Where(m => m.SOURCE_MOD == "M" && m.BS_CODE_UP == null).ToList();
+            //        //SelectList addresslist2 = new SelectList(employees2, "CARD_ID", "EMP_ANAME");
+            //        //ViewBag.address = addresslist2;
+            //        var subCards = CardList(cardId);
+
+            //        var cards = subCards.Select(c => new
+            //        {
+            //            CardIDValue = c.CARD_ID,
+            //            CardIdString = c.CARD_ID
+            //        }).ToList();
+            //        SelectList Cardlist = new SelectList(cards, "CardIDValue", "CardIdString");
+            //        ViewBag.address = Cardlist;
+
+            //        ViewBag.compnum = ENUM_REQUESTSViewModel.CompName;
+            //    }
+            //}
+            //if (id != null)
+            //{
+            //    var model = db.Enum_Requests.Find(id);
+            //    if (model == null)
+            //    {
+            //        return View(ENUM_REQUESTSViewModel);
+            //    }
+            //    Enum_RequestsViewModel ViewModel = new Enum_RequestsViewModel();
+            //    ViewModel.ID = model.ID;
+            //    ViewModel.CompName = model.CARD_ID.Split('-')[0];
+            //    ViewModel.CARD_ID = model.CARD_ID;
+            //    ViewModel.TYPE = model.TYPE;
+            //    ViewModel.TYP_ANAME = model.TYP_ANAME;
+            //    ViewModel.PR_ENAME = model.PR_ENAME;
+            //    ViewModel.NOTES = model.NOTES;
+            //    ViewModel.MAIL_SEND = model.MAIL_SEND;
+            //    ViewModel.APPROVAL_IMAGE = model.APPROVAL_IMAGE;
+            //    ViewBag.compnum = ViewModel.CompName;
+            //    return View(ViewModel);
+            //}
+            //return View(ENUM_REQUESTSViewModel);
+        }
     }
 }
