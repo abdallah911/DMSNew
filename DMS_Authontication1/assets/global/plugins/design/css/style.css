@@ -1772,6 +1772,9 @@ p.ratio {
 .gender-type-card > div > div {
     flex-direction: column;
 }
+.gender-type-card > div > div i {
+    font-size: 22px;
+}
 .gender-type-card h4 {
     margin: auto;
     font-weight: 700;
