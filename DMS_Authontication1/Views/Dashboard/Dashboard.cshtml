@@ -62,7 +62,7 @@
             <div class="dashboard-box container pe-0 mx-auto row d-flex flex-wrap">
                 <div class="dashboard-categories col-sm-4">
                     <ul>
-                        <li><a>Dashboard</a></li>
+                        <li class="active"><a>Dashboard</a></li>
                         <li><a>Message</a></li>
                         <li><a>Leads</a></li>
                         <li><a>Tasks</a></li>
@@ -71,7 +71,27 @@
                     </ul>
                 </div>
                 <div class="dashboard-body col-sm-8" id="MainDashbord">
-                    <div class="col-sm-6">
+                    <div class="dashboard-filter-box">
+                        <div>
+                            <div class="forLabel">
+                                <select required></select>
+                                <span>Month</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="forLabel">
+                                <select required></select>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="forLabel">
+                                <select required></select>
+                                <span>Company</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
                         <div class="w-100 mb-4">
                             <div class="graph-box">
                                 <div class="box">
@@ -91,30 +111,44 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 ">
+                    <div class="col-sm-4 ">
                         <div class="cards-box mb-4 w-100">
-                            <div class="card-body">
+                            @*<div class="card-body" style="background: #8389eb5c">
                                 <i class="fa fa-user"></i>
                                 <h4 class="card-number" id="Consum"></h4>
-                                <h4 class="card-name">Consumption</h4>
+                                <h5 class="card-name">Consumption</h5>
                                 <p class="ratio" id="RatioConsum">100%</p>
-                            </div>
-                            <div class="card-body">
+                            </div>*@
+                            <div class="card-body" style="background: #8389eb5c">
                                 <i class="fa fa-user"></i>
                                 <h4 class="card-number" id="NumberEmployee"></h4>
-                                <h4 class="card-name">Employees Active</h4>
+                                <h5 class="card-name">Employees Active</h5>
                                 <p class="ratio" id="RatioEmployee"></p>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body gender-type-card flex-row" style="background: #de838391;align-items:start;"> 
+                               
+                                <div class="d-flex"style="justify-content: space-between; width: 100%;">
+                                    <div class="d-flex gap-2">
+                                        <i class="fa fa-male"></i>
+                                        <p>2</p>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <i class="fa fa-female"></i>
+                                        <p>3</p>
+                                    </div>
+                                </div>
+                                <h4>22</h4>
+                            </div>
+                            <div class="card-body" style="background: #8389eb5c">
                                 <i class="fa fa-user"></i>
                                 <h4 class="card-number" id="NumberMed"></h4>
-                                <h4 class="card-name">Medication Counsumption</h4>
+                                <h5 class="card-name">Medication Counsumption</h5>
                                 <p class="ratio" id="RatioMed"></p>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" style="background: #de838391">
                                 <i class="fa fa-user"></i>
                                 <h4 class="card-number" id="NumberOther"></h4>
-                                <h4 class="card-name">Medication Counsumption</h4>
+                                <h5 class="card-name">Medication Counsumption</h5>
                                 <p class="ratio" id="RatioOther"></p>
                             </div>
                         </div>
