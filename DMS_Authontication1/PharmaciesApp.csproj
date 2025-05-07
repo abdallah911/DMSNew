@@ -8858,7 +8858,8 @@
     <Content Include="Views\NetworkMedical\Index.cshtml" />
     <Content Include="Views\EmployeeRequest\Index.cshtml" />
     <Content Include="Views\EmployeeRequest\Index - Copy %282%29.cshtml" />
-    <Content Include="Views\Dashboard\Dashboard.cshtml" />
+    <Content Include="Views\Dashboard\IndexOld.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
