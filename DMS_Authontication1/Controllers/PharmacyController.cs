@@ -5238,8 +5238,8 @@ namespace DMS_TEST.Controllers
             double PersonNoPay = 0;
             string Message = "";
             string StaticServiceCode = ServiceCode;
-            ServiceCode = ServiceCode == "11604" || ServiceCode == "11601" ? "11603" : ServiceCode;
             int _IntServiceCode = Convert.ToInt32(ServiceCode);
+            ServiceCode = ServiceCode == "11604" || ServiceCode == "11601" ? "11603" : ServiceCode;
             string _CompId = id.Split('-')[0];
             string MainService = ServiceCode.Substring(0, 3);
             var CurrentDate = DateTime.Now.Date;

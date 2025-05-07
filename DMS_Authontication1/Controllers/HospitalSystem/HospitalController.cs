@@ -935,7 +935,7 @@ namespace DMS_Authontication1.Controllers.HospitalSystem
         {
             using (var qrGenerator = new QRCodeGenerator())
             {
-                string site = "https://sios-eg.com/NetworkMedical/NetworkMedical/";
+                string site = "https://sios-eg.com/Claims/UploadClaimPhoto/";
                 string data = "";
 
                 data = site + id;

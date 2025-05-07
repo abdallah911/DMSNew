@@ -96,62 +96,70 @@ namespace DMS_Authontication1.Controllers.HR
         #region CompanyInvoice
         public ActionResult CompanyInvoice()
         {
-            DataTable companyAll = dbOra.RunReader(@"SELECT DISTINCT R.COMP_ID, C.C_ANAME
-                                                     FROM   APP.REVIEW_CLAIMS R, DMS_TEST.CONTRACT_COMP C
-                                                     WHERE  R.COMP_ID = C.C_COMP_ID");
+            //DataTable companyAll = dbOra.RunReader(@"SELECT DISTINCT R.COMP_ID, C.C_ANAME
+            //                                         FROM   APP.REVIEW_CLAIMS R, DMS_TEST.CONTRACT_COMP C
+            //                                         WHERE  R.COMP_ID = C.C_COMP_ID");
 
-            var companyList = companyAll.AsEnumerable()
-                .Select(row => new
+            //var companyList = companyAll.AsEnumerable()
+            //    .Select(row => new
+            //    {
+            //        Code = row["COMP_ID"].ToString(),
+            //        Name = row["C_ANAME"].ToString() + " || " + row["COMP_ID"].ToString()
+            //    }).ToList();
+
+            //SelectList companylist = new SelectList(companyList, "Code", "Name");
+            //ViewBag.company = companylist;
+
+            if (User.IsInRole("HR_Admin"))
+            {
+                var userid = User.Identity.GetUserId();
+                var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
+                if (compines[0] == "All")
                 {
-                    Code = row["COMP_ID"].ToString(),
-                    Name = row["C_ANAME"].ToString() + " || " + row["COMP_ID"].ToString()
-                }).ToList();
+                    var companyname = db.Contract_Comp
+                        .Select(l => new
+                        {
+                            Code = l.C_COMP_ID,
+                            Name = l.C_ENAME + " || " + l.C_COMP_ID
 
-            SelectList companylist = new SelectList(companyList, "Code", "Name");
-            ViewBag.company = companylist;
+                        }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
+                else
+                {
+                    var companyname = (from comp in compines
+                                       join contCo in db.Contract_Comp
+                                       on int.Parse(comp) equals contCo.C_COMP_ID
+                                       select new
+                                       {
+                                           Code = contCo.C_COMP_ID,
+                                           Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
+                                       }).ToList();
+                    SelectList companylist = new SelectList(companyname, "Code", "Name");
+                    ViewBag.company = companylist;
+                }
 
-            return View();
+                return View();
+            }
+            else
+            {
+                var HrUserNamre = User.Identity.GetUserName();
+                int compa = int.Parse(myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider);
 
-            //if (User.IsInRole("HR_Admin"))
-            //{
-            //    var userid = User.Identity.GetUserId();
-            //    var compines = db.HrAdminCompanies.Where(x => x.UserId == userid).Select(c => c.CompId).ToList();
-            //    if (compines[0] == "All")
-            //    {
-            //        var companyname = db.Contract_Comp
-            //            .Select(l => new
-            //            {
-            //                Code = l.C_COMP_ID,
-            //                Name = l.C_ENAME + " || " + l.C_COMP_ID
+                var Companies = db.Contract_Comp.Where(x => x.C_COMP_ID == compa)
+                    .Select(c => new
+                    {
+                        Code = c.C_COMP_ID,
+                        Name = c.C_ENAME + " || " + c.C_COMP_ID
+                    }).ToList(); ;
 
-            //            }).ToList();
-            //        SelectList companylist = new SelectList(companyname, "Code", "Name");
-            //        ViewBag.company = companylist;
-            //    }
-            //    else
-            //    {
-            //        var companyname = (from comp in compines
-            //                           join contCo in db.Contract_Comp
-            //                           on int.Parse(comp) equals contCo.C_COMP_ID
-            //                           select new
-            //                           {
-            //                               Code = contCo.C_COMP_ID,
-            //                               Name = contCo.C_ENAME + " || " + contCo.C_COMP_ID
-            //                           }).ToList();
-            //        SelectList companylist = new SelectList(companyname, "Code", "Name");
-            //        ViewBag.company = companylist;
-            //    }
-
-            //    return View();
-            //}
-            //else
-            //{
-            //    var HrUserNamre = User.Identity.GetUserName();
-            //    string compa = myEntities.Users.Where(u => u.UserName == HrUserNamre).FirstOrDefault().Provider;
-            //    ViewBag.compnum = compa;
-            //    return View();
-            //}
-
+                SelectList companylist = new SelectList(Companies, "Code", "Name");
+                ViewBag.company = companylist;
+                
+                return View();
+            }
+            //return View();
         }
 
         public JsonResult GetCompanyInvoice(string compId, string servFrom, string servTo, string regFrom, string regTo,
@@ -300,6 +308,8 @@ namespace DMS_Authontication1.Controllers.HR
 
             rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "CompanyInvoiceReport.rpt"));
             rd.SetDataSource(invo);
+            rd.SetParameterValue("comp", compId);
+            
             
             Response.Buffer = false;
             Response.ClearContent();
@@ -373,6 +383,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             rd.Load(Path.Combine(Server.MapPath("~/Reports/HR"), "CompanyBatchReport.rpt"));
             rd.SetDataSource(clms);
+            rd.SetParameterValue("comp", compNo);
 
             Response.Buffer = false;
             Response.ClearContent();
@@ -408,9 +419,14 @@ namespace DMS_Authontication1.Controllers.HR
 
         #region BatchReview       
         [HttpPost]
-        public ActionResult BatchReview(string batchNumber, string providerID, string providerName,
-                                       string invoiceNumber, string compNumber, string compName)
+        public ActionResult BatchReview(string RegFrom, string RegTo, string ServFrom, string ServTo,
+                                        string batchNumber, string providerID, string providerName,
+                                        string invoiceNumber, string compNumber, string compName)
         {
+            ViewBag.RegFrom = RegFrom;
+            ViewBag.RegTo = RegTo;
+            ViewBag.ServFrom = ServFrom;
+            ViewBag.ServTo = ServTo;
             ViewBag.BatchNumber = batchNumber;
             ViewBag.ProviderID = providerID;
             ViewBag.ProviderName = providerName;
@@ -420,12 +436,19 @@ namespace DMS_Authontication1.Controllers.HR
 
             return View();
         }              
-        public JsonResult GetClaims(string compId, string aprovNo, string cardId, string invocNo, string batchNo)
+        public JsonResult GetClaims(string RegFrom, string RegTo, string ServFrom, string ServTo,
+                                    string compId, string aprovNo, string cardId, string invocNo, string batchNo)
         {
             //string compId, string servFrom, string servTo, string regFrom, string regTo,
             //                        string aprovNo, string cardId, string invocNo, string batchNo
-
             Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
+            DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
+
+            regDateFrom = string.IsNullOrEmpty(RegFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(RegFrom)).Date;
+            regDateTo = string.IsNullOrEmpty(RegTo) ? DateTime.Now.Date : (Convert.ToDateTime(RegTo)).Date;
+            servDateFrom = string.IsNullOrEmpty(ServFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(ServFrom)).Date;
+            servDateTo = string.IsNullOrEmpty(ServTo) ? DateTime.Now.Date : (Convert.ToDateTime(ServTo)).Date;
+           
 
             aprovNoFrom = string.IsNullOrEmpty(aprovNo) ? 0 : Convert.ToInt64(aprovNo);
             aprovNoTo = string.IsNullOrEmpty(aprovNo) ? 999999999999999999 : Convert.ToInt64(aprovNo);
@@ -438,7 +461,7 @@ namespace DMS_Authontication1.Controllers.HR
 
             DataTable dt = new DataTable();
 
-            dt = dbData.getClaims(comp, aprovNoFrom, aprovNoTo, cardId, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo);
+            dt = dbData.getClaims(regDateFrom, regDateTo, servDateFrom, servDateTo, comp, aprovNoFrom, aprovNoTo, cardId, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo);
 
             List<ClaimsViewModel> clms = new List<ClaimsViewModel>();
 
@@ -910,19 +933,19 @@ namespace DMS_Authontication1.Controllers.HR
                 return new JsonResult { Data = new { clmD }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
-        public ActionResult PrintReviewClaimsNew(string compId, string aprovNo, string cardId, string invocNo, string batchNo, int typ)
+        public ActionResult PrintReviewClaimsNew(string RegFrom, string RegTo, string ServFrom, string ServTo, string compId, 
+                                                 string aprovNo, string cardId, string invocNo, string batchNo, int typ)
         {
             Int64 aprovNoFrom, aprovNoTo, invocNoFrom, invocNoTo, batchNoFrom, batchNoTo;
 
             DateTime regDateFrom, regDateTo, servDateFrom, servDateTo;
 
             string cardStart, cardEnd;
-
-            regDateFrom = new DateTime(2020, 1, 1);
-            regDateTo = DateTime.Now.Date;
-            servDateFrom = new DateTime(2017, 1, 1);
-            servDateTo = DateTime.Now.Date;
-
+            
+            regDateFrom = string.IsNullOrEmpty(RegFrom) ? new DateTime(2020, 1, 1) : (Convert.ToDateTime(RegFrom)).Date;
+            regDateTo = string.IsNullOrEmpty(RegTo) ? DateTime.Now.Date : (Convert.ToDateTime(RegTo)).Date;
+            servDateFrom = string.IsNullOrEmpty(ServFrom) ? new DateTime(2017, 1, 1) : (Convert.ToDateTime(ServFrom)).Date;
+            servDateTo = string.IsNullOrEmpty(ServTo) ? DateTime.Now.Date : (Convert.ToDateTime(ServTo)).Date;
 
             aprovNoFrom = string.IsNullOrEmpty(aprovNo) ? 0 : Convert.ToInt64(aprovNo);
             aprovNoTo = string.IsNullOrEmpty(aprovNo) ? 999999999999999999 : Convert.ToInt64(aprovNo);
@@ -942,6 +965,11 @@ namespace DMS_Authontication1.Controllers.HR
 
             rd.SetDatabaseLogon("APP", "15+08+2017");
 
+            rd.SetParameterValue("reg1", regDateFrom);
+            rd.SetParameterValue("reg2", regDateTo);
+
+            rd.SetParameterValue("serv1", servDateFrom);
+            rd.SetParameterValue("serv2", servDateTo);
 
             rd.SetParameterValue("crd1", cardStart);
             rd.SetParameterValue("crd2", cardEnd);
