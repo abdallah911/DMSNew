@@ -227,6 +227,9 @@ select {
 .forLabel select:valid, .forLabel input:valid, .forLabel textarea:valid, .forLabel select:focus, .forLabel input:focus, .forLabel textarea:focus {
     padding: 13px 16px 1px !important;
 }
+.forLabel select , .forLabel input , .forLabel textarea  {
+    padding: 13px 16px 1px !important;
+}
 
 .modal-body .forLabel select ~ span, .modal-body .forLabel input ~ span {
     padding-left: 8px;
@@ -1735,6 +1738,12 @@ label {
 p.ratio {
     margin: 0;
     font-weight: bold;
+}
+.dashboard-filter-box {
+    display:grid;
+    grid-template-columns:auto auto auto ;
+    gap:10px;
+    margin-bottom:20px;
 }
 /*=====================New==============================================*/
 div.forLabel > span:not(.select2 ) {
