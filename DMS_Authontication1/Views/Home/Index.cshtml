@@ -20,10 +20,10 @@
 
     <section class="home-slider owl-carousel px-5">
         @*<div class="slider-item p-4" style="background-image: url( /assets/global/img/Events/Eid-Card.gif); border-radius: 30px; background-size: cover;background-position: center;">
-            <div class="overlay"></div>
-            <div class="container"> 
-            </div>
-        </div>*@
+                <div class="overlay"></div>
+                <div class="container">
+                </div>
+            </div>*@
         <div class="slider-item p-4" style="background-image:url(/assets/global/img/bg_1.jpg); border-radius:30px;">
             <div class="overlay"></div>
             <div class="container">
@@ -113,7 +113,7 @@
         </section>*@
     <section class="ftco-section ftco-no-pt ftc-no-pb mt-5">
         <div class="container">
-            <div class="row no-gutters"> 
+            <div class="row no-gutters">
                 <div class="col-md-6 p-md-5 img img-2 mt-5 mt-md-0" style="background-image: url(/assets/global/img/about.jpg);border-radius:30px;">
                 </div>
                 <div class="col-md-6 wrap-about py-4 py-md-5 ftco-animate">
@@ -635,91 +635,338 @@
                             <div style="overflow: auto;width: 100%;" class="col-md-12">
                                 <div class="col-md-12 chartdiv" id="MangerClamesChartDiv" style="width: 150%;"></div>
                             </div>
-                            <h3 class="col-md-12">Pharmacies Claims/Month</h3> 
+                            <h3 class="col-md-12">Pharmacies Claims/Month</h3>
                             <div style="overflow: auto;height: 300px;" class="col-md-12">
                                 <div class="col-md-12 chartdiv" id="ProviderClamesChartDiv"></div>
-                            </div> 
+                            </div>
                         </div>
                     }
-                    else
-                    {   
+                    else if ((User.IsInRole("HR")) || (User.IsInRole("HR_Admin")))
+                    {
+                        <style>
+                            .dashboard-body {
+                                padding: 20px;
+                            }
+
+                            .doughnut-box {
+                                height: 300px;
+                            }
+
+                                .doughnut-box .box {
+                                    height: 100%;
+                                    display: flex;
+                                    justify-content: center;
+                                }
+
+                                    .doughnut-box .box div {
+                                        height: 100%;
+                                    }
+
+                            #doughnutChart {
+                                height: 300px !important;
+                            }
+                        </style>
+                        <div class="portlet box dms-container">
+                            <div class="portlet-title title-bg text-white fw-bold">
+                                <div class="caption">
+                                    <i class="fa-solid fa-home"></i>Operation
+                                </div>
+
+                            </div>
+                            <div class="dashboard-box container pe-0 mx-auto row d-flex flex-wrap">
+                                <div class="dashboard-categories col-sm-4">
+                                    <ul>
+                                        <li><a>Dashboard</a></li>
+                                        <li><a>Message</a></li>
+                                        <li><a>Leads</a></li>
+                                        <li><a>Tasks</a></li>
+                                        <li><a>Calender</a></li>
+                                        <li><a>Contact</a></li>
+                                    </ul>
+                                </div>
+                                <div class="dashboard-body col-sm-8">
+                                    <div class="col-sm-6">
+                                        <div class="w-100 mb-4">
+                                            <div class="graph-box">
+                                                <div class="box">
+                                                    <div>
+                                                        <canvas id="graphChart"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-100">
+                                            <div class="graph-box">
+                                                <div class="box">
+                                                    <div>
+                                                        <canvas id="graphChartTwo"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 ">
+                                        <div class="cards-box mb-4 w-100">
+                                            <div class="card-body">
+                                                <i class="fa fa-user"></i>
+                                                <h4 class="card-number"  id="Consum"></h4>
+                                                <h4 class="card-name">Consumption</h4>
+                                                <p class="ratio" id="RatioConsum">100%</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <i class="fa fa-user"></i>
+                                                <h4 class="card-number" id="NumberEmployee"></h4>
+                                                <h4 class="card-name">Employees Active</h4>
+                                                <p class="ratio" id="RatioEmployee">23%</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <i class="fa fa-user"></i>
+                                                <h4 class="card-number" id="NumberMed"></h4>
+                                                <h4 class="card-name">Medication Counsumption</h4>
+                                                <p class="ratio" id="RatioMed"></p>
+                                            </div>
+                                            <div class="card-body">
+                                                <i class="fa fa-user"></i>
+                                                <h4 class="card-number" id="NumberOther"></h4>
+                                                <h4 class="card-name">Medication Counsumption</h4>
+                                                <p class="ratio" id="RatioOther"></p>
+                                            </div>
+                                        </div>
+                                        <div class="doughnut-box chart-card w-100">
+                                            <div class="doughnut-box">
+                                                <div class="box">
+                                                    <div>
+                                                        <canvas id="doughnutChart"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script src="~/assets/HomeTemplete/Scripts/jquery-3.0.0.min.js"></script>
+                        <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+                        <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+                        <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <script>
+                            const ctx = document.getElementById('doughnutChart');
+                            const ctxTwo = document.getElementById('graphChart');
+                            const ctxThree = document.getElementById('graphChartTwo');
+                            const ctxFour = document.getElementById('graphChartThree');
+
+                            new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: [
+                                        'Blue',
+                                        'Dark Blue'
+                                    ],
+                                    datasets: [{
+                                        label: 'My First Dataset',
+                                        data: [12, 19],
+                                        backgroundColor: [
+                                            '#8389eb',
+                                            '#de8383'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: false
+                                        }
+                                    }
+                                }
+                            });
+                            new Chart(ctxTwo, {
+                                type: 'bar',
+                                data: {
+                                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                    datasets: [{
+                                        label: '# of employees',
+                                        data: [12, 19, 3, 5, 2, 3],
+                                        backgroundColor: [
+                                            '#8389eb',
+                                            '#de8383'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
+                            new Chart(ctxThree, {
+                                type: 'bar',
+                                data: {
+                                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                    datasets: [{
+                                        label: '# of employees',
+                                        data: [12, 19, 3, 5, 2, 3],
+                                        backgroundColor: [
+                                            '#8389eb',
+                                            '#de8383'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    indexAxis: 'y',
+                                    // Elements options apply to all of the options unless overridden in a dataset
+                                    // In this case, we are setting the border of each horizontal bar to be 2px wide
+                                    elements: {
+                                        bar: {
+                                            borderWidth: 2,
+                                        }
+                                    },
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            position: 'right',
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Chart.js Horizontal Bar Chart'
+                                        }
+                                    }
+                                },
+                            });
+                            new Chart(ctxFour, {
+                                type: 'bar',
+                                data: {
+                                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                    datasets: [{
+                                        label: '# of employees',
+                                        data: [12, 19, 3, 5, 2, 3],
+                                        backgroundColor: [
+                                            '#8389eb',
+                                            '#de8383'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    indexAxis: 'y',
+                                    // Elements options apply to all of the options unless overridden in a dataset
+                                    // In this case, we are setting the border of each horizontal bar to be 2px wide
+                                    elements: {
+                                        bar: {
+                                            borderWidth: 2,
+                                        }
+                                    },
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            position: 'right',
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Chart.js Horizontal Bar Chart'
+                                        }
+                                    }
+                                },
+                            });
+
+
+                            $(function () {
+                               
+                            })
+
+                            function getInfoCard() {
+
+                            }
+
+                        </script>
+                        }
+                        else
+                        {
                         @*<div style="min-height: calc(100vh - 258px); ">*@
 
-                            <div style="padding-left: 93px;">
-                                <!-- Resources -->
-                                <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-                                <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-                                <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
-                                <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-                        
-                                <h1>Your Dashboard</h1>
-                                <h3 class="col-md-12">Claims/Month</h3>
-                                <div class="col-md-9 chartdiv" id="ProviderClamesChartDiv"></div>
-                        
-                                <script>
-                                    am4core.ready(function () {
-                        
-                                        // Themes begin
-                                        am4core.useTheme(am4themes_animated);
-                                        // Themes end
-                        
-                                        var chart = am4core.create("ProviderClamesChartDiv", am4charts.XYChart);
-                                        chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-                                        //Ajax
-                                        $.ajax({
-                                            type: 'POST',
-                                            url: '/Home/getCurrentProviderClames/',
-                                            dataType: 'json',
-                                            data: { id: 1 },
-                                            success: function (result) {
-                                                debugger;
-                                                // Add data
-                                                chart.data = result.UserClames;
-                        
-                        
-                                            },
-                                            error: function (ex) {
-                                                bootbox.alert('Failed to retrieve counts.');
-                                            }
-                        
-                                        });
-                        
-                        
-                                        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-                                        categoryAxis.renderer.grid.template.location = 0;
-                                        categoryAxis.dataFields.category = "manger";
-                                        categoryAxis.renderer.minGridDistance = 40;
-                                        categoryAxis.fontSize = 11;
-                                        categoryAxis.renderer.labels.template.dy = 5;
-                        
-                                        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-                                        valueAxis.min = 0;
-                                        valueAxis.renderer.minGridDistance = 30;
-                                        valueAxis.renderer.baseGrid.disabled = true;
-                        
-                        
-                                        var series = chart.series.push(new am4charts.ColumnSeries());
-                                        series.dataFields.categoryX = "manger";
-                                        series.dataFields.valueY = "clames";
-                                        series.columns.template.tooltipText = "{valueY.value}";
-                                        series.columns.template.tooltipY = 0;
-                                        series.columns.template.strokeOpacity = 0;
-                        
-                                        // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-                                        series.columns.template.adapter.add("fill", function (fill, target) {
-                                            return chart.colors.getIndex(target.dataItem.index);
-                                        });
-                        
-                                    }); // end am4core.ready()
-                                </script>
-                            </div>
+                        <div style="padding-left: 93px;">
+                            <!-- Resources -->
+                            <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+                            <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+                            <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+                            <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+                            <h1>Your Dashboard</h1>
+                            <h3 class="col-md-12">Claims/Month</h3>
+                            <div class="col-md-9 chartdiv" id="ProviderClamesChartDiv"></div>
+
+                            <script>
+                                am4core.ready(function () {
+
+                                    // Themes begin
+                                    am4core.useTheme(am4themes_animated);
+                                    // Themes end
+
+                                    var chart = am4core.create("ProviderClamesChartDiv", am4charts.XYChart);
+                                    chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+                                    //Ajax
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '/Home/getCurrentProviderClames/',
+                                        dataType: 'json',
+                                        data: { id: 1 },
+                                        success: function (result) {
+                                            debugger;
+                                            // Add data
+                                            chart.data = result.UserClames;
+
+
+                                        },
+                                        error: function (ex) {
+                                            bootbox.alert('Failed to retrieve counts.');
+                                        }
+
+                                    });
+
+
+                                    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+                                    categoryAxis.renderer.grid.template.location = 0;
+                                    categoryAxis.dataFields.category = "manger";
+                                    categoryAxis.renderer.minGridDistance = 40;
+                                    categoryAxis.fontSize = 11;
+                                    categoryAxis.renderer.labels.template.dy = 5;
+
+                                    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+                                    valueAxis.min = 0;
+                                    valueAxis.renderer.minGridDistance = 30;
+                                    valueAxis.renderer.baseGrid.disabled = true;
+
+
+                                    var series = chart.series.push(new am4charts.ColumnSeries());
+                                    series.dataFields.categoryX = "manger";
+                                    series.dataFields.valueY = "clames";
+                                    series.columns.template.tooltipText = "{valueY.value}";
+                                    series.columns.template.tooltipY = 0;
+                                    series.columns.template.strokeOpacity = 0;
+
+                                    // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+                                    series.columns.template.adapter.add("fill", function (fill, target) {
+                                        return chart.colors.getIndex(target.dataItem.index);
+                                    });
+
+                                }); // end am4core.ready()
+                            </script>
+                        </div>
                         @*</div>*@
                     }
 
 
 
-                                @*<script>
-                                        $(function () {
-                                            introJs().start();
-                                        })
-                                    </script>*@
+                    @*<script>
+                            $(function () {
+                                introJs().start();
+                            })
+                        </script>*@
