@@ -3,7 +3,7 @@
 @using Newtonsoft.Json;
 @{
     ViewBag.Title = "Dashboard";
-    Layout = "~/Views/Shared/_Layout_Dashboard.cshtml";
+    Layout = "~/Views/Shared/Dashboard.cshtml";
     var edit = false;
     var delete = false;
     var view = false;
@@ -35,31 +35,14 @@
     
  
         <style>
-            .dashboard-body {
-                padding: 20px;
+            .dms-container{
+                height:100%;
             }
-
-            .doughnut-box {
-                height: 300px;
-            }
-
-                .doughnut-box .box {
-                    height: 100%;
-                    display: flex;
-                    justify-content: center;
-                }
-
-                    .doughnut-box .box div {
-                        height: 100%;
-                    }
-
-            #doughnutChart {
-                height: 300px !important;
-            }
+        
         </style>
         <div class="portlet box dms-container">
 
-            <div class="dashboard-box container pe-0 mx-auto row d-flex flex-wrap">
+            <div class="dashboard-box container px-0 mx-auto row d-flex flex-wrap">
                 <div class="dashboard-categories col-sm-4">
                     <ul>
                         <li class="active"><a>Dashboard</a></li>
@@ -101,7 +84,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w-100">
+                        <div class="w-100 mb-4">
                             <div class="graph-box">
                                 <div class="box">
                                     <div>
@@ -110,53 +93,139 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="w-100 mb-4">
+                            <div class="graph-box">
+                                <div class="box">
+                                    <div>
+                                        <canvas id="graphChartThree"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100 mb-4">
+                            <div class="graph-box">
+                                <div class="box">
+                                    <div>
+                                        <canvas id="graphChartFour"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100 mb-4">
+                            <div class="graph-box">
+                                <div class="box">
+                                    <div>
+                                        <canvas id="graphChartFive"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100 mb-4">
+                            <div class="graph-box">
+                                <div class="box">
+                                    <div>
+                                        <canvas id="graphChartSix"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="graph-box">
+                                <div class="box">
+                                    <div>
+                                        <canvas id="graphChartSeven"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-4 ">
                         <div class="cards-box mb-4 w-100">
                             @*<div class="card-body" style="background: #8389eb5c">
+            <i class="fa fa-user"></i>
+            <h4 class="card-number" id="Consum"></h4>
+            <h5 class="card-name">Consumption</h5>
+            <p class="ratio" id="RatioConsum">100%</p>
+        </div>*@
+                            <div class="card-body one">
                                 <i class="fa fa-user"></i>
-                                <h4 class="card-number" id="Consum"></h4>
-                                <h5 class="card-name">Consumption</h5>
-                                <p class="ratio" id="RatioConsum">100%</p>
-                            </div>*@
-                            <div class="card-body" style="background: #8389eb5c">
-                                <i class="fa fa-user"></i>
-                                <h4 class="card-number" id="NumberEmployee"></h4>
+                                <h4 class="card-number" id="NumberEmployee">25000</h4>
                                 <h5 class="card-name">Employees Active</h5>
-                                <p class="ratio" id="RatioEmployee"></p>
+                                <p class="ratio" id="RatioEmployee">20%</p>
                             </div>
-                            <div class="card-body gender-type-card flex-row" style="background: #de838391;align-items:start;"> 
-                               
-                                <div class="d-flex"style="justify-content: space-between; width: 100%;">
+                            <div class="card-body two gender-type-card flex-row">
+
+                                <div class="d-flex" style="justify-content: space-between; width: 100%;">
                                     <div class="d-flex gap-2">
-                                        <i class="fa fa-male"></i>
-                                        <p>2</p>
+                                        <i class="fa fa-male" style="background-color: dodgerblue; "></i>
+                                        <p>
+                                            10157
+                                        </p>
                                     </div>
                                     <div class="d-flex gap-2">
-                                        <i class="fa fa-female"></i>
-                                        <p>3</p>
+                                        <i class="fa fa-female" style="background-color: #ff69b4; "></i>
+                                        <p>
+                                            2093
+                                        </p>
                                     </div>
                                 </div>
                                 <h4>22</h4>
+                                <h4>22</h4>
                             </div>
-                            <div class="card-body" style="background: #8389eb5c">
+                            <div class="card-body three">
                                 <i class="fa fa-user"></i>
-                                <h4 class="card-number" id="NumberMed"></h4>
-                                <h5 class="card-name">Medication Counsumption</h5>
+                                <h4 class="card-number" id="NumberMed">
+                                    186,229,715.13
+                                </h4>
+                                <h5 class="card-name">
+                                    اجمالي الاستهلاك طبقا لتاريخ الفاتورة
+                                </h5>
                                 <p class="ratio" id="RatioMed"></p>
                             </div>
-                            <div class="card-body" style="background: #de838391">
+                            <div class="card-body four">
                                 <i class="fa fa-user"></i>
-                                <h4 class="card-number" id="NumberOther"></h4>
-                                <h5 class="card-name">Medication Counsumption</h5>
+                                <h4 class="card-number" id="NumberOther">
+                                    156,615,312.56
+
+                                </h4>
+                                <h5 class="card-name">
+                                    صافي الاستهلاك طبقا لتاريخ الفاتورة
+                                </h5>
+                                <p class="ratio" id="RatioOther"></p>
+                            </div>
+                            <div class="card-body three">
+                                <i class="fa fa-user"></i>
+                                <h4 class="card-number" id="NumberMed">
+                                    152,373,434.72
+                                </h4>
+                                <h5 class="card-name">اجمالي الاستهلاك طبقا لتاريخ الخدمة</h5>
+                                <p class="ratio" id="RatioMed"></p>
+                            </div>
+                            <div class="card-body four">
+                                <i class="fa fa-user"></i>
+                                <h4 class="card-number" id="NumberOther">
+                                    127,436,344.19
+                                </h4>
+                                <h5 class="card-name">صافي الاستهلاك طبقا لتاريخ الخدمة</h5>
                                 <p class="ratio" id="RatioOther"></p>
                             </div>
                         </div>
-                        <div class="doughnut-box chart-card w-100">
-                            <div class="doughnut-box">
+                        <div class="doughnut-box mb-4 chart-card w-100">
+                            <div class="box">
                                 <div class="box">
                                     <div>
-                                        <canvas id="doughnutChart"></canvas>
+                                        <canvas id="doughnutChart">
+                                          
+                                        </canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="doughnut-box chart-card w-100">
+                            <div class="box">
+                                <div class="box">
+                                    <div>
+                                        <canvas id="doughnutChartTwo"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -175,24 +244,29 @@
 <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const ctx = document.getElementById('doughnutChart');
-    const ctxTwo = document.getElementById('graphChart');
-    const ctxThree = document.getElementById('graphChartTwo');
-    const ctxFour = document.getElementById('graphChartThree');
+    const doughnut = document.getElementById('doughnutChart');
+    const doughnutTwo = document.getElementById('doughnutChartTwo');
+    const graph = document.getElementById('graphChart');
+    const graphTwo = document.getElementById('graphChartTwo');
+    const graphThree = document.getElementById('graphChartThree'); 
+    const graphFour = document.getElementById('graphChartFour');
+    const graphFive = document.getElementById('graphChartFive');
+    const graphSix = document.getElementById('graphChartSix'); 
+    const graphSeven = document.getElementById('graphChartSeven');
 
-    new Chart(ctx, {
+    new Chart(doughnut, {
         type: 'doughnut',
         data: {
             labels: [
-                'Blue',
-                'Dark Blue'
+                'موظفين',
+                'معاشات'
             ],
             datasets: [{
                 label: 'My First Dataset',
                 data: [12, 19],
                 backgroundColor: [
-                    '#8389eb',
-                    '#de8383'
+                    '#abe6a4',
+                    '#1796f8' 
                 ],
                 borderWidth: 1
             }]
@@ -205,7 +279,63 @@
             }
         }
     });
-    new Chart(ctxTwo, {
+    new Chart(doughnutTwo, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                'موظفين',
+                'معاشات'
+            ],
+            datasets: [{
+                label: 'عدد المنفعين',
+                data: [3660, 8590],
+                backgroundColor: [
+                    '#abe6a4',
+                    '#1796f8'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                datalabels: {
+                    formatter: (value, context) => {
+                        const data = context.chart.data.datasets[0].data;
+                        const total = data.reduce((sum, val) => sum + val, 0);
+                        const percentage = ((value / total) * 100).toFixed(1) + '%';
+                        return `${value} (${percentage})`;
+                    },
+                    color: '#fff',
+                    font: {
+                        weight: 'bold'
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'عدد المنتفعين من الخدمة',
+                    font: {
+                        size: 18
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 20
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const data = context.dataset.data;
+                            const total = data.reduce((sum, val) => sum + val, 0);
+                            const value = context.parsed;
+                            const percent = ((value / total) * 100).toFixed(1);
+                            return `${context.label}: ${value} (${percent}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+    new Chart(graph , {
         type: 'bar',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -213,8 +343,8 @@
                 label: '# of employees',
                 data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
-                    '#8389eb',
-                    '#de8383'
+                    
+                    '#3fa1fc'
                 ],
                 borderWidth: 1
             }]
@@ -227,7 +357,7 @@
             }
         }
     });
-    new Chart(ctxThree, {
+    new Chart(graphTwo, {
         type: 'bar',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -235,8 +365,8 @@
                 label: '# of employees',
                 data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
-                    '#8389eb',
-                    '#de8383'
+                    
+                    '#3fa1fc'
                 ],
                 borderWidth: 1
             }]
@@ -262,7 +392,7 @@
             }
         },
     });
-    new Chart(ctxFour, {
+    new Chart( graphThree,  {
         type: 'bar',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -270,8 +400,148 @@
                 label: '# of employees',
                 data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
-                    '#8389eb',
-                    '#de8383'
+                    
+                    '#3fa1fc'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            // Elements options apply to all of the options unless overridden in a dataset
+            // In this case, we are setting the border of each horizontal bar to be 2px wide
+            elements: {
+                bar: {
+                    borderWidth: 2,
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Horizontal Bar Chart'
+                }
+            }
+        },
+    });
+    new Chart( graphFour,  {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of employees',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    
+                    '#3fa1fc'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            // Elements options apply to all of the options unless overridden in a dataset
+            // In this case, we are setting the border of each horizontal bar to be 2px wide
+            elements: {
+                bar: {
+                    borderWidth: 2,
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Horizontal Bar Chart'
+                }
+            }
+        },
+    });
+    new Chart( graphFive,  {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of employees',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    
+                    '#3fa1fc'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            // Elements options apply to all of the options unless overridden in a dataset
+            // In this case, we are setting the border of each horizontal bar to be 2px wide
+            elements: {
+                bar: {
+                    borderWidth: 2,
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Horizontal Bar Chart'
+                }
+            }
+        },
+    });
+    new Chart( graphSix,  {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of employees',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    
+                    '#3fa1fc'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            // Elements options apply to all of the options unless overridden in a dataset
+            // In this case, we are setting the border of each horizontal bar to be 2px wide
+            elements: {
+                bar: {
+                    borderWidth: 2,
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Horizontal Bar Chart'
+                }
+            }
+        },
+    });
+    new Chart( graphSeven,  {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of employees',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    
+                    '#3fa1fc'
                 ],
                 borderWidth: 1
             }]

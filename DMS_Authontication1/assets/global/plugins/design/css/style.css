@@ -1666,16 +1666,19 @@ label {
     margin-bottom: 0px;
 }
 /*=====================Dashboard==============================================*/
-.dashboard-box{
-    margin:20px 0;
-    background:#eee;
-    border-radius:12px;
+.dashboard-box {
+    margin: 20px 0;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 0 9px 1px #0000001c;
 }
 .dashboard-categories {
-    width:200px;
-    text-align:center;
-    padding:20px 0px;
-    border-right:15px solid white;
+    width: 165px;
+    text-align: center;
+    padding: 20px 0px 20px 20px;
+    border-right: 15px solid white;
+    background: #444751;
+    border-radius: 12px 0 0 12px;
 }
 .dashboard-categories ul{
     display:flex;
@@ -1686,8 +1689,8 @@ label {
 .dashboard-categories ul li {
     font-weight: 700;
     font-size: 16px;
-    color: var(--color-primary);
-    padding: 10px;
+    color: white !important;
+    padding: 10px 30px 10px 10px;
 }
 .dashboard-categories ul li.active {
     background:white;
@@ -1701,14 +1704,18 @@ label {
     border-radius:12px 0 0 12px;
     cursor:pointer;
 }
-.dashboard-categories ul li a{
-    pointer-events:painted;
+.dashboard-categories ul li a {
+    pointer-events: painted;
+    color: white;
+}
+.dashboard-categories ul li.active a {
+    color: #434252;
 }
 .dashboard-categories ul li a:hover{
     text-decoration:none;
 }
 .dashboard-body {
-    width:calc(100% - 200px)
+    width:calc(100% - 165px)
 }
 .cards-box {
     display: flex;
@@ -1725,7 +1732,22 @@ label {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    box-shadow: 0 0 6px 1px #00000024;
+    border-bottom: 2px solid;
 }
+.card-body.one {
+    border-color: #375aa9 !important;
+}
+.card-body.two {
+    border-color: #c0385c;
+}
+.card-body.three {
+    border-color: #dcb145;
+}
+.card-body.four {
+    border-color: #44ba86 !important;
+}
+
 .card-body i {
     font-size: 16px;
     background: #337ab7;
@@ -1772,10 +1794,40 @@ p.ratio {
 .gender-type-card > div > div {
     flex-direction: column;
 }
+.gender-type-card > div > div i {
+    font-size: 22px;
+}
 .gender-type-card h4 {
     margin: auto;
     font-weight: 700;
     font-size: 22px;
+}
+.doughnut-box, .graph-box {
+    padding: 20px;
+    border-radius: 10px;
+    background: #f2f2f2;
+}
+.dashboard-body {
+    padding: 20px;
+}
+
+.doughnut-box {
+    height: 300px;
+}
+
+.doughnut-box .box {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.doughnut-box .box div {
+    height: 100%;
+}
+
+#doughnutChart,
+#doughnutChartTwo {
+    /*height: 300px !important;*/
 }
 /*=====================New==============================================*/
 div.forLabel > span:not(.select2 ) {
