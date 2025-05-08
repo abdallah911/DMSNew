@@ -1854,9 +1854,9 @@ p.ratio {
 }
 
 .doughnut-box {
-    height: 260px;
+    height: 240px;
     display: flex;
-    flex-wrap:wrap
+    flex-wrap: wrap
 }
 .doughnut-box canvas {
     height: 100% !important;
@@ -1877,12 +1877,28 @@ p.ratio {
 .doughnut-box .box div {
     height: 100%;
 }
-
+.cards-parent {
+    display: flex;
+    gap: 20px;
+}
+.doughnut-parent ,
+.cards-box {
+    width: 50% !important;
+}
+.graph-parent {
+    display: flex;
+    flex-wrap: wrap;
+}
+.graph-parent > div {
+    width: 50%;
+    margin-bottom:16px;
+}
 
 #doughnutChart,
 #doughnutChartTwo {
     /*height: 300px !important;*/
 }
+
 /*=====================New==============================================*/
 div.forLabel > span:not(.select2 ) {
     display: flex;
