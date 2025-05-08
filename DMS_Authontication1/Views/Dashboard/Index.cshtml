@@ -123,15 +123,15 @@
                             </div>*@
                             <div class="card-body one">
                                 <i class="fa fa-user"></i>
-                                <h4 class="card-number" id="NumberEmployee">25000</h4>
+                                <h4 class="card-number" id="NumberEmployee">2500</h4>
                                 <h5 class="card-name">Approval</h5>
-                                <p class="ratio" id="RatioEmployee">20%</p>
+                                <p class="ratio" id="RatioEmployee"></p>
                             </div>
                             <div class="card-body one">
                                 <i class="fa fa-user"></i>
-                                <h4 class="card-number" id="NumberEmployee">25000</h4>
+                                <h4 class="card-number" id="NumberEmployee">2500</h4>
                                 <h5 class="card-name">Online</h5>
-                                <p class="ratio" id="RatioEmployee">20%</p>
+                                <p class="ratio" id="RatioEmployee"></p>
                             </div>
                             @*<div class="card-body two gender-type-card flex-row"> 
                                 <div class="d-flex" style="justify-content: space-between; width: 100%;">
@@ -211,6 +211,26 @@
                                 <label></label>
                             </div>
                         </div>
+                        <div class="w-100">
+                            <div class="graph-box">
+                                <div class="box">
+                                    <div>
+                                        <canvas id="graphChartSeven"></canvas>
+                                    </div>
+                                </div>
+                                <label></label>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="graph-box">
+                                <div class="box">
+                                    <div>
+                                        <canvas id="graphChartEight"></canvas>
+                                    </div>
+                                </div>
+                                <label></label>
+                            </div>
+                        </div>
                         <div class="">
                             <div class="graph-box">
                                 <div class="box">
@@ -251,16 +271,7 @@
                                 <label></label>
                             </div>
                         </div>
-                        <div class="w-100">
-                            <div class="graph-box">
-                                <div class="box">
-                                    <div>
-                                        <canvas id="graphChartSeven"></canvas>
-                                    </div>
-                                </div>
-                                <label></label>
-                            </div>
-                        </div>
+
                     </div>
                    
 
@@ -287,22 +298,31 @@
     const graphFive = document.getElementById('graphChartFive');
     const graphSix = document.getElementById('graphChartSix'); 
     const graphSeven = document.getElementById('graphChartSeven');
+    const graphEight = document.getElementById('graphChartEight');
 
     new Chart(pie, {
         type: 'pie',
         data: {
             labels: [
-                'موظفين',
-                'معاشات',
-                'تأمينات'
+                'عيادات أطباء',
+                'خدمات خارج الهيئة الطبية',
+                'مراكز علاج طبيعي',
+                'صيدليات',
+                'مراكز اشعة',
+                'مستشفيات',
+                'معامل تحاليل'
             ],
             datasets: [{
-                label: 'تفصيل المصروفات',
-                data: [12, 19, 8],
+                label: 'عدد المنتفعين من الخدمة',
+                data: [361, 739, 801, 49666, 3197, 23625, 5822],
                 backgroundColor: [
                     '#abe6a4',
                     '#1796f8',
-                    '#f5c542'
+                    '#f5c542',
+                    '#ff6384',
+                    '#36a2eb',
+                    '#ff9f40',
+                    '#9966ff'
                 ],
                 borderWidth: 1
             }]
@@ -316,39 +336,71 @@
                             family: "Open Sans"
                         }
                     }
-                }
-            }
-        }
-    });
-
-    new Chart(pieTwo, {
-        type: 'pie',
-        data: {
-            labels: [
-                'Blue',
-                'Dark Blue'
-            ],
-            datasets: [{
-                label: 'My First Dataset',
-                data: [12, 19],
-                backgroundColor: [
-                    '#abe6a4',
-                    '#1796f8' 
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: { 
-            legend: {
-                labels: {
-                    font: {
-                        size: 14,
-                        family: "Open Sans"
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const value = context.raw;
+                            const total = context.chart._metasets[0].total;
+                            const percent = ((value / total) * 100).toFixed(2);
+                            return `${context.label}: ${value.toLocaleString()} (${percent}%)`;
+                        }
                     }
                 }
             }
         }
     });
+
+
+    new Chart(pieTwo, {
+        type: 'pie',
+        data: {
+            labels: [
+                'عيادات أطباء',
+                'مراكز علاج طبيعي',
+                'صيدليات',
+                'مراكز أشعة',
+                'مستشفيات',
+                'معامل تحاليل'
+            ],
+            datasets: [{
+                label: 'عدد المستفيدين',
+                data: [57, 56, 126, 57, 305, 16],
+                backgroundColor: [
+                    '#abe6a4',
+                    '#1796f8',
+                    '#f5c542',
+                    '#ff6384',
+                    '#36a2eb',
+                    '#9966ff'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: "Open Sans"
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const value = context.raw;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percent = ((value / total) * 100).toFixed(1);
+                            return `${context.label}: ${value} (${percent}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
     new Chart(doughnut, {
         type: 'doughnut',
         data: {
@@ -478,13 +530,13 @@
                     labels: labels,
                     datasets: [
                         {
-                            label: 'إجمالي الاستهلاك (جنيه)',
+                            label: 'إجمالي الاستهلاك',
                             data: grossValues,
                             backgroundColor: '#6c5ce7',
                             yAxisID: 'amount'
                         },
                         {
-                            label: 'صافي الاستهلاك (جنيه)',
+                            label: 'صافي الاستهلاك',
                             data: netValues,
                             backgroundColor: '#00b894',
                             yAxisID: 'amount'
@@ -500,7 +552,7 @@
                             beginAtZero: true,
                             title: {
                                 display: true,
-                                text: 'القيمة بالجنيه'
+                                text: 'القيمة'
                             },
                             ticks: {
                                 callback: function (value) {
@@ -531,46 +583,251 @@
             });
         }
     });
-    new Chart(graphTwo, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: 'employees',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    
-                    '#3fa1fc'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            // Elements options apply to all of the options unless overridden in a dataset
-            // In this case, we are setting the border of each horizontal bar to be 2px wide
-            elements: {
-                bar: {
-                    borderWidth: 2,
-                }
-            },
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top', 
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
+
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/GetTypeProviderData',
+        success: function (data) {
+            const labels = data.map(item => item.company);
+            const grossValues = data.map(item => item.gross);
+            const netValues = data.map(item => item.net);
+            const percentages = data.map(item => item.percent);
+
+            new Chart(graphTwo, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'إجمالي الاستهلاك',
+                            data: grossValues,
+                            backgroundColor: '#6c5ce7',
+                            yAxisID: 'amount'
+                        },
+                        {
+                            label: 'صافي الاستهلاك',
+                            data: netValues,
+                            backgroundColor: '#00b894',
+                            yAxisID: 'amount'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        amount: {
+                            type: 'linear',
+                            position: 'left',
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'القيمة'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return value.toLocaleString('en-US');
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const value = context.raw;
+                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
+                                },
+                                afterBody: function (context) {
+                                    const index = context[0].dataIndex;
+                                    const percent = percentages[index];
+                                    return 'النسبة من الاستهلاك: ' + percent + '%';
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top'
                         }
                     }
-                },
-                title: {
-                    display:false 
                 }
-            }
-        },
+            });
+        }
     });
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/GetServiceData',
+        success: function (data) {
+            const labels = data.map(item => item.company);
+            const grossValues = data.map(item => item.gross);
+            const netValues = data.map(item => item.net);
+            const percentages = data.map(item => item.percent);
+
+            new Chart(graphSeven, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'إجمالي الاستهلاك',
+                            data: grossValues,
+                            backgroundColor: '#6c5ce7',
+                            yAxisID: 'amount'
+                        },
+                        {
+                            label: 'صافي الاستهلاك',
+                            data: netValues,
+                            backgroundColor: '#00b894',
+                            yAxisID: 'amount'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        amount: {
+                            type: 'linear',
+                            position: 'left',
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'القيمة'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return value.toLocaleString('en-US');
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const value = context.raw;
+                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
+                                },
+                                afterBody: function (context) {
+                                    const index = context[0].dataIndex;
+                                    const percent = percentages[index];
+                                    return 'النسبة من الاستهلاك: ' + percent + '%';
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+    });
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/GetServiceDetailsData',
+        success: function (data) {
+            const labels = data.map(item => item.company);
+            const grossValues = data.map(item => item.gross);
+            const netValues = data.map(item => item.net);
+            const percentages = data.map(item => item.percent);
+
+            new Chart(graphEight, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'إجمالي الاستهلاك',
+                            data: grossValues,
+                            backgroundColor: '#6c5ce7',
+                            yAxisID: 'amount'
+                        },
+                        {
+                            label: 'صافي الاستهلاك',
+                            data: netValues,
+                            backgroundColor: '#00b894',
+                            yAxisID: 'amount'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        amount: {
+                            type: 'linear',
+                            position: 'left',
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'القيمة'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return value.toLocaleString('en-US');
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const value = context.raw;
+                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
+                                },
+                                afterBody: function (context) {
+                                    const index = context[0].dataIndex;
+                                    const percent = percentages[index];
+                                    return 'النسبة من الاستهلاك: ' + percent + '%';
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+    });
+    //new Chart(graphTwo, {
+    //    type: 'bar',
+    //    data: {
+    //        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    //        datasets: [{
+    //            label: 'employees',
+    //            data: [12, 19, 3, 5, 2, 3],
+    //            backgroundColor: [
+                    
+    //                '#3fa1fc'
+    //            ],
+    //            borderWidth: 1
+    //        }]
+    //    },
+    //    options: {
+    //        indexAxis: 'y',
+    //        // Elements options apply to all of the options unless overridden in a dataset
+    //        // In this case, we are setting the border of each horizontal bar to be 2px wide
+    //        elements: {
+    //            bar: {
+    //                borderWidth: 2,
+    //            }
+    //        },
+    //        responsive: true,
+    //        plugins: {
+    //            legend: {
+    //                position: 'top', 
+    //                labels: {
+    //                    font: {
+    //                        size: 14,
+    //                        family: "Open Sans"
+    //                    }
+    //                }
+    //            },
+    //            title: {
+    //                display:false 
+    //            }
+    //        }
+    //    },
+    //});
     new Chart(graphThree, {
         type: 'line',
         data: {
@@ -711,39 +968,39 @@
             }
         }
     });
-    new Chart(graphSeven, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: 'employees',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
+    //new Chart(graphSeven, {
+    //    type: 'bar',
+    //    data: {
+    //        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    //        datasets: [{
+    //            label: 'employees',
+    //            data: [12, 19, 3, 5, 2, 3],
+    //            backgroundColor: [
 
-                    '#3fa1fc'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
+    //                '#3fa1fc'
+    //            ],
+    //            borderWidth: 1
+    //        }]
+    //    },
+    //    options: {
+    //        scales: {
+    //            y: {
+    //                beginAtZero: true
+    //            }
+    //        }
+    //        ,
+    //        plugins: {
+    //            legend: {
+    //                labels: {
+    //                    font: {
+    //                        size: 14,
+    //                        family: "Open Sans"
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //});
 
 
     $(function () {
