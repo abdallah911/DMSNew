@@ -139,5 +139,19 @@ namespace DMS_Authontication1.Controllers
             return new JsonResult { };
             //return new JsonResult { Data = new { providerslist = providerList, msg = "ok" }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        public JsonResult GetCompData()
+        {
+            var data = new[]
+            {
+                new { company = "500118", gross = 7783030m, net = 6809483.489m, percent = 4.35 },
+                new { company = "500119", gross = 48331006m, net = 40914950.34m, percent = 26.12 },
+                new { company = "500120", gross = 42652394m, net = 33662545.39m, percent = 21.49 },
+                new { company = "500121", gross = 85807314m, net = 73853841.5m, percent = 47.16 },
+                new { company = "500122", gross = 1655971m, net = 1374491.839m, percent = 0.88 }
+            };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
