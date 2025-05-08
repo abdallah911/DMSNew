@@ -1667,10 +1667,11 @@ label {
 }
 /*=====================Dashboard==============================================*/
 .dashboard-box {
-    margin: 20px 0;
+    /*margin: 20px 0;*/
     background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 0 9px 1px #0000001c;
+    /*border-radius: 12px;*/
+    box-shadow: 0 0 9px 1px #00000036;
+    width:100%;
 }
 .dashboard-categories {
     width: 165px;
@@ -1678,7 +1679,7 @@ label {
     padding: 20px 0px 20px 20px;
     border-right: 15px solid white;
     background: #444751;
-    border-radius: 12px 0 0 12px;
+    /*border-radius: 12px 0 0 12px;*/
 }
 .dashboard-categories ul{
     display:flex;
@@ -1707,6 +1708,10 @@ label {
 .dashboard-categories ul li a {
     pointer-events: painted;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 6px;
 }
 .dashboard-categories ul li.active a {
     color: #434252;
@@ -1714,19 +1719,26 @@ label {
 .dashboard-categories ul li a:hover{
     text-decoration:none;
 }
+.dashboard-categories ul li a img {
+    width: 20px;
+}
+.dashboard-categories ul li a i {
+    font-size: 16px;
+    color: white;
+}
 .dashboard-body {
     width:calc(100% - 165px)
 }
 .cards-box {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 20px;
 } 
 .cards-box .card-body {
     background: white;
     border-radius: 12px;
     padding: 15px 20px;
-    width: calc(50% - 5px);
+    width: calc(50% - 10px);
     height: 150px;
     display: flex;
     flex-direction: column;
