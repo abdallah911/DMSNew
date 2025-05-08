@@ -78,7 +78,7 @@ namespace DMS_Authontication1.Controllers
             UserDB = new ApplicationDbContext();
 
         }
-        public ActionResult Dashboard()
+        public ActionResult Index()
         {
 
             return View();
