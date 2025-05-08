@@ -553,7 +553,7 @@
         }
     });
     new Chart(graphFive, {
-        type: 'bar',
+        type: 'scatter',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             datasets: [{
@@ -563,6 +563,11 @@
 
                     '#3fa1fc'
                 ],
+                type: 'line',
+                label: 'Line Dataset',
+                data: [50, 46, 20, 46, 20, 10],
+                fill: false,
+                borderColor: 'rgb(54, 162, 235)',
                 borderWidth: 1
             }]
         },
