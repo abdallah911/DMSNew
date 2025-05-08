@@ -1666,6 +1666,34 @@ label {
     margin-bottom: 0px;
 }
 /*=====================Dashboard==============================================*/
+@media (max-width:991px) { 
+    .graph-parent {
+        margin-bottom: 20px;
+    }
+}
+@media (max-width:767px) {
+    .dashboard-categories {
+        display: none;
+    }
+    .dashboard-body {
+        width:100% !important;
+        display:flex;
+        flex-direction:column;
+        gap:20px;
+    } 
+}
+@media (max-width:576px) {
+    .doughnut-box {
+        height: unset !important; 
+    }
+    .doughnut-box > .box {
+        width: 100% !important;
+    }
+    .cards-box .card-body { 
+        width: 100% !important;
+        height: 160px !important; 
+    }
+}
 .dashboard-box {
     /*margin: 20px 0;*/
     background: #ffffff;
@@ -1681,6 +1709,7 @@ label {
     background: #444751;
     /*border-radius: 12px 0 0 12px;*/
 }
+
 .dashboard-categories ul{
     display:flex;
     flex-direction:column;
@@ -1746,6 +1775,7 @@ label {
     gap: 10px;
     box-shadow: 0 0 6px 1px #00000024;
     border-bottom: 2px solid;
+
 }
 .card-body.one {
     border-color: #375aa9 !important;
@@ -1826,17 +1856,28 @@ p.ratio {
 .doughnut-box {
     height: 260px;
     display: flex;
+    flex-wrap:wrap
 }
-
+.doughnut-box canvas {
+    height: 100% !important;
+    width: 100% !important;
+}
+.graph-box canvas {
+    height: 100% !important;
+    width: 100% !important;
+}
 .doughnut-box .box {
     height: 100%;
     display: flex;
     justify-content: center;
 }
-
+.doughnut-box > .box {
+    width: 50%;
+}
 .doughnut-box .box div {
     height: 100%;
 }
+
 
 #doughnutChart,
 #doughnutChartTwo {
