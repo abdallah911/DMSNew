@@ -1856,7 +1856,8 @@ p.ratio {
 .doughnut-box {
     height: 240px;
     display: flex;
-    flex-wrap: wrap
+    flex-wrap: wrap;
+    position: relative;
 }
 .doughnut-box canvas {
     height: 100% !important;
@@ -1893,7 +1894,18 @@ p.ratio {
     width: 50%;
     margin-bottom:16px;
 }
-
+.graph-box {
+    position:relative;
+}
+    .graph-box > label, .doughnut-box label {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 18px;
+        font-weight: 700;
+        color: #a83c6a;
+    }
 #doughnutChart,
 #doughnutChartTwo {
     /*height: 300px !important;*/
