@@ -188,12 +188,26 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="box">
+                                <div class="box">
+                                    <div>
+                                        <canvas id="doughnutChartTwo"></canvas>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="doughnut-box chart-card w-100">
                             <div class="box">
                                 <div class="box">
                                     <div>
-                                        <canvas id="doughnutChartTwo"></canvas>
+                                        <canvas id="pieChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="box">
+                                    <div>
+                                        <canvas id="pieChartTwo"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -214,6 +228,8 @@
 <script>
     const doughnut = document.getElementById('doughnutChart');
     const doughnutTwo = document.getElementById('doughnutChartTwo');
+    const pie = document.getElementById('pieChart');
+    const pieTwo = document.getElementById('pieChartTwo');
     const graph = document.getElementById('graphChart');
     const graphTwo = document.getElementById('graphChartTwo');
     const graphThree = document.getElementById('graphChartThree'); 
@@ -251,6 +267,62 @@
         }
     });
     new Chart(doughnutTwo, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                'Blue',
+                'Dark Blue'
+            ],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [12, 19],
+                backgroundColor: [
+                    '#abe6a4',
+                    '#1796f8' 
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: { 
+            legend: {
+                labels: {
+                    font: {
+                        size: 14,
+                        family: "Open Sans"
+                    }
+                }
+            }
+        }
+    });
+    new Chart(pie, {
+        type: 'pie',
+        data: {
+            labels: [
+                'Blue',
+                'Dark Blue'
+            ],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [12, 19],
+                backgroundColor: [
+                    '#abe6a4',
+                    '#1796f8'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            legend: {
+                labels: {
+                    font: {
+                        size: 14,
+                        family: 'Open Sans'
+                    }
+                }
+            }
+        }
+    });
+    new Chart(pieTwo, {
         type: 'pie',
         data: {
             labels: [
