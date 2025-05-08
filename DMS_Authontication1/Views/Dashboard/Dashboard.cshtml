@@ -42,18 +42,18 @@
         </style>
         <div class="portlet box dms-container">
 
-            <div class="dashboard-box container px-0 mx-auto row d-flex flex-wrap">
-                <div class="dashboard-categories col-sm-4">
+            <div class="dashboard-box px-0 mx-auto d-flex flex-wrap">
+                <div class="dashboard-categories ">
                     <ul>
-                        <li class="active"><a>Dashboard</a></li>
-                        <li><a>Message</a></li>
-                        <li><a>Leads</a></li>
-                        <li><a>Tasks</a></li>
-                        <li><a>Calender</a></li>
-                        <li><a>Contact</a></li>
+                        <li class="active"><a><img src="~/assets/global/img/Dashboard/dashboard-icon-black.svg" /> Dashboard</a></li>
+                        <li><a><i class="fas fa-reply"></i>Message</a></li>
+                        <li><a><img src="~/assets/global/img/Dashboard/leadership-icon-white.svg" /> Leads</a></li>
+                        <li><a><i class="fas fa-tasks"></i>Tasks</a></li>
+                        <li><a><i class="fas fa-calendar-alt"></i>Calender</a></li>
+                        <li><a><i class="fas fa-phone"></i>Contact</a></li>
                     </ul>
                 </div>
-                <div class="dashboard-body col-sm-8" id="MainDashbord">
+                <div class="dashboard-body " id="MainDashbord">
                     @*<div class="dashboard-filter-box">
                         <div>
                             <div class="forLabel">
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                     </div>*@
-                    <div class="col-sm-8">
+                    <div class="col-sm-7">
                         <div class="w-100 mb-4">
                             <div class="graph-box">
                                 <div class="box">
@@ -139,7 +139,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4 ">
+                    <div class="col-sm-5">
                         <div class="cards-box mb-4 w-100">
                             @*<div class="card-body" style="background: #8389eb5c">
                                 <i class="fa fa-user"></i>
@@ -239,16 +239,19 @@
                 borderWidth: 1
             }]
         },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: false
+        options: { 
+            legend: {
+                labels: {
+                    font: {
+                        size: 14,
+                        family: "Open Sans"
+                    }
                 }
             }
         }
     });
     new Chart(doughnutTwo, {
-        type: 'doughnut',
+        type: 'pie',
         data: {
             labels: [
                 'Blue',
@@ -265,22 +268,25 @@
             }]
         },
         options: {
-            scales: {
-                y: {
-                    beginAtZero: false
+            legend: {
+                labels: {
+                    font: {
+                        size: 14,
+                        family: 'Open Sans'
+                    }
                 }
             }
         }
     });
-    new Chart(graph , {
+    new Chart(graph, {
         type: 'bar',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             datasets: [{
-                label: '# of employees',
+                label: 'employees',
                 data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
-                    
+
                     '#3fa1fc'
                 ],
                 borderWidth: 1
@@ -292,6 +298,17 @@
                     beginAtZero: true
                 }
             }
+            ,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: "Open Sans"
+                        }
+                    }
+                }
+            }
         }
     });
     new Chart(graphTwo, {
@@ -299,7 +316,7 @@
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             datasets: [{
-                label: '# of employees',
+                label: 'employees',
                 data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
                     
@@ -320,189 +337,187 @@
             responsive: true,
             plugins: {
                 legend: {
-                    position: 'right',
+                    position: 'top', 
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: "Open Sans"
+                        }
+                    }
                 },
                 title: {
-                    display: true,
-                    text: 'Chart.js Horizontal Bar Chart'
+                    display:false 
                 }
             }
         },
     });
-    new Chart( graphThree,  {
-        type: 'bar',
+    new Chart(graphThree, {
+        type: 'line',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             datasets: [{
-                label: '# of employees',
+                label: 'employees',
                 data: [12, 19, 3, 5, 2, 3],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1,
                 backgroundColor: [
-                    
+
                     '#3fa1fc'
                 ],
                 borderWidth: 1
             }]
         },
         options: {
-            indexAxis: 'y',
-            // Elements options apply to all of the options unless overridden in a dataset
-            // In this case, we are setting the border of each horizontal bar to be 2px wide
-            elements: {
-                bar: {
-                    borderWidth: 2,
-                }
-            },
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'right',
-                },
-                title: {
-                    display: true,
-                    text: 'Chart.js Horizontal Bar Chart'
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        },
+            ,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: "Open Sans"
+                        }
+                    }
+                }
+            }
+        }
     });
-    new Chart( graphFour,  {
+    new Chart(graphFour, {
         type: 'bar',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             datasets: [{
-                label: '# of employees',
+                label: 'employees',
                 data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
-                    
+
                     '#3fa1fc'
                 ],
                 borderWidth: 1
             }]
         },
         options: {
-            indexAxis: 'y',
-            // Elements options apply to all of the options unless overridden in a dataset
-            // In this case, we are setting the border of each horizontal bar to be 2px wide
-            elements: {
-                bar: {
-                    borderWidth: 2,
-                }
-            },
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'right',
-                },
-                title: {
-                    display: true,
-                    text: 'Chart.js Horizontal Bar Chart'
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        },
+            ,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: "Open Sans"
+                        }
+                    }
+                }
+            }
+        }
     });
-    new Chart( graphFive,  {
+    new Chart(graphFive, {
         type: 'bar',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             datasets: [{
-                label: '# of employees',
+                label: 'employees',
                 data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
-                    
+
                     '#3fa1fc'
                 ],
                 borderWidth: 1
             }]
         },
         options: {
-            indexAxis: 'y',
-            // Elements options apply to all of the options unless overridden in a dataset
-            // In this case, we are setting the border of each horizontal bar to be 2px wide
-            elements: {
-                bar: {
-                    borderWidth: 2,
-                }
-            },
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'right',
-                },
-                title: {
-                    display: true,
-                    text: 'Chart.js Horizontal Bar Chart'
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        },
+            ,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: "Open Sans"
+                        }
+                    }
+                }
+            }
+        }
     });
-    new Chart( graphSix,  {
+    new Chart(graphSix, {
         type: 'bar',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             datasets: [{
-                label: '# of employees',
+                label: 'employees',
                 data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
-                    
+
                     '#3fa1fc'
                 ],
                 borderWidth: 1
             }]
         },
         options: {
-            indexAxis: 'y',
-            // Elements options apply to all of the options unless overridden in a dataset
-            // In this case, we are setting the border of each horizontal bar to be 2px wide
-            elements: {
-                bar: {
-                    borderWidth: 2,
-                }
-            },
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'right',
-                },
-                title: {
-                    display: true,
-                    text: 'Chart.js Horizontal Bar Chart'
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        },
+            ,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: "Open Sans"
+                        }
+                    }
+                }
+            }
+        }
     });
-    new Chart( graphSeven,  {
+    new Chart(graphSeven, {
         type: 'bar',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             datasets: [{
-                label: '# of employees',
+                label: 'employees',
                 data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
-                    
+
                     '#3fa1fc'
                 ],
                 borderWidth: 1
             }]
         },
         options: {
-            indexAxis: 'y',
-            // Elements options apply to all of the options unless overridden in a dataset
-            // In this case, we are setting the border of each horizontal bar to be 2px wide
-            elements: {
-                bar: {
-                    borderWidth: 2,
-                }
-            },
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'right',
-                },
-                title: {
-                    display: true,
-                    text: 'Chart.js Horizontal Bar Chart'
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        },
+            ,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: "Open Sans"
+                        }
+                    }
+                }
+            }
+        }
     });
 
 
