@@ -221,6 +221,70 @@ namespace DMS_Authontication1.Controllers
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetConsumType()
+        {
+            var data = new[]
+     {
+        new { company = "موظف", gross = 95676812m, net = 77712318m, percent = 49.62 },
+        new { company = "معاش", gross = 90552903m, net = 78902995m, percent = 50.38 }
+    };
+
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetConsumGender()
+        {
+            var data = new[]
+   {
+        new { company = "أنثى", gross = 39521526m, net = 30678886m, percent = 19.59 },
+        new { company = "ذكر",  gross = 146708189m, net = 125936427m, percent = 80.41 }
+    };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetTypeProvider()
+        {
+            var data = new[]
+            {
+        new { typeprovider = "عيادات أطباء",             net = 361m,     percent = 0.43 },
+        new { typeprovider = "خدمات خارج الهيئة الطبية", net = 739m,     percent = 0.88 },
+        new { typeprovider = "مراكز علاج طبيعي",         net = 801m,     percent = 0.95 },
+        new { typeprovider = "صيدليات",                  net = 49666m,   percent = 58.98 },
+        new { typeprovider = "مراكز اشعة",               net = 3197m,    percent = 3.80 },
+        new { typeprovider = "مستشفيات",                 net = 23625m,   percent = 28.05 },
+        new { typeprovider = "معامل تحاليل",             net = 5822m,    percent = 6.91 }
+    };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult GetAllConsumGroup()
+        {
+            var data = new[]
+{
+    new { company = "Pharmacy",   gross = 7783030m,   net = 6809483.489m, percent = 4.35 },
+    new { company = "Lab",        gross = 48331006m,  net = 40914950.34m, percent = 26.12 },
+    new { company = "Ray",        gross = 42652394m,  net = 33662545.39m, percent = 21.49 },
+    new { company = "OutPatient", gross = 85807314m,  net = 73853841.5m,  percent = 47.16 },
+    new { company = "InPatient",  gross = 1655971m,   net = 1374491.839m, percent = 0.88 }
+};
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetAllConsumMed()
+        {
+            var data = new[]
+{
+    new { company = "Daily",   gross = 7783030m,   net = 6809483.489m, percent = 4.35 },
+    new { company = "Chronic",        gross = 48331006m,  net = 40914950.34m, percent = 26.12 }
+   
+};
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetChartData()
         {
             var data = new[] {
