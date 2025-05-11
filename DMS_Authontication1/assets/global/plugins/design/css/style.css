@@ -1675,9 +1675,9 @@ label {
     width:100%;
 }
 .dashboard-categories {
-    width: 165px;
+    width: 178px;
     text-align: center;
-    padding: 20px 0px 20px 20px;
+    padding: 20px 0px 20px 12px;
     /*border-right: 15px solid white;*/
     background: #444751;
     /*border-radius: 12px 0 0 12px;*/
@@ -1708,12 +1708,14 @@ label {
     cursor:pointer;
 }
 .dashboard-categories ul li a {
-    pointer-events: painted;
+      pointer-events: painted;
     color: white;
     display: flex;
     align-items: center;
     justify-content: start;
-    gap: 6px;
+    gap: 4px;
+    font-size: 9px;
+    white-space: nowrap;
 }
 .dashboard-categories ul li.active a {
     color: #434252;
@@ -1722,14 +1724,14 @@ label {
     text-decoration:none;
 }
 .dashboard-categories ul li a img {
-    width: 20px;
+    width: 14px;
 }
 .dashboard-categories ul li a i {
-    font-size: 16px;
+    font-size: 12px;
     color: white;
 }
 .dashboard-body {
-    width:calc(100% - 165px)
+    width:calc(100% - 178px)
 }
 .cards-box {
     display: flex;
@@ -1863,10 +1865,11 @@ p.ratio {
 .graph-parent {
     display: flex;
     flex-wrap: wrap;
+    gap: 20px;
 }
 .graph-parent > div {
-    width: 50%;
-    margin-bottom:16px;
+    width: calc(50% - 10px);
+    /*margin-bottom: 16px;*/
 }
 .graph-box {
     position:relative;
