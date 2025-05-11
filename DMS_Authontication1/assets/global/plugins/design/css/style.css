@@ -1809,13 +1809,20 @@ li.active a img.white {
     text-align: center;
     color: #337ab7;
 }
-.card-name h5 {
+h5.card-name {
     font-size: 12px;
-}
+    white-space: normal;
+} 
 
 p.ratio {
     margin: 0;
     font-weight: bold;
+}
+.card-graph {
+    width: calc(50% - 10px);
+}
+.card-graph div{
+    height: 100%;
 }
 .dashboard-filter-box {
     display:grid;
@@ -1932,6 +1939,13 @@ p.ratio {
     .doughnut-parent, .cards-box {
         width: 100% !important;
     }
+    h5.card-name { 
+        white-space: nowrap;
+    }
+    .card-graph {
+        width: 100%;
+    }
+    .consumption 
 }
 @media (max-width:767px) {
     .dashboard-categories {
