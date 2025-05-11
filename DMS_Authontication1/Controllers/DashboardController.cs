@@ -315,7 +315,9 @@ namespace DMS_Authontication1.Controllers
             {
                 case "_Live":
                 case "_Consumptions":
-                case "_Screen3":
+                case "_Providers":
+                case "_Employees":
+                case "_Comparison":
                     return PartialView($"~/Views/Dashboard/{viewName}.cshtml");
                 default:
                     return HttpNotFound();

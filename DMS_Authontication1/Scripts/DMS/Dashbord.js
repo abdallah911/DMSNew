@@ -477,193 +477,378 @@ function ChartConsumptionsScreen() {
     });
 }
 
-function drawGraphChart() {
-    
-    //const pie = document.getElementById('pieChart');
-    //const pieTwo = document.getElementById('pieChartTwo');
-    const pie3 = document.getElementById('pieChart3');
-   
-    
+function ChartProvidersScreen() {
+    const graph12 = document.getElementById('graphChart12');
     const graphTwo = document.getElementById('graphChartTwo');
     const graphThree = document.getElementById('graphChartThree');
-    const graphFour = document.getElementById('graphChartFour');
- 
-  
-   
-    
-    const graphnew = document.getElementById('graphChartNew');
-    const graphnew2 = document.getElementById('graphChartNew2');
-    const graph27 = document.getElementById('graphChart27');
-    const graph28 = document.getElementById('graphChart28');
-    const graph29 = document.getElementById('graphChart29');
-    const graph30 = document.getElementById('graphChart30');
-    const graph31 = document.getElementById('graphChart31');
-    const graph32 = document.getElementById('graphChart32');
-    const graph33 = document.getElementById('graphChart33');
-    const graph34 = document.getElementById('graphChart34');
-    const graph26 = document.getElementById('graphChart26');
     const graph18 = document.getElementById('graphChart18');
     const graph25 = document.getElementById('graphChart25');
-    const graph12 = document.getElementById('graphChart12');
- 
+    const graph26 = document.getElementById('graphChart26');
 
-    const doughnut = document.getElementById('doughnutChart');
-    const doughnutTwo = document.getElementById('doughnutChartTwo');
-    //new Chart(pie, {
-    //    type: 'pie',
-    //    data: {
-    //        labels: [
-    //            'عيادات أطباء',
-    //            'خدمات خارج الهيئة الطبية',
-    //            'مراكز علاج طبيعي',
-    //            'صيدليات',
-    //            'مراكز اشعة',
-    //            'مستشفيات',
-    //            'معامل تحاليل'
-    //        ],
-    //        datasets: [{
-    //            label: 'عدد المنتفعين من الخدمة',
-    //            data: [361, 739, 801, 49666, 3197, 23625, 5822],
-    //            backgroundColor: [
-    //                '#abe6a4',
-    //                '#1796f8',
-    //                '#f5c542',
-    //                '#ff6384',
-    //                '#36a2eb',
-    //                '#ff9f40',
-    //                '#9966ff'
-    //            ],
-    //            borderWidth: 1
-    //        }]
-    //    },
-    //    options: {
-    //        plugins: {
-    //            legend: {
-    //                display: true, position: 'right',
-    //                labels: {
-    //                    font: {
-    //                        size: 14,
-    //                        family: "Open Sans"
-    //                    }
-    //                }
-    //            },
-    //            tooltip: {
-    //                callbacks: {
-    //                    label: function (context) {
-    //                        const value = context.raw;
-    //                        const total = context.chart._metasets[0].total;
-    //                        const percent = ((value / total) * 100).toFixed(2);
-    //                        return `${context.label}: ${value.toLocaleString()} (${percent}%)`;
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //});
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/GetTypeProviderData',
+        success: function (data) {
+            const labels = data.map(item => item.company);
+            const grossValues = data.map(item => item.gross);
+            const netValues = data.map(item => item.net);
+            const percentages = data.map(item => item.percent);
 
+            new Chart(graphTwo, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'إجمالي الاستهلاك',
+                            data: grossValues,
+                            backgroundColor: '#6c5ce7',
+                            yAxisID: 'amount'
+                        },
+                        {
+                            label: 'صافي الاستهلاك',
+                            data: netValues,
+                            backgroundColor: '#00b894',
+                            yAxisID: 'amount'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        amount: {
+                            type: 'linear',
+                            position: 'left',
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'القيمة'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return value.toLocaleString('en-US');
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const value = context.raw;
+                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
+                                },
+                                afterBody: function (context) {
+                                    const index = context[0].dataIndex;
+                                    const percent = percentages[index];
+                                    return 'النسبة من الاستهلاك: ' + percent + '%';
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+    });
+    $.ajax({
+        type: "GET",
+        url: '/Dashboard/GetTypeProvider',
+        success: function (data) {
+            const labels = data.map(item => item.typeprovider);
+            const netValues = data.map(item => item.net);
+            const percentages = data.map(item => item.percent);
 
-    //new Chart(pieTwo, {
-    //    type: 'pie',
-    //    data: {
-    //        labels: [
-    //            'عيادات أطباء',
-    //            'مراكز علاج طبيعي',
-    //            'صيدليات',
-    //            'مراكز أشعة',
-    //            'مستشفيات',
-    //            'معامل تحاليل'
-    //        ],
-    //        datasets: [{
-    //            label: 'عدد المستفيدين',
-    //            data: [57, 56, 126, 57, 305, 16],
-    //            backgroundColor: [
-    //                '#abe6a4',
-    //                '#1796f8',
-    //                '#f5c542',
-    //                '#ff6384',
-    //                '#36a2eb',
-    //                '#9966ff'
-    //            ],
-    //            borderWidth: 1
-    //        }]
-    //    },
-    //    options: {
-    //        plugins: {
-    //            legend: {
-    //                display: true, position: 'right',
-    //                labels: {
-    //                    font: {
-    //                        size: 14,
-    //                        family: "Open Sans"
-    //                    }
-    //                }
-    //            },
-    //            tooltip: {
-    //                callbacks: {
-    //                    label: function (context) {
-    //                        const value = context.raw;
-    //                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
-    //                        const percent = ((value / total) * 100).toFixed(1);
-    //                        return `${context.label}: ${value} (${percent}%)`;
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //});
-
-
-    new Chart(pie3, {
-        type: 'pie',
+            new Chart(graphThree, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'عدد الخدمات',
+                            data: netValues,
+                            backgroundColor: '#3fa1fc',
+                            borderColor: '#3fa1fc',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: {
+                        bar: {
+                            borderWidth: 2
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'العدد'
+                            },
+                            ticks: {
+                                callback: function (value) {
+                                    return value.toLocaleString('en-US');
+                                }
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                font: {
+                                    size: 14,
+                                    family: 'Open Sans'
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const value = context.raw;
+                                    return 'عدد الخدمات: ' + value.toLocaleString('en-US');
+                                },
+                                afterBody: function (context) {
+                                    const index = context[0].dataIndex;
+                                    const percent = percentages[index];
+                                    return 'النسبة: ' + percent + '%';
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+    });  
+    new Chart(graph18, {
+        type: 'bar',
         data: {
             labels: [
-                'Pharmacy',
-                'Lab',
-                'Ray',
-                'OutPatient',
-                'InPatient'
+                'مستشفى الجوى',
+                'مستشفى القاهرة التخصصى- داخلى',
+                'صيدلية محمد منير خفاجى',
+                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
+                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
+                'مستشفى النزهة الدولى',
+                'مستشفى تاون',
+                'مجموعه صيدليات سيف - القاهرة',
+                'صيدليات مصر',
+                'مستشفى النيل بدراوى'
             ],
             datasets: [{
-                label: 'عدد الخدمات',
-                data: [49666, 5822, 3197, 361, 23625], // 🟡 Adjust values as appropriate for each label
-                backgroundColor: [
-                    '#ff6384', // Pharmacy
-                    '#9966ff', // Lab
-                    '#36a2eb', // Ray
-                    '#abe6a4', // OutPatient
-                    '#ff9f40'  // InPatient
+                label: 'صافي الخدمات',
+                data: [
+                    11935995.83,
+                    10595368.17,
+                    7363130.678,
+                    6218001.074,
+                    5934788.208,
+                    4983527.48,
+                    4398819.722,
+                    3853259.214,
+                    3635896.456,
+                    3071241.26
                 ],
+                backgroundColor: '#3fa1fc',
                 borderWidth: 1
             }]
-        },
+        }
+        ,
         options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+            ,
             plugins: {
                 legend: {
-                    display: true, position: 'right',
                     labels: {
                         font: {
                             size: 14,
                             family: "Open Sans"
                         }
                     }
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function (context) {
-                            const value = context.raw;
-                            const total = context.chart._metasets[0].total;
-                            const percent = ((value / total) * 100).toFixed(2);
-                            return `${context.label}: ${value.toLocaleString()} (${percent}%)`;
+                }
+            }
+        }
+    });
+    new Chart(graph25, {
+        type: 'bar',
+        data: {
+            labels: [
+                'مستشفى الجوى',
+                'مستشفى القاهرة التخصصى- داخلى',
+                'صيدلية محمد منير خفاجى',
+                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
+                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
+                'مستشفى النزهة الدولى',
+                'مستشفى تاون',
+                'مجموعه صيدليات سيف - القاهرة',
+                'صيدليات مصر',
+                'مستشفى النيل بدراوى'
+            ],
+            datasets: [{
+                label: 'صافي الخدمات',
+                data: [
+                    11935995.83,
+                    10595368.17,
+                    7363130.678,
+                    6218001.074,
+                    5934788.208,
+                    4983527.48,
+                    4398819.722,
+                    3853259.214,
+                    3635896.456,
+                    3071241.26
+                ],
+                backgroundColor: '#3fa1fc',
+                borderWidth: 1
+            }]
+        }
+        ,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+            ,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: "Open Sans"
                         }
                     }
                 }
             }
         }
     });
+    new Chart(graph12, {
+        type: 'bar',
+        data: {
+            labels: [
+                'مستشفى الجوى',
+                'مستشفى القاهرة التخصصى- داخلى',
+                'صيدلية محمد منير خفاجى',
+                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
+                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
+                'مستشفى النزهة الدولى',
+                'مستشفى تاون',
+                'مجموعه صيدليات سيف - القاهرة',
+                'صيدليات مصر',
+                'مستشفى النيل بدراوى'
+            ],
+            datasets: [{
+                label: 'صافي الخدمات',
+                data: [
+                    11935995.83,
+                    10595368.17,
+                    7363130.678,
+                    6218001.074,
+                    5934788.208,
+                    4983527.48,
+                    4398819.722,
+                    3853259.214,
+                    3635896.456,
+                    3071241.26
+                ],
+                backgroundColor: '#3fa1fc',
+                borderWidth: 1
+            }]
+        }
+        ,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+            ,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: "Open Sans"
+                        }
+                    }
+                }
+            }
+        }
+    });
+    new Chart(graph26, {
+        type: 'bar',
+        data: {
+            labels: [
+                'مستشفى الجوى',
+                'مستشفى القاهرة التخصصى- داخلى',
+                'صيدلية محمد منير خفاجى',
+                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
+                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
+                'مستشفى النزهة الدولى',
+                'مستشفى تاون',
+                'مجموعه صيدليات سيف - القاهرة',
+                'صيدليات مصر',
+                'مستشفى النيل بدراوى'
+            ],
+            datasets: [{
+                label: 'صافي الخدمات',
+                data: [
+                    11935995.83,
+                    10595368.17,
+                    7363130.678,
+                    6218001.074,
+                    5934788.208,
+                    4983527.48,
+                    4398819.722,
+                    3853259.214,
+                    3635896.456,
+                    3071241.26
+                ],
+                backgroundColor: '#3fa1fc',
+                borderWidth: 1
+            }]
+        }
+        ,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+            ,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: "Open Sans"
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
 
-
-    
-
+function ChartEmployeesScreen() {
+    const doughnut = document.getElementById('doughnutChart');
+    const doughnutTwo = document.getElementById('doughnutChartTwo');
+    const graphnew = document.getElementById('graphChartNew');
+    const graphnew2 = document.getElementById('graphChartNew2');
+    const graph33 = document.getElementById('graphChart33');
+    const graph34 = document.getElementById('graphChart34');
 
     new Chart(doughnut, {
         type: 'doughnut',
@@ -696,17 +881,6 @@ function drawGraphChart() {
                         weight: 'bold'
                     }
                 },
-                //title: {
-                //    display: true,
-                //    //text: 'عدد المنتفعين من الخدمة',
-                //    font: {
-                //        size: 18
-                //    },
-                //    padding: {
-                //        top: 10,
-                //        bottom: 20
-                //    }
-                //},
                 tooltip: {
                     callbacks: {
                         label: function (context) {
@@ -751,18 +925,7 @@ function drawGraphChart() {
                     font: {
                         weight: 'bold'
                     }
-                },
-                //title: {
-                //    display: true,
-                //    //text: 'عدد المنتفعين من الخدمة',
-                //    font: {
-                //        size: 18
-                //    },
-                //    padding: {
-                //        top: 10,
-                //        bottom: 20
-                //    }
-                //},
+                },                
                 tooltip: {
                     callbacks: {
                         label: function (context) {
@@ -777,80 +940,6 @@ function drawGraphChart() {
             }
         }
     });
-
-
-
-
-
-    const genderOptions = {
-        chart: {
-            type: 'donut',
-            height: 350
-        },
-        series: [10157, 2093],
-        labels: ['ذكر', 'انثى'],
-        colors: ['#abe6a4', '#1796f8'],
-        dataLabels: {
-            enabled: true,
-            formatter: function (val, opts) {
-                const value = opts.w.config.series[opts.seriesIndex];
-                return `${value} (${val.toFixed(1)}%)`;
-            },
-            style: {
-                fontWeight: 'bold'
-            }
-        },
-        tooltip: {
-            y: {
-                formatter: function (value, { series, seriesIndex, w }) {
-                    const total = series.reduce((sum, v) => sum + v, 0);
-                    const percent = ((value / total) * 100).toFixed(1);
-                    return `${value} (${percent}%)`;
-                }
-            }
-        },
-        legend: {
-            position: 'bottom'
-        }
-    };
-
-    new ApexCharts(document.querySelector("#doughnutChartApexCharts"), genderOptions).render();
-
-    const typeOptions = {
-        chart: {
-            type: 'donut',
-            height: 350
-        },
-        series: [3660, 8590],
-        labels: ['موظفين', 'معاشات'],
-        colors: ['#abe6a4', '#1796f8'],
-        dataLabels: {
-            enabled: true,
-            formatter: function (val, opts) {
-                const value = opts.w.config.series[opts.seriesIndex];
-                return `${value} (${val.toFixed(1)}%)`;
-            },
-            style: {
-                fontWeight: 'bold'
-            }
-        },
-        tooltip: {
-            y: {
-                formatter: function (value, { series, seriesIndex, w }) {
-                    const total = series.reduce((sum, v) => sum + v, 0);
-                    const percent = ((value / total) * 100).toFixed(1);
-                    return `${value} (${percent}%)`;
-                }
-            }
-        },
-        legend: {
-            position: 'bottom'
-        }
-    };
-
-    new ApexCharts(document.querySelector("#doughnutChartApexChartsTwo"), typeOptions).render();
-
-
     $.ajax({
         type: "GET",
         url: '/Dashboard/GetConsumType',
@@ -989,165 +1078,7 @@ function drawGraphChart() {
             });
         }
     });
-
-
-  
-
-    $.ajax({
-        type: "GET",
-        url: '/Dashboard/GetTypeProviderData',
-        success: function (data) {
-            const labels = data.map(item => item.company);
-            const grossValues = data.map(item => item.gross);
-            const netValues = data.map(item => item.net);
-            const percentages = data.map(item => item.percent);
-
-            new Chart(graphTwo, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'إجمالي الاستهلاك',
-                            data: grossValues,
-                            backgroundColor: '#6c5ce7',
-                            yAxisID: 'amount'
-                        },
-                        {
-                            label: 'صافي الاستهلاك',
-                            data: netValues,
-                            backgroundColor: '#00b894',
-                            yAxisID: 'amount'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        amount: {
-                            type: 'linear',
-                            position: 'left',
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'القيمة'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    return value.toLocaleString('en-US');
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    const value = context.raw;
-                                    return context.dataset.label + ': ' + value.toLocaleString('en-US') + ' جنيه';
-                                },
-                                afterBody: function (context) {
-                                    const index = context[0].dataIndex;
-                                    const percent = percentages[index];
-                                    return 'النسبة من الاستهلاك: ' + percent + '%';
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-        }
-    });
-   
-    
-
-
-    $.ajax({
-        type: "GET",
-        url: '/Dashboard/GetTypeProvider',
-        success: function (data) {
-            const labels = data.map(item => item.typeprovider);
-            const netValues = data.map(item => item.net);
-            const percentages = data.map(item => item.percent);
-
-            new Chart(graphThree, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'عدد الخدمات',
-                            data: netValues,
-                            backgroundColor: '#3fa1fc',
-                            borderColor: '#3fa1fc',
-                            borderWidth: 2
-                        }
-                    ]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    elements: {
-                        bar: {
-                            borderWidth: 2
-                        }
-                    },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'العدد'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    return value.toLocaleString('en-US');
-                                }
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                font: {
-                                    size: 14,
-                                    family: 'Open Sans'
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    const value = context.raw;
-                                    return 'عدد الخدمات: ' + value.toLocaleString('en-US');
-                                },
-                                afterBody: function (context) {
-                                    const index = context[0].dataIndex;
-                                    const percent = percentages[index];
-                                    return 'النسبة: ' + percent + '%';
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-        }
-    });
-
-   
- 
-
-    
-
-
-    new Chart(graphFour, {
+    new Chart(graph33, {
         type: 'bar',
         data: {
             labels: [
@@ -1200,6 +1131,67 @@ function drawGraphChart() {
             }
         }
     });
+    new Chart(graph34, {
+        type: 'bar',
+        data: {
+            labels: [
+                'مستشفى الجوى',
+                'مستشفى القاهرة التخصصى- داخلى',
+                'صيدلية محمد منير خفاجى',
+                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
+                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
+                'مستشفى النزهة الدولى',
+                'مستشفى تاون',
+                'مجموعه صيدليات سيف - القاهرة',
+                'صيدليات مصر',
+                'مستشفى النيل بدراوى'
+            ],
+            datasets: [{
+                label: 'صافي الخدمات',
+                data: [
+                    11935995.83,
+                    10595368.17,
+                    7363130.678,
+                    6218001.074,
+                    5934788.208,
+                    4983527.48,
+                    4398819.722,
+                    3853259.214,
+                    3635896.456,
+                    3071241.26
+                ],
+                backgroundColor: '#3fa1fc',
+                borderWidth: 1
+            }]
+        }
+        ,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+            ,
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 14,
+                            family: "Open Sans"
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+function ChartComparisonScreen() {
+    const graph27 = document.getElementById('graphChart27');
+    const graph28 = document.getElementById('graphChart28');
+    const graph29 = document.getElementById('graphChart29');
+    const graph30 = document.getElementById('graphChart30');
+    const graph31 = document.getElementById('graphChart31');
+    const graph32 = document.getElementById('graphChart32');
 
     new Chart(graph27, {
         type: 'bar',
@@ -1413,6 +1405,7 @@ function drawGraphChart() {
             }
         }
     });
+
     new Chart(graph31, {
         type: 'bar',
         data: {
@@ -1520,7 +1513,19 @@ function drawGraphChart() {
         }
     });
 
-    new Chart(graph33, {
+}
+function drawGraphChart() {
+    
+    //const pie = document.getElementById('pieChart');
+    //const pieTwo = document.getElementById('pieChartTwo');
+    const pie3 = document.getElementById('pieChart3');
+ 
+   
+    
+    const graphFour = document.getElementById('graphChartFour');
+   
+ 
+    new Chart(graphFour, {
         type: 'bar',
         data: {
             labels: [
@@ -1573,53 +1578,152 @@ function drawGraphChart() {
             }
         }
     });
-    new Chart(graph34, {
-        type: 'bar',
+ 
+    //new Chart(pie, {
+    //    type: 'pie',
+    //    data: {
+    //        labels: [
+    //            'عيادات أطباء',
+    //            'خدمات خارج الهيئة الطبية',
+    //            'مراكز علاج طبيعي',
+    //            'صيدليات',
+    //            'مراكز اشعة',
+    //            'مستشفيات',
+    //            'معامل تحاليل'
+    //        ],
+    //        datasets: [{
+    //            label: 'عدد المنتفعين من الخدمة',
+    //            data: [361, 739, 801, 49666, 3197, 23625, 5822],
+    //            backgroundColor: [
+    //                '#abe6a4',
+    //                '#1796f8',
+    //                '#f5c542',
+    //                '#ff6384',
+    //                '#36a2eb',
+    //                '#ff9f40',
+    //                '#9966ff'
+    //            ],
+    //            borderWidth: 1
+    //        }]
+    //    },
+    //    options: {
+    //        plugins: {
+    //            legend: {
+    //                display: true, position: 'right',
+    //                labels: {
+    //                    font: {
+    //                        size: 14,
+    //                        family: "Open Sans"
+    //                    }
+    //                }
+    //            },
+    //            tooltip: {
+    //                callbacks: {
+    //                    label: function (context) {
+    //                        const value = context.raw;
+    //                        const total = context.chart._metasets[0].total;
+    //                        const percent = ((value / total) * 100).toFixed(2);
+    //                        return `${context.label}: ${value.toLocaleString()} (${percent}%)`;
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //});
+
+
+    //new Chart(pieTwo, {
+    //    type: 'pie',
+    //    data: {
+    //        labels: [
+    //            'عيادات أطباء',
+    //            'مراكز علاج طبيعي',
+    //            'صيدليات',
+    //            'مراكز أشعة',
+    //            'مستشفيات',
+    //            'معامل تحاليل'
+    //        ],
+    //        datasets: [{
+    //            label: 'عدد المستفيدين',
+    //            data: [57, 56, 126, 57, 305, 16],
+    //            backgroundColor: [
+    //                '#abe6a4',
+    //                '#1796f8',
+    //                '#f5c542',
+    //                '#ff6384',
+    //                '#36a2eb',
+    //                '#9966ff'
+    //            ],
+    //            borderWidth: 1
+    //        }]
+    //    },
+    //    options: {
+    //        plugins: {
+    //            legend: {
+    //                display: true, position: 'right',
+    //                labels: {
+    //                    font: {
+    //                        size: 14,
+    //                        family: "Open Sans"
+    //                    }
+    //                }
+    //            },
+    //            tooltip: {
+    //                callbacks: {
+    //                    label: function (context) {
+    //                        const value = context.raw;
+    //                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+    //                        const percent = ((value / total) * 100).toFixed(1);
+    //                        return `${context.label}: ${value} (${percent}%)`;
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //});
+
+
+    new Chart(pie3, {
+        type: 'pie',
         data: {
             labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
+                'Pharmacy',
+                'Lab',
+                'Ray',
+                'OutPatient',
+                'InPatient'
             ],
             datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
+                label: 'عدد الخدمات',
+                data: [49666, 5822, 3197, 361, 23625], // 🟡 Adjust values as appropriate for each label
+                backgroundColor: [
+                    '#ff6384', // Pharmacy
+                    '#9966ff', // Lab
+                    '#36a2eb', // Ray
+                    '#abe6a4', // OutPatient
+                    '#ff9f40'  // InPatient
                 ],
-                backgroundColor: '#3fa1fc',
                 borderWidth: 1
             }]
-        }
-        ,
+        },
         options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
             plugins: {
                 legend: {
+                    display: true, position: 'right',
                     labels: {
                         font: {
                             size: 14,
                             family: "Open Sans"
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            const value = context.raw;
+                            const total = context.chart._metasets[0].total;
+                            const percent = ((value / total) * 100).toFixed(2);
+                            return `${context.label}: ${value.toLocaleString()} (${percent}%)`;
                         }
                     }
                 }
@@ -1628,219 +1732,110 @@ function drawGraphChart() {
     });
 
 
-    new Chart(graph26, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
+    
 
-    new Chart(graph18, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+
+
+
+
+
+
+    const genderOptions = {
+        chart: {
+            type: 'donut',
+            height: 350
+        },
+        series: [10157, 2093],
+        labels: ['ذكر', 'انثى'],
+        colors: ['#abe6a4', '#1796f8'],
+        dataLabels: {
+            enabled: true,
+            formatter: function (val, opts) {
+                const value = opts.w.config.series[opts.seriesIndex];
+                return `${value} (${val.toFixed(1)}%)`;
+            },
+            style: {
+                fontWeight: 'bold'
+            }
+        },
+        tooltip: {
+            y: {
+                formatter: function (value, { series, seriesIndex, w }) {
+                    const total = series.reduce((sum, v) => sum + v, 0);
+                    const percent = ((value / total) * 100).toFixed(1);
+                    return `${value} (${percent}%)`;
                 }
             }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
+        },
+        legend: {
+            position: 'bottom'
+        }
+    };
+
+    new ApexCharts(document.querySelector("#doughnutChartApexCharts"), genderOptions).render();
+
+    const typeOptions = {
+        chart: {
+            type: 'donut',
+            height: 350
+        },
+        series: [3660, 8590],
+        labels: ['موظفين', 'معاشات'],
+        colors: ['#abe6a4', '#1796f8'],
+        dataLabels: {
+            enabled: true,
+            formatter: function (val, opts) {
+                const value = opts.w.config.series[opts.seriesIndex];
+                return `${value} (${val.toFixed(1)}%)`;
+            },
+            style: {
+                fontWeight: 'bold'
+            }
+        },
+        tooltip: {
+            y: {
+                formatter: function (value, { series, seriesIndex, w }) {
+                    const total = series.reduce((sum, v) => sum + v, 0);
+                    const percent = ((value / total) * 100).toFixed(1);
+                    return `${value} (${percent}%)`;
                 }
             }
+        },
+        legend: {
+            position: 'bottom'
         }
-    });
-    new Chart(graph25, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
-    new Chart(graph12, {
-        type: 'bar',
-        data: {
-            labels: [
-                'مستشفى الجوى',
-                'مستشفى القاهرة التخصصى- داخلى',
-                'صيدلية محمد منير خفاجى',
-                'مجموعه صيدليات اى زد لادارة وتطوير المشروعات الدوائية',
-                'صيدلية /سامى فريد - المطار - مصر الجديده - القاهرة',
-                'مستشفى النزهة الدولى',
-                'مستشفى تاون',
-                'مجموعه صيدليات سيف - القاهرة',
-                'صيدليات مصر',
-                'مستشفى النيل بدراوى'
-            ],
-            datasets: [{
-                label: 'صافي الخدمات',
-                data: [
-                    11935995.83,
-                    10595368.17,
-                    7363130.678,
-                    6218001.074,
-                    5934788.208,
-                    4983527.48,
-                    4398819.722,
-                    3853259.214,
-                    3635896.456,
-                    3071241.26
-                ],
-                backgroundColor: '#3fa1fc',
-                borderWidth: 1
-            }]
-        }
-        ,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-            ,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 14,
-                            family: "Open Sans"
-                        }
-                    }
-                }
-            }
-        }
-    });
+    };
+
+    new ApexCharts(document.querySelector("#doughnutChartApexChartsTwo"), typeOptions).render();
+
+
+
+
+
+  
+
+   
+   
+    
+
+
+    
+
+   
+ 
+
+    
+
+
+  
+
+ 
+   
+
+
+   
+
+   
 
 
     $(function () {
